@@ -1,21 +1,22 @@
 teste
 =====
 
-.. image:: https://drone.io/github.com/hacklabr/teste/status.png
-    :target: https://drone.io/github.com/hacklabr/teste/latest
+.. image:: https://drone.io/github.com/hacklabr/timtec/status.png
+    :target: https://drone.io/github.com/hacklabr/timtec/latest
 
-.. image:: https://coveralls.io/repos/hacklabr/teste/badge.png
-    :target: https://coveralls.io/r/hacklabr/teste
+.. image:: https://coveralls.io/repos/hacklabr/timtec/badge.png
+    :target: https://coveralls.io/r/hacklabr/timtec
 
 testes do pyramid e travis
 
 Getting Started
 ---------------
 
+- crete python 2 virtualenv
+- activate virtual env
 - cd <directory containing this file>
-
-- $venv/bin/python setup.py develop
-
-- $venv/bin/initialize_timtec_db development.ini
-
-- $venv/bin/pserve development.ini
+- pip install -r requirements.txt
+- pip install -r dev-requirements.txt
+- python setup.py develop
+- initialize_timtec_db development.ini
+- pserve development.ini --reload
