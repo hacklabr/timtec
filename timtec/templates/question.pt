@@ -1,0 +1,484 @@
+<metal:main use-macro="load: base.pt">
+<div id="course-intro" class="container" metal:fill-slot="container">
+    <!-- CONTAINER -->
+    <div id="course-forum">
+        <!-- HEADER -->
+        <header id="main-header" class="container">
+            <div class="row">
+                <div class="col-sm-8 col-lg-8">
+                    <h1>Introdução a Bancos de Dados e SQL</h1>                        
+                </div>
+                <div class="col-sm-4 col-lg-4">
+                    <script type="text/javascript" charset="utf-8">
+                        $(document).ready(function() {
+                            $('.course-section-nav > a > span').tooltip();
+                        })
+                    </script>
+                    <nav class="course-section-nav textright">
+                        <a href="aula-intro.html"><span class="icon-home" data-toggle="tooltip" data-placement="top" data-original-title="Intro"></span></a>
+                        <a href="aula.html"><span class="icon-facetime-video" data-toggle="tooltip" data-placement="top" data-original-title="Aulas"></span></a>
+                        <a href="profile-note.html"><span class="icon-pencil" data-toggle="tooltip" data-placement="top" data-original-title="Anotações"></span></a>
+                        <a href="forum-course.html"><span class="icon-list" data-toggle="tooltip" data-placement="top" data-original-title="Fórum"></span></a>
+                        <a href=""><span class="icon-exclamation-sign" data-toggle="tooltip" data-placement="top" data-original-title="Wiki"></span></a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <!-- END HEADER -->
+        
+        
+        <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            $('.comment-form').hide();
+            $('.add-comment-link').click(function(e) {
+                e.preventDefault();
+                $(this).parent().parent().height(170);
+                $(this).parent().parent().find('form').slideDown();
+                $(this).hide();
+            })
+            
+            $('.cancel-comment').click(function(e) {
+                e.preventDefault();
+                $(this).parent().parent().slideUp()
+                $(this).parent().parent().parent().find('.add-comment-link').slideDown().show();
+                $(this).parent().parent().parent().height(30);
+            })
+        })
+        </script>
+        
+        
+        <!-- MAIN CONTENT -->
+        <section id="main-content" class="container">
+            <div class="row">
+                <div class="col-sm-9 col-lg-9">
+                    <!-- QUESTION -->
+                    <article class="question">
+                        <header>
+                            <h1>Here is the basic FORM working code</h1>
+                        </header>
+                        <div class="row">
+                            <div class="col-sm-2 col-lg-2">
+                                <div class="row">
+                                    <div class="rating col-sm-12 col-lg-12">
+                                        <div class="arrow-up"></div>
+                                        <div class="votes">123</div>
+                                        <div class="arrow-down"></div>
+                                    </div><!-- .rating -->
+                                </div>
+                                <div class="author clearfix">
+                                    pergunta feita em <strong>06/08/13</strong> por <a href="profile.html">Anderson Orui</a>
+                                </div>
+                            </div>
+                            <div class="question-body col-sm-10 col-lg-10">
+                                <p>This is the basic working code for the forms.  I didn't include the dict for 3-letter abbreviations, but this should be more than enough to help anyone who might get stuck:</p>
+                                <p>import webapp2</p>
+                                <p>form="""<br>
+                                &lt;form method="post"&gt;<br>
+                                What is your birthday?<br>
+                                <br></p>
+<pre><code>&lt;label&gt; Month
+&lt;input type="text" name="month"&gt;
+&lt;/label&gt;
+
+&lt;label&gt; Day
+&lt;input type="text" name="day"&gt;
+&lt;/label&gt;
+
+&lt;label&gt; Year
+&lt;input type="text" name="year"&gt;
+&lt;/label&gt;
+
+&lt;br&gt;  
+&lt;br&gt;
+&lt;input type ="submit"&gt;
+</code></pre>
+<p>&lt;/form&gt;<br>
+"""</p>
+<p>months = ['January',<br>
+'February',<br>
+'March',<br>
+'April',<br>
+'May',<br>
+'June',<br>
+'July',<br>
+'August',<br>
+'September',<br>
+'October',<br>
+'November',<br>
+'December']</p>
+<p>class MainPage(webapp2.RequestHandler):</p>
+<p>#note that you must include the self variable in the function definition when using the form<br>
+def valid_month(self,month):<br>
+if month.capitalize() in months:<br>
+return month.capitalize()</p>
+<pre><code>def valid_year(self,year):
+if year and year.isdigit(): year = int(year)
+if year &gt; 1900 and year &lt; 2020: return year
+
+def valid_day(self,day):
+if day and day.isdigit(): day = int(day)
+if day &gt;= 1 and day &lt;= 31: return int(day)
+
+def get(self):
+# self.response.headers['Content-Type'] = 'text/plain'
+self.response.out.write(form)
+
+def post(self):
+user_month = self.valid_month(self.request.get('month'))
+user_day = self.valid_day(self.request.get('day'))
+user_year = self.valid_year(self.request.get('year'))
+
+if not (user_month and user_day and user_year):
+self.response.out.write(form)
+else:
+self.response.out.write("Thanks! That's a valid birthday!")
+</code></pre>
+                                <p>app = webapp2.WSGIApplication([('/', MainPage)],debug=True)</p>
+                            </div><!-- .question-body -->
+                        </div>
+                        <div class="question-tag">
+                            <div class="row">
+                                <div class="col-sm-2 col-lg-2 textright">
+                                    <span class="tag-label">TAGS</span>
+                                </div>
+                                <div class="col-sm-10 col-lg-10">
+                                    <a href="" class="tag">tag1</a>
+                                    <a href="" class="tag">tag2</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="add-comment col-sm-10 col-lg-10 col-offset-2">
+                                <p><a href="" class="add-comment-link">Adicionar comentário</a></p>
+                                <form class="comment-form">
+                                    <textarea rows="5"></textarea>
+                                    <div class="textright">
+                                        <button class="cancel-comment btn btn-danger">Cancelar</button>
+                                        <button class="btn btn-success">Comentar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        
+                    </article>
+                    <!-- END QUESTION -->
+                    
+                    <!-- ANSWERS -->
+                    <section class="answers">
+                        <!-- HEADER -->
+                        <header>
+                            <div class="row">
+                                <div class="col-sm-6 col-lg-6">
+                                    <h1>6 Respostas:</h1>                                
+                                </div>
+                                <div class="col-sm-6 col-lg-6 textright">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-small btn-info">Mais recente</button>
+                                        <button type="button" class="btn btn-small btn-info dropdown-toggle" data-toggle="dropdown">
+                                            <i class="icon-chevron-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu textleft">
+                                            <li><a href="#">Mais recente</a></li>
+                                            <li><a href="#">Mais antiga</a></li>
+                                            <li><a href="#">Mais votada</a></li>
+                                        </ul>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </header>
+                        <!-- END HEADER -->
+
+                        <!-- ANSWER -->
+                        <article class="answer">
+                            <div class="row">
+                                <div class="col-sm-2 col-lg-2">
+                                    <div class="row">
+                                        <div class="rating col-sm-12 col-lg-12">
+                                            <div class="arrow-up"></div>
+                                            <div class="votes">123</div>
+                                            <div class="arrow-down"></div>
+                                        </div><!-- .rating -->
+                                    </div>
+                                    <div class="author clearfix">
+                                        resposta feita em <strong>06/08/13</strong> por <a href="profile.html">Anderson Orui</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="answer-body col-sm-10 col-lg-10">
+                                    <p>Thanks for the clarification Ole-5.</p>
+                                    <p>As far as your BTW: comment, maybe this post will provide you with an answer:</p>
+                                    <a href="">UNIT2: where you have written valid_day/month/year function in main.py</a>
+                                </div><!-- .answer-body -->
+                            </div>
+                            <div class="row">
+                                <div class="add-comment col-sm-10 col-lg-10 col-offset-2">
+                                    <p><a href="" class="add-comment-link">Comentar resposta</a></p>
+                                    <form class="comment-form">
+                                        <textarea rows="5"></textarea>
+                                        <div class="textright">
+                                            <button class="cancel-comment btn btn-danger">Cancelar</button>
+                                            <button class="btn btn-success">Comentar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </article>
+                        <!-- END ANSWER -->
+                        
+                        <!-- ANSWER -->
+                        <article class="answer">
+                            <div class="row">
+                                <div class="col-sm-2 col-lg-2">
+                                    <div class="row">
+                                        <div class="rating col-sm-12 col-lg-12">
+                                            <div class="arrow-up"></div>
+                                            <div class="votes">123</div>
+                                            <div class="arrow-down"></div>
+                                        </div><!-- .rating -->
+                                    </div>
+                                    <div class="author clearfix">
+                                        resposta feita em <strong>06/08/13</strong> por <a href="profile.html">Anderson Orui</a>
+                                    </div>
+                                </div>
+                                <div class="answer-body col-sm-10 col-lg-10">
+                                    <p>Thanks for the info Ola-5.</p>
+                                    <p>Why does self have to be included in all those areas?</p>
+                                    <p>And why do you think the instructor doesn't have that in his code?</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="add-comment col-sm-10 col-lg-10 col-offset-2">
+                                    <p><a href="" class="add-comment-link">Comentar resposta</a></p>
+                                    <form class="comment-form">
+                                        <textarea rows="5"></textarea>
+                                        <div class="textright">
+                                            <button class="cancel-comment btn btn-danger">Cancelar</button>
+                                            <button class="btn btn-success">Comentar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </article>
+                        <!-- END ANSWER -->
+
+                        <!-- ANSWER -->
+                        <article class="answer">
+                            <div class="row">
+                                <div class="col-sm-2 col-lg-2">
+                                    <div class="row">
+                                        <div class="rating col-sm-12 col-lg-12">
+                                            <div class="arrow-up"></div>
+                                            <div class="votes">123</div>
+                                            <div class="arrow-down"></div>
+                                        </div><!-- .rating -->
+                                    </div>
+                                    <div class="author clearfix">
+                                        resposta feita em <strong>06/08/13</strong> por <a href="profile.html">Anderson Orui</a>
+                                    </div>
+                                </div>
+                                <div class="answer-body col-sm-10 col-lg-10">
+                                    <p>Hey Ricardo,<br/>
+                                    This course assumes that you've got a basic understanding of Python (similar to what's found in the Udacity Intro to Programming Course in Python). The instructor left off several statements in the code that was shown to you in the youtube video. You'll also notice that the month, day, and year functions were not shown on the video, but surely this code won't work without them!</p>
+                                    <p>In regards to 'self', take a look at the other functions related to the form. You'll see self was used to grab the information out of fields and in the post/get functions in the past. I don't have the code open right now, but if you're still stuck, I will take a peek and highlight some examples for you here. Keep at it bud.</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="add-comment col-sm-10 col-lg-10 col-offset-2">
+                                    <p><a href="" class="add-comment-link">Comentar resposta</a></p>
+                                    <form class="comment-form">
+                                        <textarea rows="5"></textarea>
+                                        <div class="textright">
+                                            <button class="cancel-comment btn btn-danger">Cancelar</button>
+                                            <button class="btn btn-success">Comentar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </article>
+                        <!-- END ANSWER -->
+
+                        <!-- ANSWER -->
+                        <article class="answer">
+                            <div class="row">
+                                <div class="col-sm-2 col-lg-2">
+                                    <div class="row">
+                                        <div class="rating col-sm-12 col-lg-12">
+                                            <div class="arrow-up"></div>
+                                            <div class="votes">123</div>
+                                            <div class="arrow-down"></div>
+                                        </div><!-- .rating -->
+                                    </div>
+                                    <div class="author clearfix">
+                                        resposta feita em <strong>06/08/13</strong> por <a href="profile.html">Anderson Orui</a>
+                                    </div>
+                                </div>
+                                <div class="answer-body col-lg-10">
+                                    <p>Thanks you so much for this, i wouldn't have been able to continue this program , if you didn't put this up and i hadn't found it. I have no knowledge whatsoever of phython, just PHP. Thanks once again.</p>
+                                    <p>I however still have problems with the results of the form <code>Traceback (most recent call last):
+                                    File "C:\Program Files (x86)\Google\google_appengine\lib\webapp2-2.5.2\webapp2.py", line 1535, in __call__
+                                    rv = self.handle_exception(request, response, e)
+                                    File "C:\Program Files (x86)\Google\google_appengine\lib\webapp2-2.5.2\webapp2.py", line 1529, in __call__
+                                    rv = self.router.dispatch(request, response)
+                                    File "C:\Program File appengine\lib\webapp2-2.5.2\webapp2.py", line 1278, in default_dispatcher
+                                    return route.handler_adapter(request, response)
+                                    File "C:\Program Files (x86)\Google\google_appengine\lib\webapp2-2.5.2\webapp2.py", line 1102, in __call__
+                                    return handler.dispatch()
+                                    File "C:\Program Files (x86)\Google\google_appengine\lib\webapp2-2.5.2\webapp2.py", line 572, in dispatch
+                                    return self.handle_exception(e, self.app.debug)
+                                    File "C:\Program Files (x86)\Google\google_appengine\lib\webapp2-2.5.2\webapp2.py", line 570, in dispatch
+                                    return method(*args, **kwargs)
+                                    File "C:\Users\Adesoji Ologun\Desktop\tippergarage\main.py", line 73, in post
+                                    user_month = self.valid_month(self.request.get('month'))
+                                    AttributeError: 'MainHandler' object has no attribute 'valid_month'</code></p>
+                                    <p>Is this as a result of the self we are to input and how do we go about it. Why is the code saying this? ==AttributeError: 'MainHandler' object has no attribute 'valid_month</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="add-comment col-sm-10 col-lg-10 col-offset-2">
+                                    <p><a href="" class="add-comment-link">Comentar resposta</a></p>
+                                    <form class="comment-form">
+                                        <textarea rows="5"></textarea>
+                                        <div class="textright">
+                                            <button class="cancel-comment btn btn-danger">Cancelar</button>
+                                            <button class="btn btn-success">Comentar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </article>
+                        <!-- END ANSWER -->
+                        
+                        <!-- ANSWER -->
+                        <article class="answer">
+                            <div class="row">
+                                <div class="col-sm-2 col-lg-2">
+                                    <div class="row">
+                                        <div class="rating col-sm-12 col-lg-12">
+                                            <div class="arrow-up"></div>
+                                            <div class="votes">123</div>
+                                            <div class="arrow-down"></div>
+                                        </div><!-- .rating -->
+                                    </div>
+                                    <div class="author clearfix">
+                                        resposta feita em <strong>06/08/13</strong> por <a href="profile.html">Anderson Orui</a>
+                                    </div>
+                                </div>
+                                <div class="answer-body col-lg-10">
+                                    <p>I have figured it out.</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="add-comment col-sm-10 col-lg-10 col-offset-2">
+                                    <p><a href="" class="add-comment-link">Comentar resposta</a></p>
+                                    <form class="comment-form">
+                                        <textarea rows="5"></textarea>
+                                        <div class="textright">
+                                            <button class="cancel-comment btn btn-danger">Cancelar</button>
+                                            <button class="btn btn-success">Comentar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </article>
+                        <!-- END ANSWER -->
+                        
+                        <!-- ANSWER -->
+                        <article class="answer">
+                            <div class="row">
+                                <div class="col-sm-2 col-lg-2">
+                                    <div class="row">
+                                        <div class="rating col-sm-12 col-lg-12">
+                                            <div class="arrow-up"></div>
+                                            <div class="votes">123</div>
+                                            <div class="arrow-down"></div>
+                                        </div><!-- .rating -->
+                                    </div>
+                                    <div class="author clearfix">
+                                        resposta feita em <strong>06/08/13</strong> por <a href="profile.html">Anderson Orui</a>
+                                    </div>
+                                </div>
+                                <div class="answer-body col-sm-10 col-lg-10">
+                                    <p>THANK YOOOOOOOUUUUUUU!!!!!!! from me and, I'm certain, many, MANY other people like me.</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="add-comment col-sm-10 col-lg-10 col-offset-2">
+                                    <p><a href="" class="add-comment-link">Comentar resposta</a></p>
+                                    <form class="comment-form">
+                                        <textarea rows="5"></textarea>
+                                        <div class="textright">
+                                            <button class="cancel-comment btn btn-danger">Cancelar</button>
+                                            <button class="btn btn-success">Comentar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </article>
+                        <!-- END ANSWER -->                        
+                    </section>
+                    <!-- END ANSWERS -->
+
+                    <!-- YOUR ANSWER -->
+                    <section class="your-answer">
+                        <header>
+                            <h1>Sua Resposta</h1>
+                        </header>
+                        <form>
+                            <div class="text-editor">
+                                <i class="icon-bold"></i>
+                                <i class="icon-italic"></i>
+                                <i class="icon-link"></i>
+                                <i class="icon-quote-left"></i>
+                                <i class="icon-code"></i>
+                                <i class="icon-list-ol"></i>
+                                <i class="icon-align-left"></i>
+                                <i class="icon-align-center"></i>
+                                <i class="icon-align-right"></i>
+                            </div>
+                            <textarea rows="15"></textarea>
+                            <div class="submit textright">
+                                <button class="btn btn-success">Enviar</button>
+                            </div>
+                        </form>
+                    </section>
+                    <!-- END YOUR ANSWER -->
+                </div>
+                
+                <!-- ASIDE -->
+                <aside class="col-sm-3 col-lg-3">
+                    <p><a href="" class="ask-a-question btn btn-large btn-course btn-tim">Fazer uma pergunta</a></p>
+                    <form class="search-forum">
+                        <div class="heading textcenter">
+                            <h3>Pesquisar Fórum</h3>
+                        </div>
+                        <div class="input-group">
+                            <input type="search" class="form-control">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><i class="icon-search"></i></button>
+                            </span>
+                        </div>
+                    </form>
+                    <div class="related-questions">
+                        <div class="heading textcenter">
+                            <h3>Perguntas Relacionadas</h3>
+                        </div>
+                        <ul class="no-bullet">
+                            <li><a href="">Risus lectus non pulvinar sed ut integer. Ac elementum nunc facilisis ultricies, enim tincidunt integer mus, auctor sagittis? Et egestas.</a></li>
+                            <li><a href="">Phasellus enim lectus augue et dis natoque amet hac magna sagittis nec elementum, velit et, phasellus pulvinar magnis aliquet.</a></li>
+                            <li><a href="">Vel cursus nunc est dapibus hac tincidunt in tortor, aliquet pellentesque et et, tincidunt. Nec, mus placerat vel magna.</a></li>
+                            <li><a href="">Scelerisque adipiscing ridiculus velit nunc, integer porttitor sed ac mus nisi egestas dictumst sed! Ultrices pulvinar. Ac! Ac adipiscing.</a></li>
+                            <li><a href="">Tempor lacus parturient augue ac augue platea placerat lectus! In. Proin! Dapibus, rhoncus dapibus amet! Aliquet porttitor, sagittis! Nisi.</a></li>
+                        </ul>
+                    </div>
+                </aside>
+                <!-- END ASIDE -->
+            </div>
+        </section>
+        <!-- END MAIN CONTENT-->
+
+
+    </div>
+    <!-- END CONTAINER -->
+</div>
+</metal:main>

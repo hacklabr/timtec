@@ -1,0 +1,16 @@
+language: python
+python: 
+    - "3.3"
+install:
+    - "pip install -r requirements.txt --use-mirrors"
+    - "pip install -r dev-requirements.txt --use-mirrors"
+    - pip install coveralls --use-mirrors
+script: "py.test --cov teste ."
+after_success:
+    - coveralls
+notifications:
+    irc:
+        channels: "irc.freenode.org#hacklab/"
+        use_notice: true
+    email:
+        - "santagada@hacklab.com.br"

@@ -1,0 +1,209 @@
+<metal:main use-macro="load: base.pt">
+<div id="course-intro" class="container" metal:fill-slot="container">
+        <!-- CONTAINER -->
+    <div id="course-forum">
+        <!-- HEADER -->
+        <header id="main-header" class="container">
+            <div class="row">
+                <div class="col-sm-8 col-lg-8">
+                    <h1>Introdução a Bancos de Dados e SQL</h1>                        
+                </div>
+                <div class="col-sm-4 col-lg-4">
+                    <script type="text/javascript" charset="utf-8">
+                        $(document).ready(function() {
+                            $('.course-section-nav > a > span').tooltip();
+                        })
+                    </script>
+                    <nav class="course-section-nav textright">
+                        <a href="aula-intro.html"><span class="icon-home" data-toggle="tooltip" data-placement="top" data-original-title="Intro"></span></a>
+                        <a href="aula.html"><span class="icon-facetime-video" data-toggle="tooltip" data-placement="top" data-original-title="Aulas"></span></a>
+                        <a href="profile-note.html"><span class="icon-pencil" data-toggle="tooltip" data-placement="top" data-original-title="Anotações"></span></a>
+                        <a href="forum-course.html"><span class="icon-list" data-toggle="tooltip" data-placement="top" data-original-title="Fórum"></span></a>
+                        <a href=""><span class="icon-exclamation-sign" data-toggle="tooltip" data-placement="top" data-original-title="Wiki"></span></a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <!-- END HEADER -->
+        
+        
+        <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            $('.comment-form').hide();
+            $('.add-comment-link').click(function(e) {
+                e.preventDefault();
+                $(this).parent().parent().height(170);
+                $(this).parent().parent().find('form').slideDown();
+                $(this).hide();
+            })
+            
+            $('.cancel-comment').click(function(e) {
+                e.preventDefault();
+                $(this).parent().parent().slideUp()
+                $(this).parent().parent().parent().find('.add-comment-link').slideDown().show();
+                $(this).parent().parent().parent().height(30);
+            })
+        })
+        </script>
+        
+        
+        <!-- MAIN CONTENT -->
+        <section id="main-content" class="container">
+            <div class="row">
+                <!-- QUESTIONS -->
+                <section class="questions col-sm-9 col-lg-9 clearfix">
+                    <article class="question">
+                        <div class="stats">
+                            <div class="arrow-right"></div>
+                            <p><span class="numbers-votes">1234</span>votos</p>
+                            <p><span class="numbers-answers">0</span>respostas</p>
+                        </div>
+                        <div class="question">
+                            <p><a href="forum-question.html">Elementum dictumst adipiscing, sit, aliquet diam adipiscing tincidunt, mus nunc nunc est hac egestas amet, diam. Non urna, vel auctor, nisi mus, auctor odio, diam eu ultrices?</a></p>
+                            <p class="description">Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam [...]</p>
+                        </div>
+                        <div class="author">
+                            Pergunta feita há 1 dia por <a href="">Username</a>
+                        </div>
+                    </article>
+                    <article class="question">
+                        <div class="stats">
+                            <div class="arrow-right"></div>
+                            <p><span class="numbers-votes">12</span>votos</p>
+                            <p><span class="numbers-answers">0</span>respostas</p>
+                        </div>
+                        <div class="question">
+                            <p><a href="forum-question.html">Elementum dictumst adipiscing, sit, aliquet diam adipiscing tincidunt, mus nunc nunc est hac egestas amet, diam.</a></p>
+                            <p class="description">Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam [...]</p>
+                        </div>
+                        <div class="author">
+                            Pergunta feita há 1 dia por <a href="">Username</a>
+                        </div>
+                    </article>
+                    <article class="question">
+                        <div class="stats">
+                            <div class="arrow-right"></div>
+                            <p><span class="numbers-votes">12</span>votos</p>
+                            <p><span class="numbers-answers">0</span>respostas</p>
+                        </div>
+                        <div class="question">
+                            <p><a href="forum-question.html">Elementum dictumst adipiscing, sit, aliquet diam adipiscing tincidunt, mus nunc nunc est hac egestas amet, diam.</a></p>
+                            <p class="description">Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam [...]</p>
+                        </div>
+                        <div class="author">
+                            Pergunta feita há 1 dia por <a href="">Username</a>
+                        </div>
+                    </article>
+                    <article class="question">
+                        <div class="stats">
+                            <div class="arrow-right"></div>
+                            <p><span class="numbers-votes">1234</span>votos</p>
+                            <p><span class="numbers-answers">0</span>respostas</p>
+                        </div>
+                        <div class="question">
+                            <p><a href="forum-question.html">Elementum dictumst adipiscing, sit, aliquet diam adipiscing tincidunt, mus nunc nunc est hac egestas amet, diam. Non urna, vel auctor, nisi mus, auctor odio, diam eu ultrices?</a></p>
+                            <p class="description">Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam [...]</p>
+                        </div>
+                        <div class="author">
+                            Pergunta feita há 1 dia por <a href="">Username</a>
+                        </div>
+                    </article>
+                    <article class="question">
+                        <div class="stats">
+                            <div class="arrow-right"></div>
+                            <p><span class="numbers-votes">12</span>votos</p>
+                            <p><span class="numbers-answers">0</span>respostas</p>
+                        </div>
+                        <div class="question">
+                            <p><a href="forum-question.html">Elementum dictumst adipiscing, sit, aliquet diam adipiscing tincidunt, mus nunc nunc est hac egestas amet, diam.</a></p>
+                            <p class="description">Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam [...]</p>
+                        </div>
+                        <div class="author">
+                            Pergunta feita há 1 dia por <a href="">Username</a>
+                        </div>
+                    </article>
+                    <article class="question">
+                        <div class="stats">
+                            <div class="arrow-right"></div>
+                            <p><span class="numbers-votes">12</span>votos</p>
+                            <p><span class="numbers-answers">0</span>respostas</p>
+                        </div>
+                        <div class="question">
+                            <p><a href="forum-question.html">Elementum dictumst adipiscing, sit, aliquet diam adipiscing tincidunt, mus nunc nunc est hac egestas amet, diam.</a></p>
+                            <p class="description">Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam [...]</p>
+                        </div>
+                        <div class="author">
+                            Pergunta feita há 1 dia por <a href="">Username</a>
+                        </div>
+                    </article>
+                    <article class="question">
+                        <div class="stats">
+                            <div class="arrow-right"></div>
+                            <p><span class="numbers-votes">1234</span>votos</p>
+                            <p><span class="numbers-answers">0</span>respostas</p>
+                        </div>
+                        <div class="question">
+                            <p><a href="forum-question.html">Elementum dictumst adipiscing, sit, aliquet diam adipiscing tincidunt, mus nunc nunc est hac egestas amet, diam. Non urna, vel auctor, nisi mus, auctor odio, diam eu ultrices?</a></p>
+                            <p class="description">Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam [...]</p>
+                        </div>
+                        <div class="author">
+                            Pergunta feita há 1 dia por <a href="">Username</a>
+                        </div>
+                    </article>
+                    <article class="question">
+                        <div class="stats">
+                            <div class="arrow-right"></div>
+                            <p><span class="numbers-votes">12</span>votos</p>
+                            <p><span class="numbers-answers">0</span>respostas</p>
+                        </div>
+                        <div class="question">
+                            <p><a href="forum-question.html">Elementum dictumst adipiscing, sit, aliquet diam adipiscing tincidunt, mus nunc nunc est hac egestas amet, diam.</a></p>
+                            <p class="description">Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam [...]</p>
+                        </div>
+                        <div class="author">
+                            Pergunta feita há 1 dia por <a href="">Username</a>
+                        </div>
+                    </article>
+                    <article class="question">
+                        <div class="stats">
+                            <div class="arrow-right"></div>
+                            <p><span class="numbers-votes">12</span>votos</p>
+                            <p><span class="numbers-answers">0</span>respostas</p>
+                        </div>
+                        <div class="question">
+                            <p><a href="forum-question.html">Elementum dictumst adipiscing, sit, aliquet diam adipiscing tincidunt, mus nunc nunc est hac egestas amet, diam.</a></p>
+                            <p class="description">Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam [...]</p>
+                        </div>
+                        <div class="author">
+                            Pergunta feita há 1 dia por <a href="">Username</a>
+                        </div>
+                    </article>
+                </section>
+                <!-- END QUESTIONS -->
+
+
+                <!-- ASIDE -->
+                <aside class="col-sm-3 col-lg-3">
+                    <p><a href="" class="ask-a-question btn btn-large btn-course btn-tim">Fazer uma pergunta</a></p>
+                    <form class="search-forum">
+                        <div class="heading textcenter">
+                            <h3>Pesquisar Fórum</h3>
+                        </div>
+                        <div class="input-group">
+                            <input type="search" class="form-control">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><i class="icon-search"></i></button>
+                            </span>
+                        </div>
+                    </form>
+                </aside>
+                <!-- END ASIDE -->
+            </div>
+        </section>
+        <!-- END MAIN CONTENT-->
+
+
+    </div>
+    <!-- END CONTAINER -->
+</div>
+</metal:main>

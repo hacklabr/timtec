@@ -1,0 +1,495 @@
+<metal:main use-macro="load: base.pt">
+<div id="course-intro" class="container" metal:fill-slot="container">
+    
+    <script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        $('i').tooltip();
+    })
+    </script>
+
+    <!-- CONTAINER -->
+    <div id="my-notes" class="container">
+        <!-- COURSE-NOTES -->
+        <div class="course-notes">
+            <!-- HEADER -->
+            <header>
+                <div class="row">
+                    <div class="col-sm-9 col-lg-9">
+                        <h3>Anotações - Introdução a Banco de Dados e SQL</h3>
+                    </div>
+                    <div class="col-sm-3 col-lg-3 textright">
+                        <div class="btn-group">
+                            <a href="aula.html" class="btn btn-small btn-success">Ir para o curso</a>
+                            <a href="aula.html" class="btn btn-small btn-success"><i class="icon-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- HEADER -->
+
+            <div class="row">
+                <div class="col-sm-9 col-lg-9">
+                    <!-- LESSON -->
+                    <div id="aula-1" class="lesson">
+                        <!-- NOTES -->
+                        <div id="aula-1-parte-1" class="notes">
+                            <h1>Aula 1 - Parte I</h1>
+                            <!-- NOTE -->
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Ridiculus augue pulvinar, elementum sociis proin duis mus duis? Facilisis enim scelerisque, diam proin, velit montes phasellus? Nunc tempor porttitor. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                            <!-- END NOTE -->
+                            
+                            <!-- NOTE -->
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Purus turpis nisi odio eu natoque lectus phasellus vel, in vel pulvinar, et pellentesque elementum cras, aliquet ultrices, auctor cum turpis mus! Tristique? Ut montes urna porta, duis, nec adipiscing eros massa cras? Ridiculus ac phasellus mauris, dignissim! Ac in. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                            <!-- END NOTE -->
+                            
+                            <!-- NOTE -->
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Tortor? A natoque tempor in urna integer, mauris urna, facilisis natoque vut nunc? Dictumst, auctor! Tincidunt? Mus in in, magna habitasse ultrices, pulvinar nunc mattis! Eu porttitor, dictumst? Augue nunc sit nisi dis. Elit nascetur, scelerisque augue diam turpis. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                            <!-- END NOTE -->
+                        </div>
+                        <!-- END NOTES -->
+
+                        <!-- NOTES -->
+                        <div id="aula-1-parte-2" class="notes">
+                            <h1>Aula 1 - Parte 2</h1>
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Ridiculus augue pulvinar, elementum sociis proin duis mus duis? Facilisis enim scelerisque, diam proin, velit montes phasellus? Nunc tempor porttitor. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Purus turpis nisi odio eu natoque lectus phasellus vel, in vel pulvinar, et pellentesque elementum cras, aliquet ultrices, auctor cum turpis mus! Tristique? Ut montes urna porta, duis, nec adipiscing eros massa cras? Ridiculus ac phasellus mauris, dignissim! Ac in. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Tortor? A natoque tempor in urna integer, mauris urna, facilisis natoque vut nunc? Dictumst, auctor! Tincidunt? Mus in in, magna habitasse ultrices, pulvinar nunc mattis! Eu porttitor, dictumst? Augue nunc sit nisi dis. Elit nascetur, scelerisque augue diam turpis. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END NOTES -->
+                        
+                        <!-- NOTES -->
+                        <div id="aula-1-parte-3" class="notes">
+                            <h1>Aula 1 - Parte 3</h1>
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Ridiculus augue pulvinar, elementum sociis proin duis mus duis? Facilisis enim scelerisque, diam proin, velit montes phasellus? Nunc tempor porttitor. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Purus turpis nisi odio eu natoque lectus phasellus vel, in vel pulvinar, et pellentesque elementum cras, aliquet ultrices, auctor cum turpis mus! Tristique? Ut montes urna porta, duis, nec adipiscing eros massa cras? Ridiculus ac phasellus mauris, dignissim! Ac in. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Tortor? A natoque tempor in urna integer, mauris urna, facilisis natoque vut nunc? Dictumst, auctor! Tincidunt? Mus in in, magna habitasse ultrices, pulvinar nunc mattis! Eu porttitor, dictumst? Augue nunc sit nisi dis. Elit nascetur, scelerisque augue diam turpis. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END NOTES -->
+                        
+                        <!-- NOTES -->
+                        <div id="aula-1-parte-4" class="notes">
+                            <h1>Aula 1 - Parte 4</h1>
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Ridiculus augue pulvinar, elementum sociis proin duis mus duis? Facilisis enim scelerisque, diam proin, velit montes phasellus? Nunc tempor porttitor. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Purus turpis nisi odio eu natoque lectus phasellus vel, in vel pulvinar, et pellentesque elementum cras, aliquet ultrices, auctor cum turpis mus! Tristique? Ut montes urna porta, duis, nec adipiscing eros massa cras? Ridiculus ac phasellus mauris, dignissim! Ac in. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Tortor? A natoque tempor in urna integer, mauris urna, facilisis natoque vut nunc? Dictumst, auctor! Tincidunt? Mus in in, magna habitasse ultrices, pulvinar nunc mattis! Eu porttitor, dictumst? Augue nunc sit nisi dis. Elit nascetur, scelerisque augue diam turpis. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END NOTES -->
+                        
+                        <!-- NOTES -->
+                        <div id="aula-1-parte-5" class="notes">
+                            <h1>Aula 1 - Parte 5</h1>
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Ridiculus augue pulvinar, elementum sociis proin duis mus duis? Facilisis enim scelerisque, diam proin, velit montes phasellus? Nunc tempor porttitor. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Purus turpis nisi odio eu natoque lectus phasellus vel, in vel pulvinar, et pellentesque elementum cras, aliquet ultrices, auctor cum turpis mus! Tristique? Ut montes urna porta, duis, nec adipiscing eros massa cras? Ridiculus ac phasellus mauris, dignissim! Ac in. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Tortor? A natoque tempor in urna integer, mauris urna, facilisis natoque vut nunc? Dictumst, auctor! Tincidunt? Mus in in, magna habitasse ultrices, pulvinar nunc mattis! Eu porttitor, dictumst? Augue nunc sit nisi dis. Elit nascetur, scelerisque augue diam turpis. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END NOTES -->
+                    </div>
+                    <!-- END LESSON -->
+
+                    <!-- LESSON -->
+                    <div id="aula-2" class="lesson">
+                        <div id="aula-2-parte-1" class="notes">
+                            <h1>Aula 2 - Parte I</h1>
+                            <!-- NOTE -->
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Ridiculus augue pulvinar, elementum sociis proin duis mus duis? Facilisis enim scelerisque, diam proin, velit montes phasellus? Nunc tempor porttitor. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                            <!-- END NOTE -->
+
+                            <!-- NOTE -->
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Purus turpis nisi odio eu natoque lectus phasellus vel, in vel pulvinar, et pellentesque elementum cras, aliquet ultrices, auctor cum turpis mus! Tristique? Ut montes urna porta, duis, nec adipiscing eros massa cras? Ridiculus ac phasellus mauris, dignissim! Ac in. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                            <!-- END NOTE -->
+
+                            <!-- NOTE -->
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Tortor? A natoque tempor in urna integer, mauris urna, facilisis natoque vut nunc? Dictumst, auctor! Tincidunt? Mus in in, magna habitasse ultrices, pulvinar nunc mattis! Eu porttitor, dictumst? Augue nunc sit nisi dis. Elit nascetur, scelerisque augue diam turpis. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                            <!-- END NOTE -->
+                        </div>
+                        <div id="aula-2-parte-2" class="notes">
+                            <h1>Aula 2 - Parte 2</h1>
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Ridiculus augue pulvinar, elementum sociis proin duis mus duis? Facilisis enim scelerisque, diam proin, velit montes phasellus? Nunc tempor porttitor. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Purus turpis nisi odio eu natoque lectus phasellus vel, in vel pulvinar, et pellentesque elementum cras, aliquet ultrices, auctor cum turpis mus! Tristique? Ut montes urna porta, duis, nec adipiscing eros massa cras? Ridiculus ac phasellus mauris, dignissim! Ac in. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Tortor? A natoque tempor in urna integer, mauris urna, facilisis natoque vut nunc? Dictumst, auctor! Tincidunt? Mus in in, magna habitasse ultrices, pulvinar nunc mattis! Eu porttitor, dictumst? Augue nunc sit nisi dis. Elit nascetur, scelerisque augue diam turpis. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="aula-2-parte-3" class="notes">
+                            <h1>Aula 2 - Parte 3</h1>
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Ridiculus augue pulvinar, elementum sociis proin duis mus duis? Facilisis enim scelerisque, diam proin, velit montes phasellus? Nunc tempor porttitor. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Purus turpis nisi odio eu natoque lectus phasellus vel, in vel pulvinar, et pellentesque elementum cras, aliquet ultrices, auctor cum turpis mus! Tristique? Ut montes urna porta, duis, nec adipiscing eros massa cras? Ridiculus ac phasellus mauris, dignissim! Ac in. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Tortor? A natoque tempor in urna integer, mauris urna, facilisis natoque vut nunc? Dictumst, auctor! Tincidunt? Mus in in, magna habitasse ultrices, pulvinar nunc mattis! Eu porttitor, dictumst? Augue nunc sit nisi dis. Elit nascetur, scelerisque augue diam turpis. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="aula-2-parte-4" class="notes">
+                            <h1>Aula 2 - Parte 4</h1>
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Ridiculus augue pulvinar, elementum sociis proin duis mus duis? Facilisis enim scelerisque, diam proin, velit montes phasellus? Nunc tempor porttitor. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Purus turpis nisi odio eu natoque lectus phasellus vel, in vel pulvinar, et pellentesque elementum cras, aliquet ultrices, auctor cum turpis mus! Tristique? Ut montes urna porta, duis, nec adipiscing eros massa cras? Ridiculus ac phasellus mauris, dignissim! Ac in. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Tortor? A natoque tempor in urna integer, mauris urna, facilisis natoque vut nunc? Dictumst, auctor! Tincidunt? Mus in in, magna habitasse ultrices, pulvinar nunc mattis! Eu porttitor, dictumst? Augue nunc sit nisi dis. Elit nascetur, scelerisque augue diam turpis. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="aula-2-parte-5" class="notes">
+                            <h1>Aula 2 - Parte 5</h1>
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Ridiculus augue pulvinar, elementum sociis proin duis mus duis? Facilisis enim scelerisque, diam proin, velit montes phasellus? Nunc tempor porttitor. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Purus turpis nisi odio eu natoque lectus phasellus vel, in vel pulvinar, et pellentesque elementum cras, aliquet ultrices, auctor cum turpis mus! Tristique? Ut montes urna porta, duis, nec adipiscing eros massa cras? Ridiculus ac phasellus mauris, dignissim! Ac in. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                            <div class="note">
+                                <div class="row">
+                                    <div class="col-sm-1 col-lg-1">
+                                        00:00
+                                        <a href="aula.html"><i class="icon-play-circle icon-2x" data-toggle="tooltip" title="Assista ao vídeo"></i></a>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <p>Tortor? A natoque tempor in urna integer, mauris urna, facilisis natoque vut nunc? Dictumst, auctor! Tincidunt? Mus in in, magna habitasse ultrices, pulvinar nunc mattis! Eu porttitor, dictumst? Augue nunc sit nisi dis. Elit nascetur, scelerisque augue diam turpis. <i class="icon-pencil" data-toggle="tooltip" title="Clique para editar"></i></p>
+                                    </div>
+                                    <div class="col-sm-1 col-lg-1 textright"><i class="icon-remove" data-toggle="tooltip" title="Apagar nota"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END LESSON -->
+                </div>
+
+                <!-- LESSONS -->
+                <aside id="lessons" class="col-sm-3 col-lg-3">
+                    <ul class="well">
+                        <li>
+                            <a href="#aula-1">Aula 1</a>
+                            <ul>
+                                <li><a href="#aula-1-parte-1">Parte 1</a></li>
+                                <li><a href="#aula-1-parte-2">Parte 2</a></li>
+                                <li><a href="#aula-1-parte-3">Parte 3</a></li>
+                                <li><a href="#aula-1-parte-4">Parte 4</a></li>
+                                <li><a href="#aula-1-parte-5">Parte 5</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#aula-2">Aula 2</a>
+                            <ul>
+                                <li><a href="#aula-2-parte-1">Parte 1</a></li>
+                                <li><a href="#aula-2-parte-2">Parte 2</a></li>
+                                <li><a href="#aula-2-parte-3">Parte 3</a></li>
+                                <li><a href="#aula-2-parte-4">Parte 4</a></li>
+                                <li><a href="#aula-2-parte-5">Parte 5</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </aside>
+                <!-- END LESSONS -->
+            </div>
+        </div>        
+        <!-- END COURSE-NOTES -->
+    </div>
+    <!-- CONTAINER -->
+</div>
+</metal:main>

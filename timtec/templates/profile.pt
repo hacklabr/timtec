@@ -1,0 +1,20 @@
+<metal:main use-macro="load: base.pt">
+<div id="course-intro" class="container" metal:fill-slot="container">
+    <!-- PROFILE -->
+    <div id="profile" class="container">
+
+        <div class="row">
+            <aside class="col-sm-2 col-lg-2">
+                <div class="avatar">
+                    <div class="icon-user"></div>
+                </div>
+            </aside>
+
+            <div class="col-sm-10 col-lg-10">
+                <h1 class="username bordered top">Anderson Orui</h1>
+            </div>
+        </div>
+    </div>
+    <!-- END PROFILE -->
+</div>
+</metal:main>

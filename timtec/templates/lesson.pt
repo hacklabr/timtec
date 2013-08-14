@@ -1,0 +1,414 @@
+<metal:main use-macro="load: base.pt">
+<div id="course-content" class="container" metal:fill-slot="container">
+    <!-- CONTAINER -->
+    <div id="course-content">
+        
+        <!-- HEADER -->
+        <header id="main-header" class="container">
+            <h1>{lesson.course.description}</h1>
+        </header>
+        <!-- END HEADER -->
+        
+        <!-- MAIN CONTENT -->
+        <section id="main-content" class="container">
+            <!-- COURSE-NAV -->
+            <nav class="course-nav">
+                <div class="row">
+                    <div class="col-sm-8 col-lg-8">
+                        <!-- COURSE-VIDEO-NAV -->
+                        <nav class="course-video-nav row">
+                            <div class="col-sm-8 col-lg-6 ">
+                                <div class="btn-group button-watching">
+                                    <button type="button" class="btn btn-small btn-info">${lesson.name}</button>
+                                    <button type="button" class="btn btn-small btn-info dropdown-toggle" data-toggle="dropdown">
+                                        <i class="icon-chevron-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Aula 1 - Introdução a linguagem SQL</a></li>
+                                        <li class="active"><a href="#">Aula 2 - Introdução a linguagem SQL</a></li>
+                                        <li><a href="#">Aula 3 - Introdução a linguagem SQL</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-6 col-lg-6">
+                                <script type="text/javascript" charset="utf-8">
+                                    $(document).ready(function() {
+                                        $('.video-control > a').tooltip();
+                                    })
+                                </script>
+                                <div class="video-control textright clearfix">
+                                    <a href="" class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="Aula Anterior"><i class="icon-fast-backward"></i></a>
+                                    <a href="" class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="Bloco Anterior"><i class="icon-backward"></i></a>
+                                    <a href="" class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="Próximo Bloco"><i class="icon-forward"></i></a>
+                                    <a href="" class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="Próxima Aula"><i class="icon-fast-forward"></i></a>
+                                </div>
+                            </div>
+                        
+                        </nav>
+                        <!-- END COURSE-VIDEO-NAV -->
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                        <!-- COURSE-SECTION-NAV -->
+                        <script type="text/javascript" charset="utf-8">
+                            $(document).ready(function() {
+                                $('.course-section-nav > a > span').tooltip();
+                            })
+                        </script>
+                        <nav class="course-section-nav textright">
+                            <a href="aula-intro.html"><span class="icon-home" data-toggle="tooltip" data-placement="top" data-original-title="Intro"></span></a>
+                            <a href="aula.html"><span class="icon-facetime-video" data-toggle="tooltip" data-placement="top" data-original-title="Aulas"></span></a>
+                            <a href="profile-note.html"><span class="icon-pencil" data-toggle="tooltip" data-placement="top" data-original-title="Anotações"></span></a>
+                            <a href="forum-course.html"><span class="icon-list" data-toggle="tooltip" data-placement="top" data-original-title="Fórum"></span></a>
+                            <a href=""><span class="icon-exclamation-sign" data-toggle="tooltip" data-placement="top" data-original-title="Wiki"></span></a>
+                        </nav>
+                        <!-- END COURSE-SECTION-NAV -->
+                    </div>
+                </div>
+            </nav>
+            <!-- END COURSE-NAV -->
+
+            <!-- COURSE-VIDEO -->
+            <section class="course-video">
+                <div class="row">
+                    <!-- BLOCKS -->
+                    <div class="col-sm-1 col-lg-1">
+                        <script type="text/javascript" charset="utf-8">
+                            $(document).ready(function() {
+                                $('.track').tooltip();
+                            })
+                        </script>
+                        <div class="track done" data-toggle="tooltip" data-placement="right" data-original-title="Parte I">&nbsp;</div>
+                        <div class="track done" data-toggle="tooltip" data-placement="right" data-original-title="Parte II"><i class="icon-list"></i></div>
+                        <div class="track done" data-toggle="tooltip" data-placement="right" data-original-title="Parte II"><i class="icon-list"></i></div>
+                        <div class="track done" data-toggle="tooltip" data-placement="right" data-original-title="Parte IV"><i class="icon-list"></i></div>
+                        <div class="track watching" data-toggle="tooltip" data-placement="right" data-original-title="Parte V"><i class="icon-list"></i></div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte VI"><i class="icon-list"></i></div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte VII"><i class="icon-list"></i></div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte VIII"><i class="icon-list"></i></div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte IX"><i class="icon-list"></i></div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte X"><i class="icon-time"></i></div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XI"><i class="icon-list"></i></div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XII"><i class="icon-list"></i></div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XIII"><i class="icon-list"></i></div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XIV"><i class="icon-list"></i></div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XV"><i class="icon-list"></i></div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XVI"><i class="icon-list"></i></div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XVII"><i class="icon-list"></i></div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XVIII"><i class="icon-list"></i></div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XIX"><i class="icon-list"></i></div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XX"><i class="icon-list"></i></div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XX" ><i class="icon-list"></i></div>
+                    </div>
+                    <!-- END BLOCKS -->
+
+                    <!-- PLAYER AND SUBTITLE-->
+                    <div class="col-sm-7 col-lg-7 left">
+                        <!-- PLAYER -->
+                        <iframe id="ytplayer" type="text/html" height="385" width="100%" src="https://www.youtube.com/embed/JDlu4CM9bDg?rel=0&showinfo=0&autohide=1&theme=light" frameborder="0" allowfullscreen></iframe>
+                        <!-- END PLAYER -->
+
+                        <!-- SUBTITLE -->
+                        <section class="subtitle">
+                            <table class="table table-striped table-bordered">
+                                <tr class="selected">
+                                    <td><i class="icon-star-empty"></i></td>
+                                    <td>00:00</td>
+                                    <td style="width:100%;">Et a penatibus, dapibus, habitasse</td>
+                                </tr>
+                                <tr class="selected">
+                                    <td><i class="icon-star-empty"></i></td>
+                                    <td>00:00</td>
+                                    <td style="width:100%;">Et a penatibus, dapibus, habitasse</td>
+                                </tr>
+                                <tr class="selected">
+                                    <td><i class="icon-star-empty"></i></td>
+                                    <td>00:00</td>
+                                    <td style="width:100%;">Et a penatibus, dapibus, habitasse</td>
+                                </tr>
+                            </table>
+                        </section>
+                        <!-- END SUBTITLE -->
+                    </div>
+                    <!-- PLAYER -->
+                    
+                    <!-- NOTES -->
+                    <div class="col-sm-4 col-lg-4">
+                        <!-- NOTES -->
+                        <section class="notes well">
+                            <!-- HEADING -->
+                            <div class="heading textcenter">
+                                <h3>Anotações</h3>
+                            </div>
+                            <!-- END HEADING -->
+
+                            <!-- NOTE FORM -->
+                            <form class="form-inline note-form">
+                                <p>
+                                    <input type="text" class="form-control" placeholder="Ex. Estou com dúvida nesta parte...">
+                                </p>
+                                <div class="clearfix">
+                                    <div class="alignleft">
+                                        <label class="checkbox-label"><input type="checkbox" checked/> Salvar ao teclar "Enter"</label>
+                                    </div>
+                                    <div class="alignright">
+                                        <button type="submit" class="btn btn-success">Salvar</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- END NOTE FORM -->
+
+                            <!-- NOTES LIST -->
+                            <div class="notes-list">
+                                <div class="note">
+                                    <div class="row">
+                                        <div class="col-sm-2 col-lg-2">04:20</div>
+                                        <div class="col-sm-8 col-lg-8">Mid lundium turpis, tincidunt aliquam nascetur duis vel. Nec cum penatibus velit purus auctor mauris mattis. Vel ridiculus pulvinar, elementum.</div>
+                                        <div class="col-sm-2 col-lg-2 textcenter"><i class="icon-remove"></i></div>
+                                    </div>
+                                </div>
+                                <div class="note">
+                                    <div class="row">
+                                        <div class="col-sm-2 col-lg-2">04:20</div>
+                                        <div class="col-sm-8 col-lg-8">Aliquam odio eros! Mid auctor? Phasellus, nisi nascetur? Ultrices et augue nec? Cursus montes ac sagittis hac magnis, in! Etiam tincidunt pulvinar ultrices, rhoncus ut et porttitor sagittis! Placerat elementum! Mus etiam tortor risus rhoncus! Pellentesque auctor augue! Est, ut aliquam tempor? Arcu rhoncus? Mus adipiscing ut etiam! Mid natoque.</div>
+                                        <div class="col-sm-2 col-lg-2 textcenter"><i class="icon-remove"></i></div>
+                                    </div>
+                                </div>
+                                <div class="note">
+                                    <div class="row">
+                                        <div class="col-sm-2 col-lg-2">04:07</div>
+                                        <div class="col-sm-8 col-lg-8">Mid magna a lectus et rhoncus vel sit adipiscing parturient turpis urna? Porttitor ultricies porta a nec dapibus sit lundium mauris nisi urna odio platea rhoncus. Magna, porttitor! Tincidunt turpis? In ac. Dis, ultrices et rhoncus ac nisi etiam augue ultricies cras, ridiculus integer sed augue enim duis, hac! Lorem.</div>
+                                        <div class="col-sm-2 col-lg-2 textcenter"><i class="icon-remove"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END NOTES LIST -->
+                        </section>
+                        <!-- END NOTES -->
+                    </div>
+                    <!-- END NOTES -->
+                </div>
+            </section>
+            <!-- END COURSE-VIDEO -->
+
+            <!-- FORUM -->
+            <div class="row">
+                <div class="col-sm-8 col-lg-8">
+                    <section class="course-forum">
+                        <div class="heading textcenter">
+                            <h3>Perguntas e Respostas</h3>
+                        </div>
+                        <!-- QUESTION FORM -->
+                        <div class="row">
+                            <form class="col-sm-12 col-lg-12">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Qual é a sua dúvida?">
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="4" placeholder="Descrição da sua dúvida"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-8 col-lg-8">
+                                            <small><a href="">Política de Perguntas e Respostas</a></small>
+                                        </div>
+                                        <div class="col-sm-4 col-lg-4 textright">
+                                            <input type="submit" class="btn btn-success" value="Enviar">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- END QUESTION FORM -->
+                        
+                        <!-- QUESTIONS LIST-->
+                        <section class="questions clearfix">
+                            <article>
+                                <div class="stats">
+                                    <div class="arrow-right"></div>
+                                    <p><span class="numbers-votes">1234</span>votos</p>
+                                    <p><span class="numbers-answers">0</span>respostas</p>
+                                </div>
+                                <div class="question">
+                                    <p><a href="forum-question.html">Elementum dictumst adipiscing, sit, aliquet diam adipiscing tincidunt, mus nunc nunc est hac egestas amet, diam. Non urna, vel auctor, nisi mus, auctor odio, diam eu ultrices?</a></p>
+                                    <p class="description">Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam [...]</p>
+                                </div>
+                                <div class="author">
+                                    Pergunta feita há 1 dia por <a href="">Username</a>
+                                </div>
+                            </article>
+                            <article>
+                                <div class="stats">
+                                    <div class="arrow-right"></div>
+                                    <p><span class="numbers-votes">12</span>votos</p>
+                                    <p><span class="numbers-answers">0</span>respostas</p>
+                                </div>
+                                <div class="question">
+                                    <p><a href="forum-question.html">Elementum dictumst adipiscing, sit, aliquet diam adipiscing tincidunt, mus nunc nunc est hac egestas amet, diam.</a></p>
+                                    <p class="description">Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam [...]</p>
+                                </div>
+                                <div class="author">
+                                    Pergunta feita há 1 dia por <a href="">Username</a>
+                                </div>
+                            </article>
+                            <article>
+                                <div class="stats">
+                                    <div class="arrow-right"></div>
+                                    <p><span class="numbers-votes">12</span>votos</p>
+                                    <p><span class="numbers-answers">0</span>respostas</p>
+                                </div>
+                                <div class="question">
+                                    <p><a href="forum-question.html">Elementum dictumst adipiscing, sit, aliquet diam adipiscing tincidunt, mus nunc nunc est hac egestas amet, diam.</a></p>
+                                    <p class="description">Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam [...]</p>
+                                </div>
+                                <div class="author">
+                                    Pergunta feita há 1 dia por <a href="">Username</a>
+                                </div>
+                            </article>
+                            <article>
+                                <div class="stats">
+                                    <div class="arrow-right"></div>
+                                    <p><span class="numbers-votes">1234</span>votos</p>
+                                    <p><span class="numbers-answers">0</span>respostas</p>
+                                </div>
+                                <div class="question">
+                                    <p><a href="forum-question.html">Elementum dictumst adipiscing, sit, aliquet diam adipiscing tincidunt, mus nunc nunc est hac egestas amet, diam. Non urna, vel auctor, nisi mus, auctor odio, diam eu ultrices?</a></p>
+                                    <p class="description">Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam [...]</p>
+                                </div>
+                                <div class="author">
+                                    Pergunta feita há 1 dia por <a href="">Username</a>
+                                </div>
+                            </article>
+                            <article>
+                                <div class="stats">
+                                    <div class="arrow-right"></div>
+                                    <p><span class="numbers-votes">12</span>votos</p>
+                                    <p><span class="numbers-answers">0</span>respostas</p>
+                                </div>
+                                <div class="question">
+                                    <p><a href="forum-question.html">Elementum dictumst adipiscing, sit, aliquet diam adipiscing tincidunt, mus nunc nunc est hac egestas amet, diam.</a></p>
+                                    <p class="description">Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam [...]</p>
+                                </div>
+                                <div class="author">
+                                    Pergunta feita há 1 dia por <a href="">Username</a>
+                                </div>
+                            </article>
+                            <article>
+                                <div class="stats">
+                                    <div class="arrow-right"></div>
+                                    <p><span class="numbers-votes">12</span>votos</p>
+                                    <p><span class="numbers-answers">0</span>respostas</p>
+                                </div>
+                                <div class="question">
+                                    <p><a href="forum-question.html">Elementum dictumst adipiscing, sit, aliquet diam adipiscing tincidunt, mus nunc nunc est hac egestas amet, diam.</a></p>
+                                    <p class="description">Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam [...]</p>
+                                </div>
+                                <div class="author">
+                                    Pergunta feita há 1 dia por <a href="">Username</a>
+                                </div>
+                            </article>
+                            <article>
+                                <div class="stats">
+                                    <div class="arrow-right"></div>
+                                    <p><span class="numbers-votes">1234</span>votos</p>
+                                    <p><span class="numbers-answers">0</span>respostas</p>
+                                </div>
+                                <div class="question">
+                                    <p><a href="forum-question.html">Elementum dictumst adipiscing, sit, aliquet diam adipiscing tincidunt, mus nunc nunc est hac egestas amet, diam. Non urna, vel auctor, nisi mus, auctor odio, diam eu ultrices?</a></p>
+                                    <p class="description">Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam [...]</p>
+                                </div>
+                                <div class="author">
+                                    Pergunta feita há 1 dia por <a href="">Username</a>
+                                </div>
+                            </article>
+                            <article>
+                                <div class="stats">
+                                    <div class="arrow-right"></div>
+                                    <p><span class="numbers-votes">12</span>votos</p>
+                                    <p><span class="numbers-answers">0</span>respostas</p>
+                                </div>
+                                <div class="question">
+                                    <p><a href="forum-question.html">Elementum dictumst adipiscing, sit, aliquet diam adipiscing tincidunt, mus nunc nunc est hac egestas amet, diam.</a></p>
+                                    <p class="description">Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam [...]</p>
+                                </div>
+                                <div class="author">
+                                    Pergunta feita há 1 dia por <a href="">Username</a>
+                                </div>
+                            </article>
+                            <article>
+                                <div class="stats">
+                                    <div class="arrow-right"></div>
+                                    <p><span class="numbers-votes">12</span>votos</p>
+                                    <p><span class="numbers-answers">0</span>respostas</p>
+                                </div>
+                                <div class="question">
+                                    <p><a href="forum-question.html">Elementum dictumst adipiscing, sit, aliquet diam adipiscing tincidunt, mus nunc nunc est hac egestas amet, diam.</a></p>
+                                    <p class="description">Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam [...]</p>
+                                </div>
+                                <div class="author">
+                                    Pergunta feita há 1 dia por <a href="">Username</a>
+                                </div>
+                            </article>
+                            <p class="textcenter"><a href="forum-course.html" class="all-questions btn btn-default">Ver todas as perguntas e respostas</a></p>
+                        </section>
+                        <!-- QUESTIONS LIST-->
+                    </section>
+                </div>
+                <div class="col-sm-4 col-lg-4">
+                    <section class="course-instructions">
+                        <div class="heading textcenter">
+                            <h3>Informações e Instruções</h3>
+                        </div>
+                        <p>In eu placerat, porta urna integer pellentesque adipiscing nascetur magna, diam amet, scelerisque proin massa a, mid enim nec mus, mattis sit sagittis pulvinar, augue ac nunc proin! Scelerisque nec? Montes penatibus risus ridiculus, platea porttitor, ac in cras. Augue. Dapibus nisi purus, integer adipiscing dignissim dictumst cum, odio turpis.</p>
+                        <p>A. Porttitor in? Sagittis, amet dictumst parturient vut amet? Dis in sit quis non, odio vel, turpis, porta natoque, et pulvinar! Ultricies adipiscing porta. Nascetur platea, tortor tempor montes et adipiscing porttitor eros, rhoncus velit nisi elit montes nascetur diam dictumst tempor integer augue nunc odio, nec, aliquet. Adipiscing.</p>
+                        <p>Pulvinar mus lectus, enim a. Eros tristique dolor ac, sociis urna enim, vel egestas augue odio mid magna mus eros, enim duis adipiscing, arcu a turpis mus vut, mattis porttitor scelerisque? Odio eros sed! Rhoncus? Ac a dolor et phasellus aliquet cum vut sociis, lundium, aenean quis et placerat.</p>
+                        <ul>
+                            <li>Sit magna pellentesque hac dignissim.</li>
+                            <li>Proin porta ac aliquet, integer.</li>
+                            <li>Hac nisi placerat egestas integer.</li>
+                            <li>Augue, vut ut urna urna.</li>
+                            <li>Massa duis mauris placerat auctor.</li>
+                            <li>Platea platea placerat in dignissim.</li>
+                            <li>Ultrices purus? Ut risus, dis.</li>
+                        </ul>
+                        <p>Et pid habitasse! Natoque dapibus pellentesque lacus? Platea pulvinar, porta elementum sagittis, urna cursus etiam, lacus ut pulvinar elementum odio vel, montes augue, est. Nec sit aliquam et pulvinar! Dictumst nascetur ridiculus tincidunt scelerisque! Natoque risus porttitor, adipiscing cum? Eu sit duis? Et! Vut etiam pulvinar? Ut nec phasellus.</p>
+                    </section>
+                    
+                    <section class="social" style="position:relative;overflow:hidden;">
+                        <div id="fb-root"></div>
+                        <script>(function(d, s, id) {
+                          var js, fjs = d.getElementsByTagName(s)[0];
+                          if (d.getElementById(id)) return;
+                          js = d.createElement(s); js.id = id;
+                          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=479780832071303";
+                          fjs.parentNode.insertBefore(js, fjs);
+                        }(document, 'script', 'facebook-jssdk'));</script>
+                
+                        <p class="fb-like-box" data-href="https://www.facebook.com/FacebookDevelopers" data-width="270" data-show-faces="true" data-stream="false" data-show-border="true" data-header="true"></p>
+
+                        <p><a href="https://twitter.com/share" class="twitter-share-button">Tweet</a></p>
+                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+                        <!-- Place this tag where you want the share button to render. -->
+                        <div class="g-plus" data-action="share"></div>
+
+                        <!-- Place this tag after the last share tag. -->
+                        <script type="text/javascript">
+                          (function() {
+                            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                            po.src = 'https://apis.google.com/js/plusone.js';
+                            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                          })();
+                        </script>
+                    </section>
+                </div>
+            </div>
+            <!-- END FORUM -->
+
+        </section>
+        <!-- END MAIN CONTENT -->
+    </div>
+    <!-- CONTAINER -->
+<script src="${request.static_url('timtec:static/js/lesson.js')}" type="text/javascript"></script>
+</div>
+</metal:main>
