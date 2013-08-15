@@ -37,48 +37,67 @@ def initial_dev_data():
     with transaction.manager:
         course = Course()
         course.slug = u'dbsql'
-        course.name = u'Banco de Dados e SQL'
-        course.description = u'Introdução a Bancos de Dados e Linguagem SQL'
+        course.name = u'Introdução ao Banco de Dados'
+        course.description = u''
         course.abstract = (
-            u'Mussum ipsum cacilds, vidis litro abertis. Consetis'
-            u'adipiscings elitis. Pra lá , depois divoltis porris,'
-            u'paradis. Paisis, filhis, espiritis santis. Mé faiz elementum'
-            u' girarzis, nisi eros vermeio, in elementis mé pra quem é'
-            u'amistosis quis leo. Manduma pindureta quium dia nois paga.'
-            u' Sapien in monti palavris qui num significa nadis i pareci '
-            u'latim. Interessantiss quisso pudia ce receita de bolis, mais '
-            u'bolis eu num gostis.'
+            u'<p>Introdução aos conceitos fundamentais de bancos de dados modernos, desde a forma de organização dos dados (modelos e esquemas de dados) até comandos fundamentais da linguagem SQL e noções de projeto de bancos de dados normalizados. Noções de arquitetura de sistemas, gerenciadores de nacos de dados, integridade referencial, linguagens de definição, manipulação e controle de dados, além de tratar das questões de segurança, integridade e controle de transações.</p>'
+            u'<p><strong><i class="icon-list"></i> Estrutura do curso:</strong>'
+            u'<br>Vídeo-aulas (12 horas)'
+            u'<br>Testes On Line'
+            u'<br>Leitura de material didático de apoio'
+            u'<br>Exercícios individuais de aplicação</p>'
         )
 
         course.knowledge_acquired = (
-            u'Suco de cevadiss, é um leite divinis, qui tem lupuliz, matis, aguis'
-            u' e fermentis. Interagi no mé, cursus quis, vehicula ac nisi. Aenean '
-            u'vel dui dui. Nullam leo erat, aliquet quis tempus a, posuere ut mi. '
-            u'Ut scelerisque neque et turpis posuere pulvinar pellentesque nibh ullamcorper. '
-            u'Pharetra in mattis molestie, volutpat elementum justo. Aenean ut ante turpis. '
-            u'Pellentesque laoreet mé vel lectus scelerisque interdum cursus velit auctor. '
-            u'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac mauris lectus, '
-            u'non scelerisque augue. Aenean justo massa.'
-
+            u'Banco de dados são empregados em praticamente todos os sistemas Web, desde redes sociais a portais de comércio eletrônico, bem como aplicativos comerciais.'
         )
         course.knowledge_required = (
-            u'Casamentiss faiz malandris se pirulitá, Nam liber tempor cum soluta nobis eleifend '
-            u'option congue nihil imperdiet doming id quod mazim placerat facer possim assum. '
-            u'Lorem ipsum dolor sit amet, consectetuer Ispecialista im mé intende tudis nuam golada, '
-            u'vinho, uiski, carirí, rum da jamaikis, só num pode ser mijis. Adipiscing elit, sed '
-            u'diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. '
-            u'Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis '
-            u'nisl ut aliquip ex ea commodo consequat.'
+            u'O interessado deverá possuir conhecimentos básicos (selecionar, copiar, colar, criar pastas, salvar e renomear documentos) de algum sistema operacional e de navegação na Internet. '
+            u'Para participar deste curso e realizar seus exercícios é necessário um computador com acesso à internet, navegador web atualizado (pelo menos 2) e algum programa de edição de texto sem formatação. '
+            u'É recomendada a idade mínima de 14 anos.'
         )
-        course.time_estimated = u'1 mês'
-        course.extra_dadication = u'40 horas'
+        
+        course.time_estimated = (
+            u'<p><strong><i class="icon-time"></i> Carga horária:</strong> <br/>40 horas, a serem completadas em seis semanas</p>'
+            u'<p><small>O tempo estimado de dedicação do aluno e agenda de comprometimento sugerida são de 12 horas de aulas expositivas, a serem completadas em 6 semanas e a sugestão de dedicação do aluno é de 6 horas por semana, sendo 2hrs para assistir aulas e 4hrs para fazer exercícios</small></p>'
+        )
+        course.extra_dadication = (
+            u'<p><strong>Relação do curso com o PRONATEC:</strong></p>'
+            u'<p>Eixo Tecnológico: Informação e Comunicação</p>'
+            u'<p>Títulos semelhantes oferecidos Guia PRONATEC:</p>'
+            u'<ul>'
+            u'<li>Técnico em Informática</li>'
+            u'<li>Técnico em Manutenção e Suporte em Informática</li>'
+            u'<li>Técnico em Informática para Internet</li>'
+            u'</ul>'
+            u'<p>Títulos semelhantes oferecidos Guia PRONATEC de cursos FIC:</p>'
+            u'<ul>'
+            u'<li>Administrador de Banco de Dados</li>'
+            u'<li>Operador de Computador</li>'
+            u'<li>Programador de Dispositivos Móveis</li>'
+            u'<li>Programador de Sistemas</li>'
+            u'<li>Programador Web</li>'
+            u'</ul>'
+            u'<p>Outros nomes atribuídos a estes profissionais:</p>'
+            u'<ul>'
+            u'<li>Técnico em Formação de Instrutores de Informática</li>'
+            u'<li>Técnico em Planejamento e Gestão em Tecnologia da Informação</li>'
+            u'</ul>'
+        )
 
         lessons = [
-            (1, u'Apresentando: Bancos de Dados', u'Para que servem os bancos de dados'),
-            (2, u'Programas para operar bancos de dados', u'Software para bancos de dados'),
-            (3, u'O que é SQL', u'Ésse-quê-éle'),
-            (4, u'Organizando os dados', u'Organizando os dados'),
-            (5, u'Instalar e testar o SQLite', u'Instalar os programas para praticar'),
+            (1, u'Modelos de dados e introdução ao modelo relacional', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis.'),
+            (2, u'Introdução a SQL (demonstração), SGBDs e definição de esquemas', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
+            (3, u'SELECT, Projeção x seleção e uso do console', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
+            (4, u'Seleções com lógica booleana', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
+            (5, u'Chaves: simples, compostas, candidatas, primárias, estrangeiras, mudas', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
+            (6, u'Consultas com relacionamentos, joins implícitos e explícitos', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
+            (7, u'Consultas com agregação', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
+            (8, u'Operações de alteração de dados e transações', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
+            (9, u'Projeto de bancos de dados normalizados e formas normais', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
+            (10, u'Índices e constraints', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
+            (11, u'Triggers e views, dialetos de SQL entre SGBDs importantes', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
+            (12, u'Limitações e alternativas ao modelo tradicional', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!')
         ]
 
         for position, lesson_title, lesson_desc in lessons:
@@ -91,30 +110,17 @@ def initial_dev_data():
                 lesson1 = lesson
             DBSession.add(lesson)
 
-        user1 = User(username='ramalho', password='kdkdk', email='skdsk@vcx')
-        user1.name = u'Luciano Ramalho'
-        professor2 = User(username='Lucia', password='kdkdk', email='skdsk@asdf')
-        professor2.name = u'Lucia Silva'
-        DBSession.add(user1)
-        DBSession.add(professor2)
+        professor_1 = User(username='ramalho', password='kdkdk', email='skdsk@vcx')
+        professor_1.name = u'Luciano Ramalho'
+        DBSession.add(professor_1)
 
         course_professor = CourseProfessors()
-        course_professor.user = user1
+        course_professor.user = professor_1
         course_professor.biography = (
-            u'Mussum ipsum cacilds, vidis litro abertis. Consetis'
-            u'adipiscings elitis. Pra lá , depois divoltis porris,'
-            u'paradis. Paisis, filhis, espiritis santis. Mé faiz elementum'
-            u' girarzis, nisi eros vermeio, in elementis mé pra quem é'
-            u'amistosis quis leo. Manduma pindureta quium dia nois paga.'
-            u'bolis eu num gostis.'
+            u'Luciano Ramalho é sócio e professor nas Oficinas Turing. Foi diretor técnico do Brasil Online, primeiro portal da Abril S/A na Web. Liderou times para os portais IDG Now, BOL, UOL, AOL Brasil e outros, usando Python desde 1998. Como instrutor, atendeu clientes como Citibank, CPqD, Serpro, Presidência da República, Globo.com e Itaú. Ajudou a criar a Associação Python Brasil e foi seu presidente. É membro da Python Software Foundation e fundador do Garoa Hacker Clube, o primeiro hackerspace do Brasil. Já palestrou várias vezes em eventos internacionais como FISL, OSCON e PyCon US.'
         )
         DBSession.add(course_professor)
         course.professors.append(course_professor)
-
-        course_professors2 = CourseProfessors()
-        course_professors2.user = professor2
-        course.professors.append(course_professors2)
-        DBSession.add(course_professors2)
 
         DBSession.add(course)
 

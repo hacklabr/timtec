@@ -5,7 +5,7 @@
         
         <!-- HEADER -->
         <header id="main-header" class="container">
-            <h1>{lesson.course.description}</h1>
+            <h1>${lesson.course.name}</h1>
         </header>
         <!-- END HEADER -->
         
@@ -17,34 +17,19 @@
                     <div class="col-sm-8 col-lg-8">
                         <!-- COURSE-VIDEO-NAV -->
                         <nav class="course-video-nav row">
-                            <div class="col-sm-8 col-lg-6 ">
+                            <div class="col-sm-12 col-lg-12">
                                 <div class="btn-group button-watching">
                                     <button type="button" class="btn btn-small btn-info">${lesson.name}</button>
                                     <button type="button" class="btn btn-small btn-info dropdown-toggle" data-toggle="dropdown">
                                         <i class="icon-chevron-down"></i>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#">Aula 1 - Introdução a linguagem SQL</a></li>
-                                        <li class="active"><a href="#">Aula 2 - Introdução a linguagem SQL</a></li>
-                                        <li><a href="#">Aula 3 - Introdução a linguagem SQL</a></li>
+                                        <li tal:repeat="lesson lesson.course.lessons">
+                                            <a href=""><span class="title">Aula ${repeat.lesson.number}: ${lesson.name}</span></a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
-                            
-                            <div class="col-sm-6 col-lg-6">
-                                <script type="text/javascript" charset="utf-8">
-                                    $(document).ready(function() {
-                                        $('.video-control > a').tooltip();
-                                    })
-                                </script>
-                                <div class="video-control textright clearfix">
-                                    <a href="" class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="Aula Anterior"><i class="icon-fast-backward"></i></a>
-                                    <a href="" class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="Bloco Anterior"><i class="icon-backward"></i></a>
-                                    <a href="" class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="Próximo Bloco"><i class="icon-forward"></i></a>
-                                    <a href="" class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="Próxima Aula"><i class="icon-fast-forward"></i></a>
-                                </div>
-                            </div>
-                        
                         </nav>
                         <!-- END COURSE-VIDEO-NAV -->
                     </div>
@@ -79,26 +64,25 @@
                             })
                         </script>
                         <div class="track done" data-toggle="tooltip" data-placement="right" data-original-title="Parte I">&nbsp;</div>
-                        <div class="track done" data-toggle="tooltip" data-placement="right" data-original-title="Parte II"><i class="icon-list"></i></div>
-                        <div class="track done" data-toggle="tooltip" data-placement="right" data-original-title="Parte II"><i class="icon-list"></i></div>
-                        <div class="track done" data-toggle="tooltip" data-placement="right" data-original-title="Parte IV"><i class="icon-list"></i></div>
+                        <div class="track done" data-toggle="tooltip" data-placement="right" data-original-title="Parte II">&nbsp;</div>
+                        <div class="track done" data-toggle="tooltip" data-placement="right" data-original-title="Parte III">&nbsp;</div>
+                        <div class="track done" data-toggle="tooltip" data-placement="right" data-original-title="Parte IV">&nbsp;</div>
                         <div class="track watching" data-toggle="tooltip" data-placement="right" data-original-title="Parte V"><i class="icon-list"></i></div>
-                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte VI"><i class="icon-list"></i></div>
-                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte VII"><i class="icon-list"></i></div>
-                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte VIII"><i class="icon-list"></i></div>
-                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte IX"><i class="icon-list"></i></div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte VI">&nbsp;</div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte VII">&nbsp;</div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte VIII">&nbsp;</div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte IX">&nbsp;</div>
                         <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte X"><i class="icon-time"></i></div>
-                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XI"><i class="icon-list"></i></div>
-                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XII"><i class="icon-list"></i></div>
-                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XIII"><i class="icon-list"></i></div>
-                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XIV"><i class="icon-list"></i></div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XI">&nbsp;</div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XII">&nbsp;</div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XIII">&nbsp;</div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XIV">&nbsp;</div>
                         <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XV"><i class="icon-list"></i></div>
-                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XVI"><i class="icon-list"></i></div>
-                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XVII"><i class="icon-list"></i></div>
-                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XVIII"><i class="icon-list"></i></div>
-                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XIX"><i class="icon-list"></i></div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XVI">&nbsp;</div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XVII">&nbsp;</div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XVIII">&nbsp;</div>
+                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XIX">&nbsp;</div>
                         <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XX"><i class="icon-list"></i></div>
-                        <div class="track" data-toggle="tooltip" data-placement="right" data-original-title="Parte XX" ><i class="icon-list"></i></div>
                     </div>
                     <!-- END BLOCKS -->
 

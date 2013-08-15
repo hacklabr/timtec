@@ -78,6 +78,9 @@
 .textright {
     text-align:right;
 }
+.uppercase {
+    text-transform:uppercase;
+}
 .bottom {
     .bottom(0,0);
 }
@@ -116,19 +119,6 @@
     font-weight:bold;
     text-transform:uppercase;
 }
-.btn-tim {
-    line-height:1;
-    text-transform:uppercase;
-}
-// Inverse appears as dark gray
-.btn-course {
-    background-color:@timViolet;
-}
-a.btn-course {
-    color:@white;
-}
-
-
 
 
 // FONT
@@ -167,7 +157,7 @@ h1, h2, h3, h4, h5, h6 {
 #main-navbar {
     .navbar-nav {
         a:hover {
-            background:#00bebe;
+            background:rgba(0,0,0,0.2);
             .transition(all 0.1s ease-out);
         }
         .username i {
@@ -226,11 +216,11 @@ h1, h2, h3, h4, h5, h6 {
             padding:18px 0 27px;
         }
         
-        a.btn-large {
+        a.btn {
             font-size:14px;
             margin-top:21px;
             &:hover {
-                background:@timViolet - 20%;
+                background:darken(@brand-warning, 3%);
                 .transition(all 0.1s ease-out);
             }
         }
@@ -244,23 +234,24 @@ h1, h2, h3, h4, h5, h6 {
     }
         
     .course-summary {
-        ul {
-            font-size:12px;
+    }
 
+    .course-lessons {
+        .top(27px);
+        
+        ul {
             .title {
                 display:block;
                 font-weight:bold;
+            }
+            
+            .description {
                 font-size:13px;
             }
             
             li {
                 .bottom(9px,9px);
                 border-bottom:1px solid @gray-lighter;
-
-                &:first-child {
-                    .top(9px,9px);
-                    border-top:1px solid @gray-lighter;
-                }   
             }
         }
     }
@@ -274,6 +265,7 @@ h1, h2, h3, h4, h5, h6 {
         }
 
         .instructor {
+            margin-bottom:36px;
             p:last-child {
                 .bottom(0,0);
             }
@@ -562,6 +554,10 @@ h1, h2, h3, h4, h5, h6 {
         .bottom(36px,18px);
         border-bottom:1px solid @gray-lighter;
         font-size:12px;        
+    }
+
+    .social {
+        .top(36px);
     }
 }
 
