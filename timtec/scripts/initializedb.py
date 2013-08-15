@@ -111,6 +111,9 @@ def initial_dev_data():
                 lesson1 = lesson
             DBSession.add(lesson)
 
+        user_andersonorui = User(username="andersonorui", password="asdf", email="andersonorui@hacklab.com.br", name="Anderson Orui")
+        DBSession.add(user_andersonorui)
+
         professor_1 = User(username='ramalho', password='kdkdk', email='skdsk@vcx')
         professor_1.name = u'Luciano Ramalho'
         DBSession.add(professor_1)

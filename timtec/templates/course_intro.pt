@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-sm-9 col-lg-9">
                     <section class="course-video row">
-                        <iframe class="col-sm-12 col-lg-12" id="ytplayer" type="text/html" height="489" src="https://www.youtube.com/embed/JDlu4CM9bDg?rel=0&showinfo=0&autohide=1&theme=light" frameborder="0" allowfullscreen></iframe>
+                        <iframe class="col-sm-12 col-lg-12" id="ytplayer" type="text/html" height="489" src="https://www.youtube.com/embed/qb-6oDS9pB4?rel=0&showinfo=0&autohide=1&theme=light" frameborder="0" allowfullscreen></iframe>
                     </section>
 
                     <section class="course-info row">
