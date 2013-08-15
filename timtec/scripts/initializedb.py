@@ -62,6 +62,7 @@ def initial_dev_data():
             u'<p><small>O tempo estimado de dedicação do aluno e agenda de comprometimento sugerida são de 12 horas de aulas expositivas, a serem completadas em 6 semanas e a sugestão de dedicação do aluno é de 6 horas por semana, sendo 2hrs para assistir aulas e 4hrs para fazer exercícios</small></p>'
         )
         course.extra_dadication = (
+            u'<hr/>'
             u'<p><strong>Relação do curso com o PRONATEC:</strong></p>'
             u'<p>Eixo Tecnológico: Informação e Comunicação</p>'
             u'<p>Títulos semelhantes oferecidos Guia PRONATEC:</p>'
@@ -86,18 +87,18 @@ def initial_dev_data():
         )
 
         lessons = [
-            (1, u'Modelos de dados e introdução ao modelo relacional', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis.'),
-            (2, u'Introdução a SQL (demonstração), SGBDs e definição de esquemas', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
-            (3, u'SELECT, Projeção x seleção e uso do console', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
-            (4, u'Seleções com lógica booleana', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
-            (5, u'Chaves: simples, compostas, candidatas, primárias, estrangeiras, mudas', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
-            (6, u'Consultas com relacionamentos, joins implícitos e explícitos', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
-            (7, u'Consultas com agregação', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
-            (8, u'Operações de alteração de dados e transações', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
-            (9, u'Projeto de bancos de dados normalizados e formas normais', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
-            (10, u'Índices e constraints', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
-            (11, u'Triggers e views, dialetos de SQL entre SGBDs importantes', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
-            (12, u'Limitações e alternativas ao modelo tradicional', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!')
+            (1, u'Aula 1: Modelos de dados e introdução ao modelo relacional', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis.'),
+            (2, u'Aula 2: Introdução a SQL (demonstração), SGBDs e definição de esquemas', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
+            (3, u'Aula 3: SELECT, Projeção x seleção e uso do console', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
+            (4, u'Aula 4: Seleções com lógica booleana', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
+            (5, u'Aula 5: Chaves: simples, compostas, candidatas, primárias, estrangeiras, mudas', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
+            (6, u'Aula 6: Consultas com relacionamentos, joins implícitos e explícitos', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
+            (7, u'Aula 7: Consultas com agregação', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
+            (8, u'Aula 8: Operações de alteração de dados e transações', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
+            (9, u'Aula 9: Projeto de bancos de dados normalizados e formas normais', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
+            (10, u'Aula 10: Índices e constraints', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
+            (11, u'Aula 11: Triggers e views, dialetos de SQL entre SGBDs importantes', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!'),
+            (12, u'Aula 12: Limitações e alternativas ao modelo tradicional', u'Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!')
         ]
 
         for position, lesson_title, lesson_desc in lessons:

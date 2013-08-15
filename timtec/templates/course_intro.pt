@@ -48,7 +48,7 @@
                             </div>
                             <ul class="no-bullet">
                                 <li tal:repeat="lesson course.lessons">
-                                    <span class="title">Aula ${repeat.lesson.number}: ${lesson.name}</span>
+                                    <span class="title">${lesson.name}</span>
                                     <span class="description">${lesson.desc}</span>
                                 </li>
                             </ul>
