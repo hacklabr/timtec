@@ -9,8 +9,6 @@ urlpatterns = patterns('',
     # url(r'^$', 'timtec.views.home', name='home'),
     # url(r'^timtec/', include('timtec.foo.urls')),
 
-    (r'^grappelli/', include('grappelli.urls')), # grappelli URLS
-
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
