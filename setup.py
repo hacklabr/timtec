@@ -20,17 +20,10 @@ class PyTest(TestCommand):
 
 here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.rst')).read()
-CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
+CHANGES = ''
 
 requires = [
-    'pyramid',
-    'SQLAlchemy',
-    'transaction',
-    'pyramid_tm',
-    'pyramid_debugtoolbar',
-    'zope.sqlalchemy',
-    'waitress',
-    'horus',
+    'django',
 ]
 
 setup(name='timtec',
@@ -39,14 +32,14 @@ setup(name='timtec',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
           "Programming Language :: Python",
-          "Framework :: Pyramid",
+          "Framework :: Django",
           "Topic :: Internet :: WWW/HTTP",
           "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
       ],
-      author='',
-      author_email='',
-      url='',
-      keywords='web wsgi bfg pylons pyramid',
+      author='Hacklab',
+      author_email='contato@hacklab.com.br',
+      url='hacklab.com.br',
+      keywords='web wsgi django',
       packages=find_packages(),
       include_package_data=True,
       zip_safe=False,
@@ -54,10 +47,4 @@ setup(name='timtec',
       tests_require=['pytest'],
       cmdclass={'test': PyTest},
       install_requires=requires,
-      entry_points="""\
-      [paste.app_factory]
-      main = timtec:main
-      [console_scripts]
-      initialize_timtec_db = timtec.scripts.initializedb:main
-      """,
       )

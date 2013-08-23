@@ -3,6 +3,5 @@ ipython
 pip-tools
 pytest-cov
 pytest==2.3.5
-pyramid-debugtoolbar==1.0.6
-waitress==0.8.5
+pytest-django==2.3.0
 mock==1.0.1

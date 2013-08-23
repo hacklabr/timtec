@@ -16,6 +16,5 @@ Getting Started
 - go to this directory
 - pip install -r requirements.txt
 - pip install -r dev-requirements.txt
-- python setup.py develop
-- initialize_timtec_db development.ini
-- pserve development.ini --reload
+- ./manage.py syncdb
+- ./manage.py runserver

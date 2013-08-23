@@ -1,0 +1,204 @@
+[
+{
+    "pk": 1, 
+    "model": "course.timtecuser", 
+    "fields": {
+        "username": "a", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": true, 
+        "is_staff": true, 
+        "last_login": "2013-08-23T21:07:37.606Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$27edDmeMEx0p$Hlbl543/d/caP6w8ClL/VhzTMaiRCLa05nK9Uyoje9I=", 
+        "email": "a@b.cd", 
+        "date_joined": "2013-08-23T21:06:59.961Z"
+    }
+},
+{
+    "pk": 2, 
+    "model": "course.timtecuser", 
+    "fields": {
+        "username": "ramalho", 
+        "first_name": "Luciano", 
+        "last_name": "Ramalho", 
+        "is_active": true, 
+        "is_superuser": true, 
+        "is_staff": true, 
+        "last_login": "2013-08-23T21:36:33.698Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$27edDmeMEx0p$Hlbl543/d/caP6w8ClL/VhzTMaiRCLa05nK9Uyoje9I=", 
+        "email": "luciano@ramalho.org", 
+        "date_joined": "2013-08-23T21:35:44Z"
+    }
+},
+{
+    "pk": 1, 
+    "model": "course.video", 
+    "fields": {
+        "name": "IntroDB", 
+        "youtube_id": "qb-6oDS9pB4"
+    }
+},
+{
+    "pk": 1, 
+    "model": "course.course", 
+    "fields": {
+        "status": "public", 
+        "requirement": "O interessado dever\u00e1 possuir conhecimentos b\u00e1sicos (selecionar, copiar, colar, criar pastas, salvar e renomear documentos) de algum sistema operacional e de navega\u00e7\u00e3o na Internet. \r\nPara participar deste curso e realizar seus exerc\u00edcios \u00e9 necess\u00e1rio um computador com acesso \u00e0 internet, navegador web atualizado (pelo menos 2) e algum programa de edi\u00e7\u00e3o de texto sem formata\u00e7\u00e3o. \r\n\u00c9 recomendada a idade m\u00ednima de 14 anos.", 
+        "workload": "<p>40 horas, a serem completadas em seis semanas</p>\r\n\r\n<p><small>O tempo estimado de dedica\u00e7\u00e3o do aluno e agenda de comprometimento sugerida s\u00e3o de 12 horas de aulas expositivas, a serem completadas em 6 semanas e a sugest\u00e3o de dedica\u00e7\u00e3o do aluno \u00e9 de 6 horas por semana, sendo 2hrs para assistir aulas e 4hrs para fazer exerc\u00edcios</small></p>", 
+        "intro_video": 1, 
+        "pronatec": "<p><strong>Rela\u00e7\u00e3o do curso com o PRONATEC:</strong></p><p>Eixo Tecnol\u00f3gico: Informa\u00e7\u00e3o e Comunica\u00e7\u00e3o</p><p>T\u00edtulos semelhantes oferecidos Guia PRONATEC:</p><ul><li>T\u00e9cnico em Inform\u00e1tica</li><li>T\u00e9cnico em Manuten\u00e7\u00e3o e Suporte em Inform\u00e1tica</li><li>T\u00e9cnico em Inform\u00e1tica para Internet</li></ul><p>T\u00edtulos semelhantes oferecidos Guia PRONATEC de cursos FIC:</p><ul><li>Administrador de Banco de Dados</li><li>Operador de Computador</li><li>Programador de Dispositivos M\u00f3veis</li><li>Programador de Sistemas</li><li>Programador Web</li></ul><p>Outros nomes atribu\u00eddos a estes profissionais:</p><ul><li>T\u00e9cnico em Forma\u00e7\u00e3o de Instrutores de Inform\u00e1tica</li><li>T\u00e9cnico em Planejamento e Gest\u00e3o em Tecnologia da Informa\u00e7\u00e3o</li></ul>", 
+        "abstract": "<p>Introdu\u00e7\u00e3o aos conceitos fundamentais de bancos de dados modernos, desde a forma de organiza\u00e7\u00e3o dos dados (modelos e esquemas de dados) at\u00e9 comandos fundamentais da linguagem SQL e no\u00e7\u00f5es de projeto de bancos de dados normalizados. No\u00e7\u00f5es de arquitetura de sistemas, gerenciadores de nacos de dados, integridade referencial, linguagens de defini\u00e7\u00e3o, manipula\u00e7\u00e3o e controle de dados, al\u00e9m de tratar das quest\u00f5es de seguran\u00e7a, integridade e controle de transa\u00e7\u00f5es.</p>\r\n", 
+        "application": "Banco de dados s\u00e3o empregados em praticamente todos os sistemas Web, desde redes sociais a portais de com\u00e9rcio eletr\u00f4nico, bem como aplicativos comerciais.", 
+        "publication": "2013-08-23", 
+        "slug": "dbsql", 
+        "structure": "<br>V\u00eddeo-aulas (12 horas)\r\n<br>Testes On Line\r\n<br>Leitura de material did\u00e1tico de apoio\r\n<br>Exerc\u00edcios individuais de aplica\u00e7\u00e3o", 
+        "name": "Introdu\u00e7\u00e3o ao Banco de Dados"
+    }
+},
+{
+    "pk": 1, 
+    "model": "course.courseprofessor", 
+    "fields": {
+        "course": 1, 
+        "user": 2, 
+        "biography": "Cara legal."
+    }
+},
+{
+    "pk": 1, 
+    "model": "course.lesson", 
+    "fields": {
+        "position": 0, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis.", 
+        "course": 1, 
+        "slug": "aula-1-modelos-de-dados-e-introducao-ao-modelo-relacional", 
+        "name": "Aula 1: Modelos de dados e introdu\u00e7\u00e3o ao modelo relacional"
+    }
+},
+{
+    "pk": 2, 
+    "model": "course.lesson", 
+    "fields": {
+        "position": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "course": 1, 
+        "slug": "aula-2-introducao-a-sql-demonstracao-sgbds-e-definicao-de-esquemas", 
+        "name": "Aula 2: Introdu\u00e7\u00e3o a SQL (demonstra\u00e7\u00e3o), SGBDs e defini\u00e7\u00e3o de esquemas"
+    }
+},
+{
+    "pk": 3, 
+    "model": "course.lesson", 
+    "fields": {
+        "position": 2, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "course": 1, 
+        "slug": "aula-3-select-projecao-x-selecao-e-uso-do-console", 
+        "name": "Aula 3: SELECT, Proje\u00e7\u00e3o x sele\u00e7\u00e3o e uso do console"
+    }
+},
+{
+    "pk": 4, 
+    "model": "course.lesson", 
+    "fields": {
+        "position": 3, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "course": 1, 
+        "slug": "aula-4-selecoes-com-logica-booleana", 
+        "name": "Aula 4: Sele\u00e7\u00f5es com l\u00f3gica booleana"
+    }
+},
+{
+    "pk": 5, 
+    "model": "course.lesson", 
+    "fields": {
+        "position": 4, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "course": 1, 
+        "slug": "aula-5-chaves-simples-compostas-candidatas-primarias-estrangeiras-mudas", 
+        "name": "Aula 5: Chaves: simples, compostas, candidatas, prim\u00e1rias, estrangeiras, mudas"
+    }
+},
+{
+    "pk": 6, 
+    "model": "course.lesson", 
+    "fields": {
+        "position": 5, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "course": 1, 
+        "slug": "aula-6-consultas-com-relacionamentos-joins-implicitos-e-explicitos", 
+        "name": "Aula 6: Consultas com relacionamentos, joins impl\u00edcitos e expl\u00edcitos"
+    }
+},
+{
+    "pk": 7, 
+    "model": "course.lesson", 
+    "fields": {
+        "position": 6, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "course": 1, 
+        "slug": "aula-7-consultas-com-agregacao", 
+        "name": "Aula 7: Consultas com agrega\u00e7\u00e3o"
+    }
+},
+{
+    "pk": 8, 
+    "model": "course.lesson", 
+    "fields": {
+        "position": 7, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "course": 1, 
+        "slug": "aula-8-operacoes-de-alteracao-de-dados-e-transacoes", 
+        "name": "Aula 8: Opera\u00e7\u00f5es de altera\u00e7\u00e3o de dados e transa\u00e7\u00f5es"
+    }
+},
+{
+    "pk": 9, 
+    "model": "course.lesson", 
+    "fields": {
+        "position": 8, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "course": 1, 
+        "slug": "aula-9-projeto-de-bancos-de-dados-normalizados-e-formas-normais", 
+        "name": "Aula 9: Projeto de bancos de dados normalizados e formas normais"
+    }
+},
+{
+    "pk": 10, 
+    "model": "course.lesson", 
+    "fields": {
+        "position": 9, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "course": 1, 
+        "slug": "aula-10-indices-e-constraints", 
+        "name": "Aula 10: \u00cdndices e constraints"
+    }
+},
+{
+    "pk": 11, 
+    "model": "course.lesson", 
+    "fields": {
+        "position": 10, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "course": 1, 
+        "slug": "aula-11-triggers-e-views-dialetos-de-sql-entre-sgbds-importantes", 
+        "name": "Aula 11: Triggers e views, dialetos de SQL entre SGBDs importantes"
+    }
+},
+{
+    "pk": 12, 
+    "model": "course.lesson", 
+    "fields": {
+        "position": 11, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "course": 1, 
+        "slug": "aula-12-limitacoes-e-alternativas-ao-modelo-tradicional", 
+        "name": "Aula 12: Limita\u00e7\u00f5es e alternativas ao modelo tradicional"
+    }
+}
+]
