@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
+from django.contrib.auth.admin import UserAdmin
 from suit.admin import SortableTabularInline
 
 from models import *
 
-admin.site.register(TimtecUser)
+admin.site.register(TimtecUser, UserAdmin)
 admin.site.register(Video)
 admin.site.register(CourseProfessor)
 
