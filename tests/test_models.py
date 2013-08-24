@@ -1,5 +1,5 @@
 import pytest
-from course.models import *
+from core.models import *
 
 
 @pytest.mark.django_db

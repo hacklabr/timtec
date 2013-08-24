@@ -110,7 +110,7 @@ SUIT_CONFIG = {
     # 'CONFIRM_UNSAVED_CHANGES': True, # Default True
 
     # menu
-    'SEARCH_URL': '/admin/course/timtecuser/',
+    'SEARCH_URL': '/admin/core/timtecuser/',
     # 'MENU_ICONS': {
     #    'sites': 'icon-leaf',
     #    'auth': 'icon-lock',
@@ -120,7 +120,7 @@ SUIT_CONFIG = {
     # 'MENU': (
     #     'sites',
     #     {'app': 'auth', 'icon':'icon-lock', 'models': ('user', 'group')},
-    #     {'label': 'Settings', 'icon':'icon-cog', 'models': ('course.TimtecUser', 'auth.group')},
+    #     {'label': 'Settings', 'icon':'icon-cog', 'models': ('core.TimtecUser', 'auth.group')},
     #     # {'label': 'Support', 'icon':'icon-question-sign', 'url': '/support/'},
     # ),
 
@@ -128,7 +128,7 @@ SUIT_CONFIG = {
     # 'LIST_PER_PAGE': 15
 }
 
-AUTH_USER_MODEL = 'course.TimtecUser'
+AUTH_USER_MODEL = 'core.TimtecUser'
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -162,7 +162,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
-    'course',
+    'core',
 )
 
 # A sample logging configuration. The only tangible logging

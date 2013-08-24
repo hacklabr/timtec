@@ -1,7 +1,7 @@
 [
 {
     "pk": 1, 
-    "model": "course.timtecuser", 
+    "model": "core.timtecuser", 
     "fields": {
         "username": "a", 
         "first_name": "", 
@@ -19,7 +19,7 @@
 },
 {
     "pk": 2, 
-    "model": "course.timtecuser", 
+    "model": "core.timtecuser", 
     "fields": {
         "username": "ramalho", 
         "first_name": "Luciano", 
@@ -37,7 +37,7 @@
 },
 {
     "pk": 1, 
-    "model": "course.video", 
+    "model": "core.video", 
     "fields": {
         "name": "IntroDB", 
         "youtube_id": "qb-6oDS9pB4"
@@ -45,7 +45,7 @@
 },
 {
     "pk": 1, 
-    "model": "course.course", 
+    "model": "core.course", 
     "fields": {
         "status": "public", 
         "requirement": "O interessado dever\u00e1 possuir conhecimentos b\u00e1sicos (selecionar, copiar, colar, criar pastas, salvar e renomear documentos) de algum sistema operacional e de navega\u00e7\u00e3o na Internet. \r\nPara participar deste curso e realizar seus exerc\u00edcios \u00e9 necess\u00e1rio um computador com acesso \u00e0 internet, navegador web atualizado (pelo menos 2) e algum programa de edi\u00e7\u00e3o de texto sem formata\u00e7\u00e3o. \r\n\u00c9 recomendada a idade m\u00ednima de 14 anos.", 
@@ -62,7 +62,7 @@
 },
 {
     "pk": 1, 
-    "model": "course.courseprofessor", 
+    "model": "core.courseprofessor", 
     "fields": {
         "course": 1, 
         "user": 2, 
@@ -71,7 +71,7 @@
 },
 {
     "pk": 1, 
-    "model": "course.lesson", 
+    "model": "core.lesson", 
     "fields": {
         "position": 0, 
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis.", 
@@ -82,7 +82,7 @@
 },
 {
     "pk": 2, 
-    "model": "course.lesson", 
+    "model": "core.lesson", 
     "fields": {
         "position": 1, 
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
@@ -93,7 +93,7 @@
 },
 {
     "pk": 3, 
-    "model": "course.lesson", 
+    "model": "core.lesson", 
     "fields": {
         "position": 2, 
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
@@ -104,7 +104,7 @@
 },
 {
     "pk": 4, 
-    "model": "course.lesson", 
+    "model": "core.lesson", 
     "fields": {
         "position": 3, 
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
@@ -115,7 +115,7 @@
 },
 {
     "pk": 5, 
-    "model": "course.lesson", 
+    "model": "core.lesson", 
     "fields": {
         "position": 4, 
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
@@ -126,7 +126,7 @@
 },
 {
     "pk": 6, 
-    "model": "course.lesson", 
+    "model": "core.lesson", 
     "fields": {
         "position": 5, 
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
@@ -137,7 +137,7 @@
 },
 {
     "pk": 7, 
-    "model": "course.lesson", 
+    "model": "core.lesson", 
     "fields": {
         "position": 6, 
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
@@ -148,7 +148,7 @@
 },
 {
     "pk": 8, 
-    "model": "course.lesson", 
+    "model": "core.lesson", 
     "fields": {
         "position": 7, 
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
@@ -159,7 +159,7 @@
 },
 {
     "pk": 9, 
-    "model": "course.lesson", 
+    "model": "core.lesson", 
     "fields": {
         "position": 8, 
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
@@ -170,7 +170,7 @@
 },
 {
     "pk": 10, 
-    "model": "course.lesson", 
+    "model": "core.lesson", 
     "fields": {
         "position": 9, 
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
@@ -181,7 +181,7 @@
 },
 {
     "pk": 11, 
-    "model": "course.lesson", 
+    "model": "core.lesson", 
     "fields": {
         "position": 10, 
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
@@ -192,7 +192,7 @@
 },
 {
     "pk": 12, 
-    "model": "course.lesson", 
+    "model": "core.lesson", 
     "fields": {
         "position": 11, 
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
