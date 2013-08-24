@@ -9,9 +9,11 @@ admin.site.register(TimtecUser, UserAdmin)
 admin.site.register(Video)
 admin.site.register(CourseProfessor)
 
+
 class LessonInline(SortableTabularInline):
     model = Lesson
     sortable = 'position'
+
 
 class CourseAdmin(ModelAdmin):
     inlines = (LessonInline,)

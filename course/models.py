@@ -3,6 +3,7 @@ from jsonfield import JSONField
 from django.contrib.auth.models import AbstractUser
 from django.template.defaultfilters import slugify
 
+
 class TimtecUser(AbstractUser):
     pass
 
@@ -13,6 +14,7 @@ class Video(models.Model):
 
     def __unicode__(self):
         return self.name
+
 
 class Course(models.Model):
     STATES = (
@@ -37,6 +39,7 @@ class Course(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class CourseProfessor(models.Model):
     class Meta:
         unique_together = (('user', 'course'),)
@@ -46,7 +49,7 @@ class CourseProfessor(models.Model):
     biography = models.TextField()
 
     def __unicode__(self):
-        return unicode(self.user) + ' @ ' + unicode(self.course)
+        return u'%s @ %s' % (self.user, self.course)
 
 
 class Lesson(models.Model):
@@ -66,6 +69,7 @@ class Lesson(models.Model):
 
     def __unicode__(self):
         return self.name
+
 
 class Activity(models.Model):
     """
@@ -90,6 +94,7 @@ class Activity(models.Model):
     def __unicode__(self):
         return u'%s dt %s a %s' % (self.type, self.data, self.expected_answer)
 
+
 class Unit(models.Model):
     lesson = models.ForeignKey(Lesson)
     video = models.ForeignKey(Video, null=True, blank=True)
@@ -101,6 +106,7 @@ class Unit(models.Model):
 
     def __unicode__(self):
         return u'%s) %s - %s - %s' % (self.position, self.lesson, self.video, self.activity)
+
 
 class Answer(models.Model):
     activity = models.ForeignKey(Activity)
