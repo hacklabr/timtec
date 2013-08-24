@@ -53,7 +53,7 @@ class Lesson(models.Model):
     slug = models.SlugField(max_length=255, editable=False, unique=True)
     name = models.CharField(max_length=255)
     desc = models.CharField(max_length=255)
-    position = models.IntegerField()
+    position = models.PositiveIntegerField()
     course = models.ForeignKey(Course)
 
     class Meta:
@@ -94,7 +94,7 @@ class Unit(models.Model):
     lesson = models.ForeignKey(Lesson)
     video = models.ForeignKey(Video, null=True, blank=True)
     activity = models.ForeignKey(Activity, null=True, blank=True)
-    position = models.IntegerField()
+    position = models.PositiveIntegerField()
 
     class Meta:
         ordering = ['position']
