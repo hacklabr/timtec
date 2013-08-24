@@ -1,7 +1,4 @@
-ipdb
-ipython
 pip-tools
 pytest-cov
 pytest==2.3.5
 pytest-django==2.3.0
-mock==1.0.1
