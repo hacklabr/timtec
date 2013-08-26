@@ -4,3 +4,4 @@ django-suit==0.2.4
 Pillow==2.1.0
 docutils==0.11
 django-registration==1.0
+django-rosetta==0.7.2
