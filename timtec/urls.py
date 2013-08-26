@@ -8,7 +8,7 @@ admin.autodiscover()
 urlpatterns = patterns(
     '',
     # Examples:
-    # url(r'^$', 'timtec.views.home', name='home'),
+    url(r'^$', 'core.views.home', name='home'),
     # url(r'^timtec/', include('timtec.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

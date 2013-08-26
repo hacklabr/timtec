@@ -27,7 +27,7 @@ DATABASES = {
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -87,6 +87,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(PROJECT_ROOT, "static"),
 )
 
 # List of finder classes that know how to find static files in
@@ -94,8 +95,42 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
+    # 'pipeline.finders.CachedFileFinder',
     # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
+
+STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+
+PIPELINE_COMPILERS = (
+    'pipeline.compilers.less.LessCompiler',
+)
+
+PIPELINE_CSS = {
+    'all': {
+        'source_filenames': (
+            'fonts/patuaone/stylesheet.css',
+            'fonts/questrial/stylesheet.css',
+            'fonts/font-awesome/stylesheet.css',
+            'css/bootstrap/bootstrap.less',
+        ),
+        'output_filename': 'css/all.css',
+        'extra_context': {
+            'media': 'screen,projection, print',
+        },
+    },
+}
+
+PIPELINE_JS = {
+    'all': {
+        'source_filenames': (
+            'js/vendor/jquery-1.10.2.js',
+            'js/vendor/bootstrap.js',
+            'js/*.js',
+        ),
+        'output_filename': 'js/all.js',
+    }
+}
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'e%6a01vfbue28$xxssu!9r_)usqjh817((mr+7vv3ek&@#p0!$'
@@ -172,6 +207,7 @@ WSGI_APPLICATION = 'timtec.wsgi.application'
 
 
 INSTALLED_APPS = (
+    'pipeline',
     'suit',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -1,0 +1,19 @@
+{% load compressed %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %}Timtec{% endblock %}</title>
+
+    {% compressed_css 'all' %}
+    {% compressed_js 'all' %}
+</head>
+<body>
+    {% include 'header.html' %}
+    {% block content %}
+    <h1>missing content block</h1>
+    {% endblock %}
+    {% include 'footer.html' %}
+</body>
