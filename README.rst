@@ -8,6 +8,13 @@ Timtec
     :target: https://coveralls.io/r/hacklabr/timtec
 
 
+Dependencies
+------------
+
+- Python 2.7 with virtualenv and pip
+- build essentials and many dev packages if on debian/ubuntu/fedora
+- nodejs (probably 0.8+ but tested on 0.10)
+
 Getting Started
 ---------------
 
@@ -16,5 +23,7 @@ Getting Started
 - go to this directory
 - pip install -r requirements.txt
 - pip install -r dev-requirements.txt
+- sudo npm -g install less
+- sudo npm -g install yuglify
 - ./manage.py syncdb
 - ./manage.py runserver
