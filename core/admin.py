@@ -1,11 +1,33 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 from django.forms import TextInput, Textarea
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 from suit.admin import SortableTabularInline
 
 from models import *
+
+
+class TimtecUserAdmin(UserAdmin):
+    fieldsets = (
+        (None, {'fields': ('email', 'password')}),
+        (_('Personal info'), {'fields': ('first_name', 'last_name')}),
+        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
+                                       'groups', 'user_permissions')}),
+        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+    )
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('email', 'password1', 'password2')}
+        ),
+    )
+    list_display = ('email', 'first_name', 'last_name', 'is_staff')
+    search_fields = ('email', 'first_name', 'last_name')
+    ordering = ('email',)
+
 
 
 class ModelAdmin(admin.ModelAdmin):
@@ -47,8 +69,7 @@ class VideoAdmin(ModelAdmin):
     list_display = ('name', 'youtube_id',)
 
 
-# TODO: Verficar se django-registration ficou compativel com `custom user`
-#admin.site.register(TimtecUser, UserAdmin)
+admin.site.register(TimtecUser, TimtecUserAdmin)
 
 admin.site.register(Video, VideoAdmin)
 admin.site.register(CourseProfessor, CourseProfessorAdmin)

@@ -1,9 +1,9 @@
 [
 {
     "pk": 1, 
-    "model": "auth.user", 
+    "model": "core.timtecuser", 
     "fields": {
-        "username": "a", 
+        "username": "a@b.cd", 
         "first_name": "", 
         "last_name": "", 
         "is_active": true, 
@@ -19,9 +19,9 @@
 },
 {
     "pk": 2, 
-    "model": "auth.user", 
+    "model": "core.timtecuser", 
     "fields": {
-        "username": "ramalho", 
+        "username": "luciano@ramalho.org", 
         "first_name": "Luciano", 
         "last_name": "Ramalho", 
         "is_active": true, 

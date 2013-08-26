@@ -185,8 +185,7 @@ SUIT_CONFIG = {
     # 'LIST_PER_PAGE': 15
 }
 
-# TODO: Verficar se django-registration ficou compativel com `custom user`
-# AUTH_USER_MODEL = 'core.TimtecUser'
+AUTH_USER_MODEL = 'core.TimtecUser'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -219,6 +218,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'registration',
     'rosetta',
+    'accounts',
     'core',
 )
 
