@@ -47,4 +47,4 @@ nosetests.xml
 # OS Temp Files
 .DS_Store
 
-/static/css/bootstrap/bootstrap.css
+/static/css/main.css

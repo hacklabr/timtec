@@ -1,0 +1,912 @@
+@import 'bootstrap/bootstrap.less';
+
+// COLORS
+@brand-primary:         #00bebe;
+@brand-success:         #7ab800;
+@brand-warning:         #fed100;
+@brand-danger:          #981e32;
+@brand-info:            #2583b1;
+
+
+// TYPOGRAPHY
+h1, h2, h3, h4, h5, h6 {
+  font-family:'Questrial';
+}
+// Headings
+h1 {
+  font-size:28px;
+}
+
+h2 {
+  font-size:24px;
+}
+
+h3 {
+  font-size:20px;
+}
+
+h4 {
+  font-size:18px;
+}
+
+h5 {
+  text-transform:uppercase;
+}
+
+h6 {
+  font-size:14px;
+  margin-bottom:0;
+  text-transform:uppercase;
+}
+
+a,
+a:hover,
+a:active {
+  text-decoration:none;
+}
+
+.page-header-double {
+  border-bottom:3px solid @gray-lighter;
+  margin:40px 0 20px;
+  padding:0;
+  h1,h2,h3,h4,h5,h6 {
+    border-bottom:1px solid @gray-lighter;
+    margin-bottom:1px;
+    padding-bottom:7px;
+  }
+}
+
+
+// LINKS
+@link-color:            @brand-info;
+@link-hover-color:      darken(@link-color, 15%);
+
+
+// COMPONENTS
+@border-radius-base:             0;
+@border-radius-large:            0;
+@border-radius-small:            0;
+
+@padding-large-vertical:         14px;
+
+// BUTTONS
+@btn-default-color:              #333;
+@btn-default-bg:                 #e2e2e2;
+
+.btn-lg {
+  font-size:14px;
+}
+
+
+// NAVBAR
+// Reset inverted navbar basics
+@navbar-inverse-color:                      #fff;
+@navbar-inverse-bg:                         #001e36;
+@navbar-inverse-border:                     darken(@navbar-inverse-bg, 10%);
+
+// Inverted navbar links
+@navbar-inverse-link-color:                 #fff;
+@navbar-inverse-link-hover-color:           #fff;
+@navbar-inverse-link-hover-bg:              darken(@navbar-inverse-bg, 5%);
+@navbar-inverse-link-active-color:          #fff;
+@navbar-inverse-link-active-bg:             darken(@navbar-inverse-bg, 5%);
+@navbar-inverse-link-disabled-color:        #fff;
+@navbar-inverse-link-disabled-bg:           transparent;
+
+// Inverted navbar brand label
+@navbar-inverse-brand-color:                @navbar-inverse-link-color;
+@navbar-inverse-brand-hover-color:          #fff;
+@navbar-inverse-brand-hover-bg:             transparent;
+
+.navbar {
+  font-family:'Questrial';
+}
+
+// MIXINS
+// ------------------------------------------------
+.bottom(@margin:0, @padding:0) {
+  margin-bottom:@margin !important;
+  padding-bottom:@padding !important;
+}
+
+.left(@margin:0, @padding:0) {
+  margin-left:@margin !important;
+  padding-left:@padding !important;
+}
+
+.right(@margin:0, @padding:0) {
+  margin-right:@margin !important;
+  padding-right:@padding !important;
+}
+
+.top(@margin:0, @padding:0) {
+  margin-top:@margin !important;
+  padding-top:@padding !important;
+}
+
+// Calculate width
+.calculate-width(@value:0) {
+  width:-moz-calc(~'100% - @{value}');
+  width:-webkit-calc(~'100% - @{value}');
+  width:calc(~'100% - @{value}');
+}
+
+// Vertical align
+.vertical-align(@position) {
+  display:inline-block;
+  vertical-align:@position;
+}
+
+// Arrows
+.arrow-up(@width, @color) {
+  border-bottom:@width solid @color;
+  border-left:@width solid transparent;
+  border-right:@width solid transparent;	
+  .size(0,0);
+}
+.arrow-down(@width, @color) {
+  border-left:@width solid transparent;
+  border-right:@width solid transparent;
+  border-top:@width solid @color;
+  .size(0,0);
+}
+.arrow-right(@width, @color) {
+  border-bottom:@width solid transparent;
+  border-left:@width solid @color;
+  border-top:@width solid transparent;
+  .size(0,0);
+}
+.arrow-left(@width, @color) {
+  border-bottom:@width solid transparent; 	
+  border-right:@width solid @color; 
+  border-top:@width solid transparent;
+  .size(0,0);
+}
+
+
+
+// HELPERS
+// ------------------------------------------------
+.alignleft  { float:left; }
+.alignright { float:right; }
+.textcenter { text-align:center; }
+.textleft   { text-align:left; }
+.textright  { text-align:right; }
+.uppercase  { text-transform:uppercase; }
+.bottom     { .bottom(0,0); }
+.left       { .left(0,0); }
+.right      { .right(0,0); }
+.top        { .top(0,0); }
+.no-bullet  { .left(0,0); list-style:none; }
+.hidden     { display:none !important; }
+
+
+// LAYOUT
+.wrapper {
+  padding-top:51px;
+}
+
+
+// MAIN NAVBAR - DROPDOWN MENUS FOR SIGNIN AND SIGNUP
+#main-navbar {
+  .dropdown-signin {
+    padding:14px;
+    width:320px;
+    
+    .submit {
+      a {
+        display:block;
+        margin-left:3px;
+        margin-top:7px;
+        &:hover {
+          background:none !important;
+        }
+      }
+    }
+  }
+
+  .dropdown-signup {
+    padding:14px;
+    width:360px;
+
+    a:hover {
+      background:none !important;
+    }
+  }
+}
+
+
+// COURSE
+
+// Course intro - list of lessons
+.course-lessons {
+  .top(27px);
+  ul {
+    .title {
+      display:block;
+      font-weight:bold;
+    }
+
+    .description {
+      font-size:13px;
+    }
+
+    li {
+      .bottom(9px,9px);
+      border-bottom:1px solid @gray-lighter;
+    }
+  }
+}
+
+
+// Course intro - list of instructors
+.course-instructors {
+  .top(27px);
+  .instructor {
+    p:last-child {
+      .bottom(0,0);
+    }
+  }
+
+  h1.fullname {
+    .bottom(0,0);
+    font-size:21px;
+    text-transform:none;
+  }
+
+  h2.job-title {
+    border-bottom:1px solid @gray-lighter;
+    .bottom(9px,9px);
+    font-size:14px;
+  }
+
+  .divider {
+    .bottom(45px,0);
+    .top(36px,0);
+  }
+}
+
+// Course social
+.course-social {
+  .top(27px);
+}
+
+// Course sections - navigation links (intro, lessons, notes, forum, wiki)
+.course-sections {
+  span {
+    background:@gray-lighter;
+    color:@gray-light;
+    display:inline-block;
+    font-size:22px;
+    height:28px;
+    margin-left:-3px;
+    overflow:hidden;
+    padding:3px 9px;
+    position:relative;
+    text-align:center;
+    &:hover {
+      background:@brand-primary;
+      color:@gray-lighter;
+      cursor:pointer;
+      text-decoration:none;
+      .transition(all 0.1s ease-out);
+    }
+  }
+}
+
+// Course lessons nav
+.course-lessons-nav {
+  .bottom(9px,9px);
+  button {
+    font-size:12px;
+    text-transform:uppercase;
+  }
+  ul {
+    font-size:12px;
+    text-transform:none;
+    .top(0);
+    li.active a, li.active a:hover {
+      background:none;
+      color:@brand-info;
+    }
+    li a {
+      color:@gray-light;
+    }
+    li a:hover {
+      background:none;
+      color:@gray;
+    }
+  }
+}
+
+// Course - unit video
+.course-video {
+  margin-top:21px;
+  
+  iframe {
+    border:1px solid @gray-lighter;
+  }
+  
+  // Unit navigation links
+  .track {
+    background:@gray-lighter - 20%;
+    .box-shadow(inset -1px 0 0 #fff);
+    color:#fff;
+    cursor:pointer;
+    display:block;
+    font-size:12px;
+    height:20px;
+    line-height:1.75;
+    margin-bottom:1px;
+    padding-left:3px;
+    position:relative;
+    text-align:left;
+    z-index:10;
+    &.watching, &.watching:hover {
+      background:@brand-info;
+    }
+    &.done, &.done:hover {
+      background:@gray-light;
+    }
+    &:hover {
+      background:@gray-light;
+      color:#fff;
+    }
+    i {
+      color:#fff;
+      font-size:14px;
+      margin:3px 0 0 0;
+    }
+    i.icon-caret-right {
+      color:@brand-info;
+      font-size:18px;
+      left:-10px;
+      line-height:1;
+      top:-2px;
+    }
+    i {
+      position:absolute;
+      right:6px;
+    }
+  }
+  
+  // Subtitles
+  .tab-pane#subtitles {
+    border-bottom:1px solid @gray-lighter;
+    font-size:12px;
+    height:386px;
+    position:relative;
+    overflow:auto;
+    table.table {
+      tr:first-child td {
+        border-top:none !important;
+      }
+      tr.now {
+        font-weight:bold;
+      }
+    }
+  }
+  
+  // Notes
+  .tab-pane#notes {
+    border-bottom:1px solid @gray-lighter;
+    padding-top:18px;
+    form {
+      border-bottom:1px solid @gray-lighter;
+      margin-bottom:14px;
+      padding-bottom:14px;
+      textarea {
+        border:2px solid @gray-lighter;
+        border-radius:4px;
+        margin-bottom:14px;
+      }
+    }
+    ol {
+      font-size:12px !important;
+      height:173px;
+      margin-left:0;
+      padding-left:21px;
+      overflow:auto;
+      position:relative;
+      a:first-child {
+        display:block;
+        margin-bottom:7px;
+      }
+      li {
+        border-top:1px dotted @gray-light;
+        padding-top:14px;
+      }
+    }
+  }
+}
+
+// Course forum
+.course-forum {
+
+  .questions {
+    border-top:1px solid @gray-lighter;
+    .top(14px,14px);
+  }
+  
+  .search-filter {
+    border-bottom:1px solid @gray-lighter;
+    .bottom(14px,14px);
+  }
+  
+  ul.dropdown-menu {
+    a {
+      color:@gray-light;
+    }
+    a:hover {
+      background:none;
+      color:@gray;
+    }
+  }
+
+  article {
+
+    .bottom(18px, 18px);
+    border-bottom:1px solid @gray-lighter;
+
+    &:before {
+      content:'';
+      display:inline-block;
+      height:100%;
+      vertical-align:middle;
+      width:10px;
+    }
+
+    .stats {
+      background-color:@gray-lighter;
+      font-size:12px;
+      margin:4px 20px 0 -14px;
+      padding:9px 9px 0 9px;
+      position:relative;
+      text-align:center;
+      .vertical-align(top);
+      width:78px;
+
+      .numbers-votes, .numbers-answers {
+        display:block;
+        font-size:18px;
+        line-height:1;
+      }
+
+      .arrow-right {
+        .arrow-right(12px, @gray-lighter);
+        position:absolute;
+        right:-12px;
+      }
+    }
+
+    .question {
+      .calculate-width(102px);
+      font-size:14px;
+      font-weight:bold;
+      line-height:1.5;
+      .vertical-align(top);
+    }
+
+    .description {
+      font-size:12px;
+      font-weight:normal;
+    }
+
+    .author {
+      font-size:12px;
+      padding:3px 0;
+      text-align:right;
+    }
+
+    .rating {
+      .left(-14px);
+      .right(10px);
+      .vertical-align(middle);
+      width:40px;
+
+      .arrow-up(14px, @graypLight) {
+        margin:0 auto;
+        &:hover {
+          border-bottom-color:@timGreen1;
+          cursor:pointer;
+        }
+      }
+      .arrow-down(14px, @graypLight) {
+        margin:0 auto;
+        .size(0,0);
+        &:hover {
+          border-top-color:@timGreen1;
+          cursor:pointer;
+        }
+      }
+      .votes {
+        font-size:18px;
+        margin:6px 0;
+        text-align:center;
+      }
+    }
+  }
+
+  footer {
+    background-color:@gray-lighter;
+    border-radius:0 0 6px 6px;
+    border-top:1px solid @gray-light + 60%;
+    font-size:11px;
+    margin-top:36px;
+    padding:9px 18px;
+    text-align:center;
+    text-transform:uppercase;
+  }
+}
+
+// MY COURSES
+#my-courses {
+  .courses {
+    h1 {
+      font-size:24px;
+    }
+
+    .course {
+      border-bottom:1px solid @gray-lighter;
+      margin-bottom:36px;
+      padding-bottom:14px;
+
+      header {
+        a {
+          margin-top:10px;
+        }
+        .btn-group {
+          text-transform:uppercase;
+        }
+      }
+
+      h1 {
+        font-size:18px;
+      }
+
+      .info {
+        color:@gray;
+        font-size:12px;
+        margin-left:9px;
+      }
+
+      .progress {
+        background:@gray-lighter;
+        border-radius:0;
+        height:12px;
+        position:relative;
+
+        .progress-bar {
+          border-radius:0;
+        }
+      }
+    }
+  }
+}
+
+// MY NOTES
+#my-notes {
+  .courses {
+    .course {
+      border-bottom:1px solid @gray-lighter;
+      padding:9px 0;
+    }
+    .btn {
+      text-transform:uppercase;
+    }
+  }
+  .course-notes {
+    header {
+      .btn-group {
+        margin-top:12px;
+        text-transform:uppercase;
+      }
+    }
+    ul {
+      list-style:none;
+      li {
+        border-bottom:1px solid @gray-lighter;
+        margin:0 0 14px 0;
+        padding:3px 0 14px 0;
+        a {
+          color:@gray-dark;
+          display:block;
+          margin-bottom:7px;
+          text-transform:uppercase;
+          &:hover {
+            color:@brand-info;
+            text-decoration:none;
+          }
+        }
+        ul {
+          margin:0;
+          padding:0;
+          li {
+            border-bottom:none;
+            margin:0;
+            padding:3px 14px;
+            a {
+              margin:0;
+              text-transform:none;
+            }
+          }
+        }
+      }
+    }
+    .notes {
+      margin-bottom:42px;
+      h1 {
+        border-bottom:1px solid @gray-lighter;
+        .bottom(14px,7px);
+        font-size:21px;
+      }
+      .note {
+        border-bottom:1px solid @gray-lighter;
+        .bottom(14px,14px);
+        a:hover {
+          text-decoration:none;
+        }
+        p i {
+          display:none;
+        }
+        p:hover i {
+          display:inline-block;
+        }
+      }
+    }
+    #lessons {
+      .goto-class {
+        margin-bottom:14px;
+      }
+    }
+  }
+}
+
+// FORUM
+#course-forum {
+  #main-content {
+    a.ask-a-question {
+      display:block;
+    }
+    .add-comment {
+      margin-top:21px;
+      a {
+        color:@gray-light;
+        font-size:12px;
+      }  
+    } 
+    .comment-form {
+      textarea {
+        margin-bottom:7px;
+        width:100%;
+      }
+    }
+    .search-forum {
+      margin-top:18px;
+    }
+    article {
+      header {
+        border-bottom:1px solid @gray-lighter;
+        .bottom(18px,7px);
+        h1 {
+          color:#00bebe;
+          font-size:27px;
+        }
+      }
+      .author {
+        background:@gray-lighter;
+        font-size:12px;
+        margin-top:14px;
+        padding:6px;
+        a {
+          font-weight:bold;
+        }
+      }
+      .question-tag {
+        border-top:1px solid @gray-lighter;
+        .top(14px, 14px);
+        span.tag-label {
+          display:inline-block;
+          font-size:12px;
+          font-weight:bold;
+          margin-top:7px;
+          text-transform:uppercase;
+        }
+        a.tag {
+          background:@gray-lighter;
+          color:@gray;
+          display:inline-block;
+          font-size:12px;
+          padding:7px 14px;
+          &:hover {
+            color:@brand-info;
+          }
+        }
+      }
+      .rating {
+        .vertical-align(middle);
+        text-align:center;
+        .arrow-up {
+          .arrow-up(21px, @gray-light);
+          margin:0 auto;
+          &:hover {
+            border-bottom-color:@brand-success;
+            cursor:pointer;
+          }
+        }
+        .arrow-down {
+          .arrow-down(21px, @gray-light);
+          margin:0 auto;
+          .size(0,0);
+          &:hover {
+            border-top-color:@brand-success;
+            cursor:pointer;
+          }
+        }
+        .votes {
+          font-family:"Questrial";
+          font-size:18px;
+          margin:6px 0;
+          text-align:center;
+        }
+      }
+    }
+    .questions {
+      .top(18px,0);
+      article {
+        .bottom(18px, 18px);
+        border-bottom:1px solid @gray-lighter;
+        &:before {
+          content:'';
+          display:inline-block;
+          height:100%;
+          vertical-align:middle;
+          width:10px;
+        }
+        .stats {
+          background-color:@gray-lighter;
+          font-size:12px;
+          margin:4px 20px 0 -14px;
+          padding:9px 9px 0 9px;
+          position:relative;
+          text-align:center;
+          .vertical-align(top);
+          width:78px;
+          .numbers-votes, .numbers-answers {
+            display:block;
+            font-size:18px;
+            line-height:1;
+          }
+          .arrow-right {
+            .arrow-right(12px, @gray-lighter);
+            position:absolute;
+            right:-12px;
+          }
+        }
+        .question {
+          .calculate-width(102px);
+          font-size:14px;
+          font-weight:bold;
+          line-height:1.5;
+          .vertical-align(top);
+        }
+        .description {
+          font-size:12px;
+          font-weight:normal;
+        }
+        .author {
+          background:none;
+          font-size:12px;
+          padding:3px 0;
+          text-align:right;
+        }
+        .rating {
+          .left(-14px);
+          .right(10px);
+          .vertical-align(middle);
+          width:40px;
+          .arrow-up(14px, @gray-light) {
+            margin:0 auto;
+            &:hover {
+              border-bottom-color:@brand-success;
+              cursor:pointer;
+            }
+          }
+          .arrow-down(14px, @gray-light) {
+            margin:0 auto;
+            .size(0,0);
+            &:hover {
+              border-top-color:@brand-success;
+              cursor:pointer;
+            }
+          }
+          .votes {
+            font-size:18px;
+            margin:6px 0;
+            text-align:center;
+          }
+        }
+      }
+    }
+    .answers {
+      .top(21px,21px);
+      header {
+        border-bottom:1px solid @gray-lighter;
+        .bottom(7px,7px);
+        h1 {
+          font-size:21px;
+        }
+        .btn-group {
+          margin-top:14px;
+          button {
+            text-transform:uppercase;
+          }
+          ul.dropdown-menu {
+            a {
+              color:@gray-light;
+            }
+            a:hover {
+              background:none;
+              color:@gray;
+            }
+          }
+        }
+      }
+      article {
+        border-bottom:1px solid @gray-lighter;
+        .bottom(21px,21px);
+        .top(21px,21px);
+      }
+    }
+    .your-answer {
+      .top(21px,21px);
+      header {
+        border-bottom:1px solid @gray-lighter;
+        h1 {
+          font-size:21px;
+        }
+      }
+      .text-editor {
+        margin-top:21px;
+        margin-bottom:7px;
+        i {
+          margin-right:12px;
+        }
+      }
+      textarea {
+        width:100%;
+      }
+      .submit {
+        margin-top:14px;
+      }
+    }
+    aside {
+      .heading {
+        h3 {
+          font-size:18px;
+          top:10px;
+        }
+      }
+      .related-questions {
+        margin-top:21px;
+        a {
+          border-bottom:1px solid @gray-lighter;
+          .bottom(14px,14px);
+          color:@gray-light;
+          display:block;
+          font-size:12px;
+          &:hover {
+            color:@gray;
+          }
+        }
+      }
+    }
+  }
+}
+
+// MAIN FOOTER
+#main-footer {
+  background:#eee;
+  margin-top:56px;
+  padding:35px 0;
+}

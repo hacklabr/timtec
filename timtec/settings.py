@@ -109,10 +109,9 @@ PIPELINE_COMPILERS = (
 PIPELINE_CSS = {
     'all': {
         'source_filenames': (
-            'fonts/patuaone/stylesheet.css',
             'fonts/questrial/stylesheet.css',
             'fonts/font-awesome/stylesheet.css',
-            'css/bootstrap/bootstrap.less',
+            'css/main.less',
         ),
         'output_filename': 'css/all.css',
         'extra_context': {
