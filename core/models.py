@@ -47,7 +47,6 @@ class TimtecUser(AbstractBaseUser, PermissionsMixin):
 models.signals.pre_save.connect(TimtecUser._pre_save, sender=TimtecUser)
 
 
-
 class Video(models.Model):
     name = models.CharField(max_length=255)
     youtube_id = models.CharField(max_length=100)
@@ -55,7 +54,6 @@ class Video(models.Model):
     class Meta:
         verbose_name = _('Video')
         verbose_name_plural = _('Videos')
-
 
     def __unicode__(self):
         return self.name

@@ -7,6 +7,7 @@ from registration.views import RegistrationView as BaseRegistrationView
 
 from forms import RegistrationForm
 
+
 class RegistrationView(BaseRegistrationView):
     """
     Overrides registration.backends.default.views.RegistrationView
