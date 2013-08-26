@@ -47,4 +47,7 @@ nosetests.xml
 # OS Temp Files
 .DS_Store
 
+# Local configuration
+settings_local.py
+
 /static/css/main.css
