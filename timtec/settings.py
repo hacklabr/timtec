@@ -222,6 +222,16 @@ INSTALLED_APPS = (
     'core',
 )
 
+if DEBUG:
+    MIDDLEWARE_CLASSES += (
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    )
+    INSTALLED_APPS += (
+        'debug_toolbar',
+    )
+    INTERNAL_IPS = ('127.0.0.1', )
+
+
 # django-registration flag
 ACCOUNT_ACTIVATION_DAYS = 7
 
@@ -254,5 +264,5 @@ LOGGING = {
     }
 }
 
-if os.path.exists(os.path.join(SETTINGS_DIR,'settings_local.py')):
-    execfile(os.path.join(SETTINGS_DIR,'settings_local.py'))
+if os.path.exists(os.path.join(SETTINGS_DIR, 'settings_local.py')):
+    execfile(os.path.join(SETTINGS_DIR, 'settings_local.py'))
