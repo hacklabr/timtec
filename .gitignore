@@ -42,7 +42,7 @@ nosetests.xml
 .coveralls.yml
 
 # Virtualenvs
-env*
+*env
 
 # OS Temp Files
 .DS_Store
