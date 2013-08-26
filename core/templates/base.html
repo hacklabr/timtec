@@ -12,8 +12,10 @@
 </head>
 <body>
     {% include 'header.html' %}
-    {% block content %}
-    <h1>missing content block</h1>
-    {% endblock %}
+    <div class="wrapper">
+        {% block content %}
+        <h1>missing content block</h1>
+        {% endblock %}
+    </div>
     {% include 'footer.html' %}
 </body>
