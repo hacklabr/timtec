@@ -12,7 +12,7 @@ from models import *
 class ModelAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.CharField: {'widget': TextInput(attrs={'class':'span12'})},
-        models.TextField: {'widget': Textarea(attrs={'rows':4, 'cols': 0, 'class':'span12'})},
+        models.TextField: {'widget': Textarea(attrs={'rows':4, 'class':'span12'})},
     }
 
 
@@ -24,8 +24,15 @@ class LessonInline(SortableTabularInline):
     }
 
 
+class UnitInline(SortableTabularInline):
+	model = Unit
+	fields = ('video', 'position')
+	sortable = 'position'
+
+
 class LessonAdmin(ModelAdmin):
     list_display = ('name', 'course',)
+    inlines = (UnitInline,)
 
 
 class CourseAdmin(ModelAdmin):
