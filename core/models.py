@@ -2,7 +2,7 @@ from django.db import models
 from jsonfield import JSONField
 from django.contrib.auth.models import AbstractUser
 from django.template.defaultfilters import slugify
-
+from django.utils.translation import ugettext_lazy as _
 
 class TimtecUser(AbstractUser):
     pass
@@ -18,9 +18,9 @@ class Video(models.Model):
 
 class Course(models.Model):
     STATES = (
-        ('new', 'New'),
-        ('private', 'Private'),
-        ('public', 'Public'),
+        ('new', _('New')),
+        ('private', _('Private')),
+        ('public', _('Public')),
     )
 
     slug = models.SlugField(max_length=255, unique=True)
@@ -44,7 +44,7 @@ class CourseProfessor(models.Model):
     class Meta:
         unique_together = (('user', 'course'),)
 
-    user = models.ForeignKey(TimtecUser)
+    user = models.ForeignKey(TimtecUser, verbose_name=_('Professor'))
     course = models.ForeignKey(Course)
     biography = models.TextField()
 
@@ -89,7 +89,7 @@ class Activity(models.Model):
     expected_answer = JSONField()
 
     class Meta:
-        verbose_name_plural = "Activities"
+        verbose_name_plural = _('Activities')
 
     def __unicode__(self):
         return u'%s dt %s a %s' % (self.type, self.data, self.expected_answer)
