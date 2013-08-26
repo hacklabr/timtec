@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
@@ -48,7 +49,9 @@ class VideoAdmin(ModelAdmin):
 	list_display = ('name', 'youtube_id',)
 
 
-admin.site.register(TimtecUser, UserAdmin)
+# TODO: Verficar se django-registration ficou compativel com `custom user`
+#admin.site.register(TimtecUser, UserAdmin)
+
 admin.site.register(Video, VideoAdmin)
 admin.site.register(CourseProfessor, CourseProfessorAdmin)
 

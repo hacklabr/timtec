@@ -1,11 +1,17 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from jsonfield import JSONField
 from django.contrib.auth.models import AbstractUser
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 
-class TimtecUser(AbstractUser):
-    pass
+#
+# TODO: Verficar se django-registration ficou compativel com `custom user`
+#
+#from django.contrib.auth.models import AbstractUser
+#class TimtecUser(AbstractUser):
+#    pass
+from django.contrib.auth.models import User as TimtecUser
 
 
 class Video(models.Model):

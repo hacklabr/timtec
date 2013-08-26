@@ -1,4 +1,7 @@
+# -*- coding: utf-8 -*-
 # Django settings for timtec project.
+import os
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -92,6 +95,14 @@ TEMPLATE_LOADERS = (
     # 'django.template.loaders.eggs.Loader',
 )
 
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(SITE_ROOT, 'templates'),
+)
+
+
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
@@ -128,7 +139,8 @@ SUIT_CONFIG = {
     # 'LIST_PER_PAGE': 15
 }
 
-AUTH_USER_MODEL = 'core.TimtecUser'
+# TODO: Verficar se django-registration ficou compativel com `custom user`
+# AUTH_USER_MODEL = 'core.TimtecUser'
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -145,11 +157,6 @@ ROOT_URLCONF = 'timtec.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'timtec.wsgi.application'
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
 
 INSTALLED_APPS = (
     'suit',
@@ -162,8 +169,12 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
+    'registration',
     'core',
 )
+
+# django-registration flag
+ACCOUNT_ACTIVATION_DAYS = 7
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -193,3 +204,6 @@ LOGGING = {
         },
     }
 }
+
+if os.path.exists(os.path.join(SITE_ROOT,'settings_local.py')):
+    execfile(os.path.join(SITE_ROOT,'settings_local.py'))

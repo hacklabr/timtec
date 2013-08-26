@@ -1,7 +1,7 @@
 [
 {
     "pk": 1, 
-    "model": "core.timtecuser", 
+    "model": "auth.user", 
     "fields": {
         "username": "a", 
         "first_name": "", 
@@ -19,7 +19,7 @@
 },
 {
     "pk": 2, 
-    "model": "core.timtecuser", 
+    "model": "auth.user", 
     "fields": {
         "username": "ramalho", 
         "first_name": "Luciano", 

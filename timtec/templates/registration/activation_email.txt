@@ -1,0 +1,11 @@
+Hello,
+
+Someone, probably you, requested a registration in {{ site }}. 
+
+To activate the registration, please, follow {{ site }}{% url 'registration_activate' activation_key=activation_key %}.
+
+This registration request will expire in {{ expiration_days }} days!
+
+[ ]s,
+Timtec team,
+
