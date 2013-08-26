@@ -1,0 +1,160 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-08-26 14:36-0300\n"
+"PO-Revision-Date: 2013-08-26 14:38-0300\n"
+"Last-Translator:   <a@b.cd>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Translated-Using: django-rosetta 0.7.2\n"
+
+#: core/models.py:22
+msgid "Video"
+msgstr "Video"
+
+#: core/models.py:23
+msgid "Videos"
+msgstr "Videos"
+
+#: core/models.py:32
+msgid "New"
+msgstr "Novo"
+
+#: core/models.py:33
+msgid "Private"
+msgstr "Privado"
+
+#: core/models.py:34
+msgid "Public"
+msgstr "Publico"
+
+#: core/models.py:37 core/models.py:73
+msgid "Slug"
+msgstr "Slug"
+
+#: core/models.py:38 core/models.py:74
+msgid "Name"
+msgstr "Nome"
+
+#: core/models.py:39
+msgid "Intro video"
+msgstr "Vídeo introdutório"
+
+#: core/models.py:40
+msgid "Application"
+msgstr "Aplicação"
+
+#: core/models.py:41
+msgid "Requirement"
+msgstr "Requisitos"
+
+#: core/models.py:42
+msgid "Abstract"
+msgstr "Resumo"
+
+#: core/models.py:43
+msgid "Structure"
+msgstr "Estrutura"
+
+#: core/models.py:44
+msgid "Workload"
+msgstr "Carga horária"
+
+#: core/models.py:45
+msgid "Pronatec"
+msgstr "Pronatec"
+
+#: core/models.py:46
+msgid "Status"
+msgstr "Situação"
+
+#: core/models.py:47
+msgid "Publication"
+msgstr "Publicação"
+
+#: core/models.py:51
+msgid "Course"
+msgstr "Curso"
+
+#: core/models.py:52
+msgid "Courses"
+msgstr "Cursos"
+
+#: core/models.py:61
+msgid "Course Professor"
+msgstr "Professor do curso"
+
+#: core/models.py:62
+msgid "Course Professors"
+msgstr "Professores do curso"
+
+#: core/models.py:64
+msgid "Professor"
+msgstr "Professor"
+
+#: core/models.py:66
+msgid "Biography"
+msgstr "Biografia"
+
+#: core/models.py:75
+msgid "Description"
+msgstr "Descrição"
+
+#: core/models.py:76 core/models.py:122
+msgid "Position"
+msgstr "Posição"
+
+#: core/models.py:80
+msgid "Lesson"
+msgstr "Lição"
+
+#: core/models.py:81
+msgid "Lessons"
+msgstr "Lições"
+
+#: core/models.py:106
+msgid "Type"
+msgstr "Tipo"
+
+#: core/models.py:107
+msgid "Data"
+msgstr "Dado"
+
+#: core/models.py:108
+msgid "Expected answer"
+msgstr "Resposta esperada"
+
+#: core/models.py:111
+msgid "Activity"
+msgstr "Atividades"
+
+#: core/models.py:112
+msgid "Activities"
+msgstr "Atividades"
+
+#: core/models.py:125
+msgid "Unit"
+msgstr "Unidade"
+
+#: core/models.py:126
+msgid "Units"
+msgstr "Unidades"
+
+#: core/models.py:137 core/models.py:140
+msgid "Answer"
+msgstr "Resposta"
+
+#: core/models.py:141
+msgid "Answers"
+msgstr "Respostas"
