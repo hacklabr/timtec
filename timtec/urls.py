@@ -7,9 +7,8 @@ admin.autodiscover()
 
 urlpatterns = patterns(
     '',
-    # Examples:
-    url(r'^$', 'core.views.home', name='home'),
-    # url(r'^timtec/', include('timtec.foo.urls')),
+    url(r'^$', 'core.views.course_intro', name='course-intro'),
+    url(r'^lesson/', 'core.views.lesson', name='lesson'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
