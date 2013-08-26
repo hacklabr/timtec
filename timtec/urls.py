@@ -19,4 +19,7 @@ urlpatterns = patterns(
 
     # django-registration
     url(r'^accounts/', include('registration.backends.default.urls')),
+
+    # django-rosetta
+    url(r'^rosetta/', include('rosetta.urls')),
 )
