@@ -1,12 +1,42 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>register</title>
-</head>
-<body>
-	<form method="post">{% csrf_token %}
-		{{form}}
-		<input type="submit"/>
-	</form>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div id="activation-accomplished" class="container">
+    <div class="centered">
+        <h1>Register!</h1>
+        <form onclick="event.stopPropagation()" method="post" action="{% url 'registration_register' %}" class="form-horizontal">{% csrf_token %}
+            <div class="form-group">
+                <label class="col-sm-4 col-lg-4 control-label">E-mail</label>
+                <div class="col-sm-8 col-lg-8">
+                    <input name="email" type="email" class="form-control" placeholder="Qual o seu email?">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 col-lg-4 control-label">Senha</label>
+                <div class="col-sm-8 col-lg-8">
+                    <p><input name="password1" type="password" class="form-control" placeholder="Senha"></p>
+                    <input name="password2" type="password" class="form-control" placeholder="Confirmar senha">
+                </div>
+            </div>
+            <div class="submit textright">
+                <button class="btn btn-success">Cadastrar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+    windowHeight = window.innerHeight;
+    navbarHeight = $('#main-navbar').innerHeight();
+    footerHeight = $('#main-footer').innerHeight();
+    $('#activation-accomplished').innerHeight(windowHeight - (navbarHeight + footerHeight + 58));
+    $('#activation-accomplished').on('click', function(e) {
+        e.preventDefault();
+        $('.navbar').find('.dropdown-signin').toggle();
+    })
+})
+</script>
+
+{% endblock %}
