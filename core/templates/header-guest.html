@@ -7,17 +7,17 @@
             <li>
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Entrar</a>
                 <div class="dropdown-menu dropdown-signin">
-                    <form onclick="event.stopPropagation()" class="form-horizontal">
+                    <form onclick="event.stopPropagation()" method="post" action="{% url 'timtec_login' %}" class="form-horizontal">{% csrf_token %}
                         <div class="form-group">
                             <label class="col-sm-3 col-lg-3 control-label">E-mail</label>
                             <div class="col-sm-9 col-lg-9">
-                                <input type="email" class="form-control" placeholder="Qual o seu email?"/>
+                                <input name="username" type="email" class="form-control" placeholder="Qual o seu email?"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 col-lg-3 control-label">Senha</label>
                             <div class="col-sm-9 col-lg-9">
-                                <input type="password" class="form-control" placeholder="Senha">
+                                <input name="password" type="password" class="form-control" placeholder="Senha">
                             </div>
                         </div>
                         <div class="submit">
@@ -30,6 +30,7 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" name="next" value="{% url 'course-intro' %}"/>
                     </form>
                     <div class="divider"></div>
                     <p class="bottom textcenter">Entrar com <a href="">Facebook</a> ou <a href="">Google+</a></p>

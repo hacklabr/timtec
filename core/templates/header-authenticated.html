@@ -1,0 +1,25 @@
+    <!-- NAVBAR -->
+    <div id="main-navbar" class="navbar navbar-fixed-top navbar-inverse">
+        <div class="container">
+            <a class="navbar-brand" href="/">TIM Tec</a>
+            <ul class="nav navbar-nav pull-right">
+                <li><a href="">Cursos Disponíveis</a></li>
+                <li><a href="profile-courses.html">Meus Cursos</a></li>
+                <li><a href="profile-notes.html">Minhas Anotações</a></li>
+                <li>
+                    <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
+                        {{ user }}
+                        <i class="icon-chevron-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="profile.html">Ver Perfil</a></li>
+                        <li><a href="profile-edit.html">Editar Perfil</a></li>
+                        <li><a href="">Configuração</a></li>
+                        <li class='divider'></li>
+                        <li><a href="{% url 'timtec_logout' %}">Sair</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- END NAVBAR -->

@@ -11,8 +11,14 @@
     {% compressed_js 'all' %}
 </head>
 <body>
-    {% include 'header.html' %}
+    {% if user.is_authenticated %}
+        {% include 'header-authenticated.html' %}
+    {% else %}
+        {% include 'header-guest.html' %}
+    {% endif %}
     <div class="wrapper">
+    <h1>{{ form.errors }}</h1>
+
         {% block content %}
         <h1>missing content block</h1>
         {% endblock %}
