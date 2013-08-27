@@ -6,4 +6,4 @@ docutils==0.11
 django-rosetta==0.7.2
 django-pipeline==1.3.14
 django-debug-toolbar==0.9.4
--e git+git@github.com:hacklabr/django-registration.git#egg=django-registration-dev
+-e git+https://github.com/hacklabr/django-registration.git#egg=django-registration-dev
