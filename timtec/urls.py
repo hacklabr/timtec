@@ -5,11 +5,12 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
+from core.views import CourseIntroView
 from accounts.views import RegistrationView
 
 urlpatterns = patterns(
     '',
-    url(r'^$', 'core.views.course_intro', name='course-intro'),
+    url(r'^$', CourseIntroView.as_view(), name='course-intro'),
     url(r'^lesson/', 'core.views.lesson', name='lesson'),
 
     # Uncomment the admin/doc line below to enable admin documentation:

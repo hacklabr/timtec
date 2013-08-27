@@ -7,11 +7,11 @@
             <li>
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Entrar</a>
                 <div class="dropdown-menu dropdown-signin">
-                    <form class="form-horizontal">
+                    <form onclick="event.stopPropagation()" class="form-horizontal">
                         <div class="form-group">
                             <label class="col-sm-3 col-lg-3 control-label">E-mail</label>
                             <div class="col-sm-9 col-lg-9">
-                                <input type="e-mail" class="form-control" placeholder="Qual o seu email?">
+                                <input type="email" class="form-control" placeholder="Qual o seu email?"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -38,33 +38,18 @@
             <li>
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Cadastrar</a>
                 <div class="dropdown-menu dropdown-signup">
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <label class="col-sm-4 col-lg-4 control-label">Nome Completo</label>
-                            <div class="col-sm-8 col-lg-8">
-                                <div class="col-sm-6 col-lg-6 left">
-                                    <input type="text" class="form-control" placeholder="Primeiro nome">
-                                </div>
-                                <div class="col-sm-6 col-lg-6 right">
-                                    <input type="text" class="form-control" placeholder="Último nome">
-                                </div>
-                            </div>
-                        </div>
+                    <form onclick="event.stopPropagation()" method="post" action="{% url 'registration_register' %}" class="form-horizontal">{% csrf_token %}
                         <div class="form-group">
                             <label class="col-sm-4 col-lg-4 control-label">E-mail</label>
                             <div class="col-sm-8 col-lg-8">
-                                <input type="e-mail" class="form-control" placeholder="Qual o seu email?">
+                                <input name="email" type="email" class="form-control" placeholder="Qual o seu email?">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-4 col-lg-4 control-label">Senha</label>
                             <div class="col-sm-8 col-lg-8">
-                                <div class="col-sm-6 col-lg-6 left">
-                                    <input type="password" class="form-control" placeholder="Senha">
-                                </div>
-                                <div class="col-sm-6 col-lg-6 right">
-                                    <input type="password" class="form-control" placeholder="Senha novamente">
-                                </div>
+                                <p><input name="password1" type="password" class="form-control" placeholder="Senha"></p>
+                                <input name="password2" type="password" class="form-control" placeholder="Confirmar senha">
                             </div>
                         </div>
                         <div class="submit textright">
