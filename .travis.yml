@@ -1,12 +1,15 @@
 language: python
 python: 
     - "2.7"
+node_js:
+    - "0.10"
 install:
     - "pip install -q -r requirements.txt"
     - "pip install -q -r dev-requirements.txt"
     - "pip install -q coveralls"
     - "./manage.py syncdb --noinput"
     - "python setup.py -q develop"
+    - "npm install less yuglify"
 script: "py.test --cov . ."
 after_success:
     - coveralls
@@ -14,5 +17,10 @@ notifications:
     irc:
         channels: "irc.freenode.org#hacklab/"
         use_notice: true
-    email:
-        - "santagada@hacklab.com.br"
+        on_success: change
+        on_failure: always
+    # email:
+    #     recipients:
+    #         - "timtec-dev@listas.hacklab.com.br"
+    #     on_success: never
+    #     on_failure: change
