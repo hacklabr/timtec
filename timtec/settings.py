@@ -25,6 +25,12 @@ DATABASES = {
     }
 }
 
+
+LOGIN_URL = '/login/'
+
+LOGIN_REDIRECT_URL = '/'
+
+
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ['localhost']
@@ -48,7 +54,6 @@ USE_I18N = True
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale.
 USE_L10N = True
-
 
 LANGUAGES = (
     ('pt-br', u'Português'),
@@ -230,6 +235,9 @@ if DEBUG:
         'debug_toolbar',
     )
     INTERNAL_IPS = ('127.0.0.1', )
+    DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': False,
+    }
 
 
 # django-registration flag
