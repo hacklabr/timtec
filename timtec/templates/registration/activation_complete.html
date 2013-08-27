@@ -43,10 +43,6 @@ $(document).ready(function() {
     navbarHeight = $('#main-navbar').innerHeight();
     footerHeight = $('#main-footer').innerHeight();
     $('#activation-accomplished').innerHeight(windowHeight - (navbarHeight + footerHeight + 58));
-    $('#activation-accomplished').on('click', function(e) {
-        e.preventDefault();
-        $('.navbar').find('.dropdown-signin').toggle();
-    })
 })
 </script>
 
