@@ -10,8 +10,8 @@
             <div class="page-header">
                 <div class="row">
                     <div class="col-sm-9 col-lg-9">
-                        <h1 class="top">Introdução a Bancos de Dados e SQL</h1>
-                        <h5><a href="#luciano-ramalho">Luciano Ramalho</a></h5>
+                        <h1 class="top">{{course.name}}</h1>
+                        <h5><a href="#luciano-ramalho">{{course.professors.all|join:', '}}</a></h5>
                     </div>
                     <div class="col-sm-3 col-lg-3 textright">
                         <a href="lesson" class="btn btn-lg btn-danger col-lg-12 uppercase">Começar o curso</a>
@@ -26,9 +26,11 @@
             <div class="row">
                 <div class="col-sm-9 col-lg-9">
                     <section class="course-video top row">
+                        {% with yid=course.intro_video.youtube_id %}
                         <div class="col-lg-12">
-                            <iframe class="col-sm-12 col-lg-12 left right" id="ytplayer" type="text/html" height="489" src="https://www.youtube.com/embed/qb-6oDS9pB4?rel=0&showinfo=0&autohide=1&theme=light&wmode=opaque" frameborder="0" allowfullscreen></iframe>
+                            <iframe class="col-sm-12 col-lg-12 left right" id="ytplayer" type="text/html" height="489" src="https://www.youtube.com/embed/{{yid}}?rel=0&showinfo=0&autohide=1&theme=light&wmode=opaque" frameborder="0" allowfullscreen></iframe>
                         </div>
+                        {% endwith %}
                     </section>
 
                     <section class="course-info row">
@@ -36,13 +38,13 @@
                             <div class="page-header-double">
                                 <h3 class="top"><i class="icon-chevron-right"></i> Aplicação do Conhecimento</h3>
                             </div>
-                            <p>Banco de dados são empregados em praticamente todos os sistemas Web, desde redes sociais a portais de comércio eletrônico, bem como aplicativos comerciais.</p>
+                            <p>{{course.application}}</p>
                         </div>
                         <div class="col-sm-6 col-lg-6">
                             <div class="page-header-double">
                                 <h3 class="top"><i class="icon-chevron-right"></i> O que preciso saber</h3>
                             </div>
-                            <p>O interessado deverá possuir conhecimentos básicos (selecionar, copiar, colar, criar pastas, salvar e renomear documentos) de algum sistema operacional e de navegação na Internet. Para participar deste curso e realizar seus exercícios é necessário um computador com acesso à internet, navegador web atualizado (pelo menos 2) e algum programa de edição de texto sem formatação. É recomendada a idade mínima de 14 anos.</p>
+                            <p>{{course.requirement}}</p>
                         </div>
                     </section>
 
@@ -52,54 +54,12 @@
                                 <h3><i class="icon-chevron-right"></i> Aulas</h3>
                             </div>
                             <ul class="no-bullet">
+                                {% for lesson in course.lesson_set.all %}
                                 <li>
-                                    <span class="title">Aula 1: Modelos de dados e introdução ao modelo relacional</span>
-                                    <span class="description">Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis.</span>
+                                    <span class="title">{{lesson.name}}</span>
+                                    <span class="description">{{lesson.desc}}</span>
                                 </li>
-                                <li>
-                                    <span class="title">Aula 2: Introdução a SQL (demonstração), SGBDs e definição de esquemas</span>
-                                    <span class="description">Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!</span>
-                                </li>
-                                <li>
-                                    <span class="title">Aula 3: SELECT, Projeção x seleção e uso do console</span>
-                                    <span class="description">Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!</span>
-                                </li>
-                                <li>
-                                    <span class="title">Aula 4: Seleções com lógica booleana</span>
-                                    <span class="description">Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!</span>
-                                </li>
-                                <li>
-                                    <span class="title">Aula 5: Chaves: simples, compostas, candidatas, primárias, estrangeiras, mudas</span>
-                                    <span class="description">Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!</span>
-                                </li>
-                                <li>
-                                    <span class="title">Aula 6: Consultas com relacionamentos, joins implícitos e explícitos</span>
-                                    <span class="description">Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!</span>
-                                </li>
-                                <li>
-                                    <span class="title">Aula 7: Consultas com agregação</span>
-                                    <span class="description">Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!</span>
-                                </li>
-                                <li>
-                                    <span class="title">Aula 8: Operações de alteração de dados e transações</span>
-                                    <span class="description">Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!</span>
-                                </li>
-                                <li>
-                                    <span class="title">Aula 9: Projeto de bancos de dados normalizados e formas normais</span>
-                                    <span class="description">Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!</span>
-                                </li>
-                                <li>
-                                    <span class="title">Aula 10: Índices e constraints</span>
-                                    <span class="description">Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!</span>
-                                </li>
-                                <li>
-                                    <span class="title">Aula 11: Triggers e views, dialetos de SQL entre SGBDs importantes</span>
-                                    <span class="description">Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!</span>
-                                </li>
-                                <li>
-                                    <span class="title">Aula 12: Limitações e alternativas ao modelo tradicional</span>
-                                    <span class="description">Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!</span>
-                                </li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </section>
@@ -112,16 +72,18 @@
                         </div>
 
                         <div class="col-sm-12 col-lg-12">
+                            {% for course_professor in course.courseprofessor_set.all %}
                             <div id="luciano-ramalho" class="instructor row">
                                 <div class="col-sm-3 col-lg-3">
                                     <img src="img/ramalho.jpg" class="col-lg-12 img-thumbnail">
                                 </div>
                                 <div class="col-sm-9 col-lg-9">
-                                    <h1 class="fullname bottom top">Luciano Ramalho</h1>
+                                    <h1 class="fullname bottom top">{{ course_professor.user }}</h1>
                                     <h2 class="job-title top">Instrutor</h2>
-                                    <p>Luciano Ramalho é sócio e professor nas Oficinas Turing. Foi diretor técnico do Brasil Online, primeiro portal da Abril S/A na Web. Liderou times para os portais IDG Now, BOL, UOL, AOL Brasil e outros, usando Python desde 1998. Como instrutor, atendeu clientes como Citibank, CPqD, Serpro, Presidência da República, Globo.com e Itaú. Ajudou a criar a Associação Python Brasil e foi seu presidente. É membro da Python Software Foundation e fundador do Garoa Hacker Clube, o primeiro hackerspace do Brasil. Já palestrou várias vezes em eventos internacionais como FISL, OSCON e PyCon US.</p>
+                                    <p>{{course_professor.biography}}</p>
                                 </div>
                             </div>
+                            {% endfor %}
                         </div>
                     </section>
                 </div>
@@ -130,11 +92,15 @@
                     <div class="row">
                         <section class="course-summary col-sm-12 col-lg-12">
                             <div class="page-header-double top">
-                                <h3 class="top"><i class="icon-chevron-right"></i> Resumo</h3>
+                                <h3 class="top"><i class="icon-chevron-right"></i>Resumo</h3>
                             </div>
-                            <div><p>Introdução aos conceitos fundamentais de bancos de dados modernos, desde a forma de organização dos dados (modelos e esquemas de dados) até comandos fundamentais da linguagem SQL e noções de projeto de bancos de dados normalizados. Noções de arquitetura de sistemas, gerenciadores de nacos de dados, integridade referencial, linguagens de definição, manipulação e controle de dados, além de tratar das questões de segurança, integridade e controle de transações.</p><p><strong><i class="icon-list"></i> Estrutura do curso:</strong><br>Vídeo-aulas (12 horas)<br>Testes On Line<br>Leitura de material didático de apoio<br>Exercícios individuais de aplicação</p></div>
-                            <div><p><strong><i class="icon-time"></i> Carga horária:</strong> <br>40 horas, a serem completadas em seis semanas</p><p><small>O tempo estimado de dedicação do aluno e agenda de comprometimento sugerida são de 12 horas de aulas expositivas, a serem completadas em 6 semanas e a sugestão de dedicação do aluno é de 6 horas por semana, sendo 2hrs para assistir aulas e 4hrs para fazer exercícios</small></p></div>
-                            <div><hr><p><strong>Relação do curso com o PRONATEC:</strong></p><p>Eixo Tecnológico: Informação e Comunicação</p><p>Títulos semelhantes oferecidos Guia PRONATEC:</p><ul><li>Técnico em Informática</li><li>Técnico em Manutenção e Suporte em Informática</li><li>Técnico em Informática para Internet</li></ul><p>Títulos semelhantes oferecidos Guia PRONATEC de cursos FIC:</p><ul><li>Administrador de Banco de Dados</li><li>Operador de Computador</li><li>Programador de Dispositivos Móveis</li><li>Programador de Sistemas</li><li>Programador Web</li></ul><p>Outros nomes atribuídos a estes profissionais:</p><ul><li>Técnico em Formação de Instrutores de Informática</li><li>Técnico em Planejamento e Gestão em Tecnologia da Informação</li></ul></div>
+                            <div>{{course.abstract|safe}}</div>
+
+                            <div><strong><i class="icon-list"></i> Estrutura do curso:</strong>{{course.structure|safe}}</div>
+
+                            <div><strong><i class="icon-time"></i> Carga horária:</strong>{{course.workload|safe}}</div>
+
+                            <div><hr><strong>Relação do curso com o PRONATEC:</strong>{{course.pronatec|safe}}</div>
                         </section>
 
                         <section class="course-social col-sm-12 col-lg-12" style="position:relative;overflow:hidden;">

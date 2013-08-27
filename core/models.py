@@ -27,6 +27,11 @@ class TimtecUser(AbstractBaseUser, PermissionsMixin):
         verbose_name = _('user')
         verbose_name_plural = _('users')
 
+    def __unicode__(self):
+        if self.first_name or self.last_name:
+            return self.get_full_name()
+        return self.email
+
     def get_absolute_url(self):
         return "/users/%s/" % urlquote(self.email)
 
@@ -43,6 +48,7 @@ class TimtecUser(AbstractBaseUser, PermissionsMixin):
     @staticmethod
     def _pre_save(sender, instance, **kwargs):
         instance.username = instance.email
+
 
 models.signals.pre_save.connect(TimtecUser._pre_save, sender=TimtecUser)
 
