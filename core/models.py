@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
-from django.db import models
+import re
 from jsonfield import JSONField
-from django.core.mail import send_mail
+
+from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
+from django.core.mail import send_mail
+from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils import timezone
 from django.utils.http import urlquote
@@ -10,13 +13,20 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class TimtecUser(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(_('username'), max_length=75, unique=True, editable=False)
-    email = models.EmailField(_('email address'), blank=False, unique=True)
-    first_name = models.CharField(_('first name'), max_length=30, blank=True)
-    last_name = models.CharField(_('last name'), max_length=30, blank=True)
-    is_staff = models.BooleanField(_('staff status'), default=False)
-    is_active = models.BooleanField(_('active'), default=True)
-    date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+    username = models.CharField(_('Username'), max_length=75, unique=True, editable=False)
+    email = models.EmailField(_('Email address'), blank=False, unique=True)
+    first_name = models.CharField(_('First name'), max_length=30, blank=True)
+    last_name = models.CharField(_('Last name'), max_length=30, blank=True)
+    is_staff = models.BooleanField(_('Staff status'), default=False)
+    is_active = models.BooleanField(_('Active'), default=True)
+    date_joined = models.DateTimeField(_('Date joined'), default=timezone.now)
+
+    picture = models.ImageField(_("Picture"), upload_to='user-pictures', blank=True)
+    nickname = models.CharField(_('Nickame'), max_length=30, blank=True)
+    occupation = models.CharField(_('Occupation'), max_length=30, blank=True)
+    city = models.CharField(_('City'), max_length=30, blank=True)
+    site = models.URLField(_('Site'), blank=True)
+    biography = models.TextField(_('Biography'), blank=True)
 
     objects = UserManager()
 
@@ -35,6 +45,10 @@ class TimtecUser(AbstractBaseUser, PermissionsMixin):
     def get_absolute_url(self):
         return "/users/%s/" % urlquote(self.email)
 
+    def get_picture_url(self):
+        location = "/%s/%s" % (settings.MEDIA_URL, self.picture)
+        return re.sub('/+', '/', location)
+
     def get_full_name(self):
         full_name = '%s %s' % (self.first_name, self.last_name)
         return full_name.strip()
@@ -48,7 +62,6 @@ class TimtecUser(AbstractBaseUser, PermissionsMixin):
     @staticmethod
     def _pre_save(sender, instance, **kwargs):
         instance.username = instance.email
-
 
 models.signals.pre_save.connect(TimtecUser._pre_save, sender=TimtecUser)
 

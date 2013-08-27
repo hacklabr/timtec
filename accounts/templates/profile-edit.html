@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div id="profile" class="container">
+        <form class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <div class="row">
+                <div class="col-sm-3 col-lg-3 col-offset-1">
+                    <fieldset>
+                        <script type="text/javascript" charset="utf-8">
+                            $(document).ready(function() {
+                                function onFileSelected(event) {
+                                    var selectedFile = event.target.files[0]
+                                    var reader = new FileReader()
+                                    var imgtag = document.getElementById("profile-avatar");
+                                    imgtag.title = selectedFile.name
+
+                                    reader.onload = function(event) {
+                                        imgtag.src = event.target.result
+                                    };
+
+                                    reader.readAsDataURL(selectedFile)
+                                }
+
+                                $("#upload-avatar").change(onFileSelected)
+                            })
+                        </script>
+
+                        <label for="upload-avatar" class="col-sm-12 col-lg-12 left right">
+                            <div class="icon-user"></div>
+                            <div class="upload-tip">
+                                Upload image
+                            </div>
+                            <img id="profile-avatar" src="{{ form.instance.get_picture_url }}">
+                        </label>
+                        <input type="file" name="picture" id="upload-avatar" class="hidden"/>
+                    </fieldset>
+                </div>
+
+                <div class="col-sm-7 col-lg-7">
+                    <fieldset>
+                        <div class="heading textleft">
+                            <h3>Perfil</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-3 control-label">Nome Público</label>
+                            <div class="col-sm-9 col-lg-9">
+                                <input name="nickname" type="text" class="form-control" placeholder="O nome que os outros usuários verão" value="{{form.nickname.value}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-3 control-label">Profissão</label>
+                            <div class="col-sm-9 col-lg-9">
+                                <input name="occupation" type="text" class="form-control" placeholder="O que você faz?" value="{{form.occupation.value}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-3 control-label">Cidade</label>
+                            <div class="col-sm-9 col-lg-9">
+                                <input name="city" type="text" class="form-control" placeholder="Qual cidade você vive?" value="{{form.city.value}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-3 control-label">Site</label>
+                            <div class="col-sm-9 col-lg-9">
+                                <input name="site" type="text" class="form-control" placeholder="Você possui algum site pessoal?" value="{{form.site.value}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-3 control-label">Bio</label>
+                            <div class="col-sm-9 col-lg-9">
+                                <textarea name="biography" class="form-control" rows="7" placeholder="Escreve um pouco sobre você...">{{form.biography.value}}</textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <div class="heading textleft">
+                            <h3>Conta</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-3 control-label">Nome Completo</label>
+                            <div class="col-sm-9 col-lg-9">
+                                <div class="col-sm-6 col-lg-6 left">
+                                    <input name="first_name" type="text" class="form-control" placeholder="Primeiro nome" value="{{form.first_name.value}}">
+                                </div>
+                                <div class="col-sm-6 col-lg-6 right">
+                                    <input name="last_name" type="text" class="form-control" placeholder="Último nome" value="{{form.last_name.value}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-3 control-label">E-mail</label>
+                            <div class="col-sm-9 col-lg-9">
+                                <input name="email" type="e-mail" class="form-control" placeholder="Qual o seu email?" value="{{form.email.value}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-lg-3 control-label">Senha</label>
+                            <div class="col-sm-9 col-lg-9">
+                                <div class="col-sm-6 col-lg-6 left">
+                                    <input name="password1" type="password" class="form-control" placeholder="Nova Senha">
+                                </div>
+                                <div class="col-sm-6 col-lg-6 right">
+                                    <input name="password2" type="password" class="form-control" placeholder="Nova Senha Novamente">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="submit">
+                        <button type="submit" class="btn btn-info">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

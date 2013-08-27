@@ -1,14 +1,18 @@
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.contrib.auth.views import login
 from django.contrib.sites.models import Site, RequestSite
+from django.core.urlresolvers import reverse
+from django.shortcuts import redirect
 from django.template.response import TemplateResponse
+from django.views.generic import UpdateView
 from django.views.generic.base import TemplateView
 
 from registration import signals
 from registration.models import RegistrationProfile
 from registration.views import RegistrationView as BaseRegistrationView
 
-from forms import RegistrationForm
+from forms import ProfileEditForm, RegistrationForm
 
 
 class RegistrationView(BaseRegistrationView):
@@ -49,3 +53,20 @@ class CustomLoginView(TemplateView):
         if type(ret) is TemplateResponse:
             ret.context_data['login_form'] = ret.context_data.pop('form')
         return ret
+
+
+class ProfileEditView(UpdateView):
+    model = get_user_model()
+    form_class = ProfileEditForm
+    template_name = 'profile-edit.html'
+
+    def get_success_url(self):
+        return reverse('profile_edit')
+
+    def get_object(self):
+        return self.request.user
+
+    def get(self, request, **kwargs):
+        if self.request.user.is_authenticated():
+            return super(ProfileEditView, self).get(request, **kwargs)
+        return redirect(reverse('home_view'))

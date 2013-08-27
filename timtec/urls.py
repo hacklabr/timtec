@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 from django.conf.urls import patterns, include, url
+from django.conf.urls.static import static
+from django.conf import settings
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
 
 from core.views import CourseIntroView, HomeView
-from accounts.views import RegistrationView, CustomLoginView
+from accounts.views import CustomLoginView, ProfileEditView, RegistrationView
 
 urlpatterns = patterns(
     '',
@@ -18,6 +20,8 @@ urlpatterns = patterns(
     url(r'^login/', CustomLoginView.as_view(), name='timtec_login'),
     url(r'^logout/', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='timtec_logout'),
 
+    url(r'^profile/edit/?$', ProfileEditView.as_view(), name="profile_edit"),
+
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 
@@ -28,3 +32,6 @@ urlpatterns = patterns(
     # The django-rosetta
     url(r'^rosetta/', include('rosetta.urls')),
 )
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
