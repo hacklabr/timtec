@@ -32,8 +32,9 @@ def test_is_admin_working(client):
 @pytest.mark.django_db
 def test_mainview(client):
     response = client.get('/')
-    assert response.status_code == 200
-    assert 'Timtec' in response.content
+    assert response.status_code == 302
+    assert response.has_header('Location')
+    assert response['Location'] == 'http://testserver/course/dbsql'
 
 
 def test_admin_user(admin_client):
