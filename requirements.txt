@@ -3,7 +3,7 @@ jsonfield
 django-suit==0.2.4
 Pillow==2.1.0
 docutils==0.11
--e hg+https://bitbucket.org/mszamot/django-registration@315ef4b2550a92d402b72c173d08ca2c17b8b852#egg=django_registration-dev
 django-rosetta==0.7.2
 django-pipeline==1.3.14
 django-debug-toolbar==0.9.4
+-e git+https://github.com/hacklabr/django-registration.git#egg=django-registration-dev
