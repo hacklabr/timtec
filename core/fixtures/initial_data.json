@@ -9,7 +9,7 @@
         "is_active": true, 
         "is_superuser": true, 
         "is_staff": true, 
-        "last_login": "2013-08-23T21:07:37.606Z", 
+        "last_login": "2013-08-27T17:28:02.251Z", 
         "groups": [], 
         "user_permissions": [], 
         "password": "pbkdf2_sha256$10000$27edDmeMEx0p$Hlbl543/d/caP6w8ClL/VhzTMaiRCLa05nK9Uyoje9I=", 
@@ -36,6 +36,42 @@
     }
 },
 {
+    "pk": 3, 
+    "model": "core.timtecuser", 
+    "fields": {
+        "username": "andersonorui@hacklab.com.br", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": false, 
+        "is_staff": false, 
+        "last_login": "2013-08-27T15:45:44.845Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$tgmyQ6c0Zim0$4vH9yV5PBge23OdXaI6X60QeP5MqZmKFmnQPXQQ7VFY=", 
+        "email": "andersonorui@hacklab.com.br", 
+        "date_joined": "2013-08-27T13:56:14.361Z"
+    }
+},
+{
+    "pk": 4, 
+    "model": "core.timtecuser", 
+    "fields": {
+        "username": "andersonorui@gmail.com", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": false, 
+        "is_staff": false, 
+        "last_login": "2013-08-27T14:41:30.503Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$uzQedcyV96Y5$na8UXP3aslXzYxYGo4MLUw1S+22sjDz13IvIgwnm9kQ=", 
+        "email": "andersonorui@gmail.com", 
+        "date_joined": "2013-08-27T14:41:30.503Z"
+    }
+},
+{
     "pk": 1, 
     "model": "core.video", 
     "fields": {
@@ -56,7 +92,7 @@
         "application": "Banco de dados s\u00e3o empregados em praticamente todos os sistemas Web, desde redes sociais a portais de com\u00e9rcio eletr\u00f4nico, bem como aplicativos comerciais.", 
         "publication": "2013-08-23", 
         "slug": "dbsql", 
-        "structure": "<br>V\u00eddeo-aulas (12 horas)\r\n<br>Testes On Line\r\n<br>Leitura de material did\u00e1tico de apoio\r\n<br>Exerc\u00edcios individuais de aplica\u00e7\u00e3o", 
+        "structure": "V\u00eddeo-aulas (12 horas)\r\n<br>Testes On Line\r\n<br>Leitura de material did\u00e1tico de apoio\r\n<br>Exerc\u00edcios individuais de aplica\u00e7\u00e3o", 
         "name": "Introdu\u00e7\u00e3o ao Banco de Dados"
     }
 },
