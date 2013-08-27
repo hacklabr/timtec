@@ -19,8 +19,8 @@ notifications:
         use_notice: true
         on_success: change
         on_failure: always
-    # email:
-    #     recipients:
-    #         - "timtec-dev@listas.hacklab.com.br"
-    #     on_success: never
-    #     on_failure: change
+    email:
+        recipients:
+            - "timtec-dev@listas.hacklab.com.br"
+        on_success: change
+        on_failure: always
