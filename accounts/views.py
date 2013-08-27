@@ -1,5 +1,8 @@
 from django.conf import settings
+from django.contrib.auth.views import login
 from django.contrib.sites.models import Site, RequestSite
+from django.template.response import TemplateResponse
+from django.views.generic.base import TemplateView
 
 from registration import signals
 from registration.models import RegistrationProfile
@@ -32,3 +35,17 @@ class RegistrationView(BaseRegistrationView):
 
     def get_success_url(self, request, user):
         return ('registration_complete', (), {})
+
+
+class CustomLoginView(TemplateView):
+    """
+    Change template context name of form to login_form
+
+    """
+    template_name = 'course-intro.html'
+
+    def post(self, *argz, **kwargs):
+        ret = login(self.request, template_name=CustomLoginView.template_name)
+        if type(ret) is TemplateResponse:
+            ret.context_data['login_form'] = ret.context_data.pop('form')
+        return ret

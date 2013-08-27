@@ -6,15 +6,17 @@ from django.contrib import admin
 admin.autodiscover()
 
 from core.views import CourseIntroView
-from accounts.views import RegistrationView
+from accounts.views import RegistrationView, CustomLoginView
 
 urlpatterns = patterns(
     '',
     url(r'^$', CourseIntroView.as_view(), name='course-intro'),
     url(r'^lesson/', 'core.views.lesson', name='lesson'),
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    url(r'^login/', CustomLoginView.as_view(), name='timtec_login'),
+
+    url(r'^logout/', 'django.contrib.auth.views.logout',
+                     {'next_page': '/'}, name='timtec_logout'),
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
