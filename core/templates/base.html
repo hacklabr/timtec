@@ -15,19 +15,30 @@
         {% include 'header-authenticated.html' %}
     {% else %}
         {% include 'header-guest.html' %}
+        {% include 'registration/login_modal.html' %}
+        <script type="text/javascript" charset="utf-8">
+            $(document).ready(function() {
+                var $modal = $("#login-modal");
+                var $next = $modal.find('input[name=next]');
+                $('a.js-login-required').click(function(e){
+                    $next.val($(this).attr('href'));
+                    $modal.modal();
+                    return false;
+                })
+            })
+        </script>
     {% endif %}
+
     <div class="wrapper">
         {% block content %}
         <h1>missing content block</h1>
         {% endblock %}
     </div>
     {% include 'footer.html' %}
-    
+
     <script type="text/javascript" charset="utf-8">
-        $(document).ready(function() {
-            $('.has-tooltip').tooltip();
-        })
+        $(document).ready(function() {$('.has-tooltip').tooltip();})
     </script>
-    
+
 </body>
 </html>
