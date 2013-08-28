@@ -1,6 +1,25 @@
-<html><body><pre>Sorry,
+{% extends 'base.html' %}
 
-You provided an invalid key. The registration failed.
+{% block content %}
 
-[ ]s,</pre></body></html>
+<div id="activation-accomplished" class="container">
+    <div class="centered">
+        <h1 class="textcenter">
+            <i class="icon-frown"></i><br/>
+            Sorry.
+        </h1>
+        <h3>You provided an invalid key.<br/>The registration failed.</h3>
+        [ ]s
+    </div>
+</div>
 
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+    windowHeight = window.innerHeight;
+    navbarHeight = $('#main-navbar').innerHeight();
+    footerHeight = $('#main-footer').innerHeight();
+    $('#activation-accomplished').innerHeight(windowHeight - (navbarHeight + footerHeight + 58));
+})
+</script>
+
+{% endblock %}

@@ -4,7 +4,7 @@
 
 <div id="activation-accomplished" class="container">
     <div class="centered">
-        <h1>Register!</h1>
+        <h1>Cadastre-se!</h1>
         <form onclick="event.stopPropagation()" method="post" action="{% url 'registration_register' %}" class="form-horizontal">{% csrf_token %}
             {% with errors=form.email.errors %}
             <div class="form-group{{ errors|yesno:' has-error,' }}">
