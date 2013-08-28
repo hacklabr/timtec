@@ -105,6 +105,9 @@ class Course(models.Model):
     def __unicode__(self):
         return self.name
 
+    def first_lesson(self):
+        return self.lesson_set.all()[0]
+
 
 class CourseProfessor(models.Model):
     class Meta:

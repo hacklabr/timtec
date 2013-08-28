@@ -9,12 +9,13 @@ admin.autodiscover()
 
 from core.views import CourseIntroView, HomeView
 from accounts.views import CustomLoginView, ProfileEditView, RegistrationView
+from lesson.views import LessonDetailView
 
 urlpatterns = patterns(
     '',
     url(r'^$', HomeView.as_view(), name='home_view'),
-    url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/?$', CourseIntroView.as_view(), name='course_intro'),
-    url(r'^lesson/', 'lesson.views.lesson', name='lesson'),
+    url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)$', CourseIntroView.as_view(), name='course_intro'),
+    url(r'^lesson/(?P<slug>[-a-zA-Z0-9_]+)$', LessonDetailView.as_view(), name='lesson'),
 
     # Authentication
     url(r'^login/', CustomLoginView.as_view(), name='timtec_login'),
