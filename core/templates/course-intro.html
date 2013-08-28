@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
+
 {% block content %}
 
     <!-- CONTAINER -->
@@ -36,13 +38,13 @@
                     <section class="course-info row">
                         <div class="col-sm-6 col-lg-6">
                             <div class="page-header-double">
-                                <h3 class="top"><i class="icon-chevron-right"></i> Aplicação do Conhecimento</h3>
+                                <h3 class="top"><i class="icon-double-angle-right"></i> Aplicação do Conhecimento</h3>
                             </div>
                             <p>{{course.application}}</p>
                         </div>
                         <div class="col-sm-6 col-lg-6">
                             <div class="page-header-double">
-                                <h3 class="top"><i class="icon-chevron-right"></i> O que preciso saber</h3>
+                                <h3 class="top"><i class="icon-double-angle-right"></i> O que preciso saber</h3>
                             </div>
                             <p>{{course.requirement}}</p>
                         </div>
@@ -51,14 +53,33 @@
                     <section class="course-lessons row">
                         <div class="col-sm-12 col-lg-12">
                             <div class="page-header-double">
-                                <h3><i class="icon-chevron-right"></i> Aulas</h3>
+                                <h3><i class="icon-double-angle-right"></i> Aulas</h3>
                             </div>
                             <ul class="no-bullet">
                                 {% for lesson in course.lesson_set.all %}
-                                <li>
-                                    <span class="title">{{lesson.name}}</span>
-                                    <span class="description">{{lesson.desc}}</span>
-                                </li>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-lg-2 col-sm-2">
+                                                <img src="{% static 'img/aula-thumb.png' %}" class="img-thumbnail">
+                                            </div>
+                                            <div class="col-lg-10 col-sm-10">
+                                                <p>
+                                                    <span class="title">{{lesson.name}}</span>
+                                                    <span class="description">{{lesson.desc}}</span>
+                                                </p>
+                                                <table class="table">
+                                                    <tr>
+                                                    {% for unit in lesson.unit_set.all %}
+                                                        <td>
+                                                            <span class="has-tooltip unit" data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade">&nbsp;</span>
+                                                        </td>
+                                                    {% endfor %}
+                                                    </tr>
+                                                </table>
+                                                <p><i class="icon-youtube-play"></i> <small>{{ lesson.unit_set.count }} vídeos</small> | <i class="icon-list"></i> <small>5 atividades</small></p>
+                                            </div>
+                                        </div>
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -67,7 +88,7 @@
                     <section class="course-instructors row">
                         <div class="col-sm-12 col-lg-12">
                             <div class="page-header-double">
-                                <h3><i class="icon-chevron-right"></i> Professores</h3>
+                                <h3><i class="icon-double-angle-right"></i> Professores</h3>
                             </div>
                         </div>
 
@@ -92,7 +113,7 @@
                     <div class="row">
                         <section class="course-summary col-sm-12 col-lg-12">
                             <div class="page-header-double top">
-                                <h3 class="top"><i class="icon-chevron-right"></i> Resumo</h3>
+                                <h3 class="top"><i class="icon-double-angle-right"></i> Resumo</h3>
                             </div>
                             {{course.abstract|safe}}
                             <hr/>
