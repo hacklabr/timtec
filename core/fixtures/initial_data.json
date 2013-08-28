@@ -4,16 +4,22 @@
     "model": "core.timtecuser", 
     "fields": {
         "username": "a@b.cd", 
+        "picture": "", 
         "first_name": "", 
         "last_name": "", 
+        "city": "", 
+        "occupation": "", 
         "is_active": true, 
+        "site": "", 
         "is_superuser": true, 
         "is_staff": true, 
-        "last_login": "2013-08-27T17:28:02.251Z", 
+        "last_login": "2013-08-28T13:42:56.894Z", 
         "groups": [], 
         "user_permissions": [], 
         "password": "pbkdf2_sha256$10000$27edDmeMEx0p$Hlbl543/d/caP6w8ClL/VhzTMaiRCLa05nK9Uyoje9I=", 
+        "nickname": "", 
         "email": "a@b.cd", 
+        "biography": "", 
         "date_joined": "2013-08-23T21:06:59.961Z"
     }
 },
@@ -22,16 +28,22 @@
     "model": "core.timtecuser", 
     "fields": {
         "username": "luciano@ramalho.org", 
+        "picture": "", 
         "first_name": "Luciano", 
         "last_name": "Ramalho", 
+        "city": "", 
+        "occupation": "", 
         "is_active": true, 
+        "site": "", 
         "is_superuser": true, 
         "is_staff": true, 
         "last_login": "2013-08-23T21:36:33.698Z", 
         "groups": [], 
         "user_permissions": [], 
         "password": "pbkdf2_sha256$10000$27edDmeMEx0p$Hlbl543/d/caP6w8ClL/VhzTMaiRCLa05nK9Uyoje9I=", 
+        "nickname": "", 
         "email": "luciano@ramalho.org", 
+        "biography": "", 
         "date_joined": "2013-08-23T21:35:44Z"
     }
 },
@@ -40,16 +52,22 @@
     "model": "core.timtecuser", 
     "fields": {
         "username": "andersonorui@hacklab.com.br", 
+        "picture": "", 
         "first_name": "", 
         "last_name": "", 
+        "city": "", 
+        "occupation": "", 
         "is_active": true, 
+        "site": "", 
         "is_superuser": false, 
         "is_staff": false, 
         "last_login": "2013-08-27T15:45:44.845Z", 
         "groups": [], 
         "user_permissions": [], 
         "password": "pbkdf2_sha256$10000$tgmyQ6c0Zim0$4vH9yV5PBge23OdXaI6X60QeP5MqZmKFmnQPXQQ7VFY=", 
+        "nickname": "", 
         "email": "andersonorui@hacklab.com.br", 
+        "biography": "", 
         "date_joined": "2013-08-27T13:56:14.361Z"
     }
 },
@@ -58,16 +76,22 @@
     "model": "core.timtecuser", 
     "fields": {
         "username": "andersonorui@gmail.com", 
+        "picture": "", 
         "first_name": "", 
         "last_name": "", 
+        "city": "", 
+        "occupation": "", 
         "is_active": true, 
+        "site": "", 
         "is_superuser": false, 
         "is_staff": false, 
         "last_login": "2013-08-27T14:41:30.503Z", 
         "groups": [], 
         "user_permissions": [], 
         "password": "pbkdf2_sha256$10000$uzQedcyV96Y5$na8UXP3aslXzYxYGo4MLUw1S+22sjDz13IvIgwnm9kQ=", 
+        "nickname": "", 
         "email": "andersonorui@gmail.com", 
+        "biography": "", 
         "date_joined": "2013-08-27T14:41:30.503Z"
     }
 },
@@ -235,6 +259,46 @@
         "course": 1, 
         "slug": "aula-12-limitacoes-e-alternativas-ao-modelo-tradicional", 
         "name": "Aula 12: Limita\u00e7\u00f5es e alternativas ao modelo tradicional"
+    }
+},
+{
+    "pk": 1, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 0, 
+        "lesson": 1, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 2, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 0, 
+        "lesson": 1, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 3, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 1, 
+        "lesson": 1, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 4, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 2, 
+        "lesson": 1, 
+        "video": 1, 
+        "activity": null
     }
 }
 ]
