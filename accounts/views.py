@@ -5,6 +5,7 @@ from django.contrib.sites.models import Site, RequestSite
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
+from django.utils.http import is_safe_url
 from django.views.generic import UpdateView
 from django.views.generic.base import TemplateView
 
@@ -46,7 +47,16 @@ class CustomLoginView(TemplateView):
     Change template context name of form to login_form
 
     """
-    template_name = 'course-intro.html'
+    template_name = 'registration/login.html'
+
+    def get_context_data(self):
+        context = super(CustomLoginView, self).get_context_data()
+
+        next = self.request.GET.get('next', '/')
+        if is_safe_url(next):
+            context.update({'next': next})
+
+        return context
 
     def post(self, *argz, **kwargs):
         ret = login(self.request, template_name=CustomLoginView.template_name)
