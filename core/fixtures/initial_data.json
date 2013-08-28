@@ -13,7 +13,7 @@
         "site": "", 
         "is_superuser": true, 
         "is_staff": true, 
-        "last_login": "2013-08-28T14:42:29.069Z", 
+        "last_login": "2013-08-28T17:15:49.843Z", 
         "groups": [], 
         "user_permissions": [], 
         "password": "pbkdf2_sha256$10000$27edDmeMEx0p$Hlbl543/d/caP6w8ClL/VhzTMaiRCLa05nK9Uyoje9I=", 
@@ -263,6 +263,15 @@
 },
 {
     "pk": 1, 
+    "model": "core.activity", 
+    "fields": {
+        "data": "[{}]", 
+        "expected_answer": "[{}]", 
+        "type": "test"
+    }
+},
+{
+    "pk": 1, 
     "model": "core.unit", 
     "fields": {
         "position": 0, 
@@ -278,7 +287,7 @@
         "position": 0, 
         "lesson": 1, 
         "video": 1, 
-        "activity": null
+        "activity": 1
     }
 },
 {
@@ -295,10 +304,10 @@
     "pk": 4, 
     "model": "core.unit", 
     "fields": {
-        "position": 2, 
+        "position": 1, 
         "lesson": 1, 
         "video": 1, 
-        "activity": null
+        "activity": 1
     }
 },
 {
@@ -1019,6 +1028,16 @@
         "lesson": 12, 
         "video": 1, 
         "activity": null
+    }
+},
+{
+    "pk": 77, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 2, 
+        "lesson": 1, 
+        "video": 1, 
+        "activity": 1
     }
 }
 ]

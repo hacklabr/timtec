@@ -45,7 +45,7 @@ class LessonInline(SortableTabularInline):
 
 class UnitInline(SortableTabularInline):
     model = Unit
-    fields = ('video', 'position')
+    fields = ('video', 'activity', 'position')
     sortable = 'position'
 
 
