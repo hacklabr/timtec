@@ -13,7 +13,7 @@
         "site": "", 
         "is_superuser": true, 
         "is_staff": true, 
-        "last_login": "2013-08-28T13:42:56.894Z", 
+        "last_login": "2013-08-28T14:42:29.069Z", 
         "groups": [], 
         "user_permissions": [], 
         "password": "pbkdf2_sha256$10000$27edDmeMEx0p$Hlbl543/d/caP6w8ClL/VhzTMaiRCLa05nK9Uyoje9I=", 
@@ -297,6 +297,726 @@
     "fields": {
         "position": 2, 
         "lesson": 1, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 5, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 0, 
+        "lesson": 2, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 6, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 1, 
+        "lesson": 2, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 7, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 2, 
+        "lesson": 2, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 8, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 0, 
+        "lesson": 2, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 9, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 1, 
+        "lesson": 2, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 10, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 2, 
+        "lesson": 2, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 11, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 0, 
+        "lesson": 2, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 12, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 1, 
+        "lesson": 2, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 13, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 2, 
+        "lesson": 2, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 14, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 0, 
+        "lesson": 2, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 15, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 1, 
+        "lesson": 2, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 16, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 2, 
+        "lesson": 2, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 17, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 0, 
+        "lesson": 2, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 18, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 1, 
+        "lesson": 2, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 19, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 2, 
+        "lesson": 2, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 20, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 0, 
+        "lesson": 2, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 21, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 1, 
+        "lesson": 2, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 22, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 2, 
+        "lesson": 2, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 23, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 3, 
+        "lesson": 2, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 24, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 4, 
+        "lesson": 2, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 25, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 0, 
+        "lesson": 3, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 26, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 1, 
+        "lesson": 3, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 27, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 2, 
+        "lesson": 3, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 28, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 0, 
+        "lesson": 4, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 29, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 1, 
+        "lesson": 4, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 30, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 2, 
+        "lesson": 4, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 31, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 3, 
+        "lesson": 4, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 32, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 0, 
+        "lesson": 5, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 33, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 1, 
+        "lesson": 5, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 34, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 2, 
+        "lesson": 5, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 35, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 3, 
+        "lesson": 5, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 36, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 4, 
+        "lesson": 5, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 37, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 0, 
+        "lesson": 6, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 38, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 1, 
+        "lesson": 6, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 39, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 2, 
+        "lesson": 6, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 40, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 3, 
+        "lesson": 6, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 41, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 4, 
+        "lesson": 6, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 42, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 5, 
+        "lesson": 6, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 43, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 0, 
+        "lesson": 7, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 44, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 1, 
+        "lesson": 7, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 45, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 2, 
+        "lesson": 7, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 46, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 3, 
+        "lesson": 7, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 47, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 4, 
+        "lesson": 7, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 48, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 5, 
+        "lesson": 7, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 49, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 6, 
+        "lesson": 7, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 50, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 0, 
+        "lesson": 8, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 51, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 1, 
+        "lesson": 8, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 52, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 2, 
+        "lesson": 8, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 53, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 3, 
+        "lesson": 8, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 54, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 4, 
+        "lesson": 8, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 55, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 5, 
+        "lesson": 8, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 56, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 6, 
+        "lesson": 8, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 57, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 7, 
+        "lesson": 8, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 58, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 0, 
+        "lesson": 9, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 59, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 1, 
+        "lesson": 9, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 60, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 2, 
+        "lesson": 9, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 61, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 3, 
+        "lesson": 9, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 62, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 4, 
+        "lesson": 9, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 63, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 5, 
+        "lesson": 9, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 64, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 6, 
+        "lesson": 9, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 65, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 7, 
+        "lesson": 9, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 66, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 8, 
+        "lesson": 9, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 67, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 0, 
+        "lesson": 10, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 68, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 1, 
+        "lesson": 10, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 69, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 2, 
+        "lesson": 10, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 70, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 3, 
+        "lesson": 10, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 71, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 4, 
+        "lesson": 10, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 72, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 0, 
+        "lesson": 11, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 73, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 1, 
+        "lesson": 11, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 74, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 2, 
+        "lesson": 11, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 75, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 0, 
+        "lesson": 12, 
+        "video": 1, 
+        "activity": null
+    }
+},
+{
+    "pk": 76, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 1, 
+        "lesson": 12, 
         "video": 1, 
         "activity": null
     }
