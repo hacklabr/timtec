@@ -177,6 +177,14 @@ a:active {
 .hidden     { display:none !important; }
 
 
+// FORMS
+.has-error {
+  small {
+    color:@brand-danger;
+    font-family:@font-family-sans-serif;
+  }
+}
+
 // LAYOUT
 .wrapper {
   padding-top:51px;
@@ -211,11 +219,6 @@ a:active {
     a:hover {
       background:none !important;
     }
-  }
-  
-  small {
-    color:@brand-danger;
-    font-family:@font-family-sans-serif;
   }
   
   a.username i {
