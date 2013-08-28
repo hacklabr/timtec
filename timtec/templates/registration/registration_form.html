@@ -6,19 +6,27 @@
     <div class="centered">
         <h1>Register!</h1>
         <form onclick="event.stopPropagation()" method="post" action="{% url 'registration_register' %}" class="form-horizontal">{% csrf_token %}
-            <div class="form-group">
+            {% with errors=form.email.errors %}
+            <div class="form-group{{ errors|yesno:' has-error,' }}">
                 <label class="col-sm-4 col-lg-4 control-label">E-mail</label>
                 <div class="col-sm-8 col-lg-8">
                     <input name="email" type="email" class="form-control" placeholder="Qual o seu email?">
+                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
                 </div>
             </div>
-            <div class="form-group">
+            {% endwith %}
+
+            {% with errors=form.password2.errors %}
+            <div class="form-group{{ errors|yesno:' has-error,' }}">
                 <label class="col-sm-4 col-lg-4 control-label">Senha</label>
                 <div class="col-sm-8 col-lg-8">
                     <p><input name="password1" type="password" class="form-control" placeholder="Senha"></p>
                     <input name="password2" type="password" class="form-control" placeholder="Confirmar senha">
+                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
                 </div>
             </div>
+            {% endwith %}
+
             <div class="submit textright">
                 <button class="btn btn-success">Cadastrar</button>
             </div>
