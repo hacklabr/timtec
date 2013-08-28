@@ -138,6 +138,10 @@ PIPELINE_JS = {
     }
 }
 
+MOMMY_CUSTOM_FIELDS_GEN = {
+    'jsonfield.JSONField': lambda: '{}',
+}
+
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'e%6a01vfbue28$xxssu!9r_)usqjh817((mr+7vv3ek&@#p0!$'
 

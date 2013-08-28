@@ -143,6 +143,15 @@ class Lesson(models.Model):
     def __unicode__(self):
         return self.name
 
+    def activity_count(self):
+        return self.unit_set.exclude(activity=None).count()
+
+    def unit_count(self):
+        return self.unit_set.all().count()
+
+    def video_count(self):
+        return self.unit_set.exclude(video=None).count()
+
 
 class Activity(models.Model):
     """
