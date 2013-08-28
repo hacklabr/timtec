@@ -14,7 +14,7 @@ urlpatterns = patterns(
     '',
     url(r'^$', HomeView.as_view(), name='home_view'),
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/?$', CourseIntroView.as_view(), name='course_intro'),
-    url(r'^lesson/', 'core.views.lesson', name='lesson'),
+    url(r'^lesson/', 'lesson.views.lesson', name='lesson'),
 
     # Authentication
     url(r'^login/', CustomLoginView.as_view(), name='timtec_login'),
