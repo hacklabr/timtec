@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-lg-8 col-sm-8">
                     <h1 class="top">{{ lesson.name }}</h1>
-                    <h5><a href="#luciano-ramalho">Luciano Ramalho</a></h5>
+                    {% include "_course-professors-inline.html" with course=lesson.course %}
                 </div>
                 <div class="col-lg-4 col-sm-4">
                     <!-- COURSE-SECTION-NAV -->

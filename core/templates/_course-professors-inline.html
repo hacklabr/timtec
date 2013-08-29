@@ -1,0 +1,7 @@
+<h5>
+    {% for course_professor in course.courseprofessor_set.all %}
+        <a href="#luciano-ramalho">
+            {{ course_professor.user }}
+        </a>{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+</h5>

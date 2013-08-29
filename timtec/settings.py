@@ -232,6 +232,7 @@ INSTALLED_APPS = (
     'rosetta',
     'accounts',
     'core',
+    'lesson',
 )
 
 if DEBUG:
