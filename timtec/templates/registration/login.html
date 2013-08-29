@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
-
 <div id="activation-accomplished" class="container">
     <div class="centered">
         <h1>Login</h1>
 
         <form method="post" action="{% url 'timtec_login' %}" class="form-horizontal">{% csrf_token %}
             <div class="form-group{% if login_form.errors %} has-error{% endif %}">
-                <label class="col-sm-3 col-lg-3 control-label">E-mail</label>
+                <label class="col-sm-3 col-lg-3 control-label">{% trans "Login" %}</label>
                 <div class="col-sm-9 col-lg-9">
-                    <input name="username" type="email" class="form-control"
+                    <input name="username" type="text" class="form-control"
                            value="{{login_form.username.value}}" placeholder="Qual o seu email?"/>
                     {% for error in login_form.username.errors %}
                     <small>{{error}}</small>

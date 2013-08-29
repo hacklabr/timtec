@@ -4,6 +4,7 @@ from jsonfield import JSONField
 
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
+from django.core import validators
 from django.core.mail import send_mail
 from django.db import models
 from django.template.defaultfilters import slugify
@@ -13,7 +14,13 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class TimtecUser(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(_('Username'), max_length=75, unique=True, editable=False)
+    username = models.CharField(_('Username'), max_length=30, unique=True,
+        help_text=_('Required. 30 characters or fewer. Letters, numbers and '
+                    './+/-/_ characters'),
+        validators=[
+            validators.RegexValidator(re.compile('^[\w.+-]+$'), _('Enter a valid username.'), 'invalid')
+        ])
+
     email = models.EmailField(_('Email address'), blank=False, unique=True)
     first_name = models.CharField(_('First name'), max_length=30, blank=True)
     last_name = models.CharField(_('Last name'), max_length=30, blank=True)
@@ -30,8 +37,8 @@ class TimtecUser(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email']
 
     class Meta:
         verbose_name = _('user')
@@ -58,12 +65,6 @@ class TimtecUser(AbstractBaseUser, PermissionsMixin):
 
     def email_user(self, subject, message, from_email=None):
         send_mail(subject, message, from_email, [self.email])
-
-    @staticmethod
-    def _pre_save(sender, instance, **kwargs):
-        instance.username = instance.email
-
-models.signals.pre_save.connect(TimtecUser._pre_save, sender=TimtecUser)
 
 
 class Video(models.Model):

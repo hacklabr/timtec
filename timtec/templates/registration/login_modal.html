@@ -21,9 +21,9 @@
                             <div class="panel-body">
                                 <form class="form-horizontal" method="post" action="{% url 'timtec_login' %}">{% csrf_token %}
                                     <div class="form-group{% if login_form.errors %} has-error{% endif %}">
-                                        <label class="col-lg-3 control-label">{% trans 'E-mail' %}</label>
+                                        <label class="col-lg-3 control-label">{% trans 'Login' %}</label>
                                         <div class="col-lg-9">
-                                            <input name="username" type="email" class="form-control"
+                                            <input name="username" type="text" class="form-control"
                                                    value="{{login_form.username.value}}" placeholder="{% trans 'E-mail or username' %}"/>
                                             {% for error in login_form.username.errors %}
                                             <small>{{error}}</small>
