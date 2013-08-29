@@ -110,14 +110,21 @@ class Course(models.Model):
 
 
 class CourseProfessor(models.Model):
-    class Meta:
-        unique_together = (('user', 'course'),)
-        verbose_name = _('Course Professor')
-        verbose_name_plural = _('Course Professors')
+    POSITIONS = (
+        ('instructor', _('Instructor')),
+        ('assistant', _('Assistant')),
+        ('pedagogy_assistant', _('Pedagogy Assistant')),
+    )
 
     user = models.ForeignKey(TimtecUser, verbose_name=_('Professor'))
     course = models.ForeignKey(Course, verbose_name=_('Course'))
     biography = models.TextField(_('Biography'))
+    job = models.CharField(_('Job'), choices=POSITIONS, default=POSITIONS[0][0], max_length=128)
+
+    class Meta:
+        unique_together = (('user', 'course'),)
+        verbose_name = _('Course Professor')
+        verbose_name_plural = _('Course Professors')
 
     def __unicode__(self):
         return u'%s @ %s' % (self.user, self.course)

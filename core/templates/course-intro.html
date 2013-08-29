@@ -100,8 +100,8 @@
                                 </div>
                                 <div class="col-sm-9 col-lg-9">
                                     <h1 class="fullname bottom top">{{ course_professor.user }}</h1>
-                                    <h2 class="job-title top">Instrutor</h2>
-                                    <p>{{course_professor.biography}}</p>
+                                    <h2 class="job-title top">{{ course_professor.get_job_display }}</h2>
+                                    <p>{{ course_professor.biography }}</p>
                                 </div>
                             </div>
                             {% endfor %}
