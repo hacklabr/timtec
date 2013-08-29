@@ -1,28 +1,29 @@
-<!-- NAVBAR -->
 {% load i18n %}
+
+<!-- NAVBAR -->
 <div id="main-navbar" class="navbar navbar-fixed-top navbar-inverse">
     <div class="container">
         <a class="navbar-brand" href="/">TIM Tec</a>
         <ul class="nav navbar-nav pull-right">
-            <li><a href="#">Cursos</a></li>
-            <li class="{% if login_form.errors %}open{% endif %}">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Entrar</a>
+            <li><a href="#">{% trans 'Courses' %}</a></li>
+            <li>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans 'Sign In' %}</a>
                 <div class="dropdown-menu dropdown-signin">
                     <form onclick="event.stopPropagation()" method="post" action="{% url 'timtec_login' %}" class="form-horizontal">{% csrf_token %}
                         <div class="form-group{% if login_form.errors %} has-error{% endif %}">
-                            <label class="col-sm-3 col-lg-3 control-label">E-mail</label>
+                            <label class="col-sm-3 col-lg-3 control-label">{% trans 'E-mail' %}</label>
                             <div class="col-sm-9 col-lg-9">
                                 <input name="username" type="email" class="form-control"
-                                       value="{{login_form.username.value}}" placeholder="Qual o seu email?"/>
+                                       value="{{login_form.username.value}}" placeholder="{% trans 'E-mail or username' %}"/>
                                 {% for error in login_form.username.errors %}
                                 <small>{{error}}</small>
                                 {% endfor error in %}
                             </div>
                         </div>
                         <div class="form-group{% if login_form.errors %} has-error{% endif %}">
-                            <label class="col-sm-3 col-lg-3 control-label">Senha</label>
+                            <label class="col-sm-3 col-lg-3 control-label">{% trans 'Password' %}</label>
                             <div class="col-sm-9 col-lg-9">
-                                <input name="password" type="password" class="form-control" placeholder="Senha">
+                                <input name="password" type="password" class="form-control" placeholder="{% trans 'Password' %}">
                                 {% for error in login_form.password.errors %}
                                 <small>{{error}}</small>
                                 {% endfor %}
@@ -34,47 +35,51 @@
                         <div class="submit">
                             <div class="row">
                                 <div class="col-sm-8 col-lg-8">
-                                    <a href="{% url 'auth_password_reset' %}">Esqueci minha senha</a>
+                                    <a href="{% url 'auth_password_reset' %}">{% trans 'Forgot my password' %}</a>
                                 </div>
                                 <div class="col-sm-4 col-lg-4 textright">
-                                    <button class="btn btn-success">Entrar</button>
+                                    <button class="btn btn-success">{% trans 'Sign In' %} <i class="icon-signin"></i></button>
                                 </div>
                             </div>
                         </div>
                     </form>
+                    <!--
                     <div class="divider"></div>
                     <p class="bottom textcenter">Entrar com <a href="">Facebook</a> ou <a href="">Google+</a></p>
+                    -->
                 </div>
             </li>
             <li>
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Cadastrar</a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans 'Sign Up' %}</a>
                 <div class="dropdown-menu dropdown-signup">
                     <form onclick="event.stopPropagation()" method="post" action="{% url 'registration_register' %}" class="form-horizontal">{% csrf_token %}
                         <div class="form-group">
                             <label class="col-sm-4 col-lg-4 control-label">{% trans "Username" %}</label>
                             <div class="col-sm-8 col-lg-8">
-                                <input name="username" type="email" class="form-control" placeholder="Escolha um nome de usuário">
+                                <input name="username" type="email" class="form-control" placeholder="{% trans 'Choose an username' %}">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-4 col-lg-4 control-label">E-mail</label>
+                            <label class="col-sm-4 col-lg-4 control-label">{% trans 'E-mail' %}</label>
                             <div class="col-sm-8 col-lg-8">
-                                <input name="email" type="email" class="form-control" placeholder="Qual o seu email?">
+                                <input name="email" type="email" class="form-control" placeholder="{% trans 'Insert your e-mail' %}">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-4 col-lg-4 control-label">Senha</label>
+                            <label class="col-sm-4 col-lg-4 control-label">{% trans 'Password' %}</label>
                             <div class="col-sm-8 col-lg-8">
-                                <p><input name="password1" type="password" class="form-control" placeholder="Senha"></p>
-                                <input name="password2" type="password" class="form-control" placeholder="Confirmar senha">
+                                <p><input name="password1" type="password" class="form-control" placeholder="{% trans 'A really strong password' %}"></p>
+                                <input name="password2" type="password" class="form-control" placeholder="{% trans 'Confirm your password' %}">
                             </div>
                         </div>
                         <div class="submit textright">
-                            <button class="btn btn-success">Cadastrar</button>
+                            <button class="btn btn-success">{% trans 'Sign Up' %}</button>
                         </div>
                     </form>
-                    <div class="divider"></div>
-                    <p class="bottom textcenter">Cadastrar com <a href="">Facebook</a> ou <a href="">Google+</a></p>
+                    <!--
+                        <div class="divider"></div>
+                        <p class="bottom textcenter">Cadastrar com <a href="">Facebook</a> ou <a href="">Google+</a></p>
+                    -->
                 </div>
             </li>
         </ul>
