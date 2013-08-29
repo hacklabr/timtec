@@ -6,9 +6,17 @@ from django.template.response import TemplateResponse
 from django.utils.http import is_safe_url
 from django.views.generic import UpdateView
 from django.views.generic.base import TemplateView
-from forms import ProfileEditForm
 
+from registration.backends.default.views import RegistrationView
+from registration.forms import RegistrationFormUniqueEmail
+
+from forms import ProfileEditForm
 from utils import LoginRequiredMixin
+
+
+class RegistrationUniqueEmailView(RegistrationView):
+    form_class = RegistrationFormUniqueEmail
+
 
 class CustomLoginView(TemplateView):
     """
@@ -31,7 +39,6 @@ class CustomLoginView(TemplateView):
         if type(ret) is TemplateResponse:
             ret.context_data['login_form'] = ret.context_data.pop('form')
         return ret
-
 
 class ProfileEditView(LoginRequiredMixin, UpdateView):
     model = get_user_model()

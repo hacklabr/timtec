@@ -10,7 +10,7 @@
             <div class="form-group{{ errors|yesno:' has-error,' }}">
                 <label class="col-sm-4 col-lg-4 control-label">Usuário</label>
                 <div class="col-sm-8 col-lg-8">
-                    <input name="username" type="text" class="form-control" placeholder="Nome de usuário">
+                    <input name="username" type="text" value="{{form.username.value}}" class="form-control" placeholder="Nome de usuário">
                     {% for error in errors %}<small>{{error}}</small>{% endfor %}
                 </div>
             </div>
@@ -20,7 +20,7 @@
             <div class="form-group{{ errors|yesno:' has-error,' }}">
                 <label class="col-sm-4 col-lg-4 control-label">E-mail</label>
                 <div class="col-sm-8 col-lg-8">
-                    <input name="email" type="email" class="form-control" placeholder="Qual o seu email?">
+                    <input name="email" type="email" value="{{form.email.value}}" class="form-control" placeholder="Qual o seu email?">
                     {% for error in errors %}<small>{{error}}</small>{% endfor %}
                 </div>
             </div>

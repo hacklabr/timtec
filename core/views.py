@@ -2,7 +2,7 @@
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.views.generic import DetailView
-from django.views.generic.base import View
+from django.views.generic.base import View, TemplateView
 
 from models import Course
 
@@ -16,3 +16,6 @@ class HomeView(View):
 class CourseIntroView(DetailView):
     model = Course
     template_name = 'course-intro.html'
+
+class UserCoursesView(TemplateView):
+    template_name = 'user-courses.html'
