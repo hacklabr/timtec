@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load staticfiles %}
 {% block content %}
     <div id="profile" class="container">
@@ -46,16 +47,6 @@
                             <h3>Perfil</h3>
                         </div>
 
-                        {% with errors=form.nickname.errors %}
-                        <div class="form-group{{ errors|yesno:" has-error,"}}">
-                            <label class="col-sm-3 col-lg-3 control-label">Nome Público</label>
-                            <div class="col-sm-9 col-lg-9">
-                                <input name="nickname" type="text" class="form-control" placeholder="O nome que os outros usuários verão" value="{{form.nickname.value}}">
-                                {% for error in errors %}<small>{{error}}</small>{% endfor %}
-                            </div>
-                        </div>
-                        {% endwith %}
-
                         {% with errors=form.occupation.errors %}
                         <div class="form-group{{ errors|yesno:" has-error,"}}">
                             <label class="col-sm-3 col-lg-3 control-label">Profissão</label>
@@ -101,6 +92,16 @@
                         <div class="heading textleft">
                             <h3>Conta</h3>
                         </div>
+
+                        {% with errors=form.username.errors %}
+                        <div class="form-group{{ errors|yesno:" has-error,"}}">
+                            <label class="col-sm-3 col-lg-3 control-label">{% trans "Username" %}</label>
+                            <div class="col-sm-9 col-lg-9">
+                                <input readonly name="username" type="text" class="form-control" value="{{form.username.value}}">
+                                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                            </div>
+                        </div>
+                        {% endwith %}
 
                         <div class="form-group">
                             <label class="col-sm-3 col-lg-3 control-label">Nome Completo</label>

@@ -17,7 +17,6 @@
         "groups": [],
         "user_permissions": [],
         "password": "pbkdf2_sha256$10000$27edDmeMEx0p$Hlbl543/d/caP6w8ClL/VhzTMaiRCLa05nK9Uyoje9I=",
-        "nickname": "",
         "email": "a@b.cd",
         "biography": "",
         "date_joined": "2013-08-23T21:06:59.961Z"
@@ -41,7 +40,6 @@
         "groups": [],
         "user_permissions": [],
         "password": "pbkdf2_sha256$10000$27edDmeMEx0p$Hlbl543/d/caP6w8ClL/VhzTMaiRCLa05nK9Uyoje9I=",
-        "nickname": "",
         "email": "luciano@ramalho.org",
         "biography": "",
         "date_joined": "2013-08-23T21:35:44Z"
@@ -65,7 +63,6 @@
         "groups": [],
         "user_permissions": [],
         "password": "pbkdf2_sha256$10000$tgmyQ6c0Zim0$4vH9yV5PBge23OdXaI6X60QeP5MqZmKFmnQPXQQ7VFY=",
-        "nickname": "",
         "email": "andersonorui@hacklab.com.br",
         "biography": "",
         "date_joined": "2013-08-27T13:56:14.361Z"
@@ -89,7 +86,6 @@
         "groups": [],
         "user_permissions": [],
         "password": "pbkdf2_sha256$10000$uzQedcyV96Y5$na8UXP3aslXzYxYGo4MLUw1S+22sjDz13IvIgwnm9kQ=",
-        "nickname": "",
         "email": "andersonorui@gmail.com",
         "biography": "",
         "date_joined": "2013-08-27T14:41:30.503Z"

@@ -17,11 +17,11 @@ class ProfileEditForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name', 'picture', 'nickname',
+        fields = ('username', 'email', 'first_name', 'last_name', 'picture',
                   'occupation', 'city', 'site', 'biography',)
 
-    def clean_email(self):
-        return self.instance.email
+    def clean_username(self):
+        return self.instance.username
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')

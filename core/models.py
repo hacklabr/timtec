@@ -29,7 +29,6 @@ class TimtecUser(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(_('Date joined'), default=timezone.now)
 
     picture = models.ImageField(_("Picture"), upload_to='user-pictures', blank=True)
-    nickname = models.CharField(_('Nickame'), max_length=30, blank=True)
     occupation = models.CharField(_('Occupation'), max_length=30, blank=True)
     city = models.CharField(_('City'), max_length=30, blank=True)
     site = models.URLField(_('Site'), blank=True)
