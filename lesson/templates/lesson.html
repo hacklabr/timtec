@@ -33,23 +33,15 @@
         <nav class="course-lessons-nav row">
             <div class="col-sm-12 col-lg-12">
                 <div class="btn-group button-watching">
-                    <button type="button" class="btn btn-sm btn-info">Aula 1: Modelos de dados e introdução ao modelo relacional</button>
+                    <button type="button" class="btn btn-sm btn-info">{{ lesson.name }}
+                    </button>
                     <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown">
                         <i class="icon-chevron-down"></i>
                     </button>
                     <ul class="dropdown-menu top">
-                        <li><a href=""><span class="title">Aula 1: Modelos de dados e introdução ao modelo relacional</span></a></li>
-                        <li><a href=""><span class="title">Aula 2: Introdução a SQL (demonstração), SGBDs e definição de esquemas</span></a></li>
-                        <li><a href=""><span class="title">Aula 3: SELECT, Projeção x seleção e uso do console</span></a></li>
-                        <li><a href=""><span class="title">Aula 4: Seleções com lógica booleana</span></a></li>
-                        <li><a href=""><span class="title">Aula 5: Chaves: simples, compostas, candidatas, primárias, estrangeiras, mudas</span></a></li>
-                        <li><a href=""><span class="title">Aula 6: Consultas com relacionamentos, joins implícitos e explícitos</span></a></li>
-                        <li><a href=""><span class="title">Aula 7: Consultas com agregação</span></a></li>
-                        <li><a href=""><span class="title">Aula 8: Operações de alteração de dados e transações</span></a></li>
-                        <li><a href=""><span class="title">Aula 9: Projeto de bancos de dados normalizados e formas normais</span></a></li>
-                        <li><a href=""><span class="title">Aula 10: Índices e constraints</span></a></li>
-                        <li><a href=""><span class="title">Aula 11: Triggers e views, dialetos de SQL entre SGBDs importantes</span></a></li>
-                        <li><a href=""><span class="title">Aula 12: Limitações e alternativas ao modelo tradicional</span></a></li>
+                        {% for list_lesson in lesson.course.lesson_set.all %}
+                            <li><a href="{% url 'lesson' list_lesson.slug %}"><span class="title">{{ list_lesson.name }}</span></a></li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
@@ -60,71 +52,19 @@
             <div class="row">
                 <!-- BLOCKS -->
                 <div class="col-sm-1 col-lg-1">
-                    <a style="display:block;" href="aula.html" class="has-tooltip track watching" data-toggle="tooltip" data-placement="right" data-original-title="Unidade I">
-                        <i class="icon-caret-right"></i>
-                        <span class="position">1</span>
+                    {% for unit in lesson.unit_set.all %}
+                        <a style="display:block;" href="#" class="has-tooltip track {% if forloop.first %}
+                        watching
+                        {% endif %}" data-toggle="tooltip" data-placement="right" data-original-title="{{ unit.position|add:1 }}">
+                         {% if forloop.first %}
+                            <i class="icon-caret-right"></i>
+                        {% endif %}
+                        <span class="position">{{ unit.position|add:1 }}</span>
+                        {% if unit.activity != None %}
+                            <i class="icon-list"></i>
+                        {% endif %}
                     </a>
-                    <a style="display:block;" href="aula-2.html" class="has-tooltip track" data-toggle="tooltip" data-placement="right" data-original-title="Unidade II">
-                        <span class="position">2</span>
-                    </a>
-                    <a style="display:block;" class="has-tooltip track" data-toggle="tooltip" data-placement="right" data-original-title="Unidade III">
-                        <span class="position">3</span>
-                    </a>
-                    <a style="display:block;" class="has-tooltip track" data-toggle="tooltip" data-placement="right" data-original-title="Unidade IV">
-                        <span class="position">4</span>
-                    </a>
-                    <a style="display:block;" class="has-tooltip track" data-toggle="tooltip" data-placement="right" data-original-title="Unidade V">
-                        <span class="position">5</span>
-                        <i class="icon-list"></i>
-                    </a>
-                    <a style="display:block;" class="has-tooltip track" data-toggle="tooltip" data-placement="right" data-original-title="Unidade VI">
-                        <span class="position">6</span>
-                    </a>
-                    <a style="display:block;" class="has-tooltip track" data-toggle="tooltip" data-placement="right" data-original-title="Unidade VII">
-                        <span class="position">7</span>
-                    </a>
-                    <a style="display:block;" class="has-tooltip track" data-toggle="tooltip" data-placement="right" data-original-title="Unidade VIII">
-                        <span class="position">8</span>
-                    </a>
-                    <a style="display:block;" class="has-tooltip track" data-toggle="tooltip" data-placement="right" data-original-title="Unidade IX">
-                        <span class="position">9</span>
-                    </a>
-                    <a style="display:block;" class="has-tooltip track" data-toggle="tooltip" data-placement="right" data-original-title="Unidade X">
-                        <span class="position">10</span>
-                        <i class="icon-time"></i>
-                    </a>
-                    <a style="display:block;" class="has-tooltip track" data-toggle="tooltip" data-placement="right" data-original-title="Unidade XI">
-                        <span class="position">11</span>
-                    </a>
-                    <a style="display:block;" class="has-tooltip track" data-toggle="tooltip" data-placement="right" data-original-title="Unidade XII">
-                        <span class="position">12</span>
-                    </a>
-                    <a style="display:block;" class="has-tooltip track" data-toggle="tooltip" data-placement="right" data-original-title="Unidade XIII">
-                        <span class="position">13</span>
-                    </a>
-                    <a style="display:block;" class="has-tooltip track" data-toggle="tooltip" data-placement="right" data-original-title="Unidade XIV">
-                        <span class="position">14</span>
-                    </a>
-                    <a style="display:block;" class="has-tooltip track" data-toggle="tooltip" data-placement="right" data-original-title="Unidade XV">
-                        <span class="position">15</span>
-                        <i class="icon-list"></i>
-                    </a>
-                    <a style="display:block;" class="has-tooltip track" data-toggle="tooltip" data-placement="right" data-original-title="Unidade XVI">
-                        <span class="position">16</span>
-                    </a>
-                    <a style="display:block;" class="has-tooltip track" data-toggle="tooltip" data-placement="right" data-original-title="Unidade XVII">
-                        <span class="position">17</span>
-                    </a>
-                    <a style="display:block;" class="has-tooltip track" data-toggle="tooltip" data-placement="right" data-original-title="Unidade XVIII">
-                        <span class="position">18</span>
-                    </a>
-                    <a style="display:block;" class="has-tooltip track" data-toggle="tooltip" data-placement="right" data-original-title="Unidade XIX">
-                        <span class="position">19</span>
-                    </a>
-                    <a style="display:block;" class="has-tooltip track" data-toggle="tooltip" data-placement="right" data-original-title="Unidade XX">
-                        <span class="position">20</span>
-                        <i class="icon-list"></i>
-                    </a>
+                    {% endfor %}
                 </div>
                 <!-- END BLOCKS -->
 
@@ -149,7 +89,7 @@
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#subtitles" data-toggle="tab">Transcrição</a></li>
                         <li><a href="#notes" data-toggle="tab">Anotações</a></li>
-                        <li><a href="" class="has-tooltip" data-toggle="tooltip" data-placemente="top" data-original-title="Esconder transcrição/anotações"><i class="icon-double-angle-right"></a></i></li>
+                        <li><a href="" class="has-tooltip" data-toggle="tooltip" data-placemente="top" data-original-title="Esconder transcrição/anotações"><i class="icon-double-angle-right"></i></a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="subtitles">
