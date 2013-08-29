@@ -8,7 +8,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 from core.views import CourseIntroView, HomeView
-from accounts.views import CustomLoginView, ProfileEditView, RegistrationView
+from accounts.views import CustomLoginView, ProfileEditView
 from lesson.views import LessonDetailView
 
 urlpatterns = patterns(
@@ -27,7 +27,6 @@ urlpatterns = patterns(
     url(r'^admin/', include(admin.site.urls)),
 
     # The django-registration
-    url(r'^accounts/register/$', RegistrationView.as_view(), name='registration_register'),
     url(r'^accounts/', include('registration.backends.default.urls')),
 
     # The django-rosetta

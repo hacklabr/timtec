@@ -4,7 +4,7 @@ Someone, probably you, requested a registration in {{ site }}.
 
 To activate the registration, please click in link below or copy and past it on your browser.
 
---> http:{{ site }}{% url 'registration_activate' activation_key=activation_key %}
+--> http://{{ site }}{% url 'registration_activate' activation_key=activation_key %}
 
 
 This registration request will expire in {{ expiration_days }} days!
