@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load staticfiles %}
 {% block content %}
     <div id="profile" class="container">
         <form class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
@@ -9,27 +9,32 @@
                         <script type="text/javascript" charset="utf-8">
                             $(document).ready(function() {
                                 function onFileSelected(event) {
-                                    var selectedFile = event.target.files[0]
-                                    var reader = new FileReader()
+                                    var selectedFile = event.target.files[0];
+                                    var reader = new FileReader();
                                     var imgtag = document.getElementById("profile-avatar");
-                                    imgtag.title = selectedFile.name
+                                    imgtag.title = selectedFile.name;
 
                                     reader.onload = function(event) {
-                                        imgtag.src = event.target.result
+                                        imgtag.src = event.target.result;
                                     };
 
-                                    reader.readAsDataURL(selectedFile)
+                                    reader.readAsDataURL(selectedFile);;
                                 }
-                                $("#upload-avatar").change(onFileSelected)
-                            })
+
+                                function onImgNotFound(event) {
+                                    $(this).attr('src', '{% static "img/avatar-default.png" %}')
+                                }
+
+                                $("#upload-avatar").change(onFileSelected);
+
+                                $("#profile-avatar").error(onImgNotFound);
+                            });
                         </script>
 
-                        <label for="upload-avatar" class="col-sm-12 col-lg-12 left right">
-                            <div class="icon-user"></div>
-                            <div class="upload-tip">
-                                Upload image
+                        <label for="upload-avatar">
+                            <div class="thumbnail">
+                                <img id="profile-avatar" width="256" src="{{ form.instance.get_picture_url }}">
                             </div>
-                            <img id="profile-avatar" src="{{ form.instance.get_picture_url }}">
                         </label>
                         <input type="file" name="picture" id="upload-avatar" class="hidden"/>
                     </fieldset>
