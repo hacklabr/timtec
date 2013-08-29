@@ -13,7 +13,7 @@
         "site": "", 
         "is_superuser": true, 
         "is_staff": true, 
-        "last_login": "2013-08-28T17:15:49.843Z", 
+        "last_login": "2013-08-29T12:56:21.562Z", 
         "groups": [], 
         "user_permissions": [], 
         "password": "pbkdf2_sha256$10000$27edDmeMEx0p$Hlbl543/d/caP6w8ClL/VhzTMaiRCLa05nK9Uyoje9I=", 
@@ -125,8 +125,19 @@
     "model": "core.courseprofessor", 
     "fields": {
         "course": 1, 
+        "job": "instructor", 
         "user": 2, 
         "biography": "Cara legal."
+    }
+},
+{
+    "pk": 2, 
+    "model": "core.courseprofessor", 
+    "fields": {
+        "course": 1, 
+        "job": "pedagogy_assistant", 
+        "user": 3, 
+        "biography": "Lorem ipsum all the way down"
     }
 },
 {
