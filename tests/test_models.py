@@ -5,7 +5,7 @@ from core.models import *
 
 @pytest.mark.django_db
 def test_super_user():
-    a = TimtecUser.objects.get(username='a@b.cd')
+    a = TimtecUser.objects.get(username='abcd')
     assert a.is_superuser
 
 
