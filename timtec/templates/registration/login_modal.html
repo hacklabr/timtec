@@ -4,43 +4,95 @@
 <div id="login-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="form-horizontal" method="post" action="{% url 'timtec_login' %}">{% csrf_token %}
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h3 id="loginModalLabel">Login</h3>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="form-group{% if login_form.errors %} has-error{% endif %}">
-                            <label class="col-sm-3 col-lg-3 control-label">E-mail</label>
-                            <div class="col-sm-9 col-lg-7">
-                                <input name="username" type="email" class="form-control"
-                                       value="{{login_form.username.value}}" placeholder="Qual o seu email?"/>
-                                {% for error in login_form.username.errors %}
-                                <small>{{error}}</small>
-                                {% endfor error in %}
-                            </div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="loginModalLabel">{% trans "Authentication" %}</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{% trans "Login" %}</h3>
                         </div>
-                        <div class="form-group{% if login_form.errors %} has-error{% endif %}">
-                            <label class="col-sm-3 col-lg-3 control-label">{% trans 'Password' %}</label>
-                            <div class="col-sm-9 col-lg-7">
-                                <input name="password" type="password" class="form-control" placeholder="Senha">
-                                {% for error in login_form.password.errors %}
-                                <small>{{error}}</small>
-                                {% endfor %}
-                                {% for error in login_form.non_field_errors %}
-                                <small>{{error}}</small>
-                                {% endfor %}
-                            </div>
+
+                        <div class="panel-body">
+                            <form class="form-horizontal" method="post" action="{% url 'timtec_login' %}">{% csrf_token %}
+                                <div class="form-group{% if login_form.errors %} has-error{% endif %}">
+                                    <label class="col-sm-3 col-lg-3 control-label">E-mail</label>
+                                    <div class="col-sm-9 col-lg-7">
+                                        <input name="username" type="email" class="form-control"
+                                               value="{{login_form.username.value}}" placeholder="Qual o seu email?"/>
+                                        {% for error in login_form.username.errors %}
+                                        <small>{{error}}</small>
+                                        {% endfor error in %}
+                                    </div>
+                                </div>
+                                <div class="form-group{% if login_form.errors %} has-error{% endif %}">
+                                    <label class="col-sm-3 col-lg-3 control-label">{% trans 'Password' %}</label>
+                                    <div class="col-sm-9 col-lg-7">
+                                        <input name="password" type="password" class="form-control" placeholder="Senha">
+                                        {% for error in login_form.password.errors %}
+                                        <small>{{error}}</small>
+                                        {% endfor %}
+                                        {% for error in login_form.non_field_errors %}
+                                        <small>{{error}}</small>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-9 col-lg-10">
+                                        <div class="submit textright">
+                                            <button class="btn btn-success">Entrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    <input type="hidden" name="next" />
+
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{% trans "Login" %}</h3>
+                        </div>
+
+                        <div class="panel-body">
+                            <form onclick="event.stopPropagation()" method="post" action="{% url 'registration_register' %}" class="form-horizontal">{% csrf_token %}
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-lg-3 control-label">{% trans "Username" %}</label>
+                                    <div class="col-sm-9 col-lg-7">
+                                        <input name="username" type="email" class="form-control" placeholder="Escolha um nome de usuário">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-lg-3 control-label">E-mail</label>
+                                    <div class="col-sm-9 col-lg-7">
+                                        <input name="email" type="email" class="form-control" placeholder="Qual o seu email?">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-lg-3 control-label">Senha</label>
+                                    <div class="col-sm-9 col-lg-7">
+                                        <p><input name="password1" type="password" class="form-control" placeholder="Senha"></p>
+                                        <input name="password2" type="password" class="form-control" placeholder="Confirmar senha">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-9 col-lg-10">
+                                        <div class="submit textright">
+                                            <button class="btn btn-success">Cadastrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
-                <div class="modal-footer">
-                    <button class="btn" data-dismiss="modal" aria-hidden="true">{% trans "Close" %}</button>
-                    <button class="btn btn-primary btn-success">{% trans "Enter" %}</button>
-                </div>
-            </form>
+                <input type="hidden" name="next" />
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">{% trans "Close" %}</button>
+            </div>
         </div>
     </div>
 </div>
