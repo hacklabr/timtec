@@ -77,6 +77,39 @@ a:active {
   font-size:14px;
 }
 
+// Button variants
+// -------------------------
+// Easily pump out default styles, as well as :hover, :focus, :active,
+// and disabled options for all buttons
+.button-variant(@color; @background; @border) {
+  border: none !important;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active,
+  .open .dropdown-toggle& {
+    border: none !important;
+  }
+  &:active,
+  &.active,
+  .open .dropdown-toggle& {
+    border: none !important;
+  }
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    &,
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+      border: none !important;
+    }
+  }
+}
+
+
 
 // NAVBAR
 // Reset inverted navbar basics
