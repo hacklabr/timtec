@@ -128,12 +128,24 @@ class CourseStudent(models.Model):
     class Meta:
         unique_together = (('user', 'course'),)
 
+    @property
+    def units_done(self):
+        return StudentProgress.objects.exclude(complete=None)\
+                                      .filter(user=self.user, unit__lesson__course=self.course)
+
+    def head_to_unit(self):
+        units_done_list = self.units_done.values_list('unit', flat=True)
+        units_undone = self.course.unit_set.exclude(id__in=units_done_list)
+
+        if units_undone.count() > 0:
+            return units_undone[0]
+        elif self.course.unit_set.exists():
+            return self.course.unit_set.latest('id')
+
     def percent_progress(self):
-        units = self.course.unit_set.count()
-        units_done = StudentProgress.objects.exclude(complete=None)\
-                                            .filter(user=self.user, unit__lesson__course=self.course)\
-                                            .count()
-        return int( 100 * float(units_done) / float(units) )
+        units_len = self.course.unit_set.count()
+        units_done_len = self.units_done.count()
+        return int( 100 * float(units_done_len) / float(units_len) )
 
 
 class CourseProfessor(models.Model):
