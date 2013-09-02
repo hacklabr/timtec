@@ -113,6 +113,13 @@ class Course(models.Model):
     def first_lesson(self):
         return self.lesson_set.all()[0]
 
+    def enroll_student(self, student):
+        params = { 'user': student, 'course': self }
+        try:
+            return CourseStudent.objects.get(**params)
+        except CourseStudent.DoesNotExist:
+            return CourseStudent.objects.create(**params)
+
 
 class CourseStudent(models.Model):
     user = models.ForeignKey(TimtecUser, verbose_name=_('Student'))
