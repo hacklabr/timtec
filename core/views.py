@@ -17,5 +17,6 @@ class CourseIntroView(DetailView):
     model = Course
     template_name = 'course-intro.html'
 
+
 class UserCoursesView(TemplateView):
     template_name = 'user-courses.html'

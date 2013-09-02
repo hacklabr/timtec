@@ -96,7 +96,8 @@ class Course(models.Model):
     pronatec = models.TextField(_('Pronatec'))
     status = models.CharField(_('Status'), choices=STATES, default=STATES[0][0], max_length=128)
     publication = models.DateField(_('Publication'), )
-    professors = models.ManyToManyField(TimtecUser, through='CourseProfessor')
+    professors = models.ManyToManyField(TimtecUser, related_name='professorcourse_set', through='CourseProfessor')
+    students = models.ManyToManyField(TimtecUser, related_name='studentcourse_set', through='CourseStudent')
 
     class Meta:
         verbose_name = _('Course')
@@ -105,8 +106,27 @@ class Course(models.Model):
     def __unicode__(self):
         return self.name
 
+    @property
+    def unit_set(self):
+        return Unit.objects.filter(lesson__in=self.lesson_set.all()).order_by('lesson')
+
     def first_lesson(self):
         return self.lesson_set.all()[0]
+
+
+class CourseStudent(models.Model):
+    user = models.ForeignKey(TimtecUser, verbose_name=_('Student'))
+    course = models.ForeignKey(Course, verbose_name=_('Course'))
+
+    class Meta:
+        unique_together = (('user', 'course'),)
+
+    def percent_progress(self):
+        units = self.course.unit_set.count()
+        units_done = StudentProgress.objects.exclude(complete=None)\
+                                            .filter(user=self.user, unit__lesson__course=self.course)\
+                                            .count()
+        return int( 100 * float(units_done) / float(units) )
 
 
 class CourseProfessor(models.Model):
@@ -209,3 +229,14 @@ class Answer(models.Model):
     class Meta:
         verbose_name = _('Answer')
         verbose_name_plural = _('Answers')
+
+
+class StudentProgress(models.Model):
+    user = models.ForeignKey(TimtecUser, verbose_name=_('Student'))
+    unit = models.ForeignKey(Unit, verbose_name=_('Unit'))
+    complete = models.DateTimeField(editable=False, null=True)
+    last_access = models.DateTimeField(auto_now=True, editable=False)
+
+    class Meta:
+        unique_together = (('user', 'unit'),)
+        verbose_name = _('Student Progress')

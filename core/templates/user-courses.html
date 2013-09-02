@@ -9,12 +9,13 @@
             </header>
 
             <section class="courses">
+                {% for cs in request.user.coursestudent_set.all %}
                 <!-- COURSE -->
                 <div class="course">
                     <header>
                         <div class="row">
                             <div class="col-sm-8 col-lg-8">
-                                <h1>Introdução a Bancos de Dados e SQL</h1>
+                                <h1>{{ cs.course.name }}</h1>
                             </div>
                             <div class="col-sm-4 col-lg-4 textright">
                                 <div class="btn-group">
@@ -25,137 +26,14 @@
                         </div>
                     </header>
                     <div class="progress">
-                        <div class="progress-bar" style="width:30%;"></div>
+                        <div class="progress-bar" style="width:{{cs.percent_progress}}%;"></div>
                     </div>
                     <a href="profile-note.html" class="btn btn-default btn-sm">Anotações</a>
                     <a href="" class="btn btn-default btn-sm">Detalhes</a>
                     <span class="info">0 min of lecture and 0 quizzes remaining in 1.1a Equivalent Fractions.</span>
                 </div>
                 <!-- END COURSE -->
-
-                <!-- COURSE -->
-                <div class="course">
-                    <header>
-                        <div class="row">
-                            <div class="col-sm-8 col-lg-8">
-                                <h1>Introduction to Computer Science</h1>
-                            </div>
-                            <div class="col-sm-4 col-lg-4 textright">
-                                <div class="btn-group">
-                                    <a href="aula.html" class="btn btn-sm btn-success">Ir para o curso</a>
-                                    <a href="aula.html" class="btn btn-sm btn-success"><i class="icon-double-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </header>
-                    <div class="progress">
-                        <div class="progress-bar" style="width:0;"></div>
-                    </div>
-                    <a href="profile-note.html" class="btn btn-default btn-sm">Anotações</a>
-                    <a href="" class="btn btn-default btn-sm">Detalhes</a>
-                    <span class="info">12 min of lecture and 3 quizzes remaining in 1.1a Equivalent Fractions.</span>
-                </div>
-                <!-- END COURSE -->
-
-
-                <!-- COURSE -->
-                <div class="course">
-                    <header>
-                        <div class="row">
-                            <div class="col-sm-8 col-lg-8">
-                                <h1>The Design of Everyday Things</h1>
-                            </div>
-                            <div class="col-sm-4 col-lg-4 textright">
-                                <div class="btn-group">
-                                    <a href="aula.html" class="btn btn-sm btn-success">Ir para o curso</a>
-                                    <a href="aula.html" class="btn btn-sm btn-success"><i class="icon-double-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </header>
-                    <div class="progress">
-                        <div class="progress-bar" style="width:0;"></div>
-                    </div>
-                    <a href="profile-note.html" class="btn btn-default btn-sm">Anotações</a>
-                    <a href="" class="btn btn-default btn-sm">Detalhes</a>
-                    <span class="info">12 min of lecture and 3 quizzes remaining in 1.1a Equivalent Fractions.</span>
-                </div>
-                <!-- END COURSE -->
-
-
-                <!-- COURSE -->
-                <div class="course">
-                    <header>
-                        <div class="row">
-                            <div class="col-sm-8 col-lg-8">
-                                <h1>Tales from Genome</h1>
-                            </div>
-                            <div class="col-sm-4 col-lg-4 textright">
-                                <div class="btn-group">
-                                    <a href="aula.html" class="btn btn-sm btn-success">Ir para o curso</a>
-                                    <a href="aula.html" class="btn btn-sm btn-success"><i class="icon-double-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </header>
-                    <div class="progress">
-                        <div class="progress-bar" style="width:0;"></div>
-                    </div>
-                    <a href="profile-note.html" class="btn btn-default btn-sm">Anotações</a>
-                    <a href="" class="btn btn-default btn-sm">Detalhes</a>
-                    <span class="info">12 min of lecture and 3 quizzes remaining in 1.1a Equivalent Fractions.</span>
-                </div>
-                <!-- END COURSE -->
-
-
-                <!-- COURSE -->
-                <div class="course">
-                    <header>
-                        <div class="row">
-                            <div class="col-sm-8 col-lg-8">
-                                <h1>Introduction to Physics</h1>
-                            </div>
-                            <div class="col-sm-4 col-lg-4 textright">
-                                <div class="btn-group">
-                                    <a href="aula.html" class="btn btn-sm btn-success">Ir para o curso</a>
-                                    <a href="aula.html" class="btn btn-sm btn-success"><i class="icon-double-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </header>
-                    <div class="progress">
-                        <div class="progress-bar" style="width:0;"></div>
-                    </div>
-                    <a href="profile-note.html" class="btn btn-default btn-sm">Anotações</a>
-                    <a href="" class="btn btn-default btn-sm">Detalhes</a>
-                    <span class="info">12 min of lecture and 3 quizzes remaining in 1.1a Equivalent Fractions.</span>
-                </div>
-                <!-- END COURSE -->
-
-
-                <!-- COURSE -->
-                <div class="course">
-                    <header>
-                        <div class="row">
-                            <div class="col-sm-8 col-lg-8">
-                                <h1>Introduction to Statistics</h1>
-                            </div>
-                            <div class="col-sm-4 col-lg-4 textright">
-                                <div class="btn-group">
-                                    <a href="aula.html" class="btn btn-sm btn-success">Ir para o curso</a>
-                                    <a href="aula.html" class="btn btn-sm btn-success"><i class="icon-double-angle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </header>
-                    <div class="progress">
-                        <div class="progress-bar" style="width:0;"></div>
-                    </div>
-                    <a href="profile-note.html" class="btn btn-default btn-sm">Anotações</a>
-                    <a href="" class="btn btn-default btn-sm">Detalhes</a>
-                    <span class="info">12 min of lecture and 3 quizzes remaining in 1.1a Equivalent Fractions.</span>
-                </div>
-                <!-- END COURSE -->
+                {% endfor %}
             </section>
         </div>
         <!-- CONTAINER -->

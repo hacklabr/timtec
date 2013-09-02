@@ -4,7 +4,6 @@ from core.models import Lesson
 
 from accounts.utils import LoginRequiredMixin
 
-
 class LessonDetailView(LoginRequiredMixin, DetailView):
     model = Lesson
     template_name = "lesson.html"
