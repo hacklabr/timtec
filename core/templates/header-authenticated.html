@@ -1,25 +1,27 @@
-    <!-- NAVBAR -->
-    <div id="main-navbar" class="navbar navbar-fixed-top navbar-inverse">
-        <div class="container">
-            <a class="navbar-brand" href="/">TIM Tec</a>
-            <ul class="nav navbar-nav pull-right">
-                <li><a href="">Cursos Disponíveis</a></li>
-                <li><a href="{% url 'user_courses' %}">Meus Cursos</a></li>
-                <li><a href="profile-notes.html">Minhas Anotações</a></li>
-                <li>
-                    <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
-                        {{ user }}
-                        <i class="icon-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="profile.html">Ver Perfil</a></li>
-                        <li><a href="{% url 'profile_edit' %}">Editar Perfil</a></li>
-                        <li><a href="">Configuração</a></li>
-                        <li class='divider'></li>
-                        <li><a href="{% url 'timtec_logout' %}">Sair</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+{% load i18n %}
+
+<!-- NAVBAR -->
+<div id="main-navbar" class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container">
+        <a class="navbar-brand" href="/">TIM Tec</a>
+        <ul class="nav navbar-nav pull-right">
+            <li><a href="">{% trans "Available Courses" %}</a></li>
+            <li><a href="{% url 'user_courses' %}">{% trans "My Courses" %}</a></li>
+            <li><a href="profile-notes.html">{% trans "My Notes" %}</a></li>
+            <li>
+                <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
+                    {{ user }}
+                    <i class="icon-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="profile.html">{% trans "Profile" %}</a></li>
+                    <li><a href="{% url 'profile_edit' %}">{% trans "Edit Profile and Account Settings" %}</a></li>
+                    <li><a href="">{% trans "Settings" %}</a></li>
+                    <li class='divider'></li>
+                    <li><a href="{% url 'timtec_logout' %}">{% trans "Logout" %}</a></li>
+                </ul>
+            </li>
+        </ul>
     </div>
-    <!-- END NAVBAR -->
+</div>
+<!-- END NAVBAR -->
