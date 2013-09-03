@@ -2,7 +2,6 @@
 
 {% load staticfiles %}
 {% load i18n %}
-{% load timutils %}
 
 {% block content %}
 
@@ -73,7 +72,7 @@
                                                     <tr>
                                                     {% for unit in lesson.unit_set.all %}
                                                         <td>
-                                                            <span class="has-tooltip unit {{ unit|status:request.user }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade">&nbsp;</span>
+                                                            <span class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}" data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade">&nbsp;</span>
                                                         </td>
                                                     {% endfor %}
                                                     </tr>
