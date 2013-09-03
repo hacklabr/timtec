@@ -11,11 +11,11 @@
         <header id="main-header" class="container">
             <div class="page-header">
                 <div class="row">
-                    <div class="col-sm-9 col-lg-9">
+                    <div class=" col-lg-9">
                         <h1 class="top">{{course.name}}</h1>
                         {% include "_course-professors-inline.html" with course=course %}
                     </div>
-                    <div class="col-sm-3 col-lg-3 textright">
+                    <div class=" col-lg-3 textright">
                         <a href="{% url "enroll_course" course.slug %}" class="js-login-required btn btn-lg btn-danger col-lg-12 uppercase">Começar o curso</a>
                     </div>
                 </div>
@@ -26,23 +26,23 @@
         <!-- MAIN CONTENT -->
         <section id="main-content" class="container">
             <div class="row">
-                <div class="col-sm-9 col-lg-9">
+                <div class=" col-lg-9">
                     <section class="course-video top row">
                         {% with yid=course.intro_video.youtube_id %}
                         <div class="col-lg-12">
-                            <iframe class="col-sm-12 col-lg-12 left right" id="ytplayer" type="text/html" height="489" src="https://www.youtube.com/embed/{{yid}}?rel=0&showinfo=0&autohide=1&theme=light&wmode=opaque" frameborder="0" allowfullscreen></iframe>
+                            <iframe class="2 col-lg-12 left right" id="ytplayer" type="text/html" height="489" src="https://www.youtube.com/embed/{{yid}}?rel=0&showinfo=0&autohide=1&theme=light&wmode=opaque" frameborder="0" allowfullscreen></iframe>
                         </div>
                         {% endwith %}
                     </section>
 
                     <section class="course-info row">
-                        <div class="col-sm-6 col-lg-6">
+                        <div class=" col-lg-6">
                             <div class="page-header-double">
                                 <h3 class="top"><i class="icon-double-angle-right"></i> Aplicação do Conhecimento</h3>
                             </div>
                             <p>{{course.application}}</p>
                         </div>
-                        <div class="col-sm-6 col-lg-6">
+                        <div class=" col-lg-6">
                             <div class="page-header-double">
                                 <h3 class="top"><i class="icon-double-angle-right"></i> O que preciso saber</h3>
                             </div>
@@ -51,7 +51,7 @@
                     </section>
 
                     <section class="course-lessons row">
-                        <div class="col-sm-12 col-lg-12">
+                        <div class="2 col-lg-12">
                             <div class="page-header-double">
                                 <h3><i class="icon-double-angle-right"></i> Aulas</h3>
                             </div>
@@ -59,10 +59,10 @@
                                 {% for lesson in course.lesson_set.all %}
                                     <li>
                                         <div class="row">
-                                            <div class="col-lg-2 col-sm-2">
+                                            <div class="col-lg-3 ">
                                                 <img src="{% static 'img/aula-thumb.png' %}" class="img-thumbnail">
                                             </div>
-                                            <div class="col-lg-10 col-sm-10">
+                                            <div class="col-lg-9 ">
                                                 <p>
                                                     <span class="title">{{lesson.name}}</span>
                                                     <span class="description">{{lesson.desc}}</span>
@@ -86,19 +86,19 @@
                     </section>
 
                     <section class="course-instructors row">
-                        <div class="col-sm-12 col-lg-12">
+                        <div class="2 col-lg-12">
                             <div class="page-header-double">
                                 <h3><i class="icon-double-angle-right"></i> Professores</h3>
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-lg-12">
+                        <div class="2 col-lg-12">
                             {% for course_professor in course.courseprofessor_set.all %}
                             <div id="luciano-ramalho" class="instructor row">
-                                <div class="col-sm-3 col-lg-3">
+                                <div class=" col-lg-3">
                                     <img src="img/ramalho.jpg" class="col-lg-12 img-thumbnail">
                                 </div>
-                                <div class="col-sm-9 col-lg-9">
+                                <div class=" col-lg-9">
                                     <h1 class="fullname bottom top">{{ course_professor.user }}</h1>
                                     <h2 class="job-title top">{{ course_professor.get_job_display }}</h2>
                                     <p>{{ course_professor.biography }}</p>
@@ -109,9 +109,9 @@
                     </section>
                 </div>
 
-                <div class="col-sm-3 col-lg-3">
+                <div class=" col-lg-3">
                     <div class="row">
-                        <section class="course-summary col-sm-12 col-lg-12">
+                        <section class="course-summary 2 col-lg-12">
                             <div class="page-header-double top">
                                 <h3 class="top"><i class="icon-double-angle-right"></i> Resumo</h3>
                             </div>
@@ -126,7 +126,7 @@
                             {{course.pronatec|safe}}
                         </section>
 
-                        <section class="course-social col-sm-12 col-lg-12" style="position:relative;overflow:hidden;">
+                        <section class="course-social 2 col-lg-12" style="position:relative;overflow:hidden;">
                             <div id="fb-root"></div>
                             <script>(function(d, s, id) {
                               var js, fjs = d.getElementsByTagName(s)[0];

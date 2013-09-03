@@ -8,11 +8,11 @@
     <header id="main-header" class="container">
         <div class="page-header">
             <div class="row">
-                <div class="col-lg-8 col-sm-8">
+                <div class="col-lg-8 ">
                     <h1 class="top">{{ lesson.name }}</h1>
                     {% include "_course-professors-inline.html" with course=lesson.course %}
                 </div>
-                <div class="col-lg-4 col-sm-4">
+                <div class="col-lg-4 ">
                     <!-- COURSE-SECTION-NAV -->
                     <nav class="course-sections textright">
                         <a href="aula-intro.html"><span class="has-tooltip icon-home" data-toggle="tooltip" data-placement="top" data-original-title="Intro"></span></a>
@@ -31,7 +31,7 @@
     <!-- MAIN CONTENT -->
     <section id="main-content" class="container">
         <nav class="course-lessons-nav row">
-            <div class="col-sm-12 col-lg-12">
+            <div class="2 col-lg-12">
                 <div class="btn-group button-watching">
                     <button type="button" class="btn btn-sm btn-info">{{ lesson.name }}
                     </button>
@@ -51,7 +51,7 @@
         <section class="course-video">
             <div class="row">
                 <!-- BLOCKS -->
-                <div class="col-sm-1 col-lg-1">
+                <div class=" col-lg-1">
                     {% for unit in lesson.unit_set.all %}
                         <a style="display:block;" href="#" class="has-tooltip track {% if forloop.first %}
                         watching
@@ -69,7 +69,7 @@
                 <!-- END BLOCKS -->
 
                 <!-- PLAYER AND SUBTITLE-->
-                <div class="col-sm-8 col-lg-8 left">
+                <div class=" col-lg-8 left">
                     <!-- PLAYER -->
                     <iframe id="ytplayer" type="text/html" height="429" width="100%" src="https://www.youtube.com/embed/IvvE7syPEZA?rel=0&showinfo=0&autohide=1&theme=light&wmode=opaque" frameborder="0" allowfullscreen=""></iframe>
                     <!-- END PLAYER -->
@@ -77,7 +77,7 @@
                 <!-- PLAYER -->
 
                 <!-- NOTES -->
-                <div class="col-sm-3 col-lg-3" style="height:420px;">
+                <div class=" col-lg-3" style="height:420px;">
                     <script type="text/javascript" charset="utf-8">
                         $(document).ready(function() {
                             $(".nav-tabs a").click(function(e) {
@@ -198,14 +198,14 @@
 
         <!-- FORUM -->
         <div class="row">
-            <div class="col-sm-8 col-lg-8">
+            <div class=" col-lg-8">
                 <section class="course-forum">
                     <div class="page-header-double">
                         <h3><i class="icon-chevron-right"></i> Perguntas e Respostas</h3>
                     </div>
                     <!-- QUESTION FORM -->
                     <div class="row">
-                        <form class="col-sm-12 col-lg-12">
+                        <form class="2 col-lg-12">
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Qual é a sua dúvida?">
                             </div>
@@ -214,10 +214,10 @@
                             </div>
                             <div class="form-group bottom">
                                 <div class="row">
-                                    <div class="col-sm-8 col-lg-8">
+                                    <div class=" col-lg-8">
                                         <small><a href="">Política de Perguntas e Respostas</a></small>
                                     </div>
-                                    <div class="col-sm-4 col-lg-4 textright">
+                                    <div class=" col-lg-4 textright">
                                         <input type="submit" class="btn btn-success" value="Enviar">
                                     </div>
                                 </div>
@@ -230,7 +230,7 @@
                     <section class="questions clearfix">
                         <div class="search-filter">
                             <div class="row">
-                                <div class="col-lg-7 col-sm-7">
+                                <div class="col-lg-7 ">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-info">Mais votadas</button>
                                         <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
@@ -244,7 +244,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="col-lg-5 col-sm-5 textright">
+                                <div class="col-lg-5  textright">
                                     <div class="input-group">
                                         <input type="search" class="form-control" placeholder="Pesquisar perguntas e respostas">
                                         <span class="input-group-btn">
@@ -387,7 +387,7 @@
                     <!-- QUESTIONS LIST-->
                 </section>
             </div>
-            <div class="col-sm-4 col-lg-4">
+            <div class=" col-lg-4">
                 <section class="course-instructions">
                     <div class="page-header-double">
                         <h3><i class="icon-chevron-right"></i> Informações e Instruções</h3>
