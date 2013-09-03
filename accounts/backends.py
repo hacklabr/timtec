@@ -9,7 +9,7 @@ class TimtecModelBackend(ModelBackend):
         UserModel = get_user_model()
 
         if username is None:
-            username = kwargs.get(UserModel.USERNAME_FIELD)
+            username = kwargs.get(UserModel.USERNAME_FIELD, None)
 
         field = 'email' if email_re.search(username) else 'username'
         kwargs = {field: username}
