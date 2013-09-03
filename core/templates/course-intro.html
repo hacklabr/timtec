@@ -97,7 +97,7 @@
                             {% for course_professor in course.courseprofessor_set.all %}
                             <div id="luciano-ramalho" class="instructor row">
                                 <div class="col-lg-3">
-                                    <img src="img/ramalho.jpg" class="col-lg-12 img-thumbnail">
+                                    <img src="{{ course_professor.user.get_picture_url }}" class="col-lg-12 thumbnail">
                                 </div>
                                 <div class="col-lg-9">
                                     <h1 class="fullname bottom top">{{ course_professor.user }}</h1>
