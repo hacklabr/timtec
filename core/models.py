@@ -48,11 +48,11 @@ class TimtecUser(AbstractBaseUser, PermissionsMixin):
             return self.get_full_name()
         return self.email
 
-    def get_absolute_url(self):
-        return "/users/%s/" % urlquote(self.email)
-
     def get_picture_url(self):
-        location = "/%s/%s" % (settings.MEDIA_URL, self.picture)
+        if not self.picture:
+            location = "/%s/%s" % (settings.STATIC_URL, 'img/avatar-default.png')
+        else:
+            location = "/%s/%s" % (settings.MEDIA_URL, self.picture)
         return re.sub('/+', '/', location)
 
     def get_full_name(self):
