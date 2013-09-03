@@ -5,7 +5,7 @@
     <div id="profile" class="container">
         <form class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
             <div class="row">
-                <div class=" col-lg-3 col-offset-1">
+                <div class="col-lg-3 col-offset-1">
                     <fieldset>
                         <script type="text/javascript" charset="utf-8">
                             $(document).ready(function() {
@@ -32,7 +32,8 @@
                             });
                         </script>
 
-                        <label for="upload-avatar">
+                        <label for="upload-avatar" class="upload-avatar">
+                            <span><i class="icon-picture"></i> {% trans "Upload avatar" %}</span>
                             <div class="thumbnail">
                                 <img id="profile-avatar" width="256" src="{{ form.instance.get_picture_url }}">
                             </div>
@@ -41,16 +42,36 @@
                     </fieldset>
                 </div>
 
-                <div class=" col-lg-7">
+                <div class="col-lg-7">
                     <fieldset>
-                        <div class="heading textleft">
-                            <h3>Perfil</h3>
+                        <div class="page-header-double textleft top">
+                            <h3 class="top"><i class="icon-double-angle-right"></i> {% trans "Profile Info" %}</h3>
                         </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">{% trans "Full Name" %}</label>
+                            <div class="col-lg-9">
+                                {% with errors=form.first_name.errors %}
+                                <div class="col-lg-6 left{{ errors|yesno:" has-error,"}}">
+                                    <input name="first_name" type="text" class="form-control" placeholder="Primeiro nome" value="{{form.first_name.value}}">
+                                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                                </div>
+                                {% endwith %}
+
+                                {% with errors=form.last_name.errors %}
+                                <div class="col-lg-6 right{{ errors|yesno:" has-error,"}}">
+                                    <input name="last_name" type="text" class="form-control" placeholder="Último nome" value="{{form.last_name.value}}">
+                                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                                </div>
+                                {% endwith %}
+                            </div>
+                        </div>
+
 
                         {% with errors=form.occupation.errors %}
                         <div class="form-group{{ errors|yesno:" has-error,"}}">
-                            <label class=" col-lg-3 control-label">Profissão</label>
-                            <div class=" col-lg-9">
+                            <label class="col-lg-3 control-label">{% trans "Occupation" %}</label>
+                            <div class="col-lg-9">
                                 <input name="occupation" type="text" class="form-control" placeholder="O que você faz?" value="{{form.occupation.value}}">
                                 {% for error in errors %}<small>{{error}}</small>{% endfor %}
                             </div>
@@ -59,8 +80,8 @@
 
                         {% with errors=form.city.errors %}
                         <div class="form-group{{ errors|yesno:" has-error,"}}">
-                            <label class=" col-lg-3 control-label">Cidade</label>
-                            <div class=" col-lg-9">
+                            <label class="col-lg-3 control-label">{% trans "City" %}</label>
+                            <div class="col-lg-9">
                                 <input name="city" type="text" class="form-control" placeholder="Qual cidade você vive?" value="{{form.city.value}}">
                                 {% for error in errors %}<small>{{error}}</small>{% endfor %}
                             </div>
@@ -69,8 +90,8 @@
 
                         {% with errors=form.site.errors %}
                         <div class="form-group{{ errors|yesno:" has-error,"}}">
-                            <label class=" col-lg-3 control-label">Site</label>
-                            <div class=" col-lg-9">
+                            <label class="col-lg-3 control-label">{% trans "Site" %}</label>
+                            <div class="col-lg-9">
                                 <input name="site" type="text" class="form-control" placeholder="Você possui algum site pessoal?" value="{{form.site.value}}">
                                 {% for error in errors %}<small>{{error}}</small>{% endfor %}
                             </div>
@@ -79,8 +100,8 @@
 
                         {% with errors=form.biography.errors %}
                         <div class="form-group{{ errors|yesno:" has-error,"}}">
-                            <label class=" col-lg-3 control-label">Bio</label>
-                            <div class=" col-lg-9">
+                            <label class="col-lg-3 control-label">{% trans "Bio" %}</label>
+                            <div class="col-lg-9">
                                 <textarea name="biography" class="form-control" rows="7" placeholder="Escreve um pouco sobre você...">{{form.biography.value}}</textarea>
                                 {% for error in errors %}<small>{{error}}</small>{% endfor %}
                             </div>
@@ -89,44 +110,25 @@
                     </fieldset>
 
                     <fieldset>
-                        <div class="heading textleft">
-                            <h3>Conta</h3>
+                        <hr/>
+                        <div class="page-header-double textleft top">
+                            <h3><i class="icon-double-angle-right"></i> {% trans "Account Settings" %}</h3>
                         </div>
 
                         {% with errors=form.username.errors %}
                         <div class="form-group{{ errors|yesno:" has-error,"}}">
-                            <label class=" col-lg-3 control-label">{% trans "Username" %}</label>
-                            <div class=" col-lg-9">
+                            <label class="col-lg-3 control-label">{% trans "Username" %}</label>
+                            <div class="col-lg-9">
                                 <input readonly name="username" type="text" class="form-control" value="{{form.username.value}}">
                                 {% for error in errors %}<small>{{error}}</small>{% endfor %}
                             </div>
                         </div>
                         {% endwith %}
 
-                        <div class="form-group">
-                            <label class=" col-lg-3 control-label">Nome Completo</label>
-                            <div class=" col-lg-9">
-
-                                {% with errors=form.first_name.errors %}
-                                <div class=" col-lg-6 left{{ errors|yesno:" has-error,"}}">
-                                    <input name="first_name" type="text" class="form-control" placeholder="Primeiro nome" value="{{form.first_name.value}}">
-                                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
-                                </div>
-                                {% endwith %}
-
-                                {% with errors=form.last_name.errors %}
-                                <div class=" col-lg-6 right{{ errors|yesno:" has-error,"}}">
-                                    <input name="last_name" type="text" class="form-control" placeholder="Último nome" value="{{form.last_name.value}}">
-                                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
-                                </div>
-                                {% endwith %}
-                            </div>
-                        </div>
-
                         {% with errors=form.email.errors %}
                         <div class="form-group{{ errors|yesno:" has-error,"}}">
-                            <label class=" col-lg-3 control-label">E-mail</label>
-                            <div class=" col-lg-9">
+                            <label class="col-lg-3 control-label">{% trans "E-mail" %}</label>
+                            <div class="col-lg-9">
                                 <input name="email" type="e-mail" class="form-control" placeholder="Qual o seu email?" value="{{form.email.value}}">
                                 {% for error in errors %}<small>{{error}}</small>{% endfor %}
                             </div>
@@ -135,12 +137,12 @@
 
                         {% with errors=form.password2.errors %}
                         <div class="form-group{{ errors|yesno:" has-error,"}}">
-                            <label class=" col-lg-3 control-label">Senha</label>
-                            <div class=" col-lg-9">
-                                <div class=" col-lg-6 left">
+                            <label class="col-lg-3 control-label">{% trans "Password" %}</label>
+                            <div class="col-lg-9">
+                                <div class="col-lg-6 left">
                                     <input name="password1" type="password" class="form-control" placeholder="Nova Senha">
                                 </div>
-                                <div class=" col-lg-6 right">
+                                <div class="col-lg-6 right">
                                     <input name="password2" type="password" class="form-control" placeholder="Nova Senha Novamente">
                                 </div>
                                 {% for error in errors %}<small>{{error}}</small>{% endfor %}
@@ -149,8 +151,9 @@
                         {% endwith %}
                     </fieldset>
 
-                    <div class="submit">
-                        <button type="submit" class="btn btn-info">Salvar</button>
+                    <div class="submit textright">
+                        <hr/>
+                        <button type="submit" class="btn btn-success">{% trans "Save" %}</button>
                     </div>
                 </div>
             </div>
