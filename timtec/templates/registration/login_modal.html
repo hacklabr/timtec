@@ -7,15 +7,15 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h3 id="loginModalLabel" class="textcenter">
-                    <i class="icon-frown"></i><br/>{% trans "You need to sign in or up to see this content" %}
+                    <i class="icon-smile"></i><br/>{% trans "You need to sign in or up to see this content" %}
                 </h3>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="panel panel-info">
+                        <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">{% trans 'Sign In' %}</h3>
+                                <h3><i class="icon-double-angle-right"></i> {% trans 'Sign In' %}</h3>
                             </div>
 
                             <div class="panel-body">
@@ -48,7 +48,7 @@
                                                 <a href="{% url 'auth_password_reset' %}">{% trans 'Forgot my password' %}</a>
                                             </div>
                                             <div class="col-lg-4 textright">
-                                                <button class="btn btn-success">{% trans 'Sign In' %} <i class="icon-signin"></i></button>
+                                                <button class="btn btn-success">{% trans 'Sign In' %}</button>
                                             </div>
                                         </div>
                                     </div>
@@ -58,9 +58,9 @@
                     </div>
 
                     <div class="col-lg-6">
-                        <div class="panel panel-success">
+                        <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">{% trans 'Sign Up' %}</h3>
+                                <h3><i class="icon-double-angle-right"></i> {% trans 'Sign Up' %}</h3>
                             </div>
 
                             <div class="panel-body">
