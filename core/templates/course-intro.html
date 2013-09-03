@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load staticfiles %}
+{% load i18n %}
 
 {% block content %}
 
@@ -16,7 +17,7 @@
                         {% include "_course-professors-inline.html" with course=course %}
                     </div>
                     <div class="col-lg-3 textright">
-                        <a href="{% url "enroll_course" course.slug %}" class="js-login-required btn btn-lg btn-danger col-lg-12 uppercase">Começar o curso</a>
+                        <a href="{% url "enroll_course" course.slug %}" class="js-login-required btn btn-lg btn-danger col-lg-12 uppercase">{% trans "Take the Class" %}</a>
                     </div>
                 </div>
             </div>
@@ -38,13 +39,13 @@
                     <section class="course-info row">
                         <div class="col-lg-6">
                             <div class="page-header-double">
-                                <h3 class="top"><i class="icon-double-angle-right"></i> Aplicação do Conhecimento</h3>
+                                <h3 class="top"><i class="icon-double-angle-right"></i> {% trans "Course Application" %}</h3>
                             </div>
                             <p>{{course.application}}</p>
                         </div>
                         <div class="col-lg-6">
                             <div class="page-header-double">
-                                <h3 class="top"><i class="icon-double-angle-right"></i> O que preciso saber</h3>
+                                <h3 class="top"><i class="icon-double-angle-right"></i> {% trans "Requirements" %}</h3>
                             </div>
                             <p>{{course.requirement}}</p>
                         </div>
@@ -53,7 +54,7 @@
                     <section class="course-lessons row">
                         <div class="2 col-lg-12">
                             <div class="page-header-double">
-                                <h3><i class="icon-double-angle-right"></i> Aulas</h3>
+                                <h3><i class="icon-double-angle-right"></i> {% trans "Lessons" %}</h3>
                             </div>
                             <ul class="no-bullet">
                                 {% for lesson in course.lesson_set.all %}
@@ -76,7 +77,7 @@
                                                     {% endfor %}
                                                     </tr>
                                                 </table>
-                                                <p><i class="icon-youtube-play"></i> <small>{{ lesson.video_count }} vídeos</small> | <i class="icon-list"></i> <small>{{ lesson.activity_count }} atividades</small></p>
+                                                <p><i class="icon-youtube-play"></i> <small>{{ lesson.video_count }} {% trans "videos" %}</small> | <i class="icon-list"></i> <small>{{ lesson.activity_count }} {% trans "activities" %}</small></p>
                                             </div>
                                         </div>
                                     </li>
@@ -88,7 +89,7 @@
                     <section class="course-instructors row">
                         <div class="2 col-lg-12">
                             <div class="page-header-double">
-                                <h3><i class="icon-double-angle-right"></i> Professores</h3>
+                                <h3><i class="icon-double-angle-right"></i> {% trans "Instructors" %}</h3>
                             </div>
                         </div>
 
@@ -113,14 +114,14 @@
                     <div class="row">
                         <section class="course-summary 2 col-lg-12">
                             <div class="page-header-double top">
-                                <h3 class="top"><i class="icon-double-angle-right"></i> Resumo</h3>
+                                <h3 class="top"><i class="icon-double-angle-right"></i> {% trans "Abstract" %}</h3>
                             </div>
                             {{course.abstract|safe}}
                             <hr/>
-                            <p class="bottom"><strong><i class="icon-list"></i> Estrutura do curso:</strong></p>
+                            <p class="bottom"><strong><i class="icon-list"></i> {% trans "Course Structure" %}:</strong></p>
                             {{course.structure|safe}}
                             <hr/>
-                            <p class="bottom"><strong><i class="icon-time"></i> Carga horária:</strong></p>
+                            <p class="bottom"><strong><i class="icon-time"></i> {% trans "Workload" %}:</strong></p>
                             {{course.workload|safe}}
                             <hr/>
                             {{course.pronatec|safe}}
