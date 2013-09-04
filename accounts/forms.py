@@ -1,13 +1,9 @@
 # -*- coding: utf-8 -*-
-try:
-    from django.contrib.auth import get_user_model
-except ImportError:
-    from django.contrib.auth.models import User
-else:
-    User = get_user_model()
+from django.contrib.auth import get_user_model
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
+User = get_user_model()
 
 class ProfileEditForm(forms.ModelForm):
     email = forms.RegexField(label=_("email"), max_length=75, regex=r"^[\w.@+-]+$")
