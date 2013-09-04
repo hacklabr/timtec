@@ -38,13 +38,19 @@ def test_custom_login_redirect_already_authenticated_user(client):
 
 
 @pytest.mark.django_db
-def test_custom_login_does_not_redirect_to_unsafe_next(client):
-    response = client.post('/login/', {'username':'abcd',
-                                       'password': 'x',
-                                       'next': 'http://fakenext.com/profile/edit'})
+def test_custom_login_page(client):
+    response = client.get('/login/', {'next': 'http://fakenext.com/profile/edit'})
+
+    assert response.status_code == 200
+    assert 'login' in response.content
+
+
+@pytest.mark.django_db
+def test_custom_login_does_not_redirect_to_unsafe_next(admin_client):
+    response = admin_client.get('/login/', {'next': 'http://fakenext.com/profile/edit'})
 
     assert response.status_code == 302
-    assert response['Location'].startswith('http://testserver/')
+    assert response['Location'] == 'http://testserver/'
 
 
 @pytest.mark.django_db
@@ -63,4 +69,12 @@ def test_user_instance_for_profile_edit_form_is_the_same_of_request(client):
     response = client.get('/profile/edit')
     assert response.status_code == 200
     assert response.context_data['form'].instance.username == 'abcd'
+
+
+@pytest.mark.django_db
+def test_edit_profile(admin_client):
+    response = admin_client.post('/profile/edit', {'username': 'admin', 'email': 'admin@b.cd'})
+
+    assert response.status_code == 302
+    assert response['Location'] == 'http://testserver/profile/edit'
 
