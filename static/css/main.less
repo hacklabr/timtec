@@ -449,6 +449,26 @@ a:active {
     .bottom(9px,9px);
     font-size:14px;
   }
+  .missing-avatar {
+    border:1px solid #ddd;
+    text-align:center;
+    &:before {
+      content:'';
+      .vertical-align(middle);
+    }
+    .centered {
+      margin:-16px 4px 4px 4px;
+      .vertical-align(middle);
+      .calculate-width(8px);
+      i {
+        background:#ddd;
+        color:#c0c0c0;
+        display:block;
+        font-size:72px;
+        padding:27px 0;
+      }
+    }
+  }
 }
 
 // Course social
