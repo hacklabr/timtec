@@ -1,2 +1,2 @@
 [report]
-omit=manage*, setup*, tests*
+omit=manage*, setup*, tests*, timtec/wsgi.py, timtec/settings*.py
