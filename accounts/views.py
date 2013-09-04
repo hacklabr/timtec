@@ -28,12 +28,12 @@ class CustomLoginView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(CustomLoginView, self).get_context_data()
         default_next = reverse('home_view')
-        next = self.request.GET.get('next', default_next)
+        next = self.request.REQUEST.get('next', default_next)
 
         if not is_safe_url(next):
             next = default_next
 
-        context.update({'next': next})
+        context['next'] = next
         return context
 
     def get(self, *argz, **kwargs):
