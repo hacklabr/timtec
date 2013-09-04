@@ -43,3 +43,18 @@ def test_user_picture_url():
 
     #teardown
     user.picture.delete()
+
+
+@pytest.mark.django_db
+def test_enroll_user_create_single_entry_of_coursestudent():
+    user = TimtecUser.objects.get(username='abcd')
+    course = Course.objects.get(slug='dbsql')
+
+    assert CourseStudent.objects.filter(user=user, course=course).count() == 0
+
+    course.enroll_student(user)
+    assert CourseStudent.objects.filter(user=user, course=course).count() == 1
+
+    course.enroll_student(user)
+    assert CourseStudent.objects.filter(user=user, course=course).count() == 1
+
