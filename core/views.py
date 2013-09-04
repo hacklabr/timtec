@@ -23,7 +23,7 @@ class CourseIntroView(DetailView):
         context = super(CourseIntroView, self).get_context_data(**kwargs)
 
         units_done = []
-        if self.request.user.is_authenticated:
+        if self.request.user.is_authenticated():
             units_done = StudentProgress.objects.filter(user=self.request.user, unit__lesson__course=self.object)\
                                                 .exclude(complete=None)\
                                                 .values_list('unit', flat=True)
