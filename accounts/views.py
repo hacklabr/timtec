@@ -25,14 +25,24 @@ class CustomLoginView(TemplateView):
     """
     template_name = 'registration/login.html'
 
-    def get_context_data(self):
+    def get_context_data(self, **kwargs):
         context = super(CustomLoginView, self).get_context_data()
+        default_next = reverse('home_view')
+        next = self.request.GET.get('next', default_next)
 
-        next = self.request.GET.get('next', '/')
-        if is_safe_url(next):
-            context.update({'next': next})
+        if not is_safe_url(next):
+            next = default_next
 
+        context.update({'next': next})
         return context
+
+    def get(self, *argz, **kwargs):
+        context = self.get_context_data(**kwargs)
+
+        if self.request.user.is_authenticated():
+            return redirect(context.get('next'))
+
+        return self.render_to_response(context)
 
     def post(self, *argz, **kwargs):
         ret = login(self.request, template_name=CustomLoginView.template_name)
@@ -50,8 +60,3 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
 
     def get_object(self):
         return self.request.user
-
-    def get(self, request, **kwargs):
-        if self.request.user.is_authenticated():
-            return super(ProfileEditView, self).get(request, **kwargs)
-        return redirect(reverse('home_view'))
