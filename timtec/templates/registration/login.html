@@ -4,23 +4,26 @@
 {% block content %}
 <div id="activation-accomplished" class="container">
     <div class="centered">
-        <h1>Login</h1>
+        <h1>
+            <i class="icon-signin"></i><br/>
+            {% trans "Sign In" %}
+        </h1>
 
         <form method="post" action="{% url 'timtec_login' %}" class="form-horizontal">{% csrf_token %}
             <div class="form-group{% if login_form.errors %} has-error{% endif %}">
                 <label class="col-lg-3 control-label">{% trans "Login" %}</label>
                 <div class="col-lg-9">
                     <input name="username" type="text" class="form-control"
-                           value="{{login_form.username.value}}" placeholder="Qual o seu email?"/>
+                           value="{{login_form.username.value}}" placeholder='{% trans "E-mail or username" %}'/>
                     {% for error in login_form.username.errors %}
                     <small>{{error}}</small>
                     {% endfor error in %}
                 </div>
             </div>
             <div class="form-group{% if login_form.errors %} has-error{% endif %}">
-                <label class="col-lg-3 control-label">Senha</label>
+                <label class="col-lg-3 control-label">{% trans "Password" %}</label>
                 <div class="col-lg-9">
-                    <input name="password" type="password" class="form-control" placeholder="Senha">
+                    <input name="password" type="password" class="form-control" placeholder='{% trans "Password" %}'>
                     {% for error in login_form.password.errors %}
                     <small>{{error}}</small>
                     {% endfor %}
@@ -31,11 +34,9 @@
             </div>
             <div class="submit">
                 <div class="row">
-                    <div class="col-lg-8">
-                        <a href="{% url 'auth_password_reset' %}">Esqueci minha senha</a>
-                    </div>
-                    <div class="col-lg-4 textright">
-                        <button class="btn btn-success">Entrar</button>
+                    <div class="col-lg-9 col-lg-offset-3 clearfix">
+                        <a href="{% url 'auth_password_reset' %}" class="alignleft">{% trans "Forgot my password" %}</a>
+                        <button class="btn btn-success alignright">{% trans "Sign In" %}</button>
                     </div>
                 </div>
             </div>

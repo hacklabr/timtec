@@ -6,29 +6,27 @@
     <div class="centered">
         <h1 class="textcenter">
             <i class="icon-thumbs-up-alt"></i><br/>
-            Mission accomplished.</br>
-            You have an active account.<br/>
+            {% trans "Mission accomplished" %}.</br>
+            {% trans "You have an active account" %}.<br/>
         </h1>
         <form onclick="event.stopPropagation()" method="post" action="{% url 'timtec_login' %}" class="form-horizontal">{% csrf_token %}
             <div class="form-group">
-                <label class="col-lg-3 control-label">Login</label>
+                <label class="col-lg-3 control-label">{% trans "Login" %}</label>
                 <div class="col-lg-9">
-                    <input name="username" type="text" class="form-control" placeholder="Username or e-mail" autofocus="autofocus"/>
+                    <input name="username" type="text" class="form-control" placeholder="{% trans 'E-mail or username' %}" autofocus="autofocus" required/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-3 control-label">{% trans "Password" %}</label>
                 <div class="col-lg-9">
-                    <input name="password" type="password" class="form-control" placeholder="Senha">
+                    <input name="password" type="password" class="form-control" placeholder="{% trans 'Password' %}" required>
                 </div>
             </div>
             <div class="submit">
                 <div class="row">
-                    <div class="col-lg-8">
-                        <a href="">{% trans "Forgot my password" %}</a>
-                    </div>
-                    <div class="col-lg-4 textright">
-                        <button class="btn btn-success">{% trans "Sign In" %}  <i class="icon-signin"></i></button>
+                    <div class="col-lg-9 col-lg-offset-3 clearfix">
+                        <a href="{% url 'auth_password_reset' %}" class="alignleft">{% trans "Forgot my password" %}</a>
+                        <button class="btn btn-success alignright">{% trans "Sign In" %}</button>
                     </div>
                 </div>
             </div>

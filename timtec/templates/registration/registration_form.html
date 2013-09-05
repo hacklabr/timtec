@@ -4,13 +4,13 @@
 
 <div id="activation-accomplished" class="container">
     <div class="centered">
-        <h1>Cadastre-se!</h1>
+        <h1>{% trans "Sign Up" %}!</h1>
         <form onclick="event.stopPropagation()" method="post" action="{% url 'registration_register' %}" class="form-horizontal">{% csrf_token %}
             {% with errors=form.username.errors %}
             <div class="form-group{{ errors|yesno:' has-error,' }}">
-                <label class="col-lg-4 control-label">Usuário</label>
+                <label class="col-lg-4 control-label">{% trans "Username" %}</label>
                 <div class="col-lg-8">
-                    <input name="username" type="text" value="{{form.username.value}}" class="form-control" placeholder="Nome de usuário">
+                    <input name="username" type="text" value="{{form.username.value}}" class="form-control" placeholder="{% trans 'Username' %}">
                     {% for error in errors %}<small>{{error}}</small>{% endfor %}
                 </div>
             </div>
@@ -18,9 +18,9 @@
 
             {% with errors=form.email.errors %}
             <div class="form-group{{ errors|yesno:' has-error,' }}">
-                <label class="col-lg-4 control-label">E-mail</label>
+                <label class="col-lg-4 control-label">{% trans "E-mail" %}</label>
                 <div class="col-lg-8">
-                    <input name="email" type="email" value="{{form.email.value}}" class="form-control" placeholder="Qual o seu email?">
+                    <input name="email" type="email" value="{{form.email.value}}" class="form-control" placeholder="Your e-mail">
                     {% for error in errors %}<small>{{error}}</small>{% endfor %}
                 </div>
             </div>
@@ -28,17 +28,17 @@
 
             {% with errors=form.password2.errors %}
             <div class="form-group{{ errors|yesno:' has-error,' }}">
-                <label class="col-lg-4 control-label">Senha</label>
+                <label class="col-lg-4 control-label">{% trans "Password" %}</label>
                 <div class="col-lg-8">
-                    <p><input name="password1" type="password" class="form-control" placeholder="Senha"></p>
-                    <input name="password2" type="password" class="form-control" placeholder="Confirmar senha">
+                    <p><input name="password1" type="password" class="form-control" placeholder="{% trans 'Really strong password' %}"></p>
+                    <input name="password2" type="password" class="form-control" placeholder="{% trans 'Password confirmation' %}">
                     {% for error in errors %}<small>{{error}}</small>{% endfor %}
                 </div>
             </div>
             {% endwith %}
 
             <div class="submit textright">
-                <button class="btn btn-success">Cadastrar</button>
+                <button class="btn btn-success">{% trans "Sign Up" %}</button>
             </div>
         </form>
     </div>
