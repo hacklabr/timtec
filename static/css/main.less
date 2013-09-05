@@ -27,7 +27,7 @@
 @brand-info:            #3498db;
 
 body {
-  color:#2c3e50;
+  color:#333;
 }
 
 // TYPOGRAPHY
@@ -67,14 +67,22 @@ a:active {
   text-decoration:none;
 }
 
+a.instructor {
+  color:@brand-success;
+}
+
 .page-header-double {
-  border-bottom:1px solid @gray-lighter;
+  border-bottom:1px solid #95a5a6;
   margin:40px 0 20px;
   padding:0;
   h1,h2,h3,h4,h5,h6 {
-    border-bottom:1px solid @gray-lighter;
+    border-bottom:1px solid #95a5a6;
+    color:#2c3e50;
     margin-bottom:1px;
     padding-bottom:7px;
+    i {
+      color:#2980b9;
+    }
   }
 }
 
@@ -1148,8 +1156,4 @@ a:active {
   background:#eee;
   margin-top:56px;
   padding:35px 0;
-}
-
-a.instructor {
-  color:@brand-success;
 }
