@@ -1,12 +1,12 @@
 language: python
-python: 
+python:
     - "2.7"
 node_js:
     - "0.10"
 install:
-    - "pip install -q -r requirements.txt"
-    - "pip install -q -r dev-requirements.txt"
-    - "pip install -q coveralls"
+    - "pip install -q -r requirements.txt --use-mirrors"
+    - "pip install -q -r dev-requirements.txt --use-mirrors"
+    - "pip install -q coveralls --use-mirrors"
     - "./manage.py syncdb --noinput"
     - "python setup.py -q develop"
     - "npm install less yuglify"
