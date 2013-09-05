@@ -9,7 +9,7 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-lg-8 ">
-                    <h1 class="top">{{ lesson.name }}</h1>
+                    <h1 class="course-name bottom top">{{ lesson.course.name }}</h1>
                     {% include "_course-professors-inline.html" with course=lesson.course %}
                 </div>
                 <div class="col-lg-4 ">
@@ -38,7 +38,7 @@
                     <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown">
                         <i class="icon-chevron-down"></i>
                     </button>
-                    <ul class="dropdown-menu top">
+                    <ul class="dropdown-menu">
                         {% for list_lesson in lesson.course.lesson_set.all %}
                             <li><a href="{% url 'lesson' list_lesson.slug %}"><span class="title">{{ list_lesson.name }}</span></a></li>
                         {% endfor %}
@@ -53,7 +53,7 @@
                 <!-- BLOCKS -->
                 <div class="col-lg-1">
                     {% for unit in lesson.unit_set.all %}
-                        <a style="display:block;" href="#" class="has-tooltip track {% if forloop.first %}
+                        <a style="display:block;" href="#" class="has-tooltip unit {% if forloop.first %}
                         watching
                         {% endif %}" data-toggle="tooltip" data-placement="right" data-original-title="{{ unit.position|add:1 }}">
                          {% if forloop.first %}
@@ -201,7 +201,7 @@
             <div class="col-lg-8">
                 <section class="course-forum">
                     <div class="page-header-double">
-                        <h3><i class="icon-chevron-right"></i> Perguntas e Respostas</h3>
+                        <h3><i class="icon-double-angle-right"></i> Perguntas e Respostas</h3>
                     </div>
                     <!-- QUESTION FORM -->
                     <div class="row">
@@ -390,7 +390,7 @@
             <div class="col-lg-4">
                 <section class="course-instructions">
                     <div class="page-header-double">
-                        <h3><i class="icon-chevron-right"></i> Informações e Instruções</h3>
+                        <h3><i class="icon-double-angle-right"></i> Informações e Instruções</h3>
                     </div>
                     <p>In eu placerat, porta urna integer pellentesque adipiscing nascetur magna, diam amet, scelerisque proin massa a, mid enim nec mus, mattis sit sagittis pulvinar, augue ac nunc proin! Scelerisque nec? Montes penatibus risus ridiculus, platea porttitor, ac in cras. Augue. Dapibus nisi purus, integer adipiscing dignissim dictumst cum, odio turpis.</p>
                     <p>A. Porttitor in? Sagittis, amet dictumst parturient vut amet? Dis in sit quis non, odio vel, turpis, porta natoque, et pulvinar! Ultricies adipiscing porta. Nascetur platea, tortor tempor montes et adipiscing porttitor eros, rhoncus velit nisi elit montes nascetur diam dictumst tempor integer augue nunc odio, nec, aliquet. Adipiscing.</p>
