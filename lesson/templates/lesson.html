@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
 {% block content %}
+
+<script type="text/javascript" src="{% static 'js/lesson.js' %}
+" charset="utf-8"></script>
+
 <!-- CONTAINER -->
 <div id="course-content">
 
@@ -48,26 +53,19 @@
     </nav>
 
     <!-- COURSE-VIDEO -->
-    <section class="course-video">
-      <div class="row">
-        <!-- BLOCKS -->
-        <div class="col-lg-1 col-sm-1">
-          {% for unit in lesson.unit_set.all %}
-          <a style="display:block;" href="#" class="has-tooltip unit {% if forloop.first %}
-          watching
-          {% endif %}" data-toggle="tooltip" data-placement="right" data-original-title="{{ unit.position|add:1 }}">
-          {% if forloop.first %}
-          <i class="icon-caret-right"></i>
-          {% endif %}
-          <span class="position">{{ unit.position|add:1 }}</span>
-          {% if unit.activity != None %}
-          <i class="icon-list"></i>
-          {% endif %}
+    <section class="course-video" ng-app="lesson">
+      {% verbatim angularjs %}
+      <script type="text/ng-template" id="lesson_internal.html">
+        <a style="display:block;" ng-repeat="unitc in units" href="#/{{ $index }}" class="has-tooltip unit track" ng-class="{watching: $index==unitID}" data-toggle="tooltip" data-placement="right" data-original-title="{{ $index + 1 }}">
+          <i class="icon-caret-right" ng-if="$index==unitID"></i>
+          <span class="position">{{ $index + 1 }}</span>
+          <i class="icon-list" ng-if="$last"></i>
         </a>
-        {% endfor %}
+      </script>
+      {% endverbatim angularjs %}
+    <div class="row">
+      <div class="col-lg-1 col-sm-1" ng-view>
       </div>
-      <!-- END BLOCKS -->
-
       <!-- PLAYER AND SUBTITLE-->
       <div class="col-lg-8 col-sm-11 left">
         <!-- PLAYER -->
@@ -192,7 +190,7 @@
         </div>
       </div>
       <!-- END NOTES -->
-    
+
       <section class="course-instructions col-sm-10 col-sm-offset-1 hidden-lg">
         <div class="page-header-double">
           <h3><i class="icon-double-angle-right"></i> Informações e Instruções</h3>

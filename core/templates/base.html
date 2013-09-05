@@ -11,6 +11,10 @@
     {% compressed_js 'all' %}
 </head>
 <body>
+<script>
+window.STATIC_URL = '{{ STATIC_URL }}'
+</script>
+
     {% if user.is_authenticated %}
         {% include 'header-authenticated.html' %}
     {% else %}
