@@ -65,10 +65,14 @@ a,
 a:hover,
 a:active {
   text-decoration:none;
+  .transition(all .25s ease-out);
 }
 
 a.instructor {
   color:@brand-success;
+  &:hover {
+    color:darken(@brand-success, 10%);
+  }
 }
 
 .page-header-double {
@@ -102,6 +106,10 @@ a.instructor {
 // BUTTONS
 @btn-default-color:              #333;
 @btn-default-bg:                 #e2e2e2;
+
+.btn:hover {
+  .transition(all .25s ease-out);
+}
 
 .btn-lg {
   font-size:14px;
@@ -440,16 +448,22 @@ a.instructor {
     z-index:10;
     &.watching, &.watching:hover {
       background:@brand-info;
-      .transition(all .5s ease-out);
+      .transition(all .25s ease-out);
+      &:hover {
+        background:darken(@brand-info, 10%);
+      }
     }
     &.done, &.done:hover {
       background:@brand-success;
-      .transition(all .5s ease-out);
+      .transition(all .25s ease-out);
+      &:hover {
+        background:darken(@brand-success, 10%);
+      }
     }
     &:hover {
       background:@gray-light;
       color:#fff;
-      .transition(all .5s ease-out);
+      .transition(all .25s ease-out);
     }
     i {
       color:#fff;
@@ -588,16 +602,22 @@ a.instructor {
     z-index:10;
     &.watching, &.watching:hover {
       background:@brand-info;
-      .transition(all .5s ease-out);
+      .transition(all .25s ease-out);
+      &:hover {
+        background:darken(@brand-info, 10%);
+      }
     }
     &.done, &.done:hover {
       background:@brand-success;
-      .transition(all .5s ease-out);
+      .transition(all .25s ease-out);
+      &:hover {
+        background:darken(@brand-success, 10%);
+      }
     }
     &:hover {
       background:@gray-light;
       color:#fff;
-      .transition(all .5s ease-out);
+      .transition(all .25s ease-out);
     }
     i {
       color:#fff;
