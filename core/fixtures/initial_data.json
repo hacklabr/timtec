@@ -13,7 +13,7 @@
         "site": "", 
         "is_superuser": true, 
         "is_staff": true, 
-        "last_login": "2013-09-04T16:28:10.977Z", 
+        "last_login": "2013-09-06T13:02:48.267Z", 
         "groups": [], 
         "user_permissions": [], 
         "password": "pbkdf2_sha256$10000$27edDmeMEx0p$Hlbl543/d/caP6w8ClL/VhzTMaiRCLa05nK9Uyoje9I=", 
@@ -46,57 +46,67 @@
     }
 },
 {
-    "pk": 3, 
-    "model": "core.timtecuser", 
-    "fields": {
-        "username": "andersonorui", 
-        "picture": "", 
-        "first_name": "", 
-        "last_name": "", 
-        "city": "", 
-        "occupation": "", 
-        "is_active": true, 
-        "site": "", 
-        "is_superuser": false, 
-        "is_staff": false, 
-        "last_login": "2013-08-27T15:45:44.845Z", 
-        "groups": [], 
-        "user_permissions": [], 
-        "password": "pbkdf2_sha256$10000$tgmyQ6c0Zim0$4vH9yV5PBge23OdXaI6X60QeP5MqZmKFmnQPXQQ7VFY=", 
-        "email": "andersonorui@hacklab.com.br", 
-        "biography": "", 
-        "date_joined": "2013-08-27T13:56:14.361Z"
-    }
-},
-{
-    "pk": 4, 
-    "model": "core.timtecuser", 
-    "fields": {
-        "username": "andersonorui2", 
-        "picture": "", 
-        "first_name": "", 
-        "last_name": "", 
-        "city": "", 
-        "occupation": "", 
-        "is_active": true, 
-        "site": "", 
-        "is_superuser": false, 
-        "is_staff": false, 
-        "last_login": "2013-08-27T14:41:30.503Z", 
-        "groups": [], 
-        "user_permissions": [], 
-        "password": "pbkdf2_sha256$10000$uzQedcyV96Y5$na8UXP3aslXzYxYGo4MLUw1S+22sjDz13IvIgwnm9kQ=", 
-        "email": "andersonorui@gmail.com", 
-        "biography": "", 
-        "date_joined": "2013-08-27T14:41:30.503Z"
-    }
-},
-{
     "pk": 1, 
     "model": "core.video", 
     "fields": {
         "name": "IntroDB", 
-        "youtube_id": "qb-6oDS9pB4"
+        "youtube_id": "4VOPHGcQLgY"
+    }
+},
+{
+    "pk": 2, 
+    "model": "core.video", 
+    "fields": {
+        "name": "dbsql-unit-1", 
+        "youtube_id": "G6V6IZHZMgI"
+    }
+},
+{
+    "pk": 3, 
+    "model": "core.video", 
+    "fields": {
+        "name": "dbsql-unit-2", 
+        "youtube_id": "9E_nHkfi3MY"
+    }
+},
+{
+    "pk": 4, 
+    "model": "core.video", 
+    "fields": {
+        "name": "dbsql-unit-3", 
+        "youtube_id": "HBXMt7PZmXM"
+    }
+},
+{
+    "pk": 5, 
+    "model": "core.video", 
+    "fields": {
+        "name": "dbsql-unit-4", 
+        "youtube_id": "YyP3Qx7B3Yw"
+    }
+},
+{
+    "pk": 6, 
+    "model": "core.video", 
+    "fields": {
+        "name": "dbsql-unit-5", 
+        "youtube_id": "5ZhXkfpwzXY"
+    }
+},
+{
+    "pk": 7, 
+    "model": "core.video", 
+    "fields": {
+        "name": "dbsql-mesa-redonda", 
+        "youtube_id": "dEXIfpGB7kk"
+    }
+},
+{
+    "pk": 8, 
+    "model": "core.video", 
+    "fields": {
+        "name": "dbsql-encerramento", 
+        "youtube_id": "3qhjeiEM_lI"
     }
 },
 {
@@ -105,10 +115,10 @@
     "fields": {
         "status": "public", 
         "requirement": "O interessado dever\u00e1 possuir conhecimentos b\u00e1sicos (selecionar, copiar, colar, criar pastas, salvar e renomear documentos) de algum sistema operacional e de navega\u00e7\u00e3o na Internet. \r\nPara participar deste curso e realizar seus exerc\u00edcios \u00e9 necess\u00e1rio um computador com acesso \u00e0 internet, navegador web atualizado (pelo menos 2) e algum programa de edi\u00e7\u00e3o de texto sem formata\u00e7\u00e3o. \r\n\u00c9 recomendada a idade m\u00ednima de 14 anos.", 
-        "workload": "<p>40 horas, a serem completadas em seis semanas</p>\r\n\r\n<p><small>O tempo estimado de dedica\u00e7\u00e3o do aluno e agenda de comprometimento sugerida s\u00e3o de 12 horas de aulas expositivas, a serem completadas em 6 semanas e a sugest\u00e3o de dedica\u00e7\u00e3o do aluno \u00e9 de 6 horas por semana, sendo 2hrs para assistir aulas e 4hrs para fazer exerc\u00edcios</small></p>", 
+        "workload": "<p>40 horas, a serem completadas em sete semanas</p>\r\n<p>A agenda de dedica\u00e7\u00e3o estimada para o aluno \u00e9 de 6 horas por semana: 2 horas para assistir \u00e0s aulas em v\u00eddeo e 4 horas para realizar os exerc\u00edcios propostos</p>", 
         "intro_video": 1, 
-        "pronatec": "<p><strong>Rela\u00e7\u00e3o do curso com o PRONATEC:</strong></p><p>Eixo Tecnol\u00f3gico: Informa\u00e7\u00e3o e Comunica\u00e7\u00e3o</p><p>T\u00edtulos semelhantes oferecidos Guia PRONATEC:</p><ul><li>T\u00e9cnico em Inform\u00e1tica</li><li>T\u00e9cnico em Manuten\u00e7\u00e3o e Suporte em Inform\u00e1tica</li><li>T\u00e9cnico em Inform\u00e1tica para Internet</li></ul><p>T\u00edtulos semelhantes oferecidos Guia PRONATEC de cursos FIC:</p><ul><li>Administrador de Banco de Dados</li><li>Operador de Computador</li><li>Programador de Dispositivos M\u00f3veis</li><li>Programador de Sistemas</li><li>Programador Web</li></ul><p>Outros nomes atribu\u00eddos a estes profissionais:</p><ul><li>T\u00e9cnico em Forma\u00e7\u00e3o de Instrutores de Inform\u00e1tica</li><li>T\u00e9cnico em Planejamento e Gest\u00e3o em Tecnologia da Informa\u00e7\u00e3o</li></ul>", 
-        "abstract": "<p>Introdu\u00e7\u00e3o aos conceitos fundamentais de bancos de dados modernos, desde a forma de organiza\u00e7\u00e3o dos dados (modelos e esquemas de dados) at\u00e9 comandos fundamentais da linguagem SQL e no\u00e7\u00f5es de projeto de bancos de dados normalizados. No\u00e7\u00f5es de arquitetura de sistemas, gerenciadores de nacos de dados, integridade referencial, linguagens de defini\u00e7\u00e3o, manipula\u00e7\u00e3o e controle de dados, al\u00e9m de tratar das quest\u00f5es de seguran\u00e7a, integridade e controle de transa\u00e7\u00f5es.</p>\r\n", 
+        "pronatec": "<p><strong>Rela\u00e7\u00e3o do curso com o PRONATEC:</strong></p><p>Eixo Tecnol\u00f3gico: Informa\u00e7\u00e3o e Comunica\u00e7\u00e3o</p><p>T\u00edtulos semelhantes oferecidos no Guia PRONATEC:</p><ul><li>T\u00e9cnico em Inform\u00e1tica</li><li>T\u00e9cnico em Manuten\u00e7\u00e3o e Suporte em Inform\u00e1tica</li><li>T\u00e9cnico em Inform\u00e1tica para Internet</li></ul><p>T\u00edtulos semelhantes oferecidos no Guia PRONATEC de cursos FIC:</p><ul><li>Administrador de Banco de Dados</li><li>Operador de Computador</li><li>Programador de Dispositivos M\u00f3veis</li><li>Programador de Sistemas</li><li>Programador Web</li></ul><p>Outros nomes atribu\u00eddos a estes profissionais:</p><ul><li>T\u00e9cnico em Forma\u00e7\u00e3o de Instrutores de Inform\u00e1tica</li><li>T\u00e9cnico em Planejamento e Gest\u00e3o em Tecnologia da Informa\u00e7\u00e3o</li></ul>", 
+        "abstract": "<p>Introdu\u00e7\u00e3o aos conceitos fundamentais de bancos de dados modernos, desde a forma de organiza\u00e7\u00e3o dos dados (modelos e esquemas de dados) at\u00e9 comandos fundamentais da linguagem SQL e no\u00e7\u00f5es de projeto de bancos de dados normalizados. No\u00e7\u00f5es de arquitetura de sistemas, gerenciadores de bancos de dados, integridade referencial, linguagens de defini\u00e7\u00e3o, manipula\u00e7\u00e3o e controle de dados, al\u00e9m de tratar das quest\u00f5es de seguran\u00e7a, integridade e controle de transa\u00e7\u00f5es.</p>\r\n", 
         "application": "Banco de dados s\u00e3o empregados em praticamente todos os sistemas Web, desde redes sociais a portais de com\u00e9rcio eletr\u00f4nico, bem como aplicativos comerciais.", 
         "publication": "2013-08-23", 
         "slug": "dbsql", 
@@ -124,16 +134,6 @@
         "job": "instructor", 
         "user": 2, 
         "biography": "Cara legal."
-    }
-},
-{
-    "pk": 2, 
-    "model": "core.courseprofessor", 
-    "fields": {
-        "course": 1, 
-        "job": "pedagogy_assistant", 
-        "user": 3, 
-        "biography": "Lorem ipsum all the way down"
     }
 },
 {
@@ -155,7 +155,7 @@
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
         "course": 1, 
         "slug": "aula-2-introducao-a-sql-demonstracao-sgbds-e-definicao-de-esquemas", 
-        "name": "Aula 2: Introdu\u00e7\u00e3o a SQL (demonstra\u00e7\u00e3o), SGBDs e defini\u00e7\u00e3o de esquemas"
+        "name": "Aula 2: Introdu\u00e7\u00e3o ao SQL (demonstra\u00e7\u00e3o), SGBDs e defini\u00e7\u00e3o de esquemas"
     }
 },
 {
@@ -283,7 +283,7 @@
     "fields": {
         "position": 0, 
         "lesson": 1, 
-        "video": 1, 
+        "video": 2, 
         "activity": null
     }
 },
@@ -293,7 +293,7 @@
     "fields": {
         "position": 1, 
         "lesson": 1, 
-        "video": 1, 
+        "video": 3, 
         "activity": 1
     }
 },
@@ -303,7 +303,7 @@
     "fields": {
         "position": 2, 
         "lesson": 1, 
-        "video": 1, 
+        "video": 4, 
         "activity": null
     }
 },
@@ -313,7 +313,7 @@
     "fields": {
         "position": 3, 
         "lesson": 1, 
-        "video": 1, 
+        "video": 5, 
         "activity": 1
     }
 },
@@ -1043,7 +1043,7 @@
     "fields": {
         "position": 4, 
         "lesson": 1, 
-        "video": 1, 
+        "video": 6, 
         "activity": 1
     }
 }
