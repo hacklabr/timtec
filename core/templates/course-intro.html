@@ -70,7 +70,7 @@
                     </p>
                     <table class="table">
                       <tr>
-                        {% for unit in lesson.unit_set.all %}
+                        {% for unit in lesson.units.all %}
                         <td>
                           <a class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}" data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade {{ unit.position|add:1 }}">
                             {% if unit.activity %}

@@ -190,13 +190,13 @@ class Lesson(models.Model):
         return self.name
 
     def activity_count(self):
-        return self.unit_set.exclude(activity=None).count()
+        return self.units.exclude(activity=None).count()
 
     def unit_count(self):
-        return self.unit_set.all().count()
+        return self.units.all().count()
 
     def video_count(self):
-        return self.unit_set.exclude(video=None).count()
+        return self.units.exclude(video=None).count()
 
 
 class Activity(models.Model):
