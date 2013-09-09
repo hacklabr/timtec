@@ -131,7 +131,7 @@
     "model": "core.courseprofessor", 
     "fields": {
         "course": 1, 
-        "job": "instructor", 
+        "role": "instructor", 
         "user": 2, 
         "biography": "Luciano Ramalho \u00e9 s\u00f3cio e professor nas Oficinas Turing. Foi diretor t\u00e9cnico do Brasil Online, primeiro portal da Abril S/A na Web. Liderou times para os portais IDG Now, BOL, UOL, AOL Brasil e outros, usando Python desde 1998. Como instrutor, atendeu clientes como Citibank, CPqD, Serpro, Presid\u00eancia da Rep\u00fablica, Globo.com e Ita\u00fa. Ajudou a criar a Associa\u00e7\u00e3o Python Brasil e foi seu presidente. \u00c9 membro da Python Software Foundation e fundador do Garoa Hacker Clube, o primeiro hackerspace do Brasil. J\u00e1 palestrou v\u00e1rias vezes em eventos internacionais como FISL, OSCON e PyCon US."
     }
