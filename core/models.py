@@ -9,12 +9,12 @@ from django.core.mail import send_mail
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils import timezone
-from django.utils.http import urlquote
 from django.utils.translation import ugettext_lazy as _
 
 
 class TimtecUser(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(_('Username'), max_length=30, unique=True,
+    username = models.CharField(
+        _('Username'), max_length=30, unique=True,
         help_text=_('Required. 30 characters or fewer. Letters, numbers and '
                     './+/-/_ characters'),
         validators=[
@@ -114,7 +114,7 @@ class Course(models.Model):
         return self.lesson_set.all()[0]
 
     def enroll_student(self, student):
-        params = { 'user': student, 'course': self }
+        params = {'user': student, 'course': self}
         try:
             return CourseStudent.objects.get(**params)
         except CourseStudent.DoesNotExist:
@@ -145,7 +145,7 @@ class CourseStudent(models.Model):
     def percent_progress(self):
         units_len = self.course.unit_set.count()
         units_done_len = self.units_done.count()
-        return int( 100 * float(units_done_len) / float(units_len) )
+        return int(100.0 * units_done_len / units_len)
 
 
 class CourseProfessor(models.Model):
