@@ -11,15 +11,21 @@
             .otherwise({redirectTo: '/0'});
     }]);
 
-    app.controller('LessonCtrl', function ($rootScope, $scope, $routeParams, LessonData, $window) {
+    app.controller('LessonCtrl', function ($scope, $routeParams, LessonData) {
         $scope.currentUnitId = parseInt($routeParams.unitId, 10);
-        LessonData.get({'lessonId': $window.lessonId}, function (lesson) {
-            $scope.lesson = lesson;
+        LessonData.then(function (lesson) {
             $scope.currentUnit = lesson.units[$scope.currentUnitID];
         });
     });
 
-    app.factory('LessonData', function($resource) {
-        return $resource('/api/lessons/:lessonId');
+    app.factory('LessonData', function($rootScope, $q, $resource, $window) {
+        var Lesson = $resource('/api/lessons/:lessonId/');
+        var deferred = $q.defer();
+        Lesson.get({'lessonId': $window.lessonId}, function (lesson) {
+            $rootScope.lesson = lesson;
+            deferred.resolve(lesson);
+        });
+
+        return deferred.promise;
     });
 })(angular);
