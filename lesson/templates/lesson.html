@@ -60,8 +60,8 @@ window.lessonId = {{ lesson.pk }}
     <section class="course-video" ng-app="lesson">
       {% verbatim angularjs %}
       <script type="text/ng-template" id="lesson_internal.html">
-        <a style="display:block;" ng-repeat="unit in lesson.units" href="#/{{ $index }}" class="has-tooltip unit track" ng-class="{watching: $index==currentUnitID}" data-toggle="tooltip" data-placement="right" data-original-title="{{ $index + 1 }}">
-          <i class="icon-caret-right" ng-if="$index==unitId"></i>
+        <a style="display:block;" ng-repeat="unit in lesson.units" href="#/{{ $index }}" class="has-tooltip unit track" ng-class="{watching: $index == currentUnitId}" data-toggle="tooltip" data-placement="right" data-original-title="{{ $index + 1 }}">
+          <i class="icon-caret-right" ng-if="$index == currentUnitId"></i>
           <span class="position">{{ unit.position }}</span>
           <i class="icon-list" ng-if="unit.activity !== null"></i>
         </a>
