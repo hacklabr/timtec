@@ -25,5 +25,5 @@ Getting Started
 - pip install -r dev-requirements.txt
 - python setup.py develop
 - sudo npm -g install less yuglify
-- ./manage.py syncdb
+- ./manage.py syncdb --noinput
 - ./manage.py runserver
