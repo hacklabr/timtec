@@ -135,6 +135,7 @@ PIPELINE_JS = {
             'js/vendor/bootstrap.js',
             'js/vendor/angular-1.2.0rc1.js',
             'js/vendor/angular-route.js',
+            'js/vendor/angular-resource.js',
             'js/*.js',
         ),
         'output_filename': 'js/all.js',

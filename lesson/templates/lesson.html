@@ -3,6 +3,10 @@
 {% load staticfiles %}
 {% block content %}
 
+<script type="text/javascript" charset="utf-8">
+window.lessonId = {{ lesson.pk }}
+</script>
+
 <script type="text/javascript" src="{% static 'js/lesson.js' %}
 " charset="utf-8"></script>
 
@@ -56,10 +60,10 @@
     <section class="course-video" ng-app="lesson">
       {% verbatim angularjs %}
       <script type="text/ng-template" id="lesson_internal.html">
-        <a style="display:block;" ng-repeat="unitc in units" href="#/{{ $index }}" class="has-tooltip unit track" ng-class="{watching: $index==unitID}" data-toggle="tooltip" data-placement="right" data-original-title="{{ $index + 1 }}">
-          <i class="icon-caret-right" ng-if="$index==unitID"></i>
-          <span class="position">{{ $index + 1 }}</span>
-          <i class="icon-list" ng-if="$last"></i>
+        <a style="display:block;" ng-repeat="unit in lesson.units" href="#/{{ $index }}" class="has-tooltip unit track" ng-class="{watching: $index==currentUnitID}" data-toggle="tooltip" data-placement="right" data-original-title="{{ $index + 1 }}">
+          <i class="icon-caret-right" ng-if="$index==unitId"></i>
+          <span class="position">{{ unit.position }}</span>
+          <i class="icon-list" ng-if="unit.activity !== null"></i>
         </a>
       </script>
       {% endverbatim angularjs %}
