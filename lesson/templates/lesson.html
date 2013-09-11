@@ -5,6 +5,12 @@
 
 <script type="text/javascript" charset="utf-8">
 window.lessonId = {{ lesson.pk }}
+$(document).ready(function() {
+  $(".nav-tabs a").click(function(e) {
+    e.preventDefault();
+    $(this).tab('show');
+  })
+})
 </script>
 
 <script type="text/javascript" src="{% static 'js/lesson.js' %}
@@ -60,34 +66,23 @@ window.lessonId = {{ lesson.pk }}
     <section class="course-video" ng-app="lesson">
       {% verbatim angularjs %}
       <script type="text/ng-template" id="lesson_internal.html">
+      <div class="col-lg-1 col-sm-1">
         <a style="display:block;" ng-repeat="unit in lesson.units" href="#/{{ $index }}" class="has-tooltip unit track" ng-class="{watching: $index == currentUnitId}" data-toggle="tooltip" data-placement="right" data-original-title="{{ $index + 1 }}">
           <i class="icon-caret-right" ng-if="$index == currentUnitId"></i>
           <span class="position">{{ unit.position }}</span>
           <i class="icon-list" ng-if="unit.activity !== null"></i>
         </a>
-      </script>
-      {% endverbatim angularjs %}
-    <div class="row">
-      <div class="col-lg-1 col-sm-1" ng-view>
       </div>
       <!-- PLAYER AND SUBTITLE-->
       <div class="col-lg-8 col-sm-11 left">
         <!-- PLAYER -->
-        <iframe id="ytplayer" type="text/html" height="429" width="100%" src="https://www.youtube.com/embed/IvvE7syPEZA?rel=0&showinfo=0&autohide=1&theme=light&wmode=opaque" frameborder="0" allowfullscreen=""></iframe>
+        <div id="youtube-player" youtube-player></div>
         <!-- END PLAYER -->
       </div>
       <!-- PLAYER -->
 
       <!-- NOTES -->
       <div class="col-lg-3 hidden-md hidden-sm">
-        <script type="text/javascript" charset="utf-8">
-          $(document).ready(function() {
-            $(".nav-tabs a").click(function(e) {
-              e.preventDefault();
-              $(this).tab('show');
-            })
-          })
-        </script>
         <ul class="nav nav-tabs">
           <li class="active"><a href="#subtitles" data-toggle="tab">Transcrição</a></li>
           <li><a href="#notes" data-toggle="tab">Anotações</a></li>
@@ -192,6 +187,9 @@ window.lessonId = {{ lesson.pk }}
             </ol>
           </div>
         </div>
+      </script>
+      {% endverbatim angularjs %}
+    <div class="row" ng-view>
       </div>
       <!-- END NOTES -->
 

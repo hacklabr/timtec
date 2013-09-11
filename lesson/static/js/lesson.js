@@ -1,7 +1,7 @@
 (function (angular) {
     "use strict";
 
-    var app = angular.module('lesson', ['ngRoute', 'ngResource']);
+    var app = angular.module('lesson', ['ngRoute', 'ngResource', 'youtube']);
 
     app.config(['$routeProvider', function ($routeProvider) {
         $routeProvider
@@ -11,10 +11,14 @@
             .otherwise({redirectTo: '/0'});
     }]);
 
-    app.controller('LessonCtrl', function ($scope, $routeParams, LessonData) {
+    app.controller('LessonCtrl', function ($scope, $routeParams, LessonData, youtubePlayerApi) {
         $scope.currentUnitId = parseInt($routeParams.unitId, 10);
         LessonData.then(function (lesson) {
-            $scope.currentUnit = lesson.units[$scope.currentUnitID];
+            $scope.currentUnit = lesson.units[$scope.currentUnitId];
+            if ($scope.currentUnit.video) {
+                youtubePlayerApi.videoId = $scope.currentUnit.video.youtube_id;
+                youtubePlayerApi.loadPlayer();
+            }
         });
     });
 

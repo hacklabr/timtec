@@ -133,9 +133,8 @@ PIPELINE_JS = {
         'source_filenames': (
             'js/vendor/jquery-1.10.2.js',
             'js/vendor/bootstrap.js',
-            'js/vendor/angular-1.2.0rc1.js',
-            'js/vendor/angular-route.js',
-            'js/vendor/angular-resource.js',
+            'js/vendor/angular.js',
+            'js/vendor/angular-*.js',
             'js/*.js',
         ),
         'output_filename': 'js/all.js',
