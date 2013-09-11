@@ -249,6 +249,7 @@ INSTALLED_APPS = (
     'accounts',
     'core',
     'lesson',
+    'forum',
 )
 
 if DEBUG:
