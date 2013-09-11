@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
 from django.forms import TextInput, Textarea
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
 
 from suit.admin import SortableTabularInline
 
-from models import *
+from models import Question, Answer, AnswerVote, QuestionVote
 
 
 class ModelAdmin(admin.ModelAdmin):
@@ -23,7 +21,7 @@ class QuestionVoteInline(SortableTabularInline):
 
 
 class AnswerVoteInline(SortableTabularInline):
-    model = QuestionVote
+    model = AnswerVote
     sortable = 'id'
 
 
