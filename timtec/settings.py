@@ -297,5 +297,7 @@ LOGGING = {
     }
 }
 
-if os.path.exists(os.path.join(SETTINGS_DIR, 'settings_local.py')):
-    execfile(os.path.join(SETTINGS_DIR, 'settings_local.py'))
+try:
+    from .settings_local import *
+except ImportError:
+    pass
