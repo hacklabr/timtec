@@ -14,25 +14,22 @@ class HomeView(View):
         return redirect(reverse('course_intro', args=[latest.slug]))
 
 
-class CourseIntroView(DetailView):
+class CourseView(DetailView):
     model = Course
-    template_name = 'course-intro.html'
-
+    template_name = 'course.html'
 
     def get_context_data(self, **kwargs):
-        context = super(CourseIntroView, self).get_context_data(**kwargs)
+        context = super(CourseView, self).get_context_data(**kwargs)
 
-        units_done = []
         if self.request.user.is_authenticated():
             units_done = StudentProgress.objects.filter(user=self.request.user, unit__lesson__course=self.object)\
                                                 .exclude(complete=None)\
                                                 .values_list('unit', flat=True)
-        context['units_done'] = units_done
+            context['units_done'] = units_done
         return context
 
 
-
-class UserCoursesView(LoginRequiredMixin,TemplateView):
+class UserCoursesView(LoginRequiredMixin, TemplateView):
     template_name = 'user-courses.html'
 
 
