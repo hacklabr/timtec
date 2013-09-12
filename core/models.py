@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import re
+
 from jsonfield import JSONField
+from positions import PositionField
 
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
@@ -173,8 +175,8 @@ class Lesson(models.Model):
     slug = models.SlugField(_('Slug'), max_length=255, editable=False, unique=True)
     name = models.CharField(_('Name'), max_length=255)
     desc = models.CharField(_('Description'), max_length=255)
-    position = models.PositiveIntegerField(_('Position'))
     course = models.ForeignKey(Course, verbose_name=_('Course'))
+    position = PositionField(collection='course', default=0)
 
     class Meta:
         verbose_name = _('Lesson')
@@ -228,7 +230,7 @@ class Unit(models.Model):
     lesson = models.ForeignKey(Lesson, verbose_name=_('Lesson'), related_name='units')
     video = models.ForeignKey(Video, verbose_name=_('Video'), null=True, blank=True)
     activity = models.ForeignKey(Activity, verbose_name=_('Activity'), null=True, blank=True)
-    position = models.PositiveIntegerField(_('Position'))
+    position = PositionField(collection='lesson', default=0)
 
     class Meta:
         verbose_name = _('Unit')
@@ -238,6 +240,24 @@ class Unit(models.Model):
     def __unicode__(self):
         return u'%s) %s - %s - %s' % (self.position, self.lesson, self.video, self.activity)
 
+    @staticmethod
+    def set_position_for_new_unit(sender, instance, **kwargs):
+        if instance.id:
+            return
+
+        try:
+            latest = sender.objects.filter(lesson=instance.lesson) \
+                                   .aggregate(models.Max('position')) \
+                                   .get('position__max')
+
+            if latest is not None:
+                instance.position = latest + 1
+
+        except sender.DoesNotExist:
+            pass
+
+models.signals.pre_save.connect(Unit.set_position_for_new_unit, sender=Unit,
+                                dispatch_uid="Unit.set_position_for_new_unit")
 
 class Answer(models.Model):
     activity = models.ForeignKey(Activity, verbose_name=_('Activity'))

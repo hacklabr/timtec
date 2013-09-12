@@ -16,23 +16,25 @@ class ModelAdmin(admin.ModelAdmin):
     }
 
 
-class LessonInline(SortableTabularInline):
+class LessonInline(admin.TabularInline):
     model = Lesson
-    sortable = 'position'
     formfield_overrides = {
         models.CharField: {'widget': Textarea(attrs={'rows': 3, 'class': 'span11'})},
     }
 
 
-class UnitInline(SortableTabularInline):
+class UnitInline(admin.TabularInline):
     model = Unit
-    fields = ('video', 'activity', 'position')
-    sortable = 'position'
+    fields = ('video', 'activity', 'position',)
 
 
 class LessonAdmin(ModelAdmin):
     list_display = ('name', 'course',)
     inlines = (UnitInline,)
+
+
+class UnitAdmin(ModelAdmin):
+    list_display = ('position', 'lesson', 'video', 'activity',)
 
 
 class CourseAdmin(ModelAdmin):
@@ -55,6 +57,6 @@ admin.site.register(CourseProfessor, CourseProfessorAdmin)
 
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Lesson, LessonAdmin)
+admin.site.register(Unit, UnitAdmin)
 admin.site.register(Activity)
-admin.site.register(Unit)
 admin.site.register(Answer)
