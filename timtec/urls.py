@@ -8,7 +8,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 from accounts.views import CustomLoginView, ProfileEditView, RegistrationUniqueEmailView
-from core.views import CourseIntroView, EnrollCourseView, HomeView, UserCoursesView
+from core.views import CourseView, EnrollCourseView, HomeView, UserCoursesView
 from lesson.views import LessonDetailView, LessonViewSet
 from rest_framework import routers
 
@@ -20,7 +20,7 @@ urlpatterns = patterns(
     '',
     url(r'^$', HomeView.as_view(), name='home_view'),
     url(r'^my-courses$', UserCoursesView.as_view(), name='user_courses'),
-    url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)$', CourseIntroView.as_view(), name='course_intro'),
+    url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)$', CourseView.as_view(), name='course_intro'),
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/enroll$', EnrollCourseView.as_view(), name='enroll_course'),
     url(r'^lesson/(?P<slug>[-a-zA-Z0-9_]+)$', LessonDetailView.as_view(), name='lesson'),
     url(r'^api/', include(router.urls)),
