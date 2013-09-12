@@ -245,16 +245,13 @@ class Unit(models.Model):
         if instance.id:
             return
 
-        try:
-            latest = sender.objects.filter(lesson=instance.lesson) \
-                                   .aggregate(models.Max('position')) \
-                                   .get('position__max')
+        latest = sender.objects.filter(lesson=instance.lesson) \
+                               .aggregate(models.Max('position')) \
+                               .get('position__max')
 
-            if latest is not None:
-                instance.position = latest + 1
+        if latest is not None:
+            instance.position = latest + 1
 
-        except sender.DoesNotExist:
-            pass
 
 models.signals.pre_save.connect(Unit.set_position_for_new_unit, sender=Unit,
                                 dispatch_uid="Unit.set_position_for_new_unit")
