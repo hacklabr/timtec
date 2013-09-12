@@ -28,6 +28,15 @@ def test_lesson_counts(settings):
 
 
 @pytest.mark.django_db
+def test_position_counter_for_new_units():
+    lesson = mommy.make('Lesson')
+
+    assert mommy.make('Unit', lesson=lesson).position == 0
+    assert mommy.make('Unit', lesson=lesson).position == 1
+    assert mommy.make('Unit', lesson=lesson).position == 2
+
+
+@pytest.mark.django_db
 def test_user_picture_url():
     user = TimtecUser.objects.get(username='abcd')
 
