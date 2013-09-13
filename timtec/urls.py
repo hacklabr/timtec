@@ -10,7 +10,7 @@ admin.autodiscover()
 from accounts.views import CustomLoginView, ProfileEditView, RegistrationUniqueEmailView
 from core.views import CourseView, EnrollCourseView, HomeView, UserCoursesView
 from lesson.views import LessonDetailView, LessonViewSet
-from forum.views import CourseForumView
+from forum.views import CourseForumView, QuestionView
 from rest_framework import routers
 
 router = routers.DefaultRouter()
@@ -28,6 +28,7 @@ urlpatterns = patterns(
 
     # Forum
     url(r'^forum/(?P<course_slug>[-a-zA-Z0-9_]+)$', CourseForumView.as_view(), name='forum'),
+    url(r'^forum/question/(?P<slug>[-a-zA-Z0-9_]+)$', QuestionView.as_view(), name='forum_question'),
 
     # Authentication
     url(r'^login/', CustomLoginView.as_view(), name='timtec_login'),

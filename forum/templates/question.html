@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% block content %}
+        <!-- CONTAINER -->
+        <div id="course-forum">
+            <!-- HEADER -->
+            <header id="main-header" class="container">
+                <div class="page-header-double">
+                    <div class="row">
+                        <div class="col-lg-9 col-sm-9">
+                            <h1 class="top"><i class="icon-double-angle-right"></i> {{ question.course.name }}</h1>
+                        </div>
+                        <div class="col-lg-3 col-sm-3">
+                            <!-- COURSE-SECTION-NAV -->
+                            <script type="text/javascript" charset="utf-8">
+                                $(document).ready(function() {
+                                    $('nav.course-sections > a > span').tooltip();
+                                });
+                            </script>
+                            <nav class="course-sections textright">
+                                <a href="aula-intro.html"><span class="icon-home" data-toggle="tooltip" data-placement="top" data-original-title="Intro"></span></a>
+                                <a href="aula.html"><span class="icon-facetime-video" data-toggle="tooltip" data-placement="top" data-original-title="Aulas"></span></a>
+                                <a href="profile-note.html"><span class="icon-pencil" data-toggle="tooltip" data-placement="top" data-original-title="Anotações"></span></a>
+                                <a href="forum-course.html"><span class="icon-list" data-toggle="tooltip" data-placement="top" data-original-title="Fórum"></span></a>
+                                <a href=""><span class="icon-exclamation-sign" data-toggle="tooltip" data-placement="top" data-original-title="Wiki"></span></a>
+                            </nav>
+                            <!-- END COURSE-SECTION-NAV -->
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- END HEADER -->
+
+            <script type="text/javascript" charset="utf-8">
+            $(document).ready(function() {
+                $('.comment-form').hide();
+                $('.add-comment-link').click(function(e) {
+                    e.preventDefault();
+                    $(this).parent().parent().height(170);
+                    $(this).parent().parent().find('form').slideDown();
+                    $(this).hide();
+                })
+            
+                $('.cancel-comment').click(function(e) {
+                    e.preventDefault();
+                    $(this).parent().parent().slideUp()
+                    $(this).parent().parent().parent().find('.add-comment-link').slideDown().show();
+                    $(this).parent().parent().parent().height(30);
+                })
+            })
+            </script>
+        
+            <!-- MAIN CONTENT -->
+            <section id="main-content" class="container">
+                <div class="row">
+                    <div class="col-sm-9 col-lg-9">
+                        <!-- QUESTION -->
+                        <article class="question">
+                            <header>
+                                <h1>{{ question.title }}</h1>
+                            </header>
+                            <div class="row">
+                                <div class="col-sm-2 col-lg-2">
+                                    <div class="row">
+                                        <div class="rating col-sm-12 col-lg-12">
+                                            <div class="arrow-up"></div>
+                                            <div class="votes">{{ question.votes.count }}</div>
+                                            <div class="arrow-down"></div>
+                                        </div><!-- .rating -->
+                                    </div>
+                                    <div class="author clearfix">
+                                        pergunta feita em <strong>{{ question.timestamp|date:"j/m/y" }}</strong> por <a href="profile.html">{{ question.user.username }}</a>
+                                    </div>
+                                </div>
+                                <div class="question-body col-sm-10 col-lg-10">
+                                    <p>{{ question.text }}</p>
+                                </div><!-- .question-body -->
+                            </div>
+                            <div class="question-tag">
+                                <div class="row">
+                                    <div class="col-sm-2 col-lg-2 textright">
+                                        <span class="tag-label">TAGS</span>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-10">
+                                        <a href="" class="tag">tag1</a>
+                                        <a href="" class="tag">tag2</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="add-comment col-sm-10 col-lg-10 col-offset-2">
+                                    <p><a href="" class="add-comment-link">Adicionar comentário</a></p>
+                                    <form class="comment-form">
+                                        <textarea rows="5"></textarea>
+                                        <div class="textright">
+                                            <button class="cancel-comment btn btn-danger">Cancelar</button>
+                                            <button class="btn btn-success">Comentar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        
+                        </article>
+                        <!-- END QUESTION -->
+                    
+                        <!-- ANSWERS -->
+                        <section class="answers">
+                            <!-- HEADER -->
+                            <header>
+                                <div class="row">
+                                    <div class="col-sm-6 col-lg-6">
+                                        <h1>{{ question.answers.count }} Respostas:</h1>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-6 textright">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-info">Mais recente</button>
+                                            <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown">
+                                                <i class="icon-chevron-down"></i>
+                                            </button>
+                                            <ul class="dropdown-menu textleft">
+                                                <li><a href="#">Mais recente</a></li>
+                                                <li><a href="#">Mais antiga</a></li>
+                                                <li><a href="#">Mais votada</a></li>
+                                            </ul>
+                                        </div>
+                                    
+                                    </div>
+                                </div>
+                            </header>
+                            <!-- END HEADER -->
+
+                            <!-- ANSWER -->
+                            {% for answer in question.answers.all %}
+                            <article class="answer">
+                                <div class="row">
+                                    <div class="col-sm-2 col-lg-2">
+                                        <div class="row">
+                                            <div class="rating col-sm-12 col-lg-12">
+                                                <div class="arrow-up"></div>
+                                                <div class="votes">{{ answer.votes.count }}</div>
+                                                <div class="arrow-down"></div>
+                                            </div><!-- .rating -->
+                                        </div>
+                                        <div class="author clearfix">
+                                            resposta feita em <strong>{{ answer.timestamp|date:"j/m/y" }}</strong> por <a href="profile.html">{{ answer.user.username }}</a>
+                                        </div>
+                                    </div>
+                                
+                                    <div class="answer-body col-sm-10 col-lg-10">
+                                        <p>{{ answer.text }}</a>
+                                    </div><!-- .answer-body -->
+                                </div>
+                                <div class="row">
+                                    <div class="add-comment col-sm-10 col-lg-10 col-offset-2">
+                                        <p><a href="" class="add-comment-link">Comentar resposta</a></p>
+                                        <form class="comment-form">
+                                            <textarea rows="5"></textarea>
+                                            <div class="textright">
+                                                <button class="cancel-comment btn btn-danger">Cancelar</button>
+                                                <button class="btn btn-success">Comentar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </article>
+                            {% endfor %}
+                            <!-- END ANSWER -->
+                        </section>
+                        <!-- END ANSWERS -->
+                        <!-- YOUR ANSWER -->
+                        <section class="your-answer">
+                            <header>
+                                <h1>Sua Resposta</h1>
+                            </header>
+                            <form>
+                                <div class="text-editor">
+                                    <i class="icon-bold"></i>
+                                    <i class="icon-italic"></i>
+                                    <i class="icon-link"></i>
+                                    <i class="icon-quote-left"></i>
+                                    <i class="icon-code"></i>
+                                    <i class="icon-list-ol"></i>
+                                    <i class="icon-align-left"></i>
+                                    <i class="icon-align-center"></i>
+                                    <i class="icon-align-right"></i>
+                                </div>
+                                <textarea rows="15"></textarea>
+                                <div class="submit textright">
+                                    <button class="btn btn-success">Enviar</button>
+                                </div>
+                            </form>
+                        </section>
+                        <!-- END YOUR ANSWER -->
+                    </div>
+                
+                    <!-- ASIDE -->
+                    <aside class="col-sm-3 col-lg-3">
+                        <p><a href="" class="ask-a-question btn btn-lg btn-danger uppercase">Fazer uma pergunta</a></p>
+                        <form class="search-forum">
+                            <div class="page-header-double">
+                                <h3><i class="icon-double-angle-right"></i> Pesquisar Fórum</h3>
+                            </div>
+                            <div class="input-group">
+                                <input type="search" class="form-control">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button"><i class="icon-search"></i></button>
+                                </span>
+                            </div>
+                        </form>
+                        <div class="related-questions">
+                            <div class="page-header-double">
+                                <h3><i class="icon-double-angle-right"></i> Perguntas Relacionadas</h3>
+                            </div>
+                            <ul class="no-bullet">
+                                <li><a href="">Risus lectus non pulvinar sed ut integer. Ac elementum nunc facilisis ultricies, enim tincidunt integer mus, auctor sagittis? Et egestas.</a></li>
+                                <li><a href="">Phasellus enim lectus augue et dis natoque amet hac magna sagittis nec elementum, velit et, phasellus pulvinar magnis aliquet.</a></li>
+                                <li><a href="">Vel cursus nunc est dapibus hac tincidunt in tortor, aliquet pellentesque et et, tincidunt. Nec, mus placerat vel magna.</a></li>
+                                <li><a href="">Scelerisque adipiscing ridiculus velit nunc, integer porttitor sed ac mus nisi egestas dictumst sed! Ultrices pulvinar. Ac! Ac adipiscing.</a></li>
+                                <li><a href="">Tempor lacus parturient augue ac augue platea placerat lectus! In. Proin! Dapibus, rhoncus dapibus amet! Aliquet porttitor, sagittis! Nisi.</a></li>
+                            </ul>
+                        </div>
+                    </aside>
+                    <!-- END ASIDE -->
+                </div>
+            </section>
+            <!-- END MAIN CONTENT-->
+        </div>
+        <!-- END CONTAINER -->
+{% endblock %}

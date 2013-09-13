@@ -2,9 +2,9 @@
 from accounts.utils import LoginRequiredMixin
 from core.models import Course
 from django.shortcuts import get_object_or_404
-from django.views.generic.base import TemplateView
+from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
-from forum.models import Question
+from models import Question
 
 
 # from models import Question
@@ -24,3 +24,9 @@ class CourseForumView(LoginRequiredMixin, ListView):
         # Add in the publisher
         context['course'] = self.course
         return context
+
+
+class QuestionView(DetailView, LoginRequiredMixin):
+    model = Question
+    context_object_name = 'question'
+    template_name = "question.html"
