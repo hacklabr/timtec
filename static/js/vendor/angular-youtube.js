@@ -24,6 +24,7 @@ angular.module('youtube', ['ng']).run(function ($document) {
         service.playerId = null;
         service.player = null;
         service.videoId = null;
+        service.events = null;
         service.playerHeight = '429';
         service.playerWidth = '765';
 
@@ -47,7 +48,8 @@ angular.module('youtube', ['ng']).run(function ($document) {
                     showinfo: 0,
                     theme: 'light',
                     wmode: 'opaque'
-                }
+                },
+                events: this.events
             });
         };
 
