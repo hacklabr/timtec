@@ -5,6 +5,7 @@
     "fields": {
         "title": "Qual \u00e9 o melhor SGBD atualmente?", 
         "text": "Entre todos os Sistema de Gerenciamento de Bancos de Dados, quel deles \u00e9 o mais r\u00e1pido e mais seguro?", 
+        "slug": "qual-e-o-melhor-sgbd-atualmente", 
         "course": 1, 
         "user": 1, 
         "timestamp": "2013-09-11T15:01:55.414Z", 
@@ -18,6 +19,7 @@
     "fields": {
         "title": "Elementum dictumst adipiscing, sit, aliquet diam adipiscing tincidunt, mus nunc nunc est hac egestas amet, diam. Non urna, vel auctor, nisi mus, auctor odio, diam eu ultrices?", 
         "text": "Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam.\r\nNascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diamNascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam\r\n", 
+        "slug": "elementum-dictumst-adipiscing-sit-aliquet-diam-adipiscing-tincidunt-mus-nunc-nunc-est-hac-egestas-amet-diam-non-urna-vel-auctor-nisi-mus-auctor-odio-diam-eu-ultrices", 
         "course": 1, 
         "user": 1, 
         "timestamp": "2013-09-11T16:36:01.488Z", 
