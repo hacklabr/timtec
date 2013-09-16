@@ -32,6 +32,7 @@ urlpatterns = patterns(
     url(r'^profile/edit/?$', ProfileEditView.as_view(), name="profile_edit"),
 
     # Uncomment the next line to enable the admin:
+    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
 
     # The django-registration

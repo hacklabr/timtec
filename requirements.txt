@@ -9,3 +9,5 @@ django-debug-toolbar==0.9.4
 -e git+https://github.com/hacklabr/django-registration.git#egg=django-registration-dev
 djangorestframework==2.3.7
 django-positions==0.4.6
+django-extensions==1.2.1
+
