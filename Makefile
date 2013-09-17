@@ -2,8 +2,8 @@
 create-staging:
 	virtualenv ~/env
 	~/env/bin/pip install -r requirements.txt
-	mkdir ~/webfiles/static
-	mkdir ~/webfiles/media
+	mkdir -p ~/webfiles/static
+	mkdir -p ~/webfiles/media
 
 update-staging:
 	cp timtec/settings_local_staging.py timtec/settings_local.py
