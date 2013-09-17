@@ -3,6 +3,8 @@
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
+ALLOWED_HOSTS = ['localhost', 'timtec-staging.hacklab.com.br']
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
