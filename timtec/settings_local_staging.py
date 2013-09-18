@@ -3,7 +3,10 @@
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = ['localhost', 'timtec-staging.hacklab.com.br']
+ALLOWED_HOSTS = [
+    'timtec-staging.hacklab.com.br',
+    '.timtec.com.br',
+]
 
 DATABASES = {
     'default': {
