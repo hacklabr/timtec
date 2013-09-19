@@ -235,10 +235,10 @@ class Unit(models.Model):
     class Meta:
         verbose_name = _('Unit')
         verbose_name_plural = _('Units')
-        ordering = ['position']
+        ordering = ['lesson', 'position']
 
     def __unicode__(self):
-        return u'%s) %s - %s - %s' % (self.position, self.lesson, self.video, self.activity)
+        return u'%s - %s - %s - %s' % (self.lesson, self.position, self.video, self.activity)
 
     @staticmethod
     def set_position_for_new_unit(sender, instance, **kwargs):
