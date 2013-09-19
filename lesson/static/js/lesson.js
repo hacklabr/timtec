@@ -11,7 +11,8 @@
             .otherwise({redirectTo: '/0'});
     }]);
 
-    app.controller('LessonCtrl', function ($scope, $routeParams, $location, LessonData, youtubePlayerApi) {
+    app.controller('LessonCtrl', ['$scope', '$routeParams', '$location', 'LessonData', 'youtubePlayerApi',
+        function ($scope, $routeParams, $location, LessonData, youtubePlayerApi) {
         $scope.currentUnitId = parseInt($routeParams.unitId, 10);
 
         var onPlayerStateChange = function (event) {
@@ -19,7 +20,7 @@
                 console.log('carregando próximo');
                 console.log($location.path());
                 var nextId = $scope.currentUnitId + 1;
-                if (nextId < $scope.lesson.units.length()) {
+                if (nextId < $scope.lesson.units.length) {
                     $location.path('/' + nextId);
                 }
                 $scope.$apply();
@@ -36,16 +37,16 @@
                 youtubePlayerApi.loadPlayer();
             }
         });
-    });
+    }]);
 
-    app.factory('LessonData', function($rootScope, $q, $resource, $window) {
+    app.factory('LessonData', ['$rootScope', '$q', '$resource', '$window',
+        function($rootScope, $q, $resource, $window) {
         var Lesson = $resource('/api/lessons/:lessonId/');
         var deferred = $q.defer();
         Lesson.get({'lessonId': $window.lessonId}, function (lesson) {
             $rootScope.lesson = lesson;
             deferred.resolve(lesson);
         });
-
         return deferred.promise;
-    });
+    }]);
 })(angular);

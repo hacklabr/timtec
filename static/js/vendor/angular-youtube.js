@@ -1,4 +1,4 @@
-angular.module('youtube', ['ng']).run(function ($document) {
+angular.module('youtube', ['ng']).run(['$document', function ($document) {
     var tag = $document[0].createElement('script');
 
     // This is a protocol-relative URL as described here:
@@ -8,8 +8,9 @@ angular.module('youtube', ['ng']).run(function ($document) {
     tag.src = "//www.youtube.com/iframe_api";
     var firstScriptTag = $document[0].getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    })
-    .service('youtubePlayerApi', function ($window, $rootScope, $log, $q) {
+    }])
+    .service('youtubePlayerApi', ['$window', '$rootScope', '$log', '$q',
+        function ($window, $rootScope, $log, $q) {
         var service = $rootScope.$new(true);
         service.deffered = $q.defer();
 
@@ -64,12 +65,13 @@ angular.module('youtube', ['ng']).run(function ($document) {
             });
         };
         return service;
-    })
-    .directive('youtubePlayer', function (youtubePlayerApi) {
+    }])
+    .directive('youtubePlayer', ['youtubePlayerApi',
+        function (youtubePlayerApi) {
         return {
             restrict:'A',
             link:function (scope, element) {
                 youtubePlayerApi.bindVideoPlayer(element[0].id);
             }
         };
-    });
+    }]);
