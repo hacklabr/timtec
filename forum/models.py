@@ -3,13 +3,14 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.template.defaultfilters import slugify
+from autoslug import AutoSlugField
 from core.models import Course, Lesson
 
 
 class Question(models.Model):
     title = models.CharField(_('Title'), max_length=255)
     text = models.TextField(_('Question'))
-    slug = models.SlugField(_('Slug'), max_length=255, editable=False, unique=True)
+    slug = AutoSlugField(_('Slug'), populate_from='title', max_length=100, editable=False, unique=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('User'))
     correct_answer = models.OneToOneField('Answer', verbose_name=_('Correct answer'), related_name='+', null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True, editable=False)
