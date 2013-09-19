@@ -9,12 +9,14 @@ admin.autodiscover()
 
 from accounts.views import CustomLoginView, ProfileEditView, RegistrationUniqueEmailView
 from core.views import CourseView, EnrollCourseView, HomeView, UserCoursesView
-from lesson.views import LessonDetailView, LessonViewSet
+from lesson.views import LessonDetailView, LessonViewSet, StudentProgressViewSet
 from forum.views import CourseForumView, QuestionView
+
 from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'lessons', LessonViewSet)
+router.register(r'student_progress', StudentProgressViewSet)
 
 
 urlpatterns = patterns(
@@ -37,6 +39,7 @@ urlpatterns = patterns(
     url(r'^profile/edit/?$', ProfileEditView.as_view(), name="profile_edit"),
 
     # Uncomment the next line to enable the admin:
+    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
 
     # The django-registration

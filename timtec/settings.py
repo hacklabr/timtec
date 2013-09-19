@@ -155,7 +155,11 @@ REST_FRAMEWORK = {
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissions'
-    ]
+    ],
+
+    'DEFAULT_FILTER_BACKENDS': [
+        'rest_framework.filters.DjangoFilterBackend'
+    ],
 }
 
 # Make this unique, and don't share it with anybody.
@@ -232,6 +236,7 @@ WSGI_APPLICATION = 'timtec.wsgi.application'
 
 
 INSTALLED_APPS = (
+    'django_extensions',
     'pipeline',
     'suit',
     'django.contrib.auth',

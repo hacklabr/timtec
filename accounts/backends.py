@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
-from django.core.validators import email_re
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+
 
 class TimtecModelBackend(ModelBackend):
 
@@ -11,7 +13,11 @@ class TimtecModelBackend(ModelBackend):
         if username is None:
             username = kwargs.get(UserModel.USERNAME_FIELD, None)
 
-        field = 'email' if email_re.search(username) else 'username'
+        try:
+            validate_email(username)
+            field = 'email'
+        except ValidationError:
+            field = 'username'
         kwargs = {field: username}
 
         try:

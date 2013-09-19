@@ -68,9 +68,9 @@ $(document).ready(function() {
       {% verbatim angularjs %}
       <script type="text/ng-template" id="lesson_internal.html">
       <div class="col-lg-1 col-sm-1">
-        <a style="display:block;" ng-repeat="unit in lesson.units" href="#/{{ $index }}" class="has-tooltip unit track" ng-class="{watching: $index == currentUnitId}" data-toggle="tooltip" data-placement="right" data-original-title="{{ $index + 1 }}">
+        <a style="display:block;" ng-repeat="unit in lesson.units" href="#/{{ $index }}" class="has-tooltip unit track" ng-class="{watching: $index == currentUnitId, done: lesson.units[$index].progress.complete}" data-toggle="tooltip" data-placement="right" data-original-title="{{ unit.position + 1 }}">
           <i class="icon-caret-right" ng-if="$index == currentUnitId"></i>
-          <span class="position">{{ unit.position }}</span>
+          <span class="position">{{ unit.position + 1 }}</span>
           <i class="icon-list" ng-if="unit.activity !== null"></i>
         </a>
       </div>
