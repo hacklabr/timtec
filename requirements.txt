@@ -12,3 +12,4 @@ django-positions==0.4.6
 django-extensions==1.2.1
 psycopg2==2.5.1
 Pygments==1.6
+django-filter==0.7

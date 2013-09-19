@@ -1,4 +1,4 @@
-from core.models import Video, Activity, Unit, Lesson
+from core.models import Video, Activity, Unit, Lesson, StudentProgress
 from rest_framework import serializers
 
 
@@ -14,13 +14,21 @@ class ActivitySerializer(serializers.HyperlinkedModelSerializer):
         fields = ('type',)
 
 
+class StudentProgressSerializer(serializers.ModelSerializer):
+    complete = serializers.DateTimeField(required=False)
+
+    class Meta:
+        model = StudentProgress
+        fields = ('unit', 'complete', 'last_access')
+
+
 class UnitSerializer(serializers.HyperlinkedModelSerializer):
     video = VideoSerializer()
     activity = ActivitySerializer()
 
     class Meta:
         model = Unit
-        fields = ('video', 'activity', 'position')
+        fields = ('id', 'video', 'activity', 'position')
 
 
 class LessonSerializer(serializers.HyperlinkedModelSerializer):
