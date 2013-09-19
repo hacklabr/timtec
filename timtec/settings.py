@@ -252,6 +252,7 @@ INSTALLED_APPS = (
     'registration',
     'rosetta',
     'accounts',
+    'autoslug',
     'core',
     'lesson',
     'forum',
