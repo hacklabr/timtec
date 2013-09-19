@@ -42,10 +42,24 @@
     app.factory('LessonData', ['$rootScope', '$q', '$resource', '$window',
         function($rootScope, $q, $resource, $window) {
         var Lesson = $resource('/api/lessons/:lessonId/');
+        var Progress = $resource('/api/student_progress/?unit__lesson=:lessonId');
         var deferred = $q.defer();
         Lesson.get({'lessonId': $window.lessonId}, function (lesson) {
             $rootScope.lesson = lesson;
             deferred.resolve(lesson);
+        });
+        Progress.query({'lessonId': $window.lessonId}, function (progress) {
+            deferred.promise.then(function (lesson) {
+                for (var i = progress.length - 1; i >= 0; i--) {
+                    var p = progress[i];
+                    for (var j = lesson.units.length - 1; j >= 0; j--) {
+                        if (lesson.units[j].id === p.unit) {
+                            lesson.units[j].progress = p;
+                            console.log(p);
+                        }
+                    }
+                }
+            });
         });
         return deferred.promise;
     }]);
