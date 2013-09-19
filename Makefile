@@ -1,3 +1,11 @@
+all: install
+
+install:
+	pip install -r requirements.txt --use-mirrors
+	pip install -r dev-requirements.txt --use-mirrors
+	python setup.py develop
+	python manage.py syncdb --noinput
+	python manage.py compilemessages
 
 create-staging:
 	virtualenv ~/env
@@ -14,4 +22,3 @@ update-staging:
 	touch timtec/wsgi.py
 
 staging: create-staging update-staging
-
