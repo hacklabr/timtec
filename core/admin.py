@@ -4,8 +4,6 @@ from django.contrib.auth.admin import UserAdmin
 from django.forms import TextInput, Textarea
 from django.db import models
 
-from suit.admin import SortableTabularInline
-
 from models import *
 
 
@@ -60,3 +58,4 @@ admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Unit, UnitAdmin)
 admin.site.register(Activity)
 admin.site.register(Answer)
+admin.site.register(StudentProgress)

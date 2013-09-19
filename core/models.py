@@ -256,6 +256,7 @@ class Unit(models.Model):
 models.signals.pre_save.connect(Unit.set_position_for_new_unit, sender=Unit,
                                 dispatch_uid="Unit.set_position_for_new_unit")
 
+
 class Answer(models.Model):
     activity = models.ForeignKey(Activity, verbose_name=_('Activity'))
     user = models.ForeignKey(TimtecUser, verbose_name=_('Professor'))
@@ -269,10 +270,13 @@ class Answer(models.Model):
 
 class StudentProgress(models.Model):
     user = models.ForeignKey(TimtecUser, verbose_name=_('Student'))
-    unit = models.ForeignKey(Unit, verbose_name=_('Unit'))
-    complete = models.DateTimeField(editable=False, null=True)
+    unit = models.ForeignKey(Unit, verbose_name=_('Unit'), related_name='progress')
+    complete = models.DateTimeField(editable=True, null=True, blank=True)
     last_access = models.DateTimeField(auto_now=True, editable=False)
 
     class Meta:
         unique_together = (('user', 'unit'),)
         verbose_name = _('Student Progress')
+
+    def __unicode__(self):
+        return u'%s @ %s c: %s la: %s' % (self.user, self.unit, self.complete, self.last_access)
