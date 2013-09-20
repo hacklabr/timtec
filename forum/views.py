@@ -6,8 +6,10 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 from core.models import Course
-from forum.models import Question
+from forum.models import Question, Answer
 from forum.forms import QuestionForm
+from forum.serializers import QuestionSerializer, AnswerSerializer
+from rest_framework import viewsets
 
 
 class CourseForumView(LoginRequiredMixin, ListView):
@@ -56,3 +58,13 @@ class QuestionCreateView(LoginRequiredMixin, FormView):
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
+
+
+class QuestionViewSet(viewsets.ModelViewSet):
+    model = Question
+    serializer_class = QuestionSerializer
+
+
+class AnswerViewSet(viewsets.ModelViewSet):
+    model = Answer
+    serializer_class = AnswerSerializer
