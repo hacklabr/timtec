@@ -13,7 +13,7 @@ from lesson.views import LessonDetailView, LessonViewSet, StudentProgressViewSet
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, AnswerViewSet
 from rest_framework import routers
 
-router = routers.DefaultRouter()
+router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'lessons', LessonViewSet)
 router.register(r'student_progress', StudentProgressViewSet)
 router.register(r'question', QuestionViewSet)
