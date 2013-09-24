@@ -14,14 +14,14 @@
         </div>
         <div class="answers">
             <table class="table">
-                <tr ng-repeat="alt in currentUnit.activity.alternatives">
+                <tr ng-repeat="alt in alternatives">
                     <td class="textcenter">
                         <label class="radio" for="optionradio-{{$index}}">
-                            <input type="radio" name="unit-{{currentUnitId}}-alt"
-                                   id="optionradio-{{$index}}" value="true" data-toggle="radio"/>
+                            <input ng-model="alt.value" type="radio" name="unit-{{currentUnitId}}-alt"
+                                   id="optionradio-{{$index}}" value="orange" data-toggle="radio"/>
                         </label>
                     </td>
-                    <td>{{ alt }}</td>
+                    <td>{{ alt.title }}</td>
                 </tr>
             </table>
 
@@ -29,7 +29,7 @@
                 <div class="alignleft"><button class="btn btn-default">Pular</button></div>
                 <div class="alignright">
                     <button class="btn btn-info">Rever Vídeo</button>
-                    <button class="btn btn-success">Enviar</button>
+                    <button class="btn btn-success" ng-click="sendAnswer()">Enviar</button>
                 </div>
             </div>
         </div>

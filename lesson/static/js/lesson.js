@@ -14,13 +14,20 @@
             .otherwise({redirectTo: '/0'});
     }]);
 
-    app.controller('LessonActivity', ['$scope', '$routeParams', '$location', 'LessonData',
-        function ($scope, $routeParams, $location, LessonData) {
+    app.controller('LessonActivity', ['$scope', '$routeParams', '$location', '$resource', 'LessonData',
+        function ($scope, $routeParams, $location, $resource, LessonData) {
             $scope.currentUnitId = parseInt($routeParams.unitId, 10);
+            // $scope.alternatives = [];
+
+            $scope.sendAnswer = (function() {
+                var answer = JSON.stringify($scope.alternatives);
+            });
 
             LessonData.then(function (lesson) {
                 $scope.currentUnit = lesson.units[$scope.currentUnitId];
-
+                $scope.alternatives = $scope.currentUnit.activity.alternatives.map(
+                    function(e){return {title: e, value: ""};
+                });
             });
         }
     ]);
@@ -32,6 +39,7 @@
 
             var onPlayerStateChange = function (event) {
                 if (event.data === YT.PlayerState.ENDED) {
+                    console.log('/' + $scope.currentUnitId + '/activity');
                     if( $scope.currentUnit.activity ) {
                         $location.path('/' + $scope.currentUnitId + '/activity');
                     } else {
@@ -54,7 +62,8 @@
                     youtubePlayerApi.loadPlayer();
                 }
             });
-    }]);
+        }
+    ]);
 
     app.factory('LessonData', ['$rootScope', '$q', '$resource', '$window',
         function($rootScope, $q, $resource, $window) {
@@ -88,6 +97,8 @@
                     }
                 });
             });
+
             return deferred.promise;
-    }]);
+        }
+    ]);
 })(angular);

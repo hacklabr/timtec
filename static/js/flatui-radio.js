@@ -55,7 +55,7 @@
 					$el.trigger(e);
 
 					if (checked !== $el.prop(ch)) {
-						$el.trigger('change');
+						$el.trigger('change').trigger('click');
 					}
 				}
 		}
@@ -123,7 +123,6 @@
 	* =============== */
 
 	$(document).on('click.radio.data-api', '[data-toggle^=radio], .radio', function (e) {
-		console.log(e)
 		var $radio = $(e.target);
 		if (e.target.tagName != "A") {
 			e && e.preventDefault() && e.stopPropagation();
