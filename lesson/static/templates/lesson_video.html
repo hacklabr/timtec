@@ -1,0 +1,13 @@
+<div class="col-lg-1 col-sm-1">
+  <a style="display:block;" ng-repeat="unit in lesson.units" href="#/{{ $index }}" class="has-tooltip unit track" ng-class="{watching: $index == currentUnitId, done: lesson.units[$index].progress.complete}" data-toggle="tooltip" data-placement="right" data-original-title="{{ unit.position + 1 }}">
+    <i class="icon-caret-right" ng-if="$index == currentUnitId"></i>
+    <span class="position">{{ unit.position + 1 }}</span>
+    <i class="icon-list" ng-if="unit.activity !== null"></i>
+  </a>
+</div>
+
+<!-- PLAYER AND SUBTITLE-->
+<div class="col-lg-8 col-sm-11 left">
+  <div id="youtube-player" youtube-player></div>
+</div>
+<!-- PLAYER -->
