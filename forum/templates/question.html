@@ -2,6 +2,10 @@
 {% load i18n %}
 {% load staticfiles %}
 {% block content %}
+
+<script type="text/javascript" src="{% static 'js/question.js' %}
+" charset="utf-8"></script>
+
         <!-- CONTAINER -->
         <div id="course-forum">
             <!-- HEADER -->
@@ -33,28 +37,13 @@
             <!-- END HEADER -->
 
             <script type="text/javascript" charset="utf-8">
-            $(document).ready(function() {
-                $('.comment-form').hide();
-                $('.add-comment-link').click(function(e) {
-                    e.preventDefault();
-                    $(this).parent().parent().height(170);
-                    $(this).parent().parent().find('form').slideDown();
-                    $(this).hide();
-                })
-            
-                $('.cancel-comment').click(function(e) {
-                    e.preventDefault();
-                    $(this).parent().parent().slideUp()
-                    $(this).parent().parent().parent().find('.add-comment-link').slideDown().show();
-                    $(this).parent().parent().parent().height(30);
-                })
-            })
+
             </script>
         
             <!-- MAIN CONTENT -->
             <section id="main-content" class="container">
                 <div class="row">
-                    <div class="col-sm-9 col-lg-9">
+                    <div class="col-sm-9 col-lg-9" ng-app="answer">
                         <!-- QUESTION -->
                         <article class="question">
                             <header>
@@ -148,7 +137,7 @@
                                     </div>
                                 
                                     <div class="answer-body col-sm-10 col-lg-10">
-                                        <p>{{ answer.text }}</a>
+                                        <p>{{ answer.text }}</p>
                                     </div><!-- .answer-body -->
                                 </div>
                                 <div class="row">
@@ -166,14 +155,50 @@
                             </article>
                             {% endfor %}
                             <!-- END ANSWER -->
+                            <!-- NEW ANSWER -->
+                            {% verbatim angularjs %}
+                            <script type="text/ng-template" id="answer_create.html">
+                                <div class="row">
+                                    <div class="col-sm-2 col-lg-2">
+                                        <div class="row">
+                                            <div class="rating col-sm-12 col-lg-12">
+                                                <div class="arrow-up"></div>
+                                                <div class="votes">{{ new_answer.votes }}</div>
+                                                <div class="arrow-down"></div>
+                                            </div><!-- .rating -->
+                                        </div>
+                                        <div class="author clearfix">
+                                            resposta feita em <strong>{{ new_answer.timestamp|date:"dd/mm/yy" }}</strong> por <a href="profile.html">{{ new_answer.username }}</a>
+                                        </div>
+                                    </div>
+                                
+                                    <div class="answer-body col-sm-10 col-lg-10">
+                                        <p>{{ new_answer.text }}</p>
+                                    </div><!-- .answer-body -->
+                                </div>
+                                <div class="row">
+                                    <div class="add-comment col-sm-10 col-lg-10 col-offset-2">
+                                        <p><a href="" class="add-comment-link" ng-click="comment_form = true" ng-show="!comment_form">Comentar resposta</a></p>
+                                        <form class="comment-form ng-hide" ng-show="comment_form">
+                                            <textarea rows="5"></textarea>
+                                            <div class="textright">
+                                                <button class="cancel-comment btn btn-danger">Cancelar</button>
+                                                <button class="btn btn-success">Comentar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </script>
+                            {% endverbatim angularjs %}
+                            <article class="answer" ng-view></article>
                         </section>
+                        <!-- END NEW ANSWER -->
                         <!-- END ANSWERS -->
                         <!-- YOUR ANSWER -->
                         <section class="your-answer">
                             <header>
                                 <h1>Sua Resposta</h1>
                             </header>
-                            <form>
                                 <div class="text-editor">
                                     <i class="icon-bold"></i>
                                     <i class="icon-italic"></i>
@@ -187,9 +212,8 @@
                                 </div>
                                 <textarea rows="15"></textarea>
                                 <div class="submit textright">
-                                    <button class="btn btn-success">Enviar</button>
+                                    <a href="#/forum/question/answer/create" class="btn btn-success">Enviar</a>
                                 </div>
-                            </form>
                         </section>
                         <!-- END YOUR ANSWER -->
                     </div>

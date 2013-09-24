@@ -64,7 +64,15 @@ class QuestionViewSet(viewsets.ModelViewSet):
     model = Question
     serializer_class = QuestionSerializer
 
+    def pre_save(self, obj):
+        obj.user = self.request.user
+        return super(QuestionViewSet, self).pre_save(obj)
+
 
 class AnswerViewSet(viewsets.ModelViewSet):
     model = Answer
     serializer_class = AnswerSerializer
+
+    def pre_save(self, obj):
+        obj.user = self.request.user
+        return super(AnswerViewSet, self).pre_save(obj)
