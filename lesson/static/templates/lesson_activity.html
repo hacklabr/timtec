@@ -17,8 +17,8 @@
                 <tr ng-repeat="alt in currentUnit.activity.alternatives">
                     <td class="textcenter">
                         <label class="_radio" for="optionradio-{{$index}}">
-                            <input type="checkbox" name="unit-{{currentUnitId}}-alt"
-                                   id="optionradio-{{$index}}" _data-toggle="radio"/>
+                            <input ng-model="$parent.answer.choice" type="radio" name="unit-{{currentUnitId}}-alt"
+                                   id="optionradio-{{$index}}" ng-value="$index" _data-toggle="radio"/>
                         </label>
                     </td>
                     <td>{{ alt }}</td>

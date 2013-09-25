@@ -17,13 +17,11 @@
     app.controller('LessonActivity', ['$scope', '$routeParams', '$location', '$resource', 'LessonData',
         function ($scope, $routeParams, $location, $resource, LessonData) {
             $scope.currentUnitId = parseInt($routeParams.unitId, 10);
-
+            $scope.answer = {'choice': null};
 
             $scope.sendAnswer = (function() {
-                var answers = Array.prototype.map.call(
-                    angular.element('.activity .answers input'),
-                    function(el){ return el.checked; }
-                );
+                var answer = $resource('/api/answer/:unitId', {'unitId': $scope.currentUnitId});
+                answer.save($scope.answer);
             });
 
             LessonData.then(function (lesson) {
@@ -74,11 +72,13 @@
             Lesson.get({'lessonId': $window.lessonId}, function (lesson) {
                 lesson.units.forEach(function(unit, index){
                     if(unit.activity) {
+                        var type = unit.activity.type;
                         unit.activity = JSON.parse(unit.activity.data);
                         // TODO: corrigir após definição exata do dado (fabio)
                         if(unit.activity.length > 0) {
                             unit.activity = unit.activity.pop();
                         }
+                        unit.activity.type = type;
                     }
                 });
                 $rootScope.lesson = lesson;

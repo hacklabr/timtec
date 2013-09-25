@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
-from django.views.generic import DetailView
-from core.models import Lesson, StudentProgress
-from rest_framework import viewsets, generics
-from lesson.serializers import LessonSerializer, StudentProgressSerializer
 from accounts.utils import LoginRequiredMixin
+from core.models import Lesson, StudentProgress, Unit
+from django.views.generic import DetailView
+from lesson.serializers import LessonSerializer, StudentProgressSerializer
+from rest_framework import status, viewsets
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 
 class LessonDetailView(LoginRequiredMixin, DetailView):
@@ -28,3 +30,8 @@ class StudentProgressViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         return StudentProgress.objects.filter(user=user)
+
+class ReceiveAnswerView(APIView):
+
+    def post(self, request, format=None):
+        pass
