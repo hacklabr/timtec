@@ -14,14 +14,14 @@
         </div>
         <div class="answers">
             <table class="table">
-                <tr ng-repeat="alt in alternatives">
+                <tr ng-repeat="alt in currentUnit.activity.alternatives">
                     <td class="textcenter">
-                        <label class="radio" for="optionradio-{{$index}}">
-                            <input ng-model="alt.value" type="radio" name="unit-{{currentUnitId}}-alt"
-                                   id="optionradio-{{$index}}" value="orange" data-toggle="radio"/>
+                        <label class="_radio" for="optionradio-{{$index}}">
+                            <input type="checkbox" name="unit-{{currentUnitId}}-alt"
+                                   id="optionradio-{{$index}}" _data-toggle="radio"/>
                         </label>
                     </td>
-                    <td>{{ alt.title }}</td>
+                    <td>{{ alt }}</td>
                 </tr>
             </table>
 

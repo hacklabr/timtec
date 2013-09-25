@@ -17,17 +17,17 @@
     app.controller('LessonActivity', ['$scope', '$routeParams', '$location', '$resource', 'LessonData',
         function ($scope, $routeParams, $location, $resource, LessonData) {
             $scope.currentUnitId = parseInt($routeParams.unitId, 10);
-            // $scope.alternatives = [];
+
 
             $scope.sendAnswer = (function() {
-                var answer = JSON.stringify($scope.alternatives);
+                var answers = Array.prototype.map.call(
+                    angular.element('.activity .answers input'),
+                    function(el){ return el.checked; }
+                );
             });
 
             LessonData.then(function (lesson) {
                 $scope.currentUnit = lesson.units[$scope.currentUnitId];
-                $scope.alternatives = $scope.currentUnit.activity.alternatives.map(
-                    function(e){return {title: e, value: ""};
-                });
             });
         }
     ]);
@@ -75,6 +75,7 @@
                 lesson.units.forEach(function(unit, index){
                     if(unit.activity) {
                         unit.activity = JSON.parse(unit.activity.data);
+                        // TODO: corrigir após definição exata do dado (fabio)
                         if(unit.activity.length > 0) {
                             unit.activity = unit.activity.pop();
                         }
@@ -91,7 +92,6 @@
                         for (var j = lesson.units.length - 1; j >= 0; j--) {
                             if (lesson.units[j].id === p.unit) {
                                 lesson.units[j].progress = p;
-                                console.log(p);
                             }
                         }
                     }
