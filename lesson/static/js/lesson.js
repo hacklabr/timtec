@@ -3,29 +3,39 @@
 
     var app = angular.module('lesson', ['ngRoute', 'ngResource', 'youtube']);
 
-    app.config(['$routeProvider', function ($routeProvider) {
-        $routeProvider
-            .when('/:unitId', {
-                templateUrl: STATIC_URL + '/templates/lesson_video.html',
-                controller: 'LessonVideo'})
-            .when('/:unitId/activity', {
-                templateUrl: STATIC_URL + '/templates/lesson_activity.html',
-                controller: 'LessonActivity'})
-            .otherwise({redirectTo: '/0'});
-    }]);
+    app.config(['$routeProvider', '$httpProvider',
+        function ($routeProvider, $httpProvider) {
+            $routeProvider
+                .when('/:unitPos', {
+                    templateUrl: STATIC_URL + '/templates/lesson_video.html',
+                    controller: 'LessonVideo'})
+                .when('/:unitPos/activity', {
+                    templateUrl: STATIC_URL + '/templates/lesson_activity.html',
+                    controller: 'LessonActivity'})
+                .otherwise({redirectTo: '/0'});
 
-    app.controller('LessonActivity', ['$scope', '$routeParams', '$location', '$resource', 'LessonData',
-        function ($scope, $routeParams, $location, $resource, LessonData) {
-            $scope.currentUnitId = parseInt($routeParams.unitId, 10);
+            $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+            $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+        }
+    ]);
+
+    app.controller('LessonActivity', ['$scope', '$routeParams', '$location', '$http', 'LessonData',
+        function ($scope, $routeParams, $location, $http, LessonData) {
+            $scope.currentUnitPos = parseInt($routeParams.unitPos, 10);
             $scope.answer = {'choice': null};
 
             $scope.sendAnswer = (function() {
-                var answer = $resource('/api/answer/:unitId', {'unitId': $scope.currentUnitId});
-                answer.save($scope.answer);
+                $http({
+                    'method': 'POST',
+                    'url': '/api/answer/' + $scope.currentUnitId,
+                    'data': 'choice=' + $scope.answer.choice,
+                    'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
+                });
             });
 
             LessonData.then(function (lesson) {
-                $scope.currentUnit = lesson.units[$scope.currentUnitId];
+                $scope.currentUnit = lesson.units[$scope.currentUnitPos];
+                $scope.currentUnitId = $scope.currentUnit.id;
             });
         }
     ]);
@@ -33,15 +43,15 @@
 
     app.controller('LessonVideo', ['$scope', '$routeParams', '$location', 'LessonData', 'youtubePlayerApi',
         function ($scope, $routeParams, $location, LessonData, youtubePlayerApi) {
-            $scope.currentUnitId = parseInt($routeParams.unitId, 10);
+            $scope.currentUnitPos = parseInt($routeParams.unitPos, 10);
 
             var onPlayerStateChange = function (event) {
                 if (event.data === YT.PlayerState.ENDED) {
-                    console.log('/' + $scope.currentUnitId + '/activity');
+                    console.log('/' + $scope.currentUnitPos + '/activity');
                     if( $scope.currentUnit.activity ) {
-                        $location.path('/' + $scope.currentUnitId + '/activity');
+                        $location.path('/' + $scope.currentUnitPos + '/activity');
                     } else {
-                        var nextId = $scope.currentUnitId + 1;
+                        var nextId = $scope.currentUnitPos + 1;
                         if (nextId < $scope.lesson.units.length) {
                             $location.path('/' + nextId);
                         }
@@ -51,7 +61,9 @@
             };
 
             LessonData.then(function (lesson) {
-                $scope.currentUnit = lesson.units[$scope.currentUnitId];
+                $scope.currentUnit = lesson.units[$scope.currentUnitPos];
+                $scope.currentUnitId = $scope.currentUnit.id;
+
                 if ($scope.currentUnit.video) {
                     youtubePlayerApi.videoId = $scope.currentUnit.video.youtube_id;
                     youtubePlayerApi.events = {

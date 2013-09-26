@@ -26,7 +26,7 @@ urlpatterns = patterns(
     url(r'^lesson/(?P<slug>[-a-zA-Z0-9_]+)$', LessonDetailView.as_view(), name='lesson'),
 
     url(r'^api/', include(router.urls)),
-    url(r'^api/answer/(?P<unitId>[0-9]*)$', LessonDetailView.as_view(), name='answer'),
+    url(r'^api/answer/(?P<unitId>[0-9]*)$', ReceiveAnswerView.as_view(), name='answer'),
 
     # Authentication
     url(r'^login/', CustomLoginView.as_view(), name='timtec_login'),

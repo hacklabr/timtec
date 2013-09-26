@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
+import json
 from accounts.utils import LoginRequiredMixin
-from core.models import Lesson, StudentProgress, Unit
+from core.models import Answer, Lesson, StudentProgress, Unit
 from django.views.generic import DetailView
 from lesson.serializers import LessonSerializer, StudentProgressSerializer
 from rest_framework import status, viewsets
@@ -31,7 +32,25 @@ class StudentProgressViewSet(viewsets.ModelViewSet):
         user = self.request.user
         return StudentProgress.objects.filter(user=user)
 
-class ReceiveAnswerView(APIView):
 
-    def post(self, request, format=None):
-        pass
+class ReceiveAnswerView(APIView):
+    model = Unit
+
+    def post(self, request, unitId=None):
+        user = request.user
+        unitId = int(unitId)
+
+        try:
+            unit = Unit.objects.get(id=unitId)
+        except Unit.DoesNotExist as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+        if 'choice' in request.POST:
+            answer = {'choice': request.POST.get('choice', None)}
+
+            instance = Answer(activity=unit.activity, user=user)
+            instance.answer = json.dumps(answer)
+            instance.save()
+
+            answer['id'] = instance.id
+            return Response(answer, status=status.HTTP_201_CREATED)
