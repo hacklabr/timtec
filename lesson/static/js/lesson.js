@@ -21,21 +21,31 @@
 
     app.controller('LessonActivity', ['$scope', '$routeParams', '$location', '$http', 'LessonData',
         function ($scope, $routeParams, $location, $http, LessonData) {
+            $scope.alternatives = [];
             $scope.currentUnitPos = parseInt($routeParams.unitPos, 10);
             $scope.answer = {'choice': null};
 
             $scope.sendAnswer = (function() {
+                function tellResult(data, status, headers, config) {
+                    var result = data.correct ? 'correct' : 'wrong';
+                    var choice = $scope.answer.choice;
+                    $scope.alternatives[choice].eval = result;
+                }
+
                 $http({
                     'method': 'POST',
                     'url': '/api/answer/' + $scope.currentUnitId,
                     'data': 'choice=' + $scope.answer.choice,
                     'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
-                });
+                }).success(tellResult);
             });
 
             LessonData.then(function (lesson) {
                 $scope.currentUnit = lesson.units[$scope.currentUnitPos];
                 $scope.currentUnitId = $scope.currentUnit.id;
+                $scope.alternatives = $scope.currentUnit.activity.alternatives.map(
+                    function(a,i) { return {'title': a }; }
+                );
             });
         }
     ]);

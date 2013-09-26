@@ -49,8 +49,10 @@ class ReceiveAnswerView(APIView):
             answer = {'choice': request.POST.get('choice', None)}
 
             instance = Answer(activity=unit.activity, user=user)
-            instance.answer = json.dumps(answer)
+            instance.answer = answer
             instance.save()
 
             answer['id'] = instance.id
+            answer['correct'] = instance.is_correct()
+
             return Response(answer, status=status.HTTP_201_CREATED)
