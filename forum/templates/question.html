@@ -5,7 +5,9 @@
 
 <script type="text/javascript" src="{% static 'js/question.js' %}
 " charset="utf-8"></script>
-
+<script>
+   window.question_id = {{ question.pk }};
+</script>
         <!-- CONTAINER -->
         <div id="course-forum">
             <!-- HEADER -->
@@ -66,30 +68,6 @@
                                     <p>{{ question.text }}</p>
                                 </div><!-- .question-body -->
                             </div>
-                            <div class="question-tag">
-                                <div class="row">
-                                    <div class="col-sm-2 col-lg-2 textright">
-                                        <span class="tag-label">TAGS</span>
-                                    </div>
-                                    <div class="col-sm-10 col-lg-10">
-                                        <a href="" class="tag">tag1</a>
-                                        <a href="" class="tag">tag2</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="add-comment col-sm-10 col-lg-10 col-offset-2">
-                                    <p><a href="" class="add-comment-link">Adicionar comentário</a></p>
-                                    <form class="comment-form">
-                                        <textarea rows="5"></textarea>
-                                        <div class="textright">
-                                            <button class="cancel-comment btn btn-danger">Cancelar</button>
-                                            <button class="btn btn-success">Comentar</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        
                         </article>
                         <!-- END QUESTION -->
                     
@@ -100,20 +78,6 @@
                                 <div class="row">
                                     <div class="col-sm-6 col-lg-6">
                                         <h1>{{ question.answers.count }} Respostas:</h1>
-                                    </div>
-                                    <div class="col-sm-6 col-lg-6 textright">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-info">Mais recente</button>
-                                            <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown">
-                                                <i class="icon-chevron-down"></i>
-                                            </button>
-                                            <ul class="dropdown-menu textleft">
-                                                <li><a href="#">Mais recente</a></li>
-                                                <li><a href="#">Mais antiga</a></li>
-                                                <li><a href="#">Mais votada</a></li>
-                                            </ul>
-                                        </div>
-                                    
                                     </div>
                                 </div>
                             </header>
@@ -140,18 +104,6 @@
                                         <p>{{ answer.text }}</p>
                                     </div><!-- .answer-body -->
                                 </div>
-                                <div class="row">
-                                    <div class="add-comment col-sm-10 col-lg-10 col-offset-2">
-                                        <p><a href="" class="add-comment-link">Comentar resposta</a></p>
-                                        <form class="comment-form">
-                                            <textarea rows="5"></textarea>
-                                            <div class="textright">
-                                                <button class="cancel-comment btn btn-danger">Cancelar</button>
-                                                <button class="btn btn-success">Comentar</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
                             </article>
                             {% endfor %}
                             <!-- END ANSWER -->
@@ -176,18 +128,6 @@
                                         <p>{{ new_answer.text }}</p>
                                     </div><!-- .answer-body -->
                                 </div>
-                                <div class="row">
-                                    <div class="add-comment col-sm-10 col-lg-10 col-offset-2">
-                                        <p><a href="" class="add-comment-link" ng-click="comment_form = true" ng-show="!comment_form">Comentar resposta</a></p>
-                                        <form class="comment-form ng-hide" ng-show="comment_form">
-                                            <textarea rows="5"></textarea>
-                                            <div class="textright">
-                                                <button class="cancel-comment btn btn-danger">Cancelar</button>
-                                                <button class="btn btn-success">Comentar</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
                             </script>
                             {% endverbatim angularjs %}
                             <article class="answer" ng-view></article>
@@ -199,18 +139,13 @@
                             <header>
                                 <h1>Sua Resposta</h1>
                             </header>
-                                <div class="text-editor">
-                                    <i class="icon-bold"></i>
-                                    <i class="icon-italic"></i>
-                                    <i class="icon-link"></i>
-                                    <i class="icon-quote-left"></i>
-                                    <i class="icon-code"></i>
-                                    <i class="icon-list-ol"></i>
-                                    <i class="icon-align-left"></i>
-                                    <i class="icon-align-center"></i>
-                                    <i class="icon-align-right"></i>
+                                <div class="wmd-panel">
+                                    <div id="wmd-button-bar"></div>
+                                        <textarea ng-model="new_answer_text" class="wmd-input" id="wmd-input" rows="15"></textarea>
+                                        <input type="hidden" ng-model="question_id" value="{{ question.pk }}" mp-value-copy/>
                                 </div>
-                                <textarea rows="15"></textarea>
+                                <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
+
                                 <div class="submit textright">
                                     <a href="#/forum/question/answer/create" class="btn btn-success">Enviar</a>
                                 </div>

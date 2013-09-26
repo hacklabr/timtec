@@ -11,17 +11,16 @@
     app.value('$anchorScroll', angular.noop);
 
     app.config(['$routeProvider', function ($routeProvider) {
-        console.log('ngRoute!!!');
         $routeProvider
             .when('/forum/question/answer/create', {
                 templateUrl: 'answer_create.html',
                 controller: 'AnswerCtrl'});
     }]);
 
-    app.controller('AnswerCtrl', ['$scope', 'Answer',
-        function ($scope, Answer) {
-            var questionId = 1;
-            var answer_text = 'Angular Angular Angular AngularAngular AngularAngularAngularAngularAngularAngular Angular Angular Angular Angular Angular';
+    app.controller('AnswerCtrl', ['$scope', '$window', 'Answer',
+        function ($scope, $window, Answer) {
+            var questionId = parseInt($window.question_id);
+            var answer_text = $scope.new_answer_text;
             $scope.new_answer = Answer.create({question: questionId, text: answer_text});
     }]);
 
@@ -49,4 +48,9 @@ $(document).ready(function() {
         $(this).parent().parent().parent().height(30);
     });
     $('nav.course-sections > a > span').tooltip();
+
+    var converter1 = Markdown.getSanitizingConverter();
+    var editor1 = new Markdown.Editor(converter1);
+    editor1.run();
+
 });

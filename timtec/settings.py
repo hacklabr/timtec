@@ -136,6 +136,7 @@ PIPELINE_JS = {
             'js/vendor/angular.js',
             'js/vendor/angular-*.js',
             'js/*.js',
+            'js/vendor/pagedown/*.js',
         ),
         'output_filename': 'js/all.js',
     }
