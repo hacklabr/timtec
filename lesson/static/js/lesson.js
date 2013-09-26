@@ -54,10 +54,10 @@
     app.controller('LessonVideo', ['$scope', '$routeParams', '$location', 'LessonData', 'youtubePlayerApi',
         function ($scope, $routeParams, $location, LessonData, youtubePlayerApi) {
             $scope.currentUnitPos = parseInt($routeParams.unitPos, 10);
+            window.ypa = youtubePlayerApi;
 
             var onPlayerStateChange = function (event) {
                 if (event.data === YT.PlayerState.ENDED) {
-                    console.log('/' + $scope.currentUnitPos + '/activity');
                     if( $scope.currentUnit.activity ) {
                         $location.path('/' + $scope.currentUnitPos + '/activity');
                     } else {
@@ -80,6 +80,9 @@
                         onStateChange: onPlayerStateChange
                     };
                     youtubePlayerApi.loadPlayer();
+                    if( ! youtubePlayerApi.player ) {
+                        youtubePlayerApi.deffered.resolve();
+                    }
                 }
             });
         }
