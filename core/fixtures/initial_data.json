@@ -1,162 +1,48 @@
 [
 {
     "pk": 1, 
-    "model": "contenttypes.contenttype", 
+    "model": "core.timtecuser", 
     "fields": {
-        "model": "permission", 
-        "name": "permission", 
-        "app_label": "auth"
+        "username": "abcd", 
+        "picture": "", 
+        "first_name": "", 
+        "last_name": "", 
+        "city": "", 
+        "occupation": "", 
+        "is_active": true, 
+        "site": "", 
+        "is_superuser": true, 
+        "is_staff": true, 
+        "last_login": "2013-09-06T16:54:38.486Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$27edDmeMEx0p$Hlbl543/d/caP6w8ClL/VhzTMaiRCLa05nK9Uyoje9I=", 
+        "email": "a@b.cd", 
+        "biography": "", 
+        "date_joined": "2013-08-23T21:06:59.961Z"
     }
 },
 {
     "pk": 2, 
-    "model": "contenttypes.contenttype", 
+    "model": "core.timtecuser", 
     "fields": {
-        "model": "group", 
-        "name": "group", 
-        "app_label": "auth"
-    }
-},
-{
-    "pk": 3, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-        "model": "contenttype", 
-        "name": "content type", 
-        "app_label": "contenttypes"
-    }
-},
-{
-    "pk": 4, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-        "model": "session", 
-        "name": "session", 
-        "app_label": "sessions"
-    }
-},
-{
-    "pk": 5, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-        "model": "logentry", 
-        "name": "log entry", 
-        "app_label": "admin"
-    }
-},
-{
-    "pk": 6, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-        "model": "timtecuser", 
-        "name": "user", 
-        "app_label": "core"
-    }
-},
-{
-    "pk": 7, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-        "model": "video", 
-        "name": "Video", 
-        "app_label": "core"
-    }
-},
-{
-    "pk": 8, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-        "model": "course", 
-        "name": "Course", 
-        "app_label": "core"
-    }
-},
-{
-    "pk": 9, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-        "model": "coursestudent", 
-        "name": "course student", 
-        "app_label": "core"
-    }
-},
-{
-    "pk": 10, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-        "model": "courseprofessor", 
-        "name": "Course Professor", 
-        "app_label": "core"
-    }
-},
-{
-    "pk": 11, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-        "model": "lesson", 
-        "name": "Lesson", 
-        "app_label": "core"
-    }
-},
-{
-    "pk": 12, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-        "model": "activity", 
-        "name": "Activity", 
-        "app_label": "core"
-    }
-},
-{
-    "pk": 13, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-        "model": "unit", 
-        "name": "Unit", 
-        "app_label": "core"
-    }
-},
-{
-    "pk": 14, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-        "model": "answer", 
-        "name": "Answer", 
-        "app_label": "core"
-    }
-},
-{
-    "pk": 15, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-        "model": "studentprogress", 
-        "name": "Student Progress", 
-        "app_label": "core"
-    }
-},
-{
-    "pk": 16, 
-    "model": "contenttypes.contenttype", 
-    "fields": {
-        "model": "registrationprofile", 
-        "name": "registration profile", 
-        "app_label": "registration"
-    }
-},
-{
-    "pk": "6fecrnpaf4mbyzvjiz7fskku2bxwi4gz", 
-    "model": "sessions.session", 
-    "fields": {
-        "expire_date": "2013-10-07T14:01:41.885Z", 
-        "session_data": "Y2VkMjNjY2Y4OTZmMjI0NmVmMTk1Yzc4MTAxNjNiZmE2ZWVmN2VhNzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImFjY291bnRzLmJhY2tlbmRzLlRpbXRlY01vZGVsQmFja2VuZCIsImRqYW5nb19sYW5ndWFnZSI6InB0LWJyIiwiX2F1dGhfdXNlcl9pZCI6MX0="
-    }
-},
-{
-    "pk": "l3tebu63snwd7le7bzbrnit76zi0giis", 
-    "model": "sessions.session", 
-    "fields": {
-        "expire_date": "2013-10-08T20:21:11.512Z", 
-        "session_data": "YTc2NGY1YTU4ZjIzZDVmNzk5M2RjZDllNzc0YmZhODhhZjAzOGI0Mzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImFjY291bnRzLmJhY2tlbmRzLlRpbXRlY01vZGVsQmFja2VuZCIsImRqYW5nb19sYW5ndWFnZSI6ImVuIiwiX2F1dGhfdXNlcl9pZCI6MX0="
+        "username": "luciano", 
+        "picture": "", 
+        "first_name": "Luciano", 
+        "last_name": "Ramalho", 
+        "city": "", 
+        "occupation": "", 
+        "is_active": true, 
+        "site": "", 
+        "is_superuser": true, 
+        "is_staff": true, 
+        "last_login": "2013-08-23T21:36:33.698Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$27edDmeMEx0p$Hlbl543/d/caP6w8ClL/VhzTMaiRCLa05nK9Uyoje9I=", 
+        "email": "luciano@ramalho.org", 
+        "biography": "", 
+        "date_joined": "2013-08-23T21:35:44Z"
     }
 },
 {
@@ -225,11 +111,38 @@
 },
 {
     "pk": 1, 
+    "model": "core.course", 
+    "fields": {
+        "status": "public", 
+        "requirement": "O interessado dever\u00e1 possuir conhecimentos b\u00e1sicos (selecionar, copiar, colar, criar pastas, salvar e renomear documentos) de algum sistema operacional e de navega\u00e7\u00e3o na Internet. \r\nPara participar deste curso e realizar seus exerc\u00edcios \u00e9 necess\u00e1rio um computador com acesso \u00e0 internet, navegador web atualizado (pelo menos 2) e algum programa de edi\u00e7\u00e3o de texto sem formata\u00e7\u00e3o. \r\n\u00c9 recomendada a idade m\u00ednima de 14 anos.", 
+        "workload": "<p>40 horas, a serem completadas em sete semanas</p>\r\n<p>A agenda de dedica\u00e7\u00e3o estimada para o aluno \u00e9 de 6 horas por semana: 2 horas para assistir \u00e0s aulas em v\u00eddeo e 4 horas para realizar os exerc\u00edcios propostos</p>", 
+        "intro_video": 1, 
+        "pronatec": "<p><strong>Rela\u00e7\u00e3o do curso com o PRONATEC:</strong></p><p>Eixo Tecnol\u00f3gico: Informa\u00e7\u00e3o e Comunica\u00e7\u00e3o</p><p>T\u00edtulos semelhantes oferecidos no Guia PRONATEC:</p><ul><li>T\u00e9cnico em Inform\u00e1tica</li><li>T\u00e9cnico em Manuten\u00e7\u00e3o e Suporte em Inform\u00e1tica</li><li>T\u00e9cnico em Inform\u00e1tica para Internet</li></ul><p>T\u00edtulos semelhantes oferecidos no Guia PRONATEC de cursos FIC:</p><ul><li>Administrador de Banco de Dados</li><li>Operador de Computador</li><li>Programador de Dispositivos M\u00f3veis</li><li>Programador de Sistemas</li><li>Programador Web</li></ul><p>Outros nomes atribu\u00eddos a estes profissionais:</p><ul><li>T\u00e9cnico em Forma\u00e7\u00e3o de Instrutores de Inform\u00e1tica</li><li>T\u00e9cnico em Planejamento e Gest\u00e3o em Tecnologia da Informa\u00e7\u00e3o</li></ul>", 
+        "abstract": "<p>Introdu\u00e7\u00e3o aos conceitos fundamentais de bancos de dados modernos, desde a forma de organiza\u00e7\u00e3o dos dados (modelos e esquemas de dados) at\u00e9 comandos fundamentais da linguagem SQL e no\u00e7\u00f5es de projeto de bancos de dados normalizados. No\u00e7\u00f5es de arquitetura de sistemas, gerenciadores de bancos de dados, integridade referencial, linguagens de defini\u00e7\u00e3o, manipula\u00e7\u00e3o e controle de dados, al\u00e9m de tratar das quest\u00f5es de seguran\u00e7a, integridade e controle de transa\u00e7\u00f5es.</p>\r\n", 
+        "application": "Banco de dados s\u00e3o empregados em praticamente todos os sistemas Web, desde redes sociais a portais de com\u00e9rcio eletr\u00f4nico, bem como aplicativos comerciais.", 
+        "publication": "2013-08-23", 
+        "slug": "dbsql", 
+        "structure": "V\u00eddeo-aulas (12 horas)\r\n<br>Testes On Line\r\n<br>Leitura de material did\u00e1tico de apoio\r\n<br>Exerc\u00edcios individuais de aplica\u00e7\u00e3o", 
+        "name": "Introdu\u00e7\u00e3o ao Banco de Dados"
+    }
+},
+{
+    "pk": 1, 
+    "model": "core.courseprofessor", 
+    "fields": {
+        "course": 1, 
+        "role": "instructor", 
+        "user": 2, 
+        "biography": "Luciano Ramalho \u00e9 s\u00f3cio e professor nas Oficinas Turing. Foi diretor t\u00e9cnico do Brasil Online, primeiro portal da Abril S/A na Web. Liderou times para os portais IDG Now, BOL, UOL, AOL Brasil e outros, usando Python desde 1998. Como instrutor, atendeu clientes como Citibank, CPqD, Serpro, Presid\u00eancia da Rep\u00fablica, Globo.com e Ita\u00fa. Ajudou a criar a Associa\u00e7\u00e3o Python Brasil e foi seu presidente. \u00c9 membro da Python Software Foundation e fundador do Garoa Hacker Clube, o primeiro hackerspace do Brasil. J\u00e1 palestrou v\u00e1rias vezes em eventos internacionais como FISL, OSCON e PyCon US."
+    }
+},
+{
+    "pk": 1, 
     "model": "core.lesson", 
     "fields": {
         "position": 0, 
-        "course": 1, 
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis.", 
+        "course": 1, 
         "slug": "aula-1-modelos-de-dados-e-introducao-ao-modelo-relacional", 
         "name": "Aula 1: Modelos de dados e introdu\u00e7\u00e3o ao modelo relacional"
     }
@@ -239,8 +152,8 @@
     "model": "core.lesson", 
     "fields": {
         "position": 1, 
-        "course": 1, 
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "course": 1, 
         "slug": "aula-2-introducao-a-sql-demonstracao-sgbds-e-definicao-de-esquemas", 
         "name": "Aula 2: Introdu\u00e7\u00e3o ao SQL (demonstra\u00e7\u00e3o), SGBDs e defini\u00e7\u00e3o de esquemas"
     }
@@ -250,8 +163,8 @@
     "model": "core.lesson", 
     "fields": {
         "position": 2, 
-        "course": 1, 
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "course": 1, 
         "slug": "aula-3-select-projecao-x-selecao-e-uso-do-console", 
         "name": "Aula 3: SELECT, Proje\u00e7\u00e3o x sele\u00e7\u00e3o e uso do console"
     }
@@ -261,8 +174,8 @@
     "model": "core.lesson", 
     "fields": {
         "position": 3, 
-        "course": 1, 
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "course": 1, 
         "slug": "aula-4-selecoes-com-logica-booleana", 
         "name": "Aula 4: Sele\u00e7\u00f5es com l\u00f3gica booleana"
     }
@@ -272,8 +185,8 @@
     "model": "core.lesson", 
     "fields": {
         "position": 4, 
-        "course": 1, 
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "course": 1, 
         "slug": "aula-5-chaves-simples-compostas-candidatas-primarias-estrangeiras-mudas", 
         "name": "Aula 5: Chaves: simples, compostas, candidatas, prim\u00e1rias, estrangeiras, mudas"
     }
@@ -283,8 +196,8 @@
     "model": "core.lesson", 
     "fields": {
         "position": 5, 
-        "course": 1, 
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "course": 1, 
         "slug": "aula-6-consultas-com-relacionamentos-joins-implicitos-e-explicitos", 
         "name": "Aula 6: Consultas com relacionamentos, joins impl\u00edcitos e expl\u00edcitos"
     }
@@ -294,8 +207,8 @@
     "model": "core.lesson", 
     "fields": {
         "position": 6, 
-        "course": 1, 
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "course": 1, 
         "slug": "aula-7-consultas-com-agregacao", 
         "name": "Aula 7: Consultas com agrega\u00e7\u00e3o"
     }
@@ -305,8 +218,8 @@
     "model": "core.lesson", 
     "fields": {
         "position": 7, 
-        "course": 1, 
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "course": 1, 
         "slug": "aula-8-operacoes-de-alteracao-de-dados-e-transacoes", 
         "name": "Aula 8: Opera\u00e7\u00f5es de altera\u00e7\u00e3o de dados e transa\u00e7\u00f5es"
     }
@@ -316,8 +229,8 @@
     "model": "core.lesson", 
     "fields": {
         "position": 8, 
-        "course": 1, 
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "course": 1, 
         "slug": "aula-9-projeto-de-bancos-de-dados-normalizados-e-formas-normais", 
         "name": "Aula 9: Projeto de bancos de dados normalizados e formas normais"
     }
@@ -327,8 +240,8 @@
     "model": "core.lesson", 
     "fields": {
         "position": 9, 
-        "course": 1, 
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "course": 1, 
         "slug": "aula-10-indices-e-constraints", 
         "name": "Aula 10: \u00cdndices e constraints"
     }
@@ -338,8 +251,8 @@
     "model": "core.lesson", 
     "fields": {
         "position": 10, 
-        "course": 1, 
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "course": 1, 
         "slug": "aula-11-triggers-e-views-dialetos-de-sql-entre-sgbds-importantes", 
         "name": "Aula 11: Triggers e views, dialetos de SQL entre SGBDs importantes"
     }
@@ -349,8 +262,8 @@
     "model": "core.lesson", 
     "fields": {
         "position": 11, 
-        "course": 1, 
         "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "course": 1, 
         "slug": "aula-12-limitacoes-e-alternativas-ao-modelo-tradicional", 
         "name": "Aula 12: Limita\u00e7\u00f5es e alternativas ao modelo tradicional"
     }
@@ -359,8 +272,8 @@
     "pk": 1, 
     "model": "core.activity", 
     "fields": {
-        "data": "[{\"type\":\"true-or-false\",\"question\":\"Quais destas aplica\\u00e7\\u00f5es usam banco de dados?\",\"alternatives\":[\"Envio de mensagens pela Internet\",\"Cria\\u00e7\\u00e3o de imagens para filmes\",\"Opera\\u00e7\\u00e3o de uma m\\u00e1quina de corte\",\"Controle de assinaturas de uma jornal\"]}]", 
-        "expected_answer": "[{\"alternatives\":[false,false,false,true]}]", 
+        "data": "[{}]", 
+        "expected_answer": "[{}]", 
         "type": "test"
     }
 },
@@ -371,7 +284,7 @@
         "position": 0, 
         "lesson": 1, 
         "video": 2, 
-        "activity": 1
+        "activity": null
     }
 },
 {
@@ -1132,545 +1045,6 @@
         "lesson": 1, 
         "video": 6, 
         "activity": 1
-    }
-},
-{
-    "pk": 1, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "add_permission", 
-        "name": "Can add permission", 
-        "content_type": 1
-    }
-},
-{
-    "pk": 2, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "change_permission", 
-        "name": "Can change permission", 
-        "content_type": 1
-    }
-},
-{
-    "pk": 3, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "delete_permission", 
-        "name": "Can delete permission", 
-        "content_type": 1
-    }
-},
-{
-    "pk": 4, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "add_group", 
-        "name": "Can add group", 
-        "content_type": 2
-    }
-},
-{
-    "pk": 5, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "change_group", 
-        "name": "Can change group", 
-        "content_type": 2
-    }
-},
-{
-    "pk": 6, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "delete_group", 
-        "name": "Can delete group", 
-        "content_type": 2
-    }
-},
-{
-    "pk": 7, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "add_contenttype", 
-        "name": "Can add content type", 
-        "content_type": 3
-    }
-},
-{
-    "pk": 8, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "change_contenttype", 
-        "name": "Can change content type", 
-        "content_type": 3
-    }
-},
-{
-    "pk": 9, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "delete_contenttype", 
-        "name": "Can delete content type", 
-        "content_type": 3
-    }
-},
-{
-    "pk": 10, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "add_session", 
-        "name": "Can add session", 
-        "content_type": 4
-    }
-},
-{
-    "pk": 11, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "change_session", 
-        "name": "Can change session", 
-        "content_type": 4
-    }
-},
-{
-    "pk": 12, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "delete_session", 
-        "name": "Can delete session", 
-        "content_type": 4
-    }
-},
-{
-    "pk": 13, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "add_logentry", 
-        "name": "Can add log entry", 
-        "content_type": 5
-    }
-},
-{
-    "pk": 14, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "change_logentry", 
-        "name": "Can change log entry", 
-        "content_type": 5
-    }
-},
-{
-    "pk": 15, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "delete_logentry", 
-        "name": "Can delete log entry", 
-        "content_type": 5
-    }
-},
-{
-    "pk": 16, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "add_timtecuser", 
-        "name": "Can add user", 
-        "content_type": 6
-    }
-},
-{
-    "pk": 17, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "change_timtecuser", 
-        "name": "Can change user", 
-        "content_type": 6
-    }
-},
-{
-    "pk": 18, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "delete_timtecuser", 
-        "name": "Can delete user", 
-        "content_type": 6
-    }
-},
-{
-    "pk": 19, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "add_video", 
-        "name": "Can add Video", 
-        "content_type": 7
-    }
-},
-{
-    "pk": 20, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "change_video", 
-        "name": "Can change Video", 
-        "content_type": 7
-    }
-},
-{
-    "pk": 21, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "delete_video", 
-        "name": "Can delete Video", 
-        "content_type": 7
-    }
-},
-{
-    "pk": 22, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "add_course", 
-        "name": "Can add Course", 
-        "content_type": 8
-    }
-},
-{
-    "pk": 23, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "change_course", 
-        "name": "Can change Course", 
-        "content_type": 8
-    }
-},
-{
-    "pk": 24, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "delete_course", 
-        "name": "Can delete Course", 
-        "content_type": 8
-    }
-},
-{
-    "pk": 25, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "add_coursestudent", 
-        "name": "Can add course student", 
-        "content_type": 9
-    }
-},
-{
-    "pk": 26, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "change_coursestudent", 
-        "name": "Can change course student", 
-        "content_type": 9
-    }
-},
-{
-    "pk": 27, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "delete_coursestudent", 
-        "name": "Can delete course student", 
-        "content_type": 9
-    }
-},
-{
-    "pk": 28, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "add_courseprofessor", 
-        "name": "Can add Course Professor", 
-        "content_type": 10
-    }
-},
-{
-    "pk": 29, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "change_courseprofessor", 
-        "name": "Can change Course Professor", 
-        "content_type": 10
-    }
-},
-{
-    "pk": 30, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "delete_courseprofessor", 
-        "name": "Can delete Course Professor", 
-        "content_type": 10
-    }
-},
-{
-    "pk": 31, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "add_lesson", 
-        "name": "Can add Lesson", 
-        "content_type": 11
-    }
-},
-{
-    "pk": 32, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "change_lesson", 
-        "name": "Can change Lesson", 
-        "content_type": 11
-    }
-},
-{
-    "pk": 33, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "delete_lesson", 
-        "name": "Can delete Lesson", 
-        "content_type": 11
-    }
-},
-{
-    "pk": 34, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "add_activity", 
-        "name": "Can add Activity", 
-        "content_type": 12
-    }
-},
-{
-    "pk": 35, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "change_activity", 
-        "name": "Can change Activity", 
-        "content_type": 12
-    }
-},
-{
-    "pk": 36, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "delete_activity", 
-        "name": "Can delete Activity", 
-        "content_type": 12
-    }
-},
-{
-    "pk": 37, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "add_unit", 
-        "name": "Can add Unit", 
-        "content_type": 13
-    }
-},
-{
-    "pk": 38, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "change_unit", 
-        "name": "Can change Unit", 
-        "content_type": 13
-    }
-},
-{
-    "pk": 39, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "delete_unit", 
-        "name": "Can delete Unit", 
-        "content_type": 13
-    }
-},
-{
-    "pk": 40, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "add_answer", 
-        "name": "Can add Answer", 
-        "content_type": 14
-    }
-},
-{
-    "pk": 41, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "change_answer", 
-        "name": "Can change Answer", 
-        "content_type": 14
-    }
-},
-{
-    "pk": 42, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "delete_answer", 
-        "name": "Can delete Answer", 
-        "content_type": 14
-    }
-},
-{
-    "pk": 43, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "add_studentprogress", 
-        "name": "Can add Student Progress", 
-        "content_type": 15
-    }
-},
-{
-    "pk": 44, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "change_studentprogress", 
-        "name": "Can change Student Progress", 
-        "content_type": 15
-    }
-},
-{
-    "pk": 45, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "delete_studentprogress", 
-        "name": "Can delete Student Progress", 
-        "content_type": 15
-    }
-},
-{
-    "pk": 46, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "add_registrationprofile", 
-        "name": "Can add registration profile", 
-        "content_type": 16
-    }
-},
-{
-    "pk": 47, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "change_registrationprofile", 
-        "name": "Can change registration profile", 
-        "content_type": 16
-    }
-},
-{
-    "pk": 48, 
-    "model": "auth.permission", 
-    "fields": {
-        "codename": "delete_registrationprofile", 
-        "name": "Can delete registration profile", 
-        "content_type": 16
-    }
-},
-{
-    "pk": 1, 
-    "model": "core.timtecuser", 
-    "fields": {
-        "username": "abcd", 
-        "picture": "", 
-        "first_name": "", 
-        "last_name": "", 
-        "city": "", 
-        "occupation": "", 
-        "is_active": true, 
-        "site": "", 
-        "is_superuser": true, 
-        "is_staff": true, 
-        "last_login": "2013-09-24T20:21:11.487Z", 
-        "groups": [], 
-        "user_permissions": [], 
-        "password": "pbkdf2_sha256$10000$27edDmeMEx0p$Hlbl543/d/caP6w8ClL/VhzTMaiRCLa05nK9Uyoje9I=", 
-        "email": "a@b.cd", 
-        "biography": "", 
-        "date_joined": "2013-08-23T21:06:59.961Z"
-    }
-},
-{
-    "pk": 2, 
-    "model": "core.timtecuser", 
-    "fields": {
-        "username": "luciano", 
-        "picture": "", 
-        "first_name": "Luciano", 
-        "last_name": "Ramalho", 
-        "city": "", 
-        "occupation": "", 
-        "is_active": true, 
-        "site": "", 
-        "is_superuser": true, 
-        "is_staff": true, 
-        "last_login": "2013-08-23T21:36:33.698Z", 
-        "groups": [], 
-        "user_permissions": [], 
-        "password": "pbkdf2_sha256$10000$27edDmeMEx0p$Hlbl543/d/caP6w8ClL/VhzTMaiRCLa05nK9Uyoje9I=", 
-        "email": "luciano@ramalho.org", 
-        "biography": "", 
-        "date_joined": "2013-08-23T21:35:44Z"
-    }
-},
-{
-    "pk": 1, 
-    "model": "core.course", 
-    "fields": {
-        "status": "public", 
-        "requirement": "O interessado dever\u00e1 possuir conhecimentos b\u00e1sicos (selecionar, copiar, colar, criar pastas, salvar e renomear documentos) de algum sistema operacional e de navega\u00e7\u00e3o na Internet. \r\nPara participar deste curso e realizar seus exerc\u00edcios \u00e9 necess\u00e1rio um computador com acesso \u00e0 internet, navegador web atualizado (pelo menos 2) e algum programa de edi\u00e7\u00e3o de texto sem formata\u00e7\u00e3o. \r\n\u00c9 recomendada a idade m\u00ednima de 14 anos.", 
-        "workload": "<p>40 horas, a serem completadas em sete semanas</p>\r\n<p>A agenda de dedica\u00e7\u00e3o estimada para o aluno \u00e9 de 6 horas por semana: 2 horas para assistir \u00e0s aulas em v\u00eddeo e 4 horas para realizar os exerc\u00edcios propostos</p>", 
-        "intro_video": 1, 
-        "pronatec": "<p><strong>Rela\u00e7\u00e3o do curso com o PRONATEC:</strong></p><p>Eixo Tecnol\u00f3gico: Informa\u00e7\u00e3o e Comunica\u00e7\u00e3o</p><p>T\u00edtulos semelhantes oferecidos no Guia PRONATEC:</p><ul><li>T\u00e9cnico em Inform\u00e1tica</li><li>T\u00e9cnico em Manuten\u00e7\u00e3o e Suporte em Inform\u00e1tica</li><li>T\u00e9cnico em Inform\u00e1tica para Internet</li></ul><p>T\u00edtulos semelhantes oferecidos no Guia PRONATEC de cursos FIC:</p><ul><li>Administrador de Banco de Dados</li><li>Operador de Computador</li><li>Programador de Dispositivos M\u00f3veis</li><li>Programador de Sistemas</li><li>Programador Web</li></ul><p>Outros nomes atribu\u00eddos a estes profissionais:</p><ul><li>T\u00e9cnico em Forma\u00e7\u00e3o de Instrutores de Inform\u00e1tica</li><li>T\u00e9cnico em Planejamento e Gest\u00e3o em Tecnologia da Informa\u00e7\u00e3o</li></ul>", 
-        "abstract": "<p>Introdu\u00e7\u00e3o aos conceitos fundamentais de bancos de dados modernos, desde a forma de organiza\u00e7\u00e3o dos dados (modelos e esquemas de dados) at\u00e9 comandos fundamentais da linguagem SQL e no\u00e7\u00f5es de projeto de bancos de dados normalizados. No\u00e7\u00f5es de arquitetura de sistemas, gerenciadores de bancos de dados, integridade referencial, linguagens de defini\u00e7\u00e3o, manipula\u00e7\u00e3o e controle de dados, al\u00e9m de tratar das quest\u00f5es de seguran\u00e7a, integridade e controle de transa\u00e7\u00f5es.</p>\r\n", 
-        "application": "Banco de dados s\u00e3o empregados em praticamente todos os sistemas Web, desde redes sociais a portais de com\u00e9rcio eletr\u00f4nico, bem como aplicativos comerciais.", 
-        "publication": "2013-08-23", 
-        "slug": "dbsql", 
-        "structure": "V\u00eddeo-aulas (12 horas)\r\n<br>Testes On Line\r\n<br>Leitura de material did\u00e1tico de apoio\r\n<br>Exerc\u00edcios individuais de aplica\u00e7\u00e3o", 
-        "name": "Introdu\u00e7\u00e3o ao Banco de Dados"
-    }
-},
-{
-    "pk": 1, 
-    "model": "core.coursestudent", 
-    "fields": {
-        "course": 1, 
-        "user": 1
-    }
-},
-{
-    "pk": 1, 
-    "model": "core.courseprofessor", 
-    "fields": {
-        "course": 1, 
-        "role": "instructor", 
-        "user": 2, 
-        "biography": "Luciano Ramalho \u00e9 s\u00f3cio e professor nas Oficinas Turing. Foi diretor t\u00e9cnico do Brasil Online, primeiro portal da Abril S/A na Web. Liderou times para os portais IDG Now, BOL, UOL, AOL Brasil e outros, usando Python desde 1998. Como instrutor, atendeu clientes como Citibank, CPqD, Serpro, Presid\u00eancia da Rep\u00fablica, Globo.com e Ita\u00fa. Ajudou a criar a Associa\u00e7\u00e3o Python Brasil e foi seu presidente. \u00c9 membro da Python Software Foundation e fundador do Garoa Hacker Clube, o primeiro hackerspace do Brasil. J\u00e1 palestrou v\u00e1rias vezes em eventos internacionais como FISL, OSCON e PyCon US."
-    }
-},
-{
-    "pk": 1, 
-    "model": "admin.logentry", 
-    "fields": {
-        "action_flag": 2, 
-        "action_time": "2013-09-23T16:50:10.215Z", 
-        "object_repr": "test dt [{u'question': u'Quais destas aplica\\xe7\\xf5es usam banco de dados?', u'type': u'true-or-false', u'alternatives': [u'Envio de mensagens pela Internet', u'Cria\\xe7\\xe3o de imagens para filmes',", 
-        "object_id": "1", 
-        "change_message": "Modificado data e expected_answer.", 
-        "user": 1, 
-        "content_type": 12
-    }
-},
-{
-    "pk": 2, 
-    "model": "admin.logentry", 
-    "fields": {
-        "action_flag": 2, 
-        "action_time": "2013-09-23T16:53:00.032Z", 
-        "object_repr": "Aula 1: Modelos de dados e introdu\u00e7\u00e3o ao modelo relacional - 0 - dbsql-unit-1 - test dt [{u'type': u'true-or-false', u'question': u'Quais destas aplica\\xe7\\xf5es usam banco de dados?', u'alternatives'", 
-        "object_id": "1", 
-        "change_message": "Modificado activity.", 
-        "user": 1, 
-        "content_type": 13
     }
 }
 ]
