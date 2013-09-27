@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load staticfiles %}
+{% load forum_markdown %}
 {% block content %}
         <!-- CONTAINER -->
         <div id="course-forum">
@@ -65,7 +66,7 @@
                             </div>
                             <div class="question">
                                 <p><a href="{% url 'forum_question' question.slug %}">{{ question.title }}</a></p>
-                                <p class="description">{{ question.text }}[...]</p>
+                                <p class="description">{{ question.text|my_markdown }}[...]</p>
                             </div>
                             <div class="author">
                                 Pergunta feita em {{ question.timestamp|date }} por <a href="">{{ question.user.username }}</a>

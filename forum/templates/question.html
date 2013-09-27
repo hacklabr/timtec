@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load staticfiles %}
+{% load forum_markdown %}
 {% block content %}
 
 <script type="text/javascript" src="{% static 'js/question.js' %}" charset="utf-8"></script>
@@ -45,7 +46,7 @@
     <!-- MAIN CONTENT -->
     <section id="main-content" class="container">
         <div class="row">
-            <div class="col-sm-9 col-lg-9" ng-app="answer">
+            <div class="col-sm-9 col-lg-9" ng-app="answer" ng-controller="AnswerCtrl">
                 <!-- QUESTION -->
                 <article class="question">
                     <header>
@@ -65,7 +66,7 @@
                             </div>
                         </div>
                         <div class="question-body col-sm-10 col-lg-10">
-                            <p>{{ question.text }}</p>
+                            <p>{{ question.text|my_markdown }}</p>
                         </div><!-- .question-body -->
                     </div>
                 </article>
@@ -101,7 +102,7 @@
                             </div>
 
                             <div class="answer-body col-sm-10 col-lg-10">
-                                <p>{{ answer.text }}</p>
+                                <p>{{ answer.text|my_markdown }}</p>
                             </div><!-- .answer-body -->
                         </div>
                     </article>
@@ -125,7 +126,7 @@
                             </div>
 
                             <div class="answer-body col-sm-10 col-lg-10">
-                                <p>{{ new_answer.text }}</p>
+                                <span ng-bind-html="answer_html_text" ></span>
                             </div><!-- .answer-body -->
                         </div>
                     </script>
@@ -135,7 +136,7 @@
                 <!-- END NEW ANSWER -->
                 <!-- END ANSWERS -->
                 <!-- YOUR ANSWER -->
-                <section class="your-answer">
+                <section class="your-answer" ng-show="editor_enabled" id="editor">
                     <header>
                         <h1>Sua Resposta</h1>
                     </header>

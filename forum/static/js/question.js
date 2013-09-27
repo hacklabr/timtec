@@ -1,7 +1,7 @@
 (function (angular) {
     "use strict";
 
-    var app = angular.module('answer', ['ngRoute', 'ngResource', "ngCookies"]);
+    var app = angular.module('answer', ['ngRoute', 'ngResource', "ngCookies", "ngSanitize"]);
 
     // Uses the csrftoken from the cookie
     app.run(function ($http, $cookies) {
@@ -17,11 +17,17 @@
                 controller: 'AnswerCtrl'});
     }]);
 
-    app.controller('AnswerCtrl', ['$scope', '$window', 'Answer',
-        function ($scope, $window, Answer) {
-            var questionId = parseInt($window.question_id);
+    app.controller('AnswerCtrl', ['$scope', '$sce', '$window', 'Answer',
+        function ($scope, $sce, $window, Answer) {
+            var questionId = parseInt($window.question_id, 10);
             var answer_text = $scope.new_answer_text;
-            $scope.new_answer = Answer.create({question: questionId, text: answer_text});
+            $scope.editor_enabled = true;
+            if ($scope.new_answer_text != undefined){
+                $scope.new_answer = Answer.create({question: questionId, text: answer_text});
+                $scope.answer_html_text = $sce.trustAsHtml($window.converter.makeHtml($scope.new_answer.text));
+                $scope.editor_enabled = false;
+                $('#editor').hide();
+            }
     }]);
 
     app.factory('Answer', function($resource){
@@ -52,4 +58,5 @@ $(document).ready(function() {
     var converter1 = Markdown.getSanitizingConverter();
     var editor1 = new Markdown.Editor(converter1);
     editor1.run();
+    window.converter = converter1;
 });
