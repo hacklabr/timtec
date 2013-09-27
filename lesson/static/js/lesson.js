@@ -3,6 +3,18 @@
 
     var app = angular.module('lesson', ['ngRoute', 'ngResource', 'youtube']);
 
+    var TEMPLATE = {
+        'simplechoice': STATIC_URL + '/templates/activity_simplechoice.html'
+    };
+
+    app.run(['$templateCache', '$http',
+        function($templateCache, $http){
+            for(var alias in TEMPLATE){
+                $http.get(TEMPLATE[alias], {cache: $templateCache});
+            }
+        }
+    ]);
+
     app.config(['$routeProvider', '$httpProvider',
         function ($routeProvider, $httpProvider) {
             $routeProvider
@@ -19,8 +31,8 @@
         }
     ]);
 
-    app.controller('LessonActivity', ['$scope', '$routeParams', '$location', '$http', 'LessonData',
-        function ($scope, $routeParams, $location, $http, LessonData) {
+    app.controller('LessonActivity', ['$scope', '$routeParams', '$http', 'LessonData',
+        function ($scope, $routeParams, $http, LessonData) {
             $scope.alternatives = [];
             $scope.currentUnitPos = parseInt($routeParams.unitPos, 10);
             $scope.answer = {'choice': null};
@@ -43,6 +55,7 @@
             LessonData.then(function (lesson) {
                 $scope.currentUnit = lesson.units[$scope.currentUnitPos];
                 $scope.currentUnitId = $scope.currentUnit.id;
+                $scope.activity_template = $scope.currentUnit.activity.template;
                 $scope.alternatives = $scope.currentUnit.activity.alternatives.map(
                     function(a,i) { return {'title': a }; }
                 );
@@ -103,7 +116,9 @@
                         if(unit.activity.length > 0) {
                             unit.activity = unit.activity.pop();
                         }
+                        // TODO: delegar esta estruturação ao django (fabio)
                         unit.activity.type = type;
+                        unit.activity.template = TEMPLATE[type];
                     }
                 });
                 $rootScope.lesson = lesson;

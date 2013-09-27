@@ -8,31 +8,6 @@
 
 <div class="col-sm-8 col-lg-8 left">
     <!-- ACTIVITY -->
-    <div class="activity true-or-false col-lg-12">
-        <div class="question textcenter">
-            <h1>{{ currentUnit.activity.question }}</h1>
-        </div>
-        <div class="answers">
-            <table class="table">
-                <tr ng-repeat="alt in alternatives" class="{{ alt.eval }}">
-                    <td class="textcenter">
-                        <label class="_radio" for="optionradio-{{$index}}">
-                            <input ng-model="$parent.answer.choice" type="radio" name="unit-{{currentUnitId}}-alt"
-                                   id="optionradio-{{$index}}" ng-value="$index" _data-toggle="radio"/>
-                        </label>
-                    </td>
-                    <td>{{ alt.title }}</td>
-                </tr>
-            </table>
-
-            <div class="submit textcenter clearfix">
-                <div class="alignleft"><button class="btn btn-default">Pular</button></div>
-                <div class="alignright">
-                    <button class="btn btn-info">Rever Vídeo</button>
-                    <button class="btn btn-success" ng-click="sendAnswer()">Enviar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <ng:include src="activity_template"></ng:include>
     <!-- END ACTIVITY -->
 </div>
