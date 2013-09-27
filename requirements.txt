@@ -14,3 +14,4 @@ psycopg2==2.5.1
 Pygments==1.6
 django-filter==0.7
 django-autoslug==1.7.1
+Markdown==2.3.1
