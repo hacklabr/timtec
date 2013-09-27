@@ -3,17 +3,9 @@
 
     var app = angular.module('lesson', ['ngRoute', 'ngResource', 'youtube']);
 
-    var TEMPLATE = {
-        'simplechoice': STATIC_URL + '/templates/activity_simplechoice.html'
+    var ACTIVITY_TEMPLATE_PATH = function(the_type){
+        return STATIC_URL + '/templates/activity_'+ the_type + '.html';
     };
-
-    app.run(['$templateCache', '$http',
-        function($templateCache, $http){
-            for(var alias in TEMPLATE){
-                $http.get(TEMPLATE[alias], {cache: $templateCache});
-            }
-        }
-    ]);
 
     app.config(['$routeProvider', '$httpProvider',
         function ($routeProvider, $httpProvider) {
@@ -118,7 +110,7 @@
                         }
                         // TODO: delegar esta estruturação ao django (fabio)
                         unit.activity.type = type;
-                        unit.activity.template = TEMPLATE[type];
+                        unit.activity.template = ACTIVITY_TEMPLATE_PATH(type);
                     }
                 });
                 $rootScope.lesson = lesson;
