@@ -1349,13 +1349,13 @@
 
             var makeButton = function (id, title, icon, textOp, group) {
                 var button = document.createElement("button");
-                button.className = "btn";
+                button.className = "btn btn-info";
                 var buttonImage = document.createElement("i");
                 buttonImage.className = icon;
                 button.id = id + postfix;
                 button.appendChild(buttonImage);
                 button.title = title;
-                $(button).tooltip({placement: 'bottom'})
+                $(button).tooltip({container: 'body', placement: 'bottom'})
                 if (textOp)
                     button.textOp = textOp;
                 setupButton(button, true);
@@ -1368,7 +1368,7 @@
             };
             var makeGroup = function (num) {
                 var group = document.createElement("div");
-                group.className = "btn-group wmd-button-group" + num;
+                group.className = "btn-group";
                 group.id = "wmd-button-group" + num + postfix;
                 buttonRow.appendChild(group);
                 return group
