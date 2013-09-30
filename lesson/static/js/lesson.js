@@ -3,64 +3,134 @@
 
     var app = angular.module('lesson', ['ngRoute', 'ngResource', 'youtube']);
 
-    app.config(['$routeProvider', function ($routeProvider) {
-        $routeProvider
-            .when('/:unitId', {
-                templateUrl: 'lesson_internal.html',
-                controller: 'LessonCtrl'})
-            .otherwise({redirectTo: '/0'});
-    }]);
+    var ACTIVITY_TEMPLATE_PATH = function(the_type){
+        return STATIC_URL + '/templates/activity_'+ the_type + '.html';
+    };
 
-    app.controller('LessonCtrl', ['$scope', '$routeParams', '$location', 'LessonData', 'youtubePlayerApi',
-        function ($scope, $routeParams, $location, LessonData, youtubePlayerApi) {
-        $scope.currentUnitId = parseInt($routeParams.unitId, 10);
+    app.config(['$routeProvider', '$httpProvider',
+        function ($routeProvider, $httpProvider) {
+            $routeProvider
+                .when('/:unitPos', {
+                    templateUrl: STATIC_URL + '/templates/lesson_video.html',
+                    controller: 'LessonVideo'})
+                .when('/:unitPos/activity', {
+                    templateUrl: STATIC_URL + '/templates/lesson_activity.html',
+                    controller: 'LessonActivity'})
+                .otherwise({redirectTo: '/0'});
 
-        var onPlayerStateChange = function (event) {
-            if (event.data === YT.PlayerState.ENDED) {
-                console.log('carregando próximo');
-                console.log($location.path());
-                var nextId = $scope.currentUnitId + 1;
-                if (nextId < $scope.lesson.units.length) {
-                    $location.path('/' + nextId);
+            $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+            $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+        }
+    ]);
+
+    app.controller('LessonActivity', ['$scope', '$routeParams', '$http', 'LessonData',
+        function ($scope, $routeParams, $http, LessonData) {
+            $scope.alternatives = [];
+            $scope.currentUnitPos = parseInt($routeParams.unitPos, 10);
+            $scope.answer = {'choice': null};
+
+            $scope.sendAnswer = (function() {
+                function tellResult(data, status, headers, config) {
+                    var result = data.correct ? 'correct' : 'wrong';
+                    var choice = $scope.answer.choice;
+                    $scope.alternatives[choice].eval = result;
                 }
-                $scope.$apply();
-            }
-        };
 
-        LessonData.then(function (lesson) {
-            $scope.currentUnit = lesson.units[$scope.currentUnitId];
-            if ($scope.currentUnit.video) {
-                youtubePlayerApi.videoId = $scope.currentUnit.video.youtube_id;
-                youtubePlayerApi.events = {
-                    onStateChange: onPlayerStateChange
-                };
-                youtubePlayerApi.loadPlayer();
-            }
-        });
-    }]);
+                $http({
+                    'method': 'POST',
+                    'url': '/api/answer/' + $scope.currentUnitId,
+                    'data': 'choice=' + $scope.answer.choice,
+                    'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
+                }).success(tellResult);
+            });
 
-    app.factory('LessonData', ['$rootScope', '$q', '$resource', '$window',
-        function($rootScope, $q, $resource, $window) {
-        var Lesson = $resource('/api/lessons/:lessonId/');
-        var Progress = $resource('/api/student_progress/?unit__lesson=:lessonId');
-        var deferred = $q.defer();
-        Lesson.get({'lessonId': $window.lessonId}, function (lesson) {
-            $rootScope.lesson = lesson;
-            deferred.resolve(lesson);
-        });
-        Progress.query({'lessonId': $window.lessonId}, function (progress) {
-            deferred.promise.then(function (lesson) {
-                for (var i = progress.length - 1; i >= 0; i--) {
-                    var p = progress[i];
-                    for (var j = lesson.units.length - 1; j >= 0; j--) {
-                        if (lesson.units[j].id === p.unit) {
-                            lesson.units[j].progress = p;
-                            console.log(p);
+            LessonData.then(function (lesson) {
+                $scope.currentUnit = lesson.units[$scope.currentUnitPos];
+                $scope.currentUnitId = $scope.currentUnit.id;
+                $scope.activity_template = $scope.currentUnit.activity.template;
+                $scope.alternatives = $scope.currentUnit.activity.alternatives.map(
+                    function(a,i) { return {'title': a }; }
+                );
+            });
+        }
+    ]);
+
+
+    app.controller('LessonVideo', ['$scope', '$routeParams', '$location', 'LessonData', 'youtubePlayerApi',
+        function ($scope, $routeParams, $location, LessonData, youtubePlayerApi) {
+            $scope.currentUnitPos = parseInt($routeParams.unitPos, 10);
+            window.ypa = youtubePlayerApi;
+
+            var onPlayerStateChange = function (event) {
+                if (event.data === YT.PlayerState.ENDED) {
+                    if( $scope.currentUnit.activity ) {
+                        $location.path('/' + $scope.currentUnitPos + '/activity');
+                    } else {
+                        var nextId = $scope.currentUnitPos + 1;
+                        if (nextId < $scope.lesson.units.length) {
+                            $location.path('/' + nextId);
                         }
+                    }
+                    $scope.$apply();
+                }
+            };
+
+            LessonData.then(function (lesson) {
+                $scope.currentUnit = lesson.units[$scope.currentUnitPos];
+                $scope.currentUnitId = $scope.currentUnit.id;
+
+                if ($scope.currentUnit.video) {
+                    youtubePlayerApi.videoId = $scope.currentUnit.video.youtube_id;
+                    youtubePlayerApi.events = {
+                        onStateChange: onPlayerStateChange
+                    };
+                    youtubePlayerApi.loadPlayer();
+                    if( ! youtubePlayerApi.player ) {
+                        youtubePlayerApi.deffered.resolve();
                     }
                 }
             });
-        });
-        return deferred.promise;
-    }]);
+        }
+    ]);
+
+    app.factory('LessonData', ['$rootScope', '$q', '$resource', '$window',
+        function($rootScope, $q, $resource, $window) {
+            var Lesson = $resource('/api/lessons/:lessonId/');
+            var Progress = $resource('/api/student_progress/?unit__lesson=:lessonId');
+            var deferred = $q.defer();
+
+            Lesson.get({'lessonId': $window.lessonId}, function (lesson) {
+                lesson.units.forEach(function(unit, index){
+                    if(unit.activity) {
+                        var type = unit.activity.type;
+                        unit.activity = JSON.parse(unit.activity.data);
+                        // TODO: corrigir após definição exata do dado (fabio)
+                        if(unit.activity.length > 0) {
+                            unit.activity = unit.activity.pop();
+                        }
+                        // TODO: delegar esta estruturação ao django (fabio)
+                        unit.activity.type = type;
+                        unit.activity.template = ACTIVITY_TEMPLATE_PATH(type);
+                    }
+                });
+                $rootScope.lesson = lesson;
+                deferred.resolve(lesson);
+            });
+
+            Progress.query({'lessonId': $window.lessonId}, function (progress) {
+                deferred.promise.then(function (lesson) {
+                    for (var i = progress.length - 1; i >= 0; i--) {
+                        var p = progress[i];
+                        for (var j = lesson.units.length - 1; j >= 0; j--) {
+                            if (lesson.units[j].id === p.unit) {
+                                lesson.units[j].progress = p;
+                            }
+                        }
+                    }
+                });
+            });
+
+            return deferred.promise;
+        }
+    ]);
 })(angular);

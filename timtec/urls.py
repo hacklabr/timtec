@@ -9,7 +9,7 @@ admin.autodiscover()
 
 from accounts.views import CustomLoginView, ProfileEditView, RegistrationUniqueEmailView
 from core.views import CourseView, EnrollCourseView, HomeView, UserCoursesView
-from lesson.views import LessonDetailView, LessonViewSet, StudentProgressViewSet
+from lesson.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, ReceiveAnswerView
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, AnswerViewSet
 from rest_framework import routers
 
@@ -27,7 +27,9 @@ urlpatterns = patterns(
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)$', CourseView.as_view(), name='course_intro'),
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/enroll$', EnrollCourseView.as_view(), name='enroll_course'),
     url(r'^lesson/(?P<slug>[-a-zA-Z0-9_]+)$', LessonDetailView.as_view(), name='lesson'),
+
     url(r'^api/', include(router.urls)),
+    url(r'^api/answer/(?P<unitId>[0-9]*)$', ReceiveAnswerView.as_view(), name='answer'),
 
     # Forum
     url(r'^forum/(?P<course_slug>[-a-zA-Z0-9_]+)$', CourseForumView.as_view(), name='forum'),

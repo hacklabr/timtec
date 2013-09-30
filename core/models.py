@@ -259,9 +259,15 @@ models.signals.pre_save.connect(Unit.set_position_for_new_unit, sender=Unit,
 
 class Answer(models.Model):
     activity = models.ForeignKey(Activity, verbose_name=_('Activity'))
-    user = models.ForeignKey(TimtecUser, verbose_name=_('Professor'))
+    user = models.ForeignKey(TimtecUser, verbose_name=_('Student'))
     timestamp = models.DateTimeField(auto_now_add=True, editable=False)
-    answer = models.TextField(_('Answer'))
+    answer = JSONField(_('Answer'))
+
+    def is_correct(self):
+        given = self.answer.get('choice', None)
+        expected = self.activity.expected_answer.get('choice', None)
+
+        return str(given) == str(expected)
 
     class Meta:
         verbose_name = _('Answer')

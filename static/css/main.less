@@ -1,4 +1,5 @@
 @import 'bootstrap/bootstrap.less';
+@import 'flatui/checkbox-and-radio.less';
 
 // COLORS
 // @gray-darker:            lighten(#000, 13.5%); // #222
@@ -97,9 +98,9 @@ a.instructor {
 
 
 // COMPONENTS
-@border-radius-base:             0;
-@border-radius-large:            0;
-@border-radius-small:            0;
+@border-radius-base:             2px;
+@border-radius-large:            2px;
+@border-radius-small:            2px;
 
 @padding-large-vertical:         14px;
 
@@ -232,7 +233,7 @@ a.instructor {
 .arrow-up(@width, @color) {
   border-bottom:@width solid @color;
   border-left:@width solid transparent;
-  border-right:@width solid transparent;	
+  border-right:@width solid transparent;
   .size(0,0);
 }
 .arrow-down(@width, @color) {
@@ -248,8 +249,8 @@ a.instructor {
   .size(0,0);
 }
 .arrow-left(@width, @color) {
-  border-bottom:@width solid transparent; 	
-  border-right:@width solid @color; 
+  border-bottom:@width solid transparent;
+  border-right:@width solid @color;
   border-top:@width solid transparent;
   .size(0,0);
 }
@@ -290,9 +291,9 @@ a.instructor {
 
 // MAIN NAVBAR - DROPDOWN MENUS FOR SIGNIN AND SIGNUP
 #main-navbar {
-  
+
   font-family:'Questrial';
-  
+
   .navbar-form {
     margin:0;
     padding:11px 15px;
@@ -314,7 +315,7 @@ a.instructor {
   .dropdown-signin {
     padding:14px;
     width:320px;
-    
+
     .submit {
       a {
         display:block;
@@ -335,7 +336,7 @@ a.instructor {
       background:none !important;
     }
   }
-  
+
   a.username i {
     margin-left:3px;
   }
@@ -350,12 +351,12 @@ a.instructor {
     height:100%;
     .vertical-align(middle);
   }
-  
+
   .centered {
     .vertical-align(middle);
     width:400px;
   }
-  
+
   form {
     border-top:1px solid @gray-lighter;
     .top(14px,21px);
@@ -427,11 +428,11 @@ a.instructor {
   i.icon-youtube-play {
     color:@brand-danger;
   }
-  
+
   i.icon-list {
     color:@brand-info;
   }
-  
+
   .unit {
     background:@gray-lighter - 20%;
     .box-shadow(inset -1px 0 0 #fff);
@@ -580,11 +581,11 @@ a.instructor {
 // Course - unit video
 .course-video {
   margin-top:21px;
-  
+
   iframe {
     border:1px solid @gray-lighter;
   }
-  
+
   // Unit navigation links
   .unit {
     background:@gray-lighter - 20%;
@@ -636,7 +637,7 @@ a.instructor {
       right:6px;
     }
   }
-  
+
   // Subtitles
   .tab-pane#subtitles {
     border-bottom:1px solid @gray-lighter;
@@ -653,7 +654,7 @@ a.instructor {
       }
     }
   }
-  
+
   // Notes
   .tab-pane#notes {
     border-bottom:1px solid @gray-lighter;
@@ -694,12 +695,12 @@ a.instructor {
     border-top:1px solid @gray-lighter;
     .top(14px,14px);
   }
-  
+
   .search-filter {
     border-bottom:1px solid @gray-lighter;
     .bottom(14px,14px);
   }
-  
+
   ul.dropdown-menu {
     a {
       color:@gray-light;
@@ -940,8 +941,8 @@ a.instructor {
       a {
         color:@gray-light;
         font-size:12px;
-      }  
-    } 
+      }
+    }
     .comment-form {
       textarea {
         margin-bottom:7px;

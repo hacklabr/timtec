@@ -6,6 +6,7 @@ install:
 	python setup.py develop
 	python manage.py syncdb --noinput
 	python manage.py compilemessages
+	echo "Don't forget to install npm dependencies: npm -g install less yuglify"
 
 create-staging:
 	virtualenv ~/env

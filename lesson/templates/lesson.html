@@ -14,8 +14,9 @@ $(document).ready(function() {
 })
 </script>
 
-<script type="text/javascript" src="{% static 'js/lesson.js' %}
-" charset="utf-8"></script>
+<link rel="stylesheet/less" href="{% static 'css/flatui/checkbox-and-radio.less' %}" type="text/css">
+<script type="text/javascript" src="{% static 'js/lesson.js' %}" charset="utf-8"></script>
+
 
 <!-- CONTAINER -->
 <div id="course-content">
@@ -65,155 +66,28 @@ $(document).ready(function() {
 
     <!-- COURSE-VIDEO -->
     <section class="course-video" ng-app="lesson">
-      {% verbatim angularjs %}
-      <script type="text/ng-template" id="lesson_internal.html">
-      <div class="col-lg-1 col-sm-1">
-        <a style="display:block;" ng-repeat="unit in lesson.units" href="#/{{ $index }}" class="has-tooltip unit track" ng-class="{watching: $index == currentUnitId, done: lesson.units[$index].progress.complete}" data-toggle="tooltip" data-placement="right" data-original-title="{{ unit.position + 1 }}">
-          <i class="icon-caret-right" ng-if="$index == currentUnitId"></i>
-          <span class="position">{{ unit.position + 1 }}</span>
-          <i class="icon-list" ng-if="unit.activity !== null"></i>
-        </a>
-      </div>
-      <!-- PLAYER AND SUBTITLE-->
-      <div class="col-lg-8 col-sm-11 left">
-        <div id="youtube-player" youtube-player></div>
-      </div>
-      <!-- PLAYER -->
-
-      <!-- NOTES -->
-      <div class="col-lg-3 hidden-md hidden-sm">
-        <ul class="nav nav-tabs">
-          <li class="active"><a href="#subtitles" data-toggle="tab">Transcrição</a></li>
-          <li><a href="#notes" data-toggle="tab">Anotações</a></li>
-          <li><a href="" class="has-tooltip" data-toggle="tooltip" data-placemente="top" data-original-title="Esconder transcrição/anotações"><i class="icon-double-angle-right"></i></a></li>
-        </ul>
-        <div class="tab-content">
-          <div class="tab-pane active" id="subtitles">
-            <table class="table">
-              <tr>
-                <td><i class="icon-star-empty"></i></td>
-                <td>00:00</td>
-                <td>Lorem ipsum dolor sit met</td>
-              </tr>
-              <tr>
-                <td><i class="icon-star-empty"></i></td>
-                <td>00:00</td>
-                <td>Lorem ipsum dolor sit met</td>
-              </tr>
-              <tr>
-                <td><i class="icon-star-empty"></i></td>
-                <td>00:00</td>
-                <td>Lorem ipsum dolor sit met</td>
-              </tr>
-              <tr class="now">
-                <td><i class="icon-star-empty"></i></td>
-                <td>00:00</td>
-                <td>Lorem ipsum dolor sit met</td>
-              </tr>
-              <tr>
-                <td><i class="icon-star-empty"></i></td>
-                <td>00:00</td>
-                <td>Lorem ipsum dolor sit met</td>
-              </tr>
-              <tr>
-                <td><i class="icon-star-empty"></i></td>
-                <td>00:00</td>
-                <td>Lorem ipsum dolor sit met</td>
-              </tr>
-              <tr>
-                <td><i class="icon-star-empty"></i></td>
-                <td>00:00</td>
-                <td>Lorem ipsum dolor sit met</td>
-              </tr>
-              <tr>
-                <td><i class="icon-star-empty"></i></td>
-                <td>00:00</td>
-                <td>Lorem ipsum dolor sit met</td>
-              </tr>
-              <tr>
-                <td><i class="icon-star-empty"></i></td>
-                <td>00:00</td>
-                <td>Lorem ipsum dolor sit met</td>
-              </tr>
-              <tr>
-                <td><i class="icon-star-empty"></i></td>
-                <td>00:00</td>
-                <td>Lorem ipsum dolor sit met</td>
-              </tr>
-              <tr>
-                <td><i class="icon-star-empty"></i></td>
-                <td>00:00</td>
-                <td>Lorem ipsum dolor sit met</td>
-              </tr>
-              <tr>
-                <td><i class="icon-star-empty"></i></td>
-                <td>00:00</td>
-                <td>Lorem ipsum dolor sit met</td>
-              </tr>
-              <tr>
-                <td><i class="icon-star-empty"></i></td>
-                <td>00:00</td>
-                <td>Lorem ipsum dolor sit met</td>
-              </tr>
-              <tr>
-                <td><i class="icon-star-empty"></i></td>
-                <td>00:00</td>
-                <td>Lorem ipsum dolor sit met</td>
-              </tr>
-            </table>
-          </div>
-          <div class="tab-pane" id="notes">
-            <form class="textright">
-              <textarea rows="5" class="col-lg-12 left right"></textarea>
-              <input type="submit" class="btn btn-success" value="Salvar">
-            </form>
-            <ol>
-              <a href="">Ver todas as anotações</a>
-              <li>
-                <p>Eu integer? Dolor augue elit velit natoque tristique, ridiculus, mauris rhoncus ac augue. Aliquet a risus, a magna! Mattis, natoque, risus turpis, aliquam magna aenean! Ut amet amet elit dis magna enim penatibus. Pulvinar elementum? Tempor cum dapibus vut lundium.</p>
-                <p>Ac arcu ridiculus! A, tortor porta porta elit tincidunt, tincidunt! Adipiscing pulvinar amet? Placerat odio tempor, enim augue penatibus purus lorem magnis, adipiscing magna. Facilisis dictumst facilisis adipiscing phasellus! Sed in, scelerisque nascetur pellentesque et, urna platea pid integer.</p>
-                <p>Arcu eu, aenean, vel tortor elementum nisi platea dis? Est vut nisi a amet, in, lacus lectus. Mid rhoncus et tristique diam adipiscing magna massa et placerat, adipiscing urna urna scelerisque facilisis etiam penatibus phasellus tincidunt turpis lectus porttitor.</p>
-                <p>Odio urna aliquet ac adipiscing, adipiscing integer! In vel. Phasellus ac, sed vel porta ac sociis eros magna augue? Sed, a, mauris ultrices lundium elementum rhoncus sit eu et! Velit hac, et duis enim! Pulvinar! Augue a duis sociis.</p>
-                <p>Nisi, sed proin in tempor dolor aliquet. Arcu, elementum nunc, eros in odio, integer? Sit ac phasellus a egestas hac ultrices, ac mattis egestas, nunc augue sit adipiscing in, egestas nascetur! Urna arcu placerat aliquet odio vel magna phasellus.</p>
-              </li>
-              <li>
-                <p>Eu integer? Dolor augue elit velit natoque tristique, ridiculus, mauris rhoncus ac augue. Aliquet a risus, a magna! Mattis, natoque, risus turpis, aliquam magna aenean! Ut amet amet elit dis magna enim penatibus. Pulvinar elementum? Tempor cum dapibus vut lundium.</p>
-                <p>Ac arcu ridiculus! A, tortor porta porta elit tincidunt, tincidunt! Adipiscing pulvinar amet? Placerat odio tempor, enim augue penatibus purus lorem magnis, adipiscing magna. Facilisis dictumst facilisis adipiscing phasellus! Sed in, scelerisque nascetur pellentesque et, urna platea pid integer.</p>
-                <p>Arcu eu, aenean, vel tortor elementum nisi platea dis? Est vut nisi a amet, in, lacus lectus. Mid rhoncus et tristique diam adipiscing magna massa et placerat, adipiscing urna urna scelerisque facilisis etiam penatibus phasellus tincidunt turpis lectus porttitor.</p>
-                <p>Odio urna aliquet ac adipiscing, adipiscing integer! In vel. Phasellus ac, sed vel porta ac sociis eros magna augue? Sed, a, mauris ultrices lundium elementum rhoncus sit eu et! Velit hac, et duis enim! Pulvinar! Augue a duis sociis.</p>
-                <p>Nisi, sed proin in tempor dolor aliquet. Arcu, elementum nunc, eros in odio, integer? Sit ac phasellus a egestas hac ultrices, ac mattis egestas, nunc augue sit adipiscing in, egestas nascetur! Urna arcu placerat aliquet odio vel magna phasellus.</p>
-              </li>
-            </ol>
-          </div>
-        </div>
-      </div>
-      <!-- END NOTES -->
-
-      </script>
-      {% endverbatim angularjs %}
+      <!-- lesson_video.html -->
       <div class="row" ng-view></div>
-
-
     </section>
 
-      <section class="course-instructions col-sm-10 col-sm-offset-1 hidden-lg">
-        <div class="page-header-double">
-          <h3><i class="icon-double-angle-right"></i> Informações e Instruções</h3>
-        </div>
-        <p>In eu placerat, porta urna integer pellentesque adipiscing nascetur magna, diam amet, scelerisque proin massa a, mid enim nec mus, mattis sit sagittis pulvinar, augue ac nunc proin! Scelerisque nec? Montes penatibus risus ridiculus, platea porttitor, ac in cras. Augue. Dapibus nisi purus, integer adipiscing dignissim dictumst cum, odio turpis.</p>
-        <p>A. Porttitor in? Sagittis, amet dictumst parturient vut amet? Dis in sit quis non, odio vel, turpis, porta natoque, et pulvinar! Ultricies adipiscing porta. Nascetur platea, tortor tempor montes et adipiscing porttitor eros, rhoncus velit nisi elit montes nascetur diam dictumst tempor integer augue nunc odio, nec, aliquet. Adipiscing.</p>
-        <p>Pulvinar mus lectus, enim a. Eros tristique dolor ac, sociis urna enim, vel egestas augue odio mid magna mus eros, enim duis adipiscing, arcu a turpis mus vut, mattis porttitor scelerisque? Odio eros sed! Rhoncus? Ac a dolor et phasellus aliquet cum vut sociis, lundium, aenean quis et placerat.</p>
-        <ul>
-          <li>Sit magna pellentesque hac dignissim.</li>
-          <li>Proin porta ac aliquet, integer.</li>
-          <li>Hac nisi placerat egestas integer.</li>
-          <li>Augue, vut ut urna urna.</li>
-          <li>Massa duis mauris placerat auctor.</li>
-          <li>Platea platea placerat in dignissim.</li>
-          <li>Ultrices purus? Ut risus, dis.</li>
-        </ul>
-        <p>Et pid habitasse! Natoque dapibus pellentesque lacus? Platea pulvinar, porta elementum sagittis, urna cursus etiam, lacus ut pulvinar elementum odio vel, montes augue, est. Nec sit aliquam et pulvinar! Dictumst nascetur ridiculus tincidunt scelerisque! Natoque risus porttitor, adipiscing cum? Eu sit duis? Et! Vut etiam pulvinar? Ut nec phasellus.</p>
-      </section>
+    <section class="course-instructions col-sm-10 col-sm-offset-1 hidden-lg">
+      <div class="page-header-double">
+        <h3><i class="icon-double-angle-right"></i> Informações e Instruções</h3>
+      </div>
+      <p>In eu placerat, porta urna integer pellentesque adipiscing nascetur magna, diam amet, scelerisque proin massa a, mid enim nec mus, mattis sit sagittis pulvinar, augue ac nunc proin! Scelerisque nec? Montes penatibus risus ridiculus, platea porttitor, ac in cras. Augue. Dapibus nisi purus, integer adipiscing dignissim dictumst cum, odio turpis.</p>
+      <p>A. Porttitor in? Sagittis, amet dictumst parturient vut amet? Dis in sit quis non, odio vel, turpis, porta natoque, et pulvinar! Ultricies adipiscing porta. Nascetur platea, tortor tempor montes et adipiscing porttitor eros, rhoncus velit nisi elit montes nascetur diam dictumst tempor integer augue nunc odio, nec, aliquet. Adipiscing.</p>
+      <p>Pulvinar mus lectus, enim a. Eros tristique dolor ac, sociis urna enim, vel egestas augue odio mid magna mus eros, enim duis adipiscing, arcu a turpis mus vut, mattis porttitor scelerisque? Odio eros sed! Rhoncus? Ac a dolor et phasellus aliquet cum vut sociis, lundium, aenean quis et placerat.</p>
+      <ul>
+        <li>Sit magna pellentesque hac dignissim.</li>
+        <li>Proin porta ac aliquet, integer.</li>
+        <li>Hac nisi placerat egestas integer.</li>
+        <li>Augue, vut ut urna urna.</li>
+        <li>Massa duis mauris placerat auctor.</li>
+        <li>Platea platea placerat in dignissim.</li>
+        <li>Ultrices purus? Ut risus, dis.</li>
+      </ul>
+      <p>Et pid habitasse! Natoque dapibus pellentesque lacus? Platea pulvinar, porta elementum sagittis, urna cursus etiam, lacus ut pulvinar elementum odio vel, montes augue, est. Nec sit aliquam et pulvinar! Dictumst nascetur ridiculus tincidunt scelerisque! Natoque risus porttitor, adipiscing cum? Eu sit duis? Et! Vut etiam pulvinar? Ut nec phasellus.</p>
+    </section>
 
   <!-- END COURSE-VIDEO -->
 
