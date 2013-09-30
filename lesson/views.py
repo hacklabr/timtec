@@ -8,7 +8,6 @@ from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-
 class LessonDetailView(LoginRequiredMixin, DetailView):
     model = Lesson
     template_name = "lesson.html"
@@ -45,14 +44,17 @@ class ReceiveAnswerView(APIView):
         except Unit.DoesNotExist as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
-        if 'choice' in request.POST:
-            answer = {'choice': request.POST.get('choice', None)}
+        if 'given' in request.POST:
+            answer = Answer(activity=unit.activity, user=user)
+            answer.given = json.loads( request.POST.get('given', None) )
+            answer.save()
 
-            instance = Answer(activity=unit.activity, user=user)
-            instance.answer = answer
-            instance.save()
+            json_answer = {
+                'expected': answer.expected,
+                'given': answer.given,
+                'correct': answer.is_correct()
+            }
 
-            answer['id'] = instance.id
-            answer['correct'] = instance.is_correct()
+            return Response(json_answer, status=status.HTTP_201_CREATED)
 
-            return Response(answer, status=status.HTTP_201_CREATED)
+        return Response({'error': 'Error receiving the Answer'}, status=status.HTTP_400_BAD_REQUEST)

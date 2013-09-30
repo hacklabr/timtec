@@ -1,5 +1,15 @@
+import json
 from core.models import Video, Activity, Unit, Lesson, StudentProgress
 from rest_framework import serializers
+
+
+class JSONField(serializers.WritableField):
+
+    def from_native(self, data):
+        return json.dumps(data)
+
+    def to_native(self, obj):
+        return json.loads(obj)
 
 
 class VideoSerializer(serializers.HyperlinkedModelSerializer):

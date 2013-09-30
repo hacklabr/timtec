@@ -7,7 +7,7 @@
                 <tr ng-repeat="alt in alternatives" class="{{ alt.eval }}">
                     <td class="textcenter">
                         <label class="_radio" for="optionradio-{{$index}}">
-                            <input ng-model="$parent.answer.choice" type="radio" name="unit-{{currentUnitId}}-alt"
+                            <input ng-model="$parent.answer.given" type="radio" name="unit-{{currentUnitId}}-alt"
                                    id="optionradio-{{$index}}" ng-value="$index" _data-toggle="radio"/>
                         </label>
                     </td>

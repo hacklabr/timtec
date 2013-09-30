@@ -7,8 +7,9 @@
                 <tr ng-repeat="alt in alternatives" class="{{ alt.eval }}">
                     <td class="textcenter">
                         <label class="_checkbox" for="optioncheckbox-{{$index}}">
-                            <input ng-model="$parent.answer.choice" type="checkbox" name="unit-{{currentUnitId}}-alt"
-                                   id="optioncheckbox-{{$index}}" ng-value="$index" _data-toggle="checkbox"/>
+                            <input ng-model="$parent.answer.given[$index]" type="checkbox"
+                                   name="unit-{{currentUnitId}}-alt-{{$index}}"
+                                   id="optioncheckbox-{{$index}}" _data-toggle="checkbox"/>
                         </label>
                     </td>
                     <td>{{ alt.title }}</td>
