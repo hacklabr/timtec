@@ -61,7 +61,7 @@
                     function(a,i) { return {'title': a }; }
                 );
 
-                if (unit.activity.type === 'multiplechoice') {
+                if (['multiplechoice','trueorfalse'].indexOf(unit.activity.type) >= 0) {
                     $scope.answer.given = $scope.alternatives.map(
                         function(a,i){ return false; }
                     );
