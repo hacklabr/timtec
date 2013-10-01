@@ -1,1059 +1,1068 @@
 [
 {
-    "pk": 1,
-    "model": "core.timtecuser",
+    "pk": 1, 
+    "model": "core.timtecuser", 
     "fields": {
-        "username": "abcd",
-        "picture": "",
-        "first_name": "",
-        "last_name": "",
-        "city": "",
-        "occupation": "",
-        "is_active": true,
-        "site": "",
-        "is_superuser": true,
-        "is_staff": true,
-        "last_login": "2013-09-06T16:54:38.486Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "pbkdf2_sha256$10000$27edDmeMEx0p$Hlbl543/d/caP6w8ClL/VhzTMaiRCLa05nK9Uyoje9I=",
-        "email": "a@b.cd",
-        "biography": "",
+        "username": "abcd", 
+        "picture": "", 
+        "first_name": "", 
+        "last_name": "", 
+        "city": "", 
+        "occupation": "", 
+        "is_active": true, 
+        "site": "", 
+        "is_superuser": true, 
+        "is_staff": true, 
+        "last_login": "2013-09-30T20:06:47.166Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$27edDmeMEx0p$Hlbl543/d/caP6w8ClL/VhzTMaiRCLa05nK9Uyoje9I=", 
+        "email": "a@b.cd", 
+        "biography": "", 
         "date_joined": "2013-08-23T21:06:59.961Z"
     }
 },
 {
-    "pk": 2,
-    "model": "core.timtecuser",
+    "pk": 2, 
+    "model": "core.timtecuser", 
     "fields": {
-        "username": "luciano",
-        "picture": "",
-        "first_name": "Luciano",
-        "last_name": "Ramalho",
-        "city": "",
-        "occupation": "",
-        "is_active": true,
-        "site": "",
-        "is_superuser": true,
-        "is_staff": true,
-        "last_login": "2013-08-23T21:36:33.698Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "pbkdf2_sha256$10000$27edDmeMEx0p$Hlbl543/d/caP6w8ClL/VhzTMaiRCLa05nK9Uyoje9I=",
-        "email": "luciano@ramalho.org",
-        "biography": "",
+        "username": "luciano", 
+        "picture": "", 
+        "first_name": "Luciano", 
+        "last_name": "Ramalho", 
+        "city": "", 
+        "occupation": "", 
+        "is_active": true, 
+        "site": "", 
+        "is_superuser": true, 
+        "is_staff": true, 
+        "last_login": "2013-08-23T21:36:33.698Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$27edDmeMEx0p$Hlbl543/d/caP6w8ClL/VhzTMaiRCLa05nK9Uyoje9I=", 
+        "email": "luciano@ramalho.org", 
+        "biography": "", 
         "date_joined": "2013-08-23T21:35:44Z"
     }
 },
 {
-    "pk": 1,
-    "model": "core.video",
+    "pk": 1, 
+    "model": "core.video", 
     "fields": {
-        "name": "IntroDB",
+        "name": "IntroDB", 
         "youtube_id": "4VOPHGcQLgY"
     }
 },
 {
-    "pk": 2,
-    "model": "core.video",
+    "pk": 2, 
+    "model": "core.video", 
     "fields": {
-        "name": "dbsql-unit-1",
+        "name": "dbsql-unit-1", 
         "youtube_id": "G6V6IZHZMgI"
     }
 },
 {
-    "pk": 3,
-    "model": "core.video",
+    "pk": 3, 
+    "model": "core.video", 
     "fields": {
-        "name": "dbsql-unit-2",
+        "name": "dbsql-unit-2", 
         "youtube_id": "9E_nHkfi3MY"
     }
 },
 {
-    "pk": 4,
-    "model": "core.video",
+    "pk": 4, 
+    "model": "core.video", 
     "fields": {
-        "name": "dbsql-unit-3",
+        "name": "dbsql-unit-3", 
         "youtube_id": "HBXMt7PZmXM"
     }
 },
 {
-    "pk": 5,
-    "model": "core.video",
+    "pk": 5, 
+    "model": "core.video", 
     "fields": {
-        "name": "dbsql-unit-4",
+        "name": "dbsql-unit-4", 
         "youtube_id": "YyP3Qx7B3Yw"
     }
 },
 {
-    "pk": 6,
-    "model": "core.video",
+    "pk": 6, 
+    "model": "core.video", 
     "fields": {
-        "name": "dbsql-unit-5",
+        "name": "dbsql-unit-5", 
         "youtube_id": "5ZhXkfpwzXY"
     }
 },
 {
-    "pk": 7,
-    "model": "core.video",
+    "pk": 7, 
+    "model": "core.video", 
     "fields": {
-        "name": "dbsql-mesa-redonda",
+        "name": "dbsql-mesa-redonda", 
         "youtube_id": "dEXIfpGB7kk"
     }
 },
 {
-    "pk": 8,
-    "model": "core.video",
+    "pk": 8, 
+    "model": "core.video", 
     "fields": {
-        "name": "dbsql-encerramento",
+        "name": "dbsql-encerramento", 
         "youtube_id": "3qhjeiEM_lI"
     }
 },
 {
-    "pk": 1,
-    "model": "core.course",
+    "pk": 1, 
+    "model": "core.course", 
     "fields": {
-        "status": "public",
-        "requirement": "O interessado dever\u00e1 possuir conhecimentos b\u00e1sicos (selecionar, copiar, colar, criar pastas, salvar e renomear documentos) de algum sistema operacional e de navega\u00e7\u00e3o na Internet. \r\nPara participar deste curso e realizar seus exerc\u00edcios \u00e9 necess\u00e1rio um computador com acesso \u00e0 internet, navegador web atualizado (pelo menos 2) e algum programa de edi\u00e7\u00e3o de texto sem formata\u00e7\u00e3o. \r\n\u00c9 recomendada a idade m\u00ednima de 14 anos.",
-        "workload": "<p>40 horas, a serem completadas em sete semanas</p>\r\n<p>A agenda de dedica\u00e7\u00e3o estimada para o aluno \u00e9 de 6 horas por semana: 2 horas para assistir \u00e0s aulas em v\u00eddeo e 4 horas para realizar os exerc\u00edcios propostos</p>",
-        "intro_video": 1,
-        "pronatec": "<p><strong>Rela\u00e7\u00e3o do curso com o PRONATEC:</strong></p><p>Eixo Tecnol\u00f3gico: Informa\u00e7\u00e3o e Comunica\u00e7\u00e3o</p><p>T\u00edtulos semelhantes oferecidos no Guia PRONATEC:</p><ul><li>T\u00e9cnico em Inform\u00e1tica</li><li>T\u00e9cnico em Manuten\u00e7\u00e3o e Suporte em Inform\u00e1tica</li><li>T\u00e9cnico em Inform\u00e1tica para Internet</li></ul><p>T\u00edtulos semelhantes oferecidos no Guia PRONATEC de cursos FIC:</p><ul><li>Administrador de Banco de Dados</li><li>Operador de Computador</li><li>Programador de Dispositivos M\u00f3veis</li><li>Programador de Sistemas</li><li>Programador Web</li></ul><p>Outros nomes atribu\u00eddos a estes profissionais:</p><ul><li>T\u00e9cnico em Forma\u00e7\u00e3o de Instrutores de Inform\u00e1tica</li><li>T\u00e9cnico em Planejamento e Gest\u00e3o em Tecnologia da Informa\u00e7\u00e3o</li></ul>",
-        "abstract": "<p>Introdu\u00e7\u00e3o aos conceitos fundamentais de bancos de dados modernos, desde a forma de organiza\u00e7\u00e3o dos dados (modelos e esquemas de dados) at\u00e9 comandos fundamentais da linguagem SQL e no\u00e7\u00f5es de projeto de bancos de dados normalizados. No\u00e7\u00f5es de arquitetura de sistemas, gerenciadores de bancos de dados, integridade referencial, linguagens de defini\u00e7\u00e3o, manipula\u00e7\u00e3o e controle de dados, al\u00e9m de tratar das quest\u00f5es de seguran\u00e7a, integridade e controle de transa\u00e7\u00f5es.</p>\r\n",
-        "application": "Banco de dados s\u00e3o empregados em praticamente todos os sistemas Web, desde redes sociais a portais de com\u00e9rcio eletr\u00f4nico, bem como aplicativos comerciais.",
-        "publication": "2013-08-23",
-        "slug": "dbsql",
-        "structure": "V\u00eddeo-aulas (12 horas)\r\n<br>Testes On Line\r\n<br>Leitura de material did\u00e1tico de apoio\r\n<br>Exerc\u00edcios individuais de aplica\u00e7\u00e3o",
+        "status": "public", 
+        "requirement": "O interessado dever\u00e1 possuir conhecimentos b\u00e1sicos (selecionar, copiar, colar, criar pastas, salvar e renomear documentos) de algum sistema operacional e de navega\u00e7\u00e3o na Internet. \r\nPara participar deste curso e realizar seus exerc\u00edcios \u00e9 necess\u00e1rio um computador com acesso \u00e0 internet, navegador web atualizado (pelo menos 2) e algum programa de edi\u00e7\u00e3o de texto sem formata\u00e7\u00e3o. \r\n\u00c9 recomendada a idade m\u00ednima de 14 anos.", 
+        "workload": "<p>40 horas, a serem completadas em sete semanas</p>\r\n<p>A agenda de dedica\u00e7\u00e3o estimada para o aluno \u00e9 de 6 horas por semana: 2 horas para assistir \u00e0s aulas em v\u00eddeo e 4 horas para realizar os exerc\u00edcios propostos</p>", 
+        "intro_video": 1, 
+        "pronatec": "<p><strong>Rela\u00e7\u00e3o do curso com o PRONATEC:</strong></p><p>Eixo Tecnol\u00f3gico: Informa\u00e7\u00e3o e Comunica\u00e7\u00e3o</p><p>T\u00edtulos semelhantes oferecidos no Guia PRONATEC:</p><ul><li>T\u00e9cnico em Inform\u00e1tica</li><li>T\u00e9cnico em Manuten\u00e7\u00e3o e Suporte em Inform\u00e1tica</li><li>T\u00e9cnico em Inform\u00e1tica para Internet</li></ul><p>T\u00edtulos semelhantes oferecidos no Guia PRONATEC de cursos FIC:</p><ul><li>Administrador de Banco de Dados</li><li>Operador de Computador</li><li>Programador de Dispositivos M\u00f3veis</li><li>Programador de Sistemas</li><li>Programador Web</li></ul><p>Outros nomes atribu\u00eddos a estes profissionais:</p><ul><li>T\u00e9cnico em Forma\u00e7\u00e3o de Instrutores de Inform\u00e1tica</li><li>T\u00e9cnico em Planejamento e Gest\u00e3o em Tecnologia da Informa\u00e7\u00e3o</li></ul>", 
+        "abstract": "<p>Introdu\u00e7\u00e3o aos conceitos fundamentais de bancos de dados modernos, desde a forma de organiza\u00e7\u00e3o dos dados (modelos e esquemas de dados) at\u00e9 comandos fundamentais da linguagem SQL e no\u00e7\u00f5es de projeto de bancos de dados normalizados. No\u00e7\u00f5es de arquitetura de sistemas, gerenciadores de bancos de dados, integridade referencial, linguagens de defini\u00e7\u00e3o, manipula\u00e7\u00e3o e controle de dados, al\u00e9m de tratar das quest\u00f5es de seguran\u00e7a, integridade e controle de transa\u00e7\u00f5es.</p>\r\n", 
+        "application": "Banco de dados s\u00e3o empregados em praticamente todos os sistemas Web, desde redes sociais a portais de com\u00e9rcio eletr\u00f4nico, bem como aplicativos comerciais.", 
+        "publication": "2013-08-23", 
+        "slug": "dbsql", 
+        "structure": "V\u00eddeo-aulas (12 horas)\r\n<br>Testes On Line\r\n<br>Leitura de material did\u00e1tico de apoio\r\n<br>Exerc\u00edcios individuais de aplica\u00e7\u00e3o", 
         "name": "Introdu\u00e7\u00e3o ao Banco de Dados"
     }
 },
 {
-    "pk": 1,
-    "model": "core.courseprofessor",
+    "pk": 1, 
+    "model": "core.courseprofessor", 
     "fields": {
-        "course": 1,
-        "role": "instructor",
-        "user": 2,
+        "course": 1, 
+        "role": "instructor", 
+        "user": 2, 
         "biography": "Luciano Ramalho \u00e9 s\u00f3cio e professor nas Oficinas Turing. Foi diretor t\u00e9cnico do Brasil Online, primeiro portal da Abril S/A na Web. Liderou times para os portais IDG Now, BOL, UOL, AOL Brasil e outros, usando Python desde 1998. Como instrutor, atendeu clientes como Citibank, CPqD, Serpro, Presid\u00eancia da Rep\u00fablica, Globo.com e Ita\u00fa. Ajudou a criar a Associa\u00e7\u00e3o Python Brasil e foi seu presidente. \u00c9 membro da Python Software Foundation e fundador do Garoa Hacker Clube, o primeiro hackerspace do Brasil. J\u00e1 palestrou v\u00e1rias vezes em eventos internacionais como FISL, OSCON e PyCon US."
     }
 },
 {
-    "pk": 1,
-    "model": "core.lesson",
+    "pk": 1, 
+    "model": "core.lesson", 
     "fields": {
-        "position": 0,
-        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis.",
-        "course": 1,
-        "slug": "aula-1-modelos-de-dados-e-introducao-ao-modelo-relacional",
+        "position": 0, 
+        "course": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis.", 
+        "slug": "aula-1-modelos-de-dados-e-introducao-ao-modelo-relacional", 
         "name": "Aula 1: Modelos de dados e introdu\u00e7\u00e3o ao modelo relacional"
     }
 },
 {
-    "pk": 2,
-    "model": "core.lesson",
+    "pk": 2, 
+    "model": "core.lesson", 
     "fields": {
-        "position": 1,
-        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!",
-        "course": 1,
-        "slug": "aula-2-introducao-a-sql-demonstracao-sgbds-e-definicao-de-esquemas",
+        "position": 1, 
+        "course": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "slug": "aula-2-introducao-a-sql-demonstracao-sgbds-e-definicao-de-esquemas", 
         "name": "Aula 2: Introdu\u00e7\u00e3o ao SQL (demonstra\u00e7\u00e3o), SGBDs e defini\u00e7\u00e3o de esquemas"
     }
 },
 {
-    "pk": 3,
-    "model": "core.lesson",
+    "pk": 3, 
+    "model": "core.lesson", 
     "fields": {
-        "position": 2,
-        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!",
-        "course": 1,
-        "slug": "aula-3-select-projecao-x-selecao-e-uso-do-console",
+        "position": 2, 
+        "course": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "slug": "aula-3-select-projecao-x-selecao-e-uso-do-console", 
         "name": "Aula 3: SELECT, Proje\u00e7\u00e3o x sele\u00e7\u00e3o e uso do console"
     }
 },
 {
-    "pk": 4,
-    "model": "core.lesson",
+    "pk": 4, 
+    "model": "core.lesson", 
     "fields": {
-        "position": 3,
-        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!",
-        "course": 1,
-        "slug": "aula-4-selecoes-com-logica-booleana",
+        "position": 3, 
+        "course": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "slug": "aula-4-selecoes-com-logica-booleana", 
         "name": "Aula 4: Sele\u00e7\u00f5es com l\u00f3gica booleana"
     }
 },
 {
-    "pk": 5,
-    "model": "core.lesson",
+    "pk": 5, 
+    "model": "core.lesson", 
     "fields": {
-        "position": 4,
-        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!",
-        "course": 1,
-        "slug": "aula-5-chaves-simples-compostas-candidatas-primarias-estrangeiras-mudas",
+        "position": 4, 
+        "course": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "slug": "aula-5-chaves-simples-compostas-candidatas-primarias-estrangeiras-mudas", 
         "name": "Aula 5: Chaves: simples, compostas, candidatas, prim\u00e1rias, estrangeiras, mudas"
     }
 },
 {
-    "pk": 6,
-    "model": "core.lesson",
+    "pk": 6, 
+    "model": "core.lesson", 
     "fields": {
-        "position": 5,
-        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!",
-        "course": 1,
-        "slug": "aula-6-consultas-com-relacionamentos-joins-implicitos-e-explicitos",
+        "position": 5, 
+        "course": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "slug": "aula-6-consultas-com-relacionamentos-joins-implicitos-e-explicitos", 
         "name": "Aula 6: Consultas com relacionamentos, joins impl\u00edcitos e expl\u00edcitos"
     }
 },
 {
-    "pk": 7,
-    "model": "core.lesson",
+    "pk": 7, 
+    "model": "core.lesson", 
     "fields": {
-        "position": 6,
-        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!",
-        "course": 1,
-        "slug": "aula-7-consultas-com-agregacao",
+        "position": 6, 
+        "course": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "slug": "aula-7-consultas-com-agregacao", 
         "name": "Aula 7: Consultas com agrega\u00e7\u00e3o"
     }
 },
 {
-    "pk": 8,
-    "model": "core.lesson",
+    "pk": 8, 
+    "model": "core.lesson", 
     "fields": {
-        "position": 7,
-        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!",
-        "course": 1,
-        "slug": "aula-8-operacoes-de-alteracao-de-dados-e-transacoes",
+        "position": 7, 
+        "course": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "slug": "aula-8-operacoes-de-alteracao-de-dados-e-transacoes", 
         "name": "Aula 8: Opera\u00e7\u00f5es de altera\u00e7\u00e3o de dados e transa\u00e7\u00f5es"
     }
 },
 {
-    "pk": 9,
-    "model": "core.lesson",
+    "pk": 9, 
+    "model": "core.lesson", 
     "fields": {
-        "position": 8,
-        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!",
-        "course": 1,
-        "slug": "aula-9-projeto-de-bancos-de-dados-normalizados-e-formas-normais",
+        "position": 8, 
+        "course": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "slug": "aula-9-projeto-de-bancos-de-dados-normalizados-e-formas-normais", 
         "name": "Aula 9: Projeto de bancos de dados normalizados e formas normais"
     }
 },
 {
-    "pk": 10,
-    "model": "core.lesson",
+    "pk": 10, 
+    "model": "core.lesson", 
     "fields": {
-        "position": 9,
-        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!",
-        "course": 1,
-        "slug": "aula-10-indices-e-constraints",
+        "position": 9, 
+        "course": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "slug": "aula-10-indices-e-constraints", 
         "name": "Aula 10: \u00cdndices e constraints"
     }
 },
 {
-    "pk": 11,
-    "model": "core.lesson",
+    "pk": 11, 
+    "model": "core.lesson", 
     "fields": {
-        "position": 10,
-        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!",
-        "course": 1,
-        "slug": "aula-11-triggers-e-views-dialetos-de-sql-entre-sgbds-importantes",
+        "position": 10, 
+        "course": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "slug": "aula-11-triggers-e-views-dialetos-de-sql-entre-sgbds-importantes", 
         "name": "Aula 11: Triggers e views, dialetos de SQL entre SGBDs importantes"
     }
 },
 {
-    "pk": 12,
-    "model": "core.lesson",
+    "pk": 12, 
+    "model": "core.lesson", 
     "fields": {
-        "position": 11,
-        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!",
-        "course": 1,
-        "slug": "aula-12-limitacoes-e-alternativas-ao-modelo-tradicional",
+        "position": 11, 
+        "course": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
+        "slug": "aula-12-limitacoes-e-alternativas-ao-modelo-tradicional", 
         "name": "Aula 12: Limita\u00e7\u00f5es e alternativas ao modelo tradicional"
     }
 },
 {
-    "pk": 1,
-    "model": "core.activity",
+    "pk": 1, 
+    "model": "core.activity", 
     "fields": {
-        "data": "{\"alternatives\": [\"Envio de mensagens pela Internet\", \"Cria\\u00e7\\u00e3o de imagens para filmes\", \"Opera\\u00e7\\u00e3o de uma m\\u00e1quina de corte\", \"Controle de assinaturas de uma jornal\"], \"question\": \"Quais destas aplica\\u00e7\\u00f5es usam banco de dados?\"}",
-        "expected": "3",
+        "expected": 3, 
+        "data": "{\"alternatives\":[\"Envio de mensagens pela Internet\",\"Cria\\u00e7\\u00e3o de imagens para filmes\",\"Opera\\u00e7\\u00e3o de uma m\\u00e1quina de corte\",\"Controle de assinaturas de uma jornal\"],\"question\":\"Quais destas aplica\\u00e7\\u00f5es usam banco de dados?\"}", 
         "type": "simplechoice"
     }
 },
 {
-    "pk": 2,
-    "model": "core.activity",
+    "pk": 2, 
+    "model": "core.activity", 
     "fields": {
-        "data": "{\"question\":\"Quais desses são bancos de dados relacionais\",\"alternatives\":[\"PostgreSQL\",\"MySQL\",\"CouchDB\",\"ISIS\"]}",
-        "expected": "[true, true, false, false]",
+        "expected": "[true,true,false,false]", 
+        "data": "{\"question\":\"Quais desses s\\u00e3o bancos de dados relacionais\",\"alternatives\":[\"PostgreSQL\",\"MySQL\",\"CouchDB\",\"ISIS\"]}", 
         "type": "multiplechoice"
     }
 },
 {
-    "pk": 1,
-    "model": "core.unit",
+    "pk": 3, 
+    "model": "core.activity", 
     "fields": {
-        "position": 0,
-        "lesson": 1,
-        "video": 2,
+        "expected": "[true,false,false,true]", 
+        "data": "{\"alternatives\":[\"SQL \\u00e9 uma linguagem estruturada de consultas\",\"MySQL \\u00e9 uma linguagem derivada do SQL direcionada a programadores\",\"Bancos de dados s\\u00e3o ideais para resolver problemas de monitoramento de temperatura\",\"PostgreSQL \\u00e9 um sistema gerenciador de banco de dados\"],\"question\":\"Marque verdadeiro ou falso para as afirma\\u00e7\\u00f5es abaixo\"}", 
+        "type": "trueorfalse"
+    }
+},
+{
+    "pk": 1, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 0, 
+        "lesson": 1, 
+        "video": 2, 
         "activity": null
     }
 },
 {
-    "pk": 2,
-    "model": "core.unit",
+    "pk": 2, 
+    "model": "core.unit", 
     "fields": {
-        "position": 1,
-        "lesson": 1,
-        "video": 3,
+        "position": 1, 
+        "lesson": 1, 
+        "video": 3, 
         "activity": 1
     }
 },
 {
-    "pk": 3,
-    "model": "core.unit",
+    "pk": 3, 
+    "model": "core.unit", 
     "fields": {
-        "position": 2,
-        "lesson": 1,
-        "video": 4,
+        "position": 2, 
+        "lesson": 1, 
+        "video": 4, 
         "activity": null
     }
 },
 {
-    "pk": 4,
-    "model": "core.unit",
+    "pk": 4, 
+    "model": "core.unit", 
     "fields": {
-        "position": 3,
-        "lesson": 1,
-        "video": 5,
-        "activity": 1
+        "position": 3, 
+        "lesson": 1, 
+        "video": 5, 
+        "activity": 2
     }
 },
 {
-    "pk": 5,
-    "model": "core.unit",
+    "pk": 5, 
+    "model": "core.unit", 
     "fields": {
-        "position": 0,
-        "lesson": 2,
-        "video": 1,
+        "position": 0, 
+        "lesson": 2, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 6,
-    "model": "core.unit",
+    "pk": 6, 
+    "model": "core.unit", 
     "fields": {
-        "position": 6,
-        "lesson": 2,
-        "video": 1,
+        "position": 6, 
+        "lesson": 2, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 7,
-    "model": "core.unit",
+    "pk": 7, 
+    "model": "core.unit", 
     "fields": {
-        "position": 12,
-        "lesson": 2,
-        "video": 1,
+        "position": 12, 
+        "lesson": 2, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 8,
-    "model": "core.unit",
+    "pk": 8, 
+    "model": "core.unit", 
     "fields": {
-        "position": 1,
-        "lesson": 2,
-        "video": 1,
+        "position": 1, 
+        "lesson": 2, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 9,
-    "model": "core.unit",
+    "pk": 9, 
+    "model": "core.unit", 
     "fields": {
-        "position": 7,
-        "lesson": 2,
-        "video": 1,
+        "position": 7, 
+        "lesson": 2, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 10,
-    "model": "core.unit",
+    "pk": 10, 
+    "model": "core.unit", 
     "fields": {
-        "position": 13,
-        "lesson": 2,
-        "video": 1,
+        "position": 13, 
+        "lesson": 2, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 11,
-    "model": "core.unit",
+    "pk": 11, 
+    "model": "core.unit", 
     "fields": {
-        "position": 2,
-        "lesson": 2,
-        "video": 1,
+        "position": 2, 
+        "lesson": 2, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 12,
-    "model": "core.unit",
+    "pk": 12, 
+    "model": "core.unit", 
     "fields": {
-        "position": 8,
-        "lesson": 2,
-        "video": 1,
+        "position": 8, 
+        "lesson": 2, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 13,
-    "model": "core.unit",
+    "pk": 13, 
+    "model": "core.unit", 
     "fields": {
-        "position": 14,
-        "lesson": 2,
-        "video": 1,
+        "position": 14, 
+        "lesson": 2, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 14,
-    "model": "core.unit",
+    "pk": 14, 
+    "model": "core.unit", 
     "fields": {
-        "position": 3,
-        "lesson": 2,
-        "video": 1,
+        "position": 3, 
+        "lesson": 2, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 15,
-    "model": "core.unit",
+    "pk": 15, 
+    "model": "core.unit", 
     "fields": {
-        "position": 9,
-        "lesson": 2,
-        "video": 1,
+        "position": 9, 
+        "lesson": 2, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 16,
-    "model": "core.unit",
+    "pk": 16, 
+    "model": "core.unit", 
     "fields": {
-        "position": 15,
-        "lesson": 2,
-        "video": 1,
+        "position": 15, 
+        "lesson": 2, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 17,
-    "model": "core.unit",
+    "pk": 17, 
+    "model": "core.unit", 
     "fields": {
-        "position": 4,
-        "lesson": 2,
-        "video": 1,
+        "position": 4, 
+        "lesson": 2, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 18,
-    "model": "core.unit",
+    "pk": 18, 
+    "model": "core.unit", 
     "fields": {
-        "position": 10,
-        "lesson": 2,
-        "video": 1,
+        "position": 10, 
+        "lesson": 2, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 19,
-    "model": "core.unit",
+    "pk": 19, 
+    "model": "core.unit", 
     "fields": {
-        "position": 16,
-        "lesson": 2,
-        "video": 1,
+        "position": 16, 
+        "lesson": 2, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 20,
-    "model": "core.unit",
+    "pk": 20, 
+    "model": "core.unit", 
     "fields": {
-        "position": 5,
-        "lesson": 2,
-        "video": 1,
+        "position": 5, 
+        "lesson": 2, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 21,
-    "model": "core.unit",
+    "pk": 21, 
+    "model": "core.unit", 
     "fields": {
-        "position": 11,
-        "lesson": 2,
-        "video": 1,
+        "position": 11, 
+        "lesson": 2, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 22,
-    "model": "core.unit",
+    "pk": 22, 
+    "model": "core.unit", 
     "fields": {
-        "position": 17,
-        "lesson": 2,
-        "video": 1,
+        "position": 17, 
+        "lesson": 2, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 23,
-    "model": "core.unit",
+    "pk": 23, 
+    "model": "core.unit", 
     "fields": {
-        "position": 18,
-        "lesson": 2,
-        "video": 1,
+        "position": 18, 
+        "lesson": 2, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 24,
-    "model": "core.unit",
+    "pk": 24, 
+    "model": "core.unit", 
     "fields": {
-        "position": 19,
-        "lesson": 2,
-        "video": 1,
+        "position": 19, 
+        "lesson": 2, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 25,
-    "model": "core.unit",
+    "pk": 25, 
+    "model": "core.unit", 
     "fields": {
-        "position": 0,
-        "lesson": 3,
-        "video": 1,
+        "position": 0, 
+        "lesson": 3, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 26,
-    "model": "core.unit",
+    "pk": 26, 
+    "model": "core.unit", 
     "fields": {
-        "position": 1,
-        "lesson": 3,
-        "video": 1,
+        "position": 1, 
+        "lesson": 3, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 27,
-    "model": "core.unit",
+    "pk": 27, 
+    "model": "core.unit", 
     "fields": {
-        "position": 2,
-        "lesson": 3,
-        "video": 1,
+        "position": 2, 
+        "lesson": 3, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 28,
-    "model": "core.unit",
+    "pk": 28, 
+    "model": "core.unit", 
     "fields": {
-        "position": 0,
-        "lesson": 4,
-        "video": 1,
+        "position": 0, 
+        "lesson": 4, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 29,
-    "model": "core.unit",
+    "pk": 29, 
+    "model": "core.unit", 
     "fields": {
-        "position": 1,
-        "lesson": 4,
-        "video": 1,
+        "position": 1, 
+        "lesson": 4, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 30,
-    "model": "core.unit",
+    "pk": 30, 
+    "model": "core.unit", 
     "fields": {
-        "position": 2,
-        "lesson": 4,
-        "video": 1,
+        "position": 2, 
+        "lesson": 4, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 31,
-    "model": "core.unit",
+    "pk": 31, 
+    "model": "core.unit", 
     "fields": {
-        "position": 3,
-        "lesson": 4,
-        "video": 1,
+        "position": 3, 
+        "lesson": 4, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 32,
-    "model": "core.unit",
+    "pk": 32, 
+    "model": "core.unit", 
     "fields": {
-        "position": 0,
-        "lesson": 5,
-        "video": 1,
+        "position": 0, 
+        "lesson": 5, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 33,
-    "model": "core.unit",
+    "pk": 33, 
+    "model": "core.unit", 
     "fields": {
-        "position": 1,
-        "lesson": 5,
-        "video": 1,
+        "position": 1, 
+        "lesson": 5, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 34,
-    "model": "core.unit",
+    "pk": 34, 
+    "model": "core.unit", 
     "fields": {
-        "position": 2,
-        "lesson": 5,
-        "video": 1,
+        "position": 2, 
+        "lesson": 5, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 35,
-    "model": "core.unit",
+    "pk": 35, 
+    "model": "core.unit", 
     "fields": {
-        "position": 3,
-        "lesson": 5,
-        "video": 1,
+        "position": 3, 
+        "lesson": 5, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 36,
-    "model": "core.unit",
+    "pk": 36, 
+    "model": "core.unit", 
     "fields": {
-        "position": 4,
-        "lesson": 5,
-        "video": 1,
+        "position": 4, 
+        "lesson": 5, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 37,
-    "model": "core.unit",
+    "pk": 37, 
+    "model": "core.unit", 
     "fields": {
-        "position": 0,
-        "lesson": 6,
-        "video": 1,
+        "position": 0, 
+        "lesson": 6, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 38,
-    "model": "core.unit",
+    "pk": 38, 
+    "model": "core.unit", 
     "fields": {
-        "position": 1,
-        "lesson": 6,
-        "video": 1,
+        "position": 1, 
+        "lesson": 6, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 39,
-    "model": "core.unit",
+    "pk": 39, 
+    "model": "core.unit", 
     "fields": {
-        "position": 2,
-        "lesson": 6,
-        "video": 1,
+        "position": 2, 
+        "lesson": 6, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 40,
-    "model": "core.unit",
+    "pk": 40, 
+    "model": "core.unit", 
     "fields": {
-        "position": 3,
-        "lesson": 6,
-        "video": 1,
+        "position": 3, 
+        "lesson": 6, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 41,
-    "model": "core.unit",
+    "pk": 41, 
+    "model": "core.unit", 
     "fields": {
-        "position": 4,
-        "lesson": 6,
-        "video": 1,
+        "position": 4, 
+        "lesson": 6, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 42,
-    "model": "core.unit",
+    "pk": 42, 
+    "model": "core.unit", 
     "fields": {
-        "position": 5,
-        "lesson": 6,
-        "video": 1,
+        "position": 5, 
+        "lesson": 6, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 43,
-    "model": "core.unit",
+    "pk": 43, 
+    "model": "core.unit", 
     "fields": {
-        "position": 0,
-        "lesson": 7,
-        "video": 1,
+        "position": 0, 
+        "lesson": 7, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 44,
-    "model": "core.unit",
+    "pk": 44, 
+    "model": "core.unit", 
     "fields": {
-        "position": 1,
-        "lesson": 7,
-        "video": 1,
+        "position": 1, 
+        "lesson": 7, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 45,
-    "model": "core.unit",
+    "pk": 45, 
+    "model": "core.unit", 
     "fields": {
-        "position": 2,
-        "lesson": 7,
-        "video": 1,
+        "position": 2, 
+        "lesson": 7, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 46,
-    "model": "core.unit",
+    "pk": 46, 
+    "model": "core.unit", 
     "fields": {
-        "position": 3,
-        "lesson": 7,
-        "video": 1,
+        "position": 3, 
+        "lesson": 7, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 47,
-    "model": "core.unit",
+    "pk": 47, 
+    "model": "core.unit", 
     "fields": {
-        "position": 4,
-        "lesson": 7,
-        "video": 1,
+        "position": 4, 
+        "lesson": 7, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 48,
-    "model": "core.unit",
+    "pk": 48, 
+    "model": "core.unit", 
     "fields": {
-        "position": 5,
-        "lesson": 7,
-        "video": 1,
+        "position": 5, 
+        "lesson": 7, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 49,
-    "model": "core.unit",
+    "pk": 49, 
+    "model": "core.unit", 
     "fields": {
-        "position": 6,
-        "lesson": 7,
-        "video": 1,
+        "position": 6, 
+        "lesson": 7, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 50,
-    "model": "core.unit",
+    "pk": 50, 
+    "model": "core.unit", 
     "fields": {
-        "position": 0,
-        "lesson": 8,
-        "video": 1,
+        "position": 0, 
+        "lesson": 8, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 51,
-    "model": "core.unit",
+    "pk": 51, 
+    "model": "core.unit", 
     "fields": {
-        "position": 1,
-        "lesson": 8,
-        "video": 1,
+        "position": 1, 
+        "lesson": 8, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 52,
-    "model": "core.unit",
+    "pk": 52, 
+    "model": "core.unit", 
     "fields": {
-        "position": 2,
-        "lesson": 8,
-        "video": 1,
+        "position": 2, 
+        "lesson": 8, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 53,
-    "model": "core.unit",
+    "pk": 53, 
+    "model": "core.unit", 
     "fields": {
-        "position": 3,
-        "lesson": 8,
-        "video": 1,
+        "position": 3, 
+        "lesson": 8, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 54,
-    "model": "core.unit",
+    "pk": 54, 
+    "model": "core.unit", 
     "fields": {
-        "position": 4,
-        "lesson": 8,
-        "video": 1,
+        "position": 4, 
+        "lesson": 8, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 55,
-    "model": "core.unit",
+    "pk": 55, 
+    "model": "core.unit", 
     "fields": {
-        "position": 5,
-        "lesson": 8,
-        "video": 1,
+        "position": 5, 
+        "lesson": 8, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 56,
-    "model": "core.unit",
+    "pk": 56, 
+    "model": "core.unit", 
     "fields": {
-        "position": 6,
-        "lesson": 8,
-        "video": 1,
+        "position": 6, 
+        "lesson": 8, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 57,
-    "model": "core.unit",
+    "pk": 57, 
+    "model": "core.unit", 
     "fields": {
-        "position": 7,
-        "lesson": 8,
-        "video": 1,
+        "position": 7, 
+        "lesson": 8, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 58,
-    "model": "core.unit",
+    "pk": 58, 
+    "model": "core.unit", 
     "fields": {
-        "position": 0,
-        "lesson": 9,
-        "video": 1,
+        "position": 0, 
+        "lesson": 9, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 59,
-    "model": "core.unit",
+    "pk": 59, 
+    "model": "core.unit", 
     "fields": {
-        "position": 1,
-        "lesson": 9,
-        "video": 1,
+        "position": 1, 
+        "lesson": 9, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 60,
-    "model": "core.unit",
+    "pk": 60, 
+    "model": "core.unit", 
     "fields": {
-        "position": 2,
-        "lesson": 9,
-        "video": 1,
+        "position": 2, 
+        "lesson": 9, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 61,
-    "model": "core.unit",
+    "pk": 61, 
+    "model": "core.unit", 
     "fields": {
-        "position": 3,
-        "lesson": 9,
-        "video": 1,
+        "position": 3, 
+        "lesson": 9, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 62,
-    "model": "core.unit",
+    "pk": 62, 
+    "model": "core.unit", 
     "fields": {
-        "position": 4,
-        "lesson": 9,
-        "video": 1,
+        "position": 4, 
+        "lesson": 9, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 63,
-    "model": "core.unit",
+    "pk": 63, 
+    "model": "core.unit", 
     "fields": {
-        "position": 5,
-        "lesson": 9,
-        "video": 1,
+        "position": 5, 
+        "lesson": 9, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 64,
-    "model": "core.unit",
+    "pk": 64, 
+    "model": "core.unit", 
     "fields": {
-        "position": 6,
-        "lesson": 9,
-        "video": 1,
+        "position": 6, 
+        "lesson": 9, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 65,
-    "model": "core.unit",
+    "pk": 65, 
+    "model": "core.unit", 
     "fields": {
-        "position": 7,
-        "lesson": 9,
-        "video": 1,
+        "position": 7, 
+        "lesson": 9, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 66,
-    "model": "core.unit",
+    "pk": 66, 
+    "model": "core.unit", 
     "fields": {
-        "position": 8,
-        "lesson": 9,
-        "video": 1,
+        "position": 8, 
+        "lesson": 9, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 67,
-    "model": "core.unit",
+    "pk": 67, 
+    "model": "core.unit", 
     "fields": {
-        "position": 0,
-        "lesson": 10,
-        "video": 1,
+        "position": 0, 
+        "lesson": 10, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 68,
-    "model": "core.unit",
+    "pk": 68, 
+    "model": "core.unit", 
     "fields": {
-        "position": 1,
-        "lesson": 10,
-        "video": 1,
+        "position": 1, 
+        "lesson": 10, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 69,
-    "model": "core.unit",
+    "pk": 69, 
+    "model": "core.unit", 
     "fields": {
-        "position": 2,
-        "lesson": 10,
-        "video": 1,
+        "position": 2, 
+        "lesson": 10, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 70,
-    "model": "core.unit",
+    "pk": 70, 
+    "model": "core.unit", 
     "fields": {
-        "position": 3,
-        "lesson": 10,
-        "video": 1,
+        "position": 3, 
+        "lesson": 10, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 71,
-    "model": "core.unit",
+    "pk": 71, 
+    "model": "core.unit", 
     "fields": {
-        "position": 4,
-        "lesson": 10,
-        "video": 1,
+        "position": 4, 
+        "lesson": 10, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 72,
-    "model": "core.unit",
+    "pk": 72, 
+    "model": "core.unit", 
     "fields": {
-        "position": 0,
-        "lesson": 11,
-        "video": 1,
+        "position": 0, 
+        "lesson": 11, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 73,
-    "model": "core.unit",
+    "pk": 73, 
+    "model": "core.unit", 
     "fields": {
-        "position": 1,
-        "lesson": 11,
-        "video": 1,
+        "position": 1, 
+        "lesson": 11, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 74,
-    "model": "core.unit",
+    "pk": 74, 
+    "model": "core.unit", 
     "fields": {
-        "position": 2,
-        "lesson": 11,
-        "video": 1,
+        "position": 2, 
+        "lesson": 11, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 75,
-    "model": "core.unit",
+    "pk": 75, 
+    "model": "core.unit", 
     "fields": {
-        "position": 0,
-        "lesson": 12,
-        "video": 1,
+        "position": 0, 
+        "lesson": 12, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 76,
-    "model": "core.unit",
+    "pk": 76, 
+    "model": "core.unit", 
     "fields": {
-        "position": 1,
-        "lesson": 12,
-        "video": 1,
+        "position": 1, 
+        "lesson": 12, 
+        "video": 1, 
         "activity": null
     }
 },
 {
-    "pk": 77,
-    "model": "core.unit",
+    "pk": 77, 
+    "model": "core.unit", 
     "fields": {
-        "position": 4,
-        "lesson": 1,
-        "video": 6,
-        "activity": 1
+        "position": 4, 
+        "lesson": 1, 
+        "video": 6, 
+        "activity": 3
     }
 }
 ]
