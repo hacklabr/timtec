@@ -1,18 +1,20 @@
-    <div class="activity {{currentUnit.activity.type}} col-lg-12">
+    <div class="course-activity {{currentUnit.activity.type}} col-lg-12">
         <div class="question textcenter">
             <h1>{{ currentUnit.activity.question }}</h1>
         </div>
         <div class="answers">
             <table class="table">
                 <tr ng-repeat="alt in alternatives" class="{{ alt.eval }}">
-                    <td class="textcenter">
+                    <td class="textcenter">                        
+                        <input ng-model="$parent.answer.given[$index]" type="checkbox"
+                               name="unit-{{currentUnitId}}-alt-{{$index}}"
+                               id="optioncheckbox-{{$index}}" _data-toggle="checkbox"/>
+                    </td>
+                    <td>
                         <label class="_checkbox" for="optioncheckbox-{{$index}}">
-                            <input ng-model="$parent.answer.given[$index]" type="checkbox"
-                                   name="unit-{{currentUnitId}}-alt-{{$index}}"
-                                   id="optioncheckbox-{{$index}}" _data-toggle="checkbox"/>
+                            {{ alt.title }}
                         </label>
                     </td>
-                    <td>{{ alt.title }}</td>
                 </tr>
             </table>
 
