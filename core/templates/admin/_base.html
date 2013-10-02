@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html ng-app="admin">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>{{ course }}</title>
+
+  {% load static %}
+  {% load compressed %}
+
+  {% compressed_css 'admin' %}
+  {% compressed_js 'all' %}
+
+  <script type="text/javascript" src="{% static 'js/admin/admin.js' %}" charset="utf-8"></script>
+</head>
+<body id="admin">
+
+  <!-- NAVBAR -->
+  <div id="main-navbar" class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container">
+      <a class="navbar-brand" href="/">TIM Tec - ADMIN</a>
+      <ul class="nav navbar-nav pull-right">
+        <li><a href="#">Cursos</a></li>
+        <li><a href="#">Usuários</a></li>
+        <li><a href="#">Estatísticas</a></li>
+      </ul>
+    </div>
+  </div>
+  <!-- END NAVBAR -->
+
+
+  <!-- WRAPPER -->
+  <div class="wrapper">
+    <!-- CONTAINER -->
+    <div id="course-content" class="course-intro" ng-controller="CourseEdit">
+
+      <!-- HEADER -->
+      <header id="main-header" class="container">
+        <div class="page-header">
+          <div class="row">
+            <div class="col-sm-9 col-lg-9">
+              <h1 class="top editable"><span contenteditable="true">Título do curso</span></h1>
+              <h5><span class="icon-addable icon-plus-sign-alt"></span> Adicionar professores ao curso</h5>
+            </div>
+            <div class="col-sm-3 col-lg-3 textright">
+              <a href="aula.html" class="btn btn-lg btn-info col-lg-12 uppercase disabled">Começar o curso</a>
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- END HEADER -->
+
+      <!-- MAIN CONTENT -->
+      <section id="main-content" class="container">
+        <div class="row">
+          <div class="col-sm-9 col-lg-9">
+            <section class="course-video top row">
+              <div class="col-lg-12">
+                <div class="edit-video-intro">
+                  <button class="btn btn-danger btn-lg uppercase">Alterar vídeo</button>
+                </div>
+                <div class="add-video-intro col-sm-12 col-lg-12 left right textcenter">
+                  <div class="centered">
+                    <i class="icon-youtube-play"></i>
+                    <h1 class="top">Vídeo de introdução</h1>
+                    <p class="form-group"><input type="text" class="form-control" placeholder="http://www.youtube.com/watch?v="/></p>
+                    <p><button class="btn btn-success btn-lg uppercase">Adicionar</button></p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="course-info row">
+              <div class="col-sm-6 col-lg-6">
+                <div class="page-header-double">
+                  <h3 class="top"><i class="icon-double-angle-right"></i> Aplicação do Conhecimento</h3>
+                </div>
+                <p class="editable"><a data-toggle="modal" href="#textModal">Clique para adicionar o texto</a></p>
+              </div>
+              <div class="col-sm-6 col-lg-6">
+                <div class="page-header-double">
+                  <h3 class="top"><i class="icon-double-angle-right"></i> O que preciso saber</h3>
+                </div>
+                <p class="editable"><a data-toggle="modal" href="#textModal">Clique para adicionar o texto</a></p>
+              </div>
+            </section>
+
+            <section class="course-lessons row">
+              <div class="col-sm-12 col-lg-12">
+                <div class="page-header-double">
+                  <h3><i class="icon-double-angle-right"></i> Aulas</h3>
+                </div>
+
+                <a href="#lessonModal" data-toggle="modal" class="btn btn-success">Adicionar</a>
+
+                <ul class="no-bullet hidden">
+                  <li>
+                    <div class="row">
+                      <div class="col-lg-3 col-sm-3">
+                        <img src="../img/aula-thumb.png" class="img-thumbnail">
+                      </div>
+                      <div class="col-lg-9 col-sm-9">
+                        <p>
+                          <span class="title">Aula 1: Modelos de dados e introdução ao modelo relacional</span>
+                          <span class="description">Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis.</span>
+                        </p>
+                        <table class="table">
+                          <tr>
+                            <td><span class="has-tooltip unit" data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade">&nbsp;</span></td>
+                          </tr>
+                        </table>
+                        <p><i class="icon-youtube-play"></i> <small>1 vídeo</small> | <i class="icon-list"></i> <small>5 atividades</small></p>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="course-instructors row">
+              <div class="col-sm-12 col-lg-12">
+                <div class="page-header-double">
+                  <h3><i class="icon-double-angle-right"></i> Professores</h3>
+                </div>
+                <a href="#professorModal" data-toggle="modal" class="btn btn-success">Adicionar</a>
+              </div>
+
+              <div class="col-sm-12 col-lg-12">
+                <div id="luciano-ramalho" class="instructor row hidden">
+                  <div class="col-sm-3 col-lg-3">
+                    <img src="../img/avatar-default.png" class="img-thumbnail">
+                  </div>
+                  <div class="col-sm-9 col-lg-9">
+                    <h1 class="fullname bottom top">Luciano Ramalho</h1>
+                    <h2 class="job-title top">Instrutor</h2>
+                    <p>Luciano Ramalho é sócio e professor nas Oficinas Turing. Foi diretor técnico do Brasil Online, primeiro portal da Abril S/A na Web. Liderou times para os portais IDG Now, BOL, UOL, AOL Brasil e outros, usando Python desde 1998. Como instrutor, atendeu clientes como Citibank, CPqD, Serpro, Presidência da República, Globo.com e Itaú. Ajudou a criar a Associação Python Brasil e foi seu presidente. É membro da Python Software Foundation e fundador do Garoa Hacker Clube, o primeiro hackerspace do Brasil. Já palestrou várias vezes em eventos internacionais como FISL, OSCON e PyCon US.</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <div class="col-sm-3 col-lg-3">
+            <div class="row">
+              <section class="course-summary col-sm-12 col-lg-12">
+                <div class="page-header-double top">
+                  <h3 class="top"><i class="icon-double-angle-right"></i> Resumo</h3>
+                </div>
+                <p class="editable"><a data-toggle="modal" href="#textModal">Clique para adicionar o texto</a></p>
+                <hr/>
+                <div class="page-header-double top">
+                  <h3 class="top"><i class="icon-double-angle-right"></i> Estrutura do curso</h3>
+                </div>
+                <p class="editable"><a data-toggle="modal" href="#textModal">Clique para adicionar o texto</a></p>
+                <hr/>
+                <div class="page-header-double top">
+                  <h3 class="top"><i class="icon-double-angle-right"></i> Carga horária</h3>
+                </div>
+                <p class="editable"><a data-toggle="modal" href="#textModal">Clique para adicionar o texto</a></p>
+                <hr/>
+              </section>
+
+              <section class="course-social col-sm-12 col-lg-12" style="position:relative;overflow:hidden;">
+              </section>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- END MAIN CONTENT -->
+    </div>
+    <!-- END CONTAINER -->
+  </div>
+  <!-- END WRAPPER -->
+
+
+
+  <!-- FOOTER -->
+  <div id="main-footer" class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3 col-lg-3">
+          <ul class="no-bullet">
+            <li><a href="">Sobre</a></li>
+            <li><a href="">Equipe</a></li>
+            <li><a href="">Imprensa</a></li>
+            <li><a href="">Contato</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-3 col-lg-3">
+          <ul class="no-bullet">
+            <li><a href="">Blog</a></li>
+            <li><a href="">Ajuda</a></li>
+            <li><a href="">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-3 col-lg-3">
+          <ul class="no-bullet">
+            <li><a href="">Política de Uso</a></li>
+            <li><a href="">Política de Privacidade</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-3 col-lg-3">
+          Coluna 4
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END FOOTER -->
+
+  <div class="modal fade" id="textModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          <div class="text-editor">
+            <div class="row">
+              <div class="col-lg-12">
+                <i class="icon-bold"></i>
+                <i class="icon-italic"></i>
+                <i class="icon-link"></i>
+                <i class="icon-quote-left"></i>
+                <i class="icon-code"></i>
+                <i class="icon-list-ol"></i>
+                <i class="icon-align-left"></i>
+                <i class="icon-align-center"></i>
+                <i class="icon-align-right"></i>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12 form-group">
+                <textarea class="col-lg-12 form-control" rows="15"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal professor-modal fade" id="professorModal" tabindex="-1" role="dialog" aria-labelledby="professorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Adicionar Professor</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-4">
+              <p class="form-group"><input type="search" class="form-control col-lg-12" placeholder="Procurar professor"></p>
+              <ul class="contacts">
+                <li class="title">A</li>
+                <li>Anderson Orui</li>
+                <li class="title">B</li>
+                <li>Bruno Martin</li>
+                <li class="title">C</li>
+                <li>Cátia Kitahara</li>
+                <li class="title">D</li>
+                <li class="title">E</li>
+                <li class="title">F</li>
+                <li>Fábio Montefusculo</li>
+                <li class="title">G</li>
+                <li class="title">H</li>
+                <li class="title">I</li>
+                <li class="title">J</li>
+                <li class="title">K</li>
+                <li class="title">L</li>
+                <li class="title">M</li>
+                <li class="title">N</li>
+                <li class="title">O</li>
+                <li class="title">P</li>
+                <li class="title">Q</li>
+                <li class="title">R</li>
+                <li class="title">S</li>
+                <li class="title">T</li>
+                <li class="title">U</li>
+                <li class="title">V</li>
+                <li class="title">X</li>
+                <li class="title">W</li>
+                <li class="title">Y</li>
+                <li class="title">Z</li>
+              </ul>
+            </div>
+            <div class="col-lg-8">
+              <form>
+                <div class="form-group">
+                  <label>Nome do professor</label>
+                  <input type="text" class="form-control col-lg-12" placeholder="Nome do professor">
+                </div>
+                <div class="form-group">
+                  <label>Biografia</label>
+                  <div class="text-editor">
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <i class="icon-bold"></i>
+                        <i class="icon-italic"></i>
+                        <i class="icon-link"></i>
+                        <i class="icon-quote-left"></i>
+                        <i class="icon-code"></i>
+                        <i class="icon-list-ol"></i>
+                        <i class="icon-align-left"></i>
+                        <i class="icon-align-center"></i>
+                        <i class="icon-align-right"></i>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <textarea class="col-lg-12 form-control" rows="15"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal lesson-modal fade" id="lessonModal" tabindex="-1" role="dialog" aria-labelledby="lessonModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Adicionar Aula</h4>
+        </div>
+        <div class="modal-body">
+          <div class="main-lesson-content row">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label>Título</label>
+                <input type="text" class="form-control" placeholder="Título da aula">
+              </div>
+              <div class="form-group">
+                <label>Descrição</label>
+                <textarea class="col-lg-12 form-control" rows="5"></textarea>
+              </div>
+              <div class="form-group">
+                <label>Notas do professor</label>
+                <div class="text-editor">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <i class="icon-bold"></i>
+                      <i class="icon-italic"></i>
+                      <i class="icon-link"></i>
+                      <i class="icon-quote-left"></i>
+                      <i class="icon-code"></i>
+                      <i class="icon-list-ol"></i>
+                      <i class="icon-align-left"></i>
+                      <i class="icon-align-center"></i>
+                      <i class="icon-align-right"></i>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <textarea class="col-lg-12 form-control" rows="15"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <nav class="textcenter">
+                      <div class="circle selected"></div>
+                      <div class="circle"></div>
+                      <button class="next btn btn-success">Continuar <i class="icon-double-angle-right"></i></button>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="main-lesson-units row">
+            <div class="col-lg-12">
+              <div class="row">
+                <div class="col-lg-3">
+                  <p><button class="btn btn-success btn-lg col-lg-12 uppercase">adicionar unidade</button></p>
+                  <ul class="units">
+                    <li class="selected">
+                      <div class="row">
+                        <div class="col-lg-1"><i class="icon-reorder"></i></div>
+                        <div class="col-lg-8"><a href="">Unidade 1</a></div>
+                        <div class="col-lg-2 textright"><i class="icon-remove alignright"></i></div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="row">
+                        <div class="col-lg-1"><i class="icon-reorder"></i></div>
+                        <div class="col-lg-8"><a href="">Unidade 2</a></div>
+                        <div class="col-lg-2 textright"><i class="icon-remove alignright"></i></div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="row">
+                        <div class="col-lg-1"><i class="icon-reorder"></i></div>
+                        <div class="col-lg-8"><a href="">Unidade 3</a></div>
+                        <div class="col-lg-2 textright"><i class="icon-remove alignright"></i></div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="row">
+                        <div class="col-lg-1"><i class="icon-reorder"></i></div>
+                        <div class="col-lg-8"><a href="">Unidade 4</a></div>
+                        <div class="col-lg-2 textright"><i class="icon-remove alignright"></i></div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="row">
+                        <div class="col-lg-1"><i class="icon-reorder"></i></div>
+                        <div class="col-lg-8"><a href="">Unidade 5</a></div>
+                        <div class="col-lg-2 textright"><i class="icon-remove alignright"></i></div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-lg-9">
+                  <div class="page-header top">
+                    <h3 class="top">Unidade #1</h3>
+                  </div>
+                  <div class="form-group has-success">
+                    <label class="control-label">Título</label>
+                    <input type="text" class="form-control" placeholder="Título para a unidade">
+                  </div>
+
+                  <div class="form-group has-error">
+                    <label class="control-label">Vídeo URL</label>
+                    <input type="text" class="form-control video-url" placeholder="http://www.youtube.com/watch?v=">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label">Atividade</label>
+                    <p>
+                      <button class="single-choice btn btn-sm btn-default">Escolha simples</button>
+                      <button class="multiple-choice btn btn-sm btn-default">Múltipla escolha</button>
+                      <button class="true-or-false btn btn-sm btn-default">Verdadeiro ou falso</button>
+                      <button class="order btn btn-sm btn-default">Ordenação</button>
+                    </p>
+                  </div>
+
+                  <div class="form-group single-choice">
+                    <div class="form-horizontal">
+                      <div class="form-group">
+                        <label class="control-label col-lg-3">Pergunta</label>
+                        <div class="col-lg-9">
+                          <textarea class="form-control" placeholder="Digite a pergunta">Quem deixou a garrafa térmica aberta?</textarea>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-lg-3">Resposta correta</label>
+                        <div class="col-lg-9">
+                          <input type="text" class="form-control" placeholder="Digite a resposta correta" value="Asa"/>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-lg-3">Resposta errada #1</label>
+                        <div class="col-lg-9">
+                          <input type="text" class="form-control" placeholder="Digite a resposta errada" value="Pedro"/>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-lg-3">Resposta errada #2</label>
+                        <div class="col-lg-9">
+                          <input type="text" class="form-control" placeholder="Digite a resposta errada" value="Anderson"/>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-lg-3">Resposta errada #3</label>
+                        <div class="col-lg-9">
+                          <input type="text" class="form-control" placeholder="Digite a resposta errada" value="Santa"/>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-lg-3">Resposta errada #4</label>
+                        <div class="col-lg-9">
+                          <input type="text" class="form-control" placeholder="Digite a resposta errada" value="Guti Guti"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group multiple-choice">múltipla escolha</div>
+                  <div class="form-group true-or-false">Verdadeiro ou falso</div>
+                  <div class="form-group order">Ordenação</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <nav class="textcenter">
+                      <button class="prev btn btn-success"><i class="icon-double-angle-left"></i> Voltar</button>
+                      <div class="circle"></div>
+                      <div class="circle selected"></div>
+                      <button class="next btn btn-success disabled">Continuar <i class="icon-double-angle-right"></i></button>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <a href="aula-1.html" type="button" class="btn btn-primary disabled">Save changes</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

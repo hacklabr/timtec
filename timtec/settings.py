@@ -123,7 +123,18 @@ PIPELINE_CSS = {
         ),
         'output_filename': 'css/all.css',
         'extra_context': {
-            'media': 'screen,projection, print',
+            'media': 'screen,projection,print',
+        },
+    },
+    'admin': {
+        'source_filenames': (
+            'fonts/questrial/stylesheet.css',
+            'fonts/font-awesome/stylesheet.css',
+            'css/main-admin.less',
+        ),
+        'output_filename': 'css/admin.css',
+        'extra_context': {
+            'media': 'screen,projection,print',
         },
     },
 }

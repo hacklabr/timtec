@@ -1,0 +1,250 @@
+@import url(main.less);
+
+
+body#admin {
+
+  #main-navbar.navbar-inverse {
+    background-color:@brand-danger;
+    border-color:darken(@brand-danger, 15%);
+  }
+
+  .icon-editable {
+    color:@brand-info;
+    cursor:pointer;
+    font-size:18px;
+    margin:0 10px;
+    vertical-align:middle !important;
+  }
+  .icon-addable {
+    color:@brand-success;
+    cursor:pointer;
+    font-size:18px;
+    margin:0 10px;
+    vertical-align:middle !important;
+  }
+
+  .add-video-intro {
+    border:1px solid @gray-lighter;
+    color:@brand-danger;
+    height:489px;
+
+    &:before {
+      content:'';
+      height:100%;
+      .vertical-align(middle);
+    }
+
+    .centered {
+      .vertical-align(middle);
+      width:400px;
+    }
+
+    .icon-youtube-play {
+      display:block;
+      font-size:54px;
+    }
+  }
+
+  .edit-video-intro {
+    cursor:pointer;
+    display:none;
+    left:25px;
+    position:absolute;
+    top:10px;
+    z-index:1000;
+  }
+
+  .text-editor {
+    i {
+      color:@gray-dark;
+      cursor:pointer;
+      display:inline-block;
+      margin-bottom:7px;
+      margin-right:12px;
+      &:hover {
+        color:#000;
+      }
+    }
+    textarea {
+      width:100%;
+    }
+  }
+
+  ul.contacts {
+    list-style:none;
+    margin:0;
+    padding:0;
+    li {
+      border-bottom:1px solid @gray-lighter;
+      padding:3px 0;
+      &.title {
+        color:@brand-info;
+        font-weight:bold;
+      }
+    }
+  }
+
+  .modal-footer {
+    padding-left:0;
+    padding-right:0;
+  }
+
+  .professor-modal {
+
+    input[type="search"] {
+      margin-top:25px;
+    }
+
+    ul.contacts {
+      max-height:450px;
+      overflow:auto;
+      position:relative;
+    }
+
+  }
+
+  .lesson-modal {
+    nav {
+      border-top:1px solid @gray-lighter;
+      margin-top:30px;
+      padding-top:13px;
+      position:relative;
+      button.next {
+        position:absolute;
+        right:0;
+      }
+      button.prev {
+        left:0;
+        position:absolute;
+      }
+      .circle {
+        background:@gray-light;
+        border:5px solid @gray-lighter;
+        border-radius:10px;
+        cursor:pointer;
+        display:inline-block;
+        height:20px;
+        margin-top:5px;
+        width:20px;
+        &.selected, &.selected:hover {
+          background:@brand-success;
+          border:5px solid @gray-lighter;
+        }
+        &:hover {
+          background:@gray;
+          border:5px solid @gray-lighter;
+        }
+      }
+
+    }
+    ul.units {
+      list-style:none;
+      margin:26px 0 0;
+      padding:0;
+      li {
+        border-bottom:1px solid @gray-lighter;
+        padding:6px 0;
+        &:first-child {
+          border-top:1px solid @gray-lighter;
+        }
+        &.selected {
+          font-weight:bold;
+        }
+        .icon-reorder, .icon-remove {
+          color:@gray !important;
+        }
+      }
+    }
+    iframe {
+      margin-top:10px;
+    }
+  }
+
+  .course-lessons {
+    .table {
+      tr {
+        td.add-unit {
+          background:@brand-success;
+          cursor:pointer;
+          text-align:center;
+          width:19px;
+        }
+      }
+    }
+  }
+
+  .main-lesson-units {
+    display:none;
+  }
+
+  .form-group {
+    position:relative;
+    &.has-success {
+      .control-label {
+        color:@brand-success;
+      }
+      .form-control {
+        border-color:@brand-success;
+      }
+      i {
+        color:@brand-success;
+        font-size:20px;
+        position:absolute;
+        right:10px;
+        top:32px;
+      }
+    }
+    &.has-error {
+      .control-label {
+        color:@brand-danger;
+      }
+      .form-control {
+        border-color:@brand-danger;
+      }
+      i {
+        color:@brand-danger;
+        font-size:20px;
+        position:absolute;
+        right:10px;
+        top:32px;
+      }
+    }
+    .control-label {
+      text-align:left;
+    }
+    .form-control {
+      border-radius:4px;
+      border-width:2px;
+      box-shadow:none;
+      color:@gray-darker;
+    }
+    &.single-choice {
+      background:@gray-lighter;
+      border-radius:3px;
+      padding:10px;
+    }
+  }
+
+  input[type="search"] {
+    background:@gray-lighter;
+    border-color:@gray-lighter;
+    &:focus {
+      background:darken(@gray-lighter,5%);
+      border-color:darken(@gray-lighter,5%);
+    }
+    &::-webkit-input-placeholder, &::-mox-placeholder {
+      color:@gray;
+      font-size:11px;
+      line-height:2;
+      text-align:center;
+      text-transform:uppercase;
+      &:before {
+        content:"\f002";
+        font-family:"FontAwesome";
+        margin-right:5px;
+      }
+    }
+  }
+
+
+}
