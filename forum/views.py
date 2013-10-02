@@ -6,10 +6,12 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 from core.models import Course
-from forum.models import Question, Answer
+from forum.models import Question, Answer, QuestionVote, AnswerVote
 from forum.forms import QuestionForm
-from forum.serializers import QuestionSerializer, AnswerSerializer
+from forum.serializers import QuestionSerializer, AnswerSerializer, QuestionVoteSerializer, AnswerVoteSerializer
 from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework import status
 
 
 class CourseForumView(LoginRequiredMixin, ListView):
@@ -28,7 +30,7 @@ class CourseForumView(LoginRequiredMixin, ListView):
         return context
 
 
-class QuestionView(DetailView, LoginRequiredMixin):
+class QuestionView(LoginRequiredMixin, DetailView):
     model = Question
     context_object_name = 'question'
     template_name = 'question.html'
@@ -76,3 +78,31 @@ class AnswerViewSet(viewsets.ModelViewSet):
     def pre_save(self, obj):
         obj.user = self.request.user
         return super(AnswerViewSet, self).pre_save(obj)
+
+
+class QuestionVoteViewSet(viewsets.ModelViewSet):
+    model = QuestionVote
+    serializer_class = QuestionVoteSerializer
+    # Get Question vote usign kwarg as questionId
+    lookup_field = "question"
+
+    def pre_save(self, obj):
+        obj.user = self.request.user
+        # Get Question vote usign kwarg as questionId
+        if 'question' in self.kwargs:
+            obj.question = Question.objects.get(pk=int(self.kwargs['question']))
+            self.kwargs['question'] = obj.question
+        return super(QuestionVoteViewSet, self).pre_save(obj)
+
+    def get_queryset(self):
+        user = self.request.user
+        return QuestionVote.objects.filter(user=user)
+
+
+class AnswerVoteViewSet(viewsets.ModelViewSet):
+    model = AnswerVote
+    serializer_class = AnswerVoteSerializer
+
+    def pre_save(self, obj):
+        obj.user = self.request.user
+        return super(AnswerVoteViewSet, self).pre_save(obj)

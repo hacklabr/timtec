@@ -1,7 +1,7 @@
 (function (angular) {
     "use strict";
 
-    var app = angular.module('answer', ['ngRoute', 'ngResource', "ngCookies", "ngSanitize"]);
+    var app = angular.module('answer', ['ngRoute', 'ngResource', "ngCookies", "ngSanitize", "timtecVote"]);
 
     // Uses the csrftoken from the cookie
     app.run(function ($http, $cookies) {
@@ -31,7 +31,7 @@
     }]);
 
     app.factory('Answer', function($resource){
-        return $resource('/api/answer/', {}, {
+        return $resource('/api/forum_answer/', {}, {
             create: {method: 'POST'}
         });
     });

@@ -1,4 +1,4 @@
-from forum.models import Question, Answer
+from forum.models import Question, Answer, QuestionVote, AnswerVote
 from rest_framework import serializers
 
 
@@ -30,3 +30,22 @@ class AnswerSerializer(serializers.ModelSerializer):
             return obj.user.username
         else:
             return u''
+
+
+class QuestionVoteSerializer(serializers.ModelSerializer):
+
+    user = serializers.IntegerField(read_only=True)
+    timestamp = serializers.DateTimeField(read_only=True)
+
+    class Meta:
+        model = QuestionVote
+        fields = ('question', 'timestamp', 'user', 'value')
+
+
+class AnswerVoteSerializer(serializers.ModelSerializer):
+
+    timestamp = serializers.DateTimeField(read_only=True)
+
+    class Meta:
+        model = AnswerVote
+        fields = ('question', 'timestamp', 'user', 'value')

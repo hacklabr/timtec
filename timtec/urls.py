@@ -10,14 +10,16 @@ admin.autodiscover()
 from accounts.views import CustomLoginView, ProfileEditView, RegistrationUniqueEmailView
 from core.views import CourseView, EnrollCourseView, HomeView, UserCoursesView
 from lesson.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, ReceiveAnswerView
-from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, AnswerViewSet
+from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, AnswerViewSet, QuestionVoteViewSet, AnswerVoteViewSet
 from rest_framework import routers
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'lessons', LessonViewSet)
 router.register(r'student_progress', StudentProgressViewSet)
-router.register(r'question', QuestionViewSet)
-router.register(r'answer', AnswerViewSet)
+router.register(r'forum_question', QuestionViewSet)
+router.register(r'forum_answer', AnswerViewSet)
+router.register(r'question_vote', QuestionVoteViewSet)
+router.register(r'answer_vote', AnswerVoteViewSet)
 
 
 urlpatterns = patterns(

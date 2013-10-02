@@ -25,6 +25,10 @@ class Question(models.Model):
     def __unicode__(self):
         return self.title
 
+    @property
+    def count_votes(self):
+        return self.votes.aggregate(models.Sum('value'))['value__sum'] or 0
+
 
 class Answer(models.Model):
     question = models.ForeignKey(Question, related_name='answers', verbose_name=_('Question'))
@@ -39,6 +43,8 @@ class Answer(models.Model):
 class Vote(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('User'))
     timestamp = models.DateTimeField(auto_now_add=True, editable=False)
+    # Defines vote up or vote down. Vote up:1; Vote down: -1.
+    value = models.IntegerField(null=False, blank=False)
 
 
 class QuestionVote(Vote):

@@ -774,7 +774,7 @@ a.instructor {
 
       .arrow-up(14px, @graypLight) {
         margin:0 auto;
-        &:hover {
+        &:hover, &.active {
           border-bottom-color:@timGreen1;
           cursor:pointer;
         }
@@ -782,7 +782,7 @@ a.instructor {
       .arrow-down(14px, @graypLight) {
         margin:0 auto;
         .size(0,0);
-        &:hover {
+        &:hover, &.active {
           border-top-color:@timGreen1;
           cursor:pointer;
         }
@@ -997,7 +997,7 @@ a.instructor {
         .arrow-up {
           .arrow-up(21px, @gray-light);
           margin:0 auto;
-          &:hover {
+          &:hover, &.active {
             border-bottom-color:@brand-success;
             cursor:pointer;
           }
@@ -1006,7 +1006,7 @@ a.instructor {
           .arrow-down(21px, @gray-light);
           margin:0 auto;
           .size(0,0);
-          &:hover {
+          &:hover, &.active {
             border-top-color:@brand-success;
             cursor:pointer;
           }
