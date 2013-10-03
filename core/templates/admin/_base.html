@@ -56,14 +56,15 @@
           <div class="col-sm-9 col-lg-9">
             <section class="course-video top row">
               <div class="col-lg-12">
-                <div class="edit-video-intro">
+                <div ng-show="course.intro_video">
+                  <iframe class="col-sm-12 col-lg-12 left right" id="ytplayer" type="text/html" height="489" src="https://www.youtube.com/embed/{{course.intro_video.youtube_id}}?rel=0&showinfo=0&autohide=1&theme=light" frameborder="0" allowfullscreen></iframe>
                   <button class="btn btn-danger btn-lg uppercase">Alterar vídeo</button>
                 </div>
-                <div class="add-video-intro col-sm-12 col-lg-12 left right textcenter">
+                <div class="add-video-intro col-sm-12 col-lg-12 left right textcenter" ng-hide="course.intro_video">
                   <div class="centered">
                     <i class="icon-youtube-play"></i>
                     <h1 class="top">Vídeo de introdução</h1>
-                    <p class="form-group"><input type="text" class="form-control" placeholder="http://www.youtube.com/watch?v="/></p>
+                    <p class="form-group"><input type="text" class="form-control" placeholder="http://www.youtube.com/watch?v={{course.intro_video.youtube_id}}"/></p>
                     <p><button class="btn btn-success btn-lg uppercase">Adicionar</button></p>
                   </div>
                 </div>
@@ -76,14 +77,14 @@
                   <h3 class="top"><i class="icon-double-angle-right"></i> Aplicação do Conhecimento</h3>
                 </div>
                 <div class="editable" ng-bind-html="course.application"></div>
-                <a data-toggle="modal" href="#applicationModal">Clique para adicionar o texto</a>
+                <a data-toggle="modal" href="#applicationModal">Editar texto</a>
               </div>
               <div class="col-sm-6 col-lg-6">
                 <div class="page-header-double">
                   <h3 class="top"><i class="icon-double-angle-right"></i> O que preciso saber</h3>
                 </div>
                 <div class="editable" ng-bind-html="course.requirement"></div>
-                <a data-toggle="modal" href="#requirementModal">Clique para adicionar o texto</a>
+                <a data-toggle="modal" href="#requirementModal">Editar texto</a>
               </div>
             </section>
 
@@ -95,20 +96,23 @@
 
                 <a href="#lessonModal" data-toggle="modal" class="btn btn-success">Adicionar</a>
 
-                <ul class="no-bullet hidden">
-                  <li>
+                {% verbatim %}
+                <ul class="no-bullet">
+                  <li ng-repeat="lesson in course.lessons">
                     <div class="row">
                       <div class="col-lg-3 col-sm-3">
-                        <img src="../img/aula-thumb.png" class="img-thumbnail">
+                        <img src="/static/img/lesson-default.png" class="img-thumbnail">
                       </div>
                       <div class="col-lg-9 col-sm-9">
                         <p>
-                          <span class="title">Aula 1: Modelos de dados e introdução ao modelo relacional</span>
-                          <span class="description">Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis.</span>
+                          <span class="title">{{ lesson.name }}</span>
+                          <span class="description">{{ lesson.desc }}</span>
                         </p>
                         <table class="table">
                           <tr>
-                            <td><span class="has-tooltip unit" data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade">&nbsp;</span></td>
+                            <td ng-repeat="unit in lesson.units">
+                              <span class="has-tooltip unit" data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade {{$index}}">&nbsp;</span>
+                            </td>
                           </tr>
                         </table>
                         <p><i class="icon-youtube-play"></i> <small>1 vídeo</small> | <i class="icon-list"></i> <small>5 atividades</small></p>
@@ -116,6 +120,7 @@
                     </div>
                   </li>
                 </ul>
+                {% endverbatim %}
               </div>
             </section>
 
@@ -127,18 +132,20 @@
                 <a href="#professorModal" data-toggle="modal" class="btn btn-success">Adicionar</a>
               </div>
 
-              <div class="col-sm-12 col-lg-12">
-                <div id="luciano-ramalho" class="instructor row hidden">
+              {% verbatim %}
+              <div ng-repeat="professor in course.professors" class="col-sm-12 col-lg-12">
+                <div id="{{ professor.user.username }}" class="instructor row">
                   <div class="col-sm-3 col-lg-3">
-                    <img src="../img/avatar-default.png" class="img-thumbnail">
+                    <img ng-src="{{professor.user.picture}}" class="img-thumbnail">
                   </div>
                   <div class="col-sm-9 col-lg-9">
-                    <h1 class="fullname bottom top">Luciano Ramalho</h1>
-                    <h2 class="job-title top">Instrutor</h2>
-                    <p>Luciano Ramalho é sócio e professor nas Oficinas Turing. Foi diretor técnico do Brasil Online, primeiro portal da Abril S/A na Web. Liderou times para os portais IDG Now, BOL, UOL, AOL Brasil e outros, usando Python desde 1998. Como instrutor, atendeu clientes como Citibank, CPqD, Serpro, Presidência da República, Globo.com e Itaú. Ajudou a criar a Associação Python Brasil e foi seu presidente. É membro da Python Software Foundation e fundador do Garoa Hacker Clube, o primeiro hackerspace do Brasil. Já palestrou várias vezes em eventos internacionais como FISL, OSCON e PyCon US.</p>
+                    <h1 class="fullname bottom top">{{ professor.user.name }}</h1>
+                    <h2 class="job-title top">{{ professor.role }}</h2>
+                    <p>{{ professor.biography }}</p>
                   </div>
                 </div>
               </div>
+              {% endverbatim %}
             </section>
           </div>
 
@@ -149,21 +156,21 @@
                   <h3 class="top"><i class="icon-double-angle-right"></i> Resumo</h3>
                 </div>
                 <div class="editable" ng-bind-html="course.abstract"></div>
-                <a data-toggle="modal" href="#abstractModal">Clique para adicionar o texto</a>
+                <a data-toggle="modal" href="#abstractModal">Editar texto</a>
                 <hr/>
 
                 <div class="page-header-double top">
                   <h3 class="top"><i class="icon-double-angle-right"></i> Estrutura do curso</h3>
                 </div>
                 <div class="editable" ng-bind-html="course.structure"></div>
-                <a data-toggle="modal" href="#structureModal">Clique para adicionar o texto</a>
+                <a data-toggle="modal" href="#structureModal">Editar texto</a>
                 <hr/>
 
                 <div class="page-header-double top">
                   <h3 class="top"><i class="icon-double-angle-right"></i> Carga horária</h3>
                 </div>
                 <div class="editable" ng-bind-html="course.workload"></div>
-                <a data-toggle="modal" href="#workloadModal">Clique para adicionar o texto</a>
+                <a data-toggle="modal" href="#workloadModal">Editar texto</a>
                 <hr/>
               </section>
 
@@ -245,7 +252,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" ng-click="reset(modal)" class="btn btn-default" data-dismiss="modal">Cancelar</button>
               <button type="button" class="btn btn-primary">Save changes</button>
             </div>
           </div>
@@ -276,7 +283,7 @@
                 <li class="title">D</li>
                 <li class="title">E</li>
                 <li class="title">F</li>
-                <li>Fábio Montefusculo</li>
+                <li>Fábio Montefuscolo</li>
                 <li class="title">G</li>
                 <li class="title">H</li>
                 <li class="title">I</li>

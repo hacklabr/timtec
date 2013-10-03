@@ -26,22 +26,24 @@
 
     app.controller('CourseEdit',['$scope','CourseData',
         function($scope, CourseData){
-            $scope.modals = ['application', 'requirement', 'abstract',
-                             'structure', 'workload'];
-
-            CourseData.then(function(course){
-
-            });
+            $scope.modals = ['application', 'requirement', 'abstract', 'structure', 'workload'];
         }
     ]);
 
 
     app.factory('CourseData', ['$rootScope', '$q', '$resource',
         function($rootScope, $q, $resource, $window) {
-            var Course = $resource('/api/course/:courseSlug/');
+            var Course = $resource('/api/course/:courseSlug/',{'courseSlug': courseSlug});
             var deferred = $q.defer();
-            Course.get({'courseSlug': courseSlug}, function(course){
+
+            Course.get(function(course){
                 $rootScope.course = course;
+                $rootScope.__course__ = angular.copy(course);
+
+                $rootScope.reset = function(field) {
+                    $rootScope.course[field] = angular.copy($rootScope.__course__[field]);
+                };
+
                 deferred.resolve(course);
             });
             return deferred.promise;

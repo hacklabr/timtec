@@ -7278,7 +7278,6 @@ body#admin .add-video-intro .icon-youtube-play {
 }
 body#admin .edit-video-intro {
   cursor: pointer;
-  display: none;
   left: 25px;
   position: absolute;
   top: 10px;

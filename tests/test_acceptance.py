@@ -3,7 +3,7 @@ import pytest
 
 @pytest.mark.django_db
 def test_is_admin_working(client):
-    response = client.get('/admin/')
+    response = client.get('/django/admin/')
     assert response.status_code == 200
     assert 'Timtec Admin' in response.content
 
@@ -17,7 +17,7 @@ def test_mainview(client):
 
 
 def test_admin_user(admin_client):
-    response = admin_client.get('/admin/core/timtecuser/?q=luciano')
+    response = admin_client.get('/django/admin/core/timtecuser/?q=luciano')
     assert 'luciano@ramalho.org' in response.content
 
 
