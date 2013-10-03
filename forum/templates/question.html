@@ -51,22 +51,27 @@
                 <!-- QUESTION -->
                 <article class="question">
                     <header>
-                        <h1>{{ question.title }}</h1>
-                    </header>
-                    <div class="row">
-                        <div class="col-sm-2 col-lg-2">
-                            <div class="row">
-                                <div class="rating col-sm-12 col-lg-12" ng-app="vote" ng-controller="QuestionVoteCtrl">
-                                    <div class="arrow-up" ng-class="user_question_vote_up" ng-click=voteUp()></div>
-                                    <div class="votes" ng-init="question_votes={{ question.count_votes }}">{% verbatim angularjs %}{{ question_votes }}{% endverbatim angularjs %}</div>
-                                    <div class="arrow-down" ng-class="user_question_vote_down" ng-click=voteDown()></div>
-                                </div><!-- .rating -->
+                        <div class="row">
+                            <div class="col-sm-2 col-lg-2">
+                                <div class="row">
+                                    <div class="rating col-sm-12 col-lg-12" ng-app="vote" ng-controller="QuestionVoteCtrl">
+                                        <div class="arrow-up" ng-class="user_question_vote_up" ng-click=voteUp()></div>
+                                        <div class="votes" ng-init="question_votes={{ question.count_votes }}">{% verbatim angularjs %}{{ question_votes }}{% endverbatim angularjs %}</div>
+                                        <div class="arrow-down" ng-class="user_question_vote_down" ng-click=voteDown()></div>
+                                    </div><!-- .rating -->
+                                </div>
                             </div>
-                            <div class="author clearfix">
-                                pergunta feita em <strong>{{ question.timestamp|date:"j/m/y" }}</strong> por <a href="profile.html">{{ question.user.username }}</a>
+                            
+                            <div class="col-lg-10">
+                                <h1 class="top">{{ question.title }}</h1>
+                                <p class="author clearfix">
+                                    Pergunta feita em <strong>{{ question.timestamp|date:"j/m/y" }}</strong> por <a href="profile.html">{{ question.user.username }}</a>
+                                </p>
                             </div>
                         </div>
-                        <div class="question-body col-sm-10 col-lg-10">
+                    </header>
+                    <div class="row">
+                        <div class="question-body col-sm-10 col-lg-10 col-lg-offset-2">
                             <p>{{ question.text|my_markdown }}</p>
                         </div><!-- .question-body -->
                     </div>
