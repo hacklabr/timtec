@@ -100,15 +100,18 @@
                                         <div class="arrow-up"></div>
                                         <div class="votes">{{ answer.votes.count }}</div>
                                         <div class="arrow-down"></div>
+                                        <div class="set-correct col-sm-12 col-lg-12">
+                                            <i class="icon-ok"></i>
+                                        </div>
                                     </div><!-- .rating -->
-                                </div>
-                                <div class="author clearfix">
-                                    resposta feita em <strong>{{ answer.timestamp|date:"j/m/y" }}</strong> por <a href="profile.html">{{ answer.user.username }}</a>
                                 </div>
                             </div>
 
                             <div class="answer-body col-sm-10 col-lg-10">
                                 <p>{{ answer.text|my_markdown }}</p>
+                                <p class="author textright">
+                                    Resposta feita em <strong>{{ answer.timestamp|date:"j/m/y" }}</strong> por <a href="profile.html">{{ answer.user.username }}</a>
+                                </p>
                             </div><!-- .answer-body -->
                         </div>
                     </article>

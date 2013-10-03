@@ -962,6 +962,7 @@ a.instructor {
           font-size:27px;
         }
       }
+      
       .author {
         background:@gray-lighter;
         font-size:12px;
@@ -971,6 +972,7 @@ a.instructor {
           font-weight:bold;
         }
       }
+      
       .question-tag {
         border-top:1px solid @gray-lighter;
         .top(14px, 14px);
@@ -992,6 +994,7 @@ a.instructor {
           }
         }
       }
+      
       .rating {
         .vertical-align(middle);
         text-align:center;
@@ -999,7 +1002,7 @@ a.instructor {
           .arrow-up(21px, @gray-light);
           margin:0 auto;
           &:hover, &.active {
-            border-bottom-color:@brand-success;
+            border-bottom-color:@brand-warning;
             cursor:pointer;
           }
         }
@@ -1008,7 +1011,7 @@ a.instructor {
           margin:0 auto;
           .size(0,0);
           &:hover, &.active {
-            border-top-color:@brand-success;
+            border-top-color:@brand-warning;
             cursor:pointer;
           }
         }
@@ -1018,8 +1021,19 @@ a.instructor {
           margin:6px 0;
           text-align:center;
         }
+        .set-correct {
+            color:@gray-light;
+            cursor:pointer;
+            font-size:36px;
+            margin-top:10px;
+            &:hover, &.selected {
+                color:@brand-success;
+            }
+        }
       }
     }
+    
+    
     .questions {
       .top(18px,0);
       article {
@@ -1077,7 +1091,7 @@ a.instructor {
           .arrow-up(14px, @gray-light) {
             margin:0 auto;
             &:hover {
-              border-bottom-color:@brand-success;
+              border-bottom-color:@brand-warning;
               cursor:pointer;
             }
           }
@@ -1085,7 +1099,7 @@ a.instructor {
             margin:0 auto;
             .size(0,0);
             &:hover {
-              border-top-color:@brand-success;
+              border-top-color:@brand-warning;
               cursor:pointer;
             }
           }
@@ -1097,6 +1111,7 @@ a.instructor {
         }
       }
     }
+
     .answers {
       .top(21px,21px);
       header {
@@ -1127,6 +1142,7 @@ a.instructor {
         .top(21px,21px);
       }
     }
+
     .your-answer {
       .top(21px,21px);
       header {
@@ -1142,6 +1158,7 @@ a.instructor {
         margin-top:14px;
       }
     }
+
     aside {
       .heading {
         h3 {
