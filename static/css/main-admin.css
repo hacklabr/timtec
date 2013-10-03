@@ -6769,6 +6769,32 @@ a.instructor:hover {
   border-top: 1px dotted #bdc3c7;
   padding-top: 14px;
 }
+.course-activity {
+  border: 1px solid #ecf0f1;
+  min-height: 427px;
+  position: relative;
+}
+.course-activity .submit {
+  border-top: 1px solid #ecf0f1;
+  bottom: 10px;
+  left: 10px;
+  padding-top: 10px;
+  position: absolute;
+  right: 10px;
+}
+.course-activity label {
+  font-weight: normal;
+}
+.course-activity .wrong {
+  color: #e74c3c;
+}
+.course-activity .correct {
+  color: #2ecc71;
+}
+.course-activity table tr,
+.course-activity table tr td {
+  border: none;
+}
 .course-forum .questions {
   border-top: 1px solid #ecf0f1;
   margin-top: 14px !important;

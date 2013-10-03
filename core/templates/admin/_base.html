@@ -14,7 +14,7 @@
 
   <script type="text/javascript" src="{% static 'js/admin/admin.js' %}" charset="utf-8"></script>
 </head>
-<body id="admin">
+<body id="admin" ng-controller="CourseEdit">
 
   <!-- NAVBAR -->
   <div id="main-navbar" class="navbar navbar-fixed-top navbar-inverse">
@@ -33,14 +33,13 @@
   <!-- WRAPPER -->
   <div class="wrapper">
     <!-- CONTAINER -->
-    <div id="course-content" class="course-intro" ng-controller="CourseEdit">
-
+    <div id="course-content" class="course-intro">
       <!-- HEADER -->
       <header id="main-header" class="container">
         <div class="page-header">
           <div class="row">
             <div class="col-sm-9 col-lg-9">
-              <h1 class="top editable"><span contenteditable="true">Título do curso</span></h1>
+              <h1 class="top editable"><span contenteditable="true" ng-model="course.name"></span></h1>
               <h5><span class="icon-addable icon-plus-sign-alt"></span> Adicionar professores ao curso</h5>
             </div>
             <div class="col-sm-3 col-lg-3 textright">
@@ -76,13 +75,15 @@
                 <div class="page-header-double">
                   <h3 class="top"><i class="icon-double-angle-right"></i> Aplicação do Conhecimento</h3>
                 </div>
-                <p class="editable"><a data-toggle="modal" href="#textModal">Clique para adicionar o texto</a></p>
+                <div class="editable" ng-bind-html="course.application"></div>
+                <a data-toggle="modal" href="#applicationModal">Clique para adicionar o texto</a>
               </div>
               <div class="col-sm-6 col-lg-6">
                 <div class="page-header-double">
                   <h3 class="top"><i class="icon-double-angle-right"></i> O que preciso saber</h3>
                 </div>
-                <p class="editable"><a data-toggle="modal" href="#textModal">Clique para adicionar o texto</a></p>
+                <div class="editable" ng-bind-html="course.requirement"></div>
+                <a data-toggle="modal" href="#requirementModal">Clique para adicionar o texto</a>
               </div>
             </section>
 
@@ -147,17 +148,22 @@
                 <div class="page-header-double top">
                   <h3 class="top"><i class="icon-double-angle-right"></i> Resumo</h3>
                 </div>
-                <p class="editable"><a data-toggle="modal" href="#textModal">Clique para adicionar o texto</a></p>
+                <div class="editable" ng-bind-html="course.abstract"></div>
+                <a data-toggle="modal" href="#abstractModal">Clique para adicionar o texto</a>
                 <hr/>
+
                 <div class="page-header-double top">
                   <h3 class="top"><i class="icon-double-angle-right"></i> Estrutura do curso</h3>
                 </div>
-                <p class="editable"><a data-toggle="modal" href="#textModal">Clique para adicionar o texto</a></p>
+                <div class="editable" ng-bind-html="course.structure"></div>
+                <a data-toggle="modal" href="#structureModal">Clique para adicionar o texto</a>
                 <hr/>
+
                 <div class="page-header-double top">
                   <h3 class="top"><i class="icon-double-angle-right"></i> Carga horária</h3>
                 </div>
-                <p class="editable"><a data-toggle="modal" href="#textModal">Clique para adicionar o texto</a></p>
+                <div class="editable" ng-bind-html="course.workload"></div>
+                <a data-toggle="modal" href="#workloadModal">Clique para adicionar o texto</a>
                 <hr/>
               </section>
 
@@ -208,42 +214,46 @@
   </div>
   <!-- END FOOTER -->
 
-  <div class="modal fade" id="textModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Modal title</h4>
-        </div>
-        <div class="modal-body">
-          <div class="text-editor">
-            <div class="row">
-              <div class="col-lg-12">
-                <i class="icon-bold"></i>
-                <i class="icon-italic"></i>
-                <i class="icon-link"></i>
-                <i class="icon-quote-left"></i>
-                <i class="icon-code"></i>
-                <i class="icon-list-ol"></i>
-                <i class="icon-align-left"></i>
-                <i class="icon-align-center"></i>
-                <i class="icon-align-right"></i>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-12 form-group">
-                <textarea class="col-lg-12 form-control" rows="15"></textarea>
-              </div>
-            </div>
+  {% verbatim %}
+  <div ng-repeat="modal in modals">
+    <div class="modal fade" id="{{modal}}Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Modal title</h4>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+          <div class="modal-body">
+            <div class="text-editor">
+              <div class="row">
+                <div class="col-lg-12">
+                  <i class="icon-bold"></i>
+                  <i class="icon-italic"></i>
+                  <i class="icon-link"></i>
+                  <i class="icon-quote-left"></i>
+                  <i class="icon-code"></i>
+                  <i class="icon-list-ol"></i>
+                  <i class="icon-align-left"></i>
+                  <i class="icon-align-center"></i>
+                  <i class="icon-align-right"></i>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 form-group">
+                  <textarea ng-model="course[modal]" class="col-lg-12 form-control" rows="15"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  {% endverbatim %}
 
   <div class="modal professor-modal fade" id="professorModal" tabindex="-1" role="dialog" aria-labelledby="professorModalLabel" aria-hidden="true">
     <div class="modal-dialog">

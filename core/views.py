@@ -57,5 +57,6 @@ class AdminCourseView(UpdateView):
 
 class CourseViewSet(viewsets.ModelViewSet):
     model = Course
+    lookup_field = 'slug'
     serializer_class = CourseSerializer
 
