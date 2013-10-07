@@ -24,26 +24,27 @@
     });
 
 
-    app.controller('CourseEdit',['$scope','CourseData',
-        function($scope, CourseData){
+    app.controller('CourseEdit',['$scope','CourseDataFactory',
+        function($scope, CourseDataFactory){
             $scope.modals = ['application', 'requirement', 'abstract', 'structure', 'workload'];
+
+            CourseDataFactory.then(function(course){
+                var __course__ = angular.copy(course);
+                $scope.course = course;
+                $scope.reset = function(field) {
+                    course[field] = angular.copy(__course__[field]);
+                };
+            });
         }
     ]);
 
 
-    app.factory('CourseData', ['$rootScope', '$q', '$resource',
+    app.factory('CourseDataFactory', ['$rootScope', '$q', '$resource',
         function($rootScope, $q, $resource, $window) {
             var Course = $resource('/api/course/:courseSlug/',{'courseSlug': courseSlug});
             var deferred = $q.defer();
 
             Course.get(function(course){
-                $rootScope.course = course;
-                $rootScope.__course__ = angular.copy(course);
-
-                $rootScope.reset = function(field) {
-                    $rootScope.course[field] = angular.copy($rootScope.__course__[field]);
-                };
-
                 deferred.resolve(course);
             });
             return deferred.promise;
