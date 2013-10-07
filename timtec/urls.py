@@ -12,7 +12,7 @@ from core.views import AdminCourseView, CourseView, CourseViewSet, EnrollCourseV
 from lesson.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, ReceiveAnswerView
 from rest_framework import routers
 
-router = routers.DefaultRouter()
+router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'course', CourseViewSet)
 router.register(r'lessons', LessonViewSet)
 router.register(r'student_progress', StudentProgressViewSet)
