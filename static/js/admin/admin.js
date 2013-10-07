@@ -4,6 +4,14 @@
     var courseSlug = /[^/]+$/.extract(location.pathname);
     var app = angular.module('admin', ['ngRoute', 'ngResource', 'ngSanitize']);
 
+    app.config(['$httpProvider',
+        function ($httpProvider) {
+            $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+            $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+        }
+    ]);
+
+
     app.directive('contenteditable', function(){
         return {
             "restrict": 'A',
@@ -24,15 +32,34 @@
     });
 
 
-    app.controller('CourseEdit',['$scope','CourseDataFactory',
-        function($scope, CourseDataFactory){
+    app.controller('CourseEdit',['$scope','CourseDataFactory', '$http',
+        function($scope, CourseDataFactory, $http){
             $scope.modals = ['application', 'requirement', 'abstract', 'structure', 'workload'];
 
             CourseDataFactory.then(function(course){
                 var __course__ = angular.copy(course);
                 $scope.course = course;
+
+                function update_backup(field){
+                    __course__[field] = course[field];
+                }
+
                 $scope.reset = function(field) {
                     course[field] = angular.copy(__course__[field]);
+                };
+
+                $scope.save = function(field) {
+                    var data = { };
+                    data[field] = course[field];
+
+                    $http(
+                        {
+                            'method': 'POST',
+                            'url': '/api/course/' + courseSlug,
+                            'data': data,
+                            'headers': {'Content-Type': 'application/json; charset=utf-8'}
+                        }
+                    ).success(function(){update_backup(field);});
                 };
             });
         }
@@ -46,6 +73,7 @@
 
             Course.get(function(course){
                 deferred.resolve(course);
+                window._c = course;
             });
             return deferred.promise;
         }

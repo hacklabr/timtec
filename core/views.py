@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import json
+
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.views.generic import DetailView
@@ -6,6 +8,7 @@ from django.views.generic.base import RedirectView, View, TemplateView
 from django.views.generic.edit import UpdateView
 from accounts.utils import LoginRequiredMixin
 from rest_framework import viewsets
+from rest_framework.response import Response
 
 from serializers import CourseSerializer
 from models import Course, StudentProgress
@@ -60,3 +63,13 @@ class CourseViewSet(viewsets.ModelViewSet):
     lookup_field = 'slug'
     serializer_class = CourseSerializer
 
+    def post(self, request, **kwargs):
+        course = self.get_object()
+
+        # TODO: formulário para validar entrada (fabio)
+        for field, data in request.DATA.items():
+            if hasattr(course, field):
+                setattr(course, field, data)
+                course.save()
+
+        return Response(status=200)
