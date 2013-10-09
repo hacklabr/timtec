@@ -40,7 +40,6 @@ def test_question(rf):
     assert response.status_code == 200
     assert question.title.encode('utf-8') in response.content
     assert question.text.encode('utf-8') in response.content
-    assert question.answers.all()[0].text.encode('utf-8') in response.content
     assert question == response.context_data[u'question']
 
 
