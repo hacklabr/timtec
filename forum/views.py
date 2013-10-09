@@ -103,7 +103,17 @@ class QuestionVoteViewSet(viewsets.ModelViewSet):
 class AnswerVoteViewSet(viewsets.ModelViewSet):
     model = AnswerVote
     serializer_class = AnswerVoteSerializer
+    # Get answer vote usign kwarg as questionId
+    lookup_field = "answer"
 
     def pre_save(self, obj):
         obj.user = self.request.user
+        # Get Question vote usign kwarg as questionId
+        if 'answer' in self.kwargs:
+            obj.answer = Answer.objects.get(pk=int(self.kwargs['answer']))
+            self.kwargs['answer'] = obj.answer
         return super(AnswerVoteViewSet, self).pre_save(obj)
+
+    def get_queryset(self):
+        user = self.request.user
+        return AnswerVote.objects.filter(user=user)

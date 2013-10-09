@@ -90,16 +90,16 @@
 
                     <!-- ANSWER -->
                     {% verbatim angularjs %}
-                    <div ng-controller="AnswersCtrl">
+                    <div>
                         <article class="answer" ng-repeat="answer in answers">
                             <div class="row">
                                 <div class="col-sm-2 col-lg-2">
-                                    <div class="row">
+                                    <div class="row" ng-controller="AnswerVoteCtrl">
                                         <div class="rating col-sm-12 col-lg-12" ng-app="vote" ng-controller="AnswerVoteCtrl">
-                                            <div class="arrow-up" ng-class="user_question_vote_up" ng-click=voteUp(answer.pk)></div>
+                                            <div class="arrow-up" ng-class="user_answer_vote_up" ng-click=voteUp($index)></div>
                                             <div class="votes">{{ answer.votes }}</div>
                                             <!-- <div class="votes" ng-init="answer_votes{{ answer.pk }}={{ answer.count_votes }}">{{ answer_votes }}</div> -->
-                                            <div class="arrow-down" ng-class="user_question_vote_down" ng-click=voteDown(answer.pk)></div>
+                                            <div class="arrow-down" ng-class="user_answer_vote_down" ng-click=voteDown($index)></div>
                                         </div><!-- .rating -->
                                     </div>
                                     <div class="author clearfix">

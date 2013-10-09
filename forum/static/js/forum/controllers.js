@@ -21,16 +21,8 @@ function QuestionCtrl ($scope, $sce, $window, Answer) {
     };
 }
 
-function AnswersCtrl ($scope, $window, Answer) {
-    console.log('AnswersCtrl!!!!');
-    // var questionId = parseInt($window.question_id, 10);
-    // $scope.answers = Answer.query({question: questionId});
-
-}
-
 angular.module('forum.controllers', ['ngCookies']).
     controller('QuestionCtrl', ['$scope', '$sce', '$window', 'Answer', QuestionCtrl]).
-    controller('AnswersCtrl', ['$scope', '$window', 'Answer', AnswersCtrl]).
       // Uses the csrftoken from the cookie
     run(function ($http, $cookies) {
         $http.defaults.headers.common['X-CSRFToken'] = $cookies['csrftoken'];

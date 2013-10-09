@@ -17,7 +17,7 @@ class AnswerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Answer
-        fields = ('question', 'text', 'votes', 'timestamp', 'username')
+        fields = ('id', 'question', 'text', 'votes', 'timestamp', 'username')
 
     def count_votes(self, obj):
         if obj:
@@ -44,8 +44,9 @@ class QuestionVoteSerializer(serializers.ModelSerializer):
 
 class AnswerVoteSerializer(serializers.ModelSerializer):
 
+    user = serializers.IntegerField(read_only=True)
     timestamp = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = AnswerVote
-        fields = ('question', 'timestamp', 'user', 'value')
+        fields = ('id', 'answer', 'timestamp', 'user', 'value')
