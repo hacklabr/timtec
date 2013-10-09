@@ -2,10 +2,13 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load forum_markdown %}
-{% block content %}
 
-<script type="text/javascript" src="{% static 'js/question.js' %}" charset="utf-8"></script>
-<script type="text/javascript" src="{% static 'js/vote.js' %}" charset="utf-8"></script>
+{% block head %}
+{{ block.super }}
+{% include "_forum_angular.html" %}
+{% endblock %}
+
+{% block content %}
 <script>
  window.question_id = {{ question.pk }};
 </script>
@@ -47,7 +50,7 @@
     <!-- MAIN CONTENT -->
     <section id="main-content" class="container">
         <div class="row">
-            <div class="col-sm-9 col-lg-9" ng-app="answer" ng-controller="AnswerCtrl">
+            <div class="col-sm-9 col-lg-9" ng-app="forum" ng-controller="QuestionCtrl">
                 <!-- QUESTION -->
                 <article class="question">
                     <header>
@@ -86,55 +89,32 @@
                     <!-- END HEADER -->
 
                     <!-- ANSWER -->
-                    {% for answer in question.answers.all %}
-                    <article class="answer">
-                        <div class="row">
-                            <div class="col-sm-2 col-lg-2">
-                                <div class="row">
-                                    <div class="rating col-sm-12 col-lg-12">
-                                        <div class="arrow-up"></div>
-                                        <div class="votes">{{ answer.votes.count }}</div>
-                                        <div class="arrow-down"></div>
-                                    </div><!-- .rating -->
-                                </div>
-                                <div class="author clearfix">
-                                    resposta feita em <strong>{{ answer.timestamp|date:"j/m/y" }}</strong> por <a href="profile.html">{{ answer.user.username }}</a>
-                                </div>
-                            </div>
-
-                            <div class="answer-body col-sm-10 col-lg-10">
-                                <p>{{ answer.text|my_markdown }}</p>
-                            </div><!-- .answer-body -->
-                        </div>
-                    </article>
-                    {% endfor %}
-                    <!-- END ANSWER -->
-                    <!-- NEW ANSWER -->
                     {% verbatim angularjs %}
-                    <script type="text/ng-template" id="answer_create.html">
-                        <div class="row">
-                            <div class="col-sm-2 col-lg-2">
-                                <div class="row">
-                                    <div class="rating col-sm-12 col-lg-12">
-                                        <div class="arrow-up"></div>
-                                        <div class="votes">{{ new_answer.votes }}</div>
-                                        <div class="arrow-down"></div>
-                                    </div><!-- .rating -->
+                    <div ng-controller="AnswersCtrl">
+                        <article class="answer" ng-repeat="answer in answers">
+                            <div class="row">
+                                <div class="col-sm-2 col-lg-2">
+                                    <div class="row">
+                                        <div class="rating col-sm-12 col-lg-12" ng-app="vote" ng-controller="AnswerVoteCtrl">
+                                            <div class="arrow-up" ng-class="user_question_vote_up" ng-click=voteUp(answer.pk)></div>
+                                            <div class="votes">{{ answer.votes }}</div>
+                                            <!-- <div class="votes" ng-init="answer_votes{{ answer.pk }}={{ answer.count_votes }}">{{ answer_votes }}</div> -->
+                                            <div class="arrow-down" ng-class="user_question_vote_down" ng-click=voteDown(answer.pk)></div>
+                                        </div><!-- .rating -->
+                                    </div>
+                                    <div class="author clearfix">
+                                        resposta feita em <strong>{{ answer.timestamp|date:"dd/mm/yy" }}</strong> por <a href="profile.html">{{ answer.username }}</a>
+                                    </div>
                                 </div>
-                                <div class="author clearfix">
-                                    resposta feita em <strong>{{ new_answer.timestamp|date:"dd/mm/yy" }}</strong> por <a href="profile.html">{{ new_answer.username }}</a>
-                                </div>
+    
+                                <div class="answer-body col-sm-10 col-lg-10">
+                                    <p ng-bind-html="answer.text|markdown"></p>
+                                </div><!-- .answer-body -->
                             </div>
-
-                            <div class="answer-body col-sm-10 col-lg-10">
-                                <span ng-bind-html="answer_html_text" ></span>
-                            </div><!-- .answer-body -->
-                        </div>
-                    </script>
+                        </article>
+                    </div>
                     {% endverbatim angularjs %}
-                    <article class="answer" ng-view></article>
-                </section>
-                <!-- END NEW ANSWER -->
+                    <!-- END ANSWER -->
                 <!-- END ANSWERS -->
                 <!-- YOUR ANSWER -->
                 <section class="your-answer" ng-show="editor_enabled" id="editor">
@@ -147,7 +127,7 @@
                         <input type="hidden" ng-model="question_id" value="{{ question.pk }}" mp-value-copy/>
                     </div>
                     <div class="submit textright">
-                        <a href="#/forum/question/answer/create" class="btn btn-success">Enviar</a>
+                        <button ng-click="new_answer()" class="btn btn-success">Enviar</button>
                     </div>
                     <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
                 </section>

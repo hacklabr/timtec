@@ -39,6 +39,10 @@ class Answer(models.Model):
     def __unicode__(self):
         return self.text
 
+    @property
+    def count_votes(self):
+        return self.votes.aggregate(models.Sum('value'))['value__sum'] or 0
+
 
 class Vote(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('User'))
@@ -50,6 +54,12 @@ class Vote(models.Model):
 class QuestionVote(Vote):
     question = models.ForeignKey(Question, related_name='votes', verbose_name=_('Question'))
 
+#     class Meta:
+#         unique_together = ('question', 'user')
+
 
 class AnswerVote(Vote):
     answer = models.ForeignKey(Answer, related_name='votes', verbose_name=_('Answer'))
+
+#     class Meta:
+#         unique_together = ('answer', 'user')
