@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    {% block head %}
     {% load compressed %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
 
     {% compressed_css 'all' %}
     {% compressed_js 'all' %}
+    {% endblock %}
 </head>
 <body>
 <script>
