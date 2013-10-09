@@ -89,7 +89,7 @@ class Course(models.Model):
 
     slug = models.SlugField(_('Slug'), max_length=255, unique=True)
     name = models.CharField(_('Name'), max_length=255)
-    intro_video = models.ForeignKey(Video, verbose_name=_('Intro video'))
+    intro_video = models.ForeignKey(Video, verbose_name=_('Intro video'), null=True)
     application = models.TextField(_('Application'))
     requirement = models.TextField(_('Requirement'))
     abstract = models.TextField(_('Abstract'))
