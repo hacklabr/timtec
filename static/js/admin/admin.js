@@ -10,15 +10,16 @@
         }
 
         var url = new URL("https://www.youtube.com/embed/"+id, localparams);
-        return url;
+        return url.toString();
     };
 
     var app = angular.module('admin', ['ngRoute', 'ngResource', 'ngSanitize']);
 
-    app.config(['$httpProvider',
-        function ($httpProvider) {
+    app.config(['$httpProvider', '$sceDelegateProvider',
+        function ($httpProvider, $sceDelegateProvider) {
             $httpProvider.defaults.xsrfCookieName = 'csrftoken';
             $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+            $sceDelegateProvider.resourceUrlWhitelist(['^.*$', 'self']);
         }
     ]);
 
