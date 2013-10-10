@@ -6,31 +6,7 @@
         <!-- CONTAINER -->
         <div id="course-forum">
             <!-- HEADER -->
-            <header id="main-header" class="container">
-                <div class="page-header-double">
-                    <div class="row">
-                        <div class="col-lg-9 col-sm-9">
-                            <h1 class="top"><i class="icon-double-angle-right"></i>{{ course.name }}</h1>
-                        </div>
-                        <div class="col-lg-3 col-sm-3">
-                            <!-- COURSE-SECTION-NAV -->
-                            <script type="text/javascript" charset="utf-8">
-                                $(document).ready(function() {
-                                    $('nav.course-sections > a > span').tooltip();
-                                });
-                            </script>
-                            <nav class="course-sections textright">
-                                <a href="aula-intro.html"><span class="icon-home" data-toggle="tooltip" data-placement="top" data-original-title="Intro"></span></a>
-                                <a href="aula.html"><span class="icon-facetime-video" data-toggle="tooltip" data-placement="top" data-original-title="Aulas"></span></a>
-                                <a href="profile-note.html"><span class="icon-pencil" data-toggle="tooltip" data-placement="top" data-original-title="Anotações"></span></a>
-                                <a href="forum-course.html"><span class="icon-list" data-toggle="tooltip" data-placement="top" data-original-title="Fórum"></span></a>
-                                <a href=""><span class="icon-exclamation-sign" data-toggle="tooltip" data-placement="top" data-original-title="Wiki"></span></a>
-                            </nav>
-                            <!-- END COURSE-SECTION-NAV -->
-                        </div>
-                    </div>
-                </div>
-            </header>
+            {% include "_course-header-inline.html"  with course=course %}
             <!-- END HEADER -->
 
             <script type="text/javascript" charset="utf-8">
