@@ -13,7 +13,7 @@
         "site": "", 
         "is_superuser": true, 
         "is_staff": true, 
-        "last_login": "2013-09-06T16:54:38.486Z", 
+        "last_login": "2013-09-30T20:06:47.166Z", 
         "groups": [], 
         "user_permissions": [], 
         "password": "pbkdf2_sha256$10000$27edDmeMEx0p$Hlbl543/d/caP6w8ClL/VhzTMaiRCLa05nK9Uyoje9I=", 
@@ -141,8 +141,8 @@
     "model": "core.lesson", 
     "fields": {
         "position": 0, 
-        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis.", 
         "course": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis.", 
         "slug": "aula-1-modelos-de-dados-e-introducao-ao-modelo-relacional", 
         "name": "Aula 1: Modelos de dados e introdu\u00e7\u00e3o ao modelo relacional"
     }
@@ -152,8 +152,8 @@
     "model": "core.lesson", 
     "fields": {
         "position": 1, 
-        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
         "course": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
         "slug": "aula-2-introducao-a-sql-demonstracao-sgbds-e-definicao-de-esquemas", 
         "name": "Aula 2: Introdu\u00e7\u00e3o ao SQL (demonstra\u00e7\u00e3o), SGBDs e defini\u00e7\u00e3o de esquemas"
     }
@@ -163,8 +163,8 @@
     "model": "core.lesson", 
     "fields": {
         "position": 2, 
-        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
         "course": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
         "slug": "aula-3-select-projecao-x-selecao-e-uso-do-console", 
         "name": "Aula 3: SELECT, Proje\u00e7\u00e3o x sele\u00e7\u00e3o e uso do console"
     }
@@ -174,8 +174,8 @@
     "model": "core.lesson", 
     "fields": {
         "position": 3, 
-        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
         "course": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
         "slug": "aula-4-selecoes-com-logica-booleana", 
         "name": "Aula 4: Sele\u00e7\u00f5es com l\u00f3gica booleana"
     }
@@ -185,8 +185,8 @@
     "model": "core.lesson", 
     "fields": {
         "position": 4, 
-        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
         "course": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
         "slug": "aula-5-chaves-simples-compostas-candidatas-primarias-estrangeiras-mudas", 
         "name": "Aula 5: Chaves: simples, compostas, candidatas, prim\u00e1rias, estrangeiras, mudas"
     }
@@ -196,8 +196,8 @@
     "model": "core.lesson", 
     "fields": {
         "position": 5, 
-        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
         "course": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
         "slug": "aula-6-consultas-com-relacionamentos-joins-implicitos-e-explicitos", 
         "name": "Aula 6: Consultas com relacionamentos, joins impl\u00edcitos e expl\u00edcitos"
     }
@@ -207,8 +207,8 @@
     "model": "core.lesson", 
     "fields": {
         "position": 6, 
-        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
         "course": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
         "slug": "aula-7-consultas-com-agregacao", 
         "name": "Aula 7: Consultas com agrega\u00e7\u00e3o"
     }
@@ -218,8 +218,8 @@
     "model": "core.lesson", 
     "fields": {
         "position": 7, 
-        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
         "course": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
         "slug": "aula-8-operacoes-de-alteracao-de-dados-e-transacoes", 
         "name": "Aula 8: Opera\u00e7\u00f5es de altera\u00e7\u00e3o de dados e transa\u00e7\u00f5es"
     }
@@ -229,8 +229,8 @@
     "model": "core.lesson", 
     "fields": {
         "position": 8, 
-        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
         "course": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
         "slug": "aula-9-projeto-de-bancos-de-dados-normalizados-e-formas-normais", 
         "name": "Aula 9: Projeto de bancos de dados normalizados e formas normais"
     }
@@ -240,8 +240,8 @@
     "model": "core.lesson", 
     "fields": {
         "position": 9, 
-        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
         "course": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
         "slug": "aula-10-indices-e-constraints", 
         "name": "Aula 10: \u00cdndices e constraints"
     }
@@ -251,8 +251,8 @@
     "model": "core.lesson", 
     "fields": {
         "position": 10, 
-        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
         "course": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
         "slug": "aula-11-triggers-e-views-dialetos-de-sql-entre-sgbds-importantes", 
         "name": "Aula 11: Triggers e views, dialetos de SQL entre SGBDs importantes"
     }
@@ -262,8 +262,8 @@
     "model": "core.lesson", 
     "fields": {
         "position": 11, 
-        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
         "course": 1, 
+        "desc": "Pellentesque augue sit dapibus sociis magna amet cras mattis egestas, elementum placerat sagittis!", 
         "slug": "aula-12-limitacoes-e-alternativas-ao-modelo-tradicional", 
         "name": "Aula 12: Limita\u00e7\u00f5es e alternativas ao modelo tradicional"
     }
@@ -272,9 +272,27 @@
     "pk": 1, 
     "model": "core.activity", 
     "fields": {
-        "data": "[{}]", 
-        "expected_answer": "[{}]", 
-        "type": "test"
+        "expected": 3, 
+        "data": "{\"alternatives\":[\"Envio de mensagens pela Internet\",\"Cria\\u00e7\\u00e3o de imagens para filmes\",\"Opera\\u00e7\\u00e3o de uma m\\u00e1quina de corte\",\"Controle de assinaturas de uma jornal\"],\"question\":\"Quais destas aplica\\u00e7\\u00f5es usam banco de dados?\"}", 
+        "type": "simplechoice"
+    }
+},
+{
+    "pk": 2, 
+    "model": "core.activity", 
+    "fields": {
+        "expected": "[true,true,false,false]", 
+        "data": "{\"question\":\"Quais desses s\\u00e3o bancos de dados relacionais\",\"alternatives\":[\"PostgreSQL\",\"MySQL\",\"CouchDB\",\"ISIS\"]}", 
+        "type": "multiplechoice"
+    }
+},
+{
+    "pk": 3, 
+    "model": "core.activity", 
+    "fields": {
+        "expected": "[true,false,false,true]", 
+        "data": "{\"alternatives\":[\"SQL \\u00e9 uma linguagem estruturada de consultas\",\"MySQL \\u00e9 uma linguagem derivada do SQL direcionada a programadores\",\"Bancos de dados s\\u00e3o ideais para resolver problemas de monitoramento de temperatura\",\"PostgreSQL \\u00e9 um sistema gerenciador de banco de dados\"],\"question\":\"Marque verdadeiro ou falso para as afirma\\u00e7\\u00f5es abaixo\"}", 
+        "type": "trueorfalse"
     }
 },
 {
@@ -314,7 +332,7 @@
         "position": 3, 
         "lesson": 1, 
         "video": 5, 
-        "activity": 1
+        "activity": 2
     }
 },
 {
@@ -1044,7 +1062,7 @@
         "position": 4, 
         "lesson": 1, 
         "video": 6, 
-        "activity": 1
+        "activity": 3
     }
 }
 ]

@@ -216,14 +216,14 @@ class Activity(models.Model):
     """
     type = models.CharField(_('Type'), max_length=255)
     data = JSONField(_('Data'))
-    expected_answer = JSONField(_('Expected answer'))
+    expected = JSONField(_('Expected answer'))
 
     class Meta:
         verbose_name = _('Activity')
         verbose_name_plural = _('Activities')
 
     def __unicode__(self):
-        return u'%s dt %s a %s' % (self.type, self.data, self.expected_answer)
+        return u'%s dt %s a %s' % (self.type, self.data, self.expected)
 
 
 class Unit(models.Model):
@@ -261,13 +261,20 @@ class Answer(models.Model):
     activity = models.ForeignKey(Activity, verbose_name=_('Activity'))
     user = models.ForeignKey(TimtecUser, verbose_name=_('Student'))
     timestamp = models.DateTimeField(auto_now_add=True, editable=False)
-    answer = JSONField(_('Answer'))
+    given = JSONField(_('Given answer'))
+
+    @property
+    def expected(self):
+        return self.activity.expected
 
     def is_correct(self):
-        given = self.answer.get('choice', None)
-        expected = self.activity.expected_answer.get('choice', None)
+        result = False
 
-        return str(given) == str(expected)
+        given = self.given
+        expected = self.activity.expected
+
+        result = str(given) == str(expected)
+        return result
 
     class Meta:
         verbose_name = _('Answer')

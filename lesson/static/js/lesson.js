@@ -27,30 +27,46 @@
         function ($scope, $routeParams, $http, LessonData) {
             $scope.alternatives = [];
             $scope.currentUnitPos = parseInt($routeParams.unitPos, 10);
-            $scope.answer = {'choice': null};
+            $scope.answer = {'given': null};
 
             $scope.sendAnswer = (function() {
-                function tellResult(data, status, headers, config) {
-                    var result = data.correct ? 'correct' : 'wrong';
-                    var choice = $scope.answer.choice;
-                    $scope.alternatives[choice].eval = result;
+                function tellResult(data) {
+                    var correct = data.correct,
+                        given  = data.given,
+                        expected  = data.expected;
+
+                    if (given['forEach']) {
+                        given.forEach(function(g, i){
+                            $scope.alternatives[i].eval = (g === expected[i] ? 'correct' : 'wrong');
+                            console.log($scope.alternatives[i].eval);
+                        });
+                    } else {
+                        $scope.alternatives[given].eval = correct ? 'correct' : 'wrong';
+                    }
                 }
 
                 $http({
                     'method': 'POST',
                     'url': '/api/answer/' + $scope.currentUnitId,
-                    'data': 'choice=' + $scope.answer.choice,
+                    'data': 'given=' + JSON.stringify($scope.answer.given),
                     'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(tellResult);
             });
 
             LessonData.then(function (lesson) {
-                $scope.currentUnit = lesson.units[$scope.currentUnitPos];
-                $scope.currentUnitId = $scope.currentUnit.id;
-                $scope.activity_template = $scope.currentUnit.activity.template;
-                $scope.alternatives = $scope.currentUnit.activity.alternatives.map(
+                var unit = $scope.currentUnit = lesson.units[$scope.currentUnitPos];
+                $scope.currentUnitId = unit.id;
+                $scope.activity_template = unit.activity.template;
+                $scope.alternatives = unit.activity.alternatives.map(
                     function(a,i) { return {'title': a }; }
                 );
+
+                if (['multiplechoice','trueorfalse'].indexOf(unit.activity.type) >= 0) {
+                    $scope.answer.given = $scope.alternatives.map(
+                        function(a,i){ return false; }
+                    );
+                }
+
             });
         }
     ]);

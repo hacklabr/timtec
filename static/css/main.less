@@ -688,6 +688,38 @@ a.instructor {
   }
 }
 
+// Activities
+.course-activity {
+    border:1px solid @gray-lighter;
+    min-height:427px;
+    position:relative;
+    
+    .submit {
+        border-top:1px solid @gray-lighter;
+        bottom:10px;
+        left:10px;
+        padding-top:10px;
+        position:absolute;
+        right:10px;
+    }
+    
+    label {
+        font-weight:normal;
+    }
+
+    .wrong {
+        color:@brand-danger;
+    }
+    
+    .correct {
+        color:@brand-success;
+    }
+    
+    table tr, table tr td {
+        border:none;
+    }
+}
+
 // Course forum
 .course-forum {
 
