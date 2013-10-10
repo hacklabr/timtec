@@ -61,8 +61,8 @@
                         <article class="question">
                             <div class="stats">
                                 <div class="arrow-right"></div>
-                                <p><span class="numbers-votes">{{ question.votes.count }}</span>votos</p>
-                                <p><span class="numbers-answers">{{ question.answers.count }}</span>respostas</p>
+                                <p><span class="numbers-votes">{{ question.count_votes }}</span>voto{% if question.count_votes > 1 %}s{% endif %}</p>
+                                <p><span class="numbers-answers">{{ question.answers.count }}</span>resposta{% if question.answers.count > 1 %}s{% endif %}</p>
                             </div>
                             <div class="question">
                                 <p><a href="{% url 'forum_question' question.slug %}">{{ question.title }}</a></p>

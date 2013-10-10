@@ -74,7 +74,7 @@ class QuestionViewSet(viewsets.ModelViewSet):
 class AnswerViewSet(viewsets.ModelViewSet):
     model = Answer
     serializer_class = AnswerSerializer
-    filter_fields = ('question',)
+    filter_fields = ('question', 'user')
 
     def pre_save(self, obj):
         obj.user = self.request.user

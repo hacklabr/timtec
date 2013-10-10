@@ -11,6 +11,7 @@
 {% block content %}
 <script>
  window.question_id = {{ question.pk }};
+ window.user_id = {{ user.pk }};
 </script>
 
 <!-- CONTAINER -->
@@ -82,7 +83,7 @@
                     <header>
                         <div class="row">
                             <div class="col-sm-6 col-lg-6">
-                                <h1>{{ question.answers.count }} Respostas:</h1>
+                                <h1><span ng-init="num_answers={{ question.answers.count }}">{% verbatim angularjs %} {{ num_answers }} {% endverbatim angularjs %}</span> Resposta<span ng-if="num_answers>1">s</span></h1>
                             </div>
                         </div>
                     </header>
