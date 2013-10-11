@@ -1,7 +1,7 @@
 (function (angular) {
     "use strict";
 
-    var app = angular.module('lesson', ['ngRoute', 'ngResource', 'youtube']);
+    var app = angular.module('lesson', ['ngRoute', 'ngResource', 'youtube', 'forum']);
 
     var ACTIVITY_TEMPLATE_PATH = function(the_type){
         return STATIC_URL + '/templates/activity_'+ the_type + '.html';

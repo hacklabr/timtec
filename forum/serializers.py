@@ -4,9 +4,25 @@ from rest_framework import serializers
 
 class QuestionSerializer(serializers.ModelSerializer):
 
+    votes = serializers.SerializerMethodField('count_votes')
+    username = serializers.SerializerMethodField('get_username')
+    timestamp = serializers.DateTimeField(read_only=True)
+
     class Meta:
         model = Question
-        fields = ('title', 'text', 'slug')
+        fields = ('id', 'title', 'course', 'answers', 'text', 'slug', 'votes', 'timestamp', 'username',)
+
+    def count_votes(self, obj):
+        if obj:
+            return obj.count_votes
+        else:
+            return 0
+
+    def get_username(self, obj):
+        if obj:
+            return obj.user.username
+        else:
+            return u''
 
 
 class AnswerSerializer(serializers.ModelSerializer):
@@ -21,7 +37,7 @@ class AnswerSerializer(serializers.ModelSerializer):
 
     def count_votes(self, obj):
         if obj:
-            return obj.votes.count()
+            return obj.count_votes
         else:
             return 0
 

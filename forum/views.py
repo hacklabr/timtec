@@ -65,6 +65,7 @@ class QuestionCreateView(LoginRequiredMixin, FormView):
 class QuestionViewSet(viewsets.ModelViewSet):
     model = Question
     serializer_class = QuestionSerializer
+    filter_fields = ('course', 'user')
 
     def pre_save(self, obj):
         obj.user = self.request.user
