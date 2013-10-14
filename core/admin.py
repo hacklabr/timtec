@@ -4,6 +4,8 @@ from django.contrib.auth.admin import UserAdmin
 from django.forms import TextInput, Textarea
 from django.db import models
 
+from suit.admin import SortableTabularInline
+
 from models import *
 
 

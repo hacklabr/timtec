@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% load forum_markdown %}
+{% block content %}
+        <!-- CONTAINER -->
+        <div id="course-forum">
+            <!-- HEADER -->
+            {% include "_course-header-inline.html"  with course=course %}
+            <!-- END HEADER -->
+
+            <script type="text/javascript" charset="utf-8">
+            $(document).ready(function() {
+                $('.comment-form').hide();
+                $('.add-comment-link').click(function(e) {
+                    e.preventDefault();
+                    $(this).parent().parent().height(170);
+                    $(this).parent().parent().find('form').slideDown();
+                    $(this).hide();
+                })
+            
+                $('.cancel-comment').click(function(e) {
+                    e.preventDefault();
+                    $(this).parent().parent().slideUp()
+                    $(this).parent().parent().parent().find('.add-comment-link').slideDown().show();
+                    $(this).parent().parent().parent().height(30);
+                })
+            })
+            </script>
+
+            <!-- MAIN CONTENT -->
+            <section id="main-content" class="container">
+                <div class="row">
+                    <!-- QUESTIONS -->
+                    <section class="questions col-sm-9 col-lg-9 clearfix">
+                        {% for question in questions %}
+                        <article class="question">
+                            <div class="stats">
+                                <div class="arrow-right"></div>
+                                <p><span class="numbers-votes">{{ question.count_votes }}</span>voto{% if question.count_votes > 1 %}s{% endif %}</p>
+                                <p><span class="numbers-answers">{{ question.answers.count }}</span>resposta{% if question.answers.count > 1 %}s{% endif %}</p>
+                            </div>
+                            <div class="question">
+                                <p><a href="{% url 'forum_question' question.slug %}">{{ question.title }}</a></p>
+                                <p class="description">{{ question.text|my_markdown }}[...]</p>
+                            </div>
+                            <div class="author">
+                                Pergunta feita em {{ question.timestamp|date }} por <a href="">{{ question.user.username }}</a>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </section>
+                    <!-- END QUESTIONS -->
+
+                    <!-- ASIDE -->
+                    <aside class="col-sm-3 col-lg-3">
+                        <p><a href="{% url 'forum_question_create' course.slug %}" class="ask-a-question btn btn-lg btn-danger uppercase">Fazer uma pergunta</a></p>
+                        <form class="search-forum">
+                            <div class="page-header-double">
+                                <h3><i class="icon-double-angle-right"></i> Pesquisar Fórum</h3>
+                            </div>
+                            <div class="input-group">
+                                <input type="search" class="form-control">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button"><i class="icon-search"></i></button>
+                                </span>
+                            </div>
+                        </form>
+                    </aside>
+                    <!-- END ASIDE -->
+                </div>
+            </section>
+            <!-- END MAIN CONTENT-->
+
+        </div>
+        <!-- END CONTAINER -->
+{% endblock %}

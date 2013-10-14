@@ -1,0 +1,21 @@
+  <header id="main-header" class="container">
+    <div class="page-header">
+      <div class="row">
+        <div class="col-lg-8 col-sm-8">
+          <h1 class="course-name bottom top">{{ course.name }}</h1>
+          {% include "_course-professors-inline.html" with course=course %}
+        </div>
+        <div class="col-lg-4 col-sm-4">
+          <!-- COURSE-SECTION-NAV -->
+          <nav class="course-sections textright">
+            <a href="{% url 'course_intro' course.slug %}"><span class="has-tooltip icon-home" data-toggle="tooltip" data-placement="top" data-original-title="Intro"></span></a>
+            <a href="{% url 'lesson' 'aula-1-modelos-de-dados-e-introducao-ao-modelo-relacional' %}"><span class="has-tooltip icon-facetime-video" data-toggle="tooltip" data-placement="top" data-original-title="Aulas"></span></a>
+            <a href="profile-note.html"><span class="has-tooltip icon-pencil" data-toggle="tooltip" data-placement="top" data-original-title="Anotações"></span></a>
+            <a href="{% url 'forum' course.slug %}"><span class="has-tooltip icon-list" data-toggle="tooltip" data-placement="top" data-original-title="Fórum"></span></a>
+            <a href=""><span class="has-tooltip icon-exclamation-sign" data-toggle="tooltip" data-placement="top" data-original-title="Wiki"></span></a>
+          </nav>
+          <!-- END COURSE-SECTION-NAV -->
+        </div>
+      </div>
+    </div>
+  </header>

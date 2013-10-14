@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% load forum_markdown %}
+
+{% block head %}
+{{ block.super }}
+{% include "_forum_angular.html" %}
+{% endblock %}
+
+{% block content %}
+<script>
+ window.question_id = {{ question.pk }};
+ window.user_id = {{ user.pk }};
+</script>
+
+<!-- CONTAINER -->
+<div id="course-forum">
+    <!-- HEADER -->
+    {% include "_course-header-inline.html"  with course=question.course %}
+    <!-- END HEADER -->
+
+    <script type="text/javascript" charset="utf-8">
+
+    </script>
+
+    <!-- MAIN CONTENT -->
+    <section id="main-content" class="container">
+        <div class="row">
+            <div class="col-sm-9 col-lg-9" ng-app="forum" ng-controller="QuestionCtrl">
+                <!-- QUESTION -->
+                <article class="question">
+                    <header>
+                        <div class="row">
+                            <div class="col-sm-2 col-lg-2">
+                                <div class="row">
+                                    <div class="rating col-sm-12 col-lg-12" ng-app="vote" ng-controller="QuestionVoteCtrl">
+                                        <div class="arrow-up" ng-class="user_question_vote_up" ng-click=voteUp()></div>
+                                        <div class="votes" ng-init="question_votes={{ question.count_votes }}">{% verbatim angularjs %}{{ question_votes }}{% endverbatim angularjs %}</div>
+                                        <div class="arrow-down" ng-class="user_question_vote_down" ng-click=voteDown()></div>
+                                    </div><!-- .rating -->
+                                </div>
+                            </div>
+                            <div class="col-lg-10">
+                                <h1 class="top">{{ question.title }}</h1>
+                                <p class="author clearfix">
+                                    Pergunta feita em <strong>{{ question.timestamp|date:"j/m/y" }}</strong> por <a href="profile.html">{{ question.user.username }}</a>
+                                </p>
+                            </div>
+                        </div>
+                    </header>
+                    <div class="row">
+                        <div class="question-body col-sm-10 col-lg-10 col-lg-offset-2">
+                            <p>{{ question.text|my_markdown }}</p>
+                        </div><!-- .question-body -->
+                    </div>
+                </article>
+                <!-- END QUESTION -->
+
+                <!-- ANSWERS -->
+                <section class="answers">
+                    <!-- HEADER -->
+                    <header>
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-6">
+                                <h1><span ng-init="num_answers={{ question.answers.count }}">{% verbatim angularjs %} {{ num_answers }} {% endverbatim angularjs %}</span> Resposta<span ng-if="num_answers>1">s</span></h1>
+                            </div>
+                        </div>
+                    </header>
+                    <!-- END HEADER -->
+
+                    <!-- ANSWER -->
+                    {% verbatim angularjs %}
+                    <div>
+                        <article class="answer" ng-repeat="answer in answers">
+                            <div class="row">
+                                <div class="col-sm-2 col-lg-2">
+                                    <div class="row" ng-controller="AnswerVoteCtrl">
+                                        <div class="rating col-sm-12 col-lg-12" ng-app="vote" ng-controller="AnswerVoteCtrl">
+                                            <div class="arrow-up" ng-class="user_answer_vote_up" ng-click=voteUp($index)></div>
+                                            <div class="votes">{{ answer.votes }}</div>
+                                            <!-- <div class="votes" ng-init="answer_votes{{ answer.pk }}={{ answer.count_votes }}">{{ answer_votes }}</div> -->
+                                            <div class="arrow-down" ng-class="user_answer_vote_down" ng-click=voteDown($index)></div>
+                                            <div class="set-correct col-sm-12 col-lg-12">
+                                               <i class="icon-ok"></i>
+                                           </div>
+                                        </div><!-- .rating -->
+                                    </div>
+                                </div>
+                                <div class="answer-body col-sm-10 col-lg-10">
+                                    <p ng-bind-html="answer.text|markdown"></p>
+                                    <p class="author clearfix">
+                                        resposta feita em <strong>{{ answer.timestamp|date:"dd/MM/yy" }}</strong> por <a href="profile.html">{{ answer.username }}</a>
+                                    </p>
+                                </div><!-- .answer-body -->
+                            </div>
+                        </article>
+                    </div>
+                    {% endverbatim angularjs %}
+                    <!-- END ANSWER -->
+                <!-- END ANSWERS -->
+                <!-- YOUR ANSWER -->
+                <section class="your-answer" ng-show="editor_enabled" id="editor">
+                    <header>
+                        <h1>Sua Resposta</h1>
+                    </header>
+                    <div class="wmd-panel">
+                        <div id="wmd-button-bar"></div>
+                        <textarea ng-model="new_answer_text" class="form-control" id="wmd-input" rows="10"></textarea>
+                        <input type="hidden" ng-model="question_id" value="{{ question.pk }}" mp-value-copy/>
+                    </div>
+                    <div class="submit textright">
+                        <button ng-click="new_answer()" class="btn btn-success">Enviar</button>
+                    </div>
+                    <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
+                </section>
+                <!-- END YOUR ANSWER -->
+            </div>
+
+            <!-- ASIDE -->
+            <aside class="col-sm-3 col-lg-3">
+                <p><a href="{% url 'forum_question_create' question.course.slug %}" class="ask-a-question btn btn-lg btn-danger uppercase">Fazer uma pergunta</a></p>
+                <form class="search-forum">
+                    <div class="page-header-double">
+                        <h3><i class="icon-double-angle-right"></i> Pesquisar Fórum</h3>
+                    </div>
+                    <div class="input-group">
+                        <input type="search" class="form-control">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button"><i class="icon-search"></i></button>
+                        </span>
+                    </div>
+                </form>
+                <div class="related-questions">
+                    <div class="page-header-double">
+                        <h3><i class="icon-double-angle-right"></i> Perguntas Relacionadas</h3>
+                    </div>
+                    <ul class="no-bullet">
+                        <li><a href="">Risus lectus non pulvinar sed ut integer. Ac elementum nunc facilisis ultricies, enim tincidunt integer mus, auctor sagittis? Et egestas.</a></li>
+                        <li><a href="">Phasellus enim lectus augue et dis natoque amet hac magna sagittis nec elementum, velit et, phasellus pulvinar magnis aliquet.</a></li>
+                        <li><a href="">Vel cursus nunc est dapibus hac tincidunt in tortor, aliquet pellentesque et et, tincidunt. Nec, mus placerat vel magna.</a></li>
+                        <li><a href="">Scelerisque adipiscing ridiculus velit nunc, integer porttitor sed ac mus nisi egestas dictumst sed! Ultrices pulvinar. Ac! Ac adipiscing.</a></li>
+                        <li><a href="">Tempor lacus parturient augue ac augue platea placerat lectus! In. Proin! Dapibus, rhoncus dapibus amet! Aliquet porttitor, sagittis! Nisi.</a></li>
+                    </ul>
+                </div>
+            </aside>
+            <!-- END ASIDE -->
+        </div>
+    </section>
+    <!-- END MAIN CONTENT-->
+</div>
+<!-- END CONTAINER -->
+{% endblock %}

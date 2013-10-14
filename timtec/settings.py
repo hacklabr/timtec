@@ -147,6 +147,7 @@ PIPELINE_JS = {
             'js/vendor/angular.js',
             'js/vendor/angular-*.js',
             'js/*.js',
+            'js/vendor/pagedown/*.js',
         ),
         'output_filename': 'js/all.js',
     }
@@ -172,6 +173,8 @@ REST_FRAMEWORK = {
         'rest_framework.filters.DjangoFilterBackend'
     ],
 }
+
+APPEND_SLASH = False
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'e%6a01vfbue28$xxssu!9r_)usqjh817((mr+7vv3ek&@#p0!$'
@@ -263,8 +266,10 @@ INSTALLED_APPS = (
     'registration',
     'rosetta',
     'accounts',
+    'autoslug',
     'core',
     'lesson',
+    'forum',
 )
 
 if DEBUG:

@@ -1,0 +1,60 @@
+[
+{
+    "pk": 1, 
+    "model": "forum.question", 
+    "fields": {
+        "title": "Qual \u00e9 o melhor SGBD atualmente?", 
+        "text": "Entre todos os Sistema de Gerenciamento de Bancos de Dados, quel deles \u00e9 o mais r\u00e1pido e mais seguro?", 
+        "slug": "qual-e-o-melhor-sgbd-atualmente", 
+        "course": 1, 
+        "user": 1, 
+        "timestamp": "2013-09-11T15:01:55.414Z", 
+        "correct_answer": 2, 
+        "lesson": null
+    }
+},
+{
+    "pk": 2, 
+    "model": "forum.question", 
+    "fields": {
+        "title": "Elementum dictumst adipiscing, sit, aliquet diam adipiscing tincidunt, mus nunc nunc est hac egestas amet, diam. Non urna, vel auctor, nisi mus, auctor odio, diam eu ultrices?", 
+        "text": "Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam.\r\nNascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diamNascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam\r\n", 
+        "slug": "elementum-dictumst-adipiscing-sit-aliquet-diam-adipiscing-tincidunt-mus-nunc-nunc-est-hac-egestas-amet-diam-non-urna-vel-auctor-nisi-mus-auctor-odio-diam-eu-ultrices", 
+        "course": 1, 
+        "user": 1, 
+        "timestamp": "2013-09-11T16:36:01.488Z", 
+        "correct_answer": null, 
+        "lesson": null
+    }
+},
+{
+    "pk": 1, 
+    "model": "forum.answer", 
+    "fields": {
+        "text": "O MySQL \u00e9 melhor, pois \u00e9 o mais usado e aceito.", 
+        "question": 1, 
+        "user": 1, 
+        "timestamp": "2013-09-11T16:28:10.754Z"
+    }
+},
+{
+    "pk": 2, 
+    "model": "forum.answer", 
+    "fields": {
+        "text": "Depende da aplica\u00e7\u00e3o. N\u00e3o h\u00e1 um SGBD que seja melhor para todas as aplica\u00e7\u00f5es.", 
+        "question": 1, 
+        "user": 2, 
+        "timestamp": "2013-09-11T16:28:10.761Z"
+    }
+},
+{
+    "pk": 3, 
+    "model": "forum.answer", 
+    "fields": {
+        "text": "Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam.\r\nNascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt, enim vut vut sit porta sit cum dignissim aenean nascetur pulvinar proin tortor velit ac quis amet cras ac vel elit nec, ac ultricies montes pulvinar etiam penatibus, dis augue, ut a scelerisque cras, elementum integer, nisi diam", 
+        "question": 2, 
+        "user": 2, 
+        "timestamp": "2013-09-11T16:36:01.495Z"
+    }
+}
+]

@@ -1,0 +1,86 @@
+{% include "_forum_angular.html" %}
+<script>
+ window.course_id = {{ course.pk }};
+ window.user_id = {{ user.pk }};
+</script>
+    <div class="col-lg-8 col-sm-10 col-lg-offset-0 col-sm-offset-1">
+      <section class="course-forum" ng-controller="InlineForumCtrl">
+        <div class="page-header-double">
+          <h3><i class="icon-double-angle-right"></i> Perguntas e Respostas</h3>
+        </div>
+        <!-- QUESTION FORM -->
+        <div class="row">
+            <div class="form-group">
+              <input id="id-title" ng-model="new_question_title" name="title" type="text" class="form-control" placeholder="Qual é a sua dúvida?">
+            </div>
+            <div class="wmd-panel">
+                <div id="wmd-button-bar"></div>
+                <div class="form-group">
+                  <textarea id="wmd-input" ng-model="new_question_text" name="text" class="form-control" rows="4" placeholder="Descrição da sua dúvida"></textarea>
+                </div>
+            </div>
+            <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
+            <div class="form-group bottom">
+              <div class="row">
+                <div class="col-lg-8 col-sm-8">
+                  <small><a href="">Política de Perguntas e Respostas</a></small>
+                </div>
+                <div class="col-lg-4 col-sm-4 textright">
+                  <input type="submit" class="btn btn-success" value="Enviar" ng-click="new_question()">
+                </div>
+              </div>
+            </div>
+        </div>
+        <!-- END QUESTION FORM -->
+
+        <!-- QUESTIONS LIST-->
+        <section class="questions clearfix">
+          <div class="search-filter">
+            <div class="row">
+              <div class="col-lg-7 col-sm-7">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-info">Mais votadas</button>
+                  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                    <i class="icon-chevron-down"></i>
+                  </button>
+                  <ul class="dropdown-menu top">
+                    <li><a href="">Mais votadas</a></li>
+                    <li><a href="">Mais recentes</a></li>
+                    <li><a href="">Mais respondida</a></li>
+                    <li><a href="">Ver todas</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-5 col-sm-5 textright">
+                <div class="input-group">
+                  <input type="search" class="form-control" placeholder="Pesquisar perguntas e respostas">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                      <i class="icon-search"></i>
+                    </button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <article ng-repeat="question in questions">
+            {% verbatim angularjs %}
+            <div class="stats">
+              <div class="arrow-right"></div>
+              <p><span class="numbers-votes">{{question.votes}}</span>votos</p>
+              <p><span class="numbers-answers">{{ question.answers.length }}</span>respostas</p>
+            </div>
+            <div class="question">
+              <p><a href="/forum/question/{{ question.slug }}">{{ question.title }}</a></p>
+              <p class="description">{{ question.text|words:50 }}</p>
+            </div>
+            <div class="author">
+              Pergunta feita feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }} por <a href="">{{ question.username }}</a>
+            </div>
+            {% endverbatim angularjs %}
+          </article>
+          <p class="textcenter"><a href="{% url 'forum' course.slug %}" class="all-questions btn btn-info">Ver todas as perguntas e respostas</a></p>
+        </section>
+        <!-- QUESTIONS LIST-->
+      </section>
+    </div>
