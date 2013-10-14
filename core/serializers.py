@@ -40,11 +40,10 @@ class VideoSerializer(serializers.ModelSerializer):
 
 class CourseSerializer(serializers.ModelSerializer):
     professors = CourseProfessorSerializer(many=True, source="courseprofessor_set")
-    lessons = LessonSerializer(many=True, source="lesson_set")
     intro_video = VideoSerializer()
 
     class Meta:
         model = Course
         fields = ("id", "slug", "name", "intro_video", "application", "requirement",
                   "abstract", "structure", "workload", "pronatec", "status", "publication",
-                  "lessons", "professors",)
+                  "professors",)

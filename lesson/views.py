@@ -16,6 +16,7 @@ class LessonDetailView(LoginRequiredMixin, DetailView):
 class LessonViewSet(viewsets.ModelViewSet):
     model = Lesson
     serializer_class = LessonSerializer
+    filter_fields = ('course__slug',)
 
 
 class StudentProgressViewSet(viewsets.ModelViewSet):

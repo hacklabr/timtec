@@ -43,6 +43,10 @@ class UnitSerializer(serializers.HyperlinkedModelSerializer):
 
 class LessonSerializer(serializers.HyperlinkedModelSerializer):
     units = UnitSerializer(many=True)
+    url = serializers.HyperlinkedIdentityField(
+        view_name='lesson',
+        lookup_field='slug'
+    )
 
     class Meta:
         model = Lesson

@@ -101,14 +101,14 @@
 
                 {% verbatim %}
                 <ul class="no-bullet">
-                  <li ng-repeat="lesson in course.lessons">
+                  <li ng-repeat="lesson in lessons">
                     <div class="row">
                       <div class="col-lg-3 col-sm-3">
                         <img src="/static/img/lesson-default.png" class="img-thumbnail">
                       </div>
                       <div class="col-lg-9 col-sm-9">
                         <p>
-                          <span class="title">{{ lesson.name }}</span>
+                          <a href="{{ lesson.url }}" class="title">{{ lesson.name }}</a>
                           <span class="description">{{ lesson.desc }}</span>
                         </p>
                         <table class="table">

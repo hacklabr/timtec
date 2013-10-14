@@ -44,39 +44,24 @@
     });
 
 
-    app.controller('CourseEdit',['$scope','CourseDataFactory', '$http',
-        function($scope, CourseDataFactory, $http){
+    app.controller('CourseEdit',['$scope', 'LessonDataFactory', 'CourseDataFactory', '$http',
+        function($scope, LessonDataFactory, CourseDataFactory, $http){
+            $scope.course = {};
             $scope.modals = ['application', 'requirement', 'abstract', 'structure', 'workload'];
 
             $scope.show = function(){
                 try{
                     return getYoutubeUrl($scope.course.intro_video.youtube_id);
                 } catch(e) {
-                    return 'data:text/html, <html style="background: red">';
+                    return 'data:text/html, <html style="background: black">';
                 }
             };
 
             CourseDataFactory.then(function(course){
-                var __course__ = angular.copy(course);
                 $scope.course = course;
-
-                function update_backup(field){
-                    __course__[field] = course[field];
-                }
-                $scope.reset = function(field) {
-                    course[field] = angular.copy(__course__[field]);
-                };
-                $scope.save = function(field) {
-                    var data = { };
-                    data[field] = course[field];
-
-                    $http({
-                            'method': 'POST',
-                            'url': '/api/course/' + courseSlug,
-                            'data': data,
-                            'headers': {'Content-Type': 'application/json; charset=utf-8'}
-                    }).success(function(){update_backup(field);});
-                };
+            });
+            LessonDataFactory.then(function(lessons){
+                $scope.lessons = lessons;
             });
         }
     ]);
@@ -89,9 +74,23 @@
 
             Course.get(function(course){
                 deferred.resolve(course);
-                window._c = course;
             });
             return deferred.promise;
         }
     ]);
+
+    app.factory('LessonDataFactory', ['$rootScope', '$q', '$resource',
+        function($rootScope, $q, $resource, $window) {
+            var Lesson = $resource('/api/lessons?course__slug=:courseSlug',
+                                    {'courseSlug': courseSlug});
+            var deferred = $q.defer();
+
+            Lesson.query(function(lessons){
+                deferred.resolve(lessons);
+            });
+            return deferred.promise;
+        }
+    ]);
+
+
 })(angular);
