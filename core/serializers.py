@@ -39,7 +39,6 @@ class VideoSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    professors = CourseProfessorSerializer(many=True, source="courseprofessor_set")
     intro_video = VideoSerializer()
 
     class Meta:

@@ -65,11 +65,10 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     def post(self, request, **kwargs):
         course = self.get_object()
+        serializer = CourseSerializer(course, request.DATA)
 
-        # TODO: formulário para validar entrada (fabio)
-        for field, data in request.DATA.items():
-            if hasattr(course, field):
-                setattr(course, field, data)
-                course.save()
-
-        return Response(status=200)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=200)
+        else:
+            return Response(serializer.errors, status=403)
