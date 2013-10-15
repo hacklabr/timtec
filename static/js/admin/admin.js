@@ -3,7 +3,7 @@
 
     var courseSlug = /[^/]+$/.extract(location.pathname);
     var getYoutubeUrl = function(id, params){
-        var localparams = {"rel":"0", "showinfo":"0", "autohide":"1", "theme":"light"};
+        var localparams = {"rel":"0", "showinfo":"0", "autohide":"1", "wmode":"opaque", "theme":"light"};
 
         for(var att in params){
             localparams[att] = params[att];
@@ -47,7 +47,15 @@
     app.controller('CourseEdit',['$scope', 'LessonDataFactory', 'CourseDataFactory', '$http',
         function($scope, LessonDataFactory, CourseDataFactory, $http){
             $scope.course = {};
-            $scope.modals = ['application', 'requirement', 'abstract', 'structure', 'workload'];
+            var fields = ['application', 'requirement', 'abstract', 'structure', 'workload'];
+
+            var build_data_for_modals = function(field){
+                return {
+                    'window': field,
+                    'data': angular.copy($scope.course[field]),
+                    'reset': function(){ this.data=angular.copy($scope.course[field]); }
+                };
+            };
 
             $scope.show = function(){
                 try{
@@ -57,9 +65,12 @@
                 }
             };
 
+
             CourseDataFactory.then(function(course){
-                $scope.course = course;
+                $scope.course = angular.copy(course);
+                $scope.modals = fields.map(build_data_for_modals);
             });
+
             LessonDataFactory.then(function(lessons){
                 $scope.lessons = lessons;
             });

@@ -6992,6 +6992,9 @@ a.instructor:hover {
 #my-notes .course-notes #lessons .goto-class {
   margin-bottom: 14px;
 }
+#course-forum #main-content {
+  margin-top: 20px;
+}
 #course-forum #main-content a.ask-a-question {
   display: block;
 }
@@ -7062,8 +7065,9 @@ a.instructor:hover {
   height: 0;
   margin: 0 auto;
 }
-#course-forum #main-content article .rating .arrow-up:hover {
-  border-bottom-color: #2ecc71;
+#course-forum #main-content article .rating .arrow-up:hover,
+#course-forum #main-content article .rating .arrow-up.active {
+  border-bottom-color: #f1c40f;
   cursor: pointer;
 }
 #course-forum #main-content article .rating .arrow-down {
@@ -7074,8 +7078,9 @@ a.instructor:hover {
   width: 0;
   height: 0;
 }
-#course-forum #main-content article .rating .arrow-down:hover {
-  border-top-color: #2ecc71;
+#course-forum #main-content article .rating .arrow-down:hover,
+#course-forum #main-content article .rating .arrow-down.active {
+  border-top-color: #f1c40f;
   cursor: pointer;
 }
 #course-forum #main-content article .rating .votes {
@@ -7083,6 +7088,16 @@ a.instructor:hover {
   font-size: 18px;
   margin: 6px 0;
   text-align: center;
+}
+#course-forum #main-content article .rating .set-correct {
+  color: #bdc3c7;
+  cursor: pointer;
+  font-size: 36px;
+  margin-top: 10px;
+}
+#course-forum #main-content article .rating .set-correct:hover,
+#course-forum #main-content article .rating .set-correct.selected {
+  color: #2ecc71;
 }
 #course-forum #main-content .questions {
   margin-top: 18px !important;
@@ -7202,13 +7217,6 @@ a.instructor:hover {
 #course-forum #main-content .your-answer header h1 {
   font-size: 21px;
 }
-#course-forum #main-content .your-answer .text-editor {
-  margin-top: 21px;
-  margin-bottom: 7px;
-}
-#course-forum #main-content .your-answer .text-editor i {
-  margin-right: 12px;
-}
 #course-forum #main-content .your-answer textarea {
   width: 100%;
 }
@@ -7232,6 +7240,15 @@ a.instructor:hover {
 }
 #course-forum #main-content aside .related-questions a:hover {
   color: #95a5a6;
+}
+.wmd-panel {
+  margin-top: 20px;
+}
+.wmd-panel .btn-group {
+  margin-bottom: 1px;
+}
+.wmd-panel .btn-group .btn {
+  margin-right: 2px;
 }
 #main-footer {
   background: #eee;
