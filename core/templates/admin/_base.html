@@ -74,22 +74,24 @@
               </div>
             </section>
 
+            {% verbatim %}
             <section class="course-info row">
               <div class="col-sm-6 col-lg-6">
                 <div class="page-header-double">
                   <h3 class="top"><i class="icon-double-angle-right"></i> Aplicação do Conhecimento</h3>
                 </div>
-                <div class="editable" ng-bind-html="course.application"></div>
+                <div class="editable {{modals.application.status}}" ng-bind-html="course.application"></div>
                 <a data-toggle="modal" href="#applicationModal">Editar texto</a>
               </div>
               <div class="col-sm-6 col-lg-6">
                 <div class="page-header-double">
                   <h3 class="top"><i class="icon-double-angle-right"></i> O que preciso saber</h3>
                 </div>
-                <div class="editable" ng-bind-html="course.requirement"></div>
+                <div class="editable {{modals.requirement.status}}" ng-bind-html="course.requirement"></div>
                 <a data-toggle="modal" href="#requirementModal">Editar texto</a>
               </div>
             </section>
+            {% endverbatim %}
 
             <section class="course-lessons row">
               <div class="col-sm-12 col-lg-12">
@@ -156,28 +158,30 @@
 
           <div class="col-sm-3 col-lg-3">
             <div class="row">
+              {% verbatim %}
               <section class="course-summary col-sm-12 col-lg-12">
                 <div class="page-header-double top">
                   <h3 class="top"><i class="icon-double-angle-right"></i> Resumo</h3>
                 </div>
-                <div class="editable" ng-bind-html="course.abstract"></div>
+                <div class="editable {{modals.abstract.status}}" ng-bind-html="course.abstract"></div>
                 <a data-toggle="modal" href="#abstractModal">Editar texto</a>
                 <hr/>
 
                 <div class="page-header-double top">
                   <h3 class="top"><i class="icon-double-angle-right"></i> Estrutura do curso</h3>
                 </div>
-                <div class="editable" ng-bind-html="course.structure"></div>
+                <div class="editable {{modals.structure.status}}" ng-bind-html="course.structure"></div>
                 <a data-toggle="modal" href="#structureModal">Editar texto</a>
                 <hr/>
 
                 <div class="page-header-double top">
                   <h3 class="top"><i class="icon-double-angle-right"></i> Carga horária</h3>
                 </div>
-                <div class="editable" ng-bind-html="course.workload"></div>
+                <div class="editable {{modals.workload.status}}" ng-bind-html="course.workload"></div>
                 <a data-toggle="modal" href="#workloadModal">Editar texto</a>
                 <hr/>
               </section>
+              {% endverbatim %}
 
               <section class="course-social col-sm-12 col-lg-12" style="position:relative;overflow:hidden;">
               </section>
@@ -229,7 +233,7 @@
   {% verbatim %}
   <div ng-repeat="modal in modals">
     <div class="modal fade" id="{{modal.window}}Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog {{modal.status}}">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -258,7 +262,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" ng-click="modal.reset()" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="button" ng-click="modal.save()" class="btn btn-primary" data-dismiss="modal">Save changes</button>
             </div>
           </div>
         </div>

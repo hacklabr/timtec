@@ -51,9 +51,22 @@
 
             var build_data_for_modals = function(field){
                 return {
+                    'status': '',
                     'window': field,
                     'data': angular.copy($scope.course[field]),
-                    'reset': function(){ this.data=angular.copy($scope.course[field]); }
+                    'reset': function(){
+                        this.data = angular.copy($scope.course[field]);
+                    },
+                    'save': function(){
+                        var self = this;
+                        $scope.course.$save()
+                            .then(function(){
+                                $scope.course[field] = self.data;
+                                self.status = 'saved';
+                            }).catch(function(){
+                                self.status = 'error';
+                            });
+                    }
                 };
             };
 
@@ -69,6 +82,8 @@
             CourseDataFactory.then(function(course){
                 $scope.course = angular.copy(course);
                 $scope.modals = fields.map(build_data_for_modals);
+                // reindex $scope.modals
+                fields.forEach(function(e,i){$scope.modals[e]=$scope.modals[i];});
             });
 
             LessonDataFactory.then(function(lessons){
