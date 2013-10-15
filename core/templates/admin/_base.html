@@ -228,7 +228,7 @@
 
   {% verbatim %}
   <div ng-repeat="modal in modals">
-    <div class="modal fade" id="{{modal}}Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="{{modal.window}}Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -252,13 +252,13 @@
               </div>
               <div class="row">
                 <div class="col-lg-12 form-group">
-                  <textarea ng-model="course[modal]" class="col-lg-12 form-control" rows="15"></textarea>
+                  <textarea ng-model="modal.data" class="col-lg-12 form-control" rows="15"></textarea>
                 </div>
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" ng-click="reset(modal)" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-              <button type="button" ng-click="save(modal)" class="btn btn-primary">Save changes</button>
+              <button type="button" ng-click="modal.reset()" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
             </div>
           </div>
         </div>
