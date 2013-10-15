@@ -101,9 +101,6 @@
                         onStateChange: onPlayerStateChange
                     };
                     youtubePlayerApi.loadPlayer();
-                    if( ! youtubePlayerApi.player ) {
-                        youtubePlayerApi.deffered.resolve();
-                    }
                 }
             });
         }
