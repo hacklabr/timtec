@@ -7399,9 +7399,6 @@ body#admin .course-lessons .table tr td.add-unit {
   text-align: center;
   width: 19px;
 }
-body#admin .main-lesson-units {
-  display: none;
-}
 body#admin .form-group {
   position: relative;
 }

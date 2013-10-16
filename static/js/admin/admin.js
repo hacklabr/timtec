@@ -92,9 +92,19 @@
         }
     ]);
 
+    app.controller('LessonList',['$scope', 'LessonListFactory', '$http',
+        function($scope, LessonListFactory, $http){
+            LessonListFactory.then(function(lessons){
+                $scope.lessons = lessons;
+                $scope.lessons.selected = {};
+            });
+        }
+    ]);
+
     app.controller('LessonEdit',['$scope', 'LessonListFactory', '$http',
         function($scope, LessonListFactory, $http){
-
+            $scope.selectedUnit = {};
+            $scope.active = 'content';
             LessonListFactory.then(function(lessons){
                 $scope.lessons = lessons;
             });

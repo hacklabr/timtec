@@ -93,13 +93,13 @@
             </section>
             {% endverbatim %}
 
-            <section class="course-lessons row" ng-controller="LessonEdit">
+            <section class="course-lessons row" ng-controller="LessonList">
               <div class="col-sm-12 col-lg-12">
                 <div class="page-header-double">
                   <h3><i class="icon-double-angle-right"></i> Aulas</h3>
                 </div>
 
-                <a href="#lessonModal" data-toggle="modal" class="btn btn-success">Adicionar</a>
+                <a href="#lessonModal"  ng-click="current.lesson=lesson" data-toggle="modal" class="btn btn-success">Adicionar</a>
 
                 {% verbatim %}
                 <ul class="no-bullet">
@@ -110,7 +110,8 @@
                       </div>
                       <div class="col-lg-9 col-sm-9">
                         <p>
-                          <a href="{{ lesson.url }}" class="title">{{ lesson.name }}</a>
+                          <a href="#lessonModal" data-toggle="modal" class="title"
+                             ng-click="lessons.selected=lesson">{{lesson.name}}</a>
                           <span class="description">{{ lesson.desc }}</span>
                         </p>
                         <table class="table">
@@ -356,23 +357,27 @@
     </div>
   </div>
 
-  <div class="modal lesson-modal fade" id="lessonModal" tabindex="-1" role="dialog" aria-labelledby="lessonModalLabel" aria-hidden="true">
+  {% verbatim %}
+  <div class="modal lesson-modal fade" id="lessonModal" ng-controller="LessonEdit"
+       tabindex="-1" role="dialog" aria-labelledby="lessonModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Adicionar Aula</h4>
+          <h4 class="modal-title" ng-hide="lessons.selected.name">Adicionar Aula</h4>
+          <h4 class="modal-title" ng-show="lessons.selected.name">{{lessons.selected.name}}</h4>
         </div>
         <div class="modal-body">
-          <div class="main-lesson-content row">
+          <div class="main-lesson-content row" ng-show="active=='content'">
             <div class="col-lg-12">
               <div class="form-group">
                 <label>Título</label>
-                <input type="text" class="form-control" placeholder="Título da aula">
+                <input type="text" class="form-control"
+                       placeholder="Título da aula" ng-model="lessons.selected.name">
               </div>
               <div class="form-group">
                 <label>Descrição</label>
-                <textarea class="col-lg-12 form-control" rows="5"></textarea>
+                <textarea class="col-lg-12 form-control" ng-model="lessons.selected.desc" rows="5"></textarea>
               </div>
               <div class="form-group">
                 <label>Notas do professor</label>
@@ -402,50 +407,22 @@
                   <nav class="textcenter">
                       <div class="circle selected"></div>
                       <div class="circle"></div>
-                      <button class="next btn btn-success">Continuar <i class="icon-double-angle-right"></i></button>
+                      <button class="next btn btn-success" ng-click="active='units'">Continuar <i class="icon-double-angle-right"></i></button>
                   </nav>
                 </div>
               </div>
             </div>
           </div>
-          <div class="main-lesson-units row">
+          <div class="main-lesson-units row" ng-show="active=='units'">
             <div class="col-lg-12">
               <div class="row">
                 <div class="col-lg-3">
                   <p><button class="btn btn-success btn-lg col-lg-12 uppercase">adicionar unidade</button></p>
                   <ul class="units">
-                    <li class="selected">
+                    <li class="selected" ng-repeat="unit in lessons.selected.units">
                       <div class="row">
                         <div class="col-lg-1"><i class="icon-reorder"></i></div>
-                        <div class="col-lg-8"><a href="">Unidade 1</a></div>
-                        <div class="col-lg-2 textright"><i class="icon-remove alignright"></i></div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="row">
-                        <div class="col-lg-1"><i class="icon-reorder"></i></div>
-                        <div class="col-lg-8"><a href="">Unidade 2</a></div>
-                        <div class="col-lg-2 textright"><i class="icon-remove alignright"></i></div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="row">
-                        <div class="col-lg-1"><i class="icon-reorder"></i></div>
-                        <div class="col-lg-8"><a href="">Unidade 3</a></div>
-                        <div class="col-lg-2 textright"><i class="icon-remove alignright"></i></div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="row">
-                        <div class="col-lg-1"><i class="icon-reorder"></i></div>
-                        <div class="col-lg-8"><a href="">Unidade 4</a></div>
-                        <div class="col-lg-2 textright"><i class="icon-remove alignright"></i></div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="row">
-                        <div class="col-lg-1"><i class="icon-reorder"></i></div>
-                        <div class="col-lg-8"><a href="">Unidade 5</a></div>
+                        <div class="col-lg-8"><a href="" ng-click="$parent.selectedUnit=unit">TODO{{unit.title}}</a></div>
                         <div class="col-lg-2 textright"><i class="icon-remove alignright"></i></div>
                       </div>
                     </li>
@@ -453,16 +430,18 @@
                 </div>
                 <div class="col-lg-9">
                   <div class="page-header top">
-                    <h3 class="top">Unidade #1</h3>
+                    <h3 class="top">{{selectedUnit.title}}</h3>
                   </div>
                   <div class="form-group has-success">
                     <label class="control-label">Título</label>
-                    <input type="text" class="form-control" placeholder="Título para a unidade">
+                    <input type="text" class="form-control" placeholder="Título para a unidade"
+                           ng-model="selectedUnit.title">
                   </div>
 
                   <div class="form-group has-error">
-                    <label class="control-label">Vídeo URL</label>
-                    <input type="text" class="form-control video-url" placeholder="http://www.youtube.com/watch?v=">
+                    <label class="control-label">Vídeo ID</label>
+                    <input type="text" class="form-control video-url" placeholder="http://www.youtube.com/watch?v="
+                           ng-model="selectedUnit.video.youtube_id">
                   </div>
 
                   <div class="form-group">
@@ -523,7 +502,7 @@
               <div class="row">
                 <div class="col-lg-12">
                   <nav class="textcenter">
-                      <button class="prev btn btn-success"><i class="icon-double-angle-left"></i> Voltar</button>
+                      <button class="prev btn btn-success" ng-click="active='content'"><i class="icon-double-angle-left"></i> Voltar</button>
                       <div class="circle"></div>
                       <div class="circle selected"></div>
                       <button class="next btn btn-success disabled">Continuar <i class="icon-double-angle-right"></i></button>
@@ -540,6 +519,7 @@
       </div>
     </div>
   </div>
+  {% endverbatim %}
 
 </body>
 </html>
