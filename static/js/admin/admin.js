@@ -59,12 +59,14 @@
                     },
                     'save': function(){
                         var self = this;
+                        var old = angular.copy($scope.course[field]);
+                        $scope.course[field] = self.data;
                         $scope.course.$save()
                             .then(function(){
-                                $scope.course[field] = self.data;
                                 self.status = 'saved';
                             }).catch(function(){
                                 self.status = 'error';
+                                $scope.course[field] = old;
                             });
                     }
                 };
