@@ -43,9 +43,11 @@
         };
     });
 
-
-    app.controller('CourseEdit',['$scope', 'LessonDataFactory', 'CourseDataFactory', '$http',
-        function($scope, LessonDataFactory, CourseDataFactory, $http){
+    /**
+     * Controllers
+     */
+    app.controller('CourseEdit',['$scope', 'CourseDataFactory', '$http',
+        function($scope, CourseDataFactory, $http){
             $scope.course = {};
             var fields = ['application', 'requirement', 'abstract', 'structure', 'workload'];
 
@@ -87,14 +89,22 @@
                 // reindex $scope.modals
                 fields.forEach(function(e,i){$scope.modals[e]=$scope.modals[i];});
             });
+        }
+    ]);
 
-            LessonDataFactory.then(function(lessons){
+    app.controller('LessonEdit',['$scope', 'LessonListFactory', '$http',
+        function($scope, LessonListFactory, $http){
+
+            LessonListFactory.then(function(lessons){
                 $scope.lessons = lessons;
             });
         }
     ]);
 
 
+    /**
+     * Factories
+     */
     app.factory('CourseDataFactory', ['$rootScope', '$q', '$resource',
         function($rootScope, $q, $resource, $window) {
             var Course = $resource('/api/course/:courseSlug/',{'courseSlug': courseSlug});
@@ -107,7 +117,7 @@
         }
     ]);
 
-    app.factory('LessonDataFactory', ['$rootScope', '$q', '$resource',
+    app.factory('LessonListFactory', ['$rootScope', '$q', '$resource',
         function($rootScope, $q, $resource, $window) {
             var Lesson = $resource('/api/lessons?course__slug=:courseSlug',
                                     {'courseSlug': courseSlug});
