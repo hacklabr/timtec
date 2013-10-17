@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-function QuestionCtrl($scope, $sce, $window, Answer) {
+function QuestionCtrl($scope, $sce, $window, Answer, MarkdownEditor) {
     var questionId = parseInt($window.question_id, 10);
     var userId = parseInt($window.user_id, 10);
     $scope.answers = Answer.query({question: questionId});
@@ -12,10 +12,7 @@ function QuestionCtrl($scope, $sce, $window, Answer) {
             $scope.editor_enabled = false;
         }
     });
-    var converter1 = Markdown.getSanitizingConverter();
-    $window.converter = converter1;
-    var editor1 = new Markdown.Editor(converter1);
-    editor1.run();
+    MarkdownEditor.run();
 
     $scope.new_answer = function () {
         var questionId = parseInt($window.question_id, 10);
@@ -25,25 +22,22 @@ function QuestionCtrl($scope, $sce, $window, Answer) {
     };
 }
 
-function InlineForumCtrl($scope, $window, Question) {
+function InlineForumCtrl($scope, $window, Question, MarkdownEditor) {
     var course_id = parseInt($window.course_id, 10);
     $scope.questions = Question.query({course: course_id});
 
-    var converter1 = Markdown.getSanitizingConverter();
-    $window.converter = converter1;
-    var editor1 = new Markdown.Editor(converter1);
-    editor1.run();
+    MarkdownEditor.run();
 
     $scope.new_question = function () {
-        var new_answer = Question.save({course: course_id, title: $scope.new_question_title, text: $scope.new_question_text});
-        $scope.questions.push(new_answer);
+        var new_question = Question.save({course: course_id, title: $scope.new_question_title, text: $scope.new_question_text});
+        $scope.questions.unshift(new_question);
         $scope.editor_enabled = false;
     };
 }
 
 angular.module('forum.controllers', ['ngCookies']).
-    controller('QuestionCtrl', ['$scope', '$sce', '$window', 'Answer', QuestionCtrl]).
-    controller('InlineForumCtrl', ['$scope', '$window', 'Question', InlineForumCtrl]).
+    controller('QuestionCtrl', ['$scope', '$sce', '$window', 'Answer', 'MarkdownEditor', QuestionCtrl]).
+    controller('InlineForumCtrl', ['$scope', '$window', 'Question', 'MarkdownEditor', InlineForumCtrl]).
     controller('QuestionVoteCtrl', ['$scope', '$window', 'QuestionVote',
         function ($scope, $window, QuestionVote) {
             $scope.questionId = parseInt($window.question_id, 10);
