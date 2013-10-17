@@ -24,6 +24,22 @@ Getting Started
 - pip install -r requirements.txt
 - pip install -r dev-requirements.txt
 - python setup.py develop
-- sudo npm -g install less yuglify
+- sudo npm -g install less yuglify karma
 - ./manage.py syncdb --noinput
 - ./manage.py runserver
+
+Running Tests
+-------------
+
+python
+______
+
+Activate virtual env, then:
+py.test
+
+Angular
+_______
+
+In the root of repository:
+
+./karma_test.sh
