@@ -42,4 +42,4 @@ _______
 
 In the root of repository:
 
-./karma_test.sh
+./karma_tests.sh
