@@ -1,6 +1,6 @@
 module.exports = function(config){
     config.set({
-    basePath : '/home/bruno/devel/timtec/',
+    basePath : '../',
 
     files : [
       'static/js/vendor/angular.js',
