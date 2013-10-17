@@ -105,6 +105,15 @@
         function($scope, LessonListFactory, $http){
             $scope.selectedUnit = {};
             $scope.active = 'content';
+
+            $scope.typeIs = function(type){
+                try {
+                    return $scope.selectedUnit.activity.type === type;
+                }catch(e){
+                    return false;
+                }
+            };
+
             LessonListFactory.then(function(lessons){
                 $scope.lessons = lessons;
             });

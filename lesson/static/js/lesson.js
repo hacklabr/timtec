@@ -109,14 +109,14 @@
     app.factory('LessonData', ['$rootScope', '$q', '$resource', '$window',
         function($rootScope, $q, $resource, $window) {
             var Lesson = $resource('/api/lessons/:lessonId/');
-            var Progress = $resource('/api/student_progress/?unit__lesson=:lessonId');
+            var Progress = $resource('/api/student_progress?unit__lesson=:lessonId');
             var deferred = $q.defer();
 
             Lesson.get({'lessonId': $window.lessonId}, function (lesson) {
                 lesson.units.forEach(function(unit, index){
                     if(unit.activity) {
                         var type = unit.activity.type;
-                        unit.activity = JSON.parse(unit.activity.data);
+                        unit.activity = unit.activity.data;
                         // TODO: corrigir após definição exata do dado (fabio)
                         if(unit.activity.length > 0) {
                             unit.activity = unit.activity.pop();

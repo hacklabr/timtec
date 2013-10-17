@@ -422,7 +422,9 @@
                     <li class="selected" ng-repeat="unit in lessons.selected.units">
                       <div class="row">
                         <div class="col-lg-1"><i class="icon-reorder"></i></div>
-                        <div class="col-lg-8"><a href="" ng-click="$parent.selectedUnit=unit">TODO{{unit.title}}</a></div>
+                        <div class="col-lg-8">
+                            <a href="" ng-click="$parent.selectedUnit=unit">Unidade {{$index+1}}</a>
+                        </div>
                         <div class="col-lg-2 textright"><i class="icon-remove alignright"></i></div>
                       </div>
                     </li>
@@ -432,13 +434,8 @@
                   <div class="page-header top">
                     <h3 class="top">{{selectedUnit.title}}</h3>
                   </div>
-                  <div class="form-group has-success">
-                    <label class="control-label">Título</label>
-                    <input type="text" class="form-control" placeholder="Título para a unidade"
-                           ng-model="selectedUnit.title">
-                  </div>
 
-                  <div class="form-group has-error">
+                  <div class="form-group">
                     <label class="control-label">Vídeo ID</label>
                     <input type="text" class="form-control video-url" placeholder="http://www.youtube.com/watch?v="
                            ng-model="selectedUnit.video.youtube_id">
@@ -446,57 +443,45 @@
 
                   <div class="form-group">
                     <label class="control-label">Atividade</label>
-                    <p>
-                      <button class="single-choice btn btn-sm btn-default">Escolha simples</button>
-                      <button class="multiple-choice btn btn-sm btn-default">Múltipla escolha</button>
-                      <button class="true-or-false btn btn-sm btn-default">Verdadeiro ou falso</button>
-                      <button class="order btn btn-sm btn-default">Ordenação</button>
+                    <p class="{{selectedUnit.activity.type}}">
+                      <button ng-click="selectedUnit.activity.type='simplechoice'"
+                              class="{{typeIs('simplechoice')?'active':''}} btn btn-sm btn-default">Escolha simples
+                      </button>
+
+                      <button ng-click="selectedUnit.activity.type='multiplechoice'"
+                              class="{{typeIs('multiplechoice')?'active':''}} btn btn-sm btn-default">Múltipla escolha
+                      </button>
+
+                      <button ng-click="selectedUnit.activity.type='trueorfalse'"
+                              class="{{typeIs('trueorfalse')?'active':''}} btn btn-sm btn-default">Verdadeiro ou falso
+                      </button>
+
+                      <button ng-click="selectedUnit.activity.type='order'"
+                              class="{{typeIs('order')?'active':''}} btn btn-sm btn-default">Ordenação
+                      </button>
+
                     </p>
                   </div>
 
-                  <div class="form-group single-choice">
+                  <div class="form-group single-choice" ng-show="typeIs('simplechoice')">
                     <div class="form-horizontal">
                       <div class="form-group">
                         <label class="control-label col-lg-3">Pergunta</label>
                         <div class="col-lg-9">
-                          <textarea class="form-control" placeholder="Digite a pergunta">Quem deixou a garrafa térmica aberta?</textarea>
+                          <textarea class="form-control" placeholder="Digite a pergunta">{{selectedUnit.activity.data.question}}</textarea>
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label class="control-label col-lg-3">Resposta correta</label>
+                      <div class="form-group" ng-repeat="alt in selectedUnit.activity.data.alternatives">
+                        <label class="control-label col-lg-3">Alternativa {{$index+1}}</label>
                         <div class="col-lg-9">
-                          <input type="text" class="form-control" placeholder="Digite a resposta correta" value="Asa"/>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-lg-3">Resposta errada #1</label>
-                        <div class="col-lg-9">
-                          <input type="text" class="form-control" placeholder="Digite a resposta errada" value="Pedro"/>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-lg-3">Resposta errada #2</label>
-                        <div class="col-lg-9">
-                          <input type="text" class="form-control" placeholder="Digite a resposta errada" value="Anderson"/>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-lg-3">Resposta errada #3</label>
-                        <div class="col-lg-9">
-                          <input type="text" class="form-control" placeholder="Digite a resposta errada" value="Santa"/>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-lg-3">Resposta errada #4</label>
-                        <div class="col-lg-9">
-                          <input type="text" class="form-control" placeholder="Digite a resposta errada" value="Guti Guti"/>
+                          <input type="text" class="form-control" placeholder="Digite a resposta correta" value="{{alt}}"/>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="form-group multiple-choice">múltipla escolha</div>
-                  <div class="form-group true-or-false">Verdadeiro ou falso</div>
-                  <div class="form-group order">Ordenação</div>
+                  <!-- div class="form-group multiplechoice">múltipla escolha</div-->
+                  <!-- div class="form-group trueorfalse">Verdadeiro ou falso</div-->
+                  <!-- div class="form-group order">Ordenação</div-->
                 </div>
               </div>
               <div class="row">

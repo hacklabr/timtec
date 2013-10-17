@@ -5,10 +5,11 @@ from rest_framework import serializers
 
 class JSONField(serializers.WritableField):
 
-    def from_native(self, data):
-        return json.dumps(data)
+    def to_native(self, data):
+        # return json.dumps(data) # data is a json already
+        return data
 
-    def to_native(self, obj):
+    def from_native(self, obj):
         return json.loads(obj)
 
 
@@ -19,6 +20,8 @@ class VideoSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ActivitySerializer(serializers.HyperlinkedModelSerializer):
+    data = JSONField('data')
+
     class Meta:
         model = Activity
         fields = ('type','data')
