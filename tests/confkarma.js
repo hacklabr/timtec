@@ -8,7 +8,7 @@ module.exports = function(config){
       'static/js/vendor/pagedown/*.js',
       'forum/static/js/truncate.js',
       'forum/static/js/forum/*.js',
-      'forum/tests/js/lib/*.js',
+      'tests/js/lib/*.js',
       'forum/tests/js/*.js'
     ],
 
