@@ -20,5 +20,11 @@ angular.module('forum.services', ['ngRoute', 'ngResource']).
         return $resource('/api/question_vote/:question', {}, {
             update: {method: 'PUT'},
         });
+    }).
+    factory('MarkdownEditor', function(){
+        var converter = Markdown.getSanitizingConverter();
+        // $window.converter = converter1;
+        var editor = new Markdown.Editor(converter);
+        return editor;
     });
 
