@@ -9,8 +9,10 @@ install:
     - "pip install coveralls --use-mirrors"
     - "python setup.py develop"
     - "./manage.py syncdb --noinput"
-    - "npm install less yuglify"
-script: "py.test --cov . ."
+    - "npm install less yuglify karma"
+script:
+    - "py.test --cov . ."
+    - "./karma_tests.sh"
 after_success:
     - coveralls
 notifications:
