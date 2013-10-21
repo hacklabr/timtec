@@ -1,3 +1,3 @@
 #!/bin/bash
 
-karma start tests/confkarma.js --single-run $*
+karma start tests/confkarma.js $*

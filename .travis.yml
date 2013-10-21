@@ -7,9 +7,9 @@ install:
     - "pip install -r requirements.txt --use-mirrors"
     - "pip install -r dev-requirements.txt --use-mirrors"
     - "pip install coveralls --use-mirrors"
+    - "npm install less yuglify karma"
     - "python setup.py develop"
     - "./manage.py syncdb --noinput"
-    - "npm install less yuglify karma"
 script:
     - "py.test --cov . ."
     - "./karma_tests.sh"
