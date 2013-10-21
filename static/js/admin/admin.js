@@ -9,7 +9,7 @@
             localparams[att] = params[att];
         }
 
-        var url = new URL("https://www.youtube.com/embed/"+id, localparams);
+        var url = new URL("http://www.youtube.com/embed/"+id, localparams);
         return url.toString();
     };
 
@@ -19,7 +19,11 @@
         function ($httpProvider, $sceDelegateProvider) {
             $httpProvider.defaults.xsrfCookieName = 'csrftoken';
             $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-            $sceDelegateProvider.resourceUrlWhitelist(['^.*$', 'self']);
+            $sceDelegateProvider.resourceUrlWhitelist([
+                /^https?:\/\/(www\.)?youtube\.com\/.*/,
+                'data:text/html, <html style="background: white">'
+            ]);
+            window.sce = $sceDelegateProvider;
         }
     ]);
 
@@ -49,6 +53,21 @@
     app.controller('CourseEdit',['$scope', 'CourseDataFactory', '$http',
         function($scope, CourseDataFactory, $http){
             $scope.course = {};
+            $scope.video = {
+                'name': null,
+                'youtube_id': null,
+                'save': function() {
+                    if(this.youtube_id_temp) {
+                        this.youtube_id = this.youtube_id_temp;
+                        $scope.course.intro_video = this;
+                        $scope.course.$save();
+                    }
+                },
+                'reset': function() {
+                    this.youtube_id = $scope.course.intro_video.youtube_id;
+                }
+            };
+
             var fields = ['application', 'requirement', 'abstract', 'structure', 'workload'];
 
             var build_data_for_modals = function(field){
@@ -76,16 +95,20 @@
 
             $scope.show = function(){
                 try{
-                    return getYoutubeUrl($scope.course.intro_video.youtube_id);
-                } catch(e) {
-                    return 'data:text/html, <html style="background: black">';
-                }
+                    if($scope.video.youtube_id)
+                        return getYoutubeUrl($scope.video.youtube_id);
+                } catch(e) { }
+                return 'data:text/html, <html style="background: white">';
             };
 
 
             CourseDataFactory.then(function(course){
                 $scope.course = angular.copy(course);
                 $scope.modals = fields.map(build_data_for_modals);
+                if($scope.course.intro_video){
+                    $scope.video.name = $scope.course.intro_video.name;
+                    $scope.video.youtube_id = $scope.course.intro_video.youtube_id;
+                }
                 // reindex $scope.modals
                 fields.forEach(function(e,i){$scope.modals[e]=$scope.modals[i];});
             });
