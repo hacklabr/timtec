@@ -56,7 +56,7 @@ angular.module('youtube', ['ng']).run(['$document', function ($document) {
 
         service.loadPlayer = function () {
             service.deffered.promise.then(function () {
-                if (service.playerId && service.videoId) {
+                if (service.playerId) {
                     if(service.player) {
                         service.player.destroy();
                     }
