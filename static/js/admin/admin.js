@@ -13,7 +13,7 @@
         return url.toString();
     };
 
-    var app = angular.module('admin', ['ngRoute', 'ngResource', 'ngSanitize']);
+    var app = angular.module('admin', ['ngRoute', 'ngResource', 'ngSanitize', 'youtube']);
 
     app.config(['$httpProvider', '$sceDelegateProvider',
         function ($httpProvider, $sceDelegateProvider) {
@@ -50,8 +50,8 @@
     /**
      * Controllers
      */
-    app.controller('CourseEdit',['$scope', 'CourseDataFactory', '$http',
-        function($scope, CourseDataFactory, $http){
+    app.controller('CourseEdit',['$scope', 'CourseDataFactory', '$http', 'youtubePlayerApi',
+        function($scope, CourseDataFactory, $http, youtubePlayerApi){
             $scope.course = {};
             $scope.video = {
                 'name': null,
@@ -60,7 +60,9 @@
                     if(this.youtube_id_temp) {
                         this.youtube_id = this.youtube_id_temp;
                         $scope.course.intro_video = this;
-                        $scope.course.$save();
+                        $scope.course.$save().then((function(){
+                            youtubePlayerApi.player.cueVideoById(this.youtube_id);
+                        }).bind(this));
                     }
                 },
                 'reset': function() {
@@ -93,22 +95,20 @@
                 };
             };
 
-            $scope.show = function(){
-                try{
-                    if($scope.video.youtube_id)
-                        return getYoutubeUrl($scope.video.youtube_id);
-                } catch(e) { }
-                return 'data:text/html, <html style="background: white">';
-            };
-
-
             CourseDataFactory.then(function(course){
                 $scope.course = angular.copy(course);
                 $scope.modals = fields.map(build_data_for_modals);
                 if($scope.course.intro_video){
                     $scope.video.name = $scope.course.intro_video.name;
                     $scope.video.youtube_id = $scope.course.intro_video.youtube_id;
+
+                    youtubePlayerApi.events = {
+                        'onReady': function(player){
+                            player.target.cueVideoById($scope.video.youtube_id);
+                        }
+                    };
                 }
+                youtubePlayerApi.loadPlayer();
                 // reindex $scope.modals
                 fields.forEach(function(e,i){$scope.modals[e]=$scope.modals[i];});
             });
