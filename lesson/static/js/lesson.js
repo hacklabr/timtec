@@ -57,9 +57,11 @@
                 var unit = $scope.currentUnit = lesson.units[$scope.currentUnitPos];
                 $scope.currentUnitId = unit.id;
                 $scope.activity_template = unit.activity.template;
-                $scope.alternatives = unit.activity.alternatives.map(
-                    function(a,i) { return {'title': a }; }
-                );
+                if (unit.activity.alternatives) {
+                    $scope.alternatives = unit.activity.alternatives.map(
+                        function(a,i) { return {'title': a }; }
+                    );
+                }
 
                 if (['multiplechoice','trueorfalse'].indexOf(unit.activity.type) >= 0) {
                     $scope.answer.given = $scope.alternatives.map(
