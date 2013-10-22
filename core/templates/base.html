@@ -8,7 +8,8 @@
 
     <title>{% block title %}Timtec{% endblock %}</title>
 
-    {% compressed_css 'all' %}
+    {% compressed_css 'common' %}
+    {% compressed_css 'public' %}
     {% compressed_js 'all' %}
     {% endblock %}
 </head>

@@ -115,21 +115,31 @@ PIPELINE_COMPILERS = (
 )
 
 PIPELINE_CSS = {
-    'all': {
+    'common': {
         'source_filenames': (
             'fonts/questrial/stylesheet.css',
             'fonts/font-awesome/stylesheet.css',
+            'js/vendor/codemirror/lib/codemirror.css',
+            'js/vendor/codemirror/addon/hint/show-hint.css',
+            'js/vendor/codemirror/theme/monokai.css',
+            'css/codemirrorconf.css',
+        ),
+        'output_filename': 'css/common.css',
+        'extra_context': {
+            'media': 'screen,projection,print',
+        },
+    },
+    'public': {
+        'source_filenames': (
             'css/main.less',
         ),
-        'output_filename': 'css/all.css',
+        'output_filename': 'css/public.css',
         'extra_context': {
             'media': 'screen,projection,print',
         },
     },
     'admin': {
         'source_filenames': (
-            'fonts/questrial/stylesheet.css',
-            'fonts/font-awesome/stylesheet.css',
             'css/main-admin.less',
         ),
         'output_filename': 'css/admin.css',
@@ -148,6 +158,23 @@ PIPELINE_JS = {
             'js/vendor/angular-*.js',
             'js/*.js',
             'js/vendor/pagedown/*.js',
+
+            # codemirror stuff
+            'js/vendor/codemirror/lib/codemirror.js',
+            'js/vendor/codemirror/addon/fold/xml-fold.js',
+            'js/vendor/codemirror/addon/hint/show-hint.js',
+            'js/vendor/codemirror/addon/hint/xml-hint.js',
+            'js/vendor/codemirror/addon/hint/html-hint.js',
+            'js/vendor/codemirror/addon/hint/css-hint.js',
+            'js/vendor/codemirror/addon/hint/javascript-hint.js',
+            'js/vendor/codemirror/addon/edit/matchbrackets.js',
+            'js/vendor/codemirror/addon/edit/closebrackets.js',
+            'js/vendor/codemirror/addon/edit/matchtags.js',
+            'js/vendor/codemirror/mode/xml/xml.js',
+            'js/vendor/codemirror/mode/css/css.js',
+            'js/vendor/codemirror/mode/javascript/javascript.js',
+            'js/vendor/codemirror/mode/htmlmixed/htmlmixed.js',
+            'js/codemirrorconf.js',
         ),
         'output_filename': 'js/all.js',
     }
