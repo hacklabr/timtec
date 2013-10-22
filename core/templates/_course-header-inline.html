@@ -12,7 +12,7 @@
             <a href="{% url 'lesson' 'aula-1-modelos-de-dados-e-introducao-ao-modelo-relacional' %}"><span class="has-tooltip icon-facetime-video" data-toggle="tooltip" data-placement="top" data-original-title="Aulas"></span></a>
             <a href="profile-note.html"><span class="has-tooltip icon-pencil" data-toggle="tooltip" data-placement="top" data-original-title="Anotações"></span></a>
             <a href="{% url 'forum' course.slug %}"><span class="has-tooltip icon-list" data-toggle="tooltip" data-placement="top" data-original-title="Fórum"></span></a>
-            <a href=""><span class="has-tooltip icon-exclamation-sign" data-toggle="tooltip" data-placement="top" data-original-title="Wiki"></span></a>
+            <a href="{% url 'course_material' course.slug %}"><span class="has-tooltip icon-exclamation-sign" data-toggle="tooltip" data-placement="top" data-original-title="Material Didádico"></span></a>
           </nav>
           <!-- END COURSE-SECTION-NAV -->
         </div>

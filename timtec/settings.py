@@ -270,6 +270,7 @@ INSTALLED_APPS = (
     'core',
     'lesson',
     'forum',
+    'course_material',
 )
 
 if DEBUG:
