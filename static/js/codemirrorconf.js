@@ -6,7 +6,7 @@
         CodeMirror.showHint(cm, CodeMirror.hint.html);
     };
 
-    CodeMirrorConf = {
+    window.CodeMirrorConf = {
         lineNumbers:true,
         theme:"monokai",
         matchTags: {bothTags: true},

@@ -156,7 +156,9 @@ PIPELINE_JS = {
             'js/vendor/bootstrap.js',
             'js/vendor/angular.js',
             'js/vendor/angular-*.js',
-            'js/*.js',
+            'js/flatui-checkbox.js',
+            'js/flatui-radio.js',
+            'js/helpers.js',
             'js/vendor/pagedown/*.js',
 
             # codemirror stuff
