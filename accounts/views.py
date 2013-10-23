@@ -1,11 +1,12 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import login
 from django.core.urlresolvers import reverse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.template.response import TemplateResponse
 from django.utils.http import is_safe_url
 from django.views.generic import UpdateView
 from django.views.generic.base import TemplateView
+from django.views.generic.detail import DetailView
 
 from registration.backends.default.views import RegistrationView
 from registration.forms import RegistrationFormUniqueEmail
@@ -30,7 +31,6 @@ class CustomLoginView(TemplateView):
         default_next = reverse('home_view')
         next_step = self.request.REQUEST.get('next', default_next)
 
-        if not is_safe_url(next):
         if not is_safe_url(next_step):
             next_step = default_next
 
@@ -62,3 +62,18 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
 
     def get_object(self):
         return self.request.user
+
+
+class ProfileView(LoginRequiredMixin, DetailView):
+    model = get_user_model()
+    template_name = 'profile.html'
+    context_object_name = 'profile_user'
+
+    def get_object(self):
+        if hasattr(self, 'kwargs') and 'username' in self.kwargs:
+            try:
+                return get_object_or_404(self.model, username=self.kwargs['username'])
+            except:
+                return self.request.user
+        else:
+            return self.request.user
