@@ -50,6 +50,7 @@ class CustomLoginView(TemplateView):
             ret.context_data['login_form'] = ret.context_data.pop('form')
         return ret
 
+
 class ProfileEditView(LoginRequiredMixin, UpdateView):
     model = get_user_model()
     form_class = ProfileEditForm

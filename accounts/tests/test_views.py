@@ -10,7 +10,7 @@ def test_enroll_user_view(rf):
     request.user = TimtecUser.objects.get(username='abcd')
 
     view = EnrollCourseView(request=request)
-    view.kwargs = { 'slug': 'dbsql' }
+    view.kwargs = {'slug': 'dbsql'}
 
     assert view.get_object().id == Course.objects.get(slug='dbsql').id
 

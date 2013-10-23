@@ -80,4 +80,3 @@ def test_question_create(rf):
     assert response.status_code == 302
     assert question.text == text
     assert question.title == title
-

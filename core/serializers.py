@@ -2,7 +2,6 @@ from core.models import Course, CourseProfessor, CourseStudent, Lesson, TimtecUs
 from rest_framework import serializers
 
 
-
 class TimtecUserSerializer(serializers.ModelSerializer):
     name = serializers.Field(source='get_full_name')
     picture = serializers.Field(source='get_picture_url')
@@ -14,12 +13,14 @@ class TimtecUserSerializer(serializers.ModelSerializer):
 
 class CourseProfessorSerializer(serializers.ModelSerializer):
     user = TimtecUserSerializer()
+
     class Meta:
         model = CourseProfessor
 
 
 class CourseStudentSerializer(serializers.ModelSerializer):
     user = TimtecUserSerializer()
+
     class Meta:
         model = CourseStudent
 

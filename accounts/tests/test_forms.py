@@ -3,6 +3,7 @@ import pytest
 from django.contrib.auth import get_user_model
 from accounts.forms import ProfileEditForm
 
+
 @pytest.mark.django_db
 def test_profile_edit_forms_works_with_valid_data():
     user = get_user_model().objects.get(username='abcd')
@@ -22,6 +23,7 @@ def test_profile_edit_forms_works_with_valid_data():
 
     user = get_user_model().objects.get(username='abcd')
     assert user.email == 'email@changed.com'
+
 
 @pytest.mark.django_db
 def test_form_becomes_invalid_with_differents_passwords():

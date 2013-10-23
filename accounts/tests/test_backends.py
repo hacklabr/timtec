@@ -2,6 +2,7 @@ import pytest
 
 from accounts.backends import TimtecModelBackend
 
+
 @pytest.mark.django_db
 def test_authenticate_with_email():
     backend = TimtecModelBackend()
@@ -29,9 +30,9 @@ def test_authenticate_with_email_field_explicitly():
 
     Model.USERNAME_FIELD = original_field
 
+
 @pytest.mark.django_db
 def test_fail_with_invalid_email_or_username():
     backend = TimtecModelBackend()
     assert backend.authenticate(username='ivalid@email.com', password='x') is None
     assert backend.authenticate(username='invalid_username', password='x') is None
-

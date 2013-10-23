@@ -24,7 +24,7 @@ class ActivitySerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Activity
-        fields = ('type','data')
+        fields = ('type', 'data')
 
 
 class StudentProgressSerializer(serializers.ModelSerializer):

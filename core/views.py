@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import json
-
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.views.generic import DetailView
@@ -12,6 +10,7 @@ from rest_framework.response import Response
 
 from serializers import CourseSerializer
 from models import Course, StudentProgress
+
 
 class HomeView(View):
     def get(self, request):

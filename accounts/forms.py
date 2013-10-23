@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 User = get_user_model()
 
+
 class ProfileEditForm(forms.ModelForm):
     email = forms.RegexField(label=_("email"), max_length=75, regex=r"^[\w.@+-]+$")
 
