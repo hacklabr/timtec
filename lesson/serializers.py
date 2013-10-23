@@ -3,7 +3,7 @@ from core.models import Activity, Lesson, StudentProgress, Unit, Video
 from rest_framework import serializers
 
 
-class JSONField(serializers.WritableField):
+class JSONSerializerField(serializers.WritableField):
 
     def to_native(self, data):
         # return json.dumps(data) # data is a json already
@@ -20,7 +20,7 @@ class VideoSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ActivitySerializer(serializers.HyperlinkedModelSerializer):
-    data = JSONField('data')
+    data = JSONSerializerField('data')
 
     class Meta:
         model = Activity

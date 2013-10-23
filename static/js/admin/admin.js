@@ -9,17 +9,21 @@
             localparams[att] = params[att];
         }
 
-        var url = new URL("https://www.youtube.com/embed/"+id, localparams);
+        var url = new URL("http://www.youtube.com/embed/"+id, localparams);
         return url.toString();
     };
 
-    var app = angular.module('admin', ['ngRoute', 'ngResource', 'ngSanitize']);
+    var app = angular.module('admin', ['ngRoute', 'ngResource', 'ngSanitize', 'youtube']);
 
     app.config(['$httpProvider', '$sceDelegateProvider',
         function ($httpProvider, $sceDelegateProvider) {
             $httpProvider.defaults.xsrfCookieName = 'csrftoken';
             $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-            $sceDelegateProvider.resourceUrlWhitelist(['^.*$', 'self']);
+            $sceDelegateProvider.resourceUrlWhitelist([
+                /^https?:\/\/(www\.)?youtube\.com\/.*/,
+                'data:text/html, <html style="background: white">'
+            ]);
+            window.sce = $sceDelegateProvider;
         }
     ]);
 
@@ -46,9 +50,26 @@
     /**
      * Controllers
      */
-    app.controller('CourseEdit',['$scope', 'CourseDataFactory', '$http',
-        function($scope, CourseDataFactory, $http){
+    app.controller('CourseEdit',['$scope', 'CourseDataFactory', '$http', 'youtubePlayerApi',
+        function($scope, CourseDataFactory, $http, youtubePlayerApi){
             $scope.course = {};
+            $scope.video = {
+                'name': null,
+                'youtube_id': null,
+                'save': function() {
+                    if(this.youtube_id_temp) {
+                        this.youtube_id = this.youtube_id_temp;
+                        $scope.course.intro_video = this;
+                        $scope.course.$save().then((function(){
+                            youtubePlayerApi.player.cueVideoById(this.youtube_id);
+                        }).bind(this));
+                    }
+                },
+                'reset': function() {
+                    this.youtube_id = $scope.course.intro_video.youtube_id;
+                }
+            };
+
             var fields = ['application', 'requirement', 'abstract', 'structure', 'workload'];
 
             var build_data_for_modals = function(field){
@@ -74,18 +95,20 @@
                 };
             };
 
-            $scope.show = function(){
-                try{
-                    return getYoutubeUrl($scope.course.intro_video.youtube_id);
-                } catch(e) {
-                    return 'data:text/html, <html style="background: black">';
-                }
-            };
-
-
             CourseDataFactory.then(function(course){
                 $scope.course = angular.copy(course);
                 $scope.modals = fields.map(build_data_for_modals);
+                if($scope.course.intro_video){
+                    $scope.video.name = $scope.course.intro_video.name;
+                    $scope.video.youtube_id = $scope.course.intro_video.youtube_id;
+
+                    youtubePlayerApi.events = {
+                        'onReady': function(player){
+                            player.target.cueVideoById($scope.video.youtube_id);
+                        }
+                    };
+                }
+                youtubePlayerApi.loadPlayer();
                 // reindex $scope.modals
                 fields.forEach(function(e,i){$scope.modals[e]=$scope.modals[i];});
             });
