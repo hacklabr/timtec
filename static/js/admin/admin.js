@@ -139,6 +139,8 @@
 
             LessonListFactory.then(function(lessons){
                 $scope.lessons = lessons;
+                window.lessons = lessons;
+                window.backups = angular.copy(lessons);
             });
         }
     ]);
@@ -161,11 +163,24 @@
 
     app.factory('LessonListFactory', ['$rootScope', '$q', '$resource',
         function($rootScope, $q, $resource, $window) {
-            var Lesson = $resource('/api/lessons?course__slug=:courseSlug',
-                                    {'courseSlug': courseSlug});
+            var resourceConfig = {
+                'get':  {
+                    'method':'GET',
+                    'params':{'course__slug': courseSlug}
+                },
+                'query':{
+                    'method':'GET',
+                    'params':{'course__slug': courseSlug},
+                    'isArray': true
+                },
+                'update':{
+                    'method': 'PUT'
+                }
+            };
+            var LessonList = $resource('/api/lessons/:id', {'id':'@id'}, resourceConfig);
             var deferred = $q.defer();
 
-            Lesson.query(function(lessons){
+            LessonList.query(function(lessons){
                 deferred.resolve(lessons);
             });
             return deferred.promise;

@@ -10,21 +10,21 @@ class JSONSerializerField(serializers.WritableField):
         return data
 
     def from_native(self, obj):
-        return json.loads(obj)
+        return json.dumps(obj)
 
 
-class VideoSerializer(serializers.HyperlinkedModelSerializer):
+class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
-        fields = ('youtube_id',)
+        fields = ('id', 'youtube_id',)
 
 
-class ActivitySerializer(serializers.HyperlinkedModelSerializer):
+class ActivitySerializer(serializers.ModelSerializer):
     data = JSONSerializerField('data')
 
     class Meta:
         model = Activity
-        fields = ('type','data')
+        fields = ('id', 'type','data')
 
 
 class StudentProgressSerializer(serializers.ModelSerializer):
@@ -35,17 +35,17 @@ class StudentProgressSerializer(serializers.ModelSerializer):
         fields = ('unit', 'complete', 'last_access')
 
 
-class UnitSerializer(serializers.HyperlinkedModelSerializer):
+class UnitSerializer(serializers.ModelSerializer):
     video = VideoSerializer()
     activity = ActivitySerializer()
 
     class Meta:
         model = Unit
-        fields = ('id', 'video', 'activity', 'position')
+        fields = ('id', 'video', 'activity', 'position',)
 
 
 class LessonSerializer(serializers.HyperlinkedModelSerializer):
-    units = UnitSerializer(many=True)
+    units = UnitSerializer(many=True)#, allow_add_remove=True)
     url = serializers.HyperlinkedIdentityField(
         view_name='lesson',
         lookup_field='slug'
@@ -53,4 +53,4 @@ class LessonSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Lesson
-        fields = ('slug', 'desc', 'name', 'url', 'units',)
+        fields = ('id', 'course', 'slug', 'desc', 'name', 'url', 'units',)
