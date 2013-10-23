@@ -31,6 +31,7 @@ class CustomLoginView(TemplateView):
         next_step = self.request.REQUEST.get('next', default_next)
 
         if not is_safe_url(next):
+        if not is_safe_url(next_step):
             next_step = default_next
 
         context['next'] = next_step
