@@ -1,27 +1,8 @@
-angular.module('youtube', ['ng']).run(['$document', function ($document) {
-    var tag = $document[0].createElement('script');
-
-    // This is a protocol-relative URL as described here:
-    //     http://paulirish.com/2010/the-protocol-relative-url/
-    // If you're testing a local page accessed via a file:/// URL, please set tag.src to
-    //     "https://www.youtube.com/iframe_api" instead.
-    tag.src = "//www.youtube.com/iframe_api";
-    var firstScriptTag = $document[0].getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    }])
+angular.module('youtube', ['ng'])
     .service('youtubePlayerApi', ['$window', '$rootScope', '$log', '$q',
         function ($window, $rootScope, $log, $q) {
         var service = $rootScope.$new(true);
-        service.deffered = $q.defer();
 
-        // Youtube callback when API is ready
-        $window.onYouTubeIframeAPIReady = function () {
-            $log.info('Youtube API is ready');
-            service.ready = true;
-            service.deffered.resolve(true);
-        };
-
-        service.ready = false;
         service.playerId = null;
         service.player = null;
         service.videoId = null;
@@ -55,14 +36,12 @@ angular.module('youtube', ['ng']).run(['$document', function ($document) {
         };
 
         service.loadPlayer = function () {
-            service.deffered.promise.then(function () {
-                if (service.playerId) {
-                    if(service.player) {
-                        service.player.destroy();
-                    }
-                    service.player = service.createPlayer();
+            if (service.playerId) {
+                if(service.player) {
+                    service.player.destroy();
                 }
-            });
+                service.player = service.createPlayer();
+            }
         };
         return service;
     }])
