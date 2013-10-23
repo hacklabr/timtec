@@ -4,13 +4,14 @@ python:
 node_js:
     - "0.10"
 install:
-    - "pip install -r requirements.txt --use-mirrors"
-    - "pip install -r dev-requirements.txt --use-mirrors"
-    - "pip install coveralls --use-mirrors"
-    - "python setup.py develop"
+    - "pip install -q -r requirements.txt --use-mirrors"
+    - "pip install -q -r dev-requirements.txt --use-mirrors"
+    - "pip install -q coveralls --use-mirrors"
+    - "npm install less yuglify karma --loglevel silent"
+    - "python setup.py -q develop"
     - "./manage.py syncdb --noinput"
-    - "npm install less yuglify"
-script: "py.test --cov . ."
+script:
+    - "./all_tests.sh"
 after_success:
     - coveralls
 notifications:

@@ -27,6 +27,7 @@ class ActivitySerializer(serializers.ModelSerializer):
         fields = ('id', 'type','data')
 
 
+
 class StudentProgressSerializer(serializers.ModelSerializer):
     complete = serializers.DateTimeField(required=False)
 

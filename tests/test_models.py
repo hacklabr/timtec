@@ -3,7 +3,7 @@ import pytest
 from os.path import join, dirname
 from model_mommy import mommy
 from django.core.files.base import ContentFile
-from core.models import *
+from core.models import TimtecUser, Course, CourseStudent
 
 
 @pytest.mark.django_db
@@ -66,4 +66,3 @@ def test_enroll_user_create_single_entry_of_coursestudent():
 
     course.enroll_student(user)
     assert CourseStudent.objects.filter(user=user, course=course).count() == 1
-
