@@ -31,11 +31,13 @@ Getting Started
 Running Tests
 -------------
 
+run ./all_tests.sh to run all tests together
+
 python
 ______
 
 Activate virtual env, then:
-py.test
+./python_tests.sh
 
 Angular
 _______

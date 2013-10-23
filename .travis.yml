@@ -11,8 +11,7 @@ install:
     - "python setup.py develop"
     - "./manage.py syncdb --noinput"
 script:
-    - "py.test --pep8 --flakes --cov . ."
-    - "./karma_tests.sh"
+    - "./all_tests.sh"
 after_success:
     - coveralls
 notifications:
