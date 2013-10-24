@@ -138,9 +138,25 @@
             };
 
             LessonListFactory.then(function(lessons){
+                var copies = angular.copy(lessons);
+
+                var save = function(){
+                    return 'id' in this ? this.$update() : this.$save();
+                };
+
+                lessons.forEach(function(el,i) {
+                    var restore = function(){
+                        lessons[i] = angular.copy(copies[i]);
+                        lessons[i].restore = restore;
+                    };
+
+                    el.save = save;
+                    el.restore = restore;
+                });
+
+
+
                 $scope.lessons = lessons;
-                window.lessons = lessons;
-                window.backups = angular.copy(lessons);
             });
         }
     ]);

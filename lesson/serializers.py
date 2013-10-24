@@ -33,7 +33,7 @@ class StudentProgressSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = StudentProgress
-        fields = ('unit', 'complete', 'last_access')
+        fields = ('unit', 'complete', 'last_access',)
 
 
 class UnitSerializer(serializers.ModelSerializer):
