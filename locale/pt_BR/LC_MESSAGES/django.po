@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-10-24 15:23-0200\n"
-"PO-Revision-Date: 2013-10-24 16:44-0200\n"
+"PO-Revision-Date: 2013-10-24 18:43-0200\n"
 "Last-Translator: Truta Silva <a@b.cd>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -355,7 +355,7 @@ msgstr "Minhas notas"
 
 #: core/templates/header-authenticated.html:25
 msgid "Profile"
-msgstr "Professor"
+msgstr "Perfil"
 
 #: core/templates/header-authenticated.html:26
 msgid "Edit Profile and Account Settings"
