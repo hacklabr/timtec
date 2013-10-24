@@ -22,20 +22,20 @@
                 <div class="row">
                     <div class="col-sm-9 col-lg-9">
                         <!-- COURSE MATERIAL TEXT FORM -->
-                        <div class="row">
-                            <p class="description">{{ course_material.text|my_markdown }}</p>
-                        </div>
+                        <p class="description">{{ course_material.text|my_markdown }}</p>
                         <!-- COURSE MATERIAL TEXT FORM -->
                     </div>
                     <!-- ASIDE -->
                     <aside class="col-sm-3 col-lg-3">
-                        <form action="{% url 'file_upload' course.slug %}" class="dropzone" drop-zone id="file-dropzone">
+                        <form action="{% url 'file_upload' course.slug %}" class="dropzone textcenter" drop-zone id="file-dropzone">
+                            <p><strong>Drop</strong> files to upload<br>(or click)</p>
                             {% csrf_token %}
                         </form>
-                        <ul>
-                        {% for file in course_material.files.all %}
-                            <li><a href="{{ file.file.url }}">{{ file.file.name }}</a></li>
-                        {% endfor %}
+                        <ul class="uploaded-files-list">
+                            <li><h5>Uploaded Files</h5></li>
+                            {% for file in course_material.files.all %}
+                                <li><a href="{{ file.file.url }}">{{ file.file.name }}</a></li>
+                            {% endfor %}
                         </ul>
                     </aside>
                     <!-- END ASIDE -->
