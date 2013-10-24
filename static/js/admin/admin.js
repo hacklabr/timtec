@@ -130,27 +130,37 @@
             $scope.active = 'content';
 
             $scope.typeIs = function(type){
-                try {
-                    return $scope.selectedUnit.activity.type === type;
-                }catch(e){
-                    return false;
+                try { return $scope.selectedUnit.activity.type === type; } catch (e){ }
+                return false;
+            };
+
+            $scope.changeTypeTo = function(type){
+                if( ! $scope.selectedUnit.activity )  {
+                    $scope.selectedUnit.activity = { "type": type, "data": {}, "alternatives":[] };
                 }
+                $scope.selectedUnit.activity["type"] = type;
+                console.log($scope.selectedUnit.activity.constructor);
+            };
+
+            $scope.addAlternative = function() {
+                var u = $scope.selectedUnit;
+                if( ! u.activity )  {
+                    u.activity = { "data": {"alternatives":[]} };
+                }
+                if( ! u.activity.data.alternatives ) {
+                    u.activity.data.alternatives = [];
+                }
+                u.activity.data.alternatives.push([""]);
             };
 
             LessonListFactory.then(function(lessons){
                 var copies = angular.copy(lessons);
-
-                var save = function(){
-                    return 'id' in this ? this.$update() : this.$save();
-                };
-
                 lessons.forEach(function(el,i) {
                     var restore = function(){
                         lessons[i] = angular.copy(copies[i]);
                         lessons[i].restore = restore;
                     };
 
-                    el.save = save;
                     el.restore = restore;
                 });
 

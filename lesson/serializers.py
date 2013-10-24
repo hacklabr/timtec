@@ -6,8 +6,11 @@ from rest_framework import serializers
 class JSONSerializerField(serializers.WritableField):
 
     def to_native(self, data):
-        # return json.dumps(data) # data is a json already
-        return data
+        if type(data) is dict:
+            return data;
+        elif type(data) in (unicode, str,):
+            return json.loads(data)
+        return None
 
     def from_native(self, obj):
         return json.dumps(obj)
@@ -21,10 +24,11 @@ class VideoSerializer(serializers.ModelSerializer):
 
 class ActivitySerializer(serializers.ModelSerializer):
     data = JSONSerializerField('data')
+    expected = JSONSerializerField('expected')
 
     class Meta:
         model = Activity
-        fields = ('id', 'type','data')
+        fields = ('id', 'type', 'data', 'expected',)
 
 
 
