@@ -77,7 +77,7 @@
               <p class="description">{{ question.text|words:50 }}</p>
             </div>
             <div class="author">
-              Pergunta feita feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }} por <a href="">{{ question.username }}</a>
+              Pergunta feita feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }} por <a href="/profile/{{ question.username }}">{{ question.username }}</a>
             </div>
             {% endverbatim angularjs %}
           </article>
