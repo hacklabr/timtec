@@ -1,12 +1,13 @@
 import pytest
 
+
 @pytest.mark.django_db
 def test_custom_login_view(client):
     response = client.get('/login/')
     assert response.status_code == 200
     assert response.context['request'].user.is_authenticated() is False
 
-    response = client.post('/login/', {'username':'abcd',
+    response = client.post('/login/', {'username': 'abcd',
                                        'password': 'x'})
     assert response.status_code == 302
 
@@ -21,7 +22,7 @@ def test_custom_login_view_with_next_field(client):
     assert response.status_code == 200
     assert response.context['request'].user.is_authenticated() is False
 
-    response = client.post('/login/', {'username':'abcd',
+    response = client.post('/login/', {'username': 'abcd',
                                        'password': 'x',
                                        'next': '/profile/edit'})
     assert response.status_code == 302
@@ -30,7 +31,7 @@ def test_custom_login_view_with_next_field(client):
 
 @pytest.mark.django_db
 def test_custom_login_redirect_already_authenticated_user(client):
-    response = client.post('/login/', {'username':'abcd', 'password': 'x'})
+    response = client.post('/login/', {'username': 'abcd', 'password': 'x'})
     assert response.status_code == 302
 
     response = client.get('/login/')
@@ -55,7 +56,7 @@ def test_custom_login_does_not_redirect_to_unsafe_next(admin_client):
 
 @pytest.mark.django_db
 def test_custom_login_has_login_form_in_context_when_login_fail(client):
-    response = client.post('/login/', {'username':'invalid',
+    response = client.post('/login/', {'username': 'invalid',
                                        'password': 'invalid'})
 
     assert response.status_code == 200
@@ -64,7 +65,7 @@ def test_custom_login_has_login_form_in_context_when_login_fail(client):
 
 @pytest.mark.django_db
 def test_user_instance_for_profile_edit_form_is_the_same_of_request(client):
-    response = client.post('/login/', {'username':'abcd', 'password': 'x',})
+    response = client.post('/login/', {'username': 'abcd', 'password': 'x'})
 
     response = client.get('/profile/edit')
     assert response.status_code == 200
@@ -77,4 +78,3 @@ def test_edit_profile(admin_client):
 
     assert response.status_code == 302
     assert response['Location'] == 'http://testserver/profile/edit'
-

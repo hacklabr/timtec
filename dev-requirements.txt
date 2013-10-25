@@ -1,5 +1,7 @@
 pip-tools
+pytest==2.4.2
 pytest-cov
-pytest==2.3.5
+pytest-flakes
+pytest-pep8
 pytest-django==2.3.1
 -e git+https://github.com/vandersonmota/model_mommy.git#egg=model_mommy

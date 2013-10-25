@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 admin.autodiscover()
 
-from accounts.views import CustomLoginView, ProfileEditView, RegistrationUniqueEmailView
+from accounts.views import CustomLoginView, ProfileEditView, RegistrationUniqueEmailView, ProfileView
 from core.views import AdminCourseView, CourseView, CourseViewSet, EnrollCourseView, HomeView, UserCoursesView
 from lesson.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, ReceiveAnswerView
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, AnswerViewSet, QuestionVoteViewSet, AnswerVoteViewSet
@@ -59,6 +59,7 @@ urlpatterns = patterns(
     url(r'^logout/', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='timtec_logout'),
 
     url(r'^profile/edit/?$', ProfileEditView.as_view(), name="profile_edit"),
+    url(r'^profile/(?P<username>[-a-zA-Z0-9_]+)?$', ProfileView.as_view(), name="profile"),
 
     # The django-registration
     url(r'^accounts/register/$', RegistrationUniqueEmailView.as_view(), name='registration_register'),
