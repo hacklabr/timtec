@@ -431,7 +431,7 @@
                       <div class="row">
                         <div class="col-lg-1"><i class="icon-reorder"></i></div>
                         <div class="col-lg-8">
-                            <a href="" ng-click="$parent.selectedUnit=unit">Unidade {{$index+1}}</a>
+                            <a href="" ng-click="select(unit)">Unidade {{$index+1}}</a>
                         </div>
                         <div class="col-lg-2 textright"><i class="icon-remove alignright"></i></div>
                       </div>
@@ -451,7 +451,7 @@
 
                   <div class="form-group">
                     <label class="control-label">Atividade</label>
-                    <p class="{{selectedUnit.activity.type}}">
+                    <p class="{{activity().type}}">
                       <button ng-click="changeTypeTo('simplechoice')"
                               class="{{typeIs('simplechoice')?'active':''}} btn btn-sm btn-default">Escolha simples
                       </button>
@@ -471,29 +471,51 @@
                     </p>
                   </div>
 
-                  <div class="form-group single-choice" ng-show="typeIs('simplechoice')">
+                  <div class="form-group singlechoice" ng-show="typeIs('simplechoice')">
                     <div class="form-horizontal">
                       <div class="form-group">
                         <label class="control-label col-lg-3">Pergunta</label>
                         <div class="col-lg-8 col-lg-offset-1">
-                          <textarea class="form-control" placeholder="Digite a pergunta" ng-model="selectedUnit.activity.data.question"></textarea>
+                          <textarea class="form-control" placeholder="Digite a pergunta" ng-model="activity().data.question"></textarea>
                         </div>
                       </div>
-                      <div class="form-group" ng-repeat="alt in selectedUnit.activity.data.alternatives track by $index">
+                      <div class="form-group" ng-repeat="alt in activity().data.alternatives track by $index">
                         <label class="control-label col-lg-3">Alternativa {{$index+1}}</label>
                         <div class="col-lg-1">
-                            <input type="radio" ng-model="selectedUnit.activity.expected" ng-value="$index" />
+                            <input type="radio" ng-model="activity().expected" ng-value="$index" />
                         </div>
                         <div class="col-lg-8">
                             <input type="text" class="form-control" placeholder="Digite uma resposta"
-                                 ng-model="selectedUnit.activity.data.alternatives[$index]"/>
+                                 ng-model="activity().data.alternatives[$index]"/>
                         </div>
                       </div>
                     </div>
                     <button class="next btn" ng-click="addAlternative()">Adicionar resposta</button>
                   </div>
 
-                  <!-- div class="form-group multiplechoice">múltipla escolha</div-->
+                  <div class="form-group multiplechoice" ng-show="typeIs('multiplechoice')">
+                    <div class="form-horizontal">
+                      <div class="form-group">
+                        <label class="control-label col-lg-3">Pergunta</label>
+                        <div class="col-lg-8 col-lg-offset-1">
+                          <textarea class="form-control" placeholder="Digite a pergunta" ng-model="activity().data.question"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group" ng-repeat="alt in activity().data.alternatives track by $index">
+                        <label class="control-label col-lg-3">Alternativa {{$index+1}}</label>
+                        <div class="col-lg-1">
+                            <input type="checkbox" ng-model="activity().expected[$index]" />
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" placeholder="Digite uma resposta"
+                                 ng-model="activity().data.alternatives[$index]"/>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="next btn" ng-click="addAlternative()">Adicionar resposta</button>
+                  </div>
+
+
                   <!-- div class="form-group trueorfalse">Verdadeiro ou falso</div-->
                   <!-- div class="form-group order">Ordenação</div-->
                 </div>

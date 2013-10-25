@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import re
+import re, json
 
 from jsonfield import JSONField
 from positions import PositionField
@@ -265,6 +265,8 @@ class Answer(models.Model):
 
     @property
     def expected(self):
+        if type(self.activity.expected) in [unicode, str]:
+            return json.loads(self.activity.expected)
         return self.activity.expected
 
     def is_correct(self):
@@ -274,6 +276,7 @@ class Answer(models.Model):
         expected = self.activity.expected
 
         result = str(given) == str(expected)
+        #import ipdb; ipdb.set_trace()
         return result
 
     class Meta:
