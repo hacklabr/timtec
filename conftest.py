@@ -36,10 +36,10 @@ def admin_client(db):
     user = create_user('admin')
 
     client = Client()
-    client.login(username=user.username, password=user.password)
+    client.login(username=user.username, password='password')
     return client
 
 
 @pytest.fixture()
 def user(db):
-    create_user('common')
+    return create_user('common')
