@@ -8,6 +8,7 @@ from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+
 class LessonDetailView(LoginRequiredMixin, DetailView):
     model = Lesson
     template_name = "lesson.html"
@@ -47,7 +48,7 @@ class ReceiveAnswerView(APIView):
 
         if 'given' in request.POST:
             answer = Answer(activity=unit.activity, user=user)
-            answer.given = json.loads( request.POST.get('given', None) )
+            answer.given = json.loads(request.POST.get('given', None))
             answer.save()
 
             json_answer = {

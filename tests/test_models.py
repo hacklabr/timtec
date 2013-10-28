@@ -3,13 +3,7 @@ import pytest
 from os.path import join, dirname
 from model_mommy import mommy
 from django.core.files.base import ContentFile
-from core.models import *
-
-
-@pytest.mark.django_db
-def test_super_user():
-    a = TimtecUser.objects.get(username='abcd')
-    assert a.is_superuser
+from core.models import CourseStudent
 
 
 @pytest.mark.django_db
@@ -37,8 +31,7 @@ def test_position_counter_for_new_units():
 
 
 @pytest.mark.django_db
-def test_user_picture_url():
-    user = TimtecUser.objects.get(username='abcd')
+def test_user_picture_url(user):
 
     assert not user.picture
     assert user.get_picture_url() == '/static/img/avatar-default.png'
@@ -47,7 +40,6 @@ def test_user_picture_url():
     user.picture.save('abcd-avatar.png', ContentFile(open(testpicture).read()))
     user.save()
 
-    user = TimtecUser.objects.get(username='abcd')
     assert user.get_picture_url() == '/media/user-pictures/abcd-avatar.png'
 
     #teardown
@@ -55,9 +47,8 @@ def test_user_picture_url():
 
 
 @pytest.mark.django_db
-def test_enroll_user_create_single_entry_of_coursestudent():
-    user = TimtecUser.objects.get(username='abcd')
-    course = Course.objects.get(slug='dbsql')
+def test_enroll_user_create_single_entry_of_coursestudent(user):
+    course = mommy.make('Course', slug='dbsql1234')
 
     assert CourseStudent.objects.filter(user=user, course=course).count() == 0
 
@@ -66,4 +57,3 @@ def test_enroll_user_create_single_entry_of_coursestudent():
 
     course.enroll_student(user)
     assert CourseStudent.objects.filter(user=user, course=course).count() == 1
-

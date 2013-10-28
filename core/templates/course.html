@@ -17,7 +17,11 @@
           {% include "_course-professors-inline.html" with course=course %}
         </div>
         <div class="col-lg-3 col-sm-3 textright">
-          <a href="{% url "enroll_course" course.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-sm-12 uppercase">{% trans "Take the Class" %}</a>
+          {% if user_is_enrolled %}
+            <a href="{% url "lesson" course.first_lesson.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-sm-12 uppercase">{% trans "Resume" %}</a>
+          {% else %}
+            <a href="{% url "enroll_course" course.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-sm-12 uppercase">{% trans "Take the Class" %}</a>
+          {% endif %}
         </div>
       </div>
     </div>

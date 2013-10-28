@@ -1,31 +1,65 @@
 import pytest
+from model_mommy import mommy
 
 
 @pytest.mark.django_db
-def test_enroll_user_view(rf):
-    from core.models import Course, TimtecUser
+def test_enroll_user_view(rf, user):
+    from core.models import Course
     from core.views import EnrollCourseView
 
-    request = rf.get('/courses/dbsql/enroll')
-    request.user = TimtecUser.objects.get(username='abcd')
+    course = mommy.make('Course', slug='acceptance_enroll_user')
+    lesson = mommy.make('Lesson', course=course)
+
+    request = rf.get('/courses/' + course.slug + '/enroll')
+    request.user = user
 
     view = EnrollCourseView(request=request)
-    view.kwargs = { 'slug': 'dbsql' }
+    view.kwargs = {'slug': course.slug}
 
-    assert view.get_object().id == Course.objects.get(slug='dbsql').id
+    assert view.get_object().id == Course.objects.get(slug=course.slug).id
 
     response = view.get(request)
     assert response.status_code == 302
-    assert response['Location'] == '/lesson/aula-1-modelos-de-dados-e-introducao-ao-modelo-relacional'
+    assert response['Location'] == '/lesson/' + lesson.slug
 
 
 @pytest.mark.django_db
 def test_home_view(rf):
     from core.views import HomeView
 
+    course = mommy.make('Course')
+
     request = rf.get('/')
     view = HomeView(request=request)
 
     response = view.get(request)
     assert response.status_code == 302
-    assert response['Location'] == '/course/dbsql'
+    assert response['Location'] == '/course/' + course.slug
+
+
+@pytest.mark.django_db
+def test_profile_view(rf, user):
+    from accounts.views import ProfileView
+
+    request = rf.get('/profile/')
+    request.user = user
+    view = ProfileView(request=request)
+    response = view.get(request)
+    assert response.status_code == 200
+    assert response.context_data['profile_user'].username == user.username
+
+    request = rf.get('/profile/abcd')
+    request.user = user
+    view = ProfileView(request=request)
+    view.kwargs = {'username': user.username}
+    response = view.get(request)
+    assert response.status_code == 200
+    assert response.context_data['profile_user'].username == user.username
+
+    request = rf.get('/profile/1234')
+    request.user = user
+    view = ProfileView(request=request)
+    view.kwargs = {'username': '1234'}
+    response = view.get(request)
+    assert response.status_code == 200
+    assert response.context_data['profile_user'].username == user.username

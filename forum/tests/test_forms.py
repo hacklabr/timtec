@@ -1,16 +1,15 @@
 import pytest
+from model_mommy import mommy
 
 
 @pytest.mark.django_db
-def test_question_form():
-    from core.models import TimtecUser
+def test_question_form(user):
     from forum.forms import QuestionForm
-    from core.models import Course
     from forum.models import Question
 
     instance = Question()
-    instance.course = Course.objects.get(slug='dbsql')
-    instance.user = TimtecUser.objects.get(username='abcd')
+    instance.course = mommy.make('Course', slug='dbsql')
+    instance.user = user
 
     data = {
         'title': 'Test Title',

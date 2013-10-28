@@ -53,3 +53,6 @@ settings_local.py
 
 /static/css/main.css
 /static/css/main-admin.css
+/.cache
+/node_modules
+

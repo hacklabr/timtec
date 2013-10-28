@@ -1,10 +1,10 @@
 import pytest
-from core.models import Lesson
+from model_mommy import mommy
 
 
 @pytest.mark.django_db
 def test_lesson(admin_client):
-    lesson = Lesson.objects.all()[0]
+    lesson = mommy.make('Lesson')
     response = admin_client.get('/lesson/' + lesson.slug)
     assert response.status_code == 200
     assert lesson.name.encode('utf-8') in response.content

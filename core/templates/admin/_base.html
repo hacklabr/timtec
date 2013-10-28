@@ -6,6 +6,8 @@
 
   <title>{{ course }}</title>
 
+  <script src="//www.youtube.com/iframe_api"></script>
+
   {% load static %}
   {% load compressed %}
 
@@ -106,7 +108,8 @@
                   <h3><i class="icon-double-angle-right"></i> Aulas</h3>
                 </div>
 
-                <a href="#lessonModal"  ng-click="current.lesson=lesson" data-toggle="modal" class="btn btn-success">Adicionar</a>
+                <a href="#lessonModal" ng-click="newLesson()"
+                   data-toggle="modal" class="btn btn-success">Adicionar</a>
 
                 {% verbatim %}
                 <ul class="no-bullet">
@@ -117,18 +120,21 @@
                       </div>
                       <div class="col-lg-9 col-sm-9">
                         <p>
+
+                          <!-- lesson selector -->
                           <a href="#lessonModal" data-toggle="modal" class="title"
-                             ng-click="lessons.selected=lesson">{{lesson.name}}</a>
+                             ng-click="select(lesson)">{{ lesson.name }}</a>
+
                           <span class="description">{{ lesson.desc }}</span>
                         </p>
                         <table class="table">
                           <tr>
                             <td ng-repeat="unit in lesson.units">
-                              <span class="has-tooltip unit" data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade {{$index}}">&nbsp;</span>
+                              <span class="has-tooltip unit" data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade {{ $index }}">&nbsp;<i ng-show="unit.activity" class="icon-list"></i></span>
                             </td>
                           </tr>
                         </table>
-                        <p><i class="icon-youtube-play"></i> <small>1 vídeo</small> | <i class="icon-list"></i> <small>5 atividades</small></p>
+                        <p><i class="icon-youtube-play"></i> <small>{{ countVideos(lesson) }} vídeos</small> | <i class="icon-list"></i> <small>{{ countActivities(lesson) }} atividades</small></p>
                       </div>
                     </div>
                   </li>
@@ -371,8 +377,8 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title" ng-hide="lessons.selected.name">Adicionar Aula</h4>
-          <h4 class="modal-title" ng-show="lessons.selected.name">{{lessons.selected.name}}</h4>
+          <h4 class="modal-title" ng-hide="selectedLesson.name">Adicionar Aula</h4>
+          <h4 class="modal-title" ng-show="selectedLesson.name">{{selectedLesson.name}}</h4>
         </div>
         <div class="modal-body">
           <div class="main-lesson-content row" ng-show="active=='content'">
@@ -380,11 +386,11 @@
               <div class="form-group">
                 <label>Título</label>
                 <input type="text" class="form-control"
-                       placeholder="Título da aula" ng-model="lessons.selected.name">
+                       placeholder="Título da aula" ng-model="selectedLesson.name">
               </div>
               <div class="form-group">
                 <label>Descrição</label>
-                <textarea class="col-lg-12 form-control" ng-model="lessons.selected.desc" rows="5"></textarea>
+                <textarea class="col-lg-12 form-control" ng-model="selectedLesson.desc" rows="5"></textarea>
               </div>
               <div class="form-group">
                 <label>Notas do professor</label>
@@ -426,11 +432,11 @@
                 <div class="col-lg-3">
                   <p><button class="btn btn-success btn-lg col-lg-12 uppercase">adicionar unidade</button></p>
                   <ul class="units">
-                    <li class="selected" ng-repeat="unit in lessons.selected.units">
+                    <li class="selected" ng-repeat="unit in selectedLesson.units">
                       <div class="row">
                         <div class="col-lg-1"><i class="icon-reorder"></i></div>
                         <div class="col-lg-8">
-                            <a href="" ng-click="$parent.selectedUnit=unit">Unidade {{$index+1}}</a>
+                            <a href="" ng-click="selectUnit($index)">Unidade {{$index+1}}</a>
                         </div>
                         <div class="col-lg-2 textright"><i class="icon-remove alignright"></i></div>
                       </div>
@@ -439,54 +445,82 @@
                 </div>
                 <div class="col-lg-9">
                   <div class="page-header top">
-                    <h3 class="top">{{selectedUnit.title}}</h3>
+                    <h3 class="top">{{selectedUnit().title}}</h3>
                   </div>
 
                   <div class="form-group">
                     <label class="control-label">Vídeo ID</label>
                     <input type="text" class="form-control video-url" placeholder="http://www.youtube.com/watch?v="
-                           ng-model="selectedUnit.video.youtube_id">
+                           ng-model="selectedUnit().video.youtube_id">
                   </div>
 
                   <div class="form-group">
                     <label class="control-label">Atividade</label>
-                    <p class="{{selectedUnit.activity.type}}">
-                      <button ng-click="selectedUnit.activity.type='simplechoice'"
+                    <p class="{{activity().type}}">
+                      <button ng-click="changeTypeTo('simplechoice')"
                               class="{{typeIs('simplechoice')?'active':''}} btn btn-sm btn-default">Escolha simples
                       </button>
 
-                      <button ng-click="selectedUnit.activity.type='multiplechoice'"
+                      <button ng-click="changeTypeTo('multiplechoice')"
                               class="{{typeIs('multiplechoice')?'active':''}} btn btn-sm btn-default">Múltipla escolha
                       </button>
 
-                      <button ng-click="selectedUnit.activity.type='trueorfalse'"
+                      <button ng-click="changeTypeTo('trueorfalse')"
                               class="{{typeIs('trueorfalse')?'active':''}} btn btn-sm btn-default">Verdadeiro ou falso
                       </button>
 
-                      <button ng-click="selectedUnit.activity.type='order'"
+                      <button ng-click="changeTypeTo('order')"
                               class="{{typeIs('order')?'active':''}} btn btn-sm btn-default">Ordenação
                       </button>
 
                     </p>
                   </div>
 
-                  <div class="form-group single-choice" ng-show="typeIs('simplechoice')">
+                  <div class="form-group singlechoice" ng-show="typeIs('simplechoice')">
                     <div class="form-horizontal">
                       <div class="form-group">
                         <label class="control-label col-lg-3">Pergunta</label>
-                        <div class="col-lg-9">
-                          <textarea class="form-control" placeholder="Digite a pergunta">{{selectedUnit.activity.data.question}}</textarea>
+                        <div class="col-lg-8 col-lg-offset-1">
+                          <textarea class="form-control" placeholder="Digite a pergunta" ng-model="activity().data.question"></textarea>
                         </div>
                       </div>
-                      <div class="form-group" ng-repeat="alt in selectedUnit.activity.data.alternatives">
+                      <div class="form-group" ng-repeat="alt in activity().data.alternatives track by $index">
                         <label class="control-label col-lg-3">Alternativa {{$index+1}}</label>
-                        <div class="col-lg-9">
-                          <input type="text" class="form-control" placeholder="Digite a resposta correta" value="{{alt}}"/>
+                        <div class="col-lg-1">
+                            <input type="radio" ng-model="activity().expected" ng-value="$index" />
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" placeholder="Digite uma resposta"
+                                 ng-model="activity().data.alternatives[$index]"/>
                         </div>
                       </div>
                     </div>
+                    <button class="next btn" ng-click="addAlternative()">Adicionar resposta</button>
                   </div>
-                  <!-- div class="form-group multiplechoice">múltipla escolha</div-->
+
+                  <div class="form-group multiplechoice" ng-show="typeIs('multiplechoice')">
+                    <div class="form-horizontal">
+                      <div class="form-group">
+                        <label class="control-label col-lg-3">Pergunta</label>
+                        <div class="col-lg-8 col-lg-offset-1">
+                          <textarea class="form-control" placeholder="Digite a pergunta" ng-model="activity().data.question"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group" ng-repeat="alt in activity().data.alternatives track by $index">
+                        <label class="control-label col-lg-3">Alternativa {{$index+1}}</label>
+                        <div class="col-lg-1">
+                            <input type="checkbox" ng-model="activity().expected[$index]" />
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" placeholder="Digite uma resposta"
+                                 ng-model="activity().data.alternatives[$index]"/>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="next btn" ng-click="addAlternative()">Adicionar resposta</button>
+                  </div>
+
+
                   <!-- div class="form-group trueorfalse">Verdadeiro ou falso</div-->
                   <!-- div class="form-group order">Ordenação</div-->
                 </div>
@@ -504,8 +538,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            <a href="aula-1.html" type="button" class="btn btn-primary disabled">Save changes</a>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="selectedLesson.restore()">Cancel</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="selectedLesson.$update()">Save changes</button>
           </div>
         </div>
       </div>

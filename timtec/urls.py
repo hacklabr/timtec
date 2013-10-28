@@ -7,10 +7,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 admin.autodiscover()
 
-from accounts.views import CustomLoginView, ProfileEditView, RegistrationUniqueEmailView
+from accounts.views import CustomLoginView, ProfileEditView, RegistrationUniqueEmailView, ProfileView
 from core.views import AdminCourseView, CourseView, CourseViewSet, EnrollCourseView, HomeView, UserCoursesView
 from lesson.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, ReceiveAnswerView
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, AnswerViewSet, QuestionVoteViewSet, AnswerVoteViewSet
+from course_material.views import CourseMaterialView, FileUploadView
 from rest_framework import routers
 
 router = routers.DefaultRouter(trailing_slash=False)
@@ -49,11 +50,16 @@ urlpatterns = patterns(
     url(r'^forum/question/(?P<slug>[-a-zA-Z0-9_]+)$', QuestionView.as_view(), name='forum_question'),
     url(r'^forum/question/add/(?P<course_slug>[-a-zA-Z0-9_]+)$', QuestionCreateView.as_view(), name='forum_question_create'),
 
+    # Course Material
+    url(r'^course_material/file_upload/(?P<slug>[-a-zA-Z0-9_]+)$', FileUploadView.as_view(), name='file_upload'),
+    url(r'^course_material/(?P<slug>[-a-zA-Z0-9_]+)$', CourseMaterialView.as_view(), name='course_material'),
+
     # Authentication
     url(r'^login/', CustomLoginView.as_view(), name='timtec_login'),
     url(r'^logout/', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='timtec_logout'),
 
     url(r'^profile/edit/?$', ProfileEditView.as_view(), name="profile_edit"),
+    url(r'^profile/(?P<username>[-a-zA-Z0-9_]+)?$', ProfileView.as_view(), name="profile"),
 
     # The django-registration
     url(r'^accounts/register/$', RegistrationUniqueEmailView.as_view(), name='registration_register'),

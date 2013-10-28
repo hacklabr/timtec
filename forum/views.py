@@ -10,8 +10,6 @@ from forum.models import Question, Answer, QuestionVote, AnswerVote
 from forum.forms import QuestionForm
 from forum.serializers import QuestionSerializer, AnswerSerializer, QuestionVoteSerializer, AnswerVoteSerializer
 from rest_framework import viewsets
-from rest_framework.response import Response
-from rest_framework import status
 
 
 class CourseForumView(LoginRequiredMixin, ListView):

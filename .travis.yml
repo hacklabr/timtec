@@ -3,18 +3,11 @@ python:
     - "2.7"
 node_js:
     - "0.10"
-install:
-    - "pip install -r requirements.txt --use-mirrors"
-    - "pip install -r dev-requirements.txt --use-mirrors"
-    - "pip install coveralls --use-mirrors"
-    - "npm install less yuglify karma"
-    - "python setup.py develop"
-    - "./manage.py syncdb --noinput"
-script:
-    - "py.test --cov . ."
-    - "./karma_tests.sh"
-after_success:
-    - coveralls
+service:
+    - postgresql
+install: "make ci"
+script: "make all_tests"
+after_success: "coveralls"
 notifications:
     irc:
         channels: "irc.freenode.org#hacklab/"
