@@ -1,15 +1,16 @@
 import pytest
+from model_mommy import mommy
 
 
 @pytest.mark.django_db
-def test_forum(rf):
-    from core.models import TimtecUser
+def test_forum(rf, user):
     from forum.views import CourseForumView
-    from forum.models import Question
 
-    questions = Question.objects.filter(course__slug='dbsql')
+    course = mommy.make('Course', slug='dbsql')
+    question = mommy.make('Question', slug='qual-e-o-melhor-sgbd-atualmente', title='Test Question', text='Test Question 1234 Test Question 1234', course=course)
+
     request = rf.get('/forum/dbsql')
-    request.user = TimtecUser.objects.get(username='abcd')
+    request.user = user
 
     view = CourseForumView(request=request)
     view.kwargs = {'course_slug': 'dbsql'}
@@ -17,21 +18,21 @@ def test_forum(rf):
     response = view.get(request)
     response.render()
     assert response.status_code == 200
-    assert questions[0].title.encode('utf-8') in response.content
+    assert question.title.encode('utf-8') in response.content
     # restrict text size to avoid /n, couse they are converted to <br> in response.content making the test fail.
-    assert questions[0].text[0:200].encode('utf-8') in response.content
-    assert set(questions) == set(response.context_data[u'questions'])
+    assert question.text[0:200].encode('utf-8') in response.content
+    assert set([question]) == set(response.context_data[u'questions'])
 
 
 @pytest.mark.django_db
-def test_question(rf):
-    from core.models import TimtecUser
+def test_question(rf, user):
     from forum.views import QuestionView
-    from forum.models import Question
 
-    question = Question.objects.get(slug='qual-e-o-melhor-sgbd-atualmente')
+    course = mommy.make('Course', slug='dbsql')
+    question = mommy.make('Question', slug='qual-e-o-melhor-sgbd-atualmente', title='Test Question', text='Test Question 1234 Test Question 1234', course=course)
+
     request = rf.get('/forum/question/qual-e-o-melhor-sgbd-atualmente')
-    request.user = TimtecUser.objects.get(username='abcd')
+    request.user = user
 
     view = QuestionView(request=request)
     view.kwargs = {'slug': 'qual-e-o-melhor-sgbd-atualmente'}
@@ -45,13 +46,12 @@ def test_question(rf):
 
 
 @pytest.mark.django_db
-def test_question_create(rf):
+def test_question_create(rf, user):
     from core.models import TimtecUser
     from forum.views import QuestionCreateView
     from forum.models import Question
-    from core.models import Course
 
-    course = Course.objects.get(slug='dbsql')
+    course = mommy.make('Course', slug='dbsql', name='Test course name')
 
     # GET test
     request = rf.get('/forum/question/create/dbsql')
