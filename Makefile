@@ -1,6 +1,6 @@
 all: setup_py setup_coveralls setup_js setup_django
 
-ci: setup_ci all settings_ci
+ci: setup_ci settings_ci all
 
 create-staging:
 	virtualenv ~/env
