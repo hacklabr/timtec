@@ -7,6 +7,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 admin.autodiscover()
 
+from django.views.generic import TemplateView
 from accounts.views import CustomLoginView, ProfileEditView, RegistrationUniqueEmailView, ProfileView
 from core.views import AdminCourseView, CourseView, CourseViewSet, EnrollCourseView, HomeView, UserCoursesView
 from lesson.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, ReceiveAnswerView
@@ -40,6 +41,8 @@ urlpatterns = patterns(
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)$', CourseView.as_view(), name='course_intro'),
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/enroll$', EnrollCourseView.as_view(), name='enroll_course'),
     url(r'^lesson/(?P<slug>[-a-zA-Z0-9_]+)$', LessonDetailView.as_view(), name='lesson'),
+    url(r'^html5/', TemplateView.as_view(template_name="html5.html")),
+    url(r'^empty/', TemplateView.as_view(template_name="empty.html")),
 
     # Services
     url(r'^api/', include(router.urls)),
