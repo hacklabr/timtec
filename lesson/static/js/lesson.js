@@ -1,3 +1,15 @@
+/** TODO: initialize this in proprer way (fabio) */
+function initialize_code_mirror() {
+    var body = $('#empty').contents().find('body');
+    var cm = CodeMirror.fromTextArea($('#texto')[0], CodeMirrorConf);
+    cm.markText({line:0, ch:0}, {line:4, ch:0}, {atomic: true, readOnly: true, inclusiveLeft: true});
+    cm.markText({line:4, ch:1000}, {line:7, ch:0}, {atomic: true, readOnly: true, inclusiveRight: true});
+    cm.on('change', function (instance) {
+        data = instance.getValue();
+        $('#empty').contents().find('body').html(data);
+    });
+}
+
 (function (angular) {
     "use strict";
 
@@ -57,6 +69,7 @@
                 var unit = $scope.currentUnit = lesson.units[$scope.currentUnitPos];
                 $scope.currentUnitId = unit.id;
                 $scope.activity_template = unit.activity.template;
+
                 if (unit.activity.alternatives) {
                     $scope.alternatives = unit.activity.alternatives.map(
                         function(a,i) { return {'title': a }; }
@@ -67,6 +80,9 @@
                     $scope.answer.given = $scope.alternatives.map(
                         function(a,i){ return false; }
                     );
+                } else if(unit.activity.type === 'html5') {
+                    /** TODO: initialize this in proprer way (fabio) */
+                    setTimeout(initialize_code_mirror, 200);
                 }
 
             });
