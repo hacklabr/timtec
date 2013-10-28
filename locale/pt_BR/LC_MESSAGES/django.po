@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-25 18:40-0200\n"
-"PO-Revision-Date: 2013-10-28 14:18-0200\n"
-"Last-Translator:   <a@b.cd>\n"
+"POT-Creation-Date: 2013-10-28 21:11-0200\n"
+"PO-Revision-Date: 2013-10-28 21:13-0200\n"
+"Last-Translator:   <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -60,17 +60,17 @@ msgid "Full Name"
 msgstr "Nome"
 
 #: accounts/templates/profile-edit.html:73 accounts/templates/profile.html:18
-#: core/models.py:34
+#: core/models.py:35
 msgid "Occupation"
 msgstr "Ocupação"
 
 #: accounts/templates/profile-edit.html:83 accounts/templates/profile.html:25
-#: core/models.py:35
+#: core/models.py:36
 msgid "City"
 msgstr "Cidade"
 
 #: accounts/templates/profile-edit.html:93 accounts/templates/profile.html:32
-#: core/models.py:36
+#: core/models.py:37
 msgid "Site"
 msgstr "Página"
 
@@ -82,7 +82,7 @@ msgstr "Biografia"
 msgid "Account Settings"
 msgstr "Configurações da conta"
 
-#: accounts/templates/profile-edit.html:120 core/models.py:19
+#: accounts/templates/profile-edit.html:120 core/models.py:20
 #: core/templates/header-guest.html:65
 #: timtec/templates/registration/login_modal.html:70
 #: timtec/templates/registration/registration_form.html:14
@@ -102,241 +102,245 @@ msgstr "E-mail"
 msgid "Save"
 msgstr "Salvar"
 
-#: core/models.py:20
+#: core/models.py:21
 msgid ""
 "Required. 30 characters or fewer. Letters, numbers and ./+/-/_ characters"
 msgstr "Obrigatório. 30 caracteres ou menos. Letras, números e . + - _"
 
-#: core/models.py:23
+#: core/models.py:24
 msgid "Enter a valid username."
 msgstr "Insira um nome válido."
 
-#: core/models.py:26
+#: core/models.py:27
 msgid "Email address"
 msgstr "Endereço de Email"
 
-#: core/models.py:27
+#: core/models.py:28
 msgid "First name"
 msgstr "Nome"
 
-#: core/models.py:28
+#: core/models.py:29
 msgid "Last name"
 msgstr "Sobrenome"
 
-#: core/models.py:29
+#: core/models.py:30
 msgid "Staff status"
 msgstr "Situação"
 
-#: core/models.py:30
+#: core/models.py:31
 msgid "Active"
 msgstr "Atividades"
 
-#: core/models.py:31
+#: core/models.py:32
 msgid "Date joined"
 msgstr "Data de inscrição"
 
-#: core/models.py:33
+#: core/models.py:34
 msgid "Picture"
 msgstr "Estrutura"
 
-#: core/models.py:37 core/models.py:162
+#: core/models.py:38 core/models.py:163
 msgid "Biography"
 msgstr "Biografia"
 
-#: core/models.py:45
+#: core/models.py:46
 msgid "user"
 msgstr "usuário"
 
-#: core/models.py:46
+#: core/models.py:47
 msgid "users"
 msgstr "usuários"
 
-#: core/models.py:76 core/models.py:231
+#: core/models.py:77 core/models.py:232
 msgid "Video"
 msgstr "Video"
 
-#: core/models.py:77
+#: core/models.py:78
 msgid "Videos"
 msgstr "Videos"
 
-#: core/models.py:85
+#: core/models.py:86
 msgid "New"
 msgstr "Novo"
 
-#: core/models.py:86
+#: core/models.py:87
 msgid "Private"
 msgstr "Privado"
 
-#: core/models.py:87
+#: core/models.py:88
 msgid "Public"
 msgstr "Publico"
 
-#: core/models.py:90 core/models.py:175 forum/models.py:13
+#: core/models.py:91 core/models.py:176 forum/models.py:13
 msgid "Slug"
 msgstr "Slug"
 
-#: core/models.py:91 core/models.py:176
+#: core/models.py:92 core/models.py:177
 msgid "Name"
 msgstr "Nome"
 
-#: core/models.py:92
+#: core/models.py:93
 msgid "Intro video"
 msgstr "Vídeo introdutório"
 
-#: core/models.py:93
+#: core/models.py:94
 msgid "Application"
 msgstr "Aplicação"
 
-#: core/models.py:94
+#: core/models.py:95
 msgid "Requirement"
 msgstr "Requisitos"
 
-#: core/models.py:95 core/templates/course.html:125
+#: core/models.py:96 core/templates/course.html:129
 msgid "Abstract"
 msgstr "Resumo"
 
-#: core/models.py:96
+#: core/models.py:97
 msgid "Structure"
 msgstr "Estrutura"
 
-#: core/models.py:97 core/templates/course.html:132
+#: core/models.py:98 core/templates/course.html:136
 msgid "Workload"
 msgstr "Carga horária"
 
-#: core/models.py:98
+#: core/models.py:99
 msgid "Pronatec"
 msgstr "Pronatec"
 
-#: core/models.py:99
+#: core/models.py:100
 msgid "Status"
 msgstr "Situação"
 
-#: core/models.py:100
+#: core/models.py:101
 msgid "Publication"
 msgstr "Publicação"
 
-#: core/models.py:105 core/models.py:128 core/models.py:161 core/models.py:178
+#: core/models.py:106 core/models.py:129 core/models.py:162 core/models.py:179
 #: forum/models.py:17
 msgid "Course"
 msgstr "Curso"
 
-#: core/models.py:106 core/templates/header-guest.html:16
+#: core/models.py:107 core/templates/header-guest.html:16
 msgid "Courses"
 msgstr "Cursos"
 
-#: core/models.py:127 core/models.py:262 core/models.py:285
+#: core/models.py:128 core/models.py:263 core/models.py:289
 msgid "Student"
 msgstr "Estudante"
 
-#: core/models.py:155
+#: core/models.py:156
 msgid "Instructor"
 msgstr "Estrutura"
 
-#: core/models.py:156
+#: core/models.py:157
 msgid "Assistant"
 msgstr "Assistente"
 
-#: core/models.py:157
+#: core/models.py:158
 msgid "Pedagogy Assistant"
 msgstr "Assistente pedagógico"
 
-#: core/models.py:160
+#: core/models.py:161
 msgid "Professor"
 msgstr "Professor"
 
-#: core/models.py:163
+#: core/models.py:164
 msgid "Role"
 msgstr "Papél"
 
-#: core/models.py:167
+#: core/models.py:168
 msgid "Course Professor"
 msgstr "Professor do curso"
 
-#: core/models.py:168
+#: core/models.py:169
 msgid "Course Professors"
 msgstr "Professores do curso"
 
-#: core/models.py:177
+#: core/models.py:178
 msgid "Description"
 msgstr "Descrição"
 
-#: core/models.py:182 core/models.py:230 forum/models.py:18
+#: core/models.py:183 core/models.py:231 forum/models.py:18
 msgid "Lesson"
 msgstr "Lição"
 
-#: core/models.py:183 core/templates/course.html:57
+#: core/models.py:184 core/templates/course.html:61
 msgid "Lessons"
 msgstr "Lições"
 
-#: core/models.py:217
+#: core/models.py:218
 msgid "Type"
 msgstr "Tipo"
 
-#: core/models.py:218
+#: core/models.py:219
 msgid "Data"
 msgstr "Dado"
 
-#: core/models.py:219
+#: core/models.py:220
 msgid "Expected answer"
 msgstr "Resposta esperada"
 
-#: core/models.py:222 core/models.py:232 core/models.py:261
+#: core/models.py:223 core/models.py:233 core/models.py:262
 msgid "Activity"
 msgstr "Atividades"
 
-#: core/models.py:223
+#: core/models.py:224
 msgid "Activities"
 msgstr "Atividades"
 
-#: core/models.py:236 core/models.py:286
+#: core/models.py:237 core/models.py:290
 msgid "Unit"
 msgstr "Unidade"
 
-#: core/models.py:237
+#: core/models.py:238
 msgid "Units"
 msgstr "Unidades"
 
-#: core/models.py:264
+#: core/models.py:265
 msgid "Given answer"
 msgstr "Resposta fornecida"
 
-#: core/models.py:280 forum/models.py:35 forum/models.py:62
+#: core/models.py:284 forum/models.py:35 forum/models.py:62
 msgid "Answer"
 msgstr "Resposta"
 
-#: core/models.py:281
+#: core/models.py:285
 msgid "Answers"
 msgstr "Respostas"
 
-#: core/models.py:292
+#: core/models.py:296
 msgid "Student Progress"
 msgstr "Progresso do Estudante"
 
-#: core/templates/course.html:20
+#: core/templates/course.html:21
+msgid "Resume"
+msgstr "Continuar curso"
+
+#: core/templates/course.html:23
 msgid "Take the Class"
 msgstr "Fazer o curso"
 
-#: core/templates/course.html:42
+#: core/templates/course.html:46
 msgid "Course Application"
 msgstr "Aplicação"
 
-#: core/templates/course.html:48
+#: core/templates/course.html:52
 msgid "Requirements"
 msgstr "Requisitos"
 
-#: core/templates/course.html:88
+#: core/templates/course.html:92
 msgid "videos"
 msgstr "Videos"
 
-#: core/templates/course.html:88
+#: core/templates/course.html:92
 msgid "activities"
 msgstr "Atividades"
 
-#: core/templates/course.html:100
+#: core/templates/course.html:104
 msgid "Instructors"
 msgstr "Estrutura"
 
-#: core/templates/course.html:129
+#: core/templates/course.html:133
 msgid "Course Structure"
 msgstr "Estrutura"
 
@@ -445,9 +449,8 @@ msgid "Details"
 msgstr "Detalhes"
 
 #: course_material/models.py:8
-#, fuzzy
 msgid "Course Materials"
-msgstr "Cursos"
+msgstr "Material didático"
 
 #: course_material/models.py:9 forum/models.py:12 forum/models.py:34
 #: forum/models.py:55
