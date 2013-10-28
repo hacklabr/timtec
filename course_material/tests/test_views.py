@@ -1,25 +1,27 @@
 import pytest
+from model_mommy import mommy
 
 
 @pytest.mark.django_db
-def test_course_material(rf):
-    from core.models import TimtecUser
+def test_course_material(rf, user):
     from course_material.views import CourseMaterialView
     from course_material.models import CourseMaterial
 
-    course_material = CourseMaterial.objects.get(course__slug='dbsql')
-    request = rf.get('/course_material/dbsql')
-    request.user = TimtecUser.objects.get(username='abcd')
+    course = mommy.make('Course')
+    mommy.make('CourseMaterial', course=course, text='foobar**bold**')
+    course_material = CourseMaterial.objects.get(course__slug=course.slug)
+    request = rf.get('/course_material/' + course.slug)
+    request.user = user
 
     view = CourseMaterialView(request=request)
-    view.kwargs = {'slug': 'dbsql'}
+    view.kwargs = {'slug': course.slug}
 
     response = view.get(request)
     response.render()
     assert response.status_code == 200
-    assert course_material.text[:30].encode('utf-8') in response.content
+    assert course_material.text[:6].encode('utf-8') in response.content
     # Test Markdown rendering
-    assert '<strong>Negrito</strong>'.encode('utf-8') in response.content
+    assert '<strong>bold</strong>'.encode('utf-8') in response.content
 
 
 # TODO: bruno martin

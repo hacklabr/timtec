@@ -28,14 +28,14 @@ def test_forum(rf, user):
 def test_question(rf, user):
     from forum.views import QuestionView
 
-    course = mommy.make('Course', slug='dbsql')
-    question = mommy.make('Question', slug='qual-e-o-melhor-sgbd-atualmente', title='Test Question', text='Test Question 1234 Test Question 1234', course=course)
+    course = mommy.make('Course')
+    question = mommy.make('Question', slug='df', course=course)
 
-    request = rf.get('/forum/question/qual-e-o-melhor-sgbd-atualmente')
+    request = rf.get('/forum/question/' + question.slug)
     request.user = user
 
     view = QuestionView(request=request)
-    view.kwargs = {'slug': 'qual-e-o-melhor-sgbd-atualmente'}
+    view.kwargs = {'slug': question.slug}
 
     response = view.get(request)
     response.render()
@@ -47,7 +47,6 @@ def test_question(rf, user):
 
 @pytest.mark.django_db
 def test_question_create(rf, user):
-    from core.models import TimtecUser
     from forum.views import QuestionCreateView
     from forum.models import Question
 
@@ -55,7 +54,7 @@ def test_question_create(rf, user):
 
     # GET test
     request = rf.get('/forum/question/create/dbsql')
-    request.user = TimtecUser.objects.get(username='abcd')
+    request.user = user
 
     view = QuestionCreateView(request=request)
     view.kwargs = {'course_slug': 'dbsql'}
@@ -71,7 +70,7 @@ def test_question_create(rf, user):
     text = 'asljf asdfhuas dfasdflashfdlusafdlsafdlsa filasdflisalfdiayslfdnsalfdyaslifd'
 
     request = rf.post('/forum/question/create/dbsql', {'title': title, 'text': text})
-    request.user = TimtecUser.objects.get(username='abcd')
+    request.user = user
     view = QuestionCreateView(request=request)
     view.kwargs = {'course_slug': 'dbsql'}
     response = view.post(request)

@@ -1,32 +1,31 @@
 import pytest
-
 from accounts.backends import TimtecModelBackend
 
 
 @pytest.mark.django_db
-def test_authenticate_with_email():
+def test_authenticate_with_email(user):
     backend = TimtecModelBackend()
-    user = backend.authenticate(username='a@b.cd', password='x')
-    assert user.username == 'abcd'
+    luser = backend.authenticate(username=user.email, password='password')
+    assert luser.username == user.username
 
 
 @pytest.mark.django_db
-def test_authenticate_with_username():
+def test_authenticate_with_username(user):
     backend = TimtecModelBackend()
-    user = backend.authenticate(username='abcd', password='x')
-    assert user.email == 'a@b.cd'
+    luser = backend.authenticate(username=user.username, password='password')
+    assert luser.username == user.username
 
 
 @pytest.mark.django_db
-def test_authenticate_with_email_field_explicitly():
+def test_authenticate_with_email_field_explicitly(user):
     from django.contrib.auth import get_user_model
     Model = get_user_model()
     original_field = Model.USERNAME_FIELD
 
     Model.USERNAME_FIELD = 'email'
     backend = TimtecModelBackend()
-    user = backend.authenticate(email='a@b.cd', password='x')
-    assert user.username == 'abcd'
+    luser = backend.authenticate(email=user.email, password='password')
+    assert luser.username == user.username
 
     Model.USERNAME_FIELD = original_field
 
