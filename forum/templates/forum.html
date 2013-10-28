@@ -45,7 +45,7 @@
                                 <p class="description">{{ question.text|my_markdown }}[...]</p>
                             </div>
                             <div class="author">
-                                Pergunta feita em {{ question.timestamp|date }} por <a href="">{{ question.user.username }}</a>
+                                Pergunta feita em {{ question.timestamp|date }} por <a href="{% url 'profile' question.user.username %}">{{ question.user.username }}</a>
                             </div>
                         </article>
                         {% endfor %}

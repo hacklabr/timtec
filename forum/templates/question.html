@@ -44,7 +44,7 @@
                             <div class="col-lg-10">
                                 <h1 class="top">{{ question.title }}</h1>
                                 <p class="author clearfix">
-                                    Pergunta feita em <strong>{{ question.timestamp|date:"j/m/y" }}</strong> por <a href="profile.html">{{ question.user.username }}</a>
+                                    Pergunta feita em <strong>{{ question.timestamp|date:"j/m/y" }}</strong> por <a href="{% url 'profile' question.user.username %}">{{ question.user.username }}</a>
                                 </p>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                                 <div class="answer-body col-sm-10 col-lg-10">
                                     <p ng-bind-html="answer.text|markdown"></p>
                                     <p class="author clearfix">
-                                        resposta feita em <strong>{{ answer.timestamp|date:"dd/MM/yy" }}</strong> por <a href="profile.html">{{ answer.username }}</a>
+                                        resposta feita em <strong>{{ answer.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ answer.username }}">{{ answer.username }}</a>
                                     </p>
                                 </div><!-- .answer-body -->
                             </div>

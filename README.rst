@@ -21,27 +21,23 @@ Getting Started
 - create a Python 2.X virtualenv
 - activate the virtual env
 - go to this directory
-- pip install -r requirements.txt
-- pip install -r dev-requirements.txt
-- python setup.py develop
-- sudo npm -g install less yuglify karma
-- ./manage.py syncdb --noinput
+- make
 - ./manage.py runserver
 
 Running Tests
 -------------
 
-run ./all_tests.sh to run all tests together
+run make all_tests to run all tests together
 
 python
 ______
 
 Activate virtual env, then:
-./python_tests.sh
+make python_tests
 
 Angular
 _______
 
 In the root of repository:
 
-./karma_tests.sh
+make karma_tests

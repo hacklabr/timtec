@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-24 15:23-0200\n"
-"PO-Revision-Date: 2013-10-24 16:44-0200\n"
+"POT-Creation-Date: 2013-10-25 18:40-0200\n"
+"PO-Revision-Date: 2013-10-25 18:42-0200\n"
 "Last-Translator: Truta Silva <a@b.cd>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -47,43 +47,43 @@ msgstr "Senha (novamente)"
 msgid "The two password fields didn't match."
 msgstr "As duas senhas são diferentes."
 
-#: accounts/templates/profile-edit.html:36 accounts/templates/profile.html:35
+#: accounts/templates/profile-edit.html:36
 msgid "Upload avatar"
 msgstr "Enviar avatar"
 
-#: accounts/templates/profile-edit.html:48 accounts/templates/profile.html:46
+#: accounts/templates/profile-edit.html:48
 msgid "Profile Info"
 msgstr "Perfil"
 
-#: accounts/templates/profile-edit.html:52 accounts/templates/profile.html:50
+#: accounts/templates/profile-edit.html:52
 msgid "Full Name"
 msgstr "Nome"
 
-#: accounts/templates/profile-edit.html:73 accounts/templates/profile.html:62
+#: accounts/templates/profile-edit.html:73 accounts/templates/profile.html:18
 #: core/models.py:34
 msgid "Occupation"
 msgstr "Ocupação"
 
-#: accounts/templates/profile-edit.html:83 accounts/templates/profile.html:69
+#: accounts/templates/profile-edit.html:83 accounts/templates/profile.html:25
 #: core/models.py:35
 msgid "City"
 msgstr "Cidade"
 
-#: accounts/templates/profile-edit.html:93 accounts/templates/profile.html:76
+#: accounts/templates/profile-edit.html:93 accounts/templates/profile.html:32
 #: core/models.py:36
 msgid "Site"
 msgstr "Página"
 
-#: accounts/templates/profile-edit.html:103 accounts/templates/profile.html:82
+#: accounts/templates/profile-edit.html:103 accounts/templates/profile.html:38
 msgid "Bio"
 msgstr "Biografia"
 
-#: accounts/templates/profile-edit.html:115 accounts/templates/profile.html:92
+#: accounts/templates/profile-edit.html:115
 msgid "Account Settings"
 msgstr "Configurações da conta"
 
-#: accounts/templates/profile-edit.html:120 accounts/templates/profile.html:96
-#: core/models.py:19 core/templates/header-guest.html:65
+#: accounts/templates/profile-edit.html:120 core/models.py:19
+#: core/templates/header-guest.html:65
 #: timtec/templates/registration/login_modal.html:70
 #: timtec/templates/registration/registration_form.html:14
 #: timtec/templates/registration/registration_form.html:16
@@ -91,7 +91,7 @@ msgid "Username"
 msgstr "Nome de usuário"
 
 #: accounts/templates/profile-edit.html:130
-#: accounts/templates/profile.html:103 core/templates/header-guest.html:71
+#: core/templates/header-guest.html:71
 #: timtec/templates/registration/login_modal.html:76
 #: timtec/templates/registration/registration_form.html:24
 msgid "E-mail"
@@ -355,7 +355,7 @@ msgstr "Minhas notas"
 
 #: core/templates/header-authenticated.html:25
 msgid "Profile"
-msgstr "Professor"
+msgstr "Perfil"
 
 #: core/templates/header-authenticated.html:26
 msgid "Edit Profile and Account Settings"
@@ -444,13 +444,24 @@ msgstr "Notas"
 msgid "Details"
 msgstr "Detalhes"
 
+#: course_material/models.py:8
+#, fuzzy
+msgid "Course Materials"
+msgstr "Cursos"
+
+#: course_material/models.py:9 forum/models.py:12 forum/models.py:34
+#: forum/models.py:55
+msgid "Question"
+msgstr "Descrição"
+
+#: course_material/models.py:19
+#: course_material/templates/course-material.html:35
+msgid "Files"
+msgstr "Arquivos"
+
 #: forum/models.py:11
 msgid "Title"
 msgstr "Título"
-
-#: forum/models.py:12 forum/models.py:34 forum/models.py:55
-msgid "Question"
-msgstr "Descrição"
 
 #: forum/models.py:14 forum/models.py:36 forum/models.py:48
 msgid "User"

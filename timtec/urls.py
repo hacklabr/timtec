@@ -11,6 +11,7 @@ from accounts.views import CustomLoginView, ProfileEditView, RegistrationUniqueE
 from core.views import AdminCourseView, CourseView, CourseViewSet, EnrollCourseView, HomeView, UserCoursesView
 from lesson.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, ReceiveAnswerView
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, AnswerViewSet, QuestionVoteViewSet, AnswerVoteViewSet
+from course_material.views import CourseMaterialView, FileUploadView
 from rest_framework import routers
 
 router = routers.DefaultRouter(trailing_slash=False)
@@ -48,6 +49,10 @@ urlpatterns = patterns(
     url(r'^forum/(?P<course_slug>[-a-zA-Z0-9_]+)$', CourseForumView.as_view(), name='forum'),
     url(r'^forum/question/(?P<slug>[-a-zA-Z0-9_]+)$', QuestionView.as_view(), name='forum_question'),
     url(r'^forum/question/add/(?P<course_slug>[-a-zA-Z0-9_]+)$', QuestionCreateView.as_view(), name='forum_question_create'),
+
+    # Course Material
+    url(r'^course_material/file_upload/(?P<slug>[-a-zA-Z0-9_]+)$', FileUploadView.as_view(), name='file_upload'),
+    url(r'^course_material/(?P<slug>[-a-zA-Z0-9_]+)$', CourseMaterialView.as_view(), name='course_material'),
 
     # Authentication
     url(r'^login/', CustomLoginView.as_view(), name='timtec_login'),
