@@ -7,12 +7,6 @@ from core.models import TimtecUser, Course, CourseStudent
 
 
 @pytest.mark.django_db
-def test_super_user():
-    a = TimtecUser.objects.get(username='abcd')
-    assert a.is_superuser
-
-
-@pytest.mark.django_db
 def test_lesson_counts(settings):
     lesson = mommy.make('Lesson')
     video = mommy.make('Video')
@@ -37,8 +31,7 @@ def test_position_counter_for_new_units():
 
 
 @pytest.mark.django_db
-def test_user_picture_url():
-    user = TimtecUser.objects.get(username='abcd')
+def test_user_picture_url(user):
 
     assert not user.picture
     assert user.get_picture_url() == '/static/img/avatar-default.png'
@@ -55,9 +48,8 @@ def test_user_picture_url():
 
 
 @pytest.mark.django_db
-def test_enroll_user_create_single_entry_of_coursestudent():
-    user = TimtecUser.objects.get(username='abcd')
-    course = Course.objects.get(slug='dbsql')
+def test_enroll_user_create_single_entry_of_coursestudent(user):
+    course = mommy.make('Course', slug='dbsql')
 
     assert CourseStudent.objects.filter(user=user, course=course).count() == 0
 
