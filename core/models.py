@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-import re, json
+import re
+import json
 
 from jsonfield import JSONField
 from positions import PositionField

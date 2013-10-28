@@ -7,7 +7,7 @@ class JSONSerializerField(serializers.WritableField):
 
     def to_native(self, data):
         if type(data) is dict:
-            return data;
+            return data
         elif type(data) in (unicode, str,):
             return json.loads(data)
         return None
@@ -31,7 +31,6 @@ class ActivitySerializer(serializers.ModelSerializer):
         fields = ('id', 'type', 'data', 'expected',)
 
 
-
 class StudentProgressSerializer(serializers.ModelSerializer):
     complete = serializers.DateTimeField(required=False)
 
@@ -50,7 +49,7 @@ class UnitSerializer(serializers.ModelSerializer):
 
 
 class LessonSerializer(serializers.HyperlinkedModelSerializer):
-    units = UnitSerializer(many=True)#, allow_add_remove=True)
+    units = UnitSerializer(many=True)
     url = serializers.HyperlinkedIdentityField(
         view_name='lesson',
         lookup_field='slug'
