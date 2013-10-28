@@ -3,7 +3,7 @@ import pytest
 from os.path import join, dirname
 from model_mommy import mommy
 from django.core.files.base import ContentFile
-from core.models import TimtecUser, Course, CourseStudent
+from core.models import TimtecUser, CourseStudent
 
 
 @pytest.mark.django_db
