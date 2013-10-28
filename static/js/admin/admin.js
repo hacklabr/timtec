@@ -2,17 +2,6 @@
     "use strict";
 
     var courseSlug = /[^/]+$/.extract(location.pathname);
-    var getYoutubeUrl = function(id, params){
-        var localparams = {"rel":"0", "showinfo":"0", "autohide":"1", "wmode":"opaque", "theme":"light"};
-
-        for(var att in params){
-            localparams[att] = params[att];
-        }
-
-        var url = new URL("http://www.youtube.com/embed/"+id, localparams);
-        return url.toString();
-    };
-
     var app = angular.module('admin', ['ngRoute', 'ngResource', 'ngSanitize', 'youtube']);
 
     app.config(['$httpProvider', '$sceDelegateProvider',
