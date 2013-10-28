@@ -3,7 +3,7 @@ import pytest
 from os.path import join, dirname
 from model_mommy import mommy
 from django.core.files.base import ContentFile
-from core.models import TimtecUser, CourseStudent
+from core.models import CourseStudent
 
 
 @pytest.mark.django_db
@@ -40,7 +40,6 @@ def test_user_picture_url(user):
     user.picture.save('abcd-avatar.png', ContentFile(open(testpicture).read()))
     user.save()
 
-    user = TimtecUser.objects.get(username='abcd')
     assert user.get_picture_url() == '/media/user-pictures/abcd-avatar.png'
 
     #teardown
@@ -49,7 +48,7 @@ def test_user_picture_url(user):
 
 @pytest.mark.django_db
 def test_enroll_user_create_single_entry_of_coursestudent(user):
-    course = mommy.make('Course', slug='dbsql')
+    course = mommy.make('Course', slug='dbsql1234')
 
     assert CourseStudent.objects.filter(user=user, course=course).count() == 0
 
