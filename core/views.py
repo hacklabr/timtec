@@ -24,12 +24,17 @@ class CourseView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(CourseView, self).get_context_data(**kwargs)
+        user = self.request.user
 
-        if self.request.user.is_authenticated():
-            units_done = StudentProgress.objects.filter(user=self.request.user, unit__lesson__course=self.object)\
+        if user.is_authenticated():
+            units_done = StudentProgress.objects.filter(user=user, unit__lesson__course=self.object)\
                                                 .exclude(complete=None)\
                                                 .values_list('unit', flat=True)
             context['units_done'] = units_done
+
+            user_is_enrolled = self.object.students.filter(id=user.id).exists()
+            context['user_is_enrolled'] = user_is_enrolled
+
         return context
 
 
