@@ -115,69 +115,58 @@
         }
     ]);
 
-    app.controller('LessonList',['$scope', 'LessonListFactory', '$http',
-        function($scope, LessonListFactory, $http){
+    app.controller('LessonList',['$scope', '$rootScope', 'LessonListFactory', '$http',
+        function($scope, $rootScope, LessonListFactory, $http){
+
+            $scope.select = function (lesson) {
+                $rootScope.selectedLesson = lesson;
+                return lesson;
+            };
+            $scope.countActivities = function(l) {
+                if( l.units ) {
+                    return l.units.reduce(function(p,s){return p + (s.activity ? 1 : 0); }, 0);
+                }
+                return 0;
+            };
+            $scope.countVideos = function(l) {
+                if( l.units ) {
+                    return l.units.reduce(function(p,s){return p + (s.video ? 1 : 0); }, 0);
+                }
+                return 0;
+            };
+
             LessonListFactory.then(function(lessons){
                 $scope.lessons = lessons;
-                $scope.lessons.selected = {};
             });
         }
     ]);
 
-    app.controller('LessonEdit',['$scope', 'LessonListFactory', '$http',
-        function($scope, LessonListFactory, $http){
+    app.controller('LessonEdit',['$scope', '$rootScope', 'LessonListFactory', '$http',
+        function($scope, $rootScope, LessonListFactory, $http){
             $scope.active = 'content';
 
-            $scope.select = function(unit) {
-                window.selectedUnit = $scope.selectedUnit = unit;
+            var selectedUnitIndex = 0;
+            $scope.selectUnit = function(index) {
+                selectedUnitIndex = index;
             };
-
-            var activity = $scope.activity = function(a){
-                if ( a ) {
-                    $scope.selectedUnit.activity = a;
-                }
-                return $scope.selectedUnit.activity;
+            $scope.selectedUnit = function() {
+                if($rootScope.selectedLesson)
+                    return $rootScope.selectedLesson.units[selectedUnitIndex];
             };
-
-            $scope.typeIs = function(type){
-                try { return activity().type === type; } catch (e){ }
-                return false;
+            $scope.activity = function() {
+                if($scope.selectedUnit() && $scope.selectedUnit().activity)
+                    return $scope.selectedUnit().activity;
             };
-
-            $scope.changeTypeTo = function(type){
-                if( ! activity() )  {
-                    activity({ "type": type, "data": {"alternatives":[]} });
-                }
-                activity()["type"] = type;
-
-                if(type === 'multiplechoice') {
-                    activity().expected = activity().data.alternatives.map(function(){
-                        return false;
-                    });
-                }
+            $scope.typeIs = function(type) {
+                return $scope.activity() && $scope.activity().type === type;
             };
-
-            $scope.addAlternative = function() {
-                if( ! activity() )  {
-                    activity({ "data": {"alternatives":[]} });
+            $scope.changeTypeTo = function(type) {
+                if($scope.activity()) {
+                    $scope.activity().type = type;
                 }
-                if( ! activity().data.alternatives ) {
-                    activity().data.alternatives = [];
-                }
-                activity().data.alternatives.push([""]);
             };
 
             LessonListFactory.then(function(lessons){
-                var copies = angular.copy(lessons);
-                lessons.forEach(function(el,i) {
-                    var restore = function(){
-                        lessons[i] = angular.copy(copies[i]);
-                        lessons[i].restore = restore;
-                    };
-
-                    el.restore = restore;
-                });
-
                 window.lessons = lessons;
                 $scope.lessons = lessons;
             });
