@@ -1,0 +1,398 @@
+[
+{
+    "pk": 1, 
+    "model": "core.timtecuser", 
+    "fields": {
+        "username": "admin", 
+        "picture": "", 
+        "first_name": "", 
+        "last_name": "", 
+        "city": "", 
+        "occupation": "", 
+        "is_active": true, 
+        "site": "", 
+        "is_superuser": true, 
+        "is_staff": true, 
+        "last_login": "2013-10-28T20:42:41.374Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$12000$6jZUgMll59N0$8Agxy3FdTAF9jP9KcOsrZ3OFaDWDBtn+rEImBTSu5OU=", 
+        "email": "timtectimtec@gmail.com", 
+        "biography": "", 
+        "date_joined": "2013-10-28T20:42:19.086Z"
+    }
+},
+{
+    "pk": 1, 
+    "model": "core.video", 
+    "fields": {
+        "name": "HTML5 - Introdu\u00e7\u00e3o", 
+        "youtube_id": "DoaXWR3dm1I"
+    }
+},
+{
+    "pk": 2, 
+    "model": "core.video", 
+    "fields": {
+        "name": "Origem e evolu\u00e7\u00e3o da Internet", 
+        "youtube_id": "dj5bUwrboe4"
+    }
+},
+{
+    "pk": 3, 
+    "model": "core.video", 
+    "fields": {
+        "name": "Aula 1 - Unidade 2", 
+        "youtube_id": "2Y4haKDP1U0"
+    }
+},
+{
+    "pk": 4, 
+    "model": "core.video", 
+    "fields": {
+        "name": "Aula 1 - Unidade 3", 
+        "youtube_id": "7DGE3DgQMMU"
+    }
+},
+{
+    "pk": 5, 
+    "model": "core.video", 
+    "fields": {
+        "name": "Aula 1 - Unidade 4", 
+        "youtube_id": "pK5pUzfux1I"
+    }
+},
+{
+    "pk": 6, 
+    "model": "core.video", 
+    "fields": {
+        "name": "Aula 1 - Unidade 5", 
+        "youtube_id": "KpVJ8Xfo1d0"
+    }
+},
+{
+    "pk": 7, 
+    "model": "core.video", 
+    "fields": {
+        "name": "Aula 1 - Unidade 6", 
+        "youtube_id": "XGwtiiiq_dg"
+    }
+},
+{
+    "pk": 8, 
+    "model": "core.video", 
+    "fields": {
+        "name": "Aula 1 - Unidade 7", 
+        "youtube_id": "tWwVp0MpgT8"
+    }
+},
+{
+    "pk": 9, 
+    "model": "core.video", 
+    "fields": {
+        "name": "Aula 1 - Unidade 8", 
+        "youtube_id": "v4O1IhqG8FI"
+    }
+},
+{
+    "pk": 10, 
+    "model": "core.video", 
+    "fields": {
+        "name": "Aula 1 - Unidade 9", 
+        "youtube_id": "7RqDvNNnesA"
+    }
+},
+{
+    "pk": 11, 
+    "model": "core.video", 
+    "fields": {
+        "name": "Aula 1 - Unidade 10", 
+        "youtube_id": "aYykOOLtW-s"
+    }
+},
+{
+    "pk": 1, 
+    "model": "core.course", 
+    "fields": {
+        "status": "new", 
+        "requirement": "\u00c9 necess\u00e1rio que o interessado possua conhecimentos b\u00e1sicos de navega\u00e7\u00e3o e pesquisa na web e dos recursos elementares  (copiar, colar, salvar, criar e organizar pastas) de algum sistema operacional como Windows, MAC ou Linux.", 
+        "workload": "40 horas\r\n\r\nA agenda de dedica\u00e7\u00e3o estimada para o aluno \u00e9 de 10 horas por semana: 3 horas para assistir \u00e0s aulas em v\u00eddeo e 7 horas para realizar os exerc\u00edcios propostos. Recomenda-se a utiliza\u00e7\u00e3o da plataforma por cerca de duas horas di\u00e1rias.", 
+        "intro_video": 1, 
+        "pronatec": "Eixo Tecnol\u00f3gico: Informa\u00e7\u00e3o e Comunica\u00e7\u00e3o \r\n\r\nT\u00edtulos semelhantes oferecidos Guia PRONATEC de cursos FIC:\r\nProgramador Web\r\nDesenhista de Produtos Gr\u00e1ficos Web\r\nProgramador de Dispositivos M\u00f3veis\r\n\r\nAlguns  nomes atribu\u00eddos a estes profissionais :\r\n\r\nDesenvolvedor Front End\r\nWeb Designer", 
+        "abstract": "Este curso \u00e9 para interessados em compreender e estruturar o c\u00f3digo do corpo de uma aplica\u00e7\u00e3o Web, utilizando os padr\u00f5es recomendados pelo w3C. Ser\u00e3o discutidas as aplica\u00e7\u00f5es dos principais elementos das linguagens HTML5 e CSS3 e de recursos b\u00e1sicos de interatividade oferecidos pela biblioteca jQuery da linguagem JavaScript.", 
+        "application": "O mercado web est\u00e1 em franco crescimento: tecnologia, comunica\u00e7\u00e3o, entretenimento educa\u00e7\u00e3o, sa\u00fade, praticamente todas as \u00e1reas  do conhecimento demandam por produtos e servi\u00e7os oferecidos pela web.\r\nNeste cen\u00e1rio um profissional se destaca o desenvolvedor Front End, ele \u00e9 o respons\u00e1vel por garantir o correta configura\u00e7\u00e3o, visualiza\u00e7\u00e3o do conte\u00fado na tela do usu\u00e1rio - no navegador, - seja em computadores desktops, tablets, celulares ou em qualquer  diapositivos que acesse a web.", 
+        "publication": "2013-10-28", 
+        "slug": "html5", 
+        "structure": "V\u00eddeo aulas ( 12 horas )\r\nTestes On Line\r\nLeitura de material did\u00e1tico de apoio\r\nExerc\u00edcios individuais de aplica\u00e7\u00e3o", 
+        "name": "HTML5 - Introdu\u00e7\u00e3o ao Front End"
+    }
+},
+{
+    "pk": 1, 
+    "model": "core.coursestudent", 
+    "fields": {
+        "course": 1, 
+        "user": 1
+    }
+},
+{
+    "pk": 1, 
+    "model": "core.lesson", 
+    "fields": {
+        "position": 0, 
+        "course": 1, 
+        "desc": "Quais s\u00e3o as rela\u00e7\u00f5es e as diferen\u00e7as entre Internet e WebA Web e as camadas de desenvolvimento do lado do usu\u00e1rio", 
+        "slug": "internet-e-web", 
+        "name": "Internet e Web"
+    }
+},
+{
+    "pk": 2, 
+    "model": "core.lesson", 
+    "fields": {
+        "position": 2, 
+        "course": 1, 
+        "desc": "O corpo b\u00e1sico e nova estrutura sem\u00e2ntica de um documento na vers\u00e3o HTML5", 
+        "slug": "montando-a-estrutura-de-um-documento-html", 
+        "name": "Montando a estrutura de um documento HTML"
+    }
+},
+{
+    "pk": 3, 
+    "model": "core.lesson", 
+    "fields": {
+        "position": 1, 
+        "course": 1, 
+        "desc": "Como estruturar semanticamente a marca\u00e7\u00e3o de conte\u00fado de texto em um documento HTML", 
+        "slug": "grupos-de-conteudo-e-elementos-semanticos-de-texto", 
+        "name": "Grupos de conte\u00fado e elementos sem\u00e2nticos de texto"
+    }
+},
+{
+    "pk": 4, 
+    "model": "core.lesson", 
+    "fields": {
+        "position": 3, 
+        "course": 1, 
+        "desc": "Como inserir elementos de m\u00eddia (imagens, \u00e1udio, v\u00eddeo) em um documento HTML", 
+        "slug": "conteudo-multimidia", 
+        "name": "Conte\u00fado Multim\u00eddia"
+    }
+},
+{
+    "pk": 5, 
+    "model": "core.lesson", 
+    "fields": {
+        "position": 4, 
+        "course": 1, 
+        "desc": "Como construir tabelas para a exibi\u00e7\u00e3o de dados tabulares\r\n\r\nCria\u00e7\u00e3o de um formul\u00e1rio com uso dos atributos sem\u00e2nticos.", 
+        "slug": "tabelas-e-formularios", 
+        "name": "Tabelas e Formul\u00e1rios"
+    }
+},
+{
+    "pk": 6, 
+    "model": "core.lesson", 
+    "fields": {
+        "position": 5, 
+        "course": 1, 
+        "desc": "A constru\u00e7\u00e3o dos metadados e localiza\u00e7\u00e3o dos scripts", 
+        "slug": "metadados-e-cabecalho", 
+        "name": "Metadados e Cabe\u00e7alho"
+    }
+},
+{
+    "pk": 7, 
+    "model": "core.lesson", 
+    "fields": {
+        "position": 6, 
+        "course": 1, 
+        "desc": "O que \u00e9 CSS, quais suas caracter\u00edsticas e como incluir uma camada de estilo CSS em um documento HTML", 
+        "slug": "introducao-ao-css", 
+        "name": "Introdu\u00e7\u00e3o ao CSS"
+    }
+},
+{
+    "pk": 8, 
+    "model": "core.lesson", 
+    "fields": {
+        "position": 7, 
+        "course": 1, 
+        "desc": "Formata\u00e7\u00e3o de cores e elementos de fundo com o uso do CSS", 
+        "slug": "cores-e-backgrounds", 
+        "name": "Cores e Backgrounds"
+    }
+},
+{
+    "pk": 9, 
+    "model": "core.lesson", 
+    "fields": {
+        "position": 8, 
+        "course": 1, 
+        "desc": "Formata\u00e7\u00e3o das propriedades de fontes, textos, listas e links via CSS", 
+        "slug": "fontes-textos-listas-e-links", 
+        "name": "Fontes, textos, listas e links"
+    }
+},
+{
+    "pk": 10, 
+    "model": "core.lesson", 
+    "fields": {
+        "position": 9, 
+        "course": 1, 
+        "desc": "Formatar e manipular de elementos de layout e de imagens baseados no entendimento do conceito de Box Model. \r\n\r\nConceitos e usos de classes e IDS na formata\u00e7\u00e3o CSS\r\n\r\nAnima\u00e7\u00e3o CSS3", 
+        "slug": "box-model-classe-id-e-outros", 
+        "name": "Box Model, Classe, ID e outros"
+    }
+},
+{
+    "pk": 11, 
+    "model": "core.lesson", 
+    "fields": {
+        "position": 10, 
+        "course": 1, 
+        "desc": "Como criar um camada de comportamento JavaScript em um documento HTML\r\n\r\nSintaxe e exemplos simples de uso da linguagem JavaScript como elemento interativo dentro do HTML", 
+        "slug": "introducao-ao-javascript", 
+        "name": "Introdu\u00e7\u00e3o ao JavaScript"
+    }
+},
+{
+    "pk": 12, 
+    "model": "core.lesson", 
+    "fields": {
+        "position": 11, 
+        "course": 1, 
+        "desc": "Conceito de Bibliotecas JavaScript\r\nBiblioteca jQuery: Instala\u00e7\u00e3o e sintaxe\r\nExemplos simples de aplica\u00e7\u00e3o", 
+        "slug": "nocoes-de-jquery", 
+        "name": "No\u00e7\u00f5es de jQuery"
+    }
+},
+{
+    "pk": 13, 
+    "model": "core.lesson", 
+    "fields": {
+        "position": 12, 
+        "course": 1, 
+        "desc": " ", 
+        "slug": "mesa-redonda", 
+        "name": "Mesa redonda"
+    }
+},
+{
+    "pk": 1, 
+    "model": "core.activity", 
+    "fields": {
+        "expected": "{\"oi\":\"tufo\"}", 
+        "data": "{\"oi\":\"tufo\"}", 
+        "type": "html5"
+    }
+},
+{
+    "pk": 1, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 0, 
+        "lesson": 1, 
+        "video": 2, 
+        "activity": 1
+    }
+},
+{
+    "pk": 2, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 1, 
+        "lesson": 1, 
+        "video": 3, 
+        "activity": null
+    }
+},
+{
+    "pk": 3, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 2, 
+        "lesson": 1, 
+        "video": 4, 
+        "activity": null
+    }
+},
+{
+    "pk": 4, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 3, 
+        "lesson": 1, 
+        "video": 5, 
+        "activity": null
+    }
+},
+{
+    "pk": 5, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 4, 
+        "lesson": 1, 
+        "video": 6, 
+        "activity": null
+    }
+},
+{
+    "pk": 6, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 5, 
+        "lesson": 1, 
+        "video": 7, 
+        "activity": null
+    }
+},
+{
+    "pk": 7, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 6, 
+        "lesson": 1, 
+        "video": 8, 
+        "activity": null
+    }
+},
+{
+    "pk": 8, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 7, 
+        "lesson": 1, 
+        "video": 9, 
+        "activity": null
+    }
+},
+{
+    "pk": 9, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 8, 
+        "lesson": 1, 
+        "video": 10, 
+        "activity": null
+    }
+},
+{
+    "pk": 10, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 9, 
+        "lesson": 1, 
+        "video": 11, 
+        "activity": null
+    }
+},
+{
+    "pk": 1, 
+    "model": "course_material.coursematerial", 
+    "fields": {
+        "course": 1, 
+        "text": "Materiais gratuitos e oficiais do W3C Brasil\r\n\r\nCurso HTML5 - W3C\r\n[http://www.w3c.br/pub/Cursos/CursoHTML5/html5-web.pdf][1]\r\n\r\nCurso CSS3 - W3C\r\n[http://www.w3c.br/pub/Cursos/CursoCSS3/css-web.pdf][2]\r\n\r\nDec\u00e1logo da Web do W3C Brasil\r\n[http://www.w3c.br/decalogo][3]\r\n\r\n[1]: http://www.w3c.br/pub/Cursos/CursoHTML5/html5-web.pdf\r\n[2]: http://www.w3c.br/pub/Cursos/CursoCSS3/css-web.pdf\r\n[3]: http://www.w3c.br/decalogo"
+    }
+}
+]
