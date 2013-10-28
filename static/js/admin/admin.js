@@ -2,17 +2,6 @@
     "use strict";
 
     var courseSlug = /[^/]+$/.extract(location.pathname);
-    var getYoutubeUrl = function(id, params){
-        var localparams = {"rel":"0", "showinfo":"0", "autohide":"1", "wmode":"opaque", "theme":"light"};
-
-        for(var att in params){
-            localparams[att] = params[att];
-        }
-
-        var url = new URL("http://www.youtube.com/embed/"+id, localparams);
-        return url.toString();
-    };
-
     var app = angular.module('admin', ['ngRoute', 'ngResource', 'ngSanitize', 'youtube']);
 
     app.config(['$httpProvider', '$sceDelegateProvider',
@@ -115,29 +104,59 @@
         }
     ]);
 
-    app.controller('LessonList',['$scope', 'LessonListFactory', '$http',
-        function($scope, LessonListFactory, $http){
+    app.controller('LessonList',['$scope', '$rootScope', 'LessonListFactory', '$http',
+        function($scope, $rootScope, LessonListFactory, $http){
+
+            $scope.select = function (lesson) {
+                $rootScope.selectedLesson = lesson;
+                return lesson;
+            };
+            $scope.countActivities = function(l) {
+                if( l.units ) {
+                    return l.units.reduce(function(p,s){return p + (s.activity ? 1 : 0); }, 0);
+                }
+                return 0;
+            };
+            $scope.countVideos = function(l) {
+                if( l.units ) {
+                    return l.units.reduce(function(p,s){return p + (s.video ? 1 : 0); }, 0);
+                }
+                return 0;
+            };
+
             LessonListFactory.then(function(lessons){
                 $scope.lessons = lessons;
-                $scope.lessons.selected = {};
             });
         }
     ]);
 
-    app.controller('LessonEdit',['$scope', 'LessonListFactory', '$http',
-        function($scope, LessonListFactory, $http){
-            $scope.selectedUnit = {};
+    app.controller('LessonEdit',['$scope', '$rootScope', 'LessonListFactory', '$http',
+        function($scope, $rootScope, LessonListFactory, $http){
             $scope.active = 'content';
 
-            $scope.typeIs = function(type){
-                try {
-                    return $scope.selectedUnit.activity.type === type;
-                }catch(e){
-                    return false;
+            var selectedUnitIndex = 0;
+            $scope.selectUnit = function(index) {
+                selectedUnitIndex = index;
+            };
+            $scope.selectedUnit = function() {
+                if($rootScope.selectedLesson)
+                    return $rootScope.selectedLesson.units[selectedUnitIndex];
+            };
+            $scope.activity = function() {
+                if($scope.selectedUnit() && $scope.selectedUnit().activity)
+                    return $scope.selectedUnit().activity;
+            };
+            $scope.typeIs = function(type) {
+                return $scope.activity() && $scope.activity().type === type;
+            };
+            $scope.changeTypeTo = function(type) {
+                if($scope.activity()) {
+                    $scope.activity().type = type;
                 }
             };
 
             LessonListFactory.then(function(lessons){
+                window.lessons = lessons;
                 $scope.lessons = lessons;
             });
         }
@@ -161,11 +180,24 @@
 
     app.factory('LessonListFactory', ['$rootScope', '$q', '$resource',
         function($rootScope, $q, $resource, $window) {
-            var Lesson = $resource('/api/lessons?course__slug=:courseSlug',
-                                    {'courseSlug': courseSlug});
+            var resourceConfig = {
+                'get':  {
+                    'method':'GET',
+                    'params':{'course__slug': courseSlug}
+                },
+                'query':{
+                    'method':'GET',
+                    'params':{'course__slug': courseSlug},
+                    'isArray': true
+                },
+                'update':{
+                    'method': 'PUT'
+                }
+            };
+            var LessonList = $resource('/api/lessons/:id', {'id':'@id'}, resourceConfig);
             var deferred = $q.defer();
 
-            Lesson.query(function(lessons){
+            LessonList.query(function(lessons){
                 deferred.resolve(lessons);
             });
             return deferred.promise;
