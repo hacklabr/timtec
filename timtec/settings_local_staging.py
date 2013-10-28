@@ -12,6 +12,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'timtec-staging',
+        'USER': 'timtec-staging',
     }
 }
 
