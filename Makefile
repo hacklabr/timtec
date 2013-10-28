@@ -38,7 +38,7 @@ setup_coveralls:
 	pip install -q coveralls --use-mirrors
 
 setup_js:
-	npm install less yuglify karma --loglevel silent
+	sudo npm -g install less yuglify karma --loglevel silent > /dev/null
 
 setup_django:
 	python manage.py syncdb --noinput
