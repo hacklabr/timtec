@@ -280,21 +280,12 @@
 },
 {
     "pk": 1, 
-    "model": "core.activity", 
-    "fields": {
-        "expected": "{\"oi\":\"tufo\"}", 
-        "data": "{\"oi\":\"tufo\"}", 
-        "type": "html5"
-    }
-},
-{
-    "pk": 1, 
     "model": "core.unit", 
     "fields": {
         "position": 0, 
         "lesson": 1, 
         "video": 2, 
-        "activity": 1
+        "activity": null
     }
 },
 {
