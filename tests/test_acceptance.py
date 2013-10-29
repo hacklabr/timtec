@@ -20,7 +20,7 @@ def test_mainview(client):
 
 def test_admin_user(admin_client):
     response = admin_client.get('/django/admin/core/timtecuser/?q=admin')
-    assert 'admin@example.com' in response.content
+    assert 'admin' in response.content
 
 
 @pytest.mark.django_db

@@ -14,7 +14,7 @@ def create_user(username):
     except User.DoesNotExist:
         user = User.objects.create_user(username, email, password)
 
-        if username == 'admin':
+        if username == 'admintest':
             user.is_staff = True
             user.is_superuser = True
         user.save()
@@ -24,7 +24,7 @@ def create_user(username):
 @pytest.fixture()
 def admin_user(db):
     """A Django test admin user"""
-    user = create_user('admin')
+    user = create_user('admintest')
     return user
 
 
@@ -33,7 +33,7 @@ def admin_client(db):
     """A Django admin user"""
     from django.test.client import Client
 
-    user = create_user('admin')
+    user = create_user('admintest')
 
     client = Client()
     client.login(username=user.username, password='password')
