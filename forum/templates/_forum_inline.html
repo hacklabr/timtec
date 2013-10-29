@@ -37,7 +37,7 @@
 
         <!-- QUESTIONS LIST-->
         <section class="questions clearfix">
-          <div class="search-filter">
+<!--          <div class="search-filter">
             <div class="row">
               <div class="col-lg-7 col-sm-7">
                 <div class="btn-group">
@@ -64,7 +64,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <article ng-repeat="question in questions">
             {% verbatim angularjs %}
             <div class="stats">
@@ -81,7 +81,7 @@
             </div>
             {% endverbatim angularjs %}
           </article>
-          <p class="textcenter"><a href="{% url 'forum' course.slug %}" class="all-questions btn btn-info">Ver todas as perguntas e respostas</a></p>
+          <!-- <p class="textcenter"><a href="{% url 'forum' course.slug %}" class="all-questions btn btn-info">Ver todas as perguntas e respostas</a></p> -->
         </section>
         <!-- QUESTIONS LIST-->
       </section>
