@@ -10,7 +10,7 @@ def create_user(username):
     User = get_user_model()
 
     try:
-        User.objects.get(email=email)
+        user = User.objects.get(username=username)
     except User.DoesNotExist:
         user = User.objects.create_user(username, email, password)
 
