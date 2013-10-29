@@ -6,8 +6,8 @@
   </a>
 </div>
 
-<div class="col-sm-8 col-lg-8 left">
+<div class="course-activity col-sm-8 col-lg-8 left">
     <!-- ACTIVITY -->
-    <ng:include src="activity_template" ng-class="{correct: isCorrect}"></ng:include>
+    <ng:include src="activity_template" ng-class="{correct: isCorrect, wrong: (isCorrect===false)}"></ng:include>
     <!-- END ACTIVITY -->
 </div>
