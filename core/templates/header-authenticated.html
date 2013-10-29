@@ -13,9 +13,9 @@
                     </div>
                 </form>
             </li>        
-            <li><a href="">{% trans "Available Courses" %}</a></li>
+            <!-- <li><a href="">{% trans "Available Courses" %}</a></li> -->
             <li><a href="{% url 'user_courses' %}">{% trans "My Courses" %}</a></li>
-            <li><a href="profile-notes.html">{% trans "My Notes" %}</a></li>
+            <!-- <li><a href="profile-notes.html">{% trans "My Notes" %}</a></li> -->
             <li>
                 <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
                     {{ user }}
@@ -24,7 +24,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="{% url 'profile' %}">{% trans "Profile" %}</a></li>
                     <li><a href="{% url 'profile_edit' %}">{% trans "Edit Profile and Account Settings" %}</a></li>
-                    <li><a href="">{% trans "Settings" %}</a></li>
+                    <!-- <li><a href="">{% trans "Settings" %}</a></li> -->
                     <li class='divider'></li>
                     <li><a href="{% url 'timtec_logout' %}">{% trans "Logout" %}</a></li>
                 </ul>
