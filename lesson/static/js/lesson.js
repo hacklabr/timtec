@@ -47,14 +47,7 @@ function initialize_code_mirror() {
                         given  = data.given,
                         expected  = data.expected;
 
-                    if (given['forEach']) {
-                        given.forEach(function(g, i){
-                            $scope.alternatives[i].eval = (g === expected[i] ? 'correct' : 'wrong');
-                            console.log($scope.alternatives[i].eval);
-                        });
-                    } else {
-                        $scope.alternatives[given].eval = correct ? 'correct' : 'wrong';
-                    }
+                    $scope.isCorrect = correct;
                 }
 
                 $http({
@@ -79,6 +72,10 @@ function initialize_code_mirror() {
                 if (['multiplechoice','trueorfalse'].indexOf(unit.activity.type) >= 0) {
                     $scope.answer.given = $scope.alternatives.map(
                         function(a,i){ return false; }
+                    );
+                } else if(unit.activity.type === 'relationship') {
+                    $scope.answer.given = unit.activity.column1.map(
+                        function(a,i){ return null; }
                     );
                 } else if(unit.activity.type === 'html5') {
                     /** TODO: initialize this in proprer way (fabio) */

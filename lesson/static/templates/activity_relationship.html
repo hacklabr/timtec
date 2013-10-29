@@ -1,30 +1,31 @@
     <div class="course-activity {{currentUnit.activity.type}}">
-        <div class="question textcenter">
+        <div class="question textleft">
             <h1>{{ currentUnit.activity.question }}</h1>
         </div>
         <div class="answers">
             <table class="table">
                 <thead>
                     <tr>
-                        <td class="textcenter">Verdadeiro</td>
-                        <td class="textcenter">Falso</td>
+                        <th class="textleft" colspan="2">Coluna 1</th>
+                        <th class="textleft" colspan="2">Coluna 2</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="alt in alternatives">
-                        <td class="textcenter">
-                            <input ng-model="$parent.answer.given[$index]" type="radio"
-                                   name="unit-{{currentUnitId}}-alt-{{$index}}"
-                                   id="optioncheckbox-{{$index}}" ng-value="true" _data-toggle="checkbox"/>
+                    <tr ng-repeat="alt in currentUnit.activity.column1 track by $index">
+                        <td class="textcenter"> {{ $index+1 }}. </td>
+                        <td class="textleft">
+                            {{ alt }}
                         </td>
-                        <td class="textcenter">
-                            <input ng-model="$parent.answer.given[$index]" type="radio"
+
+                        <td class="textright col-lg-2">
+                            <input ng-model="$parent.answer.given[$index]" type="number"
                                    name="unit-{{currentUnitId}}-alt-{{$index}}"
-                                   id="optioncheckbox-{{$index}}" ng-value="false" _data-toggle="checkbox"/>
+                                   class="form-control"
+                                   id="optioncheckbox-{{$index}}" />
                         </td>
-                        <td>
-                            <label class="_checkbox" for="optioncheckbox-{{$index}}">
-                                {{ alt.title }}
+                        <td class="textleft">
+                            <label for="optioncheckbox-{{$index}}">
+                                {{ currentUnit.activity.column2[$index] }}
                             </label>
                         </td>
                     </tr>

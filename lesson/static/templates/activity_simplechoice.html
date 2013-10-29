@@ -1,11 +1,11 @@
-    <div class="course-activity {{currentUnit.activity.type}} col-lg-12">
+    <div class="course-activity {{currentUnit.activity.type}}">
         <div class="question textcenter">
             <h1>{{ currentUnit.activity.question }}</h1>
         </div>
         <div class="answers">
             <table class="table">
-                <tr ng-repeat="alt in alternatives" class="{{ alt.eval }}">
-                    <td class="textcenter">                     
+                <tr ng-repeat="alt in alternatives">
+                    <td class="textcenter">
                         <input ng-model="$parent.answer.given" type="radio" name="unit-{{currentUnitId}}-alt"
                                id="optionradio-{{$index}}" ng-value="$index" _data-toggle="radio"/>
                     </td>
