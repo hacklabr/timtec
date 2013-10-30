@@ -13,7 +13,7 @@
         "site": "", 
         "is_superuser": true, 
         "is_staff": true, 
-        "last_login": "2013-10-28T20:42:41.374Z", 
+        "last_login": "2013-10-30T20:52:57.244Z", 
         "groups": [], 
         "user_permissions": [], 
         "password": "pbkdf2_sha256$12000$6jZUgMll59N0$8Agxy3FdTAF9jP9KcOsrZ3OFaDWDBtn+rEImBTSu5OU=", 
@@ -139,143 +139,156 @@
     "pk": 1, 
     "model": "core.lesson", 
     "fields": {
-        "position": 0, 
+        "name": "Internet e Web", 
+        "notes": "", 
         "course": 1, 
-        "desc": "Quais s\u00e3o as rela\u00e7\u00f5es e as diferen\u00e7as entre Internet e WebA Web e as camadas de desenvolvimento do lado do usu\u00e1rio", 
+        "position": 0, 
         "slug": "internet-e-web", 
-        "name": "Internet e Web"
+        "desc": "Quais s\u00e3o as rela\u00e7\u00f5es e as diferen\u00e7as entre Internet e WebA Web e as camadas de desenvolvimento do lado do usu\u00e1rio"
     }
 },
 {
     "pk": 2, 
     "model": "core.lesson", 
     "fields": {
-        "position": 2, 
+        "name": "Montando a estrutura de um documento HTML", 
+        "notes": "", 
         "course": 1, 
-        "desc": "O corpo b\u00e1sico e nova estrutura sem\u00e2ntica de um documento na vers\u00e3o HTML5", 
+        "position": 2, 
         "slug": "montando-a-estrutura-de-um-documento-html", 
-        "name": "Montando a estrutura de um documento HTML"
+        "desc": "O corpo b\u00e1sico e nova estrutura sem\u00e2ntica de um documento na vers\u00e3o HTML5"
     }
 },
 {
     "pk": 3, 
     "model": "core.lesson", 
     "fields": {
-        "position": 1, 
+        "name": "Grupos de conte\u00fado e elementos sem\u00e2nticos de texto", 
+        "notes": "", 
         "course": 1, 
-        "desc": "Como estruturar semanticamente a marca\u00e7\u00e3o de conte\u00fado de texto em um documento HTML", 
+        "position": 1, 
         "slug": "grupos-de-conteudo-e-elementos-semanticos-de-texto", 
-        "name": "Grupos de conte\u00fado e elementos sem\u00e2nticos de texto"
+        "desc": "Como estruturar semanticamente a marca\u00e7\u00e3o de conte\u00fado de texto em um documento HTML"
     }
 },
 {
     "pk": 4, 
     "model": "core.lesson", 
     "fields": {
-        "position": 3, 
+        "name": "Conte\u00fado Multim\u00eddia", 
+        "notes": "", 
         "course": 1, 
-        "desc": "Como inserir elementos de m\u00eddia (imagens, \u00e1udio, v\u00eddeo) em um documento HTML", 
+        "position": 3, 
         "slug": "conteudo-multimidia", 
-        "name": "Conte\u00fado Multim\u00eddia"
+        "desc": "Como inserir elementos de m\u00eddia (imagens, \u00e1udio, v\u00eddeo) em um documento HTML"
     }
 },
 {
     "pk": 5, 
     "model": "core.lesson", 
     "fields": {
-        "position": 4, 
+        "name": "Tabelas e Formul\u00e1rios", 
+        "notes": "", 
         "course": 1, 
-        "desc": "Como construir tabelas para a exibi\u00e7\u00e3o de dados tabulares\r\n\r\nCria\u00e7\u00e3o de um formul\u00e1rio com uso dos atributos sem\u00e2nticos.", 
+        "position": 4, 
         "slug": "tabelas-e-formularios", 
-        "name": "Tabelas e Formul\u00e1rios"
+        "desc": "Como construir tabelas para a exibi\u00e7\u00e3o de dados tabulares\r\n\r\nCria\u00e7\u00e3o de um formul\u00e1rio com uso dos atributos sem\u00e2nticos."
     }
 },
 {
     "pk": 6, 
     "model": "core.lesson", 
     "fields": {
-        "position": 5, 
+        "name": "Metadados e Cabe\u00e7alho", 
+        "notes": "", 
         "course": 1, 
-        "desc": "A constru\u00e7\u00e3o dos metadados e localiza\u00e7\u00e3o dos scripts", 
+        "position": 5, 
         "slug": "metadados-e-cabecalho", 
-        "name": "Metadados e Cabe\u00e7alho"
+        "desc": "A constru\u00e7\u00e3o dos metadados e localiza\u00e7\u00e3o dos scripts"
     }
 },
 {
     "pk": 7, 
     "model": "core.lesson", 
     "fields": {
-        "position": 6, 
+        "name": "Introdu\u00e7\u00e3o ao CSS", 
+        "notes": "", 
         "course": 1, 
-        "desc": "O que \u00e9 CSS, quais suas caracter\u00edsticas e como incluir uma camada de estilo CSS em um documento HTML", 
+        "position": 6, 
         "slug": "introducao-ao-css", 
-        "name": "Introdu\u00e7\u00e3o ao CSS"
+        "desc": "O que \u00e9 CSS, quais suas caracter\u00edsticas e como incluir uma camada de estilo CSS em um documento HTML"
     }
 },
 {
     "pk": 8, 
     "model": "core.lesson", 
     "fields": {
-        "position": 7, 
+        "name": "Cores e Backgrounds", 
+        "notes": "", 
         "course": 1, 
-        "desc": "Formata\u00e7\u00e3o de cores e elementos de fundo com o uso do CSS", 
+        "position": 7, 
         "slug": "cores-e-backgrounds", 
-        "name": "Cores e Backgrounds"
+        "desc": "Formata\u00e7\u00e3o de cores e elementos de fundo com o uso do CSS"
     }
 },
 {
     "pk": 9, 
     "model": "core.lesson", 
     "fields": {
-        "position": 8, 
+        "name": "Fontes, textos, listas e links", 
+        "notes": "", 
         "course": 1, 
-        "desc": "Formata\u00e7\u00e3o das propriedades de fontes, textos, listas e links via CSS", 
+        "position": 8, 
         "slug": "fontes-textos-listas-e-links", 
-        "name": "Fontes, textos, listas e links"
+        "desc": "Formata\u00e7\u00e3o das propriedades de fontes, textos, listas e links via CSS"
     }
 },
 {
     "pk": 10, 
     "model": "core.lesson", 
     "fields": {
-        "position": 9, 
+        "name": "Box Model, Classe, ID e outros", 
+        "notes": "", 
         "course": 1, 
-        "desc": "Formatar e manipular de elementos de layout e de imagens baseados no entendimento do conceito de Box Model. \r\n\r\nConceitos e usos de classes e IDS na formata\u00e7\u00e3o CSS\r\n\r\nAnima\u00e7\u00e3o CSS3", 
+        "position": 9, 
         "slug": "box-model-classe-id-e-outros", 
-        "name": "Box Model, Classe, ID e outros"
+        "desc": "Formatar e manipular de elementos de layout e de imagens baseados no entendimento do conceito de Box Model. \r\n\r\nConceitos e usos de classes e IDS na formata\u00e7\u00e3o CSS\r\n\r\nAnima\u00e7\u00e3o CSS3"
     }
 },
 {
     "pk": 11, 
     "model": "core.lesson", 
     "fields": {
-        "position": 10, 
+        "name": "Introdu\u00e7\u00e3o ao JavaScript", 
+        "notes": "", 
         "course": 1, 
-        "desc": "Como criar um camada de comportamento JavaScript em um documento HTML\r\n\r\nSintaxe e exemplos simples de uso da linguagem JavaScript como elemento interativo dentro do HTML", 
+        "position": 10, 
         "slug": "introducao-ao-javascript", 
-        "name": "Introdu\u00e7\u00e3o ao JavaScript"
+        "desc": "Como criar um camada de comportamento JavaScript em um documento HTML\r\n\r\nSintaxe e exemplos simples de uso da linguagem JavaScript como elemento interativo dentro do HTML"
     }
 },
 {
     "pk": 12, 
     "model": "core.lesson", 
     "fields": {
-        "position": 11, 
+        "name": "No\u00e7\u00f5es de jQuery", 
+        "notes": "", 
         "course": 1, 
-        "desc": "Conceito de Bibliotecas JavaScript\r\nBiblioteca jQuery: Instala\u00e7\u00e3o e sintaxe\r\nExemplos simples de aplica\u00e7\u00e3o", 
+        "position": 11, 
         "slug": "nocoes-de-jquery", 
-        "name": "No\u00e7\u00f5es de jQuery"
+        "desc": "Conceito de Bibliotecas JavaScript\r\nBiblioteca jQuery: Instala\u00e7\u00e3o e sintaxe\r\nExemplos simples de aplica\u00e7\u00e3o"
     }
 },
 {
     "pk": 13, 
     "model": "core.lesson", 
     "fields": {
-        "position": 12, 
+        "name": "Mesa redonda", 
+        "notes": "", 
         "course": 1, 
-        "desc": " ", 
+        "position": 12, 
         "slug": "mesa-redonda", 
-        "name": "Mesa redonda"
+        "desc": " "
     }
 },
 {
