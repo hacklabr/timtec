@@ -1,5 +1,12 @@
 <div>
-<textarea id="texto" name="" rows="20">
+<style type="text/css" media="screen">
+    .CodeMirror {
+        width: 215px important!;
+    }
+</style>
+<div class="row">
+<div class="col-lg-12">
+<textarea id="texto" name="" rows="10">
 <!DOCTYPE html>
 <html>
   <head></head>
@@ -7,5 +14,12 @@
     <p>Hello world! This is HTML5 Boilerplate.</p>
   </body>
 </html></textarea>
-<iframe style="width:100%;border:1px solid #272822;" id="empty" src="/empty/"></iframe>
+</div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <iframe class="col-lg-6" style="border:1px dashed #272822;" id="empty" src="/empty/"></iframe>
+        <iframe class="col-lg-6" id="expected_iframe" src="/empty/"></iframe>
+    </div>
+</div>
 </div>

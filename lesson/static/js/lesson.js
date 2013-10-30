@@ -1,9 +1,15 @@
 /** TODO: initialize this in proprer way (fabio) */
-function initialize_code_mirror() {
+function initialize_code_mirror(data, expected) {
     var body = $('#empty').contents().find('body');
     var cm = CodeMirror.fromTextArea($('#texto')[0], CodeMirrorConf);
+    cm.setSize("100%", "215px"); // TODO: set size in html
     cm.markText({line:0, ch:0}, {line:4, ch:0}, {atomic: true, readOnly: true, inclusiveLeft: true});
     cm.markText({line:4, ch:1000}, {line:7, ch:0}, {atomic: true, readOnly: true, inclusiveRight: true});
+    cm.replaceRange(data, {line:4, ch:0}, {line:4, ch:100});
+    setTimeout(function () {
+        $('#empty').contents().find('body').html(cm.getValue());
+        $('#expected_iframe').contents().find('body').html('' + expected);
+    }, 800);
     cm.on('change', function (instance) {
         data = instance.getValue();
         $('#empty').contents().find('body').html(data);
@@ -110,7 +116,9 @@ function initialize_code_mirror() {
                     );
                 } else if(unit.activity.type === 'html5') {
                     /** TODO: initialize this in proprer way (fabio) */
-                    setTimeout(initialize_code_mirror, 200);
+                    setTimeout(function () {
+                        initialize_code_mirror(unit.activity.data.data, unit.activity.expected.expected_answer);
+                    }, 100);
                 }
 
             });
@@ -169,15 +177,7 @@ function initialize_code_mirror() {
             Lesson.get({'lessonId': $window.lessonId}, function (lesson) {
                 lesson.units.forEach(function(unit, index){
                     if(unit.activity) {
-                        var type = unit.activity.type;
-                        unit.activity = unit.activity.data;
-                        // TODO: corrigir após definição exata do dado (fabio)
-                        if(unit.activity.length > 0) {
-                            unit.activity = unit.activity.pop();
-                        }
-                        // TODO: delegar esta estruturação ao django (fabio)
-                        unit.activity.type = type;
-                        unit.activity.template = ACTIVITY_TEMPLATE_PATH(type);
+                        unit.activity.template = ACTIVITY_TEMPLATE_PATH(unit.activity.type);
                     }
                 });
                 $rootScope.lesson = lesson;
