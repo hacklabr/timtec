@@ -24,21 +24,40 @@ function initialize_code_mirror() {
             $routeProvider
                 .when('/:unitPos', {
                     templateUrl: STATIC_URL + '/templates/lesson_video.html',
-                    controller: 'LessonVideo'})
+                    controller: 'LessonVideoCtrl'})
                 .when('/:unitPos/activity', {
                     templateUrl: STATIC_URL + '/templates/lesson_activity.html',
-                    controller: 'LessonActivity'})
-                .otherwise({redirectTo: '/0'});
+                    controller: 'LessonActivityCtrl'})
+                .otherwise({redirectTo: '/1'});
 
             $httpProvider.defaults.xsrfCookieName = 'csrftoken';
             $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
         }
     ]);
 
-    app.controller('LessonActivity', ['$scope', '$routeParams', '$http', 'LessonData',
+    app.controller('LessonMainCtrl', ['$scope', '$routeParams', 'LessonData',
+        function ($scope, $routeParams, LessonData) {
+            var currentUnitPos = parseInt( /#\/(\d+)/.extract(location.hash, 1), 10);
+            currentUnitPos = Math.max(currentUnitPos, 1);
+
+            var currentUnitIndex = currentUnitPos - 1;
+            $scope.isSelected = function(i){
+                return currentUnitIndex === i;
+            };
+            $scope.isDone = function(unit){
+                return (unit.progress || {}).complete;
+            };
+            $scope.select = function(i) {
+                currentUnitIndex = i;
+            };
+        }
+    ]);
+
+    app.controller('LessonActivityCtrl', ['$scope', '$routeParams', '$http', 'LessonData',
         function ($scope, $routeParams, $http, LessonData) {
+            var currentUnitPos = Math.max(parseInt($routeParams.unitPos, 10), 1);
             $scope.alternatives = [];
-            $scope.currentUnitPos = parseInt($routeParams.unitPos, 10);
+            $scope.currentUnitIndex = currentUnitPos - 1;
             $scope.answer = {'given': null};
 
             $scope.sendAnswer = (function() {
@@ -59,7 +78,7 @@ function initialize_code_mirror() {
             });
 
             LessonData.then(function (lesson) {
-                var unit = $scope.currentUnit = lesson.units[$scope.currentUnitPos];
+                var unit = $scope.currentUnit = lesson.units[$scope.currentUnitIndex];
                 $scope.currentUnitId = unit.id;
                 $scope.activity_template = unit.activity.template;
 
@@ -87,16 +106,17 @@ function initialize_code_mirror() {
     ]);
 
 
-    app.controller('LessonVideo', ['$scope', '$routeParams', '$location', 'LessonData', 'youtubePlayerApi',
+    app.controller('LessonVideoCtrl', ['$scope', '$routeParams', '$location', 'LessonData', 'youtubePlayerApi',
         function ($scope, $routeParams, $location, LessonData, youtubePlayerApi) {
-            $scope.currentUnitPos = parseInt($routeParams.unitPos, 10);
+            var currentUnitPos = Math.max(parseInt($routeParams.unitPos, 10), 1);
+            var currentUnitIndex = currentUnitPos - 1;
 
             var onPlayerStateChange = function (event) {
                 if (event.data === YT.PlayerState.ENDED) {
                     if( $scope.currentUnit.activity ) {
-                        $location.path('/' + $scope.currentUnitPos + '/activity');
+                        $location.path('/' + currentUnitPos + '/activity');
                     } else {
-                        var nextId = $scope.currentUnitPos + 1;
+                        var nextId = currentUnitPos + 1;
                         if (nextId < $scope.lesson.units.length) {
                             $location.path('/' + nextId);
                         }
@@ -106,7 +126,7 @@ function initialize_code_mirror() {
             };
 
             LessonData.then(function (lesson) {
-                $scope.currentUnit = lesson.units[$scope.currentUnitPos];
+                $scope.currentUnit = lesson.units[currentUnitIndex];
                 $scope.currentUnitId = $scope.currentUnit.id;
 
                 if ($scope.currentUnit.video) {
