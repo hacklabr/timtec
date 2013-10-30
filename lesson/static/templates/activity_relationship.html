@@ -10,7 +10,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="alt in currentUnit.activity.column1 track by $index">
+                    <tr ng-repeat="alt in currentUnit.activity.data.column1 track by $index">
                         <td class="textcenter"> {{ $index+1 }}. </td>
                         <td class="textleft">
                             {{ alt }}
@@ -24,7 +24,7 @@
                         </td>
                         <td class="textleft">
                             <label for="optioncheckbox-{{$index}}">
-                                {{ currentUnit.activity.column2[$index] }}
+                                {{ currentUnit.activity.data.column2[$index] }}
                             </label>
                         </td>
                     </tr>

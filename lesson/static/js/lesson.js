@@ -100,8 +100,8 @@ function initialize_code_mirror(data, expected) {
                 $scope.currentUnitId = unit.id;
                 $scope.activity_template = unit.activity.template;
 
-                if (unit.activity.alternatives) {
-                    $scope.alternatives = unit.activity.alternatives.map(
+                if (unit.activity.data.alternatives) {
+                    $scope.alternatives = unit.activity.data.alternatives.map(
                         function(a,i) { return {'title': a }; }
                     );
                 }
@@ -111,7 +111,7 @@ function initialize_code_mirror(data, expected) {
                         function(a,i){ return false; }
                     );
                 } else if(unit.activity.type === 'relationship') {
-                    $scope.answer.given = unit.activity.column1.map(
+                    $scope.answer.given = unit.activity.data.column1.map(
                         function(a,i){ return null; }
                     );
                 } else if(unit.activity.type === 'html5') {
