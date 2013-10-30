@@ -1,6 +1,7 @@
 -e git+https://github.com/django/django@stable/1.6.x#egg=Django
 -e git+https://github.com/bradjasper/django-jsonfield#egg=jsonfield
 django-suit==0.2.5
+south==0.8.2
 Pillow==2.2.1
 docutils==0.11
 django-rosetta==0.7.2
