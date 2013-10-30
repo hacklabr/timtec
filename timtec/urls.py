@@ -10,7 +10,7 @@ admin.autodiscover()
 from django.views.generic import TemplateView
 from accounts.views import CustomLoginView, ProfileEditView, RegistrationUniqueEmailView, ProfileView
 from core.views import AdminCourseView, CourseView, CourseViewSet, EnrollCourseView, HomeView, UserCoursesView
-from lesson.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, ReceiveAnswerView
+from lesson.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, ReceiveAnswerView, UpdateStudentProgressView
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, AnswerViewSet, QuestionVoteViewSet, AnswerVoteViewSet
 from course_material.views import CourseMaterialView, FileUploadView
 from rest_framework import routers
@@ -47,6 +47,7 @@ urlpatterns = patterns(
     # Services
     url(r'^api/', include(router.urls)),
     url(r'^api/answer/(?P<unitId>[0-9]*)$', ReceiveAnswerView.as_view(), name='answer'),
+    url(r'^api/updatestudentprogress/(?P<unitId>[0-9]*)$', UpdateStudentProgressView.as_view(), name='updatestudentprogress'),
 
     # Forum
     url(r'^forum/(?P<course_slug>[-a-zA-Z0-9_]+)$', CourseForumView.as_view(), name='forum'),

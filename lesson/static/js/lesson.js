@@ -68,11 +68,15 @@ function initialize_code_mirror() {
                 $location.path('/'+$main.currentUnitPos);
             };
 
-            $scope.sendAnswer = (function() {
+            $scope.sendAnswer = function() {
                 function tellResult(data) {
                     var correct = data.correct,
                         given  = data.given,
                         expected  = data.expected;
+
+                    if(correct){
+                        $scope.currentUnit.progress = {complete : true};
+                    }
 
                     $scope.isCorrect = correct;
                 }
@@ -83,7 +87,7 @@ function initialize_code_mirror() {
                     'data': 'given=' + JSON.stringify($scope.answer.given),
                     'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(tellResult);
-            });
+            };
 
             LessonData.then(function (lesson) {
                 var unit = $scope.currentUnit = lesson.units[$scope.currentUnitIndex];
@@ -114,8 +118,8 @@ function initialize_code_mirror() {
     ]);
 
 
-    app.controller('LessonVideoCtrl', ['$scope', '$routeParams', '$location', 'LessonData', 'youtubePlayerApi',
-        function ($scope, $routeParams, $location, LessonData, youtubePlayerApi) {
+    app.controller('LessonVideoCtrl', ['$scope', '$http', '$location', 'LessonData', 'youtubePlayerApi',
+        function ($scope, $http, $location, LessonData, youtubePlayerApi) {
             var $main = $scope.$parent;
             var currentUnitIndex = $main.currentUnitPos - 1;
 
@@ -129,6 +133,14 @@ function initialize_code_mirror() {
                             $location.path('/' + $main.currentUnitPos);
                         }
                     }
+
+                    $http({
+                        'method': 'POST',
+                        'url': '/api/updatestudentprogress/' + $scope.currentUnitId,
+                        'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
+                    }).success(function(data){
+                        $scope.currentUnit.progress = {complete: data.complete};
+                    });
                     $scope.$apply();
                 }
             };

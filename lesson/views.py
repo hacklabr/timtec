@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
+from datetime import datetime
 from accounts.utils import LoginRequiredMixin
 from core.models import Answer, Lesson, StudentProgress, Unit
 from django.views.generic import DetailView
@@ -34,6 +35,27 @@ class StudentProgressViewSet(viewsets.ModelViewSet):
         return StudentProgress.objects.filter(user=user)
 
 
+class UpdateStudentProgressView(APIView):
+    model = Unit
+
+    def post(self, request, unitId=None):
+        user = request.user
+
+        try:
+            unit = Unit.objects.get(id=unitId)
+        except Unit.DoesNotExist as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+        response = {}
+        if not unit.activity:
+            progress,created = StudentProgress.objects.get_or_create(user=user, unit=unit,
+                                                                     complete=datetime.now())
+            if created:
+                response['msg'] = 'Unit completed.'
+                response['complete'] = progress.complete
+        return Response(response, status=status.HTTP_201_CREATED)
+
+
 class ReceiveAnswerView(APIView):
     model = Unit
 
@@ -51,10 +73,16 @@ class ReceiveAnswerView(APIView):
             answer.given = json.loads(request.POST.get('given', None))
             answer.save()
 
+            progress,created = StudentProgress.objects.get_or_create(user=user, unit=unit)
+            if answer.is_correct():
+                progress.complete = datetime.now()
+            progress.save()
+
             json_answer = {
                 'expected': answer.expected,
                 'given': answer.given,
-                'correct': answer.is_correct()
+                'correct': answer.is_correct(),
+                'complete': progress.complete
             }
 
             return Response(json_answer, status=status.HTTP_201_CREATED)
