@@ -35,30 +35,38 @@ function initialize_code_mirror() {
         }
     ]);
 
-    app.controller('LessonMainCtrl', ['$scope', '$routeParams', 'LessonData',
-        function ($scope, $routeParams, LessonData) {
-            var currentUnitPos = parseInt( /#\/(\d+)/.extract(location.hash, 1), 10);
-            currentUnitPos = Math.max(currentUnitPos, 1);
+    app.controller('LessonMainCtrl', ['$scope', 'LessonData',
+        function ($scope, LessonData) {
+            $scope.currentUnitPos = parseInt( /#\/(\d+)/.extract(location.hash, 1), 10);
+            $scope.currentUnitPos = Math.max($scope.currentUnitPos, 1);
 
-            var currentUnitIndex = currentUnitPos - 1;
             $scope.isSelected = function(i){
-                return currentUnitIndex === i;
+                return ($scope.currentUnitPos-1) === i;
             };
             $scope.isDone = function(unit){
                 return (unit.progress || {}).complete;
             };
             $scope.select = function(i) {
-                currentUnitIndex = i;
+                $scope.currentUnitPos = i+1;
             };
         }
     ]);
 
-    app.controller('LessonActivityCtrl', ['$scope', '$routeParams', '$http', 'LessonData',
-        function ($scope, $routeParams, $http, LessonData) {
-            var currentUnitPos = Math.max(parseInt($routeParams.unitPos, 10), 1);
+    app.controller('LessonActivityCtrl', ['$scope', '$location', '$routeParams', '$http', 'LessonData',
+        function ($scope, $location, $routeParams, $http, LessonData) {
+            var $main = $scope.$parent;
+
             $scope.alternatives = [];
-            $scope.currentUnitIndex = currentUnitPos - 1;
+            $scope.currentUnitIndex = $main.currentUnitPos - 1;
             $scope.answer = {'given': null};
+
+            $scope.nextVideo = function() {
+                $main.currentUnitPos++;
+                $location.path('/' + $main.currentUnitPos);
+            };
+            $scope.replayVideo = function() {
+                $location.path('/'+$main.currentUnitPos);
+            };
 
             $scope.sendAnswer = (function() {
                 function tellResult(data) {
@@ -108,17 +116,17 @@ function initialize_code_mirror() {
 
     app.controller('LessonVideoCtrl', ['$scope', '$routeParams', '$location', 'LessonData', 'youtubePlayerApi',
         function ($scope, $routeParams, $location, LessonData, youtubePlayerApi) {
-            var currentUnitPos = Math.max(parseInt($routeParams.unitPos, 10), 1);
-            var currentUnitIndex = currentUnitPos - 1;
+            var $main = $scope.$parent;
+            var currentUnitIndex = $main.currentUnitPos - 1;
 
             var onPlayerStateChange = function (event) {
                 if (event.data === YT.PlayerState.ENDED) {
                     if( $scope.currentUnit.activity ) {
-                        $location.path('/' + currentUnitPos + '/activity');
+                        $location.path('/' + $main.currentUnitPos + '/activity');
                     } else {
-                        var nextId = currentUnitPos + 1;
-                        if (nextId < $scope.lesson.units.length) {
-                            $location.path('/' + nextId);
+                        if ($main.currentUnitPos + 1 < $scope.lesson.units.length) {
+                            $main.currentUnitPos++;
+                            $location.path('/' + $main.currentUnitPos);
                         }
                     }
                     $scope.$apply();
