@@ -60,7 +60,7 @@ class QuestionCreateView(LoginRequiredMixin, FormView):
             return self.form_invalid(form)
 
 
-class QuestionViewSet(viewsets.ModelViewSet):
+class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     model = Question
     serializer_class = QuestionSerializer
     filter_fields = ('course', 'user')
@@ -70,7 +70,7 @@ class QuestionViewSet(viewsets.ModelViewSet):
         return super(QuestionViewSet, self).pre_save(obj)
 
 
-class AnswerViewSet(viewsets.ModelViewSet):
+class AnswerViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     model = Answer
     serializer_class = AnswerSerializer
     filter_fields = ('question', 'user')
@@ -80,7 +80,7 @@ class AnswerViewSet(viewsets.ModelViewSet):
         return super(AnswerViewSet, self).pre_save(obj)
 
 
-class QuestionVoteViewSet(viewsets.ModelViewSet):
+class QuestionVoteViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     model = QuestionVote
     serializer_class = QuestionVoteSerializer
     # Get Question vote usign kwarg as questionId
@@ -99,7 +99,7 @@ class QuestionVoteViewSet(viewsets.ModelViewSet):
         return QuestionVote.objects.filter(user=user)
 
 
-class AnswerVoteViewSet(viewsets.ModelViewSet):
+class AnswerVoteViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     model = AnswerVote
     serializer_class = AnswerVoteSerializer
     # Get answer vote usign kwarg as questionId
