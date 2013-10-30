@@ -48,8 +48,8 @@ class UpdateStudentProgressView(APIView):
 
         response = {}
         if not unit.activity:
-            progress,created = StudentProgress.objects.get_or_create(user=user, unit=unit,
-                                                                     complete=datetime.now())
+            progress, created = StudentProgress.objects.get_or_create(user=user, unit=unit,
+                                                                      complete=datetime.now())
             if created:
                 response['msg'] = 'Unit completed.'
                 response['complete'] = progress.complete
@@ -73,7 +73,7 @@ class ReceiveAnswerView(APIView):
             answer.given = json.loads(request.POST.get('given', None))
             answer.save()
 
-            progress,created = StudentProgress.objects.get_or_create(user=user, unit=unit)
+            progress, created = StudentProgress.objects.get_or_create(user=user, unit=unit)
             if answer.is_correct():
                 progress.complete = datetime.now()
             progress.save()
