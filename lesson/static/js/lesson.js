@@ -146,7 +146,7 @@ function initialize_code_mirror() {
             };
 
             LessonData.then(function (lesson) {
-                $scope.currentUnit = lesson.units[currentUnitIndex];
+                $scope.currentUnit = lesson.units[(currentUnitIndex || 0)];
                 $scope.currentUnitId = $scope.currentUnit.id;
 
                 if ($scope.currentUnit.video) {
