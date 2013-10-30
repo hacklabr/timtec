@@ -176,6 +176,7 @@ class Lesson(models.Model):
     slug = models.SlugField(_('Slug'), max_length=255, editable=False, unique=True)
     name = models.CharField(_('Name'), max_length=255)
     desc = models.CharField(_('Description'), max_length=255)
+    notes = models.TextField(_('Notes'), default='')
     course = models.ForeignKey(Course, verbose_name=_('Course'))
     position = PositionField(collection='course', default=0)
 

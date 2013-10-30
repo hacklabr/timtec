@@ -71,21 +71,9 @@ $(document).ready(function() {
 
     <section class="course-instructions col-sm-10 col-sm-offset-1 hidden-lg">
       <div class="page-header-double">
-        <h3><i class="icon-double-angle-right"></i> Informações e Instruções</h3>
+        <h3><i class="icon-double-angle-right"></i> Notas do professor</h3>
       </div>
-      <p>In eu placerat, porta urna integer pellentesque adipiscing nascetur magna, diam amet, scelerisque proin massa a, mid enim nec mus, mattis sit sagittis pulvinar, augue ac nunc proin! Scelerisque nec? Montes penatibus risus ridiculus, platea porttitor, ac in cras. Augue. Dapibus nisi purus, integer adipiscing dignissim dictumst cum, odio turpis.</p>
-      <p>A. Porttitor in? Sagittis, amet dictumst parturient vut amet? Dis in sit quis non, odio vel, turpis, porta natoque, et pulvinar! Ultricies adipiscing porta. Nascetur platea, tortor tempor montes et adipiscing porttitor eros, rhoncus velit nisi elit montes nascetur diam dictumst tempor integer augue nunc odio, nec, aliquet. Adipiscing.</p>
-      <p>Pulvinar mus lectus, enim a. Eros tristique dolor ac, sociis urna enim, vel egestas augue odio mid magna mus eros, enim duis adipiscing, arcu a turpis mus vut, mattis porttitor scelerisque? Odio eros sed! Rhoncus? Ac a dolor et phasellus aliquet cum vut sociis, lundium, aenean quis et placerat.</p>
-      <ul>
-        <li>Sit magna pellentesque hac dignissim.</li>
-        <li>Proin porta ac aliquet, integer.</li>
-        <li>Hac nisi placerat egestas integer.</li>
-        <li>Augue, vut ut urna urna.</li>
-        <li>Massa duis mauris placerat auctor.</li>
-        <li>Platea platea placerat in dignissim.</li>
-        <li>Ultrices purus? Ut risus, dis.</li>
-      </ul>
-      <p>Et pid habitasse! Natoque dapibus pellentesque lacus? Platea pulvinar, porta elementum sagittis, urna cursus etiam, lacus ut pulvinar elementum odio vel, montes augue, est. Nec sit aliquam et pulvinar! Dictumst nascetur ridiculus tincidunt scelerisque! Natoque risus porttitor, adipiscing cum? Eu sit duis? Et! Vut etiam pulvinar? Ut nec phasellus.</p>
+      {{ lesson.notes|safe }}
     </section>
 
   <!-- END COURSE-VIDEO -->
@@ -96,21 +84,9 @@ $(document).ready(function() {
     <div class="col-lg-4 hidden-md">
       <section class="course-instructions">
         <div class="page-header-double">
-          <h3><i class="icon-double-angle-right"></i> Informações e Instruções</h3>
+          <h3><i class="icon-double-angle-right"></i> Notas do professor</h3>
         </div>
-        <p>In eu placerat, porta urna integer pellentesque adipiscing nascetur magna, diam amet, scelerisque proin massa a, mid enim nec mus, mattis sit sagittis pulvinar, augue ac nunc proin! Scelerisque nec? Montes penatibus risus ridiculus, platea porttitor, ac in cras. Augue. Dapibus nisi purus, integer adipiscing dignissim dictumst cum, odio turpis.</p>
-        <p>A. Porttitor in? Sagittis, amet dictumst parturient vut amet? Dis in sit quis non, odio vel, turpis, porta natoque, et pulvinar! Ultricies adipiscing porta. Nascetur platea, tortor tempor montes et adipiscing porttitor eros, rhoncus velit nisi elit montes nascetur diam dictumst tempor integer augue nunc odio, nec, aliquet. Adipiscing.</p>
-        <p>Pulvinar mus lectus, enim a. Eros tristique dolor ac, sociis urna enim, vel egestas augue odio mid magna mus eros, enim duis adipiscing, arcu a turpis mus vut, mattis porttitor scelerisque? Odio eros sed! Rhoncus? Ac a dolor et phasellus aliquet cum vut sociis, lundium, aenean quis et placerat.</p>
-        <ul>
-          <li>Sit magna pellentesque hac dignissim.</li>
-          <li>Proin porta ac aliquet, integer.</li>
-          <li>Hac nisi placerat egestas integer.</li>
-          <li>Augue, vut ut urna urna.</li>
-          <li>Massa duis mauris placerat auctor.</li>
-          <li>Platea platea placerat in dignissim.</li>
-          <li>Ultrices purus? Ut risus, dis.</li>
-        </ul>
-        <p>Et pid habitasse! Natoque dapibus pellentesque lacus? Platea pulvinar, porta elementum sagittis, urna cursus etiam, lacus ut pulvinar elementum odio vel, montes augue, est. Nec sit aliquam et pulvinar! Dictumst nascetur ridiculus tincidunt scelerisque! Natoque risus porttitor, adipiscing cum? Eu sit duis? Et! Vut etiam pulvinar? Ut nec phasellus.</p>
+        {{ lesson.notes|safe }}
       </section>
 
       <section class="course-social" style="position:relative;overflow:hidden;">
