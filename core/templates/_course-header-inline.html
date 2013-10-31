@@ -9,7 +9,7 @@
           <!-- COURSE-SECTION-NAV -->
           <nav class="course-sections textright">
             <a href="{% url 'course_intro' course.slug %}"><span class="has-tooltip icon-home" data-toggle="tooltip" data-placement="top" data-original-title="Intro"></span></a>
-            <a href="{% url 'lesson' 'aula-1-modelos-de-dados-e-introducao-ao-modelo-relacional' %}"><span class="has-tooltip icon-facetime-video" data-toggle="tooltip" data-placement="top" data-original-title="Aulas"></span></a>
+            <a href="{% url "lesson" course.first_lesson.slug %}"><span class="has-tooltip icon-facetime-video" data-toggle="tooltip" data-placement="top" data-original-title="Aulas"></span></a>
             {% comment %}
             <!-- TODO: Bruno Martin -->
             <a href="profile-note.html"><span class="has-tooltip icon-pencil" data-toggle="tooltip" data-placement="top" data-original-title="Anotações"></span></a>
