@@ -13,6 +13,8 @@ from registration.forms import RegistrationFormUniqueEmail
 
 from forms import ProfileEditForm
 from utils import LoginRequiredMixin
+from accounts.forms import ProfileEditForm
+from accounts.utils import LoginRequiredMixin
 
 
 class RegistrationUniqueEmailView(RegistrationView):
