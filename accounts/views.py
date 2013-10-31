@@ -11,8 +11,6 @@ from django.views.generic.detail import DetailView
 from registration.backends.default.views import RegistrationView
 from registration.forms import RegistrationFormUniqueEmail
 
-from forms import ProfileEditForm
-from utils import LoginRequiredMixin
 from accounts.forms import ProfileEditForm
 from accounts.utils import LoginRequiredMixin
 

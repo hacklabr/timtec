@@ -318,6 +318,7 @@ if DEBUG:
 
 # django-registration flag
 ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_DEFAULT_GROUP_NAME = 'students'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
