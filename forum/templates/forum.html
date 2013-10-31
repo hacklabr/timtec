@@ -8,26 +8,6 @@
             <!-- HEADER -->
             {% include "_course-header-inline.html"  with course=course %}
             <!-- END HEADER -->
-
-            <script type="text/javascript" charset="utf-8">
-            $(document).ready(function() {
-                $('.comment-form').hide();
-                $('.add-comment-link').click(function(e) {
-                    e.preventDefault();
-                    $(this).parent().parent().height(170);
-                    $(this).parent().parent().find('form').slideDown();
-                    $(this).hide();
-                })
-            
-                $('.cancel-comment').click(function(e) {
-                    e.preventDefault();
-                    $(this).parent().parent().slideUp()
-                    $(this).parent().parent().parent().find('.add-comment-link').slideDown().show();
-                    $(this).parent().parent().parent().height(30);
-                })
-            })
-            </script>
-
             <!-- MAIN CONTENT -->
             <section id="main-content" class="container">
                 <div class="row">
