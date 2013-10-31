@@ -7,6 +7,7 @@ def test_forum(rf, user):
     from forum.views import CourseForumView
 
     course = mommy.make('Course', slug='dbsql')
+    mommy.make('Lesson', course=course)
     question = mommy.make('Question', slug='qual-e-o-melhor-sgbd-atualmente', title='Test Question', text='Test Question 1234 Test Question 1234', course=course)
 
     request = rf.get('/forum/dbsql')
@@ -29,6 +30,7 @@ def test_question(rf, user):
     from forum.views import QuestionView
 
     course = mommy.make('Course')
+    mommy.make('Lesson', course=course)
     question = mommy.make('Question', slug='df', course=course)
 
     request = rf.get('/forum/question/' + question.slug)
@@ -51,6 +53,7 @@ def test_question_create(rf, user):
     from forum.models import Question
 
     course = mommy.make('Course', slug='dbsql', name='Test course name')
+    mommy.make('Lesson', course=course)
 
     # GET test
     request = rf.get('/forum/question/create/dbsql')
