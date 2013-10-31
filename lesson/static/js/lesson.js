@@ -1,5 +1,5 @@
 /** TODO: initialize this in proprer way (fabio) */
-function initialize_code_mirror(data, expected) {
+function initialize_code_mirror($scope, data, expected) {
     var body = $('#empty').contents().find('body');
     var cm = CodeMirror.fromTextArea($('#texto')[0], CodeMirrorConf);
     cm.setSize("100%", "215px"); // TODO: set size in html
@@ -13,6 +13,7 @@ function initialize_code_mirror(data, expected) {
     cm.on('change', function (instance) {
         data = instance.getValue();
         $('#empty').contents().find('body').html(data);
+        $scope.answer.given = data;
     });
 }
 
@@ -117,7 +118,7 @@ function initialize_code_mirror(data, expected) {
                 } else if(unit.activity.type === 'html5') {
                     /** TODO: initialize this in proprer way (fabio) */
                     setTimeout(function () {
-                        initialize_code_mirror(unit.activity.data.data, unit.activity.expected.expected_answer);
+                        initialize_code_mirror($scope, unit.activity.data.data, unit.activity.expected.expected_answer);
                     }, 100);
                 }
 

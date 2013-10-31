@@ -7,6 +7,7 @@ from positions import PositionField
 
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
+
 from django.core import validators
 from django.core.mail import send_mail
 from django.db import models
@@ -283,12 +284,15 @@ class Answer(models.Model):
         return self.activity.expected
 
     def is_correct(self):
+        if self.activity.type == 'html5':
+            return True
+
         result = False
 
         given = self.given
         expected = self.activity.expected
 
-        result = str(given) == str(expected)
+        result = unicode(given) == unicode(expected)
         #import ipdb; ipdb.set_trace()
         return result
 
