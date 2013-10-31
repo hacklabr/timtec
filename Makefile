@@ -18,6 +18,28 @@ update-staging:
 
 staging: create-staging update-staging
 
+create-production:
+	virtualenv ~/env
+	~/env/bin/pip install -r requirements.txt
+	mkdir -p ~/webfiles/static
+	mkdir -p ~/webfiles/media
+	cp timtec/settings_local_production.py timtec/settings_local.py
+	~/env/bin/pip install -r requirements.txt
+	~/env/bin/python manage.py syncdb --noinput --no-initial-data
+	~/env/bin/python manage.py migrate --noinput --no-initial-data
+	~/env/bin/python manage.py loaddata production
+	~/env/bin/python manage.py collectstatic --noinput
+	~/env/bin/python manage.py compilemessages
+	touch timtec/wsgi.py
+
+update-production:
+	cp timtec/settings_local_production.py timtec/settings_local.py
+	~/env/bin/pip install -r requirements.txt
+	~/env/bin/python manage.py migrate
+	~/env/bin/python manage.py collectstatic --noinput
+	~/env/bin/python manage.py compilemessages
+	touch timtec/wsgi.py
+
 python_tests:
 	py.test --pep8 --flakes --cov . . $*
 
