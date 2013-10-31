@@ -5,11 +5,11 @@ from model_mommy import mommy
 @pytest.mark.django_db
 def test_course_material(rf, user):
     from course_material.views import CourseMaterialView
-    from course_material.models import CourseMaterial
 
-    course = mommy.make('Course')
-    mommy.make('CourseMaterial', course=course, text='foobar**bold**')
-    course_material = CourseMaterial.objects.get(course__slug=course.slug)
+    course = mommy.make('Course', name='Test Course', slug='dbsql')
+    mommy.make('Lesson', course=course)
+    course_material = mommy.make('CourseMaterial', course=course, text='foobar**bold**')
+
     request = rf.get('/course_material/' + course.slug)
     request.user = user
 
@@ -24,23 +24,27 @@ def test_course_material(rf, user):
     assert '<strong>bold</strong>'.encode('utf-8') in response.content
 
 
-# TODO: bruno martin
-#
-# @pytest.mark.django_db
-# def test_file_upload(rf):
-#     from core.models import TimtecUser
-#     from course_material.views import FileUploadView
-#     from course_material.models import CourseMaterial
-#     import os
-#
-#     with open('course_material/tests/dummy_file.txt') as fp:
-#         request = rf.post('/course_material/file_upload/dbsql', {'file': fp})
-#         request.user = TimtecUser.objects.get(username='abcd')
-#         view = FileUploadView(request=request)
-#         view.kwargs = {'slug': 'dbsql'}
-#         response = view.post(request)
-#
-#     course_material = CourseMaterial.objects.get(course__slug='dbsql')
-#     assert response.status_code == 200
-#     assert os.path.exists('media/dbsql/dummy_file.txt')
-#     assert course_material.files.all()[0].file.name == 'dbsql/dummy_file.txt'
+@pytest.mark.django_db
+def test_file_upload(rf, user):
+    from course_material.views import FileUploadView
+    import os
+
+    file_name = 'media/dbsql/dummy_file.txt'
+    if os.path.exists(file_name):
+        os.remove(file_name)
+
+    course = mommy.make('Course', name='Test Course', slug='dbsql')
+    course_material = mommy.make('CourseMaterial', course=course, text='foobar**bold**')
+
+    with open('course_material/tests/dummy_file.txt') as fp:
+        request = rf.post('/course_material/file_upload/dbsql', {'file': fp})
+        request.user = user
+        view = FileUploadView(request=request)
+        view.kwargs = {'slug': 'dbsql'}
+        response = view.post(request)
+
+    assert response.status_code == 200
+    assert os.path.exists(file_name)
+    assert course_material.files.all()[0].file.name == 'dbsql/dummy_file.txt'
+    if os.path.exists(file_name):
+        os.remove(file_name)
