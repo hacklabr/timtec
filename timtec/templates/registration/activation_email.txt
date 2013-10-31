@@ -1,14 +1,13 @@
-Hello,
+Caro (a), bem vindo(a) ao TIM Tec.
 
-Someone, probably you, requested a registration in {{ site }}.
+Estamos felizes por poder ajudá-lo(a) a conquistar uma qualificação técnica e construir um futuro melhor.
 
-To activate the registration, please click in link below or copy and past it on your browser.
+Para garantir que você tenha acesso a todos os recursos e cursos que temos para oferecer, clique no link abaixo e confirme o seu endereço de e-mail.
 
---> http://{{ site }}{% url 'registration_activate' activation_key=activation_key %}
+http://{{ site }}{% url 'registration_activate' activation_key=activation_key %}
+
+Esta solicitação de cadastro dura {{ expiration_days }} dias!
 
 
-This registration request will expire in {{ expiration_days }} days!
-
-[ ]s,
-Timtec team,
-
+Até já!
+Instituto TIM
