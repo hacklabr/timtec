@@ -13,7 +13,7 @@
         "site": "", 
         "is_superuser": true, 
         "is_staff": true, 
-        "last_login": "2013-10-30T20:52:57.244Z", 
+        "last_login": "2013-10-31T20:54:43.231Z", 
         "groups": [], 
         "user_permissions": [], 
         "password": "pbkdf2_sha256$12000$6jZUgMll59N0$8Agxy3FdTAF9jP9KcOsrZ3OFaDWDBtn+rEImBTSu5OU=", 
@@ -111,6 +111,14 @@
     }
 },
 {
+    "pk": 12, 
+    "model": "core.video", 
+    "fields": {
+        "name": "Introdu\u00e7\u00e3o", 
+        "youtube_id": "DoaXWR3dm1I"
+    }
+},
+{
     "pk": 1, 
     "model": "core.course", 
     "fields": {
@@ -140,11 +148,11 @@
     "model": "core.lesson", 
     "fields": {
         "name": "Internet e Web", 
-        "notes": "", 
+        "notes": "Teste", 
         "course": 1, 
         "position": 0, 
         "slug": "internet-e-web", 
-        "desc": "Quais s\u00e3o as rela\u00e7\u00f5es e as diferen\u00e7as entre Internet e WebA Web e as camadas de desenvolvimento do lado do usu\u00e1rio"
+        "desc": "Quais s\u00e3o as rela\u00e7\u00f5es e as diferen\u00e7as entre Internet e Web. A Web e as camadas de desenvolvimento do lado do usu\u00e1rio"
     }
 },
 {
@@ -293,9 +301,54 @@
 },
 {
     "pk": 1, 
+    "model": "core.activity", 
+    "fields": {
+        "expected": "[false,false,true,true,true]", 
+        "data": "{\"question\":\"Marque verdadeiro ou falso para as afirma\\u00e7\\u00f5es abaixo\",\"alternatives\":[\"A web nasceu nos anos 1960.\",\"A Internet surgiu nos anos 1990.\",\"A Internet nasceu como uma rede de computadores.\",\"A Internet nasce a partir de necessidades militares.\",\"Tim Berners-Lee \\u00e9 considerado o pai da Web.\"]}", 
+        "type": "trueorfalse"
+    }
+},
+{
+    "pk": 2, 
+    "model": "core.activity", 
+    "fields": {
+        "expected": "[false,false,false,true]", 
+        "data": "{\"question\":\"Marque qual dos programas abaixo \\u00e9 um Browser/Navegador\",\"alternatives\":[\"Microsoft Word\",\"Adobe Photoshop\",\"Ubuntu\",\"Firefox\"]}", 
+        "type": "multiplechoice"
+    }
+},
+{
+    "pk": 3, 
+    "model": "core.activity", 
+    "fields": {
+        "expected": "[2,1,4,3]", 
+        "data": "{\"column1\":[\"Protocolo\",\"Servidor\",\"Caminho\",\"Recurso\"],\"question\":\"Usando a URL http://flatschart.com/html5/estrutura.html fa\\u00e7a a correspond\\u00eancia entre as duas colunas:\",\"column2\":[\"flatschart.com/\",\"http://\",\"estrutura.html\",\"html5/\"]}", 
+        "type": "relationship"
+    }
+},
+{
+    "pk": 4, 
+    "model": "core.activity", 
+    "fields": {
+        "expected": "[3,1,2]", 
+        "data": "{\"question\":\"Em um website esportivo, uma not\\u00edcia sobre um jogo de futebol pode conter textos, recursos visuais e interatividade. Relacione os recursos com as camadas front end:\",\"column1\":[\"Texto da not\\u00edcia\",\"Cores e fontes\",\"Galeria interativa de imagens\"],\"column2\":[\"Javascript\",\"HTML\",\"CSS\"]}", 
+        "type": "relationship"
+    }
+},
+{
+    "pk": 5, 
+    "model": "core.activity", 
+    "fields": {
+        "expected": "{\"expected_answer\":\"<b>Ol\\u00e1 mundo</b>\"}", 
+        "data": "{\"data\":\"<b>oi mundo</b>\"}", 
+        "type": "html5"
+    }
+},
+{
+    "pk": 1, 
     "model": "core.unit", 
     "fields": {
-        "position": 0, 
+        "position": 1, 
         "lesson": 1, 
         "video": 2, 
         "activity": null
@@ -305,47 +358,47 @@
     "pk": 2, 
     "model": "core.unit", 
     "fields": {
-        "position": 1, 
+        "position": 2, 
         "lesson": 1, 
         "video": 3, 
-        "activity": null
+        "activity": 1
     }
 },
 {
     "pk": 3, 
     "model": "core.unit", 
     "fields": {
-        "position": 2, 
+        "position": 3, 
         "lesson": 1, 
         "video": 4, 
-        "activity": null
+        "activity": 2
     }
 },
 {
     "pk": 4, 
     "model": "core.unit", 
     "fields": {
-        "position": 3, 
+        "position": 4, 
         "lesson": 1, 
         "video": 5, 
-        "activity": null
+        "activity": 3
     }
 },
 {
     "pk": 5, 
     "model": "core.unit", 
     "fields": {
-        "position": 4, 
+        "position": 5, 
         "lesson": 1, 
         "video": 6, 
-        "activity": null
+        "activity": 4
     }
 },
 {
     "pk": 6, 
     "model": "core.unit", 
     "fields": {
-        "position": 5, 
+        "position": 6, 
         "lesson": 1, 
         "video": 7, 
         "activity": null
@@ -355,7 +408,7 @@
     "pk": 7, 
     "model": "core.unit", 
     "fields": {
-        "position": 6, 
+        "position": 7, 
         "lesson": 1, 
         "video": 8, 
         "activity": null
@@ -365,7 +418,7 @@
     "pk": 8, 
     "model": "core.unit", 
     "fields": {
-        "position": 7, 
+        "position": 8, 
         "lesson": 1, 
         "video": 9, 
         "activity": null
@@ -375,7 +428,7 @@
     "pk": 9, 
     "model": "core.unit", 
     "fields": {
-        "position": 8, 
+        "position": 9, 
         "lesson": 1, 
         "video": 10, 
         "activity": null
@@ -385,10 +438,120 @@
     "pk": 10, 
     "model": "core.unit", 
     "fields": {
-        "position": 9, 
+        "position": 10, 
         "lesson": 1, 
         "video": 11, 
         "activity": null
+    }
+},
+{
+    "pk": 11, 
+    "model": "core.unit", 
+    "fields": {
+        "position": 0, 
+        "lesson": 1, 
+        "video": 12, 
+        "activity": null
+    }
+},
+{
+    "pk": 1, 
+    "model": "core.answer", 
+    "fields": {
+        "timestamp": "2013-10-31T14:26:47.637Z", 
+        "given": "[false,false,false,false,false]", 
+        "user": 1, 
+        "activity": 1
+    }
+},
+{
+    "pk": 2, 
+    "model": "core.answer", 
+    "fields": {
+        "timestamp": "2013-10-31T14:29:35.984Z", 
+        "given": "[false,false,true,true,true]", 
+        "user": 1, 
+        "activity": 1
+    }
+},
+{
+    "pk": 3, 
+    "model": "core.answer", 
+    "fields": {
+        "timestamp": "2013-10-31T14:29:39.692Z", 
+        "given": "[false,false,true,true,true]", 
+        "user": 1, 
+        "activity": 1
+    }
+},
+{
+    "pk": 4, 
+    "model": "core.answer", 
+    "fields": {
+        "timestamp": "2013-10-31T14:29:41.403Z", 
+        "given": "[false,false,true,true,true]", 
+        "user": 1, 
+        "activity": 1
+    }
+},
+{
+    "pk": 5, 
+    "model": "core.answer", 
+    "fields": {
+        "timestamp": "2013-10-31T14:38:46.046Z", 
+        "given": "[false,false,true,true]", 
+        "user": 1, 
+        "activity": 2
+    }
+},
+{
+    "pk": 6, 
+    "model": "core.answer", 
+    "fields": {
+        "timestamp": "2013-10-31T14:38:48.813Z", 
+        "given": "[false,false,false,true]", 
+        "user": 1, 
+        "activity": 2
+    }
+},
+{
+    "pk": 1, 
+    "model": "core.studentprogress", 
+    "fields": {
+        "last_access": "2013-10-31T14:29:41.412Z", 
+        "user": 1, 
+        "unit": 2, 
+        "complete": "2013-10-31T14:29:41.412Z"
+    }
+},
+{
+    "pk": 2, 
+    "model": "core.studentprogress", 
+    "fields": {
+        "last_access": "2013-10-31T14:38:48.831Z", 
+        "user": 1, 
+        "unit": 3, 
+        "complete": "2013-10-31T14:38:48.831Z"
+    }
+},
+{
+    "pk": 3, 
+    "model": "core.studentprogress", 
+    "fields": {
+        "last_access": "2013-10-31T14:41:42.866Z", 
+        "user": 1, 
+        "unit": 4, 
+        "complete": "2013-10-31T14:41:42.863Z"
+    }
+},
+{
+    "pk": 4, 
+    "model": "core.studentprogress", 
+    "fields": {
+        "last_access": "2013-10-31T15:09:30.982Z", 
+        "user": 1, 
+        "unit": 8, 
+        "complete": "2013-10-31T15:09:30.978Z"
     }
 },
 {
