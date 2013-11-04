@@ -19,7 +19,7 @@ class JSONSerializerField(serializers.WritableField):
 class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
-        fields = ('id', 'youtube_id',)
+        fields = ('id', 'name', 'youtube_id')
 
 
 class ActivitySerializer(serializers.ModelSerializer):

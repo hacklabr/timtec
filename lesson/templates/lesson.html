@@ -11,6 +11,7 @@ $(document).ready(function() {
     e.preventDefault();
     $(this).tab('show');
   })
+  $('a.unit').tooltip();
 })
 </script>
 
@@ -53,6 +54,7 @@ $(document).ready(function() {
         <div class="col-lg-1 col-sm-1">
 
           <a style="display:block;" data-placement="right" data-original-title="{{ unit.position + 1 }}"
+             title="{{ unit.video.name }}"
              href="#/{{ $index+1 }}" class="has-tooltip unit track" data-toggle="tooltip"
              ng-repeat="unit in lesson.units"
              ng-class="{watching: isSelected($index), done: isDone(unit)}"
