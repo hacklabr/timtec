@@ -49,7 +49,7 @@ class UnitSerializer(serializers.ModelSerializer):
 
 
 class LessonSerializer(serializers.HyperlinkedModelSerializer):
-    units = UnitSerializer(many=True)
+    units = UnitSerializer(many=True, allow_add_remove=True)
     url = serializers.HyperlinkedIdentityField(
         view_name='lesson',
         lookup_field='slug'

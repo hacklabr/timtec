@@ -138,6 +138,9 @@
             $scope.selectUnit = function(index) {
                 selectedUnitIndex = index;
             };
+            $scope.deleteUnit = function(index) {
+                $rootScope.selectedLesson.units.splice(index, 1);
+            };
             $scope.selectedUnit = function() {
                 if($rootScope.selectedLesson)
                     return $rootScope.selectedLesson.units[selectedUnitIndex];
