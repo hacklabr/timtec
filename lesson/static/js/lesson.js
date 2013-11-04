@@ -66,6 +66,7 @@ function initialize_code_mirror($scope, data, expected) {
             $scope.alternatives = [];
             $scope.currentUnitIndex = $main.currentUnitPos - 1;
             $scope.answer = {'given': null};
+            $scope.sendOrNextText = 'Enviar';
 
             $scope.nextVideo = function() {
                 $main.currentUnitPos++;
@@ -73,6 +74,14 @@ function initialize_code_mirror($scope, data, expected) {
             };
             $scope.replayVideo = function() {
                 $location.path('/'+$main.currentUnitPos);
+            };
+
+            $scope.sendOrNext = function() {
+                if ($scope.correct) {
+                    $scope.nextVideo();
+                } else {
+                    $scope.sendAnswer();
+                }
             };
 
             $scope.sendAnswer = function() {
@@ -83,6 +92,8 @@ function initialize_code_mirror($scope, data, expected) {
 
                     if(correct){
                         $scope.currentUnit.progress = {complete : true};
+                        $scope.correct = true;
+                        $scope.sendOrNextText = "Continuar";
                     }
 
                     $scope.isCorrect = correct;
