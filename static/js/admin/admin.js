@@ -167,13 +167,23 @@
                 return $scope.activity() && $scope.activity().type === type;
             };
             $scope.changeTypeTo = function(type) {
-                if($scope.activity()) {
+                if(!$scope.activity()) {
+                    $scope.selectedUnit().activity = {
+                        "type": type,
+                        "data": {"question":""}
+                    };
+                } else {
                     $scope.activity().type = type;
                 }
             };
-
+            $scope.addAlternative = function(){
+                if(!$scope.activity().data.alternatives) {
+                    $scope.activity().data.alternatives = [""];
+                } else {
+                    $scope.activity().data.alternatives.push("");
+                }
+            }
             LessonListFactory.then(function(lessons){
-                window.lessons = lessons;
                 $scope.lessons = lessons;
             });
         }
