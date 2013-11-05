@@ -45,11 +45,11 @@ class UnitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Unit
-        fields = ('id', 'video', 'activity', 'position',)
+        fields = ('id', 'title', 'video', 'activity', 'position',)
 
 
 class LessonSerializer(serializers.HyperlinkedModelSerializer):
-    units = UnitSerializer(many=True)
+    units = UnitSerializer(many=True, allow_add_remove=True)
     url = serializers.HyperlinkedIdentityField(
         view_name='lesson',
         lookup_field='slug'
