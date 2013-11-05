@@ -4,9 +4,7 @@ Estamos felizes por poder ajudá-lo(a) a conquistar uma qualificação técnica 
 
 Para garantir que você tenha acesso a todos os recursos e cursos que temos para oferecer, clique no link abaixo e confirme o seu endereço de e-mail.
 
-http://{{ site }}{% url 'account_confirm_email' key=activation_key %}
-
-Esta solicitação de cadastro dura {{ expiration_days }} dias!
+{{ activate_url }}
 
 
 Até já!

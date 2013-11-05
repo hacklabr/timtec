@@ -17,7 +17,7 @@ class CustomLoginView(TemplateView):
     Change template context name of form to login_form
 
     """
-    template_name = 'registration/login.html'
+    template_name = 'account/login.html'
 
     def get_context_data(self, **kwargs):
         context = super(CustomLoginView, self).get_context_data()

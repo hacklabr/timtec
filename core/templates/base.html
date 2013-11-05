@@ -31,7 +31,7 @@ window.STATIC_URL = '{{ STATIC_URL }}'
         {% include 'header-authenticated.html' %}
     {% else %}
         {% include 'header-guest.html' %}
-        {% include 'registration/login_modal.html' %}
+        {% include 'account/login_modal.html' %}
         <script type="text/javascript" charset="utf-8">
             $(document).ready(function() {
                 var $modal = $("#login-modal");
