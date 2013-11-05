@@ -212,4 +212,18 @@ function initialize_code_mirror($scope, data, expected) {
             return deferred.promise;
         }
     ]);
+
+    app.directive('radio', function () {
+        return function (scope, element) {
+            $(element).radio();
+        };
+    });
+
+    app.directive('checkbox', function () {
+        return function (scope, element) {
+            $(element).checkbox();
+        };
+    });
+
+
 })(angular);
