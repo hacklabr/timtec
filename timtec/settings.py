@@ -7,6 +7,8 @@ PROJECT_ROOT = os.path.dirname(SETTINGS_DIR)
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+SITE_ID = 1
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
