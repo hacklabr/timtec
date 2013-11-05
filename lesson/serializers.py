@@ -45,7 +45,7 @@ class UnitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Unit
-        fields = ('id', 'video', 'activity', 'position',)
+        fields = ('id', 'title', 'video', 'activity', 'position',)
 
 
 class LessonSerializer(serializers.HyperlinkedModelSerializer):

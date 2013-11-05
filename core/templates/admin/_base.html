@@ -436,7 +436,8 @@
                       <div class="row">
                         <div class="col-lg-1"><i class="icon-reorder"></i></div>
                         <div class="col-lg-8">
-                            <a href="" ng-click="selectUnit($index)">Unidade {{$index+1}}</a>
+                            <a href="" ng-click="selectUnit($index)" ng-if="unit.title">{{selectedUnit().title}}</a>
+                            <a href="" ng-click="selectUnit($index)" ng-if="!unit.title">Unidade {{$index+1}}</a>
                         </div>
                         <div class="col-lg-2 textright" ng-click="deleteUnit($index)"><i class="icon-remove alignright"></i></div>
                       </div>
@@ -446,6 +447,12 @@
                 <div class="col-lg-9">
                   <div class="page-header top">
                     <h3 class="top">{{selectedUnit().title}}</h3>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label">Título da unidade</label>
+                    <input type="text" class="form-control unit-title"
+                           ng-model="selectedUnit().title">
                   </div>
 
                   <div class="form-group">
