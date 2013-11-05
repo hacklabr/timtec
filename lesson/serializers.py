@@ -6,7 +6,7 @@ from rest_framework import serializers
 class JSONSerializerField(serializers.WritableField):
 
     def to_native(self, data):
-        if type(data) is dict:
+        if type(data) in (dict, list):
             return data
         elif type(data) in (unicode, str,):
             return json.loads(data)
