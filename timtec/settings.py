@@ -60,7 +60,6 @@ USE_L10N = True
 
 LANGUAGES = (
     ('pt-br', u'Português'),
-    ('en', u'English'),
 )
 
 LOCALE_PATHS = (
