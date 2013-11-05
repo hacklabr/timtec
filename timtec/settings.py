@@ -159,7 +159,6 @@ PIPELINE_JS = {
             'js/flatui-checkbox.js',
             'js/flatui-radio.js',
             'js/helpers.js',
-            'js/vendor/pagedown/*.js',
 
             # codemirror stuff
             'js/vendor/codemirror/lib/codemirror.js',
