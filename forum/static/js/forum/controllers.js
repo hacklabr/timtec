@@ -29,9 +29,27 @@ function InlineForumCtrl($scope, $window, Question, MarkdownEditor) {
     MarkdownEditor.run();
 
     $scope.new_question = function () {
-        var new_question = Question.save({course: course_id, title: $scope.new_question_title, text: $scope.new_question_text});
-        $scope.questions.unshift(new_question);
-        $scope.editor_enabled = false;
+        if (($scope.new_question_title != undefined && $scope.new_question_title != '') && ($scope.new_question_text != undefined && $scope.new_question_text != '')){
+            var new_question = Question.save({course: course_id, title: $scope.new_question_title, text: $scope.new_question_text});
+            $scope.new_question_title = undefined;
+            $scope.new_question_text = undefined;
+            angular.element(document.querySelector('#wmd-preview')).html('');
+            $scope.questions.unshift(new_question);
+            $scope.editor_enabled = false;
+            $scope.question_title_validation = '';
+            $scope.question_text_validation = '';
+        } else {
+            if ($scope.new_question_title == undefined  || $scope.new_question_title == ''){
+                $scope.question_title_validation = 'has-error';
+            } else {
+                $scope.question_title_validation = '';
+            }
+            if ($scope.new_question_text == undefined || $scope.new_question_text == ''){
+                $scope.question_text_validation = 'has-error';
+            } else {
+                $scope.question_text_validation = '';
+            }
+        }
     };
 }
 

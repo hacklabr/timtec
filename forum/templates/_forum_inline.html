@@ -3,7 +3,7 @@
  window.course_id = {{ course.pk }};
  window.user_id = {{ user.pk }};
 </script>
-    <div class="col-lg-8 col-sm-10 col-lg-offset-0 col-sm-offset-1">
+    <div class="col-lg-8 col-sm-10 col-lg-offset-1 col-sm-offset-1">
       <section class="course-forum" ng-controller="InlineForumCtrl">
         <div class="page-header-double">
           <h3><i class="icon-double-angle-right"></i> Perguntas e Respostas</h3>
@@ -11,12 +11,12 @@
         <!-- QUESTION FORM -->
         <div class="row">
           <div class="col-lg-12">
-            <div class="form-group">
+            <div class="form-group" ng-class="question_title_validation">
               <input id="id-title" ng-model="new_question_title" name="title" type="text" class="form-control" placeholder="Qual é a sua dúvida?">
             </div>
             <div class="wmd-panel">
                 <div id="wmd-button-bar"></div>
-                <div class="form-group">
+                <div class="form-group" ng-class="question_text_validation">
                   <textarea id="wmd-input" ng-model="new_question_text" name="text" class="form-control" rows="4" placeholder="Descrição da sua dúvida"></textarea>
                 </div>
             </div>

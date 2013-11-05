@@ -106,11 +106,54 @@ describe('forum controlers', function() {
         it('InlineForumCtrl: addQuestion function should add the question to begining of questions list', (function () {
             $httpBackend.flush();
             var response_data2 = {"id": 5, "title": "Test Question", "course": 1, "answers": [], "text": "Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt.", "slug": "test-question", "votes": 0, "timestamp": "2013-10-17T18:59:16.126Z", "username": "abcd"};
+            // Initialize scope variables to pass fields validation
+            scope.new_question_title = 'Test Question';
+            scope.new_question_text = 'adadf';
             $httpBackend.expectPOST('/api/forum_question').
                 respond(response_data2);
             scope.new_question();
             $httpBackend.flush();
             expect(scope.questions[0]).toEqualData(response_data2);
+        }));
+        it('InlineForumCtrl: addQuestion function should clear the form fields and preview', (function () {
+            $httpBackend.flush();
+
+            scope.new_question();
+            expect(scope.question_title_validation).toEqual('has-error');
+            expect(scope.question_text_validation).toEqual('has-error');
+
+            scope.new_question_title = 'Test Question';
+            scope.new_question();
+            expect(scope.question_title_validation).toEqual('');
+            expect(scope.question_text_validation).toEqual('has-error');
+
+            scope.new_question_title = '';
+            scope.new_question_text = 'adadf';
+            scope.new_question();
+            expect(scope.question_title_validation).toEqual('has-error');
+            expect(scope.question_text_validation).toEqual('');
+
+            var response_data2 = {"id": 5, "title": "Test Question", "course": 1, "answers": [], "text": "Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt.", "slug": "test-question", "votes": 0, "timestamp": "2013-10-17T18:59:16.126Z", "username": "abcd"};
+            $httpBackend.expectPOST('/api/forum_question').
+                respond(response_data2);
+            scope.new_question_title = 'Test Question';
+            scope.new_question_text = 'adadf';
+            scope.new_question();
+            $httpBackend.flush();
+            expect(scope.question_title_validation).toEqual('');
+            expect(scope.question_text_validation).toEqual('');
+        }));
+        it('InlineForumCtrl: addQuestion function should validate text and title fields', (function () {
+            $httpBackend.flush();
+            var response_data2 = {"id": 5, "title": "Test Question", "course": 1, "answers": [], "text": "Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt.", "slug": "test-question", "votes": 0, "timestamp": "2013-10-17T18:59:16.126Z", "username": "abcd"};
+            $httpBackend.expectPOST('/api/forum_question').
+                respond(response_data2);
+            scope.new_question_title = 'Test Question';
+            scope.new_question_text = 'adadf';
+            scope.new_question();
+            $httpBackend.flush();
+            expect(scope.new_question_title).toEqual(undefined);
+            expect(scope.new_question_text).toEqual(undefined);
         }));
     });
 

@@ -57,7 +57,7 @@ class EnrollCourseView(LoginRequiredMixin, RedirectView):
         return reverse('lesson', args=[course.first_lesson().slug])
 
 
-class AdminCourseView(UpdateView):
+class AdminCourseView(LoginRequiredMixin, UpdateView):
     model = Course
     template_name = 'admin/_base.html'
 

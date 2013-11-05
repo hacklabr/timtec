@@ -6,7 +6,7 @@ from rest_framework import serializers
 class JSONSerializerField(serializers.WritableField):
 
     def to_native(self, data):
-        if type(data) is dict:
+        if type(data) in (dict, list):
             return data
         elif type(data) in (unicode, str,):
             return json.loads(data)
@@ -45,11 +45,11 @@ class UnitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Unit
-        fields = ('id', 'video', 'activity', 'position',)
+        fields = ('id', 'title', 'video', 'activity', 'position',)
 
 
 class LessonSerializer(serializers.HyperlinkedModelSerializer):
-    units = UnitSerializer(many=True)
+    units = UnitSerializer(many=True, allow_add_remove=True)
     url = serializers.HyperlinkedIdentityField(
         view_name='lesson',
         lookup_field='slug'
