@@ -8,7 +8,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 from django.views.generic import TemplateView
-from accounts.views import CustomLoginView, ProfileEditView, RegistrationUniqueEmailView, ProfileView
+from accounts.views import CustomLoginView, ProfileEditView, ProfileView
 from core.views import AdminCourseView, CourseView, CourseViewSet, EnrollCourseView, HomeView, UserCoursesView
 from lesson.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, ReceiveAnswerView, UpdateStudentProgressView
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, AnswerViewSet, QuestionVoteViewSet, AnswerVoteViewSet
@@ -65,9 +65,8 @@ urlpatterns = patterns(
     url(r'^profile/edit/?$', ProfileEditView.as_view(), name="profile_edit"),
     url(r'^profile/(?P<username>[-a-zA-Z0-9_]+)?$', ProfileView.as_view(), name="profile"),
 
-    # The django-registration
-    url(r'^accounts/register/$', RegistrationUniqueEmailView.as_view(), name='registration_register'),
-    url(r'^accounts/', include('registration.backends.default.urls')),
+    # The django-allauth
+    url(r'^accounts/', include('allauth.urls')),
 
     # The django-rosetta
     url(r'^rosetta/', include('rosetta.urls')),

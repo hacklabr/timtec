@@ -16,7 +16,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import Group
 
-from registration.signals import user_activated
+from allauth.account.signals import user_signed_up
 
 
 class TimtecUser(AbstractBaseUser, PermissionsMixin):
@@ -78,7 +78,7 @@ class TimtecUser(AbstractBaseUser, PermissionsMixin):
             user.groups.add(Group.objects.get(name=settings.REGISTRATION_DEFAULT_GROUP_NAME))
             user.save()
 
-user_activated.connect(TimtecUser.add_default_group, dispatch_uid="TimtecUser.add_default_group")
+user_signed_up.connect(TimtecUser.add_default_group, dispatch_uid="TimtecUser.add_default_group")
 
 
 class Video(models.Model):

@@ -32,7 +32,8 @@ LOGIN_URL = '/login/'
 
 LOGIN_REDIRECT_URL = '/'
 
-AUTHENTICATION_BACKENDS = ('accounts.backends.TimtecModelBackend',)
+AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",
+                           "allauth.account.auth_backends.AuthenticationBackend")
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -225,6 +226,8 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
+    'allauth.account.context_processors.account',
+    'allauth.socialaccount.context_processors.socialaccount',
 )
 
 # Django Suit configuration example
@@ -284,14 +287,13 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    # 'django.contrib.sites',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'rest_framework',
-    'registration',
     'rosetta',
     'accounts',
     'autoslug',
@@ -299,6 +301,9 @@ INSTALLED_APPS = (
     'lesson',
     'forum',
     'course_material',
+    # allauth
+    'allauth',
+    'allauth.account',
 )
 
 if DEBUG:
@@ -315,8 +320,14 @@ if DEBUG:
 
 
 # django-registration flag
-ACCOUNT_ACTIVATION_DAYS = 7
+# ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_DEFAULT_GROUP_NAME = 'students'
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = True
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "[timtec] "
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

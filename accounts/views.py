@@ -8,15 +8,8 @@ from django.views.generic import UpdateView
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 
-from registration.backends.default.views import RegistrationView
-from registration.forms import RegistrationFormUniqueEmail
-
 from accounts.forms import ProfileEditForm
 from accounts.utils import LoginRequiredMixin
-
-
-class RegistrationUniqueEmailView(RegistrationView):
-    form_class = RegistrationFormUniqueEmail
 
 
 class CustomLoginView(TemplateView):

@@ -45,7 +45,7 @@
                   <div class="submit">
                     <div class="row">
                       <div class="col-lg-5 col-lg-offset-3 col-sm-8">
-                        <a href="{% url 'auth_password_reset' %}">{% trans 'Forgot my password' %}</a>
+                        <a href="{% url 'account_reset_password' %}">{% trans 'Forgot my password' %}</a>
                       </div>
                       <div class="col-lg-4 col-sm-4 textright">
                         <button class="btn btn-success">{% trans 'Sign In' %}</button>
@@ -65,7 +65,7 @@
               </div>
 
               <div class="panel-body">
-                <form onclick="event.stopPropagation()" method="post" action="{% url 'registration_register' %}" class="form-horizontal">{% csrf_token %}
+                <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}" class="form-horizontal">{% csrf_token %}
                   <div class="form-group">
                     <label class="col-lg-3 col-sm-4 control-label">{% trans "Username" %}</label>
                     <div class="col-lg-9 col-sm-8">

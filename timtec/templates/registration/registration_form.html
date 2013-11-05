@@ -8,7 +8,7 @@
       <i class="icon-smile"></i><br/>
       {% trans "Sign Up" %}!
     </h1>
-    <form onclick="event.stopPropagation()" method="post" action="{% url 'registration_register' %}" class="form-horizontal">{% csrf_token %}
+    <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}" class="form-horizontal">{% csrf_token %}
       {% with errors=form.username.errors %}
       <div class="form-group{{ errors|yesno:' has-error,' }}">
         <label class="col-lg-4 col-sm-4 control-label">{% trans "Username" %}</label>
