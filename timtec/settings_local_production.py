@@ -3,6 +3,8 @@
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
+SITE_ID = 2
+
 ALLOWED_HOSTS = [
     'timtec.com.br',
     '.timtec.com.br',

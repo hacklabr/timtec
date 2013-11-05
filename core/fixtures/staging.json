@@ -1317,5 +1317,29 @@
         "course": 1, 
         "text": "Materiais gratuitos e oficiais do W3C Brasil\r\n\r\nCurso HTML5 - W3C\r\n[http://www.w3c.br/pub/Cursos/CursoHTML5/html5-web.pdf][1]\r\n\r\nCurso CSS3 - W3C\r\n[http://www.w3c.br/pub/Cursos/CursoCSS3/css-web.pdf][2]\r\n\r\nDec\u00e1logo da Web do W3C Brasil\r\n[http://www.w3c.br/decalogo][3]\r\n\r\n[1]: http://www.w3c.br/pub/Cursos/CursoHTML5/html5-web.pdf\r\n[2]: http://www.w3c.br/pub/Cursos/CursoCSS3/css-web.pdf\r\n[3]: http://www.w3c.br/decalogo"
     }
+},
+{
+    "pk": 1, 
+    "model": "sites.site", 
+    "fields": {
+        "domain": "staging.timtec.com.br", 
+        "name": "staging"
+    }
+},
+{
+    "pk": 2, 
+    "model": "sites.site", 
+    "fields": {
+        "domain": "timtec.com.br", 
+        "name": "stable"
+    }
+},
+{
+    "pk": 3, 
+    "model": "sites.site", 
+    "fields": {
+        "domain": "localhost", 
+        "name": "localhost"
+    }
 }
 ]

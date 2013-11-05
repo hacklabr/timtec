@@ -3,6 +3,8 @@
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+SITE_ID = 3
+
 ALLOWED_HOSTS = [
     'timtec-dev.hacklab.com.br',
     '.timtec.com.br',
