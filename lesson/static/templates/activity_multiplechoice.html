@@ -2,18 +2,12 @@
             <h1>{{ currentUnit.activity.data.question }}</h1>
         </div>
         <div class="answers">
-            <table class="table">
-                <tr ng-repeat="alt in alternatives">
-                    <td class="textcenter">
-                        <input ng-model="$parent.answer.given[$index]" type="checkbox"
-                               name="unit-{{currentUnitId}}-alt-{{$index}}"
-                               id="optioncheckbox-{{$index}}" _data-toggle="checkbox"/>
-                    </td>
-                    <td>
-                        <label class="_checkbox" for="optioncheckbox-{{$index}}">
-                            {{ alt.title }}
-                        </label>
-                    </td>
-                </tr>
-            </table>
+            <div ng-repeat="alt in alternatives">
+                    <label class="checkbox" for="optioncheckbox-{{$index}}">
+                    <input ng-model="$parent.answer.given[$index]" type="checkbox"
+                           name="unit-{{currentUnitId}}-alt-{{$index}}"
+                           id="optioncheckbox-{{$index}}" checkbox/>
+                        {{ alt.title }}
+                    </label>
+            </div>
         </div>
