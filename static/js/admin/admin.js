@@ -141,6 +141,20 @@
             $scope.deleteUnit = function(index) {
                 $rootScope.selectedLesson.units.splice(index, 1);
             };
+            $scope.addUnit = function() {
+                var pos = $rootScope.selectedLesson.units.length;
+                $rootScope.selectedLesson.units.push({
+                    "activity": null,
+                    "id": null,
+                    "position": pos,
+                    "title": "",
+                    "video": {
+                        "id": null,
+                        "name":"",
+                        "youtube_id":"",
+                    }
+                });
+            };
             $scope.selectedUnit = function() {
                 if($rootScope.selectedLesson)
                     return $rootScope.selectedLesson.units[selectedUnitIndex];

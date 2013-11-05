@@ -430,13 +430,13 @@
             <div class="col-lg-12">
               <div class="row">
                 <div class="col-lg-3">
-                  <p><button class="btn btn-success btn-lg col-lg-12 uppercase">adicionar unidade</button></p>
+                  <p><button class="btn btn-success btn-lg col-lg-12 uppercase" ng-click="addUnit()">adicionar unidade</button></p>
                   <ul class="units">
                     <li class="selected" ng-repeat="unit in selectedLesson.units">
                       <div class="row">
                         <div class="col-lg-1"><i class="icon-reorder"></i></div>
                         <div class="col-lg-8">
-                            <a href="" ng-click="selectUnit($index)" ng-if="unit.title">{{selectedUnit().title}}</a>
+                            <a href="" ng-click="selectUnit($index)" ng-if="unit.title">{{unit.title}}</a>
                             <a href="" ng-click="selectUnit($index)" ng-if="!unit.title">Unidade {{$index+1}}</a>
                         </div>
                         <div class="col-lg-2 textright" ng-click="deleteUnit($index)"><i class="icon-remove alignright"></i></div>
@@ -451,8 +451,14 @@
 
                   <div class="form-group">
                     <label class="control-label">Título da unidade</label>
-                    <input type="text" class="form-control unit-title"
+                    <input type="text" class="form-control unit-title" placeholder="Nome para a unidade"
                            ng-model="selectedUnit().title">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label">Vídeo name</label>
+                    <input type="text" class="form-control video-url" placeholder="http://www.youtube.com/watch?v="
+                           ng-model="selectedUnit().video.name">
                   </div>
 
                   <div class="form-group">
