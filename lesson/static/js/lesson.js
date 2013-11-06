@@ -118,9 +118,13 @@ function initialize_code_mirror($scope, data, expected) {
                     );
                 }
 
-                if (['multiplechoice','trueorfalse'].indexOf(unit.activity.type) >= 0) {
+                if (unit.activity.type == 'multiplechoice') {
                     $scope.answer.given = $scope.alternatives.map(
                         function(a,i){ return false; }
+                    );
+                } else if (unit.activity.type == 'trueorfalse') {
+                    $scope.answer.given = $scope.alternatives.map(
+                        function(a,i){ return null; }
                     );
                 } else if(unit.activity.type === 'relationship') {
                     $scope.answer.given = unit.activity.data.column1.map(
