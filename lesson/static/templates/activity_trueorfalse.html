@@ -1,36 +1,33 @@
-        <div class="question textleft">
-            <h1>{{ currentUnit.activity.data.question }}</h1>
+<div class="question textleft">
+    <h1 class="top">{{ currentUnit.activity.data.question }}</h1>
+</div>
+<div class="answers trueorfalse-answers">
+    <div class="row">
+        <div class="col-lg-2 col-lg-offset-8 textcenter">Verdadeiro</div>
+        <div class="col-lg-2 textcenter">Falso</div>
+    </div>
+    
+    <div class="answer" ng-repeat="alt in alternatives">
+        <div class="row">
+            <div class="col-lg-8">
+                <label class="_checkbox" for="optioncheckbox-{{$index}}">
+                    {{ alt.title }}
+                </label>
+            </div>
+            <div class="col-lg-2 textcenter">
+                <label class="radio bottom top">
+                    <input ng-model="$parent.answer.given[$index]" type="radio"
+                           name="unit-{{currentUnitId}}-alt-{{$index}}"
+                           id="optioncheckbox-{{$index}}" ng-value="true" radio/>
+                </label>
+            </div>
+            <div class="col-lg-2 textcenter">
+                <label class="radio bottom top">
+                    <input ng-model="$parent.answer.given[$index]" type="radio"
+                           name="unit-{{currentUnitId}}-alt-{{$index}}"
+                           id="optioncheckbox-{{$index}}" ng-value="false" radio/>
+                </label>
+            </div>
         </div>
-        <div class="answers">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <td class="textcenter">Verdadeiro</td>
-                        <td class="textcenter">Falso</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="alt in alternatives">
-                        <td class="textcenter">
-                        <label class="radio">
-                            <input ng-model="$parent.answer.given[$index]" type="radio"
-                                   name="unit-{{currentUnitId}}-alt-{{$index}}"
-                                   id="optioncheckbox-{{$index}}" ng-value="true" radio/>
-                        </label>
-                        </td>
-                        <td class="textcenter">
-                        <label class="radio">
-                            <input ng-model="$parent.answer.given[$index]" type="radio"
-                                   name="unit-{{currentUnitId}}-alt-{{$index}}"
-                                   id="optioncheckbox-{{$index}}" ng-value="false" radio/>
-                        </label>
-                        </td>
-                        <td>
-                            <label class="_checkbox" for="optioncheckbox-{{$index}}">
-                                {{ alt.title }}
-                            </label>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    </div>
+</div>

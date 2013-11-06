@@ -1,33 +1,32 @@
-        <div class="question textleft">
-            <h3>{{ currentUnit.activity.data.question }}</h3>
+<div class="question textleft">
+    <h1 class="top">{{ currentUnit.activity.data.question }}</h1>
+</div>
+<div class="answers relationship-answers">
+    <div class="row">
+        <div class="col-lg-6">Coluna 1</div>
+        <div class="col-lg-6">Coluna 2</div>
+    </div>
+    
+    <div class="answer relationship-answers" ng-repeat="alt in currentUnit.activity.data.column1 track by $index">
+        <div class="row">
+            <div class="col-lg-6">
+                {{ $index+1 }}. {{ alt }}
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <input ng-model="$parent.answer.given[$index]" type="number"
+                               name="unit-{{currentUnitId}}-alt-{{$index}}"
+                               class="form-control"
+                               id="optioncheckbox-{{$index}}" />
+                    </div>
+                    <div class="col-lg-9">
+                        <label for="optioncheckbox-{{$index}}">
+                            {{ currentUnit.activity.data.column2[$index] }}
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="answers">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th class="textleft" colspan="2">Coluna 1</th>
-                        <th class="textleft" colspan="2">Coluna 2</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="alt in currentUnit.activity.data.column1 track by $index">
-                        <td class="textcenter"> {{ $index+1 }}. </td>
-                        <td class="textleft">
-                            {{ alt }}
-                        </td>
-
-                        <td class="textright col-lg-2">
-                            <input ng-model="$parent.answer.given[$index]" type="number"
-                                   name="unit-{{currentUnitId}}-alt-{{$index}}"
-                                   class="form-control"
-                                   id="optioncheckbox-{{$index}}" />
-                        </td>
-                        <td class="textleft">
-                            <label for="optioncheckbox-{{$index}}">
-                                {{ currentUnit.activity.data.column2[$index] }}
-                            </label>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    </div>
+</div>
