@@ -2,13 +2,13 @@
     <div class="course-activity">
         <ng:include src="activity_template"></ng:include>
 
-        <p ng-show="isCorrect" class="text-center correct">
-            <strong>Sua resposta está correta!</strong>
-        </p>
+        <div ng-show="isCorrect" class="alert alert-success">
+            <i class="icon-smile"></i> Sua resposta está <strong>correta!</strong>
+        </div>
 
-        <p ng-show="isCorrect === false" class="text-center wrong">
-            <strong>Sua resposta está incorreta. Reveja o vídeo com mais atenção e tente de novo.</strong>
-        </p>
+        <div ng-show="isCorrect === false" class="alert alert-danger">
+            <i class="icon-frown"></i> <span>Sua resposta está <strong>incorreta</strong>. Reveja o vídeo com mais atenção e tente novamente.</span>
+        </div>
 
         <div class="submit">
             <div class="row">
