@@ -160,8 +160,9 @@
                     return $rootScope.selectedLesson.units[selectedUnitIndex];
             };
             $scope.activity = function() {
-                if($scope.selectedUnit() && $scope.selectedUnit().activity)
+                if($scope.selectedUnit() && $scope.selectedUnit().activity){
                     return $scope.selectedUnit().activity;
+                }
             };
             $scope.typeIs = function(type) {
                 return $scope.activity() && $scope.activity().type === type;
@@ -169,22 +170,32 @@
             $scope.changeTypeTo = function(type) {
                 if(!$scope.activity()) {
                     $scope.selectedUnit().activity = {
-                        "type": type,
                         "data": {"question":""}
                     };
+                }
+                var act = $scope.activity();
+                act.type = type;
+                if(['multiplechoice', 'trueorfalse'].indexOf(act.type) >= 0){
+                    if(!act.expected)
+                        act.expected = (act.data.alternatives || []).map(function(){ return false; });
                 } else {
-                    $scope.activity().type = type;
+                    act.expected = null;
                 }
             };
             $scope.addAlternative = function(){
-                if(!$scope.activity().data.alternatives) {
-                    $scope.activity().data.alternatives = [""];
-                    $scope.activity().expected = [false];
-                } else {
-                    $scope.activity().data.alternatives.push("");
-                    $scope.activity().expected.push(false);
+                var act = $scope.activity();
+
+                if(!act.data.alternatives) {
+                    act.data.alternatives = [];
                 }
-            }
+                act.data.alternatives.push("");
+
+                if(['multiplechoice', 'trueorfalse'].indexOf(act.type) >= 0){
+                    if(!act.expected)
+                        act.expected = [];
+                    act.expected.push(false);
+                }
+            };
             LessonListFactory.then(function(lessons){
                 $scope.lessons = lessons;
             });
@@ -232,6 +243,4 @@
             return deferred.promise;
         }
     ]);
-
-
 })(angular);

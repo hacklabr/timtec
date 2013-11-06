@@ -500,7 +500,7 @@
                       <div class="form-group" ng-repeat="alt in activity().data.alternatives track by $index">
                         <label class="control-label col-lg-3">Alternativa {{$index+1}}</label>
                         <div class="col-lg-1">
-                            <input type="radio" ng-model="activity().expected" ng-value="$index" />
+                            <input type="radio" ng-model="activity().expected" value="{{$index}}" />
                         </div>
                         <div class="col-lg-8">
                             <input type="text" class="form-control" placeholder="Digite uma resposta"
