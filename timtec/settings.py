@@ -117,6 +117,7 @@ PIPELINE_COMPILERS = (
 PIPELINE_CSS = {
     'common': {
         'source_filenames': (
+            'fonts/teuton/stylesheet.css',
             'fonts/questrial/stylesheet.css',
             'fonts/font-awesome/stylesheet.css',
             'js/vendor/codemirror/lib/codemirror.css',

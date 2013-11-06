@@ -1,19 +1,24 @@
-<div class="course-activity col-sm-8 col-lg-8 left">
+<div class="col-sm-8 col-lg-8 left">
+    <div class="course-activity">
+        <ng:include src="activity_template"></ng:include>
 
-    <ng:include src="activity_template"></ng:include>
+        <p ng-show="isCorrect" class="text-center correct">
+            <strong>Sua resposta está correta!</strong>
+        </p>
 
-    <p ng-show="isCorrect" class="text-center correct">
-        <strong>Sua resposta está correta!</strong>
-    </p>
-    <p ng-show="isCorrect === false" class="text-center wrong">
-        <strong>Sua resposta está incorreta. Reveja o vídeo com mais atenção e tente de novo.</strong>
-    </p>
-    <div class="row">
-        <div class="submit textcenter clearfix">
-            <div class="alignleft"><button class="btn btn-default" ng-click="nextVideo()">Pular</button></div>
-            <div class="alignright">
-                <button class="btn btn-info" ng-click="replayVideo()">Rever Vídeo</button>
-                <button class="btn btn-success" ng-click="sendOrNext()">{{sendOrNextText}}</button>
+        <p ng-show="isCorrect === false" class="text-center wrong">
+            <strong>Sua resposta está incorreta. Reveja o vídeo com mais atenção e tente de novo.</strong>
+        </p>
+
+        <div class="submit">
+            <div class="row">
+                <div class="col-lg-6">
+                    <button class="btn btn-default" ng-click="nextVideo()">Pular</button>
+                </div>
+                <div class="col-lg-6 textright">
+                    <button class="btn btn-info" ng-click="replayVideo()">Rever Vídeo</button>
+                    <button class="btn btn-success" ng-click="sendOrNext()">{{sendOrNextText}}</button>
+                </div>
             </div>
         </div>
     </div>

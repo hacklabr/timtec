@@ -1,13 +1,13 @@
-        <div class="question textleft">
-            <h1>{{ currentUnit.activity.data.question }}</h1>
-        </div>
-        <div class="answers">
-            <div ng-repeat="alt in alternatives">
-                    <label class="checkbox" for="optioncheckbox-{{$index}}">
-                    <input ng-model="$parent.answer.given[$index]" type="checkbox"
-                           name="unit-{{currentUnitId}}-alt-{{$index}}"
-                           id="optioncheckbox-{{$index}}" checkbox/>
-                        {{ alt.title }}
-                    </label>
-            </div>
-        </div>
+<div class="question textleft">
+    <h1 class="top">{{ currentUnit.activity.data.question }}</h1>
+</div>
+<div class="answers">
+    <div ng-repeat="alt in alternatives" class="answer">
+            <label class="checkbox" for="optioncheckbox-{{$index}}">
+            <input ng-model="$parent.answer.given[$index]" type="checkbox"
+                   name="unit-{{currentUnitId}}-alt-{{$index}}"
+                   id="optioncheckbox-{{$index}}" checkbox/>
+                {{ alt.title }}
+            </label>
+    </div>
+</div>
