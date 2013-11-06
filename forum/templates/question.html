@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load staticfiles %}
-{% load forum_markdown %}
+{% load timtec_markdown %}
 
 {% block head %}
 {{ block.super }}
@@ -51,7 +51,7 @@
                     </header>
                     <div class="row">
                         <div class="question-body col-sm-10 col-lg-10 col-lg-offset-2">
-                            <p>{{ question.text|my_markdown }}</p>
+                            <p>{{ question.text|timtec_markdown }}</p>
                         </div><!-- .question-body -->
                     </div>
                 </article>

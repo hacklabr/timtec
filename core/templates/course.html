@@ -2,6 +2,7 @@
 
 {% load staticfiles %}
 {% load i18n %}
+{% load timtec_markdown %}
 
 {% block content %}
 
@@ -45,13 +46,13 @@
             <div class="page-header-double">
               <h3 class="top"><i class="icon-double-angle-right"></i> {% trans "Course Application" %}</h3>
             </div>
-            <p>{{course.application}}</p>
+            <p>{{ course.application|timtec_markdown }}</p>
           </div>
           <div class="col-lg-6 col-sm-6">
             <div class="page-header-double">
               <h3 class="top"><i class="icon-double-angle-right"></i> {% trans "Requirements" %}</h3>
             </div>
-            <p>{{course.requirement}}</p>
+            <p>{{ course.requirement|timtec_markdown }}</p>
           </div>
         </section>
 
@@ -69,8 +70,8 @@
                   </div>
                   <div class="col-lg-9 col-sm-9">
                     <p>
-                      <a href="{% url 'lesson' lesson.slug %}" class="title">{{lesson.name}}</a>
-                      <span class="description">{{lesson.desc}}</span>
+                      <a href="{% url 'lesson' lesson.slug %}" class="title">{{ lesson.name }}</a>
+                      <span class="description">{{ lesson.desc }}</span>
                     </p>
                     <table class="table">
                       <tr>
@@ -114,7 +115,7 @@
               <div class="col-lg-9 col-sm-9">
                 <h1 class="fullname bottom top">{{ course_professor.user }}</h1>
                 <h2 class="job-title top">{{ course_professor.get_job_display }}</h2>
-                <p>{{ course_professor.biography }}</p>
+                <p>{{ course_professor.biography|timtec_markdown }}</p>
               </div>
             </div>
             {% endfor %}
@@ -128,15 +129,15 @@
             <div class="page-header-double top">
               <h3 class="top"><i class="icon-double-angle-right"></i> {% trans "Abstract" %}</h3>
             </div>
-            {{course.abstract|safe}}
+            {{course.abstract|timtec_markdown}}
             <hr/>
             <p class="bottom"><strong><i class="icon-list"></i> {% trans "Course Structure" %}:</strong></p>
-            {{course.structure|safe}}
+            {{course.structure|timtec_markdown}}
             <hr/>
             <p class="bottom"><strong><i class="icon-time"></i> {% trans "Workload" %}:</strong></p>
-            {{course.workload|safe}}
+            {{course.workload|timtec_markdown}}
             <hr/>
-            {{course.pronatec|safe}}
+            {{course.pronatec|timtec_markdown}}
           </section>
 
           <section class="course-social col-lg-12 col-sm-12" style="position:relative;overflow:hidden;">

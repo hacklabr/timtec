@@ -74,7 +74,7 @@
             </div>
             <div class="question">
               <p><a href="/forum/question/{{ question.slug }}">{{ question.title }}</a></p>
-              <p class="description">{{ question.text|words:50 }}</p>
+              <span class="description" ng-bind-html="question.text|markdown|words:50"></span>
             </div>
             <div class="author">
               Pergunta feita feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ question.username }}">{{ question.username }}</a>

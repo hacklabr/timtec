@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load staticfiles %}
-{% load forum_markdown %}
+{% load timtec_markdown %}
 
 {% block head %}
 {{ block.super }}
@@ -22,7 +22,7 @@
                 <div class="row">
                     <div class="col-sm-9 col-lg-9">
                         <!-- COURSE MATERIAL TEXT FORM -->
-                        <p class="description">{{ course_material.text|my_markdown }}</p>
+                        <p class="description">{{ course_material.text|timtec_markdown }}</p>
                         <!-- COURSE MATERIAL TEXT FORM -->
                     </div>
                     <!-- ASIDE -->

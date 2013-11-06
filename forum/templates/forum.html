@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load staticfiles %}
-{% load forum_markdown %}
+{% load timtec_markdown %}
 {% block content %}
         <!-- CONTAINER -->
         <div id="course-forum">
@@ -22,7 +22,7 @@
                             </div>
                             <div class="question">
                                 <p><a href="{% url 'forum_question' question.slug %}">{{ question.title }}</a></p>
-                                <p class="description">{{ question.text|truncatewords_html:50 }}</p>
+                                <span class="description">{{ question.text|timtec_markdown|truncatewords_html:50 }}</span>
                             </div>
                             <div class="author">
                                 Pergunta feita em {{ question.timestamp|date }} por <a href="{% url 'profile' question.user.username %}">{{ question.user.username }}</a>
