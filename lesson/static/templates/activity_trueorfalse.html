@@ -12,14 +12,18 @@
                 <tbody>
                     <tr ng-repeat="alt in alternatives">
                         <td class="textcenter">
+                        <label class="radio">
                             <input ng-model="$parent.answer.given[$index]" type="radio"
                                    name="unit-{{currentUnitId}}-alt-{{$index}}"
-                                   id="optioncheckbox-{{$index}}" ng-value="true" _data-toggle="checkbox"/>
+                                   id="optioncheckbox-{{$index}}" ng-value="true" radio/>
+                        </label>
                         </td>
                         <td class="textcenter">
+                        <label class="radio">
                             <input ng-model="$parent.answer.given[$index]" type="radio"
                                    name="unit-{{currentUnitId}}-alt-{{$index}}"
-                                   id="optioncheckbox-{{$index}}" ng-value="false" _data-toggle="checkbox"/>
+                                   id="optioncheckbox-{{$index}}" ng-value="false" radio/>
+                        </label>
                         </td>
                         <td>
                             <label class="_checkbox" for="optioncheckbox-{{$index}}">

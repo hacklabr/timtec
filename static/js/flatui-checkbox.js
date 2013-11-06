@@ -28,7 +28,8 @@
                 checked = $el.prop(ch),
                 e = $.Event('toggle');
                 if ($el.prop('disabled') == false) {
-                    $parent.toggleClass(ch) && checked ? $el.removeAttr(ch) : $el.prop(ch, ch);
+                    $parent.toggleClass(ch);
+                    $el.trigger('input');
                     $el.trigger(e).trigger('change');
                 }
         },
@@ -71,7 +72,7 @@
     $(document).on('click.checkbox.data-api', '[data-toggle^=checkbox], .checkbox', function (e) {
         var $checkbox = $(e.target);
         if (e.target.tagName != "A") {
-            e && e.preventDefault() && e.stopPropagation();
+            e;
             if (!$checkbox.hasClass('checkbox')) $checkbox = $checkbox.closest('.checkbox');
             $checkbox.find(':checkbox').checkbox('toggle');
         }
