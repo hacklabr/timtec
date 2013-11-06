@@ -179,10 +179,10 @@
             $scope.addAlternative = function(){
                 if(!$scope.activity().data.alternatives) {
                     $scope.activity().data.alternatives = [""];
-                    $scope.activity().expected = [undefined];
+                    $scope.activity().expected = [false];
                 } else {
                     $scope.activity().data.alternatives.push("");
-                    $scope.activity().expected.push(undefined);
+                    $scope.activity().expected.push(false);
                 }
             }
             LessonListFactory.then(function(lessons){
