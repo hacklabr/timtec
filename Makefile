@@ -64,7 +64,7 @@ setup_js:
 	sudo `which npm` -g install less yuglify karma --loglevel silent > /dev/null
 
 setup_django:
-	python manage.py syncdb --sync --noinput
+	python manage.py syncdb --all --noinput
 	python manage.py compilemessages
 
 settings_ci:
