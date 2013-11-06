@@ -11,7 +11,7 @@ create-staging:
 update-staging:
 	cp timtec/settings_local_staging.py timtec/settings_local.py
 	~/env/bin/pip install -r requirements.txt
-	~/env/bin/python manage.py syncdb --noinput
+	~/env/bin/python manage.py syncdb --all --noinput
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
 	touch timtec/wsgi.py
@@ -41,6 +41,7 @@ update-production:
 	touch timtec/wsgi.py
 
 python_tests:
+	find . -type f -name '*.py[co]' -exec rm {} \;
 	py.test --pep8 --flakes --cov . . $*
 
 karma_tests:
@@ -63,7 +64,7 @@ setup_js:
 	sudo `which npm` -g install less yuglify karma --loglevel silent > /dev/null
 
 setup_django:
-	python manage.py syncdb --noinput
+	python manage.py syncdb --sync --noinput
 	python manage.py compilemessages
 
 settings_ci:

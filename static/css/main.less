@@ -2,17 +2,17 @@
 @import 'flatui/checkbox-and-radio.less';
 
 // COLORS
-// @gray-darker:            lighten(#000, 13.5%); // #222
-// @gray-dark:              lighten(#000, 20%);   // #333
-// @gray:                   lighten(#000, 33.5%); // #555
-// @gray-light:             lighten(#000, 60%);   // #999
-// @gray-lighter:           lighten(#000, 93.5%); // #eee
+@gray-darker:            lighten(#000, 13.5%); // #222
+@gray-dark:              lighten(#000, 20%);   // #333
+@gray:                   lighten(#000, 33.5%); // #555
+@gray-light:             lighten(#000, 60%);   // #999
+@gray-lighter:           lighten(#000, 93.5%); // #eee
 
-@gray-darker:            #34495e;
-@gray-dark:              #7f8c8d;
-@gray:                   #95a5a6;
-@gray-light:             #bdc3c7;
-@gray-lighter:           #ecf0f1;
+// @gray-darker:            #34495e;
+// @gray-dark:              #7f8c8d;
+// @gray:                   #95a5a6;
+// @gray-light:             #bdc3c7;
+// @gray-lighter:           #ecf0f1;
 
 
 // @brand-primary:         #00bebe;
@@ -690,17 +690,33 @@ a.instructor {
 
 // Activities
 .course-activity {
-    border:1px solid @gray-lighter;
-    min-height:427px;
+    border: 1px solid @gray-lighter;
+    padding: 40px 20px;
     position:relative;
-    
+
+    .question {
+        h1 {
+            // color: rgb(44,61,147);
+            color: @brand-info;
+            font-family: "Teuton";
+            margin-bottom: 40px;
+            text-align: center;
+        }
+    }
+
+    .answers {
+        margin: 20px 0;
+        .answer {
+            border-bottom: 1px solid @gray-lighter;
+            font-size: 16px;
+            &:first-child {
+                border-top: 1px solid @gray-lighter;
+            }
+        }
+    }
+
     .submit {
-        border-top:1px solid @gray-lighter;
-        bottom:10px;
-        left:10px;
-        padding-top:10px;
-        position:absolute;
-        right:10px;
+        margin-top: 40px;
     }
     
     label {

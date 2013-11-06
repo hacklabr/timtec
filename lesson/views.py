@@ -36,7 +36,7 @@ class StudentProgressViewSet(viewsets.ModelViewSet):
 
 
 class UpdateStudentProgressView(APIView):
-    model = Unit
+    model = StudentProgress
 
     def post(self, request, unitId=None):
         user = request.user
@@ -57,7 +57,7 @@ class UpdateStudentProgressView(APIView):
 
 
 class ReceiveAnswerView(APIView):
-    model = Unit
+    model = Answer
 
     def post(self, request, unitId=None):
         user = request.user
