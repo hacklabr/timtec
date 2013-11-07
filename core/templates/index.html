@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+        <!-- CONTAINER -->
+        <div id="my-courses" class="container">
+            <header class="page-header-double">
+                <h3><i class="icon-double-angle-right"></i> {% trans "Courses" %}</h3>
+            </header>
+
+            <section class="courses">
+                {% for course in courses %}
+                <!-- COURSE -->
+                <div class="course">
+                    <header>
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <h1>{{ course.name }}</h1>
+                            </div>
+                        </div>
+                    </header>
+                    <div class="progress">
+                        <div class="progress-bar" style="width:{{cs.percent_progress}}%;"></div>
+                    </div>
+                    <a href="profile-note.html" class="btn btn-default btn-sm">{% trans "Notes" %}</a>
+                    <a href="" class="btn btn-default btn-sm">{% trans "Details" %}</a>
+                </div>
+                <!-- END COURSE -->
+                {% endfor %}
+            </section>
+        </div>
+        <!-- CONTAINER -->
+{% endblock %}

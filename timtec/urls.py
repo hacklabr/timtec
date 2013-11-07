@@ -9,7 +9,7 @@ admin.autodiscover()
 
 from django.views.generic import TemplateView
 from accounts.views import CustomLoginView, ProfileEditView, ProfileView
-from core.views import AdminCourseView, CourseView, CourseViewSet, EnrollCourseView, HomeView, UserCoursesView
+from core.views import AdminCourseView, CourseView, CourseViewSet, EnrollCourseView, NewHomeView, UserCoursesView, HomeView
 from lesson.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, ReceiveAnswerView, UpdateStudentProgressView
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, AnswerViewSet, QuestionVoteViewSet, AnswerVoteViewSet
 from course_material.views import CourseMaterialView, FileUploadView
@@ -27,7 +27,8 @@ router.register(r'answer_vote', AnswerVoteViewSet)
 
 urlpatterns = patterns(
     '',
-    url(r'^$', HomeView.as_view(), name='home_view'),
+    url(r'^$', NewHomeView.as_view(), name='new_home_view'),
+    url(r'^old_home$', HomeView.as_view(), name='home_view'),
 
     # Uncomment the next line to enable the admin:
     url(r'^django/admin/doc/', include('django.contrib.admindocs.urls')),

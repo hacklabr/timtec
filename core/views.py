@@ -4,12 +4,22 @@ from django.shortcuts import redirect
 from django.views.generic import DetailView
 from django.views.generic.base import RedirectView, View, TemplateView
 from django.views.generic.edit import UpdateView
+from django.views.generic.list import ListView
 from accounts.utils import LoginRequiredMixin
 from rest_framework import viewsets
 from rest_framework.response import Response
 
 from serializers import CourseSerializer
 from models import Course, StudentProgress
+
+
+class NewHomeView(ListView):
+    """
+    // TODO Bruno view temporaria para desenvolvimento do layout da nova home
+    """
+    model = Course
+    template_name = 'index.html'
+    context_object_name = 'courses'
 
 
 class HomeView(View):
