@@ -288,6 +288,53 @@ a.instructor {
   padding-top:51px;
 }
 
+// HOME
+#home {
+  #highlight {
+    background: @gray-lighter;
+    min-height: 500px;
+  }
+  #courses {
+    margin-bottom: 40px;
+    margin-top: 40px;
+    .course{
+      background: @gray-lighter;
+      margin-bottom: 30px;
+      .img {
+        background-color: @brand-warning;
+        height: 145px;
+        width: 100%;
+      }
+      .info {
+        padding: 10px 20px;
+        h1 {
+          font-size: 24px;
+          margin: 0;
+          a {
+            color: @gray;
+          }
+        }
+        .instructor {
+          a {
+            color: @gray-light;
+          }
+        }
+        .enroll {
+          margin: 20px -20px -10px -20px;
+          button {
+            font-size: 14px;
+            text-transform: uppercase;
+            i {
+              font-size: 18px;
+              margin-left: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 
 // MAIN NAVBAR - DROPDOWN MENUS FOR SIGNIN AND SIGNUP
 #main-navbar {
