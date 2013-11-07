@@ -15,6 +15,10 @@
   {% compressed_css 'admin' %}
   {% compressed_js 'all' %}
 
+  {# TODO: aprender a comprimir estas coisas (fabio) #}
+  <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Converter.js' %}" charset="utf-8"></script>
+  <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Editor.js' %}" charset="utf-8"></script>
+  <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Sanitizer.js' %}" charset="utf-8"></script>
   <script type="text/javascript" src="{% static 'js/admin/admin.js' %}" charset="utf-8"></script>
 </head>
 <body id="admin" ng-controller="CourseEdit">
@@ -254,25 +258,16 @@
             <h4 class="modal-title">Modal title</h4>
           </div>
           <div class="modal-body">
-            <div class="text-editor">
+            <div class="text-editor" markdowneditor="true">
               <div class="row">
-                <div class="col-lg-12">
-                  <i class="icon-bold"></i>
-                  <i class="icon-italic"></i>
-                  <i class="icon-link"></i>
-                  <i class="icon-quote-left"></i>
-                  <i class="icon-code"></i>
-                  <i class="icon-list-ol"></i>
-                  <i class="icon-align-left"></i>
-                  <i class="icon-align-center"></i>
-                  <i class="icon-align-right"></i>
-                </div>
+                <div class="col-lg-12 js-button-bar"></div>
               </div>
               <div class="row">
                 <div class="col-lg-12 form-group">
                   <textarea ng-model="modal.data" class="col-lg-12 form-control" rows="15"></textarea>
                 </div>
               </div>
+              <div class="js-preview"></div>
             </div>
             <div class="modal-footer">
               <button type="button" ng-click="modal.reset()" class="btn btn-default" data-dismiss="modal">Cancelar</button>

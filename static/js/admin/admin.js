@@ -36,6 +36,19 @@
         };
     });
 
+    app.directive('markdowneditor', function(){
+        return {
+            "restrict": 'A',
+            "controller": function($scope, $element) {
+                $element.find('textarea').attr('id', "wmd-input-" + $scope.modal.window);
+                $element.find('.js-button-bar').attr('id', "wmd-button-bar-" + $scope.modal.window);
+
+                var editor = new Markdown.Editor(Markdown.getSanitizingConverter(), '-' + $scope.modal.window);
+                editor.run();
+            }
+        };
+    });
+
     /**
      * Controllers
      */
@@ -243,4 +256,5 @@
             return deferred.promise;
         }
     ]);
+
 })(angular);
