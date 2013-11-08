@@ -51,10 +51,9 @@
                             </div>
                         </div>
                     </form>
-                    <!--
                     <div class="divider"></div>
-                    <p class="bottom textcenter">Entrar com <a href="">Facebook</a> ou <a href="">Google+</a></p>
-                    -->
+                    <p class="bottom textcenter">{% load socialaccount %}<a href="{% provider_login_url 'facebook' method='oauth2' %}">Facebook Connect</a></p>
+                    <!--p class="bottom textcenter">Entrar com <a href="">Facebook</a> ou <a href="">Google+</a></p-->
                 </div>
             </li>
             <li>

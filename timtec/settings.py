@@ -303,7 +303,17 @@ INSTALLED_APPS = (
     # allauth
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
 )
+
+SOCIALACCOUNT_PROVIDERS = \
+    { 'facebook':
+        { 'SCOPE': ['email', 'publish_stream'],
+          'AUTH_PARAMS': { 'auth_type': 'reauthenticate' },
+          'METHOD': 'oauth2' ,
+        }
+    }
 
 if DEBUG:
     MIDDLEWARE_CLASSES += (
@@ -327,6 +337,7 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = True
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[timtec] "
+SOCIALACCOUNT_EMAIL_VERIFICATION = False
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
