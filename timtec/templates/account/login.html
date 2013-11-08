@@ -11,8 +11,8 @@
 
         <form method="post" action="{% url 'timtec_login' %}" class="form-horizontal">{% csrf_token %}
             <div class="form-group{% if login_form.errors %} has-error{% endif %}">
-                <label class="col-lg-3 col-sm-4 control-label">{% trans "Login" %}</label>
-                <div class="col-lg-9 col-sm-8">
+                <label class="col-lg-4 col-md-4 col-sm-12 control-label">{% trans "Username" %}</label>
+                <div class="col-lg-7 col-md-7 col-sm-7">
                     <input name="username" type="text" class="form-control"
                            value="{{login_form.username.value}}" placeholder='{% trans "E-mail or username" %}'/>
                     {% for error in login_form.username.errors %}
@@ -21,8 +21,8 @@
                 </div>
             </div>
             <div class="form-group{% if login_form.errors %} has-error{% endif %}">
-                <label class="col-lg-3 col-sm-4 control-label">{% trans "Password" %}</label>
-                <div class="col-lg-9 col-sm-8">
+                <label class="col-lg-4 col-sm-12 control-label">{% trans "Password" %}</label>
+                <div class="col-lg-7 col-md-7 col-sm-7">
                     <input name="password" type="password" class="form-control" placeholder='{% trans "Password" %}'>
                     {% for error in login_form.password.errors %}
                     <small>{{error}}</small>
@@ -34,16 +34,20 @@
             </div>
             <div class="submit">
                 <div class="row">
-                    <div class="col-lg-9 col-lg-offset-3 col-sm-8 col-sm-offset-4 clearfix">
+                    <div class="col-lg-7 col-lg-offset-4 col-md-7 col-md-offset-4 col-sm-7 col-sm-offset-4 clearfix">
                         <a href="{% url 'account_reset_password' %}" class="alignleft">{% trans "Forgot my password" %}</a>
                         <button class="btn btn-success alignright">{% trans "Sign In" %}</button>
                     </div>
                 </div>
             </div>
             <input type="hidden" name="next" value="{{ next }}" />
+            <hr/>
+            <div class="row">
+                <div class="col-lg-7 col-lg-offset-4 col-md-7 col-md-offset-4 col-sm-7 col-sm-offset-4 textleft clearfix">
+                    {% load socialaccount %}<a href="{% provider_login_url 'facebook' method='oauth2' %}">Facebook Connect</a>
+                </div>
+            </div>
         </form>
-        <div class="divider"></div>
-        <p class="bottom textcenter">{% load socialaccount %}<a href="{% provider_login_url 'facebook' method='oauth2' %}">Facebook Connect</a></p>
     </div>
 </div>
 
