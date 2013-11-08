@@ -759,7 +759,7 @@
     "pk": 3, 
     "model": "auth.group", 
     "fields": {
-        "name": "curso_piloto", 
+        "name": "pilot_course", 
         "permissions": []
     }
 },
