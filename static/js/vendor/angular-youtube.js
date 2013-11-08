@@ -7,8 +7,8 @@ angular.module('youtube', ['ng'])
         service.player = null;
         service.videoId = null;
         service.events = null;
-        service.playerHeight = '429';
-        service.playerWidth = '765';
+        service.playerHeight = '423';
+        service.playerWidth = '750';
 
         service.bindVideoPlayer = function (elementId) {
             $log.info('Binding to player ' + elementId);

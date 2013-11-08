@@ -315,13 +315,13 @@ METRON_SETTINGS = {
     },
 }
 
-SOCIALACCOUNT_PROVIDERS = \
-    { 'facebook':
-        { 'SCOPE': ['email', 'publish_stream'],
-          'AUTH_PARAMS': { 'auth_type': 'reauthenticate' },
-          'METHOD': 'oauth2' ,
-        }
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'SCOPE': ['email', 'publish_stream'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'METHOD': 'oauth2',
     }
+}
 
 if DEBUG:
     MIDDLEWARE_CLASSES += (
