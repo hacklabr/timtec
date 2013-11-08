@@ -45,6 +45,12 @@
 
                 var editor = new Markdown.Editor(Markdown.getSanitizingConverter(), '-' + $scope.modal.window);
                 editor.run();
+            },
+            "link": function(scope, element) {
+                var read = function read(evt){
+                    scope.modal.data = evt.currentTarget.value;
+                };
+                element.find('textarea').on('blur change', read);
             }
         };
     });
