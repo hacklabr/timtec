@@ -104,8 +104,8 @@
                     <header>
                         <h1>Sua Resposta</h1>
                     </header>
-                    <div class="wmd-panel">
-                        <div id="wmd-button-bar"></div>
+                    <div class="wmd-panel" markdowneditor="true">
+                        <div id="wmd-button-bar" class="js-button-bar"></div>
                         <textarea ng-model="new_answer_text" class="form-control" id="wmd-input" rows="10"></textarea>
                         <input type="hidden" ng-model="question_id" value="{{ question.pk }}" mp-value-copy/>
                     </div>
