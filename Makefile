@@ -35,7 +35,8 @@ create-production:
 update-production:
 	cp timtec/settings_local_production.py timtec/settings_local.py
 	~/env/bin/pip install -r requirements.txt
-	~/env/bin/python manage.py migrate
+	~/env/bin/python manage.py syncdb --noinput
+	~/env/bin/python manage.py migrate --noinput
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
 	touch timtec/wsgi.py
