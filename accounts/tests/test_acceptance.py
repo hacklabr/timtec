@@ -79,4 +79,4 @@ def test_edit_profile(admin_client):
     response = admin_client.post('/profile/edit', {'username': 'admin', 'email': 'admin@b.cd'})
 
     assert response.status_code == 302
-    assert response['Location'] == 'http://testserver/profile/edit'
+    assert response['Location'] == 'http://testserver/profile/'
