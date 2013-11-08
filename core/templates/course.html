@@ -21,7 +21,13 @@
           {% if user_is_enrolled %}
             <a href="{% url "lesson" course.first_lesson.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-sm-12 uppercase">{% trans "Resume" %}</a>
           {% else %}
-            <a href="{% url "enroll_course" course.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-sm-12 uppercase">{% trans "Take the Class" %}</a>
+            <a
+              {% if user.is_authenticated %}
+                onClick="_gaq.push(['_trackEvent', 'Course', 'Take the course', 'Authenticated User', 1]);"
+              {% else %}
+                onClick="_gaq.push(['_trackEvent', 'Course', 'Take the course', 'Authenticated User', 0]);"
+              {% endif %}
+              href="{% url "enroll_course" course.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-sm-12 uppercase">{% trans "Take the Class" %}</a>
           {% endif %}
         </div>
       </div>

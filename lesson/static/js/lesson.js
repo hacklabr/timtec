@@ -91,18 +91,18 @@ function initialize_code_mirror($scope, data, expected) {
                         expected  = data.expected;
 
                     if(correct){
-                        _gaq.push(['_trackEvent', 'Atividades', 'Resultado', 'Ok']);
+                        _gaq.push(['_trackEvent', 'Activity', 'Result', '', 1]);
                         $scope.currentUnit.progress = {complete : true};
                         $scope.correct = true;
                         $scope.sendOrNextText = "Continuar";
                     } else {
-                        _gaq.push(['_trackEvent', 'Atividades', 'Resultado', 'Falso']);
+                        _gaq.push(['_trackEvent', 'Activity', 'Result', '', 0]);
                     }
 
                     $scope.isCorrect = correct;
                 }
 
-                _gaq.push(['_trackEvent', 'Atividades', 'Enviar']);
+                _gaq.push(['_trackEvent', 'Activity', 'Submit']);
 
                 $http({
                     'method': 'POST',
