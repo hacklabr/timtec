@@ -4,4 +4,4 @@ pytest-cov
 pytest-flakes
 pytest-pep8
 pytest-django==2.3.1
--e git+https://github.com/vandersonmota/model_mommy.git#egg=model_mommy
+model_mommy==1.2
