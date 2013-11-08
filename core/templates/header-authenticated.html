@@ -32,4 +32,13 @@
         </ul>
     </div>
 </div>
+
+<script type="text/javascript">
+ _gaq.push(['_setCustomVar',
+    1,                   // This custom var is set to slot #1.  Required parameter.
+    'id',     // The name acts as a kind of category for the user activity.  Required parameter.
+    '{{ user.id }}',               // This value of the custom variable.  Required parameter
+    2                    // Sets the scope to session-level.  Optional parameter.
+  ]);
+</script>
 <!-- END NAVBAR -->
