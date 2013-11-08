@@ -6,12 +6,25 @@
 {% block head_title %}{% trans "Login Cancelled" %}{% endblock %}
 
 {% block content %}
-    
-<h1>{% trans "Login Cancelled" %}</h1>
 
-{% url 'account_login' as login_url %}
+<div id="activation-accomplished" class="container">
+    <div class="centered">
+        <h1 class="textcenter">
+            <i class="icon-frown"></i><br/>
+            {% trans "Login Cancelled" %}
+        </h1>
+        {% url 'account_login' as login_url %}
+        <h3>{% blocktrans %}You decided to cancel logging in to our site using one of your existing accounts. If this was a mistake, please proceed to <a href="{{login_url}}">sign in</a>.{% endblocktrans %}</h3>
+    </div>
+</div>
 
-<p>{% blocktrans %}You decided to cancel logging in to our site using one of your existing accounts. If this was a mistake, please proceed to <a href="{{login_url}}">sign in</a>.{% endblocktrans %}</p>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+    windowHeight = window.innerHeight;
+    navbarHeight = $('#main-navbar').innerHeight();
+    footerHeight = $('#main-footer').innerHeight();
+    $('#activation-accomplished').innerHeight(windowHeight - (navbarHeight + footerHeight + 58));
+})
+</script>
 
 {% endblock %}
-
