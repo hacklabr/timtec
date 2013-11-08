@@ -191,6 +191,7 @@ class Lesson(models.Model):
     notes = models.TextField(_('Notes'), default='')
     course = models.ForeignKey(Course, verbose_name=_('Course'))
     position = PositionField(collection='course', default=0)
+    published = models.BooleanField(_('Published'), default=False)
 
     class Meta:
         verbose_name = _('Lesson')
