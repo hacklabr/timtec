@@ -44,8 +44,12 @@ function initialize_code_mirror($scope, data, expected) {
 
     app.controller('LessonMainCtrl', ['$scope', 'LessonData',
         function ($scope, LessonData) {
-            $scope.currentUnitPos = parseInt( /#\/(\d+)/.extract(location.hash, 1), 10);
-            $scope.currentUnitPos = Math.max($scope.currentUnitPos, 1);
+            var match = location.hash.match(/^#\/(\d+)/);
+            if(match) {
+                $scope.currentUnitPos = parseInt( match[1], 10);
+            } else {
+                $scope.currentUnitPos = 1;
+            }
 
             $scope.isSelected = function(i){
                 return ($scope.currentUnitPos-1) === i;
@@ -73,7 +77,7 @@ function initialize_code_mirror($scope, data, expected) {
                 $location.path('/' + $main.currentUnitPos);
             };
             $scope.replayVideo = function() {
-                $location.path('/'+$main.currentUnitPos);
+                $location.path('/' + $main.currentUnitPos);
             };
 
             $scope.sendOrNext = function() {
