@@ -16,6 +16,11 @@
         }
     ]);
 
+    app.filter('markdown', ['$window', function($window) {
+        return function(text) {
+            return text ? Markdown.getSanitizingConverter().makeHtml(text) : "";
+        };
+    }]);
 
     app.directive('contenteditable', function(){
         return {
