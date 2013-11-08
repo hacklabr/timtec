@@ -308,12 +308,6 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.facebook',
 )
 
-METRON_SETTINGS = {
-    "google": {
-        1: "UA-45508717-1", # production
-        2: "", # beta
-    },
-}
 
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {

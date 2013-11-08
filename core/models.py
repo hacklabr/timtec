@@ -72,6 +72,18 @@ class TimtecUser(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None):
         send_mail(subject, message, from_email, [self.email])
 
+    def get_user_type(self):
+        if self.is_superuser:
+            return "superuser"
+        elif self.groups.filter(name='professors').count():
+            return "professors"
+        elif self.groups.filter(name='students').count():
+            return "students"
+        return "unidentified"
+
+    def is_pilot(self):
+        return self.groups.filter(name='pilot_course').count() > 0
+
     @staticmethod
     def add_default_group(sender, user, **kwargs):
         if settings.REGISTRATION_DEFAULT_GROUP_NAME:

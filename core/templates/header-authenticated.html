@@ -34,11 +34,9 @@
 </div>
 
 <script type="text/javascript">
- _gaq.push(['_setCustomVar',
-    1,                   // This custom var is set to slot #1.  Required parameter.
-    'id',     // The name acts as a kind of category for the user activity.  Required parameter.
-    '{{ user.id }}',               // This value of the custom variable.  Required parameter
-    2                    // Sets the scope to session-level.  Optional parameter.
-  ]);
+ _gaq.push(['_setCustomVar', 1, 'id', '{{ user.id }}', 2],
+           ['_setCustomVar', 2, 'user_type', '{{ user.get_user_type }}', 2],
+           ['_setCustomVar', 3, 'is_pilot', '{{ user.is_pilot }}', 2]
+ );
 </script>
 <!-- END NAVBAR -->
