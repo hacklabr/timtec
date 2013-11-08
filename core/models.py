@@ -125,8 +125,13 @@ class Course(models.Model):
     def unit_set(self):
         return Unit.objects.filter(lesson__in=self.lesson_set.all()).order_by('lesson')
 
+    @property
+    def public_lessons(self):
+        return self.lesson_set.filter(published=True)
+
     def first_lesson(self):
-        return self.lesson_set.all()[0]
+        if self.lesson_set.exists():
+            return self.lesson_set.all()[0]
 
     def enroll_student(self, student):
         params = {'user': student, 'course': self}
@@ -188,7 +193,7 @@ class Lesson(models.Model):
     slug = models.SlugField(_('Slug'), max_length=255, editable=False, unique=True)
     name = models.CharField(_('Name'), max_length=255)
     desc = models.CharField(_('Description'), max_length=255)
-    notes = models.TextField(_('Notes'), default='')
+    notes = models.TextField(_('Notes'), default="", blank=True)
     course = models.ForeignKey(Course, verbose_name=_('Course'))
     position = PositionField(collection='course', default=0)
     published = models.BooleanField(_('Published'), default=False)
