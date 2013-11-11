@@ -15,6 +15,7 @@ from django.template.defaultfilters import slugify
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import Group
+from django.contrib.staticfiles.storage import staticfiles_storage
 
 from allauth.account.signals import user_signed_up
 
@@ -210,6 +211,14 @@ class Lesson(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def thumbnail(self):
+        try:
+            first_vid_unit = self.units.exclude(video=None).order_by('position')[0]
+            thumbnail = 'http://i1.ytimg.com/vi/' + first_vid_unit.video.youtube_id + '/hqdefault.jpg'
+            return thumbnail
+        except IndexError:
+            return staticfiles_storage.url('img/lesson-default.png')
 
     def activity_count(self):
         return self.units.exclude(activity=None).count()
