@@ -216,6 +216,9 @@ function initialize_code_mirror($scope, data, expected) {
                         'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
                     }).success(function(data){
                         $scope.currentUnit.progress = {complete: data.complete};
+                        if (data.complete) {
+                            _gaq.push(["_trackEvent", "Unit", "Unit Completed"]);
+                        }
                     });
                     $scope.$apply();
                 }
