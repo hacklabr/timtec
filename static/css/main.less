@@ -284,64 +284,45 @@ a.instructor {
 }
 
 // LAYOUT
-.wrapper {
-  padding-top:51px;
-}
+// .wrapper {
+//   padding-top:51px;
+// }
 
 
 // MAIN NAVBAR - DROPDOWN MENUS FOR SIGNIN AND SIGNUP
 #main-navbar {
-
   font-family:'Questrial';
-
-  // SIGN IN/UP FORM
-  .navbar-form {
-    margin:0;
-    padding:11px 15px;
-    input[type="text"] {
-      border:none;
-      height:28px;
-      margin:0 0 0 -3px;
-      padding:0 7px 0 0;
-    }
-    button {
-      background:white;
-      color:@gray-light;
-      height:28px;
-      margin:0;
-      padding:0 7px;
-    }
+  .form-group {
+    margin-bottom: 15px;
   }
-  
-  // SIGN IN FORM
-  .dropdown-signin {
-    padding:14px;
-    width:340px;
-    .submit {
-      a {
-        display:block;
-        margin-left:3px;
-        margin-top:7px;
-        &:hover {
-          background:none !important;
-        }
-      }
-    }
+  label {
+    font-weight: normal;
+    line-height: 2.5;
   }
-
-  // SIGN UP FORM
-  .dropdown-signup {
-    padding:14px;
-    width:420px;
-    a:hover {
-      background:none !important;
-    }
-  }
-  a.username i {
-    margin-left:3px;
+  .submit {
+    line-height: 2.5;
   }
 }
 
+@media screen and (min-width: @screen-tablet) {
+  #main-navbar {
+    .dropdown-menu {
+      width: 400px;
+    }
+  }
+}
+
+@media screen and (max-width: @screen-phone) {
+  #main-navbar {
+    color: #fff;
+    a {
+      color: #fff;
+    }
+    label {
+      line-height: 1;
+    }
+  }
+}
 
 // REGISTRATION AND AUTHENTICATION
 #activation-accomplished {
