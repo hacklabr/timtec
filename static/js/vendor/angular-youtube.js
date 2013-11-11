@@ -7,6 +7,7 @@ angular.module('youtube', ['ng'])
         service.player = null;
         service.videoId = null;
         service.events = null;
+        service.autoplay = 0;
         service.playerHeight = '423';
         service.playerWidth = '750';
 
@@ -22,7 +23,7 @@ angular.module('youtube', ['ng'])
                 width: this.playerWidth,
                 videoId: this.videoId,
                 playerVars: {
-                    autoplay: 0,
+                    autoplay: this.autoplay,
                     color: 'white',
                     fs: 1,
                     modestbranding: 1,
