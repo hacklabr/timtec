@@ -23,6 +23,21 @@
     <script type="text/javascript" src="{% static 'js/flatui-checkbox.js' %}" charset="utf-8"></script>
     <script type="text/javascript" src="{% static 'js/flatui-radio.js' %}" charset="utf-8"></script>
 
+    <script type="text/javascript" charset="utf-8">
+        (function(){
+            function resize_player() {
+                $('#youtube-player').css('width','100%')
+                                    .height($('#youtube-player').width() * 0.5625);
+            }
+
+            $(document).ready(function() {
+                $('.has-tooltip').tooltip();
+                $(document).on('DOMNodeInserted','#player-outter', resize_player);
+                resize_player();
+            });
+            $(window).resize(resize_player);
+        })();
+    </script>
     {% endblock %}
 </head>
 <body>
@@ -54,10 +69,5 @@ window.STATIC_URL = '{{ STATIC_URL }}'
         {% endblock %}
     </div>
     {% include 'footer.html' %}
-
-    <script type="text/javascript" charset="utf-8">
-        $(document).ready(function() {$('.has-tooltip').tooltip();})
-    </script>
-
 </body>
 </html>
