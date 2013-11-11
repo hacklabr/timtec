@@ -57,4 +57,4 @@ class LessonSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Lesson
-        fields = ('id', 'course', 'slug', 'desc', 'notes', 'name', 'url', 'units',)
+        fields = ('id', 'course', 'slug', 'desc', 'notes', 'name', 'url', 'published', 'units',)

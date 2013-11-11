@@ -24,7 +24,7 @@
 <body id="admin" ng-controller="CourseEdit">
 
   <!-- NAVBAR -->
-  <div id="main-navbar" class="navbar navbar-fixed-top navbar-inverse">
+  <div id="main-navbar" class="navbar navbar-inverse">
     <div class="container">
       <a class="navbar-brand" href="/">TIM Tec - ADMIN</a>
       <ul class="nav navbar-nav pull-right">
@@ -382,6 +382,14 @@
                 <label>Título</label>
                 <input type="text" class="form-control"
                        placeholder="Título da aula" ng-model="selectedLesson.name">
+              </div>
+              <div class="form-group">
+                <label>Publico:</label>&nbsp;
+                <label for="lesson-published-true">Sim</label>
+                <input type="radio" id="lesson-published-true" ng-value="true" ng-model="selectedLesson.published">
+                &nbsp;&nbsp;&nbsp;
+                <label for="lesson-published-false">Não</label>
+                <input type="radio" id="lesson-published-false" ng-value="false"  ng-model="selectedLesson.published">
               </div>
               <div class="form-group">
                 <label>Descrição</label>

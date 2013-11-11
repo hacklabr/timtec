@@ -20,6 +20,12 @@ class LessonViewSet(viewsets.ModelViewSet):
     serializer_class = LessonSerializer
     filter_fields = ('course__slug',)
 
+    def get_queryset(self):
+        queryset = super(LessonViewSet, self).get_queryset()
+        if self.request.user.is_active:
+            return queryset
+        return queryset.filter(published=True)
+
 
 class StudentProgressViewSet(viewsets.ModelViewSet):
     model = StudentProgress
@@ -48,8 +54,9 @@ class UpdateStudentProgressView(APIView):
 
         response = {}
         if not unit.activity:
-            progress, created = StudentProgress.objects.get_or_create(user=user, unit=unit,
-                                                                      complete=datetime.now())
+            progress, created = StudentProgress.objects.get_or_create(user=user, unit=unit)
+            progress.complete = datetime.now()
+            progress.save()
             if created:
                 response['msg'] = 'Unit completed.'
                 response['complete'] = progress.complete

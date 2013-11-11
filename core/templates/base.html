@@ -26,6 +26,30 @@
     {% load metron_tags %}
     {% analytics %}
 
+    <script type="text/javascript" charset="utf-8">
+        (function(){
+            function resize_player() {
+                $('#youtube-player').css('width','100%')
+                                    .height($('#youtube-player').width() * 0.5625);
+            }
+            
+            function resize_activation_wrapper() {
+                windowHeight = window.innerHeight;
+                navbarHeight = $('#main-navbar').innerHeight();
+                footerHeight = $('#main-footer').innerHeight();
+                $('#activation-wrapper').innerHeight(windowHeight - (navbarHeight + footerHeight + 58));
+            }
+
+            $(document).ready(function() {
+                $('.has-tooltip').tooltip();
+                $(document).on('DOMNodeInserted','#player-outter', resize_player);
+                resize_player();
+                resize_activation_wrapper();
+            });
+            $(window).resize(resize_player);
+            $(window).resize(resize_activation_wrapper);
+        })();
+    </script>
     {% endblock %}
 </head>
 <body>
@@ -57,10 +81,5 @@ window.STATIC_URL = '{{ STATIC_URL }}'
         {% endblock %}
     </div>
     {% include 'footer.html' %}
-
-    <script type="text/javascript" charset="utf-8">
-        $(document).ready(function() {$('.has-tooltip').tooltip();})
-    </script>
-
 </body>
 </html>
