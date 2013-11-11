@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-08 15:03-0200\n"
-"PO-Revision-Date: 2013-11-08 15:15-0200\n"
-"Last-Translator:   <timtectimtec@gmail.com>\n"
+"PO-Revision-Date: 2013-11-11 14:04-0200\n"
+"Last-Translator: sdf df <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,7 +49,7 @@ msgstr "As duas senhas são diferentes."
 
 #: accounts/templates/profile-edit.html:36
 msgid "Upload avatar"
-msgstr "Enviar avatar"
+msgstr "Enviar foto"
 
 #: accounts/templates/profile-edit.html:48
 msgid "Profile Info"
@@ -95,7 +95,7 @@ msgstr "Nome de usuário"
 #: timtec/templates/account/login_modal.html:76
 #: timtec/templates/account/signup.html:24
 msgid "E-mail"
-msgstr "E-mail"
+msgstr "Email"
 
 #: accounts/templates/profile-edit.html:156
 #: timtec/templates/account/password_reset_from_key.html:31
@@ -129,7 +129,7 @@ msgstr "Situação"
 
 #: core/models.py:35
 msgid "Active"
-msgstr "Atividades"
+msgstr "Ativo"
 
 #: core/models.py:36
 msgid "Date joined"
@@ -169,7 +169,7 @@ msgstr "Privado"
 
 #: core/models.py:100
 msgid "Public"
-msgstr "Publico"
+msgstr "Público"
 
 #: core/models.py:103 core/models.py:188 forum/models.py:13
 msgid "Slug"
@@ -230,7 +230,7 @@ msgstr "Estudante"
 
 #: core/models.py:168
 msgid "Instructor"
-msgstr "Estrutura"
+msgstr "Instrutor"
 
 #: core/models.py:169
 msgid "Assistant"
@@ -246,7 +246,7 @@ msgstr "Professor"
 
 #: core/models.py:176
 msgid "Role"
-msgstr "Papél"
+msgstr "Papel"
 
 #: core/models.py:180
 msgid "Course Professor"
@@ -286,7 +286,7 @@ msgstr "Resposta esperada"
 
 #: core/models.py:236 core/models.py:247 core/models.py:276
 msgid "Activity"
-msgstr "Atividades"
+msgstr "Atividade"
 
 #: core/models.py:237
 msgid "Activities"
@@ -338,15 +338,15 @@ msgstr "Requisitos"
 
 #: core/templates/course.html:93
 msgid "videos"
-msgstr "Videos"
+msgstr "videos"
 
 #: core/templates/course.html:93
 msgid "activities"
-msgstr "Atividades"
+msgstr "atividades"
 
 #: core/templates/course.html:105
 msgid "Instructors"
-msgstr "Professores"
+msgstr "Instrutores"
 
 #: core/templates/course.html:134
 msgid "Course Structure"
@@ -405,7 +405,7 @@ msgstr "Entrar"
 #: timtec/templates/account/login_modal.html:27
 #: timtec/templates/account/password_reset_from_key_done.html:16
 msgid "E-mail or username"
-msgstr "Nome de usuário ou e-mail"
+msgstr "Nome de usuário ou email"
 
 #: core/templates/header-guest.html:46
 #: timtec/templates/account/email_confirmed.html:28
@@ -493,7 +493,7 @@ msgid ""
 "address for user %(user_display)s."
 msgstr ""
 "Por favor confirme que o endereço <a href=\"mailto:%(email)s\">%(email)s</a>"
-" é o e-mail do usuário %(user_display)s."
+" é o email do usuário %(user_display)s."
 
 #: timtec/templates/account/email_confirm.html:16
 msgid "Confirm"
@@ -505,7 +505,7 @@ msgid ""
 "This e-mail confirmation link expired or is invalid. Please <a "
 "href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"Este e-mail de confirmação expirou ou é inválido. Por favor <a "
+"Este email de confirmação expirou ou é inválido. Por favor <a "
 "href=\"%(email_url)s\">solicite uma nova confirmação de e-mail</a>."
 
 #: timtec/templates/account/email_confirmed.html:9
@@ -525,8 +525,8 @@ msgid ""
 "Insert your e-mail so we can send you the instructions to recover your "
 "password"
 msgstr ""
-"Insira seu e-mail para que possamos enviar-lhe instruções para recuperar sua"
-" senha"
+"Insira seu email para que possamos enviar-lhe instruções para recuperar sua "
+"senha"
 
 #: timtec/templates/account/password_reset.html:17
 msgid "Your e-mail"
@@ -543,7 +543,7 @@ msgstr "Verifica sua caixa de entrada"
 
 #: timtec/templates/account/password_reset_done.html:11
 msgid "We sent you an e-mail with the instructions to recover your password"
-msgstr "Nós enviamos um e-mail com instruções para recuperar sua senha"
+msgstr "Nós enviamos um email com instruções para recuperar sua senha"
 
 #: timtec/templates/account/password_reset_from_key.html:10
 msgid "Change your password"
@@ -603,7 +603,7 @@ msgstr ""
 
 #: timtec/templates/account/email/password_reset_key_subject.txt:3
 msgid "Password Reset E-mail"
-msgstr "E-mail de redefinição de senha"
+msgstr "Email de redefinição de senha"
 
 #~ msgid "Position"
 #~ msgstr "Posição"
