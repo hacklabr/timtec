@@ -12,7 +12,7 @@ from accounts.views import CustomLoginView, ProfileEditView, ProfileView
 from core.views import AdminCourseView, CourseView, CourseViewSet, EnrollCourseView, HomeView, UserCoursesView
 from lesson.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, ReceiveAnswerView, UpdateStudentProgressView
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, AnswerViewSet, QuestionVoteViewSet, AnswerVoteViewSet
-from course_material.views import CourseMaterialView, FileUploadView
+from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialAdminView, CourseMaterialViewSet
 from rest_framework import routers
 
 router = routers.DefaultRouter(trailing_slash=False)
@@ -23,6 +23,7 @@ router.register(r'forum_question', QuestionViewSet)
 router.register(r'forum_answer', AnswerViewSet)
 router.register(r'question_vote', QuestionVoteViewSet)
 router.register(r'answer_vote', AnswerVoteViewSet)
+router.register(r'course_material', CourseMaterialViewSet)
 
 
 urlpatterns = patterns(
@@ -34,7 +35,7 @@ urlpatterns = patterns(
     url(r'^django/admin/', include(admin.site.urls)),
 
     # Privileged browsing
-    url(r'^admin/course/(?P<slug>[-a-zA-Z0-9_]+)$', AdminCourseView.as_view(), name='course_intro'),
+    url(r'^admin/course/(?P<slug>[-a-zA-Z0-9_]+)$', AdminCourseView.as_view(), name='course_admin'),
 
     # Public browsing
     url(r'^my-courses$', UserCoursesView.as_view(), name='user_courses'),
@@ -57,6 +58,7 @@ urlpatterns = patterns(
     # Course Material
     url(r'^course_material/file_upload/(?P<slug>[-a-zA-Z0-9_]+)$', FileUploadView.as_view(), name='file_upload'),
     url(r'^course_material/(?P<slug>[-a-zA-Z0-9_]+)$', CourseMaterialView.as_view(), name='course_material'),
+    url(r'^admin/course_material/(?P<slug>[-a-zA-Z0-9_]+)$', CourseMaterialAdminView.as_view(), name='course_material_admin'),
 
     # Authentication
     url(r'^login/', CustomLoginView.as_view(), name='timtec_login'),
