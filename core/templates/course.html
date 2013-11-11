@@ -68,7 +68,7 @@
               <h3><i class="icon-double-angle-right"></i> {% trans "Lessons" %}</h3>
             </div>
             <ul class="no-bullet">
-              {% for lesson in course.lesson_set.all %}
+              {% for lesson in course.public_lessons %}
               <li>
                 <div class="row">
                   <div class="col-lg-3 col-sm-3">

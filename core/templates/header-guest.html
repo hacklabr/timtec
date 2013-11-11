@@ -83,6 +83,8 @@
                             <button class="btn btn-success">{% trans 'Sign Up' %}</button>
                         </div>
                     </form>
+                    <div class="divider"></div>
+                    <p class="bottom textcenter">{% load socialaccount %}<a href="{% provider_login_url 'facebook' method='oauth2' %}">Facebook Connect</a></p>
                     <!--
                         <div class="divider"></div>
                         <p class="bottom textcenter">Cadastrar com <a href="">Facebook</a> ou <a href="">Google+</a></p>

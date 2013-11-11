@@ -36,7 +36,7 @@ $(document).ready(function() {
             <i class="icon-chevron-down"></i>
           </button>
           <ul class="dropdown-menu">
-            {% for list_lesson in lesson.course.lesson_set.all %}
+            {% for list_lesson in lesson.course.public_lessons %}
             <li><a href="{% url 'lesson' list_lesson.slug %}"><span class="title">{{ list_lesson.name }}</span></a></li>
             {% endfor %}
           </ul>

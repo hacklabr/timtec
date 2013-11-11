@@ -20,6 +20,12 @@ class LessonViewSet(viewsets.ModelViewSet):
     serializer_class = LessonSerializer
     filter_fields = ('course__slug',)
 
+    def get_queryset(self):
+        queryset = super(LessonViewSet, self).get_queryset()
+        if self.request.user.is_active:
+            return queryset
+        return queryset.filter(published=True)
+
 
 class StudentProgressViewSet(viewsets.ModelViewSet):
     model = StudentProgress
