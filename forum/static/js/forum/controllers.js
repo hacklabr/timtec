@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-function QuestionCtrl($scope, $sce, $window, Answer, MarkdownEditor) {
+function QuestionCtrl($scope, $sce, $window, Answer) {
     var questionId = parseInt($window.question_id, 10);
     var userId = parseInt($window.user_id, 10);
     $scope.answers = Answer.query({question: questionId});
@@ -12,27 +12,24 @@ function QuestionCtrl($scope, $sce, $window, Answer, MarkdownEditor) {
             $scope.editor_enabled = false;
         }
     });
-    MarkdownEditor.run();
 
     $scope.new_answer = function () {
         var questionId = parseInt($window.question_id, 10);
-        var new_answer = Answer.save({question: questionId, text: $scope.new_answer_text});
+        var new_answer = Answer.save({question: questionId, text: $scope.new_text});
         $scope.answers.push(new_answer);
         $scope.editor_enabled = false;
     };
 }
 
-function InlineForumCtrl($scope, $window, Question, MarkdownEditor) {
+function InlineForumCtrl($scope, $window, Question) {
     var course_id = parseInt($window.course_id, 10);
     $scope.questions = Question.query({course: course_id});
 
-    MarkdownEditor.run();
-
     $scope.new_question = function () {
-        if (($scope.new_question_title != undefined && $scope.new_question_title != '') && ($scope.new_question_text != undefined && $scope.new_question_text != '')){
-            var new_question = Question.save({course: course_id, title: $scope.new_question_title, text: $scope.new_question_text});
+        if (($scope.new_question_title != undefined && $scope.new_question_title != '') && ($scope.new_text != undefined && $scope.new_text != '')){
+            var new_question = Question.save({course: course_id, title: $scope.new_question_title, text: $scope.new_text});
             $scope.new_question_title = undefined;
-            $scope.new_question_text = undefined;
+            $scope.new_text = undefined;
             angular.element(document.querySelector('#wmd-preview')).html('');
             $scope.questions.unshift(new_question);
             $scope.editor_enabled = false;
@@ -44,7 +41,7 @@ function InlineForumCtrl($scope, $window, Question, MarkdownEditor) {
             } else {
                 $scope.question_title_validation = '';
             }
-            if ($scope.new_question_text == undefined || $scope.new_question_text == ''){
+            if ($scope.new_text == undefined || $scope.new_text == ''){
                 $scope.question_text_validation = 'has-error';
             } else {
                 $scope.question_text_validation = '';
@@ -54,8 +51,8 @@ function InlineForumCtrl($scope, $window, Question, MarkdownEditor) {
 }
 
 angular.module('forum.controllers', ['ngCookies']).
-    controller('QuestionCtrl', ['$scope', '$sce', '$window', 'Answer', 'MarkdownEditor', QuestionCtrl]).
-    controller('InlineForumCtrl', ['$scope', '$window', 'Question', 'MarkdownEditor', InlineForumCtrl]).
+    controller('QuestionCtrl', ['$scope', '$sce', '$window', 'Answer', QuestionCtrl]).
+    controller('InlineForumCtrl', ['$scope', '$window', 'Question', InlineForumCtrl]).
     controller('QuestionVoteCtrl', ['$scope', '$window', 'QuestionVote',
         function ($scope, $window, QuestionVote) {
             $scope.questionId = parseInt($window.question_id, 10);
