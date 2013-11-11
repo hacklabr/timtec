@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>{{ course }}</title>
+
+        <script src="//www.youtube.com/iframe_api"></script>
+
+        {% load static %}
+        {% load compressed %}
+
+        {% compressed_css 'common' %}
+        {% compressed_css 'admin' %}
+        {% compressed_js 'all' %}
+
+        {# TODO: aprender a comprimir estas coisas (fabio) #}
+        <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Converter.js' %}" charset="utf-8"></script>
+        <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Editor.js' %}" charset="utf-8"></script>
+        <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Sanitizer.js' %}" charset="utf-8"></script>
+        {% endblock %}
+    </head>
+    <body id="admin">
+
+        <!-- NAVBAR -->
+        <div id="main-navbar" class="navbar navbar-fixed-top navbar-inverse">
+            <div class="container">
+                <a class="navbar-brand" href="/">TIM Tec - ADMIN</a>
+                <ul class="nav navbar-nav pull-right">
+                    <li>
+                        <a href="#">Cursos</a>
+                    </li>
+                    <li>
+                        <a href="#">Usuários</a>
+                    </li>
+                    <li>
+                        <a href="#">Estatísticas</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- END NAVBAR -->
+
+        <!-- WRAPPER -->
+        <div class="wrapper">
+            {% block content %}
+            <h1>missing content block</h1>
+            {% endblock %}
+        </div>
+        <!-- END WRAPPER -->
+
+        <!-- FOOTER -->
+        {% include 'footer.html' %}
+        <!-- END FOOTER -->
+
+    </body>
+</html>

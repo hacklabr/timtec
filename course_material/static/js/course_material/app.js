@@ -2,4 +2,4 @@
 
 
 // Declare app level module which depends on filters, and services
-angular.module('courseMaterial', ['courseMaterial.services', 'courseMaterial.controllers']);
+angular.module('courseMaterial', ['courseMaterial.services', 'courseMaterial.controllers', 'courseMaterial.directives', 'courseMaterial.filters']);
