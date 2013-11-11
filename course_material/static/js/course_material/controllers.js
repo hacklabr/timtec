@@ -14,11 +14,6 @@ function CourseMaterialEditorCtrl($scope, $sce, $window, CourseMaterial, Course)
         });
     });
 
-    // $scope.course_material = CourseMaterial.get({course: $scope.course.id}, function (course_material){
-        // $scope.editor_text = course_material.text;
-    // });
-    
-
     $scope.save = function(){
         $scope.course_material.text = $scope.editor_text;
         $scope.course_material.$update({course: $scope.course.id});
