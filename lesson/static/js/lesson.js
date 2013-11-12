@@ -95,13 +95,18 @@ function initialize_code_mirror($scope, data, expected) {
                         expected  = data.expected;
 
                     if(correct){
+                        _gaq.push(['_trackEvent', 'Activity', 'Result', '', 1]);
                         $scope.currentUnit.progress = {complete : true};
                         $scope.correct = true;
                         $scope.sendOrNextText = "Continuar";
+                    } else {
+                        _gaq.push(['_trackEvent', 'Activity', 'Result', '', 0]);
                     }
 
                     $scope.isCorrect = correct;
                 }
+
+                _gaq.push(['_trackEvent', 'Activity', 'Submit']);
 
                 $http({
                     'method': 'POST',
@@ -150,8 +155,51 @@ function initialize_code_mirror($scope, data, expected) {
         function ($scope, $http, $location, LessonData, youtubePlayerApi) {
             var $main = $scope.$parent;
             var currentUnitIndex = $main.currentUnitPos - 1;
+            var _pauseFlag = false;
+            var start, whole;
 
             var onPlayerStateChange = function (event) {
+                if (event.data == YT.PlayerState.PLAYING){
+                        _gaq.push(['_trackEvent', 'Videos', 'Play', $scope.currentUnit.video.youtube_id]);
+                        //thy video plays
+                        //reaffirm the pausal beast is not with us
+                        _pauseFlag = false;
+                        if (whole !== 'ended' && whole !== 'started') {
+                            start = new Date().getTime();
+                            whole = 'started';
+                        }
+                }
+                //should the video tire out and cease
+                if (event.data == YT.PlayerState.ENDED){
+                    _gaq.push(['_trackEvent', 'Videos', 'Watch to End', $scope.currentUnit.video.youtube_id]);
+                    if (whole === 'started') {
+                        var stop = new Date().getTime();
+                        var delta_s = (stop - start) / 1000;
+                        _gaq.push(['_trackEvent', 'Videos', 'Time to End', $scope.currentUnit.video.youtube_id, Math.round(delta_s)]);
+                        whole = 'ended';
+                    }
+                }
+                //and should we tell it to halt, cease, heal.
+                //confirm the pause has but one head and it flies not its flag
+                //lo the pause event will spawn a many headed monster
+                //with events overflowing
+                if (event.data == YT.PlayerState.PAUSED && _pauseFlag === false){
+                    _gaq.push(['_trackEvent', 'Videos', 'Pause', $scope.currentUnit.video.youtube_id]);
+                    //tell the monster it may have
+                    //but one head
+                    _pauseFlag = true;
+                }
+                //and should the monster think, before it doth play
+                //after we command it to move
+                if (event.data == YT.PlayerState.BUFFERING){
+                    _gaq.push(['_trackEvent', 'Videos', 'Buffering', $scope.currentUnit.video.youtube_id]);
+                }
+                //and should it cue
+                //for why not track this as well.
+                if (event.data == YT.PlayerState.CUED){
+                    _gaq.push(['_trackEvent', 'Videos', 'Cueing', $scope.currentUnit.video.youtube_id]);
+                }
+
                 if (event.data === YT.PlayerState.ENDED) {
                     if( $scope.currentUnit.activity ) {
                         $location.path('/' + $main.currentUnitPos + '/activity').search('autoplay', null);
@@ -168,6 +216,9 @@ function initialize_code_mirror($scope, data, expected) {
                         'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
                     }).success(function(data){
                         $scope.currentUnit.progress = {complete: data.complete};
+                        if (data.complete) {
+                            _gaq.push(["_trackEvent", "Unit", "Unit Completed"]);
+                        }
                     });
                     $scope.$apply();
                 }

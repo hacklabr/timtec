@@ -302,6 +302,7 @@ INSTALLED_APPS = (
     'lesson',
     'forum',
     'course_material',
+    'metron',
     # allauth
     'allauth',
     'allauth.account',
@@ -311,6 +312,7 @@ INSTALLED_APPS = (
     # raven has to be the last one
     'raven.contrib.django.raven_compat',
 )
+
 
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {

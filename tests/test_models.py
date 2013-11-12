@@ -31,6 +31,11 @@ def test_position_counter_for_new_units():
 
 
 @pytest.mark.django_db
+def test_get_user_type(user):
+    assert user.get_user_type() == "unidentified"
+
+
+@pytest.mark.django_db
 def test_user_picture_url(user):
 
     assert not user.picture
