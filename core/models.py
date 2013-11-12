@@ -15,6 +15,7 @@ from django.template.defaultfilters import slugify
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import Group
+from django.contrib.staticfiles.storage import staticfiles_storage
 
 from allauth.account.signals import user_signed_up
 
@@ -125,8 +126,13 @@ class Course(models.Model):
     def unit_set(self):
         return Unit.objects.filter(lesson__in=self.lesson_set.all()).order_by('lesson')
 
+    @property
+    def public_lessons(self):
+        return self.lesson_set.filter(published=True)
+
     def first_lesson(self):
-        return self.lesson_set.all()[0]
+        if self.lesson_set.exists():
+            return self.lesson_set.all()[0]
 
     def enroll_student(self, student):
         params = {'user': student, 'course': self}
@@ -188,9 +194,10 @@ class Lesson(models.Model):
     slug = models.SlugField(_('Slug'), max_length=255, editable=False, unique=True)
     name = models.CharField(_('Name'), max_length=255)
     desc = models.CharField(_('Description'), max_length=255)
-    notes = models.TextField(_('Notes'), default='')
+    notes = models.TextField(_('Notes'), default="", blank=True)
     course = models.ForeignKey(Course, verbose_name=_('Course'))
     position = PositionField(collection='course', default=0)
+    published = models.BooleanField(_('Published'), default=False)
 
     class Meta:
         verbose_name = _('Lesson')
@@ -204,6 +211,14 @@ class Lesson(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def thumbnail(self):
+        try:
+            first_vid_unit = self.units.exclude(video=None).order_by('position')[0]
+            thumbnail = 'http://i1.ytimg.com/vi/' + first_vid_unit.video.youtube_id + '/hqdefault.jpg'
+            return thumbnail
+        except IndexError:
+            return staticfiles_storage.url('img/lesson-default.png')
 
     def activity_count(self):
         return self.units.exclude(activity=None).count()

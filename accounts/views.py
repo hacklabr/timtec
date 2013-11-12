@@ -51,7 +51,7 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
     template_name = 'profile-edit.html'
 
     def get_success_url(self):
-        return reverse('profile_edit')
+        return reverse('profile')
 
     def get_object(self):
         return self.request.user

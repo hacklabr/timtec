@@ -12,10 +12,14 @@
                 /^https?:\/\/(www\.)?youtube\.com\/.*/,
                 'data:text/html, <html style="background: white">'
             ]);
-            window.sce = $sceDelegateProvider;
         }
     ]);
 
+    app.filter('markdown', function() {
+        return function(text) {
+            return text ? Markdown.getSanitizingConverter().makeHtml(text) : "";
+        };
+    });
 
     app.directive('contenteditable', function(){
         return {
@@ -32,6 +36,25 @@
                     }
                     ngModel.$setViewValue(html);
                 }
+            }
+        };
+    });
+
+    app.directive('markdowneditor', function(){
+        return {
+            "restrict": 'A',
+            "controller": function($scope, $element) {
+                $element.find('textarea').attr('id', "wmd-input-" + $scope.modal.window);
+                $element.find('.js-button-bar').attr('id', "wmd-button-bar-" + $scope.modal.window);
+
+                var editor = new Markdown.Editor(Markdown.getSanitizingConverter(), '-' + $scope.modal.window);
+                editor.run();
+            },
+            "link": function(scope, element) {
+                var read = function read(evt){
+                    scope.modal.data = evt.currentTarget.value;
+                };
+                element.find('textarea').on('blur change', read);
             }
         };
     });
@@ -104,26 +127,34 @@
         }
     ]);
 
-    app.controller('LessonList',['$scope', '$rootScope', 'LessonListFactory', '$http',
-        function($scope, $rootScope, LessonListFactory, $http){
+    app.controller('LessonList',['$scope', '$rootScope', 'LessonListFactory', 'Lesson',
+        function($scope, $rootScope, LessonListFactory, Lesson){
+
+            $scope.newLesson = function() {
+                var newLesson = new Lesson({'units': []});
+                newLesson.position = $scope.lessons.length;
+                $scope.lessons.push(newLesson);
+                $rootScope.selectedLesson = newLesson;
+            };
 
             $scope.select = function (lesson) {
                 $rootScope.selectedLesson = lesson;
                 return lesson;
             };
             $scope.countActivities = function(l) {
-                if( l.units ) {
-                    return l.units.reduce(function(p,s){return p + (s.activity ? 1 : 0); }, 0);
+                if( !l.units ){
+                    l.units = [];
+                    return 0;
                 }
-                return 0;
+                return l.units.reduce(function(p,s){return p + (s.activity ? 1 : 0); }, 0);
             };
             $scope.countVideos = function(l) {
-                if( l.units ) {
-                    return l.units.reduce(function(p,s){return p + (s.video ? 1 : 0); }, 0);
+                if( !l.units ) {
+                    l.units = [];
+                    return 0;
                 }
-                return 0;
+                return l.units.reduce(function(p,s){return p + (s.video ? 1 : 0); }, 0);
             };
-
             LessonListFactory.then(function(lessons){
                 $scope.lessons = lessons;
             });
@@ -156,8 +187,12 @@
                 });
             };
             $scope.selectedUnit = function() {
-                if($rootScope.selectedLesson)
-                    return $rootScope.selectedLesson.units[selectedUnitIndex];
+                if($rootScope.selectedLesson && 'units' in $rootScope.selectedLesson)
+                    if($rootScope.selectedLesson.units.length > 0){
+                        return $rootScope.selectedLesson.units[selectedUnitIndex];
+                    } else {
+                        return {};
+                    }
             };
             $scope.activity = function() {
                 if($scope.selectedUnit() && $scope.selectedUnit().activity){
@@ -196,6 +231,13 @@
                     act.expected.push(false);
                 }
             };
+            $scope.saveLesson = function(){
+                if('id' in $rootScope.selectedLesson){
+                    $rootScope.selectedLesson.$update();
+                } else {
+                    $rootScope.selectedLesson.$create();
+                }
+            };
             LessonListFactory.then(function(lessons){
                 $scope.lessons = lessons;
             });
@@ -207,7 +249,7 @@
      * Factories
      */
     app.factory('CourseDataFactory', ['$rootScope', '$q', '$resource',
-        function($rootScope, $q, $resource, $window) {
+        function($rootScope, $q, $resource) {
             var Course = $resource('/api/course/:courseSlug/',{'courseSlug': courseSlug});
             var deferred = $q.defer();
 
@@ -218,8 +260,8 @@
         }
     ]);
 
-    app.factory('LessonListFactory', ['$rootScope', '$q', '$resource',
-        function($rootScope, $q, $resource, $window) {
+    app.factory('LessonListFactory', ['$q', '$resource',
+        function($q, $resource) {
             var resourceConfig = {
                 'get':  {
                     'method':'GET',
@@ -241,6 +283,27 @@
                 deferred.resolve(lessons);
             });
             return deferred.promise;
+        }
+    ]);
+    app.factory('Lesson',['$resource',
+        function($resource){
+            var resourceConfig = {
+                'get':  {
+                    'method':'GET',
+                    'params':{'course__slug': courseSlug}
+                },
+                'create':{
+                    'method':'POST',
+                    'transformRequest': function(data, getter){
+                        data.course = courseSlug;
+                        return JSON.stringify(data);
+                    }
+                },
+                'update':{
+                    'method': 'PUT'
+                }
+            };
+            return $resource('/api/lessons/:id', {'id':'@id'}, resourceConfig);
         }
     ]);
 })(angular);

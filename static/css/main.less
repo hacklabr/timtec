@@ -284,9 +284,9 @@ a.instructor {
 }
 
 // LAYOUT
-.wrapper {
-  padding-top:51px;
-}
+// .wrapper {
+//   padding-top:51px;
+// }
 
 // HOME
 #home {
@@ -344,9 +344,7 @@ a.instructor {
 
 // MAIN NAVBAR - DROPDOWN MENUS FOR SIGNIN AND SIGNUP
 #main-navbar {
-
   font-family:'Questrial';
-
   .navbar-brand {
     img {
       height: 18px;
@@ -371,24 +369,34 @@ a.instructor {
       }
     }
   }
-
-  .dropdown-signup {
-    padding:14px;
-    width:360px;
-
-    a:hover {
-      background:none !important;
-    }
-  }
-
-  a.username i {
-    margin-left:3px;
+  .submit {
+    line-height: 2.5;
   }
 }
 
+@media screen and (min-width: @screen-tablet) {
+  #main-navbar {
+    .dropdown-menu {
+      width: 400px;
+    }
+  }
+}
+
+@media screen and (max-width: @screen-phone) {
+  #main-navbar {
+    color: #fff;
+    margin-bottom: 0;
+    a {
+      color: #fff;
+    }
+    label {
+      line-height: 1;
+    }
+  }
+}
 
 // REGISTRATION AND AUTHENTICATION
-#activation-accomplished {
+#activation-wrapper {
   text-align:center;
   &:before {
     content:'';
@@ -398,7 +406,7 @@ a.instructor {
 
   .centered {
     .vertical-align(middle);
-    width:400px;
+    width:500px;
   }
 
   form {
@@ -446,6 +454,7 @@ a.instructor {
   ul {
     .title {
       display:block;
+      font-size: 16px;
       font-weight:bold;
     }
 

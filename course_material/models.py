@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class CourseMaterial(models.Model):
-    course = models.ForeignKey(Course, verbose_name=_('Course Materials'))
+    course = models.ForeignKey(Course, related_name='course_material', verbose_name=_('Course Materials'))
     text = models.TextField(_('Question'))
 
 

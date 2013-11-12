@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import json
-from datetime import datetime
 from accounts.utils import LoginRequiredMixin
 from core.models import Answer, Lesson, StudentProgress, Unit
 from django.views.generic import DetailView
+from django.utils import timezone
 from lesson.serializers import LessonSerializer, StudentProgressSerializer
 from rest_framework import status, viewsets
 from rest_framework.response import Response
@@ -19,6 +19,12 @@ class LessonViewSet(viewsets.ModelViewSet):
     model = Lesson
     serializer_class = LessonSerializer
     filter_fields = ('course__slug',)
+
+    def get_queryset(self):
+        queryset = super(LessonViewSet, self).get_queryset()
+        if self.request.user.is_active:
+            return queryset
+        return queryset.filter(published=True)
 
 
 class StudentProgressViewSet(viewsets.ModelViewSet):
@@ -48,11 +54,11 @@ class UpdateStudentProgressView(APIView):
 
         response = {}
         if not unit.activity:
-            progress, created = StudentProgress.objects.get_or_create(user=user, unit=unit,
-                                                                      complete=datetime.now())
-            if created:
-                response['msg'] = 'Unit completed.'
-                response['complete'] = progress.complete
+            progress, created = StudentProgress.objects.get_or_create(user=user, unit=unit)
+            progress.complete = timezone.now()
+            progress.save()
+            response['msg'] = 'Unit completed.'
+            response['complete'] = progress.complete
         return Response(response, status=status.HTTP_201_CREATED)
 
 
@@ -75,7 +81,7 @@ class ReceiveAnswerView(APIView):
 
             progress, created = StudentProgress.objects.get_or_create(user=user, unit=unit)
             if answer.is_correct():
-                progress.complete = datetime.now()
+                progress.complete = timezone.now()
             progress.save()
 
             json_answer = {

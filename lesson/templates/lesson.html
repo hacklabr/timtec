@@ -36,7 +36,7 @@ $(document).ready(function() {
             <i class="icon-chevron-down"></i>
           </button>
           <ul class="dropdown-menu">
-            {% for list_lesson in lesson.course.lesson_set.all %}
+            {% for list_lesson in lesson.course.public_lessons %}
             <li><a href="{% url 'lesson' list_lesson.slug %}"><span class="title">{{ list_lesson.name }}</span></a></li>
             {% endfor %}
           </ul>
@@ -50,7 +50,7 @@ $(document).ready(function() {
       <div class="row">
 
         {% verbatim %}
-        <div class="col-lg-1 col-sm-1">
+        <div class="col-lg-1 col-md-1 col-sm-1">
 
           <a style="display:block;" data-placement="right" data-original-title="{{ unit.position + 1 }}"
              title="{{ unit.video.name }}"
@@ -70,19 +70,23 @@ $(document).ready(function() {
       </div>
     </section>
 
-    <section class="course-instructions col-sm-10 col-sm-offset-1 hidden-lg">
-      <div class="page-header-double">
-        <h3><i class="icon-double-angle-right"></i> Notas do professor</h3>
-      </div>
-      {{ lesson.notes|safe }}
-    </section>
+    <div class="row hidden-lg">
+        <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
+            <section class="course-instructions">
+              <div class="page-header-double">
+                <h3><i class="icon-double-angle-right"></i> Notas do professor</h3>
+              </div>
+              {{ lesson.notes|safe }}
+            </section>
+        </div>
+    </div>
 
   <!-- END COURSE-VIDEO -->
 
   <!-- FORUM -->
   <div class="row">
     {% include "_forum_inline.html"  with course=lesson.course %}
-    <div class="col-lg-3 hidden-md">
+    <div class="col-lg-3 hidden-md hidden-sm">
       <section class="course-instructions">
         <div class="page-header-double">
           <h3><i class="icon-double-angle-right"></i> Notas do professor</h3>

@@ -8,7 +8,7 @@
 
     <title>{% block title %}Timtec{% endblock %}</title>
 
-    <script src="//www.youtube.com/iframe_api"></script>
+    <script src="//youtube.com/iframe_api"></script>
 
     {% compressed_css 'common' %}
     {% compressed_css 'public' %}
@@ -23,6 +23,31 @@
     <script type="text/javascript" src="{% static 'js/flatui-checkbox.js' %}" charset="utf-8"></script>
     <script type="text/javascript" src="{% static 'js/flatui-radio.js' %}" charset="utf-8"></script>
 
+    <script type="text/javascript" charset="utf-8">
+        (function(){
+            function resize_player() {
+                var $p = $('#youtube-player');
+                $p.css('width','100%');
+                $p.height(Math.floor($p.width() * 0.5624));
+            }
+            
+            function resize_activation_wrapper() {
+                windowHeight = window.innerHeight;
+                navbarHeight = $('#main-navbar').innerHeight();
+                footerHeight = $('#main-footer').innerHeight();
+                $('#activation-wrapper').innerHeight(windowHeight - (navbarHeight + footerHeight + 58));
+            }
+
+            $(document).ready(function() {
+                $('.has-tooltip').tooltip();
+                $(document).on('DOMNodeInserted','#player-outter', resize_player);
+                resize_player();
+                resize_activation_wrapper();
+            });
+            $(window).resize(resize_player);
+            $(window).resize(resize_activation_wrapper);
+        })();
+    </script>
     {% endblock %}
 </head>
 <body>
@@ -54,10 +79,5 @@ window.STATIC_URL = '{{ STATIC_URL }}'
         {% endblock %}
     </div>
     {% include 'footer.html' %}
-
-    <script type="text/javascript" charset="utf-8">
-        $(document).ready(function() {$('.has-tooltip').tooltip();})
-    </script>
-
 </body>
 </html>

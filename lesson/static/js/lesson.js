@@ -44,8 +44,12 @@ function initialize_code_mirror($scope, data, expected) {
 
     app.controller('LessonMainCtrl', ['$scope', 'LessonData',
         function ($scope, LessonData) {
-            $scope.currentUnitPos = parseInt( /#\/(\d+)/.extract(location.hash, 1), 10);
-            $scope.currentUnitPos = Math.max($scope.currentUnitPos, 1);
+            var match = location.hash.match(/^#\/(\d+)/);
+            if(match) {
+                $scope.currentUnitPos = parseInt( match[1], 10);
+            } else {
+                $scope.currentUnitPos = 1;
+            }
 
             $scope.isSelected = function(i){
                 return ($scope.currentUnitPos-1) === i;
@@ -70,10 +74,10 @@ function initialize_code_mirror($scope, data, expected) {
 
             $scope.nextVideo = function() {
                 $main.currentUnitPos++;
-                $location.path('/' + $main.currentUnitPos);
+                $location.path('/' + $main.currentUnitPos).search('autoplay', null);
             };
             $scope.replayVideo = function() {
-                $location.path('/'+$main.currentUnitPos);
+                $location.path('/' + $main.currentUnitPos).search('autoplay', 1);
             };
 
             $scope.sendOrNext = function() {
@@ -150,11 +154,11 @@ function initialize_code_mirror($scope, data, expected) {
             var onPlayerStateChange = function (event) {
                 if (event.data === YT.PlayerState.ENDED) {
                     if( $scope.currentUnit.activity ) {
-                        $location.path('/' + $main.currentUnitPos + '/activity');
+                        $location.path('/' + $main.currentUnitPos + '/activity').search('autoplay', null);
                     } else {
                         if ($main.currentUnitPos + 1 < $scope.lesson.units.length) {
                             $main.currentUnitPos++;
-                            $location.path('/' + $main.currentUnitPos);
+                            $location.path('/' + $main.currentUnitPos).search('autoplay', null);
                         }
                     }
 
@@ -174,6 +178,11 @@ function initialize_code_mirror($scope, data, expected) {
                 $scope.currentUnitId = $scope.currentUnit.id;
 
                 if ($scope.currentUnit.video) {
+                    if ($location.search().autoplay) {
+                        youtubePlayerApi.autoplay = 1;
+                    } else {
+                        youtubePlayerApi.autoplay = 0;
+                    }
                     youtubePlayerApi.videoId = $scope.currentUnit.video.youtube_id;
                     youtubePlayerApi.events = {
                         onStateChange: onPlayerStateChange

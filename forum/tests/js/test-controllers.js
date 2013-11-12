@@ -22,18 +22,15 @@ describe('forum controlers', function() {
     describe('QuestionCtrl', function(){
         var scope = {};
         var ctrl;
-        beforeEach(inject(function ($controller, MarkdownEditor) {
+        beforeEach(inject(function ($controller) {
 
             $httpBackend.expect('GET', '/api/forum_answer?question=1').respond([{"id": 1, "question": 1, "text": "O MySQL \u00e9 melhor, pois \u00e9 o mais usado e aceito.", "votes": 0, "timestamp": "2013-09-11T16:28:10.754Z", "username": "abcd"}, {"id": 2, "question": 1, "text": "Depende da aplica\u00e7\u00e3o. N\u00e3o h\u00e1 um SGBD que seja melhor para todas as aplica\u00e7\u00f5es.", "votes": 0, "timestamp": "2013-09-11T16:28:10.761Z", "username": "luciano"}]);
 
             scope = $rootScope.$new();
-            var MarkdownEditorMock = {
-                run: function(){}
-            };
             $window.question_id = 1;
             $window.user_id = 1;
             /* Why is MarketplaceCtrl not working? :( */
-            ctrl = $controller('QuestionCtrl', {$scope: scope, MarkdownEditor: MarkdownEditorMock});
+            ctrl = $controller('QuestionCtrl', {$scope: scope});
         }));
         it('should have a QuestionCtrl controller', (function () {
             expect(ctrl).toBeDefined();
@@ -81,7 +78,8 @@ describe('forum controlers', function() {
     describe('InlineForumCtrl', function(){
         var scope = {};
         var ctrl, response_data;
-        beforeEach(inject(function ($controller, MarkdownEditor) {
+
+        beforeEach(inject(function ($controller) {
 
             response_data = [{"id": 3, "title": "asdfasfdasfasdfdssadf", "course": 1, "answers": [5], "text": "asdfasfdsafdsafd", "slug": "asdfasfdasfasdfdssadf", "votes": 0, "timestamp": "2013-10-17T16:45:55.028Z", "username": "abcd"}, {"id": 2, "title": "Elementum dictumst adipiscing, sit, aliquet diam adipiscing tincidunt, mus nunc nunc est hac egestas amet, diam. Non urna, vel auctor, nisi mus, auctor odio, diam eu ultrices?", "course": 1, "answers": [3, 4], "text": "Nascetur proin est ridiculus aliquet mattis pellentesque integer", "slug": "elementum-dictumst-adipiscing-sit-aliquet-diam-adipiscing-tincidunt-mus-nunc-nunc-est-hac-egestas-amet-diam-non-urna-vel-auctor-nisi-mus-auctor-odio-diam-eu-ultrices", "votes": 0, "timestamp": "2013-09-11T16:36:01.488Z", "username": "abcd"}, {"id": 1, "title": "Qual \u00e9 o melhor SGBD atualmente?", "course": 1, "answers": [1, 2], "text": "Entre todos os Sistema de Gerenciamento de Bancos de Dados, quel deles \u00e9 o mais r\u00e1pido e mais seguro?", "slug": "qual-e-o-melhor-sgbd-atualmente", "votes": 0, "timestamp": "2013-09-11T15:01:55.414Z", "username": "abcd"}];
 
@@ -89,11 +87,8 @@ describe('forum controlers', function() {
                 respond(response_data);
 
             scope = $rootScope.$new();
-            var MarkdownEditorMock = {
-                run: function(){}
-            };
             $window.course_id = 1;
-            ctrl = $controller('InlineForumCtrl', {$scope: scope, MarkdownEditor: MarkdownEditorMock});
+            ctrl = $controller('InlineForumCtrl', {$scope: scope});
         }));
 
         it('should have a InlineForumCtrl controller', (function () {
@@ -108,7 +103,7 @@ describe('forum controlers', function() {
             var response_data2 = {"id": 5, "title": "Test Question", "course": 1, "answers": [], "text": "Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt.", "slug": "test-question", "votes": 0, "timestamp": "2013-10-17T18:59:16.126Z", "username": "abcd"};
             // Initialize scope variables to pass fields validation
             scope.new_question_title = 'Test Question';
-            scope.new_question_text = 'adadf';
+            scope.new_text = 'adadf';
             $httpBackend.expectPOST('/api/forum_question').
                 respond(response_data2);
             scope.new_question();
@@ -128,7 +123,7 @@ describe('forum controlers', function() {
             expect(scope.question_text_validation).toEqual('has-error');
 
             scope.new_question_title = '';
-            scope.new_question_text = 'adadf';
+            scope.new_text = 'adadf';
             scope.new_question();
             expect(scope.question_title_validation).toEqual('has-error');
             expect(scope.question_text_validation).toEqual('');
@@ -137,7 +132,7 @@ describe('forum controlers', function() {
             $httpBackend.expectPOST('/api/forum_question').
                 respond(response_data2);
             scope.new_question_title = 'Test Question';
-            scope.new_question_text = 'adadf';
+            scope.new_text = 'adadf';
             scope.new_question();
             $httpBackend.flush();
             expect(scope.question_title_validation).toEqual('');
@@ -149,7 +144,7 @@ describe('forum controlers', function() {
             $httpBackend.expectPOST('/api/forum_question').
                 respond(response_data2);
             scope.new_question_title = 'Test Question';
-            scope.new_question_text = 'adadf';
+            scope.new_text = 'adadf';
             scope.new_question();
             $httpBackend.flush();
             expect(scope.new_question_title).toEqual(undefined);

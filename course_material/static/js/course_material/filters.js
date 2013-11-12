@@ -2,7 +2,7 @@
 
 /* Filters */
 
-angular.module('forum.filters', ["ngSanitize"]).
+angular.module('courseMaterial.filters', ["ngSanitize"]).
     filter('markdown', ['$window', function($window) {
         return function(text) {
             return text ? Markdown.getSanitizingConverter().makeHtml(text) : "";
