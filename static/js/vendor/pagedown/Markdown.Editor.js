@@ -1156,7 +1156,9 @@
         var inputBox = panels.input,
             buttons = {}; // buttons.undo, buttons.link, etc. The actual DOM elements.
 
-        makeSpritedButtonRow();
+        if (!Modernizr.touch) {
+            makeSpritedButtonRow();
+        }
 
         var keyEvent = "keydown";
         if (uaSniffed.isOpera) {
