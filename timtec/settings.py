@@ -10,7 +10,8 @@ TEMPLATE_DEBUG = DEBUG
 SITE_ID = 1
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Admin1', 'root@timtec.com.br'),
+    ('Admin2', 'timtec-dev@timtec.com.br'),
 )
 
 MANAGERS = ADMINS
@@ -153,6 +154,7 @@ PIPELINE_CSS = {
 PIPELINE_JS = {
     'all': {
         'source_filenames': (
+            'js/vendor/modernizr.js',
             'js/vendor/jquery-1.10.2.js',
             'js/vendor/bootstrap.js',
             'js/vendor/angular.js',
