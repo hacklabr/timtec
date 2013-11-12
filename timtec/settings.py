@@ -157,6 +157,7 @@ PIPELINE_JS = {
             'js/vendor/bootstrap.js',
             'js/vendor/angular.js',
             'js/vendor/angular-*.js',
+            'js/contact_form.js',
             'js/helpers.js',
 
             # codemirror stuff
@@ -227,6 +228,7 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
     'allauth.account.context_processors.account',
     'allauth.socialaccount.context_processors.socialaccount',
+    'core.context_processors.contact_form',
 )
 
 # Django Suit configuration example

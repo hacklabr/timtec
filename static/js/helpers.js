@@ -6,3 +6,9 @@ RegExp.prototype.extract = function(target,group){
         return m[0];
     }
 };
+
+if(jQuery) {
+    jQuery.fn.asArray = function() {
+        return Array.prototype.slice.call(this);
+    };
+}
