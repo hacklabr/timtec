@@ -178,7 +178,7 @@ function initialize_code_mirror($scope, data, expected) {
                 $scope.currentUnitId = $scope.currentUnit.id;
 
                 if ($scope.currentUnit.video) {
-                    if ($location.search('autoplay')) {
+                    if ($location.search().autoplay) {
                         youtubePlayerApi.autoplay = 1;
                     } else {
                         youtubePlayerApi.autoplay = 0;
