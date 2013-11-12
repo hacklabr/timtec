@@ -299,17 +299,24 @@ a.instructor {
     margin-top: 40px;
     .course{
       background: @gray-lighter;
-      margin-bottom: 30px;
+      margin-bottom: 60px;
       .img {
         background-color: @brand-warning;
+        overflow: hidden;
+        position: relative;
         height: 145px;
         width: 100%;
       }
       .info {
+        height: 120px;
+        margin-bottom: 20px;
+        max-height: 120px;
+        overflow: hidden;
         padding: 10px 20px;
+        position: relative;
         h1 {
           font-size: 24px;
-          margin: 0;
+          margin: 0 0 10px 0;
           a {
             color: @gray;
           }
@@ -319,15 +326,24 @@ a.instructor {
             color: @gray-light;
           }
         }
-        .enroll {
-          margin: 20px -20px -10px -20px;
-          button {
-            font-size: 14px;
-            text-transform: uppercase;
-            i {
-              font-size: 18px;
-              margin-left: 5px;
-            }
+      }
+      .enroll {
+        .date {
+          color: @brand-info;
+          font-size: 18px;
+          font-style: italic;
+          margin-left: 20px;
+          margin-top: 10px;
+        }
+        
+        span.btn, button {
+          border-radius: 0;
+          font-size: 14px;
+          text-transform: uppercase;
+          i {
+            font-size: 20px;
+            margin-left: 5px;
+            margin-right: 5px;
           }
         }
       }
