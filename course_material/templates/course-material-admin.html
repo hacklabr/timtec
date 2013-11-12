@@ -1,0 +1,109 @@
+{% extends 'admin/admin-base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% load timtec_markdown %}
+
+{% block head %}
+{{ block.super }}
+{% include "_course_material_angular.html" %}
+{% endblock %}
+
+{% block content %}
+<!-- CONTAINER -->
+<div>
+    <!-- HEADER -->
+    <header id="main-header" class="container">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-9 col-lg-9">
+                    <h1 class="top editable">{{ course.name }}</h1>
+                    <h5><span class="icon-addable icon-plus-sign-alt"></span> Adicionar professores ao curso</h5>
+                </div>
+                <div class="col-sm-3 col-lg-3 textright">
+                    <!-- COURSE-SECTION-NAV -->
+                    <nav class="course-sections textright">
+                        <a href="{% url 'course_admin' course.slug %}">
+                            <span class="has-tooltip icon-home" data-toggle="tooltip" data-placement="top" data-original-title="Intro"></span>
+                        </a>
+                        <a href="{% url 'course_material_admin' course.slug %}">
+                            <span class="has-tooltip icon-exclamation-sign" data-toggle="tooltip" data-placement="top" data-original-title="Material Didádico"></span>
+                        </a>
+                    </nav>
+                    <!-- END COURSE-SECTION-NAV -->
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <!-- MAIN CONTENT -->
+    <section id="main-content" class="container">
+        <div class="row">
+            <div class="col-sm-9 col-lg-9" ng-app="courseMaterial" ng-controller="CourseMaterialEditorCtrl">
+                <p class="description">
+                    <span class="description" ng-bind-html="course_material.text|markdown"></span>
+                </p>
+                <a data-toggle="modal" href="#course-material-modal">Editar texto</a>
+                {% verbatim %}
+                <div class="modal fade" id="course-material-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h4 class="modal-title">Editar material didático</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="text-editor" markdowneditor="true">
+                                    <div class="row">
+                                        <div class="col-lg-12 js-button-bar"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 form-group">
+                                            <textarea id="wmd-input" ng-model="editor_text" class="col-lg-12 form-control" rows="15"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="js-preview"></div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" ng-click="reset()" class="btn btn-default" data-dismiss="modal">
+                                        Cancelar
+                                    </button>
+                                    <button type="button" ng-click="save()" class="btn btn-primary" data-dismiss="modal">
+                                        Save changes
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endverbatim %}
+            </div>
+            <!-- ASIDE -->
+            <aside class="col-sm-3 col-lg-3">
+                <form action="{% url 'file_upload' course.slug %}" class="dropzone textcenter" drop-zone id="file-dropzone">
+                    <p>
+                        <strong>Drop</strong> files to upload
+                        <br>
+                        (or click)
+                    </p>
+                    {% csrf_token %}
+                </form>
+                <ul class="uploaded-files-list">
+                    <li>
+                        <h5>{% trans "Files" %}</h5>
+                    </li>
+                    {% for file in course_material.files.all %}
+                    <li>
+                        <a href="{{ file.file.url }}">{{ file.file.name }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </aside>
+            <!-- END ASIDE -->
+        </div>
+    </section>
+    <!-- END MAIN CONTENT-->
+</div>
+<!-- END CONTAINER -->
+{% endblock %}

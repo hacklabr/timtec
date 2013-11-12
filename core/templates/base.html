@@ -29,8 +29,9 @@
     <script type="text/javascript" charset="utf-8">
         (function(){
             function resize_player() {
-                $('#youtube-player').css('width','100%')
-                                    .height($('#youtube-player').width() * 0.5625);
+                var $p = $('#youtube-player');
+                $p.css('width','100%');
+                $p.height(Math.floor($p.width() * 0.5624));
             }
             
             function resize_activation_wrapper() {
