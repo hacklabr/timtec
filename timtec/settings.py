@@ -153,6 +153,7 @@ PIPELINE_CSS = {
 PIPELINE_JS = {
     'all': {
         'source_filenames': (
+            'js/vendor/modernizr.js',
             'js/vendor/jquery-1.10.2.js',
             'js/vendor/bootstrap.js',
             'js/vendor/angular.js',
