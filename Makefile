@@ -24,7 +24,7 @@ create-production:
 	mkdir -p ~/webfiles/static
 	mkdir -p ~/webfiles/media
 	cp timtec/settings_local_production.py timtec/settings_local.py
-	cp ../setting_production.py timtec/settings_production.py
+	cp ../settings_production.py timtec/settings_production.py
 	~/env/bin/pip install -r requirements.txt
 	~/env/bin/python manage.py syncdb --noinput --no-initial-data
 	~/env/bin/python manage.py migrate --noinput --no-initial-data
