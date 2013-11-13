@@ -31,6 +31,13 @@ DATABASES = {
 }
 
 
+METRON_SETTINGS = {
+    "google": {
+        1: "set-your-google-analytics-key-here",
+    },
+}
+
+
 LOGIN_URL = '/login/'
 
 LOGIN_REDIRECT_URL = '/'
