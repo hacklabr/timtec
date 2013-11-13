@@ -2,7 +2,7 @@
 
 (function($){
     $(function(){
-        $("#modal-contact form:first").submit(function(evt){
+        $('#modal-contact form:first').submit(function(evt){
             var $this = $(this);
             evt.preventDefault();
 
@@ -11,7 +11,7 @@
                 $(document.body).notify('Mensagem não enviada!', 'alert-danger');
             }).done(function(){
                 $this.removeClass('.has-error');
-                $("#modal-contact").modal("hide");
+                $('#modal-contact').modal('hide');
                 $(document.body).notify('Mensagem enviada!', 'alert-success');
             });
             return false;
