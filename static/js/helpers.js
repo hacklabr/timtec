@@ -18,20 +18,20 @@ RegExp.prototype.extract = function(target,group){
         setTimeout(function(){ $div.remove(); }, 5000);
     };
 
-    $.fn.asyncSubmit = function(evt) {
+    $.fn.asyncSubmit = function() {
         var $this = $(this);
-        var action = $(this).attr('action');
-        var method = $(this).attr('method');
+        var action = $this.attr('action');
+        var method = $this.attr('method');
 
         var data = {};
-        $(this).find(':input').each(function(i,e){
+        $this.find(':input').each(function(i,e){
             data[ $(e).attr('name') ] = $(e).val();
         });
 
-        request = $.ajax({
-          url: action,
-          type: method,
-          data: data
+        var request = $.ajax({
+            url: action,
+            type: method,
+            data: data
         });
         return request;
     };

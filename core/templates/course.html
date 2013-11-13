@@ -102,7 +102,11 @@
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                     <p>
+                      {% if lesson.is_ready %}
                       <a href="{% url 'lesson' lesson.slug %}" class="title">{{ lesson.name }}</a>
+                      {% else %}
+                      <span class="title">{{ lesson.name }}</span>
+                      {% endif %}
                       <span class="description">{{ lesson.desc }}</span>
                     </p>
                     <div class="hidden-xs">
@@ -124,7 +128,9 @@
                         </tr>
                       </table>
                     </div>
+                    {% if lesson.is_ready %}
                     <p><i class="icon-youtube-play"></i> <small>{{ lesson.video_count }} {% trans "videos" %}</small> | <i class="icon-list"></i> <small>{{ lesson.activity_count }} {% trans "activities" %}</small></p>
+                    {% endif %}
                   </div>
                 </div>
               </li>

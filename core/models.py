@@ -108,9 +108,9 @@ class Video(models.Model):
 
 class Course(models.Model):
     STATES = (
-        ('new', _('New')),
-        ('private', _('Private')),
-        ('public', _('Public')),
+        ('draft', _('Draft')),
+        ('listed', _('Listed')),
+        ('published', _('Published')),
     )
 
     slug = models.SlugField(_('Slug'), max_length=255, unique=True)
@@ -122,7 +122,7 @@ class Course(models.Model):
     structure = models.TextField(_('Structure'))
     workload = models.TextField(_('Workload'))
     pronatec = models.TextField(_('Pronatec'))
-    status = models.CharField(_('Status'), choices=STATES, default=STATES[0][0], max_length=128)
+    status = models.CharField(_('Status'), choices=STATES, default=STATES[0][0], max_length=64)
     publication = models.DateField(_('Publication'), )
     professors = models.ManyToManyField(TimtecUser, related_name='professorcourse_set', through='CourseProfessor')
     students = models.ManyToManyField(TimtecUser, related_name='studentcourse_set', through='CourseStudent')
@@ -140,7 +140,7 @@ class Course(models.Model):
 
     @property
     def public_lessons(self):
-        return self.lesson_set.filter(published=True)
+        return self.lesson_set.exclude(status='draft')
 
     def first_lesson(self):
         if self.lesson_set.exists():
@@ -203,13 +203,19 @@ class CourseProfessor(models.Model):
 
 
 class Lesson(models.Model):
-    slug = models.SlugField(_('Slug'), max_length=255, editable=False, unique=True)
-    name = models.CharField(_('Name'), max_length=255)
-    desc = models.CharField(_('Description'), max_length=255)
-    notes = models.TextField(_('Notes'), default="", blank=True)
+    STATES = (
+        ('draft', _('Draft')),
+        ('listed', _('Listed')),
+        ('published', _('Published')),
+    )
+
     course = models.ForeignKey(Course, verbose_name=_('Course'))
+    desc = models.CharField(_('Description'), max_length=255)
+    name = models.CharField(_('Name'), max_length=255)
+    notes = models.TextField(_('Notes'), default="", blank=True)
     position = PositionField(collection='course', default=0)
-    published = models.BooleanField(_('Published'), default=False)
+    slug = models.SlugField(_('Slug'), max_length=255, editable=False, unique=True)
+    status = models.CharField(_('Status'), choices=STATES, default=STATES[0][0], max_length=64)
 
     class Meta:
         verbose_name = _('Lesson')
@@ -240,6 +246,9 @@ class Lesson(models.Model):
 
     def video_count(self):
         return self.units.exclude(video=None).count()
+
+    def is_ready(self):
+        return self.status == 'published' and self.units.exists()
 
 
 class Activity(models.Model):
