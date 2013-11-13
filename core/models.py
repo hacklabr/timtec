@@ -140,7 +140,7 @@ class Course(models.Model):
 
     @property
     def public_lessons(self):
-        return self.lesson_set.filter(published=True)
+        return self.lesson_set.exclude(status='draft')
 
     def first_lesson(self):
         if self.lesson_set.exists():
