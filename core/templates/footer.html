@@ -14,8 +14,6 @@
 </div>
 <!-- END FOOTER -->
 
-
-
 <div class="modal fade" id="modal-about">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -55,11 +53,12 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-1">
-                        <form class="form-horizontal">
+                        <form class="form-horizontal" onsubmit="$(this).asyncSubmit()" method="post" action="{% url 'contact' %}">
+                            {% csrf_token %}
                             <div class="form-group">
                                 <label class="col-lg-4 control-label">Sou</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control">
+                                    <select class="form-control" name="{{contact_form.occupation.name}}">
                                         <option>Estudante</option>
                                         <option>Professor</option>
                                         <option>Jornalista</option>
@@ -71,7 +70,7 @@
                             <div class="form-group">
                                 <label class="col-lg-4 control-label">Quero falar sobre</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control">
+                                    <select class="form-control" name="{{contact_form.subject.name}}">
                                         <option>Problemas no registro de usuários</option>
                                         <option>Problemas técnicos</option>
                                         <option>Acessibilidade para estudantes</option>
@@ -84,24 +83,24 @@
                             <div class="form-group">
                                 <label class="col-lg-4 control-label">Nome</label>
                                 <div class="col-lg-8">
-                                    <input type="text" class="form-control"/>
+                                    <input required type="text" class="form-control" name="{{contact_form.name.name}}"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-4 control-label">Email</label>
                                 <div class="col-lg-8">
-                                    <input type="text" class="form-control"/>
+                                    <input required type="email" class="form-control" name="{{contact_form.email.name}}"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-4 control-label">Mensagem</label>
                                 <div class="col-lg-8">
-                                    <textarea class="form-control" rows="6"></textarea>
+                                    <textarea required class="form-control" rows="6" name="{{contact_form.message.name}}"></textarea>
                                 </div>
                             </div>
                             <div class="submit textright">
-                                <button class="btn btn-danger">Cancelar</button>
-                                <button class="btn btn-success">Enviar</button>
+                                <button type="reset" class="btn btn-danger">Limpar</button>
+                                <button type="submit" class="btn btn-success">Enviar</button>
                             </div>
                         </form>
                     </div>

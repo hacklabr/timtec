@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import json
+
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.views.generic import DetailView
@@ -11,11 +13,34 @@ from rest_framework.response import Response
 from serializers import CourseSerializer
 from models import Course, StudentProgress
 
+from forms import ContactForm
+
 
 class HomeView(View):
     def get(self, request):
         latest = Course.objects.latest('publication')
         return redirect(reverse('course_intro', args=[latest.slug]))
+
+
+class ContactView(View):
+    def post(self, request):
+        status_code = 200
+        contact_form = ContactForm(request.POST)
+
+        if contact_form.is_valid():
+            contact_form.send_email()
+            content = json.dumps([])
+        else:
+            status_code = 400
+            content = json.dumps(contact_form.errors)
+
+        response = self.options(request)
+        response['Content-Type'] = 'application/json'
+        response['Content-Length'] = len(content)
+        response.content = content
+        response.status_code = status_code
+
+        return response
 
 
 class CourseView(DetailView):
