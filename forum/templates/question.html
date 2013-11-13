@@ -81,16 +81,16 @@
                                             <div class="votes">{{ answer.votes }}</div>
                                             <!-- <div class="votes" ng-init="answer_votes{{ answer.pk }}={{ answer.count_votes }}">{{ answer_votes }}</div> -->
                                             <div class="arrow-down" ng-class="user_answer_vote_down" ng-click=voteDown($index)></div>
-                                            <div class="set-correct col-lg-12 col-md-12 col-sm-12">
+                                            <!-- <div class="set-correct col-lg-12 col-md-12 col-sm-12">
                                                <i class="icon-ok"></i>
-                                           </div>
+                                           </div> -->
                                         </div><!-- .rating -->
                                     </div>
                                 </div>
                                 <div class="answer-body col-lg-10 col-md-10 col-sm-10">
                                     <p ng-bind-html="answer.text|markdown"></p>
-                                    <p class="author clearfix">
-                                        resposta feita em <strong>{{ answer.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ answer.username }}">{{ answer.username }}</a>
+                                    <p class="author textright clearfix">
+                                        Resposta feita em <strong>{{ answer.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ answer.username }}">{{ answer.username }}</a>
                                     </p>
                                 </div><!-- .answer-body -->
                             </div>
