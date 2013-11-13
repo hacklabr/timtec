@@ -10,8 +10,8 @@ TEMPLATE_DEBUG = DEBUG
 SITE_ID = 1
 
 ADMINS = (
-    ('Admin1', 'root@timtec.com.br'),
-    ('Admin2', 'timtec-dev@timtec.com.br'),
+    ('Admin1', 'root@localhost'),
+    ('Admin2', 'timtec-dev@listas.hacklab.com.br'),
 )
 
 MANAGERS = ADMINS
