@@ -214,7 +214,6 @@ class Lesson(models.Model):
     name = models.CharField(_('Name'), max_length=255)
     notes = models.TextField(_('Notes'), default="", blank=True)
     position = PositionField(collection='course', default=0)
-    published = models.BooleanField(_('Published'), default=False)
     slug = models.SlugField(_('Slug'), max_length=255, editable=False, unique=True)
     status = models.CharField(_('Status'), choices=STATES, default=STATES[0][0], max_length=64)
 
@@ -250,6 +249,7 @@ class Lesson(models.Model):
 
     def is_ready(self):
         return self.status == 'published' and self.units.exists()
+
 
 class Activity(models.Model):
     """
