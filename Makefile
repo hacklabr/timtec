@@ -42,6 +42,9 @@ update-production:
 	~/env/bin/python manage.py compilemessages
 	touch timtec/wsgi.py
 
+test_collectstatic:
+	python manage.py collectstatic --noinput -n
+
 python_tests:
 	find . -type f -name '*.py[co]' -exec rm {} \;
 	py.test --pep8 --flakes --cov . . $*
@@ -49,7 +52,7 @@ python_tests:
 karma_tests:
 	karma start tests/confkarma.js $*
 
-all_tests: python_tests karma_tests
+all_tests: test_collectstatic python_tests karma_tests
 
 setup_ci:
 	psql -c 'create database timtec_ci;' -U postgres
