@@ -216,6 +216,21 @@ a.instructor {
   padding-top:@padding !important;
 }
 
+@media screen and (max-width: @screen-phone) {
+  .bottom-xs {
+    .bottom(0,0);
+  }
+  .left-xs {
+    .left(0,0);
+  }
+  .right-xs {
+    .right(0,0);
+  }
+  .top-xs {
+    .top(0,0);
+  }
+}
+
 // Calculate width
 .calculate-width(@value:0) {
   width:-moz-calc(~'100% - @{value}');
