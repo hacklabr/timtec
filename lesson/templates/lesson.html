@@ -50,7 +50,7 @@ $(document).ready(function() {
       <div class="row">
 
         {% verbatim %}
-        <div class="col-lg-1 col-md-1 col-sm-1">
+        <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs">
 
           <a style="display:block;" data-placement="right" data-original-title="{{ unit.position + 1 }}"
              title="{{ unit.video.name }}"
@@ -63,6 +63,25 @@ $(document).ready(function() {
             <span class="position">{{ unit.position + 1 }}</span>
             <i class="icon-list" ng-if="unit.activity !== null"></i>
           </a>
+        </div>
+        <div class="col-xs-12 visible-xs">
+          <div class="btn-group button-watching">
+            <button type="button" class="btn btn-sm btn-default">Unidade {{ currentUnitPos }}
+            </button>
+            <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+              <i class="icon-chevron-down"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li ng-repeat="unit in lesson.units">
+                <a href="#/{{ $index+1 }}"
+                   ng-click="select($index)">
+                   <span class="title">Unidade {{ unit.position + 1 }}</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <br/>
+          <br/>
         </div>
         {% endverbatim %}
 
