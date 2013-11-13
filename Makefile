@@ -49,6 +49,9 @@ python_tests:
 	find . -type f -name '*.py[co]' -exec rm {} \;
 	py.test --pep8 --flakes --cov . . $*
 
+js_tests:
+	find . -path ./static/js/vendor -prune -o -name '*js' -exec jshint {} \;
+
 karma_tests:
 	karma start tests/confkarma.js $*
 
@@ -66,7 +69,7 @@ setup_coveralls:
 	pip install -q coveralls --use-mirrors
 
 setup_js:
-	sudo `which npm` -g install less yuglify karma --loglevel silent
+	sudo `which npm` -g install less yuglify karma jshint --loglevel silent
 
 setup_django:
 	python manage.py syncdb --all --noinput
