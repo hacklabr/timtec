@@ -53,7 +53,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-1">
-                        <form class="form-horizontal" onsubmit="$(this).asyncSubmit()" method="post" action="{% url 'contact' %}">
+                        <form class="form-horizontal" method="post" action="{% url 'contact' %}">
                             {% csrf_token %}
                             <div class="form-group">
                                 <label class="col-lg-4 control-label">Sou</label>
