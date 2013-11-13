@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 
 from django.conf import settings
 
+
 class ContactForm(forms.Form):
     occupation = forms.CharField(label=_('Occupation'), max_length=128)
     subject = forms.CharField(label=_('Subject'), max_length=128)
@@ -17,8 +18,8 @@ class ContactForm(forms.Form):
         name = self.cleaned_data.get('name')
         email = self.cleaned_data.get('email')
         message = self.cleaned_data.get('message')
-        
-        recipient_list = [ '%s <%s>' % manager for manager in settings.MANAGERS]
+
+        recipient_list = ['%s <%s>' % manager for manager in settings.MANAGERS]
         sender = '%s <%s>' % (name, email,)
 
         send_mail(subject, message, sender, recipient_list, fail_silently=False)

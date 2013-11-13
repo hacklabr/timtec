@@ -15,6 +15,7 @@ from models import Course, StudentProgress
 
 from forms import ContactForm
 
+
 class HomeView(View):
     def get(self, request):
         latest = Course.objects.latest('publication')
@@ -40,6 +41,7 @@ class ContactView(View):
         response.status_code = status_code
 
         return response
+
 
 class CourseView(DetailView):
     model = Course
