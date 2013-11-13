@@ -297,44 +297,58 @@ a.instructor {
   #courses {
     margin-bottom: 40px;
     margin-top: 40px;
-    .course{
-      margin-bottom: 60px;
+    .course {
+      margin-bottom: 40px;
       .img {
-        overflow: hidden;
-        position: relative;
         height: 145px;
+        position: relative;
+        overflow: hidden;
       }
       .info {
-        background: @gray-lighter;
-        height: 120px;
-        max-height: 120px;
-        overflow: hidden;
-        padding: 10px 20px;
+        background-color: @gray-lighter;
+        height: 160px;
+        max-height: 160px;
+        padding: 10px;
         position: relative;
+        overflow: hidden;
         h1 {
-          font-size: 24px;
-          margin: 10px 0 5px;
-          a {
-            color: @gray;
-          }
+          color: @gray;
+          font-size: 20px;
+          max-height: 50px;
+          overflow: hidden;
+          position:relative;
         }
-        .instructor {
-          a {
-            color: @gray-light;
-          }
+        .instructors {
+          color: @gray-light;
+          font-style: italic;
+          max-height: 18px;
+          overflow: hidden;
+          position:relative;
+        }
+        .abstract {
+          font-size: 12px;
+          height: 51px;
+          position: relative;
+          overflow: hidden;
         }
       }
       .enroll {
-        span.btn {
-          cursor: default;
+        background-color: @brand-success;
+        color: #fff;
+        font-family: 'Questrial';
+        line-height: 3;
+        &:hover {
+          background-color: darken(@brand-success, 5%);
+          .transition(all .25s ease-out);
         }
-        span.btn, button {
-          border-radius: 0;
-          font-size: 14px;
-          text-transform: uppercase;
+        i {
+          margin-left: 10px;
+          margin-right: 10px;
         }
-        span.btn-success {
-          .button-variant(#fff; darken(@brand-success, 5%); transparent);
+        .enroll-link {
+          a {
+            color: #fff;
+          }
         }
       }
     }
