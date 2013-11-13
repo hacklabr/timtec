@@ -23,9 +23,13 @@
     <script type="text/javascript" src="{% static 'js/vendor/flatui-checkbox.js' %}" charset="utf-8"></script>
     <script type="text/javascript" src="{% static 'js/vendor/flatui-radio.js' %}" charset="utf-8"></script>
 
-    {% load metron_tags %}
-    {% analytics %}
-
+    <!--
+    { load metron_tags %}
+    { analytics %}
+    !-->
+    <script type="text/javascript">
+        _gaq = new Array();
+    </script>
     <script type="text/javascript" charset="utf-8">
         (function(){
             function resize_player() {
