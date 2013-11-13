@@ -168,6 +168,7 @@ PIPELINE_JS = {
             'js/vendor/angular-*.js',
             'js/contact_form.js',
             'js/helpers.js',
+            'js/angular-youtube.js',
 
             # codemirror stuff
             'js/vendor/codemirror/lib/codemirror.js',
