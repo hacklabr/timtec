@@ -3,7 +3,7 @@
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-SITE_ID = 3
+SITE_ID = 1
 
 ALLOWED_HOSTS = [
     'timtec-dev.hacklab.com.br',
@@ -14,14 +14,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'timtec',
-        'USER': 'timtec-dev',
     }
 }
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'localhost'
-EMAIL_SUBJECT_PREFIX = '[timtec-staging]'
-DEFAULT_FROM_EMAIL = 'timtec-staging@timtec.com.br'
+EMAIL_SUBJECT_PREFIX = '[timtec-dev]'
 
 LOGGING = {
     'version': 1,
