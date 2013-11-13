@@ -71,3 +71,6 @@ setup_django:
 
 settings_ci:
 	cp timtec/settings_local_ci.py timtec/settings_local.py
+	
+dumpdata:
+	python manage.py dumpdata --indent=2 -n -e south.migrationhistory -e admin.logentry -e socialaccount.socialaccount -e socialaccount.socialapp -e sessions.session -e contenttypes.contenttype -e auth.permission -e account.emailconfirmation -e socialaccount.socialtoken
