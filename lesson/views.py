@@ -69,7 +69,16 @@ class AnswerViewSet(viewsets.ModelViewSet):
 
     def pre_save(self, obj):
         obj.user = self.request.user
-        return super(AnswerViewSet, self).pre_save(obj)
+
+    def post_save(self, obj, **kwargs):
+        unit = self.request.DATA.get('unit', None)
+        user = self.request.user
+        progress, created = StudentProgress.objects.get_or_create(user=user, unit_id=unit)
+
+        if obj.is_correct():
+            progress.complete = timezone.now()
+        progress.save()
+
 
     def get_queryset(self):
         return Answer.objects.all()

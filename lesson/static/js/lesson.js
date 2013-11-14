@@ -70,8 +70,8 @@ function initialize_code_mirror($scope, data, expected) {
 
             $scope.alternatives = [];
             $scope.currentUnitIndex = $main.currentUnitPos - 1;
-            $scope.answer = {'given': null};
             $scope.sendOrNextText = 'Enviar';
+            $scope.answer = new Answer({'given': null });
 
             $scope.nextVideo = function() {
                 $main.currentUnitPos++;
@@ -82,7 +82,7 @@ function initialize_code_mirror($scope, data, expected) {
             };
 
             $scope.sendOrNext = function() {
-                if ($scope.correct) {
+                if ($scope.answer.correct) {
                     $scope.nextVideo();
                 } else {
                     $scope.sendAnswer();
@@ -90,26 +90,14 @@ function initialize_code_mirror($scope, data, expected) {
             };
 
             $scope.sendAnswer = function() {
-                function tellResult(data) {
-                    var correct = data.correct;
-
-                    if(correct){
-                        _gaq.push(['_trackEvent', 'Activity', 'Result', '', 1]);
-                        $scope.currentUnit.progress = {complete : true};
-                        $scope.correct = true;
-                        $scope.sendOrNextText = "Continuar";
-                    } else {
-                        _gaq.push(['_trackEvent', 'Activity', 'Result', '', 0]);
-                    }
-
-                    $scope.isCorrect = correct;
-                }
-                _gaq.push(['_trackEvent', 'Activity', 'Submit']);
-
-                var answer = new Answer();
-                answer.given = $scope.answer.given;
+                var answer = $scope.answer;
+                answer.unit = $scope.currentUnit.id;
                 answer.activity = $scope.currentUnit.activity.id;
-                answer.$save().then(tellResult);
+                answer.$save().then(function(d){
+                    _gaq.push(['_trackEvent', 'Activity', 'Result', '', d.correct]);
+                    $scope.sendOrNextText = d.correct ? 'Continuar' : 'Enviar';
+                    $scope.currentUnit.progress = { complete : d.correct };
+                });
 
             };
 
