@@ -95,18 +95,18 @@ function initialize_code_mirror($scope, data, expected) {
                         expected  = data.expected;
 
                     if(correct){
-                        ga('send', 'event', 'activiTy', 'result', '', 1);
+                        ga('send', 'event', 'activity', 'result', '', 1);
                         $scope.currentUnit.progress = {complete : true};
                         $scope.correct = true;
                         $scope.sendOrNextText = "Continuar";
                     } else {
-                        ga('send', 'event', 'activiTy', 'result', '', 0);
+                        ga('send', 'event', 'activity', 'result', '', 0);
                     }
 
                     $scope.isCorrect = correct;
                 }
 
-                ga('send', 'event', 'activiTy', 'submit');
+                ga('send', 'event', 'activity', 'submit');
 
                 $http({
                     'method': 'POST',
@@ -217,7 +217,7 @@ function initialize_code_mirror($scope, data, expected) {
                     }).success(function(data){
                         $scope.currentUnit.progress = {complete: data.complete};
                         if (data.complete) {
-                            _gaq.push(["_trackEvent", "Unit", "Unit Completed"]);
+                            ga("send", "event", "unit", "unit completed");
                         }
                     });
                     $scope.$apply();

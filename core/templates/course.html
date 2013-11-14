@@ -23,9 +23,9 @@
           {% else %}
             <a
               {% if user.is_authenticated %}
-                onClick="_gaq.push(['_trackEvent', 'Course', 'Take the course', 'Authenticated User', 1]);"
+                onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 1);"
               {% else %}
-                onClick="_gaq.push(['_trackEvent', 'Course', 'Take the course', 'Authenticated User', 0]);"
+                onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 0);"
               {% endif %}
               href="{% url "enroll_course" course.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Take the Class" %}</a>
           {% endif %}

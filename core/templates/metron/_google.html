@@ -7,8 +7,6 @@
     ga('create', '{{ code }}', 'timtec.com.br');
     ga('send', 'pageview');
 
-    var _gaq = _gaq || [];
-    _gaq.push(['_trackPageLoadTime']);
     {% for action in actions %}
         _gaq.{{ action.method }}(
             {% for arg in action.args %}
