@@ -20,6 +20,7 @@ function initialize_code_mirror($scope, data, expected) {
 (function (angular) {
     "use strict";
 
+    var _gaq = window._gaq || [];
     var app = angular.module('lesson', ['ngRoute', 'ngResource', 'youtube', 'forum']);
 
     var ACTIVITY_TEMPLATE_PATH = function(the_type){
@@ -63,8 +64,8 @@ function initialize_code_mirror($scope, data, expected) {
         }
     ]);
 
-    app.controller('LessonActivityCtrl', ['$scope', '$location', '$routeParams', '$http', 'LessonData',
-        function ($scope, $location, $routeParams, $http, LessonData) {
+    app.controller('LessonActivityCtrl', ['$scope', '$location', '$routeParams', '$http', 'LessonData', 'Answer',
+        function ($scope, $location, $routeParams, $http, LessonData, Answer) {
             var $main = $scope.$parent;
 
             $scope.alternatives = [];
@@ -90,9 +91,7 @@ function initialize_code_mirror($scope, data, expected) {
 
             $scope.sendAnswer = function() {
                 function tellResult(data) {
-                    var correct = data.correct,
-                        given  = data.given,
-                        expected  = data.expected;
+                    var correct = data.correct;
 
                     if(correct){
                         _gaq.push(['_trackEvent', 'Activity', 'Result', '', 1]);
@@ -105,15 +104,13 @@ function initialize_code_mirror($scope, data, expected) {
 
                     $scope.isCorrect = correct;
                 }
-
                 _gaq.push(['_trackEvent', 'Activity', 'Submit']);
 
-                $http({
-                    'method': 'POST',
-                    'url': '/api/answer/' + $scope.currentUnitId,
-                    'data': 'given=' + JSON.stringify($scope.answer.given),
-                    'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
-                }).success(tellResult);
+                var answer = new Answer();
+                answer.given = $scope.answer.given;
+                answer.activity = $scope.currentUnit.activity.id;
+                answer.$save().then(tellResult);
+
             };
 
             LessonData.then(function (lesson) {
@@ -241,6 +238,12 @@ function initialize_code_mirror($scope, data, expected) {
                     youtubePlayerApi.loadPlayer();
                 }
             });
+        }
+    ]);
+
+    app.factory('Answer',['$resource',
+        function($resource){
+            return $resource('/api/answer/:id', {'id':'@id'});
         }
     ]);
 

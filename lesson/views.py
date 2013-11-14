@@ -4,7 +4,7 @@ from accounts.utils import LoginRequiredMixin
 from core.models import Answer, Lesson, StudentProgress, Unit
 from django.views.generic import DetailView
 from django.utils import timezone
-from lesson.serializers import LessonSerializer, StudentProgressSerializer
+from lesson.serializers import AnswerSerializer, LessonSerializer, StudentProgressSerializer
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -62,35 +62,14 @@ class UpdateStudentProgressView(APIView):
         return Response(response, status=status.HTTP_201_CREATED)
 
 
-class ReceiveAnswerView(APIView):
+class AnswerViewSet(viewsets.ModelViewSet):
     model = Answer
+    serializer_class = AnswerSerializer
+    filter_fields = ('activity', 'user',)
 
-    def post(self, request, unitId=None):
-        user = request.user
-        unitId = int(unitId)
+    def pre_save(self, obj):
+        obj.user = self.request.user
+        return super(AnswerViewSet, self).pre_save(obj)
 
-        try:
-            unit = Unit.objects.get(id=unitId)
-        except Unit.DoesNotExist as e:
-            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
-        if 'given' in request.POST:
-            answer = Answer(activity=unit.activity, user=user)
-            answer.given = json.loads(request.POST.get('given', None))
-            answer.save()
-
-            progress, created = StudentProgress.objects.get_or_create(user=user, unit=unit)
-            if answer.is_correct():
-                progress.complete = timezone.now()
-            progress.save()
-
-            json_answer = {
-                'expected': answer.expected,
-                'given': answer.given,
-                'correct': answer.is_correct(),
-                'complete': progress.complete
-            }
-
-            return Response(json_answer, status=status.HTTP_201_CREATED)
-
-        return Response({'error': 'Error receiving the Answer'}, status=status.HTTP_400_BAD_REQUEST)
+    def get_queryset(self):
+        return Answer.objects.all()
