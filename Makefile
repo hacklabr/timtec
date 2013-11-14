@@ -50,7 +50,7 @@ python_tests:
 	py.test --pep8 --flakes --cov . . $*
 
 js_tests:
-	find . -path ./static/js/vendor -prune -o -name '*js' -exec jshint {} \;
+	find . -path ./static/js/vendor -prune -o -path static/js/vendor/ -prune -o -path ./tests/js/lib -prune -path tests/js/lib/ -prune -o -name '*.js' -exec jshint {} \;
 
 karma_tests:
 	karma start tests/confkarma.js $*
