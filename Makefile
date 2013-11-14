@@ -85,3 +85,6 @@ reset_db:
 	python manage.py reset_db --router=default --noinput -U $(USER)
 	python manage.py syncdb --noinput
 	python manage.py migrate --noinput
+
+messages:
+	python manage.py makemessages -a -d django
