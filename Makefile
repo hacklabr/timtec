@@ -40,6 +40,7 @@ update-production:
 	~/env/bin/python manage.py migrate --noinput
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
+	cp ../settings_production.py timtec/settings_production.py
 	touch timtec/wsgi.py
 
 test_collectstatic:
