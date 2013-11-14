@@ -1,9 +1,14 @@
 <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics_debug.js','ga');
+
+    ga('create', '{{ code }}', 'timtec.com.br');
+    ga('send', 'pageview');
+
     var _gaq = _gaq || [];
-    // _gaq.push(['_setAccount', '{{ code }}']);
-    // _gaq.push(['_trackPageview']);
     _gaq.push(['_trackPageLoadTime']);
-    // _gaq.push(['_setCustomVar', 1, 'Authentication Type', ut, 2]);
     {% for action in actions %}
         _gaq.{{ action.method }}(
             {% for arg in action.args %}
@@ -11,13 +16,4 @@
             {% endfor %}
         );
     {% endfor %}
-
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics_debug.js','ga');
-
-  ga('create', {{ code }}, 'timtec.com.br');
-  ga('send', 'pageview');
-
 </script>
