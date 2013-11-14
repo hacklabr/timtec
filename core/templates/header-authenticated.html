@@ -38,9 +38,8 @@
     </div>
 </nav>
 <script type="text/javascript">
- _gaq.push(['_setCustomVar', 1, 'id', '{{ user.id }}', 2],
-           ['_setCustomVar', 2, 'user_type', '{{ user.get_user_type }}', 2],
-           ['_setCustomVar', 3, 'is_pilot', '{{ user.is_pilot }}', 2]
- );
+ga('set', 'dimension1', '{{ user.id }}');
+ga('set', 'dimension2', '{{ user.get_user_type }}');
+ga('set', 'dimension3', '{{ user.is_pilot }}');
 </script>
 <!-- END NAVBAR -->

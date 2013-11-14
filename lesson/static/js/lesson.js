@@ -95,18 +95,18 @@ function initialize_code_mirror($scope, data, expected) {
                         expected  = data.expected;
 
                     if(correct){
-                        _gaq.push(['_trackEvent', 'Activity', 'Result', '', 1]);
+                        ga('send', 'event', 'activity', 'result', '', 1);
                         $scope.currentUnit.progress = {complete : true};
                         $scope.correct = true;
                         $scope.sendOrNextText = "Continuar";
                     } else {
-                        _gaq.push(['_trackEvent', 'Activity', 'Result', '', 0]);
+                        ga('send', 'event', 'activity', 'result', '', 0);
                     }
 
                     $scope.isCorrect = correct;
                 }
 
-                _gaq.push(['_trackEvent', 'Activity', 'Submit']);
+                ga('send', 'event', 'activity', 'submit');
 
                 $http({
                     'method': 'POST',
@@ -160,7 +160,7 @@ function initialize_code_mirror($scope, data, expected) {
 
             var onPlayerStateChange = function (event) {
                 if (event.data == YT.PlayerState.PLAYING){
-                        _gaq.push(['_trackEvent', 'Videos', 'Play', $scope.currentUnit.video.youtube_id]);
+                        ga('send', 'event', 'videos', 'play', $scope.currentUnit.video.youtube_id);
                         //thy video plays
                         //reaffirm the pausal beast is not with us
                         _pauseFlag = false;
@@ -171,11 +171,11 @@ function initialize_code_mirror($scope, data, expected) {
                 }
                 //should the video tire out and cease
                 if (event.data == YT.PlayerState.ENDED){
-                    _gaq.push(['_trackEvent', 'Videos', 'Watch to End', $scope.currentUnit.video.youtube_id]);
+                    ga('send', 'event', 'videos', 'watch To end', $scope.currentUnit.video.youtube_id);
                     if (whole === 'started') {
                         var stop = new Date().getTime();
                         var delta_s = (stop - start) / 1000;
-                        _gaq.push(['_trackEvent', 'Videos', 'Time to End', $scope.currentUnit.video.youtube_id, Math.round(delta_s)]);
+                        ga('send', 'event', 'videos', 'time tO end', $scope.currentUnit.video.youtube_id, Math.round(delta_s));
                         whole = 'ended';
                     }
                 }
@@ -184,7 +184,7 @@ function initialize_code_mirror($scope, data, expected) {
                 //lo the pause event will spawn a many headed monster
                 //with events overflowing
                 if (event.data == YT.PlayerState.PAUSED && _pauseFlag === false){
-                    _gaq.push(['_trackEvent', 'Videos', 'Pause', $scope.currentUnit.video.youtube_id]);
+                    ga('send', 'event', 'videos', 'pause', $scope.currentUnit.video.youtube_id);
                     //tell the monster it may have
                     //but one head
                     _pauseFlag = true;
@@ -192,12 +192,12 @@ function initialize_code_mirror($scope, data, expected) {
                 //and should the monster think, before it doth play
                 //after we command it to move
                 if (event.data == YT.PlayerState.BUFFERING){
-                    _gaq.push(['_trackEvent', 'Videos', 'Buffering', $scope.currentUnit.video.youtube_id]);
+                    ga('send', 'event', 'videos', 'bufferIng', $scope.currentUnit.video.youtube_id);
                 }
                 //and should it cue
                 //for why not track this as well.
                 if (event.data == YT.PlayerState.CUED){
-                    _gaq.push(['_trackEvent', 'Videos', 'Cueing', $scope.currentUnit.video.youtube_id]);
+                    ga('send', 'event', 'videos', 'cueing', $scope.currentUnit.video.youtube_id);
                 }
 
                 if (event.data === YT.PlayerState.ENDED) {
@@ -217,7 +217,7 @@ function initialize_code_mirror($scope, data, expected) {
                     }).success(function(data){
                         $scope.currentUnit.progress = {complete: data.complete};
                         if (data.complete) {
-                            _gaq.push(["_trackEvent", "Unit", "Unit Completed"]);
+                            ga("send", "event", "unit", "unit completed");
                         }
                     });
                     $scope.$apply();
