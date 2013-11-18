@@ -1,5 +1,5 @@
 import json
-from core.models import *
+from core.models import Activity, Answer, Lesson, StudentProgress, Unit, Video
 from rest_framework import serializers
 
 

@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import json
 from accounts.utils import LoginRequiredMixin
 from core.models import Answer, Lesson, StudentProgress, Unit
 from django.views.generic import DetailView
@@ -78,7 +77,6 @@ class AnswerViewSet(viewsets.ModelViewSet):
         if obj.is_correct():
             progress.complete = timezone.now()
         progress.save()
-
 
     def get_queryset(self):
         return Answer.objects.all()
