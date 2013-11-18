@@ -71,7 +71,7 @@ function initialize_code_mirror($scope, data, expected) {
             $scope.alternatives = [];
             $scope.currentUnitIndex = $main.currentUnitPos - 1;
             $scope.sendOrNextText = 'Enviar';
-            $scope.answer = new Answer({'given': null });
+            $scope.answer = {given: null, correct: null};
 
             $scope.nextVideo = function() {
                 $main.currentUnitPos++;
@@ -90,12 +90,13 @@ function initialize_code_mirror($scope, data, expected) {
             };
 
             $scope.sendAnswer = function() {
-                var answer = $scope.answer;
+                var answer = new Answer({'given': $scope.answer.given});
                 answer.unit = $scope.currentUnit.id;
                 answer.activity = $scope.currentUnit.activity.id;
                 answer.$save().then(function(d){
                     ga('send', 'event', 'activity', 'result', '', d.correct);
                     $scope.sendOrNextText = d.correct ? 'Continuar' : 'Enviar';
+                    $scope.answer.correct = d.correct;
                     $scope.currentUnit.progress = { complete : d.correct };
                 });
                 ga('send', 'event', 'activity', 'submit');
