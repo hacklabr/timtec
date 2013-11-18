@@ -18,16 +18,17 @@
                 <label class="radio bottom top">
                     <input ng-model="$parent.answer.given[$index]" type="radio"
                            name="unit-{{currentUnitId}}-alt-{{$index}}"
-                           id="optioncheckbox-{{$index}}" ng-value="true" radio/>
+                           id="optioncheckbox-{{$index}}-true" ng-value="true" radio/>
                 </label>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 textcenter">
                 <label class="radio bottom top">
                     <input ng-model="$parent.answer.given[$index]" type="radio"
                            name="unit-{{currentUnitId}}-alt-{{$index}}"
-                           id="optioncheckbox-{{$index}}" ng-value="false" radio/>
+                           id="optioncheckbox-{{$index}}-false" ng-value="false" radio/>
                 </label>
             </div>
         </div>
     </div>
+    <!--<small>{{$parent.answer.given}}</small>-->
 </div>
