@@ -82,9 +82,16 @@ class EnrollCourseView(LoginRequiredMixin, RedirectView):
         return reverse('lesson', args=[course.first_lesson().slug])
 
 
-class AdminCourseView(LoginRequiredMixin, UpdateView):
+class AdminCourseView(LoginRequiredMixin, GroupRequiredMixin, UpdateView):
     model = Course
     template_name = 'admin/_base.html'
+    group_required = u'professors'
+
+    def get_redirect_field_name(self):
+        """
+        Override this method to customize the redirect_field_name.
+        """
+        return reverse('course_intro', args=[self.kwargs['slug']])
 
 
 class CourseViewSet(viewsets.ModelViewSet):
