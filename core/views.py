@@ -6,9 +6,9 @@ from django.shortcuts import redirect
 from django.views.generic import DetailView
 from django.views.generic.base import RedirectView, View, TemplateView
 from django.views.generic.edit import UpdateView
-from accounts.utils import LoginRequiredMixin
 from rest_framework import viewsets
 from rest_framework.response import Response
+from braces.views import LoginRequiredMixin, GroupRequiredMixin
 
 from serializers import CourseSerializer
 from models import Course, StudentProgress
