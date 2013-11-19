@@ -12,10 +12,6 @@ class JSONSerializerField(serializers.WritableField):
             return json.loads(data)
         return None
 
-    def from_native(self, obj):
-        return json.dumps(obj)
-
-
 class AnswerSerializer(serializers.ModelSerializer):
     user = serializers.Field(source='user')
     correct = serializers.Field(source='is_correct')

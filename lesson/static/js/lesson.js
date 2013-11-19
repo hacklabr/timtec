@@ -93,6 +93,7 @@ function initialize_code_mirror($scope, data, expected) {
                 var answer = new Answer({'given': $scope.answer.given});
                 answer.unit = $scope.currentUnit.id;
                 answer.activity = $scope.currentUnit.activity.id;
+                delete answer.id;
                 answer.$save().then(function(d){
                     ga('send', 'event', 'activity', 'result', '', d.correct);
                     $scope.sendOrNextText = d.correct ? 'Continuar' : 'Enviar';
@@ -287,9 +288,31 @@ function initialize_code_mirror($scope, data, expected) {
         };
     });
 
-    app.directive('checkbox', function () {
-        return function (scope, element) {
-            $(element).checkbox();
+    app.directive('checkbox', function(){
+        return {
+            'restrict': 'E',
+            'require': 'ngModel',
+            'scope': {
+                'options': '=',
+                'checked': '=ngModel',
+                'label': '=label'
+            },
+            'template': '<label class="checkbox" ng-class="{checked: checked}"> \
+                            <span class="icons"> \
+                                <span class="first-icon icon-check-empty"></span> \
+                                <span class="second-icon icon-check"></span> \
+                            </span> \
+                            <input type="checkbox" ng-model="checked"/>{{ label }} \
+                        </label>',
+            'replace':true,
+            'link': function(scope, element, attr, ctrl) {
+
+            },
+            'controller': ['$scope', '$element', function($scope, $element){
+                $element.find('span.icons').click(function(){
+                    $scope.checked = !$scope.checked;
+                });
+            }]
         };
     });
 
