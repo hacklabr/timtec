@@ -11,7 +11,7 @@ create-staging:
 update-staging:
 	dropdb timtec-staging
 	createdb timtec-staging
-	xzcat ~hacklab/sql-backup/last.psql.xz | psql timtec-staging
+	pg_restore -d timtec-staging ../hacklab/sql-backup/last.psqlc
 	cp timtec/settings_local_staging.py timtec/settings_local.py
 	~/env/bin/pip install -r requirements.txt
 	~/env/bin/python manage.py syncdb --all --noinput
