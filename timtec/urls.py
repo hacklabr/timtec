@@ -4,13 +4,13 @@ from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 
 # Uncomment the next two lines to enable the admin:
-from django.contrib import admin
-admin.autodiscover()
+from django.contrib import admin as django_admin
+django_admin.autodiscover()
 
 from django.views.generic import TemplateView
 from accounts.views import CustomLoginView, ProfileEditView, ProfileView
-from core.views import CourseView, CourseViewSet, EnrollCourseView, HomeView, UserCoursesView, ContactView  # AdminCourseView,
 from forum.views import AnswerViewSet as ForumAnswerViewSet
+from core.views import CourseView, CourseViewSet, EnrollCourseView, HomeView, UserCoursesView, ContactView
 from lesson.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, AnswerViewSet, UpdateStudentProgressView
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, QuestionVoteViewSet, AnswerVoteViewSet
 from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialAdminView, CourseMaterialViewSet
@@ -35,10 +35,14 @@ urlpatterns = patterns(
 
     # Uncomment the next line to enable the admin:
     url(r'^django/admin/doc/', include('django.contrib.admindocs.urls')),
-    url(r'^django/admin/', include(admin.site.urls)),
+    url(r'^django/admin/', include(django_admin.site.urls)),
 
     # Privileged browsing
+<<<<<<< HEAD
     # url(r'^admin/course/(?P<slug>[-a-zA-Z0-9_]+)$', AdminCourseView.as_view(), name='course_admin'),
+=======
+    url(r'^admin/', include('admin.urls')),
+>>>>>>> decouple admin
 
     # Public browsing
     url(r'^my-courses$', UserCoursesView.as_view(), name='user_courses'),
