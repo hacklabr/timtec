@@ -19,6 +19,7 @@ class JSONSerializerField(serializers.WritableField):
 class AnswerSerializer(serializers.ModelSerializer):
     user = serializers.Field(source='user')
     correct = serializers.Field(source='is_correct')
+    given = JSONSerializerField('given')
 
     class Meta:
         model = Answer

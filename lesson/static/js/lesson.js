@@ -20,7 +20,7 @@ function initialize_code_mirror($scope, data, expected) {
 (function (angular) {
     "use strict";
 
-    var _gaq = window._gaq || [];
+    var ga = window.ga || function(){ };
     var app = angular.module('lesson', ['ngRoute', 'ngResource', 'youtube', 'forum']);
 
     var ACTIVITY_TEMPLATE_PATH = function(the_type){
@@ -112,19 +112,31 @@ function initialize_code_mirror($scope, data, expected) {
                     );
                 }
 
-                if (unit.activity.type == 'multiplechoice') {
-                    $scope.answer.given = $scope.alternatives.map(
-                        function(a,i){ return false; }
-                    );
-                } else if (unit.activity.type == 'trueorfalse') {
-                    $scope.answer.given = $scope.alternatives.map(
-                        function(a,i){ return null; }
-                    );
-                } else if(unit.activity.type === 'relationship') {
-                    $scope.answer.given = unit.activity.data.column1.map(
-                        function(a,i){ return null; }
-                    );
-                } else if(unit.activity.type === 'html5') {
+                if(unit.activity.id) {
+                    var extractLatest = function (list) {
+                        if(list.length > 0)
+                            $scope.answer = list.pop();
+                    };
+                    Answer.query({'activity': unit.activity.id}, extractLatest);
+                }
+
+                if( !$scope.answer.given ) {
+                    if (unit.activity.type === 'multiplechoice') {
+                        $scope.answer.given = $scope.alternatives.map(
+                            function(a,i){ return false; }
+                        );
+                    } else if (unit.activity.type === 'trueorfalse') {
+                        $scope.answer.given = $scope.alternatives.map(
+                            function(a,i){ return null; }
+                        );
+                    } else if(unit.activity.type === 'relationship') {
+                        $scope.answer.given = unit.activity.data.column1.map(
+                            function(a,i){ return null; }
+                        );
+                    }
+                }
+
+                if(unit.activity.type === 'html5') {
                     /** TODO: initialize this in proprer way (fabio) */
                     setTimeout(function () {
                         initialize_code_mirror($scope, unit.activity.data.data, unit.activity.expected.expected_answer);
@@ -279,6 +291,5 @@ function initialize_code_mirror($scope, data, expected) {
             $(element).checkbox();
         };
     });
-
 
 })(angular);

@@ -6,11 +6,10 @@
         <div class="col-lg-2 col-lg-offset-8 col-md-2 col-md-offset-8 col-sm-2 col-sm-offset-8 textcenter">Verdadeiro</div>
         <div class="col-lg-2 col-md-2 col-sm-2 textcenter">Falso</div>
     </div>
-    
-    <div class="answer" ng-repeat="alt in alternatives">
+    <div class="answer" ng-repeat="alt in alternatives track by $index">
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-8">
-                <label class="_checkbox" for="optioncheckbox-{{$index}}">
+                <label class="radio">
                     {{ alt.title }}
                 </label>
             </div>
@@ -18,14 +17,14 @@
                 <label class="radio bottom top">
                     <input ng-model="$parent.answer.given[$index]" type="radio"
                            name="unit-{{currentUnitId}}-alt-{{$index}}"
-                           id="optioncheckbox-{{$index}}" ng-value="true" radio/>
+                           id="optionradio-{{$index}}-true" ng-value="true" radio />
                 </label>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 textcenter">
                 <label class="radio bottom top">
                     <input ng-model="$parent.answer.given[$index]" type="radio"
                            name="unit-{{currentUnitId}}-alt-{{$index}}"
-                           id="optioncheckbox-{{$index}}" ng-value="false" radio/>
+                           id="optionradio-{{$index}}-false" ng-value="false" radio />
                 </label>
             </div>
         </div>
