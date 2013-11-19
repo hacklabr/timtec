@@ -9,6 +9,9 @@ create-staging:
 	mkdir -p ~/webfiles/media
 
 update-staging:
+	dropdb timtec-staging
+	createdb timtec-staging
+	xzcat ~hacklab/sql-backup/last.psql.xz | psql timtec-staging
 	cp timtec/settings_local_staging.py timtec/settings_local.py
 	~/env/bin/pip install -r requirements.txt
 	~/env/bin/python manage.py syncdb --all --noinput
