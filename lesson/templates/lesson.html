@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% load staticfiles %}
+{% load timtec_markdown %}
+
 {% block content %}
 
 <script type="text/javascript">
@@ -116,7 +118,7 @@ $(document).ready(function() {
               <div class="page-header-double">
                 <h3><i class="icon-double-angle-right"></i> Notas do professor</h3>
               </div>
-              {{ lesson.notes|safe }}
+              {{ lesson.notes|timtec_markdown }}
             </section>
         </div>
     </div>
@@ -126,12 +128,12 @@ $(document).ready(function() {
   <!-- FORUM -->
   <div class="row">
     {% include "_forum_inline.html"  with course=lesson.course %}
-    <div class="col-lg-3 hidden-md hidden-sm">
+    <div class="col-lg-3 hidden-md hidden-sm hidden-xs">
       <section class="course-instructions">
         <div class="page-header-double">
           <h3><i class="icon-double-angle-right"></i> Notas do professor</h3>
         </div>
-        {{ lesson.notes|safe }}
+        {{ lesson.notes|timtec_markdown }}
       </section>
 
       <section class="course-social" style="position:relative;overflow:hidden;">

@@ -12,6 +12,7 @@ update-staging:
 	cp timtec/settings_local_staging.py timtec/settings_local.py
 	~/env/bin/pip install -r requirements.txt
 	~/env/bin/python manage.py syncdb --all --noinput
+	~/env/bin/python manage.py migrate --noinput
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
 	touch timtec/wsgi.py
@@ -40,6 +41,7 @@ update-production:
 	~/env/bin/python manage.py migrate --noinput
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
+	cp ../settings_production.py timtec/settings_production.py
 	touch timtec/wsgi.py
 
 test_collectstatic:
@@ -50,7 +52,7 @@ python_tests:
 	py.test --pep8 --flakes --cov . . $*
 
 js_tests:
-	find . -path ./static/js/vendor -prune -o -name '*js' -exec jshint {} \;
+	find . -path ./static/js/vendor -prune -o -path static/js/vendor/ -prune -o -path ./tests/js/lib -prune -path tests/js/lib/ -prune -o -name '*.js' -exec jshint {} \;
 
 karma_tests:
 	karma start tests/confkarma.js $*
@@ -85,3 +87,6 @@ reset_db:
 	python manage.py reset_db --router=default --noinput -U $(USER)
 	python manage.py syncdb --noinput
 	python manage.py migrate --noinput
+
+messages:
+	python manage.py makemessages -a -d django

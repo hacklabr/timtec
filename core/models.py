@@ -350,3 +350,7 @@ class StudentProgress(models.Model):
 
     def __unicode__(self):
         return u'%s @ %s c: %s la: %s' % (self.user, self.unit, self.complete, self.last_access)
+
+
+__all__ = ('Activity', 'Answer', 'Course', 'CourseProfessor', 'CourseStudent',
+           'Lesson', 'StudentProgress', 'TimtecUser', 'Unit', 'Video',)

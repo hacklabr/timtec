@@ -1,5 +1,5 @@
 import json
-from core.models import Activity, Lesson, StudentProgress, Unit, Video
+from core.models import Activity, Answer, Lesson, StudentProgress, Unit, Video
 from rest_framework import serializers
 
 
@@ -14,6 +14,16 @@ class JSONSerializerField(serializers.WritableField):
 
     def from_native(self, obj):
         return json.dumps(obj)
+
+
+class AnswerSerializer(serializers.ModelSerializer):
+    user = serializers.Field(source='user')
+    correct = serializers.Field(source='is_correct')
+
+    class Meta:
+        model = Answer
+        allow_add_remove = True
+        fields = ('id', 'activity', 'correct', 'user', 'timestamp', 'given',)
 
 
 class VideoSerializer(serializers.ModelSerializer):

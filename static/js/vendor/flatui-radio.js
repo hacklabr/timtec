@@ -94,7 +94,7 @@
     $(document).on('click.radio.data-api', '[data-toggle^=radio], .radio', function (e) {
         var $radio = $(e.target);
         if (e.target.tagName != "A") {
-            e && e.preventDefault() && e.stopPropagation();
+            e && e.stopPropagation();
             if (!$radio.hasClass('radio')) $radio = $radio.closest('.radio');
             $radio.find(':radio').radio('toggle');
         }
