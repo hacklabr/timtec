@@ -38,11 +38,7 @@ urlpatterns = patterns(
     url(r'^django/admin/', include(django_admin.site.urls)),
 
     # Privileged browsing
-<<<<<<< HEAD
-    # url(r'^admin/course/(?P<slug>[-a-zA-Z0-9_]+)$', AdminCourseView.as_view(), name='course_admin'),
-=======
     url(r'^admin/', include('admin.urls')),
->>>>>>> decouple admin
 
     # Public browsing
     url(r'^my-courses$', UserCoursesView.as_view(), name='user_courses'),
