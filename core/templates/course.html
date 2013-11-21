@@ -102,7 +102,7 @@
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                     <p>
-                      {% if lesson.is_ready %}
+                      {% if lesson.is_ready and user_is_enrolled %}
                       <a href="{% url 'lesson' lesson.slug %}" class="title">{{ lesson.name }}</a>
                       {% else %}
                       <span class="title">{{ lesson.name }}</span>
@@ -114,15 +114,26 @@
                         <tr>
                           {% for unit in lesson.units.all %}
                           <td>
-                            <a class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
-                               data-toggle="tooltip" data-placement="bottom"
-                               data-original-title="Unidade {{ forloop.counter }}"
-                               href="{% url 'lesson' lesson.slug %}#/{{ forloop.counter }}">
+                            {% if lesson.is_ready and user_is_enrolled %}
+                              <a class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
+                                 data-toggle="tooltip" data-placement="bottom"
+                                 data-original-title="Unidade {{ forloop.counter }}"
+                                 href="{% url 'lesson' lesson.slug %}#/{{ forloop.counter }}">
 
-                              {% if unit.activity %}
-                              <i class="icon-list"></i>
-                              {% endif %}
-                            </a>
+                                {% if unit.activity %}
+                                <i class="icon-list"></i>
+                                {% endif %}
+                              </a>
+                            {% else %}
+                              <span class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
+                                 data-toggle="tooltip" data-placement="bottom"
+                                 data-original-title="Unidade {{ forloop.counter }}">
+
+                                {% if unit.activity %}
+                                <i class="icon-list"></i>
+                                {% endif %}
+                              </span>
+                            {% endif %}
                           </td>
                           {% endfor %}
                         </tr>
