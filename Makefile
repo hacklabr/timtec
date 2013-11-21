@@ -20,7 +20,7 @@ update-staging:
 	~/env/bin/python manage.py compilemessages
 	rm -rf ~/webfiles/media/
 	cp -r ~timtec-production/webfiles/media ~/webfiles/
-	touch timtec/wsgi.py
+	touch ~/wsgi-reload
 
 staging: create-staging update-staging
 
