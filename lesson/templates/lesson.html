@@ -50,19 +50,14 @@ $(document).ready(function() {
     <!-- END LESSON NAVIGATION FOR TABLET AND DESKTOP -->
 
     <!-- LESSON NAVIGATION FOR PHONE -->
-    <nav class="nav-lesson-xs row visible-xs">
-      <div class="btn-group col-xs-12">
-        <button type="button" class="col-xs-10 textleft btn btn-sm btn-info">{{ lesson.name }}</button>
-        <button type="button" class="col-xs-2 btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown">
-          <i class="icon-chevron-down"></i>
-        </button>
-        <ul class="dropdown-menu">
-          {% for list_lesson in lesson.course.public_lessons %}
-          <li><a href="{% url 'lesson' list_lesson.slug %}"><span class="title">{{ list_lesson.name }}</span></a></li>
-          {% endfor %}
-        </ul>
-      </div>
-    </nav>
+    <select onchange="document.location=this.value" class="visible-xs">
+        <option>{{lesson.name}}</option>
+        {% for list_lesson in lesson.course.public_lessons %}
+            {% if list_lesson.name != lesson.name %}
+                <option value="{% url 'lesson' list_lesson.slug %}">{{ list_lesson.name }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
     <!-- END LESSON NAVIGATION FOR PHONE -->
 
 
@@ -76,18 +71,25 @@ $(document).ready(function() {
           <a style="display:block;" data-placement="right" data-original-title="{{ unit.position + 1 }}"
              title="{{ unit.video.name }}"
              href="#/{{ $index+1 }}" class="has-tooltip unit track" data-toggle="tooltip"
+             onclick="return false;"
              ng-repeat="unit in lesson.units"
              ng-class="{watching: isSelected($index), done: isDone(unit)}"
              ng-click="select($index)">
-
-            <i class="icon-caret-right" ng-if="isSelected($index)"></i>
-            <span class="position">{{ unit.position + 1 }}</span>
-            <i class="icon-list" ng-if="unit.activity !== null"></i>
+                <i class="icon-caret-right" ng-if="isSelected($index)"></i>
+                <span class="position">{{ unit.position + 1 }}</span>
+                <i class="icon-list" ng-if="unit.activity !== null"></i>
           </a>
         </div>
         <!-- END UNITS NAVIGATION FOR TABLET AND DESKTOP -->
-        
+
         <!-- UNITS NAVIGATION FOR PHONES -->
+        <select ng-model="currentUnitIndex" ng-change="select(currentUnitIndex);">
+            <option ng-repeat="unit in lesson.units"
+                    ng-value="$index"
+                    ng-selected="$index === currentUnitIndex"
+                    value="{{$index}}">Unidade {{ unit.position + 1 }}</option>
+        </select>
+
         <div class="nav-unit-xs col-xs-12 visible-xs">
           <div class="row">
             <div class="btn-group col-xs-12">

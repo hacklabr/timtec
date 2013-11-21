@@ -43,14 +43,15 @@ function initialize_code_mirror($scope, data, expected) {
         }
     ]);
 
-    app.controller('LessonMainCtrl', ['$scope', 'LessonData',
-        function ($scope, LessonData) {
+    app.controller('LessonMainCtrl', ['$scope', 'LessonData', '$location',
+        function ($scope, LessonData, $location) {
             var match = location.hash.match(/^#\/(\d+)/);
             if(match) {
-                $scope.currentUnitPos = parseInt( match[1], 10);
+                $scope.currentUnitPos = parseInt(match[1], 10);
             } else {
                 $scope.currentUnitPos = 1;
             }
+            $scope.currentUnitIndex = $scope.currentUnitPos - 1;
 
             $scope.isSelected = function(i){
                 return ($scope.currentUnitPos-1) === i;
@@ -59,7 +60,9 @@ function initialize_code_mirror($scope, data, expected) {
                 return (unit.progress || {}).complete;
             };
             $scope.select = function(i) {
-                $scope.currentUnitPos = i+1;
+                $scope.currentUnitIndex = parseInt(i,10);
+                $scope.currentUnitPos = $scope.currentUnitIndex + 1;
+                $location.path('/' + $scope.currentUnitPos);
             };
         }
     ]);
@@ -69,7 +72,6 @@ function initialize_code_mirror($scope, data, expected) {
             var $main = $scope.$parent;
 
             $scope.alternatives = [];
-            $scope.currentUnitIndex = $main.currentUnitPos - 1;
             $scope.sendOrNextText = 'Enviar';
             $scope.answer = {given: null, correct: null};
 
@@ -103,7 +105,7 @@ function initialize_code_mirror($scope, data, expected) {
             };
 
             LessonData.then(function (lesson) {
-                var unit = $scope.currentUnit = lesson.units[$scope.currentUnitIndex];
+                var unit = $scope.currentUnit = lesson.units[$main.currentUnitIndex];
                 $scope.currentUnitId = unit.id;
                 $scope.activity_template = unit.activity.template;
 
