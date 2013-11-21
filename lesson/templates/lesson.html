@@ -50,6 +50,7 @@ $(document).ready(function() {
     <!-- END LESSON NAVIGATION FOR TABLET AND DESKTOP -->
 
     <!-- LESSON NAVIGATION FOR PHONE -->
+<<<<<<< HEAD
     <p class="visible-xs">
         <select onchange="document.location=this.value" class="form-control">
             <option>{{lesson.name}}</option>
@@ -60,6 +61,16 @@ $(document).ready(function() {
             {% endfor %}
         </select>
     </p>
+=======
+    <select onchange="document.location=this.value" class="visible-xs">
+        <option>{{lesson.name}}</option>
+        {% for list_lesson in lesson.course.public_lessons %}
+            {% if list_lesson.name != lesson.name %}
+                <option value="{% url 'lesson' list_lesson.slug %}">{{ list_lesson.name }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+>>>>>>> 9295f0700f3b6d4fc0abdb339d6d5b1b7176c8df
     <!-- END LESSON NAVIGATION FOR PHONE -->
 
 
@@ -85,6 +96,7 @@ $(document).ready(function() {
         <!-- END UNITS NAVIGATION FOR TABLET AND DESKTOP -->
 
         <!-- UNITS NAVIGATION FOR PHONES -->
+<<<<<<< HEAD
         <div class="col-xs-12 visible-xs">
             <p>
                 <select ng-model="currentUnitIndex" ng-change="select(currentUnitIndex);" class="form-control">
@@ -95,6 +107,14 @@ $(document).ready(function() {
                 </select>
             </p>
         </div>
+=======
+        <select ng-model="currentUnitIndex" ng-change="select(currentUnitIndex);" class="visible-xs">
+            <option ng-repeat="unit in lesson.units"
+                    ng-value="$index"
+                    ng-selected="$index === currentUnitIndex"
+                    value="{{$index}}">Unidade {{ unit.position + 1 }}</option>
+        </select>
+>>>>>>> 9295f0700f3b6d4fc0abdb339d6d5b1b7176c8df
         <!-- END UNITS NAVIGATION FOR PHONES -->
         {% endverbatim %}
 
