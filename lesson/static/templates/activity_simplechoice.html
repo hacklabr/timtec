@@ -3,11 +3,9 @@
         </div>
         <div class="answers">
                 <div ng-repeat="alt in alternatives">
-                    <label class="radio">
-                    <input ng-model="$parent.answer.given" type="radio" name="unit-{{currentUnitId}}-alt"
-                           id="optionradio-{{$index}}" ng-value="$index" radio/>
+                    <radio ng-model="$parent.answer.given" ng-value="$index">
                         {{ alt.title }}
-                    </label>
+                    </radio>
                 </div>
             </table>
         </div>

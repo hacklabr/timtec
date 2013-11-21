@@ -331,12 +331,12 @@ class Answer(models.Model):
         expected = self.activity.expected
 
         result = unicode(given) == unicode(expected)
-        #import ipdb; ipdb.set_trace()
         return result
 
     class Meta:
         verbose_name = _('Answer')
         verbose_name_plural = _('Answers')
+        ordering = ['timestamp']
 
 
 class StudentProgress(models.Model):
