@@ -1,0 +1,204 @@
+{% extends "admin-base.html" %}
+
+{% block content %}
+
+<section id="courses">
+    <header>
+        <div class="row">
+            <div class="col-lg-6">
+                <h1>Cursos</h1>
+            </div>
+            <div class="col-lg-6 textright">
+                <button class="btn btn-lg btn-success uppercase">Novo Curso</button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="filters">
+        <div class="form-inline">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="checkbox">
+                        <label><input type="checkbox"> Todos</label>
+                        <label><input type="checkbox"> Publicado</label>
+                        <label><input type="checkbox"> Listado</label>
+                        <label><input type="checkbox"> Rascunho</label>
+                    </div>
+                </div>
+                <div class="col-lg-3 textright">
+                    <select class="form-control">
+                        <option>Ordernar ...</option>
+                        <option>Status</option>
+                        <option>Data de publicação</option>
+                        <option>Nome do curso</option>
+                    </select>
+                </div>
+                <div class="col-lg-3 textright">
+                    <input type="text" placeholder="Palavra-chave" class="form-control"/>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+    <section id="all-courses" class="courses-list">
+        <div class="course">
+            <div class="row">
+                <div class="col-lg-1">
+                    <span class="label label-success">Publicado</span>
+                </div>
+                <div class="col-lg-8">
+                    <a href="/admin/course/html5">HTML5: Introdução ao Front End</a>
+                </div>
+                <div class="col-lg-3 textright">
+                    <span class="date-label">Publicado em</span> <span class="date label label-success">Nov, 2013</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="course">
+            <div class="row">
+                <div class="col-lg-1">
+                    <span class="label label-info">Listado</span>
+                </div>
+                <div class="col-lg-8">
+                    <a href="">Introdução à Lógica de Programação</a>
+                </div>
+                <div class="col-lg-3 textright">
+                    <span class="date-label">Publicar em</span> <span class="date label label-info">Jan, 2014</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="course">
+            <div class="row">
+                <div class="col-lg-1">
+                    <span class="label label-warning">Rascunho</span>
+                </div>
+                <div class="col-lg-8">
+                    <a href="">Introdução à Linguagem de Programação PHP</a>
+                </div>
+                <div class="col-lg-3 textright">
+                    <span class="date-label">Publicar em</span> <span class="date label label-info">Jan, 2014</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="course">
+            <div class="row">
+                <div class="col-lg-1">
+                    <span class="label label-warning">Rascunho</span>
+                </div>
+                <div class="col-lg-8">
+                    <a href="">Arquitetura da Informação e Projeto de Sistemas</a>
+                </div>
+                <div class="col-lg-3 textright">
+                    <span class="date label label-danger">Sem data de publicação</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="course">
+            <div class="row">
+                <div class="col-lg-1">
+                    <span class="label label-warning">Rascunho</span>
+                </div>
+                <div class="col-lg-8">
+                    <a href="">Edição e Tratamento de Imagens</a>
+                </div>
+                <div class="col-lg-3 textright">
+                    <span class="date label label-danger">Sem data de publicação</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="course">
+            <div class="row">
+                <div class="col-lg-1">
+                    <span class="label label-warning">Rascunho</span>
+                </div>
+                <div class="col-lg-8">
+                    <a href="">Sete lições para a produção de textos</a>
+                </div>
+                <div class="col-lg-3 textright">
+                    <span class="date label label-danger">Sem data de publicação</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="course">
+            <div class="row">
+                <div class="col-lg-1">
+                    <span class="label label-warning">Rascunho</span>
+                </div>
+                <div class="col-lg-8">
+                    <a href="">Desenho de Jogos</a>
+                </div>
+                <div class="col-lg-3 textright">
+                    <span class="date label label-danger">Sem data de publicação</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="course">
+            <div class="row">
+                <div class="col-lg-1">
+                    <span class="label label-warning">Rascunho</span>
+                </div>
+                <div class="col-lg-8">
+                    <a href="">Publicação Digital em Dispositivos Móveis</a>
+                </div>
+                <div class="col-lg-3 textright">
+                    <span class="date label label-danger">Sem data de publicação</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="course">
+            <div class="row">
+                <div class="col-lg-1">
+                    <span class="label label-warning">Rascunho</span>
+                </div>
+                <div class="col-lg-8">
+                    <a href="">TIM Faz Ciência</a>
+                </div>
+                <div class="col-lg-3 textright">
+                    <span class="date label label-danger">Sem data de publicação</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="course">
+            <div class="row">
+                <div class="col-lg-1">
+                    <span class="label label-warning">Rascunho</span>
+                </div>
+                <div class="col-lg-8">
+                    <a href="">Introdução ao Uso de Banco de Dados e SQL</a>
+                </div>
+                <div class="col-lg-3 textright">
+                    <span class="date label label-danger">Sem data de publicação</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-12 textcenter">
+                <ul class="pagination">
+                    <li><a href="#">&laquo;</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">&raquo;</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- END ALL-COURSES -->
+
+</section>
+<!-- END COURSES -->
+
+
+{% endblock %}
