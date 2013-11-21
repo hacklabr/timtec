@@ -11,13 +11,15 @@ create-staging:
 update-staging:
 	dropdb timtec-staging
 	createdb timtec-staging
-	pg_restore -O -x -d timtec-staging ~hacklab/sql-backup/last.psqlc
+	pg_restore -O -x -n public -d timtec-staging ~hacklab/sql-backup/last.psqlc
 	cp timtec/settings_local_staging.py timtec/settings_local.py
 	~/env/bin/pip install -r requirements.txt
 	~/env/bin/python manage.py syncdb --all --noinput
 	~/env/bin/python manage.py migrate --noinput
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
+	rm -rf ~/webfiles/media/
+	cp -r ~timtec-production/webfiles/media ~/webfiles/
 	touch timtec/wsgi.py
 
 staging: create-staging update-staging
