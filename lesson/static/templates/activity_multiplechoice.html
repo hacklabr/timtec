@@ -3,7 +3,6 @@
 </div>
 <div class="answers multiplechoice-answers">
     <div ng-repeat="alt in alternatives" class="answer">
-        <checkbox ng-model="$parent.answer.given[$index]" label="alt.title"></checkbox>
-        <button ng-click="alt.title = $index">{{alt.title}}</button>
+        <checkbox ng-model="$parent.answer.given[$index]">{{ alt.title }}</checkbox>
     </div>
 </div>

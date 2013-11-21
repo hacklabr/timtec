@@ -14,20 +14,11 @@
                 </label>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 textcenter">
-                <label class="radio bottom top">
-                    <input ng-model="$parent.answer.given[$index]" type="radio"
-                           name="unit-{{currentUnitId}}-alt-{{$index}}"
-                           id="optionradio-{{$index}}-true" ng-value="true" radio />
-                </label>
+                <radio ng-model="$parent.answer.given[$index]" ng-value="true" />
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 textcenter">
-                <label class="radio bottom top">
-                    <input ng-model="$parent.answer.given[$index]" type="radio"
-                           name="unit-{{currentUnitId}}-alt-{{$index}}"
-                           id="optionradio-{{$index}}-false" ng-value="false" radio />
-                </label>
+                <radio ng-model="$parent.answer.given[$index]" ng-value="false" />
             </div>
         </div>
     </div>
-    <small>{{$parent.answer.given}}</small>
 </div>

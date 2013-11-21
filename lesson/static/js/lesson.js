@@ -283,37 +283,48 @@ function initialize_code_mirror($scope, data, expected) {
     ]);
 
     app.directive('radio', function () {
-        return function (scope, element) {
-            $(element).radio();
-        };
-    });
-
-    app.directive('checkbox', function(){
         return {
-            'restrict': 'E',
-            'require': 'ngModel',
-            'scope': {
-                'options': '=',
-                'checked': '=ngModel',
-                'label': '=label'
+            restrict: 'E',
+            require: 'ngModel',
+            scope: {
+                checked: '=ngModel',
+                ngValue: '='
             },
-            'template': '<label class="checkbox" ng-class="{checked: checked}"> \
+            transclude: true,
+            /*jshint multistr: true */
+            template: ' \
+                        <label class="radio" ng-class="{checked: checked == ngValue}"  ng-click="checked = ngValue"> \
                             <span class="icons"> \
                                 <span class="first-icon icon-check-empty"></span> \
                                 <span class="second-icon icon-check"></span> \
                             </span> \
-                            <input type="checkbox" ng-model="checked"/>{{ label }} \
+                            <input type="radio" ng-model="checked" ng-value="ngValue"/> \
+                            <span ng-transclude></span> \
                         </label>',
-            'replace':true,
-            'link': function(scope, element, attr, ctrl) {
+            replace: true
+        }
+    });
 
+    app.directive('checkbox', function(){
+        return {
+            restrict: 'E',
+            require: 'ngModel',
+            scope: {
+                checked: '=ngModel'
             },
-            'controller': ['$scope', '$element', function($scope, $element){
-                $element.find('span.icons').click(function(){
-                    $scope.checked = !$scope.checked;
-                });
-            }]
-        };
+            transclude: true,
+            /*jshint multistr: true */
+            template: ' \
+                        <label class="checkbox" ng-class="{checked: checked}"  ng-click="checked = !checked"> \
+                            <span class="icons"> \
+                                <span class="first-icon icon-check-empty"></span> \
+                                <span class="second-icon icon-check"></span> \
+                            </span> \
+                            <input type="checkbox" ng-model="checked"/> \
+                            <span ng-transclude></span> \
+                        </label>',
+            replace: true
+        }
     });
 
 })(angular);
