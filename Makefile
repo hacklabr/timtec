@@ -11,14 +11,16 @@ create-staging:
 update-staging:
 	dropdb timtec-staging
 	createdb timtec-staging
-	pg_restore -O -x -d timtec-staging ~hacklab/sql-backup/last.psqlc
+	pg_restore -O -x -n public -d timtec-staging ~hacklab/sql-backup/last.psqlc
 	cp timtec/settings_local_staging.py timtec/settings_local.py
 	~/env/bin/pip install -r requirements.txt
 	~/env/bin/python manage.py syncdb --all --noinput
 	~/env/bin/python manage.py migrate --noinput
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
-	touch timtec/wsgi.py
+	rm -rf ~/webfiles/media/
+	cp -r ~timtec-production/webfiles/media ~/webfiles/
+	touch ~/wsgi-reload
 
 staging: create-staging update-staging
 
@@ -35,7 +37,7 @@ create-production:
 	~/env/bin/python manage.py loaddata production
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
-	touch timtec/wsgi.py
+	touch ~/wsgi-reload
 
 update-production:
 	cp timtec/settings_local_production.py timtec/settings_local.py
@@ -45,7 +47,7 @@ update-production:
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
 	cp ../settings_production.py timtec/settings_production.py
-	touch timtec/wsgi.py
+	touch ~/wsgi-reload
 
 test_collectstatic:
 	python manage.py collectstatic --noinput -n
