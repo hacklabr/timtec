@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <!-- NAVBAR -->
-<nav id="main-navbar" class="navbar navbar-inverse" role="navigation">
+<nav id="main-navbar" class="navbar navbar-inverse navbar-authenticated" role="navigation">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -17,9 +17,14 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="main-navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <!-- <li><a href="">{% trans "Available Courses" %}</a></li> -->
-                <!-- <li><a href="{% url 'user_courses' %}">{% trans "My Courses" %}</a></li> -->
-                <!-- <li><a href="profile-notes.html">{% trans "My Notes" %}</a></li> -->
+                {% if request.user.is_superuser %}
+                {% endif %}
+                <li><a href="">{% trans "Available Courses" %}</a></li>
+                <li><a href="{% url 'user_courses' %}">{% trans "My Courses" %}</a></li>
+                <li><a href="profile-notes.html">{% trans "My Notes" %}</a></li>
+                <li class="divider"></li>
+                <li><a href="/admin/courses">{% trans "Admin" %}</a></li>
+                <li class="divider"></li>
                 <li>
                     <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
                         {{ user }}
@@ -28,8 +33,8 @@
                     <ul class="dropdown-menu">
                         <li><a href="{% url 'profile' %}">{% trans "Profile" %}</a></li>
                         <li><a href="{% url 'profile_edit' %}">{% trans "Edit Profile and Account Settings" %}</a></li>
-                        <!-- <li><a href="">{% trans "Settings" %}</a></li> -->
-                        <li class='divider'></li>
+                        <li><a href="">{% trans "Settings" %}</a></li>
+                        <div class='divider'></div>
                         <li><a href="{% url 'timtec_logout' %}">{% trans "Logout" %}</a></li>
                     </ul>
                 </li>

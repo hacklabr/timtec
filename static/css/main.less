@@ -34,6 +34,7 @@ body {
 // TYPOGRAPHY
 h1, h2, h3, h4, h5, h6 {
   font-family:'Questrial';
+  font-weight: normal;
 }
 // Headings
 h1 {
@@ -159,7 +160,7 @@ a.instructor {
 // Inverted navbar links
 @navbar-inverse-link-color:                 #fff;
 @navbar-inverse-link-hover-color:           #fff;
-@navbar-inverse-link-hover-bg:              darken(@navbar-inverse-bg, 5%);
+@navbar-inverse-link-hover-bg:              lighten(@navbar-inverse-bg, 5%);
 @navbar-inverse-link-active-color:          #fff;
 @navbar-inverse-link-active-bg:             darken(@navbar-inverse-bg, 5%);
 @navbar-inverse-link-disabled-color:        #fff;
@@ -307,6 +308,12 @@ a.instructor {
 // MAIN NAVBAR - DROPDOWN MENUS FOR SIGNIN AND SIGNUP
 #main-navbar {
   font-family:'Questrial';
+  li.divider {
+    border-left: 1px solid lighten(@navbar-inverse-bg, 5%);
+    display: block;
+    height: 50px;
+    width: 0;
+  }
   .form-group {
     margin-bottom: 15px;
   }
@@ -323,6 +330,11 @@ a.instructor {
   #main-navbar {
     .dropdown-menu {
       width: 400px;
+    }
+    &.navbar-authenticated {
+      .dropdown-menu {
+        width: 300px;
+      }
     }
   }
 }

@@ -4,16 +4,46 @@
 body#admin {
 
   #main-navbar.navbar-inverse {
-    background-color:@brand-danger;
-    border-color:darken(@brand-danger, 15%);
+    background-color: @gray;
+    border-color: darken(@gray, 15%);
+    border-radius: 0;
+    li.divider {
+      border-left: 1px solid darken(@gray, 5%);
+      display: block;
+      height: 50px;
+      width: 0;
+    }
+    a:hover {
+      background-color: darken(@gray, 5%);
+    }
   }
-
+  
+  // COURSES LIST
+  #courses {
+    > header {
+      border-bottom: 1px solid @gray-lighter;
+    }
+    .courses-list {
+      > header {
+        h1 {
+          font-size: 18px;
+          text-transform: uppercase;
+        }
+      }
+      .course {
+        border-bottom: 1px solid @gray-lighter;
+        margin: 10px 0;
+        padding-bottom: 10px;
+      }
+    }
+  }
+  
   .icon-editable {
-    color:@brand-info;
-    cursor:pointer;
-    font-size:18px;
-    margin:0 10px;
-    vertical-align:middle !important;
+    color: @brand-info;
+    cursor: pointer;
+    font-size: 18px;
+    margin: 0 10px;
+    vertical-align: middle !important;
   }
   .icon-addable {
     color:@brand-success;
