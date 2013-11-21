@@ -83,30 +83,12 @@ $(document).ready(function() {
         <!-- END UNITS NAVIGATION FOR TABLET AND DESKTOP -->
 
         <!-- UNITS NAVIGATION FOR PHONES -->
-        <select ng-model="currentUnitIndex" ng-change="select(currentUnitIndex);">
+        <select ng-model="currentUnitIndex" ng-change="select(currentUnitIndex);" class="visible-xs">
             <option ng-repeat="unit in lesson.units"
                     ng-value="$index"
                     ng-selected="$index === currentUnitIndex"
                     value="{{$index}}">Unidade {{ unit.position + 1 }}</option>
         </select>
-
-        <div class="nav-unit-xs col-xs-12 visible-xs">
-          <div class="row">
-            <div class="btn-group col-xs-12">
-              <button type="button" class="col-xs-10 btn btn-sm btn-default textleft">Unidade {{ currentUnitPos }}</button>
-              <button type="button" class="col-xs-2 btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
-                <i class="icon-chevron-down"></i>
-              </button>
-              <ul class="dropdown-menu">
-                <li ng-repeat="unit in lesson.units">
-                  <a href="#/{{ $index+1 }}" ng-click="select($index)">
-                     <span class="title">Unidade {{ unit.position + 1 }}</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
         <!-- END UNITS NAVIGATION FOR PHONES -->
         {% endverbatim %}
 
