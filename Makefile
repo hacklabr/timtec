@@ -37,7 +37,7 @@ create-production:
 	~/env/bin/python manage.py loaddata production
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
-	touch timtec/wsgi.py
+	touch ~/wsgi-reload
 
 update-production:
 	cp timtec/settings_local_production.py timtec/settings_local.py
@@ -47,7 +47,7 @@ update-production:
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
 	cp ../settings_production.py timtec/settings_production.py
-	touch timtec/wsgi.py
+	touch ~/wsgi-reload
 
 test_collectstatic:
 	python manage.py collectstatic --noinput -n
