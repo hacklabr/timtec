@@ -68,7 +68,7 @@ urlpatterns = patterns(
     url(r'^logout/', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='timtec_logout'),
 
     url(r'^profile/edit/?$', ProfileEditView.as_view(), name="profile_edit"),
-    url(r'^profile/(?P<username>[-a-zA-Z0-9_]+)?$', ProfileView.as_view(), name="profile"),
+    url(r'^profile/(?P<username>[-a-zA-Z0-9_@.]+)?$', ProfileView.as_view(), name="profile"),
 
     # The django-allauth
     url(r'^accounts/', include('allauth.urls')),
