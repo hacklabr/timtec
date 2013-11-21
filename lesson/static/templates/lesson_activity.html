@@ -2,21 +2,21 @@
     <div class="course-activity">
         <ng:include src="activity_template"></ng:include>
 
-        <div ng-show="isCorrect" class="alert alert-success">
+        <div ng-show="answer.correct" class="alert alert-success">
             <i class="icon-smile"></i> Sua resposta está <strong>correta!</strong>
         </div>
 
-        <div ng-show="isCorrect === false" class="alert alert-danger">
+        <div ng-show="answer.correct === false" class="alert alert-danger">
             <i class="icon-frown"></i> <span>Sua resposta está <strong>incorreta</strong>. Reveja o vídeo com mais atenção e tente novamente.</span>
         </div>
 
         <div class="submit">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6">
-                    <button class="btn btn-default" ng-click="nextVideo()">Pular</button>
+                    <button onClick="ga('send', 'event', 'activity', 'skip activity');" class="btn btn-default" ng-click="nextVideo()">Pular</button>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 textright">
-                    <button class="btn btn-info" ng-click="replayVideo()">Rever Vídeo</button>
+                    <button onClick="ga('send', 'event', 'activity', 'rewatch video');" class="btn btn-info" ng-click="replayVideo()">Rever Vídeo</button>
                     <button class="btn btn-success" ng-click="sendOrNext()">{{sendOrNextText}}</button>
                 </div>
             </div>

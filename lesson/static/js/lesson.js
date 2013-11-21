@@ -20,6 +20,7 @@ function initialize_code_mirror($scope, data, expected) {
 (function (angular) {
     "use strict";
 
+    var _gaq = window._gaq || [];
     var app = angular.module('lesson', ['ngRoute', 'ngResource', 'youtube', 'forum']);
 
     var ACTIVITY_TEMPLATE_PATH = function(the_type){
@@ -63,14 +64,14 @@ function initialize_code_mirror($scope, data, expected) {
         }
     ]);
 
-    app.controller('LessonActivityCtrl', ['$scope', '$location', '$routeParams', '$http', 'LessonData',
-        function ($scope, $location, $routeParams, $http, LessonData) {
+    app.controller('LessonActivityCtrl', ['$scope', '$location', '$routeParams', '$http', 'LessonData', 'Answer',
+        function ($scope, $location, $routeParams, $http, LessonData, Answer) {
             var $main = $scope.$parent;
 
             $scope.alternatives = [];
             $scope.currentUnitIndex = $main.currentUnitPos - 1;
-            $scope.answer = {'given': null};
             $scope.sendOrNextText = 'Enviar';
+            $scope.answer = {given: null, correct: null};
 
             $scope.nextVideo = function() {
                 $main.currentUnitPos++;
@@ -81,7 +82,7 @@ function initialize_code_mirror($scope, data, expected) {
             };
 
             $scope.sendOrNext = function() {
-                if ($scope.correct) {
+                if ($scope.answer.correct) {
                     $scope.nextVideo();
                 } else {
                     $scope.sendAnswer();
@@ -89,26 +90,16 @@ function initialize_code_mirror($scope, data, expected) {
             };
 
             $scope.sendAnswer = function() {
-                function tellResult(data) {
-                    var correct = data.correct,
-                        given  = data.given,
-                        expected  = data.expected;
-
-                    if(correct){
-                        $scope.currentUnit.progress = {complete : true};
-                        $scope.correct = true;
-                        $scope.sendOrNextText = "Continuar";
-                    }
-
-                    $scope.isCorrect = correct;
-                }
-
-                $http({
-                    'method': 'POST',
-                    'url': '/api/answer/' + $scope.currentUnitId,
-                    'data': 'given=' + JSON.stringify($scope.answer.given),
-                    'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
-                }).success(tellResult);
+                var answer = new Answer({'given': $scope.answer.given});
+                answer.unit = $scope.currentUnit.id;
+                answer.activity = $scope.currentUnit.activity.id;
+                answer.$save().then(function(d){
+                    ga('send', 'event', 'activity', 'result', '', d.correct);
+                    $scope.sendOrNextText = d.correct ? 'Continuar' : 'Enviar';
+                    $scope.answer.correct = d.correct;
+                    $scope.currentUnit.progress = { complete : d.correct };
+                });
+                ga('send', 'event', 'activity', 'submit');
             };
 
             LessonData.then(function (lesson) {
@@ -150,8 +141,51 @@ function initialize_code_mirror($scope, data, expected) {
         function ($scope, $http, $location, LessonData, youtubePlayerApi) {
             var $main = $scope.$parent;
             var currentUnitIndex = $main.currentUnitPos - 1;
+            var _pauseFlag = false;
+            var start, whole;
 
             var onPlayerStateChange = function (event) {
+                if (event.data == YT.PlayerState.PLAYING){
+                        ga('send', 'event', 'videos', 'play', $scope.currentUnit.video.youtube_id);
+                        //thy video plays
+                        //reaffirm the pausal beast is not with us
+                        _pauseFlag = false;
+                        if (whole !== 'ended' && whole !== 'started') {
+                            start = new Date().getTime();
+                            whole = 'started';
+                        }
+                }
+                //should the video tire out and cease
+                if (event.data == YT.PlayerState.ENDED){
+                    ga('send', 'event', 'videos', 'watch To end', $scope.currentUnit.video.youtube_id);
+                    if (whole === 'started') {
+                        var stop = new Date().getTime();
+                        var delta_s = (stop - start) / 1000;
+                        ga('send', 'event', 'videos', 'time tO end', $scope.currentUnit.video.youtube_id, Math.round(delta_s));
+                        whole = 'ended';
+                    }
+                }
+                //and should we tell it to halt, cease, heal.
+                //confirm the pause has but one head and it flies not its flag
+                //lo the pause event will spawn a many headed monster
+                //with events overflowing
+                if (event.data == YT.PlayerState.PAUSED && _pauseFlag === false){
+                    ga('send', 'event', 'videos', 'pause', $scope.currentUnit.video.youtube_id);
+                    //tell the monster it may have
+                    //but one head
+                    _pauseFlag = true;
+                }
+                //and should the monster think, before it doth play
+                //after we command it to move
+                if (event.data == YT.PlayerState.BUFFERING){
+                    ga('send', 'event', 'videos', 'bufferIng', $scope.currentUnit.video.youtube_id);
+                }
+                //and should it cue
+                //for why not track this as well.
+                if (event.data == YT.PlayerState.CUED){
+                    ga('send', 'event', 'videos', 'cueing', $scope.currentUnit.video.youtube_id);
+                }
+
                 if (event.data === YT.PlayerState.ENDED) {
                     if( $scope.currentUnit.activity ) {
                         $location.path('/' + $main.currentUnitPos + '/activity').search('autoplay', null);
@@ -168,6 +202,9 @@ function initialize_code_mirror($scope, data, expected) {
                         'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
                     }).success(function(data){
                         $scope.currentUnit.progress = {complete: data.complete};
+                        if (data.complete) {
+                            ga("send", "event", "unit", "unit completed");
+                        }
                     });
                     $scope.$apply();
                 }
@@ -190,6 +227,12 @@ function initialize_code_mirror($scope, data, expected) {
                     youtubePlayerApi.loadPlayer();
                 }
             });
+        }
+    ]);
+
+    app.factory('Answer',['$resource',
+        function($resource){
+            return $resource('/api/answer/:id', {'id':'@id'});
         }
     ]);
 

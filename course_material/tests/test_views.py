@@ -3,21 +3,13 @@ from model_mommy import mommy
 
 
 @pytest.mark.django_db
-def test_course_material(rf, user):
-    from course_material.views import CourseMaterialView
-
+def test_course_material(admin_client, user):
     course = mommy.make('Course', name='Test Course', slug='dbsql')
     mommy.make('Lesson', course=course)
     course_material = mommy.make('CourseMaterial', course=course, text='foobar**bold**')
 
-    request = rf.get('/course_material/' + course.slug)
-    request.user = user
+    response = admin_client.get('/course_material/' + course.slug)
 
-    view = CourseMaterialView(request=request)
-    view.kwargs = {'slug': course.slug}
-
-    response = view.get(request)
-    response.render()
     assert response.status_code == 200
     assert course_material.text[:6].encode('utf-8') in response.content
     # Test Markdown rendering

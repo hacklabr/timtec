@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% load staticfiles %}
+{% load timtec_markdown %}
+
 {% block content %}
 
 <script type="text/javascript">
@@ -27,7 +29,9 @@ $(document).ready(function() {
 
   <!-- MAIN CONTENT -->
   <section id="main-content" class="container" ng-controller="LessonMainCtrl">
-    <nav class="course-lessons-nav row">
+
+    <!-- LESSON NAVIGATION FOR TABLET AND DESKTOP -->
+    <nav class="course-lessons-nav row hidden-xs">
       <div class="col-lg-12 col-sm-12">
         <div class="btn-group button-watching">
           <button type="button" class="btn btn-sm btn-info">{{ lesson.name }}
@@ -43,15 +47,32 @@ $(document).ready(function() {
         </div>
       </div>
     </nav>
+    <!-- END LESSON NAVIGATION FOR TABLET AND DESKTOP -->
+
+    <!-- LESSON NAVIGATION FOR PHONE -->
+    <nav class="nav-lesson-xs row visible-xs">
+      <div class="btn-group col-xs-12">
+        <button type="button" class="col-xs-10 textleft btn btn-sm btn-info">{{ lesson.name }}</button>
+        <button type="button" class="col-xs-2 btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown">
+          <i class="icon-chevron-down"></i>
+        </button>
+        <ul class="dropdown-menu">
+          {% for list_lesson in lesson.course.public_lessons %}
+          <li><a href="{% url 'lesson' list_lesson.slug %}"><span class="title">{{ list_lesson.name }}</span></a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </nav>
+    <!-- END LESSON NAVIGATION FOR PHONE -->
+
 
     <!-- COURSE-VIDEO -->
-    <section class="course-video">
+    <section class="course-video top-xs">
       <!-- lesson_video.html -->
       <div class="row">
-
         {% verbatim %}
-        <div class="col-lg-1 col-md-1 col-sm-1">
-
+        <!-- UNITS NAVIGATION FOR TABLET AND DESKTOP -->
+        <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs">
           <a style="display:block;" data-placement="right" data-original-title="{{ unit.position + 1 }}"
              title="{{ unit.video.name }}"
              href="#/{{ $index+1 }}" class="has-tooltip unit track" data-toggle="tooltip"
@@ -64,6 +85,27 @@ $(document).ready(function() {
             <i class="icon-list" ng-if="unit.activity !== null"></i>
           </a>
         </div>
+        <!-- END UNITS NAVIGATION FOR TABLET AND DESKTOP -->
+        
+        <!-- UNITS NAVIGATION FOR PHONES -->
+        <div class="nav-unit-xs col-xs-12 visible-xs">
+          <div class="row">
+            <div class="btn-group col-xs-12">
+              <button type="button" class="col-xs-10 btn btn-sm btn-default textleft">Unidade {{ currentUnitPos }}</button>
+              <button type="button" class="col-xs-2 btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+                <i class="icon-chevron-down"></i>
+              </button>
+              <ul class="dropdown-menu">
+                <li ng-repeat="unit in lesson.units">
+                  <a href="#/{{ $index+1 }}" ng-click="select($index)">
+                     <span class="title">Unidade {{ unit.position + 1 }}</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- END UNITS NAVIGATION FOR PHONES -->
         {% endverbatim %}
 
         <div ng-view></div>
@@ -76,7 +118,7 @@ $(document).ready(function() {
               <div class="page-header-double">
                 <h3><i class="icon-double-angle-right"></i> Notas do professor</h3>
               </div>
-              {{ lesson.notes|safe }}
+              {{ lesson.notes|timtec_markdown }}
             </section>
         </div>
     </div>
@@ -86,12 +128,12 @@ $(document).ready(function() {
   <!-- FORUM -->
   <div class="row">
     {% include "_forum_inline.html"  with course=lesson.course %}
-    <div class="col-lg-3 hidden-md hidden-sm">
+    <div class="col-lg-3 hidden-md hidden-sm hidden-xs">
       <section class="course-instructions">
         <div class="page-header-double">
           <h3><i class="icon-double-angle-right"></i> Notas do professor</h3>
         </div>
-        {{ lesson.notes|safe }}
+        {{ lesson.notes|timtec_markdown }}
       </section>
 
       <section class="course-social" style="position:relative;overflow:hidden;">

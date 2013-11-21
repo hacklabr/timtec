@@ -389,12 +389,15 @@
                        placeholder="Título da aula" ng-model="selectedLesson.name">
               </div>
               <div class="form-group">
-                <label>Publico:</label>&nbsp;
-                <label for="lesson-published-true">Sim</label>
-                <input type="radio" id="lesson-published-true" ng-value="true" ng-model="selectedLesson.published">
+                <label>Status:</label>&nbsp;
+                <label for="lesson-status-draft">Rascunho</label>
+                <input type="radio" id="lesson-status-draft" value="draft" ng-model="selectedLesson.status">
                 &nbsp;&nbsp;&nbsp;
-                <label for="lesson-published-false">Não</label>
-                <input type="radio" id="lesson-published-false" ng-value="false"  ng-model="selectedLesson.published">
+                <label for="lesson-status-listed">Listado</label>
+                <input type="radio" id="lesson-status-listed" value="listed"  ng-model="selectedLesson.status">
+                &nbsp;&nbsp;&nbsp;
+                <label for="lesson-status-published">Publicado</label>
+                <input type="radio" id="lesson-status-published" value="published"  ng-model="selectedLesson.status">
               </div>
               <div class="form-group">
                 <label>Descrição</label>

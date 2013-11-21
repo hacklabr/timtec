@@ -6,3 +6,33 @@ RegExp.prototype.extract = function(target,group){
         return m[0];
     }
 };
+
+(function($) {
+    if(!$) return;
+
+    $.fn.notify = function(text, clazz) {
+        var $div = $('<div style="width:100%;position:fixed;bottom:2em;z-index:1051;text-align:center;">');
+        var $span = $('<span class="alert">').addClass(clazz).html(text);
+        $div.append($span);
+        $(this).css('position','relative').append($div);
+        setTimeout(function(){ $div.remove(); }, 5000);
+    };
+
+    $.fn.asyncSubmit = function() {
+        var $this = $(this);
+        var action = $this.attr('action');
+        var method = $this.attr('method');
+
+        var data = {};
+        $this.find(':input').each(function(i,e){
+            data[ $(e).attr('name') ] = $(e).val();
+        });
+
+        var request = $.ajax({
+            url: action,
+            type: method,
+            data: data
+        });
+        return request;
+    };
+})(jQuery);

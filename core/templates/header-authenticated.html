@@ -16,7 +16,7 @@
                 <img src="{% static 'img/instituto-tim-white.png' %}"> TIM Tec
             </a>
         </div>
-        
+
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="main-navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -40,4 +40,9 @@
         </div>
     </div>
 </nav>
+<script type="text/javascript">
+ga('set', 'dimension1', '{{ user.id }}');
+ga('set', 'dimension2', '{{ user.get_user_type }}');
+ga('set', 'dimension3', '{{ user.is_pilot }}');
+</script>
 <!-- END NAVBAR -->

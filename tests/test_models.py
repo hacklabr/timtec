@@ -31,6 +31,24 @@ def test_position_counter_for_new_units():
 
 
 @pytest.mark.django_db
+def test_get_user_type(user):
+    assert user.get_user_type() == "unidentified"
+
+
+@pytest.mark.django_db
+def test_username_validator():
+    from core.models import TimtecUser
+    from django.core.exceptions import ValidationError
+    try:
+        t = TimtecUser.objects.create(username="test@test", email="test@example.com")
+        t.full_clean()
+    except ValidationError:
+        pass
+    else:
+        assert False
+
+
+@pytest.mark.django_db
 def test_user_picture_url(user):
 
     assert not user.picture

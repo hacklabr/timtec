@@ -21,7 +21,13 @@
           {% if user_is_enrolled %}
             <a href="{% url "lesson" course.first_lesson.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Resume" %}</a>
           {% else %}
-            <a href="{% url "enroll_course" course.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Take the Class" %}</a>
+            <a
+              {% if user.is_authenticated %}
+                onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 1);"
+              {% else %}
+                onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 0);"
+              {% endif %}
+              href="{% url "enroll_course" course.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Take the Class" %}</a>
           {% endif %}
         </div>
       </div>
@@ -38,7 +44,7 @@
           {% with yid=course.intro_video.youtube_id %}
           <div class="col-lg-12 col-md-12 col-sm-12 col-sx-12">
             <iframe id="youtube-player" type="text/html" frameborder="0"
-                    src="https://www.youtube.com/embed/{{yid}}?rel=0&showinfo=0&autohide=1&theme=light&wmode=opaque" allowfullscreen>
+                    src="//www.youtube.com/embed/{{yid}}?rel=0&showinfo=0&autohide=1&theme=light&wmode=opaque" allowfullscreen>
             </iframe>
           </div>
           {% endwith %}
@@ -49,13 +55,13 @@
         <section class="course-info row">
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div class="page-header-double">
-              <h3 class="top"><i class="icon-double-angle-right"></i> {% trans "Course Application" %}</h3>
+              <h3 class="top"><i class="icon-double-angle-right"></i> {% trans "Why do this course?" %}</h3>
             </div>
             <p>{{ course.application|timtec_markdown }}</p>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div class="page-header-double">
-              <h3 class="top"><i class="icon-double-angle-right"></i> {% trans "Requirements" %}</h3>
+              <h3 class="top"><i class="icon-double-angle-right"></i> {% trans "What do I have to know?" %}</h3>
             </div>
             <p>{{ course.requirement|timtec_markdown }}</p>
           </div>
@@ -96,7 +102,11 @@
                   </div>
                   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                     <p>
+                      {% if lesson.is_ready %}
                       <a href="{% url 'lesson' lesson.slug %}" class="title">{{ lesson.name }}</a>
+                      {% else %}
+                      <span class="title">{{ lesson.name }}</span>
+                      {% endif %}
                       <span class="description">{{ lesson.desc }}</span>
                     </p>
                     <div class="hidden-xs">
@@ -106,8 +116,8 @@
                           <td>
                             <a class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
                                data-toggle="tooltip" data-placement="bottom"
-                               data-original-title="Unidade {{ unit.position|add:1 }}"
-                               href="{% url 'lesson' lesson.slug %}#/{{ unit.position }}">
+                               data-original-title="Unidade {{ forloop.counter }}"
+                               href="{% url 'lesson' lesson.slug %}#/{{ forloop.counter }}">
 
                               {% if unit.activity %}
                               <i class="icon-list"></i>
@@ -118,7 +128,9 @@
                         </tr>
                       </table>
                     </div>
+                    {% if lesson.is_ready %}
                     <p><i class="icon-youtube-play"></i> <small>{{ lesson.video_count }} {% trans "videos" %}</small> | <i class="icon-list"></i> <small>{{ lesson.activity_count }} {% trans "activities" %}</small></p>
+                    {% endif %}
                   </div>
                 </div>
               </li>
@@ -129,6 +141,7 @@
         <!-- END COURSE-LESSONS -->
 
         <!-- COURSE-INSTRUCTORS -->
+        {% if course.courseprofessor_set.all %}
         <section class="course-instructors row">
           <div class="col-lg-12 col-sm-12">
             <div class="page-header-double">
@@ -143,7 +156,7 @@
                 <img src="{{ course_professor.user.get_picture_url }}" class="col-lg-12 col-sm-12 thumbnail">
               </div>
               <div class="col-lg-9 col-sm-9">
-                <h1 class="fullname bottom top">{{ course_professor.user }}</h1>
+                <h1 class="fullname bottom top">{{ course_professor.user.first_name }} {{ course_professor.user.last_name }}</h1>
                 <h2 class="job-title top">{{ course_professor.get_job_display }}</h2>
                 <p>{{ course_professor.biography|timtec_markdown }}</p>
               </div>
@@ -151,6 +164,7 @@
             {% endfor %}
           </div>
         </section>
+        {% endif %}
         <!-- END COURSE-INSTRUCTORS -->
       </div>
 

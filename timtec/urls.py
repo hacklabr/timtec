@@ -9,34 +9,36 @@ admin.autodiscover()
 
 from django.views.generic import TemplateView
 from accounts.views import CustomLoginView, ProfileEditView, ProfileView
-from core.views import AdminCourseView, CourseView, CourseViewSet, EnrollCourseView, NewHomeView, UserCoursesView, HomeView
-from lesson.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, ReceiveAnswerView, UpdateStudentProgressView
-from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, AnswerViewSet, QuestionVoteViewSet, AnswerVoteViewSet
+from core.views import CourseView, CourseViewSet, EnrollCourseView, UserCoursesView, ContactView, NewHomeView  # AdminCourseView,
+from forum.views import AnswerViewSet as ForumAnswerViewSet
+from lesson.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, AnswerViewSet, UpdateStudentProgressView
+from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, QuestionVoteViewSet, AnswerVoteViewSet
 from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialAdminView, CourseMaterialViewSet
 from rest_framework import routers
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'course', CourseViewSet)
 router.register(r'lessons', LessonViewSet)
+router.register(r'answer', AnswerViewSet)
 router.register(r'student_progress', StudentProgressViewSet)
 router.register(r'forum_question', QuestionViewSet)
-router.register(r'forum_answer', AnswerViewSet)
+router.register(r'forum_answer', ForumAnswerViewSet)
 router.register(r'question_vote', QuestionVoteViewSet)
 router.register(r'answer_vote', AnswerVoteViewSet)
 router.register(r'course_material', CourseMaterialViewSet)
 
+#    url(r'^api/answer/(?P<unitId>[0-9]*)$', AnswerView.as_view(), name='answer'),
 
 urlpatterns = patterns(
     '',
-    url(r'^$', NewHomeView.as_view(), name='new_home_view'),
-    url(r'^old_home$', HomeView.as_view(), name='home_view'),
+    url(r'^$', NewHomeView.as_view(), name='home_view'),
 
     # Uncomment the next line to enable the admin:
     url(r'^django/admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^django/admin/', include(admin.site.urls)),
 
     # Privileged browsing
-    url(r'^admin/course/(?P<slug>[-a-zA-Z0-9_]+)$', AdminCourseView.as_view(), name='course_admin'),
+    # url(r'^admin/course/(?P<slug>[-a-zA-Z0-9_]+)$', AdminCourseView.as_view(), name='course_admin'),
 
     # Public browsing
     url(r'^my-courses$', UserCoursesView.as_view(), name='user_courses'),
@@ -45,10 +47,10 @@ urlpatterns = patterns(
     url(r'^lesson/(?P<slug>[-a-zA-Z0-9_]+)$', LessonDetailView.as_view(), name='lesson'),
     url(r'^html5/', TemplateView.as_view(template_name="html5.html")),
     url(r'^empty/', TemplateView.as_view(template_name="empty.html")),
+    url(r'^contact/?$', ContactView.as_view(), name="contact"),
 
     # Services
     url(r'^api/', include(router.urls)),
-    url(r'^api/answer/(?P<unitId>[0-9]*)$', ReceiveAnswerView.as_view(), name='answer'),
     url(r'^api/updatestudentprogress/(?P<unitId>[0-9]*)$', UpdateStudentProgressView.as_view(), name='updatestudentprogress'),
 
     # Forum

@@ -9,9 +9,13 @@ create-staging:
 	mkdir -p ~/webfiles/media
 
 update-staging:
+	dropdb timtec-staging
+	createdb timtec-staging
+	pg_restore -O -x -d timtec-staging ~hacklab/sql-backup/last.psqlc
 	cp timtec/settings_local_staging.py timtec/settings_local.py
 	~/env/bin/pip install -r requirements.txt
 	~/env/bin/python manage.py syncdb --all --noinput
+	~/env/bin/python manage.py migrate --noinput
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
 	touch timtec/wsgi.py
@@ -24,6 +28,7 @@ create-production:
 	mkdir -p ~/webfiles/static
 	mkdir -p ~/webfiles/media
 	cp timtec/settings_local_production.py timtec/settings_local.py
+	cp ../settings_production.py timtec/settings_production.py
 	~/env/bin/pip install -r requirements.txt
 	~/env/bin/python manage.py syncdb --noinput --no-initial-data
 	~/env/bin/python manage.py migrate --noinput --no-initial-data
@@ -39,16 +44,23 @@ update-production:
 	~/env/bin/python manage.py migrate --noinput
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
+	cp ../settings_production.py timtec/settings_production.py
 	touch timtec/wsgi.py
+
+test_collectstatic:
+	python manage.py collectstatic --noinput -n
 
 python_tests:
 	find . -type f -name '*.py[co]' -exec rm {} \;
 	py.test --pep8 --flakes --cov . . $*
 
+js_tests:
+	find . -path ./static/js/vendor -prune -o -path static/js/vendor/ -prune -o -path ./tests/js/lib -prune -path tests/js/lib/ -prune -o -name '*.js' -exec jshint {} \;
+
 karma_tests:
 	karma start tests/confkarma.js $*
 
-all_tests: python_tests karma_tests
+all_tests: test_collectstatic python_tests karma_tests
 
 setup_ci:
 	psql -c 'create database timtec_ci;' -U postgres
@@ -62,7 +74,7 @@ setup_coveralls:
 	pip install -q coveralls --use-mirrors
 
 setup_js:
-	sudo `which npm` -g install less yuglify karma --loglevel silent > /dev/null
+	sudo `which npm` -g install less yuglify karma jshint --loglevel silent
 
 setup_django:
 	python manage.py syncdb --all --noinput
@@ -70,3 +82,14 @@ setup_django:
 
 settings_ci:
 	cp timtec/settings_local_ci.py timtec/settings_local.py
+
+dumpdata:
+	python manage.py dumpdata --indent=2 -n -e south.migrationhistory -e admin.logentry -e socialaccount.socialaccount -e socialaccount.socialapp -e sessions.session -e contenttypes.contenttype -e auth.permission -e account.emailconfirmation -e socialaccount.socialtoken
+
+reset_db:
+	python manage.py reset_db --router=default --noinput -U $(USER)
+	python manage.py syncdb --noinput
+	python manage.py migrate --noinput
+
+messages:
+	python manage.py makemessages -a -d django

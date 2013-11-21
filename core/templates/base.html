@@ -20,9 +20,11 @@
     <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Editor.js' %}" charset="utf-8"></script>
     <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Sanitizer.js' %}" charset="utf-8"></script>
 
-    <script type="text/javascript" src="{% static 'js/flatui-checkbox.js' %}" charset="utf-8"></script>
-    <script type="text/javascript" src="{% static 'js/flatui-radio.js' %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static 'js/vendor/flatui-checkbox.js' %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static 'js/vendor/flatui-radio.js' %}" charset="utf-8"></script>
 
+    {% load metron_tags %}
+    {% analytics %}
     <script type="text/javascript" charset="utf-8">
         (function(){
             function resize_player() {
@@ -30,7 +32,7 @@
                 $p.css('width','100%');
                 $p.height(Math.floor($p.width() * 0.5624));
             }
-            
+
             function resize_activation_wrapper() {
                 windowHeight = window.innerHeight;
                 navbarHeight = $('#main-navbar').innerHeight();

@@ -216,6 +216,21 @@ a.instructor {
   padding-top:@padding !important;
 }
 
+@media screen and (max-width: @screen-phone) {
+  .bottom-xs {
+    .bottom(0,0);
+  }
+  .left-xs {
+    .left(0,0);
+  }
+  .right-xs {
+    .right(0,0);
+  }
+  .top-xs {
+    .top(0,0);
+  }
+}
+
 // Calculate width
 .calculate-width(@value:0) {
   width:-moz-calc(~'100% - @{value}');
@@ -626,7 +641,6 @@ a.instructor {
   .bottom(9px,9px);
   button {
     font-size:14px;
-    // text-transform:uppercase;
   }
   ul {
     margin-top:0;
@@ -645,12 +659,20 @@ a.instructor {
   }
 }
 
+.nav-lesson-xs {
+  margin-bottom: 10px;
+}
+
 // Course - unit video
 .course-video {
   margin-top:21px;
 
   iframe {
     border:1px solid @gray-lighter;
+  }
+  
+  .nav-unit-xs {
+    margin-bottom: 10px;
   }
 
   // Unit navigation links

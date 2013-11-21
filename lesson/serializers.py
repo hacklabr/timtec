@@ -1,19 +1,19 @@
-import json
-from core.models import Activity, Lesson, StudentProgress, Unit, Video
+from core.models import Activity, Answer, Lesson, StudentProgress, Unit, Video
 from rest_framework import serializers
 
 
 class JSONSerializerField(serializers.WritableField):
+    pass
 
-    def to_native(self, data):
-        if type(data) in (dict, list):
-            return data
-        elif type(data) in (unicode, str,):
-            return json.loads(data)
-        return None
 
-    def from_native(self, obj):
-        return json.dumps(obj)
+class AnswerSerializer(serializers.ModelSerializer):
+    user = serializers.Field(source='user')
+    correct = serializers.Field(source='is_correct')
+
+    class Meta:
+        model = Answer
+        allow_add_remove = True
+        fields = ('id', 'activity', 'correct', 'user', 'timestamp', 'given',)
 
 
 class VideoSerializer(serializers.ModelSerializer):
@@ -58,4 +58,4 @@ class LessonSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Lesson
-        fields = ('id', 'course', 'desc', 'name', 'notes', 'position', 'published', 'slug', 'units', 'url',)
+        fields = ('id', 'course', 'desc', 'name', 'notes', 'position', 'slug', 'status', 'units', 'url',)

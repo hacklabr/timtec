@@ -10,7 +10,8 @@ TEMPLATE_DEBUG = DEBUG
 SITE_ID = 1
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Admin1', 'root@localhost'),
+    ('Admin2', 'timtec-dev@listas.hacklab.com.br'),
 )
 
 MANAGERS = ADMINS
@@ -27,6 +28,13 @@ DATABASES = {
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
     }
+}
+
+
+METRON_SETTINGS = {
+    "google": {
+        1: "set-your-google-analytics-key-here",
+    },
 }
 
 
@@ -153,11 +161,14 @@ PIPELINE_CSS = {
 PIPELINE_JS = {
     'all': {
         'source_filenames': (
+            'js/vendor/modernizr.js',
             'js/vendor/jquery-1.10.2.js',
             'js/vendor/bootstrap.js',
             'js/vendor/angular.js',
             'js/vendor/angular-*.js',
+            'js/contact_form.js',
             'js/helpers.js',
+            'js/angular-youtube.js',
 
             # codemirror stuff
             'js/vendor/codemirror/lib/codemirror.js',
@@ -227,6 +238,7 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
     'allauth.account.context_processors.account',
     'allauth.socialaccount.context_processors.socialaccount',
+    'core.context_processors.contact_form',
 )
 
 # Django Suit configuration example
@@ -300,12 +312,17 @@ INSTALLED_APPS = (
     'lesson',
     'forum',
     'course_material',
+    'metron',
     # allauth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+
+    # raven has to be the last one
+    'raven.contrib.django.raven_compat',
 )
+
 
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
@@ -331,6 +348,7 @@ if DEBUG:
 # django-registration flag
 # ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_DEFAULT_GROUP_NAME = 'students'
+ACCOUNT_ADAPTER = "accounts.adapter.TimtecAdapter"
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7

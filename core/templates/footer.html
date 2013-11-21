@@ -14,8 +14,6 @@
 </div>
 <!-- END FOOTER -->
 
-
-
 <div class="modal fade" id="modal-about">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -26,7 +24,7 @@
             <div class="modal-body">
                 <p><b>TIM Tec</b> e um projeto do <b>Instituto TIM</b> para alunos do ensino médio técnico e profissionalizante brasileiro.</p>
                 <p>Queremos contribuir para a qualificação e formação de jovens e adultos, para empoderar o trabalhador e proporcionar opções de geração de renda e qualidade social para milhares de pessoas em todas as regiões do país.</p>
-                <p>Para isso, desenvolvemos uma plataforma de MOOC (<i>massive online open courses</i>) em código aberto. Esta plataforma, batizada de <b>TIM Tec</b>, está em constante desenvolvimento e aberta a contribuições e participações dos mais diferentes setores envolvidos com o ensino no país [link para github?].</p>
+                <p>Para isso, desenvolvemos uma plataforma de MOOC (<i>massive online open courses</i>) em código aberto. Esta plataforma, batizada de <b>TIM Tec</b>, está em constante desenvolvimento e aberta a contribuições e participações dos mais diferentes setores envolvidos com o ensino no país.</p>
                 <p>No site <a href="http://www.timtec.com.br">www.timtec.com.br</a>, utilizamos uma versão desta plataforma para publicar e hospedar cursos alinhados ao Eixo Tecnológicos: Informação e Comunicação do PRONATEC, o Programa Nacional de Acesso ao Ensino Técnico e Emprego do Governo Federal.</p>
                 <p>Os curso publicados aqui foram pensados para possibilitar a qualificação dos alunos na Formação Inicial e Continuada (FIC).</p>
                 <p>Começamos o projeto com cinco concentrações, e em breve expandiremos para outras, visando atender às demandas dos alunos, das instituições de ensino das redes de ensino à distância e presencial no Brasil, e sempre atentos para as necessidades do mercado.</p>
@@ -55,11 +53,12 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-1">
-                        <form class="form-horizontal">
+                        <form class="form-horizontal" method="post" action="{% url 'contact' %}">
+                            {% csrf_token %}
                             <div class="form-group">
                                 <label class="col-lg-4 control-label">Sou</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control">
+                                    <select class="form-control" name="{{contact_form.occupation.name}}">
                                         <option>Estudante</option>
                                         <option>Professor</option>
                                         <option>Jornalista</option>
@@ -71,7 +70,7 @@
                             <div class="form-group">
                                 <label class="col-lg-4 control-label">Quero falar sobre</label>
                                 <div class="col-lg-8">
-                                    <select class="form-control">
+                                    <select class="form-control" name="{{contact_form.subject.name}}">
                                         <option>Problemas no registro de usuários</option>
                                         <option>Problemas técnicos</option>
                                         <option>Acessibilidade para estudantes</option>
@@ -84,24 +83,24 @@
                             <div class="form-group">
                                 <label class="col-lg-4 control-label">Nome</label>
                                 <div class="col-lg-8">
-                                    <input type="text" class="form-control"/>
+                                    <input required type="text" class="form-control" name="{{contact_form.name.name}}"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-4 control-label">Email</label>
                                 <div class="col-lg-8">
-                                    <input type="text" class="form-control"/>
+                                    <input required type="email" class="form-control" name="{{contact_form.email.name}}"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-4 control-label">Mensagem</label>
                                 <div class="col-lg-8">
-                                    <textarea class="form-control" rows="6"></textarea>
+                                    <textarea required class="form-control" rows="6" name="{{contact_form.message.name}}"></textarea>
                                 </div>
                             </div>
                             <div class="submit textright">
-                                <button class="btn btn-danger">Cancelar</button>
-                                <button class="btn btn-success">Enviar</button>
+                                <button type="reset" class="btn btn-danger">Limpar</button>
+                                <button type="submit" class="btn btn-success">Enviar</button>
                             </div>
                         </form>
                     </div>
