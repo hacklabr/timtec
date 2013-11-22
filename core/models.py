@@ -181,14 +181,16 @@ class CourseStudent(models.Model):
         return StudentProgress.objects.exclude(complete=None)\
                                       .filter(user=self.user, unit__lesson__course=self.course)
 
-    def head_to_unit(self):
-        units_done_list = self.units_done.values_list('unit', flat=True)
-        units_undone = self.course.unit_set.exclude(id__in=units_done_list)
-
-        if units_undone.count() > 0:
-            return units_undone[0]
-        elif self.course.unit_set.exists():
-            return self.course.unit_set.latest('id')
+    def resume_last_unit(self):
+        units_done = self.units_done.order_by('complete')
+        # import ipdb; ipdb.set_trace()
+        if units_done.count() > 0:
+            return units_done.reverse().first().unit
+        else:
+            try:
+                return self.course.first_lesson().units.order_by('position').first()
+            except (AttributeError):
+                return None
 
     def percent_progress(self):
         units_len = self.course.unit_set.count()
@@ -365,7 +367,3 @@ class StudentProgress(models.Model):
 
     def __unicode__(self):
         return u'%s @ %s c: %s la: %s' % (self.user, self.unit, self.complete, self.last_access)
-
-
-__all__ = ('Activity', 'Answer', 'Course', 'CourseProfessor', 'CourseStudent',
-           'Lesson', 'StudentProgress', 'TimtecUser', 'Unit', 'Video',)

@@ -304,7 +304,7 @@ function initialize_code_mirror($scope, data, expected) {
                             <span ng-transclude></span> \
                         </label>',
             replace: true
-        }
+        };
     });
 
     app.directive('checkbox', function(){
@@ -326,7 +326,7 @@ function initialize_code_mirror($scope, data, expected) {
                             <span ng-transclude></span> \
                         </label>',
             replace: true
-        }
+        };
     });
 
 })(angular);
