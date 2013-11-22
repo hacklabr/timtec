@@ -5,10 +5,9 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.views.generic import DetailView
 from django.views.generic.base import RedirectView, View, TemplateView
-from django.views.generic.edit import UpdateView
 from rest_framework import viewsets
 from rest_framework.response import Response
-from braces.views import LoginRequiredMixin, GroupRequiredMixin
+from braces.views import LoginRequiredMixin
 
 from serializers import CourseSerializer
 from models import Course, StudentProgress
@@ -80,18 +79,6 @@ class EnrollCourseView(LoginRequiredMixin, RedirectView):
         course = self.get_object()
         course.enroll_student(self.request.user)
         return reverse('lesson', args=[course.first_lesson().slug])
-
-
-class AdminCourseView(LoginRequiredMixin, GroupRequiredMixin, UpdateView):
-    model = Course
-    template_name = 'admin/_base.html'
-    group_required = u'professors'
-
-    def get_redirect_field_name(self):
-        """
-        Override this method to customize the redirect_field_name.
-        """
-        return reverse('course_intro', args=[self.kwargs['slug']])
 
 
 class CourseViewSet(viewsets.ModelViewSet):
