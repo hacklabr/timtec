@@ -48,6 +48,10 @@ class VideoAdmin(ModelAdmin):
     list_display = ('name', 'youtube_id',)
 
 
+class ActivityAdmin(ModelAdmin):
+    list_display = ('type', 'question','__unicode__',)
+
+
 admin.site.register(TimtecUser, UserAdmin)
 
 admin.site.register(Video, VideoAdmin)
@@ -56,6 +60,6 @@ admin.site.register(CourseProfessor, CourseProfessorAdmin)
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Unit, UnitAdmin)
-admin.site.register(Activity)
+admin.site.register(Activity, ActivityAdmin)
 admin.site.register(Answer)
 admin.site.register(StudentProgress)
