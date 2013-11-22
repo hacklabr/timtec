@@ -1,6 +1,7 @@
+# coding: utf-8
+
 import pytest
 
-from os.path import join, dirname
 from model_mommy import mommy
 from django.core.files.base import ContentFile
 from core.models import CourseStudent
@@ -49,17 +50,20 @@ def test_username_validator():
 
 
 @pytest.mark.django_db
-def test_user_picture_url(user):
+def test_user_picture_url():
+    user = mommy.make('TimtecUser')
+    user.username = u'Usér'
+    user.save()
 
     assert not user.picture
     assert user.get_picture_url() == '/static/img/avatar-default.png'
 
-    testpicture = join(dirname(__file__), 'testdata', 'nobody.png')
-    user.picture.save('abcd-avatar.png', ContentFile(open(testpicture).read()))
+    user.picture.save(u'abcd-ávatár.png', ContentFile('XXX'))
+    user.username
     user.save()
 
     # file is saved as md5(filename + username)
-    assert user.get_picture_url() == '/media/user-pictures/96e83b063b2b128d379a1a3cc09d1659.png'
+    assert user.get_picture_url().startswith('/media/user-pictures/de7f72f1443cd5e3b63131ffbac0b83f')
 
     #teardown
     user.picture.delete()

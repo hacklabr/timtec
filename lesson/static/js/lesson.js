@@ -72,12 +72,13 @@ function initialize_code_mirror($scope, data, expected) {
             var $main = $scope.$parent;
 
             $scope.alternatives = [];
-            $scope.sendOrNextText = 'Enviar';
             $scope.answer = {given: null, correct: null};
 
             $scope.nextVideo = function() {
-                $main.currentUnitPos++;
-                $location.path('/' + $main.currentUnitPos).search('autoplay', null);
+                if ($main.currentUnitPos + 1 < $scope.lesson.units.length) {
+                    $main.currentUnitPos++;
+                    $location.path('/' + $main.currentUnitPos).search('autoplay', null);
+                }
             };
             $scope.replayVideo = function() {
                 $location.path('/' + $main.currentUnitPos).search('autoplay', 1);
@@ -98,7 +99,6 @@ function initialize_code_mirror($scope, data, expected) {
                 delete answer.id;
                 answer.$save().then(function(d){
                     ga('send', 'event', 'activity', 'result', '', d.correct);
-                    $scope.sendOrNextText = d.correct ? 'Continuar' : 'Enviar';
                     $scope.answer.correct = d.correct;
                     $scope.currentUnit.progress = { complete : d.correct };
                 });
