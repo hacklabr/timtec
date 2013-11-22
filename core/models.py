@@ -283,7 +283,6 @@ class Activity(models.Model):
     data = JSONField(_('Data'))
     expected = JSONField(_('Expected answer'))
 
-
     class Meta:
         verbose_name = _('Activity')
         verbose_name_plural = _('Activities')

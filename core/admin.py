@@ -49,7 +49,7 @@ class VideoAdmin(ModelAdmin):
 
 
 class ActivityAdmin(ModelAdmin):
-    list_display = ('type', 'question','__unicode__',)
+    list_display = ('type', 'question', '__unicode__',)
 
 
 admin.site.register(TimtecUser, UserAdmin)
