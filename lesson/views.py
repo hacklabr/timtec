@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from accounts.utils import LoginRequiredMixin
+from braces.views import LoginRequiredMixin
 from core.models import Answer, Lesson, StudentProgress, Unit
 from django.views.generic import DetailView
 from django.utils import timezone
@@ -79,4 +79,4 @@ class AnswerViewSet(viewsets.ModelViewSet):
         progress.save()
 
     def get_queryset(self):
-        return Answer.objects.all()
+        return Answer.objects.filter(user=self.request.user)

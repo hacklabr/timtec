@@ -7,7 +7,7 @@ module.exports = function(config){
             'static/js/vendor/pagedown/*.js',
             'forum/static/js/truncate.js',
             'forum/static/js/forum/*.js',
-            'tests/js/lib/*.js',
+            'static/js/vendor/tests/*.js',
             'forum/tests/js/*.js'
         ],
         autoWatch : true,

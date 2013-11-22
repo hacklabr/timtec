@@ -16,8 +16,22 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import Group
 from django.contrib.staticfiles.storage import staticfiles_storage
-
 from allauth.account.signals import user_signed_up
+
+import os
+import hashlib
+
+
+def path_and_rename(path):
+    def wrapper(instance, filename):
+        root, ext = os.path.splitext(filename)
+        m = hashlib.md5()
+        m.update(root.encode('utf-8'))
+        m.update(instance.username.encode('utf-8'))
+        filename = m.hexdigest() + ext
+        # return the whole path to the file
+        return os.path.join(path, filename)
+    return wrapper
 
 
 class TimtecUser(AbstractBaseUser, PermissionsMixin):
@@ -37,7 +51,7 @@ class TimtecUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(_('Active'), default=True)
     date_joined = models.DateTimeField(_('Date joined'), default=timezone.now)
 
-    picture = models.ImageField(_("Picture"), upload_to='user-pictures', blank=True)
+    picture = models.ImageField(_("Picture"), upload_to=path_and_rename('user-pictures'), blank=True)
     occupation = models.CharField(_('Occupation'), max_length=30, blank=True)
     city = models.CharField(_('City'), max_length=30, blank=True)
     site = models.URLField(_('Site'), blank=True)
@@ -331,12 +345,12 @@ class Answer(models.Model):
         expected = self.activity.expected
 
         result = unicode(given) == unicode(expected)
-        #import ipdb; ipdb.set_trace()
         return result
 
     class Meta:
         verbose_name = _('Answer')
         verbose_name_plural = _('Answers')
+        ordering = ['timestamp']
 
 
 class StudentProgress(models.Model):

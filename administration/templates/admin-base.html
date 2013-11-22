@@ -27,24 +27,35 @@
         <!-- NAVBAR -->
         <div id="main-navbar" class="navbar navbar-inverse">
             <div class="container">
-                <a class="navbar-brand" href="/">TIM Tec - ADMIN</a>
-                <ul class="nav navbar-nav pull-right">
-                    <li>
-                        <a href="#">Cursos</a>
-                    </li>
-                    <li>
-                        <a href="#">Usuários</a>
-                    </li>
-                    <li>
-                        <a href="#">Estatísticas</a>
-                    </li>
-                </ul>
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-collapse">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="/">TIMTec</a>
+              </div>
+              
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse" id="main-navbar-collapse">
+                  <ul class="nav navbar-nav navbar-right">
+                      <li><a href="/admin/courses">Cursos</a></li>
+                      <li><a href="/admin/users">Usuários</a></li>
+                      <li><a href="/admin/stats">Estatísticas</a></li>
+                      <li class="divider"></li>
+                      <li><a href="/">TIMTec</a></li>
+                      <li class="divider"></li>
+                      <li><a href="/admin/profile">timtect@timtec.com.br</a></li>
+                  </ul>
+              </div>
             </div>
         </div>
         <!-- END NAVBAR -->
 
         <!-- WRAPPER -->
-        <div class="wrapper">
+        <div class="wrapper container">
             {% block content %}
             <h1>missing content block</h1>
             {% endblock %}
@@ -54,6 +65,5 @@
         <!-- FOOTER -->
         {% include 'footer.html' %}
         <!-- END FOOTER -->
-
     </body>
 </html>
