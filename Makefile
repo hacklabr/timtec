@@ -68,7 +68,7 @@ test_collectstatic:
 
 python_tests:
 	find . -type f -name '*.py[co]' -exec rm {} \;
-	py.test --pep8 --flakes --cov . . $*
+	py.test --pep8 --flakes --tb=native --cov . . $*
 
 js_tests:
 	find . -path ./static/js/vendor -prune -o -path static/js/vendor/ -prune -o -path ./tests/js/lib -prune -path tests/js/lib/ -prune -o -name '*.js' -exec jshint {} \;
