@@ -63,11 +63,11 @@
         <div class="page-header">
           <div class="row">
             <div class="col-sm-9 col-lg-9">
-              <h1 class="top editable"><span contenteditable="true" ng-model="course.name"></span></h1>
+              <h1 class="top editable"><span contenteditable="true" ng-model="course.name" ng-blur="course.$save()"></span></h1>
               <h5><span class="icon-addable icon-plus-sign-alt"></span> Adicionar professores ao curso</h5>
               <h5>
                 <span>Marcar curso como:</span>
-                <select ng-model="course.status">
+                <select ng-model="course.status" ng-change="course.$save()">
                   <option value="draft">Rascunho</option>
                   <option value="listed">Listado</option>
                   <option value="published">Publicado</option>
