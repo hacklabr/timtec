@@ -49,6 +49,20 @@ update-production:
 	cp ../settings_production.py timtec/settings_production.py
 	touch ~/wsgi-reload
 
+update-design:
+	dropdb timtec-design
+	createdb timtec-design
+	pg_restore -O -x -n public -d timtec-staging ~hacklab/sql-backup/last.psqlc
+	cp timtec/settings_local_design.py timtec/settings_local.py
+	~/env/bin/pip install -r requirements.txt
+	~/env/bin/python manage.py syncdb --all --noinput
+	~/env/bin/python manage.py migrate --noinput
+	~/env/bin/python manage.py collectstatic --noinput
+	~/env/bin/python manage.py compilemessages
+	rm -rf ~/webfiles/media/
+	cp -r ~timtec-production/webfiles/media ~/webfiles/
+	touch ~/wsgi-reload
+
 test_collectstatic:
 	python manage.py collectstatic --noinput -n
 

@@ -19,7 +19,7 @@
   <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Converter.js' %}" charset="utf-8"></script>
   <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Editor.js' %}" charset="utf-8"></script>
   <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Sanitizer.js' %}" charset="utf-8"></script>
-  <script type="text/javascript" src="{% static 'js/admin/admin.js' %}" charset="utf-8"></script>
+  <script type="text/javascript" src="{% static 'js/admin.js' %}" charset="utf-8"></script>
 </head>
 <body id="admin" ng-controller="CourseEdit">
 
@@ -36,13 +36,15 @@
             </button>
             <a class="navbar-brand" href="/">TIMTec</a>
         </div>
-        
+
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="main-navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
+                {% comment %}
                 <li><a href="/admin/courses">Cursos</a></li>
                 <li><a href="/admin/users">Usuários</a></li>
                 <li><a href="/admin/stats">Estatísticas</a></li>
+                {% endcomment %}
                 <li class="divider"></li>
                 <li><a href="/">TIMTec</a></li>
                 <li class="divider"></li>
@@ -63,8 +65,16 @@
         <div class="page-header">
           <div class="row">
             <div class="col-sm-9 col-lg-9">
-              <h1 class="top editable"><span contenteditable="true" ng-model="course.name"></span></h1>
+              <h1 class="top editable"><span contenteditable="true" ng-model="course.name" ng-blur="course.$save()"></span></h1>
               <h5><span class="icon-addable icon-plus-sign-alt"></span> Adicionar professores ao curso</h5>
+              <h5>
+                <span>Marcar curso como:</span>
+                <select ng-model="course.status" ng-change="course.$save()">
+                  <option value="draft">Rascunho</option>
+                  <option value="listed">Listado</option>
+                  <option value="published">Publicado</option>
+                </select>
+              </h5>
             </div>
             <div class="col-sm-3 col-lg-3 textright">
                 <!-- COURSE-SECTION-NAV -->
@@ -481,8 +491,8 @@
                               class="{{typeIs('trueorfalse')?'active':''}} btn btn-sm btn-default">Verdadeiro ou falso
                       </button>
 
-                      <button ng-click="changeTypeTo('order')"
-                              class="{{typeIs('order')?'active':''}} btn btn-sm btn-default">Ordenação
+                      <button ng-click="changeTypeTo('relationship')" disabled="true"
+                              class="{{typeIs('relationship')?'active':''}} btn btn-sm btn-default">Relacionamento
                       </button>
 
                     </p>
@@ -532,6 +542,38 @@
                     <button class="next btn" ng-click="addAlternative()">Adicionar resposta</button>
                   </div>
 
+                  <div class="form-group trueorfalse" ng-show="typeIs('trueorfalse')">
+                    <div class="form-horizontal">
+                      <div class="form-group">
+                        <label class="control-label col-lg-3">Pergunta</label>
+
+                        <div class="col-lg-1">
+                            <span>&#9745;</span>
+                        </div>
+                        <div class="col-lg-1">
+                            <span>&#9746;</span>
+                        </div>
+
+                        <div class="col-lg-7">
+                          <textarea class="form-control" placeholder="Digite a pergunta" ng-model="activity().data.question"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group" ng-repeat="alt in activity().data.alternatives track by $index">
+                        <label class="control-label col-lg-3">Alternativa {{$index+1}}</label>
+                        <div class="col-lg-1">
+                            <input type="radio" ng-model="activity().expected[$index]" ng-value="true" />
+                        </div>
+                        <div class="col-lg-1">
+                            <input type="radio" ng-model="activity().expected[$index]" ng-value="false" />
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control" placeholder="Digite uma resposta"
+                                 ng-model="activity().data.alternatives[$index]"/>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="next btn" ng-click="addAlternative()">Adicionar resposta</button>
+                  </div>
 
                   <!-- div class="form-group trueorfalse">Verdadeiro ou falso</div-->
                   <!-- div class="form-group order">Ordenação</div-->

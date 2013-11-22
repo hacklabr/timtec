@@ -38,7 +38,7 @@ urlpatterns = patterns(
     url(r'^django/admin/', include(django_admin.site.urls)),
 
     # Privileged browsing
-    url(r'^admin/', include('admin.urls')),
+    url(r'^admin/', include('administration.urls')),
 
     # Public browsing
     url(r'^my-courses$', UserCoursesView.as_view(), name='user_courses'),

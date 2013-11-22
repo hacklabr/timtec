@@ -309,7 +309,7 @@ INSTALLED_APPS = (
     'accounts',
     'autoslug',
     'core',
-    'admin',
+    'administration',
     'lesson',
     'forum',
     'course_material',

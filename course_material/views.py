@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from accounts.utils import LoginRequiredMixin
+from braces.views import LoginRequiredMixin
 from core.models import Course
 from course_material.forms import FileForm
 from course_material.serializers import CourseMaterialSerializer
