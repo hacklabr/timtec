@@ -58,7 +58,8 @@ def test_user_picture_url(user):
     user.picture.save('abcd-avatar.png', ContentFile(open(testpicture).read()))
     user.save()
 
-    assert user.get_picture_url() == '/media/user-pictures/abcd-avatar.png'
+    # file is saved as md5(filename + username)
+    assert user.get_picture_url() == '/media/user-pictures/96e83b063b2b128d379a1a3cc09d1659.png'
 
     #teardown
     user.picture.delete()
