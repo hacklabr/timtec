@@ -489,8 +489,8 @@
                               class="{{typeIs('trueorfalse')?'active':''}} btn btn-sm btn-default">Verdadeiro ou falso
                       </button>
 
-                      <button ng-click="changeTypeTo('order')"
-                              class="{{typeIs('order')?'active':''}} btn btn-sm btn-default">Ordenação
+                      <button ng-click="changeTypeTo('relationship')" disabled="true"
+                              class="{{typeIs('relationship')?'active':''}} btn btn-sm btn-default">Relacionamento
                       </button>
 
                     </p>
@@ -540,6 +540,38 @@
                     <button class="next btn" ng-click="addAlternative()">Adicionar resposta</button>
                   </div>
 
+                  <div class="form-group trueorfalse" ng-show="typeIs('trueorfalse')">
+                    <div class="form-horizontal">
+                      <div class="form-group">
+                        <label class="control-label col-lg-3">Pergunta</label>
+
+                        <div class="col-lg-1">
+                            <span>&#9745;</span>
+                        </div>
+                        <div class="col-lg-1">
+                            <span>&#9746;</span>
+                        </div>
+
+                        <div class="col-lg-7">
+                          <textarea class="form-control" placeholder="Digite a pergunta" ng-model="activity().data.question"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group" ng-repeat="alt in activity().data.alternatives track by $index">
+                        <label class="control-label col-lg-3">Alternativa {{$index+1}}</label>
+                        <div class="col-lg-1">
+                            <input type="radio" ng-model="activity().expected[$index]" ng-value="true" />
+                        </div>
+                        <div class="col-lg-1">
+                            <input type="radio" ng-model="activity().expected[$index]" ng-value="false" />
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control" placeholder="Digite uma resposta"
+                                 ng-model="activity().data.alternatives[$index]"/>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="next btn" ng-click="addAlternative()">Adicionar resposta</button>
+                  </div>
 
                   <!-- div class="form-group trueorfalse">Verdadeiro ou falso</div-->
                   <!-- div class="form-group order">Ordenação</div-->
