@@ -19,13 +19,16 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 from allauth.account.signals import user_signed_up
 
 import os
-import md5
+import hashlib
 
 
 def path_and_rename(path):
     def wrapper(instance, filename):
-        fname, ext = filename.split('.')
-        filename = '{}.{}'.format(md5.md5(fname + instance.username).hexdigest(), ext)
+        root, ext = os.path.splitext(filename)
+        m = hashlib.md5()
+        m.update(root.encode('utf-8'))
+        m.update(instance.username.encode('utf-8'))
+        filename = m.hexdigest() + ext
         # return the whole path to the file
         return os.path.join(path, filename)
     return wrapper
