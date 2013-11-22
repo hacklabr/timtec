@@ -183,7 +183,6 @@ class CourseStudent(models.Model):
 
     def resume_last_unit(self):
         units_done = self.units_done.order_by('complete')
-        # import ipdb; ipdb.set_trace()
         if units_done.count() > 0:
             return units_done.reverse().first().unit
         else:
