@@ -22,7 +22,7 @@
             $scope.editor_enabled = false;
         };
     }
-    
+
     function InlineForumCtrl($scope, $window, Question) {
         var course_id = parseInt($window.course_id, 10);
         $scope.questions = Question.query({course: course_id});
@@ -212,9 +212,5 @@
                         }
                     });
                 };
-        }]).
-          // Uses the csrftoken from the cookie
-        run(function ($http, $cookies) {
-            $http.defaults.headers.common['X-CSRFToken'] = $cookies.csrftoken;
-        });
+        }]);
 })(angular);

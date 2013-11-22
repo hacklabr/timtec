@@ -160,6 +160,9 @@
                           <!-- lesson selector -->
                           <a href="#lessonModal" data-toggle="modal" class="title"
                              ng-click="select(lesson)">{{ lesson.name }}</a>
+                             <p]>
+                             <a href="/lesson/{{ lesson.slug }}" target="_blank">Visualizar</a>
+                             </p>
 
                           <span class="description">{{ lesson.desc }}</span>
                         </p>
@@ -404,19 +407,6 @@
               <div class="form-group">
                 <label>Notas do professor</label>
                 <div class="text-editor">
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <i class="icon-bold"></i>
-                      <i class="icon-italic"></i>
-                      <i class="icon-link"></i>
-                      <i class="icon-quote-left"></i>
-                      <i class="icon-code"></i>
-                      <i class="icon-list-ol"></i>
-                      <i class="icon-align-left"></i>
-                      <i class="icon-align-center"></i>
-                      <i class="icon-align-right"></i>
-                    </div>
-                  </div>
                   <div class="row">
                     <div class="col-lg-12">
                       <textarea class="col-lg-12 form-control" ng-model="selectedLesson.notes" rows="15"></textarea>

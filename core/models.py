@@ -288,6 +288,11 @@ class Activity(models.Model):
     class Meta:
         verbose_name = _('Activity')
         verbose_name_plural = _('Activities')
+        ordering = [('-id')]
+
+    def question(self):
+        if self.data and 'question' in self.data:
+            return self.data.get('question')
 
     def __unicode__(self):
         return u'%s dt %s a %s' % (self.type, self.data, self.expected)
