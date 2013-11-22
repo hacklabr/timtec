@@ -4,10 +4,12 @@
 
     /* Controllers */
 
-    function QuestionCtrl($scope, $sce, $window, Answer) {
+    function QuestionCtrl($scope, $sce, $window, Question, Answer) {
         var questionId = parseInt($window.question_id, 10);
         var userId = parseInt($window.user_id, 10);
         $scope.answers = Answer.query({question: questionId});
+        $scope.question = Question.get({questionId: questionId});
+        // $scope.question_votes = $scope.question.votes;
         $scope.editor_enabled = true;
         Answer.query({question: questionId, user: userId}, function(current_user_answer){
             if (current_user_answer.length !== 0) {
@@ -53,7 +55,7 @@
     }
 
     angular.module('forum.controllers', ['ngCookies']).
-        controller('QuestionCtrl', ['$scope', '$sce', '$window', 'Answer', QuestionCtrl]).
+        controller('QuestionCtrl', ['$scope', '$sce', '$window', 'Question', 'Answer', QuestionCtrl]).
         controller('InlineForumCtrl', ['$scope', '$window', 'Question', InlineForumCtrl]).
         controller('QuestionVoteCtrl', ['$scope', '$window', 'QuestionVote',
             function ($scope, $window, QuestionVote) {
@@ -75,16 +77,16 @@
                     var question_vote = QuestionVote.get({question: $scope.questionId}, function (question_vote){
                         if ((question_vote.value === undefined) || (question_vote.value === 0)){
                             $scope.user_question_vote_up = 'active';
-                            $scope.question_votes += 1;
+                            $scope.question.votes += 1;
                             question_vote.value = 1;
                         } else if (question_vote.value == 1) {
                             $scope.user_question_vote_up = '';
-                            $scope.question_votes -= 1;
+                            $scope.question.votes -= 1;
                             question_vote.value = 0;
                         } else if (question_vote.value == -1) {
                             $scope.user_question_vote_up = 'active';
                             $scope.user_question_vote_down = '';
-                            $scope.question_votes += 2;
+                            $scope.question.votes += 2;
                             question_vote.value = 1;
                         }
                         question_vote.$update({question: $scope.questionId});
@@ -94,7 +96,7 @@
                             var question_vote = new QuestionVote();
                             question_vote.question = $scope.questionId;
                             $scope.user_question_vote_up = 'active';
-                            $scope.question_votes += 1;
+                            $scope.question.votes += 1;
                             question_vote.value = 1;
                             question_vote.$update({question: $scope.questionId});
                         }
@@ -104,16 +106,16 @@
                     $scope.question_vote = QuestionVote.get({question: $scope.questionId}, function (question_vote){
                         if ((question_vote.value === undefined) || (question_vote.value === 0)){
                             $scope.user_question_vote_down = 'active';
-                            $scope.question_votes -= 1;
+                            $scope.question.votes -= 1;
                             question_vote.value = -1;
                         } else if (question_vote.value == 1) {
                             $scope.user_question_vote_up = '';
                             $scope.user_question_vote_down = 'active';
-                            $scope.question_votes -= 2;
+                            $scope.question.votes -= 2;
                             question_vote.value = -1;
                         } else if (question_vote.value == -1) {
                             $scope.user_question_vote_down = '';
-                            $scope.question_votes += 1;
+                            $scope.question.votes += 1;
                             question_vote.value = 0;
                         }
                         question_vote.$update({question: $scope.questionId});
@@ -123,7 +125,7 @@
                             var question_vote = new QuestionVote();
                             question_vote.question = $scope.questionId;
                             $scope.user_question_vote_down = 'active';
-                            $scope.question_votes -= 1;
+                            $scope.question.votes -= 1;
                             question_vote.value = -1;
                             question_vote.$update({question: $scope.questionId});
                         }
