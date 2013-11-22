@@ -26,8 +26,5 @@
                 $scope.reset = function(){
                     $scope.editor_text = $scope.course_material.text;
                 };
-        }]).
-        run(function ($http, $cookies) {
-            $http.defaults.headers.common['X-CSRFToken'] = $cookies.csrftoken;
-        });
+        }]);
 })(angular);

@@ -49,12 +49,26 @@ update-production:
 	cp ../settings_production.py timtec/settings_production.py
 	touch ~/wsgi-reload
 
+update-design:
+	dropdb timtec-design
+	createdb timtec-design
+	pg_restore -O -x -n public -d timtec-design ~hacklab/sql-backup/last.psqlc
+	cp timtec/settings_local_design.py timtec/settings_local.py
+	~/env/bin/pip install -r requirements.txt
+	~/env/bin/python manage.py syncdb --all --noinput
+	~/env/bin/python manage.py migrate --noinput
+	~/env/bin/python manage.py collectstatic --noinput
+	~/env/bin/python manage.py compilemessages
+	rm -rf ~/webfiles/media/
+	cp -r ~timtec-production/webfiles/media ~/webfiles/
+	touch ~/wsgi-reload
+
 test_collectstatic:
 	python manage.py collectstatic --noinput -n
 
 python_tests:
 	find . -type f -name '*.py[co]' -exec rm {} \;
-	py.test --pep8 --flakes --cov . . $*
+	py.test --pep8 --flakes --tb=native --cov . . $*
 
 js_tests:
 	find . -path ./static/js/vendor -prune -o -path static/js/vendor/ -prune -o -path ./tests/js/lib -prune -path tests/js/lib/ -prune -o -name '*.js' -exec jshint {} \;
