@@ -8,19 +8,6 @@
 @gray-light:             lighten(#000, 60%);   // #999
 @gray-lighter:           lighten(#000, 93.5%); // #eee
 
-// @gray-darker:            #34495e;
-// @gray-dark:              #7f8c8d;
-// @gray:                   #95a5a6;
-// @gray-light:             #bdc3c7;
-// @gray-lighter:           #ecf0f1;
-
-
-// @brand-primary:         #00bebe;
-// @brand-success:         #7ab800;
-// @brand-warning:         #fed100;
-// @brand-danger:          #981e32;
-// @brand-info:            #2583b1;
-
 @brand-primary:         #3498db;
 @brand-success:         #2ecc71;
 @brand-warning:         #f1c40f;
@@ -63,6 +50,7 @@ h6 {
   text-transform:uppercase;
 }
 
+// LINKS
 a,
 a:hover,
 a:active {
@@ -77,6 +65,7 @@ a.instructor {
   }
 }
 
+// PAGE HEADERS
 .page-header-double {
   border-bottom:1px solid @gray-lighter;
   margin:40px 0 20px;
@@ -92,11 +81,9 @@ a.instructor {
   }
 }
 
-
 // LINKS
 @link-color:            @brand-info;
 @link-hover-color:      darken(@link-color, 15%);
-
 
 // COMPONENTS
 @border-radius-base:             2px;
@@ -271,6 +258,19 @@ a.instructor {
   .size(0,0);
 }
 
+// NO BORDERS
+.no-bottom-border {
+  border-bottom: none !important;
+}
+.no-left-border {
+  border-left: none !important;
+}
+.no-right-border {
+  border-right: none !important;
+}
+.no-top-border {
+  border-top: none !important;
+}
 
 
 // HELPERS
@@ -406,6 +406,12 @@ a.instructor {
 }
 
 // COURSE
+.course-intro {
+  .page-header {
+    margin-bottom: 30px;
+  }
+}
+
 // Course intro - list of lessons
 .course-lessons {
   .top(27px);
