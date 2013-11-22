@@ -79,4 +79,4 @@ class AnswerViewSet(viewsets.ModelViewSet):
         progress.save()
 
     def get_queryset(self):
-        return Answer.objects.all()
+        return Answer.objects.filter(user=self.request.user)

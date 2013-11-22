@@ -1,24 +1,15 @@
-import json
 from core.models import Activity, Answer, Lesson, StudentProgress, Unit, Video
 from rest_framework import serializers
 
 
 class JSONSerializerField(serializers.WritableField):
-
-    def to_native(self, data):
-        if type(data) in (dict, list):
-            return data
-        elif type(data) in (unicode, str,):
-            return json.loads(data)
-        return None
-
-    def from_native(self, obj):
-        return json.dumps(obj)
+    pass
 
 
 class AnswerSerializer(serializers.ModelSerializer):
     user = serializers.Field(source='user')
     correct = serializers.Field(source='is_correct')
+    given = JSONSerializerField('given')
 
     class Meta:
         model = Answer

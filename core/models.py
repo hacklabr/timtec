@@ -21,12 +21,13 @@ from allauth.account.signals import user_signed_up
 
 
 class TimtecUser(AbstractBaseUser, PermissionsMixin):
+    USERNAME_REGEXP = re.compile('^[\w.+-]+$')
     username = models.CharField(
         _('Username'), max_length=30, unique=True,
         help_text=_('Required. 30 characters or fewer. Letters, numbers and '
                     './+/-/_ characters'),
         validators=[
-            validators.RegexValidator(re.compile('^[\w.+-]+$'), _('Enter a valid username.'), 'invalid')
+            validators.RegexValidator(USERNAME_REGEXP, _('Enter a valid username.'), 'invalid')
         ])
 
     email = models.EmailField(_('Email address'), blank=False, unique=True)
@@ -330,12 +331,12 @@ class Answer(models.Model):
         expected = self.activity.expected
 
         result = unicode(given) == unicode(expected)
-        #import ipdb; ipdb.set_trace()
         return result
 
     class Meta:
         verbose_name = _('Answer')
         verbose_name_plural = _('Answers')
+        ordering = ['timestamp']
 
 
 class StudentProgress(models.Model):

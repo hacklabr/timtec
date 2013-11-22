@@ -20,7 +20,7 @@ function initialize_code_mirror($scope, data, expected) {
 (function (angular) {
     "use strict";
 
-    var _gaq = window._gaq || [];
+    var ga = window.ga || function(){ };
     var app = angular.module('lesson', ['ngRoute', 'ngResource', 'youtube', 'forum']);
 
     var ACTIVITY_TEMPLATE_PATH = function(the_type){
@@ -43,14 +43,15 @@ function initialize_code_mirror($scope, data, expected) {
         }
     ]);
 
-    app.controller('LessonMainCtrl', ['$scope', 'LessonData',
-        function ($scope, LessonData) {
+    app.controller('LessonMainCtrl', ['$scope', 'LessonData', '$location',
+        function ($scope, LessonData, $location) {
             var match = location.hash.match(/^#\/(\d+)/);
             if(match) {
-                $scope.currentUnitPos = parseInt( match[1], 10);
+                $scope.currentUnitPos = parseInt(match[1], 10);
             } else {
                 $scope.currentUnitPos = 1;
             }
+            $scope.currentUnitIndex = $scope.currentUnitPos - 1;
 
             $scope.isSelected = function(i){
                 return ($scope.currentUnitPos-1) === i;
@@ -59,7 +60,9 @@ function initialize_code_mirror($scope, data, expected) {
                 return (unit.progress || {}).complete;
             };
             $scope.select = function(i) {
-                $scope.currentUnitPos = i+1;
+                $scope.currentUnitIndex = parseInt(i,10);
+                $scope.currentUnitPos = $scope.currentUnitIndex + 1;
+                $location.path('/' + $scope.currentUnitPos);
             };
         }
     ]);
@@ -69,7 +72,6 @@ function initialize_code_mirror($scope, data, expected) {
             var $main = $scope.$parent;
 
             $scope.alternatives = [];
-            $scope.currentUnitIndex = $main.currentUnitPos - 1;
             $scope.sendOrNextText = 'Enviar';
             $scope.answer = {given: null, correct: null};
 
@@ -93,6 +95,7 @@ function initialize_code_mirror($scope, data, expected) {
                 var answer = new Answer({'given': $scope.answer.given});
                 answer.unit = $scope.currentUnit.id;
                 answer.activity = $scope.currentUnit.activity.id;
+                delete answer.id;
                 answer.$save().then(function(d){
                     ga('send', 'event', 'activity', 'result', '', d.correct);
                     $scope.sendOrNextText = d.correct ? 'Continuar' : 'Enviar';
@@ -103,7 +106,7 @@ function initialize_code_mirror($scope, data, expected) {
             };
 
             LessonData.then(function (lesson) {
-                var unit = $scope.currentUnit = lesson.units[$scope.currentUnitIndex];
+                var unit = $scope.currentUnit = lesson.units[$main.currentUnitIndex];
                 $scope.currentUnitId = unit.id;
                 $scope.activity_template = unit.activity.template;
 
@@ -113,19 +116,31 @@ function initialize_code_mirror($scope, data, expected) {
                     );
                 }
 
-                if (unit.activity.type == 'multiplechoice') {
-                    $scope.answer.given = $scope.alternatives.map(
-                        function(a,i){ return false; }
-                    );
-                } else if (unit.activity.type == 'trueorfalse') {
-                    $scope.answer.given = $scope.alternatives.map(
-                        function(a,i){ return null; }
-                    );
-                } else if(unit.activity.type === 'relationship') {
-                    $scope.answer.given = unit.activity.data.column1.map(
-                        function(a,i){ return null; }
-                    );
-                } else if(unit.activity.type === 'html5') {
+                if(unit.activity.id) {
+                    var extractLatest = function (list) {
+                        if(list.length > 0)
+                            $scope.answer = list.pop();
+                    };
+                    Answer.query({'activity': unit.activity.id}, extractLatest);
+                }
+
+                if( !$scope.answer.given ) {
+                    if (unit.activity.type === 'multiplechoice') {
+                        $scope.answer.given = $scope.alternatives.map(
+                            function(a,i){ return false; }
+                        );
+                    } else if (unit.activity.type === 'trueorfalse') {
+                        $scope.answer.given = $scope.alternatives.map(
+                            function(a,i){ return null; }
+                        );
+                    } else if(unit.activity.type === 'relationship') {
+                        $scope.answer.given = unit.activity.data.column1.map(
+                            function(a,i){ return null; }
+                        );
+                    }
+                }
+
+                if(unit.activity.type === 'html5') {
                     /** TODO: initialize this in proprer way (fabio) */
                     setTimeout(function () {
                         initialize_code_mirror($scope, unit.activity.data.data, unit.activity.expected.expected_answer);
@@ -270,16 +285,48 @@ function initialize_code_mirror($scope, data, expected) {
     ]);
 
     app.directive('radio', function () {
-        return function (scope, element) {
-            $(element).radio();
-        };
+        return {
+            restrict: 'E',
+            require: 'ngModel',
+            scope: {
+                checked: '=ngModel',
+                ngValue: '='
+            },
+            transclude: true,
+            /*jshint multistr: true */
+            template: ' \
+                        <label class="radio" ng-class="{checked: checked == ngValue}"  ng-click="checked = ngValue"> \
+                            <span class="icons"> \
+                                <span class="first-icon icon-check-empty"></span> \
+                                <span class="second-icon icon-check"></span> \
+                            </span> \
+                            <input type="radio" ng-model="checked" ng-value="ngValue"/> \
+                            <span ng-transclude></span> \
+                        </label>',
+            replace: true
+        }
     });
 
-    app.directive('checkbox', function () {
-        return function (scope, element) {
-            $(element).checkbox();
-        };
+    app.directive('checkbox', function(){
+        return {
+            restrict: 'E',
+            require: 'ngModel',
+            scope: {
+                checked: '=ngModel'
+            },
+            transclude: true,
+            /*jshint multistr: true */
+            template: ' \
+                        <label class="checkbox" ng-class="{checked: checked}"  ng-click="checked = !checked"> \
+                            <span class="icons"> \
+                                <span class="first-icon icon-check-empty"></span> \
+                                <span class="second-icon icon-check"></span> \
+                            </span> \
+                            <input type="checkbox" ng-model="checked"/> \
+                            <span ng-transclude></span> \
+                        </label>',
+            replace: true
+        }
     });
-
 
 })(angular);

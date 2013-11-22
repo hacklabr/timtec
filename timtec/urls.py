@@ -9,7 +9,8 @@ admin.autodiscover()
 
 from django.views.generic import TemplateView
 from accounts.views import CustomLoginView, ProfileEditView, ProfileView
-from core.views import AdminCourseView, CourseView, CourseViewSet, EnrollCourseView, HomeView, UserCoursesView, ContactView
+from core.views import CourseView, CourseViewSet, EnrollCourseView, HomeView, UserCoursesView, ContactView  # AdminCourseView,
+from forum.views import AnswerViewSet as ForumAnswerViewSet
 from lesson.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, AnswerViewSet, UpdateStudentProgressView
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, QuestionVoteViewSet, AnswerVoteViewSet
 from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialAdminView, CourseMaterialViewSet
@@ -21,6 +22,7 @@ router.register(r'lessons', LessonViewSet)
 router.register(r'answer', AnswerViewSet)
 router.register(r'student_progress', StudentProgressViewSet)
 router.register(r'forum_question', QuestionViewSet)
+router.register(r'forum_answer', ForumAnswerViewSet)
 router.register(r'question_vote', QuestionVoteViewSet)
 router.register(r'answer_vote', AnswerVoteViewSet)
 router.register(r'course_material', CourseMaterialViewSet)
@@ -36,7 +38,7 @@ urlpatterns = patterns(
     url(r'^django/admin/', include(admin.site.urls)),
 
     # Privileged browsing
-    url(r'^admin/course/(?P<slug>[-a-zA-Z0-9_]+)$', AdminCourseView.as_view(), name='course_admin'),
+    # url(r'^admin/course/(?P<slug>[-a-zA-Z0-9_]+)$', AdminCourseView.as_view(), name='course_admin'),
 
     # Public browsing
     url(r'^my-courses$', UserCoursesView.as_view(), name='user_courses'),
