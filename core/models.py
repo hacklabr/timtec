@@ -4,6 +4,7 @@ import json
 
 from jsonfield import JSONField
 from positions import PositionField
+from autoslug import AutoSlugField
 
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
@@ -128,7 +129,7 @@ class Course(models.Model):
         ('published', _('Published')),
     )
 
-    slug = models.SlugField(_('Slug'), max_length=255, unique=True)
+    slug = AutoSlugField(_('Slug'), populate_from='name', max_length=255, unique=True)
     name = models.CharField(_('Name'), max_length=255)
     intro_video = models.ForeignKey(Video, verbose_name=_('Intro video'), null=True)
     application = models.TextField(_('Application'))
