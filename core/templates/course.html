@@ -114,8 +114,8 @@
                         <tr>
                           {% for unit in lesson.units.all %}
                           <td>
-                            {% if lesson.is_ready and user_is_enrolled %}
-                              <a class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
+                            {% if lesson.is_ready %}
+                              <a class="has-tooltip unit js-login-required {% if unit.id in units_done %}done{% endif %}"
                                  data-toggle="tooltip" data-placement="bottom"
                                  data-original-title="Unidade {{ forloop.counter }}"
                                  href="{% url 'lesson' lesson.slug %}#/{{ forloop.counter }}">
