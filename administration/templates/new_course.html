@@ -68,7 +68,7 @@
                             <div class="page-header-double">
                                 <h3 class="top"><i class="icon-double-angle-right"></i> Aplicação do Conhecimento</h3>
                             </div>
-                            <a data-toggle="modal" href="#applicationModal">Adicionar texto</a>
+                            <a data-toggle="modal" href="#applicationModal" class="btn btn-default btn-sm">Adicionar texto</a>
                         </div>
                         {# END COL-LG-6 #}
                         
@@ -77,7 +77,7 @@
                             <div class="page-header-double">
                                 <h3 class="top"><i class="icon-double-angle-right"></i> O que preciso saber</h3>
                             </div>
-                            <a data-toggle="modal" href="#requirementModal">Adicionar texto</a>
+                            <a data-toggle="modal" href="#requirementModal" class="btn btn-default btn-sm">Adicionar texto</a>
                         </div>
                         {# END COL-LG-6 #}
                     </div>
@@ -93,7 +93,7 @@
                     </div>
                     {# END PAGE-HEADER-DOUBLE #}
 
-                    <button class="btn btn-lg btn-success uppercase">Nova aula</button>
+                    <button class="btn btn-sm btn-success uppercase">Nova aula</button>
 
                     {#  LESSONS LIST #}
                     <div class="lessons">
@@ -154,7 +154,7 @@
                         <h3 class="top"><i class="icon-double-angle-right"></i> Resumo</h3>
                     </div>
                     <div class="editable {{modals.abstract.status}}" ng-bind-html="course.abstract|markdown"></div>
-                    <a data-toggle="modal" href="#abstractModal">Adicionar texto</a>
+                    <a data-toggle="modal" href="#abstractModal" class="btn btn-default btn-sm">Adicionar texto</a>
                     <hr/>
                     {# END ABSTRACT #}
 
@@ -163,7 +163,7 @@
                         <h3 class="top"><i class="icon-double-angle-right"></i> Estrutura do curso</h3>
                     </div>
                     <div class="editable {{modals.structure.status}}" ng-bind-html="course.structure|markdown"></div>
-                    <a data-toggle="modal" href="#structureModal">Adicionar texto</a>
+                    <a data-toggle="modal" href="#structureModal" class="btn btn-default btn-sm">Adicionar texto</a>
                     <hr/>
                     {# END STRUCTURE #}
 
@@ -172,7 +172,7 @@
                         <h3 class="top"><i class="icon-double-angle-right"></i> Carga horária</h3>
                     </div>
                     <div class="editable {{modals.workload.status}}" ng-bind-html="course.workload|markdown"></div>
-                    <a data-toggle="modal" href="#workloadModal">Adicionar texto</a>
+                    <a data-toggle="modal" href="#workloadModal" class="btn btn-default btn-sm">Adicionar texto</a>
                     <hr/>
                     {# END WORKLOAD #}
 

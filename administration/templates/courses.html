@@ -2,7 +2,9 @@
 
 {% block content %}
 
-<section id="courses">
+{# COURSES #}
+<section id="courses" class="container">
+    {#  HEADER #}
     <header>
         <div class="row">
             <div class="col-lg-6">
@@ -13,10 +15,15 @@
             </div>
         </div>
     </header>
-    
+    {# END HEADER #}
+
+    {# FILTERS #}
     <div class="filters">
+        {#  FORM INLINE #}
         <div class="form-inline">
+            {# ROW #}
             <div class="row">
+                {# COL-LG-6 #}
                 <div class="col-lg-6">
                     <div class="checkbox">
                         <label><input type="checkbox"> Todos</label>
@@ -25,6 +32,8 @@
                         <label><input type="checkbox"> Rascunho</label>
                     </div>
                 </div>
+                {# END COL-LG-6 #}
+                {# COL-LG-3 #}
                 <div class="col-lg-3 textright">
                     <select class="form-control">
                         <option>Ordernar ...</option>
@@ -33,27 +42,45 @@
                         <option>Nome do curso</option>
                     </select>
                 </div>
+                {# END COL-LG-3 #}
+                {# COL-LG-3 #}
                 <div class="col-lg-3 textright">
                     <input type="text" placeholder="Palavra-chave" class="form-control"/>
                 </div>
+                {# END COL-LG-3 #}
             </div>
+            {# END ROW #}
         </div>
+        {# END FORM INLINE #}
     </div>
+    {# END FILTERS #}
   
+    {# ALL COURSES #}
     <section id="all-courses" class="courses-list">
+
+        {# COURSE #}
         <div class="course">
+            {# ROW #}
             <div class="row">
+                {# COL-LG-1 #}
                 <div class="col-lg-1">
                     <span class="label label-success">Publicado</span>
                 </div>
+                {# END COL-LG-1 #}
+                {# COL-LG-8 #}
                 <div class="col-lg-8">
                     <a href="/admin/course/html5">HTML5: Introdução ao Front End</a>
                 </div>
+                {# END COL-LG-8 #}
+                {# COL-LG-3 #}
                 <div class="col-lg-3 textright">
                     <span class="date-label">Publicado em</span> <span class="date label label-success">Nov, 2013</span>
                 </div>
+                {# END COL-LG-3 #}
             </div>
+            {# END ROW #}
         </div>
+        {# END COURSE #}
         
         <div class="course">
             <div class="row">
@@ -97,92 +124,11 @@
             </div>
         </div>
 
-        <div class="course">
-            <div class="row">
-                <div class="col-lg-1">
-                    <span class="label label-warning">Rascunho</span>
-                </div>
-                <div class="col-lg-8">
-                    <a href="">Edição e Tratamento de Imagens</a>
-                </div>
-                <div class="col-lg-3 textright">
-                    <span class="date label label-danger">Sem data de publicação</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="course">
-            <div class="row">
-                <div class="col-lg-1">
-                    <span class="label label-warning">Rascunho</span>
-                </div>
-                <div class="col-lg-8">
-                    <a href="">Sete lições para a produção de textos</a>
-                </div>
-                <div class="col-lg-3 textright">
-                    <span class="date label label-danger">Sem data de publicação</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="course">
-            <div class="row">
-                <div class="col-lg-1">
-                    <span class="label label-warning">Rascunho</span>
-                </div>
-                <div class="col-lg-8">
-                    <a href="">Desenho de Jogos</a>
-                </div>
-                <div class="col-lg-3 textright">
-                    <span class="date label label-danger">Sem data de publicação</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="course">
-            <div class="row">
-                <div class="col-lg-1">
-                    <span class="label label-warning">Rascunho</span>
-                </div>
-                <div class="col-lg-8">
-                    <a href="">Publicação Digital em Dispositivos Móveis</a>
-                </div>
-                <div class="col-lg-3 textright">
-                    <span class="date label label-danger">Sem data de publicação</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="course">
-            <div class="row">
-                <div class="col-lg-1">
-                    <span class="label label-warning">Rascunho</span>
-                </div>
-                <div class="col-lg-8">
-                    <a href="">TIM Faz Ciência</a>
-                </div>
-                <div class="col-lg-3 textright">
-                    <span class="date label label-danger">Sem data de publicação</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="course">
-            <div class="row">
-                <div class="col-lg-1">
-                    <span class="label label-warning">Rascunho</span>
-                </div>
-                <div class="col-lg-8">
-                    <a href="">Introdução ao Uso de Banco de Dados e SQL</a>
-                </div>
-                <div class="col-lg-3 textright">
-                    <span class="date label label-danger">Sem data de publicação</span>
-                </div>
-            </div>
-        </div>
-        
+        {# ROW #}
         <div class="row">
+            {# COL-LG-12 #}
             <div class="col-lg-12 textcenter">
+                {# PAGINATION #}
                 <ul class="pagination">
                     <li><a href="#">&laquo;</a></li>
                     <li><a href="#">1</a></li>
@@ -192,13 +138,16 @@
                     <li><a href="#">5</a></li>
                     <li><a href="#">&raquo;</a></li>
                 </ul>
+                {# END PAGINATION #}
             </div>
+            {# END COL-LG-12 #}
         </div>
+        {# END ROW #}
     </section>
-    <!-- END ALL-COURSES -->
+    {# END ALL-COURSES #}
 
 </section>
-<!-- END COURSES -->
+{# END COURSES #}
 
 
 {% endblock %}
