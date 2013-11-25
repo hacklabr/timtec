@@ -1,9 +1,16 @@
 {% extends "admin-base.html" %}
+{% load static %}
+
+{% block js %} {{block.super}}
+<script type="text/javascript" src="{% static 'js/courses/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/courses/filters.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/courses/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/courses/factories.js' %}"></script>
+{% endblock %}
 
 {% block content %}
-
 {# COURSES #}
-<section id="courses" class="container">
+<section id="courses" class="container" ng-app="courses" ng-controller="CourseListController">
     {#  HEADER #}
     <header>
         <div class="row">
@@ -54,75 +61,34 @@
         {# END FORM INLINE #}
     </div>
     {# END FILTERS #}
-  
+
     {# ALL COURSES #}
     <section id="all-courses" class="courses-list">
 
-        {# COURSE #}
-        <div class="course">
-            {# ROW #}
-            <div class="row">
-                {# COL-LG-1 #}
-                <div class="col-lg-1">
-                    <span class="label label-success">Publicado</span>
-                </div>
-                {# END COL-LG-1 #}
-                {# COL-LG-8 #}
-                <div class="col-lg-8">
-                    <a href="/admin/course/html5">HTML5: Introdução ao Front End</a>
-                </div>
-                {# END COL-LG-8 #}
-                {# COL-LG-3 #}
-                <div class="col-lg-3 textright">
-                    <span class="date-label">Publicado em</span> <span class="date label label-success">Nov, 2013</span>
-                </div>
-                {# END COL-LG-3 #}
-            </div>
-            {# END ROW #}
-        </div>
-        {# END COURSE #}
-        
-        <div class="course">
+        {% verbatim %}
+        <div class="course" ng-repeat="course in courseList">
             <div class="row">
                 <div class="col-lg-1">
-                    <span class="label label-info">Listado</span>
+                    <span class="label" ng-class="{
+                        'label-warning': course.isDraft(),
+                        'label-info': course.isListed(),
+                        'label-success': course.isPublished()}">{{ course.status | capfirst }}</span>
                 </div>
                 <div class="col-lg-8">
-                    <a href="">Introdução à Lógica de Programação</a>
+                    <a href="/admin/course/html5">{{ course.name }}</a>
                 </div>
-                <div class="col-lg-3 textright">
-                    <span class="date-label">Publicar em</span> <span class="date label label-info">Jan, 2014</span>
+                <div class="col-lg-3 textright" ng-show="course.isPublished()">
+                    <span class="date-label">Publicado em</span> <span class="date label label-success">{{ course.publication | date:'MMM, yyyy' }}</span>
                 </div>
-            </div>
-        </div>
-
-        <div class="course">
-            <div class="row">
-                <div class="col-lg-1">
-                    <span class="label label-warning">Rascunho</span>
+                <div class="col-lg-3 textright" ng-show="course.publication && !course.isPublished()">
+                    <span class="date-label">Publicar em</span> <span class="date label label-info">{{ course.publication | date:'MMM, yyyy' }}</span>
                 </div>
-                <div class="col-lg-8">
-                    <a href="">Introdução à Linguagem de Programação PHP</a>
-                </div>
-                <div class="col-lg-3 textright">
-                    <span class="date-label">Publicar em</span> <span class="date label label-info">Jan, 2014</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="course">
-            <div class="row">
-                <div class="col-lg-1">
-                    <span class="label label-warning">Rascunho</span>
-                </div>
-                <div class="col-lg-8">
-                    <a href="">Arquitetura da Informação e Projeto de Sistemas</a>
-                </div>
-                <div class="col-lg-3 textright">
+                <div class="col-lg-3 textright" ng-show="!course.publication">
                     <span class="date label label-danger">Sem data de publicação</span>
                 </div>
             </div>
         </div>
+        {% endverbatim %}
 
         {# ROW #}
         <div class="row">

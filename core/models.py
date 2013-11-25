@@ -138,7 +138,7 @@ class Course(models.Model):
     workload = models.TextField(_('Workload'))
     pronatec = models.TextField(_('Pronatec'))
     status = models.CharField(_('Status'), choices=STATES, default=STATES[0][0], max_length=64)
-    publication = models.DateField(_('Publication'), )
+    publication = models.DateField(_('Publication'), default=None, blank=True, null=True)
     professors = models.ManyToManyField(TimtecUser, related_name='professorcourse_set', through='CourseProfessor')
     students = models.ManyToManyField(TimtecUser, related_name='studentcourse_set', through='CourseStudent')
 
