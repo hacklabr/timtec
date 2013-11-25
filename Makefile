@@ -52,7 +52,7 @@ update-production:
 update-design:
 	dropdb timtec-design
 	createdb timtec-design
-	pg_restore -O -x -n public -d timtec-staging ~hacklab/sql-backup/last.psqlc
+	pg_restore -O -x -n public -d timtec-design ~hacklab/sql-backup/last.psqlc
 	cp timtec/settings_local_design.py timtec/settings_local.py
 	~/env/bin/pip install -r requirements.txt
 	~/env/bin/python manage.py syncdb --all --noinput
@@ -68,7 +68,7 @@ test_collectstatic:
 
 python_tests:
 	find . -type f -name '*.py[co]' -exec rm {} \;
-	py.test --pep8 --flakes --cov . . $*
+	py.test --pep8 --flakes --tb=native --cov . . $*
 
 js_tests:
 	find . -path ./static/js/vendor -prune -o -path static/js/vendor/ -prune -o -path ./tests/js/lib -prune -path tests/js/lib/ -prune -o -name '*.js' -exec jshint {} \;

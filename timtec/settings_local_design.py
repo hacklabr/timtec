@@ -1,4 +1,4 @@
-# configurations for the staging server
+# configurations for the design server
 # https://docs.djangoproject.com/en/dev/ref/settings/
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -18,8 +18,8 @@ DATABASES = {
     }
 }
 
-MEDIA_ROOT = "/home/timtec-staging/webfiles/media/"
-STATIC_ROOT = "/home/timtec-staging/webfiles/static/"
+MEDIA_ROOT = "/home/timtec-design/webfiles/media/"
+STATIC_ROOT = "/home/timtec-design/webfiles/static/"
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'localhost'
