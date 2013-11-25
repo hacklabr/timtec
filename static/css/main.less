@@ -58,13 +58,6 @@ a:active {
   .transition(all .25s ease-out);
 }
 
-a.instructor {
-  color:@brand-success;
-  &:hover {
-    color:darken(@brand-success, 10%);
-  }
-}
-
 // PAGE HEADERS
 .page-header-double {
   border-bottom:1px solid @gray-lighter;
@@ -299,12 +292,6 @@ a.instructor {
   }
 }
 
-// LAYOUT
-// .wrapper {
-//   padding-top:51px;
-// }
-
-
 // MAIN NAVBAR - DROPDOWN MENUS FOR SIGNIN AND SIGNUP
 #main-navbar {
   border-radius: 0;
@@ -405,149 +392,184 @@ a.instructor {
   }
 }
 
+
 // COURSE
-.course-intro {
-  .page-header {
-    margin-bottom: 30px;
-  }
-}
-
-// Course intro - list of lessons
-.course-lessons {
-  .top(20px);
-  .lessons {
-    .top(20px);
-    .lesson {
-      margin-bottom: 10px;
-      margin-top: 10px;
-      
-      .title {
-        display:block;
-        font-size: 16px;
-        font-weight:regular;
-      }
-
-      .description {
-        font-size:13px;
-      }
-
-      li {
-        margin:36px 0;
+// ********************************************************************* //
+#course {
+  // HEADER
+  header {
+    .page-header {
+      border: none;
+      margin-bottom: 40px;
+      h1 {
+        .bottom(0,0);
+        .top(0,0);
       }
     }
+    ul.instructors {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      li {
+        display: inline-block;
+        text-transform: uppercase;
+        a {
+          color:@brand-success;
+          &:hover {
+            color:darken(@brand-success, 10%);
+          }
+        }
+      }
+    }
+  }
+  // END HEADER
 
-    .table {
-      margin-bottom:7px;
-      tr {
-        td {
-          border:none;
+  // COURSE CONTENT
+  #course-content {
+    // COURSE VIDEO
+    .course-video {
+      border: 1px solid @gray-lighter;
+    }
+    // END COURSE VIDEO
+
+    // COURSE LESSONS
+    .course-lessons {
+      .top(20px);
+      .lessons {
+        .top(20px);
+        .lesson {
+          margin-bottom: 10px;
+          margin-top: 10px;
+          .title {
+            display:block;
+            font-size: 16px;
+            font-weight:regular;
+          }
+          .description {
+            font-size:13px;
+          }
+          li {
+            margin:36px 0;
+          }
+        }
+        .table {
+          margin-bottom:7px;
+          tr {
+            td {
+              border:none;
+              margin:0;
+              padding:0;
+            }
+          }
+        }
+        i.icon-youtube-play {
+          color:@brand-danger;
+        }
+        i.icon-list {
+          color:@brand-info;
+        }
+        .unit {
+          background:@gray-lighter - 20%;
+          .box-shadow(inset -1px 0 0 #fff);
+          color:#fff;
+          cursor:pointer;
+          display:block;
+          font-size:12px;
+          height:20px;
+          line-height:1.75;
           margin:0;
           padding:0;
+          position:relative;
+          text-align:left;
+          z-index:10;
+          &.watching, &.watching:hover {
+            background:@brand-info;
+            .transition(all .25s ease-out);
+            &:hover {
+              background:darken(@brand-info, 10%);
+            }
+          }
+          &.done, &.done:hover {
+            background:@brand-success;
+            .transition(all .25s ease-out);
+            &:hover {
+              background:darken(@brand-success, 10%);
+            }
+          }
+          &:hover {
+            background:@gray-light;
+            color:#fff;
+            .transition(all .25s ease-out);
+          }
+          i {
+            color:#fff;
+            font-size:14px;
+            margin:3px 0 0 0;
+          }
+          i.icon-caret-right {
+            color:@brand-info;
+            font-size:18px;
+            left:-10px;
+            line-height:1;
+            top:-2px;
+          }
+          i {
+            position:absolute;
+            right:6px;
+          }
         }
       }
     }
+    // END COURSE LESSONS
 
-    i.icon-youtube-play {
-      color:@brand-danger;
-    }
-
-    i.icon-list {
-      color:@brand-info;
-    }
-
-    .unit {
-      background:@gray-lighter - 20%;
-      .box-shadow(inset -1px 0 0 #fff);
-      color:#fff;
-      cursor:pointer;
-      display:block;
-      font-size:12px;
-      height:20px;
-      line-height:1.75;
-      margin:0;
-      padding:0;
-      position:relative;
-      text-align:left;
-      z-index:10;
-      &.watching, &.watching:hover {
-        background:@brand-info;
-        .transition(all .25s ease-out);
-        &:hover {
-          background:darken(@brand-info, 10%);
+    // COURSE INSTRUCTORS
+    .course-instructors {
+      .top(20px);
+      .instructors {
+        .top(20px);
+        .instructor {
+          margin-bottom:45px;
         }
-      }
-      &.done, &.done:hover {
-        background:@brand-success;
-        .transition(all .25s ease-out);
-        &:hover {
-          background:darken(@brand-success, 10%);
+        h1.fullname {
+          .bottom(0,0);
+          font-size:21px;
+          text-transform:none;
         }
+        h2.job-title {
+          border-bottom:1px solid @gray-lighter;
+          .bottom(9px,9px);
+          font-size:14px;
+        }
+        .missing-avatar {
+          border:1px solid #ddd;
+          text-align:center;
+          &:before {
+            content:'';
+            .vertical-align(middle);
+          }
+          .centered {
+            margin:-16px 4px 4px 4px;
+            .vertical-align(middle);
+            .calculate-width(8px);
+            i {
+              background:#ddd;
+              color:#c0c0c0;
+              display:block;
+              font-size:72px;
+              padding:27px 0;
+            }
+          }
+        }
+        // END INSTRUCTOR
       }
-      &:hover {
-        background:@gray-light;
-        color:#fff;
-        .transition(all .25s ease-out);
-      }
-      i {
-        color:#fff;
-        font-size:14px;
-        margin:3px 0 0 0;
-      }
-      i.icon-caret-right {
-        color:@brand-info;
-        font-size:18px;
-        left:-10px;
-        line-height:1;
-        top:-2px;
-      }
-      i {
-        position:absolute;
-        right:6px;
-      }
+      // END INSTRUCTORS
     }
+    // END COURSE INSTRUCTORS
   }
+  // END COURSE CONTENT
 }
 
 
-// Course intro - list of instructors
-.course-instructors {
-  .top(27px);
-
-  .instructor {
-    margin-bottom:45px;
-  }
-  h1.fullname {
-    .bottom(0,0);
-    font-size:21px;
-    text-transform:none;
-  }
-
-  h2.job-title {
-    border-bottom:1px solid @gray-lighter;
-    .bottom(9px,9px);
-    font-size:14px;
-  }
-  .missing-avatar {
-    border:1px solid #ddd;
-    text-align:center;
-    &:before {
-      content:'';
-      .vertical-align(middle);
-    }
-    .centered {
-      margin:-16px 4px 4px 4px;
-      .vertical-align(middle);
-      .calculate-width(8px);
-      i {
-        background:#ddd;
-        color:#c0c0c0;
-        display:block;
-        font-size:72px;
-        padding:27px 0;
-      }
-    }
-  }
-}
 
 // Course social
 .course-social {
@@ -606,8 +628,6 @@ a.instructor {
 
 // Course - unit video
 .course-video {
-  border:1px solid @gray-lighter;
-  margin-top:21px;
 
   .nav-unit-xs {
     margin-bottom: 10px;

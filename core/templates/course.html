@@ -6,18 +6,18 @@
 
 {% block content %}
 
-{# COURSE-CONTENT #}
-<div id="course-content" class="course-intro">
+{# COURSE #}
+<div id="course" class="course-intro">
 
     {# MAIN-HEADER #}
-    <header id="main-header" class="container">
+    <header class="container">
         {# PAGE-HEADER #}
-        <div class="page-header no-bottom-border">
+        <div class="page-header">
             {# ROW #}
             <div class="row">
                 {# COL-LG-9 #}
                 <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
-                    <h1 class="course-name bottom top">{{course.name}}</h1>
+                    <h1>{{course.name}}</h1>
                     {% include "_course-professors-inline.html" with course=course %}
                 </div>
                 {# END COL-LG-9 #}
@@ -44,21 +44,26 @@
     </header>
     {# END MAIN HEADER #}
 
-    {# MAIN-CONTENT #}
-    <section id="main-content" class="container">
+    {# COURSE-CONTENT #}
+    <section id="course-content" class="container">
 
         {# ROW #}
         <div class="row">
             {# COL-LG-9 #}
             <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+                
                 {# COURSE-VIDEO #}
-                <section class="course-video top">
-                    {% with yid=course.intro_video.youtube_id %}
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-sx-12">
-                            <iframe id="youtube-player" type="text/html" frameborder="0" src="//www.youtube.com/embed/{{yid}}?rel=0&showinfo=0&autohide=1&theme=light&wmode=opaque" allowfullscreen>
-                            </iframe>
-                        </div>
-                    {% endwith %}
+                <section class="course-video">
+                    {# ROW #}
+                    <div class="row">
+                        {% with yid=course.intro_video.youtube_id %}
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-sx-12">
+                                <iframe id="youtube-player" type="text/html" frameborder="0" src="//www.youtube.com/embed/{{yid}}?rel=0&showinfo=0&autohide=1&theme=light&wmode=opaque" allowfullscreen>
+                                </iframe>
+                            </div>
+                        {% endwith %}
+                    </div>
+                    {# END ROW #}
                 </section>
                 {# END COURSE-VIDEO #}
 
@@ -275,9 +280,9 @@
         </div>
         {# END ROW #}
     </section>
-    <!-- END MAIN CONTENT -->
+    <!-- END COURSE CONTENT -->
 
 </div>
-<!-- END CONTAINER -->
+<!-- END COURSE -->
 
 {% endblock %}

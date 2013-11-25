@@ -3,18 +3,20 @@
 {% block content %}
 
 {# COURSE CONTENT #}
-<div id="course-content" class="course-intro">
+<div id="course" class="course-intro">
     
     {# HEADER #}
-    <header id="main-header" class="container">
+    <header class="container">
         {# PAGE-HEADER #}
-        <div class="page-header no-bottom-border">
+        <div class="page-header">
             {# ROW #}
             <div class="row">
                 {# COL-LG-9 #}
                 <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
-                    <h1 class="course-name bottom top"><span class="not-edited">Nome do curso</span></h1>
-                    <h5><span class="icon-addable icon-plus-sign-alt left"></span> Adicionar professores ao curso</h5>
+                    <h1>Nome do curso</h1>
+                    <ul class="instructors">
+                        <li><a href=""><span class="icon-addable icon-plus-sign-alt left right"></span> Adicionar professores ao curso</a></li>
+                    </ul>
                 </div>
                 {# END COL-LG-9 #}
 
@@ -31,31 +33,35 @@
     {# END HEADER #}
 
 
-    {# MAIN CONTENT #}
-    <section id="main-content" class="container">
+    {# COURSE CONTENT #}
+    <section id="course-content" class="container">
         {# ROW #}
         <div class="row">
             {# COL-LG-9 #}
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                 {# COURSE-VIDEO #}
-                <section class="course-video top">
-                    {# ADD-VIDEO-INTRO #}
-                    <div class="add-video-intro col-sm-12 col-lg-12 textcenter">
-                        {# CENTERED #}
-                        <div class="centered">
-                            <i class="icon-youtube-play"></i>
-                            <h1 class="top">Vídeo de introdução</h1>
-                            <p class="form-group">
-                                <input type="text" class="form-control"/>
-                            </p>
-                            <p>
-                                <button class="btn btn-danger btn-lg uppercase">Cancelar</button>
-                                <button class="btn btn-success btn-lg uppercase">Adicionar</button>
-                            </p>
+                <section class="course-video">
+                    {# ROW #}
+                    <div class="row">
+                        {# ADD-VIDEO-INTRO #}
+                        <div class="add-video-intro col-sm-12 col-lg-12 textcenter">
+                            {# CENTERED #}
+                            <div class="centered">
+                                <i class="icon-youtube-play"></i>
+                                <h1 class="top">Vídeo de introdução</h1>
+                                <p class="form-group">
+                                    <input type="text" class="form-control"/>
+                                </p>
+                                <p>
+                                    <button class="btn btn-danger btn-lg uppercase">Cancelar</button>
+                                    <button class="btn btn-success btn-lg uppercase">Adicionar</button>
+                                </p>
+                            </div>
+                            {# END CENTERED #}
                         </div>
-                        {# END CENTERED #}
+                        {# END ADD-VIDEO-INTRO #}
                     </div>
-                    {# END ADD-VIDEO-INTRO #}
+                    {# END ROW #}
                 </section>
                 {# END COURSE-VIDEO #}
 
@@ -141,6 +147,30 @@
                     {# END LESSONS LIST #}
                 </section>
                 {# END COURSE-LESSONS #}
+
+                <section class="course-instructors">
+                    <div class="page-header-double">
+                        <h3><i class="icon-double-angle-right"></i> Instrutores</h3>
+                    </div>
+
+                    <a href="/admin/courses/instructors/new" class="btn btn-sm btn-success uppercase">Adicionar instrutor</a>
+
+                    <div class="instructors">
+                        <div id="" class="instructor row">
+                            <div class="col-lg-3 col-sm-3">
+                                <img src="http://timtec.com.br/media/user-pictures/fabioflat.png" class="col-lg-12 col-sm-12 thumbnail">
+                            </div>
+                            <div class="col-lg-9 col-sm-9">
+                                <h1 class="fullname bottom top">Fabio Flatschart</h1>
+                                <h2 class="job-title top"></h2>
+                                <p>Fábio Flatschart é autor do livro HTML5 - Embarque Imediato, uma das primeiras publicações em português sobre o assunto, co-autor do livro Open Web Platform e de outras de referência no mercado. É colunista do portal iMasters e professor convidado dos mais importantes cursos de MBA do Brasil (FGV, FIA, Trevisan)</p>
+                                <p>No Senac São Paulo atua no desenvolvimento de produtos educacionais e cursos livres, técnicos, superiores e de pós- graduação na área da tecnologia da informação</p>
+                                <p>Com a Soyuz Sistemas e a Flatschart Consultoria participa do desenvolvimento e implantação de projetos pioneiros nas áreas de Open Web Platform e Marketing Semântico em empresas como Editora Moderna, Editora Pearson, Grupo GEN e W3C Brasil.</p>
+                                <p><a href="www.flatschart.com">www.flatschart.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
             {# END COL-LG-9 #}
 
@@ -183,7 +213,7 @@
         </div>
         {# ROW #}
     </section>
-    {# END MAIN CONTENT #}
+    {# END COURSE CONTENT #}
 </div>
 {# END COURSE CONTENT #}
 
