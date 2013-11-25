@@ -9,12 +9,18 @@
             $scope.ordering = 'id';
             $scope.reverse = false;
             $scope.filters = {
-                all: true,
+                all: false,
                 published : true,
                 listed : true,
                 draft : true,
-                check : function(course){
-                    return $scope.filters.all || ($scope.filters[course.status]);
+                textsearch: '',
+                isValid : function(course){
+                    return (
+                        $scope.filters.all || ($scope.filters[course.status])
+                    ) && (
+                        !$scope.filters.textsearch ||
+                        course.name.toLowerCase().indexOf($scope.filters.textsearch.toLowerCase()) >= 0
+                    );
                 }
             };
 
