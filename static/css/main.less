@@ -415,89 +415,96 @@ a.instructor {
 // Course intro - list of lessons
 .course-lessons {
   .top(27px);
-  ul {
-    .title {
-      display:block;
-      font-size: 16px;
-      font-weight:bold;
-    }
+  
+  .lessons {
+    
+    .lesson {
+      margin-bottom: 10px;
+      margin-top: 10px;
+      
+      .title {
+        display:block;
+        font-size: 16px;
+        font-weight:regular;
+      }
 
-    .description {
-      font-size:13px;
-    }
+      .description {
+        font-size:13px;
+      }
 
-    li {
-      margin:36px 0;
-    }
-  }
-
-  .table {
-    margin-bottom:7px;
-    tr {
-      td {
-        border:none;
-        margin:0;
-        padding:0;
+      li {
+        margin:36px 0;
       }
     }
-  }
 
-  i.icon-youtube-play {
-    color:@brand-danger;
-  }
-
-  i.icon-list {
-    color:@brand-info;
-  }
-
-  .unit {
-    background:@gray-lighter - 20%;
-    .box-shadow(inset -1px 0 0 #fff);
-    color:#fff;
-    cursor:pointer;
-    display:block;
-    font-size:12px;
-    height:20px;
-    line-height:1.75;
-    margin:0;
-    padding:0;
-    position:relative;
-    text-align:left;
-    z-index:10;
-    &.watching, &.watching:hover {
-      background:@brand-info;
-      .transition(all .25s ease-out);
-      &:hover {
-        background:darken(@brand-info, 10%);
+    .table {
+      margin-bottom:7px;
+      tr {
+        td {
+          border:none;
+          margin:0;
+          padding:0;
+        }
       }
     }
-    &.done, &.done:hover {
-      background:@brand-success;
-      .transition(all .25s ease-out);
-      &:hover {
-        background:darken(@brand-success, 10%);
-      }
+
+    i.icon-youtube-play {
+      color:@brand-danger;
     }
-    &:hover {
-      background:@gray-light;
-      color:#fff;
-      .transition(all .25s ease-out);
-    }
-    i {
-      color:#fff;
-      font-size:14px;
-      margin:3px 0 0 0;
-    }
-    i.icon-caret-right {
+
+    i.icon-list {
       color:@brand-info;
-      font-size:18px;
-      left:-10px;
-      line-height:1;
-      top:-2px;
     }
-    i {
-      position:absolute;
-      right:6px;
+
+    .unit {
+      background:@gray-lighter - 20%;
+      .box-shadow(inset -1px 0 0 #fff);
+      color:#fff;
+      cursor:pointer;
+      display:block;
+      font-size:12px;
+      height:20px;
+      line-height:1.75;
+      margin:0;
+      padding:0;
+      position:relative;
+      text-align:left;
+      z-index:10;
+      &.watching, &.watching:hover {
+        background:@brand-info;
+        .transition(all .25s ease-out);
+        &:hover {
+          background:darken(@brand-info, 10%);
+        }
+      }
+      &.done, &.done:hover {
+        background:@brand-success;
+        .transition(all .25s ease-out);
+        &:hover {
+          background:darken(@brand-success, 10%);
+        }
+      }
+      &:hover {
+        background:@gray-light;
+        color:#fff;
+        .transition(all .25s ease-out);
+      }
+      i {
+        color:#fff;
+        font-size:14px;
+        margin:3px 0 0 0;
+      }
+      i.icon-caret-right {
+        color:@brand-info;
+        font-size:18px;
+        left:-10px;
+        line-height:1;
+        top:-2px;
+      }
+      i {
+        position:absolute;
+        right:6px;
+      }
     }
   }
 }
