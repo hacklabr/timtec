@@ -14,7 +14,7 @@
                 listed : true,
                 draft : true,
                 textsearch: '',
-                isValid : function(course){
+                check : function(course){
                     return (
                         $scope.filters.all || ($scope.filters[course.status])
                     ) && (
