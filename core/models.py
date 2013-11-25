@@ -290,8 +290,10 @@ class Activity(models.Model):
         ordering = [('-id')]
 
     def question(self):
-        if self.data and 'question' in self.data:
+        try:
             return self.data.get('question')
+        except:
+            return None
 
     def __unicode__(self):
         return u'%s dt %s a %s' % (self.type, self.data, self.expected)
