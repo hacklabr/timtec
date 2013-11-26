@@ -433,13 +433,13 @@ a:active {
     // COURSE SUMMARY - Course intro
     // ********************************************************************* //
     .summary {
-      .top(20px);
+      margin-top: 20px;
     }
     
     // COURSE LESSONS - Course intro
     // ********************************************************************* //
     .lessons {
-      .top(20px);
+      margin-top: 20px;
       .lesson {
         margin-bottom: 10px;
         margin-top: 10px;
@@ -482,7 +482,7 @@ a:active {
     // COURSE INSTRUCTORS - Course intro
     // ********************************************************************* //
     .instructors {
-      .top(20px);
+      margin-top: 20px;
       .instructor {
         margin-bottom: 10px;
         margin-top: 10px;
@@ -525,7 +525,7 @@ a:active {
     // ********************************************************************* //
     .add-content {
       margin-bottom: -20px;
-      .top(20px);
+      margin-top: 20px;
       a {
         background-color: @gray-light;
         color: #fff;
@@ -559,27 +559,19 @@ a:active {
     // COURSE NOTES - General
     // ********************************************************************* //
     .notes {
-      .top(20px);
+      margin-top: 20px;
+    }
+    .add-side-notes {
+      margin-top: 64px;
     }
     
     // COURSE UNITS - General
     // ********************************************************************* //
+    .admin-units {
+      margin-top: 64px !important;
+    }
     .units {
-      .top(20px);
-      .add-unit {
-        background-color: @brand-success;
-        color: #fff;
-        display: block;
-        font-size: 11px;
-        line-height: 1;
-        margin: 0 0 10px 0;
-        padding: 6px 0;
-        text-align: center;
-        text-transform: uppercase;
-        &:hover {
-          background-color: darken(@brand-success, 10%);
-        }
-      }
+      margint-top: 20px;
       .unit {
         background:@gray-lighter - 20%;
         .box-shadow(inset -1px 0 0 #fff);
@@ -594,6 +586,14 @@ a:active {
         position:relative;
         text-align:left;
         z-index:10;
+        &:hover {
+          background:@gray-light;
+          color:#fff;
+          .transition(all .25s ease-out);
+        }
+        &.current {
+          background-color: @brand-info;
+        }
         &.watching, &.watching:hover {
           background:@brand-info;
           .transition(all .25s ease-out);
@@ -607,11 +607,6 @@ a:active {
           &:hover {
             background:darken(@brand-success, 10%);
           }
-        }
-        &:hover {
-          background:@gray-light;
-          color:#fff;
-          .transition(all .25s ease-out);
         }
         i {
           color:#fff !important;
@@ -630,9 +625,24 @@ a:active {
           right:6px;
         }
       }
+      // END UNIT
+
+      // ADD UNIT
+      .add-unit {
+        background-color: @brand-success;
+        line-height: 2;
+        padding: 0;
+        text-align: center;
+        &:hover {
+          background-color: darken(@brand-success, 10%);
+        }
+        i {
+          position: static;
+        }
+      }
+      // END ADD UNIT
     }
     // END COURSE UNITS
-
   }
   // END COURSE CONTENT
 }
