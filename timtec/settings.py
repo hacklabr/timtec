@@ -310,7 +310,6 @@ INSTALLED_APPS = (
     'autoslug',
     'core',
     'administration',
-    'lesson',
     'forum',
     'course_material',
     'metron',

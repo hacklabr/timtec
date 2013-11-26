@@ -11,7 +11,7 @@ from django.views.generic import TemplateView
 from accounts.views import CustomLoginView, ProfileEditView, ProfileView
 from forum.views import AnswerViewSet as ForumAnswerViewSet
 from core.views import CourseView, CourseViewSet, EnrollCourseView, HomeView, UserCoursesView, ContactView
-from lesson.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, AnswerViewSet, UpdateStudentProgressView
+from core.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, AnswerViewSet, UpdateStudentProgressView
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, QuestionVoteViewSet, AnswerVoteViewSet
 from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialAdminView, CourseMaterialViewSet
 from rest_framework import routers
