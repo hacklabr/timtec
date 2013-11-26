@@ -2,35 +2,89 @@
 
 {% block content %}
 
-{# COURSE-CONTENT #}
-<div id="course-content">
-    {# MAIN-HEADER #}
-    <header id="main-header" class="container">
-        {# PAGE-HEADER #}
-        <div class="page-header no-bottom-border">
-            {# ROW #}
+<!-- COURSE-CONTENT -->
+<div id="course">
+    <!-- MAIN-HEADER -->
+    <header class="container">
+        <!-- PAGE-HEADER -->
+        <div class="page-header">
+            <!-- ROW -->
             <div class="row">
-                {# COL-LG-8 #}
+                <!-- COL-LG-8 -->
                 <div class="col-lg-8 col-sm-8">
                     <h1 class="course-name bottom top">HTML5 - Introdução ao Front End</h1>
+                    <ul class="instructors">
+                        <li><a href="">Fabio Flatschart</a></li>
+                    </ul>
                 </div>
-                {# END COL-LG-8 #}
-                {# COL-LG-4 #}
+                <!-- END COL-LG-8 -->
+                <!-- COL-LG-4 -->
                 <div class="col-lg-4 col-sm-4">
                     <!-- COURSE-SECTION-NAV -->
                     <nav class="course-sections textright">
                     </nav>
                     <!-- END COURSE-SECTION-NAV -->
                 </div>
-                {# END COL-LG-4 #}
+                <!-- END COL-LG-4 -->
             </div>
-            {# END ROW #}
+            <!-- END ROW -->
         </div>
-        {# END PAGE-HEADER #}
+        <!-- END PAGE-HEADER -->
     </header>
-    {# MAIN-HEADER #}
+    <!-- MAIN-HEADER -->
+
+    <!-- COURSE-CONTENT -->
+    <section id="course-content" class="container">
+        <!-- ROW -->
+        <div class="row">
+            <div class="col-lg-8">
+                <input type="text" class="form-control" placeholder="Nome da lição"/>
+            </div>
+        </div>
+        <!-- END ROW -->
+
+        <!-- ROW -->
+        <div class="row">
+            <div class="col-lg-1">
+                <div class="units">
+                    Unidades
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="video">
+                    {# ROW #}
+                    <div class="row">
+                        {# ADD-VIDEO-INTRO #}
+                        <div class="add-video-intro col-sm-12 col-lg-12 textcenter">
+                            {# CENTERED #}
+                            <div class="centered">
+                                <i class="icon-youtube-play"></i>
+                                <h1 class="top">Vídeo da unidade</h1>
+                                <p class="form-group">
+                                    <input type="text" class="form-control"/>
+                                </p>
+                                <p>
+                                    <button class="btn btn-success btn-lg uppercase">Adicionar</button>
+                                </p>
+                            </div>
+                            {# END CENTERED #}
+                        </div>
+                        {# END ADD-VIDEO-INTRO #}
+                    </div>
+                    {# END ROW #}
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="notes">
+                    Saiba mais
+                </div>
+            </div>
+        </div>
+        <!-- END ROW -->
+    </section>
+    <!-- END COURSE-CONTENT -->
 
 </div>
-{# END COURSE-CONTENT #}
+<!-- END COURSE-CONTENT -->
 
 {% endblock content %}

@@ -53,7 +53,7 @@
             <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
                 
                 {# COURSE-VIDEO #}
-                <section class="course-video">
+                <section class="video">
                     {# ROW #}
                     <div class="row">
                         {% with yid=course.intro_video.youtube_id %}
@@ -72,7 +72,7 @@
                     {# ROW #}
                     <div class="row">
                         {# COL-LG-6 #}
-                        <div class="course-application col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="application col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <div class="page-header-double">
                                 <h3 class="top"><i class="icon-double-angle-right"></i> {% trans "Why do this course?" %}</h3>
                             </div>
@@ -80,7 +80,7 @@
                         </div>
                         {# END COL-LG-6 #}
                         {# COL-LG-6 #}
-                        <div class="course-requirement col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="requirement col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <div class="page-header-double">
                                 <h3 class="top"><i class="icon-double-angle-right"></i> {% trans "What do I have to know?" %}</h3>
                             </div>
@@ -93,7 +93,7 @@
                 {# END COURSE-INFO #}
 
                 {# COURSE-SUMMARY - VISIBLE ONLY FOR PHONES #}
-                <section class="course-summary hidden-lg hidden-md hidden-sm visible-xs row">
+                <section class="summary hidden-lg hidden-md hidden-sm visible-xs row">
                     {# COL-XS-12 #}
                     <div class="col-xs-12">
                         {# ABSTRACT #}
@@ -127,93 +127,89 @@
                 {# END COURSE-SUMMARY - VISIBLE ONLY FOR PHONES #}
 
                 {# COURSE-LESSONS #}
-                <section class="course-lessons">
+                <section class="lessons">
                     {# PAGE-HEADER-DOUBLE #}
                     <div class="page-header-double">
                         <h3><i class="icon-double-angle-right"></i> {% trans "Lessons" %}</h3>
                     </div>
                     {# END PAGE-HEADER-DOUBLE #}
             
-                    {#  LESSONS #}
-                    <div class="lessons">
-                        {# FOR LESSON IN COURSE.PUBLIC_LESSONS #}
-                        {% for lesson in course.public_lessons %}
-                            {# LESSON #}
-                            <div class="lesson row">
-                                {# COL-LG-3 #}
-                                <div class="col-lg-3 col-sm-3 col-sm-3 hidden-xs">
-                                    <img src="{{ lesson.thumbnail }}" class="thumbnail">
-                                </div>
-                                {# END COL-LG-3 #}
-                        
-                                {# COL-LG-9 #}
-                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-
-                                    <p>
-                                        {% if lesson.is_ready and user_is_enrolled %}
-                                            <a href="{% url 'lesson' lesson.slug %}" class="title">{{ lesson.name }}</a>
-                                        {% else %}
-                                            <span class="title">{{ lesson.name }}</span>
-                                        {% endif %}
-                                        <span class="description">{{ lesson.desc }}</span>
-                                    </p>
-
-                                    {# HIDDEN-XS #}
-                                    <div class="hidden-xs">
-                                        {# TABLE #}
-                                        <table class="table ">
-                                            {# TR #}
-                                            <tr>
-                                                {# FOR UNIT IN UNITS #}
-                                                {% for unit in lesson.units.all %}
-                                                    {# TD #}
-                                                    <td>
-                                                        {% if lesson.is_ready and user_is_enrolled %}
-                                                            <a class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
-                                                               data-toggle="tooltip" data-placement="bottom"
-                                                               data-original-title="Unidade {{ forloop.counter }}"
-                                                               href="{% url 'lesson' lesson.slug %}#/{{ forloop.counter }}">
-                                                               {% if unit.activity %}
-                                                                   <i class="icon-list"></i>
-                                                               {% endif %}
-                                                            </a>
-                                                        {% else %}
-                                                            <span class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
-                                                                  data-toggle="tooltip" data-placement="bottom"
-                                                                  data-original-title="Unidade {{ forloop.counter }}">
-                                                                  {% if unit.activity %} 
-                                                                      <i class="icon-list"></i>
-                                                                  {% endif %}
-                                                            </span>
-                                                        {% endif %}
-                                                    </td>
-                                                    {# END TD #}
-                                                {% endfor %}
-                                                {# END FOR #}
-                                            </tr>
-                                            {# END TR #}
-                                        </table>
-                                        {# END TABLE #}
-                                    </div>
-                                    {# END HIDDEN-XS #}
-                        
-                                    {% if lesson.is_ready %}
-                                        <p><i class="icon-youtube-play"></i> <small>{{ lesson.video_count }} {% trans "videos" %}</small> | <i class="icon-list"></i> <small>{{ lesson.activity_count }} {% trans "activities" %}</small></p>
-                                    {% endif %}
-                                </div>
-                                {# END COL-LG-9 #}
+                    {# FOR LESSON IN COURSE.PUBLIC_LESSONS #}
+                    {% for lesson in course.public_lessons %}
+                        {# LESSON #}
+                        <div class="lesson row">
+                            {# COL-LG-3 #}
+                            <div class="col-lg-3 col-sm-3 col-sm-3 hidden-xs">
+                                <img src="{{ lesson.thumbnail }}" class="thumbnail">
                             </div>
-                            {# END LESSON #}
-                        {% endfor %}
-                        {# END FOR LESSON IN COURSE.PUBLIC_LESSONS #}
-                    </div>
-                    {# END LESSONS LIST #}
+                            {# END COL-LG-3 #}
+                    
+                            {# COL-LG-9 #}
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+
+                                <p>
+                                    {% if lesson.is_ready and user_is_enrolled %}
+                                        <a href="{% url 'lesson' lesson.slug %}" class="title">{{ lesson.name }}</a>
+                                    {% else %}
+                                        <span class="title">{{ lesson.name }}</span>
+                                    {% endif %}
+                                    <span class="description">{{ lesson.desc }}</span>
+                                </p>
+
+                                {# HIDDEN-XS #}
+                                <div class="hidden-xs">
+                                    {# TABLE #}
+                                    <table class="units table ">
+                                        {# TR #}
+                                        <tr>
+                                            {# FOR UNIT IN UNITS #}
+                                            {% for unit in lesson.units.all %}
+                                                {# TD #}
+                                                <td>
+                                                    {% if lesson.is_ready and user_is_enrolled %}
+                                                        <a class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
+                                                           data-toggle="tooltip" data-placement="bottom"
+                                                           data-original-title="Unidade {{ forloop.counter }}"
+                                                           href="{% url 'lesson' lesson.slug %}#/{{ forloop.counter }}">
+                                                           {% if unit.activity %}
+                                                               <i class="icon-list"></i>
+                                                           {% endif %}
+                                                        </a>
+                                                    {% else %}
+                                                        <span class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
+                                                              data-toggle="tooltip" data-placement="bottom"
+                                                              data-original-title="Unidade {{ forloop.counter }}">
+                                                              {% if unit.activity %} 
+                                                                  <i class="icon-list"></i>
+                                                              {% endif %}
+                                                        </span>
+                                                    {% endif %}
+                                                </td>
+                                                {# END TD #}
+                                            {% endfor %}
+                                            {# END FOR #}
+                                        </tr>
+                                        {# END TR #}
+                                    </table>
+                                    {# END TABLE #}
+                                </div>
+                                {# END HIDDEN-XS #}
+                    
+                                {% if lesson.is_ready %}
+                                    <p><i class="icon-youtube-play"></i> <small>{{ lesson.video_count }} {% trans "videos" %}</small> | <i class="icon-list"></i> <small>{{ lesson.activity_count }} {% trans "activities" %}</small></p>
+                                {% endif %}
+                            </div>
+                            {# END COL-LG-9 #}
+                        </div>
+                        {# END LESSON #}
+                    {% endfor %}
+                    {# END FOR LESSON IN COURSE.PUBLIC_LESSONS #}
                 </section>
                 {# END COURSE-LESSONS #}
 
                 {# COURSE-INSTRUCTORS #}
                 {% if course.courseprofessor_set.all %}
-                    <section class="course-instructors row">
+                    <section class="instructors row">
                         <div class="col-lg-12 col-sm-12">
                             <div class="page-header-double">
                                 <h3><i class="icon-double-angle-right"></i> {% trans "Instructors" %}</h3>
@@ -245,7 +241,7 @@
                 {# ROW #}
                 <div class="row">
                     {# COURSE-SUMMARY #}
-                    <section class="course-summary col-lg-12 col-sm-12">
+                    <section class="summary col-lg-12 col-sm-12">
                         {# ABSTRACT #}
                         <div class="page-header-double top">
                             <h3 class="top"><i class="icon-double-angle-right"></i> Resumo</h3>

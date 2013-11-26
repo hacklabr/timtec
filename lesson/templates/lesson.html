@@ -60,14 +60,12 @@
         </p>
         <!-- END LESSON NAVIGATION FOR PHONE -->
 
-
-        <!-- COURSE-VIDEO -->
-        <section class="course-video top-xs">
-            <!-- lesson_video.html -->
-            <div class="row">
-                {% verbatim %}
-                <!-- UNITS NAVIGATION FOR TABLET AND DESKTOP -->
-                <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs">
+        <!-- ROW -->
+        <div class="row">
+            {% verbatim %}
+            <!-- UNITS NAVIGATION FOR TABLET AND DESKTOP -->
+            <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs">
+                <div class="units">
                     <a style="display:block;" data-placement="right" data-original-title="{{ unit.position + 1 }}"
                          title="{{ unit.video.name }}"
                          href="#/{{ $index+1 }}" class="has-tooltip unit track" data-toggle="tooltip"
@@ -80,25 +78,28 @@
                             <i class="icon-list" ng-if="unit.activity !== null"></i>
                     </a>
                 </div>
-                <!-- END UNITS NAVIGATION FOR TABLET AND DESKTOP -->
-
-                <!-- UNITS NAVIGATION FOR PHONES -->
-                <div class="col-xs-12 visible-xs">
-                    <p>
-                        <select ng-model="currentUnitIndex" ng-change="select(currentUnitIndex);" class="form-control">
-                            <option ng-repeat="unit in lesson.units"
-                                    ng-value="$index"
-                                    ng-selected="$index === currentUnitIndex"
-                                    value="{{$index}}">Unidade {{ unit.position + 1 }}</option>
-                        </select>
-                    </p>
-                </div>
-                <!-- END UNITS NAVIGATION FOR PHONES -->
-                {% endverbatim %}
-
-                <div ng-view></div>
             </div>
-        </section>
+            <!-- END UNITS NAVIGATION FOR TABLET AND DESKTOP -->
+
+            <!-- UNITS NAVIGATION FOR PHONES -->
+            <div class="col-xs-12 visible-xs">
+                <p>
+                    <select ng-model="currentUnitIndex" ng-change="select(currentUnitIndex);" class="form-control">
+                        <option ng-repeat="unit in lesson.units"
+                                ng-value="$index"
+                                ng-selected="$index === currentUnitIndex"
+                                value="{{$index}}">Unidade {{ unit.position + 1 }}</option>
+                    </select>
+                </p>
+            </div>
+            <!-- END UNITS NAVIGATION FOR PHONES -->
+            {% endverbatim %}
+
+            <div ng-view></div>
+
+        </div>
+        <!-- END ROW -->
+
 
         <div class="row hidden-lg">
             <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
