@@ -540,6 +540,19 @@ a:active {
     // ********************************************************************* //
     .units {
       .top(20px);
+      .add-unit {
+        background-color: @brand-success;
+        color: #fff;
+        display: block;
+        font-size: 11px;
+        margin:0 0 10px 0;
+        padding:3px 0;
+        text-align: center;
+        text-transform: uppercase;
+        &:hover {
+          background-color: darken(@brand-success, 10%);
+        }
+      }
       .unit {
         background:@gray-lighter - 20%;
         .box-shadow(inset -1px 0 0 #fff);
