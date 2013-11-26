@@ -69,7 +69,7 @@
     <section id="all-courses" class="courses-list">
 
         {% verbatim %}
-        <div class="course" ng-repeat="course in courseList | orderBy:ordering:reverse | filter:filters.check">
+        <div class="course" ng-repeat="course in (filteredList = (courseList | orderBy:ordering:reverse | filter:filters.check))">
             <div class="row">
                 <div class="col-lg-1">
                     <span class="label" ng-class="{
@@ -90,6 +90,9 @@
                     <span class="date label label-danger">Sem data de publicação</span>
                 </div>
             </div>
+        </div>
+        <div class="row" ng-show="filteredList.length === 0">
+            <p class="textcenter">Nenhum curso encontrado</p>
         </div>
         {% endverbatim %}
     </section>
