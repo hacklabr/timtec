@@ -21,8 +21,8 @@
               <div class="panel-body bottom-xs left-xs right-xs top-xs">
                 <form class="form-horizontal" method="post" action="{% url 'timtec_login' %}">{% csrf_token %}
                   <div class="form-group{% if login_form.errors %} has-error{% endif %}">
-                    <label class="col-lg-3 col-md-3 col-sm-4 col-xs-12 control-label">{% trans 'Login' %}</label>
-                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+                    <label class="col-lg-3 col-md-3 col-sm-12 col-xs-12">{% trans 'Login' %}</label>
+                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                       <input name="username" type="text" class="form-control"
                       value="{{login_form.username.value}}" placeholder="{% trans 'E-mail or username' %}"/>
                       {% for error in login_form.username.errors %}
@@ -31,8 +31,8 @@
                     </div>
                   </div>
                   <div class="form-group{% if login_form.errors %} has-error{% endif %}">
-                    <label class="col-lg-3 col-md-3 col-sm-4 col-xs-12 control-label">{% trans 'Password' %}</label>
-                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+                    <label class="col-lg-3 col-md-3 col-sm-12 col-xs-12">{% trans 'Password' %}</label>
+                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                       <input name="password" type="password" class="form-control" placeholder="{% trans 'Password' %}">
                       {% for error in login_form.password.errors %}
                       <small>{{error}}</small>
@@ -67,27 +67,27 @@
               <div class="panel-body bottom-xs left-xs right-xs top-xs">
                 <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}" class="form-horizontal">{% csrf_token %}
                   <div class="form-group">
-                    <label class="col-lg-3 col-md-3 col-sm-4 col-xs-12 control-label">{% trans "Username" %}</label>
-                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+                    <label class="col-lg-3 col-md-3 col-sm-12 col-xs-12">{% trans "Username" %}</label>
+                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                       <input name="username" type="text" class="form-control" placeholder="{% trans 'Choose an username' %}">
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-lg-3 col-md-3 col-sm-4 col-xs-12 control-label">{% trans 'E-mail' %}</label>
-                    <div class="col-lg-9 col-md-3 col-sm-8 col-xs-12">
+                    <label class="col-lg-3 col-md-3 col-sm-12 col-xs-12">{% trans 'E-mail' %}</label>
+                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                       <input name="email" type="email" class="form-control" placeholder="{% trans 'Insert your e-mail' %}">
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-lg-3 col-md-3 col-sm-4 col-xs-12 control-label">{% trans 'Password' %}</label>
-                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+                    <label class="col-lg-3 col-md-3 col-sm-12 col-xs-12">{% trans 'Password' %}</label>
+                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                       <p><input name="password1" type="password" class="form-control" placeholder="{% trans 'A really strong password' %}"></p>
                       <input name="password2" type="password" class="form-control" placeholder="{% trans 'Confirm your password' %}">
                     </div>
                   </div>
-                  <div class="form-group">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                      <div class="submit textright">
+                  <div class="submit textright">
+                    <div class="row">
+                      <div class="col-lg-4 col-lg-offset-8 col-md-5 col-md-offset-7 col-sm-6 col-sm-offset-6 col-xs-12 textright">
                         <button class="btn btn-success col-xs-12">{% trans 'Sign Up' %}</button>
                       </div>
                     </div>
