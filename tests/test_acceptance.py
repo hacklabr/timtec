@@ -18,32 +18,6 @@ def test_mainview(client):
     assert 'testserver/course' in response['Location']
 
 
-def test_admin_user(admin_client):
-    response = admin_client.get('/django/admin/core/timtecuser/?q=admin')
-    assert 'admin' in response.content
-
-
-@pytest.mark.django_db
-def test_username_login(client, user):
-    response = client.post('/login/', {'username': user.username, 'password': 'password'})
-    assert response.status_code == 302
-    assert response['Location'] == 'http://testserver/'
-
-
-@pytest.mark.django_db
-def test_email_login(client, user):
-    response = client.post('/login/', {'username': user.email, 'password': 'password'})
-    assert response.status_code == 302
-    assert response['Location'] == 'http://testserver/'
-
-
-@pytest.mark.django_db
-def test_next_field_still_works(client, user):
-    reponse = client.post('/login/', {'username': user.email, 'password': 'password', 'next': '/profile/edit'})
-    assert reponse.status_code == 302
-    assert reponse['Location'] == 'http://testserver/profile/edit'
-
-
 @pytest.mark.django_db
 def test_enroll_user(client, user):
     course = mommy.make('Course', slug='acceptance_enroll_user')
