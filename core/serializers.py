@@ -1,14 +1,6 @@
-from core.models import Course, CourseProfessor, CourseStudent, Lesson, TimtecUser, Video
+from core.models import Course, CourseProfessor, CourseStudent, Lesson, Video
+from accounts.serializers import TimtecUserSerializer
 from rest_framework import serializers
-
-
-class TimtecUserSerializer(serializers.ModelSerializer):
-    name = serializers.Field(source='get_full_name')
-    picture = serializers.Field(source='get_picture_url')
-
-    class Meta:
-        model = TimtecUser
-        fields = ('id', 'username', 'name', 'first_name', 'last_name', 'picture',)
 
 
 class CourseProfessorSerializer(serializers.ModelSerializer):

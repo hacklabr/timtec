@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
 from django.forms import TextInput, Textarea
 from django.db import models
 
@@ -51,8 +50,6 @@ class VideoAdmin(ModelAdmin):
 class ActivityAdmin(ModelAdmin):
     list_display = ('type', 'question', '__unicode__',)
 
-
-admin.site.register(TimtecUser, UserAdmin)
 
 admin.site.register(Video, VideoAdmin)
 admin.site.register(CourseProfessor, CourseProfessorAdmin)
