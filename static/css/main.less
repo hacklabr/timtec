@@ -521,7 +521,33 @@ a:active {
     }
     // END INSTRUCTORS
 
-    
+    // ADD CONTENT - Admin
+    // ********************************************************************* //
+    .add-content {
+      margin-bottom: -20px;
+      .top(20px);
+      a {
+        background-color: @gray-light;
+        color: #fff;
+        display: inline-block;
+        font-size: 11px;
+        line-height: 3;
+        margin:0 0 10px 0;
+        padding:0 20px;
+        text-align: center;
+        text-transform: uppercase;
+        &:hover {
+          background-color: darken(@gray-light, 10%);
+        }
+        &.selected {
+          background-color: @brand-success;
+          &:hover {
+            background-color: darken(@brand-success, 10%);
+          }
+        }
+      }
+    }
+
     // COURSE VIDEO - General
     // ********************************************************************* //
     .video {
@@ -545,8 +571,9 @@ a:active {
         color: #fff;
         display: block;
         font-size: 11px;
-        margin:0 0 10px 0;
-        padding:3px 0;
+        line-height: 1;
+        margin: 0 0 10px 0;
+        padding: 6px 0;
         text-align: center;
         text-transform: uppercase;
         &:hover {
