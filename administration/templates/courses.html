@@ -31,30 +31,33 @@
             {# ROW #}
             <div class="row">
                 {# COL-LG-6 #}
-                <div class="col-lg-6">
+                <div class="col-lg-5">
                     <div class="checkbox">
-                        <label><input type="checkbox"> Todos</label>
-                        <label><input type="checkbox"> Publicado</label>
-                        <label><input type="checkbox"> Listado</label>
-                        <label><input type="checkbox"> Rascunho</label>
+                        <label><input ng-model="filters.all" type="checkbox"> Todos</label>
+                        <label><input ng-model="filters.published" type="checkbox"> Publicado</label>
+                        <label><input ng-model="filters.listed" type="checkbox"> Listado</label>
+                        <label><input ng-model="filters.draft" type="checkbox"> Rascunho</label>
                     </div>
                 </div>
                 {# END COL-LG-6 #}
                 {# COL-LG-3 #}
                 <div class="col-lg-3 textright">
-                    <select class="form-control">
-                        <option>Ordernar ...</option>
-                        <option>Status</option>
-                        <option>Data de publicação</option>
-                        <option>Nome do curso</option>
-                    </select>
+                    <input type="text" ng-model="filters.textsearch" placeholder="Palavra-chave" class="form-control"/>
                 </div>
                 {# END COL-LG-3 #}
                 {# COL-LG-3 #}
                 <div class="col-lg-3 textright">
-                    <input type="text" placeholder="Palavra-chave" class="form-control"/>
+                    <select ng-model="ordering" class="form-control">
+                        <option value="id">Ordernar ...</option>
+                        <option value="status">Status</option>
+                        <option value="publication">Data de publicação</option>
+                        <option value="name">Nome do curso</option>
+                    </select>
                 </div>
                 {# END COL-LG-3 #}
+                <div class="col-lg-1 textcenter">
+                    <button class="btn btn-info" ng-class="{active:reverse}" ng-click="reverse=!reverse">Inverter</button>
+                </div>
             </div>
             {# END ROW #}
         </div>
@@ -66,7 +69,7 @@
     <section id="all-courses" class="courses-list">
 
         {% verbatim %}
-        <div class="course" ng-repeat="course in courseList">
+        <div class="course" ng-repeat="course in courseList | orderBy:ordering:reverse | filter:filters.check">
             <div class="row">
                 <div class="col-lg-1">
                     <span class="label" ng-class="{
@@ -89,26 +92,6 @@
             </div>
         </div>
         {% endverbatim %}
-
-        {# ROW #}
-        <div class="row">
-            {# COL-LG-12 #}
-            <div class="col-lg-12 textcenter">
-                {# PAGINATION #}
-                <ul class="pagination">
-                    <li><a href="#">&laquo;</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">&raquo;</a></li>
-                </ul>
-                {# END PAGINATION #}
-            </div>
-            {# END COL-LG-12 #}
-        </div>
-        {# END ROW #}
     </section>
     {# END ALL-COURSES #}
 
