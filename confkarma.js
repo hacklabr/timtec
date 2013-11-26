@@ -1,6 +1,6 @@
 module.exports = function(config){
     config.set({
-        basePath : '../',
+        basePath : '.',
         files : [
             'static/js/vendor/angular.js',
             'static/js/vendor/angular-*.js',
