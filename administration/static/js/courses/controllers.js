@@ -15,11 +15,14 @@
                 draft : true,
                 textsearch: '',
                 check : function(course){
+                    var f = $scope.filters;
+                    var search = f.textsearch.toLowerCase();
+                    var target = course.name.toLowerCase();
+
                     return (
-                        $scope.filters.all || ($scope.filters[course.status])
+                        f.all || f[course.status]
                     ) && (
-                        !$scope.filters.textsearch ||
-                        course.name.toLowerCase().indexOf($scope.filters.textsearch.toLowerCase()) >= 0
+                        !search || target.match(search)
                     );
                 }
             };
