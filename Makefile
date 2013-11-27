@@ -78,7 +78,7 @@ js_tests:
 karma_tests:
 	karma start confkarma.js $*
 
-all_tests: test_collectstatic python_tests karma_tests
+all_tests: test_collectstatic python_tests karma_tests js_tests
 
 setup_ci:
 	psql -c 'create database timtec_ci;' -U postgres
