@@ -19,7 +19,6 @@
 {% block content %}
 <!--  COURSE CONTENT  -->
 <div id="course" class="course-intro" ng-app="new-course" ng-controller="CourseEditController">
-
     <!--  HEADER  -->
     <header class="container">
         <!--  PAGE-HEADER  -->
@@ -28,13 +27,12 @@
             <div class="row">
                 <!--  COL-LG-9  -->
                 <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
-                    <h1>Nome do curso</h1>
+                    <h1 ng-bind="course.name"></h1>
                     <ul class="instructors">
                         <li><a href=""><span class="icon-addable icon-plus-sign-alt left right"></span> Adicionar professores ao curso</a></li>
                     </ul>
                 </div>
                 <!--  END COL-LG-9  -->
-
                 <!--  COL-LG-3  -->
                 <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 textright">
                     <a href="/lesson/internet-e-web" class="btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">Continuar curso</a>
@@ -47,6 +45,7 @@
     </header>
     <!--  END HEADER  -->
 
+<pre ng-bind="course.abstract" class="clearfix"></pre>
 
     <!--  COURSE CONTENT  -->
     <section id="course-content" class="container">
@@ -192,7 +191,7 @@
                     <div class="page-header-double top">
                         <h3 class="top"><i class="icon-double-angle-right"></i> Resumo</h3>
                     </div>
-                    <markdowneditor class="editable" content="course.abstract"></markdowneditor>
+                    <markdowneditor content="course.abstract"></markdowneditor>
 
                     <hr/>
                     <!--  END ABSTRACT  -->
