@@ -2,7 +2,7 @@
 
 {% block content %}
 
-{# COURSE CONTENT #}
+{# COURSE #}
 <div id="course" class="course-intro">
     
     {# HEADER #}
@@ -39,6 +39,16 @@
         <div class="row">
             {# COL-LG-9 #}
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                
+                {# ADD-CONTENT #}
+                <div class="add-content row">
+                    <div class="col-lg-6">
+                        <a class="selected" href="">Vídeo</a>
+                        <a href="">Imagem</a>
+                    </div>
+                </div>
+                {# END ADD-CONTENT #}
+
                 {# COURSE-VIDEO #}
                 <section class="video">
                     {# ROW #}
@@ -209,7 +219,14 @@
         {# ROW #}
     </section>
     {# END COURSE CONTENT #}
+
+    <div class="actions container">
+        <div class="row textright">
+            <button class="btn btn-info btn-lg uppercase">Listar</button>
+            <button class="btn btn-success btn-lg uppercase">Publicar</button>
+        </div>
+    </div>
 </div>
-{# END COURSE CONTENT #}
+{# END COURSE #}
 
 {% endblock %}
