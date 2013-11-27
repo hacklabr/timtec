@@ -77,7 +77,7 @@ function initialize_code_mirror($scope, data, expected) {
             $scope.answer = {given: null, correct: null};
 
             $scope.nextVideo = function() {
-                if ($main.currentUnitPos + 1 < $scope.lesson.units.length) {
+                if ($main.currentUnitPos + 1 <= $scope.lesson.units.length) {
                     $main.currentUnitPos++;
                     $location.path('/' + $main.currentUnitPos).search('autoplay', null);
                 }
@@ -207,7 +207,7 @@ function initialize_code_mirror($scope, data, expected) {
                     if( $scope.currentUnit.activity ) {
                         $location.path('/' + $main.currentUnitPos + '/activity').search('autoplay', null);
                     } else {
-                        if ($main.currentUnitPos + 1 < $scope.lesson.units.length) {
+                        if ($main.currentUnitPos + 1 <= $scope.lesson.units.length) {
                             $main.currentUnitPos++;
                             $location.path('/' + $main.currentUnitPos).search('autoplay', null);
                         }
@@ -218,7 +218,11 @@ function initialize_code_mirror($scope, data, expected) {
                         'url': '/api/updatestudentprogress/' + $scope.currentUnitId,
                         'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
                     }).success(function(data){
-                        $scope.currentUnit.progress = {complete: data.complete};
+                        if( !($scope.currentUnit.progress &&
+                              $scope.currentUnit.progress.complete)) {
+
+                            $scope.currentUnit.progress = {complete: data.complete};
+                        }
                         if (data.complete) {
                             ga("send", "event", "unit", "unit completed");
                         }
