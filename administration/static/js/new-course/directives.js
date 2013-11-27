@@ -37,7 +37,7 @@
                 '<div class="modal-content">' +
                     '<div class="modal-header">' +
                       '<button type="button" class="close" ng-click="cancel()">&times;</button>' +
-                      '<h4 class="modal-title">{{ title }}&nbsp;</h4>' +
+                      '<h4 class="modal-title">{{title}}&nbsp;</h4>' +
                     '</div>' +
                     '<div class="modal-body">' +
                         '<div class="text-editor">' +
@@ -64,7 +64,6 @@
             'template': template,
             'scope': {
                 'content': '=content',
-                'title': '=title',
                 'onSave': '=onSave'
             },
             'controller': function($scope) {

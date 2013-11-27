@@ -88,7 +88,7 @@
                             <div class="page-header-double">
                                 <h3 class="top"><i class="icon-double-angle-right"></i> Aplicação do Conhecimento</h3>
                             </div>
-                            <a data-toggle="modal" href="#applicationModal" class="btn btn-default btn-sm">Adicionar texto</a>
+                            <markdowneditor title="Aplicação do conhecimento" content="course.application"></markdowneditor>
                         </div>
                         <!--  END COL-LG-6  -->
 
@@ -97,7 +97,8 @@
                             <div class="page-header-double">
                                 <h3 class="top"><i class="icon-double-angle-right"></i> O que preciso saber</h3>
                             </div>
-                            <a data-toggle="modal" href="#requirementModal" class="btn btn-default btn-sm">Adicionar texto</a>
+                            <markdowneditor title="O que preciso saber?" content="course.requirements"></markdowneditor>
+
                         </div>
                         <!--  END COL-LG-6  -->
                     </div>
@@ -191,7 +192,7 @@
                     <div class="page-header-double top">
                         <h3 class="top"><i class="icon-double-angle-right"></i> Resumo</h3>
                     </div>
-                    <markdowneditor content="course.abstract"></markdowneditor>
+                    <markdowneditor title="Resumo" content="course.abstract"></markdowneditor>
 
                     <hr/>
                     <!--  END ABSTRACT  -->
@@ -200,8 +201,8 @@
                     <div class="page-header-double top">
                         <h3 class="top"><i class="icon-double-angle-right"></i> Estrutura do curso</h3>
                     </div>
-                    <div class="editable"></div>
-                    <a data-toggle="modal" href="#structureModal" class="btn btn-default btn-sm">Adicionar texto</a>
+                    <markdowneditor title="Estrutura do curso" content="course.structure"></markdowneditor>
+
                     <hr/>
                     <!--  END STRUCTURE  -->
 
@@ -209,12 +210,16 @@
                     <div class="page-header-double top">
                         <h3 class="top"><i class="icon-double-angle-right"></i> Carga horária</h3>
                     </div>
-                    <div class="editable"></div>
-                    <a data-toggle="modal" href="#workloadModal" class="btn btn-default btn-sm">Adicionar texto</a>
+                    <markdowneditor title="Carga horária" content="course.workload"></markdowneditor>
+
                     <hr/>
                     <!--  END WORKLOAD  -->
 
-                    <a data-toggle="modal" href="#pronatecModal" class="btn btn-default btn-sm">Adicionar texto PRONATEC</a>
+                    <div class="page-header-double top">
+                        <h3 class="top"><i class="icon-double-angle-right"></i> Texto PRONATEC</h3>
+                    </div>
+                    <markdowneditor title="PRONATEC" content="course.pronatec"></markdowneditor>
+
                 </section>
                 <!--  END COURSE-SUMMARY  -->
             </div>
