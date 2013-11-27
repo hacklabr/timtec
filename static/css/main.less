@@ -396,6 +396,71 @@ a:active {
 // COURSE
 // ********************************************************************* //
 #course {
+
+  // ADMIN
+  // ********************************************************************* //
+  #admin & {
+    
+    // HEADER - Admin
+    // ********************************************************************* //
+    header {
+      margin-bottom: 20px;
+    }
+    // END HEADER
+
+
+    // ACTIONS - Admin
+    // ********************************************************************* //
+    .actions {
+      border-top: 1px solid @gray-light;
+      margin-top: 40px;
+      padding-top: 40px;
+    }
+    // END ACTIONS
+
+    &.course-intro {
+      .add-content {
+        margin-top: -18px;
+      }
+    }
+
+
+    // ADD CONTENT - Admin
+    // ********************************************************************* //
+    .add-content {
+      margin-bottom: -20px;
+      margin-top: 20px;
+      a {
+        background-color: @gray-light;
+        color: #fff;
+        display: inline-block;
+        font-size: 11px;
+        line-height: 3;
+        margin:0 0 10px 0;
+        padding:0 20px;
+        text-align: center;
+        text-transform: uppercase;
+        &:hover {
+          background-color: darken(@gray-light, 10%);
+        }
+        &.selected {
+          background-color: @brand-success;
+          &:hover {
+            background-color: darken(@brand-success, 10%);
+          }
+        }
+        &.delete {
+          background-color: @brand-danger;
+          &:hover {
+            background-color: darken(@brand-danger, 10%);  
+          }
+        }
+      }
+    }
+    // END CONTENT
+  }
+  // END ADMIN
+
   
   // HEADER - Global
   // ********************************************************************* //
@@ -520,33 +585,6 @@ a:active {
       // END INSTRUCTOR
     }
     // END INSTRUCTORS
-
-    // ADD CONTENT - Admin
-    // ********************************************************************* //
-    .add-content {
-      margin-bottom: -20px;
-      margin-top: 20px;
-      a {
-        background-color: @gray-light;
-        color: #fff;
-        display: inline-block;
-        font-size: 11px;
-        line-height: 3;
-        margin:0 0 10px 0;
-        padding:0 20px;
-        text-align: center;
-        text-transform: uppercase;
-        &:hover {
-          background-color: darken(@gray-light, 10%);
-        }
-        &.selected {
-          background-color: @brand-success;
-          &:hover {
-            background-color: darken(@brand-success, 10%);
-          }
-        }
-      }
-    }
 
     // COURSE VIDEO - General
     // ********************************************************************* //

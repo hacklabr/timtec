@@ -3,7 +3,7 @@
 {% block content %}
 
 <!-- COURSE-CONTENT -->
-<div id="course">
+<div id="course" class="course-lesson">
     <!-- MAIN-HEADER -->
     <header class="container">
         <!-- PAGE-HEADER -->
@@ -56,9 +56,14 @@
                 </div>
             </div>
             <div class="col-lg-8">
-                <div class="add-content">
-                    <a class="selected" href="">Vídeo</a>
-                    <a href="">Atividade</a>
+                <div class="add-content row">
+                    <div class="col-lg-6">
+                        <a class="selected" href="">Vídeo</a>
+                        <a href="">Atividade</a>
+                    </div>
+                    <div class="col-lg-6 textright">
+                        <a href="" class="delete">Apagar unidade</a>
+                    </div>
                 </div>
                 <div class="video">
                     {# ROW #}
