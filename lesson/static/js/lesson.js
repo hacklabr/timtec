@@ -218,7 +218,11 @@ function initialize_code_mirror($scope, data, expected) {
                         'url': '/api/updatestudentprogress/' + $scope.currentUnitId,
                         'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
                     }).success(function(data){
-                        $scope.currentUnit.progress = {complete: data.complete};
+                        if( !($scope.currentUnit.progress &&
+                              $scope.currentUnit.progress.complete)) {
+
+                            $scope.currentUnit.progress = {complete: data.complete};
+                        }
                         if (data.complete) {
                             ga("send", "event", "unit", "unit completed");
                         }
