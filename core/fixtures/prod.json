@@ -354,7 +354,7 @@
 },
 {
   "pk": 1,
-  "model": "core.activity",
+  "model": "activities.activity",
   "fields": {
     "expected": "[false,false,true,true,true]",
     "data": "{\"question\":\"Marque verdadeiro ou falso para as afirma\\u00e7\\u00f5es abaixo\",\"alternatives\":[\"A web nasceu nos anos 1960.\",\"A Internet surgiu nos anos 1990.\",\"A Internet nasceu como uma rede de computadores.\",\"A Internet nasce a partir de necessidades militares.\",\"Tim Berners-Lee \\u00e9 considerado o pai da Web.\"]}",
@@ -363,7 +363,7 @@
 },
 {
   "pk": 2,
-  "model": "core.activity",
+  "model": "activities.activity",
   "fields": {
     "expected": "[false,false,false,true]",
     "data": "{\"question\":\"Marque qual dos programas abaixo \\u00e9 um Browser/Navegador\",\"alternatives\":[\"Microsoft Word\",\"Adobe Photoshop\",\"Ubuntu\",\"Firefox\"]}",
@@ -372,7 +372,7 @@
 },
 {
   "pk": 3,
-  "model": "core.activity",
+  "model": "activities.activity",
   "fields": {
     "expected": "[2,1,4,3]",
     "data": "{\"column1\":[\"Protocolo\",\"Servidor\",\"Caminho\",\"Recurso\"],\"question\":\"Usando a URL http://flatschart.com/html5/estrutura.html fa\\u00e7a a correspond\\u00eancia entre as duas colunas:\",\"column2\":[\"flatschart.com/\",\"http://\",\"estrutura.html\",\"html5/\"]}",
@@ -381,7 +381,7 @@
 },
 {
   "pk": 4,
-  "model": "core.activity",
+  "model": "activities.activity",
   "fields": {
     "expected": "[3,1,2]",
     "data": "{\"question\":\"Em um website esportivo, uma not\\u00edcia sobre um jogo de futebol pode conter textos, recursos visuais e interatividade. Relacione os recursos com as camadas front end:\",\"column1\":[\"Texto da not\\u00edcia\",\"Cores e fontes\",\"Galeria interativa de imagens\"],\"column2\":[\"Javascript\",\"HTML\",\"CSS\"]}",
@@ -390,7 +390,7 @@
 },
 {
   "pk": 5,
-  "model": "core.activity",
+  "model": "activities.activity",
   "fields": {
     "expected": "{\"expected_answer\":\"<b>Ol\\u00e1 mundo</b>\"}",
     "data": "{\"data\":\"<b>oi mundo</b>\"}",
@@ -399,7 +399,7 @@
 },
 {
   "pk": 6,
-  "model": "core.activity",
+  "model": "activities.activity",
   "fields": {
     "expected": "\"2\"",
     "data": "{\"question\":\"Teste\",\"alternatives\":[\"R 1\",\"R 2\",\"R 3\"]}",
@@ -1007,7 +1007,7 @@
 },
 {
   "pk": 1,
-  "model": "core.answer",
+  "model": "activities.answer",
   "fields": {
     "timestamp": "2013-10-31T14:26:47.637Z",
     "given": "[false,false,false,false,false]",
@@ -1019,7 +1019,7 @@
 },
 {
   "pk": 2,
-  "model": "core.answer",
+  "model": "activities.answer",
   "fields": {
     "timestamp": "2013-10-31T14:29:35.984Z",
     "given": "[false,false,true,true,true]",
@@ -1031,7 +1031,7 @@
 },
 {
   "pk": 3,
-  "model": "core.answer",
+  "model": "activities.answer",
   "fields": {
     "timestamp": "2013-10-31T14:29:39.692Z",
     "given": "[false,false,true,true,true]",
@@ -1043,7 +1043,7 @@
 },
 {
   "pk": 4,
-  "model": "core.answer",
+  "model": "activities.answer",
   "fields": {
     "timestamp": "2013-10-31T14:29:41.403Z",
     "given": "[false,false,true,true,true]",
@@ -1055,7 +1055,7 @@
 },
 {
   "pk": 5,
-  "model": "core.answer",
+  "model": "activities.answer",
   "fields": {
     "timestamp": "2013-10-31T14:38:46.046Z",
     "given": "[false,false,true,true]",
@@ -1067,7 +1067,7 @@
 },
 {
   "pk": 6,
-  "model": "core.answer",
+  "model": "activities.answer",
   "fields": {
     "timestamp": "2013-10-31T14:38:48.813Z",
     "given": "[false,false,false,true]",
@@ -1079,7 +1079,7 @@
 },
 {
   "pk": 7,
-  "model": "core.answer",
+  "model": "activities.answer",
   "fields": {
     "timestamp": "2013-11-01T13:24:38.916Z",
     "given": "[false,false,true,true,true]",
@@ -1091,7 +1091,7 @@
 },
 {
   "pk": 8,
-  "model": "core.answer",
+  "model": "activities.answer",
   "fields": {
     "timestamp": "2013-11-01T13:24:40.638Z",
     "given": "[false,false,true,true,true]",
@@ -1103,7 +1103,7 @@
 },
 {
   "pk": 9,
-  "model": "core.answer",
+  "model": "activities.answer",
   "fields": {
     "timestamp": "2013-11-04T13:22:02.887Z",
     "given": "[false,false,false,true,true]",
@@ -1115,7 +1115,7 @@
 },
 {
   "pk": 10,
-  "model": "core.answer",
+  "model": "activities.answer",
   "fields": {
     "timestamp": "2013-11-04T13:22:16.026Z",
     "given": "[false,false,true,true,true]",
@@ -1127,7 +1127,7 @@
 },
 {
   "pk": 11,
-  "model": "core.answer",
+  "model": "activities.answer",
   "fields": {
     "timestamp": "2013-11-04T13:22:18.221Z",
     "given": "[false,false,true,true,true]",
@@ -1139,7 +1139,7 @@
 },
 {
   "pk": 12,
-  "model": "core.answer",
+  "model": "activities.answer",
   "fields": {
     "timestamp": "2013-11-04T13:25:19.153Z",
     "given": "[false,false,true,true,true]",
@@ -1151,7 +1151,7 @@
 },
 {
   "pk": 13,
-  "model": "core.answer",
+  "model": "activities.answer",
   "fields": {
     "timestamp": "2013-11-04T14:00:08.761Z",
     "given": "[false,false,true,true,true]",
@@ -1163,7 +1163,7 @@
 },
 {
   "pk": 14,
-  "model": "core.answer",
+  "model": "activities.answer",
   "fields": {
     "timestamp": "2013-11-04T14:01:16.835Z",
     "given": "[false,false,true,true,true]",
@@ -1175,7 +1175,7 @@
 },
 {
   "pk": 15,
-  "model": "core.answer",
+  "model": "activities.answer",
   "fields": {
     "timestamp": "2013-11-04T14:42:51.097Z",
     "given": "[false,false,true,true,true]",
