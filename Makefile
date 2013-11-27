@@ -66,8 +66,10 @@ update-design:
 test_collectstatic:
 	python manage.py collectstatic --noinput -n
 
-python_tests:
+clean:
 	find . -type f -name '*.py[co]' -exec rm {} \;
+
+python_tests: clean
 	py.test --pep8 --flakes --tb=native --cov . . $*
 
 js_tests:

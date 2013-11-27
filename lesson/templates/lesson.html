@@ -20,14 +20,14 @@
 <script type="text/javascript" src="{% static 'js/lesson.js' %}" charset="utf-8"></script>
 
 <!-- CONTAINER -->
-<div id="course" ng-app="lesson">
+<div id="course-content" ng-app="lesson">
 
     <!-- HEADER -->
     {% include "_course-header-inline.html"  with course=lesson.course %}
     <!-- END HEADER -->
 
     <!-- MAIN CONTENT -->
-    <section id="course-content" class="container" ng-controller="LessonMainCtrl">
+    <section id="main-content" class="container" ng-controller="LessonMainCtrl">
 
         <!-- LESSON NAVIGATION FOR TABLET AND DESKTOP -->
         <nav class="course-lessons-nav row hidden-xs">
@@ -60,35 +60,36 @@
         </p>
         <!-- END LESSON NAVIGATION FOR PHONE -->
 
-        <!-- ROW -->
+
+    <!-- COURSE-VIDEO -->
+    <section class="course-video top-xs">
+      <!-- lesson_video.html -->
         <div class="row">
             {% verbatim %}
             <!-- UNITS NAVIGATION FOR TABLET AND DESKTOP -->
-            <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs">
-                <div class="units">
-                    <a style="display:block;" data-placement="right" data-original-title="{{ unit.position + 1 }}"
-                         title="{{ unit.video.name }}"
-                         href="#/{{ $index+1 }}" class="has-tooltip unit track" data-toggle="tooltip"
-                         onclick="return false;"
-                         ng-repeat="unit in lesson.units"
-                         ng-class="{watching: isSelected($index), done: isDone(unit)}"
-                         ng-click="select($index)">
-                            <i class="icon-caret-right" ng-if="isSelected($index)"></i>
-                            <span class="position">{{ unit.position + 1 }}</span>
-                            <i class="icon-list" ng-if="unit.activity !== null"></i>
-                    </a>
-                </div>
+             <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs">
+                <a style="display:block;" data-placement="right"
+                     title="{{ unit.video.name }}"
+                     href="#/{{ $index+1 }}" class="has-tooltip unit track" data-toggle="tooltip"
+                     onclick="return false;"
+                     ng-repeat="unit in lesson.units"
+                     ng-class="{watching: isSelected($index+1), done: isDone(unit)}"
+                     ng-click="select($index+1)">
+                        <i class="icon-caret-right" ng-if="isSelected($index+1)"></i>
+                        <span class="position">{{ unit.position + 1 }}</span>
+                        <i class="icon-list" ng-if="unit.activity !== null"></i>
+                </a>
             </div>
             <!-- END UNITS NAVIGATION FOR TABLET AND DESKTOP -->
 
             <!-- UNITS NAVIGATION FOR PHONES -->
             <div class="col-xs-12 visible-xs">
                 <p>
-                    <select ng-model="currentUnitIndex" ng-change="select(currentUnitIndex);" class="form-control">
+                   <select ng-model="currentUnitPos" ng-change="select(currentUnitPos);" class="form-control">
                         <option ng-repeat="unit in lesson.units"
-                                ng-value="$index"
-                                ng-selected="$index === currentUnitIndex"
-                                value="{{$index}}">Unidade {{ unit.position + 1 }}</option>
+                                ng-value="$index+1"
+                                ng-selected="isSelected($index+1)"
+                                value="{{$index+1}}">Unidade {{ unit.position + 1 }}</option>
                     </select>
                 </p>
             </div>
@@ -98,8 +99,7 @@
             <div ng-view></div>
 
         </div>
-        <!-- END ROW -->
-
+    </section>
 
         <div class="row hidden-lg">
             <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
@@ -124,7 +124,7 @@
                     {{ lesson.notes|timtec_markdown }}
                 </section>
 
-                <section class="course-social" style="position:relative;overflow:hidden;"></section>
+                <section class="course-social" style="position:relative;overflow:hidden;">      </section>
             </div>
         </div>
         <!-- END FORUM -->
