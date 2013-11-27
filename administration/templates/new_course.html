@@ -1,9 +1,24 @@
 {% extends "admin-base.html" %}
+{% load static %}
+
+{% block js %} {{block.super}}
+<script type="text/javascript" src="{% static 'js/vendor/jquery-1.10.2.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/vendor/bootstrap.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/vendor/modernizr.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Converter.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Editor.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Sanitizer.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'js/new-course/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/new-course/factories.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/new-course/directives.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/new-course/controllers.js' %}"></script>
+{% endblock %}
 
 {% block content %}
-
 <!--  COURSE CONTENT  -->
-<div id="course" class="course-intro">
+<div id="course" class="course-intro" ng-app="new-course" ng-controller="CourseEditController">
 
     <!--  HEADER  -->
     <header class="container">
@@ -177,8 +192,8 @@
                     <div class="page-header-double top">
                         <h3 class="top"><i class="icon-double-angle-right"></i> Resumo</h3>
                     </div>
-                    <div class="editable {{modals.abstract.status}}" ng-bind-html="course.abstract|markdown"></div>
-                    <a data-toggle="modal" href="#abstractModal" class="btn btn-default btn-sm">Adicionar texto</a>
+                    <markdowneditor class="editable" content="course.abstract"></markdowneditor>
+
                     <hr/>
                     <!--  END ABSTRACT  -->
 
@@ -186,7 +201,7 @@
                     <div class="page-header-double top">
                         <h3 class="top"><i class="icon-double-angle-right"></i> Estrutura do curso</h3>
                     </div>
-                    <div class="editable {{modals.structure.status}}" ng-bind-html="course.structure|markdown"></div>
+                    <div class="editable"></div>
                     <a data-toggle="modal" href="#structureModal" class="btn btn-default btn-sm">Adicionar texto</a>
                     <hr/>
                     <!--  END STRUCTURE  -->
@@ -195,7 +210,7 @@
                     <div class="page-header-double top">
                         <h3 class="top"><i class="icon-double-angle-right"></i> Carga horária</h3>
                     </div>
-                    <div class="editable {{modals.workload.status}}" ng-bind-html="course.workload|markdown"></div>
+                    <div class="editable"></div>
                     <a data-toggle="modal" href="#workloadModal" class="btn btn-default btn-sm">Adicionar texto</a>
                     <hr/>
                     <!--  END WORKLOAD  -->
