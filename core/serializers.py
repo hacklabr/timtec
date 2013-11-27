@@ -1,5 +1,6 @@
-from core.models import Course, CourseProfessor, CourseStudent, Lesson, Video, Activity, Answer, StudentProgress, Unit
+from core.models import Course, CourseProfessor, CourseStudent, Lesson, Video, StudentProgress, Unit
 from accounts.serializers import TimtecUserSerializer
+from activities.serializers import ActivitySerializer
 from rest_framework import serializers
 
 
@@ -34,34 +35,10 @@ class CourseSerializer(serializers.ModelSerializer):
                   "professors",)
 
 
-class JSONSerializerField(serializers.WritableField):
-    pass
-
-
-class AnswerSerializer(serializers.ModelSerializer):
-    user = serializers.Field(source='user')
-    correct = serializers.Field(source='is_correct')
-    given = JSONSerializerField('given')
-
-    class Meta:
-        model = Answer
-        allow_add_remove = True
-        fields = ('id', 'activity', 'correct', 'user', 'timestamp', 'given',)
-
-
 class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
         fields = ('id', 'name', 'youtube_id')
-
-
-class ActivitySerializer(serializers.ModelSerializer):
-    data = JSONSerializerField('data')
-    expected = JSONSerializerField('expected')
-
-    class Meta:
-        model = Activity
-        fields = ('id', 'type', 'data', 'expected',)
 
 
 class StudentProgressSerializer(serializers.ModelSerializer):

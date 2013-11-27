@@ -11,8 +11,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from braces.views import LoginRequiredMixin
 
-from .serializers import CourseSerializer, AnswerSerializer, LessonSerializer, StudentProgressSerializer
-from .models import Course, Answer, Lesson, StudentProgress, Unit
+from .serializers import CourseSerializer, LessonSerializer, StudentProgressSerializer
+from .models import Course, Lesson, StudentProgress, Unit
 
 from forms import ContactForm
 
@@ -142,31 +142,9 @@ class UpdateStudentProgressView(APIView):
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
         response = {}
-        if not unit.activity:
-            progress, created = StudentProgress.objects.get_or_create(user=user, unit=unit)
-            progress.complete = timezone.now()
-            progress.save()
-            response['msg'] = 'Unit completed.'
-            response['complete'] = progress.complete
-        return Response(response, status=status.HTTP_201_CREATED)
-
-
-class AnswerViewSet(viewsets.ModelViewSet):
-    model = Answer
-    serializer_class = AnswerSerializer
-    filter_fields = ('activity', 'user',)
-
-    def pre_save(self, obj):
-        obj.user = self.request.user
-
-    def post_save(self, obj, **kwargs):
-        unit = self.request.DATA.get('unit', None)
-        user = self.request.user
-        progress, created = StudentProgress.objects.get_or_create(user=user, unit_id=unit)
-
-        if obj.is_correct():
-            progress.complete = timezone.now()
+        progress, created = StudentProgress.objects.get_or_create(user=user, unit=unit)
+        progress.complete = timezone.now()
         progress.save()
-
-    def get_queryset(self):
-        return Answer.objects.filter(user=self.request.user)
+        response['msg'] = 'Unit completed.'
+        response['complete'] = progress.complete
+        return Response(response, status=status.HTTP_201_CREATED)

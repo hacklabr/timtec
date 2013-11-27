@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-import json
-
-from jsonfield import JSONField
 from positions import PositionField
 
 from django.db import models
@@ -9,6 +6,7 @@ from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.contrib.auth import get_user_model
+from activities.models import Activity
 
 TimtecUser = get_user_model()
 
@@ -171,38 +169,6 @@ class Lesson(models.Model):
         return self.status == 'published' and self.units.exists()
 
 
-class Activity(models.Model):
-    """
-    Generic class to activities
-    Data templates (data e type atributes):
-    Multiple choice
-        type: multiplechoice
-        data: {question: "", choices: ["choice1", "choice2", ...]}
-        expected_answer_data: {choices: [0, 2, 5]} # list of espected choices, zero starting
-    Single choice
-        type: singlechoice
-        data: {question: "", choices: ["choice1", "choice2", ...]}
-        expected_answer_data: {choice: 1}
-    """
-    type = models.CharField(_('Type'), max_length=255)
-    data = JSONField(_('Data'))
-    expected = JSONField(_('Expected answer'))
-
-    class Meta:
-        verbose_name = _('Activity')
-        verbose_name_plural = _('Activities')
-        ordering = [('-id')]
-
-    def question(self):
-        try:
-            return self.data.get('question')
-        except:
-            return None
-
-    def __unicode__(self):
-        return u'%s dt %s a %s' % (self.type, self.data, self.expected)
-
-
 class Unit(models.Model):
     title = models.CharField(_('Title'), max_length=128, blank=True)
     lesson = models.ForeignKey(Lesson, verbose_name=_('Lesson'), related_name='units')
@@ -233,36 +199,6 @@ class Unit(models.Model):
 
 models.signals.pre_save.connect(Unit.set_position_for_new_unit, sender=Unit,
                                 dispatch_uid="Unit.set_position_for_new_unit")
-
-
-class Answer(models.Model):
-    activity = models.ForeignKey(Activity, verbose_name=_('Activity'))
-    user = models.ForeignKey(TimtecUser, verbose_name=_('Student'))
-    timestamp = models.DateTimeField(auto_now_add=True, editable=False)
-    given = JSONField(_('Given answer'))
-
-    @property
-    def expected(self):
-        if type(self.activity.expected) in [unicode, str]:
-            return json.loads(self.activity.expected)
-        return self.activity.expected
-
-    def is_correct(self):
-        if self.activity.type == 'html5':
-            return True
-
-        result = False
-
-        given = self.given
-        expected = self.activity.expected
-
-        result = unicode(given) == unicode(expected)
-        return result
-
-    class Meta:
-        verbose_name = _('Answer')
-        verbose_name_plural = _('Answers')
-        ordering = ['timestamp']
 
 
 class StudentProgress(models.Model):

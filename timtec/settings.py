@@ -306,12 +306,15 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'rest_framework',
     'rosetta',
-    'accounts',
     'autoslug',
+    # TIM Tec
     'core',
+    'accounts',
+    'activities',
     'administration',
     'forum',
     'course_material',
+    # django-metron
     'metron',
     # allauth
     'allauth',
