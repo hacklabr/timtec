@@ -965,13 +965,17 @@
     "site": "",
     "is_superuser": true,
     "is_staff": true,
-    "last_login": "2013-11-12T22:13:46.096Z",
-    "groups": [],
+    "last_login": "2013-11-27T15:51:25Z",
+    "groups": [
+      [
+        "professors"
+      ]
+    ],
     "user_permissions": [],
     "password": "pbkdf2_sha256$12000$JpjfXqR5JaMy$3V2OHv7/I6dV9nRaSwkVd5P2ze4GuQ21j1FfeEkRhLc=",
     "email": "timtectimtec@gmail.com",
     "biography": "",
-    "date_joined": "2013-10-28T20:42:19.086Z"
+    "date_joined": "2013-10-28T20:42:19Z"
   }
 },
 {
