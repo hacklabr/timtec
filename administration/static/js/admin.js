@@ -11,8 +11,9 @@
             $sceDelegateProvider.resourceUrlWhitelist([
                 /^https?:\/\/(www\.)?youtube\.com\/.*/,
                 'data:text/html, <html style="background: white">',
-                /.*/
-            ]);
+                'self',
+                window.STATIC_URL + '**'
+                ]);
         }
     ]);
 

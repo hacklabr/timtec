@@ -27,8 +27,8 @@ function initialize_code_mirror($scope, data, expected) {
         return STATIC_URL + '/templates/activity_'+ the_type + '.html';
     };
 
-    app.config(['$routeProvider', '$httpProvider',
-        function ($routeProvider, $httpProvider) {
+    app.config(['$routeProvider', '$httpProvider', '$sceDelegateProvider',
+        function ($routeProvider, $httpProvider, $sceDelegateProvider) {
             $routeProvider
                 .when('/:unitPos', {
                     templateUrl: STATIC_URL + '/templates/lesson_video.html',
@@ -40,6 +40,9 @@ function initialize_code_mirror($scope, data, expected) {
 
             $httpProvider.defaults.xsrfCookieName = 'csrftoken';
             $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+            $sceDelegateProvider.resourceUrlWhitelist([
+                'self',
+                window.STATIC_URL + '**'])
         }
     ]);
 
@@ -338,6 +341,47 @@ function initialize_code_mirror($scope, data, expected) {
                             <span ng-transclude></span> \
                         </label>',
             replace: true
+        };
+    });
+
+    app.directive('codemirror', function(){
+        return {
+            restrict: 'E',
+            require: 'ngModel',
+            scope: {
+                checked: '=ngModel'
+            },
+            transclude: true,
+            /*jshint multistr: true */
+            template: ' \
+                        <label class="checkbox" ng-class="{checked: checked}"  ng-click="checked = !checked"> \
+                            <span class="icons"> \
+                                <span class="first-icon icon-check-empty"></span> \
+                                <span class="second-icon icon-check"></span> \
+                            </span> \
+                            <input type="checkbox" ng-model="checked"/> \
+                            <span ng-transclude></span> \
+                        </label>',
+            replace: true,
+            link: function () {
+                 function initialize_code_mirror($scope, data, expected) {
+                    var body = $('#empty').contents().find('body');
+                    var cm = CodeMirror.fromTextArea($('#texto')[0], CodeMirrorConf);
+                    cm.setSize("100%", "215px"); // TODO: set size in html
+                    cm.markText({line:0, ch:0}, {line:4, ch:0}, {atomic: true, readOnly: true, inclusiveLeft: true});
+                    cm.markText({line:4, ch:1000}, {line:7, ch:0}, {atomic: true, readOnly: true, inclusiveRight: true});
+                    cm.replaceRange(data, {line:4, ch:0}, {line:4, ch:100});
+                    setTimeout(function () {
+                        $('#empty').contents().find('body').html(cm.getValue());
+                        $('#expected_iframe').contents().find('body').html('' + expected);
+                    }, 800);
+                    cm.on('change', function (instance) {
+                        data = instance.getValue();
+                        $('#empty').contents().find('body').html(data);
+                        $scope.answer.given = data;
+                    });
+                }
+            }
         };
     });
 
