@@ -1,7 +1,10 @@
 # from https://gist.github.com/enjalot/2904124
 
 import SimpleHTTPServer
+
+
 class CORSHTTPRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+
     def send_head(self):
         """Common code for GET and HEAD commands.
 
