@@ -15,6 +15,7 @@ from core.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, 
 from activities.views import AnswerViewSet
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, QuestionVoteViewSet, AnswerVoteViewSet
 from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialAdminView, CourseMaterialViewSet
+from notes.views import NotesViewSet
 from rest_framework import routers
 
 router = routers.DefaultRouter(trailing_slash=False)
@@ -27,6 +28,7 @@ router.register(r'forum_answer', ForumAnswerViewSet)
 router.register(r'question_vote', QuestionVoteViewSet)
 router.register(r'answer_vote', AnswerVoteViewSet)
 router.register(r'course_material', CourseMaterialViewSet)
+router.register(r'note', NotesViewSet)
 
 #    url(r'^api/answer/(?P<unitId>[0-9]*)$', AnswerView.as_view(), name='answer'),
 
