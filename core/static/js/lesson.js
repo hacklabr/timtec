@@ -45,25 +45,25 @@ function initialize_code_mirror($scope, data, expected) {
 
     app.controller('LessonMainCtrl', ['$scope', 'LessonData', '$location',
         function ($scope, LessonData, $location) {
+            window.l = $location;
             var match = location.hash.match(/^#\/(\d+)/);
             if(match) {
                 $scope.currentUnitPos = parseInt(match[1], 10);
             } else {
                 $scope.currentUnitPos = 1;
             }
-            $scope.currentUnitIndex = $scope.currentUnitPos - 1;
 
             $scope.isSelected = function(i){
-                return ($scope.currentUnitPos-1) === i;
+                return $scope.currentUnitPos === i;
             };
             $scope.isDone = function(unit){
                 return (unit.progress || {}).complete;
             };
             $scope.select = function(i) {
-                $scope.currentUnitIndex = parseInt(i,10);
-                $scope.currentUnitPos = $scope.currentUnitIndex + 1;
+                $scope.currentUnitPos = parseInt(i,10);
                 $location.path('/' + $scope.currentUnitPos);
             };
+
         }
     ]);
 
@@ -71,11 +71,13 @@ function initialize_code_mirror($scope, data, expected) {
         function ($scope, $location, $routeParams, $http, LessonData, Answer) {
             var $main = $scope.$parent;
 
+            $main.currentUnitPos = parseInt($routeParams.unitPos, 10);
+
             $scope.alternatives = [];
             $scope.answer = {given: null, correct: null};
 
             $scope.nextVideo = function() {
-                if ($main.currentUnitPos + 1 < $scope.lesson.units.length) {
+                if ($main.currentUnitPos + 1 <= $scope.lesson.units.length) {
                     $main.currentUnitPos++;
                     $location.path('/' + $main.currentUnitPos).search('autoplay', null);
                 }
@@ -117,7 +119,7 @@ function initialize_code_mirror($scope, data, expected) {
             };
 
             LessonData.then(function (lesson) {
-                var unit = $scope.currentUnit = lesson.units[$main.currentUnitIndex];
+                var unit = $scope.currentUnit = lesson.units[$main.currentUnitPos - 1];
                 $scope.currentUnitId = unit.id;
                 $scope.activity_template = unit.activity.template;
 
@@ -216,7 +218,7 @@ function initialize_code_mirror($scope, data, expected) {
                     if( $scope.currentUnit.activity ) {
                         $location.path('/' + $main.currentUnitPos + '/activity').search('autoplay', null);
                     } else {
-                        if ($main.currentUnitPos + 1 < $scope.lesson.units.length) {
+                        if ($main.currentUnitPos + 1 <= $scope.lesson.units.length) {
                             $main.currentUnitPos++;
                             $location.path('/' + $main.currentUnitPos).search('autoplay', null);
                         }

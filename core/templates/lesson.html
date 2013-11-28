@@ -70,14 +70,14 @@ $(document).ready(function() {
         {% verbatim %}
         <!-- UNITS NAVIGATION FOR TABLET AND DESKTOP -->
         <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs">
-          <a style="display:block;" data-placement="right" data-original-title="{{ unit.position + 1 }}"
+          <a style="display:block;" data-placement="right"
              title="{{ unit.video.name }}"
              href="#/{{ $index+1 }}" class="has-tooltip unit track" data-toggle="tooltip"
              onclick="return false;"
              ng-repeat="unit in lesson.units"
-             ng-class="{watching: isSelected($index), done: isDone(unit)}"
-             ng-click="select($index)">
-                <i class="icon-caret-right" ng-if="isSelected($index)"></i>
+             ng-class="{watching: isSelected($index+1), done: isDone(unit)}"
+             ng-click="select($index+1)">
+                <i class="icon-caret-right" ng-if="isSelected($index+1)"></i>
                 <span class="position">{{ unit.position + 1 }}</span>
                 <i class="icon-list" ng-if="unit.activity !== null"></i>
           </a>
@@ -87,11 +87,11 @@ $(document).ready(function() {
         <!-- UNITS NAVIGATION FOR PHONES -->
         <div class="col-xs-12 visible-xs">
             <p>
-                <select ng-model="currentUnitIndex" ng-change="select(currentUnitIndex);" class="form-control">
+                <select ng-model="currentUnitPos" ng-change="select(currentUnitPos);" class="form-control">
                     <option ng-repeat="unit in lesson.units"
-                            ng-value="$index"
-                            ng-selected="$index === currentUnitIndex"
-                            value="{{$index}}">Unidade {{ unit.position + 1 }}</option>
+                            ng-value="$index+1"
+                            ng-selected="isSelected($index+1)"
+                            value="{{$index+1}}">Unidade {{ unit.position + 1 }}</option>
                 </select>
             </p>
         </div>
