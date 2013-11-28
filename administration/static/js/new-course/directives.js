@@ -22,62 +22,82 @@
         };
     });
 
-    app.directive('markdowneditor', function(){
-        return {
-            'restrict': 'E',
-            'templateUrl': '/static/templates/directive.markdowneditor.html',
-            'scope': {
-                'content': '=content',
-                'onSave': '=onSave'
-            },
-            'controller': function($scope) {
-                $scope.active = false;
-                $scope.id = Math.random().toString(16).slice(2);
+
+    (function generateMarkdownDirectives(app) {
+
+        var templates = {
+            'modal': '/static/templates/directive.markdowneditor.html'
+        };
+
+        function controller ($scope) {
+            $scope.active = false;
+            $scope.id = Math.random().toString(16).slice(2);
+            $scope.newContent = angular.copy($scope.content);
+
+            $scope.cancel = function() {
                 $scope.newContent = angular.copy($scope.content);
+                $scope.active = false;
+                $scope.refreshPreview();
+            };
 
-                $scope.cancel = function() {
-                    $scope.newContent = angular.copy($scope.content);
-                    $scope.active = false;
-                    $scope.refreshPreview();
-                };
+            $scope.save = function() {
+                var oldContent = angular.copy($scope.content);
+                $scope.content = angular.copy($scope.newContent);
+                $scope.active = false;
 
-                $scope.save = function() {
-                    var oldContent = angular.copy($scope.content);
-                    $scope.content = angular.copy($scope.newContent);
-                    $scope.active = false;
+                if($scope.onSave && $scope.onSave.call) {
+                    try{
+                        $scope.onSave();
+                    } catch (e) {
+                        $scope.content = oldContent;
+                        $scope.newContent = oldContent;
+                        $scope.refreshPreview();
+                        throw e;
+                    }
+                }
+            };
 
-                    if($scope.onSave && $scope.onSave.call) {
-                        try{
-                            $scope.onSave();
-                        } catch (e) {
-                            $scope.content = oldContent;
-                            $scope.newContent = oldContent;
-                            $scope.refreshPreview();
-                            throw e;
-                        }
+            $scope.refreshPreview = function() {
+                setTimeout(function(){
+                    $scope.editor.refreshPreview();
+                }, 50);
+            };
+        }
+
+        function link (scope, element, attr) {
+            var editorIsRunning = false;
+            scope.editor = new window.Markdown.Editor(
+                window.Markdown.getSanitizingConverter(), '-'.concat(scope.id)
+            );
+
+            scope.$watch('$scope', function(){
+                if(!editorIsRunning) scope.editor.run();
+                editorIsRunning = true;
+            });
+            scope.title = attr.title;
+        }
+
+
+        function getConfigFunction(templateUrl) {
+            return function(){
+                return {
+                    'restrict': 'E',
+                    'templateUrl': templateUrl,
+                    'controller': controller,
+                    'link': link,
+                    'scope': {
+                        'content': '=content',
+                        'onSave': '=onSave'
                     }
                 };
+            };
+        }
 
-                $scope.refreshPreview = function() {
-                    setTimeout(function(){
-                        $scope.editor.refreshPreview();
-                    }, 50);
-                };
+        for( var type in templates ) {
+            console.log(type.concat('markdowneditor'));
+            app.directive(type.concat('markdowneditor'), getConfigFunction(templates[type]) );
+        }
 
-            },
-            'link': function(scope, element, attr) {
-                var editorIsRunning = false;
-                scope.editor = new window.Markdown.Editor(
-                    window.Markdown.getSanitizingConverter(), '-'.concat(scope.id)
-                );
-
-                scope.$watch('$scope', function(){
-                    if(!editorIsRunning) scope.editor.run();
-                    editorIsRunning = true;
-                });
-                scope.title = attr.title;
-            }
-        };
-    });
+    })(app);
 
 })(window.angular);
