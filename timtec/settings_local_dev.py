@@ -23,16 +23,14 @@ DATABASES = {
     }
 }
 
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
+# MEDIA_URL = 'http://localhost:8002/media/'
 
-MEDIA_URL = 'http://localhost:8002/media/'
-
-STATIC_URL = 'http://localhost:8002/static/'
+# STATIC_URL = 'http://localhost:8002/static/'
 
 EMAIL_SUBJECT_PREFIX = '[timtec-dev]'
 
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, '../webfiles/media/')
-STATIC_ROOT = os.path.join(PROJECT_ROOT, '../webfiles/static/')
+# MEDIA_ROOT = os.path.join(PROJECT_ROOT, '../webfiles/media/')
+# STATIC_ROOT = os.path.join(PROJECT_ROOT, '../webfiles/static/')
 
 
 LOGGING = {
