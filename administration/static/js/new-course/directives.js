@@ -23,45 +23,9 @@
     });
 
     app.directive('markdowneditor', function(){
-        /**
-         * require: angular
-         * require: Markdown
-         * require: jQuery
-         * require: modernizr
-         */
-        var template = ''+
-        '<div class="editable" id="wmd-preview-{{id}}" ng-click="open()"></div>' +
-        '<button class="btn btn-default btn-sm" ng-click="open()" ng-show="!content">Adicionar texto</button>' +
-        '<div class="modal fade in" id="Modal" tabindex="-1" ng-style="modalState()">' +
-            '<div class="modal-dialog">' +
-                '<div class="modal-content">' +
-                    '<div class="modal-header">' +
-                      '<button type="button" class="close" ng-click="cancel()">&times;</button>' +
-                      '<h4 class="modal-title">{{title}}&nbsp;</h4>' +
-                    '</div>' +
-                    '<div class="modal-body">' +
-                        '<div class="text-editor">' +
-                            '<div class="row">' +
-                                '<div class="col-lg-12" id="wmd-button-bar-{{id}}"></div>' +
-                            '</div>' +
-                            '<div class="row">' +
-                                '<div class="col-lg-12 form-group">' +
-                                    '<textarea id="wmd-input-{{id}}" class="col-lg-12 form-control" ng-model="newContent" rows="15"></textarea>' +
-                                '</div>' +
-                            '</div>' +
-                        '</div>' +
-                        '<div class="modal-footer">' +
-                            '<button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>' +
-                            '<button type="button" class="btn btn-primary" ng-click="save()">Save changes</button>' +
-                        '</div>' +
-                    '</div>' +
-                '</div>' +
-            '</div>' +
-        '</div>';
-
         return {
             'restrict': 'E',
-            'template': template,
+            'templateUrl': '/static/templates/directive.markdowneditor.html',
             'scope': {
                 'content': '=content',
                 'onSave': '=onSave'
@@ -71,29 +35,16 @@
                 $scope.id = Math.random().toString(16).slice(2);
                 $scope.newContent = angular.copy($scope.content);
 
-
-                $scope.modalState = function(){
-                    return {display: $scope.active ? 'block' : 'none'};
-                };
-
-                $scope.close = function() {
-                    $scope.active = false;
-                };
-
-                $scope.open = function() {
-                    $scope.active = true;
-                };
-
                 $scope.cancel = function() {
                     $scope.newContent = angular.copy($scope.content);
-                    $scope.close();
+                    $scope.active = false;
                     $scope.refreshPreview();
                 };
 
                 $scope.save = function() {
                     var oldContent = angular.copy($scope.content);
                     $scope.content = angular.copy($scope.newContent);
-                    $scope.close();
+                    $scope.active = false;
 
                     if($scope.onSave && $scope.onSave.call) {
                         try{
