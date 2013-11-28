@@ -1,7 +1,9 @@
 from allauth.account.adapter import DefaultAccountAdapter
-from core.models import TimtecUser
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth import get_user_model
+
+TimtecUser = get_user_model()
 
 
 class TimtecAdapter(DefaultAccountAdapter):

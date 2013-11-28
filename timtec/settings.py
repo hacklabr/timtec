@@ -169,8 +169,11 @@ PIPELINE_JS = {
             'js/contact_form.js',
             'js/helpers.js',
             'js/angular-youtube.js',
-
-            # codemirror stuff
+        ),
+        'output_filename': 'js/all.js',
+    },
+    'codemirror': {
+        'source_filenames': (
             'js/vendor/codemirror/lib/codemirror.js',
             'js/vendor/codemirror/addon/fold/xml-fold.js',
             'js/vendor/codemirror/addon/hint/show-hint.js',
@@ -187,7 +190,7 @@ PIPELINE_JS = {
             'js/vendor/codemirror/mode/htmlmixed/htmlmixed.js',
             'js/codemirrorconf.js',
         ),
-        'output_filename': 'js/all.js',
+        'output_filename': 'js/codemirrorcomp.js',
     }
 }
 
@@ -253,7 +256,7 @@ SUIT_CONFIG = {
     # 'CONFIRM_UNSAVED_CHANGES': True, # Default True
 
     # menu
-    'SEARCH_URL': '/admin/core/timtecuser/',
+    'SEARCH_URL': '/admin/accounts/timtecuser/',
     # 'MENU_ICONS': {
     #    'sites': 'icon-leaf',
     #    'auth': 'icon-lock',
@@ -263,7 +266,7 @@ SUIT_CONFIG = {
     # 'MENU': (
     #     'sites',
     #     {'app': 'auth', 'icon':'icon-lock', 'models': ('user', 'group')},
-    #     {'label': 'Settings', 'icon':'icon-cog', 'models': ('core.TimtecUser', 'auth.group')},
+    #     {'label': 'Settings', 'icon':'icon-cog', 'models': ('accounts.TimtecUser', 'auth.group')},
     #     # {'label': 'Support', 'icon':'icon-question-sign', 'url': '/support/'},
     # ),
 
@@ -271,7 +274,7 @@ SUIT_CONFIG = {
     # 'LIST_PER_PAGE': 15
 }
 
-AUTH_USER_MODEL = 'core.TimtecUser'
+AUTH_USER_MODEL = 'accounts.TimtecUser'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -306,13 +309,15 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'rest_framework',
     'rosetta',
-    'accounts',
     'autoslug',
+    # TIM Tec
     'core',
+    'accounts',
+    'activities',
     'administration',
-    'lesson',
     'forum',
     'course_material',
+    # django-metron
     'metron',
     # allauth
     'allauth',

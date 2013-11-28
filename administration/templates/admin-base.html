@@ -7,19 +7,10 @@
 
         <title>{{ course }}</title>
 
-        <script src="//www.youtube.com/iframe_api"></script>
+        {% include "_assets.html" with admin=True %}
 
         {% load static %}
-        {% load compressed %}
 
-        {% compressed_css 'common' %}
-        {% compressed_css 'admin' %}
-        {% compressed_js 'all' %}
-
-        {# TODO: aprender a comprimir estas coisas (fabio) #}
-        <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Converter.js' %}" charset="utf-8"></script>
-        <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Editor.js' %}" charset="utf-8"></script>
-        <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Sanitizer.js' %}" charset="utf-8"></script>
         {% endblock %}
     </head>
     <body id="admin">

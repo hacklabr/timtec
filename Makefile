@@ -76,9 +76,9 @@ js_tests:
 	find . -path ./static/js/vendor -prune -o -path static/js/vendor/ -prune -o -path ./tests/js/lib -prune -path tests/js/lib/ -prune -o -name '*.js' -exec jshint {} \;
 
 karma_tests:
-	karma start tests/confkarma.js $*
+	karma start confkarma.js $*
 
-all_tests: test_collectstatic python_tests karma_tests
+all_tests: test_collectstatic python_tests karma_tests js_tests
 
 setup_ci:
 	psql -c 'create database timtec_ci;' -U postgres
@@ -106,8 +106,8 @@ dumpdata:
 
 reset_db:
 	python manage.py reset_db --router=default --noinput -U $(USER)
-	python manage.py syncdb --noinput
-	python manage.py migrate --noinput
+	python manage.py syncdb --all --noinput
+	python manage.py migrate --noinput --fake
 
 messages:
 	python manage.py makemessages -a -d django
