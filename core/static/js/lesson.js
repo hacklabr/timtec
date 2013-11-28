@@ -102,7 +102,18 @@ function initialize_code_mirror($scope, data, expected) {
                 answer.$save().then(function(d){
                     ga('send', 'event', 'activity', 'result', '', d.correct);
                     $scope.answer.correct = d.correct;
-                    $scope.currentUnit.progress = { complete : d.correct };
+                    if (d.correct) {
+                        $http({
+                            'method': 'POST',
+                            'url': '/api/updatestudentprogress/' + $scope.currentUnitId,
+                            'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
+                        }).success(function(data){
+                            $scope.currentUnit.progress = {complete: data.complete};
+                            if (data.complete) {
+                                ga("send", "event", "unit", "unit completed");
+                            }
+                        });
+                    }
                 });
                 ga('send', 'event', 'activity', 'submit');
             };
@@ -211,22 +222,17 @@ function initialize_code_mirror($scope, data, expected) {
                             $main.currentUnitPos++;
                             $location.path('/' + $main.currentUnitPos).search('autoplay', null);
                         }
-                    }
-
-                    $http({
-                        'method': 'POST',
-                        'url': '/api/updatestudentprogress/' + $scope.currentUnitId,
-                        'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
-                    }).success(function(data){
-                        if( !($scope.currentUnit.progress &&
-                              $scope.currentUnit.progress.complete)) {
-
+                        $http({
+                            'method': 'POST',
+                            'url': '/api/updatestudentprogress/' + $scope.currentUnitId,
+                            'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
+                        }).success(function(data){
                             $scope.currentUnit.progress = {complete: data.complete};
-                        }
-                        if (data.complete) {
-                            ga("send", "event", "unit", "unit completed");
-                        }
-                    });
+                            if (data.complete) {
+                                ga("send", "event", "unit", "unit completed");
+                            }
+                        });
+                    }
                     $scope.$apply();
                 }
             };

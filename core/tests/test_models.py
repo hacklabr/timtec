@@ -3,7 +3,6 @@
 import pytest
 
 from model_mommy import mommy
-from django.core.files.base import ContentFile
 from core.models import CourseStudent
 
 
@@ -29,44 +28,6 @@ def test_position_counter_for_new_units():
     assert mommy.make('Unit', lesson=lesson).position == 0
     assert mommy.make('Unit', lesson=lesson).position == 1
     assert mommy.make('Unit', lesson=lesson).position == 2
-
-
-@pytest.mark.django_db
-def test_get_user_type(user):
-    assert user.get_user_type() == "unidentified"
-
-
-@pytest.mark.django_db
-def test_username_validator():
-    from core.models import TimtecUser
-    from django.core.exceptions import ValidationError
-    try:
-        t = TimtecUser.objects.create(username="test@test", email="test@example.com")
-        t.full_clean()
-    except ValidationError:
-        pass
-    else:
-        assert False
-
-
-@pytest.mark.django_db
-def test_user_picture_url():
-    user = mommy.make('TimtecUser')
-    user.username = u'Usér'
-    user.save()
-
-    assert not user.picture
-    assert user.get_picture_url() == '/static/img/avatar-default.png'
-
-    user.picture.save(u'abcd-ávatár.png', ContentFile('XXX'))
-    user.username
-    user.save()
-
-    # file is saved as md5(filename + username)
-    assert user.get_picture_url().startswith('/media/user-pictures/de7f72f1443cd5e3b63131ffbac0b83f')
-
-    #teardown
-    user.picture.delete()
 
 
 @pytest.mark.django_db

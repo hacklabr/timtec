@@ -3,14 +3,16 @@ import json
 
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
+from django.utils import timezone
 from django.views.generic import DetailView
 from django.views.generic.base import RedirectView, View, TemplateView
-from rest_framework import viewsets
+from rest_framework import status, viewsets
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from braces.views import LoginRequiredMixin
 
-from serializers import CourseSerializer
-from models import Course, StudentProgress
+from .serializers import CourseSerializer, LessonSerializer, StudentProgressSerializer
+from .models import Course, Lesson, StudentProgress, Unit
 
 from forms import ContactForm
 
@@ -95,3 +97,54 @@ class CourseViewSet(viewsets.ModelViewSet):
             return Response(status=200)
         else:
             return Response(serializer.errors, status=403)
+
+
+class LessonDetailView(LoginRequiredMixin, DetailView):
+    model = Lesson
+    template_name = "lesson.html"
+
+
+class LessonViewSet(viewsets.ModelViewSet):
+    model = Lesson
+    serializer_class = LessonSerializer
+    filter_fields = ('course__slug',)
+
+    def get_queryset(self):
+        queryset = super(LessonViewSet, self).get_queryset()
+        if self.request.user.is_active:
+            return queryset
+        return queryset.filter(published=True)
+
+
+class StudentProgressViewSet(viewsets.ModelViewSet):
+    model = StudentProgress
+    serializer_class = StudentProgressSerializer
+    filter_fields = ('unit__lesson',)
+
+    def pre_save(self, obj):
+        obj.user = self.request.user
+        return super(StudentProgressViewSet, self).pre_save(obj)
+
+    def get_queryset(self):
+        user = self.request.user
+        return StudentProgress.objects.filter(user=user)
+
+
+class UpdateStudentProgressView(APIView):
+    model = StudentProgress
+
+    def post(self, request, unitId=None):
+        user = request.user
+
+        try:
+            unit = Unit.objects.get(id=unitId)
+        except Unit.DoesNotExist as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+        response = {}
+        progress, created = StudentProgress.objects.get_or_create(user=user, unit=unit)
+        progress.complete = timezone.now()
+        progress.save()
+        response['msg'] = 'Unit completed.'
+        response['complete'] = progress.complete
+        return Response(response, status=status.HTTP_201_CREATED)
