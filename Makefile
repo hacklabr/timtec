@@ -106,8 +106,8 @@ dumpdata:
 
 reset_db:
 	python manage.py reset_db --router=default --noinput -U $(USER)
-	python manage.py syncdb --noinput
-	python manage.py migrate --noinput
+	python manage.py syncdb --all --noinput
+	python manage.py migrate --noinput --fake
 
 messages:
 	python manage.py makemessages -a -d django
