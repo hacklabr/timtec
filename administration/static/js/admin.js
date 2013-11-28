@@ -187,8 +187,10 @@
         function($rootScope, $q, $resource) {
             var Course = $resource('/api/course/:courseSlug/',{'courseSlug': courseSlug});
             var deferred = $q.defer();
-
-            Course.get(function(course){
+            var antiCache = {
+                ie: (new Date()).getTime().toString(16)
+            };
+            Course.get(antiCache, function(course){
                 deferred.resolve(course);
             });
             return deferred.promise;

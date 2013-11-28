@@ -32,6 +32,7 @@
                 $scope.content = angular.copy($scope.newContent);
                 $scope.active = false;
 
+                console.log($scope.content);
                 if($scope.onSave && $scope.onSave.call) {
                     try{
                         setTimeout($scope.onSave, 50);
