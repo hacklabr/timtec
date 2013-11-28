@@ -631,12 +631,12 @@
     "permissions": [
       [
         "add_answer",
-        "core",
+        "activities",
         "answer"
       ],
       [
         "change_answer",
-        "core",
+        "activities",
         "answer"
       ],
       [
@@ -730,32 +730,32 @@
     "permissions": [
       [
         "add_activity",
-        "core",
+        "activities",
         "activity"
       ],
       [
         "change_activity",
-        "core",
+        "activities",
         "activity"
       ],
       [
         "delete_activity",
-        "core",
+        "activities",
         "activity"
       ],
       [
         "add_answer",
-        "core",
+        "activities",
         "answer"
       ],
       [
         "change_answer",
-        "core",
+        "activities",
         "answer"
       ],
       [
         "delete_answer",
-        "core",
+        "activities",
         "answer"
       ],
       [
