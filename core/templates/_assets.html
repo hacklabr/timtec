@@ -1,0 +1,18 @@
+{% load compressed %}
+{% load staticfiles %}
+
+<script src="//youtube.com/iframe_api"></script>
+
+{% compressed_css 'common' %}
+{% if admin %}
+    {% compressed_css 'admin' %}
+{% else %}
+    {% compressed_css 'public' %}
+{% endif %}
+{% compressed_js 'all' %}
+{% compressed_js 'codemirror' %}
+
+
+<script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Converter.js' %}" charset="utf-8"></script>
+<script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Editor.js' %}" charset="utf-8"></script>
+<script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Sanitizer.js' %}" charset="utf-8"></script>
