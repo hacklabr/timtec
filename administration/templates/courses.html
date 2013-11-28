@@ -9,9 +9,9 @@
 {% endblock %}
 
 {% block content %}
-{# COURSES #}
+<!-- COURSES -->
 <section id="courses" class="container" ng-app="courses" ng-controller="CourseListController">
-    {#  HEADER #}
+    <!--  HEADER -->
     <header>
         <div class="row">
             <div class="col-lg-6">
@@ -22,15 +22,15 @@
             </div>
         </div>
     </header>
-    {# END HEADER #}
+    <!-- END HEADER -->
 
-    {# FILTERS #}
+    <!-- FILTERS -->
     <div class="filters">
-        {#  FORM INLINE #}
+        <!--  FORM INLINE -->
         <div class="form-inline">
-            {# ROW #}
+            <!-- ROW -->
             <div class="row">
-                {# COL-LG-6 #}
+                <!-- COL-LG-6 -->
                 <div class="col-lg-5">
                     <div class="checkbox">
                         <label><input ng-model="filters.all" type="checkbox"> Todos</label>
@@ -39,13 +39,13 @@
                         <label><input ng-model="filters.draft" type="checkbox"> Rascunho</label>
                     </div>
                 </div>
-                {# END COL-LG-6 #}
-                {# COL-LG-3 #}
+                <!-- END COL-LG-6 -->
+                <!-- COL-LG-3 -->
                 <div class="col-lg-3 textright">
                     <input type="text" ng-model="filters.textsearch" placeholder="Palavra-chave" class="form-control"/>
                 </div>
-                {# END COL-LG-3 #}
-                {# COL-LG-3 #}
+                <!-- END COL-LG-3 -->
+                <!-- COL-LG-3 -->
                 <div class="col-lg-3 textright">
                     <select ng-model="ordering" class="form-control">
                         <option value="id">Ordernar ...</option>
@@ -54,18 +54,18 @@
                         <option value="name">Nome do curso</option>
                     </select>
                 </div>
-                {# END COL-LG-3 #}
+                <!-- END COL-LG-3 -->
                 <div class="col-lg-1 textcenter">
                     <button class="btn btn-info" ng-class="{active:reverse}" ng-click="reverse=!reverse">Inverter</button>
                 </div>
             </div>
-            {# END ROW #}
+            <!-- END ROW -->
         </div>
-        {# END FORM INLINE #}
+        <!-- END FORM INLINE -->
     </div>
-    {# END FILTERS #}
+    <!-- END FILTERS -->
 
-    {# ALL COURSES #}
+    <!-- ALL COURSES -->
     <section id="all-courses" class="courses-list">
 
         {% verbatim %}
@@ -96,10 +96,10 @@
         </div>
         {% endverbatim %}
     </section>
-    {# END ALL-COURSES #}
+    <!-- END ALL-COURSES -->
 
 </section>
-{# END COURSES #}
+<!-- END COURSES -->
 
 
 {% endblock %}
