@@ -11,8 +11,9 @@
   {% include "_assets.html" with admin=True %}
   {% load staticfiles %}
 
-  <script type="text/javascript" src="{% static 'js/admin.js' %}" charset="utf-8"></script>
+  <script type="text/javascript" src="{% static 'js/directives/contenteditable.js' %}" charset="utf-8"></script>
   <script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}" charset="utf-8"></script>
+  <script type="text/javascript" src="{% static 'js/admin.js' %}" charset="utf-8"></script>
 </head>
 <body id="admin" ng-controller="CourseEdit">
 
