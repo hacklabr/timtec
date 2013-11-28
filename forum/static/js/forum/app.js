@@ -6,8 +6,11 @@
     angular.module('forum', ['forum.services', 'forum.controllers', 'forum.filters', 'forum.directives', 'truncate']).
         config(['$routeProvider', function($routeProvider) {
         }]).
-        config(function($httpProvider) {
+        config(function($httpProvider, $sceDelegateProvider) {
             $httpProvider.defaults.xsrfCookieName = 'csrftoken';
             $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+            $sceDelegateProvider.resourceUrlWhitelist([
+                'self',
+                window.STATIC_URL + '**'])
         });
 })(angular);

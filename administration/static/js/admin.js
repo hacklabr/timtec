@@ -10,8 +10,9 @@
             $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
             $sceDelegateProvider.resourceUrlWhitelist([
                 /^https?:\/\/(www\.)?youtube\.com\/.*/,
-                'data:text/html, <html style="background: white">'
-            ]);
+                'data:text/html, <html style="background: white">',
+                'self',
+                window.STATIC_URL + '**']);
         }
     ]);
 
