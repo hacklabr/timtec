@@ -11,9 +11,10 @@ function initialize_code_mirror($scope, data, expected) {
         $('#expected_iframe').contents().find('body').html('' + expected);
     }, 800);
     cm.on('change', function (instance) {
-        data = instance.getValue();
-        $('#empty').contents().find('body').html(data);
-        $scope.answer.given = data;
+        text= instance.getValue();
+        $('#empty').contents().find('body').html(text);
+        // $scope.answer.given = [text];
+        // $scope.$apply();
     });
 }
 
@@ -100,14 +101,6 @@ function initialize_code_mirror($scope, data, expected) {
             };
             $scope.replayVideo = function() {
                 $location.path('/' + $main.currentUnitPos).search('autoplay', 1);
-            };
-
-            $scope.sendOrNext = function() {
-                if ($scope.answer.correct) {
-                    $scope.nextVideo();
-                } else {
-                    $scope.sendAnswer();
-                }
             };
 
             $scope.sendAnswer = function() {
