@@ -107,26 +107,26 @@
                 ga('send', 'event', 'activity', 'submit');
             };
 
-            $scope.emptyLoaded = $q.defer()
+            $scope.emptyLoaded = $q.defer();
             window.onLoadEmpty = function () {
                 $scope.$apply(function () {
                     $scope.emptyLoaded.resolve();
                 });
-            }
+            };
             window.onLoadExpected = function () {
                 $('#expected_iframe').contents().find('body').html('' + $scope.currentUnit.activity.expected.expected_answer);
-            }
+            };
 
             $scope.codeMirrorChange = function(text) {
                 $('#empty').contents().find('body').html($scope.answer.given[0]);
                 $scope.answer.given[0] = text;
-            }
+            };
 
             $scope.$watchCollection('answer.given', function () {
                 $scope.emptyLoaded.promise.then(function () {
                     $('#empty').contents().find('body').html($scope.answer.given[0]);
                 });
-            })
+            });
 
             LessonData.then(function (lesson) {
                 var unit = $scope.currentUnit = lesson.units[$main.currentUnitPos - 1];
@@ -344,14 +344,14 @@
                 if (scope.loadedAnswer) {
                     setValue(scope.loadedAnswer.given[0]);
                 }
-            })
+            });
             cm.on('change', function (instance) {
                 var text = instance.getValue();
                 scope.$apply(function (scope) {
                     scope.codeMirrorChange(text);
                 });
             });
-        }
+        };
     });
 
 })(angular);
