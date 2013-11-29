@@ -14,7 +14,7 @@ update-staging:
 	pg_restore -O -x -n public -d timtec-staging ~hacklab/sql-backup/last.psqlc
 	cp timtec/settings_local_staging.py timtec/settings_local.py
 	~/env/bin/pip install -r requirements.txt
-	~/env/bin/python manage.py syncdb --all --noinput
+	~/env/bin/python manage.py syncdb --noinput
 	~/env/bin/python manage.py migrate --noinput
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
@@ -55,7 +55,7 @@ update-design:
 	pg_restore -O -x -n public -d timtec-design ~hacklab/sql-backup/last.psqlc
 	cp timtec/settings_local_design.py timtec/settings_local.py
 	~/env/bin/pip install -r requirements.txt
-	~/env/bin/python manage.py syncdb --all --noinput
+	~/env/bin/python manage.py syncdb --noinput
 	~/env/bin/python manage.py migrate --noinput
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
