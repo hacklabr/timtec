@@ -103,17 +103,12 @@ $(document).ready(function() {
         <!-- NOTES -->
         <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs" style="height:420px;">
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#side-notes" data-toggle="tab">Saiba mais</a></li>
-                <li><a href="#notes" data-toggle="tab">Anotações</a></li>
+                <li><a href="#side-notes" data-toggle="tab">Saiba mais</a></li>
+                <li class="active"><a href="#notes" data-toggle="tab">Anotações</a></li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="side-notes"></div>
-                <div class="tab-pane" id="notes">
-                    <form class="textright">
-                        <textarea rows="5" class="col-lg-12 left right"></textarea>
-                        <input type="submit" class="btn btn-success" value="Salvar">
-                    </form>
-                </div>
+                {% include "_notes_inline.html" %}
             </div>
         </div>
         <!-- END NOTES -->
