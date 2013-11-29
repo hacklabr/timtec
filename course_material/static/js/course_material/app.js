@@ -10,6 +10,6 @@
 
             $sceDelegateProvider.resourceUrlWhitelist([
                 'self',
-                window.STATIC_URL + '**'])
+                window.STATIC_URL + '**']);
         });
 })(angular);

@@ -42,7 +42,7 @@ function initialize_code_mirror($scope, data, expected) {
             $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
             $sceDelegateProvider.resourceUrlWhitelist([
                 'self',
-                window.STATIC_URL + '**'])
+                window.STATIC_URL + '**']);
         }
     ]);
 
@@ -55,6 +55,19 @@ function initialize_code_mirror($scope, data, expected) {
             } else {
                 $scope.currentUnitPos = 1;
             }
+            var start;
+
+            $scope.$watch('currentUnitPos', function() {
+                // Changing Unit means unit starting
+                if (start) {
+                    var end = new Date().getTime();
+                    ga('send', 'event', 'unit', 'time in unit',
+                       LessonData.course + ' - ' + LessonData.name + ' - ' + $scope.currentUnitPos,
+                       end - start);
+                }
+                ga('send', 'event', 'unit', 'start', LessonData.course + ' - ' + LessonData.name, $scope.currentUnitPos);
+                start = new Date().getTime();
+            });
 
             $scope.isSelected = function(i){
                 return $scope.currentUnitPos === i;
