@@ -15,7 +15,7 @@ from core.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, 
 from activities.views import AnswerViewSet
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, QuestionVoteViewSet, AnswerVoteViewSet
 from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialAdminView, CourseMaterialViewSet
-from notes.views import NotesViewSet
+from notes.views import NotesViewSet, NoteView, UserNotesView
 from rest_framework import routers
 
 router = routers.DefaultRouter(trailing_slash=False)
@@ -65,6 +65,10 @@ urlpatterns = patterns(
     url(r'^course_material/file_upload/(?P<slug>[-a-zA-Z0-9_]+)$', FileUploadView.as_view(), name='file_upload'),
     url(r'^course_material/(?P<slug>[-a-zA-Z0-9_]+)$', CourseMaterialView.as_view(), name='course_material'),
     url(r'^admin/course_material/(?P<slug>[-a-zA-Z0-9_]+)$', CourseMaterialAdminView.as_view(), name='course_material_admin'),
+
+    # Notes
+    url(r'^notes/(?P<username>[\w.+-]+)?$', UserNotesView.as_view(), name='user_notes'),
+    url(r'^note/', NoteView.as_view(), name='note'),
 
     # Authentication
     url(r'^login/', CustomLoginView.as_view(), name='timtec_login'),
