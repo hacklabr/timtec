@@ -35,12 +35,6 @@ class CourseSerializer(serializers.ModelSerializer):
                   "professors",)
 
 
-class VideoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Video
-        fields = ('id', 'name', 'youtube_id')
-
-
 class StudentProgressSerializer(serializers.ModelSerializer):
     complete = serializers.DateTimeField(required=False)
 
