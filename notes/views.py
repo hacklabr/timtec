@@ -9,7 +9,11 @@ from rest_framework import viewsets
 class NotesViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     model = Note
     serializer_class = NoteSerializer
-    filter_fields = ('course', 'user')
+    filter_fields = ('content_type', 'object_id')
+
+    def pre_save(self, obj):
+        obj.user = self.request.user
+        return super(NotesViewSet, self).pre_save(obj)
 
 
 class UserNotesView(LoginRequiredMixin, TemplateView):

@@ -7,6 +7,8 @@
 
 <script type="text/javascript">
 window.lessonId = {{ lesson.pk }};
+// Content type id for object type core.Unit used by django generic relations. 
+window.unit_content_type_id = {{ unit_content_type_id }};
 
 $(document).ready(function() {
   $(".nav-tabs a").click(function(e) {
@@ -107,7 +109,7 @@ $(document).ready(function() {
                 <li class="active"><a href="#notes" data-toggle="tab">Anotações</a></li>
             </ul>
             <div class="tab-content">
-                <div class="tab-pane active" id="side-notes"></div>
+                <div class="tab-pane" id="side-notes"></div>
                 {% include "_notes_inline.html" %}
             </div>
         </div>
