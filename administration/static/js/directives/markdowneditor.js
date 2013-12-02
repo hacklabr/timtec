@@ -6,39 +6,37 @@
     (function generateMarkdownDirectives(app) {
         var templates = {
             // directive name -> template path
+            'markdowneditor': '/static/templates/directive.markdowneditor.html',
             'modalmarkdowneditor': '/static/templates/directive.modalmarkdowneditor.html'
         };
 
         function controller ($scope) {
             $scope.active = false;
             $scope.id = Math.random().toString(16).slice(2);
-            $scope.newContent = angular.copy($scope.content);
+            var original = angular.copy($scope.content);
 
-            $scope.$watch('content', function(content){
-                $scope.newContent = content;
-                if(content !== undefined) {
+            $scope.$watch('content', function(after, before){
+                if(after && before === undefined) {
+                    original = angular.copy(after);
                     $scope.refreshPreview();
                 }
             });
 
             $scope.cancel = function() {
-                $scope.newContent = angular.copy($scope.content);
+                $scope.content = original;
                 $scope.active = false;
                 $scope.refreshPreview();
             };
 
             $scope.save = function() {
-                var oldContent = angular.copy($scope.content);
-                $scope.content = angular.copy($scope.newContent);
                 $scope.active = false;
 
-                console.log($scope.content);
                 if($scope.onSave && $scope.onSave.call) {
                     try{
                         setTimeout($scope.onSave, 50);
+                        original = angular.copy($scope.content);
                     } catch (e) {
-                        $scope.content = oldContent;
-                        $scope.newContent = oldContent;
+                        $scope.content = angular.copy(original);
                         $scope.refreshPreview();
                         throw e;
                     }
@@ -62,8 +60,9 @@
                 if(!editorIsRunning) scope.editor.run();
                 editorIsRunning = true;
                 document.getElementById('wmd-input-' + scope.id)
-                        .addEventListener('blur',function(evt){
-                            scope.newContent = (evt.target||evt.currentTarget).value;
+                        .addEventListener('blur', function(evt) {
+                            scope.content = (evt.target || evt.currentTarget).value;
+                            scope.$apply();
                         });
             });
             scope.title = attr.title;
