@@ -2,7 +2,7 @@
     "use strict";
 
     var ga = window.ga || function(){ };
-    var app = angular.module('lesson', ['ngRoute', 'ngResource', 'youtube', 'forum']);
+    var app = angular.module('lesson', ['ngRoute', 'ngResource', 'youtube', 'forum', 'notes']);
 
     var ACTIVITY_TEMPLATE_PATH = function(the_type){
         return STATIC_URL + '/templates/activity_'+ the_type + '.html';

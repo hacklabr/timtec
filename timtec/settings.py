@@ -317,6 +317,7 @@ INSTALLED_APPS = (
     'administration',
     'forum',
     'course_material',
+    'notes',
     # django-metron
     'metron',
     # allauth

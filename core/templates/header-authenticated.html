@@ -20,10 +20,10 @@
             <ul class="nav navbar-nav navbar-right">
                 <!-- <li><a href="">{% trans "Available Courses" %}</a></li> -->
                 <!-- <li><a href="{% url 'user_courses' %}">{% trans "My Courses" %}</a></li> -->
-                <!-- <li><a href="profile-notes.html">{% trans "My Notes" %}</a></li> -->
                 {% ifusergroup professors %}
                 <li><a href="{% url 'course_admin' 'html5' %}">{% trans "Admin" %}</a></li>
                 {% endifusergroup %}
+                <li><a href="{% url 'user_course_notes' 'html5' %}">{% trans "My Notes" %}</a></li>
                 <li>
                     <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
                         {{ user }}

@@ -1,0 +1,7 @@
+{% include "_notes_angular.html" %}
+<div class="tab-pane active" id="notes" ng-controller="NoteCtrl">
+    <form class="textright">
+        <textarea ng-model="note_text" rows="5" class="col-lg-12 left right"></textarea>
+        <input type="submit" class="btn btn-success" value="Salvar" ng-click="save_note()">
+    </form>
+</div>

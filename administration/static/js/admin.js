@@ -114,10 +114,11 @@
                     "id": null,
                     "position": pos,
                     "title": "",
+                    "side_notes": "",
                     "video": {
                         "id": null,
                         "name":"",
-                        "youtube_id":"",
+                        "youtube_id":""
                     }
                 });
             };

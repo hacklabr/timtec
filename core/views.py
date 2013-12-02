@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from django.utils import timezone
 from django.views.generic import DetailView
 from django.views.generic.base import RedirectView, View, TemplateView
+from django.contrib.contenttypes.models import ContentType
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -107,6 +108,12 @@ class CourseViewSet(viewsets.ModelViewSet):
 class LessonDetailView(LoginRequiredMixin, DetailView):
     model = Lesson
     template_name = "lesson.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(LessonDetailView, self).get_context_data(**kwargs)
+        unit_content_type = ContentType.objects.get_for_model(Unit)
+        context['unit_content_type_id'] = unit_content_type.id
+        return context
 
 
 class LessonViewSet(viewsets.ModelViewSet):
