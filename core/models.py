@@ -171,7 +171,7 @@ class Unit(models.Model):
     title = models.CharField(_('Title'), max_length=128, blank=True)
     lesson = models.ForeignKey(Lesson, verbose_name=_('Lesson'), related_name='units')
     video = models.ForeignKey(Video, verbose_name=_('Video'), null=True, blank=True)
-    activity = models.ForeignKey(Activity, verbose_name=_('Activity'), null=True, blank=True)
+    activity = models.ForeignKey(Activity, verbose_name=_('Activity'), null=True, blank=True, related_name='units')
     side_notes = models.TextField(_('Side notes'), blank=True)
     position = PositionField(collection='lesson', default=0)
 

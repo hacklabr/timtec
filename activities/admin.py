@@ -12,7 +12,16 @@ class ModelAdmin(admin.ModelAdmin):
 
 
 class ActivityAdmin(ModelAdmin):
-    list_display = ('type', 'question', '__unicode__',)
+    list_display = ('type', 'question', '__unicode__', 'unit_title', 'unit_lesson', 'unit_position')
+
+    def unit_title(self, object):
+        return object.units.first().title
+
+    def unit_lesson(self, object):
+        return object.units.first().lesson.name
+
+    def unit_position(self, object):
+        return object.units.first().position
 
 
 admin.site.register(Activity, ActivityAdmin)
