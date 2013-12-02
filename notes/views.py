@@ -20,5 +20,5 @@ class UserNotesView(LoginRequiredMixin, TemplateView):
     template_name = 'notes.html'
 
 
-class NoteView(LoginRequiredMixin, TemplateView):
-    template_name = 'note.html'
+class CourseNotesView(LoginRequiredMixin, TemplateView):
+    template_name = 'course_notes.html'

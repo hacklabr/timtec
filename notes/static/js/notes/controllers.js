@@ -36,5 +36,9 @@
                     load_note();
                 });
                 load_note();
+    }]).
+    controller('CourseNotesCtrl', ['$scope', '$window', '$location', 'LessonData', 'Note',
+            function ($scope, $window, $location, LessonData, Note) {
+                
     }]);
 })(angular);
