@@ -6,7 +6,7 @@
         factory('Note', function($resource){
             return $resource('/api/note/:note_id', {}, {
                 update: {method: 'PUT'},
-                get: {method: 'GET', isArray: true},
+                get: {method: 'GET', isArray: true}
             });
         });
 })(angular);

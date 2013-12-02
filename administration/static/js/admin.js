@@ -118,7 +118,7 @@
                     "video": {
                         "id": null,
                         "name":"",
-                        "youtube_id":"",
+                        "youtube_id":""
                     }
                 });
             };
