@@ -357,20 +357,14 @@
                 <label for="lesson-status-published">Publicado</label>
                 <input type="radio" id="lesson-status-published" value="published"  ng-model="selectedLesson.status">
               </div>
+
               <div class="form-group">
                 <label>Descrição</label>
                 <textarea class="col-lg-12 form-control" ng-model="selectedLesson.desc" rows="5"></textarea>
               </div>
-              <div class="form-group">
-                <label>Notas do professor</label>
-                <div class="text-editor">
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <textarea class="col-lg-12 form-control" ng-model="selectedLesson.notes" rows="15"></textarea>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
+              <markdowneditor title="Notas do professor" content="selectedLesson.notes"></markdowneditor>
+
               <div class="row">
                 <div class="col-lg-12">
                   <nav class="textcenter">
