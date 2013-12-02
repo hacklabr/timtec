@@ -15,6 +15,10 @@ class NotesViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
         obj.user = self.request.user
         return super(NotesViewSet, self).pre_save(obj)
 
+    def get_queryset(self):
+        user = self.request.user
+        return Note.objects.filter(user=user)
+
 
 class UserNotesView(LoginRequiredMixin, TemplateView):
     template_name = 'notes.html'

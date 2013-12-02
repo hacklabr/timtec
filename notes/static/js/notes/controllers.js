@@ -39,6 +39,6 @@
     }]).
     controller('CourseNotesCtrl', ['$scope', '$window', '$location', 'LessonData', 'Note',
             function ($scope, $window, $location, LessonData, Note) {
-                
+                $scope.notes = Note.get();
     }]);
 })(angular);
