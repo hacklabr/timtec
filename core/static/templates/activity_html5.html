@@ -1,12 +1,7 @@
 <div>
-<style type="text/css" media="screen">
-    .CodeMirror {
-        width: 215px important!;
-    }
-</style>
 <div class="row">
 <div class="col-lg-12">
-<textarea id="texto" name="" rows="10">
+<textarea id="texto" name="" rows="10" codemirror="codeMirrorChange()">
 <!DOCTYPE html>
 <html>
   <head></head>
@@ -18,8 +13,8 @@
 </div>
 <div class="row">
     <div class="col-lg-12">
-        <iframe class="col-lg-6" style="border:1px dashed #272822;" id="empty" src="/empty/"></iframe>
-        <iframe class="col-lg-6" id="expected_iframe" src="/empty/"></iframe>
+        <iframe class="col-lg-6" style="border:1px dashed #272822;height:300px;" id="empty" src="/empty/" onLoad="onLoadEmpty()"></iframe>
+        <iframe class="col-lg-6" style="height:300px;" id="expected_iframe" src="/empty/" onLoad="onLoadExpected()"></iframe>
     </div>
 </div>
 </div>

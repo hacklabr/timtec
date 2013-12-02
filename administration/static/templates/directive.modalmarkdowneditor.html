@@ -1,0 +1,29 @@
+<div class="editable" id="wmd-preview-{{id}}" ng-click="active = true"></div>
+<button class="btn btn-default btn-sm" ng-click="active = true" ng-show="content">Editar texto</button>
+<button class="btn btn-default btn-sm" ng-click="active = true" ng-show="!content">Adicionar texto</button>
+<div class="modal fade in" id="Modal" tabindex="-1" ng-style="{display: active ? 'block' : 'none'}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" ng-click="cancel()">&times;</button>
+              <h4 class="modal-title">{{title}}&nbsp;</h4>
+            </div>
+            <div class="modal-body">
+                <div class="text-editor">
+                    <div class="row">
+                        <div class="col-lg-12" id="wmd-button-bar-{{id}}"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 form-group">
+                            <textarea id="wmd-input-{{id}}" class="col-lg-12 form-control" ng-model="newContent" rows="15"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+                    <button type="button" class="btn btn-primary" ng-click="save()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div

@@ -4,9 +4,7 @@ import json
 from django.db import models
 from jsonfield import JSONField
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth import get_user_model
-
-TimtecUser = get_user_model()
+from accounts.models import TimtecUser
 
 
 class Activity(models.Model):

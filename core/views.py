@@ -88,6 +88,11 @@ class CourseViewSet(viewsets.ModelViewSet):
     lookup_field = 'slug'
     serializer_class = CourseSerializer
 
+    def get(self, request, **kwargs):
+        response = super(CourseViewSet, self).get(request, **kwargs)
+        response['Cache-Control'] = 'no-cache'
+        return response
+
     def post(self, request, **kwargs):
         course = self.get_object()
         serializer = CourseSerializer(course, request.DATA)

@@ -5,10 +5,8 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.staticfiles.storage import staticfiles_storage
-from django.contrib.auth import get_user_model
 from activities.models import Activity
-
-TimtecUser = get_user_model()
+from accounts.models import TimtecUser
 
 
 class Video(models.Model):
