@@ -7,7 +7,7 @@
 
 <script type="text/javascript">
 window.lessonId = {{ lesson.pk }};
-// Content type id for object type core.Unit used by django generic relations. 
+// Content type id for object type core.Unit used by django generic relations.
 window.unit_content_type_id = {{ unit_content_type_id }};
 
 $(document).ready(function() {
@@ -101,7 +101,7 @@ $(document).ready(function() {
         {% endverbatim %}
 
         <div ng-view></div>
-        
+
         <!-- NOTES -->
         <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs" style="height:420px;">
             <ul class="nav nav-tabs">
@@ -109,7 +109,10 @@ $(document).ready(function() {
                 <li class="active"><a href="#notes" data-toggle="tab">Anotações</a></li>
             </ul>
             <div class="tab-content">
-                <div class="tab-pane" id="side-notes"></div>
+                <div class="tab-pane" id="side-notes">
+                  <br>
+                  <span ng-bind-html="lesson.units[currentUnitPos-1].side_notes|markdown"></span>
+                </div>
                 {% include "_notes_inline.html" %}
             </div>
         </div>

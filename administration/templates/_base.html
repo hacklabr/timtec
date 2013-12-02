@@ -424,6 +424,12 @@
                   </div>
 
                   <div class="form-group">
+                    <label class="control-label">Saiba mais</label>
+                    <textarea class="form-control"
+                           ng-model="selectedUnit().side_notes"></textarea>
+                  </div>
+
+                  <div class="form-group">
                     <label class="control-label">Atividade</label>
                     <p class="{{activity().type}}">
                       <button ng-click="changeTypeTo('simplechoice')"

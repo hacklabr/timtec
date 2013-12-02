@@ -172,6 +172,7 @@ class Unit(models.Model):
     lesson = models.ForeignKey(Lesson, verbose_name=_('Lesson'), related_name='units')
     video = models.ForeignKey(Video, verbose_name=_('Video'), null=True, blank=True)
     activity = models.ForeignKey(Activity, verbose_name=_('Activity'), null=True, blank=True)
+    side_notes = models.TextField(_('Side notes'), blank=True)
     position = PositionField(collection='lesson', default=0)
 
     class Meta:

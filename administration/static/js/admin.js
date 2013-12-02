@@ -114,6 +114,7 @@
                     "id": null,
                     "position": pos,
                     "title": "",
+                    "side_notes": "",
                     "video": {
                         "id": null,
                         "name":"",
