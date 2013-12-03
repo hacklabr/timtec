@@ -328,6 +328,28 @@
         };
     });
 
+    app.directive('checkbox', function(){
+        return {
+            restrict: 'E',
+            require: 'ngModel',
+            scope: {
+                checked: '=ngModel'
+            },
+            transclude: true,
+            /*jshint multistr: true */
+            template: ' \
+                        <label class="checkbox" ng-class="{checked: checked}"  ng-click="checked = !checked"> \
+                            <span class="icons"> \
+                                <span class="first-icon icon-check-empty"></span> \
+                                <span class="second-icon icon-check"></span> \
+                            </span> \
+                            <input type="checkbox" ng-model="checked"/> \
+                            <span ng-transclude></span> \
+                        </label>',
+            replace: true
+        };
+    });
+
     app.directive('codemirror', function () {
         return function (scope, element, attrs) {
             var cm = CodeMirror.fromTextArea(element[0], CodeMirrorConf);
