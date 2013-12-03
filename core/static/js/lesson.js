@@ -331,7 +331,7 @@
     app.directive('codemirror', function () {
         return function (scope, element, attrs) {
             var cm = CodeMirror.fromTextArea(element[0], CodeMirrorConf);
-            cm.setSize("100%", "215px"); // TODO: set size in html
+            cm.setSize("100%", "255px"); // TODO: set size in html
             function setValue(value) {
                 cm.setValue(value);
                 cm.markText({line:0, ch:0}, {line:4, ch:0}, {atomic: true, readOnly: true, inclusiveLeft: true});
