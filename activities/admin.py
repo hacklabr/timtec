@@ -12,16 +12,26 @@ class ModelAdmin(admin.ModelAdmin):
 
 
 class ActivityAdmin(ModelAdmin):
-    list_display = ('type', 'question', '__unicode__', 'unit_title', 'unit_lesson', 'unit_position')
+    list_display = ('lesson', 'unit', 'unit_position', 'type', 'question', '__unicode__')
+    readonly_fields = ('unit', 'unit_position', 'lesson')
 
-    def unit_title(self, object):
-        return object.units.first().title
+    def unit(self, object):
+        try:
+            return object.units.first().title
+        except AttributeError:
+            return
 
-    def unit_lesson(self, object):
-        return object.units.first().lesson.name
+    def lesson(self, object):
+        try:
+            return object.units.first().lesson.name
+        except AttributeError:
+            return
 
     def unit_position(self, object):
-        return object.units.first().position
+        try:
+            return object.units.first().position
+        except AttributeError:
+            return
 
 
 admin.site.register(Activity, ActivityAdmin)
