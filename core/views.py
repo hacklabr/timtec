@@ -10,6 +10,7 @@ from django.contrib.contenttypes.models import ContentType
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import filters
 from braces.views import LoginRequiredMixin
 
 from .serializers import CourseSerializer, LessonSerializer, StudentProgressSerializer
@@ -120,6 +121,8 @@ class LessonViewSet(viewsets.ModelViewSet):
     model = Lesson
     serializer_class = LessonSerializer
     filter_fields = ('course__slug',)
+    filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter,)
+    ordering = ('position',)
 
     def get_queryset(self):
         queryset = super(LessonViewSet, self).get_queryset()
