@@ -417,11 +417,7 @@
                            ng-model="selectedUnit().video.youtube_id">
                   </div>
 
-                  <div class="form-group">
-                    <label class="control-label">Saiba mais</label>
-                    <textarea class="form-control"
-                           ng-model="selectedUnit().side_notes"></textarea>
-                  </div>
+                  <markdowneditor title="Saiba mais" content="selectedUnit().side_notes"></markdowneditor>
 
                   <div class="form-group">
                     <label class="control-label">Atividade</label>
