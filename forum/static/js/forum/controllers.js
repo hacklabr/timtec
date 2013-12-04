@@ -16,6 +16,7 @@
         });
 
         $scope.new_answer = function () {
+            ga('send', 'event', 'forum', 'new answer');
             var questionId = parseInt($window.question_id, 10);
             var new_answer = Answer.save({question: questionId, text: $scope.new_text});
             $scope.answers.push(new_answer);
@@ -29,6 +30,7 @@
 
         $scope.new_question = function () {
             if (($scope.new_question_title !== undefined && $scope.new_question_title !== '') && ($scope.new_text !== undefined && $scope.new_text !== '')){
+                ga('send', 'event', 'forum', 'new question');
                 var new_question = Question.save({course: course_id, title: $scope.new_question_title, text: $scope.new_text});
                 $scope.new_question_title = undefined;
                 $scope.new_text = undefined;
@@ -72,6 +74,7 @@
                     }
                 });
                 $scope.voteUp = function() {
+                    ga('send', 'event', 'forum', 'question voteUp');
                     var question_vote = QuestionVote.get({question: $scope.questionId}, function (question_vote){
                         if ((question_vote.value === undefined) || (question_vote.value === 0)){
                             $scope.user_question_vote_up = 'active';
@@ -101,6 +104,7 @@
                     });
                 };
                 $scope.voteDown = function() {
+                    ga('send', 'event', 'forum', 'question voteDown');
                     $scope.question_vote = QuestionVote.get({question: $scope.questionId}, function (question_vote){
                         if ((question_vote.value === undefined) || (question_vote.value === 0)){
                             $scope.user_question_vote_down = 'active';
@@ -153,6 +157,7 @@
                         }
                     });
                 $scope.voteUp = function(index) {
+                    ga('send', 'event', 'forum', 'answer voteUp');
                     $scope.answer_vote = AnswerVote.get({answer: $scope.answer.id},
                         function(answer_vote) {
                             if ((answer_vote.value === undefined) || (answer_vote.value === 0)){
@@ -184,6 +189,7 @@
                     });
                 };
                 $scope.voteDown = function(index) {
+                    ga('send', 'event', 'forum', 'answer voteDown');
                     $scope.answer_vote = AnswerVote.get({answer: $scope.answer.id}, function(answer_vote) {
                         if ((answer_vote.value === undefined) || (answer_vote.value === 0)){
                             $scope.user_answer_vote_down = 'active';
