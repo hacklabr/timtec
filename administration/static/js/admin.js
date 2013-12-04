@@ -155,17 +155,31 @@
             };
             $scope.addAlternative = function(){
                 var act = $scope.activity();
+                var alternativeTypes = ['simplechoice', 'multiplechoice', 'trueorfalse'];
 
-                if(!act.data.alternatives) {
-                    act.data.alternatives = [];
-                }
-                act.data.alternatives.push("");
+                if(alternativeTypes.indexOf(act.type) >= 0) {
+                    if(!act.data.alternatives) {
+                        act.data.alternatives = [];
+                    }
+                    act.data.alternatives.push('');
 
-                if(['multiplechoice', 'trueorfalse'].indexOf(act.type) >= 0){
+                    if(alternativeTypes.slice(1).indexOf(act.type) >= 0){
+                        if(!act.expected)
+                            act.expected = [];
+                        act.expected.push(false);
+                    }
+                } else if(act.type === 'relationship') {
+                    if(!act.data.column1) {
+                        act.data.column1 = [];
+                        act.data.column2 = [];
+                    }
+                    act.data.column1.push('');
+                    act.data.column2.push('');
                     if(!act.expected)
                         act.expected = [];
-                    act.expected.push(false);
+                    act.expected.push(0);
                 }
+
             };
             $scope.saveLesson = function(){
                 if('id' in $rootScope.selectedLesson){

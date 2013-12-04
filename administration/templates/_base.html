@@ -434,7 +434,7 @@
                               class="{{typeIs('trueorfalse')?'active':''}} btn btn-sm btn-default">Verdadeiro ou falso
                       </button>
 
-                      <button ng-click="changeTypeTo('relationship')" disabled="true"
+                      <button ng-click="changeTypeTo('relationship')"
                               class="{{typeIs('relationship')?'active':''}} btn btn-sm btn-default">Relacionamento
                       </button>
 
@@ -521,6 +521,38 @@
                     </div>
                     <button class="next btn" ng-click="addAlternative()">Adicionar resposta</button>
                   </div>
+
+                  <!-- relationship -->
+                  <div class="form-group relationship" ng-show="typeIs('relationship')">
+                    <div class="form-horizontal">
+                      <div class="form-group">
+                        <label class="control-label col-lg-3">Pergunta</label>
+                        <div class="col-lg-8 col-lg-offset-1">
+                          <textarea class="form-control" placeholder="Digite a pergunta" ng-model="activity().data.question"></textarea>
+                        </div>
+                      </div>
+
+                      <table class="form-group" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th style="width:44%">Coluna 1</th>
+                                <th style="width:10%">Resposta</th>
+                                <th style="width:44%">Coluna 2</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="alt in (alts = activity().data.column1) track by $index">
+                                <td><input tabindex="{{$index*2 + 1}}" class="form-control" type="text" ng-model="activity().data.column1[$index]" /></td>
+                                <td><input tabindex="{{alts.length*2 + $index + 1}}" class="form-control" type="number" ng-model="activity().expected[$index]" /></td>
+                                <td><input tabindex="{{$index*2 + 2}}" class="form-control" type="text" ng-model="activity().data.column2[$index]" /></td>
+                            </tr>
+                        </tbody>
+                      </table>
+
+                    </div>
+                    <button class="next btn" ng-click="addAlternative()">Adicionar resposta</button>
+                  </div>
+                  <!-- relationship -->
 
                   <!-- div class="form-group trueorfalse">Verdadeiro ou falso</div-->
                   <!-- div class="form-group order">Ordenação</div-->
