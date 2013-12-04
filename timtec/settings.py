@@ -11,7 +11,7 @@ SITE_ID = 1
 
 ADMINS = (
     ('Admin1', 'root@localhost'),
-    ('Admin2', 'timtec-dev@listas.hacklab.com.br'),
+    ('timtec-dev list', 'timtec-dev@listas.hacklab.com.br'),
 )
 
 MANAGERS = ADMINS
