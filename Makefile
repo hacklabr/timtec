@@ -37,6 +37,7 @@ create-production:
 	~/env/bin/python manage.py loaddata production
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
+	~/env/bin/python manage.py create_student_and_professor
 	touch ~/wsgi-reload
 
 update-production:
