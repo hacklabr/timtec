@@ -997,24 +997,36 @@ a.instructor {
         }
       }
     }
-    .notes {
-      margin-bottom:42px;
+    .lesson {
       h1 {
         border-bottom:1px solid @gray-lighter;
         .bottom(14px,7px);
-        font-size:21px;
+        font-size: 20px;
+        i {
+          color: #2980b9;
+        }
       }
-      .note {
-        border-bottom:1px solid @gray-lighter;
-        .bottom(14px,14px);
-        a:hover {
-          text-decoration:none;
+      .notes {
+        margin-bottom:42px;
+        margin-left: 40px;
+        h2 {
+          border-bottom:1px solid @gray-lighter;
+          .bottom(14px,7px);
+          font-size:18px;
         }
-        p i {
-          display:none;
-        }
-        p:hover i {
-          display:inline-block;
+        .note {
+          border-bottom:1px solid @gray-lighter;
+          .bottom(14px,14px);
+          padding-left: 20px;
+          a:hover {
+            text-decoration:none;
+          }
+          p i {
+            display:none;
+          }
+          p:hover i {
+            display:inline-block;
+          }
         }
       }
     }
