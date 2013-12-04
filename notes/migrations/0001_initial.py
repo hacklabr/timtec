@@ -9,6 +9,10 @@ from django.db.models import get_app, get_models
 
 class Migration(SchemaMigration):
 
+    depends_on = (
+        ('accounts', '0002_create_timtecuser'),
+    )
+
     def forwards(self, orm):
         # Adding model 'Note'
         db.create_table(u'notes_note', (
@@ -21,7 +25,6 @@ class Migration(SchemaMigration):
             ('object_id', self.gf('django.db.models.fields.PositiveIntegerField')()),
         ))
         db.send_create_signal(u'notes', ['Note'])
-        create_permissions(get_app('notes'), get_models(), 0)
 
     def backwards(self, orm):
         # Deleting model 'Note'
