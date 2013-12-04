@@ -24,8 +24,48 @@
     }
 
     function InlineForumCtrl($scope, $window, Question) {
+        function compare_by_dates(a,b) {
+            if (a.timestamp > b.timestamp)
+               return -1;
+            if (a.timestamp < b.timestamp)
+               return 1;
+            return 0;
+        }
+
+        function compare_by_votes(a,b) {
+            if (a.votes > b.votes)
+               return -1;
+            if (a.votes < b.votes)
+               return 1;
+            return 0;
+        }
+
+        function compare_by_answers(a,b) {
+            if (a.answers.length > b.answers.length)
+               return -1;
+            if (a.answers.length < b.answers.length)
+               return 1;
+            return 0;
+        }
+
+        $scope.sort_label = 'Mais recentes';
+        $scope.sortBy = function(field) {
+            if (field == 'date') {
+                $scope.questions.sort(compare_by_dates);
+                $scope.sort_label = 'Mais recentes';
+            } else if (field == 'votes') {
+                $scope.questions.sort(compare_by_votes);
+                $scope.sort_label = 'Mais votadas';
+            } else if (field == 'answers') {
+                $scope.questions.sort(compare_by_answers);
+                $scope.sort_label = 'Mais respondidas';
+            }
+        };
+
         var course_id = parseInt($window.course_id, 10);
-        $scope.questions = Question.query({course: course_id});
+        $scope.questions = Question.query({course: course_id}, function (questions){
+            questions.sort(compare_by_dates);
+        });
 
         $scope.new_question = function () {
             if (($scope.new_question_title !== undefined && $scope.new_question_title !== '') && ($scope.new_text !== undefined && $scope.new_text !== '')){
