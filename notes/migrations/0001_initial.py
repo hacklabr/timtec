@@ -3,6 +3,8 @@ from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
+from django.contrib.auth.management import create_permissions
+from django.db.models import get_app, get_models
 
 
 class Migration(SchemaMigration):
@@ -19,7 +21,7 @@ class Migration(SchemaMigration):
             ('object_id', self.gf('django.db.models.fields.PositiveIntegerField')()),
         ))
         db.send_create_signal(u'notes', ['Note'])
-
+        create_permissions(get_app('notes'), get_models(), 0)
 
     def backwards(self, orm):
         # Deleting model 'Note'
