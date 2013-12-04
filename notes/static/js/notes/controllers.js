@@ -30,10 +30,14 @@
                     });
                 }
 
+                var prevUnitPos = $scope.currentUnitPos;
                 $scope.$watch(function() {
                     return $location.path();
                 }, function(){
-                    load_note();
+                    if (prevUnitPos != $scope.currentUnitPos) {
+                        load_note();
+                        prevUnitPos = $scope.currentUnitPos;
+                    }
                 });
 
                 load_note();
