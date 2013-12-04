@@ -718,6 +718,21 @@
         "delete_questionvote",
         "forum",
         "questionvote"
+      ],
+      [
+        "add_note",
+        "notes",
+        "note"
+      ],
+      [
+        "change_note",
+        "notes",
+        "note"
+      ],
+      [
+        "delete_note",
+        "notes",
+        "note"
       ]
     ]
   }
@@ -742,6 +757,11 @@
         "delete_activity",
         "activities",
         "activity"
+      ],
+      [
+        "add_course",
+        "core",
+        "course"
       ],
       [
         "add_answer",
