@@ -35,7 +35,12 @@
                 }, function(){
                     load_note();
                 });
+
                 load_note();
+                $scope.$on('$locationChangeStart', function(event, newVal, oldVal) {
+                    if ($scope.note && $scope.note.text != $scope.note_text)
+                        $scope.save_note();
+                });
     }]).
     controller('CourseNotesCtrl', ['$scope', '$window', '$location', 'UserNotes', 'Note',
             function ($scope, $window, $location, UserNotes, Note) {
