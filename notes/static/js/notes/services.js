@@ -8,5 +8,9 @@
                 update: {method: 'PUT'},
                 get: {method: 'GET', isArray: true}
             });
+        }).
+        factory('UserNotes', function($resource){
+            return $resource('/api/lessons_notes/', {}, {
+            });
         });
 })(angular);

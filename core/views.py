@@ -12,8 +12,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import filters
 from braces.views import LoginRequiredMixin
+from notes.models import Note
 
-from .serializers import CourseSerializer, LessonSerializer, StudentProgressSerializer
+from .serializers import CourseSerializer, LessonSerializer, StudentProgressSerializer, NoteUnitSerializer
 from .models import Course, Lesson, StudentProgress, Unit
 
 from forms import ContactForm
@@ -163,3 +164,12 @@ class UpdateStudentProgressView(APIView):
         response['msg'] = 'Unit completed.'
         response['complete'] = progress.complete
         return Response(response, status=status.HTTP_201_CREATED)
+
+
+class LessonsUserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
+    model = Lesson
+    serializer_class = NoteUnitSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return Note.objects.filter(user=user)

@@ -11,7 +11,7 @@ from django.views.generic import TemplateView
 from accounts.views import CustomLoginView, ProfileEditView, ProfileView
 from forum.views import AnswerViewSet as ForumAnswerViewSet
 from core.views import CourseView, CourseViewSet, EnrollCourseView, HomeView, UserCoursesView, ContactView
-from core.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, UpdateStudentProgressView
+from core.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, UpdateStudentProgressView, LessonsUserNotesViewSet
 from activities.views import AnswerViewSet
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, QuestionVoteViewSet, AnswerVoteViewSet
 from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialAdminView, CourseMaterialViewSet
@@ -29,6 +29,7 @@ router.register(r'question_vote', QuestionVoteViewSet)
 router.register(r'answer_vote', AnswerVoteViewSet)
 router.register(r'course_material', CourseMaterialViewSet)
 router.register(r'note', NotesViewSet)
+router.register(r'lessons_notes', LessonsUserNotesViewSet)
 
 #    url(r'^api/answer/(?P<unitId>[0-9]*)$', AnswerView.as_view(), name='answer'),
 
