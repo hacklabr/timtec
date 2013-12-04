@@ -3,19 +3,21 @@ import datetime
 from south.db import db
 from south.v2 import DataMigration
 from django.db import models
+from django.contrib.contenttypes.management import update_contenttypes
+from django.contrib.auth.management import create_permissions
+from django.db.models import get_app, get_models
 
 
 class Migration(DataMigration):
-
-    depends_on = (
-        ('notes', '0001_initial'),
-    )
 
     def forwards(self, orm):
         "Write your forwards methods here."
         # Note: Don't use "from appname.models import ModelName".
         # Use orm.ModelName to refer to models in this application,
         # and orm['appname.ModelName'] for models in other applications.
+        update_contenttypes(get_app('notes'), get_models())
+        create_permissions(get_app('notes'), get_models(), 0)
+
         students = orm['auth.Group'].objects.get(name="students")
         students.permissions.add(orm['auth.Permission'].objects.get(content_type__app_label="notes", codename="add_note"))
         students.permissions.add(orm['auth.Permission'].objects.get(content_type__app_label="notes", codename="change_note"))
