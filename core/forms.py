@@ -19,7 +19,7 @@ class ContactForm(forms.Form):
         email = self.cleaned_data.get('email')
         message = self.cleaned_data.get('message')
         message_from = 'From %s <%s>' % (name, email,)
-        message = message_from + message
+        message = message_from + '\n\n\n' + message
 
         recipient_list = ['%s <%s>' % manager for manager in settings.MANAGERS]
         sender = 'donotreply <donotreply@timtec.com.br>'
