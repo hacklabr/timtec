@@ -22,9 +22,8 @@ MEDIA_ROOT = "/home/timtec-staging/webfiles/media/"
 STATIC_ROOT = "/home/timtec-staging/webfiles/static/"
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'localhost'
 EMAIL_SUBJECT_PREFIX = '[timtec-staging]'
-DEFAULT_FROM_EMAIL = 'timtec-staging@timtec.com.br'
+DEFAULT_FROM_EMAIL = 'donotreply-staging@m.timtec.com.br'
 
 LOGGING = {
     'version': 1,

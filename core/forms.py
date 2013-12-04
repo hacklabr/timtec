@@ -22,6 +22,6 @@ class ContactForm(forms.Form):
         message = message_from + '\n\n\n' + message
 
         recipient_list = ['%s <%s>' % manager for manager in settings.MANAGERS]
-        sender = 'donotreply <donotreply@timtec.com.br>'
+        sender = settings.DEFAULT_FROM_EMAIL
 
         send_mail(subject, message, sender, recipient_list, fail_silently=False)
