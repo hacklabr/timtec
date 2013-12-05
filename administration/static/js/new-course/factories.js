@@ -2,21 +2,9 @@
     'use strict';
     var app = angular.module('new-course');
 
-    app.factory('course', function() {
-        var course = angular.fromJson(window.localStorage.getItem('course'));
-
-        if( !course ) {
-            course = {};
-        }
-        var save = function () {
-            window.localStorage.setItem('course', angular.toJson(course));
-        };
-        Object.defineProperty(course, 'save',{
-            'value': save,
-            'enumerable': false
-        });
-
-        return course;
-    });
+    app.factory('Course', ['$resource', function($resource) {
+        var Course = $resource('/api/course/:slug', {'slug':'@slug'});
+        return Course;
+    }]);
 
 })(window.angular);
