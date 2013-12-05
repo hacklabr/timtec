@@ -23,7 +23,7 @@ $(document).ready(function() {
 
 
 <!-- COURSE -->
-<div id="course" ng-app="lesson">
+<div id="course" class="course-lesson" ng-app="lesson">
 
     <!-- HEADER -->
     {% include "_course-header-inline.html"  with course=lesson.course %}
@@ -62,13 +62,14 @@ $(document).ready(function() {
         </p>
         <!-- END LESSON NAVIGATION FOR PHONE -->
 
-        <!-- COURSE-VIDEO -->
-        <section class="course-video top-xs">
-            <!-- lesson_video.html -->
-            <div class="row">
-                {% verbatim %}
-                <!-- UNITS NAVIGATION FOR TABLET AND DESKTOP -->
-                <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs">
+        <!-- ROW -->
+        <div class="row">
+            
+            {% verbatim %}
+            <!-- UNITS NAVIGATION FOR TABLET AND DESKTOP -->
+            <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs">
+                <!-- UNITS -->
+                <div class="units">
                     <a style="display:block;" data-placement="right"
                        title="{{ unit.video.name }}"
                        href="#/{{ $index+1 }}" class="has-tooltip unit track" data-toggle="tooltip"
@@ -81,43 +82,44 @@ $(document).ready(function() {
                            <i class="icon-list" ng-if="unit.activity !== null"></i>
                     </a>
                 </div>
-                <!-- END UNITS NAVIGATION FOR TABLET AND DESKTOP -->
-
-                <!-- UNITS NAVIGATION FOR PHONES -->
-                <div class="col-xs-12 visible-xs">
-                    <p>
-                        <select ng-model="currentUnitPos" ng-change="select(currentUnitPos);" class="form-control">
-                            <option ng-repeat="unit in lesson.units"
-                                    ng-value="$index+1"
-                                    ng-selected="isSelected($index+1)"
-                                    value="{{$index+1}}">Unidade {{ unit.position + 1 }}</option>
-                        </select>
-                    </p>
-                </div>
-                <!-- END UNITS NAVIGATION FOR PHONES -->
-                {% endverbatim %}
-
-                <div ng-view></div>
-
-                <!-- NOTES -->
-                <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs" style="height:420px;">
-                    <ul class="nav nav-tabs">
-                        <li><a href="#side-notes" data-toggle="tab">Saiba mais</a></li>
-                        <li class="active"><a href="#notes" data-toggle="tab">Anotações</a></li>
-                    </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane" id="side-notes">
-                            <br>
-                            <span ng-bind-html="lesson.units[currentUnitPos-1].side_notes|markdown"></span>
-                            <p ng-if="!lesson.units[currentUnitPos-1].side_notes">Essa unidade não possui nenhuma nota</p>
-                        </div>
-                        {% include "_notes_inline.html" %}
-                    </div>
-                </div>
-                <!-- END NOTES -->
+                <!-- END UNITS -->
             </div>
-            <!-- END ROW -->
-        </section>
+            <!-- END UNITS NAVIGATION FOR TABLET AND DESKTOP -->
+            
+            <!-- UNITS NAVIGATION FOR PHONES -->
+            <div class="col-xs-12 visible-xs">
+                <p>
+                    <select ng-model="currentUnitPos" ng-change="select(currentUnitPos);" class="form-control">
+                        <option ng-repeat="unit in lesson.units"
+                                ng-value="$index+1"
+                                ng-selected="isSelected($index+1)"
+                                value="{{$index+1}}">Unidade {{ unit.position + 1 }}</option>
+                    </select>
+                </p>
+            </div>
+            <!-- END UNITS NAVIGATION FOR PHONES -->
+            {% endverbatim %}
+
+            <div ng-view></div>
+            
+            <!-- NOTES -->
+            <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs" style="height:420px;">
+                <ul class="nav nav-tabs">
+                    <li><a href="#side-notes" data-toggle="tab">Saiba mais</a></li>
+                    <li class="active"><a href="#notes" data-toggle="tab">Anotações</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane" id="side-notes">
+                        <br>
+                        <span ng-bind-html="lesson.units[currentUnitPos-1].side_notes|markdown"></span>
+                        <p ng-if="!lesson.units[currentUnitPos-1].side_notes">Essa unidade não possui nenhuma nota</p>
+                    </div>
+                    {% include "_notes_inline.html" %}
+                </div>
+            </div>
+            <!-- END NOTES -->
+        </div>
+        <!-- END ROW -->
 
         <div class="row hidden-lg">
             <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
@@ -129,7 +131,6 @@ $(document).ready(function() {
                 </section>
             </div>
         </div>
-        <!-- END COURSE-VIDEO -->
 
         <!-- FORUM -->
         <div class="row">
