@@ -2,18 +2,10 @@
 {% load static %}
 
 {% block js %} {{block.super}}
-<script type="text/javascript" src="{% static 'js/vendor/jquery-1.10.2.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/vendor/bootstrap.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/vendor/modernizr.js' %}"></script>
-
-<script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Converter.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Editor.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Sanitizer.js' %}"></script>
-
 <script type="text/javascript" src="{% static 'js/new-course/app.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/new-course/factories.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/new-course/directives.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/new-course/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -95,7 +87,7 @@
                             <div class="page-header-double">
                                 <h3 class="top"><i class="icon-double-angle-right"></i> Aplicação do Conhecimento</h3>
                             </div>
-                            <modalmarkdowneditor title="Aplicação do conhecimento" content="course.application"></modalmarkdowneditor>
+                            <modalmarkdowneditor save="course.save" title="Aplicação do conhecimento" content="course.application"></modalmarkdowneditor>
                         </div>
                         <!--  END COL-LG-6  -->
 
@@ -104,7 +96,7 @@
                             <div class="page-header-double">
                                 <h3 class="top"><i class="icon-double-angle-right"></i> O que preciso saber</h3>
                             </div>
-                            <modalmarkdowneditor title="O que preciso saber?" content="course.requirements"></modalmarkdowneditor>
+                            <modalmarkdowneditor save="course.save" title="O que preciso saber?" content="course.requirements"></modalmarkdowneditor>
 
                         </div>
                         <!--  END COL-LG-6  -->
@@ -199,7 +191,7 @@
                     <div class="page-header-double top">
                         <h3 class="top"><i class="icon-double-angle-right"></i> Resumo</h3>
                     </div>
-                    <modalmarkdowneditor title="Resumo" content="course.abstract"></modalmarkdowneditor>
+                    <modalmarkdowneditor save="course.save" title="Resumo" content="course.abstract"></modalmarkdowneditor>
 
                     <hr/>
                     <!--  END ABSTRACT  -->
@@ -208,7 +200,7 @@
                     <div class="page-header-double top">
                         <h3 class="top"><i class="icon-double-angle-right"></i> Estrutura do curso</h3>
                     </div>
-                    <modalmarkdowneditor title="Estrutura do curso" content="course.structure"></modalmarkdowneditor>
+                    <modalmarkdowneditor save="course.save" title="Estrutura do curso" content="course.structure"></modalmarkdowneditor>
 
                     <hr/>
                     <!--  END STRUCTURE  -->
@@ -217,7 +209,7 @@
                     <div class="page-header-double top">
                         <h3 class="top"><i class="icon-double-angle-right"></i> Carga horária</h3>
                     </div>
-                    <modalmarkdowneditor title="Carga horária" content="course.workload"></modalmarkdowneditor>
+                    <modalmarkdowneditor save="course.save" title="Carga horária" content="course.workload"></modalmarkdowneditor>
 
                     <hr/>
                     <!--  END WORKLOAD  -->
@@ -225,7 +217,7 @@
                     <div class="page-header-double top">
                         <h3 class="top"><i class="icon-double-angle-right"></i> Texto PRONATEC</h3>
                     </div>
-                    <modalmarkdowneditor title="PRONATEC" content="course.pronatec"></modalmarkdowneditor>
+                    <modalmarkdowneditor save="course.save" title="PRONATEC" content="course.pronatec"></modalmarkdowneditor>
 
                 </section>
                 <!--  END COURSE-SUMMARY  -->

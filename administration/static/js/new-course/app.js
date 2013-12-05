@@ -1,7 +1,7 @@
 (function(angular){
     'use strict';
 
-    var app = angular.module('new-course', ['ngResource']);
+    var app = angular.module('new-course', ['ngResource', 'directive.markdowneditor']);
 
     app.config(['$httpProvider',
         function ($httpProvider) {
