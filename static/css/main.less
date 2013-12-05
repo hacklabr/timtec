@@ -623,14 +623,21 @@ a:active {
     // ********************************************************************* //
     .video {
       border: 1px solid @gray-lighter;
-      .top(20px);
+      #admin & {
+        .top(20px);
+      }
     }
     // END COURSE VIDEO
 
     // COURSE NOTES - General
     // ********************************************************************* //
     .notes {
-      margin-top: 20px;
+      textarea {
+        border: 2px solid @gray-lighter;
+        height: 310px;
+        margin: 20px 0;
+        padding: 10px;
+      }
     }
     .add-side-notes {
       margin-top: 64px;
@@ -1810,7 +1817,8 @@ ul.uploaded-files-list {
 
 
 
-
+// TEXT EDITOR
+// ------------------------------------------------
 .text-editor {
   .btn-toolbar {
     margin-bottom: 5px;
