@@ -1365,17 +1365,6 @@ a:active {
 }
 
 
-// TEXT EDITOR
-.wmd-panel {
-  margin-top:20px;
-  .btn-group {
-    margin-bottom:1px;
-    .btn {
-      margin-right:2px;
-    }
-  }
-}
-
 // UPLOADED FILES LIST
 ul.uploaded-files-list {
   list-style: none;
@@ -1815,5 +1804,27 @@ ul.uploaded-files-list {
 
   100% {
     background-position: -7px -400px;
+  }
+}
+
+
+
+
+
+.text-editor {
+  .btn-toolbar {
+    margin-bottom: 5px;
+    .btn-group {
+      margin: 0;
+      padding: 0;
+      .btn {
+        background: none;
+        margin: 0 2px 0 0;
+        padding: 2px 6px;
+        &:hover {
+          color: @brand-info;
+        }
+      }
+    }
   }
 }
