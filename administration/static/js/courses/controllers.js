@@ -15,7 +15,6 @@
                 draft : true,
                 textsearch: '',
                 check : function(course){
-                    return true;
                     var f = $scope.filters;
                     var search = f.textsearch.toLowerCase();
                     var target = course.name.toLowerCase();
