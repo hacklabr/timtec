@@ -7,22 +7,12 @@
 
         <title>{{ course }}</title>
 
-        <script src="//www.youtube.com/iframe_api"></script>
+        {% include "_assets.html" with admin=True %}
 
         {% load static %}
-        {% load compressed %}
 
-        {% compressed_css 'common' %}
-        {% compressed_css 'admin' %}
+        {% block js %}{% endblock %}
 
-        {% block js %}
-        <script type="text/javascript" src="{% static 'js/vendor/angular.js' %}"  charset="utf-8"></script>
-        <script type="text/javascript" src="{% static 'js/vendor/angular-cookies.js' %}"  charset="utf-8"></script>
-        <script type="text/javascript" src="{% static 'js/vendor/angular-resource.js' %}"  charset="utf-8"></script>
-        <script type="text/javascript" src="{% static 'js/vendor/angular-route.js' %}"  charset="utf-8"></script>
-        <script type="text/javascript" src="{% static 'js/vendor/angular-sanitize.js' %}"  charset="utf-8"></script>
-        {% endblock %}
-        
         {% endblock %}
     </head>
     <body id="admin">
@@ -40,7 +30,7 @@
                   </button>
                   <a class="navbar-brand" href="/">TIMTec</a>
               </div>
-              
+
               <!-- Collect the nav links, forms, and other content for toggling -->
               <div class="collapse navbar-collapse" id="main-navbar-collapse">
                   <ul class="nav navbar-nav navbar-right">

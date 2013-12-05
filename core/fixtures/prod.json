@@ -718,6 +718,21 @@
         "delete_questionvote",
         "forum",
         "questionvote"
+      ],
+      [
+        "add_note",
+        "notes",
+        "note"
+      ],
+      [
+        "change_note",
+        "notes",
+        "note"
+      ],
+      [
+        "delete_note",
+        "notes",
+        "note"
       ]
     ]
   }
@@ -742,6 +757,11 @@
         "delete_activity",
         "activities",
         "activity"
+      ],
+      [
+        "add_course",
+        "core",
+        "course"
       ],
       [
         "add_answer",
@@ -974,6 +994,60 @@
     "user_permissions": [],
     "password": "pbkdf2_sha256$12000$JpjfXqR5JaMy$3V2OHv7/I6dV9nRaSwkVd5P2ze4GuQ21j1FfeEkRhLc=",
     "email": "timtectimtec@gmail.com",
+    "biography": "",
+    "date_joined": "2013-10-28T20:42:19Z"
+  }
+},
+{
+  "pk": 2,
+  "model": "accounts.timtecuser",
+  "fields": {
+    "username": "student",
+    "picture": "",
+    "first_name": "",
+    "last_name": "",
+    "city": "",
+    "occupation": "",
+    "is_active": true,
+    "site": "",
+    "is_superuser": false,
+    "is_staff": false,
+    "last_login": "2013-11-27T15:51:25Z",
+    "groups": [
+      [
+        "students"
+      ]
+    ],
+    "user_permissions": [],
+    "password": "pbkdf2_sha256$12000$JpjfXqR5JaMy$3V2OHv7/I6dV9nRaSwkVd5P2ze4GuQ21j1FfeEkRhLc=",
+    "email": "student@gmail.com",
+    "biography": "",
+    "date_joined": "2013-10-28T20:42:19Z"
+  }
+},
+{
+  "pk": 3,
+  "model": "accounts.timtecuser",
+  "fields": {
+    "username": "professor",
+    "picture": "",
+    "first_name": "",
+    "last_name": "",
+    "city": "",
+    "occupation": "",
+    "is_active": true,
+    "site": "",
+    "is_superuser": false,
+    "is_staff": false,
+    "last_login": "2013-11-27T15:51:25Z",
+    "groups": [
+      [
+        "professors"
+      ]
+    ],
+    "user_permissions": [],
+    "password": "pbkdf2_sha256$12000$JpjfXqR5JaMy$3V2OHv7/I6dV9nRaSwkVd5P2ze4GuQ21j1FfeEkRhLc=",
+    "email": "professor@gmail.com",
     "biography": "",
     "date_joined": "2013-10-28T20:42:19Z"
   }

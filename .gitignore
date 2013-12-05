@@ -56,3 +56,5 @@ settings_local.py
 /.cache
 /node_modules
 
+
+*.psqlc

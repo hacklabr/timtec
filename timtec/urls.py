@@ -11,10 +11,11 @@ from django.views.generic import TemplateView
 from accounts.views import CustomLoginView, ProfileEditView, ProfileView
 from forum.views import AnswerViewSet as ForumAnswerViewSet
 from core.views import CourseView, CourseViewSet, EnrollCourseView, HomeView, UserCoursesView, ContactView
-from core.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, UpdateStudentProgressView
+from core.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, UpdateStudentProgressView, LessonsUserNotesViewSet
 from activities.views import AnswerViewSet
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, QuestionVoteViewSet, AnswerVoteViewSet
 from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialAdminView, CourseMaterialViewSet
+from notes.views import NotesViewSet, CourseNotesView
 from rest_framework import routers
 
 router = routers.DefaultRouter(trailing_slash=False)
@@ -27,6 +28,8 @@ router.register(r'forum_answer', ForumAnswerViewSet)
 router.register(r'question_vote', QuestionVoteViewSet)
 router.register(r'answer_vote', AnswerVoteViewSet)
 router.register(r'course_material', CourseMaterialViewSet)
+router.register(r'note', NotesViewSet)
+router.register(r'lessons_notes', LessonsUserNotesViewSet)
 
 #    url(r'^api/answer/(?P<unitId>[0-9]*)$', AnswerView.as_view(), name='answer'),
 
@@ -63,6 +66,10 @@ urlpatterns = patterns(
     url(r'^course_material/file_upload/(?P<slug>[-a-zA-Z0-9_]+)$', FileUploadView.as_view(), name='file_upload'),
     url(r'^course_material/(?P<slug>[-a-zA-Z0-9_]+)$', CourseMaterialView.as_view(), name='course_material'),
     url(r'^admin/course_material/(?P<slug>[-a-zA-Z0-9_]+)$', CourseMaterialAdminView.as_view(), name='course_material_admin'),
+
+    # Notes
+    # url(r'^notes/(?P<username>[\w.+-]+)?$', UserNotesView.as_view(), name='user_notes'),
+    url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/mynotes$', CourseNotesView.as_view(), name='user_course_notes'),
 
     # Authentication
     url(r'^login/', CustomLoginView.as_view(), name='timtec_login'),

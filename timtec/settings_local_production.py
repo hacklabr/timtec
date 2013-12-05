@@ -22,9 +22,8 @@ MEDIA_ROOT = "/home/timtec-production/webfiles/media/"
 STATIC_ROOT = "/home/timtec-production/webfiles/static/"
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'localhost'
 EMAIL_SUBJECT_PREFIX = '[timtec]'
-DEFAULT_FROM_EMAIL = 'timtec@timtec.com.br'
+DEFAULT_FROM_EMAIL = 'donotreply@m.timtec.com.br'
 
 LOGGING = {
     'version': 1,

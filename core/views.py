@@ -6,12 +6,15 @@ from django.shortcuts import redirect
 from django.utils import timezone
 from django.views.generic import DetailView
 from django.views.generic.base import RedirectView, View, TemplateView
+from django.contrib.contenttypes.models import ContentType
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import filters
 from braces.views import LoginRequiredMixin
+from notes.models import Note
 
-from .serializers import CourseSerializer, LessonSerializer, StudentProgressSerializer
+from .serializers import CourseSerializer, LessonSerializer, StudentProgressSerializer, NoteUnitSerializer
 from .models import Course, Lesson, StudentProgress, Unit
 
 from forms import ContactForm
@@ -88,6 +91,11 @@ class CourseViewSet(viewsets.ModelViewSet):
     lookup_field = 'slug'
     serializer_class = CourseSerializer
 
+    def get(self, request, **kwargs):
+        response = super(CourseViewSet, self).get(request, **kwargs)
+        response['Cache-Control'] = 'no-cache'
+        return response
+
     def post(self, request, **kwargs):
         course = self.get_object()
         serializer = CourseSerializer(course, request.DATA)
@@ -103,11 +111,19 @@ class LessonDetailView(LoginRequiredMixin, DetailView):
     model = Lesson
     template_name = "lesson.html"
 
+    def get_context_data(self, **kwargs):
+        context = super(LessonDetailView, self).get_context_data(**kwargs)
+        unit_content_type = ContentType.objects.get_for_model(Unit)
+        context['unit_content_type_id'] = unit_content_type.id
+        return context
+
 
 class LessonViewSet(viewsets.ModelViewSet):
     model = Lesson
     serializer_class = LessonSerializer
     filter_fields = ('course__slug',)
+    filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter,)
+    ordering = ('position',)
 
     def get_queryset(self):
         queryset = super(LessonViewSet, self).get_queryset()
@@ -148,3 +164,12 @@ class UpdateStudentProgressView(APIView):
         response['msg'] = 'Unit completed.'
         response['complete'] = progress.complete
         return Response(response, status=status.HTTP_201_CREATED)
+
+
+class LessonsUserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
+    model = Lesson
+    serializer_class = NoteUnitSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return Note.objects.filter(user=user)

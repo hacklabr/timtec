@@ -1,6 +1,7 @@
 from core.models import Course, CourseProfessor, CourseStudent, Lesson, Video, StudentProgress, Unit
 from accounts.serializers import TimtecUserSerializer
 from activities.serializers import ActivitySerializer
+from notes.models import Note
 from rest_framework import serializers
 
 
@@ -35,12 +36,6 @@ class CourseSerializer(serializers.ModelSerializer):
                   "professors",)
 
 
-class VideoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Video
-        fields = ('id', 'name', 'youtube_id')
-
-
 class StudentProgressSerializer(serializers.ModelSerializer):
     complete = serializers.DateTimeField(required=False)
 
@@ -55,7 +50,7 @@ class UnitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Unit
-        fields = ('id', 'title', 'video', 'activity', 'position',)
+        fields = ('id', 'title', 'video', 'activity', 'side_notes', 'position',)
 
 
 class LessonSerializer(serializers.HyperlinkedModelSerializer):
@@ -69,3 +64,31 @@ class LessonSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Lesson
         fields = ('id', 'course', 'desc', 'name', 'notes', 'position', 'slug', 'status', 'units', 'url',)
+
+
+class SimplifiedLessonSerializer(serializers.ModelSerializer):
+    course = serializers.SlugRelatedField(slug_field='slug')
+
+    class Meta:
+        model = Lesson
+        fields = ('id', 'course', 'name', 'position', 'slug')
+
+
+class SimplifiedUnitSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Unit
+        fields = ('id', 'title', 'position',)
+
+
+class NoteUnitSerializer(serializers.ModelSerializer):
+
+    content_object = UnitSerializer(read_only=True)
+    lesson = serializers.SerializerMethodField('get_lesson')
+
+    class Meta:
+        model = Note
+        fields = ('id', 'text', 'content_type', 'object_id', 'content_object', 'lesson')
+
+    def get_lesson(self, obj):
+        return SimplifiedLessonSerializer(obj.content_object.lesson).data

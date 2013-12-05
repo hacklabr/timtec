@@ -1,8 +1,9 @@
 (function(angular){
-    "use strict";
+    'use strict';
 
     var courseSlug = /[^/]+$/.extract(location.pathname);
-    var app = angular.module('admin', ['ngRoute', 'ngResource', 'ngSanitize', 'youtube']);
+    var app = angular.module('admin', ['ngRoute', 'ngResource', 'ngSanitize', 'youtube',
+                                       'directive.markdowneditor', 'directive.contenteditable']);
 
     app.config(['$httpProvider', '$sceDelegateProvider',
         function ($httpProvider, $sceDelegateProvider) {
@@ -10,61 +11,19 @@
             $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
             $sceDelegateProvider.resourceUrlWhitelist([
                 /^https?:\/\/(www\.)?youtube\.com\/.*/,
-                'data:text/html, <html style="background: white">'
+                'data:text/html, <html style="background: white">',
+                'self',
+                window.STATIC_URL + '**'
             ]);
         }
     ]);
 
-    app.filter('markdown', function() {
-        return function(text) {
-            return text ? Markdown.getSanitizingConverter().makeHtml(text) : "";
-        };
-    });
-
-    app.directive('contenteditable', function(){
-        return {
-            "restrict": 'A',
-            "require": '?ngModel',
-            "link": function(scope, element, attrs, ngModel) {
-                if(!ngModel) return;
-                ngModel.$render = function(){ element.html(ngModel.$viewValue || ''); };
-                element.on('blur keyup change', function() { scope.$apply(read); });
-                function read() {
-                    var html = element.html();
-                    if( attrs.stripBr && html.match(/ *<br\/?> */) ){
-                      html = "";
-                    }
-                    ngModel.$setViewValue(html);
-                }
-            }
-        };
-    });
-
-    app.directive('markdowneditor', function(){
-        return {
-            "restrict": 'A',
-            "controller": function($scope, $element) {
-                $element.find('textarea').attr('id', "wmd-input-" + $scope.modal.window);
-                $element.find('.js-button-bar').attr('id', "wmd-button-bar-" + $scope.modal.window);
-
-                var editor = new Markdown.Editor(Markdown.getSanitizingConverter(), '-' + $scope.modal.window);
-                editor.run();
-            },
-            "link": function(scope, element) {
-                var read = function read(evt){
-                    scope.modal.data = evt.currentTarget.value;
-                };
-                element.find('textarea').on('blur change', read);
-            }
-        };
-    });
 
     /**
      * Controllers
      */
     app.controller('CourseEdit',['$scope', 'CourseDataFactory', '$http', 'youtubePlayerApi',
         function($scope, CourseDataFactory, $http, youtubePlayerApi){
-            $scope.course = {};
             $scope.video = {
                 'name': null,
                 'youtube_id': null,
@@ -82,34 +41,12 @@
                 }
             };
 
-            var fields = ['application', 'requirement', 'abstract', 'structure', 'workload'];
-
-            var build_data_for_modals = function(field){
-                return {
-                    'status': '',
-                    'window': field,
-                    'data': angular.copy($scope.course[field]),
-                    'reset': function(){
-                        this.data = angular.copy($scope.course[field]);
-                    },
-                    'save': function(){
-                        var self = this;
-                        var old = angular.copy($scope.course[field]);
-                        $scope.course[field] = self.data;
-                        $scope.course.$save()
-                            .then(function(){
-                                self.status = 'saved';
-                            }).catch(function(){
-                                self.status = 'error';
-                                $scope.course[field] = old;
-                            });
-                    }
-                };
+            $scope.saveCourse = function(){
+                $scope.course.$save();
             };
 
             CourseDataFactory.then(function(course){
-                $scope.course = angular.copy(course);
-                $scope.modals = fields.map(build_data_for_modals);
+                $scope.course = course;
                 if($scope.course.intro_video){
                     $scope.video.name = $scope.course.intro_video.name;
                     $scope.video.youtube_id = $scope.course.intro_video.youtube_id;
@@ -121,8 +58,6 @@
                     };
                 }
                 youtubePlayerApi.loadPlayer();
-                // reindex $scope.modals
-                fields.forEach(function(e,i){$scope.modals[e]=$scope.modals[i];});
             });
         }
     ]);
@@ -179,10 +114,11 @@
                     "id": null,
                     "position": pos,
                     "title": "",
+                    "side_notes": "",
                     "video": {
                         "id": null,
                         "name":"",
-                        "youtube_id":"",
+                        "youtube_id":""
                     }
                 });
             };
@@ -219,17 +155,31 @@
             };
             $scope.addAlternative = function(){
                 var act = $scope.activity();
+                var alternativeTypes = ['simplechoice', 'multiplechoice', 'trueorfalse'];
 
-                if(!act.data.alternatives) {
-                    act.data.alternatives = [];
-                }
-                act.data.alternatives.push("");
+                if(alternativeTypes.indexOf(act.type) >= 0) {
+                    if(!act.data.alternatives) {
+                        act.data.alternatives = [];
+                    }
+                    act.data.alternatives.push('');
 
-                if(['multiplechoice', 'trueorfalse'].indexOf(act.type) >= 0){
+                    if(alternativeTypes.slice(1).indexOf(act.type) >= 0){
+                        if(!act.expected)
+                            act.expected = [];
+                        act.expected.push(false);
+                    }
+                } else if(act.type === 'relationship') {
+                    if(!act.data.column1) {
+                        act.data.column1 = [];
+                        act.data.column2 = [];
+                    }
+                    act.data.column1.push('');
+                    act.data.column2.push('');
                     if(!act.expected)
                         act.expected = [];
-                    act.expected.push(false);
+                    act.expected.push(0);
                 }
+
             };
             $scope.saveLesson = function(){
                 if('id' in $rootScope.selectedLesson){
@@ -252,8 +202,10 @@
         function($rootScope, $q, $resource) {
             var Course = $resource('/api/course/:courseSlug/',{'courseSlug': courseSlug});
             var deferred = $q.defer();
-
-            Course.get(function(course){
+            var antiCache = {
+                ie: (new Date()).getTime().toString(16)
+            };
+            Course.get(antiCache, function(course){
                 deferred.resolve(course);
             });
             return deferred.promise;

@@ -11,12 +11,14 @@ SITE_ID = 1
 
 ADMINS = (
     ('Admin1', 'root@localhost'),
-    ('Admin2', 'timtec-dev@listas.hacklab.com.br'),
+    ('timtec-dev list', 'timtec-dev@listas.hacklab.com.br'),
 )
 
-MANAGERS = ADMINS
+MANAGERS = (ADMINS[1],)
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'localhost'
+DEFAULT_FROM_EMAIL = 'donotreply-dev@m.timtec.com.br'
 
 DATABASES = {
     'default': {
@@ -169,8 +171,11 @@ PIPELINE_JS = {
             'js/contact_form.js',
             'js/helpers.js',
             'js/angular-youtube.js',
-
-            # codemirror stuff
+        ),
+        'output_filename': 'js/all.js',
+    },
+    'codemirror': {
+        'source_filenames': (
             'js/vendor/codemirror/lib/codemirror.js',
             'js/vendor/codemirror/addon/fold/xml-fold.js',
             'js/vendor/codemirror/addon/hint/show-hint.js',
@@ -187,7 +192,7 @@ PIPELINE_JS = {
             'js/vendor/codemirror/mode/htmlmixed/htmlmixed.js',
             'js/codemirrorconf.js',
         ),
-        'output_filename': 'js/all.js',
+        'output_filename': 'js/codemirrorcomp.js',
     }
 }
 
@@ -314,6 +319,7 @@ INSTALLED_APPS = (
     'administration',
     'forum',
     'course_material',
+    'notes',
     # django-metron
     'metron',
     # allauth

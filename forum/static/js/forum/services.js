@@ -13,12 +13,12 @@
         }).
         factory('AnswerVote', function($resource){
             return $resource('/api/answer_vote/:answer', {}, {
-                update: {method: 'PUT'},
+                update: {method: 'PUT'}
             });
         }).
         factory('QuestionVote', function($resource){
             return $resource('/api/question_vote/:question', {}, {
-                update: {method: 'PUT'},
+                update: {method: 'PUT'}
             });
         });
 })(angular);

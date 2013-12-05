@@ -34,26 +34,25 @@
           </div>
         </div>
         <!-- END QUESTION FORM -->
-
+        {% verbatim angularjs %}
         <!-- QUESTIONS LIST-->
         <section class="questions clearfix">
-<!--          <div class="search-filter">
+          <div class="search-filter">
             <div class="row">
               <div class="col-lg-7 col-sm-7">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-info">Mais votadas</button>
+                  <button type="button" class="btn btn-info">{{ sort_label }}</button>
                   <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                     <i class="icon-chevron-down"></i>
                   </button>
                   <ul class="dropdown-menu top">
-                    <li><a href="">Mais votadas</a></li>
-                    <li><a href="">Mais recentes</a></li>
-                    <li><a href="">Mais respondida</a></li>
-                    <li><a href="">Ver todas</a></li>
+                    <li><a href="" ng-click="sortBy('votes')">Mais votadas</a></li>
+                    <li><a href="" ng-click="sortBy('date')">Mais recentes</a></li>
+                    <li><a href="" ng-click="sortBy('answers')">Mais respondidas</a></li>
                   </ul>
                 </div>
               </div>
-              <div class="col-lg-5 col-sm-5 textright">
+              <!-- <div class="col-lg-5 col-sm-5 textright">
                 <div class="input-group">
                   <input type="search" class="form-control" placeholder="Pesquisar perguntas e respostas">
                   <span class="input-group-btn">
@@ -62,11 +61,11 @@
                     </button>
                   </span>
                 </div>
-              </div>
+              </div> -->
             </div>
-          </div> -->
+          </div>
           <article ng-repeat="question in questions">
-            {% verbatim angularjs %}
+            
             <div class="stats">
               <div class="arrow-right"></div>
               <p><span class="numbers-votes">{{question.votes}}</span>votos</p>
@@ -79,10 +78,11 @@
             <div class="author">
               Pergunta feita feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ question.username }}">{{ question.username }}</a>
             </div>
-            {% endverbatim angularjs %}
+            
           </article>
           <!-- <p class="textcenter"><a href="{% url 'forum' course.slug %}" class="all-questions btn btn-info">Ver todas as perguntas e respostas</a></p> -->
         </section>
         <!-- QUESTIONS LIST-->
+        {% endverbatim angularjs %}
       </section>
     </div>

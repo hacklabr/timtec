@@ -5,10 +5,10 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.staticfiles.storage import staticfiles_storage
-from django.contrib.auth import get_user_model
+from django.contrib.contenttypes import generic
 from activities.models import Activity
-
-TimtecUser = get_user_model()
+from accounts.models import TimtecUser
+from notes.models import Note
 
 
 class Video(models.Model):
@@ -173,8 +173,10 @@ class Unit(models.Model):
     title = models.CharField(_('Title'), max_length=128, blank=True)
     lesson = models.ForeignKey(Lesson, verbose_name=_('Lesson'), related_name='units')
     video = models.ForeignKey(Video, verbose_name=_('Video'), null=True, blank=True)
-    activity = models.ForeignKey(Activity, verbose_name=_('Activity'), null=True, blank=True)
+    activity = models.ForeignKey(Activity, verbose_name=_('Activity'), null=True, blank=True, related_name='units')
+    side_notes = models.TextField(_('Side notes'), blank=True)
     position = PositionField(collection='lesson', default=0)
+    notes = generic.GenericRelation(Note)
 
     class Meta:
         verbose_name = _('Unit')
