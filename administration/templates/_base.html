@@ -63,7 +63,7 @@
           <div class="row">
             <div class="col-sm-9 col-lg-9">
               <h1 class="top editable"><span contenteditable="true" ng-model="course.name" ng-blur="course.$save()"></span></h1>
-              <h5><span class="icon-addable icon-plus-sign-alt"></span> Adicionar professores ao curso</h5>
+              <h5><span class="icon-addable fa fa-plus-square"></span> Adicionar professores ao curso</h5>
               <h5>
                 <span>Marcar curso como:</span>
                 <select ng-model="course.status" ng-change="course.$save()">
@@ -101,7 +101,7 @@
                 </div>
                 <div class="add-video-intro col-sm-12 col-lg-12 left right textcenter" ng-hide="video.youtube_id">
                   <div class="centered">
-                    <i class="icon-youtube-play"></i>
+                    <i class="fa fa-youtube-play"></i>
                     <h1 class="top">Vídeo de introdução</h1>
                     <p class="form-group">
                         <input type="text" class="form-control" ng-model="video.youtube_id_temp"/>
@@ -119,13 +119,13 @@
             <section class="course-info row">
               <div class="col-sm-6 col-lg-6">
                 <div class="page-header-double">
-                  <h3 class="top"><i class="icon-double-angle-right"></i> Aplicação do Conhecimento</h3>
+                  <h3 class="top"><i class="fa fa-angle-double-right"></i> Aplicação do Conhecimento</h3>
                 </div>
                 <modalmarkdowneditor title="Aplicação do conhecimento" content="course.application" save="saveCourse"></modalmarkdowneditor>
               </div>
               <div class="col-sm-6 col-lg-6">
                 <div class="page-header-double">
-                  <h3 class="top"><i class="icon-double-angle-right"></i> O que preciso saber</h3>
+                  <h3 class="top"><i class="fa fa-angle-double-right"></i> O que preciso saber</h3>
                 </div>
                 <modalmarkdowneditor title="O que preciso saber" content="course.requirement" save="saveCourse"></modalmarkdowneditor>
               </div>
@@ -135,7 +135,7 @@
             <section class="course-lessons row" ng-controller="LessonList">
               <div class="col-sm-12 col-lg-12">
                 <div class="page-header-double">
-                  <h3><i class="icon-double-angle-right"></i> Aulas</h3>
+                  <h3><i class="fa fa-angle-double-right"></i> Aulas</h3>
                 </div>
 
                 <a href="#lessonModal" ng-click="newLesson()"
@@ -167,7 +167,7 @@
                             </td>
                           </tr>
                         </table>
-                        <p><i class="icon-youtube-play"></i> <small>{{ countVideos(lesson) }} vídeos</small> | <i class="icon-list"></i> <small>{{ countActivities(lesson) }} atividades</small></p>
+                        <p><i class="fa fa-youtube-play"></i> <small>{{ countVideos(lesson) }} vídeos</small> | <i class="fa fa-list"></i> <small>{{ countActivities(lesson) }} atividades</small></p>
                       </div>
                     </div>
                   </li>
@@ -179,7 +179,7 @@
             <section class="course-instructors row">
               <div class="col-sm-12 col-lg-12">
                 <div class="page-header-double">
-                  <h3><i class="icon-double-angle-right"></i> Professores</h3>
+                  <h3><i class="fa fa-angle-double-right"></i> Professores</h3>
                 </div>
                 <a href="#professorModal" data-toggle="modal" class="btn btn-success">Adicionar</a>
               </div>
@@ -207,19 +207,19 @@
             <div class="row">
               <section class="course-summary col-sm-12 col-lg-12">
                 <div class="page-header-double top">
-                  <h3 class="top"><i class="icon-double-angle-right"></i> Resumo</h3>
+                  <h3 class="top"><i class="fa fa-angle-double-right"></i> Resumo</h3>
                 </div>
                 <modalmarkdowneditor title="Resumo" content="course.abstract" save="saveCourse"></modalmarkdowneditor>
                 <hr/>
 
                 <div class="page-header-double top">
-                  <h3 class="top"><i class="icon-double-angle-right"></i> Estrutura do curso</h3>
+                  <h3 class="top"><i class="fa fa-angle-double-right"></i> Estrutura do curso</h3>
                 </div>
                 <modalmarkdowneditor title="Estrutura do curso" content="course.structure" save="saveCourse"></modalmarkdowneditor>
                 <hr/>
 
                 <div class="page-header-double top">
-                  <h3 class="top"><i class="icon-double-angle-right"></i> Carga horária</h3>
+                  <h3 class="top"><i class="fa fa-angle-double-right"></i> Carga horária</h3>
                 </div>
                 <modalmarkdowneditor title="Carga horária" content="course.workload" save="saveCourse"></modalmarkdowneditor>
                 <hr/>
@@ -370,7 +370,7 @@
                   <nav class="textcenter">
                       <div class="circle selected"></div>
                       <div class="circle"></div>
-                      <button class="next btn btn-success" ng-click="active='units'">Continuar <i class="icon-double-angle-right"></i></button>
+                      <button class="next btn btn-success" ng-click="active='units'">Continuar <i class="fa fa-angle-double-right"></i></button>
                   </nav>
                 </div>
               </div>
@@ -577,10 +577,10 @@
               <div class="row">
                 <div class="col-lg-12">
                   <nav class="textcenter">
-                      <button class="prev btn btn-success" ng-click="active='content'"><i class="icon-double-angle-left"></i> Voltar</button>
+                      <button class="prev btn btn-success" ng-click="active='content'"><i class="icon-fa-angle-double-left"></i> Voltar</button>
                       <div class="circle"></div>
                       <div class="circle selected"></div>
-                      <button class="next btn btn-success disabled">Continuar <i class="icon-double-angle-right"></i></button>
+                      <button class="next btn btn-success disabled">Continuar <i class="fa fa-angle-double-right"></i></button>
                   </nav>
                 </div>
               </div>

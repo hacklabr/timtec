@@ -9,7 +9,7 @@
     {% if confirmation %}
       {% user_display confirmation.email_address.user as user_display %}  
       <h1 class="textcenter">
-          <i class="icon-thumbs-up-alt"></i><br/>
+          <i class="fa fa-thumbs-o-up"></i><br/>
           {% blocktrans with confirmation.email_address.email as email %}Please confirm that <a href="mailto:{{email}}">{{ email }}</a> is an e-mail address for user {{ user_display }}.{% endblocktrans %}
       </h1>
 
@@ -29,7 +29,7 @@
     {% if confirmation %}
         {% user_display confirmation.email_address.user as user_display %}  
         <h3 class="textcenter">
-            <i class="icon-thumbs-up-alt"></i><br/>
+            <i class="fa fa-thumbs-o-up"></i><br/>
             {% blocktrans with confirmation.email_address.email as email %}Please confirm that <a href="mailto:{{email}}">{{ email }}</a> is an e-mail address for user {{ user_display }}.{% endblocktrans %}
         </h3>
         <form onclick="event.stopPropagation()" method="post" action="{% url 'account_confirm_email' confirmation.key %}" class="form-horizontal">{% csrf_token %}

@@ -37,7 +37,7 @@ $(document).ready(function() {
                 <div class="btn-group button-watching">
                     <button type="button" class="btn btn-sm btn-info">{{ lesson.name }}</button>
                     <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-chevron-down"></i>
+                        <i class="fa fa-chevron-down"></i>
                     </button>
                     <ul class="dropdown-menu">
                         {% for list_lesson in lesson.course.public_lessons %}
@@ -77,9 +77,9 @@ $(document).ready(function() {
                        ng-repeat="unit in lesson.units"
                        ng-class="{watching: isSelected($index+1), done: isDone(unit)}"
                        ng-click="select($index+1)">
-                           <i class="icon-caret-right" ng-if="isSelected($index+1)"></i>
+                           <i class="fa fa-caret-right" ng-if="isSelected($index+1)"></i>
                            <span class="position">{{ unit.position + 1 }}</span>
-                           <i class="icon-list" ng-if="unit.activity !== null"></i>
+                           <i class="fa fa-list" ng-if="unit.activity !== null"></i>
                     </a>
                 </div>
                 <!-- END UNITS -->
@@ -125,7 +125,7 @@ $(document).ready(function() {
             <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
                 <section class="course-instructions">
                     <div class="page-header-double">
-                        <h3><i class="icon-double-angle-right"></i> Notas do professor</h3>
+                        <h3><i class="fa fa-angle-double-right"></i> Notas do professor</h3>
                     </div>
                     {{ lesson.notes|timtec_markdown }}
                 </section>
@@ -138,7 +138,7 @@ $(document).ready(function() {
             <div class="col-lg-3 hidden-md hidden-sm hidden-xs">
                 <section class="course-instructions">
                     <div class="page-header-double">
-                        <h3><i class="icon-double-angle-right"></i> Notas do professor</h3>
+                        <h3><i class="fa fa-angle-double-right"></i> Notas do professor</h3>
                     </div>
                     {{ lesson.notes|timtec_markdown }}
                 </section>

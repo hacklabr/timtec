@@ -8,14 +8,14 @@
         <div class="col-lg-4 col-sm-4">
           <!-- COURSE-SECTION-NAV -->
           <nav class="course-sections textright">
-            <a href="{% url 'course_intro' course.slug %}"><span class="has-tooltip icon-home" data-toggle="tooltip" data-placement="top" data-original-title="Intro"></span></a>
-            <a href="{% url "lesson" course.first_lesson.slug %}"><span class="has-tooltip icon-facetime-video" data-toggle="tooltip" data-placement="top" data-original-title="Aulas"></span></a>
+            <a href="{% url 'course_intro' course.slug %}"><span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="Intro"></span></a>
+            <a href="{% url "lesson" course.first_lesson.slug %}"><span class="has-tooltip fa fa-film" data-toggle="tooltip" data-placement="top" data-original-title="Aulas"></span></a>
             {% comment %}
             <!-- TODO: Bruno Martin -->
-            <a href="profile-note.html"><span class="has-tooltip icon-pencil" data-toggle="tooltip" data-placement="top" data-original-title="Anotações"></span></a>
+            <a href="profile-note.html"><span class="has-tooltip fa fa-pencil" data-toggle="tooltip" data-placement="top" data-original-title="Anotações"></span></a>
             {% endcomment %}
-            <a href="{% url 'forum' course.slug %}"><span class="has-tooltip icon-list" data-toggle="tooltip" data-placement="top" data-original-title="Fórum"></span></a>
-            <a href="{% url 'course_material' course.slug %}"><span class="has-tooltip icon-exclamation-sign" data-toggle="tooltip" data-placement="top" data-original-title="Material Didádico"></span></a>
+            <a href="{% url 'forum' course.slug %}"><span class="has-tooltip fa fa-list" data-toggle="tooltip" data-placement="top" data-original-title="Fórum"></span></a>
+            <a href="{% url 'course_material' course.slug %}"><span class="has-tooltip fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-original-title="Material Didádico"></span></a>
           </nav>
           <!-- END COURSE-SECTION-NAV -->
         </div>
