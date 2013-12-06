@@ -27,8 +27,8 @@ def test_enroll_user(client, user):
     assert not CourseStudent.objects.filter(user__username=user.username, course__slug=course.slug).exists()
 
     reponse = client.post('/login/', {'username': user.username, 'password': 'password'})
-    reponse = client.get('/course/' + course.slug + '/enroll')
-    assert reponse['Location'] == 'http://testserver/lesson/' + lesson.slug
+    reponse = client.get('/course/' + course.slug + '/enroll/')
+    assert reponse['Location'] == 'http://testserver/lesson/' + lesson.slug + '/'
 
     assert CourseStudent.objects.filter(user__username=user.username, course__slug=course.slug).exists()
 

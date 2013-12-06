@@ -15,7 +15,8 @@
                 draft : true,
                 textsearch: '',
                 check : function(course){
-                    var f = $scope.filters;
+                    return true;
+                    /* var f = $scope.filters;
                     var search = f.textsearch.toLowerCase();
                     var target = course.name.toLowerCase();
 
@@ -23,7 +24,7 @@
                         f.all || f[course.status]
                     ) && (
                         !search || target.match(search)
-                    );
+                    );*/
                 }
             };
 

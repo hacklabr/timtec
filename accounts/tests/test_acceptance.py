@@ -13,7 +13,7 @@ def test_custom_login_view(client, user):
     assert response.status_code == 302
 
     course = mommy.make('Course')
-    response = client.get('/course/' + course.slug)
+    response = client.get('/course/' + course.slug + '/')
     assert response.status_code == 200
     assert response.context['request'].user.is_authenticated()
 

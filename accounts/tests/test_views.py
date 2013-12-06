@@ -10,7 +10,7 @@ def test_enroll_user_view(rf, user):
     course = mommy.make('Course', slug='acceptance_enroll_user')
     lesson = mommy.make('Lesson', course=course)
 
-    request = rf.get('/courses/' + course.slug + '/enroll')
+    request = rf.get('/courses/' + course.slug + '/enroll/')
     request.user = user
 
     view = EnrollCourseView(request=request)
@@ -20,7 +20,7 @@ def test_enroll_user_view(rf, user):
 
     response = view.get(request)
     assert response.status_code == 302
-    assert response['Location'] == '/lesson/' + lesson.slug
+    assert response['Location'] == '/lesson/' + lesson.slug + '/'
 
 
 @pytest.mark.django_db
@@ -34,7 +34,7 @@ def test_home_view(rf):
 
     response = view.get(request)
     assert response.status_code == 302
-    assert response['Location'] == '/course/' + course.slug
+    assert response['Location'] == '/course/' + course.slug + '/'
 
 
 @pytest.mark.django_db
