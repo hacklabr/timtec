@@ -41,7 +41,7 @@ $(document).ready(function() {
                     </button>
                     <ul class="dropdown-menu">
                         {% for list_lesson in lesson.course.public_lessons %}
-                            <li><a href="{% url 'lesson' list_lesson.slug %}"><span class="title">{{ list_lesson.name }}</span></a></li>
+                            <li><a href="{% url 'lesson' list_lesson.course.slug list_lesson.slug %}"><span class="title">{{ list_lesson.name }}</span></a></li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -55,7 +55,7 @@ $(document).ready(function() {
                 <option>{{lesson.name}}</option>
                 {% for list_lesson in lesson.course.public_lessons %}
                     {% if list_lesson.name != lesson.name %}
-                        <option value="{% url 'lesson' list_lesson.slug %}">{{ list_lesson.name }}</option>
+                        <option value="{% url 'lesson' list_lesson.course.slug list_lesson.slug %}">{{ list_lesson.name }}</option>
                     {% endif %}
                 {% endfor %}
             </select>

@@ -83,7 +83,7 @@ class EnrollCourseView(LoginRequiredMixin, RedirectView):
     def get_redirect_url(self, **kwargs):
         course = self.get_object()
         course.enroll_student(self.request.user)
-        return reverse('lesson', args=[course.first_lesson().slug])
+        return reverse('lesson', args=[course.slug, course.first_lesson().slug])
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -110,6 +110,11 @@ class CourseViewSet(viewsets.ModelViewSet):
 class LessonDetailView(LoginRequiredMixin, DetailView):
     model = Lesson
     template_name = "lesson.html"
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super(LessonDetailView, self).get_queryset(*args, **kwargs)
+        course_slug = self.kwargs.get('course_slug')
+        return qs.filter(course__slug=course_slug)
 
     def get_context_data(self, **kwargs):
         context = super(LessonDetailView, self).get_context_data(**kwargs)

@@ -25,7 +25,7 @@
                 <!-- COL-LG-3 -->
                 <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 textright">
                     {% if user_is_enrolled %}
-                        <a href="{% url "lesson" course.first_lesson.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Resume" %}</a>
+                        <a href="{% url "lesson" course.slug course.first_lesson.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Resume" %}</a>
                     {% else %}
                         <a
                             {% if user.is_authenticated %}
@@ -149,7 +149,8 @@
 
                                 <p>
                                     {% if lesson.is_ready and user_is_enrolled %}
-                                        <span class="title"><a href="{% url 'lesson' lesson.slug %}" class="title">{{ lesson.name }}</a></span>
+                                        <span class="title"><a href="{% url 'lesson' course.slug lesson.slug %}" class="title">{{ lesson.name }}</a></span>
+                                        <a href="{% url 'lesson' course.slug lesson.slug %}" class="title">{{ lesson.name }}</a>
                                     {% else %}
                                         <span class="title">{{ lesson.name }}</span>
                                     {% endif %}
@@ -170,7 +171,7 @@
                                                         <a class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
                                                            data-toggle="tooltip" data-placement="bottom"
                                                            data-original-title="Unidade {{ forloop.counter }}"
-                                                           href="{% url 'lesson' lesson.slug %}#/{{ forloop.counter }}">
+                                                           href="{% url 'lesson' course.slug lesson.slug %}#/{{ forloop.counter }}">
                                                            {% if unit.activity %}
                                                                <i class="fa fa-list"></i>
                                                            {% endif %}

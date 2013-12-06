@@ -1,6 +1,7 @@
 from core.models import Course, CourseProfessor, CourseStudent, Lesson, Video, StudentProgress, Unit
 from accounts.serializers import TimtecUserSerializer
 from activities.serializers import ActivitySerializer
+from rest_framework.reverse import reverse
 from notes.models import Note
 from rest_framework import serializers
 
@@ -53,10 +54,18 @@ class UnitSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'video', 'activity', 'side_notes', 'position',)
 
 
+class LessonHyperlinkedIdentityField(serializers.HyperlinkedIdentityField):
+    # Need to do this because the rest framework doesnt support multiple
+    # lookups
+    def get_url(self, obj, view_name, request, format):
+        kwargs = {'slug': obj.slug, 'course_slug': obj.course.slug}
+        return reverse(view_name, kwargs=kwargs, request=request, format=format)
+
+
 class LessonSerializer(serializers.HyperlinkedModelSerializer):
     course = serializers.SlugRelatedField(slug_field='slug')
     units = UnitSerializer(many=True, allow_add_remove=True)
-    url = serializers.HyperlinkedIdentityField(
+    url = LessonHyperlinkedIdentityField(
         view_name='lesson',
         lookup_field='slug'
     )

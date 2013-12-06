@@ -8,7 +8,7 @@ def test_forum(admin_client, user):
     mommy.make('Lesson', course=course)
     question = mommy.make('Question', slug='qual-e-o-melhor-sgbd-atualmente', title='Test Question', text='Test Question 1234 Test Question 1234', course=course)
 
-    response = admin_client.get('/forum/dbsql')
+    response = admin_client.get('/forum/dbsql/')
 
     assert response.status_code == 200
     assert question.title.encode('utf-8') in response.content
@@ -24,7 +24,7 @@ def test_question(admin_client, user):
     mommy.make('Lesson', course=course)
     question = mommy.make('Question', slug='df', course=course)
 
-    response = admin_client.get('/forum/question/' + question.slug)
+    response = admin_client.get('/forum/question/' + question.slug + '/')
 
     assert response.status_code == 200
     assert question.title.encode('utf-8') in response.content
@@ -40,7 +40,7 @@ def test_question_create(admin_client, user):
     mommy.make('Lesson', course=course)
 
     # GET test
-    response = admin_client.get('/forum/question/add/dbsql')
+    response = admin_client.get('/forum/question/add/dbsql/')
 
     assert response.status_code == 200
     assert course.name.encode('utf-8') in response.content
@@ -50,9 +50,9 @@ def test_question_create(admin_client, user):
     slug = 'test-title'
     text = 'asljf asdfhuas dfasdflashfdlusafdlsafdlsa filasdflisalfdiayslfdnsalfdyaslifd'
 
-    response = admin_client.post('/forum/question/add/dbsql', {'title': title, 'text': text})
+    response = admin_client.post('/forum/question/add/dbsql/', {'title': title, 'text': text})
 
-    question = Question.objects.get(slug=slug)
     assert response.status_code == 302
+    question = Question.objects.get(slug=slug)
     assert question.text == text
     assert question.title == title
