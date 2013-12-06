@@ -74,6 +74,7 @@
             <div class="row">
                 <div class="col-lg-1">
                     <span class="label" ng-class="{
+                        'label-default' : !(course.isDraft() || course.isListed() || course.isPublished()),
                         'label-warning': course.isDraft(),
                         'label-info': course.isListed(),
                         'label-success': course.isPublished()}">{{ course.status | capfirst }}</span>
