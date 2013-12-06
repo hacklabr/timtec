@@ -217,7 +217,7 @@ REST_FRAMEWORK = {
     ],
 }
 
-APPEND_SLASH = False
+APPEND_SLASH = True
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'e%6a01vfbue28$xxssu!9r_)usqjh817((mr+7vv3ek&@#p0!$'
