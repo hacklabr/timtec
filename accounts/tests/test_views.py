@@ -20,7 +20,7 @@ def test_enroll_user_view(rf, user):
 
     response = view.get(request)
     assert response.status_code == 302
-    assert response['Location'] == '/lesson/' + lesson.slug + '/'
+    assert response['Location'] == '/course/' + course.slug + '/lesson/' + lesson.slug + '/'
 
 
 @pytest.mark.django_db
