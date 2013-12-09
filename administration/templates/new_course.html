@@ -22,7 +22,7 @@
             <div class="row">
                 <!--  COL-LG-9  -->
                 <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
-                    <h1><span ng-model="course.name" placeholder="Nome do curso" contenteditable="true"></span></h1>
+                    <h1><span ng-class="{'blink-danger':errors.name}" ng-model="course.name" placeholder="Nome do curso" contenteditable="true"></span></h1>
                     <ul class="instructors">
                         <li><a href=""><span class="icon-addable fa fa-plus-square left right"></span> Adicionar professores ao curso</a></li>
                     </ul>
@@ -218,9 +218,9 @@
                         <h3><i class="fa fa-angle-double-right"></i> Instrutores</h3>
                     </div>
                     <!-- END PAGE-HEADER-DOUBLE -->
-                    
+
                     <a href="">Organizar instrutores</a>
-                    
+
                     <div class="instructors organizing-instructors">
                         <div class="instructor">
                             <div class="row">
@@ -268,6 +268,18 @@
             <div class="col-lg-3 col-md-3 col-sm-3">
                 <!--   COURSE-SUMMARY  -->
                 <section class="summary">
+
+                    <div class="page-header-double top">
+                        <h3 class="top"><i ng-class="{'blink-danger':errors.status}" class="fa fa-angle-double-right"></i> Situação</h3>
+                    </div>
+                    <select id="courseStatus" class="form-control" ng-model="course.status">
+                        <option value="new">Novo</option>
+                        <option value="draft">Rascunho</option>
+                        <option value="listed">Listado</option>
+                        <option value="published">Publicado</option>
+                    </select>
+                    <hr/>
+
 
                     <!--  ABSTRACT  -->
                     <div class="page-header-double top">
