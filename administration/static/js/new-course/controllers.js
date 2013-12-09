@@ -10,6 +10,8 @@
             var player;
             youtubePlayerApi.$watch('playerId', function(){
                 youtubePlayerApi.videoId = $scope.course.intro_video.youtube_id;
+                youtubePlayerApi.playerWidth = '100%';
+                youtubePlayerApi.playerHeight = '475px';
                 youtubePlayerApi.loadPlayer();
                 player = youtubePlayerApi.player;
                 window.p = player;
