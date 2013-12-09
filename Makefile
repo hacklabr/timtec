@@ -28,7 +28,7 @@ update-dev:
 	dropdb timtec-dev
 	createdb timtec-dev
 	pg_restore -O -x -n public -d timtec-dev ~hacklab/sql-backup/last.psqlc
-	cp timtec/settings_local_dev.py timtec/settings_local.py
+	cp timtec/settings_local_timtec_dev.py timtec/settings_local.py
 	~/env/bin/pip install -r requirements.txt
 	~/env/bin/python manage.py syncdb --noinput
 	~/env/bin/python manage.py migrate --noinput
