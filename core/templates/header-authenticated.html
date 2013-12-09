@@ -21,7 +21,7 @@
                 <!-- <li><a href="">{% trans "Available Courses" %}</a></li> -->
                 <!-- <li><a href="{% url 'user_courses' %}">{% trans "My Courses" %}</a></li> -->
                 {% ifusergroup professors %}
-                <li><a href="{% url 'course_admin' 'html5' %}">{% trans "Admin" %}</a></li>
+                <li><a href="#">{% trans "Admin" %}</a></li>
                 {% endifusergroup %}
                 <li><a href="{% url 'user_course_notes' 'html5' %}">{% trans "My Notes" %}</a></li>
                 <li>
