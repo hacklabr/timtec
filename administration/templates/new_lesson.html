@@ -5,27 +5,31 @@
 <!-- COURSE-CONTENT -->
 <div id="course" class="course-lesson">
     <!-- MAIN-HEADER -->
-    <header class="container">
+    <header id="main-header" class="container">
         <!-- PAGE-HEADER -->
         <div class="page-header">
             <!-- ROW -->
             <div class="row">
-                <!-- COL-LG-8 -->
-                <div class="col-lg-8 col-sm-8">
+                <!-- COL-LG-9 -->
+                <div class="col-lg-9 col-sm-9">
                     <h1 class="course-name bottom top">HTML5 - Introdução ao Front End</h1>
                     <ul class="instructors">
                         <li><a href="">Fabio Flatschart</a></li>
                     </ul>
                 </div>
-                <!-- END COL-LG-8 -->
-                <!-- COL-LG-4 -->
-                <div class="col-lg-4 col-sm-4">
+                <!-- END COL-LG-9 -->
+                <!-- COL-LG-3 -->
+                <div class="col-lg-3 col-sm-3">
                     <!-- COURSE-SECTION-NAV -->
                     <nav class="course-sections textright">
+                        <a href=""><span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="Intro"></span></a>
+                        <a href=""><span class="has-tooltip fa fa-film" data-toggle="tooltip" data-placement="top" data-original-title="Aulas"></span></a>
+                        <a href=""><span class="has-tooltip fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="Fórum"></span></a>
+                        <a href=""><span class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="Material Didádico"></span></a>
                     </nav>
                     <!-- END COURSE-SECTION-NAV -->
                 </div>
-                <!-- END COL-LG-4 -->
+                <!-- END COL-LG-3 -->
             </div>
             <!-- END ROW -->
         </div>
@@ -35,14 +39,29 @@
 
     <!-- COURSE-CONTENT -->
     <section id="course-content" class="container">
-        <!-- ROW -->
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-1">
-                <p><input type="text" class="form-control" placeholder="Nome da lição"/></p>
-                <p><textarea class="form-control" placeholder="Descrição da lição"></textarea></p>
+        
+        <nav class="course-lessons">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="top editable"><span contenteditable="true">Título da lição</span></h1>
+                    <p class="description editable"><span contenteditable="true">Descrição da lição</span></p>
+                </div>
             </div>
-        </div>
-        <!-- END ROW -->
+        </nav>
+        
+        <nav class="lesson-units">
+            <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-default">Título da lição</button>
+                <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-chevron-down"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="">Título da lição #1</a></li>
+                    <li><a href="">Título da lição #2</a></li>
+                    <li><a href="">Título da lição #3</a></li>
+                </ul>
+            </div>
+        </nav>
 
         <!-- ROW -->
         <div class="row">
@@ -67,13 +86,13 @@
                     </div>
                 </div>
                 <div class="video">
-                    {# ROW #}
+                    <!-- ROW -->
                     <div class="row">
-                        {# ADD-VIDEO-INTRO #}
+                        <!-- ADD-VIDEO-INTRO -->
                         <div class="add-video-intro col-sm-12 col-lg-12 textcenter">
-                            {# CENTERED #}
+                            <!-- CENTERED -->
                             <div class="centered">
-                                <i class="fa fa-youtube-play"></i>
+                                <i class="fa fa-youtube-play fa-4x"></i>
                                 <h1 class="top">Vídeo da unidade</h1>
                                 <p class="form-group">
                                     <input type="text" class="form-control"/>
@@ -83,11 +102,11 @@
                                     <button class="btn btn-success btn-lg uppercase">Adicionar</button>
                                 </p>
                             </div>
-                            {# END CENTERED #}
+                            <!-- END CENTERED -->
                         </div>
-                        {# END ADD-VIDEO-INTRO #}
+                        <!-- END ADD-VIDEO-INTRO -->
                     </div>
-                    {# END ROW #}
+                    <!-- END ROW -->
                 </div>
             </div>
             <div class="col-lg-3">

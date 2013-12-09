@@ -1,11 +1,11 @@
   <header id="main-header" class="container">
     <div class="page-header">
       <div class="row">
-        <div class="col-lg-8 col-sm-8">
+        <div class="col-lg-9 col-sm-9">
           <h1 class="course-name bottom top">{{ course.name }}</h1>
           {% include "_course-professors-inline.html" with course=course %}
         </div>
-        <div class="col-lg-4 col-sm-4">
+        <div class="col-lg-3 col-sm-3">
           <!-- COURSE-SECTION-NAV -->
           <nav class="course-sections textright">
             <a href="{% url 'course_intro' course.slug %}"><span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="Intro"></span></a>
@@ -14,8 +14,8 @@
             <!-- TODO: Bruno Martin -->
             <a href="profile-note.html"><span class="has-tooltip fa fa-pencil" data-toggle="tooltip" data-placement="top" data-original-title="Anotações"></span></a>
             {% endcomment %}
-            <a href="{% url 'forum' course.slug %}"><span class="has-tooltip fa fa-list" data-toggle="tooltip" data-placement="top" data-original-title="Fórum"></span></a>
-            <a href="{% url 'course_material' course.slug %}"><span class="has-tooltip fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-original-title="Material Didádico"></span></a>
+            <a href="{% url 'forum' course.slug %}"><span class="has-tooltip fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="Fórum"></span></a>
+            <a href="{% url 'course_material' course.slug %}"><span class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="Material Didádico"></span></a>
           </nav>
           <!-- END COURSE-SECTION-NAV -->
         </div>

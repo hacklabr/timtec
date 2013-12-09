@@ -473,6 +473,10 @@ a:active {
         margin-top: -18px;
       }
     }
+    
+    nav.lesson-units {
+      margin-bottom: 10px !important;
+    }
 
     // ADD CONTENT - Admin
     // ********************************************************************* //
@@ -533,11 +537,11 @@ a:active {
   // END ADMIN
 
   
-  // HEADER - Global
+  // HEADER - Course Intro
   // ********************************************************************* //
   header {
     .page-header {
-      border: none;
+      border-bottom: 1px solid @gray-lighter;
       margin-bottom: 20px;
       h1 {
         .bottom(0,0);
@@ -564,6 +568,77 @@ a:active {
     }
   }
   // END HEADER
+  
+  // HEADER - Course Sections
+  // ********************************************************************* //
+  .course-sections {
+    a {
+      display: inline-block;
+      height: 28px;
+      span {
+        border-right: 1px solid @gray-lighter;
+        color: @gray-light;
+        display: inline-block;
+        font-size: 22px;
+        height: 28px;
+        margin-left: -3px;
+        overflow: hidden;
+        padding: 3px 9px;
+        position: relative;
+        text-align: center;
+        &:hover {
+          color: @brand-info;
+          cursor: pointer;
+          text-decoration: none;
+          .transition(all 0.1s ease-out);
+        }
+      }
+    }
+  }
+  // END HEADER - Course Sections
+  
+  // HEADER - Course Lesson
+  // ********************************************************************* //
+  &.course-lesson {
+    header {
+      .page-header {
+        margin-bottom: 0;
+        h1 {
+          font-size: 16px;
+          text-transform: uppercase;
+        }
+        ul.instructors {
+          font-size: 12px;
+        }
+      }      
+    }
+    #course-content {
+      nav.course-lessons {
+        h1 {
+          .bottom(0,0);
+          font-size: 30px;
+        }
+        p.description {
+          color: @gray-light;
+        }
+      }
+      nav.lesson-units {
+        margin-bottom: 60px;
+        ul.dropdown-menu {
+          li {
+            a {
+              color: @gray-light;
+              font-size: 12px;
+              &:hover {
+                background-color: transparent;
+                color: @gray;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
   
   // COURSE INTRO
   // ********************************************************************* //
@@ -668,7 +743,8 @@ a:active {
       // END INSTRUCTOR
     }
     // END INSTRUCTORS
-
+    
+    
     // COURSE VIDEO - General
     // ********************************************************************* //
     .video {
@@ -782,52 +858,29 @@ a:active {
   .top(27px);
 }
 
-// Course sections - navigation links (intro, lessons, notes, forum, wiki)
-.course-sections {
-  span {
-    background:@gray-lighter;
-    color:@gray-light;
-    display:inline-block;
-    font-size:22px;
-    height:28px;
-    margin-left:-3px;
-    overflow:hidden;
-    padding:3px 9px;
-    position:relative;
-    text-align:center;
-    &:hover {
-      background:@brand-primary;
-      color:@gray-lighter;
-      cursor:pointer;
-      text-decoration:none;
-      .transition(all 0.1s ease-out);
-    }
-  }
-}
-
 // Course lessons nav
-.course-lessons-nav {
-  .bottom(9px,9px);
-  button {
-    font-size:14px;
-  }
-  ul {
-    margin-top:0;
-    padding:9px 0;
-    text-transform:none;
-    li.active a, li.active a:hover {
-      color:@brand-info;
-    }
-    li a {
-      color:@gray;
-    }
-    li a:hover {
-      background:@gray-lighter;
-      color:@gray-darker;
-    }
-  }
-}
-
+// .course-lessons-nav {
+//   .bottom(9px,9px);
+//   button {
+//     font-size:14px;
+//   }
+//   ul {
+//     margin-top:0;
+//     padding:9px 0;
+//     text-transform:none;
+//     li.active a, li.active a:hover {
+//       color:@brand-info;
+//     }
+//     li a {
+//       color:@gray;
+//     }
+//     li a:hover {
+//       background:@gray-lighter;
+//       color:@gray-darker;
+//     }
+//   }
+// }
+// 
 .nav-lesson-xs {
   margin-bottom: 10px;
 }
