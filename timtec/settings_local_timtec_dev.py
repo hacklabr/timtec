@@ -1,6 +1,6 @@
 # configurations for the dev server
 # https://docs.djangoproject.com/en/dev/ref/settings/
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 SITE_ID = 1
