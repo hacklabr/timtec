@@ -9,7 +9,6 @@
             'require': '?ngModel',
             'controller': ['$scope', '$element', '$document', '$attrs',
                 function($scope, $element, $document, $attrs){
-                    console.log(arguments);
                     if($attrs.placeholder) {
                         var id = $element[0].nodeName + Math.random().toString(16).substring(2);
                         $element.attr('id', id);
