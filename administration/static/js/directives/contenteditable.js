@@ -15,6 +15,13 @@
                     element.html(ngModel.$viewValue || '');
                 };
 
+                element.on('keyup keydown', function(evt) {
+                    if( (evt.keyCode || evt.which) === 13 ) {
+                        evt.preventDefault();
+                        return false;
+                    }
+                });
+
                 element.on('blur keyup change', function() {
                     scope.$apply(read);
                 });
