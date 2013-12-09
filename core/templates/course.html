@@ -149,7 +149,6 @@
 
                                 <p>
                                     {% if lesson.is_ready and user_is_enrolled %}
-                                        <span class="title"><a href="{% url 'lesson' course.slug lesson.slug %}" class="title">{{ lesson.name }}</a></span>
                                         <a href="{% url 'lesson' course.slug lesson.slug %}" class="title">{{ lesson.name }}</a>
                                     {% else %}
                                         <span class="title">{{ lesson.name }}</span>
