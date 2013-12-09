@@ -24,7 +24,8 @@
                 <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
                     <h1>
                         <i ng-class="{'blink-danger':errors.name}" class="fa fa-angle-double-right pull-left"></i>
-                        <span style="display:block;margin-left: 1em;" ng-model="course.name" contenteditable></span>
+                        <span style="display:block;margin-left: 1em;" ng-model="course.name"
+                              placeholder="Nome do curso" contenteditable="true"></span>
                     </h1>
                     <ul class="instructors">
                         <li><a href=""><span class="icon-addable fa fa-plus-square left right"></span> Adicionar professores ao curso</a></li>
@@ -118,9 +119,9 @@
                         <h3><i class="fa fa-angle-double-right"></i> Lições</h3>
                     </div>
                     <!--  END PAGE-HEADER-DOUBLE  -->
-                    
+
                     <a href="">Organizar as lições</a>
-                    
+
                     <!-- ORGANIZING LESSONS -->
                     <div class="lessons organizing-lessons">
                         <!-- LESSON -->
@@ -204,13 +205,13 @@
                         <!--  END COL-LG-9  -->
                     </div>
                     <!--  END LESSON  -->
-                    
+
                     <div class="row textcenter">
                         <div class="col-lg-12">
                             <a href="/admin/courses/lessons/new" class="col-lg-12 btn btn-lg btn-default uppercase">Adicionar lição</a>
                         </div>
                     </div>
-                    
+
                 </section>
                 <!--  END COURSE-LESSONS  -->
 
@@ -237,7 +238,7 @@
                         </div>
                     </div>
                     <!-- END INSTRUCTOR -->
-                    
+
                     <div class="row textcenter">
                         <div class="col-lg-12">
                             <a href="/admin/courses/instructors/new" class="col-lg-12 btn btn-lg btn-default uppercase">Adicionar instrutor</a>

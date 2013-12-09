@@ -7,6 +7,19 @@
         return {
             'restrict': 'A',
             'require': '?ngModel',
+            'controller': ['$scope', '$element', '$document', '$attrs',
+                function($scope, $element, $document, $attrs){
+                    console.log(arguments);
+                    if($attrs.placeholder) {
+                        var id = $element[0].nodeName + Math.random().toString(16).substring(2);
+                        $element.attr('id', id);
+                        var style = $document[0].createElement('style');
+                        style.type = 'text/css';
+                        style.innerHTML = '#'+id+':empty:before { content: "'+$attrs.placeholder+'";}';
+                        $document[0].body.appendChild(style);
+                    }
+                }
+            ],
             'link': function(scope, element, attrs, ngModel) {
                 if(!ngModel)
                     return;
