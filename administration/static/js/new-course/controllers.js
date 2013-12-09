@@ -2,8 +2,8 @@
 
     var app = angular.module('new-course');
 
-    app.controller('CourseEditController', ['$scope', 'Course', 'youtubePlayerApi', 'VideoData',
-        function($scope, Course, youtubePlayerApi, VideoData) {
+    app.controller('CourseEditController', ['$scope', 'Course', '$filter', 'youtubePlayerApi', 'VideoData',
+        function($scope, Course, $filter, youtubePlayerApi, VideoData) {
             $scope.course = new Course({'status':'new','intro_video': {'youtube_id':''}});
             $scope.errors = {};
 
@@ -24,6 +24,9 @@
             });
 
             $scope.saveCourse = function() {
+                if(!$scope.course.slug)
+                    $scope.course.slug = $filter('slugify')($scope.course.name);
+
                 $scope.course.$save().catch(function(response){
                     $scope.errors = response.data;
                 });

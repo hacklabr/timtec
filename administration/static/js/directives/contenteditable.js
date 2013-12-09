@@ -39,7 +39,7 @@
                 });
 
                 function read() {
-                    var html = element.html();
+                    var html = element.text();
                     if( attrs.stripBr && html.match(/ *<br\/?> */) ){
                         html = '';
                     }

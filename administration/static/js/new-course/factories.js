@@ -3,7 +3,7 @@
     var app = angular.module('new-course');
 
     app.factory('Course', ['$resource', function($resource) {
-        var Course = $resource('/api/course/:slug', {'slug':'@slug'});
+        var Course = $resource('/api/course/');
         return Course;
     }]);
 

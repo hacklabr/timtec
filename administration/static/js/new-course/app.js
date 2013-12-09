@@ -4,6 +4,7 @@
     var app = angular.module('new-course', [
         'directive.contenteditable',
         'directive.markdowneditor',
+        'filters.text',
         'ngResource',
         'youtube'
     ]);

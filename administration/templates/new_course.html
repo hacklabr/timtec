@@ -4,6 +4,7 @@
 {% block js %} {{block.super}}
 <script type="text/javascript" src="{% static 'js/new-course/app.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/new-course/factories.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/filters/text.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/contenteditable.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/new-course/controllers.js' %}"></script>
@@ -23,6 +24,10 @@
                 <!--  COL-LG-9  -->
                 <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
                     <h1><span ng-class="{'blink-text-danger':errors.name}" ng-model="course.name" placeholder="Nome do curso" contenteditable="true"></span></h1>
+
+                    <span class="pull-left" ng-bind="course.name|slugify" ng-hide="course.slug"></span>
+                    <p ng-model="course.slug" contenteditable></p>
+
                     <ul class="instructors">
                         <li><a href=""><span class="icon-addable fa fa-plus-square left right"></span> Adicionar professores ao curso</a></li>
                     </ul>
