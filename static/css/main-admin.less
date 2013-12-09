@@ -17,7 +17,7 @@ body#admin {
       background-color: darken(@gray, 5%);
     }
   }
-  
+
   // COURSES LIST
   #courses {
     > header {
@@ -71,7 +71,7 @@ body#admin {
       background-color: lighten(@brand-warning, 40%);
     }
   }
-  
+
   .markdown-required {
     background-color: lighten(@brand-danger, 40%);
     position: relative;
@@ -86,7 +86,7 @@ body#admin {
       right: 15px;
     }
   }
-  
+
   .icon-editable {
     color: @brand-info;
     cursor: pointer;
@@ -94,7 +94,7 @@ body#admin {
     margin: 0 10px;
     vertical-align: bottom !important;
   }
-  
+
   .icon-addable {
     color:@brand-success;
     cursor:pointer;
@@ -303,4 +303,24 @@ body#admin {
       }
     }
   }
+}
+
+
+@keyframes blink-red
+{
+    0%   {color: auto; }
+    50%  {color: #b92929; }
+    100% {color: auto; }
+}
+
+@-webkit-keyframes blink-red
+{
+    0%   {color: auto; }
+    50%  {color: #b92929; }
+    100% {color: auto; }
+}
+
+.blink-danger {
+    animation: blink-red 2s infinite;
+    -webkit-animation: blink-red 2s infinite; /* Safari and Chrome */
 }
