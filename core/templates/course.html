@@ -51,7 +51,7 @@
         <div class="row">
             <!-- COL-LG-9 -->
             <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
-                
+
                 <!-- COURSE-VIDEO -->
                 <section class="video">
                     <!-- ROW -->
@@ -133,7 +133,7 @@
                         <h3><i class="fa fa-angle-double-right"></i> {% trans "Lessons" %}</h3>
                     </div>
                     <!-- END PAGE-HEADER-DOUBLE -->
-            
+
                     <!-- FOR LESSON IN COURSE.PUBLIC_LESSONS -->
                     {% for lesson in course.public_lessons %}
                         <!-- LESSON -->
@@ -143,7 +143,7 @@
                                 <img src="{{ lesson.thumbnail }}" class="thumbnail">
                             </div>
                             <!-- END COL-LG-3 -->
-                    
+
                             <!-- COL-LG-9 -->
                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 
@@ -179,7 +179,7 @@
                                                         <span class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
                                                               data-toggle="tooltip" data-placement="bottom"
                                                               data-original-title="Unidade {{ forloop.counter }}">
-                                                              {% if unit.activity %} 
+                                                              {% if unit.activity %}
                                                                   <i class="fa fa-list"></i>
                                                               {% endif %}
                                                         </span>
@@ -194,7 +194,7 @@
                                     <!-- END TABLE -->
                                 </div>
                                 <!-- END HIDDEN-XS -->
-                    
+
                                 {% if lesson.is_ready %}
                                     <p><i class="fa fa-youtube-play"></i> <small>{{ lesson.video_count }} {% trans "videos" %}</small> | <i class="fa fa-list"></i> <small>{{ lesson.activity_count }} {% trans "activities" %}</small></p>
                                 {% endif %}
