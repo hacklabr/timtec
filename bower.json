@@ -1,0 +1,33 @@
+{
+  "name": "timtec",
+  "version": "1.0.0",
+  "homepage": "https://github.com/hacklabr/timtec",
+  "authors": [
+    "Leonardo Santagada <santagada@hacklab.com.br>"
+  ],
+  "license": "AGPL",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.4",
+    "angular-animate": "~1.2.4",
+    "angular-cookies": "~1.2.4",
+    "angular-resource": "~1.2.4",
+    "angular-route": "~1.2.4",
+    "angular-sanitize": "~1.2.4",
+    "angular-ui-codemirror": "~0.0.7",
+    "bootstrap": "~3.0.3",
+    "codemirror": "~3.19.0",
+    "jquery": "<2.0.0",
+    "dropzone": "~3.7.4",
+    "modernizr": "~2.7.1",
+    "font-awesome": "~4.0.3",
+    "angular-mocks": "~1.2.4"
+  }
+}

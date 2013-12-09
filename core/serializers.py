@@ -65,6 +65,7 @@ class LessonHyperlinkedIdentityField(serializers.HyperlinkedIdentityField):
 class LessonSerializer(serializers.HyperlinkedModelSerializer):
     course = serializers.SlugRelatedField(slug_field='slug')
     units = UnitSerializer(many=True, allow_add_remove=True)
+    thumbnail = serializers.Field(source='thumbnail')
     url = LessonHyperlinkedIdentityField(
         view_name='lesson',
         lookup_field='slug'
@@ -72,7 +73,7 @@ class LessonSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Lesson
-        fields = ('id', 'course', 'desc', 'name', 'notes', 'position', 'slug', 'status', 'units', 'url',)
+        fields = ('id', 'course', 'desc', 'name', 'notes', 'position', 'slug', 'status', 'units', 'url', 'thumbnail')
 
 
 class SimplifiedLessonSerializer(serializers.ModelSerializer):
