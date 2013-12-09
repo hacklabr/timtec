@@ -425,7 +425,23 @@ a:active {
 }
 // END COURSES LIST - Admin
 
-    
+#admin {
+  [contenteditable]:empty:before {
+    color: lighten(@brand-danger, 20%);
+    font-weight: normal;
+  }
+
+  [contenteditable]:empty {
+    background-color: lighten(@brand-danger, 40%);
+    color: lighten(@brand-danger, 20%);
+    font-weight: normal;
+  }
+
+  [contenteditable]:hover {
+    background-color: lighten(@brand-warning, 40%);
+    color: black;
+  }
+}
 
 // COURSE
 // ********************************************************************* //
@@ -492,8 +508,10 @@ a:active {
     }
     // END CONTENT
     
-    .lessons.organizing-lessons {
-      .lesson {
+    .lessons.organizing-lessons,
+    .instructors.organizing-instructors {
+      .lesson,
+      .instructor {
         border-bottom: 1px solid @gray-lighter;
         margin-bottom: 0;
         margin-top: 10px;
@@ -524,6 +542,9 @@ a:active {
       h1 {
         .bottom(0,0);
         .top(0,0);
+        span {
+          display: block;
+        }
       }
     }
     ul.instructors {

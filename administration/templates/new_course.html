@@ -4,9 +4,9 @@
 {% block js %} {{block.super}}
 <script type="text/javascript" src="{% static 'js/new-course/app.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/new-course/factories.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/new-course/directives.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/new-course/controllers.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/contenteditable.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -22,7 +22,7 @@
             <div class="row">
                 <!--  COL-LG-9  -->
                 <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
-                    <h1 ng-bind="course.name"></h1>
+                    <h1><span ng-model="course.name" placeholder="Nome do curso" contenteditable="true"></span></h1>
                     <ul class="instructors">
                         <li><a href=""><span class="icon-addable fa fa-plus-square left right"></span> Adicionar professores ao curso</a></li>
                     </ul>
@@ -88,8 +88,7 @@
                         <!--  COL-LG-6  -->
                         <div class="application col-sm-6 col-lg-6">
                             <div class="page-header-double">
-                                <warning model="errors.application"></warning>
-                                <h3 class="top"><i class="fa fa-angle-double-right"></i> Aplicação do Conhecimento</h3>
+                                <h3 class="top"><i ng-class="{'blink-danger':errors.application}" class="fa fa-angle-double-right"></i> Aplicação do Conhecimento</h3>
                             </div>
                             <modalmarkdowneditor save="saveCourse" title="Aplicação do conhecimento" content="course.application"></modalmarkdowneditor>
                         </div>
@@ -98,8 +97,7 @@
                         <!--  COL-LG-6  -->
                         <div class="requirement col-sm-6 col-lg-6">
                             <div class="page-header-double">
-                                <warning model="errors.requirement"></warning>
-                                <h3 class="top"><i class="fa fa-angle-double-right"></i> O que preciso saber</h3>
+                                <h3 class="top"><i ng-class="{'blink-danger':errors.requirement}" class="fa fa-angle-double-right"></i> O que preciso saber</h3>
                             </div>
                             <modalmarkdowneditor save="saveCourse" title="O que preciso saber?" content="course.requirement"></modalmarkdowneditor>
 
@@ -117,9 +115,9 @@
                         <h3><i class="fa fa-angle-double-right"></i> Lições</h3>
                     </div>
                     <!--  END PAGE-HEADER-DOUBLE  -->
-                    
+
                     <a href="">Organizar as lições</a>
-                    
+
                     <!-- ORGANIZING LESSONS -->
                     <div class="lessons organizing-lessons">
                         <!-- LESSON -->
@@ -174,8 +172,8 @@
                         <!--  COL-LG-9  -->
                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                             <p>
-                                <a href="" class="title">Introdução: Internet e Web</a>
-                                <span class="description">Quais são as relações e as diferenças entre Internet e Web. A Web e as camadas de desenvolvimento do lado do usuário</span>
+                                <a href="" class="title editable">Introdução: Internet e Web</a>
+                                <span class="description editable">Quais são as relações e as diferenças entre Internet e Web. A Web e as camadas de desenvolvimento do lado do usuário</span>
                             </p>
                             <!--  HIDDEN-XS  -->
                             <div class="hidden-xs">
@@ -203,13 +201,13 @@
                         <!--  END COL-LG-9  -->
                     </div>
                     <!--  END LESSON  -->
-                    
+
                     <div class="row textcenter">
                         <div class="col-lg-12">
                             <a href="/admin/courses/lessons/new" class="col-lg-12 btn btn-lg btn-default uppercase">Adicionar lição</a>
                         </div>
                     </div>
-                    
+
                 </section>
                 <!--  END COURSE-LESSONS  -->
 
@@ -220,6 +218,25 @@
                         <h3><i class="fa fa-angle-double-right"></i> Instrutores</h3>
                     </div>
                     <!-- END PAGE-HEADER-DOUBLE -->
+                    
+                    <a href="">Organizar instrutores</a>
+                    
+                    <div class="instructors organizing-instructors">
+                        <div class="instructor">
+                            <div class="row">
+                                <div class="col-lg-11">
+                                    <i class="fa fa-bars"></i> Fabio Flatschart
+                                </div>
+                                <div class="col-lg-1 textright">
+                                    <i class="fa fa-minus-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="submit textright">
+                            <button class="btn btn-danger">Cancelar</button>
+                            <button class="btn btn-success">Salvar</button>
+                        </div>
+                    </div>
 
                     <!-- INSTRUCTOR -->
                     <div id="" class="instructor row">
@@ -236,7 +253,7 @@
                         </div>
                     </div>
                     <!-- END INSTRUCTOR -->
-                    
+
                     <div class="row textcenter">
                         <div class="col-lg-12">
                             <a href="/admin/courses/instructors/new" class="col-lg-12 btn btn-lg btn-default uppercase">Adicionar instrutor</a>
@@ -254,8 +271,7 @@
 
                     <!--  ABSTRACT  -->
                     <div class="page-header-double top">
-                        <warning model="errors.abstract"></warning>
-                        <h3 class="top"><i class="fa fa-angle-double-right"></i> Resumo</h3>
+                        <h3 class="top"><i ng-class="{'blink-danger':errors.abstract}" class="fa fa-angle-double-right"></i> Resumo</h3>
 
                     </div>
                     <modalmarkdowneditor save="saveCourse" title="Resumo" content="course.abstract"></modalmarkdowneditor>
@@ -265,8 +281,7 @@
 
                     <!--  STRUCTURE  -->
                     <div class="page-header-double top">
-                        <warning model="errors.structure"></warning>
-                        <h3 class="top"><i class="fa fa-angle-double-right"></i> Estrutura do curso</h3>
+                        <h3 class="top"><i ng-class="{'blink-danger':errors.structure}" class="fa fa-angle-double-right"></i> Estrutura do curso</h3>
                     </div>
                     <modalmarkdowneditor save="saveCourse" title="Estrutura do curso" content="course.structure"></modalmarkdowneditor>
 
@@ -275,8 +290,7 @@
 
                     <!--  WORKLOAD  -->
                     <div class="page-header-double top">
-                        <warning model="errors.workload"></warning>
-                        <h3 class="top"><i class="fa fa-angle-double-right"></i> Carga horária</h3>
+                        <h3 class="top"><i ng-class="{'blink-danger':errors.workload}" class="fa fa-angle-double-right"></i> Carga horária</h3>
                     </div>
                     <modalmarkdowneditor save="saveCourse" title="Carga horária" content="course.workload"></modalmarkdowneditor>
 
@@ -284,7 +298,6 @@
                     <!--  END WORKLOAD  -->
 
                     <div class="page-header-double top">
-                        <warning model="errors.pronatec"></warning>
                         <h3 class="top"><i class="fa fa-angle-double-right"></i> Texto PRONATEC</h3>
                     </div>
                     <modalmarkdowneditor save="saveCourse" title="PRONATEC" content="course.pronatec"></modalmarkdowneditor>
