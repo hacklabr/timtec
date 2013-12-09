@@ -4,7 +4,6 @@
 {% block js %} {{block.super}}
 <script type="text/javascript" src="{% static 'js/new-course/app.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/new-course/factories.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/new-course/directives.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/new-course/controllers.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
 {% endblock %}
@@ -88,7 +87,6 @@
                         <!--  COL-LG-6  -->
                         <div class="application col-sm-6 col-lg-6">
                             <div class="page-header-double">
-                                <warning model="errors.application"></warning>
                                 <h3 class="top"><i class="fa fa-angle-double-right"></i> Aplicação do Conhecimento</h3>
                             </div>
                             <modalmarkdowneditor save="saveCourse" title="Aplicação do conhecimento" content="course.application"></modalmarkdowneditor>
@@ -98,7 +96,6 @@
                         <!--  COL-LG-6  -->
                         <div class="requirement col-sm-6 col-lg-6">
                             <div class="page-header-double">
-                                <warning model="errors.requirement"></warning>
                                 <h3 class="top"><i class="fa fa-angle-double-right"></i> O que preciso saber</h3>
                             </div>
                             <modalmarkdowneditor save="saveCourse" title="O que preciso saber?" content="course.requirement"></modalmarkdowneditor>
@@ -254,7 +251,6 @@
 
                     <!--  ABSTRACT  -->
                     <div class="page-header-double top">
-                        <warning model="errors.abstract"></warning>
                         <h3 class="top"><i class="fa fa-angle-double-right"></i> Resumo</h3>
 
                     </div>
@@ -265,7 +261,6 @@
 
                     <!--  STRUCTURE  -->
                     <div class="page-header-double top">
-                        <warning model="errors.structure"></warning>
                         <h3 class="top"><i class="fa fa-angle-double-right"></i> Estrutura do curso</h3>
                     </div>
                     <modalmarkdowneditor save="saveCourse" title="Estrutura do curso" content="course.structure"></modalmarkdowneditor>
@@ -275,7 +270,6 @@
 
                     <!--  WORKLOAD  -->
                     <div class="page-header-double top">
-                        <warning model="errors.workload"></warning>
                         <h3 class="top"><i class="fa fa-angle-double-right"></i> Carga horária</h3>
                     </div>
                     <modalmarkdowneditor save="saveCourse" title="Carga horária" content="course.workload"></modalmarkdowneditor>
@@ -284,7 +278,6 @@
                     <!--  END WORKLOAD  -->
 
                     <div class="page-header-double top">
-                        <warning model="errors.pronatec"></warning>
                         <h3 class="top"><i class="fa fa-angle-double-right"></i> Texto PRONATEC</h3>
                     </div>
                     <modalmarkdowneditor save="saveCourse" title="PRONATEC" content="course.pronatec"></modalmarkdowneditor>
