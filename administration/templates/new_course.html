@@ -15,6 +15,27 @@
 <!--  COURSE CONTENT  -->
 <div id="course" class="course-intro" ng-app="new-course" ng-controller="CourseEditController">
 
+    <!-- ACTIONS -->
+    <div class="actions">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <select id="courseStatus" class="" ng-model="course.status">
+                        <option value="new">Novo</option>
+                        <option value="draft">Rascunho</option>
+                        <option value="listed">Listado</option>
+                        <option value="published">Publicado</option>
+                    </select>
+                </div>
+                <div class="col-lg-6 textright">
+                    <button class="btn btn-success">Salvar</button>
+                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END ACTIONS -->
+
     <!--  HEADER  -->
     <header class="container">
         <!--  PAGE-HEADER  -->
@@ -157,34 +178,46 @@
                         <div class="lesson">
                             <div class="row">
                                 <div class="col-lg-11">
-                                    <i class="fa fa-bars"></i> 1 - Introdução: Internet e Web
+                                    <button class="btn btn-warning"><i class="fa fa-bars"></i></button>
+                                    <span class="title">1 - Introdução: Internet e Web</span>
                                 </div>
-                                <div class="col-lg-1 textright"><i class="fa fa-minus-circle"></i></div>
+                                <div class="col-lg-1 textright">
+                                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                </div>
                             </div>
                         </div>
                         <!-- END LESSON -->
                         <div class="lesson">
                             <div class="row">
                                 <div class="col-lg-11">
-                                    <i class="fa fa-bars"></i> 2 - Montando a estrutura de um documento HTML
+                                    <button class="btn btn-warning"><i class="fa fa-bars"></i></button>
+                                    <span class="title">2 - Montando a estrutura de um documento HTML</span>
                                 </div>
-                                <div class="col-lg-1 textright"><i class="fa fa-minus-circle"></i></div>
+                                <div class="col-lg-1 textright">
+                                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                </div>
                             </div>
                         </div>
                         <div class="lesson">
                             <div class="row">
                                 <div class="col-lg-11">
-                                    <i class="fa fa-bars"></i> 3 - Grupos de conteúdo e elementos semânticos de texto
+                                    <button class="btn btn-warning"><i class="fa fa-bars"></i></button>
+                                    <span class="title">3 - Grupos de conteúdo e elementos semânticos de texto</span>
                                 </div>
-                                <div class="col-lg-1 textright"><i class="fa fa-minus-circle"></i></div>
+                                <div class="col-lg-1 textright">
+                                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                </div>
                             </div>
                         </div>
                         <div class="lesson">
                             <div class="row">
                                 <div class="col-lg-11">
-                                    <i class="fa fa-bars"></i> 4 - Conteúdo multimídia
+                                    <button class="btn btn-warning"><i class="fa fa-bars"></i></button>
+                                    <span class="title">4 - Conteúdo multimídia</span>
                                 </div>
-                                <div class="col-lg-1 textright"><i class="fa fa-minus-circle"></i></div>
+                                <div class="col-lg-1 textright">
+                                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                </div>
                             </div>
                         </div>
                         <div class="submit textright">
@@ -258,10 +291,11 @@
                         <div class="instructor">
                             <div class="row">
                                 <div class="col-lg-11">
-                                    <i class="fa fa-bars"></i> Fabio Flatschart
+                                    <button class="btn btn-warning"><i class="fa fa-bars"></i></button>
+                                    <span class="title">Fabio Flatschart</span>
                                 </div>
                                 <div class="col-lg-1 textright">
-                                    <i class="fa fa-minus-circle"></i>
+                                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -301,18 +335,6 @@
             <div class="col-lg-3 col-md-3 col-sm-3">
                 <!--   COURSE-SUMMARY  -->
                 <section class="summary">
-
-                    <div class="page-header-double top">
-                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.status}" class="fa fa-angle-double-right"></i> Situação</h3>
-                    </div>
-                    <select id="courseStatus" class="form-control" ng-model="course.status">
-                        <option value="new">Novo</option>
-                        <option value="draft">Rascunho</option>
-                        <option value="listed">Listado</option>
-                        <option value="published">Publicado</option>
-                    </select>
-                    <hr/>
-
 
                     <!--  ABSTRACT  -->
                     <div class="page-header-double top">

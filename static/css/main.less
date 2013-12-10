@@ -449,11 +449,12 @@ a:active {
   // ADMIN
   // ********************************************************************* //
   #admin & {
-
+    
     // HEADER - Admin
     // ********************************************************************* //
     header {
       margin-bottom: 20px;
+      margin-top: -20px;
     }
     // END HEADER
 
@@ -461,9 +462,10 @@ a:active {
     // ACTIONS - Admin
     // ********************************************************************* //
     .actions {
-      border-top: 1px solid @gray-light;
-      margin-top: 40px;
-      padding-top: 40px;
+      background-color: @gray-lighter;
+      margin-bottom: 20px;
+      margin-top: -20px;
+      padding: 10px;
     }
     // END ACTIONS
 
@@ -519,9 +521,13 @@ a:active {
         margin-bottom: 0;
         margin-top: 10px;
         padding-bottom: 10px;
+        .title {
+          display: inline-block;
+          font-size: 14px;
+          margin-left: 10px;
+        }
         .fa.fa-bars {
           cursor: move;
-          margin-right: 10px;
         }
         .fa.fa-minus-circle {
           cursor: pointer;
