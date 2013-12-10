@@ -12,14 +12,15 @@
                 youtubePlayerApi.videoId = $scope.course.intro_video.youtube_id;
                 youtubePlayerApi.playerWidth = '100%';
                 youtubePlayerApi.playerHeight = '475px';
-                youtubePlayerApi.loadPlayer();
-                player = youtubePlayerApi.player;
+                youtubePlayerApi.loadPlayer().then(function(p){
+                    player = p;
+                });
                 window.p = player;
             });
 
             $scope.$watch('course.intro_video.youtube_id', function(vid){
                 if(!vid) return;
-                setTimeout(function(){player.cueVideoById(vid);}, 500);
+                player && player.cueVideoById(vid);
                 VideoData.load(vid).then(function(data){
                     $scope.course.intro_video.name = data.entry.title.$t;
                 });

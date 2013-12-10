@@ -3,7 +3,14 @@
     var app = angular.module('new-course');
 
     app.factory('Course', ['$resource', function($resource) {
-        var Course = $resource('/api/course/');
+        var Course = $resource('/api/course/:id', {'id':'@id'});
+
+        Course.prototype.hasVideo = function(){
+            return this.intro_video &&
+                   this.intro_video.youtube_id &&
+                   this.intro_video.youtube_id.length > 0;
+        };
+
         return Course;
     }]);
 
