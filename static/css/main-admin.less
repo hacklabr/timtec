@@ -303,21 +303,41 @@ body#admin {
 }
 
 
-@keyframes blink-red
+@keyframes blink-text-red
 {
     0%   {color: auto; }
     50%  {color: #b92929; }
     100% {color: auto; }
 }
 
-@-webkit-keyframes blink-red
+@-webkit-keyframes blink-text-red
 {
     0%   {color: auto; }
     50%  {color: #b92929; }
     100% {color: auto; }
 }
 
-.blink-danger {
-    animation: blink-red 2s infinite;
-    -webkit-animation: blink-red 2s infinite; /* Safari and Chrome */
+.blink-text-danger {
+    animation: blink-text-red 2s infinite;
+    -webkit-animation: blink-text-red 2s infinite; /* Safari and Chrome */
 }
+
+@keyframes blink-bg-red
+{
+    0%   {background-color: auto; }
+    50%  {background-color: #b92929; }
+    100% {background-color: auto; }
+}
+
+@-webkit-keyframes blink-bg-red
+{
+    0%   {background-color: auto; }
+    50%  {background-color: #b92929; }
+    100% {background-color: auto; }
+}
+
+.blink-bg-danger {
+    animation: blink-bg-red 2s infinite;
+    -webkit-animation: blink-bg-red 2s infinite; /* Safari and Chrome */
+}
+

@@ -1,7 +1,13 @@
 (function(angular){
     'use strict';
 
-    var app = angular.module('new-course', ['ngResource', 'directive.contenteditable', 'directive.markdowneditor']);
+    var app = angular.module('new-course', [
+        'directive.contenteditable',
+        'directive.markdowneditor',
+        'filters.text',
+        'ngResource',
+        'youtube'
+    ]);
 
     app.config(['$httpProvider',
         function ($httpProvider) {

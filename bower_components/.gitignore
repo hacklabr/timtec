@@ -1,0 +1,16 @@
+*.min.js
+*.map
+*.md
+*.txt
+bower.json
+.bower.json
+bootstrap/dist/fonts
+bootstrap/dist/css
+bootstrap/js
+dropzone/downloads/images
+font-awesome/less
+font-awesome/scss
+font-awesome/src
+modernizr/feature-detects
+modernizr/media
+modernizr/test

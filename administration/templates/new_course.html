@@ -4,9 +4,10 @@
 {% block js %} {{block.super}}
 <script type="text/javascript" src="{% static 'js/new-course/app.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/new-course/factories.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/new-course/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/filters/text.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/contenteditable.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/new-course/controllers.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -20,9 +21,13 @@
         <div class="page-header">
             <!--  ROW  -->
             <div class="row">
-                <!--  COL-LG-8  -->
-                <div class="col-lg-9 col-sm-9">
-                    <h1><span ng-model="course.name" contenteditable="true"></span></h1>
+                <!--  COL-LG-9  -->
+                <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+                    <h1><span ng-class="{'blink-text-danger':errors.name}" ng-model="course.name" placeholder="Nome do curso" contenteditable="true"></span></h1>
+
+                    <span class="pull-left" ng-bind="course.name|slugify" ng-hide="course.slug"></span>
+                    <p ng-model="course.slug" contenteditable></p>
+
                     <ul class="instructors">
                         <li><a href=""><span class="icon-addable fa fa-plus-square left right"></span> Adicionar professores ao curso</a></li>
                     </ul>
@@ -54,7 +59,7 @@
                 <!-- ADD CONTENT -->
                 <div class="add-content row">
                     <div class="col-lg-6">
-                        <a class="selected" href="">Vídeo</a>
+                        <a ng-class="{'blink-bg-danger':errors.intro_video}" class="selected" href="">Vídeo</a>
                         <a href="">Imagem</a>
                     </div>
                 </div>
@@ -64,21 +69,32 @@
                 <section class="video">
                     <!--  ROW  -->
                     <div class="row">
-                        <!--  ADD-VIDEO-INTRO  -->
-                        <div class="add-video-intro col-sm-12 col-lg-12 textcenter">
-                            <!--  CENTERED  -->
+
+                        <div class="col-lg-12" ng-show="course.intro_video.youtube_id">
+                            <div id="youtube-player" youtube-player></div>
+                            <p ng-model="course.intro_video.name" placeholder="Nome do vídeo" contenteditable><p>
+                            <button class="btn btn-success btn-lg uppercase"
+                                    ng-click="course.intro_video.youtube_id=''">Alterar vídeo</button>
+                        </div>
+
+                        <div class="add-video-intro col-sm-12 col-lg-12 textcenter"
+                             ng-show="!course.intro_video.youtube_id">
                             <div class="centered">
-                                <i class="fa fa-youtube-play fa-4x"></i>
-                                <h1 class="top">Vídeo de introdução</h1>
-                                <p class="form-group">
-                                    <input type="text" class="form-control"/>
-                                </p>
+                                <div class="form-group">
+                                    <i class="fa fa-youtube-play fa-4x"></i>
+                                    <h1 class="top">Vídeo de introdução</h1>
+                                    <input type="text" ng-model="youtube_id" class="form-control"/>
+                                </div>
+
                                 <p>
-                                    <button class="btn btn-danger btn-lg uppercase">Cancelar</button>
-                                    <button class="btn btn-success btn-lg uppercase">Adicionar</button>
+                                    <button class="btn btn-danger btn-lg uppercase"
+                                            ng-click="course.intro_video.youtube_id=''">Cancelar</button>
+
+                                    <button class="btn btn-success btn-lg uppercase"
+                                            ng-show="!course.intro_video.youtube_id"
+                                            ng-click="course.intro_video.youtube_id=youtube_id">Adicionar</button>
                                 </p>
                             </div>
-                            <!--  END CENTERED  -->
                         </div>
                         <!--  END ADD-VIDEO-INTRO  -->
                     </div>
@@ -93,7 +109,7 @@
                         <!--  COL-LG-6  -->
                         <div class="application col-sm-6 col-lg-6">
                             <div class="page-header-double">
-                                <h3 class="top"><i ng-class="{'blink-danger':errors.application}" class="fa fa-angle-double-right"></i> Aplicação do Conhecimento</h3>
+                                <h3 class="top"><i ng-class="{'blink-text-danger':errors.application}" class="fa fa-angle-double-right"></i> Aplicação do Conhecimento</h3>
                             </div>
                             <modalmarkdowneditor save="saveCourse" title="Aplicação do conhecimento" content="course.application"></modalmarkdowneditor>
                         </div>
@@ -102,7 +118,7 @@
                         <!--  COL-LG-6  -->
                         <div class="requirement col-sm-6 col-lg-6">
                             <div class="page-header-double">
-                                <h3 class="top"><i ng-class="{'blink-danger':errors.requirement}" class="fa fa-angle-double-right"></i> O que preciso saber</h3>
+                                <h3 class="top"><i ng-class="{'blink-text-danger':errors.requirement}" class="fa fa-angle-double-right"></i> O que preciso saber</h3>
                             </div>
                             <modalmarkdowneditor save="saveCourse" title="O que preciso saber?" content="course.requirement"></modalmarkdowneditor>
 
@@ -170,7 +186,7 @@
                     <div class="lesson row">
                         <!--  COL-LG-3  -->
                         <div class="col-lg-3 col-sm-3 col-sm-3 hidden-xs">
-                            <img src="http://i1.ytimg.com/vi/gPdNX46JCp8/hqdefault.jpg" class="thumbnail">
+                            <img src="http://i1.ytimg.com/vi/gPdNX46JCp8/hqdefault.jpg" class="img-thumbnail">
                         </div>
                         <!--  END COL-LG-3  -->
 
@@ -223,9 +239,9 @@
                         <h3><i class="fa fa-angle-double-right"></i> Instrutores</h3>
                     </div>
                     <!-- END PAGE-HEADER-DOUBLE -->
-                    
+
                     <a href="">Organizar instrutores</a>
-                    
+
                     <div class="instructors organizing-instructors">
                         <div class="instructor">
                             <div class="row">
@@ -274,9 +290,21 @@
                 <!--   COURSE-SUMMARY  -->
                 <section class="summary">
 
+                    <div class="page-header-double top">
+                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.status}" class="fa fa-angle-double-right"></i> Situação</h3>
+                    </div>
+                    <select id="courseStatus" class="form-control" ng-model="course.status">
+                        <option value="new">Novo</option>
+                        <option value="draft">Rascunho</option>
+                        <option value="listed">Listado</option>
+                        <option value="published">Publicado</option>
+                    </select>
+                    <hr/>
+
+
                     <!--  ABSTRACT  -->
                     <div class="page-header-double top">
-                        <h3 class="top"><i ng-class="{'blink-danger':errors.abstract}" class="fa fa-angle-double-right"></i> Resumo</h3>
+                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> Resumo</h3>
 
                     </div>
                     <modalmarkdowneditor save="saveCourse" title="Resumo" content="course.abstract"></modalmarkdowneditor>
@@ -286,7 +314,7 @@
 
                     <!--  STRUCTURE  -->
                     <div class="page-header-double top">
-                        <h3 class="top"><i ng-class="{'blink-danger':errors.structure}" class="fa fa-angle-double-right"></i> Estrutura do curso</h3>
+                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.structure}" class="fa fa-angle-double-right"></i> Estrutura do curso</h3>
                     </div>
                     <modalmarkdowneditor save="saveCourse" title="Estrutura do curso" content="course.structure"></modalmarkdowneditor>
 
@@ -295,7 +323,7 @@
 
                     <!--  WORKLOAD  -->
                     <div class="page-header-double top">
-                        <h3 class="top"><i ng-class="{'blink-danger':errors.workload}" class="fa fa-angle-double-right"></i> Carga horária</h3>
+                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.workload}" class="fa fa-angle-double-right"></i> Carga horária</h3>
                     </div>
                     <modalmarkdowneditor save="saveCourse" title="Carga horária" content="course.workload"></modalmarkdowneditor>
 
