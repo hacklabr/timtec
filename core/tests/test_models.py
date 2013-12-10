@@ -26,7 +26,7 @@ def test_percent_progress_by_lesson(user):
     progress = course_student.percent_progress_by_lesson()
     assert progress[0]['name'] == 'Test Course'
     assert progress[0]['slug'] == 'test-course'
-    assert progress[0]['progress'] == 75
+    assert progress[0]['progress'] == 0.75
 
 
 @pytest.mark.django_db

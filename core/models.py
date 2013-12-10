@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
+from __future__ import division
 from positions import PositionField
-
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
@@ -104,7 +104,7 @@ class CourseStudent(models.Model):
 
     def percent_progress_by_lesson(self):
         """
-        Returns a list with dictionaries with keys name (lesson name), slug (lesson slug) and progress (percent lesson progress)
+        Returns a list with dictionaries with keys name (lesson name), slug (lesson slug) and progress (percent lesson progress, decimal)
         """
         progress_list = []
         for lesson in self.course.lessons.all():
@@ -114,7 +114,7 @@ class CourseStudent(models.Model):
             units_len = lesson.unit_count()
             if units_len:
                 units_done_len = self.units_done_by_lesson(lesson).count()
-                lesson_progress['progress'] = int(100.0 * units_done_len / units_len)
+                lesson_progress['progress'] = units_done_len / units_len
             else:
                 lesson_progress['progress'] = 0
             progress_list.append(lesson_progress)

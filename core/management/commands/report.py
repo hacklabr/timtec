@@ -1,5 +1,6 @@
 # coding: utf-8
 
+from __future__ import division
 import csv
 import cStringIO
 import codecs
@@ -21,7 +22,7 @@ class DictUnicodeWriter(object):
         self.encoder = codecs.getincrementalencoder(encoding)()
 
     def writerow(self, D):
-        self.writer.writerow({k:v.encode("utf-8") for k,v in D.items()})
+        self.writer.writerow({k: v.encode("utf-8") for k, v in D.items()})
         # Fetch UTF-8 output from the queue ...
         data = self.queue.getvalue()
         data = data.decode("utf-8")
@@ -45,11 +46,9 @@ class Command(BaseCommand):
     help = 'Help'
 
     def handle(self, *args, **options):
-#         import ipdb;ipdb.set_trace()
-#         report = {}
         lessons_progress = []
         avg_length = 0
-#         try:
+
         emails_file = open(args[2])
         course = Course.objects.get(slug=args[0])
 
@@ -58,7 +57,14 @@ class Command(BaseCommand):
             try:
                 user = User.objects.get(email=email)
                 course_student = CourseStudent.objects.filter(user=user, course=course).first()
-                if not course_student:
+                if course_student:
+                    avg_length += 1
+                    for progress in course_student.percent_progress_by_lesson():
+                        progress['user_name'] = user.first_name + user.last_name
+                        progress['email'] = user.email
+                        progress['progress'] = str(progress['progress'])
+                        lessons_progress.append(progress)
+                else:
                     fake_progress = {}
                     fake_progress['user_name'] = user.first_name + user.last_name
                     fake_progress['email'] = user.email
@@ -66,13 +72,7 @@ class Command(BaseCommand):
                     fake_progress['slug'] = u''
                     fake_progress['progress'] = u'Não começou o curso'
                     lessons_progress.append(fake_progress)
-                else:
-                    for progress in course_student.percent_progress_by_lesson():
-                        progress['user_name'] = user.first_name + user.last_name
-                        progress['email'] = user.email
-                        progress['progress'] = str(progress['progress'])
-                        lessons_progress.append(progress)
-                        avg_length += 1
+
             except User.DoesNotExist:
                 fake_progress = {}
                 fake_progress['user_name'] = ''
@@ -81,33 +81,27 @@ class Command(BaseCommand):
                 fake_progress['slug'] = u''
                 fake_progress['progress'] = u'Não se inscreveu na plataforma'
                 lessons_progress.append(fake_progress)
-#         except:
-#             self.stdout.write(u'Erro ao abrir arquivo de emails dos usuários. Forneça o path completo.')
 
         with open(args[1], 'wb') as output_file:
-            writer = DictUnicodeWriter(output_file, fieldnames=['name', 'slug', 'progress', 'user_name', 'email'], delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-#             writer.writeheader()
+            writer = DictUnicodeWriter(output_file, fieldnames=['name', 'slug', 'progress', 'user_name', 'email'], delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+            writer.writeheader()
             writer.writerows(lessons_progress)
 
         lessons_progress_avg = {}
         for progress in lessons_progress:
             try:
-                progress_int = int(progress['progress'])
+                progress_float = float(progress['progress'])
                 if progress['slug'] in lessons_progress_avg.keys():
-                    lessons_progress_avg[progress['slug']] += progress_int
+                    lessons_progress_avg[progress['slug']] += progress_float
                 else:
-                    lessons_progress_avg[progress['slug']] = progress_int
+                    lessons_progress_avg[progress['slug']] = progress_float
             except ValueError:
                 pass
         lessons_progress_avg_list = []
         for key, value in lessons_progress_avg.items():
-            try:
-                lessons_progress_avg[key] = str(value / avg_length)
-                lessons_progress_avg_list.append({key: str(value / avg_length)})
-            except:
-                pass
-        import ipdb;ipdb.set_trace()
+            lessons_progress_avg_list.append({'lesson': key, 'progress': str(value / avg_length)})
+
         with open('lessons' + args[1], 'wb') as output_file:
-            writer = DictUnicodeWriter(output_file, fieldnames=lessons_progress_avg.keys(), delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-#             writer.writeheader()
+            writer = DictUnicodeWriter(output_file, fieldnames=['lesson', 'progress'], delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+            writer.writeheader()
             writer.writerows(lessons_progress_avg_list)
