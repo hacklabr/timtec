@@ -76,9 +76,15 @@
 
                         <div class="col-lg-12" ng-show="course.intro_video.youtube_id">
                             <div id="youtube-player" youtube-player></div>
-                            <p ng-model="course.intro_video.name" placeholder="Nome do vídeo" contenteditable><p>
-                            <button class="btn btn-success btn-lg uppercase"
-                                    ng-click="course.intro_video.youtube_id=''">Alterar vídeo</button>
+                            <div class="row">
+                                <div class="col-lg-10">
+                                    <p class="video-title" ng-model="course.intro_video.name" placeholder="Nome do vídeo" contenteditable><p>
+                                </div>
+                                <div class="col-lg-2 textcenter">
+                                    <button class="btn-edit-video btn btn-success btn-sm uppercase"
+                                            ng-click="course.intro_video.youtube_id=''">Alterar vídeo</button>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="add-video-intro col-sm-12 col-lg-12 textcenter"
