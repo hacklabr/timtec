@@ -19,15 +19,70 @@
     <div class="actions">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-8">
+                    <span class="status">
+                        <span class="label">Status</span>
+                        <div class="btn-group">
+                            <button class="btn btn-info">Novo</button>
+                            <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="">Rascunho</a></li>
+                                <li><a href="">Listado</a></li>
+                                <li><a href="">Publicado</a></li>
+                            </ul>
+                        </div>
+                    </span>
+                    
+                    <!--
                     <select id="courseStatus" class="" ng-model="course.status">
                         <option value="new">Novo</option>
                         <option value="draft">Rascunho</option>
                         <option value="listed">Listado</option>
                         <option value="published">Publicado</option>
                     </select>
+                    -->
+                    <span class="publication">
+                        <span class="label">Publicação</span>
+                        <div class="btn-group">
+                            <button class="btn btn-info">Dia</button>
+                            <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="">01</a></li>
+                                <li><a href="">02</a></li>
+                                <li><a href="">03</a></li>
+                            </ul>
+                        </div>
+                    </span>
+                    
+                    <div class="btn-group">
+                        <button class="btn btn-info">Mês</button>
+                        <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="">Janeiro</a></li>
+                            <li><a href="">Fevereiro</a></li>
+                            <li><a href="">Março</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button class="btn btn-info">Ano</button>
+                        <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="">2013</a></li>
+                            <li><a href="">2014</a></li>
+                            <li><a href="">2015</a></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="col-lg-6 textright">
+                <div class="col-lg-4 textright">
                     <button class="btn btn-success">Salvar</button>
                     <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
                 </div>
