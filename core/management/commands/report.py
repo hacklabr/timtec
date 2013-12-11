@@ -63,6 +63,8 @@ class Command(BaseCommand):
                         progress['user_name'] = user.first_name + user.last_name
                         progress['email'] = user.email
                         progress['progress'] = str(progress['progress'])
+                        if progress['finish']:
+                            progress['finish'] = progress['finish'].strftime('%d/%m/%Y - %H:%M')
                         lessons_progress.append(progress)
                 else:
                     fake_progress = {}
@@ -71,6 +73,7 @@ class Command(BaseCommand):
                     fake_progress['name'] = u''
                     fake_progress['slug'] = u''
                     fake_progress['progress'] = u'Não começou o curso'
+                    fake_progress['finish'] = u''
                     lessons_progress.append(fake_progress)
 
             except User.DoesNotExist:
@@ -80,10 +83,11 @@ class Command(BaseCommand):
                 fake_progress['name'] = u''
                 fake_progress['slug'] = u''
                 fake_progress['progress'] = u'Não se inscreveu na plataforma'
+                fake_progress['finish'] = u''
                 lessons_progress.append(fake_progress)
 
         with open(args[1], 'wb') as output_file:
-            writer = DictUnicodeWriter(output_file, fieldnames=['name', 'slug', 'progress', 'user_name', 'email'], delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+            writer = DictUnicodeWriter(output_file, fieldnames=['name', 'slug', 'progress', 'finish', 'user_name', 'email'], delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
             writer.writeheader()
             writer.writerows(lessons_progress)
 

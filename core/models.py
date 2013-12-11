@@ -102,6 +102,13 @@ class CourseStudent(models.Model):
         return StudentProgress.objects.exclude(complete=None)\
                                       .filter(user=self.user, unit__lesson=lesson)
 
+    def get_lesson_finish_time(self, lesson):
+        latest = StudentProgress.objects.exclude(complete=None).filter(user=self.user, unit__lesson=lesson).order_by('complete')
+        if latest:
+            return latest.latest('complete').complete
+        else:
+            return ''
+
     def percent_progress_by_lesson(self):
         """
         Returns a list with dictionaries with keys name (lesson name), slug (lesson slug) and progress (percent lesson progress, decimal)
@@ -115,8 +122,10 @@ class CourseStudent(models.Model):
             if units_len:
                 units_done_len = self.units_done_by_lesson(lesson).count()
                 lesson_progress['progress'] = units_done_len / units_len
+                lesson_progress['finish'] = self.get_lesson_finish_time(lesson)
             else:
                 lesson_progress['progress'] = 0
+                lesson_progress['finish'] = ''
             progress_list.append(lesson_progress)
         return progress_list
 
