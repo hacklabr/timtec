@@ -2,9 +2,10 @@
 
     var app = angular.module('new-course');
 
-    app.controller('CourseEditController', ['$scope', 'Course', '$filter', 'youtubePlayerApi', 'VideoData',
+    app.controller('CourseEditController',
+        ['$scope', 'Course', '$filter', 'youtubePlayerApi', 'VideoData',
         function($scope, Course, $filter, youtubePlayerApi, VideoData) {
-            $scope.course = new Course({'status':'new','intro_video': {'youtube_id':''}});
+            window.course = $scope.course = new Course({'status':'new','intro_video': {'youtube_id':''}});
             $scope.errors = {};
 
             var player;
@@ -15,21 +16,23 @@
                 youtubePlayerApi.loadPlayer().then(function(p){
                     player = p;
                 });
-                window.p = player;
             });
 
             $scope.$watch('course.intro_video.youtube_id', function(vid){
                 if(!vid) return;
-                player && player.cueVideoById(vid);
+                if(player) player.cueVideoById(vid);
                 VideoData.load(vid).then(function(data){
                     $scope.course.intro_video.name = data.entry.title.$t;
                 });
             });
 
             $scope.saveCourse = function() {
-                if(!$scope.course.slug)
+                if(!$scope.course.hasVideo()){
+                    delete $scope.course.intro_video;
+                }
+                if(!$scope.course.slug){
                     $scope.course.slug = $filter('slugify')($scope.course.name);
-
+                }
                 $scope.course.$save().catch(function(response){
                     $scope.errors = response.data;
                 });

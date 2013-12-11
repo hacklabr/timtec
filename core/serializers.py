@@ -28,7 +28,7 @@ class VideoSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    intro_video = VideoSerializer()
+    intro_video = VideoSerializer(required=False)
 
     class Meta:
         model = Course

@@ -5,7 +5,7 @@
     app.factory('Course', [
         '$resource',
         function ($resource) {
-            var Course = $resource('/api/course/:slug', {'slug':'@slug'});
+            var Course = $resource('/api/course/:id', {'id':'@id'});
 
             Course.prototype.isDraft = function() { return this.status === 'draft'; };
             Course.prototype.isListed = function() { return this.status === 'listed'; };

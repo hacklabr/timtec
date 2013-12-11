@@ -88,7 +88,9 @@ class EnrollCourseView(LoginRequiredMixin, RedirectView):
 
 class CourseViewSet(viewsets.ModelViewSet):
     model = Course
-    lookup_field = 'slug'
+    lookup_field = 'id'
+    filter_fields = ('slug',)
+    filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = CourseSerializer
 
     def get(self, request, **kwargs):
