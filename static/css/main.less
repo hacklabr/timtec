@@ -497,30 +497,14 @@ a:active {
     .add-content {
       margin-bottom: -20px;
       margin-top: 20px;
-      a {
-        background-color: @gray-light;
-        color: #fff;
-        display: inline-block;
+      button {
         font-size: 11px;
-        line-height: 3;
-        margin:0 0 10px 0;
-        padding:0 20px;
-        text-align: center;
+        margin-bottom: 10px;
+        padding: 10px 20px;
         text-transform: uppercase;
-        &:hover {
-          background-color: darken(@gray-light, 10%);
-        }
-        &.selected {
-          background-color: @brand-success;
-          &:hover {
-            background-color: darken(@brand-success, 10%);
-          }
-        }
         &.delete {
-          background-color: @brand-danger;
-          &:hover {
-            background-color: darken(@brand-danger, 10%);
-          }
+          font-size: 14px;
+          padding: 8px 20px;
         }
       }
     }
