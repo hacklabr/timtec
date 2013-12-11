@@ -121,6 +121,8 @@ STATICFILES_FINDERS = (
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 
+PIPELINE_JS_COMPRESSOR = 'timtec.ngminyuglify.NgminYuglifyCompressor'
+
 PIPELINE_COMPILERS = (
     'pipeline.compilers.less.LessCompiler',
 )
