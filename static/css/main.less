@@ -621,9 +621,10 @@ a:active {
   }
   // END HEADER - Course Sections
   
-  // HEADER - Course Lesson
+  // HEADER - Course Lesson and Course Material
   // ********************************************************************* //
-  &.course-lesson {
+  &.course-lesson,
+  &.course-material {
     header {
       .page-header {
         margin-bottom: 0;
@@ -660,6 +661,14 @@ a:active {
             }
           }
         }
+      }
+    }
+  }
+  
+  &.course-material {
+    #course-content {
+      > h1 {
+        margin: 20px 0 40px;
       }
     }
   }

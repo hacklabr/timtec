@@ -12,36 +12,37 @@
 <script>
     window.course_id = {{ course.pk }};
 </script>
-        <!-- CONTAINER -->
-        <div>
-            <!-- HEADER -->
-            {% include "_course-header-inline.html"  with course=course %}
-            <!-- END HEADER -->
-            <!-- MAIN CONTENT -->
-            <section id="main-content" class="container">
-                <div class="row">
-                    <div class="col-sm-9 col-lg-9">
-                        <!-- COURSE MATERIAL TEXT FORM -->
-                        <p class="description">{{ course_material.text|timtec_markdown }}</p>
-                        <!-- COURSE MATERIAL TEXT FORM -->
-                    </div>
-                    <!-- ASIDE -->
-                    <aside class="col-sm-3 col-lg-3">
-                        <form action="{% url 'file_upload' course.slug %}" class="dropzone textcenter" drop-zone id="file-dropzone" style="display: none;">
-                            <p><strong>Drop</strong> files to upload<br>(or click)</p>
-                            {% csrf_token %}
-                        </form>
-                        <ul class="uploaded-files-list">
-                            <li><h5>{% trans "Files" %}</h5></li>
-                            {% for file in course_material.files.all %}
-                                <li><a href="{{ file.file.url }}">{{ file.file.name }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </aside>
-                    <!-- END ASIDE -->
-                </div>
-            </section>
-            <!-- END MAIN CONTENT-->
+<!-- CONTAINER -->
+<div id="course" class="course-material">
+    <!-- HEADER -->
+    {% include "_course-header-inline.html"  with course=course %}
+    <!-- END HEADER -->
+    <!-- MAIN CONTENT -->
+    <section id="course-content" class="container">
+        <h1>Material do Curso</h1>
+        <div class="row">
+            <div class="col-sm-9 col-lg-9">
+                <!-- COURSE MATERIAL TEXT FORM -->
+                <p class="description">{{ course_material.text|timtec_markdown }}</p>
+                <!-- COURSE MATERIAL TEXT FORM -->
+            </div>
+            <!-- ASIDE -->
+            <aside class="col-sm-3 col-lg-3">
+                <form action="{% url 'file_upload' course.slug %}" class="dropzone textcenter" drop-zone id="file-dropzone" style="display: none;">
+                    <p><strong>Drop</strong> files to upload<br>(or click)</p>
+                    {% csrf_token %}
+                </form>
+                <ul class="uploaded-files-list">
+                    <li><h5>{% trans "Files" %}</h5></li>
+                    {% for file in course_material.files.all %}
+                        <li><a href="{{ file.file.url }}">{{ file.file.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </aside>
+            <!-- END ASIDE -->
         </div>
-        <!-- END CONTAINER -->
+    </section>
+    <!-- END MAIN CONTENT-->
+</div>
+<!-- END CONTAINER -->
 {% endblock %}
