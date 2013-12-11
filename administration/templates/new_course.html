@@ -86,8 +86,8 @@
                 </div>
 
                 <div class="col-lg-4 textright">
-                    <button class="btn btn-success uppercase" ng-click="saveCourse()">Salvar</button>
-                    <button class="btn btn-warning uppercase">Publicar Curso | <i class="fa fa-rocket"></i></button>
+                    <button class="btn btn-success" ng-click="saveCourse()">Salvar</button>
+                    <button class="btn btn-warning">Publicar Curso | <i class="fa fa-rocket"></i></button>
                 </div>
             </div>
         </div>
@@ -142,8 +142,8 @@
                 <!-- ADD CONTENT -->
                 <div class="add-content row">
                     <div class="col-lg-6">
-                        <a ng-class="{'blink-bg-danger':errors.intro_video}" class="selected" href="">Vídeo</a>
-                        <a href="">Imagem</a>
+                        <button ng-class="{'blink-bg-danger':errors.intro_video}" class="btn btn-success selected">Vídeo</button>
+                        <button class="btn btn-default">Imagem</button>
                     </div>
                 </div>
                 <!-- END ADD CONTENT -->
