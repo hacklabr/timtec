@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
-                    
+
                     <span class="status">
                         <span class="label">Status</span>
                         <div class="btn-group">
@@ -36,7 +36,7 @@
                             </ul>
                         </div>
                     </span>
-                    
+
                     <!--
                     <select id="courseStatus" class="" ng-model="course.status">
                         <option value="new">Novo</option>
@@ -59,7 +59,7 @@
                             </ul>
                         </div>
                     </span>
-                    
+
                     <div class="btn-group">
                         <button class="btn btn-default">Mês</button>
                         <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -71,7 +71,7 @@
                             <li><a href="">Março</a></li>
                         </ul>
                     </div>
-                    
+
                     <div class="btn-group">
                         <button class="btn btn-default">Ano</button>
                         <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -84,8 +84,9 @@
                         </ul>
                     </div>
                 </div>
+
                 <div class="col-lg-4 textright">
-                    <button class="btn btn-success uppercase">Salvar</button>
+                    <button class="btn btn-success uppercase" ng-click="saveCourse()">Salvar</button>
                     <button class="btn btn-warning uppercase">Publicar Curso | <i class="fa fa-rocket"></i></button>
                 </div>
             </div>
