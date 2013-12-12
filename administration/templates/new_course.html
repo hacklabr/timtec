@@ -25,26 +25,18 @@
                     <span class="status">
                         <span class="label">Status</span>
                         <div class="btn-group">
-                            <button class="btn btn-default">Novo</button>
+                            <button class="btn btn-default" ng-bind="statusList[course.status]"></button>
                             <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-chevron-down"></i>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a href="">Rascunho</a></li>
-                                <li><a href="">Listado</a></li>
-                                <li><a href="">Publicado</a></li>
+                                <li ng-repeat="(status, label) in statusList">
+                                    <a href="" ng-click="course.status=status" ng-bind="label"></a>
+                                </li>
                             </ul>
                         </div>
                     </span>
 
-                    <!--
-                    <select id="courseStatus" class="" ng-model="course.status">
-                        <option value="new">Novo</option>
-                        <option value="draft">Rascunho</option>
-                        <option value="listed">Listado</option>
-                        <option value="published">Publicado</option>
-                    </select>
-                    -->
                     <span class="publication">
                         <span class="label">Publicação</span>
                         <div class="btn-group">
@@ -221,7 +213,7 @@
                 <!--  END COURSE-INFO  -->
 
                 <!--  COURSE-LESSONS  -->
-                <section class="lessons">
+                <section class="lessons" ng-show="course.id">
                     <!--  PAGE-HEADER-DOUBLE  -->
                     <div class="page-header-double">
                         <h3><i class="fa fa-angle-double-right"></i> Lições</h3>
@@ -336,7 +328,7 @@
                 <!--  END COURSE-LESSONS  -->
 
                 <!-- INSTRUCTORS -->
-                <section class="instructors">
+                <section class="instructors" ng-show="course.id">
                     <!-- PAGE-HEADER-DOUBLE -->
                     <div class="page-header-double">
                         <h3><i class="fa fa-angle-double-right"></i> Instrutores</h3>

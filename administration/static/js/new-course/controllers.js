@@ -5,8 +5,13 @@
     app.controller('CourseEditController',
         ['$scope', 'Course', '$filter', 'youtubePlayerApi', 'VideoData',
         function($scope, Course, $filter, youtubePlayerApi, VideoData) {
-            window.course = $scope.course = new Course({'status':'new','intro_video': {'youtube_id':''}});
             $scope.errors = {};
+            $scope.course = new Course({'status':'draft','intro_video': {'youtube_id':''}});
+            $scope.statusList = {
+                'draft': 'Rascunho',
+                'listed': 'Listado',
+                'published': 'Publicados'
+            };
 
             var player;
             youtubePlayerApi.$watch('playerId', function(){
