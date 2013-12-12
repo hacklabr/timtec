@@ -426,6 +426,8 @@ a:active {
 // END COURSES LIST - Admin
 
 #admin {
+  // CONTENT EDITABLE
+  // ********************************************************************* //
   [contenteditable] {
     font-weight: thin;
     padding: 3px 0 0 0;
@@ -440,11 +442,14 @@ a:active {
       background-color: lighten(@brand-warning, 40%);
     }
   }
+  // END CONTENT EDITABLE
+
 }
 
 // COURSE
 // ********************************************************************* //
-#course {
+#course,
+#forum {
 
   // ADMIN
   // ********************************************************************* //
@@ -466,6 +471,7 @@ a:active {
       margin-bottom: 20px;
       margin-top: -20px;
       padding: 10px;
+      position: relative;
       .status {
         margin-left: 40px;
         margin-right: 10px;
@@ -479,6 +485,34 @@ a:active {
         padding: 10px 12px;
         text-transform: uppercase;
       }
+      // POPUP NOTIFICATIONS
+      // ********************************************************************* //
+      .tt-popup {
+          margin-left: 25%;
+          position: absolute;
+          top: 60px;
+          width: 50%;;
+          z-index: 9999;
+          // -moz-transition: top 500ms;
+          // -webkit-transition: top 500ms;
+          // -o-transition: top 500ms;
+          // transition: top 500ms;
+          &.hideTop {
+            top: -5000px;
+          }
+          .alert-success {
+            h4 {
+              font-family: @font-family-sans-serif;
+              font-size: 12px;
+              font-weight: bold;
+              margin-bottom: 0;
+            }
+          }
+          .close {
+            margin-top: -5px;
+          }
+      }
+      // END POPUP NOTIFICATIONS
     }
     // END ACTIONS
 
@@ -611,10 +645,11 @@ a:active {
   }
   // END HEADER - Course Sections
   
-  // HEADER - Course Lesson and Course Material
+  // HEADER - Course Lesson, Material and Forum
   // ********************************************************************* //
   &.course-lesson,
-  &.course-material {
+  &.course-material,
+  &.course-forum {
     header {
       .page-header {
         margin-bottom: 0;
@@ -882,34 +917,6 @@ a:active {
 
 
 
-// Course social
-.course-social {
-  .top(27px);
-}
-
-// Course lessons nav
-// .course-lessons-nav {
-//   .bottom(9px,9px);
-//   button {
-//     font-size:14px;
-//   }
-//   ul {
-//     margin-top:0;
-//     padding:9px 0;
-//     text-transform:none;
-//     li.active a, li.active a:hover {
-//       color:@brand-info;
-//     }
-//     li a {
-//       color:@gray;
-//     }
-//     li a:hover {
-//       background:@gray-lighter;
-//       color:@gray-darker;
-//     }
-//   }
-// }
-// 
 .nav-lesson-xs {
   margin-bottom: 10px;
 }
@@ -1012,7 +1019,7 @@ a:active {
 .course-forum {
 
   .questions {
-    border-top:1px solid @gray-lighter;
+    // border-top:1px solid @gray-lighter;
     .top(14px,14px);
   }
 
@@ -1128,6 +1135,7 @@ a:active {
 }
 
 // MY COURSES
+// ********************************************************************* //
 #my-courses {
   .courses {
     h1 {
@@ -1173,6 +1181,7 @@ a:active {
 }
 
 // MY NOTES
+// ********************************************************************* //
 #my-notes {
   .courses {
     .course {
@@ -1251,8 +1260,9 @@ a:active {
 }
 
 // FORUM
-#course-forum {
-  #main-content {
+// ********************************************************************* //
+#forum {
+  #forum-content {
     margin-top:20px;
     a.ask-a-question {
       display:block;

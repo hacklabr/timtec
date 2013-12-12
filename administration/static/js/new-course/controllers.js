@@ -54,13 +54,13 @@
                         $scope.alert.reset();
                         $scope.alert.showControls = false;
                         $scope.alert.type = 'success';
-                        $scope.alert.title = 'Suas alterações salvas!';
+                        $scope.alert.title = 'Alterações salvas com sucesso!';
 
                         $scope.alert.hidden = false;
                         setTimeout(function(){
                             $scope.alert.hidden = true;
                             $scope.$apply();
-                        }, 2000);
+                        }, 3000);
                     })
                     .catch(function(response){
                         $scope.errors = response.data;
