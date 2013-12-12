@@ -213,7 +213,7 @@
                 <!--  END COURSE-INFO  -->
 
                 <!--  COURSE-LESSONS  -->
-                <section class="lessons" ng-show="course.id">
+                <section class="lessons">
                     <!--  PAGE-HEADER-DOUBLE  -->
                     <div class="page-header-double">
                         <h3><i class="fa fa-angle-double-right"></i> Lições</h3>
@@ -328,7 +328,7 @@
                 <!--  END COURSE-LESSONS  -->
 
                 <!-- INSTRUCTORS -->
-                <section class="instructors" ng-show="course.id">
+                <section class="instructors">
                     <!-- PAGE-HEADER-DOUBLE -->
                     <div class="page-header-double">
                         <h3><i class="fa fa-angle-double-right"></i> Instrutores</h3>
@@ -429,6 +429,30 @@
         <!--  ROW  -->
     </section>
     <!--  END COURSE CONTENT  -->
+
+
+    <!-- ALERT -->
+    <div class="tt-popup" ng-class="{'hideTop': alert.hidden}">
+        <div class="alert fade in" ng-class="'alert-' + alert.type">
+            <button type="button" class="close" ng-click="alert.hidden=true">×</button>
+            <h4 ng-bind="alert.title"></h4>
+
+            <p>
+                <ol>
+                    <li ng-repeat="message in alert.messages" ng-bind="message"></li>
+                </ol>
+            </p>
+
+            <hr/>
+
+            <p>
+                <button type="button" class="btn" ng-class="'btn-'+alert.type"
+                         ng-click="alert.hidden=true">Fechar</button>
+            </p>
+        </div>
+    </div>
+    <!-- ALERT -->
+
 
 </div>
 <!--  END COURSE CONTENT  -->

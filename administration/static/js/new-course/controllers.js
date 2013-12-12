@@ -6,6 +6,16 @@
         ['$scope', 'Course', '$filter', 'youtubePlayerApi', 'VideoData',
         function($scope, Course, $filter, youtubePlayerApi, VideoData) {
             $scope.errors = {};
+            $scope.alert = {
+                hidden : true,
+                reset: function(){
+                    this.title = '';
+                    this.type = '';
+                    this.messages = [];
+                }
+            };
+            $scope.alert.reset();
+
             $scope.course = new Course({'status':'draft','intro_video': {'youtube_id':''}});
             $scope.statusList = {
                 'draft': 'Rascunho',
@@ -38,9 +48,27 @@
                 if(!$scope.course.slug){
                     $scope.course.slug = $filter('slugify')($scope.course.name);
                 }
-                $scope.course.$save().catch(function(response){
-                    $scope.errors = response.data;
-                });
+                $scope.course.$save()
+                    .then(function(){
+                        $scope.alert.reset();
+                        $scope.alert.hidden = false;
+                        $scope.alert.type = 'success';
+                        $scope.alert.title = 'Suas alterações salvas!';
+                    })
+                    .catch(function(response){
+                        $scope.alert.reset();
+                        $scope.alert.type = 'danger';
+                        $scope.alert.title = 'Encontramos alguns erros! Verifique os campos abaixo:';
+                        for(var att in response.data) {
+                            var label = (Course.fields[att]||{}).label ? Course.fields[att].label : att;
+                            $scope.alert.messages.push(
+                                label + ': ' + response.data[att]
+                            );
+                        }
+                        $scope.alert.hidden = false;
+                        $scope.errors = response.data;
+                    }
+                );
             };
         }
     ]);

@@ -341,3 +341,18 @@ body#admin {
     -webkit-animation: blink-bg-red 2s infinite; /* Safari and Chrome */
 }
 
+.tt-popup {
+    top: 2%;
+    position: fixed;
+    margin-left: 25%;
+    width: 50%;
+    z-index: 9999;
+    -moz-transition: top 500ms;
+    -webkit-transition: top 500ms;
+    -o-transition: top 500ms;
+    transition: top 500ms;
+}
+
+.tt-popup.hideTop {
+    top: -50%;
+}
