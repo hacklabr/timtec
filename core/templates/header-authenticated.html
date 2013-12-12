@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load usergroup %}
 
 <!-- NAVBAR -->
 <nav id="main-navbar" class="navbar navbar-inverse" role="navigation">
@@ -19,11 +20,14 @@
             <ul class="nav navbar-nav navbar-right">
                 <!-- <li><a href="">{% trans "Available Courses" %}</a></li> -->
                 <!-- <li><a href="{% url 'user_courses' %}">{% trans "My Courses" %}</a></li> -->
-                <!-- <li><a href="profile-notes.html">{% trans "My Notes" %}</a></li> -->
+                {% ifusergroup professors %}
+                <li><a href="#">{% trans "Admin" %}</a></li>
+                {% endifusergroup %}
+                <li><a href="{% url 'user_course_notes' 'html5' %}">{% trans "My Notes" %}</a></li>
                 <li>
                     <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
                         {{ user }}
-                        <i class="icon-caret-down"></i>
+                        <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="{% url 'profile' %}">{% trans "Profile" %}</a></li>

@@ -6,7 +6,7 @@
     <div class="col-lg-8 col-sm-10 col-lg-offset-1 col-sm-offset-1">
       <section class="course-forum" ng-controller="InlineForumCtrl">
         <div class="page-header-double">
-          <h3><i class="icon-double-angle-right"></i> Perguntas e Respostas</h3>
+          <h3><i class="fa fa-angle-double-right"></i> Perguntas e Respostas</h3>
         </div>
         <!-- QUESTION FORM -->
         <div class="row">
@@ -14,10 +14,12 @@
             <div class="form-group" ng-class="question_title_validation">
               <input id="id-title" ng-model="new_question_title" name="title" type="text" class="form-control" placeholder="Qual é a sua dúvida?">
             </div>
-            <div class="wmd-panel" markdowneditor="true">
-                <div id="wmd-button-bar" class="js-button-bar"></div>
-                <div class="form-group" ng-class="question_text_validation">
-                  <textarea id="wmd-input" ng-model="new_text" name="text" class="form-control" rows="4" placeholder="Descrição da sua dúvida"></textarea>
+            <div class="text-editor">
+                <div class="wmd-panel" markdowneditor="true">
+                    <div id="wmd-button-bar" class="js-button-bar"></div>
+                    <div class="form-group" ng-class="question_text_validation">
+                      <textarea id="wmd-input" ng-model="new_text" name="text" class="form-control" rows="4" placeholder="Descrição da sua dúvida"></textarea>
+                    </div>
                 </div>
             </div>
             <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
@@ -34,39 +36,38 @@
           </div>
         </div>
         <!-- END QUESTION FORM -->
-
+        {% verbatim angularjs %}
         <!-- QUESTIONS LIST-->
         <section class="questions clearfix">
-<!--          <div class="search-filter">
+          <div class="search-filter">
             <div class="row">
               <div class="col-lg-7 col-sm-7">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-info">Mais votadas</button>
+                  <button type="button" class="btn btn-info">{{ sort_label }}</button>
                   <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                    <i class="icon-chevron-down"></i>
+                    <i class="fa fa-chevron-down"></i>
                   </button>
                   <ul class="dropdown-menu top">
-                    <li><a href="">Mais votadas</a></li>
-                    <li><a href="">Mais recentes</a></li>
-                    <li><a href="">Mais respondida</a></li>
-                    <li><a href="">Ver todas</a></li>
+                    <li><a href="" ng-click="sortBy('votes')">Mais votadas</a></li>
+                    <li><a href="" ng-click="sortBy('date')">Mais recentes</a></li>
+                    <li><a href="" ng-click="sortBy('answers')">Mais respondidas</a></li>
                   </ul>
                 </div>
               </div>
-              <div class="col-lg-5 col-sm-5 textright">
+              <!-- <div class="col-lg-5 col-sm-5 textright">
                 <div class="input-group">
                   <input type="search" class="form-control" placeholder="Pesquisar perguntas e respostas">
                   <span class="input-group-btn">
                     <button class="btn btn-default" type="button">
-                      <i class="icon-search"></i>
+                      <i class="fa fa-search"></i>
                     </button>
                   </span>
                 </div>
-              </div>
+              </div> -->
             </div>
-          </div> -->
+          </div>
           <article ng-repeat="question in questions">
-            {% verbatim angularjs %}
+            
             <div class="stats">
               <div class="arrow-right"></div>
               <p><span class="numbers-votes">{{question.votes}}</span>votos</p>
@@ -79,10 +80,11 @@
             <div class="author">
               Pergunta feita feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ question.username }}">{{ question.username }}</a>
             </div>
-            {% endverbatim angularjs %}
+            
           </article>
           <!-- <p class="textcenter"><a href="{% url 'forum' course.slug %}" class="all-questions btn btn-info">Ver todas as perguntas e respostas</a></p> -->
         </section>
         <!-- QUESTIONS LIST-->
+        {% endverbatim angularjs %}
       </section>
     </div>

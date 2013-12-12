@@ -1,0 +1,436 @@
+{% extends "admin-base.html" %}
+{% load static %}
+
+{% block js %} {{block.super}}
+<script type="text/javascript" src="{% static 'js/new-course/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/new-course/factories.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/filters/text.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/contenteditable.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/new-course/controllers.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+<!--  COURSE CONTENT  -->
+<div id="course" class="course-intro" ng-app="new-course" ng-controller="CourseEditController">
+
+    <!-- ACTIONS -->
+    <div class="actions">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+
+                    <span class="status">
+                        <span class="label">Status</span>
+                        <div class="btn-group">
+                            <button class="btn btn-default" ng-bind="statusList[course.status]"></button>
+                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="(status, label) in statusList">
+                                    <a href="" ng-click="course.status=status" ng-bind="label"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </span>
+
+                    <span class="publication">
+                        <span class="label">Publicação</span>
+                        <div class="btn-group">
+                            <button class="btn btn-default">Dia</button>
+                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="">01</a></li>
+                                <li><a href="">02</a></li>
+                                <li><a href="">03</a></li>
+                            </ul>
+                        </div>
+                    </span>
+
+                    <div class="btn-group">
+                        <button class="btn btn-default">Mês</button>
+                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="">Janeiro</a></li>
+                            <li><a href="">Fevereiro</a></li>
+                            <li><a href="">Março</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn btn-default">Ano</button>
+                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="">2013</a></li>
+                            <li><a href="">2014</a></li>
+                            <li><a href="">2015</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 textright">
+                    <button class="btn btn-success" ng-click="saveCourse()">Salvar</button>
+                    <button class="btn btn-warning">Publicar Curso | <i class="fa fa-rocket"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END ACTIONS -->
+
+    <!--  HEADER  -->
+    <header class="container">
+        <!--  PAGE-HEADER  -->
+        <div class="page-header">
+            <!--  ROW  -->
+            <div class="row">
+                <!--  COL-LG-9  -->
+                <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+                    <h1><span ng-class="{'blink-text-danger':errors.name}" ng-model="course.name" placeholder="Nome do curso" contenteditable="true"></span></h1>
+                    <div class="course-slug clearfix">
+                        <label>http://www.timtec.com.br/course/</label>
+                        <strong>
+                            <span ng-bind="course.name|slugify" ng-hide="course.slug"></span>
+                            <span ng-model="course.slug" contenteditable></span>
+                        </strong>
+                    </div>
+
+                    <ul class="instructors">
+                        <li><a href=""><span class="icon-addable fa fa-plus-square left right"></span> Adicionar professores ao curso</a></li>
+                    </ul>
+                </div>
+                <!--  END COL-LG-8  -->
+                <!--  COL-LG-3  -->
+                <div class="col-lg-3 col-sm-3">
+                    <nav class="course-sections textright">
+                        <a href=""><span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="Intro"></span></a>
+                        <a href=""><span class="has-tooltip fa fa-film" data-toggle="tooltip" data-placement="top" data-original-title="Aulas"></span></a>
+                        <a href=""><span class="has-tooltip fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="Fórum"></span></a>
+                        <a href=""><span class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="Material Didádico"></span></a>
+                    </nav>
+                </div>
+                <!--  END COL-LG-3  -->
+            </div>
+            <!--  END ROW  -->
+        </div>
+        <!--  END PAGE-HEADER  -->
+    </header>
+    <!--  END HEADER  -->
+
+    <!--  COURSE CONTENT  -->
+    <section id="course-content" class="container">
+        <!--  ROW  -->
+        <div class="row">
+            <!--  COL-LG-9  -->
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                <!-- ADD CONTENT -->
+                <div class="add-content row">
+                    <div class="col-lg-6">
+                        <button ng-class="{'blink-bg-danger':errors.intro_video}" class="btn btn-success selected">Vídeo</button>
+                        <button class="btn btn-default">Imagem</button>
+                    </div>
+                </div>
+                <!-- END ADD CONTENT -->
+
+                <!--  COURSE-VIDEO  -->
+                <section class="video">
+                    <!--  ROW  -->
+                    <div class="row">
+
+                        <div class="col-lg-12" style="overflow:hidden"
+                             ng-style="{'margin-left': course.hasVideo()?'':'-2000px'}">
+
+                            <div id="youtube-player" youtube-player></div>
+                            <div class="row">
+                                <div class="col-lg-10">
+                                    <p class="video-title" ng-model="course.intro_video.name" placeholder="Nome do vídeo" contenteditable><p>
+                                </div>
+                                <div class="col-lg-2 textcenter">
+                                    <button class="btn-edit-video btn btn-success btn-sm uppercase"
+                                            ng-click="course.intro_video.youtube_id=''">Alterar vídeo</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="add-video-intro col-sm-12 col-lg-12 textcenter"
+                             ng-show="!course.intro_video.youtube_id">
+                            <div class="centered">
+                                <div class="form-group">
+                                    <i class="fa fa-youtube-play fa-4x"></i>
+                                    <h1 class="top">Vídeo de introdução</h1>
+                                    <input type="text" ng-model="youtube_id" class="form-control"/>
+                                </div>
+
+                                <p>
+                                    <button class="btn btn-danger btn-lg uppercase"
+                                            ng-click="course.intro_video.youtube_id=''">Cancelar</button>
+
+                                    <button class="btn btn-success btn-lg uppercase"
+                                            ng-show="!course.intro_video.youtube_id"
+                                            ng-click="course.intro_video.youtube_id=youtube_id">Adicionar</button>
+                                </p>
+                            </div>
+                        </div>
+                        <!--  END ADD-VIDEO-INTRO  -->
+                    </div>
+                    <!--  END ROW  -->
+                </section>
+                <!--  END COURSE-VIDEO  -->
+
+                <!--  COURSE-INFO  -->
+                <section class="course-info">
+                    <!--  ROW  -->
+                    <div class="row">
+                        <!--  COL-LG-6  -->
+                        <div class="application col-sm-6 col-lg-6">
+                            <div class="page-header-double">
+                                <h3 class="top"><i ng-class="{'blink-text-danger':errors.application}" class="fa fa-angle-double-right"></i> Aplicação do Conhecimento</h3>
+                            </div>
+                            <modalmarkdowneditor save="saveCourse" title="Aplicação do conhecimento" content="course.application"></modalmarkdowneditor>
+                        </div>
+                        <!--  END COL-LG-6  -->
+
+                        <!--  COL-LG-6  -->
+                        <div class="requirement col-sm-6 col-lg-6">
+                            <div class="page-header-double">
+                                <h3 class="top"><i ng-class="{'blink-text-danger':errors.requirement}" class="fa fa-angle-double-right"></i> O que preciso saber</h3>
+                            </div>
+                            <modalmarkdowneditor save="saveCourse" title="O que preciso saber?" content="course.requirement"></modalmarkdowneditor>
+
+                        </div>
+                        <!--  END COL-LG-6  -->
+                    </div>
+                    <!--  END ROW  -->
+                </section>
+                <!--  END COURSE-INFO  -->
+
+                <!--  COURSE-LESSONS  -->
+                <section class="lessons" ng-show="course.id">
+                    <!--  PAGE-HEADER-DOUBLE  -->
+                    <div class="page-header-double">
+                        <h3><i class="fa fa-angle-double-right"></i> Lições</h3>
+                    </div>
+                    <!--  END PAGE-HEADER-DOUBLE  -->
+
+                    <a href="">Organizar as lições</a>
+
+                    <!-- ORGANIZING LESSONS -->
+                    <div class="lessons organizing-lessons">
+                        <!-- LESSON -->
+                        <div class="lesson">
+                            <div class="row">
+                                <div class="col-lg-11">
+                                    <button class="btn btn-warning"><i class="fa fa-bars"></i></button>
+                                    <span class="title">1 - Introdução: Internet e Web</span>
+                                </div>
+                                <div class="col-lg-1 textright">
+                                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END LESSON -->
+                        <div class="lesson">
+                            <div class="row">
+                                <div class="col-lg-11">
+                                    <button class="btn btn-warning"><i class="fa fa-bars"></i></button>
+                                    <span class="title">2 - Montando a estrutura de um documento HTML</span>
+                                </div>
+                                <div class="col-lg-1 textright">
+                                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lesson">
+                            <div class="row">
+                                <div class="col-lg-11">
+                                    <button class="btn btn-warning"><i class="fa fa-bars"></i></button>
+                                    <span class="title">3 - Grupos de conteúdo e elementos semânticos de texto</span>
+                                </div>
+                                <div class="col-lg-1 textright">
+                                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lesson">
+                            <div class="row">
+                                <div class="col-lg-11">
+                                    <button class="btn btn-warning"><i class="fa fa-bars"></i></button>
+                                    <span class="title">4 - Conteúdo multimídia</span>
+                                </div>
+                                <div class="col-lg-1 textright">
+                                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="submit textright">
+                            <button class="btn btn-danger">Cancelar</button>
+                            <button class="btn btn-success">Salvar</button>
+                        </div>
+                    </div>
+                    <!-- END ORGANIZING LESSONS -->
+
+                    <!--  LESSON  -->
+                    <div class="lesson row">
+                        <!--  COL-LG-3  -->
+                        <div class="col-lg-3 col-sm-3 col-sm-3 hidden-xs">
+                            <img src="http://i1.ytimg.com/vi/gPdNX46JCp8/hqdefault.jpg" class="img-thumbnail">
+                        </div>
+                        <!--  END COL-LG-3  -->
+
+                        <!--  COL-LG-9  -->
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                            <p>
+                                <a href="" class="title editable">Introdução: Internet e Web</a>
+                                <span class="description editable">Quais são as relações e as diferenças entre Internet e Web. A Web e as camadas de desenvolvimento do lado do usuário</span>
+                            </p>
+                            <!--  HIDDEN-XS  -->
+                            <div class="hidden-xs">
+                                <table class="table units">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 1"></span></td>
+                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 2"></span></td>
+                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 3"><i class="fa fa-list"></i></span></td>
+                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 4"><i class="fa fa-list"></i></span></td>
+                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 5"><i class="fa fa-list"></i></span></td>
+                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 6"><i class="fa fa-list"></i></span></td>
+                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 7"></span></td>
+                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 8"></span></td>
+                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 9"></span></td>
+                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 10"></span></td>
+                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 11"></span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!--  END HIDDEN-XS  -->
+                            <p><i class="fa fa-youtube-play"></i> <small>11 videos</small> | <i class="fa fa-list"></i> <small>4 atividades</small></p>
+                        </div>
+                        <!--  END COL-LG-9  -->
+                    </div>
+                    <!--  END LESSON  -->
+
+                    <div class="row textcenter">
+                        <div class="col-lg-12">
+                            <a href="/admin/courses/lessons/new" class="col-lg-12 btn btn-lg btn-default uppercase">Adicionar lição</a>
+                        </div>
+                    </div>
+
+                </section>
+                <!--  END COURSE-LESSONS  -->
+
+                <!-- INSTRUCTORS -->
+                <section class="instructors" ng-show="course.id">
+                    <!-- PAGE-HEADER-DOUBLE -->
+                    <div class="page-header-double">
+                        <h3><i class="fa fa-angle-double-right"></i> Instrutores</h3>
+                    </div>
+                    <!-- END PAGE-HEADER-DOUBLE -->
+
+                    <a href="">Organizar instrutores</a>
+
+                    <div class="instructors organizing-instructors">
+                        <div class="instructor">
+                            <div class="row">
+                                <div class="col-lg-11">
+                                    <button class="btn btn-warning"><i class="fa fa-bars"></i></button>
+                                    <span class="title">Fabio Flatschart</span>
+                                </div>
+                                <div class="col-lg-1 textright">
+                                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="submit textright">
+                            <button class="btn btn-danger">Cancelar</button>
+                            <button class="btn btn-success">Salvar</button>
+                        </div>
+                    </div>
+
+                    <!-- INSTRUCTOR -->
+                    <div id="" class="instructor row">
+                        <div class="col-lg-3 col-sm-3">
+                            <img src="http://timtec.com.br/media/user-pictures/fabioflat.png" class="col-lg-12 col-sm-12 thumbnail">
+                        </div>
+                        <div class="col-lg-9 col-sm-9">
+                            <h1 class="fullname bottom top">Fabio Flatschart</h1>
+                            <h2 class="job-title top"></h2>
+                            <div class="editable">
+                                <p>Fábio Flatschart é autor do livro HTML5 - Embarque Imediato, uma das primeiras publicações em português sobre o assunto, co-autor do livro Open Web Platform e de outras de referência no mercado. É colunista do portal iMasters e professor convidado dos mais importantes cursos de MBA do Brasil (FGV, FIA, Trevisan)</p>
+                                <p>No Senac São Paulo atua no desenvolvimento de produtos educacionais e cursos livres, técnicos, superiores e de pós- graduação na área da tecnologia da informação</p>
+                                <p>Com a Soyuz Sistemas e a Flatschart Consultoria participa do desenvolvimento e implantação de projetos pioneiros nas áreas de Open Web Platform e Marketing Semântico em empresas como Editora Moderna, Editora Pearson, Grupo GEN e W3C Brasil.</p>
+                                <p><a href="www.flatschart.com">www.flatschart.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END INSTRUCTOR -->
+
+                    <div class="row textcenter">
+                        <div class="col-lg-12">
+                            <a href="/admin/courses/instructors/new" class="col-lg-12 btn btn-lg btn-default uppercase">Adicionar instrutor</a>
+                        </div>
+                    </div>
+                </section>
+                <!-- END INSTRUCTORS -->
+            </div>
+            <!--  END COL-LG-9  -->
+
+            <!--  COL-LG-3  -->
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <!--   COURSE-SUMMARY  -->
+                <section class="summary">
+
+                    <!--  ABSTRACT  -->
+                    <div class="page-header-double top">
+                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> Resumo</h3>
+
+                    </div>
+                    <modalmarkdowneditor save="saveCourse" title="Resumo" content="course.abstract"></modalmarkdowneditor>
+
+                    <hr/>
+                    <!--  END ABSTRACT  -->
+
+                    <!--  STRUCTURE  -->
+                    <div class="page-header-double top">
+                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.structure}" class="fa fa-angle-double-right"></i> Estrutura do curso</h3>
+                    </div>
+                    <modalmarkdowneditor save="saveCourse" title="Estrutura do curso" content="course.structure"></modalmarkdowneditor>
+
+                    <hr/>
+                    <!--  END STRUCTURE  -->
+
+                    <!--  WORKLOAD  -->
+                    <div class="page-header-double top">
+                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.workload}" class="fa fa-angle-double-right"></i> Carga horária</h3>
+                    </div>
+                    <modalmarkdowneditor save="saveCourse" title="Carga horária" content="course.workload"></modalmarkdowneditor>
+
+                    <hr/>
+                    <!--  END WORKLOAD  -->
+
+                    <div class="page-header-double top">
+                        <h3 class="top"><i class="fa fa-angle-double-right"></i> Texto PRONATEC</h3>
+                    </div>
+                    <modalmarkdowneditor save="saveCourse" title="PRONATEC" content="course.pronatec"></modalmarkdowneditor>
+
+                </section>
+                <!--  END COURSE-SUMMARY  -->
+            </div>
+            <!--  END COL-LG-3  -->
+        </div>
+        <!--  ROW  -->
+    </section>
+    <!--  END COURSE CONTENT  -->
+
+</div>
+<!--  END COURSE CONTENT  -->
+
+{% endblock %}

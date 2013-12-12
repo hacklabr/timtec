@@ -1,17 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
-from django.forms import TextInput, Textarea
+from django.forms import Textarea
 from django.db import models
-
-from models import *
-
-
-class ModelAdmin(admin.ModelAdmin):
-    formfield_overrides = {
-        models.CharField: {'widget': TextInput(attrs={'class': 'span12'})},
-        models.TextField: {'widget': Textarea(attrs={'rows': 4, 'class': 'span12'})},
-    }
+from activities.admin import ModelAdmin
+from .models import *
 
 
 class LessonInline(admin.TabularInline):
@@ -48,14 +40,9 @@ class VideoAdmin(ModelAdmin):
     list_display = ('name', 'youtube_id',)
 
 
-admin.site.register(TimtecUser, UserAdmin)
-
 admin.site.register(Video, VideoAdmin)
 admin.site.register(CourseProfessor, CourseProfessorAdmin)
-
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Unit, UnitAdmin)
-admin.site.register(Activity)
-admin.site.register(Answer)
 admin.site.register(StudentProgress)

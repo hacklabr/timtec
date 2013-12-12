@@ -3,15 +3,19 @@ import json
 
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
+from django.utils import timezone
 from django.views.generic import DetailView
 from django.views.generic.base import RedirectView, View, TemplateView
-from django.views.generic.edit import UpdateView
-from accounts.utils import LoginRequiredMixin
-from rest_framework import viewsets
+from django.contrib.contenttypes.models import ContentType
+from rest_framework import status, viewsets
 from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import filters
+from braces.views import LoginRequiredMixin
+from notes.models import Note
 
-from serializers import CourseSerializer
-from models import Course, StudentProgress
+from .serializers import CourseSerializer, LessonSerializer, StudentProgressSerializer, NoteUnitSerializer
+from .models import Course, Lesson, StudentProgress, Unit
 
 from forms import ContactForm
 
@@ -79,18 +83,20 @@ class EnrollCourseView(LoginRequiredMixin, RedirectView):
     def get_redirect_url(self, **kwargs):
         course = self.get_object()
         course.enroll_student(self.request.user)
-        return reverse('lesson', args=[course.first_lesson().slug])
-
-
-class AdminCourseView(LoginRequiredMixin, UpdateView):
-    model = Course
-    template_name = 'admin/_base.html'
+        return reverse('lesson', args=[course.slug, course.first_lesson().slug])
 
 
 class CourseViewSet(viewsets.ModelViewSet):
     model = Course
-    lookup_field = 'slug'
+    lookup_field = 'id'
+    filter_fields = ('slug',)
+    filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = CourseSerializer
+
+    def get(self, request, **kwargs):
+        response = super(CourseViewSet, self).get(request, **kwargs)
+        response['Cache-Control'] = 'no-cache'
+        return response
 
     def post(self, request, **kwargs):
         course = self.get_object()
@@ -101,3 +107,76 @@ class CourseViewSet(viewsets.ModelViewSet):
             return Response(status=200)
         else:
             return Response(serializer.errors, status=403)
+
+
+class LessonDetailView(LoginRequiredMixin, DetailView):
+    model = Lesson
+    template_name = "lesson.html"
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super(LessonDetailView, self).get_queryset(*args, **kwargs)
+        course_slug = self.kwargs.get('course_slug')
+        return qs.filter(course__slug=course_slug)
+
+    def get_context_data(self, **kwargs):
+        context = super(LessonDetailView, self).get_context_data(**kwargs)
+        unit_content_type = ContentType.objects.get_for_model(Unit)
+        context['unit_content_type_id'] = unit_content_type.id
+        return context
+
+
+class LessonViewSet(viewsets.ModelViewSet):
+    model = Lesson
+    serializer_class = LessonSerializer
+    filter_fields = ('course__slug',)
+    filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter,)
+    ordering = ('position',)
+
+    def get_queryset(self):
+        queryset = super(LessonViewSet, self).get_queryset()
+        if self.request.user.is_active:
+            return queryset
+        return queryset.filter(published=True)
+
+
+class StudentProgressViewSet(viewsets.ModelViewSet):
+    model = StudentProgress
+    serializer_class = StudentProgressSerializer
+    filter_fields = ('unit__lesson',)
+
+    def pre_save(self, obj):
+        obj.user = self.request.user
+        return super(StudentProgressViewSet, self).pre_save(obj)
+
+    def get_queryset(self):
+        user = self.request.user
+        return StudentProgress.objects.filter(user=user)
+
+
+class UpdateStudentProgressView(APIView):
+    model = StudentProgress
+
+    def post(self, request, unitId=None):
+        user = request.user
+
+        try:
+            unit = Unit.objects.get(id=unitId)
+        except Unit.DoesNotExist as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+        response = {}
+        progress, created = StudentProgress.objects.get_or_create(user=user, unit=unit)
+        progress.complete = timezone.now()
+        progress.save()
+        response['msg'] = 'Unit completed.'
+        response['complete'] = progress.complete
+        return Response(response, status=status.HTTP_201_CREATED)
+
+
+class LessonsUserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
+    model = Lesson
+    serializer_class = NoteUnitSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return Note.objects.filter(user=user)

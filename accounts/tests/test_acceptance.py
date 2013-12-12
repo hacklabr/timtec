@@ -13,7 +13,7 @@ def test_custom_login_view(client, user):
     assert response.status_code == 302
 
     course = mommy.make('Course')
-    response = client.get('/course/' + course.slug)
+    response = client.get('/course/' + course.slug + '/')
     assert response.status_code == 200
     assert response.context['request'].user.is_authenticated()
 
@@ -80,3 +80,29 @@ def test_edit_profile(admin_client):
 
     assert response.status_code == 302
     assert response['Location'] == 'http://testserver/profile/'
+
+
+def test_admin_user(admin_client):
+    response = admin_client.get('/django/admin/accounts/timtecuser/?q=admin')
+    assert 'admin' in response.content
+
+
+@pytest.mark.django_db
+def test_username_login(client, user):
+    response = client.post('/login/', {'username': user.username, 'password': 'password'})
+    assert response.status_code == 302
+    assert response['Location'] == 'http://testserver/'
+
+
+@pytest.mark.django_db
+def test_email_login(client, user):
+    response = client.post('/login/', {'username': user.email, 'password': 'password'})
+    assert response.status_code == 302
+    assert response['Location'] == 'http://testserver/'
+
+
+@pytest.mark.django_db
+def test_next_field_still_works(client, user):
+    reponse = client.post('/login/', {'username': user.email, 'password': 'password', 'next': '/profile/edit'})
+    assert reponse.status_code == 302
+    assert reponse['Location'] == 'http://testserver/profile/edit'

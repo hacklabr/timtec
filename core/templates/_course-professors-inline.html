@@ -1,5 +1,5 @@
-<h5>
+<ul class="instructors">
     {% for course_professor in course.courseprofessor_set.all %}
-        <a href="#{{course_professor.user.username}}" class="instructor">{{ course_professor.user }}</a>{% if not forloop.last %} // {% endif %}
+        <li><a href="#{{course_professor.user.username}}">{{ course_professor.user }}</a>{% if not forloop.last %} // {% endif %}</li>
     {% endfor %}
-</h5>
+</ul>

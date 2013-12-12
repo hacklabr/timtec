@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from accounts.utils import LoginRequiredMixin
+from braces.views import LoginRequiredMixin
 from core.models import Course
 from course_material.forms import FileForm
 from course_material.serializers import CourseMaterialSerializer
@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
 from rest_framework import viewsets
+from rest_framework import filters
 import json
 
 
@@ -69,6 +70,8 @@ class CourseMaterialViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     model = CourseMaterial
     serializer_class = CourseMaterialSerializer
     lookup_field = 'course'
+    filter_fields = ('course__slug',)
+    filter_backends = (filters.DjangoFilterBackend,)
 
     def pre_save(self, obj):
         # Get Question vote usign kwarg as questionId

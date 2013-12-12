@@ -9,7 +9,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 
 from accounts.forms import ProfileEditForm
-from accounts.utils import LoginRequiredMixin
+from braces.views import LoginRequiredMixin
 
 
 class CustomLoginView(TemplateView):

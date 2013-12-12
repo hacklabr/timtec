@@ -1,0 +1,213 @@
+{% extends 'admin-base.html' %}
+
+{% block content %}
+
+<!-- COURSE-CONTENT -->
+<div id="course" class="course-lesson">
+    
+    <!-- ACTIONS -->
+    <div class="actions">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                    
+                    <span class="status">
+                        <span class="label">Status</span>
+                        <div class="btn-group">
+                            <button class="btn btn-default">Nova</button>
+                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="">Rascunho</a></li>
+                                <li><a href="">Listada</a></li>
+                                <li><a href="">Publicada</a></li>
+                            </ul>
+                        </div>
+                    </span>
+                    
+                    <span class="publication">
+                        <span class="label">Publicação</span>
+                        <div class="btn-group">
+                            <button class="btn btn-default">Dia</button>
+                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="">01</a></li>
+                                <li><a href="">02</a></li>
+                                <li><a href="">03</a></li>
+                            </ul>
+                        </div>
+                    </span>
+                    
+                    <div class="btn-group">
+                        <button class="btn btn-default">Mês</button>
+                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="">Janeiro</a></li>
+                            <li><a href="">Fevereiro</a></li>
+                            <li><a href="">Março</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button class="btn btn-default">Ano</button>
+                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="">2013</a></li>
+                            <li><a href="">2014</a></li>
+                            <li><a href="">2015</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 textright">
+                    <button class="btn btn-success">Salvar</button>
+                    <button class="btn btn-warning">Publicar Lição | <i class="fa fa-rocket"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END ACTIONS -->
+    
+    
+    <!-- MAIN-HEADER -->
+    <header id="main-header" class="container">
+        <!-- PAGE-HEADER -->
+        <div class="page-header">
+            <!-- ROW -->
+            <div class="row">
+                <!-- COL-LG-9 -->
+                <div class="col-lg-9 col-sm-9">
+                    <h1 class="course-name bottom top">
+                        <a href="/admin/courses/new">HTML5 - Introdução ao Front End</a>
+                    </h1>
+                    <ul class="instructors">
+                        <li><a href="">Fabio Flatschart</a></li>
+                    </ul>
+                </div>
+                <!-- END COL-LG-9 -->
+                <!-- COL-LG-3 -->
+                <div class="col-lg-3 col-sm-3">
+                    <!-- COURSE-SECTION-NAV -->
+                    <nav class="course-sections textright">
+                        <a href=""><span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="Intro"></span></a>
+                        <a href=""><span class="has-tooltip fa fa-film" data-toggle="tooltip" data-placement="top" data-original-title="Aulas"></span></a>
+                        <a href=""><span class="has-tooltip fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="Fórum"></span></a>
+                        <a href=""><span class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="Material Didádico"></span></a>
+                    </nav>
+                    <!-- END COURSE-SECTION-NAV -->
+                </div>
+                <!-- END COL-LG-3 -->
+            </div>
+            <!-- END ROW -->
+        </div>
+        <!-- END PAGE-HEADER -->
+    </header>
+    <!-- MAIN-HEADER -->
+
+    <!-- COURSE-CONTENT -->
+    <section id="course-content" class="container">
+        
+        <nav class="course-lessons">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="top editable"><span contenteditable="true">Título da lição</span></h1>
+                    <p class="description editable"><span contenteditable="true">Descrição da lição</span></p>
+                </div>
+            </div>
+        </nav>
+        
+        <nav class="lesson-units">
+            <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-default">Título da lição</button>
+                <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-chevron-down"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="">Título da lição #1</a></li>
+                    <li><a href="">Título da lição #2</a></li>
+                    <li><a href="">Título da lição #3</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- ROW -->
+        <div class="row">
+            <div class="col-lg-1">
+                <div class="units admin-units">
+                    <a href="" class="unit">1</a>
+                    <a href="" class="unit current">2</a>
+                    <a href="" class="unit">3</a>
+                    <a href="" class="unit">4</a>
+                    <a href="" class="unit">5</a>
+                    <a href="" class="add-unit unit"><i class="fa fa-plus"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="add-content row">
+                    <div class="col-lg-6">
+                        <button class="btn btn-success selected" href="">Vídeo</button>
+                        <button class="btn btn-default">Atividade</button>
+                    </div>
+                    <div class="col-lg-6 textright">
+                        <button class="btn btn-danger delete"><i class="fa fa-trash-o"></i></button>
+                    </div>
+                </div>
+                <div class="video">
+                    <!-- ROW -->
+                    <div class="row">
+                        <!-- ADD-VIDEO-INTRO -->
+                        <div class="add-video-intro col-sm-12 col-lg-12 textcenter">
+                            <!-- CENTERED -->
+                            <div class="centered">
+                                <i class="fa fa-youtube-play fa-4x"></i>
+                                <h1 class="top">Vídeo da unidade</h1>
+                                <p class="form-group">
+                                    <input type="text" class="form-control"/>
+                                </p>
+                                <p>
+                                    <button class="btn btn-danger btn-lg uppercase">Cancelar</button>
+                                    <button class="btn btn-success btn-lg uppercase">Adicionar</button>
+                                </p>
+                            </div>
+                            <!-- END CENTERED -->
+                        </div>
+                        <!-- END ADD-VIDEO-INTRO -->
+                    </div>
+                    <!-- END ROW -->
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="add-side-notes">
+                    <div class="page-header-double">
+                        <h3>Saiba mais</h3>
+                    </div>
+                    <div class="side-notes">
+                        <button class="btn btn-default btn-sm">Adicionar "Saiba Mais"</button>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eu pellentesque nisi. Phasellus eu lorem tellus. Curabitur magna eros, aliquam et lorem vehicula, feugiat scelerisque elit. Morbi a viverra sapien. Pellentesque ac varius lacus, at rutrum augue. Aenean suscipit lacus sed dui condimentum, non imperdiet nulla faucibus. Pellentesque erat elit, sagittis sed ipsum a, scelerisque interdum augue. Nam metus eros, suscipit quis laoreet et, egestas a mi.</p>
+
+                        <p>Aenean eu aliquam sem, vel iaculis neque. Vestibulum mi metus, posuere non iaculis a, adipiscing ac lectus. Donec sodales mi sit amet scelerisque tristique. Praesent lacinia sem eu ante bibendum sagittis. Nullam mi lectus, aliquet vel rhoncus quis, porttitor at odio. Sed vestibulum lobortis orci ac vulputate. Curabitur nulla purus, porta sit amet venenatis ut, ultrices non lorem. Vivamus ac ligula cursus, gravida metus eget, vestibulum neque. Ut placerat purus leo, quis consectetur arcu cursus et. Nulla facilisi. Suspendisse ut neque eros.</p>
+
+                        <p>Duis pellentesque egestas dignissim. Aliquam auctor urna tristique blandit pulvinar. Aliquam nec neque sit amet tellus dapibus faucibus eget in nisl. Pellentesque eros dolor, aliquet eu blandit vitae, ornare et diam. Quisque auctor risus eget sem convallis tempus. Sed elit nisl, cursus sit amet faucibus pretium, pellentesque interdum metus. Maecenas dignissim ornare sem, a faucibus nisl posuere ut. Integer adipiscing nisl non metus rhoncus eleifend. Praesent pellentesque dapibus viverra. Quisque eget posuere nibh, eu viverra augue. Duis placerat turpis quis varius pretium.</p>
+
+                        <p>Quisque tellus arcu, blandit ut dolor at, ultrices pellentesque nunc. Morbi nec dapibus nunc, nec lacinia neque. Morbi faucibus lacus vel aliquam euismod. In semper massa urna, sit amet fermentum dui varius quis. Curabitur sodales sagittis mattis. Vivamus euismod imperdiet tincidunt. Phasellus urna urna, feugiat at nulla et, feugiat dictum dui. Fusce gravida turpis id orci consectetur vulputate. Donec erat odio, facilisis id varius viverra, varius ut sem. Sed pulvinar dignissim orci vitae iaculis. Cras massa lorem, mollis vel urna eu, cursus dictum ipsum. Duis semper odio vel magna auctor, ac egestas nisi mattis. Sed lorem ante, venenatis sed lacinia non, cursus vestibulum nisl. Aliquam gravida vestibulum viverra. Aenean fringilla ante tincidunt magna condimentum, a faucibus sem dapibus.</p>
+
+                        <p>Aliquam in augue diam. Curabitur dapibus massa enim, iaculis mattis erat sagittis vel. Integer elit massa, iaculis pulvinar libero quis, ullamcorper faucibus ipsum. Donec ac felis ut mauris ultrices mattis. Donec placerat libero vel sem porta posuere. Donec lobortis lorem aliquet diam pellentesque, vel blandit orci ultrices. Morbi in tincidunt justo. Duis nisl nisi, faucibus et augue et, volutpat feugiat felis. Nam laoreet turpis congue faucibus ultricies. Proin eu semper mauris, a mattis ipsum. Donec vel tortor libero. Donec mattis id justo at tempor. Vestibulum pretium, ante a tempus tincidunt, augue ante tristique metus, sed congue ipsum velit et nisi.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END ROW -->
+    </section>
+    <!-- END COURSE-CONTENT -->
+
+</div>
+<!-- END COURSE-CONTENT -->
+
+{% endblock content %}
