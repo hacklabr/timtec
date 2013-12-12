@@ -1,5 +1,5 @@
 <div ng-class="{'markdown-required':!content}">
-    <div class="editable" id="wmd-preview-{{id}}" ng-click="active = true"></div>
+    <div class="editable" id="wmd-preview-{{id}}" ng-click="active = true; focusEditor();"></div>
     <div class="markdown-required-label" ng-show="!content"></div>
 </div>
 
