@@ -443,12 +443,12 @@
                 </ol>
             </p>
 
-            <hr/>
 
-            <p>
+            <div ng-show="alert.showControls">
+                <hr/>
                 <button type="button" class="btn" ng-class="'btn-'+alert.type"
                          ng-click="alert.hidden=true">Fechar</button>
-            </p>
+            </div>
         </div>
     </div>
     <!-- ALERT -->

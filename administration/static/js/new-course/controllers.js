@@ -12,6 +12,7 @@
                     this.title = '';
                     this.type = '';
                     this.messages = [];
+                    this.showControls= true;
                 }
             };
             $scope.alert.reset();
@@ -51,11 +52,18 @@
                 $scope.course.$save()
                     .then(function(){
                         $scope.alert.reset();
-                        $scope.alert.hidden = false;
+                        $scope.alert.showControls = false;
                         $scope.alert.type = 'success';
                         $scope.alert.title = 'Suas alterações salvas!';
+
+                        $scope.alert.hidden = false;
+                        setTimeout(function(){
+                            $scope.alert.hidden = true;
+                            $scope.$apply();
+                        }, 2000);
                     })
                     .catch(function(response){
+                        $scope.errors = response.data;
                         $scope.alert.reset();
                         $scope.alert.type = 'danger';
                         $scope.alert.title = 'Encontramos alguns erros! Verifique os campos abaixo:';
@@ -66,7 +74,6 @@
                             );
                         }
                         $scope.alert.hidden = false;
-                        $scope.errors = response.data;
                     }
                 );
             };
