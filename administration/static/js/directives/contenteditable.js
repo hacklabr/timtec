@@ -34,7 +34,13 @@
                     }
                 });
 
-                element.on('blur keyup change', function() {
+                element.on('keyup change', function() {
+                    scope.$apply(read);
+                });
+
+                element.on('blur', function(){
+                    var text = element.text().trim();
+                    element.text(text.trim());
                     scope.$apply(read);
                 });
 
