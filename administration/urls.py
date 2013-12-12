@@ -9,6 +9,7 @@ urlpatterns = patterns(
 
     url(r'^courses/$', TemplateView.as_view(template_name="courses.html")),
     url(r'^courses/new/$', TemplateView.as_view(template_name="new_course.html")),
+    url(r'^courses/(?P<pk>[1-9][0-9]*)/$', TemplateView.as_view(template_name="new_course.html")),
     url(r'^courses/lessons/new/$', TemplateView.as_view(template_name="new_lesson.html")),
     url(r'^users/$', TemplateView.as_view(template_name="users.html")),
 )

@@ -17,7 +17,31 @@
             };
             $scope.alert.reset();
 
+            window.Course = Course
+
             $scope.course = new Course({'status':'draft','intro_video': {'youtube_id':''}});
+            // vv como faz isso de uma formula angular ?
+            var match = document.location.href.match(/courses\/([0-9]+)/);
+            if( match ) {
+                $scope.course.$get({id:match[1]})
+                    .catch(function(resp){
+                        $scope.alert.reset();
+                        $scope.alert.showControls = false;
+                        $scope.alert.type = 'danger';
+
+                        if( resp.status === 404) {
+                            $scope.alert.title = 'Curso com não existe!';
+                        } else if( resp.status === 403) {
+                            $scope.alert.title = 'Você não tem permissão para editar cursos!';
+                        } else {
+                            $scope.alert.title = 'Ocorreu um erro não esperado.';
+                        }
+                        $scope.alert.hidden = false;
+                    });
+                delete match;
+            }
+            // ^^ como faz isso de uma formula angular ?
+
             $scope.statusList = {
                 'draft': 'Rascunho',
                 'listed': 'Listado',
