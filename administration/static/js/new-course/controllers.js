@@ -89,10 +89,11 @@
                         $scope.alert.type = 'danger';
                         $scope.alert.title = 'Encontramos alguns erros! Verifique os campos abaixo:';
                         for(var att in response.data) {
-                            var label = (Course.fields[att]||{}).label ? Course.fields[att].label : att;
-                            $scope.alert.messages.push(
-                                label + ': ' + response.data[att]
-                            );
+                            var message = response.data[att];
+                            if(Course.fields && Course.fields[att]) {
+                                message = Course.fields[att].label + ': ' + message;
+                            }
+                            $scope.alert.messages.push(message);
                         }
                         $scope.alert.hidden = false;
                     }
