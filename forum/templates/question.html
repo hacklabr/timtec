@@ -36,9 +36,9 @@
                             <div class="col-lg-2 col-md-2 col-sm-2">
                                 <div class="row">
                                     <div class="rating col-lg-12 col-sm-12" ng-app="vote" ng-controller="QuestionVoteCtrl">
-                                        <div class="arrow-up" ng-class="user_question_vote_up" ng-click=voteUp()></div>
+                                        <div class="arrow-up" ng-class="{active: question_vote.value==1}" ng-click=voteUp()></div>
                                         <div class="votes" >{{ question.votes }}</div>
-                                        <div class="arrow-down" ng-class="user_question_vote_down" ng-click=voteDown()></div>
+                                        <div class="arrow-down" ng-class="{active: question_vote.value==-1}" ng-click=voteDown()></div>
                                     </div><!-- .rating -->
                                 </div>
                             </div>
@@ -79,10 +79,10 @@
                                 <div class="col-lg-2 col-md-2 col-sm-2">
                                     <div class="row" ng-controller="AnswerVoteCtrl">
                                         <div class="rating col-lg-12 col-md-12 col-sm-12" ng-app="vote" ng-controller="AnswerVoteCtrl">
-                                            <div class="arrow-up" ng-class="user_answer_vote_up" ng-click=voteUp($index)></div>
+                                            <div class="arrow-up" ng-class="{active: answer_vote.value==1}" ng-click=voteUp($index)></div>
                                             <div class="votes">{{ answer.votes }}</div>
                                             <!-- <div class="votes" ng-init="answer_votes{{ answer.pk }}={{ answer.count_votes }}">{{ answer_votes }}</div> -->
-                                            <div class="arrow-down" ng-class="user_answer_vote_down" ng-click=voteDown($index)></div>
+                                            <div class="arrow-down" ng-class="{active: answer_vote.value==-1}" ng-click=voteDown($index)></div>
                                             <!-- <div class="set-correct col-lg-12 col-md-12 col-sm-12">
                                                <i class="fa fa-ok"></i>
                                            </div> -->
