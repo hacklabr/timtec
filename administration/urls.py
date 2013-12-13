@@ -8,7 +8,7 @@ urlpatterns = patterns(
         lr(TemplateView.as_view(template_name="new_course.html")),
         name='course_admin'),
 
-    url(r'^courses/$',lr(TemplateView.as_view(template_name="courses.html"))),
+    url(r'^courses/$', lr(TemplateView.as_view(template_name="courses.html"))),
     url(r'^courses/new/$', lr(TemplateView.as_view(template_name="new_course.html"))),
     url(r'^courses/(?P<pk>[1-9][0-9]*)/$', lr(TemplateView.as_view(template_name="new_course.html"))),
     url(r'^courses/lessons/new/$', lr(TemplateView.as_view(template_name="new_lesson.html"))),
