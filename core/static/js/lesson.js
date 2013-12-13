@@ -88,7 +88,7 @@
                     if (d.correct) {
                         $http({
                             'method': 'POST',
-                            'url': '/api/updatestudentprogress/' + $scope.currentUnitId,
+                            'url': '/api/updatestudentprogress/' + $scope.currentUnitId + '/',
                             'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
                         }).success(function(data){
                             $scope.currentUnit.progress = {complete: data.complete};
@@ -227,7 +227,7 @@
                         }
                         $http({
                             'method': 'POST',
-                            'url': '/api/updatestudentprogress/' + $scope.currentUnitId,
+                            'url': '/api/updatestudentprogress/' + $scope.currentUnitId + '/',
                             'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
                         }).success(function(data){
                             $scope.currentUnit.progress = {complete: data.complete};
