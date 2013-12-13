@@ -32,8 +32,8 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = ("id", "slug", "name", "intro_video", "application", "requirement",
-                  "abstract", "structure", "workload", "pronatec", "status", "publication",
-                  "professors",)
+                  "abstract", "structure", "workload", "pronatec", "status", "thumbnail",
+                  "publication", "professors",)
 
 
 class StudentProgressSerializer(serializers.ModelSerializer):
