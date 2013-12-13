@@ -27,7 +27,7 @@ def test_enroll_user_view(rf, user):
 def test_home_view(rf):
     from core.views import HomeView
 
-    course = mommy.make('Course')
+    course = mommy.make('Course', slug='html5')
 
     request = rf.get('/')
     view = HomeView(request=request)

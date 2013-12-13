@@ -22,8 +22,7 @@ from forms import ContactForm
 
 class HomeView(View):
     def get(self, request):
-        latest = Course.objects.latest('publication')
-        return redirect(reverse('course_intro', args=[latest.slug]))
+        return redirect(reverse('course_intro', args=['html5']))
 
 
 class ContactView(View):
