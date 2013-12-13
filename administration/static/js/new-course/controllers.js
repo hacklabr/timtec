@@ -12,7 +12,29 @@
                     this.title = '';
                     this.type = '';
                     this.messages = [];
-                    this.showControls= true;
+                    this.showControls=false;
+                },
+                popup: function(title, messages, showControls){
+                    this.reset();
+                    this.title = title;
+                    this.messages = messages;
+                    this.showControls = showControls;
+                    this.hidden = false;
+                },
+                success: function(){
+                    this.popup.apply(this, arguments);
+                    this.type = 'success';
+                },
+                error: function(){
+                    this.popup.apply(this, arguments);
+                    this.type = 'danger';
+                },
+                hide: function(callback, timeout) {
+                    var that = this;
+                    setTimeout(function(){
+                        that.hidden = true;
+                        callback.call();
+                    }, timeout || 2000);
                 }
             };
             $scope.alert.reset();
@@ -23,18 +45,13 @@
             if( match ) {
                 $scope.course.$get({id:match[1]})
                     .catch(function(resp){
-                        $scope.alert.reset();
-                        $scope.alert.showControls = false;
-                        $scope.alert.type = 'danger';
-
                         if( resp.status === 404) {
-                            $scope.alert.title = 'Curso com não existe!';
+                            $scope.alert.error('Curso com não existe!');
                         } else if( resp.status === 403) {
-                            $scope.alert.title = 'Você não tem permissão para editar cursos!';
+                            $scope.alert.error('Você não tem permissão para editar cursos!');
                         } else {
-                            $scope.alert.title = 'Ocorreu um erro não esperado.';
+                            $scope.alert.error('Ocorreu um erro não esperado.');
                         }
-                        $scope.alert.hidden = false;
                     });
             }
             // ^^ como faz isso de uma formula angular ?
@@ -72,32 +89,23 @@
                 }
                 $scope.course.$save()
                     .then(function(){
-                        $scope.alert.reset();
-                        $scope.alert.showControls = false;
-                        $scope.alert.type = 'success';
-                        $scope.alert.title = 'Suas alterações salvas!';
-
-                        $scope.alert.hidden = false;
-                        setTimeout(function(){
-                            $scope.alert.hidden = true;
+                        $scope.alert.success('Suas alterações salvas!');
+                        $scope.alert.hide(function(){
                             $scope.$apply();
-                        }, 2000);
+                        });
                     })
                     .catch(function(response){
                         $scope.errors = response.data;
-                        $scope.alert.reset();
-                        $scope.alert.type = 'danger';
-                        $scope.alert.title = 'Encontramos alguns erros! Verifique os campos abaixo:';
+                        var messages = [];
                         for(var att in response.data) {
                             var message = response.data[att];
                             if(Course.fields && Course.fields[att]) {
                                 message = Course.fields[att].label + ': ' + message;
                             }
-                            $scope.alert.messages.push(message);
+                            messages.push(message);
                         }
-                        $scope.alert.hidden = false;
-                    }
-                );
+                        $scope.alert.error('Encontramos alguns erros!', messages, true);
+                    });
             };
         }
     ]);
