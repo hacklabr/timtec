@@ -3,26 +3,32 @@
     var app = angular.module('new-course');
 
 
-    app.factory('Course', ['$resource', function($resource) {
+    app.factory('Course', ['$resource', '$http', function($resource, $http) {
         var Course = $resource('/api/course/:id', {'id':'@id'});
+
+        $http({
+            method:'POST',
+            url:'/api/course',
+            data:'_method=OPTIONS',
+            headers:{'Content-Type':'application/x-www-form-urlencoded'}
+
+        }).success(function(data) {
+            Course.fields = angular.copy(data.actions.POST);
+        });
 
         Course.prototype.hasVideo = function(){
             return this.intro_video && this.intro_video.youtube_id &&
                    this.intro_video.youtube_id.length > 0;
         };
 
+
         return Course;
     }]);
 
     app.factory('VideoData', ['$document', '$q', function($document, $q){
         var funcName = 'getYoutubeData'+Math.random().toString(16).substring(2);
-        var feed = {};
 
         var VideoData = function() {
-            this.getData = function(){
-                return feed.data;
-            };
-
             this.load = function(vid) {
                 this.deferred = $q.defer();
 
@@ -40,9 +46,8 @@
         var vd = new VideoData();
 
         window[funcName] = function(data) {
-            feed.data = data;
             vd.deferred.resolve(data);
-            return feed;
+            return data;
         };
 
         return vd;
