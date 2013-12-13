@@ -5,7 +5,6 @@
     app.controller('CourseEditController',
         ['$scope', 'Course', '$filter', 'youtubePlayerApi', 'VideoData',
         function($scope, Course, $filter, youtubePlayerApi, VideoData) {
-            $scope.errors = {};
             $scope.alert = {
                 hidden : true,
                 reset: function(){
@@ -39,19 +38,23 @@
             };
             $scope.alert.reset();
 
-            $scope.course = new Course({'status':'draft','intro_video': {'youtube_id':''}});
+            $scope.errors = {};
+            var httpErrors = {
+                '403': 'Você não tem permissão para ver conteúdo nesta página.',
+                '404': 'Este curso não existe!'
+            };
+
+
             // vv como faz isso de uma formula angular ?
             var match = document.location.href.match(/courses\/([0-9]+)/);
+            $scope.course = new Course({'status':'draft','intro_video': {'youtube_id':''}});
             if( match ) {
                 $scope.course.$get({id:match[1]})
+                    .then(function(course){
+                        youtubePlayerApi.videoId = course.intro_video.youtube_id;
+                    })
                     .catch(function(resp){
-                        if( resp.status === 404) {
-                            $scope.alert.error('Curso com não existe!');
-                        } else if( resp.status === 403) {
-                            $scope.alert.error('Você não tem permissão para editar cursos!');
-                        } else {
-                            $scope.alert.error('Ocorreu um erro não esperado.');
-                        }
+                        $scope.alert.error(httpErrors[resp.status.toString()]);
                     });
             }
             // ^^ como faz isso de uma formula angular ?
@@ -63,17 +66,22 @@
             };
 
             var player;
+            $scope.playerReady = false;
             youtubePlayerApi.$watch('playerId', function(){
+                if ($scope.playerReady)
+                    return;
+
                 youtubePlayerApi.videoId = $scope.course.intro_video.youtube_id;
                 youtubePlayerApi.playerWidth = '100%';
                 youtubePlayerApi.playerHeight = '475px';
                 youtubePlayerApi.loadPlayer().then(function(p){
                     player = p;
+                    $scope.playerReady = true;
                 });
             });
 
-            $scope.$watch('course.intro_video.youtube_id', function(vid){
-                if(!vid) return;
+            $scope.$watch('course.intro_video.youtube_id', function(vid, oldVid){
+                if(!vid || vid === oldVid) return;
                 if(player) player.cueVideoById(vid);
                 VideoData.load(vid).then(function(data){
                     $scope.course.intro_video.name = data.entry.title.$t;

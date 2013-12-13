@@ -340,3 +340,28 @@ body#admin {
     animation: blink-bg-red 2s infinite;
     -webkit-animation: blink-bg-red 2s infinite; /* Safari and Chrome */
 }
+
+
+.waiting {
+    display: table;
+}
+
+@-webkit-keyframes spin {
+    from   {-webkit-transform: rotate(0deg); }
+    to {-webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    from   {transform: rotate(0deg); }
+    to {transform: rotate(360deg); }
+}
+
+.waiting .middle {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+.waiting .middle i {
+    animation: spin 2s infinite;
+    -webkit-animation: spin 2s linear infinite; /* Safari and Chrome */
+}
