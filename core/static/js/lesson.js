@@ -2,7 +2,7 @@
     "use strict";
 
     var ga = window.ga || function(){ };
-    var app = angular.module('lesson', ['ngRoute', 'ngResource', 'youtube', 'forum', 'notes']);
+    var app = angular.module('lesson', ['ngRoute', 'ngResource', 'youtube', 'django', 'forum', 'notes']);
 
     var ACTIVITY_TEMPLATE_PATH = function(the_type){
         return STATIC_URL + '/templates/activity_'+ the_type + '.html';
@@ -18,12 +18,6 @@
                     templateUrl: STATIC_URL + '/templates/lesson_activity.html',
                     controller: 'LessonActivityCtrl'})
                 .otherwise({redirectTo: '/1'});
-
-            $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-            $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-            $sceDelegateProvider.resourceUrlWhitelist([
-                'self',
-                window.STATIC_URL + '**']);
         }
     ]);
 
