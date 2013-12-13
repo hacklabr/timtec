@@ -17,8 +17,6 @@
             };
             $scope.alert.reset();
 
-            window.Course = Course
-
             $scope.course = new Course({'status':'draft','intro_video': {'youtube_id':''}});
             // vv como faz isso de uma formula angular ?
             var match = document.location.href.match(/courses\/([0-9]+)/);
@@ -38,7 +36,6 @@
                         }
                         $scope.alert.hidden = false;
                     });
-                delete match;
             }
             // ^^ como faz isso de uma formula angular ?
 
