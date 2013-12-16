@@ -145,33 +145,42 @@
                     </div>
                 </div>
                 <!-- END ADD CONTENT -->
-                <section class="thumbnail" ng-show="mediaSection=='thumbnail'">
-                    <div class="row" ng-show="!course.thumbnail">
+
+                <section class="thumbnail" ng-show="mediaSection=='thumbnail'" ng-init="thumbfile=null">
+
+                    <div class="row" ng-show="addThumb">
+
                         <div class="add-thumbnail col-sm-12 col-lg-12 textcenter">
                             <div class="centered">
                                 <div class="form-group">
                                     <i class="fa fa-picture-o fa-4x"></i>
                                     <h1 class="top">Thumbnail</h1>
-                                    <file ng-model="course.thumbnail" name="thumbnail" class="form-control"></file>
+
+                                    <file ng-model="thumbfile" name="thumbnail" class="form-control"></file>
                                 </div>
 
                                 <p>
                                     <button class="btn btn-danger btn-lg uppercase"
-                                            ng-click="course.thumbnail=''">Cancelar</button>
+                                            ng-click="thumbfile=null; addThumb=!course.thumbnail_url">Cancelar</button>
+
                                     <button class="btn btn-success btn-lg uppercase"
-                                            ng-show="!course.thumbnail">Adicionar</button>
+                                            ng-click="addThumb=(thumbfile===null)">Adicionar</button>
                                 </p>
                             </div>
                         </div>
                     </div>
-                    <div class="row" ng-show="course.thumbnail">
+
+                    <div class="row" ng-show="!addThumb">
                         <p>
-                            <img local-image ng-model="course.thumbnail" style="width:100%"/>
+                            <img local-image ng-model="thumbfile" style="width:100%"/>
+                            {% verbatim %}
+                            <img ng-src="{{course.thumbnail_url}}" style="width:100%" ng-show="!thumbfile"/>
+                            {% endverbatim %}
                         </p>
 
                         <div class="col-lg-12 textright">
                             <button class="btn-edit-video btn btn-success btn-sm uppercase"
-                                    ng-click="course.thumbnail=null">Alterar thumbnail</button>
+                                    ng-click="addThumb=true">Alterar thumbnail</button>
                         </div>
                     </div>
                 </section>

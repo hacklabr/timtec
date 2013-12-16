@@ -14,7 +14,7 @@ from rest_framework import filters
 from braces.views import LoginRequiredMixin
 from notes.models import Note
 
-from .serializers import CourseSerializer, LessonSerializer, StudentProgressSerializer, NoteUnitSerializer
+from .serializers import CourseSerializer, CourseThumbSerializer, LessonSerializer, StudentProgressSerializer, NoteUnitSerializer
 from .models import Course, Lesson, StudentProgress, Unit
 
 from forms import ContactForm
@@ -101,6 +101,22 @@ class CourseViewSet(viewsets.ModelViewSet):
     def post(self, request, **kwargs):
         course = self.get_object()
         serializer = CourseSerializer(course, request.DATA)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=200)
+        else:
+            return Response(serializer.errors, status=403)
+
+
+class CourseThumbViewSet(viewsets.ModelViewSet):
+    model = Course
+    lookup_field = 'id'
+    serializer_class = CourseThumbSerializer
+
+    def post(self, request, **kwargs):
+        course = self.get_object()
+        serializer = CourseThumbSerializer(course, request.FILES)
 
         if serializer.is_valid():
             serializer.save()

@@ -3,8 +3,8 @@
     var app = angular.module('new-course');
 
     app.controller('CourseEditController',
-        ['$scope', 'Course', '$filter', 'youtubePlayerApi', 'VideoData',
-        function($scope, Course, $filter, youtubePlayerApi, VideoData) {
+        ['$scope', 'Course', '$filter', 'youtubePlayerApi', 'VideoData', 'FormUpload',
+        function($scope, Course, $filter, youtubePlayerApi, VideoData, FormUpload) {
             $scope.alert = {
                 hidden : true,
                 reset: function(){
@@ -52,6 +52,7 @@
                 $scope.course.$get({id:match[1]})
                     .then(function(course){
                         youtubePlayerApi.videoId = course.intro_video.youtube_id;
+                        $scope.addThumb = !course.thumbnail_url;
                     })
                     .catch(function(resp){
                         $scope.alert.error(httpErrors[resp.status.toString()]);
@@ -95,14 +96,24 @@
                 if(!$scope.course.slug){
                     $scope.course.slug = $filter('slugify')($scope.course.name);
                 }
+
                 $scope.course.$save()
                     .then(function(){
                         $scope.alert.success('Alterações salvas com sucesso!');
                         $scope.alert.hide(function(){
                             $scope.$apply();
                         });
+
+                        if($scope.thumbfile) {
+                            var fu = new FormUpload();
+                            fu.addField('name', $scope.course.name);
+                            fu.addField('slug', $scope.course.slug);
+                            fu.addField('thumbnail', $scope.thumbfile);
+                            return fu.sendTo('/api/coursethumbs/' + $scope.course.id);
+                        }
                     })
                     .catch(function(response){
+                        console.log(response)
                         $scope.errors = response.data;
                         var messages = [];
                         for(var att in response.data) {

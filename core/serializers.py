@@ -29,12 +29,20 @@ class VideoSerializer(serializers.ModelSerializer):
 
 class CourseSerializer(serializers.ModelSerializer):
     intro_video = VideoSerializer(required=False)
+    thumbnail_url = serializers.Field(source='get_thumbnail_url')
 
     class Meta:
         model = Course
         fields = ("id", "slug", "name", "intro_video", "application", "requirement",
-                  "abstract", "structure", "workload", "pronatec", "status", "thumbnail",
-                  "publication", "professors",)
+                  "abstract", "structure", "workload", "pronatec", "status",
+                  "thumbnail_url", "publication", "professors",)
+
+
+class CourseThumbSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Course
+        fields = ("id", "thumbnail",)
 
 
 class StudentProgressSerializer(serializers.ModelSerializer):

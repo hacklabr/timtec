@@ -10,7 +10,7 @@ django_admin.autodiscover()
 from django.views.generic import TemplateView
 from accounts.views import CustomLoginView, ProfileEditView, ProfileView
 from forum.views import AnswerViewSet as ForumAnswerViewSet
-from core.views import CourseView, CourseViewSet, EnrollCourseView, HomeView, UserCoursesView, ContactView
+from core.views import CourseView, CourseViewSet, CourseThumbViewSet, EnrollCourseView, HomeView, UserCoursesView, ContactView
 from core.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, UpdateStudentProgressView, LessonsUserNotesViewSet
 from activities.views import AnswerViewSet
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, QuestionVoteViewSet, AnswerVoteViewSet
@@ -20,6 +20,7 @@ from rest_framework import routers
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'course', CourseViewSet)
+router.register(r'coursethumbs', CourseThumbViewSet)
 router.register(r'lessons', LessonViewSet)
 router.register(r'answer', AnswerViewSet)
 router.register(r'student_progress', StudentProgressViewSet)

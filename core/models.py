@@ -72,6 +72,10 @@ class Course(models.Model):
         except CourseStudent.DoesNotExist:
             return CourseStudent.objects.create(**params)
 
+    def get_thumbnail_url(self):
+        if self.thumbnail:
+            return self.thumbnail.url
+        return ''
 
 class CourseStudent(models.Model):
     user = models.ForeignKey(TimtecUser, verbose_name=_('Student'))
