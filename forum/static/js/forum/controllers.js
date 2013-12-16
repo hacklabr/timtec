@@ -94,6 +94,25 @@
         };
     }
 
+    function vote_value(vote_type, current_vote) {
+        // Computes votes and return the value after vote. Votes value can be 1, 0 or -1. 
+        // vote ir up or down, current_vote is the currente value of vote (1, 0 or -1)
+        // returns the vote value after user vote.
+        if (vote_type == 'up') {
+            if (current_vote == 1) {
+                return 0;
+            } else {
+                return 1;
+            }
+        } else if (vote_type == 'down') {
+            if (current_vote == -1) {
+                return 0;
+            } else {
+                return -1;
+            }
+        }
+    }
+
     angular.module('forum.controllers', ['ngCookies']).
         controller('QuestionCtrl', ['$scope', '$sce', '$window', 'Question', 'Answer', QuestionCtrl]).
         controller('InlineForumCtrl', ['$scope', '$window', 'Question', InlineForumCtrl]).
@@ -108,31 +127,10 @@
                         $scope.question_vote.value = 0;
                     }
                 });
-                $scope.voteUp = function() {
-                    if (($scope.question_vote.value === undefined) || ($scope.question_vote.value === 0)){
-                        $scope.question.votes += 1;
-                        $scope.question_vote.value = 1;
-                    } else if ($scope.question_vote.value == 1) {
-                        $scope.question.votes -= 1;
-                        $scope.question_vote.value = 0;
-                    } else if ($scope.question_vote.value == -1) {
-                        $scope.question.votes += 2;
-                        $scope.question_vote.value = 1;
-                    }
-                    $scope.question_vote.$update({question: $scope.questionId});
-                };
-                $scope.voteDown = function() {
-                    if (($scope.question_vote.value === undefined) || ($scope.question_vote.value === 0)){
-                        $scope.question.votes -= 1;
-                        $scope.question_vote.value = -1;
-                    } else if ($scope.question_vote.value == 1) {
-                        $scope.user_question_vote_up = '';
-                        $scope.question.votes -= 2;
-                        $scope.question_vote.value = -1;
-                    } else if ($scope.question_vote.value == -1) {
-                        $scope.question.votes += 1;
-                        $scope.question_vote.value = 0;
-                    }
+                $scope.vote = function(vote_type) {
+                    var current_vote = $scope.question_vote.value;
+                    $scope.question_vote.value = vote_value(vote_type, current_vote);
+                    $scope.question.votes += $scope.question_vote.value - current_vote;
                     $scope.question_vote.$update({question: $scope.questionId});
                 };
         }]).
@@ -142,38 +140,13 @@
                 $scope.answer_vote = AnswerVote.get({answer: $scope.answer.id}, function (){}, function (httpResponse){
                         if (httpResponse.status == 404) {
                             $scope.answer_vote.answer = $scope.answer.id;
+                            $scope.answer_vote.value = 0;
                         }
                     });
-                $scope.voteUp = function(index) {
-                    if (($scope.answer_vote.value === undefined) || ($scope.answer_vote.value === 0)){
-                        $scope.answer_vote.answer = $scope.answer.id;
-                        $scope.answer_vote.value = 1;
-                        $scope.answer.votes += 1;
-                    } else if ($scope.answer_vote.value == 1) {
-                        $scope.user_answer_vote_up = '';
-                        $scope.answer.votes -= 1;
-                        $scope.answer_vote.value = 0;
-                    } else if ($scope.answer_vote.value == -1) {
-                        $scope.answer.votes += 2;
-                        $scope.answer_vote.value = 1;
-                    }
-                    $scope.answer_vote.$update({answer: $scope.answer_vote.answer});
-                };
-                $scope.voteDown = function(index) {
-                    if (($scope.answer_vote.value === undefined) || ($scope.answer_vote.value === 0)){
-                        $scope.user_answer_vote_down = 'active';
-                        $scope.answer.votes -= 1;
-                        $scope.answer_vote.value = -1;
-                    } else if ($scope.answer_vote.value == 1) {
-                        $scope.user_answer_vote_up = '';
-                        $scope.user_answer_vote_down = 'active';
-                        $scope.answer.votes -= 2;
-                        $scope.answer_vote.value = -1;
-                    } else if ($scope.answer_vote.value == -1) {
-                        $scope.user_answer_vote_down = '';
-                        $scope.answer.votes += 1;
-                        $scope.answer_vote.value = 0;
-                    }
+                $scope.vote = function(vote_type) {
+                    var current_vote = $scope.answer_vote.value;
+                    $scope.answer_vote.value = vote_value(vote_type, current_vote);
+                    $scope.answer.votes += $scope.answer_vote.value - current_vote;
                     $scope.answer_vote.$update({answer: $scope.answer_vote.answer});
                 };
         }]);

@@ -27,9 +27,7 @@ def test_question(admin_client, user):
     response = admin_client.get('/forum/question/' + question.slug + '/')
 
     assert response.status_code == 200
-    assert question.title.encode('utf-8') in response.content
-    assert question.text.encode('utf-8') in response.content
-    assert question == response.context_data[u'question']
+    assert question == response.context_data[u'question_django']
 
 
 @pytest.mark.django_db
