@@ -454,7 +454,7 @@ a:active {
     }
   }
   // END CONTENT EDITABLE
-  
+
   // POPUP NOTIFICATIONS
   // ********************************************************************* //
   .tt-popup {
@@ -483,7 +483,7 @@ a:active {
       }
   }
   // END POPUP NOTIFICATIONS
-  
+
 
 }
 
@@ -495,7 +495,7 @@ a:active {
   // ADMIN
   // ********************************************************************* //
   #admin & {
-    
+
     // HEADER - Admin
     // ********************************************************************* //
     header {
@@ -534,7 +534,7 @@ a:active {
         margin-top: -18px;
       }
     }
-    
+
     nav.lesson-units {
       margin-bottom: 10px !important;
     }
@@ -629,7 +629,7 @@ a:active {
     }
   }
   // END HEADER
-  
+
   // HEADER - Course Sections
   // ********************************************************************* //
   .course-sections {
@@ -657,7 +657,7 @@ a:active {
     }
   }
   // END HEADER - Course Sections
-  
+
   // HEADER - Course Lesson, Material and Forum
   // ********************************************************************* //
   &.course-lesson,
@@ -673,7 +673,7 @@ a:active {
         ul.instructors {
           font-size: 12px;
         }
-      }      
+      }
     }
     #course-content {
       nav.course-lessons {
@@ -702,7 +702,7 @@ a:active {
       }
     }
   }
-  
+
   &.course-material {
     #course-content {
       > h1 {
@@ -710,7 +710,7 @@ a:active {
       }
     }
   }
-  
+
   // COURSE INTRO
   // ********************************************************************* //
   &.course-intro {
@@ -814,8 +814,24 @@ a:active {
       // END INSTRUCTOR
     }
     // END INSTRUCTORS
-    
-    
+
+
+    // COURSE THUMBNAIL - General
+    // ********************************************************************* //
+    .thumbnail {
+      border: 1px solid @gray-lighter;
+      #admin & {
+        .top(20px);
+      }
+      .thumbnail-title {
+        margin: 2px 10px 0;
+      }
+      .btn-edit-thumbail {
+        margin-top: 1px;
+      }
+    }
+    // END COURSE VIDEO
+
     // COURSE VIDEO - General
     // ********************************************************************* //
     .video {

@@ -83,7 +83,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
     <!-- END ACTIONS -->
 
@@ -131,21 +131,54 @@
         <!--  ROW  -->
         <div class="row">
             <!--  COL-LG-9  -->
-            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" ng-init="mediaSection='video'">
                 <!-- ADD CONTENT -->
                 <div class="add-content row">
                     <div class="col-lg-6">
-                        <button ng-class="{'blink-bg-danger':errors.intro_video}" class="btn btn-success selected">Vídeo</button>
-                        <button class="btn btn-default">Imagem</button>
+                        <button ng-click="mediaSection='video'"
+                                ng-class="{'btn-success':mediaSection=='video'}"
+                                class="btn btn-default selected">Vídeo</button>
+
+                        <button class="btn btn-default"
+                                ng-class="{'btn-success':mediaSection=='thumbnail'}"
+                                ng-click="mediaSection='thumbnail'">Thumbnail</button>
                     </div>
                 </div>
                 <!-- END ADD CONTENT -->
+                <section class="thumbnail" ng-show="mediaSection=='thumbnail'">
+                    <div class="row" ng-show="!course.thumbnail">
+                        <div class="add-thumbnail col-sm-12 col-lg-12 textcenter">
+                            <div class="centered">
+                                <div class="form-group">
+                                    <i class="fa fa-picture-o fa-4x"></i>
+                                    <h1 class="top">Thumbnail</h1>
+                                    <file ng-model="course.thumbnail" name="thumbnail" class="form-control"></file>
+                                </div>
+
+                                <p>
+                                    <button class="btn btn-danger btn-lg uppercase"
+                                            ng-click="course.thumbnail=''">Cancelar</button>
+                                    <button class="btn btn-success btn-lg uppercase"
+                                            ng-show="!course.thumbnail">Adicionar</button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-show="course.thumbnail">
+                        <p>
+                            <img local-image ng-model="course.thumbnail" style="width:100%"/>
+                        </p>
+
+                        <div class="col-lg-12 textright">
+                            <button class="btn-edit-video btn btn-success btn-sm uppercase"
+                                    ng-click="course.thumbnail=null">Alterar thumbnail</button>
+                        </div>
+                    </div>
+                </section>
 
                 <!--  COURSE-VIDEO  -->
-                <section class="video">
-                    <!--  ROW  -->
+                <section class="video" ng-show="mediaSection=='video'">
                     <div class="row">
-
                         <div class="waiting col-sm-12 col-lg-12 textcenter jumbotron"
                              style="height: 515px"
                              ng-show="course.intro_video.youtube_id && !playerReady">
@@ -181,7 +214,6 @@
                                 <p>
                                     <button class="btn btn-danger btn-lg uppercase"
                                             ng-click="course.intro_video.youtube_id=''">Cancelar</button>
-
                                     <button tabindex="9"
                                             class="btn btn-success btn-lg uppercase"
                                             ng-show="!course.intro_video.youtube_id"
@@ -189,9 +221,7 @@
                                 </p>
                             </div>
                         </div>
-                        <!--  END ADD-VIDEO-INTRO  -->
                     </div>
-                    <!--  END ROW  -->
                 </section>
                 <!--  END COURSE-VIDEO  -->
 

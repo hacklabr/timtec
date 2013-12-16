@@ -4,14 +4,25 @@
 
 
     app.factory('Course', ['$resource', '$http', function($resource, $http) {
-        var Course = $resource('/api/course/:id', {'id':'@id'});
+
+        function stripThumbnail(data, headersGetter) {
+            console.log(this, arguments);
+            data.thumbnail = null;
+            return angular.toJson(data);
+        }
+
+        var Course = $resource('/api/course/:id', {'id':'@id'}, {
+            'save': {
+                'method': 'POST',
+                'transformRequest': stripThumbnail
+            }
+        });
 
         $http({
             method:'POST',
             url:'/api/course',
             data:'_method=OPTIONS',
             headers:{'Content-Type':'application/x-www-form-urlencoded'}
-
         }).success(function(data) {
             Course.fields = angular.copy(data.actions.POST);
         });
