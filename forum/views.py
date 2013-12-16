@@ -30,7 +30,7 @@ class CourseForumView(LoginRequiredMixin, ListView):
 
 class QuestionView(LoginRequiredMixin, DetailView):
     model = Question
-    context_object_name = 'question'
+    context_object_name = 'question_django'
     template_name = 'question.html'
 
 
