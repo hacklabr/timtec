@@ -70,67 +70,175 @@
 
         {% verbatim %}
         <!-- COURSE -->
-        <div class="course" ng-repeat="course in (filteredList = (courseList | orderBy:ordering:reverse | filter:filters.check))">
-            <div class="row">
-                <div class="col-lg-1">
-                    <span class="label" ng-class="{
-                        'label-default' : !(course.isDraft() || course.isListed() || course.isPublished()),
-                        'label-warning': course.isDraft(),
-                        'label-info': course.isListed(),
-                        'label-success': course.isPublished()}">{{ course.status | capfirst }}</span>
+        <div class="course clearfix" ng-repeat="course in (filteredList = (courseList | orderBy:ordering:reverse | filter:filters.check))">
+            <div class="col-lg-12">
+                <h1><a href="/admin/courses/{{ course.id }}" title="{{ course.name }}">{{ course.name }}</a></h1>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <p>
+                            <span class="label" ng-class="{
+                                'label-default' : !(course.isDraft() || course.isListed() || course.isPublished()),
+                                'label-warning': course.isDraft(),
+                                'label-info': course.isListed(),
+                                'label-success': course.isPublished()}">{{ course.status | capfirst }}</span>
+
+                            <span class="label label-default pointer" ng-click="showLessons=!showLessons">Ver Lições <i class="fa" ng-class="{'fa fa-caret-down':!showLessons,'fa fa-caret-up':showLessons}"></i></span>
+                        </p>
+                    </div>
+                    <div class="col-lg-6 textright">
+                        <p>
+                            <span ng-show="course.isPublished()">
+                                <span class="date-label">Publicado em</span> <span class="date label label-success">{{ course.publication | date:'MMM, yyyy' }}</span>
+                            </span>
+                            <span ng-show="course.publication && !course.isPublished()">
+                                <span class="date-label">Publicar em</span> <span class="date label label-info">{{ course.publication | date:'MMM, yyyy' }}</span>
+                            </span>
+                            <span ng-show="!course.publication">
+                                <span class="date label label-danger">Sem data de publicação</span>
+                            </span>
+                        </p>
+                    </div>
                 </div>
-                <div class="col-lg-8">
-                    <a href="/admin/courses/{{ course.id }}">{{ course.name }}</a>
-                    <button title="Mostrar lições" alt="Mostrar lições"
-                            class="btn pull-right" ng-click="showLessons=!showLessons">
-                        <span class="icon"
-                              ng-class="{'fa fa-chevron-down':!showLessons,'fa fa-chevron-up':showLessons}">
-                        </span>
-                    </button>
-                </div>
-                <div class="col-lg-3 textright" ng-show="course.isPublished()">
-                    <span class="date-label">Publicado em</span> <span class="date label label-success">{{ course.publication | date:'MMM, yyyy' }}</span>
-                </div>
-                <div class="col-lg-3 textright" ng-show="course.publication && !course.isPublished()">
-                    <span class="date-label">Publicar em</span> <span class="date label label-info">{{ course.publication | date:'MMM, yyyy' }}</span>
-                </div>
-                <div class="col-lg-3 textright" ng-show="!course.publication">
-                    <span class="date label label-danger">Sem data de publicação</span>
-                </div>
-            </div>
-            <div class="row" ng-show="showLessons">
-                <div class="lessons col-lg-11 col-lg-offset-1">
-                    <div class="lesson">
-                        <div class="row">
-                            <div class="col-lg-1">
-                                <span class="label label-success">Publicado</span>
+                
+                <div class="row" ng-show="showLessons">
+                    <div class="col-lg-12">
+                        <div class="lessons">
+                            <div class="lesson">
+                                <div class="row">
+                                    <div class="col-lg-1">
+                                        <span class="label label-success">publicado</span>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <h1><a href="">1 - Introdução: Internet e Web</a></h1>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-lg-11">
-                                <a href="">1 - Introdução: Internet e Web</a>
+                            <div class="lesson">
+                                <div class="row">
+                                    <div class="col-lg-1">
+                                        <span class="label label-success">publicado</span>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <h1><a href="">2 - Montando a estrutura de um documento HTML</a></h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lesson">
+                                <div class="row">
+                                    <div class="col-lg-1">
+                                        <span class="label label-success">publicado</span>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <h1><a href="">3 - Grupos de conteúdo e elementos semânticos de texto</a></h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lesson">
+                                <div class="row">
+                                    <div class="col-lg-1">
+                                        <span class="label label-success">publicado</span>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <h1><a href="">4 - Conteúdo Multimídia</a></h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lesson">
+                                <div class="row">
+                                    <div class="col-lg-1">
+                                        <span class="label label-success">publicado</span>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <h1><a href="">5 - Tabelas e Formulários</a></h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lesson">
+                                <div class="row">
+                                    <div class="col-lg-1">
+                                        <span class="label label-success">publicado</span>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <h1><a href="">6 - Metadados e Cabeçalho</a></h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lesson">
+                                <div class="row">
+                                    <div class="col-lg-1">
+                                        <span class="label label-success">publicado</span>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <h1><a href="">7 - Introdução ao CSS</a></h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lesson">
+                                <div class="row">
+                                    <div class="col-lg-1">
+                                        <span class="label label-success">publicado</span>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <h1><a href="">8 - Cores e Backgrounds</a></h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lesson">
+                                <div class="row">
+                                    <div class="col-lg-1">
+                                        <span class="label label-info">listado</span>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <h1><a href="">9 - Fontes, textos, listas e links</a></h1>
+                                    </div>
+                                    <div class="col-lg-2 textright">
+                                        <span class="label label-warning pointer">Publicar | <i class="fa fa-rocket"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lesson">
+                                <div class="row">
+                                    <div class="col-lg-1">
+                                        <span class="label label-info">listado</span>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <h1><a href="">10 - Box Model, classe, ID e outros</a></h1>
+                                    </div>
+                                    <div class="col-lg-2 textright">
+                                        <span class="label label-warning pointer">Publicar | <i class="fa fa-rocket"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lesson">
+                                <div class="row">
+                                    <div class="col-lg-1">
+                                        <span class="label label-default">rascunho</span>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <h1><a href="">11 - Introdução ao JavaScript</a></h1>
+                                    </div>
+                                    <div class="col-lg-2 textright">
+                                        <span class="label label-warning pointer">Publicar | <i class="fa fa-rocket"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lesson">
+                                <div class="row">
+                                    <div class="col-lg-1">
+                                        <span class="label label-default">rascunho</span>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <h1><a href="">12 - Noções de jQuery</a></h1>
+                                    </div>
+                                    <div class="col-lg-2 textright">
+                                        <span class="label label-warning pointer">Publicar | <i class="fa fa-rocket"></i></span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="lesson">
-                        <div class="row">
-                            <div class="col-lg-1">
-                                <span class="label label-info">Listada</span>
-                            </div>
-                            <div class="col-lg-11">
-                                <a href="">2 - Montando a estrutura de um documento HTML</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="lesson">
-                        <div class="row">
-                            <div class="col-lg-1">
-                                <span class="label label-warning">Rascunho</span>
-                            </div>
-                            <div class="col-lg-11">
-                                <a href="">3 - Grupos de conteúdo e elementos semânticos de texto</a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
+                
             </div>
         </div>
         <!-- END COURSE -->

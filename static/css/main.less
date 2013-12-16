@@ -399,22 +399,33 @@ a:active {
     #all-courses {
       &.courses-list {
         .course {
+          background-color: lighten(@gray-lighter, 5%);
+          border-bottom: 1px solid @gray-lighter;
+          border-top: 1px solid @gray-lighter;
+          margin-bottom: 40px;
+          h1 {
+            font-size: 18px;
+            a {
+              color: @gray-darker;
+              &:hover {
+                color: @brand-info;
+              }
+            }
+          }
           .lessons {
-            margin-top: 10px;
             .lesson {
               border-top: 1px solid @gray-lighter;
-              margin: 5px 0;
-              padding: 5px 0;
+              padding: 10px 0 12px 0;
+              &:hover {
+                background-color: @gray-lighter;
+              }
               h1 {
-                font-size: 14px;
-              }
-              h2 {
-                font-size: 14px;
-              }
-              .unit {
-                border-top: 1px solid @gray-lighter;
+                font-family: @font-family-sans-serif;
                 font-size: 12px;
-                padding: 5px 0;
+                margin-bottom: 0;
+                margin-top: 5px;
+                padding-bottom: 0;
+                padding-top: 0;
               }
             }
           }
@@ -832,13 +843,20 @@ a:active {
       }
     }
     .add-side-notes {
-      margin-top: 64px;
+      margin-top: 68px;
+      #side-notes {
+        [contenteditable] {
+          cursor: pointer;
+          height: 300px;
+          margin-top: 20px;
+        }
+      }
     }
 
     // COURSE UNITS - General
     // ********************************************************************* //
     .admin-units {
-      margin-top: 64px !important;
+      margin-top: 66px !important;
     }
     .units {
       margint-top: 20px;
@@ -1979,4 +1997,9 @@ ul.uploaded-files-list {
       }
     }
   }
+}
+
+
+.pointer {
+  cursor: pointer;
 }
