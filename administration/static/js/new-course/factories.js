@@ -2,6 +2,10 @@
     'use strict';
     var app = angular.module('new-course');
 
+    /**
+     * Provide an object that wraps a FormData and a XMLHttpRequest
+     * to upload files. Returns a promise with request info.
+     */
     app.factory('FormUpload', ['$http', '$q', function($http, $q){
         return function() {
             var formData = new FormData();
@@ -41,6 +45,10 @@
         };
     }]);
 
+    /**
+     * Give a function that send _method=OPTIONS to django rest_framework
+     * URL informed and return a promise with result.
+     */
     app.factory('getRestOptions', ['$http', function($http){
         return function(url){
             return $http({
@@ -52,6 +60,10 @@
         };
     }]);
 
+    /**
+     *  Provide a Course class. The property Class.fields contains the
+     *  list of fields that reflects Course model in Django
+     */
     app.factory('Course', ['$resource', '$http', 'getRestOptions', function($resource, $http, getRestOptions) {
         var url_template = '/api/course/:id';
         var Course = $resource(url_template, {'id':'@id'});
@@ -79,6 +91,11 @@
         return Course;
     }]);
 
+
+    /**
+     * A object that fetch info from Youtube. It expects a video ID and returns
+     * a promise that video info will be fetched.
+     */
     app.factory('VideoData', ['$document', '$q', function($document, $q){
         var funcName = 'getYoutubeData'+Math.random().toString(16).substring(2);
 
@@ -86,6 +103,7 @@
             this.load = function(vid) {
                 this.deferred = $q.defer();
 
+                // youtube service
                 this.src = 'http://gdata.youtube.com/feeds/api/videos/'+
                             vid + '?alt=json&callback=' + funcName;
 
