@@ -2,17 +2,11 @@
     'use strict';
 
     var app = angular.module('new-course', [
+        'django',
         'directive.contenteditable',
         'directive.markdowneditor',
         'filters.text',
         'ngResource',
         'youtube'
-    ]);
-
-    app.config(['$httpProvider',
-        function ($httpProvider) {
-            $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-            $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-        }
     ]);
 })(window.angular);

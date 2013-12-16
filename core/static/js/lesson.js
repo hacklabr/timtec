@@ -2,7 +2,7 @@
     "use strict";
 
     var ga = window.ga || function(){ };
-    var app = angular.module('lesson', ['ngRoute', 'ngResource', 'youtube', 'forum', 'notes']);
+    var app = angular.module('lesson', ['ngRoute', 'ngResource', 'youtube', 'django', 'forum', 'notes']);
 
     var ACTIVITY_TEMPLATE_PATH = function(the_type){
         return STATIC_URL + '/templates/activity_'+ the_type + '.html';
@@ -18,12 +18,6 @@
                     templateUrl: STATIC_URL + '/templates/lesson_activity.html',
                     controller: 'LessonActivityCtrl'})
                 .otherwise({redirectTo: '/1'});
-
-            $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-            $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-            $sceDelegateProvider.resourceUrlWhitelist([
-                'self',
-                window.STATIC_URL + '**']);
         }
     ]);
 
@@ -94,7 +88,7 @@
                     if (d.correct) {
                         $http({
                             'method': 'POST',
-                            'url': '/api/updatestudentprogress/' + $scope.currentUnitId,
+                            'url': '/api/updatestudentprogress/' + $scope.currentUnitId + '/',
                             'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
                         }).success(function(data){
                             $scope.currentUnit.progress = {complete: data.complete};
@@ -233,7 +227,7 @@
                         }
                         $http({
                             'method': 'POST',
-                            'url': '/api/updatestudentprogress/' + $scope.currentUnitId,
+                            'url': '/api/updatestudentprogress/' + $scope.currentUnitId + '/',
                             'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
                         }).success(function(data){
                             $scope.currentUnit.progress = {complete: data.complete};
@@ -318,8 +312,8 @@
             template: ' \
                         <label class="radio" ng-class="{checked: checked == ngValue}"  ng-click="checked = ngValue"> \
                             <span class="icons"> \
-                                <span class="first-icon icon-check-empty"></span> \
-                                <span class="second-icon icon-check"></span> \
+                                <span class="first-icon fa fa-circle-o"></span> \
+                                <span class="second-icon fa fa-dot-circle-o"></span> \
                             </span> \
                             <input type="radio" ng-model="checked" ng-value="ngValue"/> \
                             <span ng-transclude></span> \
@@ -340,8 +334,8 @@
             template: ' \
                         <label class="checkbox" ng-class="{checked: checked}"  ng-click="checked = !checked"> \
                             <span class="icons"> \
-                                <span class="first-icon icon-check-empty"></span> \
-                                <span class="second-icon icon-check"></span> \
+                                <span class="first-icon fa fa-square-o"></span> \
+                                <span class="second-icon fa fa-check-square-o"></span> \
                             </span> \
                             <input type="checkbox" ng-model="checked"/> \
                             <span ng-transclude></span> \

@@ -80,7 +80,7 @@
                         'label-success': course.isPublished()}">{{ course.status | capfirst }}</span>
                 </div>
                 <div class="col-lg-8">
-                    <a href="/admin/course/html5">{{ course.name }}</a>
+                    <a href="/admin/courses/{{ course.id }}">{{ course.name }}</a>
                     <button title="Mostrar lições" alt="Mostrar lições"
                             class="btn pull-right" ng-click="showLessons=!showLessons">
                         <span class="icon"

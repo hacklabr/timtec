@@ -12,6 +12,7 @@ module.exports = function(config){
             'bower_components/angular-mocks/angular-mocks.js',
 
             'static/js/vendor/pagedown/*.js',
+            'core/static/js/django.js',
             'forum/static/js/truncate.js',
             'forum/static/js/forum/*.js',
             'forum/tests/js/*.js'
