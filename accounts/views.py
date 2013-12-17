@@ -9,8 +9,11 @@ from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 
 from accounts.forms import ProfileEditForm
+from accounts.serializers import TimtecUserSerializer
 from braces.views import LoginRequiredMixin
 
+from rest_framework import status, viewsets
+from rest_framework import filters
 
 class CustomLoginView(TemplateView):
     """
@@ -70,3 +73,12 @@ class ProfileView(LoginRequiredMixin, DetailView):
                 return self.request.user
         else:
             return self.request.user
+
+
+class TimtecUserViewSet(viewsets.ModelViewSet):
+    model = get_user_model()
+    lookup_field = 'id'
+    filter_fields = ('groups__name',)
+    filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter,)
+    serializer_class = TimtecUserSerializer
+    ordering = ('first_name', 'username',)

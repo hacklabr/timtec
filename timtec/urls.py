@@ -13,12 +13,14 @@ from forum.views import AnswerViewSet as ForumAnswerViewSet
 from core.views import CourseView, CourseViewSet, CourseThumbViewSet, EnrollCourseView, HomeView, UserCoursesView, ContactView
 from core.views import LessonDetailView, LessonViewSet, StudentProgressViewSet, UpdateStudentProgressView, LessonsUserNotesViewSet
 from activities.views import AnswerViewSet
+from accounts.views import TimtecUserViewSet
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, QuestionVoteViewSet, AnswerVoteViewSet
 from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialAdminView, CourseMaterialViewSet
 from notes.views import NotesViewSet, CourseNotesView
 from rest_framework import routers
 
 router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'user', TimtecUserViewSet)
 router.register(r'course', CourseViewSet)
 router.register(r'coursethumbs', CourseThumbViewSet)
 router.register(r'lessons', LessonViewSet)
