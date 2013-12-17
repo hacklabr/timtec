@@ -2,12 +2,42 @@
     'use strict';
     var app = angular.module('new-course');
 
+
+    /**
+     * returns a function that creates XMLHttpRequest for different browsers
+     */
+    app.factory('createXMLHTTPObject', function(){
+            var XMLHttpFactories = [
+                function () {return new XMLHttpRequest();},
+                function () {return new window.ActiveXObject('Msxml2.XMLHTTP');},
+                function () {return new window.ActiveXObject('Msxml3.XMLHTTP');},
+                function () {return new window.ActiveXObject('Microsoft.XMLHTTP');}
+            ];
+
+            function createXMLHTTPObject() {
+                var xmlhttp = false;
+                for (var i=0;i<XMLHttpFactories.length;i++) {
+                    try {
+                        xmlhttp = XMLHttpFactories[i]();
+                    }
+                    catch (e) {
+                        continue;
+                    }
+                    break;
+                }
+                return xmlhttp;
+            }
+            return createXMLHTTPObject;
+        });
+
+
     /**
      * Provide an object that wraps a FormData and a XMLHttpRequest
      * to upload files. Returns a promise with request info.
      */
-    app.factory('FormUpload', ['$http', '$q', function($http, $q){
+    app.factory('FormUpload', ['createXMLHTTPObject', '$q', function(createXMLHTTPObject, $q){
         return function() {
+
             var formData = new FormData();
 
             this.addField = function(name, value) {
@@ -20,7 +50,7 @@
                 formData.append('csrfmiddlewaretoken',
                                 /csrftoken=(\w+)/.extract(document.cookie, 1));
 
-                var oReq = new XMLHttpRequest();
+                var oReq = createXMLHTTPObject();
 
                 oReq.onreadystatechange = function(){
                     if(this.readyState !== 4) return;
