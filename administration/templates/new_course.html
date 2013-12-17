@@ -385,17 +385,24 @@
                     </div>
                     <!-- END PAGE-HEADER-DOUBLE -->
 
-                    <a href="">Organizar instrutores</a>
+                    <a href="" ng-click="organizingInstructors=false"
+                               ng-show="organizingInstructors">Editar biografias</a>
 
-                    <div class="instructors organizing-instructors">
-                        <div class="instructor">
+                    <a href="" ng-click="organizingInstructors=true"
+                               ng-hide="organizingInstructors">Organizar instrutores</a>
+
+                    <div class="instructors organizing-instructors" ng-show="organizingInstructors">
+                        <div class="instructor" ng-repeat="professor in course.professors">
                             <div class="row">
                                 <div class="col-lg-11">
                                     <button class="btn btn-warning"><i class="fa fa-bars"></i></button>
-                                    <span class="title">Fabio Flatschart</span>
+                                    <span class="title" ng-bind="professor.user.name">Nome do professor</span>
                                 </div>
                                 <div class="col-lg-1 textright">
-                                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                    <button class="btn btn-danger"
+                                            ng-click="course.professors.splice($index,1)">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -406,19 +413,16 @@
                     </div>
 
                     <!-- INSTRUCTOR -->
-                    <div id="" class="instructor row">
+                    <div id="" class="instructor row" ng-repeat="professor in course.professors" ng-hide="organizingInstructors">
                         <div class="col-lg-3 col-sm-3">
-                            <img src="http://timtec.com.br/media/user-pictures/fabioflat.png" class="col-lg-12 col-sm-12 thumbnail">
+                            {% verbatim %}
+                            <img ng-src="{{ professor.user.picture }}" class="col-lg-12 col-sm-12 thumbnail">
+                            {% endverbatim %}
                         </div>
                         <div class="col-lg-9 col-sm-9">
-                            <h1 class="fullname bottom top">Fabio Flatschart</h1>
+                            <h1 class="fullname bottom top" ng-bind="professor.user.name">Nome do professor</h1>
                             <h2 class="job-title top"></h2>
-                            <div class="editable">
-                                <p>Fábio Flatschart é autor do livro HTML5 - Embarque Imediato, uma das primeiras publicações em português sobre o assunto, co-autor do livro Open Web Platform e de outras de referência no mercado. É colunista do portal iMasters e professor convidado dos mais importantes cursos de MBA do Brasil (FGV, FIA, Trevisan)</p>
-                                <p>No Senac São Paulo atua no desenvolvimento de produtos educacionais e cursos livres, técnicos, superiores e de pós- graduação na área da tecnologia da informação</p>
-                                <p>Com a Soyuz Sistemas e a Flatschart Consultoria participa do desenvolvimento e implantação de projetos pioneiros nas áreas de Open Web Platform e Marketing Semântico em empresas como Editora Moderna, Editora Pearson, Grupo GEN e W3C Brasil.</p>
-                                <p><a href="www.flatschart.com">www.flatschart.com</a></p>
-                            </div>
+                            <modalmarkdowneditor title="Biografia" content="professor.biography"></modalmarkdowneditor>
                         </div>
                     </div>
                     <!-- END INSTRUCTOR -->
