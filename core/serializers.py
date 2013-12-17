@@ -10,6 +10,7 @@ class CourseProfessorSerializer(serializers.ModelSerializer):
     user = TimtecUserSerializer()
 
     class Meta:
+        fields = ('id', 'user', 'biography', 'role',)
         model = CourseProfessor
 
 
@@ -30,6 +31,7 @@ class VideoSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     intro_video = VideoSerializer(required=False)
     thumbnail_url = serializers.Field(source='get_thumbnail_url')
+    professors = CourseProfessorSerializer(source='courseprofessor_set', many=True, allow_add_remove=True)
 
     class Meta:
         model = Course
