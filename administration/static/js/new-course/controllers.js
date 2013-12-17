@@ -67,18 +67,20 @@
 
                 $scope.course.$save()
                     .then(function(){
-                        $scope.alert.success('Alterações salvas com sucesso!');
-                        $scope.alert.hide(function(){
-                            $scope.$apply();
-                        });
-
                         if($scope.thumbfile) {
                             var fu = new FormUpload();
                             fu.addField('name', $scope.course.name);
                             fu.addField('slug', $scope.course.slug);
                             fu.addField('thumbnail', $scope.thumbfile);
+                            // return a new promise that file will be uploaded
                             return fu.sendTo('/api/coursethumbs/' + $scope.course.id);
                         }
+                    })
+                    .then(function(){
+                        $scope.alert.success('Alterações salvas com sucesso!');
+                        $scope.alert.hide(function(){
+                            $scope.$apply();
+                        });
                     })
                     .catch(function(response){
                         $scope.errors = response.data;
