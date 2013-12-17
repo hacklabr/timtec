@@ -11,6 +11,10 @@ angular.module('youtube', ['ng'])
             service.playerHeight = '423';
             service.playerWidth = '750';
 
+            // we will create player after bindVideoPlayer promise
+            var bindVideoPlayerDeferred = $q.defer();
+            var playerDeffered = $q.defer();
+
             service.loadLibrary = function() {
                 // <script src="//www.youtube.com/iframe_api"></script>
                 this.libraryDeferred = $q.defer();
@@ -33,44 +37,45 @@ angular.module('youtube', ['ng'])
             service.bindVideoPlayer = function (elementId) {
                 $log.info('Binding to player ' + elementId);
                 service.playerId = elementId;
+                bindVideoPlayerDeferred.resolve(elementId);
             };
 
             service.createPlayer = function () {
                 $log.info('Creating a new Youtube player for DOM id ' + this.playerId + ' and video ' + this.videoId);
 
-                this.playerDeffered = $q.defer();
+                bindVideoPlayerDeferred.promise
+                    .then(function(){
+                        return service.loadLibrary();
+                    })
+                    .then(function(YT){
+                        service.player = new YT.Player(service.playerId, {
+                            height: service.playerHeight,
+                            width: service.playerWidth,
+                            videoId: service.videoId,
+                            playerVars: {
+                                autoplay: service.autoplay,
+                                color: 'white',
+                                fs: 1,
+                                modestbranding: 1,
+                                rel: 0,
+                                showinfo: 0,
+                                theme: 'light',
+                                wmode: 'opaque'
+                            },
+                            events: service.events
+                        });
 
-                this.loadLibrary().then(function(YT){
-                    service.player = new YT.Player(service.playerId, {
-                        height: service.playerHeight,
-                        width: service.playerWidth,
-                        videoId: service.videoId,
-                        playerVars: {
-                            autoplay: service.autoplay,
-                            color: 'white',
-                            fs: 1,
-                            modestbranding: 1,
-                            rel: 0,
-                            showinfo: 0,
-                            theme: 'light',
-                            wmode: 'opaque'
-                        },
-                        events: service.events
+                        playerDeffered.resolve(service.player);
                     });
 
-                    service.playerDeffered.resolve(service.player);
-                });
-
-                return this.playerDeffered.promise;
+                return playerDeffered.promise;
             };
 
             service.loadPlayer = function () {
-                if (service.playerId) {
-                    if(service.player) {
-                        service.player.destroy();
-                    }
-                    return service.createPlayer();
+                if(service.player) {
+                    service.player.destroy();
                 }
+                return service.createPlayer();
             };
 
             return service;
@@ -79,7 +84,16 @@ angular.module('youtube', ['ng'])
         function (youtubePlayerApi) {
             return {
                 restrict:'A',
-                link:function (scope, element) {
+                link:function (scope, element, attrs) {
+                    console.log(attrs);
+
+                    if(attrs.playerHeight) {
+                        youtubePlayerApi.playerHeight = attrs.playerHeight;
+                    }
+                    if(attrs.playerWidth) {
+                        youtubePlayerApi.playerWidth = attrs.playerWidth;
+                    }
+
                     youtubePlayerApi.bindVideoPlayer(element[0].id);
                 }
             };
