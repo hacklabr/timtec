@@ -171,15 +171,15 @@
                     </div>
 
                     <div class="row" ng-show="!addThumb">
-                        <p>
-                            <img local-image ng-model="thumbfile" style="width:100%"/>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <img local-image ng-model="thumbfile" class="img-responsive"/>
                             {% verbatim %}
-                            <img ng-src="{{course.thumbnail_url}}" style="width:100%" ng-show="!thumbfile"/>
+                            <img ng-src="{{course.thumbnail_url}}" class="img-responsive" ng-show="!thumbfile"/>
                             {% endverbatim %}
-                        </p>
+                        </div>
 
                         <div class="col-lg-12 textright">
-                            <button class="btn-edit-video btn btn-success btn-sm uppercase"
+                            <button class="btn-edit-thumbnail btn btn-success btn-sm uppercase"
                                     ng-click="addThumb=true">Alterar thumbnail</button>
                         </div>
                     </div>
