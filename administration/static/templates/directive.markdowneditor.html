@@ -3,19 +3,19 @@
     <div class="text-editor">
         <div class="row">
             <div class="col-lg-12" id="wmd-button-bar-{{id}}"></div>
+            <button style="position: absolute; right: 0; top: 1em;"
+                    ng-click="preview=!preview;refreshPreview()" ng-class="{'active':preview}"
+                    class="btn">Preview</button>
         </div>
         <div class="row">
             <div class="col-lg-12" style="position:relative">
                 <textarea id="wmd-input-{{id}}" class="col-lg-12 form-control"
+                          style="overflow-y:scroll;height:22em"
                           ng-show="!preview"
                           ng-model="content" rows="15"></textarea>
 
                 <div class="col-lg-12" ng-show="preview" id="wmd-preview-{{id}}"
-                     style="border: 2px solid #cccccc;border-radius: 4px;height:23em;overflow-y:scroll"></div>
-
-                <button style="position: absolute; right: 3em; top: 1em;"
-                        ng-click="preview=!preview" ng-class="{'active':preview}"
-                        class="btn">Preview</button>
+                     style="border: 2px solid #cccccc; padding: 6px 12px; border-radius: 4px;height:22em;overflow-y:scroll;background-color:#EEEEEE;"></div>
             </div>
         </div>
     </div>
