@@ -93,33 +93,48 @@
      *  Provide a Course class. The property Class.fields contains the
      *  list of fields that reflects Course model in Django
      */
-    app.factory('Course', ['$resource', '$http', 'getRestOptions', function($resource, $http, getRestOptions) {
-        var url_template = '/api/course/:id';
-        var Course = $resource(url_template, {'id':'@id'});
+    app.factory('Course', ['$resource', 'getRestOptions', function($resource, getRestOptions) {
+        var Course = $resource('/api/course/:id', {'id':'@id'});
 
         Course.prototype.hasVideo = function(){
             return this.intro_video && this.intro_video.youtube_id &&
                    this.intro_video.youtube_id.length > 0;
         };
 
-        Course.prototype.getUrl = function() {
-            var that = this;
-            return url_template.replace(/\/:(\w+)/g, function(mark, field){
-                var part = '';
-                if ( that[field] ) {
-                    part = '/' + that[field];
-                }
-                return part;
-            });
-        };
-
-        getRestOptions(Course.prototype.getUrl()).success(function(data) {
+        getRestOptions('/api/course').success(function(data) {
             Course.fields = angular.copy(data.actions.POST);
         });
 
         return Course;
     }]);
 
+    /**
+     * Basic model class to Professor
+     */
+    app.factory('Professor', ['$resource', function($resource) {
+        var resourceConfig = {
+            'query':  {
+                'method':'GET',
+                'params':{
+                    'groups__name': 'professors',
+                    'ordering': 'first_name'
+                },
+                'isArray': true
+            },
+            'save': {
+                'method': 'PUT'
+            }
+        };
+        var Professor = $resource('/api/user/:id', {'id':'@id'}, resourceConfig);
+        Professor.prototype.getName = function() {
+            var name = this.name;
+            if(!name && (this.first_name || this.last_name)) {
+                name = this.first_name + ' ' + this.last_name;
+            }
+            return name.trim() || this.username;
+        };
+        return Professor;
+    }]);
 
     /**
      * A object that fetch info from Youtube. It expects a video ID and returns

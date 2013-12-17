@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block js %} {{block.super}}
-<script type="text/javascript" src="{% static 'js/new-course/app.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/new-course/factories.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/new-course/app.js' %}">// must be the 1º</script>
+<script type="text/javascript" src="{% static 'js/new-course/factories.js' %}">// must be the 2º</script>
 <script type="text/javascript" src="{% static 'js/new-course/directives.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/filters/text.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
@@ -106,7 +106,7 @@
                     </div>
 
                     <ul class="instructors">
-                        <li><a href=""><span class="icon-addable fa fa-plus-square left right"></span> Adicionar professores ao curso</a></li>
+                        <li><a ng-click="professorsModalActive=true"><span class="icon-addable fa fa-plus-square left right"></span> Adicionar professores ao curso</a></li>
                     </ul>
                 </div>
                 <!--  END COL-LG-8  -->
@@ -429,7 +429,7 @@
 
                     <div class="row textcenter">
                         <div class="col-lg-12">
-                            <a href="/admin/courses/instructors/new" class="col-lg-12 btn btn-lg btn-default uppercase">Adicionar instrutor</a>
+                            <a ng-click="professorsModalActive=true" class="col-lg-12 btn btn-lg btn-default uppercase">Adicionar instrutor</a>
                         </div>
                     </div>
                 </section>
@@ -503,8 +503,7 @@
         </div>
     </div>
     <!-- ALERT -->
-
-
+    <professorslist active="professorsModalActive"><professorslist>
 </div>
 <!--  END COURSE CONTENT  -->
 
