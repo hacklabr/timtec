@@ -54,4 +54,45 @@
         };
     });
 
+    app.directive('alert', function(){
+        return {
+            'restrict': 'A',
+            'link': function(scope) {
+
+                scope.alert = {
+                    hidden : true,
+                    reset: function(){
+                        this.title = '';
+                        this.type = '';
+                        this.messages = [];
+                        this.showControls=false;
+                    },
+                    popup: function(title, messages, showControls){
+                        this.reset();
+                        this.title = title;
+                        this.messages = messages;
+                        this.showControls = showControls;
+                        this.hidden = false;
+                    },
+                    success: function(){
+                        this.popup.apply(this, arguments);
+                        this.type = 'success';
+                    },
+                    error: function(){
+                        this.popup.apply(this, arguments);
+                        this.type = 'danger';
+                    },
+                    hide: function(callback, timeout) {
+                        var that = this;
+                        setTimeout(function(){
+                            that.hidden = true;
+                            callback.call();
+                        }, timeout || 3000);
+                    }
+                };
+                scope.alert.reset();
+            }
+        };
+    });
+
 })(window.angular);

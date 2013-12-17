@@ -482,7 +482,7 @@
 
 
     <!-- ALERT -->
-    <div class="tt-popup notifications" ng-class="{'hideTop': alert.hidden}">
+    <div class="tt-popup notifications" alert ng-class="{'hideTop': alert.hidden}">
         <div class="alert fade in" ng-class="'alert-' + alert.type">
             <button type="button" class="close" ng-click="alert.hidden=true">×</button>
             <h4 ng-bind="alert.title"></h4>
