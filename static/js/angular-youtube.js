@@ -85,8 +85,6 @@ angular.module('youtube', ['ng'])
             return {
                 restrict:'A',
                 link:function (scope, element, attrs) {
-                    console.log(attrs);
-
                     if(attrs.playerHeight) {
                         youtubePlayerApi.playerHeight = attrs.playerHeight;
                     }
