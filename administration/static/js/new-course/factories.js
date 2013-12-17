@@ -58,7 +58,6 @@
                     var response = {};
                     response.data = angular.fromJson(this.responseText || '{}');
                     response.status = this.status;
-                    console.log(this);
 
                     if( this.status === 200  ) {
                         deferred.resolve(response);
