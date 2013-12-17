@@ -77,6 +77,7 @@ class Course(models.Model):
             return self.thumbnail.url
         return ''
 
+
 class CourseStudent(models.Model):
     user = models.ForeignKey(TimtecUser, verbose_name=_('Student'))
     course = models.ForeignKey(Course, verbose_name=_('Course'))
