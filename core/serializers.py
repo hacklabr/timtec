@@ -7,10 +7,10 @@ from rest_framework import serializers
 
 
 class CourseProfessorSerializer(serializers.ModelSerializer):
-    user = TimtecUserSerializer()
+    user_info = TimtecUserSerializer(source='user', read_only=True)
 
     class Meta:
-        fields = ('id', 'user', 'biography', 'role',)
+        fields = ('id', 'user', 'user_info', 'biography', 'role',)
         model = CourseProfessor
 
 
@@ -31,7 +31,9 @@ class VideoSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     intro_video = VideoSerializer(required=False)
     thumbnail_url = serializers.Field(source='get_thumbnail_url')
-    professors = CourseProfessorSerializer(source='courseprofessor_set', many=True, allow_add_remove=True)
+    professors = CourseProfessorSerializer(source='courseprofessor_set',
+                                           required=False, many=True,
+                                           allow_add_remove=True)
 
     class Meta:
         model = Course

@@ -396,7 +396,7 @@
                             <div class="row">
                                 <div class="col-lg-11">
                                     <button class="btn btn-warning"><i class="fa fa-bars"></i></button>
-                                    <span class="title" ng-bind="professor.user.name">Nome do professor</span>
+                                    <span class="title" ng-bind="professor.user_info.name">Nome do professor</span>
                                 </div>
                                 <div class="col-lg-1 textright">
                                     <button class="btn btn-danger"
@@ -416,11 +416,11 @@
                     <div id="" class="instructor row" ng-repeat="professor in course.professors" ng-hide="organizingInstructors">
                         <div class="col-lg-3 col-sm-3">
                             {% verbatim %}
-                            <img ng-src="{{ professor.user.picture }}" class="col-lg-12 col-sm-12 thumbnail">
+                            <img ng-src="{{ professor.user_info.picture }}" class="col-lg-12 col-sm-12 thumbnail">
                             {% endverbatim %}
                         </div>
                         <div class="col-lg-9 col-sm-9">
-                            <h1 class="fullname bottom top" ng-bind="professor.user.name">Nome do professor</h1>
+                            <h1 class="fullname bottom top" ng-bind="professor.user_info.name">Nome do professor</h1>
                             <h2 class="job-title top"></h2>
                             <modalmarkdowneditor title="Biografia" content="professor.biography"></modalmarkdowneditor>
                         </div>
@@ -503,7 +503,7 @@
         </div>
     </div>
     <!-- ALERT -->
-    <professorslist active="professorsModalActive"><professorslist>
+    <professorslist on-select="addProfessor" active="professorsModalActive"><professorslist>
 </div>
 <!--  END COURSE CONTENT  -->
 

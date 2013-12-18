@@ -86,6 +86,22 @@
                         $scope.alert.error('Encontramos alguns erros!', messages, true);
                     });
             };
+
+            $scope.addProfessor = function(professor) {
+                if(!professor) return;
+                var copy = angular.copy(professor);
+
+                if(!$scope.course.professors) {
+                    $scope.course.professors = [];
+                }
+
+                $scope.course.professors.push({
+                    'user': copy.id,
+                    'biography': copy.biography,
+                    'role': 'instructor',
+                    'user_info': copy
+                });
+            };
         }
     ]);
 
