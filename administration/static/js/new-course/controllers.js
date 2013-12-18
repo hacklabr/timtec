@@ -97,6 +97,13 @@
                     $scope.course.professors = [];
                 }
 
+                var reduce = function(a,b){ return a || b.user === copy.id; };
+                if($scope.course.professors.reduce(reduce, false)) {
+                    var mod = copy.first_name.charAt(copy.first_name.length-1) === 'o' ? ['O', '', 'o'] : ['A', 'a', 'a'];
+                    $scope.alert.error(mod[0]+' professor' + mod[1] + ' ' + copy.name + ' já foi selecionad' + mod[2] + '.');
+                    return;
+                }
+
                 $scope.course.professors.push({
                     'user': copy.id,
                     'biography': copy.biography,
