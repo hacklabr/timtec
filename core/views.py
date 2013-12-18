@@ -14,8 +14,11 @@ from rest_framework import filters
 from braces.views import LoginRequiredMixin
 from notes.models import Note
 
-from .serializers import CourseSerializer, CourseThumbSerializer, LessonSerializer, StudentProgressSerializer, NoteUnitSerializer
-from .models import Course, Lesson, StudentProgress, Unit
+from .serializers import (CourseSerializer, CourseProfessorSerializer,
+                          CourseThumbSerializer, LessonSerializer,
+                          StudentProgressSerializer, NoteUnitSerializer,)
+
+from .models import Course, CourseProfessor, Lesson, StudentProgress, Unit
 
 from forms import ContactForm
 
@@ -86,6 +89,14 @@ class EnrollCourseView(LoginRequiredMixin, RedirectView):
         return reverse('lesson', args=[course.slug, course.first_lesson().slug])
 
 
+class CourseProfessorViewSet(viewsets.ModelViewSet):
+    model = CourseProfessor
+    lookup_field = 'id'
+    filter_fields = ('course', 'user',)
+    filter_backends = (filters.DjangoFilterBackend,)
+    serializer_class = CourseProfessorSerializer
+
+
 class CourseViewSet(viewsets.ModelViewSet):
     model = Course
     lookup_field = 'id'
@@ -107,6 +118,11 @@ class CourseViewSet(viewsets.ModelViewSet):
             return Response(status=200)
         else:
             return Response(serializer.errors, status=403)
+
+    def metadata(self, request):
+        data = super(CourseViewSet, self).metadata(request)
+        data.get('actions').get('POST').get('status').update({'choices': dict(Course.STATES[1:])})
+        return data
 
 
 class CourseThumbViewSet(viewsets.ModelViewSet):

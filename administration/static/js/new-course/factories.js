@@ -89,6 +89,17 @@
         };
     }]);
 
+
+    /**
+     *  Provide a Course class. The property Class.fields contains the
+     *  list of fields that reflects Course model in Django
+     */
+    app.factory('CourseProfessor', ['$resource', function($resource) {
+        var CourseProfessor = $resource('/api/course_professor/:id', {'id':'@id'});
+        return CourseProfessor;
+    }]);
+
+
     /**
      *  Provide a Course class. The property Class.fields contains the
      *  list of fields that reflects Course model in Django
@@ -107,6 +118,7 @@
 
         return Course;
     }]);
+
 
     /**
      * Basic model class to Professor

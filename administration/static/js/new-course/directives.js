@@ -109,19 +109,9 @@
                 $scope.professors = Professor.query();
                 $scope.selectedProfessor = null;
 
-                var alert = $scope.$parent.alert || {success: noop, error: noop};
-
-                $scope.saveProfessor = function(){
-                    if(!$scope.selectedProfessor) return;
-
-                    $scope.selectedProfessor.$save()
-                        .then(function(){
-                            alert.success('As alterações do professor foram salvas.');
-                        });
-                };
-
                 $scope.selectProfessor = function() {
                     if(!$scope.selectedProfessor) return;
+
                     if($scope.onSelect && $scope.onSelect.call) {
                         $scope.onSelect($scope.selectedProfessor);
                     }
