@@ -18,7 +18,9 @@
             if( match ) {
                 $scope.course.$get({id:match[1]})
                     .then(function(course){
-                        youtubePlayerApi.videoId = course.intro_video.youtube_id;
+                        if(course.intro_video) {
+                            youtubePlayerApi.videoId = course.intro_video.youtube_id;
+                        }
                         $scope.addThumb = !course.thumbnail_url;
                     })
                     .catch(function(resp){
