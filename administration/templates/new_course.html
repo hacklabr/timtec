@@ -416,7 +416,9 @@
                     <div id="" class="instructor row" ng-repeat="professor in courseProfessors" ng-hide="organizingInstructors">
                         <div class="col-lg-3 col-sm-3">
                             {% verbatim %}
-                            <img ng-src="{{ professor.user_info.picture }}" class="col-lg-12 col-sm-12 thumbnail">
+                            <img ng-src="{{ professor.user_info.picture }}"
+                                 onerror="this.src='/static/img/avatar-default.png'"
+                                 class="col-lg-12 col-sm-12 thumbnail">
                             {% endverbatim %}
                         </div>
                         <div class="col-lg-9 col-sm-9">
