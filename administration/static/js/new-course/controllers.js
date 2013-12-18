@@ -89,14 +89,14 @@
             };
 
             $scope.deleteProfessor = function(courseProfessor) {
-                var msg = 'Tem certeza que deseja remover '+ courseProfessor.name +
-                          'da lista de professores deste curso?';
+                var professor_name = courseProfessor.user_info.name;
+                var msg = 'Tem certeza que deseja remover "{0}" da lista de professores deste curso?'.format(professor_name);
                 if(!window.confirm(msg)) return;
 
                 courseProfessor.$delete().then(function(){
                     var filter = function(p) { return p.user !== courseProfessor.user; };
                     $scope.courseProfessors = $scope.courseProfessors.filter(filter);
-                    $scope.alert.success('O professor foi removido.');
+                    $scope.alert.success('"{0}" foi removido da list.'.format(professor_name));
                 });
             };
 
@@ -108,8 +108,7 @@
                 var reduce = function(a,b){ return a || b.user === copy.id; };
 
                 if($scope.courseProfessors.reduce(reduce, false)) {
-                    $scope.alert.error(mod[0]+' professor' + mod[1] + ' ' +
-                                       copy.name + ' já foi selecionad' + mod[2] + '.');
+                    $scope.alert.error('"{0}" já está na lista de professores deste curso.'.format(copy.name));
                     return;
                 }
 
@@ -123,8 +122,7 @@
 
                 $scope.courseProfessors.push(professorToAdd);
                 professorToAdd.$save().then(function(){
-                    $scope.alert.success(mod[0] +' professor' + mod[1] + ' ' +
-                                         copy.name + ' foi adicionad' + mod[2] + '.');
+                    $scope.alert.success('"{0}" foi adicionado a lista de professores.'.format(copy.name));
                 });
             };
         }

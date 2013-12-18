@@ -7,6 +7,29 @@ RegExp.prototype.extract = function(target,group){
     }
 };
 
+String.prototype.format = function () {
+    var array;
+
+    if( arguments.length < 1)
+        return this.toString();
+
+    function reduce(o1, o2) {
+        if(o2.constructor === Array)
+            return o1.concat(o2);
+        return o1.concat([o2]);
+    }
+
+    array = Array.prototype.reduce.call(arguments, reduce, []);
+
+    return this.replace(/\{(\d+)\}/g, function(region, index){
+        index = parseInt(index, 10);
+        if (index >= array.length) {
+            return region;
+        }
+        return array[index];
+    });
+};
+
 (function($) {
     if(!$) return;
 
