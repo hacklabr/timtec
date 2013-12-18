@@ -12,8 +12,9 @@ from accounts.forms import ProfileEditForm
 from accounts.serializers import TimtecUserSerializer
 from braces.views import LoginRequiredMixin
 
-from rest_framework import status, viewsets
+from rest_framework import viewsets
 from rest_framework import filters
+
 
 class CustomLoginView(TemplateView):
     """
