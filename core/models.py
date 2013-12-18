@@ -115,7 +115,7 @@ class CourseProfessor(models.Model):
 
     user = models.ForeignKey(TimtecUser, verbose_name=_('Professor'))
     course = models.ForeignKey(Course, verbose_name=_('Course'))
-    biography = models.TextField(_('Biography'))
+    biography = models.TextField(_('Biography'), blank=True)
     role = models.CharField(_('Role'), choices=ROLES, default=ROLES[0][0], max_length=128)
 
     class Meta:
