@@ -95,7 +95,7 @@
                     'link': link,
                     'scope': {
                         'content': '=content',
-                        'onSave': '=save'
+                        'onSave': '&onSave'
                     }
                 };
             };
