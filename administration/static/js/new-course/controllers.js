@@ -195,7 +195,7 @@
                     })
                     .catch(function(){
                         $scope.alert.error('Algum problema impediu a atualização das aulas');
-                    })
+                    });
             };
         }
     ]);
