@@ -182,6 +182,9 @@
                 return u.activity ? c + 1 : c;
             }, 0);
         };
+        Lesson.prototype.saveOrUpdate = function() {
+            return this.id > 0 ? this.$update() : this.$save();
+        };
         return Lesson;
     }]);
 

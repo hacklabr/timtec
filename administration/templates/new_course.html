@@ -270,10 +270,11 @@
                     </div>
                     <!--  END PAGE-HEADER-DOUBLE  -->
 
-                    <a href="">Organizar as lições</a>
+                    <a href="" ng-click="organizingLessons=true" ng-show="!organizingLessons">Organizar as lições</a>
+                    <a href="" ng-click="organizingLessons=false" ng-show="organizingLessons">Lista detalhada de lições</a>
 
                     <!-- ORGANIZING LESSONS -->
-                    <div class="lessons organizing-lessons">
+                    <div class="lessons organizing-lessons" ng-show="organizingLessons">
                         <!-- LESSON -->
                         <div class="lesson" ng-repeat="lesson in lessons">
                             <div class="row">
@@ -282,7 +283,7 @@
                                     <span class="title" ng-bind="lesson.name">Nome da lição</span>
                                 </div>
                                 <div class="col-lg-1 textright">
-                                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                    <button class="btn btn-danger" ng-click="deleteLesson(lesson)"><i class="fa fa-trash-o"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -296,7 +297,7 @@
                     <!-- END ORGANIZING LESSONS -->
 
                     <!--  LESSON  -->
-                    <div class="lesson row" ng-repeat="lesson in lessons">
+                    <div class="lesson row" ng-repeat="lesson in lessons" ng-hide="organizingLessons">
                         <!--  COL-LG-3  -->
                         <div class="col-lg-3 col-sm-3 col-sm-3 hidden-xs">
                             {% verbatim %}
@@ -309,7 +310,7 @@
                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                             <p>
                                 <a href="" class="title editable" ng-bind="lesson.name">Nome da lição</a>
-                                <span class="description editable" ng-bind="lesson.desc">Descrição do curso</span>
+                                <modalmarkdowneditor on-save="saveLesson(lesson)" title="Descrição da lição" content="lesson.desc"></modalmarkdowneditor>
                             </p>
                             <!--  HIDDEN-XS  -->
                             <div class="hidden-xs" ng-show="lesson.units">

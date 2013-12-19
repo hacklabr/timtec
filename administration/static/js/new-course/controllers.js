@@ -123,10 +123,6 @@
                 });
             };
 
-            $scope.pi = function(p) {
-                return function(){ window.alert(p); };
-            };
-
             $scope.addProfessor = function(professor) {
                 if(!professor) return;
                 var copy = angular.copy(professor);
@@ -150,6 +146,27 @@
                     $scope.alert.success('"{0}" foi adicionado a lista de professores.'.format(copy.name));
                     $scope.courseProfessors.push(professorToAdd);
                 }).catch(showFieldErrors);
+            };
+
+            $scope.saveLesson = function(lesson) {
+                return lesson.saveOrUpdate()
+                    .then(function(){
+                        $scope.alert.success('Lição atualizada com sucesso');
+                    })
+                    .catch(function(){
+                        $scope.alert.error('Não foi possível salvar a lição');
+                    });
+            };
+
+            $scope.deleteLesson = function(lesson) {
+                var msg = 'Tem certeza que deseja remover a lição "{0}"'.format(lesson.name);
+                if(!window.confirm(msg)) return;
+
+                return lesson.$delete().then(function(){
+                    var filter = function(l) { return l.id !== lesson.id; };
+                    $scope.lessons = $scope.lessons.filter(filter);
+                    $scope.alert.success('"{0}" foi removido.'.format(lesson.name));
+                });
             };
         }
     ]);
