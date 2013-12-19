@@ -275,11 +275,11 @@
                     <!-- ORGANIZING LESSONS -->
                     <div class="lessons organizing-lessons">
                         <!-- LESSON -->
-                        <div class="lesson">
+                        <div class="lesson" ng-repeat="lesson in lessons">
                             <div class="row">
                                 <div class="col-lg-11">
                                     <button class="btn btn-warning"><i class="fa fa-bars"></i></button>
-                                    <span class="title">1 - Introdução: Internet e Web</span>
+                                    <span class="title" ng-bind="lesson.name">Nome da lição</span>
                                 </div>
                                 <div class="col-lg-1 textright">
                                     <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
@@ -287,39 +287,7 @@
                             </div>
                         </div>
                         <!-- END LESSON -->
-                        <div class="lesson">
-                            <div class="row">
-                                <div class="col-lg-11">
-                                    <button class="btn btn-warning"><i class="fa fa-bars"></i></button>
-                                    <span class="title">2 - Montando a estrutura de um documento HTML</span>
-                                </div>
-                                <div class="col-lg-1 textright">
-                                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="lesson">
-                            <div class="row">
-                                <div class="col-lg-11">
-                                    <button class="btn btn-warning"><i class="fa fa-bars"></i></button>
-                                    <span class="title">3 - Grupos de conteúdo e elementos semânticos de texto</span>
-                                </div>
-                                <div class="col-lg-1 textright">
-                                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="lesson">
-                            <div class="row">
-                                <div class="col-lg-11">
-                                    <button class="btn btn-warning"><i class="fa fa-bars"></i></button>
-                                    <span class="title">4 - Conteúdo multimídia</span>
-                                </div>
-                                <div class="col-lg-1 textright">
-                                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="submit textright">
                             <button class="btn btn-danger">Cancelar</button>
                             <button class="btn btn-success">Salvar</button>
@@ -328,41 +296,42 @@
                     <!-- END ORGANIZING LESSONS -->
 
                     <!--  LESSON  -->
-                    <div class="lesson row">
+                    <div class="lesson row" ng-repeat="lesson in lessons">
                         <!--  COL-LG-3  -->
                         <div class="col-lg-3 col-sm-3 col-sm-3 hidden-xs">
-                            <img src="http://i1.ytimg.com/vi/gPdNX46JCp8/hqdefault.jpg" class="img-thumbnail">
+                            {% verbatim %}
+                            <img ng-src="{{ lesson.thumbnail }}" class="img-thumbnail">
+                            {% endverbatim %}
                         </div>
                         <!--  END COL-LG-3  -->
 
                         <!--  COL-LG-9  -->
                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                             <p>
-                                <a href="" class="title editable">Introdução: Internet e Web</a>
-                                <span class="description editable">Quais são as relações e as diferenças entre Internet e Web. A Web e as camadas de desenvolvimento do lado do usuário</span>
+                                <a href="" class="title editable" ng-bind="lesson.name">Nome da lição</a>
+                                <span class="description editable" ng-bind="lesson.desc">Descrição do curso</span>
                             </p>
                             <!--  HIDDEN-XS  -->
-                            <div class="hidden-xs">
+                            <div class="hidden-xs" ng-show="lesson.units">
                                 <table class="table units">
                                     <tbody>
                                         <tr>
-                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 1"></span></td>
-                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 2"></span></td>
-                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 3"><i class="fa fa-list"></i></span></td>
-                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 4"><i class="fa fa-list"></i></span></td>
-                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 5"><i class="fa fa-list"></i></span></td>
-                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 6"><i class="fa fa-list"></i></span></td>
-                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 7"></span></td>
-                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 8"></span></td>
-                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 9"></span></td>
-                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 10"></span></td>
-                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 11"></span></td>
+                                            <td ng-repeat="unit in lesson.units">
+                                                {% verbatim %}
+                                                <span class="has-tooltip unit " data-toggle="tooltip"
+                                                      data-placement="bottom" data-original-title="{{unit.title}}">
+                                                    <i class="fa fa-list" ng-show="unit.activity"></i>
+                                                </span>
+                                                {% endverbatim %}
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <!--  END HIDDEN-XS  -->
-                            <p><i class="fa fa-youtube-play"></i> <small>11 videos</small> | <i class="fa fa-list"></i> <small>4 atividades</small></p>
+                            {% verbatim %}
+                            <p><i class="fa fa-youtube-play"></i> <small>{{ lesson.countVideos() }} videos</small> | <i class="fa fa-list"></i> <small>{{ lesson.countActivities() }} atividades</small></p>
+                            {% endverbatim %}
                         </div>
                         <!--  END COL-LG-9  -->
                     </div>

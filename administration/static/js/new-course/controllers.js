@@ -3,8 +3,8 @@
     var app = angular.module('new-course');
 
     app.controller('CourseEditController',
-        ['$scope', 'Course',  'CourseProfessor', '$filter', 'youtubePlayerApi', 'VideoData', 'FormUpload',
-        function($scope, Course,  CourseProfessor, $filter, youtubePlayerApi, VideoData, FormUpload) {
+        ['$scope', 'Course',  'CourseProfessor', 'Lesson', '$filter', 'youtubePlayerApi', 'VideoData', 'FormUpload',
+        function($scope, Course,  CourseProfessor, Lesson, $filter, youtubePlayerApi, VideoData, FormUpload) {
 
             $scope.errors = {};
             var httpErrors = {
@@ -16,7 +16,7 @@
             var match = document.location.href.match(/courses\/([0-9]+)/);
             $scope.course = new Course();
             $scope.courseProfessors = [];
-
+            $scope.lessons = [];
             if( match ) {
                 $scope.course.$get({id: match[1]})
                     .then(function(course){
@@ -24,6 +24,12 @@
                             youtubePlayerApi.videoId = course.intro_video.youtube_id;
                         }
                         $scope.addThumb = !course.thumbnail_url;
+                    })
+                    .then(function(){
+                        $scope.lessons = Lesson.query({'course__id': match[1]});
+                        return $scope.lessons.promise;
+                    })
+                    .then(function(){
                         $scope.courseProfessors = CourseProfessor.query({ course: match[1] });
                         return $scope.courseProfessors.promise;
                     })
