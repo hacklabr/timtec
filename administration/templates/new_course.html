@@ -274,7 +274,9 @@
                     <a href="" ng-click="organizingLessons=false" ng-show="organizingLessons">Lista detalhada de lições</a>
 
                     <!-- ORGANIZING LESSONS -->
-                    <div class="lessons organizing-lessons" ng-show="organizingLessons" sortable="lessons">
+                    <div class="lessons organizing-lessons" ng-show="organizingLessons"
+                         sortable="lessons" on-update="repositionLessons()">
+
                         <!-- LESSON -->
                         <div class="lesson" ng-repeat="lesson in lessons">
                             <div class="row">
@@ -291,7 +293,7 @@
 
                         <div class="submit textright">
                             <button class="btn btn-danger">Cancelar</button>
-                            <button class="btn btn-success">Salvar</button>
+                            <button class="btn btn-success" ng-click="saveAllLessons()">Salvar</button>
                         </div>
                     </div>
                     <!-- END ORGANIZING LESSONS -->

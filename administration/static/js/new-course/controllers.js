@@ -170,6 +170,33 @@
                     $scope.alert.success('"{0}" foi removido.'.format(lesson.name));
                 });
             };
+
+            $scope.repositionLessons = function() {
+                $scope.lessons.forEach(function(lesson, i){
+                    lesson.position = i;
+                });
+            };
+
+            $scope.saveAllLessons = function() {
+                var i = 0;
+                function __saveLessons() {
+                    if(i < $scope.lessons.length) {
+                        return $scope.lessons[i++]
+                                     .saveOrUpdate()
+                                     .then(__saveLessons);
+                    }
+                }
+
+                $scope.alert.warn('Atualizando aulas.');
+
+                __saveLessons()
+                    .then(function(){
+                        $scope.alert.success('As aulas foram atualizadas');
+                    })
+                    .catch(function(){
+                        $scope.alert.error('Algum problema impediu a atualização das aulas');
+                    })
+            };
         }
     ]);
 

@@ -77,17 +77,23 @@
                     success: function(){
                         this.popup.apply(this, arguments);
                         this.type = 'success';
+                        this.hide(null, 1000);
                     },
                     error: function(){
                         this.popup.apply(this, arguments);
                         this.type = 'danger';
                     },
+                    warn: function(){
+                        this.popup.apply(this, arguments);
+                        this.type = 'warning';
+                    },
                     hide: function(callback, timeout) {
                         var that = this;
                         setTimeout(function(){
                             that.hidden = true;
-                            callback.call();
-                        }, timeout || 3000);
+                            if(callback && callback.call)
+                                callback.call();
+                        }, timeout || 2000);
                     }
                 };
                 scope.alert.reset();
@@ -148,6 +154,10 @@
                     item.concat(tail).forEach(function(el){
                         scope.list.push(el);
                     });
+
+                    if(scope.onUpdate && scope.onUpdate.call) {
+                        scope.onUpdate.call();
+                    }
                 }
 
                 element.sortable({
