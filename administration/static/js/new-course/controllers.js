@@ -17,6 +17,8 @@
             $scope.course = new Course();
             $scope.courseProfessors = [];
             $scope.lessons = [];
+            window.s = $scope;
+
             if( match ) {
                 $scope.course.$get({id: match[1]})
                     .then(function(course){

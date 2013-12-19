@@ -274,12 +274,12 @@
                     <a href="" ng-click="organizingLessons=false" ng-show="organizingLessons">Lista detalhada de lições</a>
 
                     <!-- ORGANIZING LESSONS -->
-                    <div class="lessons organizing-lessons" ng-show="organizingLessons">
+                    <div class="lessons organizing-lessons" ng-show="organizingLessons" sortable="lessons">
                         <!-- LESSON -->
                         <div class="lesson" ng-repeat="lesson in lessons">
                             <div class="row">
                                 <div class="col-lg-11">
-                                    <button class="btn btn-warning"><i class="fa fa-bars"></i></button>
+                                    <span class="handle"><span class="btn btn-warning"><i class="fa fa-bars"></i></span></span>
                                     <span class="title" ng-bind="lesson.name">Nome da lição</span>
                                 </div>
                                 <div class="col-lg-1 textright">

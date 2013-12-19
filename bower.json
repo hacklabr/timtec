@@ -25,6 +25,7 @@
     "bootstrap": "~3.0.3",
     "codemirror": "~3.19.0",
     "jquery": "<2.0.0",
+    "jquery-ui": "~1.10.3",
     "dropzone": "~3.7.4",
     "modernizr": "~2.7.1",
     "font-awesome": "~4.0.3",
