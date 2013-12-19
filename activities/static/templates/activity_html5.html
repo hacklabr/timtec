@@ -1,7 +1,16 @@
-<div>
+<div ng-controller="HTML5Ctrl">
 <div class="row">
 <div class="col-xs-12">
-<textarea id="texto" name="" rows="10" codemirror="codeMirrorChange()">
+<textarea ui-codemirror="{
+        lineNumbers:true,
+        theme:'monokai',
+        matchTags: {bothTags: true},
+        matchBrackets: true,
+        extraKeys: {'Ctrl-J': 'toMatchingTag',
+                    'Ctrl-Space': 'autocomplete'},
+        mode:'htmlmixed',
+        onLoad : codemirrorLoaded
+    }" ng-model="answer.given[0]">
 </textarea>
 </div>
 </div>
