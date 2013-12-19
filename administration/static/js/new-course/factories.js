@@ -120,6 +120,13 @@
                    this.intro_video.youtube_id.length > 0;
         };
 
+        Course.prototype.save = function() {
+            if(!this.name) this.name = 'Sem título';
+            if(!this.slug) this.slug = 'sem-titulo-{0}'.format(new Date().getTime().toString(16));
+            if(!this.status) this.status = 'draft';
+            return this.$save();
+        };
+
         getRestOptions('/api/course').success(function(data) {
             Course.fields = angular.copy(data.actions.POST);
         });

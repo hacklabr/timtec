@@ -72,7 +72,7 @@
                     $scope.course.slug = $filter('slugify')($scope.course.name);
                 }
 
-                $scope.course.$save()
+                $scope.course.save()
                     .then(function(){
                         if($scope.thumbfile) {
                             var fu = new FormUpload();
@@ -105,7 +105,7 @@
             $scope.saveProfessor = function(courseProfessor) {
                 function __saveProfessor(){
                     if (!$scope.course.id) {
-                        return $scope.course.$save().then(function(course){
+                        return $scope.course.save().then(function(course){
                             courseProfessor.course = course.id;
                             return courseProfessor.saveOrUpdate();
                         });
