@@ -95,7 +95,15 @@
      *  list of fields that reflects Course model in Django
      */
     app.factory('CourseProfessor', ['$resource', function($resource) {
-        var CourseProfessor = $resource('/api/course_professor/:id', {'id':'@id'});
+        var resourceConfig = {
+            'update': {
+                'method': 'PUT'
+            }
+        };
+        var CourseProfessor = $resource('/api/course_professor/:id', {'id':'@id'}, resourceConfig);
+        CourseProfessor.prototype.saveOrUpdate = function() {
+            return this.id > 0 ? this.$update() : this.$save();
+        };
         return CourseProfessor;
     }]);
 

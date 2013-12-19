@@ -51,6 +51,19 @@
                 });
             });
 
+            function showFieldErrors(response) {
+                $scope.errors = response.data;
+                var messages = [];
+                for(var att in response.data) {
+                    var message = response.data[att];
+                    if(Course.fields && Course.fields[att]) {
+                        message = Course.fields[att].label + ': ' + message;
+                    }
+                    messages.push(message);
+                }
+                $scope.alert.error('Encontramos alguns erros!', messages, true);
+            }
+
             $scope.saveCourse = function() {
                 if(!$scope.course.hasVideo()){
                     delete $scope.course.intro_video;
@@ -74,18 +87,7 @@
                             $scope.$apply();
                         });
                     })
-                    .catch(function(response){
-                        $scope.errors = response.data;
-                        var messages = [];
-                        for(var att in response.data) {
-                            var message = response.data[att];
-                            if(Course.fields && Course.fields[att]) {
-                                message = Course.fields[att].label + ': ' + message;
-                            }
-                            messages.push(message);
-                        }
-                        $scope.alert.error('Encontramos alguns erros!', messages, true);
-                    });
+                    .catch(showFieldErrors);
             };
 
             $scope.deleteProfessor = function(courseProfessor) {
@@ -100,10 +102,28 @@
                 });
             };
 
+            $scope.saveProfessor = function(courseProfessor) {
+                function __saveProfessor(){
+                    if (!$scope.course.id) {
+                        return $scope.course.$save().then(function(course){
+                            courseProfessor.course = course.id;
+                            return courseProfessor.saveOrUpdate();
+                        });
+                    }
+                    return courseProfessor.saveOrUpdate();
+                }
+                return __saveProfessor().then(function(){
+                    $scope.alert.success('{0} foi atualizado'.format(courseProfessor.user_info.name));
+                });
+            };
+
+            $scope.pi = function(p) {
+                return function(){ window.alert(p); };
+            };
+
             $scope.addProfessor = function(professor) {
                 if(!professor) return;
                 var copy = angular.copy(professor);
-                var mod = copy.first_name.charAt(copy.first_name.length-1) === 'o' ? ['O', '', 'o'] : ['A', 'a', 'a'];
 
                 var reduce = function(a,b){ return a || b.user === copy.id; };
 
@@ -120,10 +140,10 @@
                     'user_info': copy
                 });
 
-                $scope.courseProfessors.push(professorToAdd);
-                professorToAdd.$save().then(function(){
+                $scope.saveProfessor(professorToAdd).then(function(){
                     $scope.alert.success('"{0}" foi adicionado a lista de professores.'.format(copy.name));
-                });
+                    $scope.courseProfessors.push(professorToAdd);
+                }).catch(showFieldErrors);
             };
         }
     ]);
