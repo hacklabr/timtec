@@ -169,7 +169,7 @@ PIPELINE_JS = {
             'modernizr/modernizr.js',
             'jquery/jquery.js',
             'jquery-ui/ui/jquery-ui.js',
-            'jquery-ui/ui/jquery.ui.sortable.min.js',
+            'jquery-ui/ui/jquery.ui.sortable.js',
             'bootstrap/dist/js/bootstrap.js',
             'angular/angular.js',
             'angular-animate/angular-animate.js',
