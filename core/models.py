@@ -31,7 +31,7 @@ class Course(models.Model):
         ('published', _('Published')),
     )
 
-    slug = models.SlugField(_('Slug'), max_length=255, unique=True, blank=True)
+    slug = models.SlugField(_('Slug'), max_length=255, unique=True)
     name = models.CharField(_('Name'), max_length=255, blank=True)
     intro_video = models.ForeignKey(Video, verbose_name=_('Intro video'), null=True, blank=True)
     application = models.TextField(_('Application'), blank=True)

@@ -160,7 +160,7 @@ class LessonDetailView(LoginRequiredMixin, DetailView):
 class LessonViewSet(viewsets.ModelViewSet):
     model = Lesson
     serializer_class = LessonSerializer
-    filter_fields = ('course__slug',)
+    filter_fields = ('course__slug', 'course__id',)
     filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter,)
     ordering = ('position',)
 

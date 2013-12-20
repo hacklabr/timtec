@@ -163,6 +163,32 @@
         return Professor;
     }]);
 
+
+    /**
+     * Lesson model. The Course has many Lessons
+     */
+    app.factory('Lesson', ['$resource', function($resource){
+        var resourceConfig = {
+            'update': {'method': 'PUT'}
+        };
+        var Lesson = $resource('/api/lessons/:id', {'id':'@id'}, resourceConfig);
+        Lesson.prototype.countVideos = function() {
+            return (this.units || []).reduce(function(c, u){
+                return u.video ? c + 1 : c;
+            }, 0);
+        };
+        Lesson.prototype.countActivities = function() {
+            return (this.units || []).reduce(function(c, u){
+                return u.activity ? c + 1 : c;
+            }, 0);
+        };
+        Lesson.prototype.saveOrUpdate = function() {
+            return this.id > 0 ? this.$update() : this.$save();
+        };
+        return Lesson;
+    }]);
+
+
     /**
      * A object that fetch info from Youtube. It expects a video ID and returns
      * a promise that video info will be fetched.
