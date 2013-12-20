@@ -93,7 +93,8 @@
                             that.hidden = true;
                             if(callback && callback.call)
                                 callback.call();
-                        }, timeout || 2000);
+                            scope.$apply();
+                        }, timeout || 3000);
                     }
                 };
                 scope.alert.reset();
