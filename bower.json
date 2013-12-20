@@ -15,12 +15,12 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.2.4",
-    "angular-animate": "~1.2.4",
-    "angular-cookies": "~1.2.4",
-    "angular-resource": "~1.2.4",
-    "angular-route": "~1.2.4",
-    "angular-sanitize": "~1.2.4",
+    "angular": "1.2.5",
+    "angular-animate": "1.2.5",
+    "angular-cookies": "1.2.5",
+    "angular-resource": "1.2.5",
+    "angular-route": "1.2.5",
+    "angular-sanitize": "1.2.5",
     "angular-ui-codemirror": "~0.0.7",
     "bootstrap": "~3.0.3",
     "codemirror": "~3.19.0",
@@ -29,6 +29,6 @@
     "dropzone": "~3.7.4",
     "modernizr": "~2.7.1",
     "font-awesome": "~4.0.3",
-    "angular-mocks": "~1.2.4"
+    "angular-mocks": "1.2.5"
   }
 }
