@@ -1,7 +1,7 @@
 (function(angular){
     'use strict';
 
-    var app = angular.module('activities.services', ['ui.codemirror']);
+    var app = angular.module('activities.services');
 
     app.factory('resolveActivityTemplate', function(STATIC_URL) {
         return function (typeName) {
