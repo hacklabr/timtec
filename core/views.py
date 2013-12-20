@@ -117,7 +117,7 @@ class CourseViewSet(viewsets.ModelViewSet):
             serializer.save()
             return Response(status=200)
         else:
-            return Response(serializer.errors, status=403)
+            return Response(serializer.errors, status=400)
 
     def metadata(self, request):
         data = super(CourseViewSet, self).metadata(request)
@@ -138,7 +138,7 @@ class CourseThumbViewSet(viewsets.ModelViewSet):
             serializer.save()
             return Response(status=200)
         else:
-            return Response(serializer.errors, status=403)
+            return Response(serializer.errors, status=400)
 
 
 class LessonDetailView(LoginRequiredMixin, DetailView):

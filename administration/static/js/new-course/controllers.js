@@ -8,6 +8,7 @@
 
             $scope.errors = {};
             var httpErrors = {
+                '400': 'Os campos não foram preenchidos corretamente.',
                 '403': 'Você não tem permissão para ver conteúdo nesta página.',
                 '404': 'Este curso não existe!'
             };
