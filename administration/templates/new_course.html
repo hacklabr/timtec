@@ -20,67 +20,13 @@
     <div class="actions">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                     <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
-
-                    <span class="status">
-                        <span class="label">Status</span>
-                        <div class="btn-group">
-                            <button class="btn btn-default" ng-bind="statusList[course.status]"></button>
-                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-chevron-down"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li ng-repeat="(status, label) in statusList">
-                                    <a href="" ng-click="course.status=status" ng-bind="label"></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </span>
-
-                    <span class="publication">
-                        <span class="label">Publicação</span>
-                        <div class="btn-group">
-                            <button class="btn btn-default">Dia</button>
-                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-chevron-down"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="">01</a></li>
-                                <li><a href="">02</a></li>
-                                <li><a href="">03</a></li>
-                            </ul>
-                        </div>
-                    </span>
-
-                    <div class="btn-group">
-                        <button class="btn btn-default">Mês</button>
-                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-chevron-down"></i>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="">Janeiro</a></li>
-                            <li><a href="">Fevereiro</a></li>
-                            <li><a href="">Março</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="btn-group">
-                        <button class="btn btn-default">Ano</button>
-                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-chevron-down"></i>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="">2013</a></li>
-                            <li><a href="">2014</a></li>
-                            <li><a href="">2015</a></li>
-                        </ul>
-                    </div>
                 </div>
-
-                <div class="col-lg-4 textright">
-                    <button class="btn btn-success" ng-click="saveCourse()">Salvar</button>
-                    <button class="btn btn-warning">Publicar Curso | <i class="fa fa-rocket"></i></button>
+                <div class="col-lg-6 textright">
+                    <!-- <button class="btn btn-info">Listar | <i class="fa fa-star-o"></i></button> -->
+                    <button class="btn btn-success" ng-click="saveCourse()">Salvar | <i class="fa fa-save"></i></button>
+                    <button class="btn btn-warning">Publicar | <i class="fa fa-star-o"></i></button>
                 </div>
             </div>
         </div>
@@ -270,8 +216,8 @@
                     </div>
                     <!--  END PAGE-HEADER-DOUBLE  -->
 
-                    <a href="" ng-click="organizingLessons=true" ng-show="!organizingLessons">Organizar as lições</a>
-                    <a href="" ng-click="organizingLessons=false" ng-show="organizingLessons">Lista detalhada de lições</a>
+                    <p><a href="" ng-click="organizingLessons=true" ng-show="!organizingLessons">Organizar as lições</a></p>
+                    <!-- <a href="" ng-click="organizingLessons=false" ng-show="organizingLessons">Lista detalhada de lições</a> -->
 
                     <!-- ORGANIZING LESSONS -->
                     <div class="lessons organizing-lessons" ng-show="organizingLessons"
@@ -357,11 +303,8 @@
                     </div>
                     <!-- END PAGE-HEADER-DOUBLE -->
 
-                    <a href="" ng-click="organizingInstructors=false"
-                               ng-show="organizingInstructors">Editar biografias</a>
-
-                    <a href="" ng-click="organizingInstructors=true"
-                               ng-hide="organizingInstructors">Organizar instrutores</a>
+                    <!-- <a href="" ng-click="organizingInstructors=false" ng-show="organizingInstructors">Editar biografias</a> -->
+                    <p><a href="" ng-click="organizingInstructors=true" ng-hide="organizingInstructors">Organizar instrutores</a></p>
 
                     <div class="instructors organizing-instructors" ng-show="organizingInstructors">
                         <div class="instructor" ng-repeat="professor in courseProfessors">
