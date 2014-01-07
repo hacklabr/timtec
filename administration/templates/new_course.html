@@ -14,7 +14,7 @@
 
         var barParent = document.getElementById("course");
         var bar = document.getElementById("course-actions-bar");
-    
+
         if (window.scrollY >= 50) {
             barParent.style["margin-top"] = "70px";
             bar.style["left"] = "0";
@@ -259,7 +259,7 @@
                         <!-- END LESSON -->
 
                         <div class="submit textright">
-                            <button class="btn btn-danger">Cancelar</button>
+                            <button class="btn btn-danger" ng-click="organizingLessons=false">Cancelar</button>
                             <button class="btn btn-success" ng-click="saveAllLessons()">Salvar</button>
                         </div>
                     </div>
@@ -343,7 +343,7 @@
                             </div>
                         </div>
                         <div class="submit textright">
-                            <button class="btn btn-danger">Cancelar</button>
+                            <button class="btn btn-danger" ng-click="organizingInstructors=false">Cancelar</button>
                             <button class="btn btn-success">Salvar</button>
                         </div>
                     </div>
