@@ -103,8 +103,6 @@
     });
 
     app.directive('professorslist', ['Professor', function(Professor){
-        function noop(){ }
-
         return {
             'restrict': 'E',
             'templateUrl': '/static/templates/directive.professorslist.html',
