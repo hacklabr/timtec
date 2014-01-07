@@ -5,6 +5,7 @@
         'django',
         'directive.contenteditable',
         'directive.markdowneditor',
+        'directive.fixedBar',
         'filters.text',
         'ngResource',
         'youtube'
