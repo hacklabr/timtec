@@ -107,6 +107,15 @@
                     .catch(showFieldErrors);
             };
 
+            $scope.deleteCourse = function() {
+                if(!confirm('Tem certeza que deseja remover este curso?')) return;
+
+                $scope.course.$delete()
+                    .then(function(){
+                        document.location.href = '/admin/courses';
+                    });
+            };
+
             $scope.deleteProfessor = function(courseProfessor) {
                 var professor_name = courseProfessor.user_info.name;
                 var msg = 'Tem certeza que deseja remover "{0}" da lista de professores deste curso?'.format(professor_name);
