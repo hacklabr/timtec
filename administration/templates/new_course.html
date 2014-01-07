@@ -9,6 +9,27 @@
 <script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/contenteditable.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/new-course/controllers.js' %}"></script>
+<script type="text/javascript" charset="utf-8">
+    window.onscroll = function() {
+
+        var barParent = document.getElementById("course");
+        var bar = document.getElementById("course-actions-bar");
+    
+        if (window.scrollY >= 50) {
+            barParent.style["margin-top"] = "70px";
+            bar.style["left"] = "0";
+            bar.style["position"] = "fixed";
+            bar.style["right"] = "0";
+            bar.style["top"] = "20px";
+            bar.style["z-index"] = 1000;
+        } else {
+            barParent.style["margin-top"] = "";
+            bar.style["position"] = "";
+            bar.style["top"] = "";
+            bar.style["z-index"] = "";
+        }
+    }
+</script>
 {% endblock %}
 
 {% block content %}
@@ -17,7 +38,7 @@
 <div id="course" class="course-intro" ng-app="new-course" ng-controller="CourseEditController">
 
     <!-- ACTIONS -->
-    <div class="actions">
+    <div id="course-actions-bar" class="actions">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
