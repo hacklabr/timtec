@@ -10,23 +10,33 @@
 <script type="text/javascript" src="{% static 'js/directives/contenteditable.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/new-course/controllers.js' %}"></script>
 <script type="text/javascript" charset="utf-8">
-    window.onscroll = function() {
+    window.onload = function() {
+        //return true;
 
-        var barParent = document.getElementById("course");
         var bar = document.getElementById("course-actions-bar");
 
-        if (window.scrollY >= 50) {
-            barParent.style["margin-top"] = "70px";
-            bar.style["left"] = "0";
-            bar.style["position"] = "fixed";
-            bar.style["right"] = "0";
-            bar.style["top"] = "20px";
-            bar.style["z-index"] = 1000;
-        } else {
-            barParent.style["margin-top"] = "";
-            bar.style["position"] = "";
-            bar.style["top"] = "";
-            bar.style["z-index"] = "";
+        var barOffsetTop = bar.offsetTop;
+        var barHeight = parseInt(window.getComputedStyle(bar)['height'], 10);
+        var barMarginTop = parseInt(window.getComputedStyle(bar)['marginTop'], 10);
+        var barAbsMarginTop = Math.abs(barMarginTop);
+
+        window.onscroll = function() {
+
+            if (window.scrollY >= barOffsetTop) {
+                bar.parentNode.style["margin-top"] = (barHeight + barAbsMarginTop) + "px";
+                bar.style["left"] = "0";
+                bar.style["position"] = "fixed";
+                bar.style["right"] = "0";
+                bar.style["top"] = barAbsMarginTop + "px";
+                bar.style["z-index"] = 1000;
+
+                console.log(bar.parentNode.style["margin-top"], bar.style["top"]);
+            } else {
+                bar.parentNode.style["margin-top"] = '';
+                bar.style["position"] = '';
+                bar.style["top"] = '';
+                bar.style["z-index"] = '';
+            }
         }
     }
 </script>
