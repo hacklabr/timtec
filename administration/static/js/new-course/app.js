@@ -6,6 +6,7 @@
         'directive.contenteditable',
         'directive.markdowneditor',
         'directive.fixedBar',
+        'directive.sortable',
         'filters.text',
         'ngResource',
         'youtube'
