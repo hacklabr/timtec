@@ -6,9 +6,10 @@
 <script type="text/javascript" src="{% static 'js/new-course/factories.js' %}">// must be the 2º</script>
 <script type="text/javascript" src="{% static 'js/new-course/directives.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/filters/text.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/contenteditable.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/sortable.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/new-course/controllers.js' %}"></script>
 {% endblock %}
@@ -406,7 +407,7 @@
 
 
     <!-- ALERT -->
-    <div class="tt-popup notifications" alert ng-class="{'hideTop': alert.hidden}">
+    <div class="tt-popup notifications" alert-popup ng-class="{'hideTop': alert.hidden}">
         <div class="alert fade in" ng-class="'alert-' + alert.type">
             <button type="button" class="close" ng-click="alert.hidden=true">×</button>
             <h4 ng-bind="alert.title"></h4>

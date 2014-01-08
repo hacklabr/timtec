@@ -1,11 +1,12 @@
 (function(angular){
     'use strict';
 
-    var app = angular.module('new-course', [
+    angular.module('new-course', [
         'django',
+        'directive.alertPopup',
         'directive.contenteditable',
-        'directive.markdowneditor',
         'directive.fixedBar',
+        'directive.markdowneditor',
         'directive.sortable',
         'filters.text',
         'ngResource',
