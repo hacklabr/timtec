@@ -410,6 +410,13 @@ a:active {
               &:hover {
                 color: @brand-info;
               }
+              &:hover:after {
+                content: "(Editar)";
+                font-family: @font-family-sans-serif;
+                font-size: 11px;
+                margin-left: 5px;
+                text-transform: lowercase;
+              }
             }
           }
           .lessons {
