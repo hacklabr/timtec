@@ -3,7 +3,7 @@
 
 {% block js %} {{block.super}}
 <script type="text/javascript" src="{% static 'js/edit-lesson/app.js' %}">// must be the 1º</script>
-<script type="text/javascript" src="{% static 'js/edit-lesson/factories.js' %}">// must be the 2º</script>
+<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}">// must be the 2º</script>
 <script type="text/javascript" src="{% static 'js/edit-lesson/directives.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/filters/text.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
@@ -17,7 +17,7 @@
 
 {% block content %}
 <!-- COURSE-CONTENT -->
-<div id="course" class="course-lesson" ng-app="edit-lesson">
+<div id="course" class="course-lesson" ng-app="edit-lesson" ng-controller="EditLessonController">
 
     <!-- ACTIONS -->
     <div class="actions" fixed-bar>
@@ -25,60 +25,6 @@
             <div class="row">
                 <div class="col-lg-8">
                     <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
-
-                    <span class="status">
-                        <span class="label">Status</span>
-                        <div class="btn-group">
-                            <button class="btn btn-default">Nova</button>
-                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-chevron-down"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="">Rascunho</a></li>
-                                <li><a href="">Listada</a></li>
-                                <li><a href="">Publicada</a></li>
-                            </ul>
-                        </div>
-                    </span>
-
-                    <span class="publication">
-                        <span class="label">Publicação</span>
-                        <div class="btn-group">
-                            <button class="btn btn-default">Dia</button>
-                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-chevron-down"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="">01</a></li>
-                                <li><a href="">02</a></li>
-                                <li><a href="">03</a></li>
-                            </ul>
-                        </div>
-                    </span>
-
-                    <div class="btn-group">
-                        <button class="btn btn-default">Mês</button>
-                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-chevron-down"></i>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="">Janeiro</a></li>
-                            <li><a href="">Fevereiro</a></li>
-                            <li><a href="">Março</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="btn-group">
-                        <button class="btn btn-default">Ano</button>
-                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-chevron-down"></i>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="">2013</a></li>
-                            <li><a href="">2014</a></li>
-                            <li><a href="">2015</a></li>
-                        </ul>
-                    </div>
                 </div>
                 <div class="col-lg-4 textright">
                     <button class="btn btn-success">Salvar</button>
@@ -131,22 +77,25 @@
         <nav class="course-lessons">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="top editable"><span contenteditable="true">Título da lição</span></h1>
-                    <p class="description editable"><span contenteditable="true">Descrição da lição</span></p>
+                    <h1 class="top editable"></h1>
+                    <h1><span ng-class="{'blink-text-danger':errors.name}" ng-model="lesson.name"
+                              placeholder="Nome da lição" contenteditable="true"></span></h1>
+
+                    <p class="description editable">
+                        <span ng-model="lesson.desc" placeholder="Descrição da lição"
+                              contenteditable="true"></span></p>
                 </div>
             </div>
         </nav>
 
         <nav class="lesson-units">
             <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-default">Título da lição</button>
+                <button type="button" class="btn btn-sm btn-default" ng-bind="lesson.name">Título da lição</button>
                 <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-chevron-down"></i>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="">Título da lição #1</a></li>
-                    <li><a href="">Título da lição #2</a></li>
-                    <li><a href="">Título da lição #3</a></li>
+                    <li ng-repeat="l in lessons"><a href="" ng-bind="l.name">Título da lição #1</a></li>
                 </ul>
             </div>
         </nav>
@@ -155,11 +104,12 @@
         <div class="row">
             <div class="col-lg-1">
                 <div class="units admin-units">
-                    <a href="" class="unit">1</a>
-                    <a href="" class="unit current">2</a>
-                    <a href="" class="unit">3</a>
-                    <a href="" class="unit">4</a>
-                    <a href="" class="unit">5</a>
+                    {% verbatim %}
+                    <a href="" class="unit" ng-repeat="u in lesson.units"
+                       ng-bind="$index + 1" title="{{u.title}}"
+                       ng-click="$parent.currentUnit = u"
+                       ng-class="{current: $parent.currentUnit == u}"></a>
+                    {% endverbatim %}
                     <a href="" class="add-unit unit"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
@@ -177,7 +127,7 @@
                     <!-- ROW -->
                     <div class="row">
                         <!-- ADD-VIDEO-INTRO -->
-                        <div class="add-video-intro col-sm-12 col-lg-12 textcenter">
+                        <div class="add-video-intro col-sm-12 col-lg-12 textcenter" ng-hide="currentUnit.video">
                             <!-- CENTERED -->
                             <div class="centered">
                                 <i class="fa fa-youtube-play fa-4x"></i>
@@ -191,6 +141,21 @@
                                 </p>
                             </div>
                             <!-- END CENTERED -->
+                        </div>
+
+                        <div class="col-lg-12" style="overflow:hidden;"
+                             ng-style="{'margin-left': currentUnit.video && playerReady ?'':'-2000px'}">
+
+                            <div id="youtube-player" player-height="419px" player-width="100%" youtube-player></div>
+                            <div class="row">
+                                <div class="col-lg-10">
+                                    <p class="video-title" ng-model="currentUnit.video.name" placeholder="Nome do vídeo" contenteditable><p>
+                                </div>
+                                <div class="col-lg-2 textcenter">
+                                    <button class="btn-edit-video btn btn-success btn-sm uppercase"
+                                            ng-click="currentUnit.video = null">Alterar vídeo</button>
+                                </div>
+                            </div>
                         </div>
                         <!-- END ADD-VIDEO-INTRO -->
                     </div>

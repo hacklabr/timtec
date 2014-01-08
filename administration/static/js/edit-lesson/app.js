@@ -4,12 +4,12 @@
     angular.module('edit-lesson', [
         'django',
         // 'directive.alertPopup',
-        // 'directive.contenteditable',
+        'directive.contenteditable',
+        'timtec-models',
         'directive.fixedBar',
         // 'directive.markdowneditor',
         // 'directive.sortable',
         // 'filters.text',
-        'ngResource',
         'youtube'
     ]);
 })(window.angular);
