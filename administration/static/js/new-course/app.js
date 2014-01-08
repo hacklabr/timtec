@@ -3,6 +3,7 @@
 
     angular.module('new-course', [
         'django',
+        'timtec-models',
         'directive.alertPopup',
         'directive.contenteditable',
         'directive.fixedBar',

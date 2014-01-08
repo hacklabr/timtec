@@ -3,7 +3,7 @@
 
 {% block js %} {{block.super}}
 <script type="text/javascript" src="{% static 'js/new-course/app.js' %}">// must be the 1º</script>
-<script type="text/javascript" src="{% static 'js/new-course/factories.js' %}">// must be the 2º</script>
+<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}">// must be the 2º</script>
 <script type="text/javascript" src="{% static 'js/new-course/directives.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/filters/text.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
@@ -115,7 +115,7 @@
 
                                     <button class="btn btn-success btn-lg uppercase"
                                             ng-click="addThumb=(thumbfile===null); saveThumb()">Adicionar</button>
-                                            
+
                                 </p>
                             </div>
                         </div>
