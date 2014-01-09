@@ -2,8 +2,8 @@
 
     var app = angular.module('edit-lesson');
 
-    app.controller('EditLessonController', ['$scope', 'Course', 'Lesson', 'youtubePlayerApi',
-        function($scope, Course, Lesson, youtubePlayerApi){
+    app.controller('EditLessonController', ['$scope', 'Course', 'CourseProfessor', 'Lesson', 'youtubePlayerApi',
+        function($scope, Course, CourseProfessor, Lesson, youtubePlayerApi){
             $scope.errors = {};
             var httpErrors = {
                 '400': 'Os campos não foram preenchidos corretamente.',
@@ -16,12 +16,16 @@
             $scope.course = new Course();
             $scope.lesson = new Lesson();
             $scope.currentUnit = null;
+            $scope.courseProfessors = [];
 
             if( match ) {
                 $scope.course.$get({id: match[1]})
                     .then(function(course){
-                        return Lesson.query({course__slug: course.slug}).$promise;
-                    })
+                        $scope.courseProfessors = CourseProfessor.query({ course: course.id });
+                        return $scope.courseProfessors.$promise;
+                    });
+
+                Lesson.query({course__id: match[1]}).$promise
                     .then(function(lessons){
                         $scope.lessons = lessons;
                         lessons.forEach(function(lesson){
