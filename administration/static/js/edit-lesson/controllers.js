@@ -11,13 +11,20 @@
                 '404': 'Este curso não existe!'
             };
 
-            // vv como faz isso de uma formula angular ?
-            var match = document.location.href.match(/courses\/(\d+)\/lessons\/(new|\d+)/);
             $scope.course = new Course();
             $scope.lesson = new Lesson();
             $scope.currentUnit = null;
             $scope.courseProfessors = [];
 
+            $scope.setLesson = function(l) {
+                $scope.lesson = l;
+                if(l.units.length > 0) {
+                    $scope.currentUnit = l.units[0];
+                }
+            };
+
+            // vv como faz isso de uma formula angular ?
+            var match = document.location.href.match(/courses\/(\d+)\/lessons\/(new|\d+)/);
             if( match ) {
                 $scope.course.$get({id: match[1]})
                     .then(function(course){
@@ -30,11 +37,7 @@
                         $scope.lessons = lessons;
                         lessons.forEach(function(lesson){
                             if(lesson.id === parseInt(match[2], 10)) {
-                                $scope.lesson = lesson;
-                                if(lesson.units.length > 0) {
-                                    $scope.currentUnit = lesson.units[0];
-                                    youtubePlayerApi.videoId = $scope.currentUnit.video.youtube_id;
-                                }
+                                $scope.setLesson(lesson);
                             }
                         });
                     })
