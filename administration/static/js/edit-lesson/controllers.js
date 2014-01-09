@@ -20,6 +20,8 @@
                 $scope.lesson = l;
                 if(l.units.length > 0) {
                     $scope.currentUnit = l.units[0];
+                } else {
+                    $scope.currentUnit = null;
                 }
             };
 
