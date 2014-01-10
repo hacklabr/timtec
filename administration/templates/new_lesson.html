@@ -27,7 +27,7 @@
                     <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
                 </div>
                 <div class="col-lg-4 textright">
-                    <button class="btn btn-success">Salvar</button>
+                    <button class="btn btn-success" ng-click="saveLesson()">Salvar</button>
                     <button class="btn btn-warning">Publicar Lição | <i class="fa fa-rocket"></i></button>
                 </div>
             </div>
@@ -114,7 +114,7 @@
                        ng-click="$parent.currentUnit = u"
                        ng-class="{current: $parent.currentUnit == u}"></a>
                     {% endverbatim %}
-                    <a href="" class="add-unit unit"><i class="fa fa-plus"></i></a>
+                    <a href="" class="add-unit unit" ng-click="addUnit()"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
             <div class="col-lg-8">
@@ -182,7 +182,24 @@
         <!-- END ROW -->
     </section>
     <!-- END COURSE-CONTENT -->
-
+    <!-- ALERT -->
+    <div class="tt-popup notifications" alert-popup ng-class="{'hideTop': alert.hidden}">
+        <div class="alert fade in" ng-class="'alert-' + alert.type">
+            <button type="button" class="close" ng-click="alert.hidden=true">×</button>
+            <h4 ng-bind="alert.title"></h4>
+            <p class="bottom">
+                <ol class="bottom">
+                    <li ng-repeat="message in alert.messages" ng-bind="message"></li>
+                </ol>
+            </p>
+            <div ng-show="alert.showControls">
+                <hr/>
+                <button type="button" class="btn" ng-class="'btn-'+alert.type"
+                         ng-click="alert.hidden=true">Fechar</button>
+            </div>
+        </div>
+    </div>
+    <!-- ALERT -->
 </div>
 <!-- END COURSE-CONTENT -->
 

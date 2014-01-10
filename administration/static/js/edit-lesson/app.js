@@ -3,7 +3,7 @@
 
     angular.module('edit-lesson', [
         'django',
-        // 'directive.alertPopup',
+        'directive.alertPopup',
         'directive.contenteditable',
         'timtec-models',
         'directive.fixedBar',

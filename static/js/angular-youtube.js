@@ -14,6 +14,7 @@ angular.module('youtube', ['ng'])
             // we will create player after bindVideoPlayer promise
             var bindVideoPlayerDeferred = $q.defer();
             var playerDeffered = $q.defer();
+            var playerCreated = false;
 
             service.loadLibrary = function() {
                 // <script src="//www.youtube.com/iframe_api"></script>
@@ -41,6 +42,7 @@ angular.module('youtube', ['ng'])
             };
 
             service.createPlayer = function () {
+                playerCreated = true;
                 $log.info('Creating a new Youtube player for DOM id ' + this.playerId + ' and video ' + this.videoId);
 
                 bindVideoPlayerDeferred.promise
@@ -66,14 +68,17 @@ angular.module('youtube', ['ng'])
                         });
 
                         playerDeffered.resolve(service.player);
+                    })
+                    .catch(function(){
+                        playerCreated = false;
                     });
 
                 return playerDeffered.promise;
             };
 
             service.loadPlayer = function () {
-                if(service.player) {
-                    service.player.destroy();
+                if(playerCreated) {
+                    return playerDeffered.promise;
                 }
                 return service.createPlayer();
             };

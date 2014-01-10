@@ -11,11 +11,22 @@
                 '404': 'Este curso não existe!'
             };
 
+            // load youtube
+            var player;
+            $scope.playerReady = false;
+            youtubePlayerApi.loadPlayer().then(function(p){
+                player = p;
+                $scope.playerReady = true;
+            });
+            // end load youtube
+
+
             $scope.course = new Course();
             $scope.lesson = new Lesson();
             $scope.currentUnit = null;
             $scope.courseProfessors = [];
 
+            /*  Methods */
             $scope.setLesson = function(l) {
                 $scope.lesson = l;
                 if(l.units.length > 0) {
@@ -24,6 +35,21 @@
                     $scope.currentUnit = null;
                 }
             };
+
+            $scope.saveLesson = function() {
+                $scope.lesson.saveOrUpdate()
+                    .then(function(){
+                        $scope.alert.success('Alterações salvas com sucesso.');
+                    })
+                    .catch(function(resp){
+                        $scope.alert.error(httpErrors[resp.status.toString()]);
+                    });
+            };
+
+            $scope.addUnit = function() {
+                $scope.lesson.units.push({});
+            };
+            /*  End Methods */
 
             // vv como faz isso de uma formula angular ?
             var match = document.location.href.match(/courses\/(\d+)\/lessons\/(new|\d+)/);
@@ -34,7 +60,10 @@
                         return $scope.courseProfessors.$promise;
                     });
 
-                Lesson.query({course__id: match[1]}).$promise
+                youtubePlayerApi.loadPlayer()
+                    .then(function(){
+                        return Lesson.query({course__id: match[1]}).$promise;
+                    })
                     .then(function(lessons){
                         $scope.lessons = lessons;
                         lessons.forEach(function(lesson){
@@ -49,16 +78,9 @@
             }
             // ^^ como faz isso de uma formula angular ?
 
-            var player;
-            $scope.playerReady = false;
-            youtubePlayerApi.loadPlayer().then(function(p){
-                player = p;
-                $scope.playerReady = true;
-            });
-
             $scope.$watch('currentUnit.video.youtube_id', function(vid, oldVid){
                 if(!vid || vid === oldVid) return;
-                if(player) player.cueVideoById(vid);
+                if($scope.playerReady && player.cueVideoById) player.cueVideoById(vid);
                 //VideoData.load(vid).then(function(data){
                 //    $scope.course.intro_video.name = data.entry.title.$t;
                 //});
