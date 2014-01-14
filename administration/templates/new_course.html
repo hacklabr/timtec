@@ -261,7 +261,9 @@
                         <!--  COL-LG-9  -->
                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                             <p>
-                                <a href="" class="title editable" ng-bind="lesson.name">Nome da lição</a>
+                                {% verbatim %}
+                                <a href="lessons/{{lesson.id}}" class="title editable" ng-bind="lesson.name">Nome da lição</a>
+                                {% endverbatim %}
                                 <modalmarkdowneditor on-save="saveLesson(lesson)" title="Descrição da lição" content="lesson.desc"></modalmarkdowneditor>
                             </p>
                             <!--  HIDDEN-XS  -->
