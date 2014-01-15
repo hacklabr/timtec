@@ -1,14 +1,12 @@
 from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
+from django.views.generic.base import RedirectView
 from django.contrib.auth.decorators import login_required as lr
 
 urlpatterns = patterns(
     '',
-    url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)$/',
-        lr(TemplateView.as_view(template_name="new_course.html")),
-        name='course_admin'),
-
     # list all courses
+    url(r'^$', lr(RedirectView.as_view(url="courses/"))),
     url(r'^courses/$', lr(TemplateView.as_view(template_name="courses.html"))),
 
     # create and edit course
