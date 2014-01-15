@@ -5,7 +5,7 @@
 <script type="text/javascript" src="{% static 'js/courses/app.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/courses/filters.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/courses/controllers.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/courses/factories.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -82,7 +82,7 @@
                                 'label-info': course.isListed(),
                                 'label-success': course.isPublished()}">{{ course.status | capfirst }}</span>
 
-                            <span class="label label-default pointer" ng-click="showLessons=!showLessons">Ver Lições <i class="fa" ng-class="{'fa fa-caret-down':!showLessons,'fa fa-caret-up':showLessons}"></i></span>
+                            <span class="label label-default pointer" ng-click="loadLessons(course);showLessons=!showLessons">Ver Lições <i class="fa" ng-class="{'fa fa-caret-down':!showLessons,'fa fa-caret-up':showLessons}"></i></span>
                         </p>
                     </div>
                     <div class="col-lg-6 textright">
@@ -101,137 +101,21 @@
                 </div>
                 
                 <div class="row" ng-show="showLessons">
-                    <div class="col-lg-12">
+                    <div class="col-lg-12" ng-hide="course.lessons.$resolved">
+                        <span>Carrengando lista de lições...</span>
+                    </div>
+                    <div class="col-lg-12" ng-show="course.lessons.length == 0">
+                        <span>Não há lições neste curso</span>
+                    </div>
+                    <div class="col-lg-12" ng-show="course.lessons">
                         <div class="lessons">
-                            <div class="lesson">
+                            <div class="lesson" ng-repeat="lesson in course.lessons">
                                 <div class="row">
                                     <div class="col-lg-1">
-                                        <span class="label label-success">publicado</span>
+                                        <span class="label label-success" ng-bind="lesson.status">publicado</span>
                                     </div>
                                     <div class="col-lg-9">
-                                        <h1><a href="">1 - Introdução: Internet e Web</a></h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="lesson">
-                                <div class="row">
-                                    <div class="col-lg-1">
-                                        <span class="label label-success">publicado</span>
-                                    </div>
-                                    <div class="col-lg-9">
-                                        <h1><a href="">2 - Montando a estrutura de um documento HTML</a></h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="lesson">
-                                <div class="row">
-                                    <div class="col-lg-1">
-                                        <span class="label label-success">publicado</span>
-                                    </div>
-                                    <div class="col-lg-9">
-                                        <h1><a href="">3 - Grupos de conteúdo e elementos semânticos de texto</a></h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="lesson">
-                                <div class="row">
-                                    <div class="col-lg-1">
-                                        <span class="label label-success">publicado</span>
-                                    </div>
-                                    <div class="col-lg-9">
-                                        <h1><a href="">4 - Conteúdo Multimídia</a></h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="lesson">
-                                <div class="row">
-                                    <div class="col-lg-1">
-                                        <span class="label label-success">publicado</span>
-                                    </div>
-                                    <div class="col-lg-9">
-                                        <h1><a href="">5 - Tabelas e Formulários</a></h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="lesson">
-                                <div class="row">
-                                    <div class="col-lg-1">
-                                        <span class="label label-success">publicado</span>
-                                    </div>
-                                    <div class="col-lg-9">
-                                        <h1><a href="">6 - Metadados e Cabeçalho</a></h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="lesson">
-                                <div class="row">
-                                    <div class="col-lg-1">
-                                        <span class="label label-success">publicado</span>
-                                    </div>
-                                    <div class="col-lg-9">
-                                        <h1><a href="">7 - Introdução ao CSS</a></h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="lesson">
-                                <div class="row">
-                                    <div class="col-lg-1">
-                                        <span class="label label-success">publicado</span>
-                                    </div>
-                                    <div class="col-lg-9">
-                                        <h1><a href="">8 - Cores e Backgrounds</a></h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="lesson">
-                                <div class="row">
-                                    <div class="col-lg-1">
-                                        <span class="label label-info">listado</span>
-                                    </div>
-                                    <div class="col-lg-9">
-                                        <h1><a href="">9 - Fontes, textos, listas e links</a></h1>
-                                    </div>
-                                    <div class="col-lg-2 textright">
-                                        <span class="label label-warning pointer">Publicar | <i class="fa fa-rocket"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="lesson">
-                                <div class="row">
-                                    <div class="col-lg-1">
-                                        <span class="label label-info">listado</span>
-                                    </div>
-                                    <div class="col-lg-9">
-                                        <h1><a href="">10 - Box Model, classe, ID e outros</a></h1>
-                                    </div>
-                                    <div class="col-lg-2 textright">
-                                        <span class="label label-warning pointer">Publicar | <i class="fa fa-rocket"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="lesson">
-                                <div class="row">
-                                    <div class="col-lg-1">
-                                        <span class="label label-default">rascunho</span>
-                                    </div>
-                                    <div class="col-lg-9">
-                                        <h1><a href="">11 - Introdução ao JavaScript</a></h1>
-                                    </div>
-                                    <div class="col-lg-2 textright">
-                                        <span class="label label-warning pointer">Publicar | <i class="fa fa-rocket"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="lesson">
-                                <div class="row">
-                                    <div class="col-lg-1">
-                                        <span class="label label-default">rascunho</span>
-                                    </div>
-                                    <div class="col-lg-9">
-                                        <h1><a href="">12 - Noções de jQuery</a></h1>
-                                    </div>
-                                    <div class="col-lg-2 textright">
-                                        <span class="label label-warning pointer">Publicar | <i class="fa fa-rocket"></i></span>
+                                        <h1><a href="" ng-bind="lesson.name">1 - Introdução: Internet e Web</a></h1>
                                     </div>
                                 </div>
                             </div>
