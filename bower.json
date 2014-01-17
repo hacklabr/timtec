@@ -29,6 +29,7 @@
     "dropzone": "~3.7.4",
     "modernizr": "~2.7.1",
     "font-awesome": "~4.0.3",
-    "angular-mocks": "~1.2.4"
+    "angular-mocks": "~1.2.4",
+    "angular-bootstrap": "~0.10.0"
   }
 }
