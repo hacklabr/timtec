@@ -71,6 +71,7 @@
                 VideoData.load(youtube_id).then(function(data){
                     $scope.currentUnit.video.name = data.entry.title.$t;
                 });
+                $scope.play(youtube_id);
             }
             /*  End Methods */
 
