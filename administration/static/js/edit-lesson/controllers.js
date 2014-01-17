@@ -30,9 +30,9 @@
             $scope.setLesson = function(l) {
                 $scope.lesson = l;
                 if(l.units.length > 0) {
-                    $scope.currentUnit = l.units[0];
+                    $scope.selectUnit(l.units[0]);
                 } else {
-                    $scope.currentUnit = null;
+                    $scope.addUnit();
                 }
             };
 
@@ -44,6 +44,19 @@
                     .catch(function(resp){
                         $scope.alert.error(httpErrors[resp.status.toString()]);
                     });
+            };
+
+            $scope.selectUnit = function(u) {
+                $scope.currentUnit = u;
+
+                var shouldChangeVideo = u.video &&
+                                        u.video.youtube_id &&
+                                        $scope.playerReady && 
+                                        player.cueVideoById &&
+                                        player.getVideoData().video_id !== u.video.youtube_id;
+                if( shouldChangeVideo ) {
+                    player.cueVideoById(u.video.youtube_id)
+                };
             };
 
             $scope.addUnit = function() {
@@ -97,11 +110,6 @@
                     });
             }
             // ^^ como faz isso de uma formula angular ?
-
-            $scope.$watch('currentUnit.video.youtube_id', function(vid, oldVid){
-                if(!vid || vid === oldVid) return;
-                if($scope.playerReady && player.cueVideoById) player.cueVideoById(vid);
-            });
         }
     ]);
 

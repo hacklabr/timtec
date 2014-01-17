@@ -111,7 +111,7 @@
                     {% verbatim %}
                     <a href="" class="unit" ng-repeat="u in lesson.units"
                        ng-bind="$index + 1" title="{{u.title}}"
-                       ng-click="$parent.currentUnit = u"
+                       ng-click="$parent.selectUnit(u);"
                        ng-class="{current: $parent.currentUnit == u}"></a>
                     {% endverbatim %}
                     <a href="" class="add-unit unit" ng-click="addUnit()"><i class="fa fa-plus"></i></a>
