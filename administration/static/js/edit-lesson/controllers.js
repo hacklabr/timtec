@@ -2,8 +2,8 @@
 
     var app = angular.module('edit-lesson');
 
-    app.controller('EditLessonController', ['$scope', 'Course', 'CourseProfessor', 'Lesson', 'youtubePlayerApi',
-        function($scope, Course, CourseProfessor, Lesson, youtubePlayerApi){
+    app.controller('EditLessonController', ['$scope', 'Course', 'CourseProfessor', 'Lesson', 'VideoData', 'youtubePlayerApi',
+        function($scope, Course, CourseProfessor, Lesson, VideoData, youtubePlayerApi){
             $scope.errors = {};
             var httpErrors = {
                 '400': 'Os campos não foram preenchidos corretamente.',
@@ -23,7 +23,7 @@
 
             $scope.course = new Course();
             $scope.lesson = new Lesson();
-            $scope.currentUnit = null;
+            $scope.currentUnit = {};
             $scope.courseProfessors = [];
 
             /*  Methods */
@@ -47,16 +47,33 @@
             };
 
             $scope.addUnit = function() {
-                $scope.lesson.units.push({});
+                if(!$scope.lesson.units) {
+                    $scope.lesson.units = [];
+                }
+                $scope.currentUnit = {};
+                $scope.lesson.units.push($scope.currentUnit);
             };
+
+            $scope.setCurrentUnitVideo = function(youtube_id) {
+                if(!$scope.currentUnit.video) {
+                    $scope.currentUnit.video = {};
+                }
+                $scope.currentUnit.video.youtube_id = youtube_id;
+                VideoData.load(youtube_id).then(function(data){
+                    $scope.currentUnit.video.name = data.entry.title.$t;
+                });
+            }
             /*  End Methods */
 
             // vv como faz isso de uma formula angular ?
             var match = document.location.href.match(/courses\/(\d+)\/lessons\/(new|\d+)/);
             if( match ) {
+                $scope.isNewLesson = ('new' === match[2]);
+
                 $scope.course.$get({id: match[1]})
                     .then(function(course){
                         $scope.courseProfessors = CourseProfessor.query({ course: course.id });
+                        $scope.lesson.course = course.slug;
                         return $scope.courseProfessors.$promise;
                     });
 
@@ -71,6 +88,9 @@
                                 $scope.setLesson(lesson);
                             }
                         });
+                        if($scope.isNewLesson) {
+                            $scope.addUnit();
+                        }
                     })
                     .catch(function(resp){
                         $scope.alert.error(httpErrors[resp.status.toString()]);
@@ -81,9 +101,6 @@
             $scope.$watch('currentUnit.video.youtube_id', function(vid, oldVid){
                 if(!vid || vid === oldVid) return;
                 if($scope.playerReady && player.cueVideoById) player.cueVideoById(vid);
-                //VideoData.load(vid).then(function(data){
-                //    $scope.course.intro_video.name = data.entry.title.$t;
-                //});
             });
         }
     ]);
