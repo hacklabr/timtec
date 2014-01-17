@@ -10,7 +10,8 @@
             $main.currentUnitPos = parseInt($routeParams.unitPos, 10);
 
             $scope.alternatives = [];
-            $scope.answer = {given: null, correct: null};
+            console.log($scope.answer);
+            // $scope.answer = {given: null, correct: null};
 
             $scope.nextVideo = function() {
                 if ($main.currentUnitPos + 1 <= $scope.lesson.units.length) {
@@ -88,10 +89,6 @@
                         $scope.answer.given = unit.activity.data.column1.map(
                             function(a,i){ return null; }
                         );
-                    } else if(unit.activity.type === 'html5') {
-                        var btemplate = "<!DOCTYPE html>\n<html>\n  <head></head>\n  <body>\n";
-                        var atemplate = "\n  </body>\n</html>";
-                        $scope.answer.given = [btemplate + unit.activity.data.data + atemplate];
                     }
                 }
             });
@@ -100,6 +97,12 @@
 
     app.controller('HTML5Ctrl',
         function ($scope) {
+            if( !$scope.answer.given ) {
+                var btemplate = "<!DOCTYPE html>\n<html>\n  <head></head>\n  <body>\n";
+                var atemplate = "\n  </body>\n</html>";
+                $scope.answer.given = [btemplate + unit.activity.data.data + atemplate];
+            }
+
             $scope.codemirrorLoaded = function(cm){
 
                 cm.on("change", function() {
