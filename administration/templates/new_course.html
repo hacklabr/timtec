@@ -98,7 +98,7 @@
 
                 <section class="thumbnail" ng-show="mediaSection=='thumbnail'" ng-init="thumbfile=null">
 
-                    <div class="row" ng-show="addThumb">
+                    <div class="row" ng-show="addThumb" ng-init="addThumb=(thumbfile===null)">
 
                         <div class="add-thumbnail col-sm-12 col-lg-12 textcenter">
                             <div class="centered">
