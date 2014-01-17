@@ -3,5 +3,5 @@ pytest==2.5.1
 pytest-cov
 pytest-flakes
 pytest-pep8
-pytest-django==2.4
+pytest-django==2.5
 model_mommy==1.2
