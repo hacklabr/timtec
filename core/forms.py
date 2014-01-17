@@ -14,7 +14,7 @@ class ContactForm(forms.Form):
     message = forms.CharField(label=_('Message'), max_length=255)
 
     def send_email(self):
-        subject = self.cleaned_data.get('subject')
+        subject = '[contact-form] ' + self.cleaned_data.get('subject')
         name = self.cleaned_data.get('name')
         email = self.cleaned_data.get('email')
         message = self.cleaned_data.get('message')

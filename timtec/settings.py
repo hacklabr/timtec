@@ -14,7 +14,8 @@ ADMINS = (
     ('timtec-dev list', 'timtec-dev@listas.hacklab.com.br'),
 )
 
-MANAGERS = (ADMINS[1],)
+MANAGERS = (ADMINS[1],
+            'timtec@lfdb.com.br')
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'localhost'
