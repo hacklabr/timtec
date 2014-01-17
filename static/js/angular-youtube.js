@@ -6,7 +6,7 @@ angular.module('youtube', ['ng'])
             service.playerId = null;
             service.player = null;
             service.videoId = null;
-            service.events = null;
+            service.events = {};
             service.autoplay = 0;
             service.playerHeight = '423';
             service.playerWidth = '750';
@@ -50,6 +50,17 @@ angular.module('youtube', ['ng'])
                         return service.loadLibrary();
                     })
                     .then(function(YT){
+                        var oldOnReady = service.events.onReady;
+
+                        function newOnReady( ) {
+                            playerDeffered.resolve(service.player);
+                            if(oldOnReady) {
+                                oldOnReady.call(null, arguments);
+                            }
+                        }
+                        
+                        service.events.onReady = newOnReady;
+
                         service.player = new YT.Player(service.playerId, {
                             height: service.playerHeight,
                             width: service.playerWidth,
@@ -66,8 +77,6 @@ angular.module('youtube', ['ng'])
                             },
                             events: service.events
                         });
-
-                        playerDeffered.resolve(service.player);
                     })
                     .catch(function(){
                         playerCreated = false;

@@ -116,6 +116,10 @@
     app.factory('Course', ['$resource', 'getRestOptions', function($resource, getRestOptions) {
         var Course = $resource('/api/course/:id', {'id':'@id'});
 
+        Course.prototype.isDraft = function() { return this.status === 'draft'; };
+        Course.prototype.isListed = function() { return this.status === 'listed'; };
+        Course.prototype.isPublished = function() { return this.status === 'published'; };
+
         Course.prototype.hasVideo = function(){
             return this.intro_video && this.intro_video.youtube_id &&
                    this.intro_video.youtube_id.length > 0;
@@ -127,6 +131,7 @@
             if(!this.status) this.status = 'draft';
             return this.$save();
         };
+
 
         getRestOptions('/api/course').success(function(data) {
             Course.fields = angular.copy(data.actions.POST);

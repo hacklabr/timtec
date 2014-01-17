@@ -98,7 +98,7 @@
 
                 <section class="thumbnail" ng-show="mediaSection=='thumbnail'" ng-init="thumbfile=null">
 
-                    <div class="row" ng-show="addThumb">
+                    <div class="row" ng-show="addThumb" ng-init="addThumb=(thumbfile===null)">
 
                         <div class="add-thumbnail col-sm-12 col-lg-12 textcenter">
                             <div class="centered">
@@ -294,7 +294,8 @@
 
                     <div class="row textcenter">
                         <div class="col-lg-12">
-                            <a href="/admin/courses/lessons/new" class="col-lg-12 btn btn-lg btn-default uppercase">Adicionar lição</a>
+                            {% verbatim %}
+                            <a href="/admin/courses/{{course.id}}/lessons/new" class="col-lg-12 btn btn-lg btn-default uppercase">{% endverbatim %}Adicionar lição</a>
                         </div>
                     </div>
 

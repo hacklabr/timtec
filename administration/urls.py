@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required as lr
 urlpatterns = patterns(
     '',
     # list all courses
-    url(r'^$', lr(RedirectView.as_view(url="courses/"))),
+    url(r'^$', lr(RedirectView.as_view(url="courses/")), name="administration.home"),
     url(r'^courses/$', lr(TemplateView.as_view(template_name="courses.html"))),
 
     # create and edit course
