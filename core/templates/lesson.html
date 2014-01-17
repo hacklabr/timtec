@@ -158,7 +158,9 @@ $(document).ready(function() {
 
         <!-- FORUM -->
         <div class="row">
-            {% include "_forum_inline.html"  with course=lesson.course %}
+            <div class="col-lg-8 col-sm-10 col-lg-offset-1 col-sm-offset-1">
+                {% include "_forum_inline.html"  with course=lesson.course question_form=1 %}
+            </div>
             <div class="col-lg-3 hidden-md hidden-sm hidden-xs">
                 <section class="course-instructions">
                     <div class="page-header-double">

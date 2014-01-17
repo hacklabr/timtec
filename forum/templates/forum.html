@@ -6,13 +6,16 @@
 <!-- CONTAINER -->
 <div id="forum" class="course-forum">
     <!-- HEADER -->
-    {% include "_course-header-inline.html"  with course=course %}
+    {% include "_course-header-inline.html"  with course=course question_form=false %}
     <!-- END HEADER -->
     <!-- MAIN CONTENT -->
     <section id="forum-content" class="container">
-        <div class="row">
-            <!-- QUESTIONS -->
+        <div class="row" ng-app="forum">
             <section class="questions col-sm-9 col-lg-9 clearfix">
+            {% include "_forum_inline.html"  with course=course %}
+            </section>
+            <!-- QUESTIONS -->
+            <!-- 
                 {% for question in questions %}
                 <article class="question">
                     <div class="stats">
@@ -29,7 +32,7 @@
                     </div>
                 </article>
                 {% endfor %}
-            </section>
+             -->
             <!-- END QUESTIONS -->
 
             <!-- ASIDE -->

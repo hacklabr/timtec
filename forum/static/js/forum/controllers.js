@@ -62,23 +62,42 @@
                 $scope.questions.sort(compare_by_answers);
                 $scope.sort_label = 'Mais respondidas';
             }
+            $scope.currentPage = 1;
+            $scope.changePageHandler(1);
         };
 
         var course_id = parseInt($window.course_id, 10);
         $scope.questions = Question.query({course: course_id}, function (questions){
             questions.sort(compare_by_dates);
+            // Pagination
+            
+    
+            $scope.totalItems = $scope.questions.length;
+            $scope.currentPage = 1;
+            $scope.maxSize = 5;
+            $scope.itemsPerPage = 15;
+            $scope.current_page_questions = $scope.questions.slice(0,$scope.itemsPerPage);
         });
+
+        $scope.changePageHandler = function (page) {
+            page = page-1;
+            var offset = $scope.itemsPerPage * page;
+            $scope.current_page_questions = $scope.questions.slice(offset, offset + $scope.itemsPerPage);
+        };
 
         $scope.new_question = function () {
             if (($scope.new_question_title !== undefined && $scope.new_question_title !== '') && ($scope.new_text !== undefined && $scope.new_text !== '')){
                 var new_question = Question.save({course: course_id, title: $scope.new_question_title, text: $scope.new_text});
+                $scope.questions.unshift(new_question);
+                // Back to first page
+                $scope.currentPage = 1;
+                $scope.changePageHandler(1);
                 $scope.new_question_title = undefined;
                 $scope.new_text = undefined;
                 angular.element(document.querySelector('#wmd-preview')).html('');
-                $scope.questions.unshift(new_question);
-                $scope.editor_enabled = false;
                 $scope.question_title_validation = '';
                 $scope.question_text_validation = '';
+
             } else {
                 if ($scope.new_question_title === undefined  || $scope.new_question_title === ''){
                     $scope.question_title_validation = 'has-error';
