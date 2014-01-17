@@ -12,14 +12,18 @@
             };
 
             // load youtube
-            var player;
             $scope.playerReady = false;
             youtubePlayerApi.loadPlayer().then(function(p){
-                player = p;
                 $scope.playerReady = true;
             });
             // end load youtube
 
+            $scope.play = function(youtube_id) {
+                youtubePlayerApi.loadPlayer().then(function(player){
+                    if(player.getVideoData().video_id === youtube_id) return;
+                    player.cueVideoById(youtube_id);
+                });
+            };
 
             $scope.course = new Course();
             $scope.lesson = new Lesson();
@@ -48,15 +52,7 @@
 
             $scope.selectUnit = function(u) {
                 $scope.currentUnit = u;
-
-                var shouldChangeVideo = u.video &&
-                                        u.video.youtube_id &&
-                                        $scope.playerReady && 
-                                        player.cueVideoById &&
-                                        player.getVideoData().video_id !== u.video.youtube_id;
-                if( shouldChangeVideo ) {
-                    player.cueVideoById(u.video.youtube_id)
-                };
+                $scope.play(u.video.youtube_id);
             };
 
             $scope.addUnit = function() {
@@ -90,10 +86,7 @@
                         return $scope.courseProfessors.$promise;
                     });
 
-                youtubePlayerApi.loadPlayer()
-                    .then(function(){
-                        return Lesson.query({course__id: match[1]}).$promise;
-                    })
+                Lesson.query({course__id: match[1]}).$promise
                     .then(function(lessons){
                         $scope.lessons = lessons;
                         lessons.forEach(function(lesson){

@@ -130,6 +130,14 @@
                 <div class="video">
                     <!-- ROW -->
                     <div class="row">
+                        <div class="waiting col-sm-12 col-lg-12 textcenter jumbotron"
+                             style="height: 419px"
+                             ng-show="currentUnit.video.youtube_id && !playerReady">
+                            <div class="middle">
+                                <i class="fa fa-refresh fa-5x"></i>
+                            </div>
+                        </div>
+
                         <!-- ADD-VIDEO-INTRO -->
                         <div class="add-video-intro col-sm-12 col-lg-12 textcenter" ng-hide="currentUnit.video">
                             <!-- CENTERED -->
