@@ -410,6 +410,13 @@ a:active {
               &:hover {
                 color: @brand-info;
               }
+              &:hover:after {
+                content: "(Editar)";
+                font-family: @font-family-sans-serif;
+                font-size: 11px;
+                margin-left: 5px;
+                text-transform: lowercase;
+              }
             }
           }
           .lessons {
@@ -559,6 +566,8 @@ a:active {
 
     .lessons.organizing-lessons,
     .instructors.organizing-instructors {
+      margin-bottom: 10px;
+
       .lesson,
       .instructor {
         border-bottom: 1px solid @gray-lighter;
@@ -621,9 +630,17 @@ a:active {
         text-transform: uppercase;
         a {
           color:@brand-success;
+          padding-right: 0.5em;
           &:hover {
             color:darken(@brand-success, 10%);
           }
+          &:after {
+            content: ",";
+            color: black;
+          }
+        }
+        &:last-child a:after {
+            content: "";
         }
       }
     }

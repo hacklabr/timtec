@@ -8,6 +8,7 @@
 
             $scope.errors = {};
             var httpErrors = {
+                '400': 'Os campos não foram preenchidos corretamente.',
                 '403': 'Você não tem permissão para ver conteúdo nesta página.',
                 '404': 'Este curso não existe!'
             };
@@ -72,6 +73,22 @@
                 $scope.alert.error('Encontramos alguns erros!', messages, true);
             }
 
+            $scope.saveThumb = function() {
+                if(! $scope.thumbfile) {
+                    return;
+                }
+
+                if ($scope.course.id) {
+                    var fu = new FormUpload();
+                    fu.addField('thumbnail', $scope.thumbfile);
+                    // return a new promise that file will be uploaded
+                    return fu.sendTo('/api/coursethumbs/' + $scope.course.id)
+                        .then(function(){
+                            $scope.alert.success('A imagem atualizada.');
+                        });
+                }
+            };
+
             $scope.saveCourse = function() {
                 if(!$scope.course.hasVideo()){
                     delete $scope.course.intro_video;
@@ -82,20 +99,21 @@
 
                 $scope.course.save()
                     .then(function(){
-                        if($scope.thumbfile) {
-                            var fu = new FormUpload();
-                            fu.addField('thumbnail', $scope.thumbfile);
-                            // return a new promise that file will be uploaded
-                            return fu.sendTo('/api/coursethumbs/' + $scope.course.id);
-                        }
+                        return $scope.saveThumb();
                     })
                     .then(function(){
                         $scope.alert.success('Alterações salvas com sucesso!');
-                        $scope.alert.hide(function(){
-                            $scope.$apply();
-                        });
                     })
                     .catch(showFieldErrors);
+            };
+
+            $scope.deleteCourse = function() {
+                if(!confirm('Tem certeza que deseja remover este curso?')) return;
+
+                $scope.course.$delete()
+                    .then(function(){
+                        document.location.href = '/admin/courses';
+                    });
             };
 
             $scope.deleteProfessor = function(courseProfessor) {

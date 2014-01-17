@@ -1,16 +1,15 @@
 (function(angular){
     'use strict';
 
-    angular.module('new-course', [
+    angular.module('edit-lesson', [
         'django',
-        'timtec-models',
         'directive.alertPopup',
         'directive.contenteditable',
+        'timtec-models',
         'directive.fixedBar',
-        'directive.markdowneditor',
-        'directive.sortable',
-        'filters.text',
-        'ngResource',
+        // 'directive.markdowneditor',
+        // 'directive.sortable',
+        // 'filters.text',
         'youtube'
     ]);
 })(window.angular);

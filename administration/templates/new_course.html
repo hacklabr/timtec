@@ -3,11 +3,14 @@
 
 {% block js %} {{block.super}}
 <script type="text/javascript" src="{% static 'js/new-course/app.js' %}">// must be the 1º</script>
-<script type="text/javascript" src="{% static 'js/new-course/factories.js' %}">// must be the 2º</script>
-<script type="text/javascript" src="{% static 'js/new-course/directives.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}">// must be the 2º</script>
 <script type="text/javascript" src="{% static 'js/filters/text.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/new-course/directives.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/contenteditable.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/sortable.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/new-course/controllers.js' %}"></script>
 {% endblock %}
 
@@ -17,70 +20,16 @@
 <div id="course" class="course-intro" ng-app="new-course" ng-controller="CourseEditController">
 
     <!-- ACTIONS -->
-    <div class="actions">
+    <div class="actions" fixed-bar>
         <div class="container">
             <div class="row">
-                <div class="col-lg-8">
-                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
-
-                    <span class="status">
-                        <span class="label">Status</span>
-                        <div class="btn-group">
-                            <button class="btn btn-default" ng-bind="statusList[course.status]"></button>
-                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-chevron-down"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li ng-repeat="(status, label) in statusList">
-                                    <a href="" ng-click="course.status=status" ng-bind="label"></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </span>
-
-                    <span class="publication">
-                        <span class="label">Publicação</span>
-                        <div class="btn-group">
-                            <button class="btn btn-default">Dia</button>
-                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-chevron-down"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="">01</a></li>
-                                <li><a href="">02</a></li>
-                                <li><a href="">03</a></li>
-                            </ul>
-                        </div>
-                    </span>
-
-                    <div class="btn-group">
-                        <button class="btn btn-default">Mês</button>
-                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-chevron-down"></i>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="">Janeiro</a></li>
-                            <li><a href="">Fevereiro</a></li>
-                            <li><a href="">Março</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="btn-group">
-                        <button class="btn btn-default">Ano</button>
-                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-chevron-down"></i>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="">2013</a></li>
-                            <li><a href="">2014</a></li>
-                            <li><a href="">2015</a></li>
-                        </ul>
-                    </div>
+                <div class="col-lg-6">
+                    <button class="btn btn-danger" title="Apagar curso" ng-click="deleteCourse()"><i class="fa fa-trash-o"></i></button>
                 </div>
-
-                <div class="col-lg-4 textright">
-                    <button class="btn btn-success" ng-click="saveCourse()">Salvar</button>
-                    <button class="btn btn-warning">Publicar Curso | <i class="fa fa-rocket"></i></button>
+                <div class="col-lg-6 textright">
+                    <!-- <button class="btn btn-info">Listar | <i class="fa fa-star-o"></i></button> -->
+                    <button class="btn btn-success" ng-click="saveCourse()">Salvar | <i class="fa fa-save"></i></button>
+                    <button class="btn btn-warning">Publicar | <i class="fa fa-star-o"></i></button>
                 </div>
             </div>
         </div>
@@ -165,7 +114,8 @@
                                             ng-click="thumbfile=null; addThumb=!course.thumbnail_url">Cancelar</button>
 
                                     <button class="btn btn-success btn-lg uppercase"
-                                            ng-click="addThumb=(thumbfile===null)">Adicionar</button>
+                                            ng-click="addThumb=(thumbfile===null); saveThumb()">Adicionar</button>
+
                                 </p>
                             </div>
                         </div>
@@ -270,8 +220,8 @@
                     </div>
                     <!--  END PAGE-HEADER-DOUBLE  -->
 
-                    <a href="" ng-click="organizingLessons=true" ng-show="!organizingLessons">Organizar as lições</a>
-                    <a href="" ng-click="organizingLessons=false" ng-show="organizingLessons">Lista detalhada de lições</a>
+                    <p><a href="" ng-click="organizingLessons=true" ng-show="!organizingLessons">Organizar as lições</a></p>
+                    <!-- <a href="" ng-click="organizingLessons=false" ng-show="organizingLessons">Lista detalhada de lições</a> -->
 
                     <!-- ORGANIZING LESSONS -->
                     <div class="lessons organizing-lessons" ng-show="organizingLessons"
@@ -292,7 +242,7 @@
                         <!-- END LESSON -->
 
                         <div class="submit textright">
-                            <button class="btn btn-danger">Cancelar</button>
+                            <button class="btn btn-danger" ng-click="organizingLessons=false">Cancelar</button>
                             <button class="btn btn-success" ng-click="saveAllLessons()">Salvar</button>
                         </div>
                     </div>
@@ -311,7 +261,9 @@
                         <!--  COL-LG-9  -->
                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                             <p>
-                                <a href="" class="title editable" ng-bind="lesson.name">Nome da lição</a>
+                                {% verbatim %}
+                                <a href="lessons/{{lesson.id}}" class="title editable" ng-bind="lesson.name">Nome da lição</a>
+                                {% endverbatim %}
                                 <modalmarkdowneditor on-save="saveLesson(lesson)" title="Descrição da lição" content="lesson.desc"></modalmarkdowneditor>
                             </p>
                             <!--  HIDDEN-XS  -->
@@ -357,11 +309,8 @@
                     </div>
                     <!-- END PAGE-HEADER-DOUBLE -->
 
-                    <a href="" ng-click="organizingInstructors=false"
-                               ng-show="organizingInstructors">Editar biografias</a>
-
-                    <a href="" ng-click="organizingInstructors=true"
-                               ng-hide="organizingInstructors">Organizar instrutores</a>
+                    <!-- <a href="" ng-click="organizingInstructors=false" ng-show="organizingInstructors">Editar biografias</a> -->
+                    <p><a href="" ng-click="organizingInstructors=true" ng-hide="organizingInstructors">Organizar instrutores</a></p>
 
                     <div class="instructors organizing-instructors" ng-show="organizingInstructors">
                         <div class="instructor" ng-repeat="professor in courseProfessors">
@@ -379,7 +328,7 @@
                             </div>
                         </div>
                         <div class="submit textright">
-                            <button class="btn btn-danger">Cancelar</button>
+                            <button class="btn btn-danger" ng-click="organizingInstructors=false">Cancelar</button>
                             <button class="btn btn-success">Salvar</button>
                         </div>
                     </div>
@@ -390,7 +339,7 @@
                             {% verbatim %}
                             <img ng-src="{{ professor.user_info.picture }}"
                                  onerror="this.src='/static/img/avatar-default.png'"
-                                 class="col-lg-12 col-sm-12 thumbnail">
+                                 class="img-thumbnail">
                             {% endverbatim %}
                         </div>
                         <div class="col-lg-9 col-sm-9">
@@ -460,7 +409,7 @@
 
 
     <!-- ALERT -->
-    <div class="tt-popup notifications" alert ng-class="{'hideTop': alert.hidden}">
+    <div class="tt-popup notifications" alert-popup ng-class="{'hideTop': alert.hidden}">
         <div class="alert fade in" ng-class="'alert-' + alert.type">
             <button type="button" class="close" ng-click="alert.hidden=true">×</button>
             <h4 ng-bind="alert.title"></h4>

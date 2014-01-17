@@ -54,56 +54,7 @@
         };
     });
 
-    app.directive('alert', function(){
-        return {
-            'restrict': 'A',
-            'link': function(scope) {
-
-                scope.alert = {
-                    hidden : true,
-                    reset: function(){
-                        this.title = '';
-                        this.type = '';
-                        this.messages = [];
-                        this.showControls=false;
-                    },
-                    popup: function(title, messages, showControls){
-                        this.reset();
-                        this.title = title;
-                        this.messages = messages;
-                        this.showControls = showControls;
-                        this.hidden = false;
-                    },
-                    success: function(){
-                        this.popup.apply(this, arguments);
-                        this.type = 'success';
-                        this.hide(null, 1000);
-                    },
-                    error: function(){
-                        this.popup.apply(this, arguments);
-                        this.type = 'danger';
-                    },
-                    warn: function(){
-                        this.popup.apply(this, arguments);
-                        this.type = 'warning';
-                    },
-                    hide: function(callback, timeout) {
-                        var that = this;
-                        setTimeout(function(){
-                            that.hidden = true;
-                            if(callback && callback.call)
-                                callback.call();
-                        }, timeout || 2000);
-                    }
-                };
-                scope.alert.reset();
-            }
-        };
-    });
-
     app.directive('professorslist', ['Professor', function(Professor){
-        function noop(){ }
-
         return {
             'restrict': 'E',
             'templateUrl': '/static/templates/directive.professorslist.html',
@@ -126,47 +77,4 @@
         };
     }]);
 
-    app.directive('sortable', function(){
-        return {
-            'restrict': 'A',
-            'scope': {
-                'list': '=sortable',
-                'onUpdate': '&onUpdate'
-            },
-            'link': function(scope, element) {
-                var startIdx;
-
-                function start(evt, o) {
-                    startIdx = jQuery(o.item).index();
-                    console.log();
-                }
-
-                function update(evt, o) {
-                    var endIdx = jQuery(o.item).index();
-
-                    if (startIdx === endIdx) return;
-
-                    var item = scope.list.splice(startIdx, 1);
-                    var tail = scope.list.splice(endIdx);
-
-                    // we need to hold referece to original scope.list
-                    // do not assign anything directly in scope.list
-                    item.concat(tail).forEach(function(el){
-                        scope.list.push(el);
-                    });
-
-                    if(scope.onUpdate && scope.onUpdate.call) {
-                        scope.onUpdate.call();
-                    }
-                }
-
-                element.sortable({
-                    'handle': '.handle',
-                    'update': update,
-                    'start': start
-                });
-
-            }
-        };
-    });
 })(window.angular);
