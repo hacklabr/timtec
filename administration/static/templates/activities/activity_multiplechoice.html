@@ -1,0 +1,11 @@
+<div class="question textleft">
+    <h1 class="top" ng-model="currentUnit.activity.data.question"
+        contenteditable placeholder="Título da atividade"></h1>
+</div>
+<div class="answers multiplechoice-answers">
+    <div ng-repeat="alt in currentUnit.activity.data.alternatives track by $index" class="answer">
+        <input type="checkbox" ng-model="currentUnit.activity.expected[$index]"/>
+        <label ng-model="currentUnit.activity.data.alternatives[$index]"
+               contenteditable placeholder="Texto para alternativa"></label>
+    </div>
+</div>

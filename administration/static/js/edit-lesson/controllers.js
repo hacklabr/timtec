@@ -73,6 +73,12 @@
                 });
                 $scope.play(youtube_id);
             }
+
+            $scope.loadActivityTemplateUrl = function() {
+                if(!$scope.currentUnit.activity) return;
+                return '/static/templates/activities/activity_{0}.html'
+                       .format($scope.currentUnit.activity.type);
+            }
             /*  End Methods */
 
             // vv como faz isso de uma formula angular ?
