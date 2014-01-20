@@ -109,24 +109,32 @@
                 <div class="units admin-units">
                     {% verbatim %}
                     <a href="" class="unit" ng-repeat="u in lesson.units"
-                       ng-bind="$index + 1" title="{{u.title}}"
+                       title="{{u.title}}"
                        ng-click="$parent.selectUnit(u);"
-                       ng-class="{current: $parent.currentUnit == u}"></a>
+                       ng-class="{current: $parent.currentUnit == u}">
+                       <span ng-bind="$index + 1"></span>
+                       <i class="fa fa-list" ng-show="u.activity"></i>
+                   </a>
                     {% endverbatim %}
                     <a href="" class="add-unit unit" ng-click="addUnit()"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
             <div class="col-lg-8">
-                <div class="add-content row">
+                <div class="add-content row" ng-init="section='video'">
                     <div class="col-lg-6">
-                        <button class="btn btn-success selected" href="">Vídeo</button>
-                        <button class="btn btn-default">Atividade</button>
+                        <button class="btn btn-default"
+                                ng-class="{'btn-success': section === 'video'}"
+                                ng-click="section ='video'">Vídeo</button>
+
+                        <button class="btn btn-default"
+                                ng-class="{'btn-success': section === 'activity'}"
+                                ng-click="section ='activity'">Atividade</button>
                     </div>
                     <div class="col-lg-6 textright">
                         <button class="btn btn-danger delete"><i class="fa fa-trash-o"></i></button>
                     </div>
                 </div>
-                <div class="video">
+                <div class="video" ng-show="section === 'video'">
                     <!-- ROW -->
                     <div class="row">
                         <div class="waiting col-sm-12 col-lg-12 textcenter jumbotron"
@@ -172,6 +180,11 @@
                         <!-- END ADD-VIDEO-INTRO -->
                     </div>
                     <!-- END ROW -->
+                </div>
+                <!-- END VIDEO -->
+
+                <div class="activity" ng-show="section === 'activity'">
+
                 </div>
             </div>
             <div class="col-lg-3">
