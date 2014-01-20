@@ -58,7 +58,7 @@ angular.module('youtube', ['ng'])
                                 oldOnReady.call(null, arguments);
                             }
                         }
-                        
+
                         service.events.onReady = newOnReady;
 
                         service.player = new YT.Player(service.playerId, {
