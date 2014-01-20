@@ -9,43 +9,36 @@
             $routeProvider
                 .when('/:unitPos', {
                     templateUrl: STATIC_URL + '/templates/lesson_video.html',
-                    controller: 'LessonVideoCtrl',
-                    resolve: {
-                        'lessonData': 'LessonData',
-                    }
+                    controller: 'LessonVideoCtrl'
                 })
                 .when('/:unitPos/activity', {
                     templateUrl: STATIC_URL + '/templates/lesson_activity.html',
-                    controller: 'LessonActivityCtrl',
-                    resolve: {
-                        'lessonData': 'LessonData',
-                        'answer': function (Answer, lessonData, $q) {
-                            var deferred = $q.defer();
-                            function return_last (activities) {
-                                return deferred.resolve(activities.pop())
-                            }
-                            Answer.query({'activity': unit.activity.id}).then(return_last)
-                            return deferred
-                        }
-                    }
+                    controller: 'LessonActivityCtrl'
                 })
                 .otherwise({redirectTo: '/1'});
         }
     ]);
 
-    app.controller('LessonMainCtrl', ['$scope', 'LessonData', '$location',
-        function ($scope, LessonData, $location) {
-            window.l = $location;
-            var match = location.hash.match(/^#\/(\d+)/);
-            if(match) {
-                $scope.currentUnitPos = parseInt(match[1], 10);
-            } else {
-                $scope.currentUnitPos = 1;
-            }
+    app.controller('LessonMainCtrl',
+        function ($scope, $rootScope, LessonData, $location) {
             var start;
+            $rootScope.$on('$locationChangeStart', function (event, newUrl) {
+                var re = new RegExp('/(\\d+)/?(activity)?/?');
+                var match = $location.path().match(re);
+                console.log(match);
+                if(match) {
+                    $scope.currentUnitPos = parseInt(match[1], 10);
+                } else {
+                    event.preventDefault();
+                    $location.path('/1');
+                }
 
-            $scope.$watch('currentUnitPos', function() {
-                // Changing Unit means unit starting
+                LessonData.then(function (lesson) {
+                    $scope.currentUnit = lesson.units[$scope.currentUnitPos-1];
+                    $scope.currentUnitId = $scope.currentUnit.id;
+                });
+
+                // Analytics
                 if (start) {
                     var end = new Date().getTime();
                     ga('send', 'event', 'unit', 'time in unit',
@@ -54,26 +47,43 @@
                 }
                 ga('send', 'event', 'unit', 'start', LessonData.course + ' - ' + LessonData.name, $scope.currentUnitPos);
                 start = new Date().getTime();
+
             });
 
             $scope.isSelected = function(i){
                 return $scope.currentUnitPos === i;
             };
+
             $scope.isDone = function(unit){
                 return (unit.progress || {}).complete;
             };
             $scope.select = function(i) {
-                $scope.currentUnitPos = parseInt(i,10);
-                $location.path('/' + $scope.currentUnitPos);
+                $location.path('/' + i);
             };
 
+            $scope.gotoNextUnit = function(sendProgress) {
+                if ($scope.currentUnitPos + 1 <= $scope.lesson.units.length) {
+                    $location.path('/' + $scope.currentUnitPos).search('autoplay', null);
+                }
+                if (sendProgress !== false) {
+                    $http({
+                        'method': 'POST',
+                        'url': '/api/updatestudentprogress/' + $scope.currentUnitId + '/',
+                        'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
+                    }).success(function(data){
+                        $scope.currentUnit.progress = {complete: data.complete};
+                        if (data.complete) {
+                            ga("send", "event", "unit", "unit completed");
+                        }
+                    });
+                }
+            }
+
         }
-    ]);
+    );
 
     app.controller('LessonVideoCtrl', ['$scope', '$http', '$location', 'LessonData', 'youtubePlayerApi',
         function ($scope, $http, $location, LessonData, youtubePlayerApi) {
-            var $main = $scope.$parent;
-            var currentUnitIndex = $main.currentUnitPos - 1;
             var _pauseFlag = false;
             var start, whole;
 
@@ -121,31 +131,15 @@
 
                 if (event.data === YT.PlayerState.ENDED) {
                     if( $scope.currentUnit.activity ) {
-                        $location.path('/' + $main.currentUnitPos + '/activity').search('autoplay', null);
+                        $location.path('/' + $scope.currentUnitPos + '/activity').search('autoplay', null);
                     } else {
-                        if ($main.currentUnitPos + 1 <= $scope.lesson.units.length) {
-                            $main.currentUnitPos++;
-                            $location.path('/' + $main.currentUnitPos).search('autoplay', null);
-                        }
-                        $http({
-                            'method': 'POST',
-                            'url': '/api/updatestudentprogress/' + $scope.currentUnitId + '/',
-                            'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
-                        }).success(function(data){
-                            $scope.currentUnit.progress = {complete: data.complete};
-                            if (data.complete) {
-                                ga("send", "event", "unit", "unit completed");
-                            }
-                        });
+                        $scope.gotoNextUnit();
                     }
                     $scope.$apply();
                 }
             };
 
             LessonData.then(function (lesson) {
-                $scope.currentUnit = lesson.units[(currentUnitIndex || 0)];
-                $scope.currentUnitId = $scope.currentUnit.id;
-
                 if ($scope.currentUnit.video) {
                     if ($location.search().autoplay) {
                         youtubePlayerApi.autoplay = 1;
