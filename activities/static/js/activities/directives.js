@@ -1,7 +1,7 @@
 (function(angular){
     'use strict';
 
-    var app = angular.module('activities.directives');
+    var app = angular.module('activities.directives', []);
 
     app.directive('radio', function () {
         return {
