@@ -39,10 +39,13 @@
                 ga('send', 'event', 'activity', 'submit');
             };
 
+            $scope.loadActivity = function () {
+                $scope.activity_template = resolveActivityTemplate(unit.activity.type);
+            }
+
             LessonData.then(function (lesson) {
                 var unit = $scope.currentUnit;
                 $scope.activity = unit.activity
-                $scope.activity_template = resolveActivityTemplate(unit.activity.type);
 
                 $scope.recAnswer = $q.defer();
                 function return_last (answers) {
@@ -61,7 +64,10 @@
                     );
                 }
                 console.log($scope.recAnswer);
-                $scope.recAnswer.promise.then(function () {}, function (reason) {
+                $scope.recAnswer.promise.then(function () {
+                    $scope.loadActivity()
+                }, function (reason) {
+                    $scope.loadActivity()
                     if ($scope.activity.type === 'multiplechoice') {
                         $scope.answer.given = $scope.alternatives.map(
                             function(a,i){ return false; }
@@ -89,14 +95,12 @@
             }
 
             $scope.codemirrorLoaded = function(cm){
-
                 cm.on("change", function() {
                     cm.markText({line:0, ch:0}, {line:4, ch:0}, {atomic: true, readOnly: true, inclusiveLeft: true});
                     var lastLine = cm.lineCount();
                     cm.markText({line:lastLine-3, ch:1000}, {line:lastLine, ch:0}, {atomic: true, readOnly: true, inclusiveRight: true});
-
                 });
-              };
+            };
         }
     );
 
