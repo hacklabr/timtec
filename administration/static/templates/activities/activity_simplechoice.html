@@ -4,9 +4,22 @@
 </div>
 <div class="answers simplechoice-answers">
     <div ng-repeat="alt in currentUnit.activity.data.alternatives track by $index" class="answer">
-        <input type="radio" ng-model="currentUnit.activity.expected" ng-value="$index"/>
-        <label ng-model="currentUnit.activity.data.alternatives[$index]"
-               contenteditable placeholder="Texto para alternativa"></label>
+        <div class="row">
+            <div class="col-lg-11 col-md-11 col-sm-11">
+                <input type="radio" ng-model="currentUnit.activity.expected" ng-value="$index"/>
+                <label ng-model="currentUnit.activity.data.alternatives[$index]"
+                       contenteditable placeholder="Texto para alternativa"></label>
+            </div>
+                       
+            <div class="col-lg-1 col-md-1 col-sm-1">
+                <button class="btn btn-danger"
+                        title="Apagar alternativa"
+                        ng-click="currentUnit.activity.data.alternatives.splice($index,1);">
+                        <i class="fa fa-trash-o"></i>
+                </button>
+            </div>
+        </div>
+        <br/>
     </div>
     <div>
         <button class="btn btn-success"

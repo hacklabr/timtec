@@ -15,7 +15,7 @@
                 <span ng-model="currentUnit.activity.data.column1[$index]"
                       contenteditable placeholder="Texto para coluna 1"></span>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-5 col-md-5 col-sm-5">
                 <div class="row">
                     <div class="col-lg-3 col-md-3 col-sm-3">
                         <input ng-model="currentUnit.activity.expected[$index]" type="number"
@@ -28,6 +28,13 @@
                                contenteditable placeholder="Texto para coluna 2"></label>
                     </div>
                 </div>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1">
+                <button class="btn btn-danger"
+                        title="Apagar alternativa"
+                        ng-click="currentUnit.activity.data.column1.splice($index,1);
+                                  currentUnit.activity.data.column2.splice($index,1);
+                                  currentUnit.activity.expected.splice($index,1)"><i class="fa fa-trash-o"></i></button>
             </div>
         </div>
     </div>
