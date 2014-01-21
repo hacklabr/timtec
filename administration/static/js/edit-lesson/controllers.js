@@ -117,6 +117,11 @@
                     'expected': (type==='simplechoice' || type==='html5') ? '' : []
                 };
             };
+
+            $scope.removeCurrentActivity = function() {
+                if(!$scope.currentUnit) return;
+                $scope.currentUnit.activity = null;
+            };
             /*  End Methods */
 
             // vv como faz isso de uma formula angular ?

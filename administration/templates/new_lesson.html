@@ -190,6 +190,10 @@
 
                     <div class="col-sm-12 col-lg-12" ng-show="currentUnit.activity">
                         <ng-include src="loadActivityTemplateUrl()"></ng-include>
+                        <br/>
+                        <div class="well well-lg text-right">
+                            <button class="btn btn-danger" ng-click="removeCurrentActivity()">Apagar atividade</button>
+                        </div>
                     </div>
 
                     <div class="add-video-intro col-sm-12 col-lg-12 textcenter" ng-hide="currentUnit.activity">
