@@ -8,4 +8,9 @@
         <label ng-model="currentUnit.activity.data.alternatives[$index]"
                contenteditable placeholder="Texto para alternativa"></label>
     </div>
+    <div>
+        <button class="btn btn-success"
+                ng-click="currentUnit.activity.data.alternatives.push('');
+                          currentUnit.activity.expected.push(false)">Adicionar alternativa</button>
+    </div>
 </div>

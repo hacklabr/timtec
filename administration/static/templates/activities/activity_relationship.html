@@ -12,7 +12,8 @@
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <span ng-bind="($index+1)+'.'"></span>
-                <span ng-model="currentUnit.activity.data.column1[$index]" contenteditable></span>
+                <span ng-model="currentUnit.activity.data.column1[$index]"
+                      contenteditable placeholder="Texto para coluna 1"></span>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="row">
@@ -24,10 +25,17 @@
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9">
                         <label ng-model="currentUnit.activity.data.column2[$index]" 
-                               contenteditable placeholder="Texto para alternativa"></label>
+                               contenteditable placeholder="Texto para coluna 2"></label>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div>
+        <button class="btn btn-success"
+                ng-click="currentUnit.activity.data.column1.push('');
+                          currentUnit.activity.data.column2.push('');
+                          currentUnit.activity.expected.push()">Adicionar alternativa</button>
     </div>
 </div>
