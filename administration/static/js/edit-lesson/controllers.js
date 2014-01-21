@@ -71,6 +71,18 @@
                 $scope.lesson.units.push($scope.currentUnit);
             };
 
+            $scope.removeCurrentUnit = function() {
+                if(!$scope.lesson.units) return;
+                if(!confirm('Apagar unidade?')) return;
+                var index = $scope.lesson.units.indexOf($scope.currentUnit);
+                $scope.lesson.units.splice(index,1);
+
+                index = index > 0 ? index - 1 : 0;
+                if(index < $scope.lesson.units.length) {
+                    $scope.selectUnit($scope.lesson.units[index]);
+                }
+            };
+
             $scope.setCurrentUnitVideo = function(youtube_id) {
                 if(!$scope.currentUnit.video) {
                     $scope.currentUnit.video = {};

@@ -131,7 +131,10 @@
                                 ng-click="section ='activity'">Atividade</button>
                     </div>
                     <div class="col-lg-6 textright">
-                        <button class="btn btn-danger delete"><i class="fa fa-trash-o"></i></button>
+                        <button class="btn btn-danger delete" ng-click="removeCurrentUnit()"
+                                title="Apagar unidade">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="video" ng-show="section === 'video'">
