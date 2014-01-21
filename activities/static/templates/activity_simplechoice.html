@@ -3,7 +3,7 @@
 </div>
 <div class="answers simplechoice-answers">
     <div ng-repeat="alt in alternatives" class="answer">
-        <radio ng-model="$parent.answer.given" ng-value="$index">
+        <radio ng-model="$scope.answer.given" ng-value="$index">
             {{ alt.title }}
         </radio>
     </div>
