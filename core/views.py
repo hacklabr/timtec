@@ -9,7 +9,6 @@ from django.views.generic.base import RedirectView, View, TemplateView
 
 from django.views.generic.edit import UpdateView
 from django.views.generic.list import ListView
-from accounts.utils import LoginRequiredMixin
 from rest_framework import viewsets
 
 from django.contrib.contenttypes.models import ContentType
