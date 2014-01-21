@@ -30,6 +30,14 @@
             $scope.currentUnit = {};
             $scope.courseProfessors = [];
 
+            $scope.activityTypes = [
+                {'name': 'simplechoice', 'label': 'Escolha simples'},
+                {'name': 'multiplechoice', 'label': 'Múltipla escolha'},
+                {'name': 'trueorfalse', 'label': 'Verdadeiro ou falso'},
+                {'name': 'relationship', 'label': 'Relacionar sentenças'},
+                {'name': 'html5', 'label': 'HTML5'}
+            ];
+
             /*  Methods */
             $scope.setLesson = function(l) {
                 $scope.lesson = l;
@@ -72,13 +80,28 @@
                     $scope.currentUnit.video.name = data.entry.title.$t;
                 });
                 $scope.play(youtube_id);
-            }
+            };
 
             $scope.loadActivityTemplateUrl = function() {
                 if(!$scope.currentUnit.activity) return;
                 return '/static/templates/activities/activity_{0}.html'
                        .format($scope.currentUnit.activity.type);
-            }
+            };
+
+            $scope.addNewActivity = function() {
+                if(!$scope.currentUnit) return;
+                var type = $scope.newActivityType;
+                $scope.currentUnit.activity = {
+                    'type': type,
+                    'data': {
+                        'question': '',
+                        'alternatives': [],
+                        'column1': [],
+                        'column2': []
+                    },
+                    'expected': (type==='simplechoice' || type==='html5') ? '' : []
+                };
+            };
             /*  End Methods */
 
             // vv como faz isso de uma formula angular ?
