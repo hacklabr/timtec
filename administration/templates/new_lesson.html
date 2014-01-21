@@ -1,0 +1,227 @@
+{% extends 'admin-base.html' %}
+{% load static %}
+
+{% block js %} {{block.super}}
+<script type="text/javascript" src="{% static 'js/edit-lesson/app.js' %}">// must be the 1º</script>
+<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}">// must be the 2º</script>
+<script type="text/javascript" src="{% static 'js/filters/text.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/contenteditable.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/sortable.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/edit-lesson/controllers.js' %}"></script>
+{% endblock %}
+
+
+{% block content %}
+<!-- COURSE-CONTENT -->
+<div id="course" class="course-lesson" ng-app="edit-lesson" ng-controller="EditLessonController">
+
+    <!-- ACTIONS -->
+    <div class="actions" fixed-bar>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </div>
+                <div class="col-lg-4 textright">
+                    <button class="btn btn-success" ng-click="saveLesson()">Salvar</button>
+                    <button class="btn btn-warning">Publicar Lição | <i class="fa fa-rocket"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END ACTIONS -->
+
+
+    <!-- MAIN-HEADER -->
+    <header id="main-header" class="container">
+        <!-- PAGE-HEADER -->
+        <div class="page-header">
+            <!-- ROW -->
+            <div class="row">
+                <!-- COL-LG-9 -->
+                <div class="col-lg-9 col-sm-9">
+                    <h1 class="course-name bottom top">
+                        {% verbatim %}
+                        <a href="/admin/courses/{{course.id}}" ng-bind="course.name">Nome do curso</a>
+                        {% endverbatim %}
+                    </h1>
+                    <ul class="instructors">
+                        <li ng-repeat="p in courseProfessors"><a ng-bind="p.user_info.name">Professor</a></li>
+                    </ul>
+                </div>
+                <!-- END COL-LG-9 -->
+                <!-- COL-LG-3 -->
+                <div class="col-lg-3 col-sm-3">
+                    <!-- COURSE-SECTION-NAV -->
+                    <nav class="course-sections textright">
+                        <a href=""><span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="Intro"></span></a>
+                        <a href=""><span class="has-tooltip fa fa-film" data-toggle="tooltip" data-placement="top" data-original-title="Aulas"></span></a>
+                        <a href=""><span class="has-tooltip fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="Fórum"></span></a>
+                        <a href=""><span class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="Material Didádico"></span></a>
+                    </nav>
+                    <!-- END COURSE-SECTION-NAV -->
+                </div>
+                <!-- END COL-LG-3 -->
+            </div>
+            <!-- END ROW -->
+        </div>
+        <!-- END PAGE-HEADER -->
+    </header>
+    <!-- MAIN-HEADER -->
+
+    <!-- COURSE-CONTENT -->
+    <section id="course-content" class="container">
+
+        <nav class="course-lessons">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="top editable"></h1>
+                    <h1><span ng-class="{'blink-text-danger':errors.name}" ng-model="lesson.name"
+                              placeholder="Nome da lição" contenteditable="true"></span></h1>
+
+                    <p class="description editable">
+                        <span ng-model="lesson.desc" placeholder="Descrição da lição"
+                              contenteditable="true"></span></p>
+                </div>
+            </div>
+        </nav>
+
+        <nav class="lesson-units">
+            <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-default"><span ng-bind="lesson.name">Título da lição</span>&nbsp;</button>
+                <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-chevron-down"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="l in lessons">
+                        <a href="" ng-bind="l.name" ng-click="setLesson(l)">Título da lição #1</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- ROW -->
+        <div class="row">
+            <div class="col-lg-1">
+                <div class="units admin-units">
+                    {% verbatim %}
+                    <a href="" class="unit" ng-repeat="u in lesson.units"
+                       title="{{u.title}}"
+                       ng-click="$parent.selectUnit(u);"
+                       ng-class="{current: $parent.currentUnit == u}">
+                       <span ng-bind="$index + 1"></span>
+                       <i class="fa fa-list" ng-show="u.activity"></i>
+                   </a>
+                    {% endverbatim %}
+                    <a href="" class="add-unit unit" ng-click="addUnit()"><i class="fa fa-plus"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="add-content row" ng-init="section='video'">
+                    <div class="col-lg-6">
+                        <button class="btn btn-default"
+                                ng-class="{'btn-success': section === 'video'}"
+                                ng-click="section ='video'">Vídeo</button>
+
+                        <button class="btn btn-default"
+                                ng-class="{'btn-success': section === 'activity'}"
+                                ng-click="section ='activity'">Atividade</button>
+                    </div>
+                    <div class="col-lg-6 textright">
+                        <button class="btn btn-danger delete"><i class="fa fa-trash-o"></i></button>
+                    </div>
+                </div>
+                <div class="video" ng-show="section === 'video'">
+                    <!-- ROW -->
+                    <div class="row">
+                        <div class="waiting col-sm-12 col-lg-12 textcenter jumbotron"
+                             style="height: 419px"
+                             ng-show="currentUnit.video.youtube_id && !playerReady">
+                            <div class="middle">
+                                <i class="fa fa-refresh fa-5x"></i>
+                            </div>
+                        </div>
+
+                        <!-- ADD-VIDEO-INTRO -->
+                        <div class="add-video-intro col-sm-12 col-lg-12 textcenter" ng-hide="currentUnit.video">
+                            <!-- CENTERED -->
+                            <div class="centered">
+                                <i class="fa fa-youtube-play fa-4x"></i>
+                                <h1 class="top">Vídeo da unidade</h1>
+                                <p class="form-group">
+                                    <input type="text" ng-model="youtube_id" class="form-control"/>
+                                </p>
+                                <p>
+                                    <button class="btn btn-danger btn-lg uppercase">Cancelar</button>
+                                    <button class="btn btn-success btn-lg uppercase"
+                                            ng-click="setCurrentUnitVideo(youtube_id)">Adicionar</button>
+                                </p>
+                            </div>
+                            <!-- END CENTERED -->
+                        </div>
+
+                        <div class="col-lg-12" style="overflow:hidden;"
+                             ng-style="{'margin-left': currentUnit.video && playerReady ?'':'-3000px'}">
+
+                            <div id="youtube-player" player-height="419px" player-width="100%" youtube-player></div>
+                            <div class="row">
+                                <div class="col-lg-10">
+                                    <p class="video-title" ng-model="currentUnit.video.name" placeholder="Nome do vídeo" contenteditable><p>
+                                </div>
+                                <div class="col-lg-2 textcenter">
+                                    <button class="btn-edit-video btn btn-success btn-sm uppercase"
+                                            ng-click="currentUnit.video = null">Alterar vídeo</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END ADD-VIDEO-INTRO -->
+                    </div>
+                    <!-- END ROW -->
+                </div>
+                <!-- END VIDEO -->
+
+                <div class="activity" ng-show="section === 'activity'">
+                    <ng-include src="loadActivityTemplateUrl()"></ng-include>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="add-side-notes">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#side-notes" data-toggle="tab">Saiba Mais</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="side-notes">
+                            <div ng-model="currentUnit.side_notes" contenteditable="true"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END ROW -->
+    </section>
+    <!-- END COURSE-CONTENT -->
+    <!-- ALERT -->
+    <div class="tt-popup notifications" alert-popup ng-class="{'hideTop': alert.hidden}">
+        <div class="alert fade in" ng-class="'alert-' + alert.type">
+            <button type="button" class="close" ng-click="alert.hidden=true">×</button>
+            <h4 ng-bind="alert.title"></h4>
+            <p class="bottom">
+                <ol class="bottom">
+                    <li ng-repeat="message in alert.messages" ng-bind="message"></li>
+                </ol>
+            </p>
+            <div ng-show="alert.showControls">
+                <hr/>
+                <button type="button" class="btn" ng-class="'btn-'+alert.type"
+                         ng-click="alert.hidden=true">Fechar</button>
+            </div>
+        </div>
+    </div>
+    <!-- ALERT -->
+</div>
+<!-- END COURSE-CONTENT -->
+
+{% endblock content %}

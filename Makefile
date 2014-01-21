@@ -8,20 +8,6 @@ create-staging:
 	mkdir -p ~/webfiles/static
 	mkdir -p ~/webfiles/media
 
-update-staging:
-	dropdb timtec-staging
-	createdb timtec-staging
-	pg_restore -O -x -d timtec-staging ~hacklab/sql-backup/last.psqlc
-	cp timtec/settings_local_staging.py timtec/settings_local.py
-	~/env/bin/pip install -r requirements.txt
-	~/env/bin/python manage.py syncdb --all --noinput
-	~/env/bin/python manage.py migrate --noinput
-	~/env/bin/python manage.py collectstatic --noinput
-	~/env/bin/python manage.py compilemessages
-	touch timtec/wsgi.py
-
-staging: create-staging update-staging
-
 create-production:
 	virtualenv ~/env
 	~/env/bin/pip install -r requirements.txt
@@ -35,7 +21,52 @@ create-production:
 	~/env/bin/python manage.py loaddata production
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
-	touch timtec/wsgi.py
+	~/env/bin/python manage.py create_student_and_professor
+	touch ~/wsgi-reload
+
+update-dev:
+	dropdb timtec-dev
+	createdb timtec-dev
+	pg_restore -O -x -n public -d timtec-dev ~hacklab/sql-backup/last.psqlc
+	cp timtec/settings_local_timtec_dev.py timtec/settings_local.py
+	~/env/bin/pip install -r requirements.txt
+	~/env/bin/python manage.py syncdb --noinput
+	~/env/bin/python manage.py migrate --noinput
+	~/env/bin/python manage.py collectstatic --noinput
+	~/env/bin/python manage.py compilemessages
+	rm -rf ~/webfiles/media/
+	cp -r ~timtec-production/webfiles/media ~/webfiles/
+	touch ~/wsgi-reload
+
+update-staging:
+	dropdb timtec-staging
+	createdb timtec-staging
+	pg_restore -O -x -n public -d timtec-staging ~hacklab/sql-backup/last.psqlc
+	cp timtec/settings_local_staging.py timtec/settings_local.py
+	~/env/bin/pip install -r requirements.txt
+	~/env/bin/python manage.py syncdb --noinput
+	~/env/bin/python manage.py migrate --noinput
+	~/env/bin/python manage.py collectstatic --noinput
+	~/env/bin/python manage.py compilemessages
+	rm -rf ~/webfiles/media/
+	cp -r ~timtec-production/webfiles/media ~/webfiles/
+	touch ~/wsgi-reload
+
+update-design:
+	dropdb timtec-design
+	createdb timtec-design
+	pg_restore -O -x -n public -d timtec-design ~hacklab/sql-backup/last.psqlc
+	cp timtec/settings_local_design.py timtec/settings_local.py
+	~/env/bin/pip install -r requirements.txt
+	~/env/bin/python manage.py syncdb --noinput
+	~/env/bin/python manage.py migrate --noinput
+	~/env/bin/python manage.py collectstatic --noinput
+	~/env/bin/python manage.py compilemessages
+	rm -rf ~/webfiles/media/
+	cp -r ~timtec-production/webfiles/media ~/webfiles/
+	touch ~/wsgi-reload
+
+staging: create-staging update-staging
 
 update-production:
 	cp timtec/settings_local_production.py timtec/settings_local.py
@@ -45,22 +76,24 @@ update-production:
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
 	cp ../settings_production.py timtec/settings_production.py
-	touch timtec/wsgi.py
+	touch ~/wsgi-reload
 
-test_collectstatic:
+test_collectstatic: clean
 	python manage.py collectstatic --noinput -n
 
-python_tests:
+clean:
 	find . -type f -name '*.py[co]' -exec rm {} \;
-	py.test --pep8 --flakes --cov . . $*
+
+python_tests: clean
+	py.test --pep8 --flakes --tb=native --cov . . $*
 
 js_tests:
-	find . -path ./static/js/vendor -prune -o -path static/js/vendor/ -prune -o -path ./tests/js/lib -prune -path tests/js/lib/ -prune -o -name '*.js' -exec jshint {} \;
+	find . -path ./bower_components -prune -o -path bower_components/ -prune -o -path ./static/js/vendor -prune -o -path static/js/vendor/ -prune -o -name '*.js' -exec jshint {} \;
 
 karma_tests:
-	karma start tests/confkarma.js $*
+	karma start confkarma.js $*
 
-all_tests: test_collectstatic python_tests karma_tests
+all_tests: clean test_collectstatic python_tests karma_tests js_tests
 
 setup_ci:
 	psql -c 'create database timtec_ci;' -U postgres
@@ -74,22 +107,22 @@ setup_coveralls:
 	pip install -q coveralls --use-mirrors
 
 setup_js:
-	sudo `which npm` -g install less yuglify karma jshint --loglevel silent
+	sudo `which npm` -g install less yuglify karma jshint ngmin --loglevel silent
 
-setup_django:
+setup_django: clean
 	python manage.py syncdb --all --noinput
 	python manage.py compilemessages
 
 settings_ci:
 	cp timtec/settings_local_ci.py timtec/settings_local.py
 
-dumpdata:
+dumpdata: clean
 	python manage.py dumpdata --indent=2 -n -e south.migrationhistory -e admin.logentry -e socialaccount.socialaccount -e socialaccount.socialapp -e sessions.session -e contenttypes.contenttype -e auth.permission -e account.emailconfirmation -e socialaccount.socialtoken
 
-reset_db:
+reset_db: clean
 	python manage.py reset_db --router=default --noinput -U $(USER)
-	python manage.py syncdb --noinput
-	python manage.py migrate --noinput
+	python manage.py syncdb --all --noinput
+	python manage.py migrate --noinput --fake
 
-messages:
+messages: clean
 	python manage.py makemessages -a -d django

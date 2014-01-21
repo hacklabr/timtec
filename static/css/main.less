@@ -1,4 +1,4 @@
-@import 'bootstrap/bootstrap.less';
+@import '../../bower_components/bootstrap/less/bootstrap.less';
 @import 'flatui/checkbox-and-radio.less';
 
 // COLORS
@@ -7,19 +7,6 @@
 @gray:                   lighten(#000, 33.5%); // #555
 @gray-light:             lighten(#000, 60%);   // #999
 @gray-lighter:           lighten(#000, 93.5%); // #eee
-
-// @gray-darker:            #34495e;
-// @gray-dark:              #7f8c8d;
-// @gray:                   #95a5a6;
-// @gray-light:             #bdc3c7;
-// @gray-lighter:           #ecf0f1;
-
-
-// @brand-primary:         #00bebe;
-// @brand-success:         #7ab800;
-// @brand-warning:         #fed100;
-// @brand-danger:          #981e32;
-// @brand-info:            #2583b1;
 
 @brand-primary:         #3498db;
 @brand-success:         #2ecc71;
@@ -34,6 +21,7 @@ body {
 // TYPOGRAPHY
 h1, h2, h3, h4, h5, h6 {
   font-family:'Questrial';
+  font-weight: normal;
 }
 // Headings
 h1 {
@@ -62,6 +50,7 @@ h6 {
   text-transform:uppercase;
 }
 
+// LINKS
 a,
 a:hover,
 a:active {
@@ -69,13 +58,7 @@ a:active {
   .transition(all .25s ease-out);
 }
 
-a.instructor {
-  color:@brand-success;
-  &:hover {
-    color:darken(@brand-success, 10%);
-  }
-}
-
+// PAGE HEADERS
 .page-header-double {
   border-bottom:1px solid @gray-lighter;
   margin:40px 0 20px;
@@ -91,11 +74,9 @@ a.instructor {
   }
 }
 
-
 // LINKS
 @link-color:            @brand-info;
 @link-hover-color:      darken(@link-color, 15%);
-
 
 // COMPONENTS
 @border-radius-base:             2px;
@@ -159,7 +140,7 @@ a.instructor {
 // Inverted navbar links
 @navbar-inverse-link-color:                 #fff;
 @navbar-inverse-link-hover-color:           #fff;
-@navbar-inverse-link-hover-bg:              darken(@navbar-inverse-bg, 5%);
+@navbar-inverse-link-hover-bg:              lighten(@navbar-inverse-bg, 5%);
 @navbar-inverse-link-active-color:          #fff;
 @navbar-inverse-link-active-bg:             darken(@navbar-inverse-bg, 5%);
 @navbar-inverse-link-disabled-color:        #fff;
@@ -270,6 +251,19 @@ a.instructor {
   .size(0,0);
 }
 
+// NO BORDERS
+.no-bottom-border {
+  border-bottom: none !important;
+}
+.no-left-border {
+  border-left: none !important;
+}
+.no-right-border {
+  border-right: none !important;
+}
+.no-top-border {
+  border-top: none !important;
+}
 
 
 // HELPERS
@@ -373,6 +367,7 @@ a.instructor {
 
 // MAIN NAVBAR - DROPDOWN MENUS FOR SIGNIN AND SIGNUP
 #main-navbar {
+  border-radius: 0;
   font-family:'Questrial';
   .navbar-brand {
     img {
@@ -381,6 +376,14 @@ a.instructor {
       vertical-align: top;
       width: auto;
     }
+  li.divider {
+    border-left: 1px solid lighten(@navbar-inverse-bg, 5%);
+    display: block;
+    height: 50px;
+    width: 0;
+  }
+  .form-group {
+    margin-bottom: 15px;
   }
   
   .dropdown-signin {
@@ -407,6 +410,11 @@ a.instructor {
   #main-navbar {
     .dropdown-menu {
       width: 400px;
+    }
+    &.navbar-authenticated {
+      .dropdown-menu {
+        width: 300px;
+      }
     }
   }
 }
@@ -476,305 +484,587 @@ a.instructor {
   }
 }
 
+// COURSES LIST - Admin
+// ********************************************************************* //
+#admin {
+  #courses {
+    #all-courses {
+      &.courses-list {
+        .course {
+          background-color: lighten(@gray-lighter, 5%);
+          border-bottom: 1px solid @gray-lighter;
+          border-top: 1px solid @gray-lighter;
+          margin-bottom: 40px;
+          h1 {
+            font-size: 18px;
+            a {
+              color: @gray-darker;
+              &:hover {
+                color: @brand-info;
+              }
+              &:hover:after {
+                content: "(Editar)";
+                font-family: @font-family-sans-serif;
+                font-size: 11px;
+                margin-left: 5px;
+                text-transform: lowercase;
+              }
+            }
+          }
+          .lessons {
+            .lesson {
+              border-top: 1px solid @gray-lighter;
+              padding: 10px 0 12px 0;
+              &:hover {
+                background-color: @gray-lighter;
+              }
+              h1 {
+                font-family: @font-family-sans-serif;
+                font-size: 12px;
+                margin-bottom: 0;
+                margin-top: 5px;
+                padding-bottom: 0;
+                padding-top: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+// END COURSES LIST - Admin
+
+#admin {
+  // CONTENT EDITABLE
+  // ********************************************************************* //
+  [contenteditable] {
+    font-weight: thin;
+    padding: 3px 0 0 0;
+    &:empty {
+      background-color: lighten(@brand-danger, 40%);
+      color: @gray-light;
+      &:before {
+        background-color: none;
+      }
+    }
+    &:hover {
+      background-color: lighten(@brand-warning, 40%);
+    }
+  }
+  // END CONTENT EDITABLE
+
+  // POPUP NOTIFICATIONS
+  // ********************************************************************* //
+  .tt-popup {
+      margin-left: 25%;
+      position: fixed;
+      top: 60px;
+      width: 50%;;
+      z-index: 9999;
+      // -moz-transition: top 500ms;
+      // -webkit-transition: top 500ms;
+      // -o-transition: top 500ms;
+      // transition: top 500ms;
+      &.hideTop {
+        top: -5000px;
+      }
+      .alert-success {
+        h4 {
+          font-family: @font-family-sans-serif;
+          font-size: 12px;
+          font-weight: bold;
+          margin-bottom: 0;
+        }
+      }
+      .close {
+        margin-top: -5px;
+      }
+  }
+  // END POPUP NOTIFICATIONS
+
+
+}
+
 // COURSE
-// Course intro - list of lessons
-.course-lessons {
-  .top(27px);
-  ul {
-    .title {
-      display:block;
-      font-size: 16px;
-      font-weight:bold;
+// ********************************************************************* //
+#course,
+#forum {
+
+  // ADMIN
+  // ********************************************************************* //
+  #admin & {
+
+    // HEADER - Admin
+    // ********************************************************************* //
+    header {
+      margin-bottom: 20px;
+      margin-top: -20px;
+    }
+    // END HEADER
+
+
+    // ACTIONS - Admin
+    // ********************************************************************* //
+    .actions {
+      background-color: @gray-lighter;
+      margin-bottom: 20px;
+      margin-top: -20px;
+      padding: 10px;
+      position: relative;
+      .status {
+        margin-left: 40px;
+        margin-right: 10px;
+      }
+      .label {
+        background-color: darken(@gray-lighter, 10%);
+        color: @gray-darker;
+        font-size: 11px;
+        font-weight: normal;
+        margin-right: -5px;
+        padding: 10px 12px;
+        text-transform: uppercase;
+      }
+    }
+    // END ACTIONS
+
+    &.course-intro {
+      .add-content {
+        margin-top: -18px;
+      }
     }
 
-    .description {
-      font-size:13px;
+    nav.lesson-units {
+      margin-bottom: 10px !important;
     }
 
-    li {
-      margin:36px 0;
+    // ADD CONTENT - Admin
+    // ********************************************************************* //
+    .add-content {
+      margin-bottom: -20px;
+      margin-top: 20px;
+      button {
+        font-size: 11px;
+        margin-bottom: 10px;
+        padding: 10px 20px;
+        text-transform: uppercase;
+        &.delete {
+          font-size: 14px;
+          padding: 8px 20px;
+        }
+      }
+    }
+    // END CONTENT
+
+    .lessons.organizing-lessons,
+    .instructors.organizing-instructors {
+      margin-bottom: 10px;
+
+      .lesson,
+      .instructor {
+        border-bottom: 1px solid @gray-lighter;
+        margin-bottom: 0;
+        margin-top: 10px;
+        padding-bottom: 10px;
+        .title {
+          display: inline-block;
+          font-size: 14px;
+          margin-left: 10px;
+        }
+        .fa.fa-bars {
+          cursor: move;
+        }
+        .fa.fa-minus-circle {
+          cursor: pointer;
+          color: @brand-danger;
+        }
+      }
+      .submit {
+        margin-top: 10px;
+      }
     }
   }
+  // END ADMIN
 
-  .table {
-    margin-bottom:7px;
-    tr {
-      td {
-        border:none;
-        margin:0;
-        padding:0;
+  // HEADER - Global
+  // ********************************************************************* //
+  header {
+    .page-header {
+      border-bottom: 1px solid @gray-lighter;
+      margin-bottom: 20px;
+      h1 {
+        .bottom(0,0);
+        .top(0,0);
+        span {
+          display: block;
+        }
+        a {
+          color: @gray-darker;
+          &:hover {
+            color: @brand-info;
+          }
+        }
+      }
+    }
+    .course-slug {
+      margin-bottom: 5px;
+      label {
+        color: @gray-light;
+        font-weight: normal;
+      }
+    }
+    ul.instructors {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      li {
+        display: inline-block;
+        text-transform: uppercase;
+        a {
+          color:@brand-success;
+          padding-right: 0.5em;
+          &:hover {
+            color:darken(@brand-success, 10%);
+          }
+          &:after {
+            content: ",";
+            color: black;
+          }
+        }
+        &:last-child a:after {
+            content: "";
+        }
+      }
+    }
+  }
+  // END HEADER
+
+  // HEADER - Course Sections
+  // ********************************************************************* //
+  .course-sections {
+    a {
+      display: inline-block;
+      height: 28px;
+      span {
+        border-right: 1px solid @gray-lighter;
+        color: @gray-light;
+        display: inline-block;
+        font-size: 22px;
+        height: 28px;
+        margin-left: -3px;
+        overflow: hidden;
+        padding: 3px 9px;
+        position: relative;
+        text-align: center;
+        &:hover {
+          color: @brand-info;
+          cursor: pointer;
+          text-decoration: none;
+          .transition(all 0.1s ease-out);
+        }
+      }
+    }
+  }
+  // END HEADER - Course Sections
+
+  // HEADER - Course Lesson, Material and Forum
+  // ********************************************************************* //
+  &.course-lesson,
+  &.course-material,
+  &.course-forum {
+    header {
+      .page-header {
+        margin-bottom: 0;
+        h1 {
+          font-size: 16px;
+          text-transform: uppercase;
+        }
+        ul.instructors {
+          font-size: 12px;
+        }
+      }
+    }
+    #course-content {
+      nav.course-lessons {
+        h1 {
+          .bottom(0,0);
+          font-size: 30px;
+        }
+        p.description {
+          color: @gray-light;
+        }
+      }
+      nav.lesson-units {
+        margin-bottom: 60px;
+        ul.dropdown-menu {
+          li {
+            a {
+              color: @gray-light;
+              font-size: 12px;
+              &:hover {
+                background-color: transparent;
+                color: @gray;
+              }
+            }
+          }
+        }
       }
     }
   }
 
-  i.icon-youtube-play {
-    color:@brand-danger;
-  }
-
-  i.icon-list {
-    color:@brand-info;
-  }
-
-  .unit {
-    background:@gray-lighter - 20%;
-    .box-shadow(inset -1px 0 0 #fff);
-    color:#fff;
-    cursor:pointer;
-    display:block;
-    font-size:12px;
-    height:20px;
-    line-height:1.75;
-    margin:0;
-    padding:0;
-    position:relative;
-    text-align:left;
-    z-index:10;
-    &.watching, &.watching:hover {
-      background:@brand-info;
-      .transition(all .25s ease-out);
-      &:hover {
-        background:darken(@brand-info, 10%);
+  &.course-material {
+    #course-content {
+      > h1 {
+        margin: 20px 0 40px;
       }
     }
-    &.done, &.done:hover {
-      background:@brand-success;
-      .transition(all .25s ease-out);
-      &:hover {
-        background:darken(@brand-success, 10%);
+  }
+
+  // COURSE INTRO
+  // ********************************************************************* //
+  &.course-intro {
+    .video {
+      .top(25px);
+    }
+  }
+
+
+  // COURSE-CONTENT
+  // ********************************************************************* //
+  #course-content {
+
+    // COURSE SUMMARY - Course intro
+    // ********************************************************************* //
+    .summary {
+      margin-top: 20px;
+    }
+
+    // COURSE LESSONS - Course intro
+    // ********************************************************************* //
+    .lessons {
+      margin-top: 20px;
+      .lesson {
+        margin-bottom: 40px;
+        margin-top: 20px;
+        .title {
+          display:block;
+          font-size: 16px;
+          font-weight:regular;
+        }
+        .description {
+          font-size:13px;
+        }
+        li {
+          margin:36px 0;
+        }
+      }
+      // END LESSON
+      .table {
+        margin-bottom:7px;
+        tr {
+          td {
+            border:none;
+            margin:0;
+            padding:0;
+            a {
+              color: #fff;
+            }
+          }
+        }
+      }
+      // END TABLE
+      i.fa-youtube-play {
+        color:@brand-danger;
+      }
+      i.fa-list {
+        color:@brand-info;
       }
     }
-    &:hover {
-      background:@gray-light;
-      color:#fff;
-      .transition(all .25s ease-out);
+    // END LESSONS
+
+    // COURSE INSTRUCTORS - Course intro
+    // ********************************************************************* //
+    .instructors {
+      margin-top: 20px;
+      .instructor {
+        margin-bottom: 10px;
+        margin-top: 10px;
+      }
+      h1.fullname {
+        .bottom(0,0);
+        font-size:21px;
+        text-transform:none;
+      }
+      h2.job-title {
+        border-bottom:1px solid @gray-lighter;
+        .bottom(9px,9px);
+        font-size:14px;
+      }
+      .missing-avatar {
+        border:1px solid #ddd;
+        text-align:center;
+        &:before {
+          content:'';
+          .vertical-align(middle);
+        }
+        .centered {
+          margin:-16px 4px 4px 4px;
+          .vertical-align(middle);
+          .calculate-width(8px);
+          i {
+            background:#ddd;
+            color:#c0c0c0;
+            display:block;
+            font-size:72px;
+            padding:27px 0;
+          }
+        }
+      }
+      // END INSTRUCTOR
     }
-    i {
-      color:#fff;
-      font-size:14px;
-      margin:3px 0 0 0;
-    }
-    i.icon-caret-right {
-      color:@brand-info;
-      font-size:18px;
-      left:-10px;
-      line-height:1;
-      top:-2px;
-    }
-    i {
-      position:absolute;
-      right:6px;
-    }
-  }
-}
+    // END INSTRUCTORS
 
 
-// Course intro - list of instructors
-.course-instructors {
-  .top(27px);
-
-  .instructor {
-    margin-bottom:45px;
-  }
-  h1.fullname {
-    .bottom(0,0);
-    font-size:21px;
-    text-transform:none;
-  }
-
-  h2.job-title {
-    border-bottom:1px solid @gray-lighter;
-    .bottom(9px,9px);
-    font-size:14px;
-  }
-  .missing-avatar {
-    border:1px solid #ddd;
-    text-align:center;
-    &:before {
-      content:'';
-      .vertical-align(middle);
+    // COURSE THUMBNAIL - General
+    // ********************************************************************* //
+    .thumbnail {
+      border: 1px solid @gray-lighter;
+      padding: 0;
+      #admin & {
+        .top(20px);
+      }
+      .thumbnail-title {
+        margin: 2px 10px 0;
+      }
+      .btn-edit-thumbnail {
+        margin: 5px;
+      }
     }
-    .centered {
-      margin:-16px 4px 4px 4px;
-      .vertical-align(middle);
-      .calculate-width(8px);
-      i {
-        background:#ddd;
-        color:#c0c0c0;
+    // END COURSE VIDEO
+
+    // COURSE VIDEO - General
+    // ********************************************************************* //
+    .video {
+      border: 1px solid @gray-lighter;
+      #admin & {
+        .top(20px);
+      }
+      .video-title {
+        margin: 2px 10px 0;
+      }
+      .btn-edit-video {
+        margin: 1px 5px 0 0;
+      }
+    }
+    // END COURSE VIDEO
+
+    // COURSE NOTES - General
+    // ********************************************************************* //
+    .notes {
+      textarea {
+        border: 2px solid @gray-lighter;
+        height: 310px;
+        margin: 20px 0;
+        padding: 10px;
+      }
+    }
+    .add-side-notes {
+      margin-top: 68px;
+      #side-notes {
+        [contenteditable] {
+          cursor: pointer;
+          height: 300px;
+          margin-top: 20px;
+        }
+      }
+    }
+
+    // COURSE UNITS - General
+    // ********************************************************************* //
+    .admin-units {
+      margin-top: 66px !important;
+    }
+    .units {
+      margint-top: 20px;
+      .unit {
+        background:@gray-lighter - 20%;
+        .box-shadow(inset -1px 0 0 #fff);
+        color:#fff;
+        cursor:pointer;
         display:block;
-        font-size:72px;
-        padding:27px 0;
+        font-size:12px;
+        height:20px;
+        line-height:1.75;
+        margin:0 0 1px 0;
+        padding:0 0 0 3px;
+        position:relative;
+        text-align:left;
+        z-index:10;
+        &:hover {
+          background:@gray-light;
+          color:#fff;
+          .transition(all .25s ease-out);
+        }
+        &.current {
+          background-color: @brand-info;
+        }
+        &.watching, &.watching:hover {
+          background:@brand-info;
+          .transition(all .25s ease-out);
+          &:hover {
+            background:darken(@brand-info, 10%);
+          }
+        }
+        &.done, &.done:hover {
+          background:@brand-success;
+          .transition(all .25s ease-out);
+          &:hover {
+            background:darken(@brand-success, 10%);
+          }
+        }
+        i {
+          color:#fff !important;
+          font-size:14px;
+          margin:3px 0 0 0;
+        }
+        i.fa-caret-right {
+          color:@brand-info;
+          font-size:18px;
+          left:-10px;
+          line-height:1;
+          top:-2px;
+        }
+        i {
+          position:absolute;
+          right:6px;
+        }
       }
+      // END UNIT
+
+      // ADD UNIT
+      .add-unit {
+        background-color: @brand-success;
+        line-height: 2;
+        padding: 0;
+        text-align: center;
+        &:hover {
+          background-color: darken(@brand-success, 10%);
+        }
+        i {
+          position: static;
+        }
+      }
+      // END ADD UNIT
     }
+    // END COURSE UNITS
   }
+  // END COURSE CONTENT
 }
 
-// Course social
-.course-social {
-  .top(27px);
-}
 
-// Course sections - navigation links (intro, lessons, notes, forum, wiki)
-.course-sections {
-  span {
-    background:@gray-lighter;
-    color:@gray-light;
-    display:inline-block;
-    font-size:22px;
-    height:28px;
-    margin-left:-3px;
-    overflow:hidden;
-    padding:3px 9px;
-    position:relative;
-    text-align:center;
-    &:hover {
-      background:@brand-primary;
-      color:@gray-lighter;
-      cursor:pointer;
-      text-decoration:none;
-      .transition(all 0.1s ease-out);
-    }
-  }
-}
-
-// Course lessons nav
-.course-lessons-nav {
-  .bottom(9px,9px);
-  button {
-    font-size:14px;
-  }
-  ul {
-    margin-top:0;
-    padding:9px 0;
-    text-transform:none;
-    li.active a, li.active a:hover {
-      color:@brand-info;
-    }
-    li a {
-      color:@gray;
-    }
-    li a:hover {
-      background:@gray-lighter;
-      color:@gray-darker;
-    }
-  }
-}
 
 .nav-lesson-xs {
   margin-bottom: 10px;
-}
-
-// Course - unit video
-.course-video {
-  margin-top:21px;
-
-  iframe {
-    border:1px solid @gray-lighter;
-  }
-  
-  .nav-unit-xs {
-    margin-bottom: 10px;
-  }
-
-  // Unit navigation links
-  .unit {
-    background:@gray-lighter - 20%;
-    .box-shadow(inset -1px 0 0 #fff);
-    color:#fff;
-    cursor:pointer;
-    display:block;
-    font-size:12px;
-    height:20px;
-    line-height:1.75;
-    margin-bottom:1px;
-    padding-left:3px;
-    position:relative;
-    text-align:left;
-    z-index:10;
-    &.watching, &.watching:hover {
-      background:@brand-info;
-      .transition(all .25s ease-out);
-      &:hover {
-        background:darken(@brand-info, 10%);
-      }
-    }
-    &.done, &.done:hover {
-      background:@brand-success;
-      .transition(all .25s ease-out);
-      &:hover {
-        background:darken(@brand-success, 10%);
-      }
-    }
-    &:hover {
-      background:@gray-light;
-      color:#fff;
-      .transition(all .25s ease-out);
-    }
-    i {
-      color:#fff;
-      font-size:14px;
-      margin:3px 0 0 0;
-    }
-    i.icon-caret-right {
-      color:@brand-info;
-      font-size:18px;
-      left:-10px;
-      line-height:1;
-      top:-2px;
-    }
-    i {
-      position:absolute;
-      right:6px;
-    }
-  }
-
-  // Subtitles
-  .tab-pane#subtitles {
-    border-bottom:1px solid @gray-lighter;
-    font-size:12px;
-    height:386px;
-    position:relative;
-    overflow:auto;
-    table.table {
-      tr:first-child td {
-        border-top:none !important;
-      }
-      tr.now {
-        font-weight:bold;
-      }
-    }
-  }
-
-  // Notes
-  .tab-pane#notes {
-    border-bottom:1px solid @gray-lighter;
-    padding-top:18px;
-    form {
-      border-bottom:1px solid @gray-lighter;
-      margin-bottom:14px;
-      padding-bottom:14px;
-      textarea {
-        border:2px solid @gray-lighter;
-        border-radius:4px;
-        margin-bottom:14px;
-      }
-    }
-    ol {
-      font-size:12px !important;
-      height:173px;
-      margin-left:0;
-      padding-left:21px;
-      overflow:auto;
-      position:relative;
-      a:first-child {
-        display:block;
-        margin-bottom:7px;
-      }
-      li {
-        border-top:1px dotted @gray-light;
-        padding-top:14px;
-      }
-    }
-  }
 }
 
 // Activities
@@ -798,7 +1088,22 @@ a.instructor {
     .answers {
         margin: 20px 0;
     }
-    
+
+    .simplechoice-answers {
+        .answer {
+            border-bottom: 1px solid @gray-lighter;
+            font-size: 16px;
+            label {
+                vertical-align: top;
+                .icons {
+                    display: inline !important;
+                    margin-top: 10px;
+                    position: initial !important;
+                }
+            }
+        }
+    }
+
     .multiplechoice-answers {
         .answer {
             border-bottom: 1px solid @gray-lighter;
@@ -838,7 +1143,7 @@ a.instructor {
     .submit {
         margin-top: 40px;
     }
-    
+
     label {
         font-weight:normal;
     }
@@ -846,11 +1151,11 @@ a.instructor {
     .wrong {
         color:@brand-danger;
     }
-    
+
     .correct {
         color:@brand-success;
     }
-    
+
     table tr, table tr td {
         border:none;
     }
@@ -860,7 +1165,7 @@ a.instructor {
 .course-forum {
 
   .questions {
-    border-top:1px solid @gray-lighter;
+    // border-top:1px solid @gray-lighter;
     .top(14px,14px);
   }
 
@@ -976,6 +1281,7 @@ a.instructor {
 }
 
 // MY COURSES
+// ********************************************************************* //
 #my-courses {
   .courses {
     h1 {
@@ -1021,6 +1327,7 @@ a.instructor {
 }
 
 // MY NOTES
+// ********************************************************************* //
 #my-notes {
   .courses {
     .course {
@@ -1099,8 +1406,9 @@ a.instructor {
 }
 
 // FORUM
-#course-forum {
-  #main-content {
+// ********************************************************************* //
+#forum {
+  #forum-content {
     margin-top:20px;
     a.ask-a-question {
       display:block;
@@ -1130,7 +1438,7 @@ a.instructor {
           font-size:27px;
         }
       }
-      
+
       .author {
         background:@gray-lighter;
         font-size:12px;
@@ -1140,7 +1448,7 @@ a.instructor {
           font-weight:bold;
         }
       }
-      
+
       .question-tag {
         border-top:1px solid @gray-lighter;
         .top(14px, 14px);
@@ -1162,7 +1470,7 @@ a.instructor {
           }
         }
       }
-      
+
       .rating {
         .vertical-align(middle);
         text-align:center;
@@ -1200,8 +1508,8 @@ a.instructor {
         }
       }
     }
-    
-    
+
+
     .questions {
       .top(18px,0);
       article {
@@ -1351,17 +1659,6 @@ a.instructor {
   }
 }
 
-
-// TEXT EDITOR
-.wmd-panel {
-  margin-top:20px;
-  .btn-group {
-    margin-bottom:1px;
-    .btn {
-      margin-right:2px;
-    }
-  }
-}
 
 // UPLOADED FILES LIST
 ul.uploaded-files-list {
@@ -1803,4 +2100,32 @@ ul.uploaded-files-list {
   100% {
     background-position: -7px -400px;
   }
+}
+
+
+
+
+// TEXT EDITOR
+// ------------------------------------------------
+.text-editor {
+  .btn-toolbar {
+    margin-bottom: 5px;
+    .btn-group {
+      margin: 0;
+      padding: 0;
+      .btn {
+        background: none;
+        margin: 0 2px 0 0;
+        padding: 2px 6px;
+        &:hover {
+          color: @brand-info;
+        }
+      }
+    }
+  }
+}
+
+
+.pointer {
+  cursor: pointer;
 }

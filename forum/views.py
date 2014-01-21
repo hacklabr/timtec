@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from accounts.utils import LoginRequiredMixin
+from braces.views import LoginRequiredMixin
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.views.generic.detail import DetailView
@@ -30,7 +30,7 @@ class CourseForumView(LoginRequiredMixin, ListView):
 
 class QuestionView(LoginRequiredMixin, DetailView):
     model = Question
-    context_object_name = 'question'
+    context_object_name = 'question_django'
     template_name = 'question.html'
 
 

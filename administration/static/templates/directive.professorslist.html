@@ -1,0 +1,59 @@
+  <div class="modal fade in" ng-style="{display: active ? 'block' : 'none'}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" ng-click="active=false">&times;</button>
+          <h4 class="modal-title">Adicionar Professor</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-4">
+              <p class="form-group"><input type="search" class="form-control col-lg-12" placeholder="Procurar professor"></p>
+              <ul class="contacts">
+                <!-- li class="title">A</li -->
+                <li ng-repeat="professor in professors">
+                    <a href="" ng-bind="professor.getName()" ng-click="$parent.selectedProfessor=professor"></a>
+                </li>
+              </ul>
+            </div>
+            <div class="col-lg-8">
+              <form>
+
+                <div class="form-group">
+                  <label>Nome</label>
+                  <p class="form-control col-lg-12" ng-bind="selectedProfessor.getName()" disabled></p>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Primeiro nome</label>
+                            <input class="form-control col-lg-12"
+                                   ng-model="selectedProfessor.first_name"
+                                   ng-disabled="!selectedProfessor"/>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Sobrenome</label>
+                            <input class="form-control col-lg-12"
+                                   ng-model="selectedProfessor.last_name"
+                                   ng-disabled="!selectedProfessor"/>
+                        </div>
+                    </div>
+                </div>
+                
+                <br/>
+
+                <markdowneditor title="Biografia" content="selectedProfessor.biography"></markdowneditor>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" ng-click="active=false">Fechar</button>
+            <button type="button" class="btn btn-primary" ng-click="selectProfessor()">Selecionar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

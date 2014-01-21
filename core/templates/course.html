@@ -6,190 +6,279 @@
 
 {% block content %}
 
-<!-- CONTAINER -->
-<div id="course-content" class="course-intro">
+<!-- COURSE -->
+<div id="course" class="course-intro">
 
-  <!-- HEADER -->
-  <header id="main-header" class="container">
-    <div class="page-header">
-      <div class="row">
-        <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
-          <h1 class="course-name bottom top">{{course.name}}</h1>
-          {% include "_course-professors-inline.html" with course=course %}
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 textright">
-          {% if user_is_enrolled %}
-            <a href="{% url "lesson" course.first_lesson.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Resume" %}</a>
-          {% else %}
-            <a
-              {% if user.is_authenticated %}
-                onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 1);"
-              {% else %}
-                onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 0);"
-              {% endif %}
-              href="{% url "enroll_course" course.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Take the Class" %}</a>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </header>
-  <!-- END HEADER -->
-
-  <!-- MAIN CONTENT -->
-  <section id="main-content" class="container">
-    <div class="row">
-      <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
-        <!-- COURSE-VIDEO -->
-        <section class="course-video top row">
-          {% with yid=course.intro_video.youtube_id %}
-          <div class="col-lg-12 col-md-12 col-sm-12 col-sx-12">
-            <iframe id="youtube-player" type="text/html" frameborder="0"
-                    src="//www.youtube.com/embed/{{yid}}?rel=0&showinfo=0&autohide=1&theme=light&wmode=opaque" allowfullscreen>
-            </iframe>
-          </div>
-          {% endwith %}
-        </section>
-        <!-- END COURSE-VIDEO -->
-
-        <!-- COURSE-INFO -->
-        <section class="course-info row">
-          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <div class="page-header-double">
-              <h3 class="top"><i class="icon-double-angle-right"></i> {% trans "Why do this course?" %}</h3>
-            </div>
-            <p>{{ course.application|timtec_markdown }}</p>
-          </div>
-          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <div class="page-header-double">
-              <h3 class="top"><i class="icon-double-angle-right"></i> {% trans "What do I have to know?" %}</h3>
-            </div>
-            <p>{{ course.requirement|timtec_markdown }}</p>
-          </div>
-        </section>
-        <!-- END COURSE-INFO -->
-
-        <!-- COURSE-SUMMARY -->
-        <section class="course-summary hidden-lg hidden-md hidden-sm visible-xs row">
-          <div class="col-xs-12">
-            <div class="page-header-double">
-              <h3 class="top"><i class="icon-double-angle-right"></i> {% trans "Abstract" %}</h3>
-            </div>
-            {{course.abstract|timtec_markdown}}
-            <hr/>
-            <p class="bottom"><strong><i class="icon-list"></i> {% trans "Course Structure" %}:</strong></p>
-            {{course.structure|timtec_markdown}}
-            <hr/>
-            <p class="bottom"><strong><i class="icon-time"></i> {% trans "Workload" %}:</strong></p>
-            {{course.workload|timtec_markdown}}
-            <hr/>
-            {{course.pronatec|timtec_markdown}}
-          </div>
-        </section>
-        <!-- END COURSE-SUMMARY -->
-
-        <!-- COURSE-LESSONS -->
-        <section class="course-lessons row">
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="page-header-double">
-              <h3><i class="icon-double-angle-right"></i> {% trans "Lessons" %}</h3>
-            </div>
-            <ul class="no-bullet">
-              {% for lesson in course.public_lessons %}
-              <li>
-                <div class="row">
-                  <div class="col-lg-3 col-sm-3 col-sm-3 hidden-xs">
-                    <img src="{{ lesson.thumbnail }}" class="thumbnail">
-                  </div>
-                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <p>
-                      {% if lesson.is_ready %}
-                      <a href="{% url 'lesson' lesson.slug %}" class="title">{{ lesson.name }}</a>
-                      {% else %}
-                      <span class="title">{{ lesson.name }}</span>
-                      {% endif %}
-                      <span class="description">{{ lesson.desc }}</span>
-                    </p>
-                    <div class="hidden-xs">
-                      <table class="table ">
-                        <tr>
-                          {% for unit in lesson.units.all %}
-                          <td>
-                            <a class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
-                               data-toggle="tooltip" data-placement="bottom"
-                               data-original-title="Unidade {{ forloop.counter }}"
-                               href="{% url 'lesson' lesson.slug %}#/{{ forloop.counter }}">
-
-                              {% if unit.activity %}
-                              <i class="icon-list"></i>
-                              {% endif %}
-                            </a>
-                          </td>
-                          {% endfor %}
-                        </tr>
-                      </table>
-                    </div>
-                    {% if lesson.is_ready %}
-                    <p><i class="icon-youtube-play"></i> <small>{{ lesson.video_count }} {% trans "videos" %}</small> | <i class="icon-list"></i> <small>{{ lesson.activity_count }} {% trans "activities" %}</small></p>
-                    {% endif %}
-                  </div>
+    <!-- HEADER -->
+    <header class="container">
+        <!-- PAGE-HEADER -->
+        <div class="page-header">
+            <!-- ROW -->
+            <div class="row">
+                <!-- COL-LG-9 -->
+                <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+                    <h1>{{course.name}}</h1>
+                    {% include "_course-professors-inline.html" with course=course %}
                 </div>
-              </li>
-              {% endfor %}
-            </ul>
-          </div>
-        </section>
-        <!-- END COURSE-LESSONS -->
+                <!-- END COL-LG-9 -->
 
-        <!-- COURSE-INSTRUCTORS -->
-        {% if course.courseprofessor_set.all %}
-        <section class="course-instructors row">
-          <div class="col-lg-12 col-sm-12">
-            <div class="page-header-double">
-              <h3><i class="icon-double-angle-right"></i> {% trans "Instructors" %}</h3>
+                <!-- COL-LG-3 -->
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 textright">
+                    {% if user_is_enrolled %}
+                        <a href="{% url "lesson" course.slug course.first_lesson.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Resume" %}</a>
+                    {% else %}
+                        <a
+                            {% if user.is_authenticated %}
+                                onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 1);"
+                            {% else %}
+                                onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 0);"
+                            {% endif %}
+                            href="{% url "enroll_course" course.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Take the Class" %}</a>
+                    {% endif %}
+                </div>
+                <!-- END COL-LG-3 -->
             </div>
-          </div>
-
-          <div class="col-lg-12 col-sm-12">
-            {% for course_professor in course.courseprofessor_set.all %}
-            <div id="{{ course_professor.user.username }}" class="instructor row">
-              <div class="col-lg-3 col-sm-3">
-                <img src="{{ course_professor.user.get_picture_url }}" class="col-lg-12 col-sm-12 thumbnail">
-              </div>
-              <div class="col-lg-9 col-sm-9">
-                <h1 class="fullname bottom top">{{ course_professor.user.first_name }} {{ course_professor.user.last_name }}</h1>
-                <h2 class="job-title top">{{ course_professor.get_job_display }}</h2>
-                <p>{{ course_professor.biography|timtec_markdown }}</p>
-              </div>
-            </div>
-            {% endfor %}
-          </div>
-        </section>
-        {% endif %}
-        <!-- END COURSE-INSTRUCTORS -->
-      </div>
-
-      <div class="col-lg-3 col-md-3 col-sm-4 hidden-xs">
-        <div class="row">
-          <section class="course-summary col-lg-12 col-sm-12">
-            <div class="page-header-double top">
-              <h3 class="top"><i class="icon-double-angle-right"></i> {% trans "Abstract" %}</h3>
-            </div>
-            {{course.abstract|timtec_markdown}}
-            <hr/>
-            <p class="bottom"><strong><i class="icon-list"></i> {% trans "Course Structure" %}:</strong></p>
-            {{course.structure|timtec_markdown}}
-            <hr/>
-            <p class="bottom"><strong><i class="icon-time"></i> {% trans "Workload" %}:</strong></p>
-            {{course.workload|timtec_markdown}}
-            <hr/>
-            {{course.pronatec|timtec_markdown}}
-          </section>
+            <!-- END ROW -->
         </div>
-      </div>
-    </div>
-  </section>
-  <!-- END MAIN CONTENT -->
+        <!-- END PAGE-HEADER -->
+    </header>
+    <!-- END HEADER -->
+
+    <!-- COURSE-CONTENT -->
+    <section id="course-content" class="container">
+
+        <!-- ROW -->
+        <div class="row">
+            <!-- COL-LG-9 -->
+            <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+
+                <!-- COURSE-VIDEO -->
+                <section class="video">
+                    <!-- ROW -->
+                    <div class="row">
+                        {% with yid=course.intro_video.youtube_id %}
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-sx-12">
+                                <iframe id="youtube-player" type="text/html" frameborder="0" src="//www.youtube.com/embed/{{yid}}?rel=0&showinfo=0&autohide=1&theme=light&wmode=opaque" allowfullscreen>
+                                </iframe>
+                            </div>
+                        {% endwith %}
+                    </div>
+                    <!-- END ROW -->
+                </section>
+                <!-- END COURSE-VIDEO -->
+
+                <!-- COURSE-INFO -->
+                <section class="course-info">
+                    <!-- ROW -->
+                    <div class="row">
+                        <!-- COL-LG-6 -->
+                        <div class="application col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="page-header-double">
+                                <h3 class="top"><i class="fa fa-angle-double-right"></i> {% trans "Why do this course?" %}</h3>
+                            </div>
+                            <div class="content">{{ course.application|timtec_markdown }}</div>
+                        </div>
+                        <!-- END COL-LG-6 -->
+                        <!-- COL-LG-6 -->
+                        <div class="requirement col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="page-header-double">
+                                <h3 class="top"><i class="fa fa-angle-double-right"></i> {% trans "What do I have to know?" %}</h3>
+                            </div>
+                            <div class="content">{{ course.requirement|timtec_markdown }}</div>
+                        </div>
+                        <!-- END COL-LG-6 -->
+                    </div>
+                    <!-- END ROW -->
+                </section>
+                <!-- END COURSE-INFO -->
+
+                <!-- COURSE-SUMMARY - VISIBLE ONLY FOR PHONES -->
+                <section class="summary hidden-lg hidden-md hidden-sm visible-xs row">
+                    <!-- COL-XS-12 -->
+                    <div class="col-xs-12">
+                        <!-- ABSTRACT -->
+                        <div class="page-header-double top">
+                            <h3 class="top"><i class="fa fa-angle-double-right"></i> Resumo</h3>
+                        </div>
+                        {{course.abstract|timtec_markdown}}
+                        <hr/>
+                        <!-- END ABSTRACT -->
+
+                        <!-- STRUCTURE -->
+                        <div class="page-header-double top">
+                            <h3 class="top"><i class="fa fa-angle-double-right"></i> Estrutura do curso</h3>
+                        </div>
+                        {{course.structure|timtec_markdown}}
+                        <hr/>
+                        <!-- END STRUCTURE -->
+
+                        <!-- WORKLOAD -->
+                        <div class="page-header-double top">
+                            <h3 class="top"><i class="fa fa-angle-double-right"></i> Carga horária</h3>
+                        </div>
+                        {{course.workload|timtec_markdown}}
+                        <hr/>
+                        <!-- END WORKLOAD -->
+
+                        {{course.pronatec|timtec_markdown}}
+                    </div>
+                    <!-- END COL-XS-12 -->
+                </section>
+                <!-- END COURSE-SUMMARY - VISIBLE ONLY FOR PHONES -->
+
+                <!-- COURSE-LESSONS -->
+                <section class="lessons">
+                    <!-- PAGE-HEADER-DOUBLE -->
+                    <div class="page-header-double">
+                        <h3><i class="fa fa-angle-double-right"></i> {% trans "Lessons" %}</h3>
+                    </div>
+                    <!-- END PAGE-HEADER-DOUBLE -->
+
+                    <!-- FOR LESSON IN COURSE.PUBLIC_LESSONS -->
+                    {% for lesson in course.public_lessons %}
+                        <!-- LESSON -->
+                        <div class="lesson row">
+                            <!-- COL-LG-3 -->
+                            <div class="col-lg-3 col-sm-3 col-sm-3 hidden-xs">
+                                <img src="{{ lesson.thumbnail }}" class="thumbnail img-responsive">
+                            </div>
+                            <!-- END COL-LG-3 -->
+
+                            <!-- COL-LG-9 -->
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+
+                                <p>
+                                    {% if lesson.is_ready and user_is_enrolled %}
+                                        <a href="{% url 'lesson' course.slug lesson.slug %}" class="title">{{ lesson.name }}</a>
+                                    {% else %}
+                                        <span class="title">{{ lesson.name }}</span>
+                                    {% endif %}
+                                    <span class="description">{{ lesson.desc }}</span>
+                                </p>
+
+                                <!-- HIDDEN-XS -->
+                                <div class="hidden-xs">
+                                    <!-- TABLE -->
+                                    <table class="units table ">
+                                        <!-- TR -->
+                                        <tr>
+                                            <!-- FOR UNIT IN UNITS -->
+                                            {% for unit in lesson.units.all %}
+                                                <!-- TD -->
+                                                <td>
+                                                    {% if lesson.is_ready and user_is_enrolled %}
+                                                        <a class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
+                                                           data-toggle="tooltip" data-placement="bottom"
+                                                           data-original-title="Unidade {{ forloop.counter }}"
+                                                           href="{% url 'lesson' course.slug lesson.slug %}#/{{ forloop.counter }}">
+                                                           {% if unit.activity %}
+                                                               <i class="fa fa-list"></i>
+                                                           {% endif %}
+                                                        </a>
+                                                    {% else %}
+                                                        <span class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
+                                                              data-toggle="tooltip" data-placement="bottom"
+                                                              data-original-title="Unidade {{ forloop.counter }}">
+                                                              {% if unit.activity %}
+                                                                  <i class="fa fa-list"></i>
+                                                              {% endif %}
+                                                        </span>
+                                                    {% endif %}
+                                                </td>
+                                                <!-- END TD -->
+                                            {% endfor %}
+                                            <!-- END FOR -->
+                                        </tr>
+                                        <!-- END TR -->
+                                    </table>
+                                    <!-- END TABLE -->
+                                </div>
+                                <!-- END HIDDEN-XS -->
+
+                                {% if lesson.is_ready %}
+                                    <p><i class="fa fa-youtube-play"></i> <small>{{ lesson.video_count }} {% trans "videos" %}</small> | <i class="fa fa-list"></i> <small>{{ lesson.activity_count }} {% trans "activities" %}</small></p>
+                                {% endif %}
+                            </div>
+                            <!-- END COL-LG-9 -->
+                        </div>
+                        <!-- END LESSON -->
+                    {% endfor %}
+                    <!-- END FOR LESSON IN COURSE.PUBLIC_LESSONS -->
+                </section>
+                <!-- END COURSE-LESSONS -->
+
+                <!-- COURSE-INSTRUCTORS -->
+                {% if course.courseprofessor_set.all %}
+                    <section class="instructors row">
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="page-header-double">
+                                <h3><i class="fa fa-angle-double-right"></i> {% trans "Instructors" %}</h3>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-sm-12">
+                            {% for course_professor in course.courseprofessor_set.all %}
+                                <div id="{{ course_professor.user.username }}" class="instructor row">
+                                    <div class="col-lg-3 col-sm-3">
+                                        <img src="{{ course_professor.user.get_picture_url }}" class="img-thumbnail">
+                                    </div>
+                                    <div class="col-lg-9 col-sm-9">
+                                        <h1 class="fullname bottom top">{{ course_professor.user.first_name }} {{ course_professor.user.last_name }}</h1>
+                                        <h2 class="job-title top">{{ course_professor.get_job_display }}</h2>
+                                        <p>{{ course_professor.biography|timtec_markdown }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </section>
+                {% endif %}
+                <!-- END COURSE-INSTRUCTORS -->
+            </div>
+            <!-- END COL-LG-9 -->
+
+            <!-- COL-LG-3 -->
+            <div class="col-lg-3 col-md-3 col-sm-4 hidden-xs">
+                <!-- ROW -->
+                <div class="row">
+                    <!-- COURSE-SUMMARY -->
+                    <section class="summary col-lg-12 col-sm-12">
+                        <!-- ABSTRACT -->
+                        <div class="page-header-double top">
+                            <h3 class="top"><i class="fa fa-angle-double-right"></i> Resumo</h3>
+                        </div>
+                        {{course.abstract|timtec_markdown}}
+                        <hr/>
+                        <!-- END ABSTRACT -->
+
+                        <!-- STRUCTURE -->
+                        <div class="page-header-double top">
+                            <h3 class="top"><i class="fa fa-angle-double-right"></i> Estrutura do curso</h3>
+                        </div>
+                        {{course.structure|timtec_markdown}}
+                        <hr/>
+                        <!-- END STRUCTURE -->
+
+                        <!-- WORKLOAD -->
+                        <div class="page-header-double top">
+                            <h3 class="top"><i class="fa fa-angle-double-right"></i> Carga horária</h3>
+                        </div>
+                        {{course.workload|timtec_markdown}}
+                        <hr/>
+                        <!-- END WORKLOAD -->
+
+                        {{course.pronatec|timtec_markdown}}
+                    </section>
+                    <!-- END COURSE-SUMMARY -->
+                </div>
+                <!-- END ROW -->
+            </div>
+            <!-- END COL-LG-3 -->
+        </div>
+        <!-- END ROW -->
+    </section>
+    <!-- END COURSE CONTENT -->
+
 </div>
-<!-- END CONTAINER -->
+<!-- END COURSE -->
 
 {% endblock %}

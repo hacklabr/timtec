@@ -1,0 +1,33 @@
+<div class="question textleft">
+    <h1 class="top" ng-model="currentUnit.activity.data.question"
+        contenteditable placeholder="Título da atividade"></h1>
+</div>
+<div class="answers relationship-answers">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">Coluna 1</div>
+        <div class="col-lg-6 col-md-6 col-sm-6">Coluna 2</div>
+    </div>
+    <br/>
+    <div class="answer relationship-answers" ng-repeat="alt in currentUnit.activity.data.column1 track by $index">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <span ng-bind="($index+1)+'.'"></span>
+                <span ng-model="currentUnit.activity.data.column1[$index]" contenteditable></span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <input ng-model="currentUnit.activity.expected[$index]" type="number"
+                               name="unit-{{currentUnitId}}-alt-{{$index}}"
+                               class="form-control"
+                               id="numberbox-{{$index}}" />
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9">
+                        <label ng-model="currentUnit.activity.data.column2[$index]" 
+                               contenteditable placeholder="Texto para alternativa"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

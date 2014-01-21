@@ -2,27 +2,12 @@
 <html>
 <head>
     {% block head %}
-    {% load compressed %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>{% block title %}Timtec{% endblock %}</title>
 
-    <script src="//youtube.com/iframe_api"></script>
-
-    {% compressed_css 'common' %}
-    {% compressed_css 'public' %}
-    {% compressed_js 'all' %}
-
-    {% load staticfiles %}
-
-    <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Converter.js' %}" charset="utf-8"></script>
-    <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Editor.js' %}" charset="utf-8"></script>
-    <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Sanitizer.js' %}" charset="utf-8"></script>
-
-    <script type="text/javascript" src="{% static 'js/vendor/flatui-checkbox.js' %}" charset="utf-8"></script>
-    <script type="text/javascript" src="{% static 'js/vendor/flatui-radio.js' %}" charset="utf-8"></script>
-
+    {% include "_assets.html" %}
     {% load metron_tags %}
     {% analytics %}
     <script type="text/javascript" charset="utf-8">
