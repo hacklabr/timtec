@@ -49,9 +49,12 @@
             };
 
             $scope.saveLesson = function() {
+                var unitIndex = $scope.lesson.units.indexOf($scope.currentUnit);
+
                 $scope.lesson.saveOrUpdate()
                     .then(function(){
                         $scope.alert.success('Alterações salvas com sucesso.');
+                        $scope.selectUnit($scope.lesson.units[unitIndex]);
                     })
                     .catch(function(resp){
                         $scope.alert.error(httpErrors[resp.status.toString()]);
