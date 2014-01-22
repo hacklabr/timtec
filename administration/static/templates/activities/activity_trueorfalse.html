@@ -4,8 +4,9 @@
 </div>
 <div class="answers trueorfalse-answers">
     <div class="row">
-        <div class="col-lg-2 col-lg-offset-8 col-md-2 col-md-offset-8 col-sm-2 col-sm-offset-8 textcenter">Verdadeiro</div>
-        <div class="col-lg-2 col-md-2 col-sm-2 textcenter">Falso</div>
+        <div class="col-lg-8 col-md-8 col-sm-8">&nbsp;</div>
+        <div class="col-lg-2 col-md-2 col-sm-2 textcenter">Verdadeiro</div>
+        <div class="col-lg-1 col-md-1 col-sm-1 textcenter">Falso</div>
     </div>
     <div class="answer" ng-repeat="alt in currentUnit.activity.data.alternatives track by $index">
         <div class="row">
@@ -16,8 +17,14 @@
             <div class="col-lg-2 col-md-2 col-sm-2 textcenter">
                 <input type="radio" ng-model="currentUnit.activity.expected[$index]" ng-value="true" />
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-2 textcenter">
+            <div class="col-lg-1 col-md-1 col-sm-1 textcenter">
                 <input type="radio" ng-model="currentUnit.activity.expected[$index]" ng-value="false" />
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1">
+                <button class="btn btn-danger"
+                        title="Apagar alternativa"
+                        ng-click="currentUnit.activity.data.alternatives.splice($index,1);
+                                  currentUnit.activity.expected.splice($index,1)"><i class="fa fa-trash-o"></i></button>
             </div>
         </div>
     </div>

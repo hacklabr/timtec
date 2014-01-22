@@ -49,9 +49,12 @@
             };
 
             $scope.saveLesson = function() {
+                var unitIndex = $scope.lesson.units.indexOf($scope.currentUnit);
+
                 $scope.lesson.saveOrUpdate()
                     .then(function(){
                         $scope.alert.success('Alterações salvas com sucesso.');
+                        $scope.selectUnit($scope.lesson.units[unitIndex]);
                     })
                     .catch(function(resp){
                         $scope.alert.error(httpErrors[resp.status.toString()]);
@@ -69,6 +72,18 @@
                 }
                 $scope.currentUnit = {};
                 $scope.lesson.units.push($scope.currentUnit);
+            };
+
+            $scope.removeCurrentUnit = function() {
+                if(!$scope.lesson.units) return;
+                if(!confirm('Apagar unidade?')) return;
+                var index = $scope.lesson.units.indexOf($scope.currentUnit);
+                $scope.lesson.units.splice(index,1);
+
+                index = index > 0 ? index - 1 : 0;
+                if(index < $scope.lesson.units.length) {
+                    $scope.selectUnit($scope.lesson.units[index]);
+                }
             };
 
             $scope.setCurrentUnitVideo = function(youtube_id) {
@@ -101,6 +116,11 @@
                     },
                     'expected': (type==='simplechoice' || type==='html5') ? '' : []
                 };
+            };
+
+            $scope.removeCurrentActivity = function() {
+                if(!$scope.currentUnit) return;
+                $scope.currentUnit.activity = null;
             };
             /*  End Methods */
 
