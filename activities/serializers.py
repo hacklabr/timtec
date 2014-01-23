@@ -8,7 +8,7 @@ class JSONSerializerField(serializers.WritableField):
 
 class ActivitySerializer(serializers.ModelSerializer):
     data = JSONSerializerField('data')
-    expected = JSONSerializerField('expected')
+    expected = JSONSerializerField('expected', required=False)
 
     class Meta:
         model = Activity

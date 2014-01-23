@@ -1,28 +1,28 @@
 <div class="question textleft">
-    <h1 class="top" ng-model="currentUnit.activity.data.question"
+    <h1 class="top" ng-model="currentActivity.data.question"
         contenteditable placeholder="Título da atividade"></h1>
 </div>
 <div class="answers multiplechoice-answers">
-    <div ng-repeat="alt in currentUnit.activity.data.alternatives track by $index" class="answer">
+    <div ng-repeat="alt in currentActivity.data.alternatives track by $index" class="answer">
         <div class="row">
             <div class="col-lg-11 col-md-11 col-sm-11">
-                <input type="checkbox" ng-model="currentUnit.activity.expected[$index]"/>
-                <label ng-model="currentUnit.activity.data.alternatives[$index]"
+                <input type="checkbox" ng-model="currentActivity.expected[$index]"/>
+                <label ng-model="currentActivity.data.alternatives[$index]"
                        contenteditable placeholder="Texto para alternativa"></label>
             </div>
 
             <div class="col-lg-1 col-md-1 col-sm-1">
                 <button class="btn btn-danger"
                         title="Apagar alternativa"
-                        ng-click="currentUnit.activity.data.alternatives.splice($index,1);
-                                  currentUnit.activity.expected.splice($index,1)"><i class="fa fa-trash-o"></i></button>
+                        ng-click="currentActivity.data.alternatives.splice($index,1);
+                                  currentActivity.expected.splice($index,1)"><i class="fa fa-trash-o"></i></button>
             </div>
         </div>
         <br/>
     </div>
     <div>
         <button class="btn btn-success"
-                ng-click="currentUnit.activity.data.alternatives.push('');
-                          currentUnit.activity.expected.push(false)">Adicionar alternativa</button>
+                ng-click="currentActivity.data.alternatives.push('');
+                          currentActivity.expected.push(false)">Adicionar alternativa</button>
     </div>
 </div>

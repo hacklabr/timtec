@@ -64,6 +64,9 @@
             $scope.selectUnit = function(u) {
                 $scope.currentUnit = u;
                 $scope.play(u.video.youtube_id);
+                if($scope.currentUnit.activities) {
+                    $scope.currentActivity = $scope.currentUnit.activities[0];
+                }
             };
 
             $scope.addUnit = function() {
@@ -98,15 +101,17 @@
             };
 
             $scope.loadActivityTemplateUrl = function() {
-                if(!$scope.currentUnit.activity) return;
+                if(!$scope.currentActivity) return;
                 return '/static/templates/activities/activity_{0}.html'
-                       .format($scope.currentUnit.activity.type);
+                       .format($scope.currentActivity.type);
             };
 
             $scope.addNewActivity = function() {
                 if(!$scope.currentUnit) return;
+                if(!$scope.currentUnit.activities) $scope.currentUnit.activities = [];
+
                 var type = $scope.newActivityType;
-                $scope.currentUnit.activity = {
+                $scope.currentActivity = {
                     'type': type,
                     'data': {
                         'question': '',
@@ -116,6 +121,7 @@
                     },
                     'expected': (type==='simplechoice' || type==='html5') ? '' : []
                 };
+                $scope.currentUnit.activities.push($scope.currentActivity);
             };
 
             $scope.removeCurrentActivity = function() {

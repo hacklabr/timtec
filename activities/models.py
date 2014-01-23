@@ -23,14 +23,14 @@ class Activity(models.Model):
     """
     type = models.CharField(_('Type'), max_length=255)
     data = JSONField(_('Data'))
-    expected = JSONField(_('Expected answer'))
+    expected = JSONField(_('Expected answer'), blank=True)
     unit = models.ForeignKey(Unit, verbose_name=_('Unit'), null=True, blank=True, related_name='activities')
 
 
     class Meta:
         verbose_name = _('Activity')
         verbose_name_plural = _('Activities')
-        ordering = [('-id')]
+        ordering = [('id')]
 
     def question(self):
         try:

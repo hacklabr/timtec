@@ -56,7 +56,7 @@ class StudentProgressSerializer(serializers.ModelSerializer):
 
 class UnitSerializer(serializers.ModelSerializer):
     video = VideoSerializer(required=False)
-    activities = ActivitySerializer(required=False)
+    activities = ActivitySerializer(many=True, allow_add_remove=True)
 
     class Meta:
         model = Unit
