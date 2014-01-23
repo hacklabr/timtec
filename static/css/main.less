@@ -402,7 +402,6 @@ a:active {
         }
     }
     #testimonials {
-        background-color: @gray-lighter;
         color: @gray;
         padding-bottom: 72px;
         padding-top: 36px;
@@ -448,7 +447,53 @@ a:active {
             }
         }
     }
-    
+    #news {
+        background-color: @gray-lighter;
+        color: @gray;
+        padding-bottom: 72px;
+        padding-top: 72px;
+        header {
+            border-bottom: 1px solid @gray-light;
+            margin-bottom: 27px;
+            padding-bottom: 27px;
+            h1 {
+                font-family: "Questrial";
+                font-size: 45px;
+                font-weight: normal; 
+                text-transform: uppercase;
+            }
+            p {
+                color: @gray-light;
+            }
+        }
+        a {
+            color: @gray;
+            display: block;
+            margin-bottom: 20px;
+            article {
+                background-color: lighten(@gray-light, 25%);
+                padding: 10px 20px;
+                &:hover {
+                    background-color: @brand-warning;
+                    cursor: pointer;
+                    .transition(all ease-in-out 0.3s);
+                }
+                h1 {
+                    font-size: 27px;
+                    height: 90px;
+                    overflow: hidden;
+                    position: relative;
+                }
+            }
+        }
+        a.btn {
+            color: white;
+            display: inline-block;
+            font-family: "Questrial";
+            font-size: 16px;
+            text-transform: uppercase;
+        }
+    }    
 }
 
 
