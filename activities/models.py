@@ -5,7 +5,8 @@ from django.db import models
 from jsonfield import JSONField
 from django.utils.translation import ugettext_lazy as _
 from accounts.models import TimtecUser
-from core.models import Unit
+from core.models import Unit, StudentProgress
+from django.utils import timezone
 
 
 class Activity(models.Model):
@@ -48,6 +49,12 @@ class Answer(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True, editable=False)
     given = JSONField(_('Given answer'))
 
+    class Meta:
+        verbose_name = _('Answer')
+        verbose_name_plural = _('Answers')
+        ordering = ['timestamp']
+
+
     @property
     def expected(self):
         if type(self.activity.expected) in [unicode, str]:
@@ -66,7 +73,13 @@ class Answer(models.Model):
         result = unicode(given) == unicode(expected)
         return result
 
-    class Meta:
-        verbose_name = _('Answer')
-        verbose_name_plural = _('Answers')
-        ordering = ['timestamp']
+    @staticmethod
+    def update_student_progress(sender, instance, **kwargs):
+        answer = instance
+        progress, created = StudentProgress.objects.get_or_create(user=answer.user,
+                                                                  unit=answer.activity.unit)
+        progress.complete = timezone.now()
+        progress.save()
+
+models.signals.post_save.connect(Answer.update_student_progress, sender=Answer,
+                                dispatch_uid="Answer.update_student_progress")

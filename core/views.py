@@ -186,6 +186,7 @@ class StudentProgressViewSet(viewsets.ModelViewSet):
 
 
 class UpdateStudentProgressView(APIView):
+    # fabio: estou desativando esta view
     model = StudentProgress
 
     def post(self, request, unitId=None):

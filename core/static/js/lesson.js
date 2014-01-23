@@ -1,268 +1,157 @@
 (function (angular) {
     "use strict";
 
-    var ga = window.ga || function(){ };
-    var app = angular.module('lesson', ['ngRoute', 'ngResource', 'youtube', 'django', 'forum', 'notes']);
+    var app = angular.module('lesson', [
+        'ngRoute',
+        'ngResource',
+        'youtube',
+        'django',
+        'forum',
+        'notes'
+    ]);
+
+    window.ga = window.ga || function(){ console.log(arguments); };
 
     var ACTIVITY_TEMPLATE_PATH = function(the_type){
         return STATIC_URL + '/templates/activity_'+ the_type + '.html';
     };
 
-    app.config(['$routeProvider', '$httpProvider', '$sceDelegateProvider',
-        function ($routeProvider, $httpProvider, $sceDelegateProvider) {
-            $routeProvider
-                .when('/:unitPos', {
-                    templateUrl: STATIC_URL + '/templates/lesson_video.html',
-                    controller: 'LessonVideoCtrl'})
-                .when('/:unitPos/activity', {
-                    templateUrl: STATIC_URL + '/templates/lesson_activity.html',
-                    controller: 'LessonActivityCtrl'})
-                .otherwise({redirectTo: '/1'});
-        }
-    ]);
+    app.controller('MainCtrl', ['$scope', 'LessonData', 'Answer', '$location', 'youtubePlayerApi',
+        function ($scope, LessonData, Answer, $location, youtubePlayerApi) {
 
-    app.controller('LessonMainCtrl', ['$scope', 'LessonData', '$location',
-        function ($scope, LessonData, $location) {
-            window.l = $location;
-            var match = location.hash.match(/^#\/(\d+)/);
-            if(match) {
-                $scope.currentUnitPos = parseInt(match[1], 10);
-            } else {
-                $scope.currentUnitPos = 1;
-            }
-            var start;
-
-            $scope.$watch('currentUnitPos', function() {
-                // Changing Unit means unit starting
-                if (start) {
-                    var end = new Date().getTime();
-                    ga('send', 'event', 'unit', 'time in unit',
-                       LessonData.course + ' - ' + LessonData.name + ' - ' + $scope.currentUnitPos,
-                       end - start);
-                }
-                ga('send', 'event', 'unit', 'start', LessonData.course + ' - ' + LessonData.name, $scope.currentUnitPos);
-                start = new Date().getTime();
-            });
-
-            $scope.isSelected = function(i){
-                return $scope.currentUnitPos === i;
-            };
-            $scope.isDone = function(unit){
-                return (unit.progress || {}).complete;
-            };
-            $scope.select = function(i) {
-                $scope.currentUnitPos = parseInt(i,10);
-                $location.path('/' + $scope.currentUnitPos);
-            };
-
-        }
-    ]);
-
-    app.controller('LessonActivityCtrl', ['$scope', '$location', '$routeParams', '$http', 'LessonData', 'Answer', '$q',
-        function ($scope, $location, $routeParams, $http, LessonData, Answer, $q) {
-            var $main = $scope.$parent;
-
-            $main.currentUnitPos = parseInt($routeParams.unitPos, 10);
-
-            $scope.alternatives = [];
-            $scope.answer = {given: null, correct: null};
-
-            $scope.nextVideo = function() {
-                if ($main.currentUnitPos + 1 <= $scope.lesson.units.length) {
-                    $main.currentUnitPos++;
-                    $location.path('/' + $main.currentUnitPos).search('autoplay', null);
+            youtubePlayerApi.events.onStateChange = function(event){
+                window.onPlayerStateChange.call($scope.currentUnit, event);
+                if (event.data === YT.PlayerState.ENDED) {
+                    $scope.nextUnit();
                 }
             };
-            $scope.replayVideo = function() {
-                $location.path('/' + $main.currentUnitPos).search('autoplay', 1);
+
+            $scope.section = 'video';
+
+            $scope.selectUnit = function(unit) {
+                $scope.currentUnit = unit;
+                $scope.section = 'video';
+                $scope.play(unit.video.youtube_id);
+                $scope.selectActivity(0);
+            };
+
+            $scope.nextUnit = function() {
+                var index = $scope.lesson.units.indexOf($scope.currentUnit);
+                index++;
+
+                if(index < $scope.lesson.units.length) {
+                    $scope.selectUnit($scope.lesson.units[index]);
+                }
+                // e se não tiver nextUnit, faz o que?
+            };
+
+            $scope.play = function() {
+                var youtube_id = $scope.currentUnit.video.youtube_id;
+                $scope.section = 'video';
+
+                youtubePlayerApi.loadPlayer().then(function(player){
+                    if(player.getVideoData() &&
+                        player.getVideoData().video_id === youtube_id) return;
+                    player.cueVideoById(youtube_id);
+                });
+            };
+
+            $scope.selectActivity = function(index) {
+                if($scope.currentUnit.activities && $scope.currentUnit.activities.length) {
+                    $scope.currentActivity = $scope.currentUnit.activities[index];
+                    $scope.activityTemplateUrl = ACTIVITY_TEMPLATE_PATH($scope.currentActivity.type);
+
+                    Answer.getLastGivenAnswer($scope.currentActivity.id)
+                        .then(function(answer){
+                            $scope.answer = answer;
+                        })
+                        .catch(function(){
+                            $scope.answer = new Answer();
+                            if($scope.currentActivity.expected &&
+                                $scope.currentActivity.expected.length) {
+                                $scope.answer.given = $scope.currentActivity
+                                                       .expected.map(function(){});
+                            }
+                        });
+                } else {
+                    $scope.currentActivity = null;
+                    $scope.activityTemplateUrl = null;
+                }
             };
 
             $scope.sendAnswer = function() {
-                var answer = new Answer({'given': $scope.answer.given});
-                answer.unit = $scope.currentUnit.id;
-                answer.activity = $scope.currentUnit.activity.id;
-                delete answer.id;
-                answer.$save().then(function(d){
+                $scope.answer.activity = $scope.currentActivity.id;
+                $scope.answer.saveOrUpdate().then(function(d){
                     ga('send', 'event', 'activity', 'result', '', d.correct);
-                    $scope.answer.correct = d.correct;
-                    if (d.correct) {
-                        $http({
-                            'method': 'POST',
-                            'url': '/api/updatestudentprogress/' + $scope.currentUnitId + '/',
-                            'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
-                        }).success(function(data){
-                            $scope.currentUnit.progress = {complete: data.complete};
-                            if (data.complete) {
-                                ga("send", "event", "unit", "unit completed");
-                            }
-                        });
-                    }
                 });
                 ga('send', 'event', 'activity', 'submit');
             };
 
-            $scope.emptyLoaded = $q.defer();
-            window.onLoadEmpty = function () {
-                $scope.$apply(function () {
-                    $scope.emptyLoaded.resolve();
-                });
-            };
-            window.onLoadExpected = function () {
-                $('#expected_iframe').contents().find('body').html('' + $scope.currentUnit.activity.expected.expected_answer);
-            };
-
-            $scope.codeMirrorChange = function(text) {
-                $('#empty').contents().find('body').html($scope.answer.given[0]);
-                $scope.answer.given[0] = text;
-            };
-
-            $scope.$watchCollection('answer.given', function () {
-                $scope.emptyLoaded.promise.then(function () {
-                    $('#empty').contents().find('body').html($scope.answer.given[0]);
-                });
-            });
-
-            LessonData.then(function (lesson) {
-                var unit = $scope.currentUnit = lesson.units[$main.currentUnitPos - 1];
-                $scope.currentUnitId = unit.id;
-                $scope.activity_template = unit.activity.template;
-
-                if (unit.activity.data.alternatives) {
-                    $scope.alternatives = unit.activity.data.alternatives.map(
-                        function(a,i) { return {'title': a }; }
-                    );
-                }
-
-                if(unit.activity.id) {
-                    var extractLatest = function (list) {
-                        if(list.length > 0) {
-                            $scope.answer = list.pop();
-                            if(unit.activity.type === "html5")
-                                $scope.loadedAnswer = $scope.answer;
-                        }
-                    };
-                    Answer.query({'activity': unit.activity.id}, extractLatest);
-                }
-
-                if( !$scope.answer.given ) {
-                    if (unit.activity.type === 'multiplechoice') {
-                        $scope.answer.given = $scope.alternatives.map(
-                            function(a,i){ return false; }
-                        );
-                    } else if (unit.activity.type === 'trueorfalse') {
-                        $scope.answer.given = $scope.alternatives.map(
-                            function(a,i){ return null; }
-                        );
-                    } else if(unit.activity.type === 'relationship') {
-                        $scope.answer.given = unit.activity.data.column1.map(
-                            function(a,i){ return null; }
-                        );
-                    } else if(unit.activity.type === 'html5') {
-                        var btemplate = "<!DOCTYPE html>\n<html>\n  <head></head>\n  <body>\n";
-                        var atemplate = "\n  </body>\n</html>";
-                        $scope.answer.given = [btemplate + unit.activity.data.data + atemplate];
+            $scope.nextStep = function() {
+                if($scope.section === 'video') {
+                    if($scope.currentUnit.activities) {
+                        $scope.section = 'activity';
+                    } else {
+                        $scope.nextUnit();
+                    }
+                } else {
+                    var index = $scope.currentUnit.activities.indexOf($scope.currentActivity);
+                    if(index+1 === $scope.currentUnit.activities.length) {
+                        $scope.nextUnit();
+                    } else {
+                        $scope.selectActivity(index + 1);
                     }
                 }
+            };
+
+            var start;
+            $scope.$watch('currentUnit', function() {
+                if(!$scope.lesson) return;
+                // Changing Unit means unit starting
+                if (start) {
+                    var end = new Date().getTime();
+                    ga('send', 'event', 'unit', 'time in unit',
+                       $scope.lesson.course + ' - ' + $scope.lesson.name + ' - ' + $scope.currentUnit,
+                       end - start);
+                }
+                ga('send', 'event', 'unit', 'start', $scope.lesson.course + ' - ' + $scope.lesson.name, $scope.currentUnit);
+                start = new Date().getTime();
+            });
+
+            LessonData.then(function(lesson){
+                $scope.lesson = lesson;
+                $scope.selectUnit(lesson.units[0]);
+                $scope.play();
             });
         }
     ]);
 
 
-    app.controller('LessonVideoCtrl', ['$scope', '$http', '$location', 'LessonData', 'youtubePlayerApi',
-        function ($scope, $http, $location, LessonData, youtubePlayerApi) {
-            var $main = $scope.$parent;
-            var currentUnitIndex = $main.currentUnitPos - 1;
-            var _pauseFlag = false;
-            var start, whole;
+    app.factory('Answer',['$resource', '$q',
+        function($resource, $q){
+            var resourceConfig = {
+                'update': {'method': 'PUT'}
+            };
+            var Answer = $resource('/api/answer/:id', {'id':'@id'}, resourceConfig);
 
-            var onPlayerStateChange = function (event) {
-                if (event.data == YT.PlayerState.PLAYING){
-                        ga('send', 'event', 'videos', 'play', $scope.currentUnit.video.youtube_id);
-                        //thy video plays
-                        //reaffirm the pausal beast is not with us
-                        _pauseFlag = false;
-                        if (whole !== 'ended' && whole !== 'started') {
-                            start = new Date().getTime();
-                            whole = 'started';
-                        }
-                }
-                //should the video tire out and cease
-                if (event.data == YT.PlayerState.ENDED){
-                    ga('send', 'event', 'videos', 'watch To end', $scope.currentUnit.video.youtube_id);
-                    if (whole === 'started') {
-                        var stop = new Date().getTime();
-                        var delta_s = (stop - start) / 1000;
-                        ga('send', 'event', 'videos', 'time tO end', $scope.currentUnit.video.youtube_id, Math.round(delta_s));
-                        whole = 'ended';
-                    }
-                }
-                //and should we tell it to halt, cease, heal.
-                //confirm the pause has but one head and it flies not its flag
-                //lo the pause event will spawn a many headed monster
-                //with events overflowing
-                if (event.data == YT.PlayerState.PAUSED && _pauseFlag === false){
-                    ga('send', 'event', 'videos', 'pause', $scope.currentUnit.video.youtube_id);
-                    //tell the monster it may have
-                    //but one head
-                    _pauseFlag = true;
-                }
-                //and should the monster think, before it doth play
-                //after we command it to move
-                if (event.data == YT.PlayerState.BUFFERING){
-                    ga('send', 'event', 'videos', 'bufferIng', $scope.currentUnit.video.youtube_id);
-                }
-                //and should it cue
-                //for why not track this as well.
-                if (event.data == YT.PlayerState.CUED){
-                    ga('send', 'event', 'videos', 'cueing', $scope.currentUnit.video.youtube_id);
-                }
-
-                if (event.data === YT.PlayerState.ENDED) {
-                    if( $scope.currentUnit.activity ) {
-                        $location.path('/' + $main.currentUnitPos + '/activity').search('autoplay', null);
-                    } else {
-                        if ($main.currentUnitPos + 1 <= $scope.lesson.units.length) {
-                            $main.currentUnitPos++;
-                            $location.path('/' + $main.currentUnitPos).search('autoplay', null);
-                        }
-                        $http({
-                            'method': 'POST',
-                            'url': '/api/updatestudentprogress/' + $scope.currentUnitId + '/',
-                            'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
-                        }).success(function(data){
-                            $scope.currentUnit.progress = {complete: data.complete};
-                            if (data.complete) {
-                                ga("send", "event", "unit", "unit completed");
-                            }
-                        });
-                    }
-                    $scope.$apply();
-                }
+            Answer.prototype.saveOrUpdate = function() {
+                return this.id > 0 ? this.$update() : this.$save();
             };
 
-            LessonData.then(function (lesson) {
-                $scope.currentUnit = lesson.units[(currentUnitIndex || 0)];
-                $scope.currentUnitId = $scope.currentUnit.id;
-
-                if ($scope.currentUnit.video) {
-                    if ($location.search().autoplay) {
-                        youtubePlayerApi.autoplay = 1;
+            Answer.getLastGivenAnswer = function(activity_id) {
+                var deferred = $q.defer();
+                var extractLatest = function (list) {
+                    if(list.length > 0) {
+                        deferred.resolve(list.pop());
                     } else {
-                        youtubePlayerApi.autoplay = 0;
+                        deferred.reject();
                     }
-                    youtubePlayerApi.videoId = $scope.currentUnit.video.youtube_id;
-                    youtubePlayerApi.events = {
-                        onStateChange: onPlayerStateChange
-                    };
-                    youtubePlayerApi.loadPlayer();
-                }
-            });
-        }
-    ]);
+                };
+                Answer.query({'activity': activity_id}, extractLatest);
+                return deferred.promise;
+            };
 
-    app.factory('Answer',['$resource',
-        function($resource){
-            return $resource('/api/answer/:id', {'id':'@id'});
+            return Answer;
         }
     ]);
 
@@ -371,3 +260,59 @@
     });
 
 })(angular);
+
+
+(function() {
+    var _pauseFlag = false;
+    var start, whole;
+
+    function  onPlayerStateChange (event) {
+        var video_id = event.target.getVideoData().video_id;
+
+        if (event.data == YT.PlayerState.PLAYING){
+                ga('send', 'event', 'videos', 'play', video_id);
+                //thy video plays
+                //reaffirm the pausal beast is not with us
+                _pauseFlag = false;
+                if (whole !== 'ended' && whole !== 'started') {
+                    start = new Date().getTime();
+                    whole = 'started';
+                }
+        }
+        //should the video tire out and cease
+        if (event.data == YT.PlayerState.ENDED){
+            ga('send', 'event', 'videos', 'watch To end', video_id);
+            if (whole === 'started') {
+                var stop = new Date().getTime();
+                var delta_s = (stop - start) / 1000;
+                ga('send', 'event', 'videos', 'time tO end', video_id, Math.round(delta_s));
+                whole = 'ended';
+            }
+        }
+        //and should we tell it to halt, cease, heal.
+        //confirm the pause has but one head and it flies not its flag
+        //lo the pause event will spawn a many headed monster
+        //with events overflowing
+        if (event.data == YT.PlayerState.PAUSED && _pauseFlag === false){
+            ga('send', 'event', 'videos', 'pause', video_id);
+            //tell the monster it may have
+            //but one head
+            _pauseFlag = true;
+        }
+        //and should the monster think, before it doth play
+        //after we command it to move
+        if (event.data == YT.PlayerState.BUFFERING){
+            ga('send', 'event', 'videos', 'bufferIng', video_id);
+        }
+        //and should it cue
+        //for why not track this as well.
+        if (event.data == YT.PlayerState.CUED){
+            ga('send', 'event', 'videos', 'cueing', video_id);
+        }
+
+        if (event.data === YT.PlayerState.ENDED) {
+            ga("send", "event", "unit", "watched video");
+        }
+    }
+    window.onPlayerStateChange = onPlayerStateChange;
+})();
