@@ -162,11 +162,6 @@
             var deferred = $q.defer();
 
             Lesson.get({'lessonId': $window.lessonId}, function (lesson) {
-                lesson.units.forEach(function(unit, index){
-                    if(unit.activity) {
-                        unit.activity.template = ACTIVITY_TEMPLATE_PATH(unit.activity.type);
-                    }
-                });
                 $rootScope.lesson = lesson;
                 deferred.resolve(lesson);
             });
