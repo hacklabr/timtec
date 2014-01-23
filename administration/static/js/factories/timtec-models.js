@@ -185,7 +185,7 @@
         };
         Lesson.prototype.countActivities = function() {
             return (this.units || []).reduce(function(c, u){
-                return u.activity ? c + 1 : c;
+                return u.activities ? c + u.activities.length : c;
             }, 0);
         };
         Lesson.prototype.saveOrUpdate = function() {
