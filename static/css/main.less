@@ -320,168 +320,85 @@ a:active {
         }
     }
     #courses {
-        margin-bottom: 40px;
-        margin-top: 40px;
-        header {
-            border-bottom: 1px solid @gray-lighter;
-            margin-bottom: 36px;
-            padding-bottom: 18px;
-            h1 {
-                font-family: "Questrial";
-                font-size: 45px;
-                font-weight: normal; 
-                margin-bottom: 0;
-                text-transform: uppercase;
+        background-color: @gray-darker;
+        border-top: 10px solid @brand-warning;
+        color: #fff;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+        h1 {
+            font-family: "Questrial";
+            line-height: 1;
+            margin: 0;
+            padding: 20px 0;
+            text-transform: uppercase;
+        }
+        nav {
+            position: absolute;
+            top: 180px;
+            z-index: 20;
+            &:hover {
+                cursor: pointer;
             }
-            p {
-                color: @gray-light;
+            &.nav-left {
+                left: 18%;
+            }
+            &.nav-right {
+                right: 18%;
             }
         }
-        .course {
-            margin-bottom: 40px;
-            .img {
-                height: 145px;
-                position: relative;
-                overflow: hidden;
+        article {
+            background-color: #000;
+            float: left;
+            position: relative;
+            width: 50%;
+            &.prev, &.next {
+                opacity: 0.2;
             }
-            .info {
-                background-color: @gray-lighter;
-                height: 160px;
-                max-height: 160px;
-                padding: 10px;
+            &.prev {
+                margin-left: -25%;
+            }
+            &.next {
+                margin-right: -25%;
+            }
+            img {
+                height: 350px;
+                width: auto;
+            }
+            .content {
+                background-color: rgba(255,255,255,0.9);
+                border-top: 8px solid @brand-info;
+                color: @gray-dark;
+                margin-top: -8px;
+                padding: 20px;
                 position: relative;
-                overflow: hidden;
+                z-index: 30;
                 h1 {
-                    color: @gray;
-                    font-size: 20px;
-                    max-height: 50px;
-                    overflow: hidden;
-                    position:relative;
+                    line-height: 2;
+                    margin: 0;
+                    padding: 0;
                 }
-                .instructors {
-                    color: @gray-light;
-                    font-style: italic;
-                    max-height: 18px;
-                    overflow: hidden;
-                    position:relative;
-                }
-                .abstract {
-                    font-size: 12px;
-                    height: 51px;
-                    position: relative;
-                    overflow: hidden;
-                }
-            }
-            .enroll {
-                background-color: @brand-success;
-                color: #fff;
-                font-family: 'Questrial';
-                line-height: 3;
-                &:hover {
-                    background-color: darken(@brand-success, 5%);
-                    .transition(all .25s ease-out);
-                }
-                i {
-                    margin-left: 10px;
-                    margin-right: 10px;
-                }
-                .enroll-link {
-                    a {
-                        color: #fff;
+                .more {
+                    background-color: @brand-success;
+                    color: #fff;
+                    font-family: "Questrial";
+                    font-size:20px;
+                    margin: 30px -20px -20px;
+                    padding: 10px 20px 8px 20px;
+                    text-transform: uppercase;
+                    img {
+                        height: auto;
+                        vertical-align: top;
+                        width: auto;
+                    }
+                    .date {
+                        background-color: darken(@brand-success, 10%);
+                        display: inline-block;
+                        margin: -20px -20px -10px;
+                        padding: 10px 20px;
                     }
                 }
             }
-        }
-    }
-    #testimonials {
-        background-color: @gray-lighter;
-        color: @gray;
-        padding-bottom: 72px;
-        padding-top: 72px;
-        header {
-            h1 {
-                border-bottom: 1px solid lighten(@gray-light,20%);
-                font-family: "Questrial";
-                font-size: 45px;
-                font-weight: normal; 
-                margin-bottom: 45px;
-                padding-bottom: 45px;
-                text-transform: uppercase;
-            }
-        }
-        blockquote {
-            border: none;
-            font-family: "Questrial";
-            font-size: 18px;
-            font-weight: normal;
-            letter-spacing: 1px;
-            margin-bottom: 0;
-            // text-shadow: 1px 1px 0 @gray-darker;
-        }
-        .author {
-            font-family: "Questrial";
-            font-size: 16px;
-            font-weight: normal;
-            // text-shadow: 1px 1px 0 @gray-darker;
-        }
-        .highlight {
-            border-bottom: 1px solid lighten(@gray-light,20%);
-            margin-bottom: 54px;
-            padding-bottom: 45px;
-            blockquote {
-                font-size: 27px;
-                font-weight: normal;
-            }
-            .author {
-                font-size: 18px;
-                font-weight: normal;
-            }
-        }
-    }
-    #news {
-        color: @gray;
-        padding-bottom: 72px;
-        padding-top: 72px;
-        header {
-            border-bottom: 1px solid @gray-lighter;
-            margin-bottom: 27px;
-            padding-bottom: 27px;
-            h1 {
-                font-family: "Questrial";
-                font-size: 45px;
-                font-weight: normal; 
-                text-transform: uppercase;
-            }
-            p {
-                color: @gray-light;
-            }
-        }
-        a {
-            color: @gray;
-            display: block;
-            margin-bottom: 20px;
-            article {
-                background-color: @gray-lighter;
-                padding: 10px 20px;
-                &:hover {
-                    background-color: @brand-warning;
-                    cursor: pointer;
-                    .transition(all ease-in-out 0.3s);
-                }
-                h1 {
-                    font-size: 27px;
-                    height: 90px;
-                    overflow: hidden;
-                    position: relative;
-                }
-            }
-        }
-        a.btn {
-            color: white;
-            display: inline-block;
-            font-family: "Questrial";
-            font-size: 16px;
-            text-transform: uppercase;
         }
     }
 }
