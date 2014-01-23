@@ -12,7 +12,7 @@ class ActivitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Activity
-        fields = ('id', 'type', 'data', 'expected',)
+        fields = ('id', 'unit', 'type', 'data', 'expected',)
 
 
 class AnswerSerializer(serializers.ModelSerializer):
