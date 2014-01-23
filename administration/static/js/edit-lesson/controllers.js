@@ -130,7 +130,19 @@
 
             $scope.removeCurrentActivity = function() {
                 if(!$scope.currentUnit) return;
-                $scope.currentUnit.activity = null;
+                if(!$scope.currentUnit.activities) return;
+                var idx = $scope.currentUnit.activities.indexOf($scope.currentActivity);
+                if(idx >= 0) {
+                    $scope.currentUnit.activities.splice(idx, 1);
+                }
+                if(idx > 0) {
+                    idx--;
+                    $scope.currentActivity = $scope.currentUnit.activities[idx];
+                } else if($scope.currentUnit.activities.length > 0) {
+                    $scope.currentActivity = $scope.currentUnit.activities[idx];
+                } else {
+                    $scope.currentActivity = null;
+                }
             };
             /*  End Methods */
 
