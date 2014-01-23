@@ -401,6 +401,53 @@ a:active {
             }
         }
     }
+    #testimonials {
+        background-color: @gray-lighter;
+        color: @gray;
+        padding-bottom: 72px;
+        padding-top: 36px;
+        header {
+            h1 {
+                border-bottom: 1px solid lighten(@gray-light,20%);
+                font-family: "Questrial";
+                font-size: 45px;
+                font-weight: normal; 
+                margin-bottom: 45px;
+                padding-bottom: 45px;
+                text-transform: uppercase;
+            }
+        }
+        blockquote {
+            border: none;
+            font-family: "Questrial";
+            font-size: 18px;
+            font-weight: normal;
+            letter-spacing: 1px;
+            margin-bottom: 0;
+            .fa {
+                color: @brand-warning;
+            }
+        }
+        .author {
+            font-family: "Questrial";
+            font-size: 16px;
+            font-weight: normal;
+            // text-shadow: 1px 1px 0 @gray-darker;
+        }
+        .highlight {
+            border-bottom: 1px solid lighten(@gray-light,20%);
+            margin-bottom: 54px;
+            padding-bottom: 45px;
+            blockquote {
+                font-size: 27px;
+                font-weight: normal;
+            }
+            .author {
+                font-size: 18px;
+                font-weight: normal;
+            }
+        }
+    }
 }
 
 
