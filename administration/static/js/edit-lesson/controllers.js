@@ -50,11 +50,15 @@
 
             $scope.saveLesson = function() {
                 var unitIndex = $scope.lesson.units.indexOf($scope.currentUnit);
+                var activityIndex = $scope.currentUnit.activities.indexOf($scope.currentActivity);
 
                 $scope.lesson.saveOrUpdate()
                     .then(function(){
                         $scope.alert.success('Alterações salvas com sucesso.');
                         $scope.selectUnit($scope.lesson.units[unitIndex]);
+                        if(activityIndex >= 0) {
+                            $scope.currentActivity = $scope.currentUnit.activities[activityIndex];
+                        }
                     })
                     .catch(function(resp){
                         $scope.alert.error(httpErrors[resp.status.toString()]);
