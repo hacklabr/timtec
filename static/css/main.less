@@ -302,8 +302,22 @@ a:active {
     margin-top: -20px;
     margin-bottom: -60px;
     #highlight {
-        background-color: #15ba8d;
-        min-height: 600px;
+        height: 700px;
+        overflow: hidden;
+        position: relative;
+        .nav-left, .nav-right {
+            color: white;
+            font-size: 144px;
+            position: absolute;
+            top: 30%;
+            z-index: 10;
+        }
+        .nav-left {
+            left: 20px;
+        }
+        .nav-right {
+            right: 20px;
+        }
     }
     #courses {
         margin-bottom: 40px;
@@ -461,6 +475,13 @@ a:active {
                     position: relative;
                 }
             }
+        }
+        a.btn {
+            color: white;
+            display: inline-block;
+            font-family: "Questrial";
+            font-size: 16px;
+            text-transform: uppercase;
         }
     }
 }
