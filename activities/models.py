@@ -5,6 +5,7 @@ from django.db import models
 from jsonfield import JSONField
 from django.utils.translation import ugettext_lazy as _
 from accounts.models import TimtecUser
+from core.models import Unit
 
 
 class Activity(models.Model):
@@ -23,6 +24,8 @@ class Activity(models.Model):
     type = models.CharField(_('Type'), max_length=255)
     data = JSONField(_('Data'))
     expected = JSONField(_('Expected answer'))
+    unit = models.ForeignKey(Unit, verbose_name=_('Unit'), null=True, blank=True, related_name='activities')
+
 
     class Meta:
         verbose_name = _('Activity')
