@@ -16,6 +16,7 @@
             youtubePlayerApi.loadPlayer().then(function(p){
                 $scope.playerReady = true;
             });
+
             // end load youtube
 
             $scope.play = function(youtube_id) {
@@ -67,7 +68,9 @@
 
             $scope.selectUnit = function(u) {
                 $scope.currentUnit = u;
-                $scope.play(u.video.youtube_id);
+                if(u.video && u.video.youtube_id){
+                    $scope.play(u.video.youtube_id);
+                }
                 if($scope.currentUnit.activities) {
                     $scope.currentActivity = $scope.currentUnit.activities[0];
                 }
@@ -77,7 +80,7 @@
                 if(!$scope.lesson.units) {
                     $scope.lesson.units = [];
                 }
-                $scope.currentUnit = {};
+                $scope.currentUnit = {'activities': []};
                 $scope.lesson.units.push($scope.currentUnit);
             };
 
