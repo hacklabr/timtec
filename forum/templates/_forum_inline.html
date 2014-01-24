@@ -1,9 +1,12 @@
 {% include "_forum_angular.html" %}
+{% load timtec_markdown %}
 <script>
  window.course_id = {{ course.pk }};
  window.user_id = {{ user.pk }};
 </script>
-    
+<div class="row">
+    <div class="col-lg-8 col-sm-10 col-lg-offset-1 col-sm-offset-1">
+
       <section class="course-forum" ng-controller="InlineForumCtrl">
           {% if question_form %}
         <div class="page-header-double">
@@ -70,7 +73,7 @@
             </div>
           </div>
           <article ng-repeat="question in current_page_questions">
-            
+
             <div class="stats">
               <div class="arrow-right"></div>
               <p><span class="numbers-votes">{{question.votes}}</span>votos</p>
@@ -83,7 +86,7 @@
             <div class="author">
               Pergunta feita feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ question.username }}">{{ question.username }}</a>
             </div>
-            
+
           </article>
           <!-- <p class="textcenter"><a href="{% url 'forum' course.slug %}" class="all-questions btn btn-info">Ver todas as perguntas e respostas</a></p> -->
         </section>
@@ -91,3 +94,16 @@
         {% endverbatim angularjs %}
       </section>
 
+    </div>
+    <div class="col-lg-3 hidden-md hidden-sm hidden-xs">
+        <section class="course-instructions">
+            <div class="page-header-double">
+                <h3><i class="fa fa-angle-double-right"></i> Notas do professor</h3>
+            </div>
+            {{ lesson.notes|timtec_markdown }}
+        </section>
+
+        <section class="course-social" style="position:relative;overflow:hidden;">
+        </section>
+    </div>
+</div>

@@ -56,11 +56,11 @@ class StudentProgressSerializer(serializers.ModelSerializer):
 
 class UnitSerializer(serializers.ModelSerializer):
     video = VideoSerializer(required=False)
-    activity = ActivitySerializer(required=False)
+    activities = ActivitySerializer(many=True, allow_add_remove=True)
 
     class Meta:
         model = Unit
-        fields = ('id', 'title', 'video', 'activity', 'side_notes', 'position',)
+        fields = ('id', 'title', 'video', 'activities', 'side_notes', 'position',)
 
 
 class LessonHyperlinkedIdentityField(serializers.HyperlinkedIdentityField):
@@ -97,7 +97,7 @@ class SimplifiedUnitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Unit
-        fields = ('id', 'title', 'position',)
+        fields = ('id', 'title', 'video', 'position',)
 
 
 class NoteUnitSerializer(serializers.ModelSerializer):

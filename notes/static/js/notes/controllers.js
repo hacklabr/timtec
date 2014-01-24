@@ -15,8 +15,8 @@
                 };
                 function load_note() {
                     LessonData.then(function (lesson) {
-                        var currentUnit = lesson.units[$scope.currentUnitPos - 1];
-                        var currentUnitId = currentUnit.id;
+                        var currentUnitId = $scope.currentUnit.id;
+                        $scope.currentUnitPos = lesson.units.indexOf($scope.currentUnit);
                         Note.get({content_type: window.unit_content_type_id, object_id: currentUnitId}, function (notes) {
                             if (notes.length > 0){
                                 $scope.note = notes[0];

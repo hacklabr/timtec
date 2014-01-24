@@ -16,6 +16,7 @@
             youtubePlayerApi.loadPlayer().then(function(p){
                 $scope.playerReady = true;
             });
+
             // end load youtube
 
             $scope.play = function(youtube_id) {
@@ -50,11 +51,15 @@
 
             $scope.saveLesson = function() {
                 var unitIndex = $scope.lesson.units.indexOf($scope.currentUnit);
+                var activityIndex = $scope.currentUnit.activities.indexOf($scope.currentActivity);
 
                 $scope.lesson.saveOrUpdate()
                     .then(function(){
                         $scope.alert.success('Alterações salvas com sucesso.');
                         $scope.selectUnit($scope.lesson.units[unitIndex]);
+                        if(activityIndex >= 0) {
+                            $scope.currentActivity = $scope.currentUnit.activities[activityIndex];
+                        }
                     })
                     .catch(function(resp){
                         $scope.alert.error(httpErrors[resp.status.toString()]);
@@ -63,14 +68,19 @@
 
             $scope.selectUnit = function(u) {
                 $scope.currentUnit = u;
-                $scope.play(u.video.youtube_id);
+                if(u.video && u.video.youtube_id){
+                    $scope.play(u.video.youtube_id);
+                }
+                if($scope.currentUnit.activities) {
+                    $scope.currentActivity = $scope.currentUnit.activities[0];
+                }
             };
 
             $scope.addUnit = function() {
                 if(!$scope.lesson.units) {
                     $scope.lesson.units = [];
                 }
-                $scope.currentUnit = {};
+                $scope.currentUnit = {'activities': []};
                 $scope.lesson.units.push($scope.currentUnit);
             };
 
@@ -98,15 +108,17 @@
             };
 
             $scope.loadActivityTemplateUrl = function() {
-                if(!$scope.currentUnit.activity) return;
+                if(!$scope.currentActivity) return;
                 return '/static/templates/activities/activity_{0}.html'
-                       .format($scope.currentUnit.activity.type);
+                       .format($scope.currentActivity.type);
             };
 
             $scope.addNewActivity = function() {
                 if(!$scope.currentUnit) return;
+                if(!$scope.currentUnit.activities) $scope.currentUnit.activities = [];
+
                 var type = $scope.newActivityType;
-                $scope.currentUnit.activity = {
+                $scope.currentActivity = {
                     'type': type,
                     'data': {
                         'question': '',
@@ -116,11 +128,24 @@
                     },
                     'expected': (type==='simplechoice' || type==='html5') ? '' : []
                 };
+                $scope.currentUnit.activities.push($scope.currentActivity);
             };
 
             $scope.removeCurrentActivity = function() {
                 if(!$scope.currentUnit) return;
-                $scope.currentUnit.activity = null;
+                if(!$scope.currentUnit.activities) return;
+                var idx = $scope.currentUnit.activities.indexOf($scope.currentActivity);
+                if(idx >= 0) {
+                    $scope.currentUnit.activities.splice(idx, 1);
+                }
+                if(idx > 0) {
+                    idx--;
+                    $scope.currentActivity = $scope.currentUnit.activities[idx];
+                } else if($scope.currentUnit.activities.length > 0) {
+                    $scope.currentActivity = $scope.currentUnit.activities[idx];
+                } else {
+                    $scope.currentActivity = null;
+                }
             };
             /*  End Methods */
 

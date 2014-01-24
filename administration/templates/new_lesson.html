@@ -105,6 +105,7 @@
 
         <!-- ROW -->
         <div class="row">
+
             <div class="col-lg-1">
                 <div class="units admin-units">
                     {% verbatim %}
@@ -113,21 +114,22 @@
                        ng-click="$parent.selectUnit(u);"
                        ng-class="{current: $parent.currentUnit == u}">
                        <span ng-bind="$index + 1"></span>
-                       <i class="fa fa-list" ng-show="u.activity"></i>
+                       <i class="fa fa-list" ng-show="u.activities"></i>
                    </a>
                     {% endverbatim %}
                     <a href="" class="add-unit unit" ng-click="addUnit()"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
+
             <div class="col-lg-8">
                 <div class="add-content row" ng-init="section='video'">
                     <div class="col-lg-6">
                         <button class="btn btn-default"
-                                ng-class="{'btn-success': section === 'video'}"
+                                ng-class="{'btn-info': section === 'video'}"
                                 ng-click="section ='video'">Vídeo</button>
 
                         <button class="btn btn-default"
-                                ng-class="{'btn-success': section === 'activity'}"
+                                ng-class="{'btn-info': section === 'activity'}"
                                 ng-click="section ='activity'">Atividade</button>
                     </div>
                     <div class="col-lg-6 textright">
@@ -137,6 +139,8 @@
                         </button>
                     </div>
                 </div>
+
+                <!-- VIDEO SECTION -->
                 <div class="video" ng-show="section === 'video'">
                     <!-- ROW -->
                     <div class="row">
@@ -184,19 +188,36 @@
                     </div>
                     <!-- END ROW -->
                 </div>
-                <!-- END VIDEO -->
+                <!-- END VIDEO SECTION -->
 
+                <!-- ACTIVITIES SECTION -->
                 <div class="row activity" ng-show="section==='activity'">
 
-                    <div class="col-sm-12 col-lg-12" ng-show="currentUnit.activity">
-                        <ng-include src="loadActivityTemplateUrl()"></ng-include>
-                        <br/>
-                        <div class="well well-lg text-right">
-                            <button class="btn btn-danger" ng-click="removeCurrentActivity()">Apagar atividade</button>
+                    <div class="col-sm-13 col-lg-13 panel panel-default" ng-show="currentActivity">
+
+                        <div class="panel-heading clearfix">
+                            <span ng-repeat="activity in currentUnit.activities">
+                                <button class="btn btn-default"
+                                    ng-class="{'btn-info':currentActivity==activity}"
+                                    ng-click="$parent.currentActivity=activity"
+                                    ng-bind="$index+1"></button>
+                                &nbsp;
+                            </span>
+
+                            <button class="btn btn btn-success"
+                                ng-click="currentActivity=null">+</button>
+                        </div>
+
+                        <div class="panel-body">
+                            <ng-include src="loadActivityTemplateUrl()"></ng-include>
+                        </div>
+
+                        <div class="panel-footer text-right">
+                            <button class="btn btn-danger" ng-click="removeCurrentActivity()">Apagar esta atividade</button>
                         </div>
                     </div>
 
-                    <div class="add-video-intro col-sm-12 col-lg-12 textcenter" ng-hide="currentUnit.activity">
+                    <div class="add-video-intro col-sm-12 col-lg-12 textcenter" ng-hide="currentActivity">
                         <!-- CENTERED -->
                         <div class="centered">
                             <i class="fa fa-pencil fa-4x"></i>
@@ -220,6 +241,8 @@
                         <!-- END CENTERED -->
                     </div>
                 </div>
+                <!-- END ACTIVITIES SECTION -->
+
             </div>
             <div class="col-lg-3">
                 <div class="add-side-notes">
