@@ -5,6 +5,7 @@
         'django',
         'directive.alertPopup',
         'directive.contenteditable',
+        'directive.codemirror',
         'timtec-models',
         'directive.fixedBar',
         // 'directive.markdowneditor',
