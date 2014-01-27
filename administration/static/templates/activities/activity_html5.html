@@ -2,4 +2,9 @@
     <h1 class="top" ng-model="currentActivity.data.question"
         contenteditable placeholder="Título da atividade"></h1>
 </div>
-<div codemirror ng-model="currentActivity.expected"></div>
+<div>
+    <div codemirror ng-model="currentActivity.expected"></div>
+    <iframe framepreview cm-bind="currentActivity.expected"
+            width="100%" frameborder="0" height="350" src='/empty/'
+            style="border: 1px solid #dddddd; background-color: #e8e8e8;"></iframe>
+</div>
