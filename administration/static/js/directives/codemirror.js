@@ -3,6 +3,30 @@
 
     var app = angular.module('directive.codemirror', []);
 
+    app.directive('framepreview', function(){
+        return {
+            'restrict': 'A',
+            'scope': {
+                'content': '=cmBind',
+            },
+            'link': function(scope, element, attrs, ngModel) {
+                var iframe = element[0];
+                var preview = iframe.contentDocument || iframe.contentWindow.document;
+
+                scope.$watch('content', function(v1, v2){
+                    updatePreview(v1||'');
+                });
+
+                function updatePreview(value) {
+                    if(!iframe) return;
+                    preview.open();
+                    preview.write(value);
+                    preview.close();
+                }
+            }
+        };
+    });
+
     app.directive('codemirror', function(){
         var btemplate = "<!DOCTYPE html>\n<html>\n  <head></head>\n  <body>\n";
         var atemplate = "\n  </body>\n</html>";
@@ -29,25 +53,19 @@
             'link': function(scope, element, attrs, ngModel) {
                 if(!ngModel) return;
 
-                var textarea, editor, iframe;
+                var textarea, editor;
                 var conf = angular.copy(base_conf);
-
-                function updatePreview() {
-                    if(!iframe) return;
-
-                    var preview = iframe.contentDocument || iframe.contentWindow.document;
-                    preview.open();
-                    preview.write(editor.getValue());
-                    preview.close();
-                }
 
                 function readEditor() {
                     function _read() {
                         var content = editor.getValue();
                         ngModel.$setViewValue(content);
                     }
-                    scope.$apply(_read);
-                    setTimeout(updatePreview, 300);
+                    if (scope.$$phase) {
+                        _read();
+                    } else {
+                        scope.$apply(_read);
+                    }
                 }
 
                 function renderOnEditor(value) {
@@ -77,12 +95,11 @@
 
                 scope.$watch('$scope', function(){
                     textarea = document.getElementById(scope.code_id);
-                    iframe  = document.getElementById('preview-'+scope.code_id);
 
                     editor = new CodeMirror.fromTextArea(textarea, conf);
                     renderOnEditor(ngModel.$viewValue || '');
                     editor.on('change', readEditor);
-                    updatePreview();
+
                     var pid = setInterval(function(){
                         if(document.getElementById(scope.code_id)) {
                             editor.refresh();

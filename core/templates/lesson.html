@@ -19,6 +19,7 @@ $(document).ready(function() {
 })
 </script>
 
+<script type="text/javascript" src="{% static 'js/directives/codemirror.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/lesson.js' %}" charset="utf-8"></script>
 
 
@@ -87,6 +88,12 @@ $(document).ready(function() {
                            <span class="position" ng-bind="unit.position+1"></span>
                            <i class="fa fa-list" ng-show="unit.activities"></i>
                     </a>
+                    <label ng-hide="DEBUG" style="font-family: monospace">
+                        video <input type="radio" ng-model="section" value="video"/>
+                    </label>
+                    <label ng-hide="DEBUG" style="font-family: monospace">
+                        ativi <input type="radio" ng-model="section" value="activity"/>
+                    </label>
                 </div>
                 <!-- END UNITS -->
             </div>
@@ -105,11 +112,6 @@ $(document).ready(function() {
             </div>
             <!-- END UNITS NAVIGATION FOR PHONES -->
             {% endverbatim %}
-
-            <div ng-hide="DEBUG">
-            <input type="radio" ng-model="section" value="video"/>
-            <input type="radio" ng-model="section" value="activity"/>
-            </div>
 
             <div class="col-lg-8 col-md-11 col-sm-11">
                 <div ng-show="section=='video'">

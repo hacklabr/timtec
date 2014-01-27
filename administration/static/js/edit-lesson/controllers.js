@@ -66,6 +66,11 @@
                     });
             };
 
+            $scope.publishLesson = function() {
+                $scope.lesson.status = 'published';
+                $scope.saveLesson();
+            };
+
             $scope.selectUnit = function(u) {
                 $scope.currentUnit = u;
                 if(u.video && u.video.youtube_id){
