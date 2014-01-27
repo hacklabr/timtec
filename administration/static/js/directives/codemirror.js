@@ -29,8 +29,17 @@
             'link': function(scope, element, attrs, ngModel) {
                 if(!ngModel) return;
 
-                var textarea, editor;
+                var textarea, editor, iframe;
                 var conf = angular.copy(base_conf);
+
+                function updatePreview() {
+                    if(!iframe) return;
+
+                    var preview = iframe.contentDocument || iframe.contentWindow.document;
+                    preview.open();
+                    preview.write(editor.getValue());
+                    preview.close();
+                }
 
                 function readEditor() {
                     function _read() {
@@ -38,10 +47,11 @@
                         ngModel.$setViewValue(content);
                     }
                     scope.$apply(_read);
+                    setTimeout(updatePreview, 300);
                 }
 
                 function renderOnEditor(value) {
-                    if(!editor) return;
+                    if(!(editor && value.substring)) return;
 
                     if(value.substring(0, btemplate.length) !== btemplate) {
                         value = btemplate + value;
@@ -67,10 +77,19 @@
 
                 scope.$watch('$scope', function(){
                     textarea = document.getElementById(scope.code_id);
+                    iframe  = document.getElementById('preview-'+scope.code_id);
+
                     editor = new CodeMirror.fromTextArea(textarea, conf);
                     renderOnEditor(ngModel.$viewValue || '');
                     editor.on('change', readEditor);
-                    editor.refresh();
+                    updatePreview();
+                    var pid = setInterval(function(){
+                        if(document.getElementById(scope.code_id)) {
+                            editor.refresh();
+                        } else {
+                            clearInterval(pid);
+                        }
+                    }, 500);
                 });
             }
         };
