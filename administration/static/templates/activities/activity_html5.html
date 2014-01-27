@@ -1,27 +1,10 @@
-<div ng-controller="HTML5Ctrl">
-<div class="row">
-<div class="col-xs-12">
-<textarea ui-codemirror="{
-        lineNumbers:true,
-        theme:'monokai',
-        matchTags: {bothTags: true},
-        matchBrackets: true,
-        extraKeys: {'Ctrl-J': 'toMatchingTag',
-                    'Ctrl-Space': 'autocomplete'},
-        mode:'htmlmixed',
-        onLoad : codemirrorLoaded
-    }" ng-model="currentUnit.activity.expected">
-</textarea>
+<div class="question textleft">
+    <h1 class="top" ng-model="currentActivity.data.question"
+        contenteditable placeholder="Título da atividade"></h1>
 </div>
-</div>
-<div class="row">
-    <div class="col-md-6" style="padding-right:0;">
-        <iframe style="border:1px dashed #272822;height:210px;width:100%;" id="empty" src="/empty/" onLoad="onLoadEmpty()">
-        </iframe>
-    </div>
-    <div class="col-md-6" style="padding-left: 0;">
-        <iframe style="height:210px;width:100%;" id="expected_iframe" src="/empty/" onLoad="onLoadExpected()">
-        </iframe>
-    </div>
-</div>
+<div>
+    <div codemirror ng-model="currentActivity.expected"></div>
+    <iframe framepreview cm-bind="currentActivity.expected"
+            width="100%" frameborder="0" height="350" src='/empty/'
+            style="border: 1px solid #dddddd; background-color: #e8e8e8;"></iframe>
 </div>

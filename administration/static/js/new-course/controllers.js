@@ -107,6 +107,11 @@
                     .catch(showFieldErrors);
             };
 
+            $scope.publishCourse = function() {
+                $scope.course.status = 'published';
+                $scope.saveCourse();
+            };
+
             $scope.deleteCourse = function() {
                 if(!confirm('Tem certeza que deseja remover este curso?')) return;
 

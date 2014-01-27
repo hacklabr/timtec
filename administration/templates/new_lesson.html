@@ -9,6 +9,7 @@
 <script type="text/javascript" src="{% static 'js/directives/contenteditable.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/codemirror.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/sortable.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/edit-lesson/controllers.js' %}"></script>
 {% endblock %}
@@ -27,7 +28,7 @@
                 </div>
                 <div class="col-lg-4 textright">
                     <button class="btn btn-success" ng-click="saveLesson()">Salvar</button>
-                    <button class="btn btn-warning">Publicar Lição | <i class="fa fa-rocket"></i></button>
+                    <button class="btn btn-warning" ng-click="publishLesson();">Publicar Lição | <i class="fa fa-rocket"></i></button>
                 </div>
             </div>
         </div>

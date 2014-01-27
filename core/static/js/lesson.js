@@ -2,6 +2,7 @@
     "use strict";
 
     var app = angular.module('lesson', [
+        'directive.codemirror',
         'ngRoute',
         'ngResource',
         'youtube',
@@ -30,8 +31,12 @@
 
             $scope.selectUnit = function(unit) {
                 $scope.currentUnit = unit;
-                $scope.section = 'video';
-                $scope.play(unit.video.youtube_id);
+                if(unit.video) {
+                    $scope.section = 'video';
+                    $scope.play(unit.video.youtube_id);
+                } else {
+                    $scope.section = 'activity';
+                }
                 $scope.selectActivity(0);
             };
 
@@ -67,10 +72,8 @@
                         })
                         .catch(function(){
                             $scope.answer = new Answer();
-                            if($scope.currentActivity.expected &&
-                                $scope.currentActivity.expected.length) {
-                                $scope.answer.given = $scope.currentActivity
-                                                       .expected.map(function(){});
+                            if(angular.isArray($scope.currentActivity.expected)) {
+                                $scope.answer.given = $scope.currentActivity.expected.map(function(){});
                             }
                         });
                 } else {
@@ -227,33 +230,6 @@
             replace: true
         };
     });
-
-    app.directive('codemirror', function () {
-        return function (scope, element, attrs) {
-            var cm = CodeMirror.fromTextArea(element[0], CodeMirrorConf);
-            cm.setSize("100%", "255px"); // TODO: set size in html
-            function setValue(value) {
-                cm.setValue(value);
-                cm.markText({line:0, ch:0}, {line:4, ch:0}, {atomic: true, readOnly: true, inclusiveLeft: true});
-                var lastLine = cm.lineCount();
-                cm.markText({line:lastLine-3, ch:1000}, {line:lastLine, ch:0}, {atomic: true, readOnly: true, inclusiveRight: true});
-            }
-            setValue(scope.answer.given[0]);
-
-            scope.$watch('loadedAnswer', function () {
-                if (scope.loadedAnswer) {
-                    setValue(scope.loadedAnswer.given[0]);
-                }
-            });
-            cm.on('change', function (instance) {
-                var text = instance.getValue();
-                scope.$apply(function (scope) {
-                    scope.codeMirrorChange(text);
-                });
-            });
-        };
-    });
-
 })(angular);
 
 
