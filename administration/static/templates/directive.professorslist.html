@@ -12,7 +12,8 @@
               <ul class="contacts">
                 <!-- li class="title">A</li -->
                 <li ng-repeat="professor in professors">
-                    <a href="" ng-bind="professor.getName()" ng-click="$parent.selectedProfessor=professor"></a>
+                    <a href="" ng-bind="professor.getName()"
+                               ng-click="selectProfessor(professor)"></a>
                 </li>
               </ul>
             </div>
@@ -42,7 +43,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <br/>
 
                 <markdowneditor title="Biografia" content="selectedProfessor.biography"></markdowneditor>
@@ -51,7 +52,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" ng-click="active=false">Fechar</button>
-            <button type="button" class="btn btn-primary" ng-click="selectProfessor()">Selecionar</button>
+            <button type="button" class="btn btn-primary" ng-click="triggerSelect()">Selecionar</button>
           </div>
         </div>
       </div>
