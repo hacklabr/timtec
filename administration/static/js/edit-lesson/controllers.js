@@ -109,6 +109,7 @@
                 if($scope.currentUnit.activities) {
                     $scope.currentActivity = $scope.currentUnit.activities[0];
                 }
+                $scope.newActivityType = null;
             };
 
             $scope.addUnit = function() {
@@ -165,7 +166,7 @@
                     'expected': (type==='simplechoice' || type==='html5') ? '' : []
                 };
                 $scope.currentUnit.activities.push($scope.currentActivity);
-                $scope.newActivityType = '';
+                $scope.newActivityType = null;
             };
 
             $scope.removeCurrentActivity = function() {
