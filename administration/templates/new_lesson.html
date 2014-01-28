@@ -24,13 +24,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    <button title="Apagar lição" class="btn btn-danger" ng-click="deleteLesson()">
-                        <i class="fa fa-trash-o"></i>
-                    </button>
+                    <button class="btn btn-danger" ng-click="deleteLesson()"><i class="fa fa-trash-o"></i> | Apagar esta lição</button>
                 </div>
                 <div class="col-lg-4 textright">
-                    <button class="btn btn-success" ng-click="saveLesson()">Salvar</button>
-                    <button class="btn btn-warning" ng-click="publishLesson();">Publicar Lição | <i class="fa fa-rocket"></i></button>
+                    <button class="btn btn-success" ng-click="saveLesson()">Salvar | <i class="fa fa-save"></i></button>
+                    <button class="btn btn-warning" ng-click="publishLesson();">Publicar Lição | <i class="fa fa-star-o"></i></button>
                 </div>
             </div>
         </div>
@@ -127,18 +125,18 @@
             <div class="col-lg-8">
                 <div class="add-content row" ng-init="section='video'">
                     <div class="col-lg-6">
-                        <button class="btn btn-default"
+                        <button class="btn btn-default uppercase"
                                 ng-class="{'btn-info': section === 'video'}"
                                 ng-click="section ='video'">Vídeo</button>
 
-                        <button class="btn btn-default"
+                        <button class="btn btn-default uppercase"
                                 ng-class="{'btn-info': section === 'activity'}"
                                 ng-click="section ='activity'">Atividade</button>
                     </div>
                     <div class="col-lg-6 textright">
                         <button class="btn btn-danger delete" ng-click="removeCurrentUnit()"
                                 title="Apagar unidade">
-                            <i class="fa fa-trash-o"></i>
+                            <i class="fa fa-trash-o"></i> | Apagar esta unidade
                         </button>
                     </div>
                 </div>
@@ -178,10 +176,10 @@
 
                             <div id="youtube-player" player-height="419px" player-width="100%" youtube-player></div>
                             <div class="row">
-                                <div class="col-lg-10">
+                                <div class="col-lg-8">
                                     <p class="video-title" ng-model="currentUnit.video.name" placeholder="Nome do vídeo" contenteditable><p>
                                 </div>
-                                <div class="col-lg-2 textcenter">
+                                <div class="col-lg-4 textright">
                                     <button class="btn-edit-video btn btn-success btn-sm uppercase"
                                             ng-click="currentUnit.video = null">Alterar vídeo</button>
                                 </div>
@@ -194,54 +192,54 @@
                 <!-- END VIDEO SECTION -->
 
                 <!-- ACTIVITIES SECTION -->
-                <div class="row activity" ng-show="section==='activity'">
+                <div class="activity" ng-show="section==='activity'">
+                    <div class="row">
+                        <div class="col-sm-13 col-lg-13 panel panel-default" ng-show="currentActivity">
+                            <div class="panel-heading clearfix">
+                                <span ng-repeat="activity in currentUnit.activities">
+                                    <button class="btn btn-default"
+                                        ng-class="{'btn-info':currentActivity==activity}"
+                                        ng-click="$parent.currentActivity=activity"
+                                        ng-bind="$index+1"></button>
+                                    &nbsp;
+                                </span>
 
-                    <div class="col-sm-13 col-lg-13 panel panel-default" ng-show="currentActivity">
-
-                        <div class="panel-heading clearfix">
-                            <span ng-repeat="activity in currentUnit.activities">
-                                <button class="btn btn-default"
-                                    ng-class="{'btn-info':currentActivity==activity}"
-                                    ng-click="$parent.currentActivity=activity"
-                                    ng-bind="$index+1"></button>
-                                &nbsp;
-                            </span>
-
-                            <button class="btn btn btn-success"
-                                ng-click="currentActivity=null">+</button>
-                        </div>
-
-                        <div class="panel-body">
-                            <ng-include src="loadActivityTemplateUrl()"></ng-include>
-                        </div>
-
-                        <div class="panel-footer text-right">
-                            <button class="btn btn-danger" ng-click="removeCurrentActivity()">Apagar esta atividade</button>
-                        </div>
-                    </div>
-
-                    <div class="add-video-intro col-sm-12 col-lg-12 textcenter" ng-hide="currentActivity">
-                        <!-- CENTERED -->
-                        <div class="centered">
-                            <i class="fa fa-pencil fa-4x"></i>
-                            <h1 class="top">Atividade da unidade</h1>
-                            <div class="form-group row">
-                                {% verbatim %}
-                                <p class="col-sm-4 col-lg-4" ng-repeat="type in activityTypes">
-                                    <label class="btn btn-default"
-                                           ng-class="{'btn-info':$parent.newActivityType===type.name}"
-                                           for="new-activity-type-{{type.name}}">{{type.label}}</label>
-                                    <input class="hidden" id="new-activity-type-{{type.name}}" type="radio"
-                                           ng-model="$parent.newActivityType" value="{{type.name}}"/>
-                                </p>
-                                {% endverbatim %}
+                                <button class="btn btn btn-success"
+                                    ng-click="currentActivity=null">+</button>
                             </div>
-                            <div>
-                                <button class="btn btn-success btn-lg uppercase"
-                                        ng-click="addNewActivity()">Adicionar</button>
+
+                            <div class="panel-body">
+                                <ng-include src="loadActivityTemplateUrl()"></ng-include>
+                            </div>
+
+                            <div class="panel-footer text-right">
+                                <button class="btn btn-danger" ng-click="removeCurrentActivity()">Apagar esta atividade</button>
                             </div>
                         </div>
-                        <!-- END CENTERED -->
+
+                        <div class="add-activity col-sm-12 col-lg-12 textcenter" ng-hide="currentActivity">
+                            <!-- CENTERED -->
+                            <div class="centered">
+                                <i class="fa fa-pencil fa-4x"></i>
+                                <h1 class="top">Atividade da unidade</h1>
+                                <div class="form-group row">
+                                    {% verbatim %}
+                                    <p class="col-sm-4 col-lg-4" ng-repeat="type in activityTypes">
+                                        <label class="btn btn-default"
+                                               ng-class="{'btn-info':$parent.newActivityType===type.name}"
+                                               for="new-activity-type-{{type.name}}">{{type.label}}</label>
+                                        <input class="hidden" id="new-activity-type-{{type.name}}" type="radio"
+                                               ng-model="$parent.newActivityType" value="{{type.name}}"/>
+                                    </p>
+                                    {% endverbatim %}
+                                </div>
+                                <div>
+                                    <button class="btn btn-success btn-lg uppercase"
+                                            ng-click="addNewActivity()">Adicionar</button>
+                                </div>
+                            </div>
+                            <!-- END CENTERED -->
+                        </div>
                     </div>
                 </div>
                 <!-- END ACTIVITIES SECTION -->

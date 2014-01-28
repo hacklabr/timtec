@@ -24,7 +24,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <button class="btn btn-danger" title="Apagar curso" ng-click="deleteCourse()"><i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-danger" title="Apagar curso" ng-click="deleteCourse()"><i class="fa fa-trash-o"></i> | Apagar este curso</button>
                 </div>
                 <div class="col-lg-6 textright">
                     <!-- <button class="btn btn-info">Listar | <i class="fa fa-star-o"></i></button> -->
@@ -87,9 +87,9 @@
                     <div class="col-lg-6">
                         <button ng-click="mediaSection='video'"
                                 ng-class="{'btn-success':mediaSection=='video'}"
-                                class="btn btn-default selected">Vídeo</button>
+                                class="btn btn-default uppercase selected">Vídeo</button>
 
-                        <button class="btn btn-default"
+                        <button class="btn btn-default uppercase"
                                 ng-class="{'btn-success':mediaSection=='thumbnail'}"
                                 ng-click="mediaSection='thumbnail'">Thumbnail</button>
                     </div>
@@ -236,7 +236,7 @@
                                     <span class="title" ng-bind="lesson.name">Nome da lição</span>
                                 </div>
 
-                                <div class="col-lg-2">
+                                <div class="col-lg-3 textright">
                                     <div class="btn-group" ng-init="openDropdown=false;">
                                         <button type="button" class="btn btn-default">
                                             <span ng-show="lesson.status=='draft'"> Rascunho</span>
@@ -247,7 +247,7 @@
                                                 ng-click="openDropdown=!openDropdown;">
                                             <span class="caret"></span>
                                         </button>
-                                        <ul class="dropdown-menu" ng-style="{display:openDropdown?'block':'none'}">
+                                        <ul class="dropdown-menu textleft" ng-style="{display:openDropdown?'block':'none'}">
                                             <li>
                                                 <a ng-click="lesson.status='draft';openDropdown=false;"
                                                    ng-show="lesson.status!='draft'"> Rascunho</a>
@@ -262,9 +262,6 @@
                                            </li>
                                         </ul>
                                     </div>
-                                </div>
-
-                                <div class="col-lg-1 textright">
                                     <button class="btn btn-danger" ng-click="deleteLesson(lesson)"><i class="fa fa-trash-o"></i></button>
                                 </div>
                             </div>

@@ -273,7 +273,8 @@ a:active {
 .textcenter { text-align:center; }
 .textleft   { text-align:left; }
 .textright  { text-align:right; }
-.uppercase  { text-transform:uppercase; }
+.uppercase  { text-transform:uppercase !important; }
+.capitalize { text-transform:capitalize !important; }
 .bottom     { .bottom(0,0); }
 .left       { .left(0,0); }
 .right      { .right(0,0); }
@@ -555,7 +556,6 @@ a:active {
         font-size: 11px;
         margin-bottom: 10px;
         padding: 10px 20px;
-        text-transform: uppercase;
         &.delete {
           font-size: 14px;
           padding: 8px 20px;
@@ -564,6 +564,29 @@ a:active {
     }
     // END CONTENT
 
+    // ADD VIDEO, THUMBNAIL, ACTIVITIES
+    .add-video-intro, .add-thumbnail, .add-activity {
+      color:@brand-danger;
+      height:489px;
+
+      &:before {
+        content:'';
+        height:100%;
+        .vertical-align(middle);
+      }
+
+      .centered {
+        .vertical-align(middle);
+        width:400px;
+      }
+
+      .icon-youtube-play {
+        display:block;
+        font-size:54px;
+      }
+    }
+
+    // ORGANIZING LESSONS AND INSTRUCTORS
     .lessons.organizing-lessons,
     .instructors.organizing-instructors {
       margin-bottom: 10px;
@@ -852,7 +875,7 @@ a:active {
 
     // COURSE VIDEO - General
     // ********************************************************************* //
-    .video {
+    .video, .activity {
       border: 1px solid @gray-lighter;
       #admin & {
         .top(20px);
