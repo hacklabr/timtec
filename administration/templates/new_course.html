@@ -230,10 +230,40 @@
                         <!-- LESSON -->
                         <div class="lesson" ng-repeat="lesson in lessons">
                             <div class="row">
-                                <div class="col-lg-11">
+
+                                <div class="col-lg-9">
                                     <span class="handle"><span class="btn btn-warning"><i class="fa fa-bars"></i></span></span>
                                     <span class="title" ng-bind="lesson.name">Nome da lição</span>
                                 </div>
+
+                                <div class="col-lg-2">
+                                    <div class="btn-group" ng-init="openDropdown=false;">
+                                        <button type="button" class="btn btn-default">
+                                            <span ng-show="lesson.status=='draft'"> Rascunho</span>
+                                            <span ng-show="lesson.status=='listed'"> Listado</span>
+                                            <span ng-show="lesson.status=='published'"> Publicado</span>
+                                        </button>
+                                        <button type="button" class="btn btn-default dropdown-toggle"
+                                                ng-click="openDropdown=!openDropdown;">
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" ng-style="{display:openDropdown?'block':'none'}">
+                                            <li>
+                                                <a ng-click="lesson.status='draft';openDropdown=false;"
+                                                   ng-show="lesson.status!='draft'"> Rascunho</a>
+                                           </li>
+                                            <li>
+                                                <a ng-click="lesson.status='listed';openDropdown=false;"
+                                                   ng-show="lesson.status!='listed'"> Listado</a>
+                                           </li>
+                                            <li>
+                                                <a ng-click="lesson.status='published';openDropdown=false;"
+                                                   ng-show="lesson.status!='published'"> Publicado</a>
+                                           </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
                                 <div class="col-lg-1 textright">
                                     <button class="btn btn-danger" ng-click="deleteLesson(lesson)"><i class="fa fa-trash-o"></i></button>
                                 </div>
