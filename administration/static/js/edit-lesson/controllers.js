@@ -164,6 +164,7 @@
                     'expected': (type==='simplechoice' || type==='html5') ? '' : []
                 };
                 $scope.currentUnit.activities.push($scope.currentActivity);
+                $scope.newActivityType = '';
             };
 
             $scope.removeCurrentActivity = function() {
