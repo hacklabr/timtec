@@ -28,7 +28,7 @@
 
             $scope.course = new Course();
             $scope.lesson = new Lesson();
-            $scope.currentUnit = {};
+
             $scope.courseProfessors = [];
 
             $scope.activityTypes = [
