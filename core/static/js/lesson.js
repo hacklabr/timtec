@@ -23,11 +23,15 @@
             youtubePlayerApi.events.onStateChange = function(event){
                 window.onPlayerStateChange.call($scope.currentUnit, event);
                 if (event.data === YT.PlayerState.ENDED) {
-                    $scope.nextUnit();
+                    window.$scope = $scope;
+                    $scope.nextStep();
+                    if(!$scope.$$phase) {
+                        $scope.$apply();
+                    }
                 }
             };
 
-            $scope.section = 'video';
+            $scope.section = $scope.section || 'video';
 
             $scope.selectUnit = function(unit) {
                 $scope.currentUnit = unit;
