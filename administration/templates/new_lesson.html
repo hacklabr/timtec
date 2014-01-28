@@ -160,12 +160,15 @@
                                 <i class="fa fa-youtube-play fa-4x"></i>
                                 <h1 class="top">Vídeo da unidade</h1>
                                 <p class="form-group">
-                                    <input type="text" ng-model="youtube_id" class="form-control"/>
+                                    <input type="text" class="form-control"
+                                           ng-model="currentUnit.intended_youtube_id"/>
                                 </p>
                                 <p>
-                                    <button class="btn btn-danger btn-lg uppercase">Cancelar</button>
+                                    <button class="btn btn-danger btn-lg uppercase"
+                                            ng-click="currentUnit.intended_youtube_id=''">Cancelar</button>
+
                                     <button class="btn btn-success btn-lg uppercase"
-                                            ng-click="setCurrentUnitVideo(youtube_id)">Adicionar</button>
+                                            ng-click="setCurrentUnitVideo()">Adicionar</button>
                                 </p>
                             </div>
                             <!-- END CENTERED -->

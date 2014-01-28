@@ -130,7 +130,8 @@
                 }
             };
 
-            $scope.setCurrentUnitVideo = function(youtube_id) {
+            $scope.setCurrentUnitVideo = function() {
+                var youtube_id = $scope.currentUnit.intended_youtube_id;
                 if(!$scope.currentUnit.video) {
                     $scope.currentUnit.video = {};
                 }
