@@ -200,6 +200,12 @@
                 });
             };
 
+            $scope.repositionInstructors = function() {
+                $scope.courseProfessors.forEach(function(p, i){
+                    p.position = i;
+                });
+            };
+
             $scope.saveAllLessons = function() {
                 var i = 0;
                 function __saveLessons() {
@@ -210,7 +216,7 @@
                     }
                 }
 
-                $scope.alert.warn('Atualizando aulas.');
+                $scope.alert.warn('Atualizando aulas');
 
                 __saveLessons()
                     .then(function(){
@@ -218,6 +224,27 @@
                     })
                     .catch(function(){
                         $scope.alert.error('Algum problema impediu a atualização das aulas');
+                    });
+            };
+
+            $scope.saveAllInstructors = function() {
+                var i = 0;
+                function __saveInstructors() {
+                    if(i < $scope.courseProfessors.length) {
+                        return $scope.courseProfessors[i++]
+                                     .saveOrUpdate()
+                                     .then(__saveInstructors);
+                    }
+                }
+
+                $scope.alert.warn('Atualizando dados dos professores');
+
+                __saveInstructors()
+                    .then(function(){
+                        $scope.alert.success('Os dados dos professores foram atualizados.');
+                    })
+                    .catch(function(){
+                        $scope.alert.error('Algum problema impediu a atualização dos dados dos professores.');
                     });
             };
         }

@@ -340,11 +340,13 @@
                     <!-- <a href="" ng-click="organizingInstructors=false" ng-show="organizingInstructors">Editar biografias</a> -->
                     <p><a href="" ng-click="organizingInstructors=true" ng-hide="organizingInstructors">Organizar instrutores</a></p>
 
-                    <div class="instructors organizing-instructors" ng-show="organizingInstructors">
+                    <div class="instructors organizing-instructors" ng-show="organizingInstructors"
+                         sortable="courseProfessors" on-update="repositionInstructors()">
+
                         <div class="instructor" ng-repeat="professor in courseProfessors">
                             <div class="row">
                                 <div class="col-lg-11">
-                                    <button class="btn btn-warning"><i class="fa fa-bars"></i></button>
+                                    <span class="handle"><span class="btn btn-warning"><i class="fa fa-bars"></i></span></span>
                                     <span class="title" ng-bind="professor.user_info.name">Nome do professor</span>
                                 </div>
                                 <div class="col-lg-1 textright">
@@ -356,8 +358,8 @@
                             </div>
                         </div>
                         <div class="submit textright">
-                            <button class="btn btn-danger" ng-click="organizingInstructors=false">Cancelar</button>
-                            <button class="btn btn-success">Salvar</button>
+                            <button class="btn btn-danger" ng-click="organizingInstructors=false">Fechar</button>
+                            <button class="btn btn-success" ng-click="saveAllInstructors()">Salvar</button>
                         </div>
                     </div>
 
