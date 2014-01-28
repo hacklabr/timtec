@@ -74,7 +74,13 @@
             $scope.deleteLesson = function() {
                 var msg = 'Apagar a aula "{0}" e todo seu conteúdo?'
                           .format($scope.lesson.name);
+
                 if(!confirm(msg)) return;
+
+                function backToCourse () {
+                    document.location.href = '/admin/courses/{0}'
+                                             .format($scope.course.id);
+                }
 
                 var index = $scope.lessons.indexOf($scope.lesson);
                 if(index >= 0) {
@@ -85,16 +91,11 @@
                               .format($scope.lesson.name);
                         $scope.lesson.$delete().then(function(){
                             $scope.alert.success(msg);
+                            backToCourse();
                         });
-                    }
-
-                    if($scope.lessons.length > 0) {
-                        index = index > 0 ? index - 1 : index;
-                        $scope.setLesson($scope.lessons[index]);
                     } else {
-                        $scope.lesson = new Lesson();
+                        backToCourse();
                     }
-
                 } else {
                     $scope.lesson = new Lesson();
                 }
