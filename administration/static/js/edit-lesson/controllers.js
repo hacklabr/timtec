@@ -71,6 +71,35 @@
                 $scope.saveLesson();
             };
 
+            $scope.deleteLesson = function() {
+                var msg = 'Apagar a aula "{0}" e todo seu conteúdo?'
+                          .format($scope.lesson.name);
+                if(!confirm(msg)) return;
+
+                var index = $scope.lessons.indexOf($scope.lesson);
+                if(index >= 0) {
+                    $scope.lessons.splice(index, 1);
+
+                    if($scope.lesson.id){
+                        msg = 'A aula "{0}" e todo seu conteúdo foram apagados do sistema.'
+                              .format($scope.lesson.name);
+                        $scope.lesson.$delete().then(function(){
+                            $scope.alert.success(msg);
+                        });
+                    }
+
+                    if($scope.lessons.length > 0) {
+                        index = index > 0 ? index - 1 : index;
+                        $scope.setLesson($scope.lessons[index]);
+                    } else {
+                        $scope.lesson = new Lesson();
+                    }
+
+                } else {
+                    $scope.lesson = new Lesson();
+                }
+            };
+
             $scope.selectUnit = function(u) {
                 $scope.currentUnit = u;
                 if(u.video && u.video.youtube_id){
@@ -176,6 +205,8 @@
                         });
                         if($scope.isNewLesson) {
                             $scope.addUnit();
+                            $scope.lesson.position = $scope.lessons.length;
+                            $scope.lessons.push($scope.lesson);
                         }
                     })
                     .catch(function(resp){
