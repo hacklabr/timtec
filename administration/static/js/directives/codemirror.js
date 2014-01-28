@@ -3,6 +3,14 @@
 
     var app = angular.module('directive.codemirror', []);
 
+    var btemplate = "<!DOCTYPE html>\n<html>\n  <head></head>\n  <body>\n";
+    var atemplate = "\n  </body>\n</html>";
+    var empty = '<html><body style="padding:0;margin:0;display:table;height:100%;width:100%">'+
+                '<div style="display:table-cell;vertical-align:middle">'+
+                '<p style="color:#555;font-size:63px;text-align:center;font-family:monospace;">'+
+                'Preview Area</p></div></body></html>';
+
+
     app.directive('framepreview', function(){
         return {
             'restrict': 'A',
@@ -13,8 +21,10 @@
                 var iframe = element[0];
                 var preview = iframe.contentDocument || iframe.contentWindow.document;
 
+                preview.write(empty);
+
                 scope.$watch('content', function(v1, v2){
-                    updatePreview(v1||'');
+                    updatePreview(v1||empty);
                 });
 
                 function updatePreview(value) {
@@ -28,9 +38,6 @@
     });
 
     app.directive('codemirror', function(){
-        var btemplate = "<!DOCTYPE html>\n<html>\n  <head></head>\n  <body>\n";
-        var atemplate = "\n  </body>\n</html>";
-
         var base_conf = {
             extraKeys: {'Ctrl-J': 'toMatchingTag', 'Ctrl-Space': 'autocomplete'},
             lineNumbers: true,
