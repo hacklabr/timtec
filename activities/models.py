@@ -5,6 +5,8 @@ from django.db import models
 from jsonfield import JSONField
 from django.utils.translation import ugettext_lazy as _
 from accounts.models import TimtecUser
+from core.models import Unit, StudentProgress
+from django.utils import timezone
 
 
 class Activity(models.Model):
@@ -22,12 +24,14 @@ class Activity(models.Model):
     """
     type = models.CharField(_('Type'), max_length=255)
     data = JSONField(_('Data'))
-    expected = JSONField(_('Expected answer'))
+    expected = JSONField(_('Expected answer'), blank=True)
+    unit = models.ForeignKey(Unit, verbose_name=_('Unit'), null=True, blank=True, related_name='activities')
+
 
     class Meta:
         verbose_name = _('Activity')
         verbose_name_plural = _('Activities')
-        ordering = [('-id')]
+        ordering = [('id')]
 
     def question(self):
         try:
@@ -44,6 +48,12 @@ class Answer(models.Model):
     user = models.ForeignKey(TimtecUser, verbose_name=_('Student'))
     timestamp = models.DateTimeField(auto_now_add=True, editable=False)
     given = JSONField(_('Given answer'))
+
+    class Meta:
+        verbose_name = _('Answer')
+        verbose_name_plural = _('Answers')
+        ordering = ['timestamp']
+
 
     @property
     def expected(self):
@@ -63,7 +73,13 @@ class Answer(models.Model):
         result = unicode(given) == unicode(expected)
         return result
 
-    class Meta:
-        verbose_name = _('Answer')
-        verbose_name_plural = _('Answers')
-        ordering = ['timestamp']
+    @staticmethod
+    def update_student_progress(sender, instance, **kwargs):
+        answer = instance
+        progress, created = StudentProgress.objects.get_or_create(user=answer.user,
+                                                                  unit=answer.activity.unit)
+        progress.complete = timezone.now()
+        progress.save()
+
+models.signals.post_save.connect(Answer.update_student_progress, sender=Answer,
+                                dispatch_uid="Answer.update_student_progress")

@@ -6,7 +6,8 @@ from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.contrib.contenttypes import generic
-from activities.models import Activity
+
+
 from accounts.models import TimtecUser
 from notes.models import Note
 
@@ -25,22 +26,24 @@ class Video(models.Model):
 
 class Course(models.Model):
     STATES = (
+        ('new', _('Novo')),
         ('draft', _('Draft')),
         ('listed', _('Listed')),
         ('published', _('Published')),
     )
 
     slug = models.SlugField(_('Slug'), max_length=255, unique=True)
-    name = models.CharField(_('Name'), max_length=255)
-    intro_video = models.ForeignKey(Video, verbose_name=_('Intro video'), null=True)
-    application = models.TextField(_('Application'))
-    requirement = models.TextField(_('Requirement'))
-    abstract = models.TextField(_('Abstract'))
-    structure = models.TextField(_('Structure'))
-    workload = models.TextField(_('Workload'))
-    pronatec = models.TextField(_('Pronatec'))
+    name = models.CharField(_('Name'), max_length=255, blank=True)
+    intro_video = models.ForeignKey(Video, verbose_name=_('Intro video'), null=True, blank=True)
+    application = models.TextField(_('Application'), blank=True)
+    requirement = models.TextField(_('Requirement'), blank=True)
+    abstract = models.TextField(_('Abstract'), blank=True)
+    structure = models.TextField(_('Structure'), blank=True)
+    workload = models.TextField(_('Workload'), blank=True)
+    pronatec = models.TextField(_('Pronatec'), blank=True)
     status = models.CharField(_('Status'), choices=STATES, default=STATES[0][0], max_length=64)
     publication = models.DateField(_('Publication'), default=None, blank=True, null=True)
+    thumbnail = models.ImageField(_('Thumbnail'), upload_to='course_thumbnails', null=True, blank=True)
     professors = models.ManyToManyField(TimtecUser, related_name='professorcourse_set', through='CourseProfessor')
     students = models.ManyToManyField(TimtecUser, related_name='studentcourse_set', through='CourseStudent')
 
@@ -69,6 +72,11 @@ class Course(models.Model):
             return CourseStudent.objects.get(**params)
         except CourseStudent.DoesNotExist:
             return CourseStudent.objects.create(**params)
+
+    def get_thumbnail_url(self):
+        if self.thumbnail:
+            return self.thumbnail.url
+        return ''
 
 
 class CourseStudent(models.Model):
@@ -139,7 +147,7 @@ class CourseProfessor(models.Model):
 
     user = models.ForeignKey(TimtecUser, verbose_name=_('Professor'))
     course = models.ForeignKey(Course, verbose_name=_('Course'))
-    biography = models.TextField(_('Biography'))
+    biography = models.TextField(_('Biography'), blank=True)
     role = models.CharField(_('Role'), choices=ROLES, default=ROLES[0][0], max_length=128)
 
     class Meta:
@@ -204,7 +212,7 @@ class Unit(models.Model):
     title = models.CharField(_('Title'), max_length=128, blank=True)
     lesson = models.ForeignKey(Lesson, verbose_name=_('Lesson'), related_name='units')
     video = models.ForeignKey(Video, verbose_name=_('Video'), null=True, blank=True)
-    activity = models.ForeignKey(Activity, verbose_name=_('Activity'), null=True, blank=True, related_name='units')
+    activity = models.ForeignKey('activities.Activity', verbose_name=_('Activity'), null=True, blank=True, related_name='units')
     side_notes = models.TextField(_('Side notes'), blank=True)
     position = PositionField(collection='lesson', default=0)
     notes = generic.GenericRelation(Note)

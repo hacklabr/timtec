@@ -1,0 +1,8 @@
+<div class="question textleft">
+    <h1 class="top">{{ currentActivity.data.question }}</h1>
+</div>
+<div class="answers multiplechoice-answers">
+    <div ng-repeat="alt in currentActivity.data.alternatives" class="answer">
+        <checkbox ng-model="$parent.answer.given[$index]">{{ alt }}</checkbox>
+    </div>
+</div>

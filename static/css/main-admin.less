@@ -17,7 +17,7 @@ body#admin {
       background-color: darken(@gray, 5%);
     }
   }
-  
+
   // COURSES LIST
   #courses {
     > header {
@@ -64,13 +64,26 @@ body#admin {
 
   .editable {
     cursor: pointer;
-    margin: -10px;
-    padding: 10px;
     &:hover {
       background-color: lighten(@brand-warning, 40%);
     }
   }
-  
+
+  .markdown-required {
+    background-color: lighten(@brand-danger, 40%);
+    position: relative;
+    > div.editable {
+      min-height: 120px;
+    }
+    .markdown-required-label {
+      bottom: 10px;
+      color: @brand-danger;
+      font-size: 11px;
+      position: absolute;
+      right: 15px;
+    }
+  }
+
   .icon-editable {
     color: @brand-info;
     cursor: pointer;
@@ -78,34 +91,13 @@ body#admin {
     margin: 0 10px;
     vertical-align: bottom !important;
   }
-  
+
   .icon-addable {
     color:@brand-success;
     cursor:pointer;
     font-size:18px;
     margin:0 10px;
     vertical-align:bottom !important;
-  }
-
-  .add-video-intro {
-    color:@brand-danger;
-    height:489px;
-
-    &:before {
-      content:'';
-      height:100%;
-      .vertical-align(middle);
-    }
-
-    .centered {
-      .vertical-align(middle);
-      width:400px;
-    }
-
-    .icon-youtube-play {
-      display:block;
-      font-size:54px;
-    }
   }
 
   .edit-video-intro {
@@ -286,5 +278,105 @@ body#admin {
         margin-right:5px;
       }
     }
+  }
+}
+
+
+@keyframes blink-text-red
+{
+    0%   {color: auto; }
+    50%  {color: #b92929; }
+    100% {color: auto; }
+}
+
+@-webkit-keyframes blink-text-red
+{
+    0%   {color: auto; }
+    50%  {color: #b92929; }
+    100% {color: auto; }
+}
+
+.blink-text-danger {
+    animation: blink-text-red 2s infinite;
+    -webkit-animation: blink-text-red 2s infinite; /* Safari and Chrome */
+}
+
+@keyframes blink-bg-red
+{
+    0%   {background-color: auto; }
+    50%  {background-color: #b92929; }
+    100% {background-color: auto; }
+}
+
+@-webkit-keyframes blink-bg-red
+{
+    0%   {background-color: auto; }
+    50%  {background-color: #b92929; }
+    100% {background-color: auto; }
+}
+
+.blink-bg-danger {
+    animation: blink-bg-red 2s infinite;
+    -webkit-animation: blink-bg-red 2s infinite; /* Safari and Chrome */
+}
+
+
+.waiting {
+    display: table;
+}
+
+@-webkit-keyframes spin {
+    from   {-webkit-transform: rotate(0deg); }
+    to {-webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    from   {transform: rotate(0deg); }
+    to {transform: rotate(360deg); }
+}
+
+.waiting .middle {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+.waiting .middle i {
+    animation: spin 2s infinite;
+    -webkit-animation: spin 2s linear infinite; /* Safari and Chrome */
+}
+
+.lessons.organizing-lessons .handle,
+.lessons.organizing-lessons .handle * {
+    cursor: move !important;
+}
+
+.lessons .lesson {
+    background-color: white;
+    -webkit-transition: background-color 1s;
+}
+
+.lessons.organizing-lessons .ui-sortable-helper {
+    padding: 0.5em;
+    background-color: #FFFFAA;
+    box-shadow: 1px 1px 4px #555555;
+    -webkit-transition: background-color 1s;
+}
+
+.activity label.btn {
+  white-space: normal;
+  min-height: 4em;
+  width: 100%;
+}
+
+.activity .panel-body {
+  min-height: 22em;
+}
+
+.btn-group .dropdown-menu{
+  li {
+    margin: 0.5em 0 !important;
+  }
+  a {
+    cursor: pointer;
   }
 }

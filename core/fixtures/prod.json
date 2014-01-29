@@ -1056,7 +1056,7 @@
   "pk": 1,
   "model": "core.course",
   "fields": {
-    "status": "new",
+    "status": "published",
     "requirement": "\u00c9 necess\u00e1rio que o interessado possua conhecimentos b\u00e1sicos de navega\u00e7\u00e3o e pesquisa na web e dos recursos elementares (copiar, colar, salvar, criar e organizar pastas) de algum sistema operacional como Windows, MAC ou Linux.",
     "workload": "40 horas\n\nA agenda de dedica\u00e7\u00e3o estimada para o aluno \u00e9 de 10 horas por semana: 3 horas para assistir \u00e0s aulas em v\u00eddeo e 7 horas para realizar os exerc\u00edcios propostos. Recomenda-se a utiliza\u00e7\u00e3o da plataforma por cerca de duas horas di\u00e1rias.",
     "intro_video": 1,

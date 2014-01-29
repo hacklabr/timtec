@@ -1,0 +1,24 @@
+<div class="question textleft">
+    <h1 class="top">{{ currentActivity.data.question }}</h1>
+</div>
+
+<ul class="nav nav-tabs" ng-init="html5section='source-code'">
+    <li ng-class="{'active':html5section=='source-code'}" ng-click="html5section='source-code'">
+        <a style="cursor:pointer">Código fonte</a>
+    </li>
+    <li ng-class="{'active':html5section=='expected'}" ng-click="html5section='expected'">
+        <a style="cursor:pointer">Resultado esperado</a>
+    </li>
+</ul>
+
+<div ng-show="html5section=='source-code'">
+    <div codemirror ng-model="answer.given"></div>
+    <iframe framepreview cm-bind="answer.given"
+            width="100%" src='/empty/' frameborder="0"
+            style="border: 2px solid #dddddd; background-color: #e8e8e8;"></iframe>
+</div>
+<div ng-show="html5section=='expected'">
+    <iframe framepreview cm-bind="currentActivity.expected"
+            width="100%" frameborder="0" height="454" src='/empty/'
+            style="border: 2px solid #dddddd; border-width: 0 2px 2px; background-color: #e8e8e8;"></iframe>
+</div>

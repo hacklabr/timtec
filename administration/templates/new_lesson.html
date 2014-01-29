@@ -1,31 +1,71 @@
 {% extends 'admin-base.html' %}
+{% load static %}
+
+{% block js %} {{block.super}}
+<script type="text/javascript" src="{% static 'js/edit-lesson/app.js' %}">// must be the 1º</script>
+<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}">// must be the 2º</script>
+<script type="text/javascript" src="{% static 'js/filters/text.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/contenteditable.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/codemirror.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/sortable.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/edit-lesson/controllers.js' %}"></script>
+{% endblock %}
+
 
 {% block content %}
-
 <!-- COURSE-CONTENT -->
-<div id="course" class="course-lesson">
+<div id="course" class="course-lesson" ng-app="edit-lesson" ng-controller="EditLessonController">
+
+    <!-- ACTIONS -->
+    <div class="actions" fixed-bar>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <button class="btn btn-danger" ng-click="deleteLesson()"><i class="fa fa-trash-o"></i> | Apagar esta lição</button>
+                </div>
+                <div class="col-lg-4 textright">
+                    <button class="btn btn-success" ng-click="saveLesson()">Salvar | <i class="fa fa-save"></i></button>
+                    <button class="btn btn-warning" ng-click="publishLesson();">Publicar Lição | <i class="fa fa-star-o"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END ACTIONS -->
+
+
     <!-- MAIN-HEADER -->
-    <header class="container">
+    <header id="main-header" class="container">
         <!-- PAGE-HEADER -->
         <div class="page-header">
             <!-- ROW -->
             <div class="row">
-                <!-- COL-LG-8 -->
-                <div class="col-lg-8 col-sm-8">
-                    <h1 class="course-name bottom top">HTML5 - Introdução ao Front End</h1>
+                <!-- COL-LG-9 -->
+                <div class="col-lg-9 col-sm-9">
+                    <h1 class="course-name bottom top">
+                        {% verbatim %}
+                        <a href="/admin/courses/{{course.id}}" ng-bind="course.name">Nome do curso</a>
+                        {% endverbatim %}
+                    </h1>
                     <ul class="instructors">
-                        <li><a href="">Fabio Flatschart</a></li>
+                        <li ng-repeat="p in courseProfessors"><a ng-bind="p.user_info.name">Professor</a></li>
                     </ul>
                 </div>
-                <!-- END COL-LG-8 -->
-                <!-- COL-LG-4 -->
-                <div class="col-lg-4 col-sm-4">
+                <!-- END COL-LG-9 -->
+                <!-- COL-LG-3 -->
+                <div class="col-lg-3 col-sm-3">
                     <!-- COURSE-SECTION-NAV -->
                     <nav class="course-sections textright">
+                        <a href=""><span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="Intro"></span></a>
+                        <a href=""><span class="has-tooltip fa fa-film" data-toggle="tooltip" data-placement="top" data-original-title="Aulas"></span></a>
+                        <a href=""><span class="has-tooltip fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="Fórum"></span></a>
+                        <a href=""><span class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="Material Didádico"></span></a>
                     </nav>
                     <!-- END COURSE-SECTION-NAV -->
                 </div>
-                <!-- END COL-LG-4 -->
+                <!-- END COL-LG-3 -->
             </div>
             <!-- END ROW -->
         </div>
@@ -35,77 +75,189 @@
 
     <!-- COURSE-CONTENT -->
     <section id="course-content" class="container">
-        <!-- ROW -->
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-1">
-                <p><input type="text" class="form-control" placeholder="Nome da lição"/></p>
-                <p><textarea class="form-control" placeholder="Descrição da lição"></textarea></p>
+
+        <nav class="course-lessons">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="top editable"></h1>
+                    <h1><span ng-class="{'blink-text-danger':errors.name}" ng-model="lesson.name"
+                              placeholder="Nome da lição" contenteditable="true"></span></h1>
+
+                    <p class="description editable">
+                        <span ng-model="lesson.desc" placeholder="Descrição da lição"
+                              contenteditable="true"></span></p>
+                </div>
             </div>
-        </div>
-        <!-- END ROW -->
+        </nav>
+
+        <nav class="lesson-units">
+            <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-default"><span ng-bind="lesson.name">Título da lição</span>&nbsp;</button>
+                <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-chevron-down"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="l in lessons">
+                        <a href="" ng-bind="l.name" ng-click="setLesson(l)">Título da lição #1</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
         <!-- ROW -->
         <div class="row">
+
             <div class="col-lg-1">
                 <div class="units admin-units">
-                    <a href="" class="unit">1</a>
-                    <a href="" class="unit current">2</a>
-                    <a href="" class="unit">3</a>
-                    <a href="" class="unit">4</a>
-                    <a href="" class="unit">5</a>
-                    <a href="" class="add-unit unit"><i class="fa fa-plus"></i></a>
+                    {% verbatim %}
+                    <a href="" class="unit" ng-repeat="u in lesson.units"
+                       title="{{u.title}}"
+                       ng-click="$parent.selectUnit(u);"
+                       ng-class="{current: $parent.currentUnit == u}">
+                       <span ng-bind="$index + 1"></span>
+                       <i class="fa fa-list" ng-show="u.activities"></i>
+                   </a>
+                    {% endverbatim %}
+                    <a href="" class="add-unit unit" ng-click="addUnit()"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
+
             <div class="col-lg-8">
-                <div class="add-content row">
+                <div class="add-content row" ng-init="section='video'">
                     <div class="col-lg-6">
-                        <a class="selected" href="">Vídeo</a>
-                        <a href="">Atividade</a>
+                        <button class="btn btn-default uppercase"
+                                ng-class="{'btn-info': section === 'video'}"
+                                ng-click="section ='video'">Vídeo</button>
+
+                        <button class="btn btn-default uppercase"
+                                ng-class="{'btn-info': section === 'activity'}"
+                                ng-click="section ='activity'">Atividade</button>
                     </div>
                     <div class="col-lg-6 textright">
-                        <a href="" class="delete">Apagar unidade</a>
+                        <button class="btn btn-danger delete" ng-click="removeCurrentUnit()"
+                                title="Apagar unidade">
+                            <i class="fa fa-trash-o"></i> | Apagar esta unidade
+                        </button>
                     </div>
                 </div>
-                <div class="video">
-                    {# ROW #}
+
+                <!-- VIDEO SECTION -->
+                <div class="video" ng-show="section === 'video'">
+                    <!-- ROW -->
                     <div class="row">
-                        {# ADD-VIDEO-INTRO #}
-                        <div class="add-video-intro col-sm-12 col-lg-12 textcenter">
-                            {# CENTERED #}
+                        <div class="waiting col-sm-12 col-lg-12 textcenter jumbotron"
+                             style="height: 419px"
+                             ng-show="currentUnit.video.youtube_id && !playerReady">
+                            <div class="middle">
+                                <i class="fa fa-refresh fa-5x"></i>
+                            </div>
+                        </div>
+
+                        <!-- ADD-VIDEO-INTRO -->
+                        <div class="add-video-intro col-sm-12 col-lg-12 textcenter" ng-hide="currentUnit.video">
+                            <!-- CENTERED -->
                             <div class="centered">
-                                <i class="fa fa-youtube-play"></i>
+                                <i class="fa fa-youtube-play fa-4x"></i>
                                 <h1 class="top">Vídeo da unidade</h1>
                                 <p class="form-group">
-                                    <input type="text" class="form-control"/>
+                                    <input type="text" class="form-control"
+                                           ng-model="currentUnit.intended_youtube_id"/>
                                 </p>
                                 <p>
-                                    <button class="btn btn-danger btn-lg uppercase">Cancelar</button>
-                                    <button class="btn btn-success btn-lg uppercase">Adicionar</button>
+                                    <button class="btn btn-danger btn-lg uppercase"
+                                            ng-click="currentUnit.intended_youtube_id=''">Cancelar</button>
+
+                                    <button class="btn btn-success btn-lg uppercase"
+                                            ng-click="setCurrentUnitVideo()">Adicionar</button>
                                 </p>
                             </div>
-                            {# END CENTERED #}
+                            <!-- END CENTERED -->
                         </div>
-                        {# END ADD-VIDEO-INTRO #}
+
+                        <div class="col-lg-12" style="overflow:hidden;"
+                             ng-style="{'margin-left': currentUnit.video && playerReady ?'':'-3000px'}">
+
+                            <div id="youtube-player" player-height="419px" player-width="100%" youtube-player></div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <p class="video-title" ng-model="currentUnit.video.name" placeholder="Nome do vídeo" contenteditable><p>
+                                </div>
+                                <div class="col-lg-4 textright">
+                                    <button class="btn-edit-video btn btn-success btn-sm uppercase"
+                                            ng-click="currentUnit.video = null">Alterar vídeo</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END ADD-VIDEO-INTRO -->
                     </div>
-                    {# END ROW #}
+                    <!-- END ROW -->
                 </div>
+                <!-- END VIDEO SECTION -->
+
+                <!-- ACTIVITIES SECTION -->
+                <div class="activity" ng-show="section==='activity'">
+                    <div class="row">
+                        <div class="col-sm-13 col-lg-13 panel panel-default" ng-show="currentActivity">
+                            <div class="panel-heading clearfix">
+                                <span ng-repeat="activity in currentUnit.activities">
+                                    <button class="btn btn-default"
+                                        ng-class="{'btn-info':currentActivity==activity}"
+                                        ng-click="$parent.currentActivity=activity"
+                                        ng-bind="$index+1"></button>
+                                    &nbsp;
+                                </span>
+
+                                <button class="btn btn btn-success"
+                                    ng-click="currentActivity=null">+</button>
+                            </div>
+
+                            <div class="panel-body">
+                                <ng-include src="loadActivityTemplateUrl()"></ng-include>
+                            </div>
+
+                            <div class="panel-footer text-right">
+                                <button class="btn btn-danger" ng-click="removeCurrentActivity()">Apagar esta atividade</button>
+                            </div>
+                        </div>
+
+                        <div class="add-activity col-sm-12 col-lg-12 textcenter" ng-hide="currentActivity">
+                            <!-- CENTERED -->
+                            <div class="centered">
+                                <i class="fa fa-pencil fa-4x"></i>
+                                <h1 class="top">Atividade da unidade</h1>
+                                <div class="form-group row">
+                                    {% verbatim %}
+                                    <p class="col-sm-4 col-lg-4" ng-repeat="type in activityTypes">
+                                        <label class="btn btn-default"
+                                               ng-class="{'btn-info':$parent.newActivityType===type.name}"
+                                               for="new-activity-type-{{type.name}}">{{type.label}}</label>
+                                        <input class="hidden" id="new-activity-type-{{type.name}}" type="radio"
+                                               ng-model="$parent.newActivityType" value="{{type.name}}"/>
+                                    </p>
+                                    {% endverbatim %}
+                                </div>
+                                <div>
+                                    <button class="btn btn-success btn-lg uppercase"
+                                            ng-disabled="!newActivityType"
+                                            ng-click="addNewActivity()">Adicionar</button>
+                                </div>
+                            </div>
+                            <!-- END CENTERED -->
+                        </div>
+                    </div>
+                </div>
+                <!-- END ACTIVITIES SECTION -->
+
             </div>
             <div class="col-lg-3">
                 <div class="add-side-notes">
-                    <div class="page-header-double">
-                        <h3>Saiba mais</h3>
-                    </div>
-                    <div class="side-notes">
-                        <button class="btn btn-default btn-sm">Adicionar "Saiba Mais"</button>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eu pellentesque nisi. Phasellus eu lorem tellus. Curabitur magna eros, aliquam et lorem vehicula, feugiat scelerisque elit. Morbi a viverra sapien. Pellentesque ac varius lacus, at rutrum augue. Aenean suscipit lacus sed dui condimentum, non imperdiet nulla faucibus. Pellentesque erat elit, sagittis sed ipsum a, scelerisque interdum augue. Nam metus eros, suscipit quis laoreet et, egestas a mi.</p>
-
-                        <p>Aenean eu aliquam sem, vel iaculis neque. Vestibulum mi metus, posuere non iaculis a, adipiscing ac lectus. Donec sodales mi sit amet scelerisque tristique. Praesent lacinia sem eu ante bibendum sagittis. Nullam mi lectus, aliquet vel rhoncus quis, porttitor at odio. Sed vestibulum lobortis orci ac vulputate. Curabitur nulla purus, porta sit amet venenatis ut, ultrices non lorem. Vivamus ac ligula cursus, gravida metus eget, vestibulum neque. Ut placerat purus leo, quis consectetur arcu cursus et. Nulla facilisi. Suspendisse ut neque eros.</p>
-
-                        <p>Duis pellentesque egestas dignissim. Aliquam auctor urna tristique blandit pulvinar. Aliquam nec neque sit amet tellus dapibus faucibus eget in nisl. Pellentesque eros dolor, aliquet eu blandit vitae, ornare et diam. Quisque auctor risus eget sem convallis tempus. Sed elit nisl, cursus sit amet faucibus pretium, pellentesque interdum metus. Maecenas dignissim ornare sem, a faucibus nisl posuere ut. Integer adipiscing nisl non metus rhoncus eleifend. Praesent pellentesque dapibus viverra. Quisque eget posuere nibh, eu viverra augue. Duis placerat turpis quis varius pretium.</p>
-
-                        <p>Quisque tellus arcu, blandit ut dolor at, ultrices pellentesque nunc. Morbi nec dapibus nunc, nec lacinia neque. Morbi faucibus lacus vel aliquam euismod. In semper massa urna, sit amet fermentum dui varius quis. Curabitur sodales sagittis mattis. Vivamus euismod imperdiet tincidunt. Phasellus urna urna, feugiat at nulla et, feugiat dictum dui. Fusce gravida turpis id orci consectetur vulputate. Donec erat odio, facilisis id varius viverra, varius ut sem. Sed pulvinar dignissim orci vitae iaculis. Cras massa lorem, mollis vel urna eu, cursus dictum ipsum. Duis semper odio vel magna auctor, ac egestas nisi mattis. Sed lorem ante, venenatis sed lacinia non, cursus vestibulum nisl. Aliquam gravida vestibulum viverra. Aenean fringilla ante tincidunt magna condimentum, a faucibus sem dapibus.</p>
-
-                        <p>Aliquam in augue diam. Curabitur dapibus massa enim, iaculis mattis erat sagittis vel. Integer elit massa, iaculis pulvinar libero quis, ullamcorper faucibus ipsum. Donec ac felis ut mauris ultrices mattis. Donec placerat libero vel sem porta posuere. Donec lobortis lorem aliquet diam pellentesque, vel blandit orci ultrices. Morbi in tincidunt justo. Duis nisl nisi, faucibus et augue et, volutpat feugiat felis. Nam laoreet turpis congue faucibus ultricies. Proin eu semper mauris, a mattis ipsum. Donec vel tortor libero. Donec mattis id justo at tempor. Vestibulum pretium, ante a tempus tincidunt, augue ante tristique metus, sed congue ipsum velit et nisi.</p>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#side-notes" data-toggle="tab">Saiba Mais</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="side-notes">
+                            <div ng-model="currentUnit.side_notes" contenteditable="true"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -113,7 +265,24 @@
         <!-- END ROW -->
     </section>
     <!-- END COURSE-CONTENT -->
-
+    <!-- ALERT -->
+    <div class="tt-popup notifications" alert-popup ng-class="{'hideTop': alert.hidden}">
+        <div class="alert fade in" ng-class="'alert-' + alert.type">
+            <button type="button" class="close" ng-click="alert.hidden=true">×</button>
+            <h4 ng-bind="alert.title"></h4>
+            <p class="bottom">
+                <ol class="bottom">
+                    <li ng-repeat="message in alert.messages" ng-bind="message"></li>
+                </ol>
+            </p>
+            <div ng-show="alert.showControls">
+                <hr/>
+                <button type="button" class="btn" ng-class="'btn-'+alert.type"
+                         ng-click="alert.hidden=true">Fechar</button>
+            </div>
+        </div>
+    </div>
+    <!-- ALERT -->
 </div>
 <!-- END COURSE-CONTENT -->
 

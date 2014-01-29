@@ -8,7 +8,7 @@
             });
         }).
         factory('Question', function($resource){
-            return $resource('/api/forum_question/', {}, {
+            return $resource('/api/forum_question/:questionId', {}, {
             });
         }).
         factory('AnswerVote', function($resource){

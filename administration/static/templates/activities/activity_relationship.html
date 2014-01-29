@@ -1,0 +1,48 @@
+<div class="question textleft">
+    <h1 class="top" ng-model="currentActivity.data.question"
+        contenteditable placeholder="Título da atividade"></h1>
+</div>
+<div class="answers relationship-answers">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">Coluna 1</div>
+        <div class="col-lg-6 col-md-6 col-sm-6">Coluna 2</div>
+    </div>
+    <br/>
+    <div class="answer relationship-answers" ng-repeat="alt in currentActivity.data.column1 track by $index">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <span ng-bind="($index+1)+'.'"></span>
+                <span ng-model="currentActivity.data.column1[$index]"
+                      contenteditable placeholder="Texto para coluna 1"></span>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <input ng-model="currentActivity.expected[$index]" type="number"
+                               name="unit-{{currentUnitId}}-alt-{{$index}}"
+                               class="form-control"
+                               id="numberbox-{{$index}}" />
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9">
+                        <label ng-model="currentActivity.data.column2[$index]"
+                               contenteditable placeholder="Texto para coluna 2"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1">
+                <button class="btn btn-danger"
+                        title="Apagar alternativa"
+                        ng-click="currentActivity.data.column1.splice($index,1);
+                                  currentActivity.data.column2.splice($index,1);
+                                  currentActivity.expected.splice($index,1)"><i class="fa fa-trash-o"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <button class="btn btn-success"
+                ng-click="currentActivity.data.column1.push('');
+                          currentActivity.data.column2.push('');
+                          currentActivity.expected.push()">Adicionar alternativa</button>
+    </div>
+</div>

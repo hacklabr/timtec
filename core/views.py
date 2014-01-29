@@ -14,8 +14,11 @@ from rest_framework import filters
 from braces.views import LoginRequiredMixin
 from notes.models import Note
 
-from .serializers import CourseSerializer, LessonSerializer, StudentProgressSerializer, NoteUnitSerializer
-from .models import Course, Lesson, StudentProgress, Unit
+from .serializers import (CourseSerializer, CourseProfessorSerializer,
+                          CourseThumbSerializer, LessonSerializer,
+                          StudentProgressSerializer, NoteUnitSerializer,)
+
+from .models import Course, CourseProfessor, Lesson, StudentProgress, Unit
 
 from forms import ContactForm
 
@@ -83,12 +86,22 @@ class EnrollCourseView(LoginRequiredMixin, RedirectView):
     def get_redirect_url(self, **kwargs):
         course = self.get_object()
         course.enroll_student(self.request.user)
-        return reverse('lesson', args=[course.first_lesson().slug])
+        return reverse('lesson', args=[course.slug, course.first_lesson().slug])
+
+
+class CourseProfessorViewSet(viewsets.ModelViewSet):
+    model = CourseProfessor
+    lookup_field = 'id'
+    filter_fields = ('course', 'user',)
+    filter_backends = (filters.DjangoFilterBackend,)
+    serializer_class = CourseProfessorSerializer
 
 
 class CourseViewSet(viewsets.ModelViewSet):
     model = Course
-    lookup_field = 'slug'
+    lookup_field = 'id'
+    filter_fields = ('slug',)
+    filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = CourseSerializer
 
     def get(self, request, **kwargs):
@@ -104,12 +117,38 @@ class CourseViewSet(viewsets.ModelViewSet):
             serializer.save()
             return Response(status=200)
         else:
-            return Response(serializer.errors, status=403)
+            return Response(serializer.errors, status=400)
+
+    def metadata(self, request):
+        data = super(CourseViewSet, self).metadata(request)
+        data.get('actions').get('POST').get('status').update({'choices': dict(Course.STATES[1:])})
+        return data
+
+
+class CourseThumbViewSet(viewsets.ModelViewSet):
+    model = Course
+    lookup_field = 'id'
+    serializer_class = CourseThumbSerializer
+
+    def post(self, request, **kwargs):
+        course = self.get_object()
+        serializer = CourseThumbSerializer(course, request.FILES)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=200)
+        else:
+            return Response(serializer.errors, status=400)
 
 
 class LessonDetailView(LoginRequiredMixin, DetailView):
     model = Lesson
     template_name = "lesson.html"
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super(LessonDetailView, self).get_queryset(*args, **kwargs)
+        course_slug = self.kwargs.get('course_slug')
+        return qs.filter(course__slug=course_slug)
 
     def get_context_data(self, **kwargs):
         context = super(LessonDetailView, self).get_context_data(**kwargs)
@@ -121,7 +160,7 @@ class LessonDetailView(LoginRequiredMixin, DetailView):
 class LessonViewSet(viewsets.ModelViewSet):
     model = Lesson
     serializer_class = LessonSerializer
-    filter_fields = ('course__slug',)
+    filter_fields = ('course__slug', 'course__id',)
     filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter,)
     ordering = ('position',)
 
@@ -147,6 +186,7 @@ class StudentProgressViewSet(viewsets.ModelViewSet):
 
 
 class UpdateStudentProgressView(APIView):
+    # fabio: estou desativando esta view
     model = StudentProgress
 
     def post(self, request, unitId=None):

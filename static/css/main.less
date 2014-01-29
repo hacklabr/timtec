@@ -1,4 +1,4 @@
-@import 'bootstrap/bootstrap.less';
+@import '../../bower_components/bootstrap/less/bootstrap.less';
 @import 'flatui/checkbox-and-radio.less';
 
 // COLORS
@@ -273,7 +273,8 @@ a:active {
 .textcenter { text-align:center; }
 .textleft   { text-align:left; }
 .textright  { text-align:right; }
-.uppercase  { text-transform:uppercase; }
+.uppercase  { text-transform:uppercase !important; }
+.capitalize { text-transform:capitalize !important; }
 .bottom     { .bottom(0,0); }
 .left       { .left(0,0); }
 .right      { .right(0,0); }
@@ -399,22 +400,40 @@ a:active {
     #all-courses {
       &.courses-list {
         .course {
+          background-color: lighten(@gray-lighter, 5%);
+          border-bottom: 1px solid @gray-lighter;
+          border-top: 1px solid @gray-lighter;
+          margin-bottom: 40px;
+          h1 {
+            font-size: 18px;
+            a {
+              color: @gray-darker;
+              &:hover {
+                color: @brand-info;
+              }
+              &:hover:after {
+                content: "(Editar)";
+                font-family: @font-family-sans-serif;
+                font-size: 11px;
+                margin-left: 5px;
+                text-transform: lowercase;
+              }
+            }
+          }
           .lessons {
-            margin-top: 10px;
             .lesson {
               border-top: 1px solid @gray-lighter;
-              margin: 5px 0;
-              padding: 5px 0;
+              padding: 10px 0 12px 0;
+              &:hover {
+                background-color: @gray-lighter;
+              }
               h1 {
-                font-size: 14px;
-              }
-              h2 {
-                font-size: 14px;
-              }
-              .unit {
-                border-top: 1px solid @gray-lighter;
+                font-family: @font-family-sans-serif;
                 font-size: 12px;
-                padding: 5px 0;
+                margin-bottom: 0;
+                margin-top: 5px;
+                padding-bottom: 0;
+                padding-top: 0;
               }
             }
           }
@@ -425,20 +444,71 @@ a:active {
 }
 // END COURSES LIST - Admin
 
-    
+#admin {
+  // CONTENT EDITABLE
+  // ********************************************************************* //
+  [contenteditable] {
+    font-weight: thin;
+    padding: 3px 0 0 0;
+    &:empty {
+      background-color: lighten(@brand-danger, 40%);
+      color: @gray-light;
+      &:before {
+        background-color: none;
+      }
+    }
+    &:hover {
+      background-color: lighten(@brand-warning, 40%);
+    }
+  }
+  // END CONTENT EDITABLE
+
+  // POPUP NOTIFICATIONS
+  // ********************************************************************* //
+  .tt-popup {
+      margin-left: 25%;
+      position: fixed;
+      top: 60px;
+      width: 50%;;
+      z-index: 9999;
+      // -moz-transition: top 500ms;
+      // -webkit-transition: top 500ms;
+      // -o-transition: top 500ms;
+      // transition: top 500ms;
+      &.hideTop {
+        top: -5000px;
+      }
+      .alert-success {
+        h4 {
+          font-family: @font-family-sans-serif;
+          font-size: 12px;
+          font-weight: bold;
+          margin-bottom: 0;
+        }
+      }
+      .close {
+        margin-top: -5px;
+      }
+  }
+  // END POPUP NOTIFICATIONS
+
+
+}
 
 // COURSE
 // ********************************************************************* //
-#course {
-  
+#course,
+#forum {
+
   // ADMIN
   // ********************************************************************* //
   #admin & {
-    
+
     // HEADER - Admin
     // ********************************************************************* //
     header {
       margin-bottom: 20px;
+      margin-top: -20px;
     }
     // END HEADER
 
@@ -446,9 +516,24 @@ a:active {
     // ACTIONS - Admin
     // ********************************************************************* //
     .actions {
-      border-top: 1px solid @gray-light;
-      margin-top: 40px;
-      padding-top: 40px;
+      background-color: @gray-lighter;
+      margin-bottom: 20px;
+      margin-top: -20px;
+      padding: 10px;
+      position: relative;
+      .status {
+        margin-left: 40px;
+        margin-right: 10px;
+      }
+      .label {
+        background-color: darken(@gray-lighter, 10%);
+        color: @gray-darker;
+        font-size: 11px;
+        font-weight: normal;
+        margin-right: -5px;
+        padding: 10px 12px;
+        text-transform: uppercase;
+      }
     }
     // END ACTIONS
 
@@ -458,52 +543,105 @@ a:active {
       }
     }
 
+    nav.lesson-units {
+      margin-bottom: 10px !important;
+    }
+
     // ADD CONTENT - Admin
     // ********************************************************************* //
     .add-content {
       margin-bottom: -20px;
       margin-top: 20px;
-      a {
-        background-color: @gray-light;
-        color: #fff;
-        display: inline-block;
+      button {
         font-size: 11px;
-        line-height: 3;
-        margin:0 0 10px 0;
-        padding:0 20px;
-        text-align: center;
-        text-transform: uppercase;
-        &:hover {
-          background-color: darken(@gray-light, 10%);
-        }
-        &.selected {
-          background-color: @brand-success;
-          &:hover {
-            background-color: darken(@brand-success, 10%);
-          }
-        }
+        margin-bottom: 10px;
+        padding: 10px 20px;
         &.delete {
-          background-color: @brand-danger;
-          &:hover {
-            background-color: darken(@brand-danger, 10%);  
-          }
+          font-size: 14px;
+          padding: 8px 20px;
         }
       }
     }
     // END CONTENT
+
+    // ADD VIDEO, THUMBNAIL, ACTIVITIES
+    .add-video-intro, .add-thumbnail, .add-activity {
+      color:@brand-danger;
+      height:489px;
+
+      &:before {
+        content:'';
+        height:100%;
+        .vertical-align(middle);
+      }
+
+      .centered {
+        .vertical-align(middle);
+        width:400px;
+      }
+
+      .icon-youtube-play {
+        display:block;
+        font-size:54px;
+      }
+    }
+
+    // ORGANIZING LESSONS AND INSTRUCTORS
+    .lessons.organizing-lessons,
+    .instructors.organizing-instructors {
+      margin-bottom: 10px;
+
+      .lesson,
+      .instructor {
+        border-bottom: 1px solid @gray-lighter;
+        margin-bottom: 0;
+        margin-top: 10px;
+        padding-bottom: 10px;
+        .title {
+          display: inline-block;
+          font-size: 14px;
+          margin-left: 10px;
+        }
+        .fa.fa-bars {
+          cursor: move;
+        }
+        .fa.fa-minus-circle {
+          cursor: pointer;
+          color: @brand-danger;
+        }
+      }
+      .submit {
+        margin-top: 10px;
+      }
+    }
   }
   // END ADMIN
 
-  
   // HEADER - Global
   // ********************************************************************* //
   header {
     .page-header {
-      border: none;
+      border-bottom: 1px solid @gray-lighter;
       margin-bottom: 20px;
       h1 {
         .bottom(0,0);
         .top(0,0);
+        span {
+          display: block;
+        }
+        a {
+          color: @gray-darker;
+          &:hover {
+            color: @brand-info;
+          }
+        }
+      }
+    }
+    .course-slug {
+      margin-bottom: 5px;
+      label {
+        color: @gray-light;
+        font-weight: normal;
       }
     }
     ul.instructors {
@@ -518,12 +656,100 @@ a:active {
           &:hover {
             color:darken(@brand-success, 10%);
           }
+          &:after {
+            content: " // ";
+            color: black;
+          }
+        }
+        &:last-child a:after {
+            content: "";
         }
       }
     }
   }
   // END HEADER
-  
+
+  // HEADER - Course Sections
+  // ********************************************************************* //
+  .course-sections {
+    a {
+      display: inline-block;
+      height: 28px;
+      span {
+        border-right: 1px solid @gray-lighter;
+        color: @gray-light;
+        display: inline-block;
+        font-size: 22px;
+        height: 28px;
+        margin-left: -3px;
+        overflow: hidden;
+        padding: 3px 9px;
+        position: relative;
+        text-align: center;
+        &:hover {
+          color: @brand-info;
+          cursor: pointer;
+          text-decoration: none;
+          .transition(all 0.1s ease-out);
+        }
+      }
+    }
+  }
+  // END HEADER - Course Sections
+
+  // HEADER - Course Lesson, Material and Forum
+  // ********************************************************************* //
+  &.course-lesson,
+  &.course-material,
+  &.course-forum {
+    header {
+      .page-header {
+        margin-bottom: 0;
+        h1 {
+          font-size: 16px;
+          text-transform: uppercase;
+        }
+        ul.instructors {
+          font-size: 12px;
+        }
+      }
+    }
+    #course-content {
+      nav.course-lessons {
+        h1 {
+          .bottom(0,0);
+          font-size: 30px;
+        }
+        p.description {
+          color: @gray-light;
+        }
+      }
+      nav.lesson-units {
+        margin-bottom: 60px;
+        ul.dropdown-menu {
+          li {
+            a {
+              color: @gray-light;
+              font-size: 12px;
+              &:hover {
+                background-color: transparent;
+                color: @gray;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.course-material {
+    #course-content {
+      > h1 {
+        margin: 20px 0 40px;
+      }
+    }
+  }
+
   // COURSE INTRO
   // ********************************************************************* //
   &.course-intro {
@@ -542,7 +768,7 @@ a:active {
     .summary {
       margin-top: 20px;
     }
-    
+
     // COURSE LESSONS - Course intro
     // ********************************************************************* //
     .lessons {
@@ -628,12 +854,36 @@ a:active {
     }
     // END INSTRUCTORS
 
+
+    // COURSE THUMBNAIL - General
+    // ********************************************************************* //
+    .thumbnail {
+      border: 1px solid @gray-lighter;
+      padding: 0;
+      #admin & {
+        .top(20px);
+      }
+      .thumbnail-title {
+        margin: 2px 10px 0;
+      }
+      .btn-edit-thumbnail {
+        margin: 5px;
+      }
+    }
+    // END COURSE VIDEO
+
     // COURSE VIDEO - General
     // ********************************************************************* //
-    .video {
+    .video, .activity {
       border: 1px solid @gray-lighter;
       #admin & {
         .top(20px);
+      }
+      .video-title {
+        margin: 2px 10px 0;
+      }
+      .btn-edit-video {
+        margin: 1px 5px 0 0;
       }
     }
     // END COURSE VIDEO
@@ -649,13 +899,20 @@ a:active {
       }
     }
     .add-side-notes {
-      margin-top: 64px;
+      margin-top: 68px;
+      #side-notes {
+        [contenteditable] {
+          cursor: pointer;
+          height: 300px;
+          margin-top: 20px;
+        }
+      }
     }
-    
+
     // COURSE UNITS - General
     // ********************************************************************* //
     .admin-units {
-      margin-top: 64px !important;
+      margin-top: 66px !important;
     }
     .units {
       margint-top: 20px;
@@ -736,57 +993,6 @@ a:active {
 
 
 
-// Course social
-.course-social {
-  .top(27px);
-}
-
-// Course sections - navigation links (intro, lessons, notes, forum, wiki)
-.course-sections {
-  span {
-    background:@gray-lighter;
-    color:@gray-light;
-    display:inline-block;
-    font-size:22px;
-    height:28px;
-    margin-left:-3px;
-    overflow:hidden;
-    padding:3px 9px;
-    position:relative;
-    text-align:center;
-    &:hover {
-      background:@brand-primary;
-      color:@gray-lighter;
-      cursor:pointer;
-      text-decoration:none;
-      .transition(all 0.1s ease-out);
-    }
-  }
-}
-
-// Course lessons nav
-.course-lessons-nav {
-  .bottom(9px,9px);
-  button {
-    font-size:14px;
-  }
-  ul {
-    margin-top:0;
-    padding:9px 0;
-    text-transform:none;
-    li.active a, li.active a:hover {
-      color:@brand-info;
-    }
-    li a {
-      color:@gray;
-    }
-    li a:hover {
-      background:@gray-lighter;
-      color:@gray-darker;
-    }
-  }
-}
-
 .nav-lesson-xs {
   margin-bottom: 10px;
 }
@@ -812,7 +1018,7 @@ a:active {
     .answers {
         margin: 20px 0;
     }
-    
+
     .simplechoice-answers {
         .answer {
             border-bottom: 1px solid @gray-lighter;
@@ -827,7 +1033,7 @@ a:active {
             }
         }
     }
-    
+
     .multiplechoice-answers {
         .answer {
             border-bottom: 1px solid @gray-lighter;
@@ -867,7 +1073,7 @@ a:active {
     .submit {
         margin-top: 40px;
     }
-    
+
     label {
         font-weight:normal;
     }
@@ -875,11 +1081,11 @@ a:active {
     .wrong {
         color:@brand-danger;
     }
-    
+
     .correct {
         color:@brand-success;
     }
-    
+
     table tr, table tr td {
         border:none;
     }
@@ -889,7 +1095,7 @@ a:active {
 .course-forum {
 
   .questions {
-    border-top:1px solid @gray-lighter;
+    // border-top:1px solid @gray-lighter;
     .top(14px,14px);
   }
 
@@ -1005,6 +1211,7 @@ a:active {
 }
 
 // MY COURSES
+// ********************************************************************* //
 #my-courses {
   .courses {
     h1 {
@@ -1050,6 +1257,7 @@ a:active {
 }
 
 // MY NOTES
+// ********************************************************************* //
 #my-notes {
   .courses {
     .course {
@@ -1128,8 +1336,9 @@ a:active {
 }
 
 // FORUM
-#course-forum {
-  #main-content {
+// ********************************************************************* //
+#forum {
+  #forum-content {
     margin-top:20px;
     a.ask-a-question {
       display:block;
@@ -1159,7 +1368,7 @@ a:active {
           font-size:27px;
         }
       }
-      
+
       .author {
         background:@gray-lighter;
         font-size:12px;
@@ -1169,7 +1378,7 @@ a:active {
           font-weight:bold;
         }
       }
-      
+
       .question-tag {
         border-top:1px solid @gray-lighter;
         .top(14px, 14px);
@@ -1191,7 +1400,7 @@ a:active {
           }
         }
       }
-      
+
       .rating {
         .vertical-align(middle);
         text-align:center;
@@ -1229,10 +1438,10 @@ a:active {
         }
       }
     }
-    
-    
+
+
     .questions {
-      .top(18px,0);
+      .top(0,0);
       article {
         .bottom(18px, 18px);
         border-bottom:1px solid @gray-lighter;
@@ -1844,4 +2053,9 @@ ul.uploaded-files-list {
       }
     }
   }
+}
+
+
+.pointer {
+  cursor: pointer;
 }

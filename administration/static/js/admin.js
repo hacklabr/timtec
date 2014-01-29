@@ -3,21 +3,7 @@
 
     var courseSlug = /[^/]+$/.extract(location.pathname);
     var app = angular.module('admin', ['ngRoute', 'ngResource', 'ngSanitize', 'youtube',
-                                       'directive.markdowneditor', 'directive.contenteditable']);
-
-    app.config(['$httpProvider', '$sceDelegateProvider',
-        function ($httpProvider, $sceDelegateProvider) {
-            $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-            $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-            $sceDelegateProvider.resourceUrlWhitelist([
-                /^https?:\/\/(www\.)?youtube\.com\/.*/,
-                'data:text/html, <html style="background: white">',
-                'self',
-                window.STATIC_URL + '**'
-            ]);
-        }
-    ]);
-
+                                       'django', 'directive.markdowneditor', 'directive.contenteditable']);
 
     /**
      * Controllers

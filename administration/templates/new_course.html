@@ -2,16 +2,40 @@
 {% load static %}
 
 {% block js %} {{block.super}}
-<script type="text/javascript" src="{% static 'js/new-course/app.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/new-course/factories.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/new-course/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/new-course/app.js' %}">// must be the 1º</script>
+<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}">// must be the 2º</script>
+<script type="text/javascript" src="{% static 'js/filters/text.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/new-course/directives.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/contenteditable.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/sortable.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/new-course/controllers.js' %}"></script>
 {% endblock %}
 
 {% block content %}
 
 <!--  COURSE CONTENT  -->
 <div id="course" class="course-intro" ng-app="new-course" ng-controller="CourseEditController">
+
+    <!-- ACTIONS -->
+    <div class="actions" fixed-bar>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <button class="btn btn-danger" title="Apagar curso" ng-click="deleteCourse()"><i class="fa fa-trash-o"></i> | Apagar este curso</button>
+                </div>
+                <div class="col-lg-6 textright">
+                    <!-- <button class="btn btn-info">Listar | <i class="fa fa-star-o"></i></button> -->
+                    <button class="btn btn-success" ng-click="saveCourse()">Salvar | <i class="fa fa-save"></i></button>
+                    <button class="btn btn-warning" ng-click="publishCourse()">Publicar | <i class="fa fa-star-o"></i></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- END ACTIONS -->
 
     <!--  HEADER  -->
     <header class="container">
@@ -21,15 +45,28 @@
             <div class="row">
                 <!--  COL-LG-9  -->
                 <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
-                    <h1 ng-bind="course.name"></h1>
+                    <h1><span ng-class="{'blink-text-danger':errors.name}" ng-model="course.name" placeholder="Nome do curso" contenteditable="true" tabindex="1"></span></h1>
+                    <div class="course-slug clearfix">
+                        <label>http://www.timtec.com.br/course/</label>
+                        <strong>
+                            <span ng-bind="course.name|slugify" ng-hide="course.slug"></span>
+                            <span ng-model="course.slug" contenteditable></span>
+                        </strong>
+                    </div>
+
                     <ul class="instructors">
-                        <li><a href=""><span class="icon-addable fa fa-plus-square left right"></span> Adicionar professores ao curso</a></li>
+                        <li><a ng-click="professorsModalActive=true"><span class="icon-addable fa fa-plus-square left right"></span> Adicionar professores ao curso</a></li>
                     </ul>
                 </div>
-                <!--  END COL-LG-9  -->
+                <!--  END COL-LG-8  -->
                 <!--  COL-LG-3  -->
-                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 textright">
-                    <a href="/lesson/internet-e-web" class="btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">Continuar curso</a>
+                <div class="col-lg-3 col-sm-3">
+                    <nav class="course-sections textright">
+                        <a href=""><span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="Intro"></span></a>
+                        <a href=""><span class="has-tooltip fa fa-film" data-toggle="tooltip" data-placement="top" data-original-title="Aulas"></span></a>
+                        <a href=""><span class="has-tooltip fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="Fórum"></span></a>
+                        <a href=""><span class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="Material Didádico"></span></a>
+                    </nav>
                 </div>
                 <!--  END COL-LG-3  -->
             </div>
@@ -44,39 +81,107 @@
         <!--  ROW  -->
         <div class="row">
             <!--  COL-LG-9  -->
-            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" ng-init="mediaSection='video'">
                 <!-- ADD CONTENT -->
                 <div class="add-content row">
                     <div class="col-lg-6">
-                        <a class="selected" href="">Vídeo</a>
-                        <a href="">Imagem</a>
+                        <button ng-click="mediaSection='video'"
+                                ng-class="{'btn-success':mediaSection=='video'}"
+                                class="btn btn-default uppercase selected">Vídeo</button>
+
+                        <button class="btn btn-default uppercase"
+                                ng-class="{'btn-success':mediaSection=='thumbnail'}"
+                                ng-click="mediaSection='thumbnail'">Thumbnail</button>
                     </div>
                 </div>
                 <!-- END ADD CONTENT -->
 
-                <!--  COURSE-VIDEO  -->
-                <section class="video">
-                    <!--  ROW  -->
-                    <div class="row">
-                        <!--  ADD-VIDEO-INTRO  -->
-                        <div class="add-video-intro col-sm-12 col-lg-12 textcenter">
-                            <!--  CENTERED  -->
+                <section class="thumbnail" ng-show="mediaSection=='thumbnail'" ng-init="thumbfile=null">
+
+                    <div class="row" ng-show="addThumb" ng-init="addThumb=(thumbfile===null)">
+
+                        <div class="add-thumbnail col-sm-12 col-lg-12 textcenter">
                             <div class="centered">
-                                <i class="fa fa-youtube-play fa-4x"></i>
-                                <h1 class="top">Vídeo de introdução</h1>
-                                <p class="form-group">
-                                    <input type="text" class="form-control"/>
-                                </p>
+                                <div class="form-group">
+                                    <i class="fa fa-picture-o fa-4x"></i>
+                                    <h1 class="top">Thumbnail</h1>
+
+                                    <file ng-model="thumbfile" name="thumbnail" class="form-control"></file>
+                                </div>
+
                                 <p>
-                                    <button class="btn btn-danger btn-lg uppercase">Cancelar</button>
-                                    <button class="btn btn-success btn-lg uppercase">Adicionar</button>
+                                    <button class="btn btn-danger btn-lg uppercase"
+                                            ng-click="thumbfile=null; addThumb=!course.thumbnail_url">Cancelar</button>
+
+                                    <button class="btn btn-success btn-lg uppercase"
+                                            ng-click="addThumb=(thumbfile===null); saveThumb()">Adicionar</button>
+
                                 </p>
                             </div>
-                            <!--  END CENTERED  -->
                         </div>
-                        <!--  END ADD-VIDEO-INTRO  -->
                     </div>
-                    <!--  END ROW  -->
+
+                    <div class="row" ng-show="!addThumb">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <img local-image ng-model="thumbfile" class="img-responsive"/>
+                            {% verbatim %}
+                            <img ng-src="{{course.thumbnail_url}}" class="img-responsive" ng-show="!thumbfile"/>
+                            {% endverbatim %}
+                        </div>
+
+                        <div class="col-lg-12 textright">
+                            <button class="btn-edit-thumbnail btn btn-success btn-sm uppercase"
+                                    ng-click="addThumb=true">Alterar thumbnail</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!--  COURSE-VIDEO  -->
+                <section class="video" ng-show="mediaSection=='video'">
+                    <div class="row">
+                        <div class="waiting col-sm-12 col-lg-12 textcenter jumbotron"
+                             style="height: 515px"
+                             ng-show="course.intro_video.youtube_id && !playerReady">
+                            <div class="middle">
+                                <i class="fa fa-refresh fa-5x"></i>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12" style="overflow:hidden;"
+                             ng-style="{'margin-left': course.hasVideo() && playerReady ?'':'-2000px'}">
+
+                            <div id="youtube-player" player-height="475px" player-width="100%" youtube-player></div>
+                            <div class="row">
+                                <div class="col-lg-10">
+                                    <p class="video-title" ng-model="course.intro_video.name" placeholder="Nome do vídeo" contenteditable><p>
+                                </div>
+                                <div class="col-lg-2 textcenter">
+                                    <button class="btn-edit-video btn btn-success btn-sm uppercase"
+                                            ng-click="course.intro_video.youtube_id=''">Alterar vídeo</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="add-video-intro col-sm-12 col-lg-12 textcenter"
+                             ng-show="!course.intro_video.youtube_id">
+                            <div class="centered">
+                                <div class="form-group">
+                                    <i class="fa fa-youtube-play fa-4x"></i>
+                                    <h1 class="top">Vídeo de introdução</h1>
+                                    <input type="text" tabindex="8" ng-model="youtube_id" class="form-control"/>
+                                </div>
+
+                                <p>
+                                    <button class="btn btn-danger btn-lg uppercase"
+                                            ng-click="course.intro_video.youtube_id=''">Cancelar</button>
+                                    <button tabindex="9"
+                                            class="btn btn-success btn-lg uppercase"
+                                            ng-show="!course.intro_video.youtube_id"
+                                            ng-click="course.intro_video.youtube_id=youtube_id">Adicionar</button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </section>
                 <!--  END COURSE-VIDEO  -->
 
@@ -87,18 +192,18 @@
                         <!--  COL-LG-6  -->
                         <div class="application col-sm-6 col-lg-6">
                             <div class="page-header-double">
-                                <h3 class="top"><i class="fa fa-angle-double-right"></i> Aplicação do Conhecimento</h3>
+                                <h3 class="top"><i ng-class="{'blink-text-danger':errors.application}" class="fa fa-angle-double-right"></i> Aplicação do Conhecimento</h3>
                             </div>
-                            <modalmarkdowneditor save="course.save" title="Aplicação do conhecimento" content="course.application"></modalmarkdowneditor>
+                            <modalmarkdowneditor tabindex="6" on-save="saveCourse()" title="Aplicação do conhecimento" content="course.application"></modalmarkdowneditor>
                         </div>
                         <!--  END COL-LG-6  -->
 
                         <!--  COL-LG-6  -->
                         <div class="requirement col-sm-6 col-lg-6">
                             <div class="page-header-double">
-                                <h3 class="top"><i class="fa fa-angle-double-right"></i> O que preciso saber</h3>
+                                <h3 class="top"><i ng-class="{'blink-text-danger':errors.requirement}" class="fa fa-angle-double-right"></i> O que preciso saber</h3>
                             </div>
-                            <modalmarkdowneditor save="course.save" title="O que preciso saber?" content="course.requirements"></modalmarkdowneditor>
+                            <modalmarkdowneditor tabindex="7" on-save="saveCourse()" title="O que preciso saber?" content="course.requirement"></modalmarkdowneditor>
 
                         </div>
                         <!--  END COL-LG-6  -->
@@ -115,72 +220,173 @@
                     </div>
                     <!--  END PAGE-HEADER-DOUBLE  -->
 
-                    <a href="/admin/courses/lessons/new" class="btn btn-sm btn-success uppercase">Adicionar aula</a>
+                    <p><a href="" ng-click="organizingLessons=true" ng-show="!organizingLessons">Organizar as lições</a></p>
+                    <!-- <a href="" ng-click="organizingLessons=false" ng-show="organizingLessons">Lista detalhada de lições</a> -->
+
+                    <!-- ORGANIZING LESSONS -->
+                    <div class="lessons organizing-lessons" ng-show="organizingLessons"
+                         sortable="lessons" on-update="repositionLessons()">
+
+                        <!-- LESSON -->
+                        <div class="lesson" ng-repeat="lesson in lessons">
+                            <div class="row">
+
+                                <div class="col-lg-9">
+                                    <span class="handle"><span class="btn btn-warning"><i class="fa fa-bars"></i></span></span>
+                                    <span class="title" ng-bind="lesson.name">Nome da lição</span>
+                                </div>
+
+                                <div class="col-lg-3 textright">
+                                    <div class="btn-group" ng-init="openDropdown=false;">
+                                        <button type="button" class="btn btn-default">
+                                            <span ng-show="lesson.status=='draft'"> Rascunho</span>
+                                            <span ng-show="lesson.status=='listed'"> Listado</span>
+                                            <span ng-show="lesson.status=='published'"> Publicado</span>
+                                        </button>
+                                        <button type="button" class="btn btn-default dropdown-toggle"
+                                                ng-click="openDropdown=!openDropdown;">
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu textleft" ng-style="{display:openDropdown?'block':'none'}">
+                                            <li>
+                                                <a ng-click="lesson.status='draft';openDropdown=false;"
+                                                   ng-show="lesson.status!='draft'"> Rascunho</a>
+                                           </li>
+                                            <li>
+                                                <a ng-click="lesson.status='listed';openDropdown=false;"
+                                                   ng-show="lesson.status!='listed'"> Listado</a>
+                                           </li>
+                                            <li>
+                                                <a ng-click="lesson.status='published';openDropdown=false;"
+                                                   ng-show="lesson.status!='published'"> Publicado</a>
+                                           </li>
+                                        </ul>
+                                    </div>
+                                    <button class="btn btn-danger" ng-click="deleteLesson(lesson)"><i class="fa fa-trash-o"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END LESSON -->
+
+                        <div class="submit textright">
+                            <button class="btn btn-danger" ng-click="organizingLessons=false">Cancelar</button>
+                            <button class="btn btn-success" ng-click="saveAllLessons()">Salvar</button>
+                        </div>
+                    </div>
+                    <!-- END ORGANIZING LESSONS -->
 
                     <!--  LESSON  -->
-                    <div class="lesson row">
+                    <div class="lesson row" ng-repeat="lesson in lessons" ng-hide="organizingLessons">
                         <!--  COL-LG-3  -->
                         <div class="col-lg-3 col-sm-3 col-sm-3 hidden-xs">
-                            <img src="http://i1.ytimg.com/vi/gPdNX46JCp8/hqdefault.jpg" class="thumbnail">
+                            {% verbatim %}
+                            <img ng-src="{{ lesson.thumbnail }}" class="img-thumbnail">
+                            {% endverbatim %}
                         </div>
                         <!--  END COL-LG-3  -->
 
                         <!--  COL-LG-9  -->
                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                             <p>
-                                <span class="title"><a href="">Introdução: Internet e Web</a></span>
-                                <span class="description">Quais são as relações e as diferenças entre Internet e Web. A Web e as camadas de desenvolvimento do lado do usuário</span>
+                                {% verbatim %}
+                                <a href="lessons/{{lesson.id}}" class="title editable" ng-bind="lesson.name">Nome da lição</a>
+                                {% endverbatim %}
+                                <modalmarkdowneditor on-save="saveLesson(lesson)" title="Descrição da lição" content="lesson.desc"></modalmarkdowneditor>
                             </p>
                             <!--  HIDDEN-XS  -->
-                            <div class="hidden-xs">
+                            <div class="hidden-xs" ng-show="lesson.units">
                                 <table class="table units">
                                     <tbody>
                                         <tr>
-                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 1"></span></td>
-                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 2"></span></td>
-                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 3"><i class="fa fa-list"></i></span></td>
-                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 4"><i class="fa fa-list"></i></span></td>
-                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 5"><i class="fa fa-list"></i></span></td>
-                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 6"><i class="fa fa-list"></i></span></td>
-                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 7"></span></td>
-                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 8"></span></td>
-                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 9"></span></td>
-                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 10"></span></td>
-                                            <td><span class="has-tooltip unit " data-toggle="tooltip" data-placement="bottom" data-original-title="Unidade 11"></span></td>
+                                            <td ng-repeat="unit in lesson.units">
+                                                {% verbatim %}
+                                                <span class="has-tooltip unit " data-toggle="tooltip"
+                                                      data-placement="bottom" data-original-title="{{unit.title}}">
+                                                    <i class="fa fa-list" ng-show="unit.activities"></i>
+                                                </span>
+                                                {% endverbatim %}
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <!--  END HIDDEN-XS  -->
-                            <p><i class="fa fa-youtube-play"></i> <small>11 videos</small> | <i class="fa fa-list"></i> <small>4 atividades</small></p>
+                            {% verbatim %}
+                            <p><i class="fa fa-youtube-play"></i> <small>{{ lesson.countVideos() }} videos</small> | <i class="fa fa-list"></i> <small>{{ lesson.countActivities() }} atividades</small></p>
+                            {% endverbatim %}
                         </div>
                         <!--  END COL-LG-9  -->
                     </div>
                     <!--  END LESSON  -->
+
+                    <div class="row textcenter">
+                        <div class="col-lg-12">
+                            {% verbatim %}
+                            <a href="/admin/courses/{{course.id}}/lessons/new" class="col-lg-12 btn btn-lg btn-default uppercase">{% endverbatim %}Adicionar lição</a>
+                        </div>
+                    </div>
+
                 </section>
                 <!--  END COURSE-LESSONS  -->
 
+                <!-- INSTRUCTORS -->
                 <section class="instructors">
+                    <!-- PAGE-HEADER-DOUBLE -->
                     <div class="page-header-double">
                         <h3><i class="fa fa-angle-double-right"></i> Instrutores</h3>
                     </div>
+                    <!-- END PAGE-HEADER-DOUBLE -->
 
-                    <a href="/admin/courses/instructors/new" class="btn btn-sm btn-success uppercase">Adicionar instrutor</a>
+                    <!-- <a href="" ng-click="organizingInstructors=false" ng-show="organizingInstructors">Editar biografias</a> -->
+                    <p><a href="" ng-click="organizingInstructors=true" ng-hide="organizingInstructors">Organizar instrutores</a></p>
 
-                    <div id="" class="instructor row">
+                    <div class="instructors organizing-instructors" ng-show="organizingInstructors"
+                         sortable="courseProfessors" on-update="repositionInstructors()">
+
+                        <div class="instructor" ng-repeat="professor in courseProfessors">
+                            <div class="row">
+                                <div class="col-lg-11">
+                                    <span class="handle"><span class="btn btn-warning"><i class="fa fa-bars"></i></span></span>
+                                    <span class="title" ng-bind="professor.user_info.name">Nome do professor</span>
+                                </div>
+                                <div class="col-lg-1 textright">
+                                    <button class="btn btn-danger"
+                                            ng-click="deleteProfessor(professor)">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="submit textright">
+                            <button class="btn btn-danger" ng-click="organizingInstructors=false">Fechar</button>
+                            <button class="btn btn-success" ng-click="saveAllInstructors()">Salvar</button>
+                        </div>
+                    </div>
+
+                    <!-- INSTRUCTOR -->
+                    <div id="" class="instructor row" ng-repeat="professor in courseProfessors" ng-hide="organizingInstructors">
                         <div class="col-lg-3 col-sm-3">
-                            <img src="http://timtec.com.br/media/user-pictures/fabioflat.png" class="col-lg-12 col-sm-12 thumbnail">
+                            {% verbatim %}
+                            <img ng-src="{{ professor.user_info.picture }}"
+                                 onerror="this.src='/static/img/avatar-default.png'"
+                                 class="img-thumbnail">
+                            {% endverbatim %}
                         </div>
                         <div class="col-lg-9 col-sm-9">
-                            <h1 class="fullname bottom top">Fabio Flatschart</h1>
+                            <h1 class="fullname bottom top" ng-bind="professor.user_info.name">Nome do professor</h1>
                             <h2 class="job-title top"></h2>
-                            <p>Fábio Flatschart é autor do livro HTML5 - Embarque Imediato, uma das primeiras publicações em português sobre o assunto, co-autor do livro Open Web Platform e de outras de referência no mercado. É colunista do portal iMasters e professor convidado dos mais importantes cursos de MBA do Brasil (FGV, FIA, Trevisan)</p>
-                            <p>No Senac São Paulo atua no desenvolvimento de produtos educacionais e cursos livres, técnicos, superiores e de pós- graduação na área da tecnologia da informação</p>
-                            <p>Com a Soyuz Sistemas e a Flatschart Consultoria participa do desenvolvimento e implantação de projetos pioneiros nas áreas de Open Web Platform e Marketing Semântico em empresas como Editora Moderna, Editora Pearson, Grupo GEN e W3C Brasil.</p>
-                            <p><a href="www.flatschart.com">www.flatschart.com</a></p>
+                            <modalmarkdowneditor title="Biografia" on-save="saveProfessor(professor)" content="professor.biography"></modalmarkdowneditor>
+                        </div>
+                    </div>
+                    <!-- END INSTRUCTOR -->
+
+                    <div class="row textcenter">
+                        <div class="col-lg-12">
+                            <a ng-click="professorsModalActive=true" class="col-lg-12 btn btn-lg btn-default uppercase">Adicionar instrutor</a>
                         </div>
                     </div>
                 </section>
+                <!-- END INSTRUCTORS -->
             </div>
             <!--  END COL-LG-9  -->
 
@@ -191,27 +397,28 @@
 
                     <!--  ABSTRACT  -->
                     <div class="page-header-double top">
-                        <h3 class="top"><i class="fa fa-angle-double-right"></i> Resumo</h3>
+                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> Resumo</h3>
+
                     </div>
-                    <modalmarkdowneditor save="course.save" title="Resumo" content="course.abstract"></modalmarkdowneditor>
+                    <modalmarkdowneditor tabindex="2" on-save="saveCourse()" title="Resumo" content="course.abstract"></modalmarkdowneditor>
 
                     <hr/>
                     <!--  END ABSTRACT  -->
 
                     <!--  STRUCTURE  -->
                     <div class="page-header-double top">
-                        <h3 class="top"><i class="fa fa-angle-double-right"></i> Estrutura do curso</h3>
+                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.structure}" class="fa fa-angle-double-right"></i> Estrutura do curso</h3>
                     </div>
-                    <modalmarkdowneditor save="course.save" title="Estrutura do curso" content="course.structure"></modalmarkdowneditor>
+                    <modalmarkdowneditor tabindex="3" on-save="saveCourse()" title="Estrutura do curso" content="course.structure"></modalmarkdowneditor>
 
                     <hr/>
                     <!--  END STRUCTURE  -->
 
                     <!--  WORKLOAD  -->
                     <div class="page-header-double top">
-                        <h3 class="top"><i class="fa fa-angle-double-right"></i> Carga horária</h3>
+                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.workload}" class="fa fa-angle-double-right"></i> Carga horária</h3>
                     </div>
-                    <modalmarkdowneditor save="course.save" title="Carga horária" content="course.workload"></modalmarkdowneditor>
+                    <modalmarkdowneditor tabindex="4" on-save="saveCourse()" title="Carga horária" content="course.workload"></modalmarkdowneditor>
 
                     <hr/>
                     <!--  END WORKLOAD  -->
@@ -219,7 +426,7 @@
                     <div class="page-header-double top">
                         <h3 class="top"><i class="fa fa-angle-double-right"></i> Texto PRONATEC</h3>
                     </div>
-                    <modalmarkdowneditor save="course.save" title="PRONATEC" content="course.pronatec"></modalmarkdowneditor>
+                    <modalmarkdowneditor tabindex="5" on-save="saveCourse()" title="PRONATEC" content="course.pronatec"></modalmarkdowneditor>
 
                 </section>
                 <!--  END COURSE-SUMMARY  -->
@@ -230,6 +437,26 @@
     </section>
     <!--  END COURSE CONTENT  -->
 
+
+    <!-- ALERT -->
+    <div class="tt-popup notifications" alert-popup ng-class="{'hideTop': alert.hidden}">
+        <div class="alert fade in" ng-class="'alert-' + alert.type">
+            <button type="button" class="close" ng-click="alert.hidden=true">×</button>
+            <h4 ng-bind="alert.title"></h4>
+            <p class="bottom">
+                <ol class="bottom">
+                    <li ng-repeat="message in alert.messages" ng-bind="message"></li>
+                </ol>
+            </p>
+            <div ng-show="alert.showControls">
+                <hr/>
+                <button type="button" class="btn" ng-class="'btn-'+alert.type"
+                         ng-click="alert.hidden=true">Fechar</button>
+            </div>
+        </div>
+    </div>
+    <!-- ALERT -->
+    <professorslist on-select="addProfessor" active="professorsModalActive"><professorslist>
 </div>
 <!--  END COURSE CONTENT  -->
 

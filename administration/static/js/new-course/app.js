@@ -1,12 +1,16 @@
 (function(angular){
     'use strict';
 
-    var app = angular.module('new-course', ['ngResource', 'directive.markdowneditor']);
-
-    app.config(['$httpProvider',
-        function ($httpProvider) {
-            $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-            $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-        }
+    angular.module('new-course', [
+        'django',
+        'timtec-models',
+        'directive.alertPopup',
+        'directive.contenteditable',
+        'directive.fixedBar',
+        'directive.markdowneditor',
+        'directive.sortable',
+        'filters.text',
+        'ngResource',
+        'youtube'
     ]);
 })(window.angular);

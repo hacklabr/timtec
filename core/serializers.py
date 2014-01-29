@@ -1,14 +1,16 @@
 from core.models import Course, CourseProfessor, CourseStudent, Lesson, Video, StudentProgress, Unit
 from accounts.serializers import TimtecUserSerializer
 from activities.serializers import ActivitySerializer
+from rest_framework.reverse import reverse
 from notes.models import Note
 from rest_framework import serializers
 
 
 class CourseProfessorSerializer(serializers.ModelSerializer):
-    user = TimtecUserSerializer()
+    user_info = TimtecUserSerializer(source='user', read_only=True)
 
     class Meta:
+        fields = ('id', 'course', 'user', 'user_info', 'biography', 'role',)
         model = CourseProfessor
 
 
@@ -27,13 +29,21 @@ class VideoSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    intro_video = VideoSerializer()
+    intro_video = VideoSerializer(required=False)
+    thumbnail_url = serializers.Field(source='get_thumbnail_url')
 
     class Meta:
         model = Course
         fields = ("id", "slug", "name", "intro_video", "application", "requirement",
-                  "abstract", "structure", "workload", "pronatec", "status", "publication",
-                  "professors",)
+                  "abstract", "structure", "workload", "pronatec", "status",
+                  "thumbnail_url", "publication",)
+
+
+class CourseThumbSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Course
+        fields = ("id", "thumbnail",)
 
 
 class StudentProgressSerializer(serializers.ModelSerializer):
@@ -45,25 +55,34 @@ class StudentProgressSerializer(serializers.ModelSerializer):
 
 
 class UnitSerializer(serializers.ModelSerializer):
-    video = VideoSerializer()
-    activity = ActivitySerializer()
+    video = VideoSerializer(required=False)
+    activities = ActivitySerializer(many=True, allow_add_remove=True)
 
     class Meta:
         model = Unit
-        fields = ('id', 'title', 'video', 'activity', 'side_notes', 'position',)
+        fields = ('id', 'title', 'video', 'activities', 'side_notes', 'position',)
+
+
+class LessonHyperlinkedIdentityField(serializers.HyperlinkedIdentityField):
+    # Need to do this because the rest framework doesnt support multiple
+    # lookups
+    def get_url(self, obj, view_name, request, format):
+        kwargs = {'slug': obj.slug, 'course_slug': obj.course.slug}
+        return reverse(view_name, kwargs=kwargs, request=request, format=format)
 
 
 class LessonSerializer(serializers.HyperlinkedModelSerializer):
     course = serializers.SlugRelatedField(slug_field='slug')
     units = UnitSerializer(many=True, allow_add_remove=True)
-    url = serializers.HyperlinkedIdentityField(
+    thumbnail = serializers.Field(source='thumbnail')
+    url = LessonHyperlinkedIdentityField(
         view_name='lesson',
         lookup_field='slug'
     )
 
     class Meta:
         model = Lesson
-        fields = ('id', 'course', 'desc', 'name', 'notes', 'position', 'slug', 'status', 'units', 'url',)
+        fields = ('id', 'course', 'desc', 'name', 'notes', 'position', 'slug', 'status', 'units', 'url', 'thumbnail')
 
 
 class SimplifiedLessonSerializer(serializers.ModelSerializer):
@@ -78,7 +97,7 @@ class SimplifiedUnitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Unit
-        fields = ('id', 'title', 'position',)
+        fields = ('id', 'title', 'video', 'position',)
 
 
 class NoteUnitSerializer(serializers.ModelSerializer):

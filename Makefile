@@ -8,22 +8,6 @@ create-staging:
 	mkdir -p ~/webfiles/static
 	mkdir -p ~/webfiles/media
 
-update-staging:
-	dropdb timtec-staging
-	createdb timtec-staging
-	pg_restore -O -x -n public -d timtec-staging ~hacklab/sql-backup/last.psqlc
-	cp timtec/settings_local_staging.py timtec/settings_local.py
-	~/env/bin/pip install -r requirements.txt
-	~/env/bin/python manage.py syncdb --noinput
-	~/env/bin/python manage.py migrate --noinput
-	~/env/bin/python manage.py collectstatic --noinput
-	~/env/bin/python manage.py compilemessages
-	rm -rf ~/webfiles/media/
-	cp -r ~timtec-production/webfiles/media ~/webfiles/
-	touch ~/wsgi-reload
-
-staging: create-staging update-staging
-
 create-production:
 	virtualenv ~/env
 	~/env/bin/pip install -r requirements.txt
@@ -40,14 +24,32 @@ create-production:
 	~/env/bin/python manage.py create_student_and_professor
 	touch ~/wsgi-reload
 
-update-production:
-	cp timtec/settings_local_production.py timtec/settings_local.py
+update-dev:
+	dropdb timtec-dev
+	createdb timtec-dev
+	pg_restore -O -x -n public -d timtec-dev ~hacklab/sql-backup/last.psqlc
+	cp timtec/settings_local_timtec_dev.py timtec/settings_local.py
 	~/env/bin/pip install -r requirements.txt
 	~/env/bin/python manage.py syncdb --noinput
 	~/env/bin/python manage.py migrate --noinput
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
-	cp ../settings_production.py timtec/settings_production.py
+	rm -rf ~/webfiles/media/
+	cp -r ~timtec-production/webfiles/media ~/webfiles/
+	touch ~/wsgi-reload
+
+update-staging:
+	dropdb timtec-staging
+	createdb timtec-staging
+	pg_restore -O -x -n public -d timtec-staging ~hacklab/sql-backup/last.psqlc
+	cp timtec/settings_local_staging.py timtec/settings_local.py
+	~/env/bin/pip install -r requirements.txt
+	~/env/bin/python manage.py syncdb --noinput
+	~/env/bin/python manage.py migrate --noinput
+	~/env/bin/python manage.py collectstatic --noinput
+	~/env/bin/python manage.py compilemessages
+	rm -rf ~/webfiles/media/
+	cp -r ~timtec-production/webfiles/media ~/webfiles/
 	touch ~/wsgi-reload
 
 update-design:
@@ -64,6 +66,18 @@ update-design:
 	cp -r ~timtec-production/webfiles/media ~/webfiles/
 	touch ~/wsgi-reload
 
+staging: create-staging update-staging
+
+update-production:
+	cp timtec/settings_local_production.py timtec/settings_local.py
+	~/env/bin/pip install -r requirements.txt
+	~/env/bin/python manage.py syncdb --noinput
+	~/env/bin/python manage.py migrate --noinput
+	~/env/bin/python manage.py collectstatic --noinput
+	~/env/bin/python manage.py compilemessages
+	cp ../settings_production.py timtec/settings_production.py
+	touch ~/wsgi-reload
+
 test_collectstatic: clean
 	python manage.py collectstatic --noinput -n
 
@@ -74,7 +88,7 @@ python_tests: clean
 	py.test --pep8 --flakes --tb=native --cov . . $*
 
 js_tests:
-	find . -path ./static/js/vendor -prune -o -path static/js/vendor/ -prune -o -path ./tests/js/lib -prune -path tests/js/lib/ -prune -o -name '*.js' -exec jshint {} \;
+	find . -path ./bower_components -prune -o -path bower_components/ -prune -o -path ./static/js/vendor -prune -o -path static/js/vendor/ -prune -o -name '*.js' -exec jshint {} \;
 
 karma_tests:
 	karma start confkarma.js $*
@@ -93,7 +107,7 @@ setup_coveralls:
 	pip install -q coveralls --use-mirrors
 
 setup_js:
-	sudo `which npm` -g install less yuglify karma jshint --loglevel silent
+	sudo `which npm` -g install less yuglify karma jshint ngmin --loglevel silent
 
 setup_django: clean
 	python manage.py syncdb --all --noinput

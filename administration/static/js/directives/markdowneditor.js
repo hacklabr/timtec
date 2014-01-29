@@ -10,7 +10,7 @@
             'modalmarkdowneditor': '/static/templates/directive.modalmarkdowneditor.html'
         };
 
-        function controller ($scope) {
+        function controller ($scope, $element) {
             $scope.active = false;
             $scope.id = Math.random().toString(16).slice(2);
             var original = angular.copy($scope.content);
@@ -41,6 +41,8 @@
                         throw e;
                     }
                 }
+
+                $element.focus();
             };
 
             $scope.refreshPreview = function() {
@@ -56,6 +58,12 @@
                 window.Markdown.getSanitizingConverter(), '-'.concat(scope.id)
             );
 
+            scope.focusEditor = function(){
+                setTimeout(function(){
+                    document.getElementById('wmd-input-' + scope.id).focus();
+                },100);
+            };
+
             scope.$watch('$scope', function(){
                 if(!editorIsRunning) scope.editor.run();
                 editorIsRunning = true;
@@ -64,6 +72,15 @@
                             scope.content = (evt.target || evt.currentTarget).value;
                             scope.$apply();
                         });
+            });
+
+            element.keydown(function(evt){
+                if (!(evt.keyCode === 13 && evt.target === element[0]) ) {
+                    return;
+                }
+                scope.active = true;
+                scope.$apply();
+                scope.focusEditor();
             });
             scope.title = attr.title;
         }
@@ -78,7 +95,7 @@
                     'link': link,
                     'scope': {
                         'content': '=content',
-                        'onSave': '=save'
+                        'onSave': '&onSave'
                     }
                 };
             };

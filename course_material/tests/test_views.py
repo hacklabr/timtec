@@ -8,7 +8,7 @@ def test_course_material(admin_client, user):
     mommy.make('Lesson', course=course)
     course_material = mommy.make('CourseMaterial', course=course, text='foobar**bold**')
 
-    response = admin_client.get('/course_material/' + course.slug)
+    response = admin_client.get('/course/' + course.slug + '/material/')
 
     assert response.status_code == 200
     assert course_material.text[:6].encode('utf-8') in response.content

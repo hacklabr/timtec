@@ -106,19 +106,22 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(PROJECT_ROOT, "static"),
+    os.path.join(PROJECT_ROOT, 'bower_components'),
 )
 
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    # 'pipeline.finders.PipelineFinder',
-    # 'pipeline.finders.CachedFileFinder',
+    'pipeline.finders.FileSystemFinder',
+    'pipeline.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
+    'pipeline.finders.CachedFileFinder',
     # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+
+PIPELINE_JS_COMPRESSOR = 'timtec.ngminyuglify.NgminYuglifyCompressor'
 
 PIPELINE_COMPILERS = (
     'pipeline.compilers.less.LessCompiler',
@@ -129,10 +132,10 @@ PIPELINE_CSS = {
         'source_filenames': (
             'fonts/teuton/stylesheet.css',
             'fonts/questrial/stylesheet.css',
-            'fonts/font-awesome/stylesheet.css',
-            'js/vendor/codemirror/lib/codemirror.css',
-            'js/vendor/codemirror/addon/hint/show-hint.css',
-            'js/vendor/codemirror/theme/monokai.css',
+            'font-awesome/css/font-awesome.css',
+            'codemirror/lib/codemirror.css',
+            'codemirror/addon/hint/show-hint.css',
+            'codemirror/theme/monokai.css',
             'css/codemirrorconf.css',
         ),
         'output_filename': 'css/common.css',
@@ -163,11 +166,20 @@ PIPELINE_CSS = {
 PIPELINE_JS = {
     'all': {
         'source_filenames': (
-            'js/vendor/modernizr.js',
-            'js/vendor/jquery-1.10.2.js',
-            'js/vendor/bootstrap.js',
-            'js/vendor/angular.js',
-            'js/vendor/angular-*.js',
+            'modernizr/modernizr.js',
+            'jquery/jquery.js',
+            'jquery-ui/ui/jquery-ui.js',
+            'jquery-ui/ui/jquery.ui.sortable.js',
+            'bootstrap/dist/js/bootstrap.js',
+            'angular/angular.js',
+            'angular-animate/angular-animate.js',
+            'angular-cookies/angular-cookies.js',
+            'angular-resource/angular-resource.js',
+            'angular-route/angular-route.js',
+            'angular-sanitize/angular-sanitize.js',
+            'angular-bootstrap/ui-bootstrap-tpls.js',
+            # 'angular-ui-codemirror/angular-ui-codemirror.js',
+            'js/django.js',
             'js/contact_form.js',
             'js/helpers.js',
             'js/angular-youtube.js',
@@ -176,20 +188,20 @@ PIPELINE_JS = {
     },
     'codemirror': {
         'source_filenames': (
-            'js/vendor/codemirror/lib/codemirror.js',
-            'js/vendor/codemirror/addon/fold/xml-fold.js',
-            'js/vendor/codemirror/addon/hint/show-hint.js',
-            'js/vendor/codemirror/addon/hint/xml-hint.js',
-            'js/vendor/codemirror/addon/hint/html-hint.js',
-            'js/vendor/codemirror/addon/hint/css-hint.js',
-            'js/vendor/codemirror/addon/hint/javascript-hint.js',
-            'js/vendor/codemirror/addon/edit/matchbrackets.js',
-            'js/vendor/codemirror/addon/edit/closebrackets.js',
-            'js/vendor/codemirror/addon/edit/matchtags.js',
-            'js/vendor/codemirror/mode/xml/xml.js',
-            'js/vendor/codemirror/mode/css/css.js',
-            'js/vendor/codemirror/mode/javascript/javascript.js',
-            'js/vendor/codemirror/mode/htmlmixed/htmlmixed.js',
+            'codemirror/lib/codemirror.js',
+            'codemirror/addon/fold/xml-fold.js',
+            'codemirror/addon/hint/show-hint.js',
+            'codemirror/addon/hint/xml-hint.js',
+            'codemirror/addon/hint/html-hint.js',
+            'codemirror/addon/hint/css-hint.js',
+            'codemirror/addon/hint/javascript-hint.js',
+            'codemirror/addon/edit/matchbrackets.js',
+            'codemirror/addon/edit/closebrackets.js',
+            'codemirror/addon/edit/matchtags.js',
+            'codemirror/mode/xml/xml.js',
+            'codemirror/mode/css/css.js',
+            'codemirror/mode/javascript/javascript.js',
+            'codemirror/mode/htmlmixed/htmlmixed.js',
             'js/codemirrorconf.js',
         ),
         'output_filename': 'js/codemirrorcomp.js',
@@ -217,7 +229,7 @@ REST_FRAMEWORK = {
     ],
 }
 
-APPEND_SLASH = False
+APPEND_SLASH = True
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'e%6a01vfbue28$xxssu!9r_)usqjh817((mr+7vv3ek&@#p0!$'

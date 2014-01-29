@@ -8,4 +8,4 @@ class TimtecUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TimtecUser
-        fields = ('id', 'username', 'name', 'first_name', 'last_name', 'picture',)
+        fields = ('id', 'username', 'name', 'first_name', 'last_name', 'biography', 'picture',)

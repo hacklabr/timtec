@@ -11,7 +11,7 @@
             });
         }).
         factory('Course', function($resource){
-            return $resource('/api/course/:course_slug/',{});
+            return $resource('/api/course/:id');
         });
 
 })(angular);

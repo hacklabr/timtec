@@ -1,103 +1,106 @@
-(function(angular) {
+(function(angular){
     'use strict';
-
     var app = angular.module('new-course');
 
-    app.directive('contenteditable', function(){
+    app.directive('file', function(){
         return {
-            'restrict': 'A',
+            'restrict': 'E',
             'require': '?ngModel',
             'link': function(scope, element, attrs, ngModel) {
-                if(!ngModel) return;
-                ngModel.$render = function(){ element.html(ngModel.$viewValue || ''); };
-                element.on('blur keyup change', function() { scope.$apply(read); });
-                function read() {
-                    var html = element.html();
-                    if( attrs.stripBr && html.match(/ *<br\/?> */) ){
-                        html = '';
+                var input = document.createElement('input');
+                input.type = 'file';
+                input.onchange = function(evt) {
+                    if(evt.target.files) {
+                        ngModel.$setViewValue(evt.target.files[0]);
                     }
-                    ngModel.$setViewValue(html);
+                    scope.$apply();
+                };
+
+                for( var att in attrs ) {
+                    if(! /^ng/.test(att)) {
+                        input[att] = element.attr(att);
+                    }
+                }
+                input.className = element.attr('class').replace(/\bng[^ ]+ */g, '').trim();
+                element.attr('class', '');
+
+                element.append(input);
+            }
+        };
+    });
+
+    app.directive('localImage', function(){
+        return {
+            'restrict': 'A',
+            'link': function(scope, element, attrs) {
+                var img = element[0];
+                var reader = new FileReader();
+
+                reader.onload = function(evt) {
+                    img.src = evt.target.result;
+                };
+
+                if( attrs.ngModel ) {
+                    scope.$watch(attrs.ngModel, function(d){
+                        if( window.File && d && d.constructor === window.File ) {
+                            img.style.display = '';
+                            reader.readAsDataURL( d );
+                        } else {
+                            img.style.display = 'none';
+                        }
+                    });
                 }
             }
         };
     });
 
+    app.directive('professorslist', ['Professor', function(Professor){
+        return {
+            'restrict': 'E',
+            'templateUrl': '/static/templates/directive.professorslist.html',
+            'scope': {
+                'active': '=',
+                'onSelect': '='
+            },
+            'controller': ['$scope', '$element', function($scope, $element){
+                $scope.professors = Professor.query();
+                $scope.selectedProfessor = null;
 
-    (function generateMarkdownDirectives(app) {
+                $scope.selectProfessor = function(professor) {
+                    $scope.selectedProfessor = angular.copy(professor);
+                    $scope.selectedOriginal = professor;
+                };
 
-        var templates = {
-            'modal': '/static/templates/directive.markdowneditor.html'
-        };
+                $scope.triggerSelect = function() {
+                    if(!$scope.selectedProfessor) return;
 
-        function controller ($scope) {
-            $scope.active = false;
-            $scope.id = Math.random().toString(16).slice(2);
-            $scope.newContent = angular.copy($scope.content);
+                    var copy = $scope.selectedProfessor;
+                    var original = $scope.selectedOriginal;
+                    var selectCallback = angular.noop;
 
-            $scope.cancel = function() {
-                $scope.newContent = angular.copy($scope.content);
-                $scope.active = false;
-                $scope.refreshPreview();
-            };
-
-            $scope.save = function() {
-                var oldContent = angular.copy($scope.content);
-                $scope.content = angular.copy($scope.newContent);
-                $scope.active = false;
-
-                if($scope.onSave && $scope.onSave.call) {
-                    try{
-                        $scope.onSave();
-                    } catch (e) {
-                        $scope.content = oldContent;
-                        $scope.newContent = oldContent;
-                        $scope.refreshPreview();
-                        throw e;
+                    if($scope.onSelect && $scope.onSelect.call) {
+                        selectCallback = $scope.onSelect;
                     }
-                }
-            };
 
-            $scope.refreshPreview = function() {
-                setTimeout(function(){
-                    $scope.editor.refreshPreview();
-                }, 50);
-            };
-        }
+                    if(copy.first_name !== original.first_name ||
+                       copy.last_name !== original.last_name) {
 
-        function link (scope, element, attr) {
-            var editorIsRunning = false;
-            scope.editor = new window.Markdown.Editor(
-                window.Markdown.getSanitizingConverter(), '-'.concat(scope.id)
-            );
+                        original.first_name = copy.first_name;
+                        original.last_name = copy.last_name;
 
-            scope.$watch('$scope', function(){
-                if(!editorIsRunning) scope.editor.run();
-                editorIsRunning = true;
-            });
-            scope.title = attr.title;
-        }
-
-
-        function getConfigFunction(templateUrl) {
-            return function(){
-                return {
-                    'restrict': 'E',
-                    'templateUrl': templateUrl,
-                    'controller': controller,
-                    'link': link,
-                    'scope': {
-                        'content': '=content',
-                        'onSave': '=onSave'
+                        original.$save()
+                            .then(function(p){
+                                selectCallback(p);
+                            })
+                            .catch(function(){
+                                selectCallback(copy);
+                            });
+                    } else {
+                        selectCallback(copy);
                     }
                 };
-            };
-        }
-
-        for( var type in templates ) {
-            console.log(type.concat('markdowneditor'));
-            app.directive(type.concat('markdowneditor'), getConfigFunction(templates[type]) );
-        }
-
-    })(app);
+            }]
+        };
+    }]);
 
 })(window.angular);

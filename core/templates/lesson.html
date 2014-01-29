@@ -19,6 +19,7 @@ $(document).ready(function() {
 })
 </script>
 
+<script type="text/javascript" src="{% static 'js/directives/codemirror.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/lesson.js' %}" charset="utf-8"></script>
 
 
@@ -30,24 +31,31 @@ $(document).ready(function() {
     <!-- END HEADER -->
 
     <!-- COURSE CONTENT -->
-    <section id="course-content" class="container" ng-controller="LessonMainCtrl">
-        <!-- LESSON NAVIGATION FOR TABLET AND DESKTOP -->
-        <nav class="course-lessons-nav row hidden-xs">
-            <div class="col-lg-12 col-sm-12">
-                <div class="btn-group button-watching">
-                    <button type="button" class="btn btn-sm btn-info">{{ lesson.name }}</button>
-                    <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-chevron-down"></i>
-                    </button>
-                    <ul class="dropdown-menu">
-                        {% for list_lesson in lesson.course.public_lessons %}
-                            <li><a href="{% url 'lesson' list_lesson.slug %}"><span class="title">{{ list_lesson.name }}</span></a></li>
-                        {% endfor %}
-                    </ul>
+    <section id="course-content" class="container">
+
+        <nav class="course-lessons hidden-xs">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>{{ lesson.name }}</h1>
+                    <p class="description">{{ lesson.desc }}</p>
                 </div>
             </div>
         </nav>
-        <!-- END LESSON NAVIGATION FOR TABLET AND DESKTOP -->
+
+        <nav class="lesson-units hidden-xs">
+            <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-default">{{ lesson.name }}</button>
+                <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-chevron-down"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    {% for list_lesson in lesson.course.public_lessons %}
+                        <li><a href="{% url 'lesson' list_lesson.course.slug list_lesson.slug %}">{{ list_lesson.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </nav>
+
 
         <!-- LESSON NAVIGATION FOR PHONE -->
         <p class="visible-xs">
@@ -55,7 +63,7 @@ $(document).ready(function() {
                 <option>{{lesson.name}}</option>
                 {% for list_lesson in lesson.course.public_lessons %}
                     {% if list_lesson.name != lesson.name %}
-                        <option value="{% url 'lesson' list_lesson.slug %}">{{ list_lesson.name }}</option>
+                        <option value="{% url 'lesson' list_lesson.course.slug list_lesson.slug %}">{{ list_lesson.name }}</option>
                     {% endif %}
                 {% endfor %}
             </select>
@@ -63,36 +71,41 @@ $(document).ready(function() {
         <!-- END LESSON NAVIGATION FOR PHONE -->
 
         <!-- ROW -->
-        <div class="row">
-            
+        <div class="row" ng-controller="MainCtrl">
+
             {% verbatim %}
             <!-- UNITS NAVIGATION FOR TABLET AND DESKTOP -->
             <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs">
                 <!-- UNITS -->
                 <div class="units">
                     <a style="display:block;" data-placement="right"
-                       title="{{ unit.video.name }}"
-                       href="#/{{ $index+1 }}" class="has-tooltip unit track" data-toggle="tooltip"
-                       onclick="return false;"
+                       title="{{unit.video.name}}"
+                       class="has-tooltip unit track" data-toggle="tooltip"
                        ng-repeat="unit in lesson.units"
-                       ng-class="{watching: isSelected($index+1), done: isDone(unit)}"
-                       ng-click="select($index+1)">
-                           <i class="fa fa-caret-right" ng-if="isSelected($index+1)"></i>
-                           <span class="position">{{ unit.position + 1 }}</span>
-                           <i class="fa fa-list" ng-if="unit.activity !== null"></i>
+                       ng-class="{watching: unit==currentUnit}"
+                       ng-click="selectUnit(unit)">
+                           <i class="fa fa-caret-right"></i>
+                           <span class="position" ng-bind="unit.position+1"></span>
+                           <i class="fa fa-list" ng-show="unit.activities"></i>
                     </a>
+                    <label ng-hide="DEBUG" style="font-family: monospace">
+                        video <input type="radio" ng-model="section" value="video"/>
+                    </label>
+                    <label ng-hide="DEBUG" style="font-family: monospace">
+                        ativi <input type="radio" ng-model="section" value="activity"/>
+                    </label>
                 </div>
                 <!-- END UNITS -->
             </div>
             <!-- END UNITS NAVIGATION FOR TABLET AND DESKTOP -->
-            
+
             <!-- UNITS NAVIGATION FOR PHONES -->
             <div class="col-xs-12 visible-xs">
                 <p>
-                    <select ng-model="currentUnitPos" ng-change="select(currentUnitPos);" class="form-control">
+                    <select ng-model="currentUnitPos" class="form-control">
                         <option ng-repeat="unit in lesson.units"
-                                ng-value="$index+1"
-                                ng-selected="isSelected($index+1)"
+                                ng-value="unit"
+                                ng-selected="unit==currentUnit"
                                 value="{{$index+1}}">Unidade {{ unit.position + 1 }}</option>
                     </select>
                 </p>
@@ -100,8 +113,52 @@ $(document).ready(function() {
             <!-- END UNITS NAVIGATION FOR PHONES -->
             {% endverbatim %}
 
-            <div ng-view></div>
-            
+            <div class="col-lg-8 col-md-11 col-sm-11">
+                <div ng-show="section=='video'">
+                    <div class="video">
+                        <div class="row">
+                            <div id="player-outter" class="col-lg-12 col-md-12 col-sm-12">
+                                <div id="youtube-player" youtube-player></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="section=='activity'">
+                    <div class="course-activity">
+                        <ng:include src="activityTemplateUrl"></ng:include>
+
+                        <div ng-show="answer.correct" class="alert alert-success">
+                            <i class="fa fa-smile-o"></i> Sua resposta está <strong>correta!</strong>
+                        </div>
+
+                        <div ng-show="answer.correct === false" class="alert alert-danger">
+                            <i class="fa fa-frown-o"></i> <span>Sua resposta está <strong>incorreta</strong>. Reveja o vídeo com mais atenção e tente novamente.</span>
+                        </div>
+
+                        <div class="submit">
+                            <!-- if no answer or incorrect -->
+                            <div class="row" ng-if="! answer.correct">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <button onClick="ga('send', 'event', 'activity', 'skip activity');" class="btn btn-default" ng-click="nextVideo()">Pular</button>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 textright">
+                                    <button onClick="ga('send', 'event', 'activity', 'rewatch video');" class="btn btn-info" ng-click="play()">Rever Vídeo</button>
+                                    <button class="btn btn-success" ng-click="sendAnswer()">Enviar</button>
+                                </div>
+                            </div>
+                            <!-- if correct -->
+                            <div class="row" ng-if="answer.correct">
+                                <div class="col-lg-12 col-md-12 col-sm-12 textright">
+                                    <button class="btn btn-success" ng-click="nextStep()">Continuar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- div ng-view></div -->
+
             <!-- NOTES -->
             <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs" style="height:420px;">
                 <ul class="nav nav-tabs">
@@ -121,6 +178,7 @@ $(document).ready(function() {
         </div>
         <!-- END ROW -->
 
+        {% if lesson.notes %}
         <div class="row hidden-lg">
             <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
                 <section class="course-instructions">
@@ -131,22 +189,10 @@ $(document).ready(function() {
                 </section>
             </div>
         </div>
+        {% endif %}
 
         <!-- FORUM -->
-        <div class="row">
-            {% include "_forum_inline.html"  with course=lesson.course %}
-            <div class="col-lg-3 hidden-md hidden-sm hidden-xs">
-                <section class="course-instructions">
-                    <div class="page-header-double">
-                        <h3><i class="fa fa-angle-double-right"></i> Notas do professor</h3>
-                    </div>
-                    {{ lesson.notes|timtec_markdown }}
-                </section>
-
-                <section class="course-social" style="position:relative;overflow:hidden;">
-                </section>
-            </div>
-        </div>
+        {% include "_forum_inline.html"  with course=lesson.course question_form=1 %}
         <!-- END FORUM -->
 
     </section>
