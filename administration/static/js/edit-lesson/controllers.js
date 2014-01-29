@@ -2,8 +2,8 @@
 
     var app = angular.module('edit-lesson');
 
-    app.controller('EditLessonController', ['$scope', 'Course', 'CourseProfessor', 'Lesson', 'VideoData', 'youtubePlayerApi',
-        function($scope, Course, CourseProfessor, Lesson, VideoData, youtubePlayerApi){
+    app.controller('EditLessonController', ['$scope', 'Course', 'CourseProfessor', 'Lesson', 'VideoData', 'youtubePlayerApi', 'MarkdownDirective',
+        function($scope, Course, CourseProfessor, Lesson, VideoData, youtubePlayerApi, MarkdownDirective){
             $scope.errors = {};
             var httpErrors = {
                 '400': 'Os campos não foram preenchidos corretamente.',
@@ -110,6 +110,9 @@
                     $scope.currentActivity = $scope.currentUnit.activities[0];
                 }
                 $scope.newActivityType = null;
+
+                MarkdownDirective.resetEditors();
+                MarkdownDirective.refreshEditorsPreview();
             };
 
             $scope.addUnit = function() {

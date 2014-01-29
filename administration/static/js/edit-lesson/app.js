@@ -8,7 +8,7 @@
         'directive.codemirror',
         'timtec-models',
         'directive.fixedBar',
-        // 'directive.markdowneditor',
+        'directive.markdowneditor',
         // 'directive.sortable',
         // 'filters.text',
         'youtube'
