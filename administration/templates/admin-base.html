@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+{% load i18n %}
     <head>
         {% block head %}
         <meta charset="UTF-8">
@@ -23,20 +24,20 @@
               <!-- Brand and toggle get grouped for better mobile display -->
               <div class="navbar-header">
                   <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-collapse">
-                      <span class="sr-only">Toggle navigation</span>
+                      <span class="sr-only">{% trans 'Toggle navigation' %}</span>
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                   </button>
-                  <a class="navbar-brand" href="/">TIMTec</a>
+                  <a class="navbar-brand" href="/">{% trans 'TIMTec' %}</a>
               </div>
 
               <!-- Collect the nav links, forms, and other content for toggling -->
               <div class="collapse navbar-collapse" id="main-navbar-collapse">
                   <ul class="nav navbar-nav navbar-right">
-                      <li><a href="/admin/courses">Cursos</a></li>
-                      <li><a href="/admin/users">Usuários</a></li>
-                      <li><a href="/admin/stats">Estatísticas</a></li>
+                      <li><a href="/admin/courses">{% trans 'Courses' %}</a></li>
+                      <li><a href="/admin/users">{% trans 'Users' %}</a></li>
+                      <li><a href="/admin/stats">{% trans 'Statistics' %}</a></li>
                       <li class="divider"></li>
                       <li><a href="/">TIMTec</a></li>
                       <li class="divider"></li>
