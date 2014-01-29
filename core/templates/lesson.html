@@ -168,8 +168,8 @@ $(document).ready(function() {
                 <div class="tab-content">
                     <div class="tab-pane" id="side-notes">
                         <br>
-                        <span ng-bind-html="lesson.units[currentUnitPos-1].side_notes|markdown"></span>
-                        <p ng-if="!lesson.units[currentUnitPos-1].side_notes">Essa unidade não possui nenhuma nota</p>
+                        <span ng-bind-html="currentUnit.side_notes|markdown"></span>
+                        <p ng-if="!currentUnit.side_notes">Essa unidade não possui nenhuma nota</p>
                     </div>
                     {% include "_notes_inline.html" %}
                 </div>
