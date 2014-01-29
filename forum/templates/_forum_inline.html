@@ -57,7 +57,7 @@
                 </div>
               </div>
               <div class="col-lg-5 col-sm-5 textright">
-                  <pagination on-select-page="changePageHandler(page)" max-size="5" items-per-page="itemsPerPage" boundary-links="true" total-items="totalItems" page="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                  <pagination ng-if="totalItems>itemsPerPage" on-select-page="changePageHandler(page)" max-size="5" items-per-page="itemsPerPage" boundary-links="true" total-items="totalItems" page="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
                 <!-- <div class="input-group">
                   <input type="search" class="form-control" placeholder="Pesquisar perguntas e respostas">
                   <span class="input-group-btn">
@@ -69,22 +69,23 @@
               </div>
             </div>
           </div>
-          <article ng-repeat="question in current_page_questions">
-            
-            <div class="stats">
-              <div class="arrow-right"></div>
-              <p><span class="numbers-votes">{{question.votes}}</span>votos</p>
-              <p><span class="numbers-answers">{{ question.answers.length }}</span>respostas</p>
-            </div>
-            <div class="question">
-              <p><a href="/forum/question/{{ question.slug }}">{{ question.title }}</a></p>
-              <span class="description" ng-bind-html="question.text|markdown|words:50"></span>
-            </div>
-            <div class="author">
-              Pergunta feita feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ question.username }}">{{ question.username }}</a>
-            </div>
-            
-          </article>
+          <div ng-repeat="question in current_page_questions">
+              <article ng-if="!question.hidden">
+                <div class="stats">
+                  <div class="arrow-right"></div>
+                  <p><span class="numbers-votes">{{question.votes}}</span>votos</p>
+                  <p><span class="numbers-answers">{{ question.answers.length }}</span>respostas</p>
+                  <div ng-click=hide_question(question)>Ocultar</div>
+                </div>
+                <div class="question">
+                  <p><a href="/forum/question/{{ question.slug }}">{{ question.title }}</a></p>
+                  <span class="description" ng-bind-html="question.text|markdown|words:50"></span>
+                </div>
+                <div class="author">
+                  Pergunta feita feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ question.username }}">{{ question.username }}</a>
+                </div>
+              </article>
+          </div>
           <!-- <p class="textcenter"><a href="{% url 'forum' course.slug %}" class="all-questions btn btn-info">Ver todas as perguntas e respostas</a></p> -->
         </section>
         <!-- QUESTIONS LIST-->

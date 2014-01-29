@@ -9,6 +9,7 @@
         }).
         factory('Question', function($resource){
             return $resource('/api/forum_question/:questionId', {}, {
+                update: {method: 'PUT'}
             });
         }).
         factory('AnswerVote', function($resource){
