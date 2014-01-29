@@ -26,6 +26,7 @@
                         if(course.intro_video) {
                             youtubePlayerApi.videoId = course.intro_video.youtube_id;
                         }
+                        document.title = 'Curso: {0}'.format(course.name);
                         $scope.addThumb = !course.thumbnail_url;
                     })
                     .then(function(){

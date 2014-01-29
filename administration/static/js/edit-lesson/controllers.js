@@ -42,6 +42,8 @@
             /*  Methods */
             $scope.setLesson = function(l) {
                 $scope.lesson = l;
+                document.title = 'Aula: {0}'.format(l.name);
+
                 if(l.units.length > 0) {
                     $scope.selectUnit(l.units[0]);
                 } else {
