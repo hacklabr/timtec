@@ -9,6 +9,7 @@ from core.models import Course
 from forum.models import Question, Answer, QuestionVote, AnswerVote
 from forum.forms import QuestionForm
 from forum.serializers import QuestionSerializer, AnswerSerializer, QuestionVoteSerializer, AnswerVoteSerializer
+from forum.permissions import HideQuestionPermission
 from rest_framework import viewsets
 
 
@@ -63,10 +64,14 @@ class QuestionCreateView(LoginRequiredMixin, FormView):
 class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     model = Question
     serializer_class = QuestionSerializer
-    filter_fields = ('course', 'user')
+    filter_fields = ('course', 'user', 'hidden')
+    permission_classes = (HideQuestionPermission,)
 
     def pre_save(self, obj):
-        obj.user = self.request.user
+        pk = self.kwargs.get(self.pk_url_kwarg, None)
+        # Set user if is a new question.
+        if not pk:
+            obj.user = self.request.user
         return super(QuestionViewSet, self).pre_save(obj)
 
 

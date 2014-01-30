@@ -26,7 +26,7 @@ class Activity(models.Model):
     data = JSONField(_('Data'))
     expected = JSONField(_('Expected answer'), blank=True)
     unit = models.ForeignKey(Unit, verbose_name=_('Unit'), null=True, blank=True, related_name='activities')
-
+    comment = models.TextField(_('Comment'), blank=True)
 
     class Meta:
         verbose_name = _('Activity')
@@ -54,7 +54,6 @@ class Answer(models.Model):
         verbose_name_plural = _('Answers')
         ordering = ['timestamp']
 
-
     @property
     def expected(self):
         if type(self.activity.expected) in [unicode, str]:
@@ -65,8 +64,6 @@ class Answer(models.Model):
         if self.activity.type == 'html5':
             return True
 
-        result = False
-
         given = self.given
         expected = self.activity.expected
 
@@ -76,10 +73,10 @@ class Answer(models.Model):
     @staticmethod
     def update_student_progress(sender, instance, **kwargs):
         answer = instance
-        progress, created = StudentProgress.objects.get_or_create(user=answer.user,
-                                                                  unit=answer.activity.unit)
+        progress, _ = StudentProgress.objects.get_or_create(user=answer.user,
+                                                            unit=answer.activity.unit)
         progress.complete = timezone.now()
         progress.save()
 
 models.signals.post_save.connect(Answer.update_student_progress, sender=Answer,
-                                dispatch_uid="Answer.update_student_progress")
+                                 dispatch_uid="Answer.update_student_progress")
