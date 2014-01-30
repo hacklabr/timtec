@@ -26,6 +26,7 @@ class Activity(models.Model):
     data = JSONField(_('Data'))
     expected = JSONField(_('Expected answer'), blank=True)
     unit = models.ForeignKey(Unit, verbose_name=_('Unit'), null=True, blank=True, related_name='activities')
+    comment = models.TextField(_('Comment'), blank=True)
 
 
     class Meta:
