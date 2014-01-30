@@ -316,9 +316,9 @@
                                 </table>
                             </div>
                             <!--  END HIDDEN-XS  -->
-                            {% verbatim %}
-                            <p><i class="fa fa-youtube-play"></i> <small>{{ lesson.countVideos() }} {% trans 'videos' %}</small> | <i class="fa fa-list"></i> <small>{{ lesson.countActivities() }} {% trans 'activities' %}</small></p>
-                            {% endverbatim %}
+
+                            <p><i class="fa fa-youtube-play"></i> <small>{% verbatim %}{{ lesson.countVideos() }}{% endverbatim %} {% trans 'videos' %}</small> | <i class="fa fa-list"></i> <small>{% verbatim %}{{ lesson.countActivities() }}{% endverbatim %} {% trans 'activities' %}</small></p>
+
                         </div>
                         <!--  END COL-LG-9  -->
                     </div>
