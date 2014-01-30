@@ -111,6 +111,13 @@
                 }
             }
         };
+
+        $scope.hide_question = function (question) {
+            question.hidden = true;
+            question.hidden_by = $window.user_id;
+            question.$update({questionId: question.id});
+        };
+
     }
 
     function vote_value(vote_type, current_vote) {
