@@ -10,7 +10,7 @@ class QuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Question
-        fields = ('id', 'title', 'course', 'answers', 'text', 'slug', 'votes', 'timestamp', 'username',)
+        fields = ('id', 'title', 'course', 'answers', 'text', 'slug', 'votes', 'timestamp', 'username', 'hidden', 'hidden_by')
 
     def count_votes(self, obj):
         if obj:
