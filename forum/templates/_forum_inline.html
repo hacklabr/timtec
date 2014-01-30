@@ -1,93 +1,88 @@
 {% include "_forum_angular.html" %}
 {% load timtec_markdown %}
+
 <script>
- window.course_id = {{ course.pk }};
- window.user_id = {{ user.pk }};
+    window.course_id = {{ course.pk }};
+    window.user_id = {{ user.pk }};
 </script>
-      <section class="course-forum" ng-controller="InlineForumCtrl">
-          {% if question_form %}
+
+<section class="course-forum" ng-controller="InlineForumCtrl">
+    {% if question_form %}
         <div class="page-header-double">
-          <h3><i class="fa fa-angle-double-right"></i> Perguntas e Respostas</h3>
+            <h3><i class="fa fa-angle-double-right"></i> Perguntas e Respostas</h3>
         </div>
         <!-- QUESTION FORM -->
         <div class="row">
-          <div class="col-lg-12">
-            <div class="form-group" ng-class="question_title_validation">
-              <input id="id-title" ng-model="new_question_title" name="title" type="text" class="form-control" placeholder="Qual é a sua dúvida?">
-            </div>
-            <div class="text-editor">
-                <div class="wmd-panel" markdowneditor="true">
-                    <div id="wmd-button-bar" class="js-button-bar"></div>
-                    <div class="form-group" ng-class="question_text_validation">
-                      <textarea id="wmd-input" ng-model="new_text" name="text" class="form-control" rows="4" placeholder="Descrição da sua dúvida"></textarea>
+            <div class="col-lg-12">
+                <div class="form-group" ng-class="question_title_validation">
+                    <input id="id-title" ng-model="new_question_title" name="title" type="text" class="form-control" placeholder="Qual é a sua dúvida?">
+                </div>
+                <div class="text-editor">
+                    <div class="wmd-panel" markdowneditor="true">
+                        <div id="wmd-button-bar" class="js-button-bar"></div>
+                        <div class="form-group" ng-class="question_text_validation">
+                            <textarea id="wmd-input" ng-model="new_text" name="text" class="form-control" rows="4" placeholder="Descrição da sua dúvida"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
+                <div class="form-group bottom">
+                    <div class="row">
+                        <div class="col-lg-8 col-sm-8">
+                            <small><a href="">Política de Perguntas e Respostas</a></small>
+                        </div>
+                        <div class="col-lg-4 col-sm-4 textright">
+                            <input type="submit" class="btn btn-success" value="Enviar" ng-click="new_question()">
+                        </div>
                     </div>
                 </div>
             </div>
-            <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
-            <div class="form-group bottom">
-              <div class="row">
-                <div class="col-lg-8 col-sm-8">
-                  <small><a href="">Política de Perguntas e Respostas</a></small>
-                </div>
-                <div class="col-lg-4 col-sm-4 textright">
-                  <input type="submit" class="btn btn-success" value="Enviar" ng-click="new_question()">
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
         <!-- END QUESTION FORM -->
-        {% endif %}
-        {% verbatim angularjs %}
+    {% endif %}
+    
+    
+    {% verbatim angularjs %}
         <!-- QUESTIONS LIST-->
         <section class="questions clearfix">
-          <div class="search-filter">
-            <div class="row">
-              <div class="col-lg-7 col-sm-7">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-info">{{ sort_label }}</button>
-                  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-chevron-down"></i>
-                  </button>
-                  <ul class="dropdown-menu top">
-                    <li><a href="" ng-click="sortBy('votes')">Mais votadas</a></li>
-                    <li><a href="" ng-click="sortBy('date')">Mais recentes</a></li>
-                    <li><a href="" ng-click="sortBy('answers')">Mais respondidas</a></li>
-                  </ul>
+            <div class="search-filter">
+                <div class="row">
+                    <div class="col-lg-7 col-sm-7">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-info">{{ sort_label }}</button>
+                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
+                            <ul class="dropdown-menu top">
+                                <li><a href="" ng-click="sortBy('votes')">Mais votadas</a></li>
+                                <li><a href="" ng-click="sortBy('date')">Mais recentes</a></li>
+                                <li><a href="" ng-click="sortBy('answers')">Mais respondidas</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-sm-5 textright">
+                        <pagination ng-if="totalItems>itemsPerPage" on-select-page="changePageHandler(page)" max-size="5" items-per-page="itemsPerPage" boundary-links="true" total-items="totalItems" page="currentPage" class="pagination-sm top" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                    </div>
                 </div>
-              </div>
-              <div class="col-lg-5 col-sm-5 textright">
-                  <pagination ng-if="totalItems>itemsPerPage" on-select-page="changePageHandler(page)" max-size="5" items-per-page="itemsPerPage" boundary-links="true" total-items="totalItems" page="currentPage" class="pagination-sm top" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
-                <!-- <div class="input-group">
-                  <input type="search" class="form-control" placeholder="Pesquisar perguntas e respostas">
-                  <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">
-                      <i class="fa fa-search"></i>
-                    </button>
-                  </span>
-                </div>  -->
-              </div>
             </div>
-          </div>
-          <div ng-repeat="question in current_page_questions">
-              <article ng-if="!question.hidden">
-                <div class="stats">
-                  <div class="arrow-right"></div>
-                  <p><span class="numbers-votes">{{question.votes}}</span>votos</p>
-                  <p><span class="numbers-answers">{{ question.answers.length }}</span>respostas</p>
-                  <div ng-click=hide_question(question)>Ocultar</div>
-                </div>
-                <div class="question">
-                  <p><a href="/forum/question/{{ question.slug }}">{{ question.title }}</a></p>
-                  <span class="description" ng-bind-html="question.text|markdown|words:50"></span>
-                </div>
-                <div class="author">
-                  Pergunta feita feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ question.username }}">{{ question.username }}</a>
-                </div>
-              </article>
-          </div>
-          <!-- <p class="textcenter"><a href="{% url 'forum' course.slug %}" class="all-questions btn btn-info">Ver todas as perguntas e respostas</a></p> -->
+            <div ng-repeat="question in current_page_questions">
+                <article ng-if="!question.hidden">
+                    <div class="stats">
+                        <div class="arrow-right"></div>
+                        <p><span class="numbers-votes">{{question.votes}}</span>votos</p>
+                        <p><span class="numbers-answers">{{ question.answers.length }}</span>respostas</p>
+                        <div ng-click=hide_question(question)>Ocultar</div>
+                    </div>
+                    <div class="question">
+                        <p><a href="/forum/question/{{ question.slug }}">{{ question.title }}</a></p>
+                        <span class="description" ng-bind-html="question.text|markdown|words:50"></span>
+                    </div>
+                    <div class="author">
+                        Pergunta feita feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ question.username }}">{{ question.username }}</a>
+                    </div>
+                </article>
+            </div>
         </section>
         <!-- QUESTIONS LIST-->
-        {% endverbatim angularjs %}
-      </section>
+    {% endverbatim angularjs %}
+</section>
