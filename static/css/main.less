@@ -975,7 +975,7 @@ a, a:hover, a:active {
       // END ADD UNIT
     }
     // END COURSE UNITS
-  }
+}
 
 // COURSE INTRO
 #course.course-intro {
@@ -1127,6 +1127,9 @@ a, a:hover, a:active {
             position:absolute;
             right:-12px;
           }
+          .actions {
+            
+          }
         }
         .question {
           .calculate-width(102px);
@@ -1245,6 +1248,122 @@ a, a:hover, a:active {
   }
 }
 
+// Course forum
+.course-forum {
+  .questions { .top(14px,14px); }
+  .search-filter { border-bottom:1px solid @gray-lighter; .bottom(14px,14px); }
+
+  ul.dropdown-menu {
+    a {
+      color:@gray-light;
+    }
+    a:hover {
+      background:none;
+      color:@gray;
+    }
+  }
+
+  article {
+
+    .bottom(18px, 18px);
+    border-bottom:1px solid @gray-lighter;
+
+    &:before {
+      content:'';
+      display:inline-block;
+      height:100%;
+      vertical-align:middle;
+      width:10px;
+    }
+    
+    &.is-hidden {
+        background-color: lighten(@brand-warning, 40%);
+        padding: 20px;
+    }
+
+    .stats {
+      background-color:@gray-lighter;
+      font-size:12px;
+      margin:4px 20px 0 -14px;
+      padding:9px 9px 0 9px;
+      position:relative;
+      text-align:center;
+      .vertical-align(top);
+      width:78px;
+
+      .numbers-votes, .numbers-answers {
+        display:block;
+        font-size:18px;
+        line-height:1;
+      }
+
+      .arrow-right {
+        .arrow-right(12px, @gray-lighter);
+        position:absolute;
+        right:-12px;
+      }
+    }
+
+    .question {
+      .calculate-width(102px);
+      font-size:14px;
+      font-weight:bold;
+      line-height:1.5;
+      .vertical-align(top);
+    }
+
+    .description {
+      font-size:12px;
+      font-weight:normal;
+    }
+
+    .author {
+      font-size:12px;
+      padding:3px 0;
+      text-align:right;
+    }
+
+    .rating {
+      .left(-14px);
+      .right(10px);
+      .vertical-align(middle);
+      width:40px;
+
+      .arrow-up(14px, @graypLight) {
+        margin:0 auto;
+        &:hover, &.active {
+          border-bottom-color:@timGreen1;
+          cursor:pointer;
+        }
+      }
+      .arrow-down(14px, @graypLight) {
+        margin:0 auto;
+        .size(0,0);
+        &:hover, &.active {
+          border-top-color:@timGreen1;
+          cursor:pointer;
+        }
+      }
+      .votes {
+        font-size:18px;
+        margin:6px 0;
+        text-align:center;
+      }
+    }
+  }
+
+  footer {
+    background-color:@gray-lighter;
+    border-radius:0 0 6px 6px;
+    border-top:1px solid @gray-light + 60%;
+    font-size:11px;
+    margin-top:36px;
+    padding:9px 18px;
+    text-align:center;
+    text-transform:uppercase;
+  }
+}
+
 
 
 
@@ -1346,125 +1465,6 @@ a, a:hover, a:active {
     table tr, table tr td {
         border:none;
     }
-}
-
-// Course forum
-.course-forum {
-
-  .questions {
-    // border-top:1px solid @gray-lighter;
-    .top(14px,14px);
-  }
-
-  .search-filter {
-    border-bottom:1px solid @gray-lighter;
-    .bottom(14px,14px);
-  }
-
-  ul.dropdown-menu {
-    a {
-      color:@gray-light;
-    }
-    a:hover {
-      background:none;
-      color:@gray;
-    }
-  }
-
-  article {
-
-    .bottom(18px, 18px);
-    border-bottom:1px solid @gray-lighter;
-
-    &:before {
-      content:'';
-      display:inline-block;
-      height:100%;
-      vertical-align:middle;
-      width:10px;
-    }
-
-    .stats {
-      background-color:@gray-lighter;
-      font-size:12px;
-      margin:4px 20px 0 -14px;
-      padding:9px 9px 0 9px;
-      position:relative;
-      text-align:center;
-      .vertical-align(top);
-      width:78px;
-
-      .numbers-votes, .numbers-answers {
-        display:block;
-        font-size:18px;
-        line-height:1;
-      }
-
-      .arrow-right {
-        .arrow-right(12px, @gray-lighter);
-        position:absolute;
-        right:-12px;
-      }
-    }
-
-    .question {
-      .calculate-width(102px);
-      font-size:14px;
-      font-weight:bold;
-      line-height:1.5;
-      .vertical-align(top);
-    }
-
-    .description {
-      font-size:12px;
-      font-weight:normal;
-    }
-
-    .author {
-      font-size:12px;
-      padding:3px 0;
-      text-align:right;
-    }
-
-    .rating {
-      .left(-14px);
-      .right(10px);
-      .vertical-align(middle);
-      width:40px;
-
-      .arrow-up(14px, @graypLight) {
-        margin:0 auto;
-        &:hover, &.active {
-          border-bottom-color:@timGreen1;
-          cursor:pointer;
-        }
-      }
-      .arrow-down(14px, @graypLight) {
-        margin:0 auto;
-        .size(0,0);
-        &:hover, &.active {
-          border-top-color:@timGreen1;
-          cursor:pointer;
-        }
-      }
-      .votes {
-        font-size:18px;
-        margin:6px 0;
-        text-align:center;
-      }
-    }
-  }
-
-  footer {
-    background-color:@gray-lighter;
-    border-radius:0 0 6px 6px;
-    border-top:1px solid @gray-light + 60%;
-    font-size:11px;
-    margin-top:36px;
-    padding:9px 18px;
-    text-align:center;
-    text-transform:uppercase;
-  }
 }
 
 // MY COURSES
