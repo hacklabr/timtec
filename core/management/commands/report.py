@@ -58,13 +58,15 @@ class Command(BaseCommand):
                 user = User.objects.get(email=email)
                 course_student = CourseStudent.objects.filter(user=user, course=course).first()
                 if course_student:
+                    updated_profile = user.first_name or user.last_name or user.picture or user.occupation or user.city or user.site or user.biography
                     avg_length += 1
                     for progress in course_student.percent_progress_by_lesson():
-                        progress['user_name'] = user.first_name + user.last_name
+                        progress['user_name'] = user.first_name + u'' + user.last_name
                         progress['email'] = user.email
                         progress['progress'] = str(progress['progress'])
                         if progress['finish']:
                             progress['finish'] = progress['finish'].strftime('%d/%m/%Y - %H:%M')
+                        progress['updated_profile'] = updated_profile
                         lessons_progress.append(progress)
                 else:
                     fake_progress = {}
