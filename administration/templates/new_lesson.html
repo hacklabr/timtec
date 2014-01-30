@@ -214,6 +214,8 @@
 
                             <div class="panel-body">
                                 <ng-include src="loadActivityTemplateUrl()"></ng-include>
+                                <hr/>
+                                <markdowneditor title="{% trans 'Comment' %}" content="currentActivity.comment"></markdowneditor>
                             </div>
 
                             <div class="panel-footer text-right">
