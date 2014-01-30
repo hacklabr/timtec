@@ -203,7 +203,7 @@
                                 <span ng-repeat="activity in currentUnit.activities">
                                     <button class="btn btn-default"
                                         ng-class="{'btn-info':currentActivity==activity}"
-                                        ng-click="$parent.currentActivity=activity"
+                                        ng-click="selectActivity(activity)"
                                         ng-bind="$index+1"></button>
                                     &nbsp;
                                 </span>
