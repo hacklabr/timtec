@@ -34,7 +34,7 @@
                             course.lessons = lessons;
                         });
                 }
-            }
+            };
 
             Course.query(function(list){
                 $scope.courseList = list;
