@@ -2,63 +2,46 @@
 @import 'flatui/checkbox-and-radio.less';
 
 // COLORS
-@gray-darker:            lighten(#000, 13.5%); // #222
-@gray-dark:              lighten(#000, 20%);   // #333
-@gray:                   lighten(#000, 33.5%); // #555
-@gray-light:             lighten(#000, 60%);   // #999
-@gray-lighter:           lighten(#000, 93.5%); // #eee
+@gray-darker: lighten(#000, 13.5%); // #222
+@gray-dark: lighten(#000, 20%);   // #333
+@gray: lighten(#000, 33.5%); // #555
+@gray-light: lighten(#000, 60%);   // #999
+@gray-lighter: lighten(#000, 93.5%); // #eee
 
-@brand-primary:         #3498db;
-@brand-success:         #2ecc71;
-@brand-warning:         #f1c40f;
-@brand-danger:          #e74c3c;
-@brand-info:            #3498db;
+@brand-primary: #3498db;
+@brand-success: #2ecc71;
+@brand-warning: #f1c40f;
+@brand-danger: #e74c3c;
+@brand-info: #3498db;
 
-body {
-  color:#333;
-}
 
 // TYPOGRAPHY
+body { color:#333; }
+// Headings
 h1, h2, h3, h4, h5, h6 {
   font-family:'Questrial';
   font-weight: normal;
 }
-// Headings
-h1 {
-  font-size:28px;
-}
-
-h2 {
-  font-size:24px;
-}
-
-h3 {
-  font-size:20px;
-}
-
-h4 {
-  font-size:18px;
-}
-
-h5 {
-  text-transform:uppercase;
-}
-
+h1 { font-size:28px; }
+h2 { font-size:24px; }
+h3 { font-size:20px; }
+h4 { font-size:18px; }
+h5 { text-transform:uppercase; }
 h6 {
   font-size:14px;
   margin-bottom:0;
   text-transform:uppercase;
 }
 
-// LINKS
-a,
-a:hover,
-a:active {
+// Links
+@link-color: @brand-info;
+@link-hover-color: darken(@link-color, 15%);
+a, a:hover, a:active {
   text-decoration:none;
   .transition(all .25s ease-out);
 }
 
-// PAGE HEADERS
+// Page Headers
 .page-header-double {
   border-bottom:1px solid @gray-lighter;
   margin:40px 0 20px;
@@ -74,31 +57,24 @@ a:active {
   }
 }
 
-// LINKS
-@link-color:            @brand-info;
-@link-hover-color:      darken(@link-color, 15%);
+// Components
+@border-radius-base: 2px;
+@border-radius-large: 2px;
+@border-radius-small: 2px;
+@padding-large-vertical: 14px;
 
-// COMPONENTS
-@border-radius-base:             2px;
-@border-radius-large:            2px;
-@border-radius-small:            2px;
-
-@padding-large-vertical:         14px;
-
-// BUTTONS
-@btn-default-color:              #333;
-@btn-default-bg:                 #e2e2e2;
-
+// Buttons
+@btn-default-color: #333;
+@btn-default-bg: #e2e2e2;
 .btn:hover {
   .transition(all .25s ease-out);
 }
-
 .btn-lg {
   font-size:14px;
 }
 
 // Button variants
-// -------------------------
+// ********************************************************************* //
 // Easily pump out default styles, as well as :hover, :focus, :active,
 // and disabled options for all buttons
 .button-variant(@color; @background; @border) {
@@ -175,8 +151,10 @@ a:active {
 }
 
 
+
+
 // MIXINS
-// ------------------------------------------------
+// ********************************************************************* //
 .bottom(@margin:0, @padding:0) {
   margin-bottom:@margin !important;
   padding-bottom:@padding !important;
@@ -212,20 +190,32 @@ a:active {
   }
 }
 
-// Calculate width
+
+
+
+// CALCULATE WIDTH
+// ********************************************************************* //
 .calculate-width(@value:0) {
   width:-moz-calc(~'100% - @{value}');
   width:-webkit-calc(~'100% - @{value}');
   width:calc(~'100% - @{value}');
 }
 
-// Vertical align
+
+
+
+// VERTICAL ALIGN
+// ********************************************************************* //
 .vertical-align(@position) {
   display:inline-block;
   vertical-align:@position;
 }
 
-// Arrows
+
+
+
+// ARROWS
+// ********************************************************************* //
 .arrow-up(@width, @color) {
   border-bottom:@width solid @color;
   border-left:@width solid transparent;
@@ -251,23 +241,21 @@ a:active {
   .size(0,0);
 }
 
+
+
+
 // NO BORDERS
-.no-bottom-border {
-  border-bottom: none !important;
-}
-.no-left-border {
-  border-left: none !important;
-}
-.no-right-border {
-  border-right: none !important;
-}
-.no-top-border {
-  border-top: none !important;
-}
+// ********************************************************************* //
+.no-bottom-border { border-bottom: none !important; }
+.no-left-border { border-left: none !important; }
+.no-right-border { border-right: none !important; }
+.no-top-border { border-top: none !important; }
+
+
 
 
 // HELPERS
-// ------------------------------------------------
+// ********************************************************************* //
 .alignleft  { float:left; }
 .alignright { float:right; }
 .textcenter { text-align:center; }
@@ -283,7 +271,10 @@ a:active {
 .hidden     { display:none !important; }
 
 
+
+
 // FORMS
+// ********************************************************************* //
 .has-error {
   text-align:left;
   small {
@@ -293,7 +284,11 @@ a:active {
   }
 }
 
+
+
+
 // MAIN NAVBAR - DROPDOWN MENUS FOR SIGNIN AND SIGNUP
+// ********************************************************************* //
 #main-navbar {
   border-radius: 0;
   font-family:'Questrial';
@@ -335,7 +330,11 @@ a:active {
   }
 }
 
+
+
+
 // REGISTRATION AND AUTHENTICATION
+// ********************************************************************* //
 #activation-wrapper {
   text-align:center;
   &:before {
@@ -363,7 +362,11 @@ a:active {
   }
 }
 
+
+
+
 // PROFILE
+// ********************************************************************* //
 #profile {
   .top(27px,27px);
   label.upload-avatar {
@@ -387,7 +390,10 @@ a:active {
   }
 }
 
-// SOME ADMIN CONFIGURATION
+
+
+
+// ADMIN STYLES
 // ********************************************************************* //
 #admin {
   // MAIN NAVBAR
@@ -400,6 +406,7 @@ a:active {
       color: #fff;
     }
   }
+
   // COURSES
   #courses {
     #all-courses {
@@ -446,12 +453,8 @@ a:active {
       }
     }
   }
-}
-// END COURSES LIST - Admin
 
-#admin {
   // CONTENT EDITABLE
-  // ********************************************************************* //
   [contenteditable] {
     font-weight: thin;
     padding: 3px 0 0 0;
@@ -466,10 +469,8 @@ a:active {
       background-color: lighten(@brand-warning, 40%);
     }
   }
-  // END CONTENT EDITABLE
-
+  
   // POPUP NOTIFICATIONS
-  // ********************************************************************* //
   .tt-popup {
       margin-left: 25%;
       position: fixed;
@@ -495,10 +496,10 @@ a:active {
         margin-top: -5px;
       }
   }
-  // END POPUP NOTIFICATIONS
-
-
 }
+
+
+
 
 // COURSE, FORUM, NOTES
 // ********************************************************************* //
