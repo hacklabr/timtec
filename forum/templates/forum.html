@@ -5,22 +5,23 @@
 {% block content %}
 
 <div id="forum" class="course-forum">
-
     {% include "_course-header-inline.html"  with course=course question_form=false %}
-
     <section id="forum-content" class="container">
-        <div class="row" ng-app="forum">
-            <section class="questions col-sm-9 col-lg-9 clearfix">
+        <header class="row">
+            <div class="col-lg-9">
+                <h1 class="top">{% trans "Fórum do Curso" %}</h1>
+            </div>
+            <div class="col-lg-3">
+                <a href="{% url 'forum_question_create' course.slug %}" class="ask-a-question btn btn-lg btn-danger uppercase">{% trans "Ask a question" %}</a>
+            </div>
+        </header>
+        
+        <section class="questions col-sm-12 col-lg-12 clearfix">
+            <div class="row" ng-app="forum">
                 {% include "_forum_inline.html"  with course=course %}
-            </section>
-
-            <aside class="col-sm-3 col-lg-3">
-                <p><a href="{% url 'forum_question_create' course.slug %}" class="ask-a-question btn btn-lg btn-danger uppercase">Fazer uma pergunta</a></p>
-            </aside>
-
-        </div>
+            </div>
+        </section>
     </section>
-
 </div>
 
 {% endblock %}
