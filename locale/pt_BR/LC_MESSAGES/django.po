@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-14 16:35-0200\n"
-"PO-Revision-Date: 2013-11-14 16:54-0200\n"
-"Last-Translator: Primeiro Nome Silva <timtectimtec@gmail.com>\n"
+"POT-Creation-Date: 2014-01-30 11:27-0200\n"
+"PO-Revision-Date: 2014-01-30 11:37-0200\n"
+"Last-Translator: Antonio Nunes <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,28 +19,32 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Translated-Using: django-rosetta 0.7.2\n"
 
+#: accounts/adapter.py:13
+msgid "Usernames can only contain letters, digits and ./-/_."
+msgstr "Nomes podem conter somente letras, digitos e ./-/_."
+
 #: accounts/forms.py:10
 msgid "email"
 msgstr "email"
 
 #: accounts/forms.py:12 accounts/templates/profile-edit.html:140
+#: accounts/templates/account/email_confirmed.html:20
+#: accounts/templates/account/email_confirmed.html:22
+#: accounts/templates/account/login.html:26
+#: accounts/templates/account/login.html:28
+#: accounts/templates/account/login.html:82
+#: accounts/templates/account/login.html:84
+#: accounts/templates/account/login_modal.html:34
+#: accounts/templates/account/login_modal.html:36
+#: accounts/templates/account/login_modal.html:82
+#: accounts/templates/account/password_reset_from_key_done.html:24
+#: accounts/templates/account/password_reset_from_key_done.html:26
+#: accounts/templates/account/password_reset_from_key_done.html:68
+#: accounts/templates/account/password_reset_from_key_done.html:70
+#: accounts/templates/account/signup.html:35
+#: accounts/templates/account/signup.html:95
 #: core/templates/header-guest.html:39 core/templates/header-guest.html:41
 #: core/templates/header-guest.html:92
-#: timtec/templates/account/email_confirmed.html:20
-#: timtec/templates/account/email_confirmed.html:22
-#: timtec/templates/account/login.html:26
-#: timtec/templates/account/login.html:28
-#: timtec/templates/account/login.html:82
-#: timtec/templates/account/login.html:84
-#: timtec/templates/account/login_modal.html:34
-#: timtec/templates/account/login_modal.html:36
-#: timtec/templates/account/login_modal.html:82
-#: timtec/templates/account/password_reset_from_key_done.html:24
-#: timtec/templates/account/password_reset_from_key_done.html:26
-#: timtec/templates/account/password_reset_from_key_done.html:68
-#: timtec/templates/account/password_reset_from_key_done.html:70
-#: timtec/templates/account/signup.html:35
-#: timtec/templates/account/signup.html:95
 msgid "Password"
 msgstr "Senha"
 
@@ -51,6 +55,84 @@ msgstr "Senha (novamente)"
 #: accounts/forms.py:28
 msgid "The two password fields didn't match."
 msgstr "As duas senhas são diferentes."
+
+#: accounts/models.py:33 accounts/templates/profile-edit.html:120
+#: accounts/templates/account/login.html:16
+#: accounts/templates/account/login.html:72
+#: accounts/templates/account/login_modal.html:70
+#: accounts/templates/account/password_reset_from_key_done.html:14
+#: accounts/templates/account/signup.html:15
+#: accounts/templates/account/signup.html:17
+#: accounts/templates/account/signup.html:75
+#: accounts/templates/account/signup.html:77
+#: core/templates/header-guest.html:27 core/templates/header-guest.html:76
+msgid "Username"
+msgstr "Nome de usuário"
+
+#: accounts/models.py:34
+msgid ""
+"Required. 30 characters or fewer. Letters, numbers and ./+/-/_ characters"
+msgstr "Obrigatório. 30 caracteres ou menos. Letras, números e . + - _"
+
+#: accounts/models.py:37
+msgid "Enter a valid username."
+msgstr "Insira um nome válido."
+
+#: accounts/models.py:40
+msgid "Email address"
+msgstr "Endereço de Email"
+
+#: accounts/models.py:41
+msgid "First name"
+msgstr "Nome"
+
+#: accounts/models.py:42
+msgid "Last name"
+msgstr "Sobrenome"
+
+#: accounts/models.py:43
+msgid "Staff status"
+msgstr "Situação"
+
+#: accounts/models.py:44
+msgid "Active"
+msgstr "Ativo"
+
+#: accounts/models.py:45
+msgid "Date joined"
+msgstr "Data de inscrição"
+
+#: accounts/models.py:47
+msgid "Picture"
+msgstr "Estrutura"
+
+#: accounts/models.py:48 accounts/templates/profile-edit.html:73
+#: accounts/templates/profile.html:19 core/forms.py:10
+msgid "Occupation"
+msgstr "Ocupação"
+
+#: accounts/models.py:49 accounts/templates/profile-edit.html:83
+#: accounts/templates/profile.html:27
+msgid "City"
+msgstr "Cidade"
+
+#: accounts/models.py:50 accounts/templates/profile-edit.html:93
+#: accounts/templates/profile.html:36
+msgid "Site"
+msgstr "Página"
+
+#: accounts/models.py:51 administration/templates/new_course.html:383
+#: core/models.py:119
+msgid "Biography"
+msgstr "Biografia"
+
+#: accounts/models.py:59
+msgid "user"
+msgstr "usuário"
+
+#: accounts/models.py:60
+msgid "users"
+msgstr "usuários"
 
 #: accounts/templates/profile-edit.html:36
 msgid "Upload avatar"
@@ -64,22 +146,7 @@ msgstr "Perfil"
 msgid "Full Name"
 msgstr "Nome"
 
-#: accounts/templates/profile-edit.html:73 accounts/templates/profile.html:18
-#: core/forms.py:10 core/models.py:40
-msgid "Occupation"
-msgstr "Ocupação"
-
-#: accounts/templates/profile-edit.html:83 accounts/templates/profile.html:25
-#: core/models.py:41
-msgid "City"
-msgstr "Cidade"
-
-#: accounts/templates/profile-edit.html:93 accounts/templates/profile.html:32
-#: core/models.py:42
-msgid "Site"
-msgstr "Página"
-
-#: accounts/templates/profile-edit.html:103 accounts/templates/profile.html:38
+#: accounts/templates/profile-edit.html:103 accounts/templates/profile.html:44
 msgid "Bio"
 msgstr "Biografia"
 
@@ -87,438 +154,41 @@ msgstr "Biografia"
 msgid "Account Settings"
 msgstr "Configurações da conta"
 
-#: accounts/templates/profile-edit.html:120 core/models.py:25
-#: core/templates/header-guest.html:27 core/templates/header-guest.html:76
-#: timtec/templates/account/login.html:16
-#: timtec/templates/account/login.html:72
-#: timtec/templates/account/login_modal.html:70
-#: timtec/templates/account/password_reset_from_key_done.html:14
-#: timtec/templates/account/signup.html:15
-#: timtec/templates/account/signup.html:17
-#: timtec/templates/account/signup.html:75
-#: timtec/templates/account/signup.html:77
-msgid "Username"
-msgstr "Nome de usuário"
-
 #: accounts/templates/profile-edit.html:130
+#: accounts/templates/account/login_modal.html:76
+#: accounts/templates/account/signup.html:25
+#: accounts/templates/account/signup.html:85
 #: core/templates/header-guest.html:84
-#: timtec/templates/account/login_modal.html:76
-#: timtec/templates/account/signup.html:25
-#: timtec/templates/account/signup.html:85
 msgid "E-mail"
 msgstr "Email"
 
-#: accounts/templates/profile-edit.html:156
-#: timtec/templates/account/password_reset_from_key.html:32
-#: timtec/templates/account/password_reset_from_key.html:71
+#: accounts/templates/profile-edit.html:157
+#: accounts/templates/account/password_reset_from_key.html:32
+#: accounts/templates/account/password_reset_from_key.html:71
+#: administration/templates/new_course.html:33
+#: administration/templates/new_course.html:278
+#: administration/templates/new_course.html:367
+#: administration/templates/new_lesson.html:31
 msgid "Save"
 msgstr "Salvar"
 
-#: core/forms.py:11
-msgid "Subject"
-msgstr "Assunto"
-
-#: core/forms.py:12 core/models.py:117 core/models.py:214
-msgid "Name"
-msgstr "Nome"
-
-#: core/forms.py:13
-msgid "Email"
-msgstr "Email"
-
-#: core/forms.py:14
-msgid "Message"
-msgstr "Mensagem"
-
-#: core/models.py:26
-msgid ""
-"Required. 30 characters or fewer. Letters, numbers and ./+/-/_ characters"
-msgstr "Obrigatório. 30 caracteres ou menos. Letras, números e . + - _"
-
-#: core/models.py:29
-msgid "Enter a valid username."
-msgstr "Insira um nome válido."
-
-#: core/models.py:32
-msgid "Email address"
-msgstr "Endereço de Email"
-
-#: core/models.py:33
-msgid "First name"
-msgstr "Nome"
-
-#: core/models.py:34
-msgid "Last name"
-msgstr "Sobrenome"
-
-#: core/models.py:35
-msgid "Staff status"
-msgstr "Situação"
-
-#: core/models.py:36
-msgid "Active"
-msgstr "Ativo"
-
-#: core/models.py:37
-msgid "Date joined"
-msgstr "Data de inscrição"
-
-#: core/models.py:39
-msgid "Picture"
-msgstr "Estrutura"
-
-#: core/models.py:43 core/models.py:193
-msgid "Biography"
-msgstr "Biografia"
-
-#: core/models.py:51
-msgid "user"
-msgstr "usuário"
-
-#: core/models.py:52
-msgid "users"
-msgstr "usuários"
-
-#: core/models.py:102 core/models.py:282
-msgid "Video"
-msgstr "Video"
-
-#: core/models.py:103
-msgid "Videos"
-msgstr "Videos"
-
-#: core/models.py:111 core/models.py:207
-msgid "Draft"
-msgstr "Rascunho"
-
-#: core/models.py:112 core/models.py:208
-msgid "Listed"
-msgstr "Listado"
-
-#: core/models.py:113 core/models.py:209
-msgid "Published"
-msgstr "Público"
-
-#: core/models.py:116 core/models.py:217 forum/models.py:13
-msgid "Slug"
-msgstr "Slug"
-
-#: core/models.py:118
-msgid "Intro video"
-msgstr "Vídeo introdutório"
-
-#: core/models.py:119
-msgid "Application"
-msgstr "Aplicação"
-
-#: core/models.py:120
-msgid "Requirement"
-msgstr "Requisitos"
-
-#: core/models.py:121 core/templates/course.html:75
-#: core/templates/course.html.py:175
-msgid "Abstract"
-msgstr "Resumo"
-
-#: core/models.py:122
-msgid "Structure"
-msgstr "Estrutura"
-
-#: core/models.py:123 core/templates/course.html:82
-#: core/templates/course.html.py:182
-msgid "Workload"
-msgstr "Carga horária"
-
-#: core/models.py:124
-msgid "Pronatec"
-msgstr "Pronatec"
-
-#: core/models.py:125 core/models.py:218
-msgid "Status"
-msgstr "Situação"
-
-#: core/models.py:126
-msgid "Publication"
-msgstr "Publicação"
-
-#: core/models.py:131 core/models.py:159 core/models.py:192 core/models.py:212
-#: forum/models.py:17
-msgid "Course"
-msgstr "Curso"
-
-#: core/models.py:132
-msgid "Courses"
-msgstr "Cursos"
-
-#: core/models.py:158 core/models.py:313 core/models.py:342
-msgid "Student"
-msgstr "Estudante"
-
-#: core/models.py:186
-msgid "Instructor"
-msgstr "Instrutor"
-
-#: core/models.py:187
-msgid "Assistant"
-msgstr "Assistente"
-
-#: core/models.py:188
-msgid "Pedagogy Assistant"
-msgstr "Assistente pedagógico"
-
-#: core/models.py:191
-msgid "Professor"
-msgstr "Professor"
-
-#: core/models.py:194
-msgid "Role"
-msgstr "Papel"
-
-#: core/models.py:198
-msgid "Course Professor"
-msgstr "Professor do curso"
-
-#: core/models.py:199
-msgid "Course Professors"
-msgstr "Professores do curso"
-
-#: core/models.py:213
-msgid "Description"
-msgstr "Descrição"
-
-#: core/models.py:215 core/templates/user-courses.html:31
-msgid "Notes"
-msgstr "Notas"
-
-#: core/models.py:221 core/models.py:281 forum/models.py:18
-msgid "Lesson"
-msgstr "Lição"
-
-#: core/models.py:222 core/templates/course.html:94
-msgid "Lessons"
-msgstr "Lições"
-
-#: core/models.py:267
-msgid "Type"
-msgstr "Tipo"
-
-#: core/models.py:268
-msgid "Data"
-msgstr "Dado"
-
-#: core/models.py:269
-msgid "Expected answer"
-msgstr "Resposta esperada"
-
-#: core/models.py:272 core/models.py:283 core/models.py:312
-msgid "Activity"
-msgstr "Atividade"
-
-#: core/models.py:273
-msgid "Activities"
-msgstr "Atividades"
-
-#: core/models.py:280 forum/models.py:11
-msgid "Title"
-msgstr "Título"
-
-#: core/models.py:287 core/models.py:343
-msgid "Unit"
-msgstr "Unidade"
-
-#: core/models.py:288
-msgid "Units"
-msgstr "Unidades"
-
-#: core/models.py:315
-msgid "Given answer"
-msgstr "Resposta fornecida"
-
-#: core/models.py:337 forum/models.py:35 forum/models.py:62
-msgid "Answer"
-msgstr "Resposta"
-
-#: core/models.py:338
-msgid "Answers"
-msgstr "Respostas"
-
-#: core/models.py:349
-msgid "Student Progress"
-msgstr "Progresso do Estudante"
-
-#: core/templates/course.html:22
-msgid "Resume"
-msgstr "Continuar curso"
-
-#: core/templates/course.html:30
-msgid "Take the Class"
-msgstr "Fazer o curso"
-
-#: core/templates/course.html:58
-msgid "Why do this course?"
-msgstr "Por que fazer esse curso?"
-
-#: core/templates/course.html:64
-msgid "What do I have to know?"
-msgstr "O que eu preciso saber?"
-
-#: core/templates/course.html:79 core/templates/course.html.py:179
-msgid "Course Structure"
-msgstr "Estrutura"
-
-#: core/templates/course.html:132
-msgid "videos"
-msgstr "videos"
-
-#: core/templates/course.html:132
-msgid "activities"
-msgstr "atividades"
-
-#: core/templates/course.html:148
-msgid "Instructors"
-msgstr "Instrutores"
-
-#: core/templates/header-authenticated.html:20
-msgid "Available Courses"
-msgstr "Cursos disponíveis"
-
-#: core/templates/header-authenticated.html:21
-#: core/templates/user-courses.html:8
-msgid "My Courses"
-msgstr "Meus cursos"
-
-#: core/templates/header-authenticated.html:22
-msgid "My Notes"
-msgstr "Minhas notas"
-
-#: core/templates/header-authenticated.html:29
-msgid "Profile"
-msgstr "Perfil"
-
-#: core/templates/header-authenticated.html:30
-msgid "Edit Profile and Account Settings"
-msgstr "Editar Perfil e Configurações da conta"
-
-#: core/templates/header-authenticated.html:31
-msgid "Settings"
-msgstr "Configurações"
-
-#: core/templates/header-authenticated.html:33
-msgid "Logout"
-msgstr "Sair"
-
-#: core/templates/header-guest.html:22 core/templates/header-guest.html:56
-#: timtec/templates/account/email_confirmed.html:29
-#: timtec/templates/account/login.html:11
-#: timtec/templates/account/login.html:41
-#: timtec/templates/account/login.html:64
-#: timtec/templates/account/login.html:96
-#: timtec/templates/account/login_modal.html:18
-#: timtec/templates/account/login_modal.html:51
-#: timtec/templates/account/password_reset_from_key_done.html:33
-#: timtec/templates/account/password_reset_from_key_done.html:76
-msgid "Sign In"
-msgstr "Entrar"
-
-#: core/templates/header-guest.html:30
-#: timtec/templates/account/email_confirmed.html:16
-#: timtec/templates/account/login.html:19
-#: timtec/templates/account/login.html:75
-#: timtec/templates/account/login_modal.html:27
-#: timtec/templates/account/password_reset_from_key_done.html:17
-#: timtec/templates/account/password_reset_from_key_done.html:61
-msgid "E-mail or username"
-msgstr "Nome de usuário ou email"
-
-#: core/templates/header-guest.html:53
-#: timtec/templates/account/email_confirmed.html:28
-#: timtec/templates/account/login.html:40
-#: timtec/templates/account/login.html:99
-#: timtec/templates/account/login_modal.html:48
-#: timtec/templates/account/password_reset.html:12
-#: timtec/templates/account/password_reset.html:49
-#: timtec/templates/account/password_reset_from_key_done.html:32
-msgid "Forgot my password"
-msgstr "Esqueci minha senha"
-
-#: core/templates/header-guest.html:71 core/templates/header-guest.html:101
-#: timtec/templates/account/login_modal.html:64
-#: timtec/templates/account/login_modal.html:91
-#: timtec/templates/account/signup.html:10
-#: timtec/templates/account/signup.html:46
-#: timtec/templates/account/signup.html:68
-#: timtec/templates/account/signup.html:105
-msgid "Sign Up"
-msgstr "Inscrever-se"
-
-#: core/templates/header-guest.html:78
-#: timtec/templates/account/login_modal.html:72
-msgid "Choose an username"
-msgstr "Escolha um nome de usuário"
-
-#: core/templates/header-guest.html:86
-#: timtec/templates/account/login_modal.html:78
-msgid "Insert your e-mail"
-msgstr "Insira seu email"
-
-#: core/templates/header-guest.html:94
-#: timtec/templates/account/login_modal.html:84
-msgid "A really strong password"
-msgstr "Uma senha muito forte"
-
-#: core/templates/header-guest.html:95
-#: timtec/templates/account/login_modal.html:85
-msgid "Confirm your password"
-msgstr "Confirme sua senha"
-
-#: core/templates/user-courses.html:22
-msgid "Resume Class"
-msgstr "Continuar aula"
-
-#: core/templates/user-courses.html:32
-msgid "Details"
-msgstr "Detalhes"
-
-#: course_material/models.py:8
-msgid "Course Materials"
-msgstr "Material didático"
-
-#: course_material/models.py:9 forum/models.py:12 forum/models.py:34
-#: forum/models.py:55
-msgid "Question"
-msgstr "Descrição"
-
-#: course_material/models.py:19
-#: course_material/templates/course-material-admin.html:94
-#: course_material/templates/course-material.html:35
-msgid "Files"
-msgstr "Arquivos"
-
-#: forum/models.py:14 forum/models.py:36 forum/models.py:48
-msgid "User"
-msgstr "Usuário"
-
-#: forum/models.py:15
-msgid "Correct answer"
-msgstr "Resposta esperada"
-
-#: timtec/templates/account/activate.html:10
-#: timtec/templates/account/activate.html:23
+#: accounts/templates/account/activate.html:10
+#: accounts/templates/account/activate.html:23
 msgid "Sorry"
 msgstr "Desculpe"
 
-#: timtec/templates/account/activate.html:12
-#: timtec/templates/account/activate.html:25
+#: accounts/templates/account/activate.html:12
+#: accounts/templates/account/activate.html:25
 msgid "You provided an invalid key"
 msgstr "Você forneceu uma chave inválida"
 
-#: timtec/templates/account/activate.html:12
-#: timtec/templates/account/activate.html:25
+#: accounts/templates/account/activate.html:12
+#: accounts/templates/account/activate.html:25
 msgid "The registration failed"
 msgstr "O registro falhou"
 
-#: timtec/templates/account/email_confirm.html:13
-#: timtec/templates/account/email_confirm.html:33
+#: accounts/templates/account/email_confirm.html:13
+#: accounts/templates/account/email_confirm.html:33
 #, python-format
 msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
@@ -527,13 +197,13 @@ msgstr ""
 "Por favor confirme que o endereço <a href=\"mailto:%(email)s\">%(email)s</a>"
 " é o email do usuário %(user_display)s."
 
-#: timtec/templates/account/email_confirm.html:17
-#: timtec/templates/account/email_confirm.html:36
+#: accounts/templates/account/email_confirm.html:17
+#: accounts/templates/account/email_confirm.html:36
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: timtec/templates/account/email_confirm.html:21
-#: timtec/templates/account/email_confirm.html:40
+#: accounts/templates/account/email_confirm.html:21
+#: accounts/templates/account/email_confirm.html:40
 #, python-format
 msgid ""
 "This e-mail confirmation link expired or is invalid. Please <a "
@@ -542,26 +212,94 @@ msgstr ""
 "Este email de confirmação expirou ou é inválido. Por favor <a "
 "href=\"%(email_url)s\">solicite uma nova confirmação de e-mail</a>."
 
-#: timtec/templates/account/email_confirmed.html:9
+#: accounts/templates/account/email_confirmed.html:9
 msgid "Mission accomplished"
 msgstr "Missão cumprida"
 
-#: timtec/templates/account/email_confirmed.html:10
+#: accounts/templates/account/email_confirmed.html:10
 msgid "You have an active account"
 msgstr "Você tem uma conta ativa"
 
-#: timtec/templates/account/email_confirmed.html:14
-#: timtec/templates/account/login_modal.html:24
-#: timtec/templates/account/password_reset_from_key_done.html:58
+#: accounts/templates/account/email_confirmed.html:14
+#: accounts/templates/account/login_modal.html:24
+#: accounts/templates/account/password_reset_from_key_done.html:58
 msgid "Login"
 msgstr "Entrar"
 
-#: timtec/templates/account/login_modal.html:10
+#: accounts/templates/account/email_confirmed.html:16
+#: accounts/templates/account/login.html:19
+#: accounts/templates/account/login.html:75
+#: accounts/templates/account/login_modal.html:27
+#: accounts/templates/account/password_reset_from_key_done.html:17
+#: accounts/templates/account/password_reset_from_key_done.html:61
+#: core/templates/header-guest.html:30
+msgid "E-mail or username"
+msgstr "Nome de usuário ou email"
+
+#: accounts/templates/account/email_confirmed.html:28
+#: accounts/templates/account/login.html:40
+#: accounts/templates/account/login.html:99
+#: accounts/templates/account/login_modal.html:48
+#: accounts/templates/account/password_reset.html:12
+#: accounts/templates/account/password_reset.html:49
+#: accounts/templates/account/password_reset_from_key_done.html:32
+#: core/templates/header-guest.html:53
+msgid "Forgot my password"
+msgstr "Esqueci minha senha"
+
+#: accounts/templates/account/email_confirmed.html:29
+#: accounts/templates/account/login.html:11
+#: accounts/templates/account/login.html:41
+#: accounts/templates/account/login.html:64
+#: accounts/templates/account/login.html:96
+#: accounts/templates/account/login_modal.html:18
+#: accounts/templates/account/login_modal.html:51
+#: accounts/templates/account/password_reset_from_key_done.html:33
+#: accounts/templates/account/password_reset_from_key_done.html:76
+#: core/templates/header-guest.html:22 core/templates/header-guest.html:56
+msgid "Sign In"
+msgstr "Entrar"
+
+#: accounts/templates/account/login_modal.html:10
 msgid "You need to sign in or up to see this content"
 msgstr "Você precisa entrar ou inscrever-se para ver este conteúdo"
 
-#: timtec/templates/account/password_reset.html:23
-#: timtec/templates/account/password_reset.html:60
+#: accounts/templates/account/login_modal.html:64
+#: accounts/templates/account/login_modal.html:91
+#: accounts/templates/account/signup.html:10
+#: accounts/templates/account/signup.html:46
+#: accounts/templates/account/signup.html:68
+#: accounts/templates/account/signup.html:105
+#: core/templates/header-guest.html:71 core/templates/header-guest.html:101
+msgid "Sign Up"
+msgstr "Inscrever-se"
+
+#: accounts/templates/account/login_modal.html:72
+#: core/templates/header-guest.html:78
+msgid "Choose an username"
+msgstr "Escolha um nome de usuário"
+
+#: accounts/templates/account/login_modal.html:78
+#: core/templates/header-guest.html:86
+msgid "Insert your e-mail"
+msgstr "Insira seu email"
+
+#: accounts/templates/account/login_modal.html:84
+#: core/templates/header-guest.html:94
+msgid "A really strong password"
+msgstr "Uma senha muito forte"
+
+#: accounts/templates/account/login_modal.html:85
+#: core/templates/header-guest.html:95
+msgid "Confirm your password"
+msgstr "Confirme sua senha"
+
+#: accounts/templates/account/login_modal.html:102
+msgid "Facebook connect"
+msgstr "Conectar com Facebook"
+
+#: accounts/templates/account/password_reset.html:23
+#: accounts/templates/account/password_reset.html:60
 msgid ""
 "Insert your e-mail so we can send you the instructions to recover your "
 "password"
@@ -569,35 +307,36 @@ msgstr ""
 "Insira seu email para que possamos enviar-lhe instruções para recuperar sua "
 "senha"
 
-#: timtec/templates/account/password_reset.html:26
-#: timtec/templates/account/password_reset.html:63
+#: accounts/templates/account/password_reset.html:26
+#: accounts/templates/account/password_reset.html:63
 msgid "Your e-mail"
 msgstr "Seu email"
 
-#: timtec/templates/account/password_reset.html:33
-#: timtec/templates/account/password_reset.html:69
+#: accounts/templates/account/password_reset.html:33
+#: accounts/templates/account/password_reset.html:69
+#: core/templates/lesson.html:147
 msgid "Send"
 msgstr "Enviar"
 
-#: timtec/templates/account/password_reset_done.html:10
-#: timtec/templates/account/password_reset_done.html:21
-#: timtec/templates/account/verification_sent.html:11
-#: timtec/templates/account/verification_sent.html:23
+#: accounts/templates/account/password_reset_done.html:10
+#: accounts/templates/account/password_reset_done.html:21
+#: accounts/templates/account/verification_sent.html:11
+#: accounts/templates/account/verification_sent.html:23
 msgid "Check your inbox"
 msgstr "Verifica sua caixa de entrada"
 
-#: timtec/templates/account/password_reset_done.html:12
-#: timtec/templates/account/password_reset_done.html:23
+#: accounts/templates/account/password_reset_done.html:12
+#: accounts/templates/account/password_reset_done.html:23
 msgid "We sent you an e-mail with the instructions to recover your password"
 msgstr "Nós enviamos um email com instruções para recuperar sua senha"
 
-#: timtec/templates/account/password_reset_from_key.html:11
-#: timtec/templates/account/password_reset_from_key.html:50
+#: accounts/templates/account/password_reset_from_key.html:11
+#: accounts/templates/account/password_reset_from_key.html:50
 msgid "Change your password"
 msgstr "Mudar sua senha"
 
-#: timtec/templates/account/password_reset_from_key.html:15
-#: timtec/templates/account/password_reset_from_key.html:56
+#: accounts/templates/account/password_reset_from_key.html:15
+#: accounts/templates/account/password_reset_from_key.html:56
 #, python-format
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
@@ -608,32 +347,36 @@ msgstr ""
 "porque já foi usado. Por favor solicite uma <a "
 "href=\"%(passwd_reset_url)s\">nova redefinição de senha</a>."
 
-#: timtec/templates/account/password_reset_from_key.html:36
-#: timtec/templates/account/password_reset_from_key.html:75
+#: accounts/templates/account/password_reset_from_key.html:36
+#: accounts/templates/account/password_reset_from_key.html:75
 msgid "Your password is now changed."
 msgstr "Sua senha foi alterada."
 
-#: timtec/templates/account/password_reset_from_key_done.html:10
-#: timtec/templates/account/password_reset_from_key_done.html:54
+#: accounts/templates/account/password_reset_from_key_done.html:10
+#: accounts/templates/account/password_reset_from_key_done.html:54
 msgid "Password reset complete"
 msgstr "Redefinição da senha completo"
 
-#: timtec/templates/account/signup.html:37
-#: timtec/templates/account/signup.html:97
+#: accounts/templates/account/signup.html:37
+#: accounts/templates/account/signup.html:97
 msgid "Really strong password"
 msgstr "Senha realmente forte"
 
-#: timtec/templates/account/signup.html:38
-#: timtec/templates/account/signup.html:98
+#: accounts/templates/account/signup.html:38
+#: accounts/templates/account/signup.html:98
 msgid "Password confirmation"
 msgstr "Confirmação de senha"
 
-#: timtec/templates/account/verification_sent.html:10
-#: timtec/templates/account/verification_sent.html:22
+#: accounts/templates/account/signup.html:112
+msgid "Facebook Connect"
+msgstr "Conectar com Facebook"
+
+#: accounts/templates/account/verification_sent.html:10
+#: accounts/templates/account/verification_sent.html:22
 msgid "Validation email sent"
 msgstr "Email de validação enviado"
 
-#: timtec/templates/account/email/password_reset_key_message.txt:1
+#: accounts/templates/account/email/password_reset_key_message.txt:1
 #, python-format
 msgid ""
 "You're receiving this e-mail because you or someone else has requested a password for your user account at %(site_domain)s.\n"
@@ -654,32 +397,585 @@ msgstr ""
 "\n"
 "Obrigado por usar o TIM Tec!\n"
 
-#: timtec/templates/account/email/password_reset_key_subject.txt:3
+#: accounts/templates/account/email/password_reset_key_subject.txt:3
 msgid "Password Reset E-mail"
 msgstr "Email de redefinição de senha"
 
-#: timtec/templates/socialaccount/authentication_error.html:5
-#: timtec/templates/socialaccount/authentication_error.html:13
+#: accounts/templates/socialaccount/authentication_error.html:5
+#: accounts/templates/socialaccount/authentication_error.html:13
 msgid "Social Network Login Failure"
 msgstr ""
 
-#: timtec/templates/socialaccount/authentication_error.html:16
+#: accounts/templates/socialaccount/authentication_error.html:16
 msgid ""
 "An error occurred while attempting to login via your social network account."
-msgstr ""
+msgstr "Aconteceu um erro ao tentar autenticar usando sua rede social"
 
-#: timtec/templates/socialaccount/login_cancelled.html:6
-#: timtec/templates/socialaccount/login_cancelled.html:14
+#: accounts/templates/socialaccount/login_cancelled.html:6
+#: accounts/templates/socialaccount/login_cancelled.html:14
 msgid "Login Cancelled"
-msgstr ""
+msgstr "Autenticação cancelada"
 
-#: timtec/templates/socialaccount/login_cancelled.html:17
+#: accounts/templates/socialaccount/login_cancelled.html:17
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
 "accounts. If this was a mistake, please proceed to <a "
 "href=\"%(login_url)s\">sign in</a>."
 msgstr ""
+
+#: activities/models.py:25
+msgid "Type"
+msgstr "Tipo"
+
+#: activities/models.py:26
+msgid "Data"
+msgstr "Dado"
+
+#: activities/models.py:27
+msgid "Expected answer"
+msgstr "Resposta esperada"
+
+#: activities/models.py:28 core/models.py:190 core/models.py:216
+msgid "Unit"
+msgstr "Unidade"
+
+#: activities/models.py:32 activities/models.py:47
+#: administration/templates/new_lesson.html:135 core/models.py:184
+msgid "Activity"
+msgstr "Atividade"
+
+#: activities/models.py:33
+msgid "Activities"
+msgstr "Atividades"
+
+#: activities/models.py:48 core/models.py:83 core/models.py:215
+msgid "Student"
+msgstr "Estudante"
+
+#: activities/models.py:50
+msgid "Given answer"
+msgstr "Resposta fornecida"
+
+#: activities/models.py:53 forum/models.py:35 forum/models.py:62
+msgid "Answer"
+msgstr "Resposta"
+
+#: activities/models.py:54
+msgid "Answers"
+msgstr "Respostas"
+
+#: administration/templates/admin-base.html:27
+#: core/templates/header-authenticated.html:10
+#: core/templates/header-guest.html:9
+msgid "Toggle navigation"
+msgstr "Alternar navegação"
+
+#: administration/templates/admin-base.html:32
+msgid "TIMTec"
+msgstr ""
+
+#: administration/templates/admin-base.html:38
+#: administration/templates/courses.html:19 core/models.py:52
+msgid "Courses"
+msgstr "Cursos"
+
+#: administration/templates/admin-base.html:39
+#: administration/templates/users.html:11
+msgid "Users"
+msgstr "Usuários"
+
+#: administration/templates/admin-base.html:40
+msgid "Statistics"
+msgstr "Estatística"
+
+#: administration/templates/courses.html:22
+#: administration/templates/courses.html:55
+msgid "New course"
+msgstr "Novo curso"
+
+#: administration/templates/courses.html:37
+msgid "All"
+msgstr "Todos"
+
+#: administration/templates/courses.html:38
+#: administration/templates/courses.html:101
+#: administration/templates/new_course.html:249
+#: administration/templates/new_course.html:266 core/models.py:32
+#: core/models.py:135
+msgid "Published"
+msgstr "Público"
+
+#: administration/templates/courses.html:39
+#: administration/templates/new_course.html:248
+#: administration/templates/new_course.html:262 core/models.py:31
+#: core/models.py:134
+msgid "Listed"
+msgstr "Listado"
+
+#: administration/templates/courses.html:40
+#: administration/templates/new_course.html:247
+#: administration/templates/new_course.html:258 core/models.py:30
+#: core/models.py:133
+msgid "Draft"
+msgstr "Rascunho"
+
+#: administration/templates/courses.html:46
+msgid "Keyword"
+msgstr "Palavra-chave"
+
+#: administration/templates/courses.html:52
+msgid "Sort"
+msgstr ""
+
+#: administration/templates/courses.html:53 core/models.py:44
+#: core/models.py:144
+msgid "Status"
+msgstr "Situação"
+
+#: administration/templates/courses.html:54
+msgid "Publication date"
+msgstr "Data de publicação"
+
+#: administration/templates/courses.html:60
+msgid "Invert"
+msgstr ""
+
+#: administration/templates/courses.html:90
+msgid "Show lessons"
+msgstr "Mostrar aulas"
+
+#: administration/templates/courses.html:107
+msgid "Publish in"
+msgstr "Publicar em"
+
+#: administration/templates/courses.html:113
+msgid "No publication date"
+msgstr "Sem data de publicação"
+
+#: administration/templates/courses.html:121
+#: administration/templates/courses.html:124
+msgid "Loading lessons list"
+msgstr ""
+
+#: administration/templates/courses.html:147
+msgid "No courses found"
+msgstr ""
+
+#: administration/templates/new_course.html:29
+msgid "Delete course"
+msgstr ""
+
+#: administration/templates/new_course.html:29
+msgid "Delete this course"
+msgstr "Apagar este curso"
+
+#: administration/templates/new_course.html:34
+msgid "Publish"
+msgstr "Publicar"
+
+#: administration/templates/new_course.html:51
+msgid "Course name"
+msgstr "Nome do curso"
+
+#: administration/templates/new_course.html:63
+msgid "Add professors in course"
+msgstr ""
+
+#: administration/templates/new_course.html:71
+#: administration/templates/new_course.html:224
+#: administration/templates/new_lesson.html:63 core/models.py:148
+#: core/templates/course.html:133
+msgid "Lessons"
+msgstr "Lições"
+
+#: administration/templates/new_course.html:72
+#: administration/templates/new_lesson.html:64
+msgid "Forum"
+msgstr ""
+
+#: administration/templates/new_course.html:73
+#: administration/templates/new_lesson.html:65
+msgid "Material"
+msgstr "Material"
+
+#: administration/templates/new_course.html:95
+#: administration/templates/new_lesson.html:131 core/models.py:20
+#: core/models.py:183
+msgid "Video"
+msgstr "Video"
+
+#: administration/templates/new_course.html:119
+#: administration/templates/new_course.html:181
+#: administration/templates/new_course.html:277
+#: administration/templates/new_lesson.html:169
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: administration/templates/new_course.html:122
+#: administration/templates/new_course.html:185
+#: administration/templates/new_lesson.html:172
+#: administration/templates/new_lesson.html:243
+msgid "Add"
+msgstr "Adicionar"
+
+#: administration/templates/new_course.html:139
+msgid "Change thumbnail"
+msgstr "Trocar thumbnail"
+
+#: administration/templates/new_course.html:165
+#: administration/templates/new_lesson.html:188
+msgid "Change video"
+msgstr "Trocar vídeo"
+
+#: administration/templates/new_course.html:175
+msgid "Introduction video"
+msgstr "Vídeo introdutório"
+
+#: administration/templates/new_course.html:200
+#: administration/templates/new_course.html:202 core/models.py:38
+msgid "Application"
+msgstr "Aplicação"
+
+#: administration/templates/new_course.html:209
+#: administration/templates/new_course.html:211
+msgid "Requirements"
+msgstr "Requisitos"
+
+#: administration/templates/new_course.html:228
+msgid "Organize lesson"
+msgstr "Organizar aulas"
+
+#: administration/templates/new_course.html:241
+#: administration/templates/new_lesson.html:85
+msgid "Lesson name"
+msgstr "Nome da aula"
+
+#: administration/templates/new_course.html:320 core/templates/course.html:199
+msgid "videos"
+msgstr "videos"
+
+#: administration/templates/new_course.html:320 core/templates/course.html:199
+msgid "activities"
+msgstr "atividades"
+
+#: administration/templates/new_course.html:330
+msgid "Add lesson"
+msgstr "Adicionar aula"
+
+#: administration/templates/new_course.html:341
+msgid "Instrutores"
+msgstr "Instrutores"
+
+#: administration/templates/new_course.html:346
+msgid "Organizar instrutores"
+msgstr "Organizar instrutores"
+
+#: administration/templates/new_course.html:355
+#: administration/templates/new_course.html:381 core/forms.py:12
+#: core/models.py:36 core/models.py:140
+msgid "Name"
+msgstr "Nome"
+
+#: administration/templates/new_course.html:366
+#: administration/templates/new_course.html:459
+#: administration/templates/new_lesson.html:282
+msgid "Close"
+msgstr "Fechar"
+
+#: administration/templates/new_course.html:390
+msgid "Add instructor"
+msgstr "Adicionar instrutor"
+
+#: administration/templates/new_course.html:408 core/models.py:40
+msgid "Abstract"
+msgstr "Resumo"
+
+#: administration/templates/new_course.html:415
+#: administration/templates/new_course.html:417 core/models.py:41
+msgid "Structure"
+msgstr "Estrutura"
+
+#: administration/templates/new_course.html:424
+#: administration/templates/new_course.html:426 core/models.py:42
+msgid "Workload"
+msgstr "Carga horária"
+
+#: administration/templates/new_lesson.html:28
+msgid "Delete this lesson"
+msgstr "Apagar esta aula"
+
+#: administration/templates/new_lesson.html:32
+msgid "Publish lesson"
+msgstr "Publicar aula"
+
+#: administration/templates/new_lesson.html:88
+msgid "Lesson description"
+msgstr "Descrição da aula"
+
+#: administration/templates/new_lesson.html:140
+msgid "Delete this unit"
+msgstr "Apagar esta unidade"
+
+#: administration/templates/new_lesson.html:162
+msgid "Unit video"
+msgstr "Vídeo da unidade"
+
+#: administration/templates/new_lesson.html:220
+msgid "Delete this activity"
+msgstr "Apagar esta atividade"
+
+#: administration/templates/new_lesson.html:228
+msgid "Unit activity"
+msgstr "Atividade da unidade"
+
+#: administration/templates/new_lesson.html:256 core/models.py:185
+msgid "Side notes"
+msgstr "Notas"
+
+#: administration/templates/users.html:14
+msgid "Add user"
+msgstr "Adicionar usuário"
+
+#: core/forms.py:11
+msgid "Subject"
+msgstr "Assunto"
+
+#: core/forms.py:13
+msgid "Email"
+msgstr "Email"
+
+#: core/forms.py:14
+msgid "Message"
+msgstr "Mensagem"
+
+#: core/models.py:21
+msgid "Videos"
+msgstr "Videos"
+
+#: core/models.py:29
+msgid "Novo"
+msgstr ""
+
+#: core/models.py:35 core/models.py:143 forum/models.py:13
+msgid "Slug"
+msgstr "Slug"
+
+#: core/models.py:37
+msgid "Intro video"
+msgstr "Vídeo introdutório"
+
+#: core/models.py:39
+msgid "Requirement"
+msgstr "Requisitos"
+
+#: core/models.py:43
+msgid "Pronatec"
+msgstr "Pronatec"
+
+#: core/models.py:45
+msgid "Publication"
+msgstr "Publicação"
+
+#: core/models.py:46
+msgid "Thumbnail"
+msgstr ""
+
+#: core/models.py:51 core/models.py:84 core/models.py:118 core/models.py:138
+#: forum/models.py:17
+msgid "Course"
+msgstr "Curso"
+
+#: core/models.py:112
+msgid "Instructor"
+msgstr "Instrutor"
+
+#: core/models.py:113
+msgid "Assistant"
+msgstr "Assistente"
+
+#: core/models.py:114
+msgid "Pedagogy Assistant"
+msgstr "Assistente pedagógico"
+
+#: core/models.py:117
+msgid "Professor"
+msgstr "Professor"
+
+#: core/models.py:120
+msgid "Role"
+msgstr "Papel"
+
+#: core/models.py:124
+msgid "Course Professor"
+msgstr "Professor do curso"
+
+#: core/models.py:125
+msgid "Course Professors"
+msgstr "Professores do curso"
+
+#: core/models.py:139
+msgid "Description"
+msgstr "Descrição"
+
+#: core/models.py:141 core/templates/user-courses.html:31
+msgid "Notes"
+msgstr "Notas"
+
+#: core/models.py:147 core/models.py:182 forum/models.py:18
+msgid "Lesson"
+msgstr "Lição"
+
+#: core/models.py:181 forum/models.py:11
+msgid "Title"
+msgstr "Título"
+
+#: core/models.py:191
+msgid "Units"
+msgstr "Unidades"
+
+#: core/models.py:222
+msgid "Student Progress"
+msgstr "Progresso do Estudante"
+
+#: core/templates/course.html:28
+msgid "Resume"
+msgstr "Continuar curso"
+
+#: core/templates/course.html:36
+msgid "Take the Class"
+msgstr "Fazer o curso"
+
+#: core/templates/course.html:77
+msgid "Why do this course?"
+msgstr "Por que fazer esse curso?"
+
+#: core/templates/course.html:85
+msgid "What do I have to know?"
+msgstr "O que eu preciso saber?"
+
+#: core/templates/course.html:215
+msgid "Instructors"
+msgstr "Instrutores"
+
+#: core/templates/header-authenticated.html:21
+msgid "Available Courses"
+msgstr "Cursos disponíveis"
+
+#: core/templates/header-authenticated.html:22
+#: core/templates/user-courses.html:8
+msgid "My Courses"
+msgstr "Meus cursos"
+
+#: core/templates/header-authenticated.html:24
+msgid "Admin"
+msgstr ""
+
+#: core/templates/header-authenticated.html:26
+msgid "My Notes"
+msgstr "Minhas notas"
+
+#: core/templates/header-authenticated.html:33
+msgid "Profile"
+msgstr "Perfil"
+
+#: core/templates/header-authenticated.html:34
+msgid "Edit Profile and Account Settings"
+msgstr "Editar Perfil e Configurações da conta"
+
+#: core/templates/header-authenticated.html:35
+msgid "Settings"
+msgstr "Configurações"
+
+#: core/templates/header-authenticated.html:37
+msgid "Logout"
+msgstr "Sair"
+
+#: core/templates/html5.html:28
+msgid "Hello world! This is HTML5 Boilerplate."
+msgstr ""
+
+#: core/templates/lesson.html:132 core/templates/lesson.html.py:136
+msgid "Your answer is"
+msgstr "Sua resposta está"
+
+#: core/templates/lesson.html:132
+msgid "correct!"
+msgstr ""
+
+#: core/templates/lesson.html:136
+msgid "wrong"
+msgstr ""
+
+#: core/templates/lesson.html:136
+msgid "Review the video more attentively and try again"
+msgstr ""
+
+#: core/templates/lesson.html:143
+msgid "Skip"
+msgstr ""
+
+#: core/templates/lesson.html:146
+msgid "Review the video"
+msgstr ""
+
+#: core/templates/lesson.html:153
+msgid "Continue"
+msgstr ""
+
+#: core/templates/lesson.html:166
+msgid "Learn more"
+msgstr "Saiba mais"
+
+#: core/templates/lesson.html:167
+msgid "Annotations"
+msgstr "Anotações"
+
+#: core/templates/lesson.html:173
+msgid "This unit has no notes"
+msgstr "Esta unidade não possui nenhuma nota"
+
+#: core/templates/lesson.html:187
+msgid "Professor notes"
+msgstr "Notas do professor"
+
+#: core/templates/user-courses.html:22
+msgid "Resume Class"
+msgstr "Continuar aula"
+
+#: core/templates/user-courses.html:32
+msgid "Details"
+msgstr "Detalhes"
+
+#: course_material/models.py:8
+msgid "Course Materials"
+msgstr "Material didático"
+
+#: course_material/models.py:9 forum/models.py:12 forum/models.py:34
+#: forum/models.py:55
+msgid "Question"
+msgstr "Descrição"
+
+#: course_material/models.py:19
+#: course_material/templates/course-material-admin.html:94
+#: course_material/templates/course-material.html:36
+msgid "Files"
+msgstr "Arquivos"
+
+#: forum/models.py:14 forum/models.py:36 forum/models.py:48 notes/models.py:11
+msgid "User"
+msgstr "Usuário"
+
+#: forum/models.py:15
+msgid "Correct answer"
+msgstr "Resposta esperada"
+
+#: notes/models.py:10
+msgid "Note"
+msgstr "Nota"
+
+#~ msgid "Course Structure"
+#~ msgstr "Estrutura"
 
 #~ msgid "New"
 #~ msgstr "Novo"
@@ -689,9 +985,6 @@ msgstr ""
 
 #~ msgid "Course Application"
 #~ msgstr "Aplicação"
-
-#~ msgid "Requirements"
-#~ msgstr "Requisitos"
 
 #~ msgid "Position"
 #~ msgstr "Posição"

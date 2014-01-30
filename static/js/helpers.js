@@ -1,3 +1,10 @@
+function argsLog () {
+    if(console.log) {
+        console.log.apply(console, arguments);
+    }
+    return arguments;
+}
+
 RegExp.prototype.extract = function(target,group){
     if(this.test(target)) {
         var m=target.match(this);

@@ -62,15 +62,41 @@
                 'active': '=',
                 'onSelect': '='
             },
-            'controller': ['$scope', function($scope){
+            'controller': ['$scope', '$element', function($scope, $element){
                 $scope.professors = Professor.query();
                 $scope.selectedProfessor = null;
 
-                $scope.selectProfessor = function() {
+                $scope.selectProfessor = function(professor) {
+                    $scope.selectedProfessor = angular.copy(professor);
+                    $scope.selectedOriginal = professor;
+                };
+
+                $scope.triggerSelect = function() {
                     if(!$scope.selectedProfessor) return;
 
+                    var copy = $scope.selectedProfessor;
+                    var original = $scope.selectedOriginal;
+                    var selectCallback = angular.noop;
+
                     if($scope.onSelect && $scope.onSelect.call) {
-                        $scope.onSelect($scope.selectedProfessor);
+                        selectCallback = $scope.onSelect;
+                    }
+
+                    if(copy.first_name !== original.first_name ||
+                       copy.last_name !== original.last_name) {
+
+                        original.first_name = copy.first_name;
+                        original.last_name = copy.last_name;
+
+                        original.$save()
+                            .then(function(p){
+                                selectCallback(p);
+                            })
+                            .catch(function(){
+                                selectCallback(copy);
+                            });
+                    } else {
+                        selectCallback(copy);
                     }
                 };
             }]

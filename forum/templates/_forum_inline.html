@@ -1,9 +1,9 @@
 {% include "_forum_angular.html" %}
+{% load timtec_markdown %}
 <script>
  window.course_id = {{ course.pk }};
  window.user_id = {{ user.pk }};
 </script>
-    
       <section class="course-forum" ng-controller="InlineForumCtrl">
           {% if question_form %}
         <div class="page-header-double">
@@ -57,7 +57,7 @@
                 </div>
               </div>
               <div class="col-lg-5 col-sm-5 textright">
-                  <pagination ng-if="totalItems>itemsPerPage" on-select-page="changePageHandler(page)" max-size="5" items-per-page="itemsPerPage" boundary-links="true" total-items="totalItems" page="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                  <pagination ng-if="totalItems>itemsPerPage" on-select-page="changePageHandler(page)" max-size="5" items-per-page="itemsPerPage" boundary-links="true" total-items="totalItems" page="currentPage" class="pagination-sm top" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
                 <!-- <div class="input-group">
                   <input type="search" class="form-control" placeholder="Pesquisar perguntas e respostas">
                   <span class="input-group-btn">

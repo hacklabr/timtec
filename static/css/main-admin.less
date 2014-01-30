@@ -3,21 +3,6 @@
 
 body#admin {
 
-  #main-navbar.navbar-inverse {
-    background-color: @gray;
-    border-color: darken(@gray, 15%);
-    border-radius: 0;
-    li.divider {
-      border-left: 1px solid darken(@gray, 5%);
-      display: block;
-      height: 50px;
-      width: 0;
-    }
-    a:hover {
-      background-color: darken(@gray, 5%);
-    }
-  }
-
   // COURSES LIST
   #courses {
     > header {
@@ -98,27 +83,6 @@ body#admin {
     font-size:18px;
     margin:0 10px;
     vertical-align:bottom !important;
-  }
-
-  .add-video-intro, .add-thumbnail {
-    color:@brand-danger;
-    height:489px;
-
-    &:before {
-      content:'';
-      height:100%;
-      .vertical-align(middle);
-    }
-
-    .centered {
-      .vertical-align(middle);
-      width:400px;
-    }
-
-    .icon-youtube-play {
-      display:block;
-      font-size:54px;
-    }
   }
 
   .edit-video-intro {
@@ -381,4 +345,27 @@ body#admin {
     background-color: #FFFFAA;
     box-shadow: 1px 1px 4px #555555;
     -webkit-transition: background-color 1s;
+}
+
+.activity label.btn {
+  white-space: normal;
+  min-height: 4em;
+  width: 100%;
+}
+
+.activity .panel-body {
+  min-height: 22em;
+}
+
+.btn-group .dropdown-menu{
+  li {
+    margin: 0.5em 0 !important;
+  }
+  a {
+    cursor: pointer;
+  }
+}
+
+.add-side-notes .editable {
+    min-height: 150px;
 }
