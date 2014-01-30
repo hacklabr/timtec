@@ -26,7 +26,7 @@ class Video(models.Model):
 
 class Course(models.Model):
     STATES = (
-        ('new', _('Novo')),
+        ('new', _('New')),
         ('draft', _('Draft')),
         ('listed', _('Listed')),
         ('published', _('Published')),
