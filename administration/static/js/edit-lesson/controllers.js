@@ -174,6 +174,11 @@
                 $scope.newActivityType = null;
             };
 
+            $scope.selectActivity = function(activity) {
+                $scope.currentActivity = activity;
+                MarkdownDirective.resetEditors();
+            };
+
             $scope.removeCurrentActivity = function() {
                 if(!$scope.currentUnit) return;
                 if(!$scope.currentUnit.activities) return;

@@ -10,6 +10,7 @@
             'resetEditors': function(){
                 this.editors.forEach(function(editor){
                     editor.reset();
+                    editor.focusEditor();
                 });
             },
 
