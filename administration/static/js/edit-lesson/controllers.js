@@ -36,7 +36,8 @@
                 {'name': 'multiplechoice', 'label': 'Múltipla escolha'},
                 {'name': 'trueorfalse', 'label': 'Verdadeiro ou falso'},
                 {'name': 'relationship', 'label': 'Relacionar sentenças'},
-                {'name': 'html5', 'label': 'HTML5'}
+                {'name': 'html5', 'label': 'HTML5'},
+                {'name': 'markdown', 'label': 'Texto simples'}
             ];
 
             /*  Methods */

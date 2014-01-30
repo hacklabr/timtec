@@ -61,7 +61,7 @@ class Answer(models.Model):
         return self.activity.expected
 
     def is_correct(self):
-        if self.activity.type == 'html5':
+        if self.activity.type in ['html5', 'markdown']:
             return True
 
         given = self.given
