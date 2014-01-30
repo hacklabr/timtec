@@ -41,7 +41,20 @@
                       <li class="divider"></li>
                       <li><a href="/">TIMTec</a></li>
                       <li class="divider"></li>
-                      <li><a href="/admin/profile">{{ user }}</a></li>
+                      <li>
+                          <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
+                              {{ user }}
+                              <i class="fa fa-caret-down"></i>
+                          </a>
+                          <ul class="dropdown-menu">
+                              <li><a href="{% url 'profile' %}">{% trans "Profile" %}</a></li>
+                              <li><a href="{% url 'profile_edit' %}">{% trans "Edit Profile and Account Settings" %}</a></li>
+                              <!-- <li><a href="">{% trans "Settings" %}</a></li> -->
+                              <li class='divider'></li>
+                              <li><a href="{% url 'timtec_logout' %}">{% trans "Logout" %}</a></li>
+                          </ul>
+                      </li>
+                      
                   </ul>
               </div>
             </div>
