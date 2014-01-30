@@ -3,59 +3,59 @@
 {% load staticfiles %}
 {% block content %}
 {% include "_notes_angular.html" %}
-        <!-- CONTAINER -->
-        <div id="my-notes" class="container">
-            <!-- COURSE-NOTES -->
-            <div class="course-notes" ng-app="notes" ng-controller="CourseNotesCtrl">
-                {% verbatim angularjs %}
-                <!-- HEADER -->
-                <header class="page-header-double">
-                    <h2><i class="fa fa-angle-double-right"></i> Anotações - HTML5 - Introdução ao Front End</h2>
-                </header>
-                <!-- HEADER -->
-                <div class="row">
-                    <div class="col-sm-9 col-lg-9">
-                        <!-- LESSON -->
-                        <p ng-if="lessons.length == 0">Você ainda não fez nenhuma anotação.</p>
-                        <div id="lesson-{{ lesson.position }}" class="lesson" ng-repeat="lesson in lessons">
-                            <!-- NOTES -->
-                            <h1><i class="fa fa-angle-double-right"></i> {{ lesson.name }}</h1>
-                            <div id="lesson-{{ lesson.position }}-unit-{{ note.content_object.position }}" class="notes" ng-repeat="note in lesson.notes">
-                                <h2>{{ note.content_object.title }} <a href="/lesson/{{ lesson.slug }}#/{{ note.content_object.position }}"><i class="fa fa-play-circle-o alignright" data-toggle="tooltip" title="Assista ao vídeo"></i></a></h2>
-                                <!-- NOTE -->
-                                <div class="note">
-                                    <p>{{ note.text }}</p>
-                                </div>
-                                <!-- END NOTE -->
-                            </div>
-                            <!-- END NOTES -->
+<!-- CONTAINER -->
+<div id="my-notes" class="container">
+    <!-- COURSE-NOTES -->
+    <div class="course-notes" ng-app="notes" ng-controller="CourseNotesCtrl">
+        {% verbatim angularjs %}
+        <!-- HEADER -->
+        <header class="page-header-double">
+            <h2><i class="fa fa-angle-double-right"></i> Anotações - HTML5 - Introdução ao Front End</h2>
+        </header>
+        <!-- HEADER -->
+        <div class="row">
+            <div class="col-sm-9 col-lg-9">
+                <!-- LESSON -->
+                <p ng-if="lessons.length == 0">Você ainda não fez nenhuma anotação.</p>
+                <div id="lesson-{{ lesson.position }}" class="lesson" ng-repeat="lesson in lessons">
+                    <!-- NOTES -->
+                    <h1><i class="fa fa-angle-double-right"></i> {{ lesson.name }}</h1>
+                    <div id="lesson-{{ lesson.position }}-unit-{{ note.content_object.position }}" class="notes" ng-repeat="note in lesson.notes">
+                        <h2>{{ note.content_object.title }} <a href="/lesson/{{ lesson.slug }}#/{{ note.content_object.position }}"><i class="fa fa-play-circle-o alignright" data-toggle="tooltip" title="Assista ao vídeo"></i></a></h2>
+                        <!-- NOTE -->
+                        <div class="note">
+                            <p>{{ note.text }}</p>
                         </div>
-                        <!-- END LESSON -->
+                        <!-- END NOTE -->
                     </div>
-                    <!-- LESSONS -->
-                    <aside id="lessons" class="col-sm-3 col-lg-3">
-                        <div class="row">
-                            <div class="goto-class btn-group uppercase col-lg-12 col-sm-12">
-                                <a href="/course/html5" class="col-lg-10 btn btn-lg btn-success">Ir para o curso</a>
-                                <a href="/course/html5" class="col-lg-2 btn btn-lg btn-success"><i class="fa fa-angle-double-right"></i></a>
-                            </div>
-                        </div>
-                        <ul class="well" ng-if="lessons.length != 0">
-                            <li ng-repeat="lesson in lessons">
-                                <a ng-href="#lesson-{{ lesson.position }}" href="" target="_self">{{ lesson.name }}</a>
-                                <ul>
-                                    <li ng-repeat="note in lesson.notes">
-                                        <a ng-href="#lesson-{{ lesson.position }}-unit-{{ note.content_object.position }}" href="" target="_self">{{ note.content_object.title }}</a>
-                                    </li>
-                                </ul>
+                    <!-- END NOTES -->
+                </div>
+                <!-- END LESSON -->
+            </div>
+            <!-- LESSONS -->
+            <aside id="lessons" class="col-sm-3 col-lg-3">
+                <div class="row">
+                    <div class="goto-class btn-group uppercase col-lg-12 col-sm-12">
+                        <a href="/course/html5" class="col-lg-10 btn btn-lg btn-success">Ir para o curso</a>
+                        <a href="/course/html5" class="col-lg-2 btn btn-lg btn-success"><i class="fa fa-angle-double-right"></i></a>
+                    </div>
+                </div>
+                <ul class="well" ng-if="lessons.length != 0">
+                    <li ng-repeat="lesson in lessons">
+                        <a ng-href="#lesson-{{ lesson.position }}" href="" target="_self">{{ lesson.name }}</a>
+                        <ul>
+                            <li ng-repeat="note in lesson.notes">
+                                <a ng-href="#lesson-{{ lesson.position }}-unit-{{ note.content_object.position }}" href="" target="_self">{{ note.content_object.title }}</a>
                             </li>
                         </ul>
-                    </aside>
-                    <!-- END LESSONS -->
-                </div>
-                {% endverbatim angularjs %}
-            </div>
-            <!-- END COURSE-NOTES -->
+                    </li>
+                </ul>
+            </aside>
+            <!-- END LESSONS -->
         </div>
-        <!-- CONTAINER -->
+        {% endverbatim angularjs %}
+    </div>
+    <!-- END COURSE-NOTES -->
+</div>
+<!-- CONTAINER -->
 {% endblock %}
