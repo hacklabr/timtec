@@ -102,11 +102,16 @@
                         $scope.nextUnit();
                     }
                 } else {
-                    var index = $scope.currentUnit.activities.indexOf($scope.currentActivity);
-                    if(index+1 === $scope.currentUnit.activities.length) {
-                        $scope.nextUnit();
+                    if($scope.section === 'activity' && $scope.currentActivity.comment) {
+                        $scope.section = 'comment';
                     } else {
-                        $scope.selectActivity(index + 1);
+                        var index = $scope.currentUnit.activities.indexOf($scope.currentActivity);
+                        if(index+1 === $scope.currentUnit.activities.length) {
+                            $scope.nextUnit();
+                        } else {
+                            $scope.selectActivity(index + 1);
+                            $scope.section = 'activity';
+                        }
                     }
                 }
             };

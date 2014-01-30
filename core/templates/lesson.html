@@ -140,7 +140,7 @@ $(document).ready(function() {
                             <!-- if no answer or incorrect -->
                             <div class="row" ng-if="! answer.correct">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <button onClick="ga('send', 'event', 'activity', 'skip activity');" class="btn btn-default" ng-click="nextVideo()">{% trans 'Skip' %}</button>
+                                    <button onClick="ga('send', 'event', 'activity', 'skip activity');" class="btn btn-default" ng-click="nextStep()">{% trans 'Skip' %}</button>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 textright">
                                     <button onClick="ga('send', 'event', 'activity', 'rewatch video');" class="btn btn-info" ng-click="play()">{% trans 'Review the video' %}</button>
@@ -153,6 +153,19 @@ $(document).ready(function() {
                                     <button class="btn btn-success" ng-click="nextStep()">{% trans 'Continue' %}</button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="section=='comment'" class="comment">
+                    <div class="panel panel-default" style="min-height: 368px;">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">{% trans 'Professor comment' %}</h2>
+                        </div>
+                        <div class="panel-body" ng-bind-html="currentActivity.comment|markdown"></div>
+                    </div>
+                    <div class="row" ng-if="answer.correct">
+                        <div class="col-lg-12 col-md-12 col-sm-12 textright">
+                            <button class="btn btn-success" ng-click="nextStep()">{% trans 'Continue' %}</button>
                         </div>
                     </div>
                 </div>
@@ -197,7 +210,7 @@ $(document).ready(function() {
             <div class="col-lg-8 col-sm-10 col-lg-offset-1 col-sm-offset-1">
                 {% include "_forum_inline.html"  with course=lesson.course question_form=1 %}
             </div>
-        
+
         <!-- END FORUM -->
             <div class="col-lg-3 hidden-md hidden-sm hidden-xs">
                 <section class="course-instructions">
