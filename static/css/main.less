@@ -1279,6 +1279,18 @@ a, a:hover, a:active {
     &.is-hidden {
         background-color: lighten(@brand-warning, 40%);
         padding: 20px;
+        .why-hidden {
+          border-top: 1px solid @brand-warning;
+          margin-top: 20px;
+          padding: 0 20px;
+          h1 {
+            font-size: 18px;
+            margin-bottom: 20px;
+          }
+          .content {
+            font-size: 12px;
+          }
+        }
     }
 
     .stats {
