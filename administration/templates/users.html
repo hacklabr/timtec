@@ -1,4 +1,5 @@
 {% extends "admin-base.html" %}
+{% load i18n %}
 
 {% block content %}
 
@@ -6,10 +7,10 @@
     <header>
         <div class="row">
             <div class="col-lg-6">
-                <h1>Usuários</h1>
+                <h1>{% trans 'Users' %}</h1>
             </div>
             <div class="col-lg-6 textright">
-                <button class="btn btn-lg btn-success uppercase">Adicionar usuário</button>
+                <button class="btn btn-lg btn-success uppercase">{% trans 'Add user' %}</button>
             </div>
         </div>
     </header>

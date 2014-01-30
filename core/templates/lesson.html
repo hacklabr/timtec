@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% load i18n %}
 {% load staticfiles %}
 {% load timtec_markdown %}
 
@@ -106,7 +107,7 @@ $(document).ready(function() {
                         <option ng-repeat="unit in lesson.units"
                                 ng-value="unit"
                                 ng-selected="unit==currentUnit"
-                                value="{{$index+1}}">Unidade {{ unit.position + 1 }}</option>
+                                value="{{$index+1}}">{% trans 'Unit' %} {{ unit.position + 1 }}</option>
                     </select>
                 </p>
             </div>
@@ -128,28 +129,28 @@ $(document).ready(function() {
                         <ng:include src="activityTemplateUrl"></ng:include>
 
                         <div ng-show="answer.correct" class="alert alert-success">
-                            <i class="fa fa-smile-o"></i> Sua resposta está <strong>correta!</strong>
+                            <i class="fa fa-smile-o"></i> {% trans 'Your answer is' %} <strong>{% trans 'correct!' %}!</strong>
                         </div>
 
                         <div ng-show="answer.correct === false" class="alert alert-danger">
-                            <i class="fa fa-frown-o"></i> <span>Sua resposta está <strong>incorreta</strong>. Reveja o vídeo com mais atenção e tente novamente.</span>
+                            <i class="fa fa-frown-o"></i> <span>{% trans 'Your answer is' %} <strong>{% trans 'wrong' %}</strong>. {% trans 'Review the video more attentively and try again' %}.</span>
                         </div>
 
                         <div class="submit">
                             <!-- if no answer or incorrect -->
                             <div class="row" ng-if="! answer.correct">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <button onClick="ga('send', 'event', 'activity', 'skip activity');" class="btn btn-default" ng-click="nextVideo()">Pular</button>
+                                    <button onClick="ga('send', 'event', 'activity', 'skip activity');" class="btn btn-default" ng-click="nextVideo()">{% trans 'Skip' %}</button>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 textright">
-                                    <button onClick="ga('send', 'event', 'activity', 'rewatch video');" class="btn btn-info" ng-click="play()">Rever Vídeo</button>
-                                    <button class="btn btn-success" ng-click="sendAnswer()">Enviar</button>
+                                    <button onClick="ga('send', 'event', 'activity', 'rewatch video');" class="btn btn-info" ng-click="play()">{% trans 'Review the video' %}</button>
+                                    <button class="btn btn-success" ng-click="sendAnswer()">{% trans 'Send' %}</button>
                                 </div>
                             </div>
                             <!-- if correct -->
                             <div class="row" ng-if="answer.correct">
                                 <div class="col-lg-12 col-md-12 col-sm-12 textright">
-                                    <button class="btn btn-success" ng-click="nextStep()">Continuar</button>
+                                    <button class="btn btn-success" ng-click="nextStep()">{% trans 'Continue' %}</button>
                                 </div>
                             </div>
                         </div>
@@ -162,14 +163,14 @@ $(document).ready(function() {
             <!-- NOTES -->
             <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs" style="height:420px;">
                 <ul class="nav nav-tabs">
-                    <li><a href="#side-notes" data-toggle="tab">Saiba mais</a></li>
-                    <li class="active"><a href="#notes" data-toggle="tab">Anotações</a></li>
+                    <li><a href="#side-notes" data-toggle="tab">{% trans 'Learn more' %}</a></li>
+                    <li class="active"><a href="#notes" data-toggle="tab">{% trans 'Annotations' %}</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane" id="side-notes">
                         <br>
                         <span ng-bind-html="currentUnit.side_notes|markdown"></span>
-                        <p ng-if="!currentUnit.side_notes">Essa unidade não possui nenhuma nota</p>
+                        <p ng-if="!currentUnit.side_notes">{% trans 'This unit has no notes' %}</p>
                     </div>
                     {% include "_notes_inline.html" %}
                 </div>
@@ -183,7 +184,7 @@ $(document).ready(function() {
             <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
                 <section class="course-instructions">
                     <div class="page-header-double">
-                        <h3><i class="fa fa-angle-double-right"></i> Notas do professor</h3>
+                        <h3><i class="fa fa-angle-double-right"></i> {% trans 'Professor notes' %}</h3>
                     </div>
                     {{ lesson.notes|timtec_markdown }}
                 </section>
