@@ -4,15 +4,53 @@
 {% block content %}
 {% include "_notes_angular.html" %}
 <!-- CONTAINER -->
-<div id="my-notes" class="container">
-    <!-- COURSE-NOTES -->
-    <div class="course-notes" ng-app="notes" ng-controller="CourseNotesCtrl">
-        {% verbatim angularjs %}
-        <!-- HEADER -->
-        <header class="page-header-double">
-            <h2><i class="fa fa-angle-double-right"></i> Anotações - HTML5 - Introdução ao Front End</h2>
+<div id="my-notes" class="course-notes container" ng-app="notes" ng-controller="CourseNotesCtrl">
+    {% verbatim angularjs %}
+
+    <!-- HEADER -->
+    <header id="main-header" class="container">
+      <div class="page-header">
+        <div class="row">
+          <div class="col-lg-9 col-sm-9">
+            <h1 class="course-name bottom top">
+                <a href="{% url 'course_intro' course.slug %}">HTML5 - INTRODUÇÃO AO FRONT END</a>
+            </h1>
+            <ul class="instructors">
+                <li><a href="{% url 'profile' course_professor.user.username %}">FABIO FLATSCHART</a></li>
+                <li><a href="{% url 'profile' course_professor.user.username %}">CAP ETHERIEL</a></li>
+                <li><a href="{% url 'profile' course_professor.user.username %}">LEONARDO SANTAGADA</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-sm-3">
+            <!-- COURSE-SECTION-NAV -->
+            <nav class="course-sections textright">
+              <a href="{% url 'course_intro' course.slug %}"><span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="Intro"></span></a>
+              <a href="{% url "lesson" course.slug course.first_lesson.slug %}"><span class="has-tooltip fa fa-film" data-toggle="tooltip" data-placement="top" data-original-title="Aulas"></span></a>
+              <a href="{% url 'forum' course.slug %}"><span class="has-tooltip fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="Fórum"></span></a>
+              <a href="{% url 'course_material' course.slug %}"><span class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="Material Didádico"></span></a>
+            </nav>
+            <!-- END COURSE-SECTION-NAV -->
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- HEADER -->
+
+    <section id="notes-content" class="container">
+        <header class="row">
+            <div class="col-lg-9">
+                <h1 class="top">{% trans "Minhas Anotações" %}</h1>
+            </div>
+            <div class="col-lg-3">
+                <div class="row">
+                    <div class="goto-class btn-group uppercase col-lg-12 col-sm-12">
+                        <a href="/course/html5" class="col-lg-10 btn btn-lg btn-success">Ir para o curso</a>
+                        <a href="/course/html5" class="col-lg-2 btn btn-lg btn-success"><i class="fa fa-angle-double-right"></i></a>
+                    </div>
+                </div>
+            </div>
         </header>
-        <!-- HEADER -->
+
         <div class="row">
             <div class="col-sm-9 col-lg-9">
                 <!-- LESSON -->
@@ -34,12 +72,6 @@
             </div>
             <!-- LESSONS -->
             <aside id="lessons" class="col-sm-3 col-lg-3">
-                <div class="row">
-                    <div class="goto-class btn-group uppercase col-lg-12 col-sm-12">
-                        <a href="/course/html5" class="col-lg-10 btn btn-lg btn-success">Ir para o curso</a>
-                        <a href="/course/html5" class="col-lg-2 btn btn-lg btn-success"><i class="fa fa-angle-double-right"></i></a>
-                    </div>
-                </div>
                 <ul class="well" ng-if="lessons.length != 0">
                     <li ng-repeat="lesson in lessons">
                         <a ng-href="#lesson-{{ lesson.position }}" href="" target="_self">{{ lesson.name }}</a>
@@ -53,9 +85,9 @@
             </aside>
             <!-- END LESSONS -->
         </div>
-        {% endverbatim angularjs %}
-    </div>
-    <!-- END COURSE-NOTES -->
+    </section>
+    
+    {% endverbatim angularjs %}
 </div>
 <!-- CONTAINER -->
 {% endblock %}
