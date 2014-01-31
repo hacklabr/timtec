@@ -6,8 +6,9 @@
     app.constant('STATIC_URL', window.STATIC_URL);
     app.constant('MEDIA_URL', window.MEDIA_URL);
     app.constant('DEBUG', window.DEBUG);
+
     app.config(
-        function ($httpProvider, $logProvider, DEBUG, $sceDelegateProvider, STATIC_URL) {
+        function ($httpProvider, $locationProvider, $logProvider, DEBUG, $sceDelegateProvider, STATIC_URL) {
             $httpProvider.defaults.xsrfCookieName = 'csrftoken';
             $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
             $logProvider.debugEnabled(DEBUG);
@@ -17,6 +18,8 @@
                 'self',
                 STATIC_URL + '**'
             ]);
+
+            $locationProvider.html5Mode(true);
         }
     );
 })(window.angular);

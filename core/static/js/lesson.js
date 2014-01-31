@@ -34,7 +34,24 @@
 
             $scope.section = $scope.section || 'video';
 
+            window.onpopstate = function(evt) {
+                if(!($scope.lesson && $scope.lesson.units)) return;
+
+                var index = /unit\/(\d+)\/?$/.extract($location.path(), 1);
+                index = parseInt(index, 10) - 1 || 0;
+                if(index < 0) index = 0;
+
+                $scope.selectUnit($scope.lesson.units[index]);
+            };
+
             $scope.selectUnit = function(unit) {
+                var index = $scope.lesson.units.indexOf(unit) + 1;
+                var part = 'unit/{0}/'.format(index);
+                var path = $location.path().replace(/(unit\/\d+\/?)?$/, part);
+
+                if(path !== $location.path())
+                    $location.path(path);
+
                 $scope.currentUnit = unit;
                 if(unit.video) {
                     $scope.section = 'video';
@@ -133,7 +150,15 @@
 
             LessonData.then(function(lesson){
                 $scope.lesson = lesson;
-                $scope.selectUnit(lesson.units[0]);
+
+                var unitIndex = /unit\/(\d+)/.extract($location.path(), 1);
+                unitIndex = (parseInt(unitIndex, 10) - 1) || 0 ;
+
+                if(unitIndex < 0) {
+                    unitIndex = 0;
+                }
+
+                $scope.selectUnit(lesson.units[unitIndex]);
                 $scope.play();
             });
         }

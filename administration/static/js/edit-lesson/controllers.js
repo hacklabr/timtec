@@ -2,15 +2,15 @@
 
     var app = angular.module('edit-lesson');
 
-    app.controller('EditLessonController', ['$scope', 'Course', 'CourseProfessor', 'Lesson', 'VideoData', 'youtubePlayerApi', 'MarkdownDirective',
-        function($scope, Course, CourseProfessor, Lesson, VideoData, youtubePlayerApi, MarkdownDirective){
+    app.controller('EditLessonController',
+        ['$scope', '$location', 'Course', 'CourseProfessor', 'Lesson', 'VideoData', 'youtubePlayerApi', 'MarkdownDirective',
+        function($scope, $location, Course, CourseProfessor, Lesson, VideoData, youtubePlayerApi, MarkdownDirective){
             $scope.errors = {};
             var httpErrors = {
                 '400': 'Os campos não foram preenchidos corretamente.',
                 '403': 'Você não tem permissão para ver conteúdo nesta página.',
                 '404': 'Este curso não existe!'
             };
-
             // load youtube
             $scope.playerReady = false;
             youtubePlayerApi.loadPlayer().then(function(p){
@@ -28,6 +28,7 @@
 
             $scope.course = new Course();
             $scope.lesson = new Lesson();
+            $scope.lessons = new Lesson();
 
             $scope.courseProfessors = [];
 
@@ -40,16 +41,33 @@
                 {'name': 'markdown', 'label': 'Texto simples'}
             ];
 
+            $scope.baseUrl = "/admin/courses/{0}/lessons/{1}/";
+            window.onpopstate = function(evt) {
+                if(!$scope.lessons.forEach) return;
+
+                var id = /lessons\/(\d+|new)\/?$/.extract($location.path(), 1);
+                $scope.lessons.forEach(function(lesson){
+                    if( (lesson.id == id) || (id === 'new' && !lesson.id) ) {
+                        $scope.setLesson(lesson);
+                    }
+                });
+            };
+
             /*  Methods */
             $scope.setLesson = function(l) {
                 $scope.lesson = l;
-                document.title = 'Aula: {0}'.format(l.name);
+                document.title = 'Aula: {0}'.format(l.name || '');
+
+                var path = $scope.baseUrl.format($scope.course.id, (l.id || 'new') );
+                $location.path(path);
 
                 if(l.units.length > 0) {
                     $scope.selectUnit(l.units[0]);
                 } else {
                     $scope.addUnit();
                 }
+
+                if(!$scope.$$phase) $scope.$apply();
             };
 
             $scope.saveLesson = function() {
