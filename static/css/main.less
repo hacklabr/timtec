@@ -991,7 +991,46 @@ a, a:hover, a:active {
 // ********************************************************************* //
 #my-notes {
   #notes-content {
-    margin-top: 20px;
+    header {
+      border-bottom: 1px solid @gray-lighter;
+      padding-bottom: 20px;
+      h1 {
+        margin-top: 25px;
+      }
+      a.goto-course {
+        display:block;
+        margin-top: 18px;
+      }
+    }
+    .notes {
+      margin-top: 20px;
+      .lesson {
+        border-bottom: 1px solid @gray-lighter;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        h1 {
+          font-size: 20px;
+          span {
+            color: @gray-light;
+            font-size: 12px;
+            margin-right: 40px;
+            text-transform: uppercase;
+          }
+        }
+        .note {
+          margin-left: 76px;
+        }
+      }
+    }
+  }
+  .courses {
+    .course {
+      border-bottom:1px solid @gray-lighter;
+      padding:9px 0;
+    }
+    .btn {
+      text-transform:uppercase;
+    }
   }
 }
 
@@ -1312,15 +1351,6 @@ a, a:hover, a:active {
 // MY NOTES
 // ********************************************************************* //
 // #my-notes {
-//   .courses {
-//     .course {
-//       border-bottom:1px solid @gray-lighter;
-//       padding:9px 0;
-//     }
-//     .btn {
-//       text-transform:uppercase;
-//     }
-//   }
 //   .course-notes {
 //     header {
 //       .btn-group {
@@ -1359,27 +1389,7 @@ a, a:hover, a:active {
 //         }
 //       }
 //     }
-//     .notes {
-//       margin-bottom:42px;
-//       h1 {
-//         border-bottom:1px solid @gray-lighter;
-//         .bottom(14px,7px);
-//         font-size:21px;
-//       }
-//       .note {
-//         border-bottom:1px solid @gray-lighter;
-//         .bottom(14px,14px);
-//         a:hover {
-//           text-decoration:none;
-//         }
-//         p i {
-//           display:none;
-//         }
-//         p:hover i {
-//           display:inline-block;
-//         }
-//       }
-//     }
+//     
 //     #lessons {
 //       .goto-class {
 //         margin-bottom:14px;

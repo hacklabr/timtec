@@ -4,65 +4,38 @@
 {% block content %}
 {% include "_notes_angular.html" %}
 <!-- CONTAINER -->
-<div id="my-notes" class="course-notes container" ng-app="notes" ng-controller="CourseNotesCtrl">
+<div id="my-notes" class="course-notes" ng-app="notes" ng-controller="CourseNotesCtrl">
 
     {% include "_course-header-inline.html"  with course=course question_form=false %}
     
     <section id="notes-content" class="container">
-        <header class="row">
-            <div class="col-lg-9">
-                <h1 class="top">{% trans "Course Notes" %}</h1>
-            </div>
-            <div class="col-lg-3">
-                <div class="row">
-                    <div class="goto-class btn-group uppercase col-lg-12 col-sm-12">
-                        <a href="{% url "lesson" course.slug course.first_lesson.slug %}" class="col-lg-10 btn btn-lg btn-success">{% trans "Go to course" %}</a>
-                        <a href="{% url "lesson" course.slug course.first_lesson.slug %}" class="col-lg-2 btn btn-lg btn-success"><i class="fa fa-angle-double-right"></i></a>
-                    </div>
+
+        <header>
+            <div class="row">
+                <div class="col-lg-9">
+                    <h1>{% trans "Course Notes" %}</h1>
+                </div>
+                <div class="col-lg-3">
+                    <a href="{% url "lesson" course.slug course.first_lesson.slug %}" class="goto-course btn btn-lg btn-danger uppercase">{% trans "Go to course" %}</a>
                 </div>
             </div>
         </header>
-        <div class="row">
-            <div class="col-sm-9 col-lg-9">
-                <!-- LESSON -->
-                <p ng-if="lessons.length == 0">{% trans 'You have not made any notes. '%}</p>
-                {% verbatim angularjs %}
-                <div id="lesson-{{ lesson.position }}" class="lesson" ng-repeat="lesson in lessons">
-                    <!-- NOTES -->
-                    <h1><i class="fa fa-angle-double-right"></i> {{ lesson.name }}</h1>
-                    <div id="lesson-{{ lesson.position }}-unit-{{ note.content_object.position }}" class="notes" ng-repeat="note in lesson.notes">
-                        <h2>{{ note.content_object.title }} <a href="/lesson/{{ lesson.slug }}#/{{ note.content_object.position }}">{% endverbatim angularjs %}<i class="fa fa-play-circle-o alignright" data-toggle="tooltip" title="{% trans 'Watch the video' %}"></i></a></h2>
-                        <!-- NOTE -->
-                        {% verbatim angularjs %}
-                        <div class="note">
-                            <p>{{ note.text }}</p>
-                        </div>
-                        <!-- END NOTE -->
-                    </div>
-                    <!-- END NOTES -->
+
+        <section class="notes">
+            <p ng-if="lessons.length == 0">
+                {% trans "You have not made any notes yet." %}
+            </p>
+            
+            {% verbatim angularjs %}
+            <div id="lesson-{{ lesson.position }}" class="lesson" ng-repeat="lesson in lessons">
+                <h1><span>Aula</span> <a href="">{{ lesson.name }}</a></h1>
+                <div class="note" ng-repeat="note in lesson.notes">
+                    {{ note.text }}
                 </div>
-                <!-- END LESSON -->
             </div>
-            <!-- LESSONS -->
-            <aside id="lessons" class="col-sm-3 col-lg-3">
-                <ul class="well" ng-if="lessons.length != 0">
-                    <li ng-repeat="lesson in lessons">
-                        <a ng-href="#lesson-{{ lesson.position }}" href="" target="_self">{{ lesson.name }}</a>
-                        <ul>
-                            <li ng-repeat="note in lesson.notes">
-                                <a ng-href="#lesson-{{ lesson.position }}-unit-{{ note.content_object.position }}" href="" target="_self">{{ note.content_object.title }}</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </aside>
             {% endverbatim angularjs %}
-            <!-- END LESSONS -->
-        </div>
-        
+        </section>
     </section>
-    
-    
 </div>
 <!-- CONTAINER -->
 {% endblock %}

@@ -873,7 +873,7 @@ msgstr ""
 
 #: core/templates/header-authenticated.html:26
 msgid "My Notes"
-msgstr "Minhas notas"
+msgstr "Minhas Anotações"
 
 #: core/templates/header-authenticated.html:33
 msgid "Profile"
