@@ -85,7 +85,7 @@ $(document).ready(function() {
                        href="#/{{$index+1}}"
                        class="has-tooltip unit track" data-toggle="tooltip"
                        ng-repeat="unit in lesson.units"
-                       ng-class="{watching: unit==currentUnit}">
+                       ng-class="{watching: unit==currentUnit, done: unit.progress.complete}">
                            <i class="fa fa-caret-right"></i>
                            <span class="position" ng-bind="unit.position+1"></span>
                            <i class="fa fa-list" ng-show="unit.activities"></i>
