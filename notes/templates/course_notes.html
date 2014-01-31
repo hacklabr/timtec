@@ -32,6 +32,10 @@
                 <div class="note" ng-repeat="note in lesson.notes">
                     {{ note.text }}
                 </div>
+                <div class="actions textright">
+                    <button class="btn btn-warning">Editar</button>
+                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </div>
             </div>
             {% endverbatim angularjs %}
         </section>
