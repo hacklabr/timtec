@@ -133,8 +133,17 @@
 
             LessonData.then(function(lesson){
                 $scope.lesson = lesson;
-                $scope.selectUnit(lesson.units[0]);
+
+                var index = /\/(\d+)/.extract($location.path(), 1);
+                index = parseInt(index, 10) - 1 || 0;
+                $scope.selectUnit(lesson.units[index]);
                 $scope.play();
+
+                $scope.$on('$locationChangeSuccess', function (event, newLoc, oldLoc){
+                   index = /\/(\d+)/.extract(newLoc, 1);
+                   index = parseInt(index, 10) - 1 || 0;
+                   $scope.selectUnit(lesson.units[index]);
+                });
             });
         }
     ]);

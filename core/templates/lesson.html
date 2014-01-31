@@ -82,10 +82,10 @@ $(document).ready(function() {
                 <div class="units">
                     <a style="display:block;" data-placement="right"
                        title="{{unit.video.name}}"
+                       href="#/{{$index+1}}"
                        class="has-tooltip unit track" data-toggle="tooltip"
                        ng-repeat="unit in lesson.units"
-                       ng-class="{watching: unit==currentUnit}"
-                       ng-click="selectUnit(unit)">
+                       ng-class="{watching: unit==currentUnit}">
                            <i class="fa fa-caret-right"></i>
                            <span class="position" ng-bind="unit.position+1"></span>
                            <i class="fa fa-list" ng-show="unit.activities"></i>
