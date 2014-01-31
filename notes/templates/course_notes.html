@@ -5,62 +5,35 @@
 {% include "_notes_angular.html" %}
 <!-- CONTAINER -->
 <div id="my-notes" class="course-notes container" ng-app="notes" ng-controller="CourseNotesCtrl">
-    {% verbatim angularjs %}
 
-    <!-- HEADER -->
-    <header id="main-header" class="container">
-      <div class="page-header">
-        <div class="row">
-          <div class="col-lg-9 col-sm-9">
-            <h1 class="course-name bottom top">
-                <a href="{% url 'course_intro' course.slug %}">HTML5 - INTRODUÇÃO AO FRONT END</a>
-            </h1>
-            <ul class="instructors">
-                <li><a href="{% url 'profile' course_professor.user.username %}">FABIO FLATSCHART</a></li>
-                <li><a href="{% url 'profile' course_professor.user.username %}">CAP ETHERIEL</a></li>
-                <li><a href="{% url 'profile' course_professor.user.username %}">LEONARDO SANTAGADA</a></li>
-            </ul>
-          </div>
-          <div class="col-lg-3 col-sm-3">
-            <!-- COURSE-SECTION-NAV -->
-            <nav class="course-sections textright">
-              <a href="{% url 'course_intro' course.slug %}"><span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="Intro"></span></a>
-              <a href="{% url "lesson" course.slug course.first_lesson.slug %}"><span class="has-tooltip fa fa-film" data-toggle="tooltip" data-placement="top" data-original-title="Aulas"></span></a>
-              <a href="{% url 'forum' course.slug %}"><span class="has-tooltip fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="Fórum"></span></a>
-              <a href="{% url 'course_material' course.slug %}"><span class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="Material Didádico"></span></a>
-            </nav>
-            <!-- END COURSE-SECTION-NAV -->
-          </div>
-        </div>
-      </div>
-    </header>
-    <!-- HEADER -->
-
+    {% include "_course-header-inline.html"  with course=course question_form=false %}
+    
     <section id="notes-content" class="container">
         <header class="row">
             <div class="col-lg-9">
-                <h1 class="top">{% trans "Minhas Anotações" %}</h1>
+                <h1 class="top">{% trans "Course Notes" %}</h1>
             </div>
             <div class="col-lg-3">
                 <div class="row">
                     <div class="goto-class btn-group uppercase col-lg-12 col-sm-12">
-                        <a href="/course/html5" class="col-lg-10 btn btn-lg btn-success">Ir para o curso</a>
-                        <a href="/course/html5" class="col-lg-2 btn btn-lg btn-success"><i class="fa fa-angle-double-right"></i></a>
+                        <a href="{% url "lesson" course.slug course.first_lesson.slug %}" class="col-lg-10 btn btn-lg btn-success">{% trans "Go to course" %}</a>
+                        <a href="{% url "lesson" course.slug course.first_lesson.slug %}" class="col-lg-2 btn btn-lg btn-success"><i class="fa fa-angle-double-right"></i></a>
                     </div>
                 </div>
             </div>
         </header>
-
         <div class="row">
             <div class="col-sm-9 col-lg-9">
                 <!-- LESSON -->
-                <p ng-if="lessons.length == 0">Você ainda não fez nenhuma anotação.</p>
+                <p ng-if="lessons.length == 0">{% trans 'You have not made any notes. '%}</p>
+                {% verbatim angularjs %}
                 <div id="lesson-{{ lesson.position }}" class="lesson" ng-repeat="lesson in lessons">
                     <!-- NOTES -->
                     <h1><i class="fa fa-angle-double-right"></i> {{ lesson.name }}</h1>
                     <div id="lesson-{{ lesson.position }}-unit-{{ note.content_object.position }}" class="notes" ng-repeat="note in lesson.notes">
-                        <h2>{{ note.content_object.title }} <a href="/lesson/{{ lesson.slug }}#/{{ note.content_object.position }}"><i class="fa fa-play-circle-o alignright" data-toggle="tooltip" title="Assista ao vídeo"></i></a></h2>
+                        <h2>{{ note.content_object.title }} <a href="/lesson/{{ lesson.slug }}#/{{ note.content_object.position }}">{% endverbatim angularjs %}<i class="fa fa-play-circle-o alignright" data-toggle="tooltip" title="{% trans 'Watch the video' %}"></i></a></h2>
                         <!-- NOTE -->
+                        {% verbatim angularjs %}
                         <div class="note">
                             <p>{{ note.text }}</p>
                         </div>
@@ -83,11 +56,13 @@
                     </li>
                 </ul>
             </aside>
+            {% endverbatim angularjs %}
             <!-- END LESSONS -->
         </div>
+        
     </section>
     
-    {% endverbatim angularjs %}
+    
 </div>
 <!-- CONTAINER -->
 {% endblock %}

@@ -23,7 +23,7 @@
                 {% ifusergroup professors %}
                 <li><a href="{% url 'administration.home' %}">{% trans "Admin" %}</a></li>
                 {% endifusergroup %}
-                <li><a href="{% url 'user_course_notes' 'html5' %}">{% trans "My Notes" %}</a></li>
+                <li><a href="{% url 'user_notes' %}">{% trans "My Notes" %}</a></li>
                 <li>
                     <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
                         {{ user }}

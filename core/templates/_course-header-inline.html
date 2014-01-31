@@ -18,6 +18,7 @@
             {% endcomment %}
             <a href="{% url 'forum' course.slug %}"><span class="has-tooltip fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="Fórum"></span></a>
             <a href="{% url 'course_material' course.slug %}"><span class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="Material Didádico"></span></a>
+            <a href="{% url 'user_course_notes' 'html5' %}"><span class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="Notas"></span></a>
           </nav>
           <!-- END COURSE-SECTION-NAV -->
         </div>

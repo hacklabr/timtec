@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from braces.views import LoginRequiredMixin
+from django.shortcuts import get_object_or_404
 from django.views.generic.base import TemplateView
 from notes.models import Note
 from notes.serializers import NoteSerializer
+from core.models import Course
 from rest_framework import viewsets
 
 
@@ -26,3 +28,9 @@ class UserNotesView(LoginRequiredMixin, TemplateView):
 
 class CourseNotesView(LoginRequiredMixin, TemplateView):
     template_name = 'course_notes.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(CourseNotesView, self).get_context_data(**kwargs)
+        context['course'] = get_object_or_404(Course, slug=self.kwargs['course_slug'])
+        return context
