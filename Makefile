@@ -24,6 +24,20 @@ create-production:
 	~/env/bin/python manage.py create_student_and_professor
 	touch ~/wsgi-reload
 
+update-test:
+	dropdb timtec-test
+	createdb timtec-test
+	pg_restore -O -x -n public -d timtec-test ~hacklab/sql-backup/last.psqlc
+	cp timtec/settings_local_timtec_test.py timtec/settings_local.py
+	~/env/bin/pip install -r requirements.txt
+	~/env/bin/python manage.py syncdb --noinput
+	~/env/bin/python manage.py migrate --noinput
+	~/env/bin/python manage.py collectstatic --noinput
+	~/env/bin/python manage.py compilemessages
+	rm -rf ~/webfiles/media/
+	cp -r ~timtec-production/webfiles/media ~/webfiles/
+	touch ~/wsgi-reload
+
 update-dev:
 	dropdb timtec-dev
 	createdb timtec-dev
