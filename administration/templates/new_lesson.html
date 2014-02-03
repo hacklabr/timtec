@@ -7,6 +7,7 @@
 <script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}">// must be the 2º</script>
 <script type="text/javascript" src="{% static 'js/filters/text.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/waiting-screen.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/contenteditable.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
@@ -15,10 +16,14 @@
 <script type="text/javascript" src="{% static 'js/edit-lesson/controllers.js' %}"></script>
 {% endblock %}
 
+{% block body_attrs %}
+ng-app="edit-lesson"
+{% endblock %}
+
 
 {% block content %}
 <!-- COURSE-CONTENT -->
-<div id="course" class="course-lesson" ng-app="edit-lesson" ng-controller="EditLessonController">
+<div id="course" class="course-lesson" ng-controller="EditLessonController">
 
     <!-- ACTIONS -->
     <div class="actions" fixed-bar>
@@ -288,5 +293,9 @@
     <!-- ALERT -->
 </div>
 <!-- END COURSE-CONTENT -->
-
+<div waiting-screen class="waiting waiting-screen">
+    <div class="middle">
+        <i class="fa fa-refresh fa-5x"></i>
+    </div>
+</div>
 {% endblock content %}

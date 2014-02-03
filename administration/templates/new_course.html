@@ -16,10 +16,15 @@
 <script type="text/javascript" src="{% static 'js/new-course/controllers.js' %}"></script>
 {% endblock %}
 
+{% block body_attrs %}
+ng-app="new-course"
+{% endblock %}
+
+
 {% block content %}
 
 <!--  COURSE CONTENT  -->
-<div id="course" class="course-intro" ng-app="new-course" ng-controller="CourseEditController">
+<div id="course" class="course-intro" ng-controller="CourseEditController">
 
     <!-- ACTIONS -->
     <div class="actions" fixed-bar>

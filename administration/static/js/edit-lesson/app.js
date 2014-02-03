@@ -3,6 +3,7 @@
 
     angular.module('edit-lesson', [
         'django',
+        'directive.waiting-screen',
         'directive.alertPopup',
         'directive.contenteditable',
         'directive.codemirror',

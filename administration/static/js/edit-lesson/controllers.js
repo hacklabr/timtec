@@ -2,8 +2,8 @@
 
     var app = angular.module('edit-lesson');
 
-    app.controller('EditLessonController', ['$scope', 'Course', 'CourseProfessor', 'Lesson', 'VideoData', 'youtubePlayerApi', 'MarkdownDirective',
-        function($scope, Course, CourseProfessor, Lesson, VideoData, youtubePlayerApi, MarkdownDirective){
+    app.controller('EditLessonController', ['$scope', 'Course', 'CourseProfessor', 'Lesson', 'VideoData', 'youtubePlayerApi', 'MarkdownDirective', 'waitingScreen',
+        function($scope, Course, CourseProfessor, Lesson, VideoData, youtubePlayerApi, MarkdownDirective, waitingScreen){
             $scope.errors = {};
             var httpErrors = {
                 '400': 'Os campos não foram preenchidos corretamente.',
@@ -17,7 +17,8 @@
                 $scope.playerReady = true;
             });
 
-            // end load youtube
+            // show the waiting screen
+            waitingScreen.show();
 
             $scope.play = function(youtube_id) {
                 youtubePlayerApi.loadPlayer().then(function(player){
@@ -223,9 +224,11 @@
                             $scope.lesson.position = $scope.lessons.length;
                             $scope.lessons.push($scope.lesson);
                         }
+                        waitingScreen.hide();
                     })
                     .catch(function(resp){
                         $scope.alert.error(httpErrors[resp.status.toString()]);
+                        waitingScreen.hide();
                     });
             }
             // ^^ como faz isso de uma formula angular ?

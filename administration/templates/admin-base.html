@@ -16,7 +16,7 @@
 
         {% endblock %}
     </head>
-    <body id="admin">
+    <body id="admin" {% spaceless %}{% block body_attrs %}{% endblock %}{% endspaceless %}>
 
         <!-- NAVBAR -->
         <div id="main-navbar" class="navbar navbar-inverse">
@@ -54,7 +54,7 @@
                               <li><a href="{% url 'timtec_logout' %}">{% trans "Logout" %}</a></li>
                           </ul>
                       </li>
-                      
+
                   </ul>
               </div>
             </div>
