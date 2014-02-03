@@ -67,20 +67,29 @@
             };
 
             $scope.selectActivity = function(index) {
+                function _newAnswer(){
+                    $scope.answer = new Answer();
+                    if(angular.isArray($scope.currentActivity.expected)) {
+                        $scope.answer.given = $scope.currentActivity.expected.map(function(){});
+                    }
+                }
+
                 if($scope.currentUnit.activities && $scope.currentUnit.activities.length) {
                     $scope.currentActivity = $scope.currentUnit.activities[index];
                     $scope.activityTemplateUrl = ACTIVITY_TEMPLATE_PATH($scope.currentActivity.type);
 
                     Answer.getLastGivenAnswer($scope.currentActivity.id)
                         .then(function(answer){
-                            $scope.answer = answer;
-                        })
-                        .catch(function(){
-                            $scope.answer = new Answer();
-                            if(angular.isArray($scope.currentActivity.expected)) {
-                                $scope.answer.given = $scope.currentActivity.expected.map(function(){});
+                            if (angular.isArray($scope.currentActivity.expected) &&
+                                angular.isArray(answer.given) &&
+                                answer.given.length === $scope.currentActivity.expected.length){
+
+                                $scope.answer = answer;
+                            } else {
+                                _newAnswer();
                             }
-                        });
+                        })
+                        .catch(_newAnswer);
                 } else {
                     $scope.currentActivity = null;
                     $scope.activityTemplateUrl = null;
