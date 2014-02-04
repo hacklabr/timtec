@@ -453,11 +453,11 @@ ng-app="new-course"
         <div class="alert fade in" ng-class="'alert-' + alert.type">
             <button type="button" class="close" ng-click="alert.hidden=true">×</button>
             <h4 ng-bind="alert.title"></h4>
-            <p class="bottom">
+            <div class="bottom">
                 <ol class="bottom">
                     <li ng-repeat="message in alert.messages" ng-bind="message"></li>
                 </ol>
-            </p>
+            </div>
             <div ng-show="alert.showControls">
                 <hr/>
                 <button type="button" class="btn" ng-class="'btn-'+alert.type"
@@ -466,7 +466,7 @@ ng-app="new-course"
         </div>
     </div>
     <!-- ALERT -->
-    <professorslist on-select="addProfessor" active="professorsModalActive"><professorslist>
+    <professorslist on-select="addProfessor" active="professorsModalActive"></professorslist>
 </div>
 <!--  END COURSE CONTENT  -->
 

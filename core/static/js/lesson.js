@@ -88,8 +88,7 @@
                             } else {
                                 _newAnswer();
                             }
-                        })
-                        .catch(_newAnswer);
+                        })['catch'](_newAnswer);
                 } else {
                     $scope.currentActivity = null;
                     $scope.activityTemplateUrl = null;

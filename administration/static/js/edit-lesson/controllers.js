@@ -64,8 +64,7 @@
                         if(activityIndex >= 0) {
                             $scope.currentActivity = $scope.currentUnit.activities[activityIndex];
                         }
-                    })
-                    .catch(function(resp){
+                    })['catch'](function(resp){
                         $scope.alert.error(httpErrors[resp.status.toString()]);
                     });
             };
@@ -225,8 +224,7 @@
                             $scope.lessons.push($scope.lesson);
                         }
                         waitingScreen.hide();
-                    })
-                    .catch(function(resp){
+                    })['catch'](function(resp){
                         $scope.alert.error(httpErrors[resp.status.toString()]);
                         waitingScreen.hide();
                     });

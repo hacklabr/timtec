@@ -39,11 +39,9 @@
                     .then(function(){
                         $scope.courseProfessors = CourseProfessor.query({ course: match[1] });
                         return $scope.courseProfessors.promise;
-                    })
-                    .catch(function(resp){
+                    })['catch'](function(resp){
                         $scope.alert.error(httpErrors[resp.status.toString()]);
-                    })
-                    .finally(function(){
+                    })['finally'](function(){
                         $scope.statusList = Course.fields.status.choices;
                     });
             }
@@ -107,8 +105,7 @@
                     })
                     .then(function(){
                         $scope.alert.success('Alterações salvas com sucesso!');
-                    })
-                    .catch(showFieldErrors);
+                    })['catch'](showFieldErrors);
             };
 
             $scope.publishCourse = function() {
@@ -174,15 +171,14 @@
                 $scope.saveProfessor(professorToAdd).then(function(){
                     $scope.alert.success('"{0}" foi adicionado a lista de professores.'.format(copy.name));
                     $scope.courseProfessors.push(professorToAdd);
-                }).catch(showFieldErrors);
+                })['catch'](showFieldErrors);
             };
 
             $scope.saveLesson = function(lesson) {
                 return lesson.saveOrUpdate()
                     .then(function(){
                         $scope.alert.success('Lição atualizada com sucesso');
-                    })
-                    .catch(function(){
+                    })['catch'](function(){
                         $scope.alert.error('Não foi possível salvar a lição');
                     });
             };
@@ -225,8 +221,7 @@
                 __saveLessons()
                     .then(function(){
                         $scope.alert.success('As aulas foram atualizadas');
-                    })
-                    .catch(function(){
+                    })['catch'](function(){
                         $scope.alert.error('Algum problema impediu a atualização das aulas');
                     });
             };
@@ -246,8 +241,7 @@
                 __saveInstructors()
                     .then(function(){
                         $scope.alert.success('Os dados dos professores foram atualizados.');
-                    })
-                    .catch(function(){
+                    })['catch'](function(){
                         $scope.alert.error('Algum problema impediu a atualização dos dados dos professores.');
                     });
             };

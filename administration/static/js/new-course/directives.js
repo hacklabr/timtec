@@ -91,8 +91,7 @@
                         original.$save()
                             .then(function(p){
                                 selectCallback(p);
-                            })
-                            .catch(function(){
+                            })['catch'](function(){
                                 selectCallback(copy);
                             });
                     } else {

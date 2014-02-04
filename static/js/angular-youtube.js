@@ -77,8 +77,7 @@ angular.module('youtube', ['ng'])
                             },
                             events: service.events
                         });
-                    })
-                    .catch(function(){
+                    })['catch'](function(){
                         playerCreated = false;
                     });
 
