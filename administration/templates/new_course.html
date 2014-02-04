@@ -301,7 +301,7 @@ ng-app="new-course"
                                 {% verbatim %}
                                 <a href="lessons/{{lesson.id}}" class="title editable" ng-bind="lesson.name">{% trans 'Lesson name' %}</a>
                                 {% endverbatim %}
-                                <modalmarkdowneditor on-save="saveLesson(lesson)" title="{% trans 'Lesson description' %>}" content="lesson.desc"></modalmarkdowneditor>
+                                <modalmarkdowneditor on-save="saveLesson(lesson)" title="{% trans 'Lesson description' %}" content="lesson.desc"></modalmarkdowneditor>
                             </p>
                             <!--  HIDDEN-XS  -->
                             <div class="hidden-xs" ng-show="lesson.units">
