@@ -15,7 +15,7 @@ from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
                         CourseProfessorViewSet, EnrollCourseView, HomeView,
                         UserCoursesView, ContactView, LessonDetailView,
                         LessonViewSet, StudentProgressViewSet,
-                        UpdateStudentProgressView, LessonsUserNotesViewSet,)
+                        UpdateStudentProgressView, LessonsUserNotesViewSet, UserNotesViewSet)
 
 from activities.views import AnswerViewSet
 from accounts.views import TimtecUserViewSet
@@ -39,6 +39,7 @@ router.register(r'answer_vote', AnswerVoteViewSet)
 router.register(r'course_material', CourseMaterialViewSet)
 router.register(r'note', NotesViewSet)
 router.register(r'lessons_notes', LessonsUserNotesViewSet)
+router.register(r'user_notes', UserNotesViewSet)
 
 #    url(r'^api/answer/(?P<unitId>[0-9]*)$', AnswerView.as_view(), name='answer'),
 

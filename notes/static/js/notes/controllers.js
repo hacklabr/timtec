@@ -77,5 +77,37 @@
                     });
                     $scope.lessons = lessons;
                 });
+    }]).
+    controller('UserNotesCtrl', ['$scope', '$window', '$location', 'UserNotes', 'Note',
+            function ($scope, $window, $location, UserNotes, Note) {
+                UserNotes.query({}, function(notes){
+                    var lessons = [];
+                    var lessons_ids = [];
+                    function compare(a,b) {
+                        if (a.content_object.position < b.content_object.position)
+                           return -1;
+                        if (a.content_object.position > b.content_object.position)
+                           return 1;
+                        return 0;
+                    }
+                    var lesson = [];
+                    var index = -1;
+                    angular.forEach(notes, function(note) {
+                        lesson = note.lesson;
+                        delete note.lesson;
+                        index = lessons_ids.indexOf(lesson.id);
+                        if (index === -1) {
+                            index = lessons.length;
+                            lesson.notes = [];
+                            lessons.push(lesson);
+                            lessons_ids.push(lesson.id);
+                        }
+                        lessons[index].notes.push(note);
+                    });
+                    angular.forEach(lessons, function(lesson) {
+                        lesson.notes.sort(compare);
+                    });
+                    $scope.lessons = lessons;
+                });
     }]);
 })(angular);

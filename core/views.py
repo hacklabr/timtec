@@ -209,7 +209,51 @@ class UpdateStudentProgressView(APIView):
 class LessonsUserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
     model = Lesson
     serializer_class = NoteUnitSerializer
+    lookup_field = "course_slug"
+
+    def get_queryset(self):
+        user = self.request.user
+
+#         from django.contrib.contenttypes.models import ContentType
+        from core.models import Unit 
+        from django.shortcuts import get_object_or_404
+        if 'course_slug' in self.kwargs:
+            course = get_object_or_404(Course, slug=self.kwargs['course_slug'])
+            units1 = Unit.objects.filter(lesson__course=course, notes__user=user).exclude(notes__isnull=True)
+        return Note.objects.filter(user=user)
+
+
+class UserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
+    model = Lesson
+    serializer_class = NoteUnitSerializer
 
     def get_queryset(self):
         user = self.request.user
         return Note.objects.filter(user=user)
+#         if 'question' in self.kwargs:
+#             obj.question = Question.objects.get(pk=int(self.kwargs['question']))
+#             self.kwargs['question'] = obj.question
+#         return super(QuestionVoteViewSet, self).pre_save(obj)
+
+#     def list(self, request, *args, **kwargs):
+#         nurses = Nurse.objects.all()
+#         pilots = Pilot.objects.all()
+#
+#         results = list()
+#         entries = list(chain(nurses, pilots)) # combine the two querysets
+#         for entry in entries:
+#             type = entry.__class__.__name__.lower() # 'nurse', 'pilot'
+#             if isinstance(entry, Nurse):
+#                 serializer = NurseSerializer(entry)
+#                 hospital = serializer.data['hospital']
+#                 enrollement_date = serializer.data['enrollement.date']
+#                 hq = serializer.data['enrollement.hq']
+#                 dictionary = {'type': type, 'hospital': hospital, 'hq': hq, 'enrollement_date': enrollement_date}
+#             if isinstance(entry, Pilot):
+#                 serializer = PilotSerializer(entry)
+#                 plane = serializer.data['plane']
+#                 enrollement_date = serializer.data['enrollement.date']
+#                 hq = serializer.data['enrollement.hq']
+#                 dictionary = {'type': type, 'plane': plane, 'hq': hq, 'enrollement_date': enrollement_date}
+#             results.append(dictionary)
+#         return Response(results)
