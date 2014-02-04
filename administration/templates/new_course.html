@@ -149,11 +149,11 @@ ng-app="new-course"
                 <!--  COURSE-VIDEO  -->
                 <section class="video" ng-show="mediaSection=='video'">
                     <div class="row">
-                        <div class="waiting col-sm-12 col-lg-12 textcenter jumbotron"
-                             style="height: 515px"
-                             ng-show="course.intro_video.youtube_id && !playerReady">
-                            <div class="middle">
-                                <i class="fa fa-refresh fa-5x"></i>
+                        <div class="col-sm-12 col-lg-12" ng-show="course.intro_video.youtube_id && !playerReady">
+                            <div class="waiting textcenter jumbotron" style="height: 515px">
+                                <div class="middle">
+                                    <i class="fa fa-refresh fa-5x"></i>
+                                </div>
                             </div>
                         </div>
 
