@@ -148,7 +148,7 @@
                 $scope.play();
 
                 $scope.$on('$locationChangeSuccess', function (event, newLoc, oldLoc){
-                   index = /\/(\d+)/.extract(newLoc, 1);
+                   index = /#\/(\d+)/.extract(document.location.hash, 1);
                    index = parseInt(index, 10) - 1 || 0;
                    $scope.selectUnit(lesson.units[index]);
                 });
