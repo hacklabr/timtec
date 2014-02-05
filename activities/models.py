@@ -84,7 +84,9 @@ class Answer(models.Model):
         answer = instance
         progress, _ = StudentProgress.objects.get_or_create(user=answer.user,
                                                             unit=answer.activity.unit)
-        progress.complete = timezone.now()
+        if answer.is_correct():
+            progress.complete = timezone.now()
+
         progress.save()
 
 models.signals.post_save.connect(Answer.update_student_progress, sender=Answer,

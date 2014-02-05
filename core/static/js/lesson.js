@@ -192,7 +192,7 @@
     app.factory('LessonData', ['$rootScope', '$q', '$resource', '$window',
         function($rootScope, $q, $resource, $window) {
             var Lesson = $resource('/api/lessons/:lessonId/');
-            var Progress = $resource('/api/student_progress?unit__lesson=:lessonId');
+            var Progress = $resource('/api/student_progress/:id');
             var deferred = $q.defer();
 
             Lesson.get({'lessonId': $window.lessonId}, function (lesson) {
@@ -200,7 +200,7 @@
                 deferred.resolve(lesson);
             });
 
-            Progress.query({'lessonId': $window.lessonId}, function (progress) {
+            Progress.query({'unit__lesson': $window.lessonId}, function (progress) {
                 deferred.promise.then(function (lesson) {
                     for (var i = progress.length - 1; i >= 0; i--) {
                         var p = progress[i];
