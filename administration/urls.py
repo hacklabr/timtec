@@ -17,5 +17,8 @@ urlpatterns = patterns(
     url(r'^courses/(?P<course_id>[1-9][0-9]*)/lessons/new/$', lr(TemplateView.as_view(template_name="new_lesson.html"))),
     url(r'^courses/(?P<course_id>[1-9][0-9]*)/lessons/(?P<pk>[1-9][0-9]*)/$', lr(TemplateView.as_view(template_name="new_lesson.html"))),
 
+    # messages
+    url(r'^messages/$', lr(TemplateView.as_view(template_name="messages.html"))),
+
     url(r'^users/$', lr(TemplateView.as_view(template_name="users.html"))),
 )
