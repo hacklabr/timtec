@@ -50,7 +50,7 @@
                 index++;
 
                 if(index < $scope.lesson.units.length) {
-                    $scope.selectUnit($scope.lesson.units[index]);
+                    $location.path('/{0}'.format(index+1));
                 }
                 // e se não tiver nextUnit, faz o que?
             };
