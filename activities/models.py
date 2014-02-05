@@ -67,10 +67,8 @@ class Answer(models.Model):
         given = self.given
         expected = self.activity.expected
 
-        if type(given) != type(expected):
-            return False
+        if type(given) is list and type(expected) is list:
 
-        if type(given) is list:
             if len(given) != len(expected):
                 return False
 
