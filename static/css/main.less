@@ -629,7 +629,7 @@ a, a:hover, a:active {
       background-color: lighten(@brand-warning, 40%);
     }
   }
-  
+
   // POPUP NOTIFICATIONS
   .tt-popup {
       margin-left: 25%;
@@ -795,7 +795,7 @@ a, a:hover, a:active {
 
 // COURSE CONTENT
 #course-content {
-  
+
   header {
     border-bottom: 1px solid @gray-lighter;
     margin-bottom: 20px;
@@ -984,18 +984,18 @@ a, a:hover, a:active {
       &.current {
         background-color: @brand-info;
       }
-      &.watching, &.watching:hover {
-        background:@brand-info;
-        .transition(all .25s ease-out);
-        &:hover {
-          background:darken(@brand-info, 10%);
-        }
-      }
       &.done, &.done:hover {
         background:@brand-success;
         .transition(all .25s ease-out);
         &:hover {
           background:darken(@brand-success, 10%);
+        }
+      }
+      &.watching, &.watching:hover {
+        background:@brand-info;
+        .transition(all .25s ease-out);
+        &:hover {
+          background:darken(@brand-info, 10%);
         }
       }
       i {
