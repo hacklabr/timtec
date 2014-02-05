@@ -80,14 +80,18 @@
 
                     Answer.getLastGivenAnswer($scope.currentActivity.id)
                         .then(function(answer){
-                            if (angular.isArray($scope.currentActivity.expected) &&
-                                angular.isArray(answer.given) &&
-                                answer.given.length === $scope.currentActivity.expected.length){
+                            var exp = $scope.currentActivity.expected;
+                            var giv = answer.given;
 
+                            var shouldUseLastAnswer = (exp !== null && exp !== undefined) ||
+                                (angular.isArray(exp) && angular.isArray(giv) && giv.length === exp.length);
+
+                            if (shouldUseLastAnswer) {
                                 $scope.answer = answer;
                             } else {
                                 _newAnswer();
                             }
+
                         })['catch'](_newAnswer);
                 } else {
                     $scope.currentActivity = null;
