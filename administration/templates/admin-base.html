@@ -14,6 +14,11 @@
 
         {% block js %}{% endblock %}
 
+        <script type="text/javascript" charset="utf-8">
+            $(document).ready(function() {
+                $('.has-tooltip').tooltip();
+            });
+        </script>
         {% endblock %}
     </head>
     <body id="admin" {% spaceless %}{% block body_attrs %}{% endblock %}{% endspaceless %}>
