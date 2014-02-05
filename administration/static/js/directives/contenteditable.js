@@ -24,7 +24,7 @@
                     return;
 
                 ngModel.$render = function(){
-                    element.html(ngModel.$viewValue || '');
+                    element.text(ngModel.$viewValue || '');
                 };
 
                 element.on('keyup keydown', function(evt) {
