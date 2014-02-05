@@ -141,7 +141,7 @@ $(document).ready(function() {
                             <!-- if no answer or incorrect -->
                             <div class="row" ng-if="! answer.correct">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <button onClick="ga('send', 'event', 'activity', 'skip activity');" class="btn btn-default" ng-click="nextStep()">{% trans 'Skip' %}</button>
+                                    <button onClick="ga('send', 'event', 'activity', 'skip activity');" class="btn btn-default" ng-click="nextStep(true)">{% trans 'Skip' %}</button>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 textright">
                                     <button onClick="ga('send', 'event', 'activity', 'rewatch video');" class="btn btn-info" ng-click="play()">{% trans 'Review the video' %}</button>

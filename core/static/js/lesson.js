@@ -107,7 +107,7 @@
                 ga('send', 'event', 'activity', 'submit');
             };
 
-            $scope.nextStep = function() {
+            $scope.nextStep = function(skipComment) {
                 if($scope.section === 'video') {
                     if($scope.currentUnit.activities) {
                         $scope.section = 'activity';
@@ -115,7 +115,7 @@
                         $scope.nextUnit();
                     }
                 } else {
-                    if($scope.section === 'activity' && $scope.currentActivity.comment) {
+                    if($scope.section === 'activity' && !skipComment && $scope.currentActivity.comment) {
                         $scope.section = 'comment';
                     } else {
                         var index = $scope.currentUnit.activities.indexOf($scope.currentActivity);
