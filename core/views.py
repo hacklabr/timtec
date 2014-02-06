@@ -174,7 +174,7 @@ class LessonViewSet(viewsets.ModelViewSet):
 class StudentProgressViewSet(viewsets.ModelViewSet):
     model = StudentProgress
     serializer_class = StudentProgressSerializer
-    filter_fields = ('unit__lesson',)
+    filter_fields = ('unit', 'unit__lesson',)
 
     def pre_save(self, obj):
         obj.user = self.request.user

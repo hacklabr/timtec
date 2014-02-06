@@ -18,8 +18,8 @@
         return STATIC_URL + '/templates/activity_'+ the_type + '.html';
     };
 
-    app.controller('MainCtrl', ['$scope', 'LessonData', 'Answer', '$location', 'youtubePlayerApi',
-        function ($scope, LessonData, Answer, $location, youtubePlayerApi) {
+    app.controller('MainCtrl', ['$scope', 'LessonData', 'Answer', 'Progress', '$location', 'youtubePlayerApi',
+        function ($scope, LessonData, Answer, Progress, $location, youtubePlayerApi) {
 
             youtubePlayerApi.events.onStateChange = function(event){
                 window.onPlayerStateChange.call($scope.currentUnit, event);
@@ -105,6 +105,9 @@
                 $scope.answer.activity = $scope.currentActivity.id;
                 $scope.answer.saveOrUpdate().then(function(d){
                     ga('send', 'event', 'activity', 'result', '', d.correct);
+                    return Progress.getProgressByUnitId($scope.currentUnit.id);
+                }).then(function(progress){
+                    $scope.currentUnit.progress = progress;
                 });
                 ga('send', 'event', 'activity', 'submit');
             };
@@ -191,17 +194,40 @@
         }
     ]);
 
-    app.factory('Progress', ['$resource',function(){
+    app.factory('Progress', ['$resource', '$q', function($resource, $q){
+        var Progress = $resource('/api/student_progress/:id');
 
-    }]);
-
-    app.factory('LessonData', ['$rootScope', '$q', '$resource', '$window',
-        function($rootScope, $q, $resource, $window) {
-            var Lesson = $resource('/api/lessons/:lessonId/');
-            var Progress = $resource('/api/student_progress/:id');
+        Progress.getProgressByUnitId = function(unit) {
             var deferred = $q.defer();
 
-            Lesson.get({'lessonId': $window.lessonId}, function (lesson) {
+            if(!unit) {
+                deferred.reject('Invalid unit');
+            } else {
+                Progress.query({unit: unit}, function(progress){
+                    if(progress.length === 1) {
+                        deferred.resolve(progress[0]);
+                    } else {
+                        deferred.reject('No progress found');
+                    }
+                });
+            }
+
+            return deferred.promise;
+        };
+
+        return Progress;
+    }]);
+
+    app.factory('Lesson', ['$resource', function($resource){
+        return $resource('/api/lessons/:id/');
+    }]);
+
+    app.factory('LessonData', ['$rootScope', '$q', '$resource', '$window', 'Lesson', 'Progress',
+        function($rootScope, $q, $resource, $window, Lesson, Progress) {
+
+            var deferred = $q.defer();
+
+            Lesson.get({'id': $window.lessonId}, function (lesson) {
                 $rootScope.lesson = lesson;
                 deferred.resolve(lesson);
             });
