@@ -19,6 +19,7 @@ urlpatterns = patterns(
 
     # messages
     url(r'^messages/$', lr(TemplateView.as_view(template_name="messages.html"))),
+    url(r'^message/$', lr(TemplateView.as_view(template_name="message.html"))),
 
     url(r'^users/$', lr(TemplateView.as_view(template_name="users.html"))),
 )
