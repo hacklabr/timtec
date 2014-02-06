@@ -61,22 +61,40 @@ class Answer(models.Model):
         return self.activity.expected
 
     def is_correct(self):
+
         if self.activity.type in ['html5', 'markdown']:
             return True
 
-        given = self.given
-        expected = self.activity.expected
+        if type(self.given) is list and type(self.activity.expected) is list:
 
-        if type(given) is list and type(expected) is list:
-
-            if len(given) != len(expected):
+            if len(self.given) != len(self.activity.expected):
                 return False
 
-            toBool = lambda x: x is True
-            given = map(toBool, given)
-            expected = map(toBool, expected)
+            #import ipdb; ipdb.set_trace()
 
-        result = unicode(given) == unicode(expected)
+            for given,expected in zip(self.given, self.activity.expected):
+                if type(expected) is type(None) and given not in (None, False,):
+                    return False
+                elif type(expected) in [int, unicode, str]:
+                    try:
+                        if type(expected)(given) != expected:
+                            return False
+                    except:
+                        return False
+                elif expected is True:
+                    try:
+                        if bool(given) != expected:
+                            return False
+                    except:
+                        return False
+                elif expected is False:
+                    if given not in (None, False,):
+                        return False
+
+            return True
+
+
+        result = unicode(self.given) == unicode(self.activity.expected)
         return result
 
     @staticmethod
