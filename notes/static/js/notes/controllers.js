@@ -64,9 +64,15 @@
                     });
                     $scope.lessons = lessons;
                 });
-                $scope.delele_note = function(note) {
+                $scope.delele_note = function(lesson, unit, note) {
                     Note.remove({note_id: note.id}, function (){
-                        
+                        if (lesson.units_notes.length > 1) {
+                            var index = lesson.units_notes.indexOf(unit);
+                            lesson.units_notes.splice(index, 1);
+                        } else {
+                            var index = $scope.lessons.indexOf(lesson);
+                            $scope.lessons.splice(index, 1);
+                        }
                     });
                 };
     }]).

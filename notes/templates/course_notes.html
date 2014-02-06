@@ -16,7 +16,7 @@
                     <h1>{% trans "Course Notes" %}</h1>
                 </div>
                 <div class="col-lg-3">
-                    <a href="" class="btn btn-lg btn-success uppercase">{% trans "My Notes" %}</a>
+                    <a href="/notes/" class="btn btn-lg btn-success uppercase">{% trans "My Notes" %}</a>
                 </div>
             </div>
         </header>
@@ -28,7 +28,7 @@
             
             {% verbatim angularjs %}
             <div id="lesson-{{ lesson.position }}" class="lesson" ng-repeat="lesson in lessons">
-                <h1><span>Aula</span> <a href="">{{ lesson.name }}</a></h1>
+                <h1><span>Aula</span> <a href="/course/{{lesson.course}}/lesson/{{lesson.slug}}">{{ lesson.name }}</a></h1>
                 <div ng-repeat="unit in lesson.units_notes">
                     <div class="note">
                         <p>Unidade: {{unit.title}}</p>
@@ -36,7 +36,7 @@
                     </div>
                     <div class="actions textright">
                         <button class="btn btn-warning">Editar</button>
-                        <button class="btn btn-danger" ng-click="delele_note(unit.user_note)"><i class="fa fa-trash-o"></i></button>
+                        <button class="btn btn-danger" ng-click="delele_note(lesson, unit, unit.user_note)"><i class="fa fa-trash-o"></i></button>
                     </div>
                 </div>
                 
