@@ -130,16 +130,16 @@
             };
 
             var start;
-            $scope.$watch('currentUnit', function() {
+            $scope.$watch('currentUnit', function(currentUnit, lastUnit) {
                 if(!$scope.lesson) return;
                 // Changing Unit means unit starting
-                if (start) {
+                if (start && lastUnit) {
                     var end = new Date().getTime();
                     ga('send', 'event', 'unit', 'time in unit',
-                       $scope.lesson.course + ' - ' + $scope.lesson.name + ' - ' + $scope.currentUnit,
+                       $scope.lesson.course + ' - "' + $scope.lesson.name + '" - ' + lastUnit.id,
                        end - start);
                 }
-                ga('send', 'event', 'unit', 'start', $scope.lesson.course + ' - ' + $scope.lesson.name, $scope.currentUnit);
+                ga('send', 'event', 'unit', 'start', $scope.lesson.course + ' - ' + $scope.lesson.name, $scope.currentUnit.id);
                 start = new Date().getTime();
             });
 
