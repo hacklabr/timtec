@@ -15,13 +15,15 @@ class Migration(DataMigration):
 
         for activity in Activity.objects.filter(type='html5'):
 
-            code = activity.data.pop('data', None)
-            if code:
-                activity.data['code'] = code
+            if type(activity.data) is dict:
+                code = activity.data.pop('data', None)
+                if code:
+                    activity.data['code'] = code
 
-            expected = activity.expected.pop('expected_answer', None)
-            if expected:
-                activity.expected = expected
+            if type(activity.expected) is dict:
+                expected = activity.expected.pop('expected_answer', None)
+                if expected:
+                    activity.expected = expected
 
             activity.save()
 
