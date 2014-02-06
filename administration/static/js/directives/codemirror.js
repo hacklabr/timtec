@@ -52,6 +52,9 @@
             'restrict': 'A',
             'templateUrl': '/static/templates/directive.codemirror.html',
             'require': '?ngModel',
+            'scope': {
+                'initialModel': '='
+            },
             'controller': ['$scope', '$element', '$document', '$attrs',
                 function($scope, $element, $document, $attrs){
                     $scope.code_id = 'code-' + Math.random().toString(16).substring(2);
@@ -63,12 +66,16 @@
                 var textarea, editor;
                 var conf = angular.copy(base_conf);
 
+                if(!ngModel.$viewValue && scope.initialModel) {
+                    ngModel.$setViewValue(angular.copy(scope.initialModel));
+                }
+
                 function readEditor() {
                     function _read() {
                         var content = editor.getValue();
                         ngModel.$setViewValue(content);
                     }
-                    if (scope.$$phase) {
+                    if (scope.$$phase || scope.$parent.$$phase) {
                         _read();
                     } else {
                         scope.$apply(_read);

@@ -78,6 +78,8 @@
                     $scope.currentActivity = $scope.currentUnit.activities[index];
                     $scope.activityTemplateUrl = ACTIVITY_TEMPLATE_PATH($scope.currentActivity.type);
 
+                    ga("send", "event", "activity", "select", $scope.currentActivity.id);
+
                     Answer.getLastGivenAnswer($scope.currentActivity.id)
                         .then(function(answer){
                             var exp = $scope.currentActivity.expected;
@@ -188,6 +190,10 @@
             return Answer;
         }
     ]);
+
+    app.factory('Progress', ['$resource',function(){
+
+    }]);
 
     app.factory('LessonData', ['$rootScope', '$q', '$resource', '$window',
         function($rootScope, $q, $resource, $window) {
