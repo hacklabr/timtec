@@ -72,7 +72,7 @@ class Answer(models.Model):
             if len(given) != len(expected):
                 return False
 
-            toBool = lambda x: x == True
+            toBool = lambda x: x is True
             given = map(toBool, given)
             expected = map(toBool, expected)
 
