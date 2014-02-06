@@ -66,10 +66,6 @@
                 var textarea, editor;
                 var conf = angular.copy(base_conf);
 
-                if(!ngModel.$viewValue && scope.initialModel) {
-                    ngModel.$setViewValue(angular.copy(scope.initialModel));
-                }
-
                 function readEditor() {
                     function _read() {
                         var content = editor.getValue();
@@ -110,6 +106,10 @@
                 scope.$watch('$scope', function(){
                     textarea = document.getElementById(scope.code_id);
 
+                    if(!ngModel.$viewValue && scope.initialModel) {
+                        ngModel.$setViewValue(angular.copy(scope.initialModel));
+                    }
+
                     editor = new CodeMirror.fromTextArea(textarea, conf);
                     renderOnEditor(ngModel.$viewValue || '');
                     editor.on('change', readEditor);
@@ -122,6 +122,8 @@
                         }
                     }, 500);
                 });
+
+
             }
         };
     });
