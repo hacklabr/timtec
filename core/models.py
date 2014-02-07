@@ -103,6 +103,8 @@ class CourseStudent(models.Model):
 
     def percent_progress(self):
         units_len = self.course.unit_set.count()
+        if units_len <= 0:
+            return 0
         units_done_len = self.units_done.count()
         return int(100.0 * units_done_len / units_len)
 
