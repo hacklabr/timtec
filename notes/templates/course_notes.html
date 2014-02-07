@@ -31,15 +31,18 @@
                 <h1><span>Aula</span> <a href="/course/{{lesson.course}}/lesson/{{lesson.slug}}">{{ lesson.name }}</a></h1>
                 <div ng-repeat="unit in lesson.units_notes">
                     <div class="note">
-                        <p>Unidade: {{unit.title}}</p>
-                        <p>Nota: {{ unit.user_note.text }}</p>
-                    </div>
-                    <div class="actions textright">
-                        <button class="btn btn-warning">Editar</button>
-                        <button class="btn btn-danger" ng-click="delele_note(lesson, unit, unit.user_note)"><i class="fa fa-trash-o"></i></button>
+                        <div class="row">
+                            <div class="col-lg-10">
+                                <p><strong>Unidade {{unit.position + 1}}: {{unit.title}}</strong></p>
+                                <p>{{ unit.user_note.text }}</p>
+                            </div>
+                            <div class="col-lg-2 textright">
+                                <button class="btn btn-warning">Editar</button>
+                                <button class="btn btn-danger" ng-click="delele_note(lesson, unit, unit.user_note)"><i class="fa fa-trash-o"></i></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                
             </div>
             {% endverbatim angularjs %}
         </section>
