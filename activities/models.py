@@ -72,7 +72,7 @@ class Answer(models.Model):
 
             #import ipdb; ipdb.set_trace()
 
-            for given,expected in zip(self.given, self.activity.expected):
+            for given, expected in zip(self.given, self.activity.expected):
                 if type(expected) is type(None) and given not in (None, False,):
                     return False
                 elif type(expected) in [int, unicode, str]:
@@ -92,7 +92,6 @@ class Answer(models.Model):
                         return False
 
             return True
-
 
         result = unicode(self.given) == unicode(self.activity.expected)
         return result
