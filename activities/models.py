@@ -73,7 +73,7 @@ class Answer(models.Model):
             #import ipdb; ipdb.set_trace()
 
             for given, expected in zip(self.given, self.activity.expected):
-                if type(expected) is type(None) and given not in (None, False,):
+                if isinstance(expected, type(None)) and given not in (None, False,):
                     return False
                 elif type(expected) in [int, unicode, str]:
                     try:
