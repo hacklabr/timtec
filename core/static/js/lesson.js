@@ -24,7 +24,6 @@
             youtubePlayerApi.events.onStateChange = function(event){
                 window.onPlayerStateChange.call($scope.currentUnit, event);
                 if (event.data === YT.PlayerState.ENDED) {
-                    window.$scope = $scope;
                     $scope.nextStep();
                     if(!$scope.$$phase) {
                         $scope.$apply();
@@ -114,7 +113,8 @@
 
             $scope.nextStep = function(skipComment) {
                 if($scope.section === 'video') {
-                    if($scope.currentUnit.activities) {
+                    if(angular.isArray($scope.currentUnit.activities) &&
+                        $scope.currentUnit.activities.length > 0) {
                         $scope.section = 'activity';
                     } else {
                         $scope.nextUnit();
