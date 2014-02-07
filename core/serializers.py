@@ -84,29 +84,36 @@ class LessonSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'course', 'desc', 'name', 'notes', 'position', 'slug', 'status', 'units', 'url', 'thumbnail')
 
 
-class SimplifiedLessonSerializer(serializers.ModelSerializer):
+class NoteSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Note
+        fields = ('id', 'text', 'content_type', 'object_id',)
+
+
+class UnitNoteSerializer(serializers.ModelSerializer):
+
+    user_note = NoteSerializer()
+
+    class Meta:
+        model = Unit
+        fields = ('id', 'title', 'video', 'position', 'user_note')
+
+
+class LessonNoteSerializer(serializers.ModelSerializer):
+
+    units_notes = UnitNoteSerializer()
     course = serializers.SlugRelatedField(slug_field='slug')
 
     class Meta:
         model = Lesson
-        fields = ('id', 'course', 'name', 'position', 'slug')
+        fields = ('id', 'name', 'position', 'slug', 'course', 'units_notes',)
 
 
-class SimplifiedUnitSerializer(serializers.ModelSerializer):
+class CourseNoteSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = Unit
-        fields = ('id', 'title', 'video', 'position',)
-
-
-class NoteUnitSerializer(serializers.ModelSerializer):
-
-    content_object = UnitSerializer(read_only=True)
-    lesson = serializers.SerializerMethodField('get_lesson')
+    lessons_notes = LessonNoteSerializer()
 
     class Meta:
-        model = Note
-        fields = ('id', 'text', 'content_type', 'object_id', 'content_object', 'lesson')
-
-    def get_lesson(self, obj):
-        return SimplifiedLessonSerializer(obj.content_object.lesson).data
+        model = Course
+        fields = ('id', 'slug', 'name', 'lessons_notes',)

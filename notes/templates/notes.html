@@ -2,105 +2,33 @@
 {% load i18n %}
 {% load staticfiles %}
 {% block content %}
+{% include "_notes_angular.html" %}
 
 <!-- CONTAINER -->
-<div id="my-notes" class="container">
+<div id="my-notes" class="container" ng-app="notes" ng-controller="UserNotesCtrl">
 
     <header class="page-header-double">
         <h3><i class="fa fa-angle-double-right"></i> {% trans "My Notes" %}</h3>
     </header>
 
-    <div class="courses">
+    <div class="courses" ng-repeat="course in courses">
+        {% verbatim angularjs %}
         <div class="course">
             <div class="row">
                 <div class="col-sm-8 col-lg-8">
-                    <a href="profile-note.html">Introdução a Banco de Dados e SQL</a> (5 anotações)
+                    <a href="/course/{{course.slug}}">{{course.name}}</a> ({{course.lessons_notes.length}} anotações)
                 </div>
                 <div class="col-sm-4 col-lg-4 textright">
-                    <a href="profile-note.html" class="btn btn-sm btn-info">Ver anotações</a>
+                    <a href="/course/{{course.slug}}/mynotes/" class="btn btn-sm btn-info">Ver anotações</a>
                     <div class="btn-group">
-                        <a href="aula.html" class="btn btn-sm btn-success">Ir para o curso</a>
-                        <a href="aula.html" class="btn btn-sm btn-success"><i class="fa fa-chevron-right"></i></a>
+                        <a href="/course/{{course.slug}}" class="btn btn-sm btn-success">Ir para o curso</a>
+                        <a href="/course/{{course.slug}}" class="btn btn-sm btn-success"><i class="fa fa-chevron-right"></i></a>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <div class="course">
-            <div class="row">
-                <div class="col-sm-8 col-lg-8">
-                    <a href="profile-note.html">Introduction to Computer Science</a> (5 anotações)
-                </div>
-                <div class="col-sm-4 col-lg-4 textright">
-                    <a href="profile-note.html" class="btn btn-sm btn-info">Ver anotações</a>
-                    <div class="btn-group">
-                        <a href="aula.html" class="btn btn-sm btn-success">Ir para o curso</a>
-                        <a href="aula.html" class="btn btn-sm btn-success"><i class="fa fa-chevron-right"></i></a>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-        
-        <div class="course">
-            <div class="row">
-                <div class="col-sm-8 col-lg-8">
-                    <a href="profile-note.html">The Design of Everyday Things</a> (5 anotações)
-                </div>
-                <div class="col-sm-4 col-lg-4 textright">
-                    <a href="profile-note.html" class="btn btn-sm btn-info">Ver anotações</a>
-                    <div class="btn-group">
-                        <a href="aula.html" class="btn btn-sm btn-success">Ir para o curso</a>
-                        <a href="aula.html" class="btn btn-sm btn-success"><i class="fa fa-chevron-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="course">
-            <div class="row">
-                <div class="col-sm-8 col-lg-8">
-                    <a href="profile-note.html">Tales from Genome</a> (5 anotações)
-                </div>
-                <div class="col-sm-4 col-lg-4 textright">
-                    <a href="profile-note.html" class="btn btn-sm btn-info">Ver anotações</a>
-                    <div class="btn-group">
-                        <a href="aula.html" class="btn btn-sm btn-success">Ir para o curso</a>
-                        <a href="aula.html" class="btn btn-sm btn-success"><i class="fa fa-chevron-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="course">
-            <div class="row">
-                <div class="col-sm-8 col-lg-8">
-                    <a href="profile-note.html">Introduction to Physics</a> (5 anotações)
-                </div>
-                <div class="col-sm-4 col-lg-4 textright">
-                    <a href="profile-note.html" class="btn btn-sm btn-info">Ver anotações</a>
-                    <div class="btn-group">
-                        <a href="aula.html" class="btn btn-sm btn-success">Ir para o curso</a>
-                        <a href="aula.html" class="btn btn-sm btn-success"><i class="fa fa-chevron-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="course">
-            <div class="row">
-                <div class="col-sm-8 col-lg-8">
-                    <a href="profile-note.html">Introduction to Statistics</a> (5 anotações)
-                </div>
-                <div class="col-sm-4 col-lg-4 textright">
-                    <a href="profile-note.html" class="btn btn-sm btn-info">Ver anotações</a>
-                    <div class="btn-group">
-                        <a href="aula.html" class="btn btn-sm btn-success">Ir para o curso</a>
-                        <a href="aula.html" class="btn btn-sm btn-success"><i class="fa fa-chevron-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% endverbatim angularjs %}
+
     </div>
 </div>
 <!-- CONTAINER -->

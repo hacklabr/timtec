@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.views.generic import DetailView
 from django.views.generic.base import RedirectView, View, TemplateView
 from django.contrib.contenttypes.models import ContentType
+from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -16,7 +17,8 @@ from notes.models import Note
 
 from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           CourseThumbSerializer, LessonSerializer,
-                          StudentProgressSerializer, NoteUnitSerializer,)
+                          StudentProgressSerializer, CourseNoteSerializer,
+                          LessonNoteSerializer,)
 
 from .models import Course, CourseProfessor, Lesson, StudentProgress, Unit
 
@@ -206,10 +208,54 @@ class UpdateStudentProgressView(APIView):
         return Response(response, status=status.HTTP_201_CREATED)
 
 
-class LessonsUserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
-    model = Lesson
-    serializer_class = NoteUnitSerializer
+class UserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
 
-    def get_queryset(self):
+    model = Course
+    lookup_field = 'course'
+
+    def retrieve(self, request, *args, **kwargs):
         user = self.request.user
-        return Note.objects.filter(user=user)
+        if 'course' in self.kwargs:
+            course = get_object_or_404(Course, slug=self.kwargs['course'])
+            units = Unit.objects.filter(lesson__course=course, notes__user=user).exclude(notes__isnull=True)
+
+            lessons_dict = {}
+            for unit in units:
+                lesson = unit.lesson
+                if not lesson.slug in lessons_dict:
+                    lessons_dict[lesson.slug] = lesson
+                    lessons_dict[lesson.slug].units_notes = []
+                unit_type = ContentType.objects.get_for_model(unit)
+                note = get_object_or_404(Note, user=user, content_type__pk=unit_type.id, object_id=unit.id)
+                unit.user_note = note
+                lessons_dict[lesson.slug].units_notes.append(unit)
+
+            results = []
+            for lesson in lessons_dict.values():
+                results.append(LessonNoteSerializer(lesson).data)
+            return Response(results)
+
+    def list(self, request, *args, **kwargs):
+        user = self.request.user
+        units = Unit.objects.filter(notes__user=user).exclude(notes__isnull=True)
+        courses = {}
+        for unit in units:
+            course = unit.lesson.course
+            lesson = unit.lesson
+            if not course.slug in courses:
+                courses[course.slug] = course
+                courses[course.slug].lessons_dict = {}
+            if not lesson.slug in courses[course.slug].lessons_dict:
+                courses[course.slug].lessons_dict[lesson.slug] = lesson
+                courses[course.slug].lessons_dict[lesson.slug].units_notes = []
+#             unit_type = ContentType.objects.get_for_model(unit)
+#             note = get_object_or_404(Note, user=user, content_type__pk=unit_type.id, object_id=unit.id)
+#             unit.user_note = note
+#             courses[course.slug].lessons_dict[lesson.slug].units_notes.append(unit)
+
+        results = []
+        for course in courses.values():
+            course.lessons_notes = course.lessons_dict.values()
+            del course.lessons_dict
+            results.append(CourseNoteSerializer(course).data)
+        return Response(results)
