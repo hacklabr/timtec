@@ -107,7 +107,7 @@
             }));
             it('InlineForumCtrl: addQuestion function should add the question to begining of questions list', (function () {
                 $httpBackend.flush();
-                var response_data2 = {"id": 5, "title": "Test Question", "course": 1, "answers": [], "text": "Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt.", "slug": "test-question", "votes": 0, "timestamp": "2013-10-17T18:59:16.126Z", "username": "abcd"};
+                var response_data2 = {"id": 5, "title": "Test Question", "course": 1, "answers": [], "text": "Nascetur proin est ridiculus aliquet mattis pellentesque integer est cras, integer tincidunt.", "slug": "test-question", "votes": 0, "timestamp": "2013-10-17T18:59:16.126Z", "username": "abcd", hidden_to_user : false, hidden : false};
                 // Initialize scope variables to pass fields validation
                 scope.new_question_title = 'Test Question';
                 scope.new_text = 'adadf';
