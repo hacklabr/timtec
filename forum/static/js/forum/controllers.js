@@ -87,7 +87,10 @@
 
         $scope.new_question = function () {
             if (($scope.new_question_title !== undefined && $scope.new_question_title !== '') && ($scope.new_text !== undefined && $scope.new_text !== '')){
-                var new_question = Question.save({course: course_id, title: $scope.new_question_title, text: $scope.new_text});
+                var new_question = Question.save({course: course_id, title: $scope.new_question_title, text: $scope.new_text}, function(question){
+                    question.hidden_to_user = false;
+                    question.hidden = false;
+                });
                 $scope.questions.unshift(new_question);
                 // Back to first page
                 $scope.currentPage = 1;

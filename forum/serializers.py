@@ -7,10 +7,14 @@ class QuestionSerializer(serializers.ModelSerializer):
     votes = serializers.SerializerMethodField('count_votes')
     username = serializers.SerializerMethodField('get_username')
     timestamp = serializers.DateTimeField(read_only=True)
+    hidden_to_user = serializers.SerializerMethodField('is_hidden')
+    moderator = serializers.SerializerMethodField('is_moderator')
 
     class Meta:
         model = Question
-        fields = ('id', 'title', 'course', 'answers', 'text', 'slug', 'votes', 'timestamp', 'username', 'hidden', 'hidden_by')
+        fields = ('id', 'title', 'course', 'answers', 'text', 'slug',
+                  'votes', 'timestamp', 'username', 'hidden',
+                  'hidden_by', 'hidden_to_user', 'moderator',)
 
     def count_votes(self, obj):
         if obj:
@@ -23,6 +27,16 @@ class QuestionSerializer(serializers.ModelSerializer):
             return obj.user.username
         else:
             return u''
+
+    def is_hidden(self, obj):
+        if hasattr(obj, 'hidden_to_user'):
+            return obj.hidden_to_user
+        return True
+
+    def is_moderator(self, obj):
+        if hasattr(obj, 'moderator'):
+            return obj.moderator
+        return False
 
 
 class AnswerSerializer(serializers.ModelSerializer):
