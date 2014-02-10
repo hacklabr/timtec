@@ -6,6 +6,7 @@ from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.contrib.contenttypes import generic
+from django.conf import settings
 
 
 from accounts.models import TimtecUser
@@ -128,6 +129,24 @@ class CourseProfessor(models.Model):
 
     def __unicode__(self):
         return u'%s @ %s' % (self.user, self.course)
+
+    def new_message(self, subject, to=[]):
+        return ProfessorMessage.objects.create(subject=subject,
+                                               message=message,
+                                               users=to,
+                                               professor=self)
+
+
+class ProfessorMessage(models.Model):
+    professor = models.ForeignKey(CourseProfessor, verbose_name=_('Professor'))
+    users = models.ManyToManyField(CourseStudent)
+    subject = models.CharField(_('Subject'), max_length=255)
+    message = models.TextField(_('Message'))
+    date = models.DateTimeField(_('Date'), auto_now_add=True)
+
+    def send(self):
+        to = [ u.user.email for u in self.users ]
+        return send_mail(self.subject, self.message, settings.DEFAULT_FROM_EMAIL, to, fail_silently=False)
 
 
 class Lesson(models.Model):
