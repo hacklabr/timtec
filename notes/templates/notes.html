@@ -16,14 +16,12 @@
         <div class="course">
             <div class="row">
                 <div class="col-sm-8 col-lg-8">
-                    <a href="/course/{{course.slug}}">{{course.name}}</a> ({{course.lessons_notes.length}} anotações)
+                    <a href="/course/{{course.slug}}/mynotes/">{{course.name}}</a>
+                    <small>{{course.lessons_notes.length}} {% trans "notes" %}</small>
                 </div>
                 <div class="col-sm-4 col-lg-4 textright">
                     <a href="/course/{{course.slug}}/mynotes/" class="btn btn-sm btn-info">Ver anotações</a>
-                    <div class="btn-group">
-                        <a href="/course/{{course.slug}}" class="btn btn-sm btn-success">Ir para o curso</a>
-                        <a href="/course/{{course.slug}}" class="btn btn-sm btn-success"><i class="fa fa-chevron-right"></i></a>
-                    </div>
+                    <a href="/course/{{course.slug}}" class="btn btn-sm btn-success">Continuar aula</a>
                 </div>
             </div>
         </div>
