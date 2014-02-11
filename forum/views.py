@@ -94,13 +94,13 @@ class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
             raise Http404(error_msg)
 
         for question in self.object_list:
-            if question.user == request.user or request.user in question.course.professors.all():
-                question.hidden_to_user = False
-            else:
-                if question.hidden:
-                    self.object_list = self.object_list.exclude(id=question.id)
             if request.user in question.course.professors.all():
                 question.moderator = True
+                if question.user == request.user:
+                    question.hidden_to_user = False
+                else:
+                    if question.hidden:
+                        self.object_list = self.object_list.exclude(id=question.id)
 
         # Switch between paginated or standard style responses
         page = self.paginate_queryset(self.object_list)

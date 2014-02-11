@@ -31,7 +31,7 @@ class QuestionSerializer(serializers.ModelSerializer):
     def is_hidden(self, obj):
         if hasattr(obj, 'hidden_to_user'):
             return obj.hidden_to_user
-        return True
+        return obj.hidden
 
     def is_moderator(self, obj):
         if hasattr(obj, 'moderator'):
