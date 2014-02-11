@@ -29,6 +29,22 @@ class CourseForumView(LoginRequiredMixin, ListView):
         return context
 
 
+class AdminCourseForumView(LoginRequiredMixin, ListView):
+    context_object_name = 'questions'
+    template_name = "forum_admin.html"
+
+    def get_queryset(self):
+        self.course = get_object_or_404(Course, id=self.kwargs['course_id'])
+        return Question.objects.filter(course=self.course)
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(AdminCourseForumView, self).get_context_data(**kwargs)
+        # Add in the publisher
+        context['course'] = self.course
+        return context
+
+
 class QuestionView(LoginRequiredMixin, DetailView):
     model = Question
     context_object_name = 'question_django'

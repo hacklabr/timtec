@@ -1,0 +1,47 @@
+{% extends 'admin-base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% load timtec_markdown %}
+
+{% block js %} {{block.super}}
+<script type="text/javascript" src="{% static 'js/admin-header/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/admin-header/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/filters/text.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/contenteditable.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/sortable.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+<div id="forum" class="course-forum" ng-app="adminHeader">
+    <!--  HEADER  -->
+    <header class="container" ng-controller="HeaderController" >
+        <ng-include src="templateUrl"></ng-include>
+    </header>
+    <!--  END HEADER  -->
+
+    <section id="forum-content" class="container">
+        <header>
+            <div class="row">
+                <div class="col-lg-9">
+                    <h1>{% trans "Questions & Answers" %}</h1>
+                </div>
+                <div class="col-lg-3">
+                    <a href="{% url 'forum_question_create' course.slug %}" class="ask-a-question btn btn-lg btn-danger uppercase">{% trans "Ask a question" %}</a>
+                </div>
+            </div>
+        </header>
+        
+        <section class="questions col-sm-12 col-lg-12 clearfix">
+            <div class="row" >
+                {% include "_forum_inline.html"  with course=course %}
+            </div>
+        </section>
+    </section>
+</div>
+
+{% endblock %}
