@@ -15,7 +15,7 @@ from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
                         CourseProfessorViewSet, EnrollCourseView, HomeView,
                         UserCoursesView, ContactView, LessonDetailView,
                         LessonViewSet, StudentProgressViewSet,
-                        UpdateStudentProgressView, UserNotesViewSet)
+                        UpdateStudentProgressView, UserNotesViewSet, ProfessorMessageViewSet)
 
 from activities.views import AnswerViewSet
 from accounts.views import TimtecUserViewSet
@@ -28,6 +28,7 @@ router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'user', TimtecUserViewSet)
 router.register(r'course', CourseViewSet)
 router.register(r'course_professor', CourseProfessorViewSet)
+router.register(r'professor_message', ProfessorMessageViewSet)
 router.register(r'coursethumbs', CourseThumbViewSet)
 router.register(r'lessons', LessonViewSet)
 router.register(r'answer', AnswerViewSet)

@@ -130,9 +130,10 @@ class CourseProfessor(models.Model):
     def __unicode__(self):
         return u'%s @ %s' % (self.user, self.course)
 
-    def new_message(self, subject, to=[]):
+    def new_message(self, course, subject, message, to=[]):
         return ProfessorMessage.objects.create(subject=subject,
                                                message=message,
+                                               course=course,
                                                users=to,
                                                professor=self)
 
@@ -143,6 +144,7 @@ class ProfessorMessage(models.Model):
     subject = models.CharField(_('Subject'), max_length=255)
     message = models.TextField(_('Message'))
     date = models.DateTimeField(_('Date'), auto_now_add=True)
+    course = models.ForeignKey(Course, verbose_name=_('Course'), null=True)
 
     def send(self):
         to = [ u.user.email for u in self.users ]
