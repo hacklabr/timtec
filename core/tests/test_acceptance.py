@@ -13,9 +13,7 @@ def test_is_admin_working(client):
 def test_mainview(client):
     mommy.make('Course')
     response = client.get('/')
-    assert response.status_code == 302
-    assert response.has_header('Location')
-    assert 'testserver/course' in response['Location']
+    assert response.status_code == 200
 
 
 @pytest.mark.django_db

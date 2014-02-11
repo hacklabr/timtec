@@ -2,9 +2,8 @@
 import json
 
 from django.core.urlresolvers import reverse
-from django.shortcuts import redirect
 from django.utils import timezone
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 from django.views.generic.base import RedirectView, View, TemplateView
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404
@@ -25,10 +24,12 @@ from .models import Course, CourseProfessor, Lesson, StudentProgress, Unit
 from forms import ContactForm
 
 
-class HomeView(View):
-    def get(self, request):
-        latest = Course.objects.latest('publication')
-        return redirect(reverse('course_intro', args=[latest.slug]))
+class HomeView(ListView):
+    context_object_name = 'courses'
+    template_name = "home.html"
+
+    def get_queryset(self):
+        return Course.objects.all()
 
 
 class ContactView(View):
