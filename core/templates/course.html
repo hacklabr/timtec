@@ -24,16 +24,18 @@
 
                 <!-- COL-LG-3 -->
                 <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 textright">
-                    {% if user_is_enrolled %}
-                        <a href="{% url "lesson" course.slug course.first_lesson.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Resume" %}</a>
-                    {% else %}
-                        <a
-                            {% if user.is_authenticated %}
-                                onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 1);"
-                            {% else %}
-                                onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 0);"
-                            {% endif %}
-                            href="{% url "enroll_course" course.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Take the Class" %}</a>
+                    {% if course.first_lesson.slug %}
+                        {% if user_is_enrolled %}
+                            <a href="{% url "lesson" course.slug course.first_lesson.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Resume" %}</a>
+                        {% else %}
+                            <a
+                                {% if user.is_authenticated %}
+                                    onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 1);"
+                                {% else %}
+                                    onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 0);"
+                                {% endif %}
+                                href="{% url "enroll_course" course.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Take the Class" %}</a>
+                        {% endif %}
                     {% endif %}
                 </div>
                 <!-- END COL-LG-3 -->
