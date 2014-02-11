@@ -17,13 +17,13 @@
             <!-- QUESTION FORM -->
             <div class="forum-form">
                 <div class="form-group" ng-class="question_title_validation">
-                    <input id="id-title" ng-model="new_question_title" name="title" type="text" class="form-control" placeholder="Qual é a sua dúvida?">
+                    <input id="id-title" ng-model="new_question_title" name="title" type="text" class="form-control" placeholder="{% trans "What's your question?" %}">
                 </div>
                 <div class="form-group text-editor">
                     <div class="wmd-panel" markdowneditor="true">
                         <div id="wmd-button-bar" class="js-button-bar"></div>
                         <div class="form-group" ng-class="question_text_validation">
-                            <textarea id="wmd-input" ng-model="new_text" name="text" class="form-control" rows="4" placeholder="Descrição da sua dúvida"></textarea>
+                            <textarea id="wmd-input" ng-model="new_text" name="text" class="form-control" rows="4" placeholder={% trans "Description of your question" %}></textarea>
                         </div>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                 <div class="form-group bottom">
                     <div class="row">
                         <div class="col-lg-8 col-sm-8">
-                            <small><a href="">Política de Perguntas e Respostas</a></small>
+                            <small><a href="">{% trans "Questions & Answers policy" %}</a></small>
                         </div>
                         <div class="col-lg-4 col-sm-4 textright">
                             <input type="submit" class="btn btn-success" value="Enviar" ng-click="new_question()">
@@ -45,9 +45,13 @@
         {% endif %}
     
     
-        {% verbatim angularjs %}
+
             <!-- QUESTIONS LIST-->
-            <section class="questions clearfix">
+            <section class="questions clearfix" ng-show="totalItems==0">
+            {% trans "There is no question in this forum yet" %}
+            </section>
+            {% verbatim angularjs %}
+            <section class="questions clearfix" ng-show="totalItems>0">
                 <div class="search-filter">
                     <div class="row">
                         <div class="col-lg-7 col-sm-7">

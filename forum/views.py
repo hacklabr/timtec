@@ -96,6 +96,9 @@ class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
         for question in self.object_list:
             if question.user == request.user or request.user in question.course.professors.all():
                 question.hidden_to_user = False
+            else:
+                if question.hidden:
+                    self.object_list = self.object_list.exclude(id=question.id)
             if request.user in question.course.professors.all():
                 question.moderator = True
 
