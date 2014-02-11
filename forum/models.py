@@ -18,6 +18,7 @@ class Question(models.Model):
     lesson = models.ForeignKey(Lesson, verbose_name=_('Lesson'), null=True, blank=True)
     hidden = models.BooleanField(verbose_name=_('Hidden'), default=False)
     hidden_by = models.ForeignKey(TimtecUser, verbose_name=_('User'), related_name='hidden_questions', default=None, null=True, blank=True)
+    hidden_justification = models.TextField(_('Justification'), default=None, null=True, blank=True)
 
     def save(self, **kwargs):
         if not self.id and self.title:

@@ -25,7 +25,7 @@
         };
     }
 
-    function InlineForumCtrl($scope, $window, Question) {
+    function InlineForumCtrl($scope, $window, $modal, Question) {
         function compare_by_dates(a,b) {
             if (a.timestamp > b.timestamp)
                return -1;
@@ -116,12 +116,39 @@
             }
         };
 
-        $scope.hide_question = function (question) {
-            question.hidden = true;
-            question.hidden_by = $window.user_id;
-            question.$update({questionId: question.id});
+        var ModalInstanceCtrl = function ($scope, $modalInstance, question) {
+            $scope.question = question;
+
+            $scope.ok = function () {
+                $scope.question.hidden = true;
+                $scope.question.hidden_by = $window.user_id;
+                $scope.question.hidden_justification = $scope.question.hidden_justification;
+                $modalInstance.close($scope.question);
+            };
+
+            $scope.cancel = function () {
+                $modalInstance.dismiss();
+            };
         };
 
+        $scope.justification_modal = function (question) {
+            var modalInstance = $modal.open({
+                templateUrl: 'justificationModal.html',
+                controller: ModalInstanceCtrl,
+                resolve: {
+                    question: function () {
+                        return question;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (question) {
+                question.$update({questionId: question.id}, function(question){
+                    question.hidden_to_user = false;
+                });
+                
+            });
+        };
     }
 
     function vote_value(vote_type, current_vote) {
@@ -145,7 +172,7 @@
 
     angular.module('forum.controllers', ['ngCookies']).
         controller('QuestionCtrl', ['$scope', '$sce', '$window', 'Question', 'Answer', QuestionCtrl]).
-        controller('InlineForumCtrl', ['$scope', '$window', 'Question', InlineForumCtrl]).
+        controller('InlineForumCtrl', ['$scope', '$window', '$modal', 'Question', InlineForumCtrl]).
         controller('QuestionVoteCtrl', ['$scope', '$window', 'QuestionVote',
             function ($scope, $window, QuestionVote) {
                 $scope.questionId = parseInt($window.question_id, 10);
