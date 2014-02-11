@@ -29,6 +29,22 @@ class CourseForumView(LoginRequiredMixin, ListView):
         return context
 
 
+class AdminCourseForumView(LoginRequiredMixin, ListView):
+    context_object_name = 'questions'
+    template_name = "forum_admin.html"
+
+    def get_queryset(self):
+        self.course = get_object_or_404(Course, id=self.kwargs['course_id'])
+        return Question.objects.filter(course=self.course)
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(AdminCourseForumView, self).get_context_data(**kwargs)
+        # Add in the publisher
+        context['course'] = self.course
+        return context
+
+
 class QuestionView(LoginRequiredMixin, DetailView):
     model = Question
     context_object_name = 'question_django'
@@ -94,10 +110,13 @@ class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
             raise Http404(error_msg)
 
         for question in self.object_list:
-            if question.user == request.user or request.user in question.course.professors.all():
-                question.hidden_to_user = False
             if request.user in question.course.professors.all():
                 question.moderator = True
+            if question.user == request.user or request.user in question.course.professors.all():
+                question.hidden_to_user = False
+            else:
+                if question.hidden:
+                    self.object_list = self.object_list.exclude(id=question.id)
 
         # Switch between paginated or standard style responses
         page = self.paginate_queryset(self.object_list)

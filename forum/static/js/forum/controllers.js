@@ -92,6 +92,7 @@
                     question.hidden = false;
                 });
                 $scope.questions.unshift(new_question);
+                $scope.totalItems = $scope.questions.length;
                 // Back to first page
                 $scope.currentPage = 1;
                 $scope.changePageHandler(1);
