@@ -2,6 +2,7 @@
 from positions import PositionField
 
 from django.db import models
+from django.core.mail import send_mail
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.staticfiles.storage import staticfiles_storage
@@ -147,7 +148,7 @@ class ProfessorMessage(models.Model):
     course = models.ForeignKey(Course, verbose_name=_('Course'), null=True)
 
     def send(self):
-        to = [ u.user.email for u in self.users ]
+        to = [u.user.email for u in self.users]
         return send_mail(self.subject, self.message, settings.DEFAULT_FROM_EMAIL, to, fail_silently=False)
 
 
