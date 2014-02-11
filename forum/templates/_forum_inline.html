@@ -17,13 +17,13 @@
             <!-- QUESTION FORM -->
             <div class="forum-form">
                 <div class="form-group" ng-class="question_title_validation">
-                    <input id="id-title" ng-model="new_question_title" name="title" type="text" class="form-control" placeholder="{% trans "What's your question?" %}">
+                    <input id="id-title" ng-model="new_question_title" name="title" type="text" class="form-control" placeholder="{% trans 'What is your question?' %}">
                 </div>
                 <div class="form-group text-editor">
                     <div class="wmd-panel" markdowneditor="true">
                         <div id="wmd-button-bar" class="js-button-bar"></div>
                         <div class="form-group" ng-class="question_text_validation">
-                            <textarea id="wmd-input" ng-model="new_text" name="text" class="form-control" rows="4" placeholder={% trans "Description of your question" %}></textarea>
+                            <textarea id="wmd-input" ng-model="new_text" name="text" class="form-control" rows="4" placeholder="{% trans 'Description of your question' %}"></textarea>
                         </div>
                     </div>
                 </div>
@@ -106,3 +106,27 @@
         {% endverbatim angularjs %}
     </section>
 </section>
+
+<p><a class="btn btn-lg btn-danger uppercase" data-toggle="modal" data-target="#new-message">ABRIR MODAL!!!!!!</a></p>
+
+<div class="modal fade" id="new-message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">{% trans "Why my question was hidden?" %}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <textarea class="form-control" rows="10" placeholder="Message"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-lg-12">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">{% trans "Close" %}</button>
+                    <button type="button" class="btn btn-success">{% trans "Send" %}</button>
+                </div>
+            </div>
+        </div>
+      </div>
+</div>
