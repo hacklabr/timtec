@@ -15,7 +15,8 @@ module.exports = function(config){
             'core/static/js/django.js',
             'forum/static/js/truncate.js',
             'forum/static/js/forum/*.js',
-            'forum/tests/js/*.js'
+            'forum/tests/js/*.js',
+            'administration/static/js/*/*.js'
         ],
         autoWatch : true,
         frameworks: ['jasmine'],
