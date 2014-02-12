@@ -41,44 +41,7 @@ ng-app="edit-lesson"
     </div>
     <!-- END ACTIONS -->
 
-
-    <!-- MAIN-HEADER -->
-    <header id="main-header" class="container">
-        <!-- PAGE-HEADER -->
-        <div class="page-header">
-            <!-- ROW -->
-            <div class="row">
-                <!-- COL-LG-9 -->
-                <div class="col-lg-9 col-sm-9">
-                    <h1 class="course-name bottom top">
-                        {% verbatim %}
-                        <a href="/admin/courses/{{course.id}}" ng-bind="course.name"></a>
-                        {% endverbatim %}
-                    </h1>
-                    <ul class="instructors">
-                        <li ng-repeat="p in courseProfessors"><a ng-bind="p.user_info.name"></a></li>
-                    </ul>
-                </div>
-                <!-- END COL-LG-9 -->
-                <!-- COL-LG-3 -->
-                <div class="col-lg-3 col-sm-3">
-                    <!-- COURSE-SECTION-NAV -->
-                    <nav class="course-sections textright">
-                        <a href=""><span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="Intro"></span></a>
-                        <a href=""><span class="has-tooltip fa fa-film" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Lessons' %}"></span></a>
-                        <a href=""><span class="has-tooltip fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Forum' %}"></span></a>
-                        <a href=""><span class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Material' %}"></span></a>
-                        <a href=""><span class="has-tooltip fa fa-envelope-o" data-toggle="tooltip" data-placement="top" data-original-title="Mensagens"></span></a>
-                    </nav>
-                    <!-- END COURSE-SECTION-NAV -->
-                </div>
-                <!-- END COL-LG-3 -->
-            </div>
-            <!-- END ROW -->
-        </div>
-        <!-- END PAGE-HEADER -->
-    </header>
-    <!-- MAIN-HEADER -->
+    {% include "_admin_header_inline.html" %}
 
     <!-- COURSE-CONTENT -->
     <section id="course-content" class="container">
