@@ -29,7 +29,7 @@
                         document.title = 'Curso: {0}'.format(course.name);
                         $scope.addThumb = !course.thumbnail_url;
                         // course_material and forum urls
-                        $scope.course_material_url = 'admin/course/' + course.slug  + '/material/';
+                        $scope.course_material_url = 'admin/course/' + course.id  + '/material/';
                         $scope.forum_url = 'admin/course/' + course.id +  '/forum/';
                     })
                     .then(function(){

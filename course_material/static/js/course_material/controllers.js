@@ -12,9 +12,8 @@
         controller('FileUploadCtrl', ['$scope', '$sce', '$window', 'FileUploadCtrl', FileUploadCtrl]).
         controller('CourseMaterialEditorCtrl', ['$scope', '$sce', '$window', 'CourseMaterial','Course',
             function ($scope, $sce, $window, CourseMaterial, Course) {
-                var courseSlug = /course\/([^\/]+)\/material/.extract(location.pathname, 1);
-
-                CourseMaterial.query({course__slug: courseSlug}, function (course_materials){
+                $scope.courseId = /course\/([^\/]+)\/material/.extract(location.pathname, 1);
+                CourseMaterial.query({course__id: $scope.courseId}, function (course_materials){
                     if(course_materials.length === 1) {
                         $scope.course_material = course_materials[0];
                         $scope.editor_text = course_materials[0].text;
@@ -23,7 +22,7 @@
 
                 $scope.save = function(){
                     $scope.course_material.text = $scope.editor_text;
-                    // $scope.course_material.$update({course: $scope.course.id});
+                    $scope.course_material.$update({course: $scope.courseId});
                 };
                 $scope.reset = function(){
                     $scope.editor_text = $scope.course_material.text;

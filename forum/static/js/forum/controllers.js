@@ -70,8 +70,6 @@
         $scope.questions = Question.query({course: course_id}, function (questions){
             questions.sort(compare_by_dates);
             // Pagination
-            
-    
             $scope.totalItems = $scope.questions.length;
             $scope.currentPage = 1;
             $scope.maxSize = 5;

@@ -4,25 +4,16 @@
 {% load timtec_markdown %}
 
 {% block js %} {{block.super}}
-<script type="text/javascript" src="{% static 'js/admin-header/app.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/admin-header/controllers.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/filters/text.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/directives/contenteditable.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/directives/sortable.js' %}"></script>
+{% include "_forum_angular.html" %}
 {% endblock %}
 
 {% block content %}
 
-<div id="forum" class="course-forum" ng-app="adminHeader">
-    <!--  HEADER  -->
-    <header class="container" ng-controller="HeaderController" >
-        <ng-include src="templateUrl"></ng-include>
-    </header>
-    <!--  END HEADER  -->
+<div id="forum" class="course-forum" ng-app="forum">
+
+    <div ng-controller="HeaderController">
+        {% include "_admin_header_inline.html"%}
+    </div>
 
     <section id="forum-content" class="container">
         <header>
