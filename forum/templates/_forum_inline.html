@@ -81,7 +81,7 @@
                                         <p><span class="numbers-votes">{{question.votes}}</span>votos</p>
                                         <p><span class="numbers-answers">{{ question.answers.length }}</span>respostas</p>
                                     </div>
-                                    <div ng-if="!question.hidden && question.moderator" ng-click="justification_modal(question)" data-toggle="modal" data-target="#new-message" class="actions btn btn-danger btn-sm">Ocultar</div>
+                                    <div ng-if="!question.hidden && question.moderator" ng-click="justification_modal(question)" class="hide-question btn btn-danger btn-sm">Ocultar</div>
                                 </td>
                                 <td style="width:100%;">
                                     <div class="content">
@@ -93,9 +93,8 @@
                             </tr>
                         </table>
                         <div ng-if="question.hidden" class="clear why-hidden">
-                            <h1>Entenda porque sua pergunta foi ocultada</h1>
-                            <div class="content">{{ question.hidden_justification }}
-                            </div>
+                            <h1 class="bottom">Entenda porque sua pergunta foi ocultada</h1>
+                            <div class="content">{{ question.hidden_justification }}</div>
                         </div>
                     </article>
                 </div>
