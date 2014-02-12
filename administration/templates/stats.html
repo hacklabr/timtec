@@ -1,0 +1,1052 @@
+{% extends "admin-base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+
+
+<div id="stats" class="course-stats">
+
+    {% include "_admin_header_inline.html" %}
+
+    <section id="stats-content" class="container">
+        <header>
+            <div class="row">
+                <div class="col-lg-9">
+                    <h1>{% trans "Course Statistics" %}</h1>
+                </div>
+            </div>
+        </header>
+        
+        <section class="row">
+            <div class="col-lg-12">
+                <h2>Total de alunos: 20 alunos</h2>
+                <ul class="students">
+                    <li class="row">
+                        <div class="col-lg-4">Adrian Camacho (adrianarrojo13@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">CRISTAL7 (cristal.automotive@hotmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Carla (carlatrindade96@live.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Cibele_Duarte (cibasd@hotmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Daniloluso (danilo.luso@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Danny (nily.rosa@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">FCoelho (fernandocoelho@hotmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Fabiane.Martins (fabiane.lopesmartins@hotmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Hernesto (hernestovautero@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">ISABEL (icbelcris@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Joao Oliveira Bueno (gwidion@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">JFTavares (josefernando.tavares@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">JorgeRocha (jorgerochaneto@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Jow (jonathanmem@hotmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Junior Thomaz (juniorthomaz18@outlook.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Kátia (kathiagislene@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Lidiane Thomaz (lidiane.romaz@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Lilian Faversani (lliilliiaann@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">LilianeCLessa (lilianecorreia@globomail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Luana_Martinez (luanaccm84@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Luiza (luiza.doprado@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">MRMatos (mauriciormatos@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Maxinny (maxinny@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Rogério Murback (rmurback@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Nagila (nagila_mmi@hotmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Novelino (jarbas.barato@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">ThiagoGRodrigues (thiago.g.rodrigues.15@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Vinicius.Pessoa (vgpessoa@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">alcosta1978 (alcosta1978@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Alexandro Silva (alexandro.justino@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">anacl360 (anapaulacl360@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">andrezcastilho (andrezcastilho@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Iatã Cannabrava (iatas@estudiomadalena.com.br)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Clécio Bachini (cbachini@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Edson Pinheiro Pimentel (edson.p.pimentel@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Eduardo Gonçalves (dudu_gn@msn.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">eliamara (mara.gospel@hotmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">elizeutub (elizeutub@hotmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">José Fernando Tavares (fernando@simplissimo.com.br)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">ferpfinati (ferpfinati@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">fids (fids@ibest.com.br)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">gabiferreira (o.gabi.ferreira@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Gabriela Dias (gabriela.dias@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Gutierri Barboza (eugutierri@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">joabade (joabade@yahoo.com.br)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">jokamoto (jokamoto@usp.br)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">jorge6667 (jorge.fsoft@hotmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">José Sérgio Fonseca (jsfcusp@usp.br)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">jpzgil (joaozuanazzi@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Juliana Cristina Braga (jcbraga1@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">leticiamatos (lelematos.leticia@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Lidiane Thomaz (lidiane_da_rosa@hotmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">luisotoni (luis.otoni@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">luzinalva (luzinalva@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">luzinalvanalva (luzinalvanalva@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">macarena (marcoaasilva@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">mattfmatos (matthewsfmatos@yahoo.com.br)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">mauranastri (maura.nastri@hotmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">mrpbarre (mrpbarre@usp.br)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">Ricardo Nakamura (ricardonakamura@usp.br)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">ricardocorreialessa (ricardocorreialessa@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">ricardonakamura (ricardo.jogos@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">rod_guarnieri (rod.guarnieri@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">tati (tatiana.mar@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">theo (theocastilho@hotmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">tiagocosta (tiagocl360@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">vanessa (vmota78@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-lg-4">yurimstand (infoyuri@gmail.com)</div>
+                        <div class="col-lg-1 textright">80%</div>
+                        <div class="col-lg-5">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:80%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 textright">
+                            <span class="label label-default pointer">
+                                {% trans 'Show lessons' %}
+                                <i class="fa fa-caret-down"></i>
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </section>
+</div>
+
+
+{% endblock content %}

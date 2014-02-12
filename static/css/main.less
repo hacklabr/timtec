@@ -668,7 +668,8 @@ a, a:hover, a:active {
 #course,
 #forum,
 #messages,
-#my-notes {
+#my-notes,
+#stats {
   header {
     .page-header {
       border-bottom: 1px solid @gray-lighter;
@@ -724,7 +725,8 @@ a, a:hover, a:active {
 #course.course-material,
 #forum.course-forum,
 #messages.course-messages,
-#my-notes.course-notes {
+#my-notes.course-notes,
+#stats.course-stats {
   header {
     .page-header {
       margin-bottom: 0;
@@ -1329,6 +1331,46 @@ a, a:hover, a:active {
 }
 
 
+
+// STATS
+// ********************************************************************* //
+#stats {
+  #stats-content {
+    header {
+      border-bottom: 1px solid @gray-lighter;
+      padding-bottom: 20px;
+      h1 {
+        margin-top: 25px;
+      }
+    }
+    ul.students {
+      list-style: none;
+      margin: 20px 0 0  0;
+      padding: 0;
+      li {
+        border-bottom: 1px solid @gray-lighter;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        &:first-child {
+          border-top: 1px solid @gray-lighter;
+          margin-top: 10px;
+          padding-top: 10px;
+        }
+        .progress {
+          background: @gray-lighter;
+          border-radius: 0;
+          height: 12px;
+          margin: 4px 0 0 0;
+          padding: 0;
+          position: relative;
+          .progress-bar {
+            border-radius: 0;
+          }
+        }
+      }
+    }
+  }
+}
 
 
 // MY COURSES
