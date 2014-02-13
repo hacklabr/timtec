@@ -613,6 +613,27 @@ a, a:hover, a:active {
       }
     }
   }
+  
+  #users {
+    header {
+      border-bottom: 1px solid @gray-lighter;
+      margin-bottom: 40px;
+    }
+    table {
+      tr {
+        th {
+          border-top: 0;
+          &.actions {
+            text-align: center;
+            width: 100px;
+          }
+        }
+        td {
+          vertical-align: middle;
+        }
+      }
+    }
+  }
 
   // CONTENT EDITABLE
   [contenteditable] {
