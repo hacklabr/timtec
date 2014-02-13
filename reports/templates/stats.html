@@ -1,0 +1,488 @@
+{% extends "admin-base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block head %}
+{{ block.super }}
+<script src="{% static 'js/admin-header/app.js' %}"></script>
+<script src="{% static 'js/admin-header/controllers.js' %}"></script>
+<script src="{% static 'js/factories/timtec-models.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div id="stats" class="course-stats" ng-app="reports">
+
+    <div ng-controller="HeaderController">
+        {% include "_admin_header_inline.html" %}
+    </div>
+    <section id="stats-content" class="container">
+        <header>
+            <div class="row">
+                <div class="col-lg-9">
+                    <h1>{% trans "Course Statistics" %}</h1>
+                </div>
+            </div>
+        </header>
+        
+        <section class="row">
+            <div class="col-lg-12">
+                <ul class="nav nav-tabs">
+                    <li><a href="#students" data-toggle="tab">{% trans "Students" %}</a></li>
+                    <li class="active"><a href="#lessons" data-toggle="tab">{% trans "Lessons" %}</a></li>
+                </ul>
+                
+                <div class="tab-content">
+                    <div class="tab-pane fade in" id="students">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <h2>Total de alunos: 20 alunos</h2>
+                            </div>
+                            <div class="col-lg-4 textright">
+                                <input type="text" placeholder="{% blocktrans %}Search student{% endblocktrans %}" class="form-control search-filter">
+                            </div>
+                        </div>
+                        <ul class="students">
+                            <li>
+                                <div class="row">
+                                    <div class="col-lg-4"><strong>Adrian Camacho (adrianarrojo13@gmail.com)</strong></div>
+                                    <div class="col-lg-1 textright">80%</div>
+                                    <div class="col-lg-5">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width:80%;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 textright">
+                                        <span class="label label-default pointer">
+                                            {% trans 'Show lessons' %}
+                                            <i class="fa fa-caret-up"></i>
+                                        </span>
+                                    </div>
+                                    <div class="lessons col-lg-12">
+                                        <div class="lesson">
+                                            <div class="row">
+                                                <div class="col-lg-5">Aula 1: Introdução: Internet e Web</div>
+                                                <div class="col-lg-1 textright">50%</div>
+                                                <div class="col-lg-1">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" style="width:50%;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-5">
+                                                    <span>0 perguntas no fórum</span>
+                                                    <span>0 respostas no fórum</span>
+                                                    <span>0 anotações</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="lesson">
+                                            <div class="row">
+                                                <div class="col-lg-5">Aula 2: Montando a estrutura de um documento HTML</div>
+                                                <div class="col-lg-1 textright">50%</div>
+                                                <div class="col-lg-1">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" style="width:50%;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-5">
+                                                    <span>0 perguntas no fórum</span>
+                                                    <span>0 respostas no fórum</span>
+                                                    <span>0 anotações</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="lesson">
+                                            <div class="row">
+                                                <div class="col-lg-5">Aula 3: Grupos de conteúdo e elementos semânticos do texto</div>
+                                                <div class="col-lg-1 textright">50%</div>
+                                                <div class="col-lg-1">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" style="width:50%;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-5">
+                                                    <span>0 perguntas no fórum</span>
+                                                    <span>0 respostas no fórum</span>
+                                                    <span>0 anotações</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="lesson">
+                                            <div class="row">
+                                                <div class="col-lg-5">Aula 4: Conteúdo multimídia</div>
+                                                <div class="col-lg-1 textright">50%</div>
+                                                <div class="col-lg-1">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" style="width:50%;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-5">
+                                                    <span>0 perguntas no fórum</span>
+                                                    <span>0 respostas no fórum</span>
+                                                    <span>0 anotações</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="lesson">
+                                            <div class="row">
+                                                <div class="col-lg-5">Aula 5: Tabelas e Formulários</div>
+                                                <div class="col-lg-1 textright">50%</div>
+                                                <div class="col-lg-1">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" style="width:50%;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-5">
+                                                    <span>0 perguntas no fórum</span>
+                                                    <span>0 respostas no fórum</span>
+                                                    <span>0 anotações</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="lesson">
+                                            <div class="row">
+                                                <div class="col-lg-5">Aula 6: Metadados e Cabeçalho</div>
+                                                <div class="col-lg-1 textright">50%</div>
+                                                <div class="col-lg-1">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" style="width:50%;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-5">
+                                                    <span>0 perguntas no fórum</span>
+                                                    <span>0 respostas no fórum</span>
+                                                    <span>0 anotações</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="lesson">
+                                            <div class="row">
+                                                <div class="col-lg-5">Aula 7: Introdução ao CSS</div>
+                                                <div class="col-lg-1 textright">50%</div>
+                                                <div class="col-lg-1">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" style="width:50%;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-5">
+                                                    <span>0 perguntas no fórum</span>
+                                                    <span>0 respostas no fórum</span>
+                                                    <span>0 anotações</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="lesson">
+                                            <div class="row">
+                                                <div class="col-lg-5">Aula 8: Cores e Backgrounds</div>
+                                                <div class="col-lg-1 textright">50%</div>
+                                                <div class="col-lg-1">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" style="width:50%;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-5">
+                                                    <span>0 perguntas no fórum</span>
+                                                    <span>0 respostas no fórum</span>
+                                                    <span>0 anotações</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="lesson">
+                                            <div class="row">
+                                                <div class="col-lg-5">Aula 9: Fontes, textos, listas e links</div>
+                                                <div class="col-lg-1 textright">50%</div>
+                                                <div class="col-lg-1">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" style="width:50%;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-5">
+                                                    <span>0 perguntas no fórum</span>
+                                                    <span>0 respostas no fórum</span>
+                                                    <span>0 anotações</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="lesson">
+                                            <div class="row">
+                                                <div class="col-lg-5">Aula 10: Box Model, Classe, ID e outros</div>
+                                                <div class="col-lg-1 textright">50%</div>
+                                                <div class="col-lg-1">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" style="width:50%;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-5">
+                                                    <span>0 perguntas no fórum</span>
+                                                    <span>0 respostas no fórum</span>
+                                                    <span>0 anotações</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="lesson">
+                                            <div class="row">
+                                                <div class="col-lg-5">Aula 11: Introdução ao JavaScript</div>
+                                                <div class="col-lg-1 textright">50%</div>
+                                                <div class="col-lg-1">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" style="width:50%;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-5">
+                                                    <span>0 perguntas no fórum</span>
+                                                    <span>0 respostas no fórum</span>
+                                                    <span>0 anotações</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="lesson">
+                                            <div class="row">
+                                                <div class="col-lg-5">Aula 12: Noções de jQuery</div>
+                                                <div class="col-lg-1 textright">50%</div>
+                                                <div class="col-lg-1">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" style="width:50%;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-5">
+                                                    <span>0 perguntas no fórum</span>
+                                                    <span>0 respostas no fórum</span>
+                                                    <span>0 anotações</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+
+
+
+
+
+
+                            <li>
+                                <div class="row">
+                                    <div class="col-lg-4"><strong>CRISTAL7 (cristal.automotive@hotmail.com)</strong></div>
+                                    <div class="col-lg-1 textright">80%</div>
+                                    <div class="col-lg-5">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width:80%;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 textright">
+                                        <span class="label label-default pointer">
+                                            {% trans 'Show lessons' %}
+                                            <i class="fa fa-caret-down"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in active" id="lessons">
+                        <ul class="lessons">
+                            <li class="lesson">
+                                <div class="row">
+                                    <div class="col-lg-5">Aula 1: Introdução: Internet e Web</div>
+                                    <div class="col-lg-1 textright">50%</div>
+                                    <div class="col-lg-1">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width:50%;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <span>0 perguntas no fórum</span>
+                                        <span>0 respostas no fórum</span>
+                                        <span>0 anotações</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="lesson">
+                                <div class="row">
+                                    <div class="col-lg-5">Aula 2: Montando a estrutura de um documento HTML</div>
+                                    <div class="col-lg-1 textright">50%</div>
+                                    <div class="col-lg-1">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width:50%;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <span>0 perguntas no fórum</span>
+                                        <span>0 respostas no fórum</span>
+                                        <span>0 anotações</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="lesson">
+                                <div class="row">
+                                    <div class="col-lg-5">Aula 3: Grupos de conteúdo e elementos semânticos do texto</div>
+                                    <div class="col-lg-1 textright">50%</div>
+                                    <div class="col-lg-1">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width:50%;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <span>0 perguntas no fórum</span>
+                                        <span>0 respostas no fórum</span>
+                                        <span>0 anotações</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="lesson">
+                                <div class="row">
+                                    <div class="col-lg-5">Aula 4: Conteúdo multimídia</div>
+                                    <div class="col-lg-1 textright">50%</div>
+                                    <div class="col-lg-1">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width:50%;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <span>0 perguntas no fórum</span>
+                                        <span>0 respostas no fórum</span>
+                                        <span>0 anotações</span>
+                                    </div>
+                                </div>
+                                </li>
+                            <li class="lesson">
+                                <div class="row">
+                                    <div class="col-lg-5">Aula 5: Tabelas e Formulários</div>
+                                    <div class="col-lg-1 textright">50%</div>
+                                    <div class="col-lg-1">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width:50%;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <span>0 perguntas no fórum</span>
+                                        <span>0 respostas no fórum</span>
+                                        <span>0 anotações</span>
+                                    </div>
+                                </div>
+                                </li>
+                            <li class="lesson">
+                                <div class="row">
+                                    <div class="col-lg-5">Aula 6: Metadados e Cabeçalho</div>
+                                    <div class="col-lg-1 textright">50%</div>
+                                    <div class="col-lg-1">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width:50%;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <span>0 perguntas no fórum</span>
+                                        <span>0 respostas no fórum</span>
+                                        <span>0 anotações</span>
+                                    </div>
+                                </div>
+                                </li>
+                            <li class="lesson">
+                                <div class="row">
+                                    <div class="col-lg-5">Aula 7: Introdução ao CSS</div>
+                                    <div class="col-lg-1 textright">50%</div>
+                                    <div class="col-lg-1">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width:50%;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <span>0 perguntas no fórum</span>
+                                        <span>0 respostas no fórum</span>
+                                        <span>0 anotações</span>
+                                    </div>
+                                </div>
+                                </li>
+                            <li class="lesson">
+                                <div class="row">
+                                    <div class="col-lg-5">Aula 8: Cores e Backgrounds</div>
+                                    <div class="col-lg-1 textright">50%</div>
+                                    <div class="col-lg-1">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width:50%;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <span>0 perguntas no fórum</span>
+                                        <span>0 respostas no fórum</span>
+                                        <span>0 anotações</span>
+                                    </div>
+                                </div>
+                                </li>
+                            <li class="lesson">
+                                <div class="row">
+                                    <div class="col-lg-5">Aula 9: Fontes, textos, listas e links</div>
+                                    <div class="col-lg-1 textright">50%</div>
+                                    <div class="col-lg-1">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width:50%;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <span>0 perguntas no fórum</span>
+                                        <span>0 respostas no fórum</span>
+                                        <span>0 anotações</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="lesson">
+                                <div class="row">
+                                    <div class="col-lg-5">Aula 10: Box Model, Classe, ID e outros</div>
+                                    <div class="col-lg-1 textright">50%</div>
+                                    <div class="col-lg-1">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width:50%;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <span>0 perguntas no fórum</span>
+                                        <span>0 respostas no fórum</span>
+                                        <span>0 anotações</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="lesson">
+                                <div class="row">
+                                    <div class="col-lg-5">Aula 11: Introdução ao JavaScript</div>
+                                    <div class="col-lg-1 textright">50%</div>
+                                    <div class="col-lg-1">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width:50%;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <span>0 perguntas no fórum</span>
+                                        <span>0 respostas no fórum</span>
+                                        <span>0 anotações</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="lesson">
+                                <div class="row">
+                                    <div class="col-lg-5">Aula 12: Noções de jQuery</div>
+                                    <div class="col-lg-1 textright">50%</div>
+                                    <div class="col-lg-1">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width:50%;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <span>0 perguntas no fórum</span>
+                                        <span>0 respostas no fórum</span>
+                                        <span>0 anotações</span>
+                                    </div>
+                                </div>
+                             </li>
+                        </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </section>
+    </section>
+</div>
+
+
+{% endblock content %}

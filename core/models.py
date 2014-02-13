@@ -128,6 +128,7 @@ class CourseStudent(models.Model):
             lesson_progress = {}
             lesson_progress['name'] = lesson.name
             lesson_progress['slug'] = lesson.slug
+            lesson_progress['position'] = lesson.position
             units_len = lesson.unit_count()
             if units_len:
                 units_done_len = self.units_done_by_lesson(lesson).count()
