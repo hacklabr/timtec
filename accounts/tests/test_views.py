@@ -27,14 +27,13 @@ def test_enroll_user_view(rf, user):
 def test_home_view(rf):
     from core.views import HomeView
 
-    course = mommy.make('Course')
+#     course = mommy.make('Course')
 
     request = rf.get('/')
     view = HomeView(request=request)
 
     response = view.get(request)
-    assert response.status_code == 302
-    assert response['Location'] == '/course/' + course.slug + '/'
+    assert response.status_code == 200
 
 
 @pytest.mark.django_db

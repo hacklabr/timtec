@@ -25,7 +25,7 @@
         };
     }
 
-    function InlineForumCtrl($scope, $window, Question) {
+    function InlineForumCtrl($scope, $window, $modal, Question) {
         function compare_by_dates(a,b) {
             if (a.timestamp > b.timestamp)
                return -1;
@@ -70,8 +70,6 @@
         $scope.questions = Question.query({course: course_id}, function (questions){
             questions.sort(compare_by_dates);
             // Pagination
-            
-    
             $scope.totalItems = $scope.questions.length;
             $scope.currentPage = 1;
             $scope.maxSize = 5;
@@ -87,8 +85,12 @@
 
         $scope.new_question = function () {
             if (($scope.new_question_title !== undefined && $scope.new_question_title !== '') && ($scope.new_text !== undefined && $scope.new_text !== '')){
-                var new_question = Question.save({course: course_id, title: $scope.new_question_title, text: $scope.new_text});
+                var new_question = Question.save({course: course_id, title: $scope.new_question_title, text: $scope.new_text}, function(question){
+                    question.hidden_to_user = false;
+                    question.hidden = false;
+                });
                 $scope.questions.unshift(new_question);
+                $scope.totalItems = $scope.questions.length;
                 // Back to first page
                 $scope.currentPage = 1;
                 $scope.changePageHandler(1);
@@ -110,6 +112,40 @@
                     $scope.question_text_validation = '';
                 }
             }
+        };
+
+        var ModalInstanceCtrl = function ($scope, $modalInstance, question) {
+            $scope.question = question;
+
+            $scope.ok = function () {
+                $scope.question.hidden = true;
+                $scope.question.hidden_by = $window.user_id;
+                $scope.question.hidden_justification = $scope.question.hidden_justification;
+                $modalInstance.close($scope.question);
+            };
+
+            $scope.cancel = function () {
+                $modalInstance.dismiss();
+            };
+        };
+
+        $scope.justification_modal = function (question) {
+            var modalInstance = $modal.open({
+                templateUrl: 'justificationModal.html',
+                controller: ModalInstanceCtrl,
+                resolve: {
+                    question: function () {
+                        return question;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (question) {
+                question.$update({questionId: question.id}, function(question){
+                    question.hidden_to_user = false;
+                });
+                
+            });
         };
     }
 
@@ -134,7 +170,7 @@
 
     angular.module('forum.controllers', ['ngCookies']).
         controller('QuestionCtrl', ['$scope', '$sce', '$window', 'Question', 'Answer', QuestionCtrl]).
-        controller('InlineForumCtrl', ['$scope', '$window', 'Question', InlineForumCtrl]).
+        controller('InlineForumCtrl', ['$scope', '$window', '$modal', 'Question', InlineForumCtrl]).
         controller('QuestionVoteCtrl', ['$scope', '$window', 'QuestionVote',
             function ($scope, $window, QuestionVote) {
                 $scope.questionId = parseInt($window.question_id, 10);

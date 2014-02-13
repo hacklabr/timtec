@@ -3,6 +3,25 @@
 
     var app = angular.module('directive.markdowneditor', []);
 
+    app.factory('MarkdownDirective', function(){
+        return {
+            'editors': [],
+
+            'resetEditors': function(){
+                this.editors.forEach(function(editor){
+                    editor.reset();
+                    editor.focusEditor();
+                });
+            },
+
+            'refreshEditorsPreview': function(){
+                this.editors.forEach(function(editor){
+                    editor.refreshPreview();
+                });
+            }
+        };
+    });
+
     (function generateMarkdownDirectives(app) {
         var templates = {
             // directive name -> template path
@@ -10,25 +29,26 @@
             'modalmarkdowneditor': '/static/templates/directive.modalmarkdowneditor.html'
         };
 
-        function controller ($scope, $element) {
-            $scope.active = false;
-            $scope.id = Math.random().toString(16).slice(2);
+        function controller ($scope, $element, MarkdownDirective) {
+
             var original = angular.copy($scope.content);
+            var editor = {};
 
-            $scope.$watch('content', function(after, before){
-                if(after && before === undefined) {
-                    original = angular.copy(after);
-                    $scope.refreshPreview();
-                }
-            });
+            editor.active = false;
+            editor.id = Math.random().toString(16).slice(2);
 
-            $scope.cancel = function() {
+            editor.reset = function() {
+                original = $scope.content;
+                $scope.active = false;
+            };
+
+            editor.cancel = function() {
                 $scope.content = original;
                 $scope.active = false;
                 $scope.refreshPreview();
             };
 
-            $scope.save = function() {
+            editor.save = function() {
                 $scope.active = false;
 
                 if($scope.onSave && $scope.onSave.call) {
@@ -45,11 +65,29 @@
                 $element.focus();
             };
 
-            $scope.refreshPreview = function() {
+            editor.focusEditor = function(){
+                setTimeout(function(){
+                    document.getElementById('wmd-input-' + $scope.id).focus();
+                },100);
+            };
+
+            editor.refreshPreview = function() {
                 setTimeout(function(){
                     $scope.editor.refreshPreview();
                 }, 50);
             };
+
+            for(var att in editor) {
+                $scope[att] = editor[att];
+            }
+            MarkdownDirective.editors.push(editor);
+
+            $scope.$watch('content', function(after, before){
+                if(after && before === undefined) {
+                    original = angular.copy(after);
+                    $scope.refreshPreview();
+                }
+            });
         }
 
         function link (scope, element, attr) {
@@ -57,12 +95,6 @@
             scope.editor = new window.Markdown.Editor(
                 window.Markdown.getSanitizingConverter(), '-'.concat(scope.id)
             );
-
-            scope.focusEditor = function(){
-                setTimeout(function(){
-                    document.getElementById('wmd-input-' + scope.id).focus();
-                },100);
-            };
 
             scope.$watch('$scope', function(){
                 if(!editorIsRunning) scope.editor.run();

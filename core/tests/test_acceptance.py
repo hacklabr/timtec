@@ -13,9 +13,7 @@ def test_is_admin_working(client):
 def test_mainview(client):
     mommy.make('Course')
     response = client.get('/')
-    assert response.status_code == 302
-    assert response.has_header('Location')
-    assert 'testserver/course' in response['Location']
+    assert response.status_code == 200
 
 
 @pytest.mark.django_db
@@ -38,7 +36,7 @@ def test_timtec_adapter_validates_username(client):
     mommy.make('Group', name="students")
     response = client.post('/accounts/signup/', {'username': "test", 'email': "test@example.com",
                                                  'password1': 123123, 'password2': 123123})
-    assert response.status_code == 200  # ok
+    assert response.status_code == 302  # ok
     assert "./-/_" not in response.content  # validator
 
     response = client.post('/accounts/signup/', {'username': "test@test", 'email': "test2@example.com",

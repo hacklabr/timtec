@@ -9,6 +9,7 @@ from core.models import Course
 from forum.models import Question, Answer, QuestionVote, AnswerVote
 from forum.forms import QuestionForm
 from forum.serializers import QuestionSerializer, AnswerSerializer, QuestionVoteSerializer, AnswerVoteSerializer
+from forum.permissions import HideQuestionPermission
 from rest_framework import viewsets
 
 
@@ -23,6 +24,22 @@ class CourseForumView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(CourseForumView, self).get_context_data(**kwargs)
+        # Add in the publisher
+        context['course'] = self.course
+        return context
+
+
+class AdminCourseForumView(LoginRequiredMixin, ListView):
+    context_object_name = 'questions'
+    template_name = "forum_admin.html"
+
+    def get_queryset(self):
+        self.course = get_object_or_404(Course, id=self.kwargs['course_id'])
+        return Question.objects.filter(course=self.course)
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(AdminCourseForumView, self).get_context_data(**kwargs)
         # Add in the publisher
         context['course'] = self.course
         return context
@@ -63,11 +80,52 @@ class QuestionCreateView(LoginRequiredMixin, FormView):
 class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     model = Question
     serializer_class = QuestionSerializer
-    filter_fields = ('course', 'user')
+    filter_fields = ('course', 'user', 'hidden')
+    permission_classes = (HideQuestionPermission,)
 
     def pre_save(self, obj):
-        obj.user = self.request.user
+        pk = self.kwargs.get(self.pk_url_kwarg, None)
+        # Set user if is a new question.
+        if not pk:
+            obj.user = self.request.user
         return super(QuestionViewSet, self).pre_save(obj)
+
+    def list(self, request, *args, **kwargs):
+        import warnings
+        from django.http import Http404
+        from rest_framework.response import Response
+        self.object_list = self.filter_queryset(self.get_queryset())
+
+        # Default is to allow empty querysets.  This can be altered by setting
+        # `.allow_empty = False`, to raise 404 errors on empty querysets.
+        if not self.allow_empty and not self.object_list:
+            warnings.warn(
+                'The `allow_empty` parameter is due to be deprecated. '
+                'To use `allow_empty=False` style behavior, You should override '
+                '`get_queryset()` and explicitly raise a 404 on empty querysets.',
+                PendingDeprecationWarning
+            )
+            class_name = self.__class__.__name__
+            error_msg = self.empty_error % {'class_name': class_name}
+            raise Http404(error_msg)
+
+        for question in self.object_list:
+            if request.user in question.course.professors.all():
+                question.moderator = True
+            if question.user == request.user or request.user in question.course.professors.all():
+                question.hidden_to_user = False
+            else:
+                if question.hidden:
+                    self.object_list = self.object_list.exclude(id=question.id)
+
+        # Switch between paginated or standard style responses
+        page = self.paginate_queryset(self.object_list)
+        if page is not None:
+            serializer = self.get_pagination_serializer(page)
+        else:
+            serializer = self.get_serializer(self.object_list, many=True)
+
+        return Response(serializer.data)
 
 
 class AnswerViewSet(LoginRequiredMixin, viewsets.ModelViewSet):

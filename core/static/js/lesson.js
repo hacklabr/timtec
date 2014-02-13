@@ -2,6 +2,7 @@
     "use strict";
 
     var app = angular.module('lesson', [
+        'directive.markdowneditor',
         'directive.codemirror',
         'ngRoute',
         'ngResource',
@@ -17,13 +18,12 @@
         return STATIC_URL + '/templates/activity_'+ the_type + '.html';
     };
 
-    app.controller('MainCtrl', ['$scope', 'LessonData', 'Answer', '$location', 'youtubePlayerApi',
-        function ($scope, LessonData, Answer, $location, youtubePlayerApi) {
+    app.controller('MainCtrl', ['$scope', 'LessonData', 'Answer', 'Progress', '$location', 'youtubePlayerApi',
+        function ($scope, LessonData, Answer, Progress, $location, youtubePlayerApi) {
 
             youtubePlayerApi.events.onStateChange = function(event){
                 window.onPlayerStateChange.call($scope.currentUnit, event);
                 if (event.data === YT.PlayerState.ENDED) {
-                    window.$scope = $scope;
                     $scope.nextStep();
                     if(!$scope.$$phase) {
                         $scope.$apply();
@@ -49,7 +49,7 @@
                 index++;
 
                 if(index < $scope.lesson.units.length) {
-                    $scope.selectUnit($scope.lesson.units[index]);
+                    $location.path('/{0}'.format(index+1));
                 }
                 // e se não tiver nextUnit, faz o que?
             };
@@ -66,20 +66,34 @@
             };
 
             $scope.selectActivity = function(index) {
+                function _newAnswer(){
+                    $scope.answer = new Answer();
+                    if(angular.isArray($scope.currentActivity.expected)) {
+                        $scope.answer.given = $scope.currentActivity.expected.map(function(){});
+                    }
+                }
+
                 if($scope.currentUnit.activities && $scope.currentUnit.activities.length) {
                     $scope.currentActivity = $scope.currentUnit.activities[index];
                     $scope.activityTemplateUrl = ACTIVITY_TEMPLATE_PATH($scope.currentActivity.type);
 
+                    ga("send", "event", "activity", "select", $scope.currentActivity.id);
+
                     Answer.getLastGivenAnswer($scope.currentActivity.id)
                         .then(function(answer){
-                            $scope.answer = answer;
-                        })
-                        .catch(function(){
-                            $scope.answer = new Answer();
-                            if(angular.isArray($scope.currentActivity.expected)) {
-                                $scope.answer.given = $scope.currentActivity.expected.map(function(){});
+                            var exp = $scope.currentActivity.expected;
+                            var giv = answer.given;
+
+                            var shouldUseLastAnswer = (exp !== null && exp !== undefined) ||
+                                (angular.isArray(exp) && angular.isArray(giv) && giv.length === exp.length);
+
+                            if (shouldUseLastAnswer) {
+                                $scope.answer = answer;
+                            } else {
+                                _newAnswer();
                             }
-                        });
+
+                        })['catch'](_newAnswer);
                 } else {
                     $scope.currentActivity = null;
                     $scope.activityTemplateUrl = null;
@@ -90,45 +104,63 @@
                 $scope.answer.activity = $scope.currentActivity.id;
                 $scope.answer.saveOrUpdate().then(function(d){
                     ga('send', 'event', 'activity', 'result', '', d.correct);
+                    return Progress.getProgressByUnitId($scope.currentUnit.id);
+                }).then(function(progress){
+                    $scope.currentUnit.progress = progress;
                 });
                 ga('send', 'event', 'activity', 'submit');
             };
 
-            $scope.nextStep = function() {
+            $scope.nextStep = function(skipComment) {
                 if($scope.section === 'video') {
-                    if($scope.currentUnit.activities) {
+                    if(angular.isArray($scope.currentUnit.activities) &&
+                        $scope.currentUnit.activities.length > 0) {
                         $scope.section = 'activity';
                     } else {
                         $scope.nextUnit();
                     }
                 } else {
-                    var index = $scope.currentUnit.activities.indexOf($scope.currentActivity);
-                    if(index+1 === $scope.currentUnit.activities.length) {
-                        $scope.nextUnit();
+                    if($scope.section === 'activity' && !skipComment && $scope.currentActivity.comment) {
+                        $scope.section = 'comment';
                     } else {
-                        $scope.selectActivity(index + 1);
+                        var index = $scope.currentUnit.activities.indexOf($scope.currentActivity);
+                        if(index+1 === $scope.currentUnit.activities.length) {
+                            $scope.nextUnit();
+                        } else {
+                            $scope.selectActivity(index + 1);
+                            $scope.section = 'activity';
+                        }
                     }
                 }
             };
 
             var start;
-            $scope.$watch('currentUnit', function() {
+            $scope.$watch('currentUnit', function(currentUnit, lastUnit) {
                 if(!$scope.lesson) return;
                 // Changing Unit means unit starting
-                if (start) {
+                if (start && lastUnit) {
                     var end = new Date().getTime();
                     ga('send', 'event', 'unit', 'time in unit',
-                       $scope.lesson.course + ' - ' + $scope.lesson.name + ' - ' + $scope.currentUnit,
+                       $scope.lesson.course + ' - "' + $scope.lesson.name + '" - ' + lastUnit.id,
                        end - start);
                 }
-                ga('send', 'event', 'unit', 'start', $scope.lesson.course + ' - ' + $scope.lesson.name, $scope.currentUnit);
+                ga('send', 'event', 'unit', 'start', $scope.lesson.course + ' - ' + $scope.lesson.name, $scope.currentUnit.id);
                 start = new Date().getTime();
             });
 
             LessonData.then(function(lesson){
                 $scope.lesson = lesson;
-                $scope.selectUnit(lesson.units[0]);
+
+                var index = /\/(\d+)/.extract($location.path(), 1);
+                index = parseInt(index, 10) - 1 || 0;
+                $scope.selectUnit(lesson.units[index]);
                 $scope.play();
+
+                $scope.$on('$locationChangeSuccess', function (event, newLoc, oldLoc){
+                   index = /#\/(\d+)/.extract(document.location.hash, 1);
+                   index = parseInt(index, 10) - 1 || 0;
+                   $scope.selectUnit(lesson.units[index]);
+                });
             });
         }
     ]);
@@ -162,18 +194,45 @@
         }
     ]);
 
-    app.factory('LessonData', ['$rootScope', '$q', '$resource', '$window',
-        function($rootScope, $q, $resource, $window) {
-            var Lesson = $resource('/api/lessons/:lessonId/');
-            var Progress = $resource('/api/student_progress?unit__lesson=:lessonId');
+    app.factory('Progress', ['$resource', '$q', function($resource, $q){
+        var Progress = $resource('/api/student_progress/:id');
+
+        Progress.getProgressByUnitId = function(unit) {
             var deferred = $q.defer();
 
-            Lesson.get({'lessonId': $window.lessonId}, function (lesson) {
+            if(!unit) {
+                deferred.reject('Invalid unit');
+            } else {
+                Progress.query({unit: unit}, function(progress){
+                    if(progress.length === 1) {
+                        deferred.resolve(progress[0]);
+                    } else {
+                        deferred.reject('No progress found');
+                    }
+                });
+            }
+
+            return deferred.promise;
+        };
+
+        return Progress;
+    }]);
+
+    app.factory('Lesson', ['$resource', function($resource){
+        return $resource('/api/lessons/:id/');
+    }]);
+
+    app.factory('LessonData', ['$rootScope', '$q', '$resource', '$window', 'Lesson', 'Progress',
+        function($rootScope, $q, $resource, $window, Lesson, Progress) {
+
+            var deferred = $q.defer();
+
+            Lesson.get({'id': $window.lessonId}, function (lesson) {
                 $rootScope.lesson = lesson;
                 deferred.resolve(lesson);
             });
 
-            Progress.query({'lessonId': $window.lessonId}, function (progress) {
+            Progress.query({'unit__lesson': $window.lessonId}, function (progress) {
                 deferred.promise.then(function (lesson) {
                     for (var i = progress.length - 1; i >= 0; i--) {
                         var p = progress[i];

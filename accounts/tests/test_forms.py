@@ -1,5 +1,4 @@
 import pytest
-from accounts.forms import ProfileEditForm
 
 
 @pytest.mark.django_db
@@ -11,6 +10,7 @@ def test_profile_edit_forms_works_with_valid_data(user):
         'password2': '123456',
     }
 
+    from accounts.forms import ProfileEditForm
     form = ProfileEditForm(instance=user, data=data)
     assert form.is_valid() is True, form.errors
     form.save()
@@ -26,7 +26,7 @@ def test_form_becomes_invalid_with_different_passwords(user):
         'password1': 'password_one',
         'password2': 'password_two',
     }
-
+    from accounts.forms import ProfileEditForm
     form = ProfileEditForm(instance=user, data=data)
     assert form.is_valid() is False, form.errors
     assert 'password2' in form.errors

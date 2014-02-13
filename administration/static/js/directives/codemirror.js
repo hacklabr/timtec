@@ -52,6 +52,9 @@
             'restrict': 'A',
             'templateUrl': '/static/templates/directive.codemirror.html',
             'require': '?ngModel',
+            'scope': {
+                'initialModel': '='
+            },
             'controller': ['$scope', '$element', '$document', '$attrs',
                 function($scope, $element, $document, $attrs){
                     $scope.code_id = 'code-' + Math.random().toString(16).substring(2);
@@ -68,7 +71,7 @@
                         var content = editor.getValue();
                         ngModel.$setViewValue(content);
                     }
-                    if (scope.$$phase) {
+                    if (scope.$$phase || scope.$parent.$$phase) {
                         _read();
                     } else {
                         scope.$apply(_read);
@@ -103,6 +106,10 @@
                 scope.$watch('$scope', function(){
                     textarea = document.getElementById(scope.code_id);
 
+                    if(!ngModel.$viewValue && scope.initialModel) {
+                        ngModel.$setViewValue(angular.copy(scope.initialModel));
+                    }
+
                     editor = new CodeMirror.fromTextArea(textarea, conf);
                     renderOnEditor(ngModel.$viewValue || '');
                     editor.on('change', readEditor);
@@ -115,6 +122,8 @@
                         }
                     }, 500);
                 });
+
+
             }
         };
     });

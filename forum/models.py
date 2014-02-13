@@ -11,11 +11,14 @@ class Question(models.Model):
     title = models.CharField(_('Title'), max_length=255)
     text = models.TextField(_('Question'))
     slug = AutoSlugField(_('Slug'), populate_from='title', max_length=255, editable=False, unique=True)
-    user = models.ForeignKey(TimtecUser, verbose_name=_('User'))
+    user = models.ForeignKey(TimtecUser, verbose_name=_('User'), related_name='forum_questions')
     correct_answer = models.OneToOneField('Answer', verbose_name=_('Correct answer'), related_name='+', null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True, editable=False)
     course = models.ForeignKey(Course, verbose_name=_('Course'))
     lesson = models.ForeignKey(Lesson, verbose_name=_('Lesson'), null=True, blank=True)
+    hidden = models.BooleanField(verbose_name=_('Hidden'), default=False)
+    hidden_by = models.ForeignKey(TimtecUser, verbose_name=_('User'), related_name='hidden_questions', default=None, null=True, blank=True)
+    hidden_justification = models.TextField(_('Justification'), default=None, null=True, blank=True)
 
     def save(self, **kwargs):
         if not self.id and self.title:

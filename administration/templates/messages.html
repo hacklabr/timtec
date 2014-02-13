@@ -1,0 +1,221 @@
+{% extends "admin-base.html" %}
+{% load static %}
+{% load i18n %}
+
+
+{% block js %} {{block.super}}
+<script src="{% static 'js/admin-header/app.js' %}"></script>
+<script src="{% static 'js/admin-header/controllers.js' %}"></script>
+<script src="{% static 'js/factories/timtec-models.js' %}"></script>
+{% endblock %}
+
+
+
+{% block content %}
+
+<!--  COURSE CONTENT  -->
+<div id="messages" class="course-messages">
+
+    <div ng-app="adminHeader" ng-controller="HeaderController">
+        {% include "_admin_header_inline.html"%}
+    </div>
+
+    <!-- COURSE-CONTENT -->
+    <section id="messages-content" class="container">
+        <header>
+            <div class="row">
+                <div class="col-lg-9">
+                    <h1>{% trans "Messages" %}</h1>
+                </div>
+                <div class="col-lg-3">
+                    <a class="new-message btn btn-lg btn-danger uppercase" data-toggle="modal" data-target="#new-message">{% trans "Send New Message" %}</a>
+                </div>
+            </div>
+        </header>
+        
+        <div class="messages">
+            <div class="message">
+                <div class="row">
+                    <div class="col-lg-1 textright">
+                        <span class="date">05/02/2014</span>
+                    </div>
+                    <div class="col-lg-11">
+                        <div class="subject">What is Lorem Ipsum?</div>
+                        <div class="body">
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. <a href="">Ver mais...</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+    <!--  END COURSE CONTENT  -->
+    
+    <div class="modal fade" id="new-message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">{% trans "New Message" %}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Subject"/>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" rows="10" placeholder="Message"></textarea>
+                    </div>
+                    <div class="form-group row">
+                        <div class="students col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <p><input type="search" value="Pesquisar" class="form-control"/></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                            
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                            
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                            
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                            
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                            
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                            
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                            
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                            
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                            
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                            
+                                <div class="col-lg-2">
+                                    <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-lg-12">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">{% trans "Close" %}</button>
+                        <button type="button" class="btn btn-success">{% trans "Send" %}</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+    </div>
+</div>
+<!--  END COURSE CONTENT  -->
+
+{% endblock %}

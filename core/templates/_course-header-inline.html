@@ -1,3 +1,4 @@
+{% load i18n %}
   <header id="main-header" class="container">
     <div class="page-header">
       <div class="row">
@@ -10,14 +11,11 @@
         <div class="col-lg-3 col-sm-3">
           <!-- COURSE-SECTION-NAV -->
           <nav class="course-sections textright">
-            <a href="{% url 'course_intro' course.slug %}"><span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="Intro"></span></a>
-            <a href="{% url "lesson" course.slug course.first_lesson.slug %}"><span class="has-tooltip fa fa-film" data-toggle="tooltip" data-placement="top" data-original-title="Aulas"></span></a>
-            {% comment %}
-            <!-- TODO: Bruno Martin -->
-            <a href="profile-note.html"><span class="has-tooltip fa fa-pencil" data-toggle="tooltip" data-placement="top" data-original-title="Anotações"></span></a>
-            {% endcomment %}
-            <a href="{% url 'forum' course.slug %}"><span class="has-tooltip fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="Fórum"></span></a>
-            <a href="{% url 'course_material' course.slug %}"><span class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="Material Didádico"></span></a>
+            <a href="{% url 'course_intro' course.slug %}"><span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Intro' %}"></span></a>
+            <a href="{% url "lesson" course.slug course.first_lesson.slug %}"><span class="has-tooltip fa fa-film" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Lessons' %}"></span></a>
+            <a href="{% url 'forum' course.slug %}"><span class="has-tooltip fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Forum' %}"></span></a>
+            <a href="{% url 'course_material' course.slug %}"><span class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Course material' %}"></span></a>
+            <a href="{% url 'user_course_notes' 'html5' %}"><span class="has-tooltip fa fa-pencil-square-o" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'My notes' %}"></span></a>
           </nav>
           <!-- END COURSE-SECTION-NAV -->
         </div>

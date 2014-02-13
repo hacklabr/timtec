@@ -3,21 +3,6 @@
 
 body#admin {
 
-  #main-navbar.navbar-inverse {
-    background-color: @gray;
-    border-color: darken(@gray, 15%);
-    border-radius: 0;
-    li.divider {
-      border-left: 1px solid darken(@gray, 5%);
-      display: block;
-      height: 50px;
-      width: 0;
-    }
-    a:hover {
-      background-color: darken(@gray, 5%);
-    }
-  }
-
   // COURSES LIST
   #courses {
     > header {
@@ -64,6 +49,7 @@ body#admin {
 
   .editable {
     cursor: pointer;
+    word-break: break-word;
     &:hover {
       background-color: lighten(@brand-warning, 40%);
     }
@@ -321,29 +307,6 @@ body#admin {
 }
 
 
-.waiting {
-    display: table;
-}
-
-@-webkit-keyframes spin {
-    from   {-webkit-transform: rotate(0deg); }
-    to {-webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-    from   {transform: rotate(0deg); }
-    to {transform: rotate(360deg); }
-}
-
-.waiting .middle {
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center;
-}
-.waiting .middle i {
-    animation: spin 2s infinite;
-    -webkit-animation: spin 2s linear infinite; /* Safari and Chrome */
-}
 
 .lessons.organizing-lessons .handle,
 .lessons.organizing-lessons .handle * {
@@ -379,4 +342,8 @@ body#admin {
   a {
     cursor: pointer;
   }
+}
+
+.add-side-notes .editable {
+    min-height: 150px;
 }

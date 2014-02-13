@@ -2,8 +2,8 @@
 
     var app = angular.module('edit-lesson');
 
-    app.controller('EditLessonController', ['$scope', 'Course', 'CourseProfessor', 'Lesson', 'VideoData', 'youtubePlayerApi',
-        function($scope, Course, CourseProfessor, Lesson, VideoData, youtubePlayerApi){
+    app.controller('EditLessonController', ['$scope', 'Course', 'CourseProfessor', 'Lesson', 'VideoData', 'youtubePlayerApi', 'MarkdownDirective', 'waitingScreen',
+        function($scope, Course, CourseProfessor, Lesson, VideoData, youtubePlayerApi, MarkdownDirective, waitingScreen){
             $scope.errors = {};
             var httpErrors = {
                 '400': 'Os campos não foram preenchidos corretamente.',
@@ -17,7 +17,8 @@
                 $scope.playerReady = true;
             });
 
-            // end load youtube
+            // show the waiting screen
+            waitingScreen.show();
 
             $scope.play = function(youtube_id) {
                 youtubePlayerApi.loadPlayer().then(function(player){
@@ -36,12 +37,15 @@
                 {'name': 'multiplechoice', 'label': 'Múltipla escolha'},
                 {'name': 'trueorfalse', 'label': 'Verdadeiro ou falso'},
                 {'name': 'relationship', 'label': 'Relacionar sentenças'},
-                {'name': 'html5', 'label': 'HTML5'}
+                {'name': 'html5', 'label': 'HTML5'},
+                {'name': 'markdown', 'label': 'Texto simples'}
             ];
 
             /*  Methods */
             $scope.setLesson = function(l) {
                 $scope.lesson = l;
+                document.title = 'Aula: {0}'.format(l.name);
+
                 if(l.units.length > 0) {
                     $scope.selectUnit(l.units[0]);
                 } else {
@@ -60,8 +64,7 @@
                         if(activityIndex >= 0) {
                             $scope.currentActivity = $scope.currentUnit.activities[activityIndex];
                         }
-                    })
-                    .catch(function(resp){
+                    })['catch'](function(resp){
                         $scope.alert.error(httpErrors[resp.status.toString()]);
                     });
             };
@@ -110,6 +113,9 @@
                     $scope.currentActivity = $scope.currentUnit.activities[0];
                 }
                 $scope.newActivityType = null;
+
+                MarkdownDirective.resetEditors();
+                MarkdownDirective.refreshEditorsPreview();
             };
 
             $scope.addUnit = function() {
@@ -169,6 +175,11 @@
                 $scope.newActivityType = null;
             };
 
+            $scope.selectActivity = function(activity) {
+                $scope.currentActivity = activity;
+                MarkdownDirective.resetEditors();
+            };
+
             $scope.removeCurrentActivity = function() {
                 if(!$scope.currentUnit) return;
                 if(!$scope.currentUnit.activities) return;
@@ -196,6 +207,9 @@
                     .then(function(course){
                         $scope.courseProfessors = CourseProfessor.query({ course: course.id });
                         $scope.lesson.course = course.slug;
+                        $scope.course_url = 'admin/courses/' + course.id;
+                        $scope.course_material_url = 'admin/course/' + course.id  + '/material/';
+                        $scope.forum_url = 'admin/course/' + course.id +  '/forum/';
                         return $scope.courseProfessors.$promise;
                     });
 
@@ -212,9 +226,10 @@
                             $scope.lesson.position = $scope.lessons.length;
                             $scope.lessons.push($scope.lesson);
                         }
-                    })
-                    .catch(function(resp){
+                        waitingScreen.hide();
+                    })['catch'](function(resp){
                         $scope.alert.error(httpErrors[resp.status.toString()]);
+                        waitingScreen.hide();
                     });
             }
             // ^^ como faz isso de uma formula angular ?

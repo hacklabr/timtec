@@ -46,36 +46,58 @@
                         $scope.save_note();
                 });
     }]).
-    controller('CourseNotesCtrl', ['$scope', '$window', '$location', 'UserNotes', 'Note',
-            function ($scope, $window, $location, UserNotes, Note) {
-                UserNotes.query({}, function(notes){
-                    var lessons = [];
-                    var lessons_ids = [];
+    controller('CourseNotesCtrl', ['$scope', '$window', 'CourseUserNotes', 'Note',
+            function ($scope, $window, CourseUserNotes, Note) {
+                var course_slug = $window.location.pathname.split('/')[2];
+                CourseUserNotes.query({course_slug: course_slug}, function(lessons){
+
                     function compare(a,b) {
-                        if (a.content_object.position < b.content_object.position)
+                        if (a.position < b.position)
                            return -1;
-                        if (a.content_object.position > b.content_object.position)
+                        if (a.position > b.position)
                            return 1;
                         return 0;
                     }
-                    var lesson = [];
-                    var index = -1;
-                    angular.forEach(notes, function(note) {
-                        lesson = note.lesson;
-                        delete note.lesson;
-                        index = lessons_ids.indexOf(lesson.id);
-                        if (index === -1) {
-                            index = lessons.length;
-                            lesson.notes = [];
-                            lessons.push(lesson);
-                            lessons_ids.push(lesson.id);
-                        }
-                        lessons[index].notes.push(note);
-                    });
+                    lessons.sort(compare);
                     angular.forEach(lessons, function(lesson) {
-                        lesson.notes.sort(compare);
+                        lesson.units_notes.sort(compare);
                     });
                     $scope.lessons = lessons;
+                });
+                $scope.delele_note = function(lesson, unit, note) {
+                    if(!confirm('Tem certeza que deseja remover esta anotação?')) return;
+
+                    Note.remove({note_id: note.id}, function (){
+                        var index;
+                        if (lesson.units_notes.length > 1) {
+                            index = lesson.units_notes.indexOf(unit);
+                            lesson.units_notes.splice(index, 1);
+                        } else {
+                            index = $scope.lessons.indexOf(lesson);
+                            $scope.lessons.splice(index, 1);
+                        }
+                    });
+                };
+    }]).
+    controller('UserNotesCtrl', ['$scope', '$window', 'UserNotes', 'Note',
+            function ($scope, $window, UserNotes, Note) {
+                UserNotes.query({}, function(courses){
+
+                    function compare(a,b) {
+                        if (a.position < b.position)
+                           return -1;
+                        if (a.position > b.position)
+                           return 1;
+                        return 0;
+                    }
+                    angular.forEach(courses, function(course) {
+                        course.lessons_notes.sort(compare);
+                        angular.forEach(course.lessons_notes, function(lesson) {
+                            lesson.units_notes.sort(compare);
+                        });
+                    });
+
+                    $scope.courses = courses;
                 });
     }]);
 })(angular);

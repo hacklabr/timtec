@@ -19,7 +19,16 @@
     <!-- END HEADER -->
     <!-- MAIN CONTENT -->
     <section id="course-content" class="container">
-        <h1>Material do Curso</h1>
+        <header>
+            <div class="row">
+                <div class="col-lg-9">
+                    <h1>{% trans "Course Material" %}</h1>
+                </div>
+                <div class="col-lg-3">
+                    <a href="{% url "lesson" course.slug course.first_lesson.slug %}" class="goto-course btn btn-lg btn-danger uppercase">{% trans "Go to course" %}</a>
+                </div>
+            </div>
+        </header>
         <div class="row">
             <div class="col-sm-9 col-lg-9">
                 <!-- COURSE MATERIAL TEXT FORM -->

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+        <!-- CONTAINER -->
+        <div id="home" class="container">
+            <header class="page-header-double">
+                <h3><i class="fa fa-angle-double-right"></i> Cursos do Tim Tec</h3>
+            </header>
+
+            <section class="courses">
+                {% for course in courses %}
+                <!-- COURSE -->
+                <div class="course">
+                    <header>
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <h1><a href="{% url 'course_intro' course.slug %}">{{ course.name }}</a></h1>
+                            </div>
+                            <div class="col-lg-4 textright">
+                                <div class="btn-group">
+                                    <a href="{% url 'course_intro' course.slug %}" class="btn btn-sm btn-success">Ir par ao curso</a>
+                                    <a href="{% url 'course_intro' course.slug %}" class="btn btn-sm btn-success"><i class="fa fa-angle-double-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                </div>
+                <!-- END COURSE -->
+                {% endfor %}
+            </section>
+        </div>
+        <!-- CONTAINER -->
+{% endblock %}

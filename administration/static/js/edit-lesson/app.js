@@ -3,12 +3,13 @@
 
     angular.module('edit-lesson', [
         'django',
+        'directive.waiting-screen',
         'directive.alertPopup',
         'directive.contenteditable',
         'directive.codemirror',
         'timtec-models',
         'directive.fixedBar',
-        // 'directive.markdowneditor',
+        'directive.markdowneditor',
         // 'directive.sortable',
         // 'filters.text',
         'youtube'

@@ -2,7 +2,7 @@
     <h1>{{ currentActivity.data.question }}</h1>
 </div>
 <div class="answers simplechoice-answers">
-    <div ng-repeat="alt in currentActivity.data.alternatives" class="answer">
+    <div ng-repeat="alt in currentActivity.data.alternatives track by $index" class="answer">
         <radio ng-model="$parent.answer.given" ng-value="$index">
             {{ alt }}
         </radio>

@@ -56,12 +56,11 @@ class CourseMaterialAdminView(LoginRequiredMixin, DetailView):
     model = CourseMaterial
     context_object_name = 'course_material'
     template_name = 'course-material-admin.html'
-    slug_field = 'course__slug'
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(CourseMaterialAdminView, self).get_context_data(**kwargs)
-        self.course = get_object_or_404(Course, slug=self.kwargs['slug'])
+        self.course = get_object_or_404(Course, id=self.kwargs['pk'])
         context['course'] = self.course
         return context
 
@@ -70,12 +69,12 @@ class CourseMaterialViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     model = CourseMaterial
     serializer_class = CourseMaterialSerializer
     lookup_field = 'course'
-    filter_fields = ('course__slug',)
+    filter_fields = ('course__id',)
     filter_backends = (filters.DjangoFilterBackend,)
 
     def pre_save(self, obj):
         # Get Question vote usign kwarg as questionId
         if 'course' in self.kwargs:
-            obj.course = Course.objects.get(pk=int(self.kwargs['course']))
+            obj.course = Course.objects.get(id=int(self.kwargs['course']))
             self.kwargs['course'] = obj.course
         return super(CourseMaterialViewSet, self).pre_save(obj)

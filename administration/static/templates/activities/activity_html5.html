@@ -2,9 +2,28 @@
     <h1 class="top" ng-model="currentActivity.data.question"
         contenteditable placeholder="Título da atividade"></h1>
 </div>
-<div>
-    <div codemirror ng-model="currentActivity.expected"></div>
-    <iframe framepreview cm-bind="currentActivity.expected"
-            width="100%" frameborder="0" height="350" src='/empty/'
-            style="border: 1px solid #dddddd; background-color: #e8e8e8;"></iframe>
+
+<div class="panel" ng-init="html5section='expected'">
+    <ul class="nav nav-tabs">
+        <li ng-class="{'active':html5section=='expected'}" ng-click="html5section='expected'">
+            <a style="cursor:pointer">Resultado esperado</a>
+        </li>
+        <li ng-class="{'active':html5section=='student-code'}" ng-click="html5section='student-code'">
+            <a style="cursor:pointer">Editor do aluno</a>
+        </li>
+    </ul>
+
+    <div ng-show="html5section=='expected'">
+        <div codemirror ng-model="currentActivity.expected"></div>
+        <iframe framepreview cm-bind="currentActivity.expected"
+                width="100%" frameborder="0" height="350" src='/empty/'
+                style="border: 1px solid #dddddd; background-color: #e8e8e8;"></iframe>
+    </div>
+    <div ng-show="html5section=='student-code'">
+        <div codemirror ng-model="currentActivity.data.code"></div>
+        <iframe framepreview cm-bind="currentActivity.data.code"
+                width="100%" frameborder="0" height="350" src='/empty/'
+                style="border: 1px solid #dddddd; background-color: #e8e8e8;"></iframe>
+
+    </div>
 </div>

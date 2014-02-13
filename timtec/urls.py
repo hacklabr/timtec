@@ -15,13 +15,13 @@ from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
                         CourseProfessorViewSet, EnrollCourseView, HomeView,
                         UserCoursesView, ContactView, LessonDetailView,
                         LessonViewSet, StudentProgressViewSet,
-                        UpdateStudentProgressView, LessonsUserNotesViewSet,)
+                        UpdateStudentProgressView, UserNotesViewSet)
 
 from activities.views import AnswerViewSet
 from accounts.views import TimtecUserViewSet
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, QuestionVoteViewSet, AnswerVoteViewSet
 from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialAdminView, CourseMaterialViewSet
-from notes.views import NotesViewSet, CourseNotesView
+from notes.views import NotesViewSet, CourseNotesView, UserNotesView
 from rest_framework import routers
 
 router = routers.DefaultRouter(trailing_slash=False)
@@ -38,7 +38,7 @@ router.register(r'question_vote', QuestionVoteViewSet)
 router.register(r'answer_vote', AnswerVoteViewSet)
 router.register(r'course_material', CourseMaterialViewSet)
 router.register(r'note', NotesViewSet)
-router.register(r'lessons_notes', LessonsUserNotesViewSet)
+router.register(r'user_notes', UserNotesViewSet)
 
 #    url(r'^api/answer/(?P<unitId>[0-9]*)$', AnswerView.as_view(), name='answer'),
 
@@ -74,11 +74,11 @@ urlpatterns = patterns(
     # Course Material
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/material/file_upload/$', FileUploadView.as_view(), name='file_upload'),
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/material/$', CourseMaterialView.as_view(), name='course_material'),
-    url(r'^admin/course/(?P<slug>[-a-zA-Z0-9_]+)/material/$', CourseMaterialAdminView.as_view(), name='course_material_admin'),
+    url(r'^admin/course/(?P<pk>[0-9]*)/material/$', CourseMaterialAdminView.as_view(), name='course_material_admin'),
 
     # Notes
-    # url(r'^notes/(?P<username>[\w.+-]+)?$', UserNotesView.as_view(), name='user_notes'),
-    url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/mynotes/$', CourseNotesView.as_view(), name='user_course_notes'),
+    url(r'^notes/(?P<username>[\w.+-]+)?$', UserNotesView.as_view(), name='user_notes'),
+    url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/mynotes/$', CourseNotesView.as_view(), name='user_course_notes'),
 
     # Authentication
     url(r'^login/', CustomLoginView.as_view(), name='timtec_login'),

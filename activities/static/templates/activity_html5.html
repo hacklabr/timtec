@@ -1,4 +1,4 @@
-<div class="question textleft">
+<div class="question textleft" ng-show="currentActivity.data.question">
     <h1 class="top">{{ currentActivity.data.question }}</h1>
 </div>
 
@@ -12,7 +12,7 @@
 </ul>
 
 <div ng-show="html5section=='source-code'">
-    <div codemirror ng-model="answer.given"></div>
+    <div codemirror initial-model="currentActivity.data.code" ng-model="$parent.answer.given"></div>
     <iframe framepreview cm-bind="answer.given"
             width="100%" src='/empty/' frameborder="0"
             style="border: 2px solid #dddddd; background-color: #e8e8e8;"></iframe>

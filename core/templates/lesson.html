@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% load i18n %}
 {% load staticfiles %}
 {% load timtec_markdown %}
 
@@ -19,6 +20,7 @@ $(document).ready(function() {
 })
 </script>
 
+<script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/codemirror.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/lesson.js' %}" charset="utf-8"></script>
 
@@ -80,10 +82,10 @@ $(document).ready(function() {
                 <div class="units">
                     <a style="display:block;" data-placement="right"
                        title="{{unit.video.name}}"
+                       href="#/{{$index+1}}"
                        class="has-tooltip unit track" data-toggle="tooltip"
                        ng-repeat="unit in lesson.units"
-                       ng-class="{watching: unit==currentUnit}"
-                       ng-click="selectUnit(unit)">
+                       ng-class="{watching: unit==currentUnit, done: unit.progress.complete}">
                            <i class="fa fa-caret-right"></i>
                            <span class="position" ng-bind="unit.position+1"></span>
                            <i class="fa fa-list" ng-show="unit.activities"></i>
@@ -106,7 +108,7 @@ $(document).ready(function() {
                         <option ng-repeat="unit in lesson.units"
                                 ng-value="unit"
                                 ng-selected="unit==currentUnit"
-                                value="{{$index+1}}">Unidade {{ unit.position + 1 }}</option>
+                                value="{{$index+1}}">{% trans 'Unit' %} {{ unit.position + 1 }}</option>
                     </select>
                 </p>
             </div>
@@ -128,30 +130,43 @@ $(document).ready(function() {
                         <ng:include src="activityTemplateUrl"></ng:include>
 
                         <div ng-show="answer.correct" class="alert alert-success">
-                            <i class="fa fa-smile-o"></i> Sua resposta está <strong>correta!</strong>
+                            <i class="fa fa-smile-o"></i> {% trans 'Your answer is' %} <strong>{% trans 'correct!' %}!</strong>
                         </div>
 
                         <div ng-show="answer.correct === false" class="alert alert-danger">
-                            <i class="fa fa-frown-o"></i> <span>Sua resposta está <strong>incorreta</strong>. Reveja o vídeo com mais atenção e tente novamente.</span>
+                            <i class="fa fa-frown-o"></i> <span>{% trans 'Your answer is' %} <strong>{% trans 'wrong' %}</strong>. {% trans 'Review the video more attentively and try again' %}.</span>
                         </div>
 
                         <div class="submit">
                             <!-- if no answer or incorrect -->
                             <div class="row" ng-if="! answer.correct">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <button onClick="ga('send', 'event', 'activity', 'skip activity');" class="btn btn-default" ng-click="nextVideo()">Pular</button>
+                                    <button onClick="ga('send', 'event', 'activity', 'skip activity');" class="btn btn-default" ng-click="nextStep(true)">{% trans 'Skip' %}</button>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 textright">
-                                    <button onClick="ga('send', 'event', 'activity', 'rewatch video');" class="btn btn-info" ng-click="play()">Rever Vídeo</button>
-                                    <button class="btn btn-success" ng-click="sendAnswer()">Enviar</button>
+                                    <button onClick="ga('send', 'event', 'activity', 'rewatch video');" class="btn btn-info" ng-click="play()">{% trans 'Review the video' %}</button>
+                                    <button class="btn btn-success" ng-click="sendAnswer()">{% trans 'Send' %}</button>
                                 </div>
                             </div>
                             <!-- if correct -->
                             <div class="row" ng-if="answer.correct">
                                 <div class="col-lg-12 col-md-12 col-sm-12 textright">
-                                    <button class="btn btn-success" ng-click="nextStep()">Continuar</button>
+                                    <button class="btn btn-success" ng-click="nextStep()">{% trans 'Continue' %}</button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="section=='comment'" class="comment">
+                    <div class="panel panel-default" style="min-height: 368px;">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">{% trans 'Professor comment' %}</h2>
+                        </div>
+                        <div class="panel-body" ng-bind-html="currentActivity.comment|markdown"></div>
+                    </div>
+                    <div class="row" ng-if="answer.correct">
+                        <div class="col-lg-12 col-md-12 col-sm-12 textright">
+                            <button class="btn btn-success" ng-click="nextStep()">{% trans 'Continue' %}</button>
                         </div>
                     </div>
                 </div>
@@ -162,14 +177,14 @@ $(document).ready(function() {
             <!-- NOTES -->
             <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs" style="height:420px;">
                 <ul class="nav nav-tabs">
-                    <li><a href="#side-notes" data-toggle="tab">Saiba mais</a></li>
-                    <li class="active"><a href="#notes" data-toggle="tab">Anotações</a></li>
+                    <li><a href="#side-notes" data-toggle="tab">{% trans 'Learn more' %}</a></li>
+                    <li class="active"><a href="#notes" data-toggle="tab">{% trans 'Annotations' %}</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane" id="side-notes">
                         <br>
-                        <span ng-bind-html="lesson.units[currentUnitPos-1].side_notes|markdown"></span>
-                        <p ng-if="!lesson.units[currentUnitPos-1].side_notes">Essa unidade não possui nenhuma nota</p>
+                        <span ng-bind-html="currentUnit.side_notes|markdown"></span>
+                        <p ng-if="!currentUnit.side_notes">{% trans 'This unit has no notes' %}</p>
                     </div>
                     {% include "_notes_inline.html" %}
                 </div>
@@ -183,7 +198,7 @@ $(document).ready(function() {
             <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
                 <section class="course-instructions">
                     <div class="page-header-double">
-                        <h3><i class="fa fa-angle-double-right"></i> Notas do professor</h3>
+                        <h3><i class="fa fa-angle-double-right"></i> {% trans 'Professor notes' %}</h3>
                     </div>
                     {{ lesson.notes|timtec_markdown }}
                 </section>
@@ -192,9 +207,23 @@ $(document).ready(function() {
         {% endif %}
 
         <!-- FORUM -->
-        {% include "_forum_inline.html"  with course=lesson.course question_form=1 %}
-        <!-- END FORUM -->
+        <div class="row">
+            <div class="col-lg-8 col-sm-10 col-lg-offset-1 col-sm-offset-1">
+                {% include "_forum_inline.html"  with course=lesson.course question_form=1 %}
+            </div>
 
+        <!-- END FORUM -->
+            <div class="col-lg-3 hidden-md hidden-sm hidden-xs">
+                <section class="course-instructions">
+                    <div class="page-header-double">
+                        <h3><i class="fa fa-angle-double-right"></i> Notas do professor</h3>
+                    </div>
+                    {{ lesson.notes|timtec_markdown }}
+                </section>
+                <section class="course-social" style="position:relative;overflow:hidden;">
+                </section>
+            </div>
+        </div>
     </section>
     <!-- END COURSE CONTENT -->
 </div>

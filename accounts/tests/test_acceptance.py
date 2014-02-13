@@ -19,6 +19,37 @@ def test_custom_login_view(client, user):
 
 
 @pytest.mark.django_db
+def test_custom_login_view_email_verification(client, user):
+    from allauth.account.models import EmailAddress
+    mommy.make('Group', name="students")
+    response = client.get('/accounts/signup/')
+    assert response.status_code == 200
+    assert response.context['request'].user.is_authenticated() is False
+
+    response = client.post('/accounts/signup/', {'username': "test", 'email': "test@example.com",
+                                                 'password1': 123123, 'password2': 123123})
+
+    assert response.status_code == 302
+
+    response = client.post('/login/', {'username': "test",
+                                       'password': '123123'})
+    assert response.status_code == 302
+
+    response = client.get('/login/')
+    assert response.context['request'].user.is_authenticated() is False
+
+    ea = EmailAddress.objects.get(email="test@example.com")
+    ea.verified = True
+    ea.save()
+    response = client.post('/login/', {'username': "test",
+                                       'password': '123123'})
+    course = mommy.make('Course')
+    response = client.get('/course/' + course.slug + '/')
+    assert response.status_code == 200
+    assert response.context['request'].user.is_authenticated()
+
+
+@pytest.mark.django_db
 def test_custom_login_view_with_next_field(client, user):
     response = client.get('/login/')
     assert response.status_code == 200

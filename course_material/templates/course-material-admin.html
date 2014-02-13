@@ -10,39 +10,20 @@
 
 {% block content %}
 <!-- CONTAINER -->
-<div>
-    <!-- HEADER -->
-    <header id="main-header" class="container">
-        <div class="page-header">
-            <div class="row">
-                <div class="col-sm-9 col-lg-9">
-                    <h1 class="top editable">{{ course.name }}</h1>
-                    <h5><span class="icon-addable fa fa-plus-square"></span> Adicionar professores ao curso</h5>
-                </div>
-                <div class="col-sm-3 col-lg-3 textright">
-                    <!-- COURSE-SECTION-NAV -->
-                    <nav class="course-sections textright">
-                        <a href="#url 'course_admin' slug=course.slug">
-                            <span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="Intro"></span>
-                        </a>
-                        <a href="{% url 'course_material_admin' course.slug %}">
-                            <span class="has-tooltip fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" data-original-title="Material Didádico"></span>
-                        </a>
-                    </nav>
-                    <!-- END COURSE-SECTION-NAV -->
-                </div>
-            </div>
-        </div>
-    </header>
-    <!-- END HEADER -->
+<div id="course" class="course-material" ng-app="courseMaterial">
+
+    <div ng-controller="HeaderController">
+        {% include "_admin_header_inline.html"%}
+    </div>
+
     <!-- MAIN CONTENT -->
     <section id="main-content" class="container">
         <div class="row">
-            <div class="col-sm-9 col-lg-9" ng-app="courseMaterial" ng-controller="CourseMaterialEditorCtrl">
+            <div class="col-sm-9 col-lg-9" ng-controller="CourseMaterialEditorCtrl">
                 <p class="description">
                     <span class="description" ng-bind-html="course_material.text|markdown"></span>
                 </p>
-                <a data-toggle="modal" href="#course-material-modal">Editar texto</a>
+                <a data-toggle="modal" href="#course-material-modal">{% trans 'Edit text' %}</a>
                 {% verbatim %}
                 <div class="modal fade" id="course-material-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
