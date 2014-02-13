@@ -668,7 +668,8 @@ a, a:hover, a:active {
 #course,
 #forum,
 #messages,
-#my-notes {
+#my-notes,
+#stats {
   header {
     .page-header {
       border-bottom: 1px solid @gray-lighter;
@@ -724,7 +725,8 @@ a, a:hover, a:active {
 #course.course-material,
 #forum.course-forum,
 #messages.course-messages,
-#my-notes.course-notes {
+#my-notes.course-notes,
+#stats.course-stats {
   header {
     .page-header {
       margin-bottom: 0;
@@ -987,10 +989,10 @@ a, a:hover, a:active {
         background-color: @brand-info;
       }
       &.done, &.done:hover {
-        background:@brand-success;
+        background:@brand-warning;
         .transition(all .25s ease-out);
         &:hover {
-          background:darken(@brand-success, 10%);
+          background:darken(@brand-warning, 10%);
         }
       }
       &.watching, &.watching:hover {
@@ -1102,6 +1104,7 @@ a, a:hover, a:active {
 // MY NOTES
 // ********************************************************************* //
 #my-notes {
+  min-height: 520px;
   #notes-content {
     header {
       border-bottom: 1px solid @gray-lighter;
@@ -1140,7 +1143,6 @@ a, a:hover, a:active {
     }
   }
   .courses {
-    min-height: 500px;
     .course {
       border-bottom:1px solid @gray-lighter;
       padding:9px 0;
@@ -1181,6 +1183,10 @@ a, a:hover, a:active {
     }
     .questions {
       margin-top: 20px;
+    }
+    .hide-question {
+      display: block;
+      margin-top: 10px;
     }
     article {
       border-bottom: 1px solid @gray-lighter;
@@ -1325,6 +1331,60 @@ a, a:hover, a:active {
 }
 
 
+
+// STATS
+// ********************************************************************* //
+#stats {
+  #stats-content {
+    header {
+      border-bottom: 1px solid @gray-lighter;
+      padding-bottom: 20px;
+      h1 {
+        margin-top: 25px;
+      }
+    }
+    ul.students {
+      list-style: none;
+      margin: 20px 0 0  0;
+      padding: 0;
+      li {
+        border-bottom: 1px solid @gray-light;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        &:first-child {
+          border-top: 1px solid @gray-light;
+          margin-top: 10px;
+          padding-top: 10px;
+        }
+        .progress {
+          background: @gray-lighter;
+          border-radius: 0;
+          height: 12px;
+          margin: 4px 0 0 0;
+          padding: 0;
+          position: relative;
+          .progress-bar {
+            border-radius: 0;
+          }
+        }
+        .lesson {
+          border-top: 1px solid @gray-lighter;
+          margin-top: 10px;
+          padding-top: 10px;
+          &:first-child {
+            margin-top: 20px;
+          }
+          span {
+            color: @gray;
+            font-size: 12px;
+            margin-right: 20px;
+            text-transform: uppercase;
+          }
+        }
+      }
+    }
+  }
+}
 
 
 // MY COURSES
@@ -1943,4 +2003,24 @@ ul.uploaded-files-list {
 
 .pointer {
   cursor: pointer;
+}
+
+
+
+
+#home {
+  .courses {
+    .course {
+      border-bottom: 1px solid @gray-lighter;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      h1 {
+        font-size: 18px;
+        margin: 5px 0 0 0;
+      }
+      .btn-group {
+        text-transform: uppercase;
+      }
+    }
+  }
 }

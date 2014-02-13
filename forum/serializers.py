@@ -14,7 +14,7 @@ class QuestionSerializer(serializers.ModelSerializer):
         model = Question
         fields = ('id', 'title', 'course', 'answers', 'text', 'slug',
                   'votes', 'timestamp', 'username', 'hidden',
-                  'hidden_by', 'hidden_to_user', 'moderator',)
+                  'hidden_by', 'hidden_to_user', 'moderator', 'hidden_justification',)
 
     def count_votes(self, obj):
         if obj:

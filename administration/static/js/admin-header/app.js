@@ -2,17 +2,10 @@
     'use strict';
 
     angular.module('adminHeader', [
-        'ngRoute',
-        'django',
         'adminHeader.controllers',
-        'forum',
+        'django',
         'timtec-models',
-        'directive.alertPopup',
-        'directive.contenteditable',
-        'directive.fixedBar',
-        'directive.markdowneditor',
-        'directive.sortable',
-        'filters.text',
+        'ngRoute',
         'ngResource'
     ]);
 })(angular);

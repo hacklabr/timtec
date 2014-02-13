@@ -81,7 +81,7 @@
                                         <p><span class="numbers-votes">{{question.votes}}</span>votos</p>
                                         <p><span class="numbers-answers">{{ question.answers.length }}</span>respostas</p>
                                     </div>
-                                    <div ng-if="!question.hidden && question.moderator" ng-click="hide_question(question)" class="actions btn btn-danger btn-sm">Ocultar</div>
+                                    <div ng-if="!question.hidden && question.moderator" ng-click="justification_modal(question)" class="hide-question btn btn-danger btn-sm">Ocultar</div>
                                 </td>
                                 <td style="width:100%;">
                                     <div class="content">
@@ -93,40 +93,36 @@
                             </tr>
                         </table>
                         <div ng-if="question.hidden" class="clear why-hidden">
-                            <h1>Entenda porque sua pergunta foi ocultada</h1>
-                            <div class="content">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras consectetur arcu sem, non auctor tellus bibendum vel. Maecenas gravida dictum orci, eu sollicitudin augue dignissim accumsan. Suspendisse ac vulputate eros. Aenean volutpat a orci et condimentum. In vel molestie nibh, ut congue lorem. Proin eu augue ante. Maecenas tristique lectus vel neque convallis luctus. Suspendisse potenti. Suspendisse lobortis ante pretium rutrum fermentum. Sed ac risus sed purus posuere cursus at vel est. Integer felis ligula, vulputate et semper quis, dictum sed augue.</p>
-                                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla facilisi. Integer sem tellus, condimentum eu iaculis ut, adipiscing rhoncus urna. Duis et bibendum dui. Ut porttitor luctus neque. Praesent sit amet augue non ipsum rutrum rutrum ac fermentum orci. Mauris varius arcu ipsum, eu pharetra nunc rhoncus ut. Morbi nec ante sed orci aliquet vehicula non nec magna. Aliquam placerat metus sit amet mi malesuada, a ultrices nunc tempus. Suspendisse nec sagittis dolor.</p>
-                            </div>
+                            <h1 class="bottom">Entenda porque sua pergunta foi ocultada</h1>
+                            <div class="content">{{ question.hidden_justification }}</div>
                         </div>
                     </article>
                 </div>
+                {% endverbatim angularjs %}
+                <script type="text/ng-template" id="justificationModal.html">
+                <!-- <div class="modal fade" id="new-message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> -->
+                    <!-- <div class="modal-dialog"> -->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel">{% trans "Why my question was hidden?" %}</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="10" placeholder="Message" required="true" ng-model="question.hidden_justification"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="col-lg-12">
+                                    <button type="button" class="btn btn-danger" ng-click="cancel()">{% trans "Close" %}</button>
+                                    <button type="button" class="btn btn-success" ng-click="ok()" data-dismiss="modal">{% trans "Send" %}</button>
+                                </div>
+                            </div>
+                        </div>
+                      <!-- </div> -->
+                <!-- </div> -->
+                </script>
             </section>
             <!-- QUESTIONS LIST-->
-        {% endverbatim angularjs %}
     </section>
 </section>
-
-<p><a class="btn btn-lg btn-danger uppercase" data-toggle="modal" data-target="#new-message">ABRIR MODAL!!!!!!</a></p>
-
-<div class="modal fade" id="new-message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">{% trans "Why my question was hidden?" %}</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <textarea class="form-control" rows="10" placeholder="Message"></textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div class="col-lg-12">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">{% trans "Close" %}</button>
-                    <button type="button" class="btn btn-success">{% trans "Send" %}</button>
-                </div>
-            </div>
-        </div>
-      </div>
-</div>

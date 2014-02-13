@@ -7,7 +7,13 @@
         var $httpBackend, $rootScope, createController, $window;
 
         beforeEach(module('forum'));
-        beforeEach(module('forum.controllers'));
+        // beforeEach(module(function ($provide) {
+            // $provide.value('adminHeader', {});
+        // }));
+        
+        // beforeEach(module('adminHeader'));
+        // beforeEach(module('forum.controllers'));
+
         beforeEach(inject(function ($injector) {
             $httpBackend = $injector.get('$httpBackend');
             $rootScope = $injector.get('$rootScope');
@@ -68,7 +74,7 @@
                 $httpBackend.expect('GET', '/api/forum_question/1').
                     respond({"id": 1, "text": "O MySQL \u00e9 melhor?", "votes": 0, "timestamp": "2013-09-11T16:28:10.754Z", "username": "abcd"});
                 $httpBackend.expect('GET', '/api/forum_answer?question=1&user=1').
-                    respond([{"id": 1, "question": 1, "text": "O MySQL \u00e9 melhor, pois \u00e9 o mais usado e aceito.", "votes": 0, "timestamp": "2013-09-11T16:28:10.754Z", "username": "abcd"}]);
+                    respond([{"id": 1, "question": 1, "text": "O MySQL \u00e9 melhor, pois \u00e9 o mais usado e aceito.", "votes": 0, "timestamp": "2013-09-11T16:28:10.754Z", "username": "abcd"}]);    
                 $httpBackend.flush();
                 expect(scope.editor_enabled).toBe(false);
             }));

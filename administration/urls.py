@@ -25,4 +25,6 @@ urlpatterns = patterns(
     url(r'^course/(?P<course_id>[1-9][0-9]*)/forum/', AdminCourseForumView.as_view()),
 
     url(r'^users/$', lr(TemplateView.as_view(template_name="users.html"))),
+
+    url(r'^stats/$', lr(TemplateView.as_view(template_name="stats.html"))),
 )
