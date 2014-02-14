@@ -6,6 +6,7 @@ from django.core.mail import send_mail
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.staticfiles.storage import staticfiles_storage
+from django.template import Template, Context
 from django.contrib.contenttypes import generic
 from django.conf import settings
 
@@ -181,7 +182,13 @@ class ProfessorMessage(models.Model):
 
     def send(self):
         to = [u.user.email for u in self.users]
-        return send_mail(self.subject, self.message, settings.DEFAULT_FROM_EMAIL, to, fail_silently=False)
+        try:
+            et = EmailTemplate.objects.get(name='professor-message')
+        except EmailTemplate.DoesNotExist:
+            et = EmailTemplate(name="professor-message", subject="{{subject}}", template="{{message}}")
+        subject = Template(et.subject).render(Context({'subject': self.subject}))
+        message = Template(et.template).render(Context({'message': self.message}))
+        return send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, to, fail_silently=False)
 
 
 class Lesson(models.Model):
@@ -279,3 +286,9 @@ class StudentProgress(models.Model):
 
     def __unicode__(self):
         return u'%s @ %s c: %s la: %s' % (self.user, self.unit, self.complete, self.last_access)
+
+
+class EmailTemplate(models.Model):
+    name = models.CharField(max_length=50)
+    subject = models.CharField(max_length=255)
+    template = models.TextField()
