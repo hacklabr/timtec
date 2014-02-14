@@ -4,6 +4,9 @@
 
 
 {% block js %} {{block.super}}
+<script src="{% static 'js/admin-header/app.js' %}"></script>
+<script src="{% static 'js/admin-header/controllers.js' %}"></script>
+<script src="{% static 'js/factories/timtec-models.js' %}"></script>
 {% endblock %}
 
 
@@ -13,37 +16,9 @@
 <!--  COURSE CONTENT  -->
 <div id="messages" class="course-messages">
 
-    <!-- MAIN-HEADER -->
-    <header id="main-header" class="container">
-        <div class="page-header">
-            <div class="row">
-                <div class="col-lg-9 col-sm-9">
-                    <h1 class="course-name bottom top">
-                        <a href="">HTML5 - INTRODUÇÃO AO FRONT END</a>
-                    </h1>
-                    <ul class="instructors">
-                        <li><a href="/profile/fabioflat">Fabio Flatschart</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-sm-3">
-                    <!-- COURSE-SECTION-NAV -->
-                    <nav class="course-sections textright">
-                        <a href=""><span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="Intro"></span></a>
-                        <a href=""><span class="has-tooltip fa fa-film" data-toggle="tooltip" data-placement="top" data-original-title="Aulas"></span></a>
-                        {% comment %}
-                        <!-- TODO: Bruno Martin -->
-                        <a href="profile-note.html"><span class="has-tooltip fa fa-pencil" data-toggle="tooltip" data-placement="top" data-original-title="Anotações"></span></a>
-                        {% endcomment %}
-                        <a href=""><span class="has-tooltip fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="Fórum"></span></a>
-                        <a href=""><span class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="Material Didádico"></span></a>
-                        <a href=""><span class="has-tooltip fa fa-pencil-square-o" data-toggle="tooltip" data-placement="top" data-original-title="Notas"></span></a>
-                    </nav>
-                    <!-- END COURSE-SECTION-NAV -->
-                </div>
-            </div>
-        </div>
-    </header>
-    <!-- MAIN-HEADER -->
+    <div ng-app="adminHeader" ng-controller="HeaderController">
+        {% include "_admin_header_inline.html"%}
+    </div>
 
     <!-- COURSE-CONTENT -->
     <section id="messages-content" class="container">

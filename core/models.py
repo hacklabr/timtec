@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
+from __future__ import division
 from positions import PositionField
-
 from django.db import models
 from django.core.mail import send_mail
 from django.template.defaultfilters import slugify
@@ -58,15 +58,15 @@ class Course(models.Model):
 
     @property
     def unit_set(self):
-        return Unit.objects.filter(lesson__in=self.lesson_set.all()).order_by('lesson')
+        return Unit.objects.filter(lesson__in=self.lessons.all()).order_by('lesson')
 
     @property
     def public_lessons(self):
-        return self.lesson_set.exclude(status='draft')
+        return self.lessons.exclude(status='draft')
 
     def first_lesson(self):
-        if self.lesson_set.exists():
-            return self.lesson_set.all()[0]
+        if self.lessons.exists():
+            return self.lessons.all()[0]
 
     def enroll_student(self, student):
         params = {'user': student, 'course': self}
@@ -109,6 +109,38 @@ class CourseStudent(models.Model):
             return 0
         units_done_len = self.units_done.count()
         return int(100.0 * units_done_len / units_len)
+
+    def units_done_by_lesson(self, lesson):
+        return StudentProgress.objects.exclude(complete=None)\
+                                      .filter(user=self.user, unit__lesson=lesson)
+
+    def get_lesson_finish_time(self, lesson):
+        latest = StudentProgress.objects.exclude(complete=None).filter(user=self.user, unit__lesson=lesson).order_by('complete')
+        if latest:
+            return latest.latest('complete').complete
+        else:
+            return ''
+
+    def percent_progress_by_lesson(self):
+        """
+        Returns a list with dictionaries with keys name (lesson name), slug (lesson slug) and progress (percent lesson progress, decimal)
+        """
+        progress_list = []
+        for lesson in self.course.lessons.all():
+            lesson_progress = {}
+            lesson_progress['name'] = lesson.name
+            lesson_progress['slug'] = lesson.slug
+            lesson_progress['position'] = lesson.position
+            units_len = lesson.unit_count()
+            if units_len:
+                units_done_len = self.units_done_by_lesson(lesson).count()
+                lesson_progress['progress'] = 100 * units_done_len / units_len
+                lesson_progress['finish'] = self.get_lesson_finish_time(lesson)
+            else:
+                lesson_progress['progress'] = 0
+                lesson_progress['finish'] = ''
+            progress_list.append(lesson_progress)
+        return progress_list
 
 
 class CourseProfessor(models.Model):
@@ -159,7 +191,7 @@ class Lesson(models.Model):
         ('published', _('Published')),
     )
 
-    course = models.ForeignKey(Course, verbose_name=_('Course'))
+    course = models.ForeignKey(Course, verbose_name=_('Course'), related_name='lessons')
     desc = models.CharField(_('Description'), max_length=255)
     name = models.CharField(_('Name'), max_length=255)
     notes = models.TextField(_('Notes'), default="", blank=True)

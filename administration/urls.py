@@ -19,12 +19,12 @@ urlpatterns = patterns(
     url(r'^courses/(?P<course_id>[1-9][0-9]*)/lessons/(?P<pk>[1-9][0-9]*)/$', lr(TemplateView.as_view(template_name="new_lesson.html"))),
 
     # messages
-    url(r'^messages/$', lr(TemplateView.as_view(template_name="messages.html"))),
-    url(r'^message/$', lr(TemplateView.as_view(template_name="message.html"))),
+    url(r'^course/(?P<course_id>[1-9][0-9]*)/messages/$', lr(TemplateView.as_view(template_name="messages.html"))),
+    url(r'^course/(?P<course_id>[1-9][0-9]*)/message/$', lr(TemplateView.as_view(template_name="message.html"))),
 
     url(r'^course/(?P<course_id>[1-9][0-9]*)/forum/', AdminCourseForumView.as_view()),
 
     url(r'^users/$', lr(TemplateView.as_view(template_name="users.html"))),
 
-    url(r'^stats/$', lr(TemplateView.as_view(template_name="stats.html"))),
+    url(r'^course/(?P<course_id>[1-9][0-9]*)/stats/$', lr(TemplateView.as_view(template_name="stats.html"))),
 )

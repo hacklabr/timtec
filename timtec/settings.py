@@ -185,6 +185,9 @@ PIPELINE_JS = {
             'js/contact_form.js',
             'js/helpers.js',
             'js/angular-youtube.js',
+            'js/reports/app.js',
+            'js/reports/controllers.js',
+            'js/reports/services.js',
         ),
         'output_filename': 'js/all.js',
     },
@@ -334,6 +337,7 @@ INSTALLED_APPS = (
     'forum',
     'course_material',
     'notes',
+    'reports',
     # django-metron
     'metron',
     # allauth

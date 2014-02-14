@@ -7,6 +7,29 @@ from core.models import CourseStudent
 
 
 @pytest.mark.django_db
+def test_percent_progress_by_lesson(user):
+    from datetime import datetime
+    course = mommy.make('Course')
+    lesson = mommy.make('Lesson', name='Test Course', slug='test-course', course=course)
+    video = mommy.make('Video')
+    activity = mommy.make('Activity')
+    unit1 = mommy.make('Unit', lesson=lesson, video=video, activity=activity)
+    unit2 = mommy.make('Unit', lesson=lesson, video=None, activity=activity)
+    unit3 = mommy.make('Unit', lesson=lesson, video=video, activity=None)
+    unit4 = mommy.make('Unit', lesson=lesson, video=video, activity=None)
+    course_student = mommy.make('CourseStudent', course=course, user=user)
+    mommy.make('StudentProgress', user=user, unit=unit1, complete=datetime.now())
+    mommy.make('StudentProgress', user=user, unit=unit2, complete=datetime.now())
+    mommy.make('StudentProgress', user=user, unit=unit3, complete=datetime.now())
+    mommy.make('StudentProgress', user=user, unit=unit4)
+
+    progress = course_student.percent_progress_by_lesson()
+    assert progress[0]['name'] == 'Test Course'
+    assert progress[0]['slug'] == 'test-course'
+    assert progress[0]['progress'] == 75
+
+
+@pytest.mark.django_db
 def test_lesson_counts(settings):
     lesson = mommy.make('Lesson')
     video = mommy.make('Video')
