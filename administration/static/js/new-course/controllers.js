@@ -31,8 +31,8 @@
                         // course_material and forum urls
                         $scope.course_material_url = 'admin/course/' + course.id  + '/material/';
                         $scope.forum_url = 'admin/course/' + course.id +  '/forum/';
-                        $scope.messages_url = 'admin/course/' + course.id   + 'messages/';
-                        $scope.reports_url = 'admin/course/' + course.id   + 'stats/';
+                        $scope.messages_url = 'admin/course/' + course.id   + '/messages/';
+                        $scope.reports_url = 'admin/course/' + course.id   + '/stats/';
                     })
                     .then(function(){
                         $scope.lessons = Lesson.query({'course__id': match[1]});
