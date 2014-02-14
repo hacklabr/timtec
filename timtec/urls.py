@@ -22,6 +22,7 @@ from accounts.views import TimtecUserViewSet
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, QuestionVoteViewSet, AnswerVoteViewSet
 from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialAdminView, CourseMaterialViewSet
 from notes.views import NotesViewSet, CourseNotesView, UserNotesView
+from reports.views import UserCourseStats
 from rest_framework import routers
 
 router = routers.DefaultRouter(trailing_slash=False)
@@ -39,6 +40,7 @@ router.register(r'answer_vote', AnswerVoteViewSet)
 router.register(r'course_material', CourseMaterialViewSet)
 router.register(r'note', NotesViewSet)
 router.register(r'user_notes', UserNotesViewSet)
+router.register(r'reports', UserCourseStats)
 
 #    url(r'^api/answer/(?P<unitId>[0-9]*)$', AnswerView.as_view(), name='answer'),
 

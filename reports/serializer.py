@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from rest_framework import serializers
-from core.models import Lesson, CourseStudent
+from core.models import CourseStudent
 
 
 # class LessonUserStatsSerializer(serializers.ModelSerializer):
@@ -26,7 +26,7 @@ class UserCourseStats(serializers.ModelSerializer):
 
     class Meta:
         model = CourseStudent
-        fields = ('username', 'email', 'name' 'lessons_stats',)
+        fields = ('name', 'username', 'email', 'course_progress', 'lessons_progress',)
 
     def get_full_name(self, obj):
         return obj.user.get_full_name()
@@ -38,7 +38,7 @@ class UserCourseStats(serializers.ModelSerializer):
         return obj.user.email
 
     def get_user_progress(self, obj):
-        obj.percent_progress()
+        return obj.percent_progress()
 
     def get_lesson_progress(self, obj):
         return obj.percent_progress_by_lesson()

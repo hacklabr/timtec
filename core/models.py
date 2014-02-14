@@ -132,7 +132,7 @@ class CourseStudent(models.Model):
             units_len = lesson.unit_count()
             if units_len:
                 units_done_len = self.units_done_by_lesson(lesson).count()
-                lesson_progress['progress'] = units_done_len / units_len
+                lesson_progress['progress'] = 100 * units_done_len / units_len
                 lesson_progress['finish'] = self.get_lesson_finish_time(lesson)
             else:
                 lesson_progress['progress'] = 0
