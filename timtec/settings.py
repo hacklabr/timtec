@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Django settings for timtec project.
+from django.utils.translation import ugettext_lazy as _
 import os
 SETTINGS_DIR = os.path.dirname(os.path.realpath(__file__))
 PROJECT_ROOT = os.path.dirname(SETTINGS_DIR)
@@ -70,7 +71,10 @@ USE_I18N = True
 USE_L10N = True
 
 LANGUAGES = (
-    ('pt-br', u'Português'),
+    ('pt-br', _('Brazilian Portuguese')),
+    ('it', _('Italian')),
+    ('es', _('Spanish')),
+    ('en', _('English')),
 )
 
 LOCALE_PATHS = (
