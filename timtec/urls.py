@@ -46,7 +46,7 @@ router.register(r'reports', UserCourseStats)
 
 urlpatterns = patterns(
     '',
-    url(r'^$', RedirectView.as_view(url='/course/html5'), name='home_view'),
+    url(r'^$', RedirectView.as_view(url=settings.SITE_HOME), name='home_view'),
     url(r'^courses', HomeView.as_view(), name='courses'),
 
     # Uncomment the next line to enable the admin:
