@@ -57,7 +57,7 @@ ng-app="new-course"
                               tabindex="1"></span></h1>
 
                     <div class="course-slug clearfix">
-                        <label>http://www.timtec.com.br/course/</label>
+                      <label>http://{{ site.domain }}/course/</label>
                         <strong>
                             <span ng-bind="course.name|slugify" ng-hide="course.slug"></span>
                             <span ng-model="course.slug" contenteditable></span>
