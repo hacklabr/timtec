@@ -32,7 +32,7 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                     &times;
                                 </button>
-                                <h4 class="modal-title">Editar material didático</h4>
+                                <h4 class="modal-title">{% trans 'Edit course material' %}</h4>
                             </div>
                             <div class="modal-body">
                                 <div class="text-editor" markdowneditor="true">
@@ -48,10 +48,10 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" ng-click="reset()" class="btn btn-default" data-dismiss="modal">
-                                        Cancelar
+                                        {% trans 'Cancel' %}
                                     </button>
                                     <button type="button" ng-click="save()" class="btn btn-primary" data-dismiss="modal">
-                                        Save changes
+                                        {% trans 'Save' %}
                                     </button>
                                 </div>
                             </div>
@@ -63,11 +63,7 @@
             <!-- ASIDE -->
             <aside class="col-sm-3 col-lg-3">
                 <form action="{% url 'file_upload' course.slug %}" class="dropzone textcenter" drop-zone id="file-dropzone">
-                    <p>
-                        <strong>Drop</strong> files to upload
-                        <br>
-                        (or click)
-                    </p>
+                    <p><strong>{% trans 'Drop' %}</strong> {% trans 'files to upload' %}<br>{% trans '(or click)' %}</p>
                     {% csrf_token %}
                 </form>
                 <ul class="uploaded-files-list">

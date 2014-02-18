@@ -50,20 +50,22 @@
             <section class="questions clearfix" ng-show="totalItems==0">
             {% trans "There is no question in this forum yet" %}
             </section>
-            {% verbatim angularjs %}
+            
             <section class="questions clearfix" ng-show="totalItems>0">
                 <div class="search-filter">
                     <div class="row">
                         <div class="col-lg-7 col-sm-7">
                             <div class="btn-group">
+                                {% verbatim angularjs %}
                                 <button type="button" class="btn btn-info">{{ sort_label }}</button>
+                                {% endverbatim angularjs %}
                                 <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-chevron-down"></i>
                                 </button>
                                 <ul class="dropdown-menu top">
-                                    <li><a href="" ng-click="sortBy('votes')">Mais votadas</a></li>
-                                    <li><a href="" ng-click="sortBy('date')">Mais recentes</a></li>
-                                    <li><a href="" ng-click="sortBy('answers')">Mais respondidas</a></li>
+                                    <li><a href="" ng-click="sortBy('votes')">{% trans 'Most voted'%}</a></li>
+                                    <li><a href="" ng-click="sortBy('date')">{% trans 'Most recent'%}</a></li>
+                                    <li><a href="" ng-click="sortBy('answers')">{% trans 'Most answerd'%}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -72,14 +74,15 @@
                         </div>
                     </div>
                 </div>
+                
                 <div ng-repeat="question in current_page_questions">
                     <article ng-if="!question.hidden_to_user" ng-class="{'is-hidden': question.hidden}">
                         <table>
                             <tr>
                                 <td>
                                     <div class="stats">
-                                        <p><span class="numbers-votes">{{question.votes}}</span>votos</p>
-                                        <p><span class="numbers-answers">{{ question.answers.length }}</span>respostas</p>
+                                        <p><span class="numbers-votes">{% verbatim angularjs %}{{question.votes}}{% endverbatim angularjs %}</span>votos</p>
+                                        <p><span class="numbers-answers">{% verbatim angularjs %}{{ question.answers.length }}{% endverbatim angularjs %}</span>respostas</p>
                                     </div>
                                     <div ng-if="!question.hidden && question.moderator" ng-click="justification_modal(question)" class="hide-question btn btn-danger btn-sm">Ocultar</div>
                                 </td>
