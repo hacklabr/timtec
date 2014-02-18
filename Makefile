@@ -113,12 +113,12 @@ setup_ci:
 	psql -c 'create database timtec_ci;' -U postgres
 
 setup_py:
-	pip install -q -r requirements.txt --use-mirrors
-	pip install -q -r dev-requirements.txt --use-mirrors
+	pip install -q -r requirements.txt
+	pip install -q -r dev-requirements.txt
 	python setup.py -q develop
 
 setup_coveralls:
-	pip install -q coveralls --use-mirrors
+	pip install -q coveralls
 
 setup_js:
 	sudo `which npm` -g install less yuglify karma jshint ngmin --loglevel silent
