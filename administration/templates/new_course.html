@@ -115,12 +115,14 @@ ng-app="new-course"
                             <div class="centered">
                                 <div class="form-group">
                                     <i class="fa fa-picture-o fa-4x"></i>
-                                    <h1 class="top">{% trans 'Thumbnail' %}</h1>
+                                    <h1 class="bottom top">{% trans 'Thumbnail' %}</h1>
+                                    <p>({% trans "min-width" %}: 845px)</p>
 
                                     <file ng-model="thumbfile" name="thumbnail" class="form-control"></file>
                                 </div>
 
                                 <p>
+                                    <br>
                                     <button class="btn btn-danger btn-lg uppercase"
                                             ng-click="thumbfile=null; addThumb=!course.thumbnail_url">{% trans 'Cancel' %}</button>
 
