@@ -84,13 +84,14 @@
                                         <p><span class="numbers-votes">{% verbatim angularjs %}{{question.votes}}{% endverbatim angularjs %}</span>votos</p>
                                         <p><span class="numbers-answers">{% verbatim angularjs %}{{ question.answers.length }}{% endverbatim angularjs %}</span>respostas</p>
                                     </div>
+                                    {% verbatim angularjs %}
                                     <div ng-if="!question.hidden && question.moderator" ng-click="justification_modal(question)" class="hide-question btn btn-danger btn-sm">Ocultar</div>
                                 </td>
                                 <td style="width:100%;">
                                     <div class="content">
                                         <h1 class="top"><a href="/forum/question/{{ question.slug }}">{{ question.title }}</a></h1>
                                         <div class="description" ng-bind-html="question.text|markdown|words:50"></div>
-                                        <p class="author">Pergunta feita feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ question.username }}">{{ question.username }}</a>.</p>
+                                        <p class="author">Pergunta feita feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ question.username }}">{{ question.username }}</a></p>
                                     </div>
                                 </td>
                             </tr>
@@ -101,6 +102,7 @@
                         </div>
                     </article>
                 </div>
+                {% endverbatim angularjs %}
                 <script type="text/ng-template" id="justificationModal.html">
                     <div class="modal-content">
                         <div class="modal-header">
