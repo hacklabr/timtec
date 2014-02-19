@@ -15,7 +15,7 @@ from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
                         CourseProfessorViewSet, EnrollCourseView, HomeView,
                         UserCoursesView, ContactView, LessonDetailView,
                         LessonViewSet, StudentProgressViewSet,
-                        UpdateStudentProgressView, UserNotesViewSet)
+                        UserNotesViewSet)
 
 from activities.views import AnswerViewSet
 from accounts.views import TimtecUserViewSet
@@ -67,7 +67,6 @@ urlpatterns = patterns(
 
     # Services
     url(r'^api/', include(router.urls)),
-    url(r'^api/updatestudentprogress/(?P<unitId>[0-9]*)/$', UpdateStudentProgressView.as_view(), name='updatestudentprogress'),
 
     # Forum
     url(r'^forum/(?P<course_slug>[-a-zA-Z0-9_]+)/$', CourseForumView.as_view(), name='forum'),

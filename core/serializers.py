@@ -51,6 +51,7 @@ class StudentProgressSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = StudentProgress
+        fields = ('unit', 'complete',)
 
 
 class UnitSerializer(serializers.ModelSerializer):
