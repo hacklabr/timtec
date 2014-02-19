@@ -257,6 +257,7 @@ class UserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
         results = []
         for course in courses.values():
             course.lessons_notes = course.lessons_dict.values()
+            course.course_notes_number = Unit.objects.filter(lesson__course=course, notes__user=user).exclude(notes__isnull=True).count()
             del course.lessons_dict
             results.append(CourseNoteSerializer(course).data)
         return Response(results)
