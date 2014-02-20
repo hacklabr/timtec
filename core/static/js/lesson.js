@@ -117,6 +117,11 @@
                         $scope.currentUnit.activities.length > 0) {
                         $scope.section = 'activity';
                     } else {
+                        var progress = new Progress();
+                        progress.complete = new Date();
+                        progress.unit = $scope.currentUnit.id;
+                        $scope.currentUnit.progress = progress;
+                        progress.$save();
                         $scope.nextUnit();
                     }
                 } else {

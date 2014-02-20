@@ -90,10 +90,10 @@ $(document).ready(function() {
                            <span class="position" ng-bind="unit.position+1"></span>
                            <i class="fa fa-list" ng-show="unit.activities"></i>
                     </a>
-                    <label ng-hide="DEBUG" style="font-family: monospace">
+                    <label ng-hide="true" style="font-family: monospace">
                         video <input type="radio" ng-model="section" value="video"/>
                     </label>
-                    <label ng-hide="DEBUG" style="font-family: monospace">
+                    <label ng-hide="true" style="font-family: monospace">
                         ativi <input type="radio" ng-model="section" value="activity"/>
                     </label>
                 </div>
@@ -216,7 +216,7 @@ $(document).ready(function() {
             <div class="col-lg-3 hidden-md hidden-sm hidden-xs">
                 <section class="course-instructions">
                     <div class="page-header-double">
-                        <h3><i class="fa fa-angle-double-right"></i> Notas do professor</h3>
+                        <h3><i class="fa fa-angle-double-right"></i> {% trans "Professor's notes" %}</h3>
                     </div>
                     {{ lesson.notes|timtec_markdown }}
                 </section>

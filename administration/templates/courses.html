@@ -135,7 +135,9 @@ ng-app="courses"
                                         <span class="label label-success" ng-bind="lesson.status"></span>
                                     </div>
                                     <div class="col-lg-9">
-                                        <h1><a href="" ng-bind="lesson.name"></a></h1>
+                                        {% verbatim %}
+                                        <h1><a ng-href="/admin/courses/{{ course.id }}/lessons/{{lesson.id}}" ng-bind="lesson.name"></a></h1>
+                                        {% endverbatim %}
                                     </div>
                                 </div>
                             </div>
