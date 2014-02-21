@@ -1,43 +1,50 @@
 (function(angular){
 
     angular.module('messages.controllers', []).
-        controller('MessagesController', ['$scope', 'Course',  'CourseProfessor', 'Lesson', '$filter',
-        function($scope, Course,  CourseProfessor, Lesson, $filter) {
+        controller('MessagesManagerController', ['$scope', '$modal', 'Message', 'User',
+            function($scope, $modal,  Message, User) {
+                var course_id = document.location.href.match(/course\/([0-9]+)/)[1];
+                $scope.messages = Message.query({course: course_id});
 
-            $scope.errors = {};
-            var httpErrors = {
-                '400': 'Os campos não foram preenchidos corretamente.',
-                '403': 'Você não tem permissão para ver conteúdo nesta página.',
-                '404': 'Este curso não existe!'
-            };
 
-            // vv como faz isso de uma formula angular ?
-            var match = document.location.href.match(/course\/([0-9]+)/);
-            $scope.course = new Course();
-            $scope.courseProfessors = [];
-            window.s = $scope;
-            $scope.templateUrl = '/static/templates/admin_header.html';
-            if( match ) {
-                $scope.course.$get({id: match[1]})
-                    .then(function(course){
-                        document.title = 'Curso: {0}'.format(course.name);
-                        // course_material and forum urls
-                        $scope.course_url = 'admin/courses/' + course.id;
-                        $scope.course_material_url = 'admin/course/' + course.id  + '/material/';
-                        $scope.forum_url = 'admin/course/' + course.id +  '/forum/';
-                        $scope.messages_url = 'admin/course/' + course.id   + '/messages/';
-                        $scope.reports_url = 'admin/course/' + course.id   + '/stats/';
-                    })
-                    .then(function(){
-                        $scope.courseProfessors = CourseProfessor.query({ course: match[1] });
-                        return $scope.courseProfessors.promise;
-                    })['catch'](function(resp){
-                        $scope.alert.error(httpErrors[resp.status.toString()]);
-                    })['finally'](function(){
-                        $scope.statusList = Course.fields.status.choices;
+                var SendMessageModalInstanceCtrl = function ($scope, $modalInstance) {
+                    // $scope.question = question;
+
+                    $scope.send = function () {
+                        // $scope.question.hidden = true;
+                        // $scope.question.hidden_by = $window.user_id;
+                        // $scope.question.hidden_justification = $scope.question.hidden_justification;
+                        // $modalInstance.close($scope.question);
+                    };
+
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss();
+                    };
+                };
+
+                $scope.new_message = function (question) {
+                    var modalInstance = $modal.open({
+                        templateUrl: 'newMessageModal.html',
+                        controller: SendMessageModalInstanceCtrl,
+                        // resolve: {
+                            // question: function () {
+                                // return question;
+                            // }
+                        // }
                     });
-            }
-        }
-    ]);
 
+                    modalInstance.result.then(function (question) {
+                        question.$update({questionId: question.id}, function(question){
+                            question.hidden_to_user = false;
+                        });
+                        
+                    });
+                };
+
+            }
+        ]).
+        controller('MessageController', ['$scope', 'Message', 'User',
+            function($scope,  Message, User) {
+            }
+        ]);
 })(angular);

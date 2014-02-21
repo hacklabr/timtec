@@ -15,9 +15,10 @@ from notes.models import Note
 from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           CourseThumbSerializer, LessonSerializer,
                           StudentProgressSerializer, CourseNoteSerializer,
-                          LessonNoteSerializer, ProfessorMessageSerializer,)
+                          LessonNoteSerializer, ProfessorMessageSerializer,
+                          CourseStudentSerializer,)
 
-from .models import Course, CourseProfessor, Lesson, StudentProgress, Unit, ProfessorMessage
+from .models import Course, CourseProfessor, Lesson, StudentProgress, Unit, ProfessorMessage, CourseStudent
 
 from forms import ContactForm
 
@@ -96,6 +97,14 @@ class CourseProfessorViewSet(viewsets.ModelViewSet):
     filter_fields = ('course', 'user',)
     filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = CourseProfessorSerializer
+
+
+class CourseStudentViewSet(viewsets.ModelViewSet):
+    model = CourseStudent
+    lookup_field = 'id'
+    filter_fields = ('course', 'user',)
+#     filter_backends = (filters.DjangoFilterBackend,)
+    serializer_class = CourseStudentSerializer
 
 
 class ProfessorMessageViewSet(viewsets.ModelViewSet):

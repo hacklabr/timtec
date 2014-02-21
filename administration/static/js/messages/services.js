@@ -3,23 +3,18 @@
     'use strict';
 
     angular.module('messages.services', ['ngRoute', 'ngResource']).
-        factory('Answer', function($resource){
-            return $resource('/api/forum_answer/', {}, {
-            });
-        }).
-        factory('Question', function($resource){
-            return $resource('/api/forum_question/:questionId', {}, {
+        factory('Message', function($resource){
+            return $resource('/api/professor_message/:messageId', {}, {
                 update: {method: 'PUT'}
             });
         }).
-        factory('AnswerVote', function($resource){
-            return $resource('/api/answer_vote/:answer', {}, {
-                update: {method: 'PUT'}
+        factory('User', function($resource){
+            return $resource('/api/user/:userId', {}, {
             });
         }).
-        factory('QuestionVote', function($resource){
-            return $resource('/api/question_vote/:question', {}, {
-                update: {method: 'PUT'}
+        factory('Student', function($resource){
+            return $resource('/api/course_student/', {}, {
             });
-        });
+        })
+        ;
 })(angular);

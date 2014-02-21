@@ -14,21 +14,21 @@
 {% block content %}
 
 <!--  COURSE CONTENT  -->
-<div id="messages" class="course-messages">
+<div id="messages" class="course-messages" ng-app="messages">
 
-    <div ng-app="adminHeader" ng-controller="HeaderController">
+    <div ng-controller="HeaderController">
         {% include "_admin_header_inline.html"%}
     </div>
 
     <!-- COURSE-CONTENT -->
-    <section id="messages-content" class="container">
+    <section id="messages-content" class="container" ng-controller="MessagesManagerController">
         <header>
             <div class="row">
                 <div class="col-lg-9">
                     <h1>{% trans "Messages" %}</h1>
                 </div>
                 <div class="col-lg-3">
-                    <a class="new-message btn btn-lg btn-danger uppercase" data-toggle="modal" data-target="#new-message">{% trans "Send New Message" %}</a>
+                    <a class="new-message btn btn-lg btn-danger uppercase" ng-click="new_message()">{% trans "Send New Message" %}</a>
                 </div>
             </div>
         </header>
@@ -51,12 +51,11 @@
         
     </section>
     <!--  END COURSE CONTENT  -->
-    
-    <div class="modal fade" id="new-message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+
+        <script type="text/ng-template" id="newMessageModal.html">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel">{% trans "New Message" %}</h4>
                 </div>
                 <div class="modal-body">
@@ -208,13 +207,16 @@
                 </div>
                 <div class="modal-footer">
                     <div class="col-lg-12">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">{% trans "Close" %}</button>
-                        <button type="button" class="btn btn-success">{% trans "Send" %}</button>
+                        <button type="button" class="btn btn-danger" ng-click="cancel()">{% trans "Close" %}</button>
+                        <button type="button" class="btn btn-success" ng-click="send()">{% trans "Send" %}</button>
                     </div>
                 </div>
             </div>
-          </div>
-    </div>
+        </script>
+
+
+
+
 </div>
 <!--  END COURSE CONTENT  -->
 
