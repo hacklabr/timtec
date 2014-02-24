@@ -8,6 +8,8 @@
         'django',
         'timtec-models',
         'ui.bootstrap',
+        'markdown',
+        'truncate',
         'ngRoute',
     ]);
 })(angular);

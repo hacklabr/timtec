@@ -8,12 +8,8 @@
     {% compressed_css 'public' %}
 {% endif %}
 {% compressed_js 'all' %}
+{% compressed_js 'markdown' %}
 {% compressed_js 'codemirror' %}
-
-
-<script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Converter.js' %}" charset="utf-8"></script>
-<script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Editor.js' %}" charset="utf-8"></script>
-<script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Sanitizer.js' %}" charset="utf-8"></script>
 
 <script>
     window.STATIC_URL = '{{ STATIC_URL }}';
