@@ -16,6 +16,9 @@ class CourseProfessorSerializer(serializers.ModelSerializer):
 
 class ProfessorMessageSerializer(serializers.ModelSerializer):
 
+    professor = TimtecUserSerializer(read_only=True)
+    users = TimtecUserSerializer(read_only=True)
+
     class Meta:
         model = ProfessorMessage
 
