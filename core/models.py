@@ -173,8 +173,8 @@ class CourseProfessor(models.Model):
 
 
 class ProfessorMessage(models.Model):
-    professor = models.ForeignKey(CourseProfessor, verbose_name=_('Professor'))
-    users = models.ManyToManyField(CourseStudent)
+    professor = models.ForeignKey(TimtecUser, verbose_name=_('Professor'))
+    users = models.ManyToManyField(TimtecUser, related_name='messages')
     subject = models.CharField(_('Subject'), max_length=255)
     message = models.TextField(_('Message'))
     date = models.DateTimeField(_('Date'), auto_now_add=True)

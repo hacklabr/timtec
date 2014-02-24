@@ -8,6 +8,26 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Adding model 'ProfessorMessage'
+        db.create_table(u'core_professormessage', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('professor', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['accounts.TimtecUser'])),
+            ('subject', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('message', self.gf('django.db.models.fields.TextField')()),
+            ('date', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
+            ('course', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['core.Course'], null=True)),
+        ))
+        db.send_create_signal(u'core', ['ProfessorMessage'])
+
+        # Adding M2M table for field users on 'ProfessorMessage'
+        m2m_table_name = db.shorten_name(u'core_professormessage_users')
+        db.create_table(m2m_table_name, (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('professormessage', models.ForeignKey(orm[u'core.professormessage'], null=False)),
+            ('timtecuser', models.ForeignKey(orm[u'accounts.timtecuser'], null=False))
+        ))
+        db.create_unique(m2m_table_name, ['professormessage_id', 'timtecuser_id'])
+
         # Adding model 'EmailTemplate'
         db.create_table(u'core_emailtemplate', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -19,6 +39,12 @@ class Migration(SchemaMigration):
 
 
     def backwards(self, orm):
+        # Deleting model 'ProfessorMessage'
+        db.delete_table(u'core_professormessage')
+
+        # Removing M2M table for field users on 'ProfessorMessage'
+        db.delete_table(db.shorten_name(u'core_professormessage_users'))
+
         # Deleting model 'EmailTemplate'
         db.delete_table(u'core_emailtemplate')
 
@@ -130,9 +156,9 @@ class Migration(SchemaMigration):
             'date': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'message': ('django.db.models.fields.TextField', [], {}),
-            'professor': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['core.CourseProfessor']"}),
+            'professor': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['accounts.TimtecUser']"}),
             'subject': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'users': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['core.CourseStudent']", 'symmetrical': 'False'})
+            'users': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'messages'", 'symmetrical': 'False', 'to': u"orm['accounts.TimtecUser']"})
         },
         u'core.studentprogress': {
             'Meta': {'unique_together': "(('user', 'unit'),)", 'object_name': 'StudentProgress'},
