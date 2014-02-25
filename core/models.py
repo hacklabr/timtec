@@ -2,6 +2,7 @@
 from __future__ import division
 from positions import PositionField
 from django.db import models
+from django.db.models import Count
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.staticfiles.storage import staticfiles_storage
@@ -78,6 +79,15 @@ class Course(models.Model):
             return self.thumbnail.url
         return ''
 
+    def lessons_by_users(self):
+        nstudents = self.coursestudent_set.count()
+        lessons = dict([ (l.slug, 0) for l in self.lessons.all() ])
+        for student in self.coursestudent_set.all():
+            for finished in [ d for d in student.percent_progress_by_lesson() if d['progress'] >= 100 ]:
+                slug = finished['slug']
+                lessons[slug] = lessons.get(slug, 0) + 1
+
+        return dict([ (slug, 100 * total / float(nstudents)) for (slug, total) in lessons.items() ])
 
 class CourseStudent(models.Model):
     user = models.ForeignKey(TimtecUser, verbose_name=_('Student'))
@@ -139,6 +149,12 @@ class CourseStudent(models.Model):
                 lesson_progress['finish'] = ''
             progress_list.append(lesson_progress)
         return progress_list
+
+    def forum_questions_by_lesson(self):
+        return self.user.forum_questions.values('lesson').annotate(Count('lesson'))
+
+    def forum_answers_by_lesson(self):
+        return self.user.forum_answers.values('question__lesson').annotate(Count('question__lesson'))
 
 
 class CourseProfessor(models.Model):
