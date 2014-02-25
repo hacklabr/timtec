@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "homepage": "https://github.com/hacklabr/timtec",
   "authors": [
-    "Leonardo Santagada <santagada@hacklab.com.br>"
+    "Leonardo Santagada <santagada@hacklab.com.br>",
+    "Bruno Martin <bruno@hacklab.com.br>"
   ],
   "license": "AGPL",
   "private": true,
@@ -30,6 +31,7 @@
     "modernizr": "~2.7.1",
     "font-awesome": "~4.0.3",
     "angular-mocks": "~1.2.4",
-    "angular-bootstrap": "~0.10.0"
+    "angular-bootstrap": "~0.10.0",
+    "checklist-model": "~0.1.3"
   }
 }
