@@ -20,7 +20,7 @@ def test_mainview(client):
 @pytest.mark.django_db
 def test_enroll_user(client, user):
     course = mommy.make('Course', slug='acceptance_enroll_user')
-    lesson = mommy.make('Lesson', course=course)
+    lesson = mommy.make('Lesson', course=course, slug='lesson')
     from core.models import CourseStudent
 
     assert not CourseStudent.objects.filter(user__username=user.username, course__slug=course.slug).exists()

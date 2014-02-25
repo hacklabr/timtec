@@ -5,7 +5,7 @@ from model_mommy import mommy
 @pytest.mark.django_db
 def test_course_material(admin_client, user):
     course = mommy.make('Course', name='Test Course', slug='dbsql')
-    mommy.make('Lesson', course=course)
+    mommy.make('Lesson', course=course, slug='lesson')
     course_material = mommy.make('CourseMaterial', course=course, text='foobar**bold**')
 
     response = admin_client.get('/course/' + course.slug + '/material/')

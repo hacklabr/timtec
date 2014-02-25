@@ -9,6 +9,9 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 SITE_ID = 1
+SITE_HOME = '/courses/html5/'
+SITE_NAME = 'Timtec'
+SITE_DOMAIN = 'timtec.com.br'
 
 ADMINS = (
     ('Admin1', 'root@localhost'),
@@ -284,6 +287,7 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'allauth.account.context_processors.account',
     'allauth.socialaccount.context_processors.socialaccount',
     'core.context_processors.contact_form',
+    'core.context_processors.site_settings',
 )
 
 # Django Suit configuration example
