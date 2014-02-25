@@ -203,14 +203,16 @@ PIPELINE_JS = {
             'js/vendor/pagedown/Markdown.Sanitizer.js',
             'js/markdown/app.js',
             'js/markdown/filters.js',
-            ),
+        ),
+        'output_filename': 'js/markdown.js',
     },
-   'messages': {
+    'messages': {
         'source_filenames': (
             'js/messages/app.js',
             'js/messages/controllers.js',
             'js/messages/services.js',
-            ),
+        ),
+        'output_filename': 'js/messages.js',
     },
     'codemirror': {
         'source_filenames': (
