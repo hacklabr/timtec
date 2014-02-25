@@ -55,14 +55,19 @@
             };
 
             $scope.play = function() {
-                var youtube_id = $scope.currentUnit.video.youtube_id;
-                $scope.section = 'video';
+                if($scope.currentUnit.video){
+                    var youtube_id = $scope.currentUnit.video.youtube_id;
+                    $scope.section = 'video';
 
-                youtubePlayerApi.loadPlayer().then(function(player){
-                    if(player.getVideoData() &&
-                        player.getVideoData().video_id === youtube_id) return;
-                    player.cueVideoById(youtube_id);
-                });
+                    youtubePlayerApi.loadPlayer().then(function(player){
+                            if(player.getVideoData() &&
+                                player.getVideoData().video_id === youtube_id) return;
+                            player.cueVideoById(youtube_id);
+                    });
+                } else {
+                    $scope.section = 'activity';
+                }
+                
             };
 
             $scope.selectActivity = function(index) {
@@ -117,6 +122,11 @@
                         $scope.currentUnit.activities.length > 0) {
                         $scope.section = 'activity';
                     } else {
+                        var progress = new Progress();
+                        progress.complete = new Date();
+                        progress.unit = $scope.currentUnit.id;
+                        $scope.currentUnit.progress = progress;
+                        progress.$save();
                         $scope.nextUnit();
                     }
                 } else {

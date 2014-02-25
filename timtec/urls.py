@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 from django.contrib import admin as django_admin
 django_admin.autodiscover()
 
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 from accounts.views import CustomLoginView, ProfileEditView, ProfileView
 from forum.views import AnswerViewSet as ForumAnswerViewSet
 
@@ -15,7 +15,7 @@ from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
                         CourseProfessorViewSet, EnrollCourseView, HomeView,
                         UserCoursesView, ContactView, LessonDetailView,
                         LessonViewSet, StudentProgressViewSet,
-                        UpdateStudentProgressView, UserNotesViewSet)
+                        UserNotesViewSet)
 
 from activities.views import AnswerViewSet
 from accounts.views import TimtecUserViewSet
@@ -46,7 +46,8 @@ router.register(r'reports', UserCourseStats)
 
 urlpatterns = patterns(
     '',
-    url(r'^$', HomeView.as_view(), name='home_view'),
+    url(r'^$', RedirectView.as_view(url=settings.SITE_HOME), name='home_view'),
+    url(r'^courses', HomeView.as_view(), name='courses'),
 
     # Uncomment the next line to enable the admin:
     url(r'^django/admin/doc/', include('django.contrib.admindocs.urls')),
@@ -66,7 +67,6 @@ urlpatterns = patterns(
 
     # Services
     url(r'^api/', include(router.urls)),
-    url(r'^api/updatestudentprogress/(?P<unitId>[0-9]*)/$', UpdateStudentProgressView.as_view(), name='updatestudentprogress'),
 
     # Forum
     url(r'^forum/(?P<course_slug>[-a-zA-Z0-9_]+)/$', CourseForumView.as_view(), name='forum'),

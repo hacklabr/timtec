@@ -57,16 +57,12 @@ ng-app="new-course"
                               tabindex="1"></span></h1>
 
                     <div class="course-slug clearfix">
-                        <label>http://www.timtec.com.br/course/</label>
+                      <label>http://{{ site.domain }}/course/</label>
                         <strong>
                             <span ng-bind="course.name|slugify" ng-hide="course.slug"></span>
                             <span ng-model="course.slug" contenteditable></span>
                         </strong>
                     </div>
-
-                    <ul class="instructors">
-                        <li><a ng-click="professorsModalActive=true"><span class="icon-addable fa fa-plus-square left right"></span> {% trans 'Add professors in course' %}</a></li>
-                    </ul>
                 </div>
                 <!--  END COL-LG-8  -->
                 <!--  COL-LG-3  -->
@@ -102,7 +98,7 @@ ng-app="new-course"
 
                         <button class="btn btn-default uppercase"
                                 ng-class="{'btn-success':mediaSection=='thumbnail'}"
-                                ng-click="mediaSection='thumbnail'">Thumbnail</button>
+                                ng-click="mediaSection='thumbnail'">{% trans 'Thumbnail' %}</button>
                     </div>
                 </div>
                 <!-- END ADD CONTENT -->
@@ -115,12 +111,14 @@ ng-app="new-course"
                             <div class="centered">
                                 <div class="form-group">
                                     <i class="fa fa-picture-o fa-4x"></i>
-                                    <h1 class="top">Thumbnail</h1>
+                                    <h1 class="bottom top">{% trans 'Thumbnail' %}</h1>
+                                    <p>({% trans "min-width" %}: 845px)</p>
 
                                     <file ng-model="thumbfile" name="thumbnail" class="form-control"></file>
                                 </div>
 
                                 <p>
+                                    <br>
                                     <button class="btn btn-danger btn-lg uppercase"
                                             ng-click="thumbfile=null; addThumb=!course.thumbnail_url">{% trans 'Cancel' %}</button>
 
@@ -299,9 +297,7 @@ ng-app="new-course"
                         <!--  COL-LG-9  -->
                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                             <p>
-                                {% verbatim %}
-                                <a href="lessons/{{lesson.id}}" class="title editable" ng-bind="lesson.name">{% trans 'Lesson name' %}</a>
-                                {% endverbatim %}
+                                <a {% verbatim %}href="lessons/{{lesson.id}}"{% endverbatim %} class="title editable" ng-bind="lesson.name">{% trans 'Lesson name' %}</a>
                                 <modalmarkdowneditor on-save="saveLesson(lesson)" title="{% trans 'Lesson description' %}" content="lesson.desc"></modalmarkdowneditor>
                             </p>
                             <!--  HIDDEN-XS  -->
@@ -344,12 +340,12 @@ ng-app="new-course"
                 <section class="instructors">
                     <!-- PAGE-HEADER-DOUBLE -->
                     <div class="page-header-double">
-                        <h3><i class="fa fa-angle-double-right"></i> {% trans 'Instrutores'%}</h3>
+                        <h3><i class="fa fa-angle-double-right"></i> {% trans 'Instructors'%}</h3>
                     </div>
                     <!-- END PAGE-HEADER-DOUBLE -->
 
                     <!-- <a href="" ng-click="organizingInstructors=false" ng-show="organizingInstructors">Editar biografias</a> -->
-                    <p><a href="" ng-click="organizingInstructors=true" ng-hide="organizingInstructors">{% trans 'Organizar instrutores'%}</a></p>
+                    <p><a href="" ng-click="organizingInstructors=true" ng-hide="organizingInstructors">{% trans 'Organize Instructors'%}</a></p>
 
                     <div class="instructors organizing-instructors" ng-show="organizingInstructors"
                          sortable="courseProfessors" on-update="repositionInstructors()">
@@ -408,7 +404,7 @@ ng-app="new-course"
 
                     <!--  ABSTRACT  -->
                     <div class="page-header-double top">
-                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> Abstract</h3>
+                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Abstract' %}</h3>
 
                     </div>
                     <modalmarkdowneditor tabindex="2" on-save="saveCourse()" title="{% trans 'Abstract' %}" content="course.abstract"></modalmarkdowneditor>
@@ -418,7 +414,7 @@ ng-app="new-course"
 
                     <!--  STRUCTURE  -->
                     <div class="page-header-double top">
-                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.structure}" class="fa fa-angle-double-right"></i> {% trans 'Structure' %}</h3>
+                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.structure}" class="fa fa-angle-double-right"></i> {% trans 'Course structure' %}</h3>
                     </div>
                     <modalmarkdowneditor tabindex="3" on-save="saveCourse()" title="{% trans 'Structure' %}" content="course.structure"></modalmarkdowneditor>
 

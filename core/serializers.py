@@ -51,6 +51,7 @@ class StudentProgressSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = StudentProgress
+        fields = ('unit', 'complete',)
 
 
 class UnitSerializer(serializers.ModelSerializer):
@@ -113,7 +114,8 @@ class LessonNoteSerializer(serializers.ModelSerializer):
 class CourseNoteSerializer(serializers.ModelSerializer):
 
     lessons_notes = LessonNoteSerializer()
+    course_notes_number = serializers.IntegerField(required=False)
 
     class Meta:
         model = Course
-        fields = ('id', 'slug', 'name', 'lessons_notes',)
+        fields = ('id', 'slug', 'name', 'lessons_notes', 'course_notes_number',)

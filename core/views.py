@@ -2,14 +2,12 @@
 import json
 
 from django.core.urlresolvers import reverse
-from django.utils import timezone
 from django.views.generic import DetailView, ListView
 from django.views.generic.base import RedirectView, View, TemplateView
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404
-from rest_framework import status, viewsets
+from rest_framework import viewsets
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from rest_framework import filters
 from braces.views import LoginRequiredMixin
 from notes.models import Note
@@ -188,27 +186,6 @@ class StudentProgressViewSet(viewsets.ModelViewSet):
         return StudentProgress.objects.filter(user=user)
 
 
-class UpdateStudentProgressView(APIView):
-    # fabio: estou desativando esta view
-    model = StudentProgress
-
-    def post(self, request, unitId=None):
-        user = request.user
-
-        try:
-            unit = Unit.objects.get(id=unitId)
-        except Unit.DoesNotExist as e:
-            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
-        response = {}
-        progress, created = StudentProgress.objects.get_or_create(user=user, unit=unit)
-        progress.complete = timezone.now()
-        progress.save()
-        response['msg'] = 'Unit completed.'
-        response['complete'] = progress.complete
-        return Response(response, status=status.HTTP_201_CREATED)
-
-
 class UserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
 
     model = Course
@@ -257,6 +234,7 @@ class UserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
         results = []
         for course in courses.values():
             course.lessons_notes = course.lessons_dict.values()
+            course.course_notes_number = Unit.objects.filter(lesson__course=course, notes__user=user).exclude(notes__isnull=True).count()
             del course.lessons_dict
             results.append(CourseNoteSerializer(course).data)
         return Response(results)

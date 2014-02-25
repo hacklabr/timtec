@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Django settings for timtec project.
+from django.utils.translation import ugettext_lazy as _
 import os
 SETTINGS_DIR = os.path.dirname(os.path.realpath(__file__))
 PROJECT_ROOT = os.path.dirname(SETTINGS_DIR)
@@ -8,6 +9,9 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 SITE_ID = 1
+SITE_HOME = '/courses/html5/'
+SITE_NAME = 'Timtec'
+SITE_DOMAIN = 'timtec.com.br'
 
 ADMINS = (
     ('Admin1', 'root@localhost'),
@@ -70,7 +74,10 @@ USE_I18N = True
 USE_L10N = True
 
 LANGUAGES = (
-    ('pt-br', u'Português'),
+    ('pt-br', _('Brazilian Portuguese')),
+    ('it', _('Italian')),
+    ('es', _('Spanish')),
+    ('en', _('English')),
 )
 
 LOCALE_PATHS = (
@@ -261,6 +268,7 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'allauth.account.context_processors.account',
     'allauth.socialaccount.context_processors.socialaccount',
     'core.context_processors.contact_form',
+    'core.context_processors.site_settings',
 )
 
 # Django Suit configuration example

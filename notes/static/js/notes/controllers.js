@@ -79,24 +79,22 @@
                     });
                 };
     }]).
-    controller('UserNotesCtrl', ['$scope', '$window', 'UserNotes', 'Note',
-            function ($scope, $window, UserNotes, Note) {
+    controller('UserNotesCtrl', ['$scope', '$window', 'UserNotes',
+            function ($scope, $window, UserNotes) {
+                function compare(a,b) {
+                    if (a.position < b.position)
+                       return -1;
+                    if (a.position > b.position)
+                       return 1;
+                    return 0;
+                }
                 UserNotes.query({}, function(courses){
-
-                    function compare(a,b) {
-                        if (a.position < b.position)
-                           return -1;
-                        if (a.position > b.position)
-                           return 1;
-                        return 0;
-                    }
                     angular.forEach(courses, function(course) {
                         course.lessons_notes.sort(compare);
                         angular.forEach(course.lessons_notes, function(lesson) {
                             lesson.units_notes.sort(compare);
                         });
                     });
-
                     $scope.courses = courses;
                 });
     }]);

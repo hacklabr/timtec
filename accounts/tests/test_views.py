@@ -8,7 +8,7 @@ def test_enroll_user_view(rf, user):
     from core.views import EnrollCourseView
 
     course = mommy.make('Course', slug='acceptance_enroll_user')
-    lesson = mommy.make('Lesson', course=course)
+    lesson = mommy.make('Lesson', course=course, slug='lesson')
 
     request = rf.get('/courses/' + course.slug + '/enroll/')
     request.user = user
