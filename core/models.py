@@ -2,10 +2,10 @@
 from __future__ import division
 from positions import PositionField
 from django.db import models
-from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.contrib.contenttypes import generic
+from autoslug import AutoSlugField
 
 
 from accounts.models import TimtecUser
@@ -174,18 +174,13 @@ class Lesson(models.Model):
     name = models.CharField(_('Name'), max_length=255)
     notes = models.TextField(_('Notes'), default="", blank=True)
     position = PositionField(collection='course', default=0)
-    slug = models.SlugField(_('Slug'), max_length=255, editable=False, unique=True)
+    slug = AutoSlugField(_('Slug'), populate_from='name', max_length=255, editable=False, unique=True)
     status = models.CharField(_('Status'), choices=STATES, default=STATES[0][0], max_length=64)
 
     class Meta:
         verbose_name = _('Lesson')
         verbose_name_plural = _('Lessons')
         ordering = ['position']
-
-    def save(self, **kwargs):
-        if not self.id and self.name:
-            self.slug = slugify(self.name)
-        super(Lesson, self).save(**kwargs)
 
     def __unicode__(self):
         return self.name

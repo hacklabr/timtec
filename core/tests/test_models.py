@@ -31,7 +31,7 @@ def test_percent_progress_by_lesson(user):
 
 @pytest.mark.django_db
 def test_lesson_counts(settings):
-    lesson = mommy.make('Lesson')
+    lesson = mommy.make('Lesson', slug='lesson')
     video = mommy.make('Video')
     activity = mommy.make('Activity')
     mommy.make('Unit', lesson=lesson, video=video, activity=activity)
@@ -46,7 +46,7 @@ def test_lesson_counts(settings):
 
 @pytest.mark.django_db
 def test_position_counter_for_new_units():
-    lesson = mommy.make('Lesson')
+    lesson = mommy.make('Lesson', slug='lesson')
 
     assert mommy.make('Unit', lesson=lesson).position == 0
     assert mommy.make('Unit', lesson=lesson).position == 1
@@ -74,7 +74,7 @@ def test_resume(user):
     course_student = mommy.make('CourseStudent', user=user, course=course)
     assert course_student.resume_last_unit() is None
 
-    lesson = mommy.make('Lesson', desc='', name='l1', notes='', course=course)
+    lesson = mommy.make('Lesson', slug='lesson', desc='', name='l1', notes='', course=course)
     assert course_student.resume_last_unit() is None
 
     unit1 = mommy.make('Unit', title='unit1', lesson=lesson)
