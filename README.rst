@@ -13,7 +13,7 @@ Dependencies
 
 - Python 2.7 with virtualenv and pip
 - build essentials and many dev packages if on debian/ubuntu/fedora
-    - libpq-dev, libjpeg-dev, libpng12-dev, build-essential, python-dev
+    - libpq-dev, libjpeg-dev, libpng12-dev, build-essential, python-dev, gettext
 - nodejs (probably 0.8+ but tested on 0.10) (you will need a ppa for ubuntu < 14.04)
 
 Getting Started
