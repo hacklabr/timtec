@@ -51,6 +51,7 @@ class UserCourseStats(serializers.ModelSerializer):
     def get_forum_answers(self, obj):
         return obj.forum_answers_by_lesson()
 
+
 class CourseStats(serializers.ModelSerializer):
     lessons_by_users = serializers.SerializerMethodField('get_lessons_by_users')
     forum_posts = serializers.SerializerMethodField('get_forum_posts')

@@ -81,13 +81,14 @@ class Course(models.Model):
 
     def lessons_by_users(self):
         nstudents = self.coursestudent_set.count()
-        lessons = dict([ (l.slug, 0) for l in self.lessons.all() ])
+        lessons = dict([(l.slug, 0) for l in self.lessons.all()])
         for student in self.coursestudent_set.all():
-            for finished in [ d for d in student.percent_progress_by_lesson() if d['progress'] >= 100 ]:
+            for finished in [d for d in student.percent_progress_by_lesson() if d['progress'] >= 100]:
                 slug = finished['slug']
                 lessons[slug] = lessons.get(slug, 0) + 1
 
-        return dict([ (slug, 100 * total / float(nstudents)) for (slug, total) in lessons.items() ])
+        return dict([(slug, 100 * total / float(nstudents)) for (slug, total) in lessons.items()])
+
 
 class CourseStudent(models.Model):
     user = models.ForeignKey(TimtecUser, verbose_name=_('Student'))
