@@ -49,15 +49,16 @@
                                     <div class="students col-lg-12">
                                         <div class="row">
                                             <div class="col-lg-4">
-                                                <p><input type="search" value="Pesquisar" class="form-control"/> <div><label><input type="checkbox"> {% trans 'Check all' %}</label></div></p>
+                                                <p><input type="search" value="Pesquisar" class="form-control"/> <div><label><input type="checkbox" ng-model="modal.all_checked" ng-click="checkAll()"> {% trans 'Check all' %}</label></div></p>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-lg-2">
-                                                <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
-                                            </div>
-                                            <div class="col-lg-2">
-                                                <div class="student"><label><input type="checkbox"> Anderson Orui</label></div>
+                                        <div class="row" ng-repeat="row in users_rows">
+                                            <div class="col-lg-2" ng-repeat="user in row">
+                                                <div class="student">
+                                                    {% verbatim %}
+                                                    <label><input type="checkbox" checklist-model="new_message.users" checklist-value="user.id"> {{ user.name || user.username }}</label>
+                                                    {% endverbatim %}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

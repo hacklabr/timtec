@@ -8,6 +8,7 @@
         'django',
         'timtec-models',
         'ui.bootstrap',
+        'checklist-model',
         'markdown',
         'truncate',
         'ngRoute',
