@@ -214,6 +214,7 @@ PIPELINE_JS = {
             'js/messages/app.js',
             'js/messages/controllers.js',
             'js/messages/services.js',
+            'checklist-model/checklist-model.js'
         ),
         'output_filename': 'js/messages.js',
     },
