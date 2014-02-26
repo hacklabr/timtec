@@ -13,7 +13,8 @@ Dependencies
 
 - Python 2.7 with virtualenv and pip
 - build essentials and many dev packages if on debian/ubuntu/fedora
-- nodejs (probably 0.8+ but tested on 0.10)
+    - postgresql-client-dev, libjpeg-dev, libpng-dev, build-essential, python-dev
+- nodejs (probably 0.8+ but tested on 0.10) (you will need a ppa for ubuntu < 14.04)
 
 Getting Started
 ---------------
