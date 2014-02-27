@@ -3,13 +3,14 @@
 
     var app = angular.module('lesson', [
         'directive.markdowneditor',
-        'directive.codemirror',
+        // 'directive.codemirror',
         'ngRoute',
         'ngResource',
         'youtube',
         'django',
         'forum',
-        'notes'
+        'notes',
+        'php'
     ]);
 
     window.ga = window.ga || function(){ console.log(arguments); };

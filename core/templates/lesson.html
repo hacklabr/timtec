@@ -20,10 +20,10 @@ $(document).ready(function() {
 })
 </script>
 
+<script type="text/javascript" src="{% static 'js/php/app.js' %}" charset="utf-8"></script>
+<script type="text/javascript" src="{% static 'js/php/controllers.js' %}" charset="utf-8"></script>
 <script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/directives/codemirror.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/lesson.js' %}" charset="utf-8"></script>
-
 
 <!-- COURSE -->
 <div id="course" class="course-lesson" ng-app="lesson">
@@ -90,10 +90,10 @@ $(document).ready(function() {
                            <span class="position" ng-bind="unit.position+1"></span>
                            <i class="fa fa-list" ng-show="unit.activities"></i>
                     </a>
-                    <label ng-hide="true" style="font-family: monospace">
+                    <label ng-hide="false" style="font-family: monospace">
                         video <input type="radio" ng-model="section" value="video"/>
                     </label>
-                    <label ng-hide="true" style="font-family: monospace">
+                    <label ng-hide="false" style="font-family: monospace">
                         ativi <input type="radio" ng-model="section" value="activity"/>
                     </label>
                 </div>
