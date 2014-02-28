@@ -3,7 +3,7 @@
 
     var app = angular.module('lesson', [
         'directive.markdowneditor',
-        // 'directive.codemirror',
+        'directive.codemirror',
         'ngRoute',
         'ngResource',
         'youtube',
