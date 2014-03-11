@@ -13,6 +13,7 @@ class Activity(models.Model):
     """
     Generic class to activities
     Data templates (data e type atributes):
+    https://github.com/hacklabr/timtec/wiki/Atividades
     Multiple choice
         type: multiplechoice
         data: {question: "", choices: ["choice1", "choice2", ...]}
