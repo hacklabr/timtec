@@ -2,6 +2,7 @@
     "use strict";
 
     var app = angular.module('lesson', [
+        'activities',
         'directive.markdowneditor',
         'directive.codemirror',
         'ngRoute',
@@ -9,8 +10,7 @@
         'youtube',
         'django',
         'forum',
-        'notes',
-        'php'
+        'notes'
     ]);
 
     window.ga = window.ga || function(){ console.log(arguments); };
