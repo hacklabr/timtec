@@ -219,6 +219,19 @@ PIPELINE_JS = {
             'angular-ui-codemirror/ui-codemirror.js',
         ),
         'output_filename': 'js/codemirrorcomp.js',
+    },
+    'lesson': {
+        'source_filenames': (
+            'js/activities/app.js',
+            'js/activities/controllers.js',
+            'js/lesson/app.js',
+            'js/lesson/controllers.js',
+            'js/lesson/services.js',
+            'js/lesson/directives.js',
+            'js/directives/markdowneditor.js',
+            'js/directives/codemirror.js',
+        ),
+        'output_filename': 'js/lesson.js',
     }
 }
 

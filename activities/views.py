@@ -1,14 +1,20 @@
 from .models import Answer
 from .serializers import AnswerSerializer
 from rest_framework import viewsets
+from rest_framework.response import Response
 
-import json, os, random, requests, tarfile
+import json
+import os
+import random
+import requests
+import tarfile
 
 
 class AnswerViewSet(viewsets.ModelViewSet):
     model = Answer
     serializer_class = AnswerSerializer
     filter_fields = ('activity', 'user',)
+    lookup_field = 'activity'
 
     def pre_save(self, obj):
         obj.user = self.request.user
@@ -16,6 +22,15 @@ class AnswerViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Answer.objects.filter(user=self.request.user)
 
+    def retrieve(self, request, *args, **kwargs):
+        # Get Question vote usign kwarg as questionId
+        if 'activity' in self.kwargs:
+            activity = self.kwargs['activity']
+            self.object = self.get_queryset().filter(activity=activity).latest('timestamp')
+        else:
+            self.object = self.get_object()
+        serializer = self.get_serializer(self.object)
+        return Response(serializer.data)
 
     def post_save(self, obj, created):
         if obj.activity.type == "php":
@@ -30,6 +45,7 @@ class AnswerViewSet(viewsets.ModelViewSet):
             tgz.add("/tmp/%s/" % dirname, arcname="/")
             tgz.close()
             tgz = open("/tmp/%s.tgz" % dirname)
+            # TODO colocar no settings.py
             host = 'http://php.timtec.com.br'
             r = requests.get("%s/%d/start/" % (host, obj.user.id))
             r = requests.post("%s/%d/documents/" % (host, obj.user.id), files={"tgz": tgz})

@@ -1,8 +1,14 @@
 {% extends "base.html" %}
 
 {% load i18n %}
+{% load compressed %}
 {% load staticfiles %}
 {% load timtec_markdown %}
+
+{% block head %}
+{{ block.super }}
+{% compressed_js 'lesson' %}
+{% endblock %}
 
 {% block content %}
 
@@ -19,12 +25,6 @@ $(document).ready(function() {
     $('a.unit').tooltip();
 })
 </script>
-
-<script type="text/javascript" src="{% static 'js/activities/app.js' %}" charset="utf-8"></script>
-<script type="text/javascript" src="{% static 'js/activities/controllers.js' %}" charset="utf-8"></script>
-<script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/directives/codemirror.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/lesson.js' %}" charset="utf-8"></script>
 
 <!-- COURSE -->
 <div id="course" class="course-lesson" ng-app="lesson">
