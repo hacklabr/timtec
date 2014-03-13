@@ -224,10 +224,11 @@ PIPELINE_JS = {
         'source_filenames': (
             'js/activities/app.js',
             'js/activities/controllers.js',
+            'js/activities/directives.js',
+            'js/activities/services.js',
             'js/lesson/app.js',
             'js/lesson/controllers.js',
             'js/lesson/services.js',
-            'js/lesson/directives.js',
             'js/directives/markdowneditor.js',
             'js/directives/codemirror.js',
         ),

@@ -11,4 +11,13 @@
             </tab>
         </tabset>
     </div>
+    <div class="submit">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <button onClick="ga('send', 'event', 'activity', 'skip activity');" class="btn btn-default" ng-click="nextStep(true)">Skip</button>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 textright">
+            <button onClick="ga('send', 'event', 'activity', 'rewatch video');" class="btn btn-info" ng-click="play()">Review the video</button>
+            <button class="btn btn-success" ng-click="sendAnswer()">Send</button>
+        </div>
+    </div>
 </div>

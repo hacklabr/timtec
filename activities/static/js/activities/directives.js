@@ -1,7 +1,7 @@
-(function(angular) {
+(function(angular){
     'use strict';
 
-    var app = angular.module('lesson.directives', []);
+    var app = angular.module('activities.directives', []);
 
     app.directive('radio', function () {
         return {
@@ -47,4 +47,14 @@
             replace: true
         };
     });
+
+    app.directive('basicReponsePanel', function () {
+        return {
+            restrict: 'E',
+            templateUrl: '/static/templates/directives/basic_response_panel.html',
+            transclude: true,
+            replace: true
+        };
+    });
+
 })(angular);

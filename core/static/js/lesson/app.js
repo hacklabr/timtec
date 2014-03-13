@@ -4,7 +4,6 @@
     angular.module('lesson', [
         'lesson.controllers',
         'lesson.services',
-        'lesson.directives',
         'activities',
         'directive.markdowneditor',
         'directive.codemirror',
