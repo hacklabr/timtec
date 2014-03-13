@@ -58,12 +58,6 @@
             };
 
             $scope.selectActivity = function(index) {
-                function _newAnswer(){
-                    $scope.answer = new Answer();
-                    if(angular.isArray($scope.currentActivity.expected)) {
-                        $scope.answer.given = $scope.currentActivity.expected.map(function(){});
-                    }
-                }
 
                 if($scope.currentUnit.activities && $scope.currentUnit.activities.length) {
                     $scope.currentActivity = $scope.currentUnit.activities[index];
@@ -71,21 +65,21 @@
 
                     ga("send", "event", "activity", "select", $scope.currentActivity.id);
 
-                    Answer.getLastGivenAnswer($scope.currentActivity.id)
-                        .then(function(answer){
-                            var exp = $scope.currentActivity.expected;
-                            var giv = answer.given;
+                    $scope.answer = Answer.get({activityId: $scope.currentActivity.id}, function(answer) {
+                        var exp = $scope.currentActivity.expected;
+                        var giv = answer.given;
+                        // FIXME why this name?
+                        // TODO test if professor changes the activity (create a new alternative, the user lost his answer?
+                        var shouldUseLastAnswer = (exp !== null && exp !== undefined) ||
+                            (angular.isArray(exp) && angular.isArray(giv) && giv.length === exp.length);
 
-                            var shouldUseLastAnswer = (exp !== null && exp !== undefined) ||
-                                (angular.isArray(exp) && angular.isArray(giv) && giv.length === exp.length);
-
-                            if (shouldUseLastAnswer) {
-                                $scope.answer = answer;
-                            } else {
-                                _newAnswer();
+                        if (!shouldUseLastAnswer) {
+                            // Initialize empty given answer
+                            if(angular.isArray($scope.currentActivity.expected)) {
+                                answer.given = $scope.currentActivity.expected.map(function(){});
                             }
-
-                        })['catch'](_newAnswer);
+                        }
+                    });
                 } else {
                     $scope.currentActivity = null;
                     $scope.activityTemplateUrl = null;
@@ -94,7 +88,7 @@
 
             $scope.sendAnswer = function() {
                 $scope.answer.activity = $scope.currentActivity.id;
-                $scope.answer.saveOrUpdate().then(function(d){
+                $scope.answer.$update({activityId: $scope.answer.activity}).then(function(d){
                     ga('send', 'event', 'activity', 'result', '', d.correct);
                     return Progress.getProgressByUnitId($scope.currentUnit.id);
                 }).then(function(progress){

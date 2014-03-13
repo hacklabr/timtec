@@ -3,33 +3,39 @@
 
     var app = angular.module('lesson.services', []);
 
-    app.factory('Answer',['$resource', '$q',
-        function($resource, $q){
-            var resourceConfig = {
-                'update': {'method': 'PUT'}
-            };
-            var Answer = $resource('/api/answer/:id', {'id':'@id'}, resourceConfig);
+    app.factory('Answer', function($resource){
+        return $resource('/api/answer/:activityId', {}, {
+            update: {method: 'PUT'}
+        });
+    })
 
-            Answer.prototype.saveOrUpdate = function() {
-                return this.id > 0 ? this.$update() : this.$save();
-            };
-
-            Answer.getLastGivenAnswer = function(activity_id) {
-                var deferred = $q.defer();
-                var extractLatest = function (list) {
-                    if(list.length > 0) {
-                        deferred.resolve(list.pop());
-                    } else {
-                        deferred.reject();
-                    }
-                };
-                Answer.query({'activity': activity_id}, extractLatest);
-                return deferred.promise;
-            };
-
-            return Answer;
-        }
-    ]);
+//    app.factory('Answer',['$resource', '$q',
+//        function($resource, $q){
+//            var resourceConfig = {
+//                'update': {'method': 'PUT'}
+//            };
+//            var Answer = $resource('/api/answer/:id', {'id':'@id'}, resourceConfig);
+//
+//            Answer.prototype.saveOrUpdate = function() {
+//                return this.id > 0 ? this.$update() : this.$save();
+//            };
+//
+//            Answer.getLastGivenAnswer = function(activity_id) {
+//                var deferred = $q.defer();
+//                var extractLatest = function (list) {
+//                    if(list.length > 0) {
+//                        deferred.resolve(list.pop());
+//                    } else {
+//                        deferred.reject();
+//                    }
+//                };
+//                Answer.query({'activity': activity_id}, extractLatest);
+//                return deferred.promise;
+//            };
+//
+//            return Answer;
+//        }
+//    ]);
 
     app.factory('Progress', ['$resource', '$q', function($resource, $q){
         var Progress = $resource('/api/student_progress/:id');
@@ -86,10 +92,10 @@
         }
     ]);
 
-    app.factory('resolveActivityTemplate', function(STATIC_URL) {
+    app.factory('resolveActivityTemplate', ['STATIC_URL', function(STATIC_URL) {
         return function (typeName) {
             return STATIC_URL + '/templates/activity_'+ typeName + '.html';
         };
-    });
+    }]);
 
 })(angular);
