@@ -47,5 +47,5 @@ class AnswerViewSet(viewsets.ModelViewSet):
             tgz = open("/tmp/%s.tgz" % dirname)
             # TODO colocar no settings.py
             host = 'http://php.timtec.com.br'
-            r = requests.get("%s/%d/start/" % (host, obj.user.id))
-            r = requests.post("%s/%d/documents/" % (host, obj.user.id), files={"tgz": tgz})
+            _ = requests.get("%s/%d/start/" % (host, obj.user.id))
+            _ = requests.post("%s/%d/documents/" % (host, obj.user.id), files={"tgz": tgz})
