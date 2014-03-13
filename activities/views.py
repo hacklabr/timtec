@@ -1,13 +1,14 @@
-from .models import Answer
-from .serializers import AnswerSerializer
-from rest_framework import viewsets
-from rest_framework.response import Response
-
 import json
 import os
 import random
-import requests
 import tarfile
+from django.http import Http404
+
+from rest_framework import viewsets
+import requests
+
+from .models import Answer
+from .serializers import AnswerSerializer
 
 
 class AnswerViewSet(viewsets.ModelViewSet):
@@ -22,15 +23,14 @@ class AnswerViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Answer.objects.filter(user=self.request.user)
 
-    def retrieve(self, request, *args, **kwargs):
-        # Get Question vote usign kwarg as questionId
+    def get_object(self, queryset=None):
         if 'activity' in self.kwargs:
             activity = self.kwargs['activity']
-            self.object = self.get_queryset().filter(activity=activity).latest('timestamp')
-        else:
-            self.object = self.get_object()
-        serializer = self.get_serializer(self.object)
-        return Response(serializer.data)
+            try:
+                return self.get_queryset().filter(activity=activity).latest('timestamp')
+            except Answer.DoesNotExist:
+                raise Http404
+        return super(AnswerViewSet, self).get_objecct()
 
     def post_save(self, obj, created):
         if obj.activity.type == "php":
