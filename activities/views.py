@@ -26,9 +26,12 @@ class AnswerViewSet(viewsets.ModelViewSet):
     def get_object(self, queryset=None):
         if 'activity' in self.kwargs:
             activity = self.kwargs['activity']
+            # TODO git rid of this. See #339 for details
             try:
                 return self.get_queryset().filter(activity=activity).latest('timestamp')
             except Answer.DoesNotExist:
+                # Raises Http404 to create a new object when the request is a PUT and the Answer does not exist
+                # see django-rest-framework UpdateMixin for details
                 raise Http404
         return super(AnswerViewSet, self).get_objecct()
 
