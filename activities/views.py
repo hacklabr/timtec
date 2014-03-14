@@ -1,4 +1,4 @@
-import json
+# -*- coding: utf-8 -*-
 import os
 import random
 import tarfile
@@ -41,7 +41,7 @@ class AnswerViewSet(viewsets.ModelViewSet):
             os.makedirs("/tmp/%s/" % dirname)
             for f in obj.given:
                 fd = open("/tmp/%s/%s" % (dirname, f['name']), 'w')
-                fd.write(f['content'])
+                fd.write(f['content'].encode('utf8'))
                 fd.close()
             tgz = tarfile.open("/tmp/%s.tgz" % dirname, "w:gz")
             tgz.add("/tmp/%s/" % dirname, arcname="/")
