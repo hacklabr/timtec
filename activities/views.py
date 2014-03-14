@@ -34,10 +34,9 @@ class AnswerViewSet(viewsets.ModelViewSet):
 
     def post_save(self, obj, created):
         if obj.activity.type == "php":
-            given = json.loads(obj.given)
             dirname = "%d%d%d" % (obj.user.id, os.getpid(), random.randint(0, 1000))
             os.makedirs("/tmp/%s/" % dirname)
-            for f in given:
+            for f in obj.given:
                 fd = open("/tmp/%s/%s" % (dirname, f['name']), 'w')
                 fd.write(f['content'])
                 fd.close()

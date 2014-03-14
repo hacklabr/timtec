@@ -1,7 +1,7 @@
 <div ng-controller="PHPCtrl">
     <div class="row">
         <tabset>
-            <tab ng-repeat="file in currentActivity.files" heading="{{file.name}}" select="refresh()" active="file.active">
+            <tab ng-repeat="file in answer.given" heading="{{file.name}}" select="refresh()" active="file.active">
                 <div class="col-xs-12">
                     <textarea ui-codemirror="codemirrorConfig" ng-model="file.content" ui-refresh="cm_refresh || file.id">
                     </textarea>

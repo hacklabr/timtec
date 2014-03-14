@@ -5,15 +5,24 @@
 
     app.controller('PHPCtrl', ['$scope',
         function ($scope) {
+
             $scope.cm_refresh = 0;
             $scope.refresh  = function() {
                 $scope.cm_refresh += 1;
                 console.log($scope.cm_refresh);
             }
-            $scope.currentActivity.files = $scope.currentActivity.data;
-            if ($scope.currentActivity.files.length) {
-                $scope.currentActivity.files[0].active = true;
-            }
+
+//            $scope.answer.given = $scope.currentActivity.data;
+            $scope.answer.$promise.finally(function() {
+                if (!$scope.answer.id) {
+                    $scope.answer.given = $scope.currentActivity.data;
+                }
+                $scope.answer.given[0].active = true;
+                $scope.refresh()
+            });
+//            if ($scope.answer.given) {
+//                $scope.answer.given[0].active = true;
+//            }
 
             $scope.codemirrorLoaded = function(cm){
                 console.log('cm loaded');
@@ -26,6 +35,7 @@
                         clearInterval(pid);
                 }, 500);
             };
+
             $scope.codemirrorConfig = {
                         lineNumbers:true,
                         theme:'monokai',
