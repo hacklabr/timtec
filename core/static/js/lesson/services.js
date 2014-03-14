@@ -9,34 +9,6 @@
         });
     })
 
-//    app.factory('Answer',['$resource', '$q',
-//        function($resource, $q){
-//            var resourceConfig = {
-//                'update': {'method': 'PUT'}
-//            };
-//            var Answer = $resource('/api/answer/:id', {'id':'@id'}, resourceConfig);
-//
-//            Answer.prototype.saveOrUpdate = function() {
-//                return this.id > 0 ? this.$update() : this.$save();
-//            };
-//
-//            Answer.getLastGivenAnswer = function(activity_id) {
-//                var deferred = $q.defer();
-//                var extractLatest = function (list) {
-//                    if(list.length > 0) {
-//                        deferred.resolve(list.pop());
-//                    } else {
-//                        deferred.reject();
-//                    }
-//                };
-//                Answer.query({'activity': activity_id}, extractLatest);
-//                return deferred.promise;
-//            };
-//
-//            return Answer;
-//        }
-//    ]);
-
     app.factory('Progress', ['$resource', '$q', function($resource, $q){
         var Progress = $resource('/api/student_progress/:id');
 
