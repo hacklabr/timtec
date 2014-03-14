@@ -57,4 +57,21 @@
         };
     });
 
+    app.directive('phpresult', function(){
+        return {
+            'restrict': 'A',
+            'link': function(scope, element, attrs) {
+                // Watch ui-refresh and refresh the directive
+                var iframe = element[0];
+                if (attrs.uiRefresh) {
+                    scope.$watch(attrs.uiRefresh, function (newVal, oldVal) {
+                        var src = iframe.src;
+                        iframe.src = '';
+                        iframe.src = src;
+                    });
+                }
+            }
+        };
+    });
+
 })(angular);
