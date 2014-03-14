@@ -7,7 +7,7 @@
         return $resource('/api/answer/:activityId', {}, {
             update: {method: 'PUT'}
         });
-    })
+    });
 
     app.factory('Progress', ['$resource', '$q', function($resource, $q){
         var Progress = $resource('/api/student_progress/:id');

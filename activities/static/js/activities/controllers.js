@@ -13,14 +13,14 @@
             $scope.refresh  = function() {
                 $scope.cm_refresh += 1;
                 console.log($scope.cm_refresh);
-            }
+            };
 
             $scope.answer.$promise.finally(function() {
                 if (!$scope.answer.id) {
                     $scope.answer.given = $scope.currentActivity.data;
                 }
                 $scope.answer.given[0].active = true;
-                $scope.refresh()
+                $scope.refresh();
             });
 
              $scope.sendPhpAnswer = function() {
