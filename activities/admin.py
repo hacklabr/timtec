@@ -13,7 +13,7 @@ class ModelAdmin(admin.ModelAdmin):
 
 class ActivityAdmin(ModelAdmin):
     list_display = ('lesson', 'unit', 'unit_position', 'type', 'question', '__unicode__')
-    readonly_fields = ('unit', 'unit_position', 'lesson')
+    readonly_fields = ('unit_position', 'lesson')
 
     def unit(self, object):
         try:

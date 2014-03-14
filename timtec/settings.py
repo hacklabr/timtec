@@ -187,7 +187,6 @@ PIPELINE_JS = {
             'angular-route/angular-route.js',
             'angular-sanitize/angular-sanitize.js',
             'angular-bootstrap/ui-bootstrap-tpls.js',
-            # 'angular-ui-codemirror/angular-ui-codemirror.js',
             'js/django.js',
             'js/contact_form.js',
             'js/helpers.js',
@@ -214,9 +213,26 @@ PIPELINE_JS = {
             'codemirror/mode/css/css.js',
             'codemirror/mode/javascript/javascript.js',
             'codemirror/mode/htmlmixed/htmlmixed.js',
-            'js/codemirrorconf.js',
+            'codemirror/mode/clike/clike.js',
+            'codemirror/mode/php/php.js',
+            # 'js/codemirrorconf.js',
+            'angular-ui-codemirror/ui-codemirror.js',
         ),
         'output_filename': 'js/codemirrorcomp.js',
+    },
+    'lesson': {
+        'source_filenames': (
+            'js/activities/app.js',
+            'js/activities/controllers.js',
+            'js/activities/directives.js',
+            'js/activities/services.js',
+            'js/lesson/app.js',
+            'js/lesson/controllers.js',
+            'js/lesson/services.js',
+            'js/directives/markdowneditor.js',
+            'js/directives/codemirror.js',
+        ),
+        'output_filename': 'js/lesson.js',
     }
 }
 

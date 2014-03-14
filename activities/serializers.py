@@ -17,10 +17,11 @@ class ActivitySerializer(serializers.ModelSerializer):
 
 class AnswerSerializer(serializers.ModelSerializer):
     user = serializers.Field(source='user')
+    user_id = serializers.Field(source='user.id')
     correct = serializers.Field(source='is_correct')
     given = JSONSerializerField('given')
 
     class Meta:
         model = Answer
         allow_add_remove = True
-        fields = ('id', 'activity', 'correct', 'user', 'timestamp', 'given',)
+        fields = ('id', 'activity', 'correct', 'user', 'user_id', 'timestamp', 'given',)

@@ -2,6 +2,7 @@
     "use strict";
 
     var app = angular.module('lesson', [
+        'activities',
         'directive.markdowneditor',
         'directive.codemirror',
         'ngRoute',
