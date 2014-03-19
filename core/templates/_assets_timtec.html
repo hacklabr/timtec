@@ -1,0 +1,10 @@
+{% load compressed %}
+{% load staticfiles %}
+
+{% compressed_css 'timtec' %}
+
+<script>
+    window.STATIC_URL = '{{ STATIC_URL }}';
+    window.MEDIA_URL = '{{ MEDIA_URL }}';
+    window.DEBUG = '{{ DEBUG }}';
+</script>
