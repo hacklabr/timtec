@@ -46,7 +46,7 @@ update-dev:
 	~/env/bin/pip install -r requirements.txt
 	~/env/bin/python manage.py syncdb --noinput
 	~/env/bin/python manage.py migrate --noinput
-	~/env/bin/python manage.py collectstatic --noinput
+	~/env/bin/python manage.py collectstatic --noinput -c
 	~/env/bin/python manage.py compilemessages
 	rm -rf ~/webfiles/media/
 	cp -r ~timtec-production/webfiles/media ~/webfiles/
