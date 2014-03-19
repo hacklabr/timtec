@@ -23,6 +23,9 @@ DATABASES = {
     }
 }
 
+
+MEDIA_ROOT = "/home/timtec-dev/webfiles/media/"
+STATIC_ROOT = "/home/timtec-dev/webfiles/static/"
 # MEDIA_URL = 'http://localhost:8002/media/'
 
 # STATIC_URL = 'http://localhost:8002/static/'
