@@ -30,6 +30,14 @@ class HomeView(ListView):
         return Course.objects.all()
 
 
+class CoursesView(ListView):
+    context_object_name = 'courses'
+    template_name = "courses.html"
+
+    def get_queryset(self):
+        return Course.objects.all()
+
+
 class ContactView(View):
     def post(self, request):
         status_code = 200

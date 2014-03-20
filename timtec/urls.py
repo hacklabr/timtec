@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 from django.contrib import admin as django_admin
 django_admin.autodiscover()
 
-from django.views.generic import TemplateView, RedirectView
+from django.views.generic import TemplateView
 from accounts.views import CustomLoginView, ProfileEditView, ProfileView
 from forum.views import AnswerViewSet as ForumAnswerViewSet
 
@@ -15,7 +15,7 @@ from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
                         CourseProfessorViewSet, EnrollCourseView, HomeView,
                         UserCoursesView, ContactView, LessonDetailView,
                         LessonViewSet, StudentProgressViewSet,
-                        UserNotesViewSet)
+                        UserNotesViewSet, CoursesView)
 
 from activities.views import AnswerViewSet
 from accounts.views import TimtecUserViewSet
@@ -47,7 +47,7 @@ router.register(r'reports', UserCourseStats)
 urlpatterns = patterns(
     '',
     url(r'^$', HomeView.as_view(), name='home_view'),
-    url(r'^courses', HomeView.as_view(), name='courses'),
+    url(r'^courses', CoursesView.as_view(), name='courses'),
 
     # Uncomment the next line to enable the admin:
     url(r'^django/admin/doc/', include('django.contrib.admindocs.urls')),
