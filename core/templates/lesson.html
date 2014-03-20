@@ -1,8 +1,14 @@
 {% extends "base.html" %}
 
 {% load i18n %}
+{% load compressed %}
 {% load staticfiles %}
 {% load timtec_markdown %}
+
+{% block head %}
+{{ block.super }}
+{% compressed_js 'lesson' %}
+{% endblock %}
 
 {% block content %}
 
@@ -19,11 +25,6 @@ $(document).ready(function() {
     $('a.unit').tooltip();
 })
 </script>
-
-<script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/directives/codemirror.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/lesson.js' %}" charset="utf-8"></script>
-
 
 <!-- COURSE -->
 <div id="course" class="course-lesson" ng-app="lesson">
@@ -90,10 +91,10 @@ $(document).ready(function() {
                            <span class="position" ng-bind="unit.position+1"></span>
                            <i class="fa fa-list" ng-show="unit.activities"></i>
                     </a>
-                    <label ng-hide="true" style="font-family: monospace">
+                    <label ng-hide="false" style="font-family: monospace">
                         video <input type="radio" ng-model="section" value="video"/>
                     </label>
-                    <label ng-hide="true" style="font-family: monospace">
+                    <label ng-hide="false" style="font-family: monospace">
                         ativi <input type="radio" ng-model="section" value="activity"/>
                     </label>
                 </div>
@@ -128,33 +129,6 @@ $(document).ready(function() {
                 <div ng-show="section=='activity'">
                     <div class="course-activity">
                         <ng:include src="activityTemplateUrl"></ng:include>
-
-                        <div ng-show="answer.correct" class="alert alert-success">
-                            <i class="fa fa-smile-o"></i> {% trans 'Your answer is' %} <strong>{% trans 'correct!' %}!</strong>
-                        </div>
-
-                        <div ng-show="answer.correct === false" class="alert alert-danger">
-                            <i class="fa fa-frown-o"></i> <span>{% trans 'Your answer is' %} <strong>{% trans 'wrong' %}</strong>. {% trans 'Review the video more attentively and try again' %}.</span>
-                        </div>
-
-                        <div class="submit">
-                            <!-- if no answer or incorrect -->
-                            <div class="row" ng-if="! answer.correct">
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <button onClick="ga('send', 'event', 'activity', 'skip activity');" class="btn btn-default" ng-click="nextStep(true)">{% trans 'Skip' %}</button>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 textright">
-                                    <button onClick="ga('send', 'event', 'activity', 'rewatch video');" class="btn btn-info" ng-click="play()">{% trans 'Review the video' %}</button>
-                                    <button class="btn btn-success" ng-click="sendAnswer()">{% trans 'Send' %}</button>
-                                </div>
-                            </div>
-                            <!-- if correct -->
-                            <div class="row" ng-if="answer.correct">
-                                <div class="col-lg-12 col-md-12 col-sm-12 textright">
-                                    <button class="btn btn-success" ng-click="nextStep()">{% trans 'Continue' %}</button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div ng-show="section=='comment'" class="comment">

@@ -46,7 +46,7 @@ update-dev:
 	~/env/bin/pip install -r requirements.txt
 	~/env/bin/python manage.py syncdb --noinput
 	~/env/bin/python manage.py migrate --noinput
-	~/env/bin/python manage.py collectstatic --noinput
+	~/env/bin/python manage.py collectstatic --noinput -c
 	~/env/bin/python manage.py compilemessages
 	rm -rf ~/webfiles/media/
 	cp -r ~timtec-production/webfiles/media ~/webfiles/
@@ -121,7 +121,7 @@ setup_coveralls:
 	pip install -q coveralls
 
 setup_js:
-	sudo `which npm` -g install less yuglify karma jshint ngmin --loglevel silent
+	sudo `which npm` -g install less yuglify karma karma-cli karma-phantomjs-launcher karma-jasmine jshint ngmin --loglevel silent
 
 setup_django: clean
 	python manage.py syncdb --all --noinput

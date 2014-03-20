@@ -121,14 +121,14 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'pipeline.finders.FileSystemFinder',
-    'pipeline.finders.AppDirectoriesFinder',
+    # 'pipeline.finders.FileSystemFinder',
+    # 'pipeline.finders.AppDirectoriesFinder',
     'pipeline.finders.PipelineFinder',
-    #'pipeline.finders.CachedFileFinder',
+    'pipeline.finders.CachedFileFinder',
     # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 PIPELINE_JS_COMPRESSOR = 'timtec.ngminyuglify.NgminYuglifyCompressor'
 
@@ -169,6 +169,7 @@ PIPELINE_CSS = {
         'extra_context': {
             'media': 'screen,projection,print',
         },
+        'variant': 'datauri',
     },
 }
 
@@ -187,15 +188,11 @@ PIPELINE_JS = {
             'angular-route/angular-route.js',
             'angular-sanitize/angular-sanitize.js',
             'angular-bootstrap/ui-bootstrap-tpls.js',
-            # 'angular-ui-codemirror/angular-ui-codemirror.js',
             'js/django.js',
             'js/contact_form.js',
             'js/helpers.js',
             'js/angular-youtube.js',
             'js/truncate.js',
-            'js/reports/app.js',
-            'js/reports/controllers.js',
-            'js/reports/services.js',
         ),
         'output_filename': 'js/all.js',
     },
@@ -234,10 +231,81 @@ PIPELINE_JS = {
             'codemirror/mode/css/css.js',
             'codemirror/mode/javascript/javascript.js',
             'codemirror/mode/htmlmixed/htmlmixed.js',
-            'js/codemirrorconf.js',
+            'codemirror/mode/clike/clike.js',
+            'codemirror/mode/php/php.js',
+            # 'js/codemirrorconf.js',
+            'angular-ui-codemirror/ui-codemirror.js',
         ),
         'output_filename': 'js/codemirrorcomp.js',
-    }
+    },
+    'markdown_editor': {
+        'source_filenames': (
+            'js/vendor/pagedown/Markdown.Converter.js',
+            'js/vendor/pagedown/Markdown.Editor.js',
+            'js/vendor/pagedown/Markdown.Sanitizer.js',
+        ),
+        'output_filename': 'js/markdown_editor.js',
+    },
+    'lesson': {
+        'source_filenames': (
+            'js/activities/app.js',
+            'js/activities/controllers.js',
+            'js/activities/directives.js',
+            'js/activities/services.js',
+            'js/lesson/app.js',
+            'js/lesson/controllers.js',
+            'js/lesson/services.js',
+            'js/directives/markdowneditor.js',
+            'js/directives/codemirror.js',
+        ),
+        'output_filename': 'js/lesson.js',
+    },
+    'course_material': {
+        'source_filenames': (
+            'js/course_material/app.js',
+            'js/course_material/controllers.js',
+            'js/course_material/directives.js',
+            'js/course_material/filters.js',
+            'js/course_material/services.js',
+            'dropzone/downloads/dropzone.js',
+        ),
+        'output_filename': 'js/course_material.js',
+    },
+    'forum': {
+        'source_filenames': (
+            'js/forum/app.js',
+            'js/forum/controllers.js',
+            'js/forum/directives.js',
+            'js/forum/filters.js',
+            'js/forum/services.js',
+            'js/truncate.js',
+        ),
+        'output_filename': 'js/forum.js',
+    },
+    'notes': {
+        'source_filenames': (
+            'js/notes/app.js',
+            'js/notes/controllers.js',
+            'js/notes/services.js',
+        ),
+        'output_filename': 'js/notes.js',
+    },
+    'admin_course_header': {
+        'source_filenames': (
+            'js/admin-header/app.js',
+            'js/admin-header/controllers.js',
+            'js/factories/timtec-models.js',
+        ),
+        'output_filename': 'js/admin_course_header.js',
+    },
+    'reports': {
+        'source_filenames': (
+            'js/reports/app.js',
+            'js/reports/controllers.js',
+            'js/reports/services.js',
+        ),
+        'output_filename': 'js/reports.js',
+    },
 }
 
 MOMMY_CUSTOM_FIELDS_GEN = {

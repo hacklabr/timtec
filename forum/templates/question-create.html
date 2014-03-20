@@ -1,8 +1,20 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load staticfiles %}
+
+{% block head %}
+    {{ block.super }}
+    <script>
+    // FIXME refactor this to angular
+    $(document).ready(function() {
+        var converter1 = Markdown.getSanitizingConverter();
+        var editor1 = new Markdown.Editor(converter1);
+        editor1.run();
+    });
+    </script>
+{% endblock %}
+
 {% block content %}
-<script type="text/javascript" src="{% static 'js/question_create.js' %}" charset="utf-8"></script>
 <!-- CONTAINER -->
 <div id="forum" class="course-forum">
     <!-- HEADER -->

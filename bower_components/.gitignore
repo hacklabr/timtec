@@ -4,10 +4,8 @@
 *.txt
 bower.json
 .bower.json
-bootstrap/dist/fonts
 bootstrap/dist/css
 bootstrap/js
-dropzone/downloads/images
 font-awesome/less
 font-awesome/scss
 font-awesome/src

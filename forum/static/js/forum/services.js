@@ -3,7 +3,7 @@
     'use strict';
 
     angular.module('forum.services', ['ngRoute', 'ngResource']).
-        factory('Answer', function($resource){
+        factory('ForumAnswer', function($resource){
             return $resource('/api/forum_answer/', {}, {
             });
         }).

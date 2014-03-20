@@ -4,14 +4,14 @@
 
     /* Controllers */
 
-    function QuestionCtrl($scope, $sce, $window, Question, Answer) {
+    function QuestionCtrl($scope, $sce, $window, Question, ForumAnswer) {
         var questionId = parseInt($window.question_id, 10);
         var userId = parseInt($window.user_id, 10);
-        $scope.answers = Answer.query({question: questionId});
+        $scope.answers = ForumAnswer.query({question: questionId});
         $scope.question = Question.get({questionId: questionId});
         // $scope.question_votes = $scope.question.votes;
         $scope.editor_enabled = true;
-        Answer.query({question: questionId, user: userId}, function(current_user_answer){
+        ForumAnswer.query({question: questionId, user: userId}, function(current_user_answer){
             if (current_user_answer.length !== 0) {
                 $scope.editor_enabled = false;
             }
@@ -19,7 +19,7 @@
 
         $scope.new_answer = function () {
             var questionId = parseInt($window.question_id, 10);
-            var new_answer = Answer.save({question: questionId, text: $scope.new_text});
+            var new_answer = ForumAnswer.save({question: questionId, text: $scope.new_text});
             $scope.answers.push(new_answer);
             $scope.editor_enabled = false;
         };
@@ -169,7 +169,7 @@
     }
 
     angular.module('forum.controllers', ['ngCookies']).
-        controller('QuestionCtrl', ['$scope', '$sce', '$window', 'Question', 'Answer', QuestionCtrl]).
+        controller('QuestionCtrl', ['$scope', '$sce', '$window', 'Question', 'ForumAnswer', QuestionCtrl]).
         controller('InlineForumCtrl', ['$scope', '$window', '$modal', 'Question', InlineForumCtrl]).
         controller('QuestionVoteCtrl', ['$scope', '$window', 'QuestionVote',
             function ($scope, $window, QuestionVote) {
