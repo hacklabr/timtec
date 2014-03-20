@@ -1,0 +1,231 @@
+@import '../../bower_components/bootstrap/less/bootstrap.less';
+@import "timtec/fonts";
+
+// MIXINS
+// ********************************************************************* //
+
+.box-shadow (@string) {
+    -webkit-box-shadow: @string;
+    -moz-box-shadow:    @string;
+    box-shadow:         @string;
+}
+
+.gradient (@startColor, @endColor) {
+    background-color: @startColor;
+    background: -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
+    background: -webkit-linear-gradient(top, @startColor, @endColor);
+    background:    -moz-linear-gradient(top, @startColor, @endColor);
+    background:     -ms-linear-gradient(top, @startColor, @endColor);
+    background:      -o-linear-gradient(top, @startColor, @endColor);
+}
+
+.border-radius (@radius) {
+    -webkit-border-radius:   @radius;
+    -moz-border-radius:      @radius;
+    border-radius:           @radius;
+    -moz-background-clip:    padding;
+    -webkit-background-clip: padding-box;
+    background-clip:         padding-box;
+}
+
+/* SITE */
+
+body {
+    max-width: 1920px;
+    background-image: url(../img/bg.jpg);
+    background-position: top center;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
+.main-header {
+    position: relative;
+    z-index: 10;
+    height: 130px;
+    .gradient (@startColor: #007dc3, @endColor: #1451a2);
+    .box-shadow(0px 5px 5px 0px rgba(0, 0, 0, 0.3));
+
+    h1 {
+        float: left;
+        margin: 40px 155px 0 0;
+        width: 289px;
+        height: 45px;
+        background-image: url(../img/logo-instituto-tim.png);
+
+        a {
+            display: block;
+            width: 289px;
+            height: 45px;
+        }
+    } // .header h1
+
+    h2 {
+        float: left;
+        margin: 40px 0 0 0;
+        width: 132px;
+        height: 45px;
+        background-image: url(../img/logo-timtec.png);
+
+        a {
+            display: block;
+            width: 132px;
+            height: 45px;
+        }
+    } // .header h2
+
+    .search {
+        float: right;
+        margin: 50px 10px 0 0;
+
+        label {
+            position: relative;
+
+            input[type=search] {
+                border: 0;
+                font-weight: normal;
+            }
+
+            i {
+                position: absolute;
+                right: 4px;
+                top: 4px;
+            }
+        } // .search label
+    } // .search
+
+    .social {
+        float: right;
+        margin: 43px 0 0 0;
+
+        li {
+            display: block;
+            float: left;
+            margin-left: 10px;
+            width: 35px;
+            height: 35px;
+            font-size: 24px;
+            text-align: center;
+            line-height: 1px;
+
+            a {
+                display: block;
+                width: 33px;
+                height: 33px;
+                color: #fff;
+            }
+
+            .s-buttons(@bg-color, @h-color) {
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                a {
+                    padding-top: 6px;
+                    background-color: @bg-color;
+                    transition: all 0.3s;
+
+                    &:hover {
+                        background-color: @h-color;
+                    }
+                }
+            }
+
+            &.contato {
+                font-size: 35px;
+            }
+            &.facebook {
+                .s-buttons(#3b65c0,#4c76d1);
+            }
+            &.twitter {
+                .s-buttons(#27b7ec,#3fc9fc);
+            }
+            &.youtube {
+                .s-buttons(#ed5a47,#f97362);
+            }
+        } // .social li
+    } // .social
+} // .header
+
+.main-nav {
+    position: relative;
+    z-index: 9;
+
+    ul {
+        position: relative;
+
+        li {
+            display: block;
+            float: left;
+            margin-right: 25px;
+
+            a {
+                display: block;
+                height: 45px;
+                padding: 12px;
+                background-color: #b7e5f7;
+                color: #0d4c8f;
+                text-align: center;
+                text-transform: uppercase;
+                .box-shadow(0px 5px 15px 0px rgba(0, 0, 0, 0.3));
+                transition: all 0.3s;
+
+                &:hover {
+                    background-color: #fff;
+                    text-decoration: none;
+                }
+            }
+        }
+    } // .main-nav ul
+} // .main-nav
+
+.content {
+    position: relative;
+    margin-top: -280px;
+    z-index: 9;
+} // .content
+
+.main-footer {
+    height: 120px;
+    .gradient (@startColor: #007dc3, @endColor: #1451a2);
+    .box-shadow(0px -2px 5px 0px rgba(0, 0, 0, 0.3));
+
+    h3 {
+        float: left;
+        margin: 45px 40px 0 0;
+        color: #fff;
+        font-size: 30px;
+        font-family: 'teuton_24';
+    }
+
+    .logo-mct {
+        display: block;
+        float: left;
+        width: 254px;
+        height: 46px;
+        margin: 33px 0 0 0;
+        background-image: url(../img/logo-mct.png); 
+    }
+
+    .footer-nav {
+        float: right;
+        margin: 50px 0 0 0;
+
+        li {
+            margin-left: 15px;
+
+            a {
+                text-transform: uppercase;
+                color: #fff;
+            }
+        }
+    } // .footer-nav
+} // .footer
+
+
+@import "timtec/home";

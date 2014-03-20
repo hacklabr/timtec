@@ -2,33 +2,222 @@
 {% load i18n %}
 
 {% block content %}
-        <!-- CONTAINER -->
-        <div id="home" class="container">
-            <header class="page-header-double">
-                <h3><i class="fa fa-angle-double-right"></i> {% trans 'Courses' %}</h3>
-            </header>
+        
+        <div id="home">
 
-            <section class="courses">
-                {% for course in courses %}
-                <!-- COURSE -->
-                <div class="course">
-                    <header>
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <h1><a href="{% url 'course_intro' course.slug %}">{{ course.name }}</a></h1>
-                            </div>
-                            <div class="col-lg-4 textright">
-                                <div class="btn-group">
-                                    <a href="{% url 'course_intro' course.slug %}" class="btn btn-sm btn-success">{% trans 'Go to course' %}</a>
-                                    <a href="{% url 'course_intro' course.slug %}" class="btn btn-sm btn-success"><i class="fa fa-angle-double-right"></i></a>
+            <div class="ilust"></div><!-- .ilust // top ilustration -->
+
+            <section class="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8"><!-- left column -->
+                            <div class="row">
+                                <section class="videos" role="main">
+                                    <div class="col-md-6">
+                                        <article class="video">
+                                            <div class="video-thumb">
+                                            </div>
+                                            <div class="video-info">
+                                                <h3>HTML5 Introdução ao Front End</h3>
+                                                <p>Fabio Flatschart</p>
+                                            </div>
+                                        </article>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <article class="video">
+                                            <div class="video-thumb">
+                                            </div>
+                                            <div class="video-info">
+                                                <h3>HTML5 Introdução ao Front End</h3>
+                                                <p>Fabio Flatschart</p>
+                                            </div>
+                                        </article>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <article class="video">
+                                            <div class="video-thumb">
+                                            </div>
+                                            <div class="video-info">
+                                                <h3>HTML5 Introdução ao Front End</h3>
+                                                <p>Fabio Flatschart</p>
+                                            </div>
+                                        </article>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <article class="video">
+                                            <div class="video-thumb">
+                                            </div>
+                                            <div class="video-info">
+                                                <h3>HTML5 Introdução ao Front End</h3>
+                                                <p>Fabio Flatschart</p>
+                                            </div>
+                                        </article>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <article class="video">
+                                            <div class="video-thumb">
+                                            </div>
+                                            <div class="video-info">
+                                                <h3>HTML5 Introdução ao Front End</h3>
+                                                <p>Fabio Flatschart</p>
+                                            </div>
+                                        </article>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <article class="video">
+                                            <div class="video-thumb">
+                                            </div>
+                                            <div class="video-info">
+                                                <h3>HTML5 Introdução ao Front End</h3>
+                                                <p>Fabio Flatschart</p>
+                                            </div>
+                                        </article>
+                                    </div>
+                                </section><!-- .videos -->
+                            </div><!-- .row -->
+                        </div><!-- .col-md-8 -->
+
+                        <div class="col-md-4">
+                            <section class="twitter" role="complementary">
+
+                                <div class="row">
+                                    <div class="col-md-9 col-md-offset-2">
+                                        <h3>
+                                            <i class="fa fa-twitter"></i>
+                                            Veja as últimas<br>informações<br><span>@timtec</span>
+                                        </h3>
+                                        <div class="tweet">
+                                            <div class="info">
+                                                <span class="avatar"></span>
+                                                <span class="name">TIMTec</span>
+                                                <span class="date">00/00/0000</span>
+                                                <span class="hour">00:00 AM</span>
+                                            </div>
+                                            <div class="text">
+                                                Lorem ipsum dolor sit amet lorem ipsum dolor sit amet
+                                            </div>
+                                        </div>
+                                        <div class="tweet">
+                                            <div class="info">
+                                                <span class="avatar"></span>
+                                                <span class="name">TIMTec</span>
+                                                <span class="date">00/00/0000</span>
+                                                <span class="hour">00:00 AM</span>
+                                            </div>
+                                            <div class="text">
+                                                Lorem ipsum dolor sit amet lorem ipsum dolor sit amet
+                                            </div>
+                                        </div>
+                                        <div class="tweet">
+                                            <div class="info">
+                                                <span class="avatar"></span>
+                                                <span class="name">TIMTec</span>
+                                                <span class="date">00/00/0000</span>
+                                                <span class="hour">00:00 AM</span>
+                                            </div>
+                                            <div class="text">
+                                                Lorem ipsum dolor sit amet lorem ipsum dolor sit amet
+                                            </div>
+                                        </div>
+                                        <div class="tweet">
+                                            <div class="info">
+                                                <span class="avatar"></span>
+                                                <span class="name">TIMTec</span>
+                                                <span class="date">00/00/0000</span>
+                                                <span class="hour">00:00 AM</span>
+                                            </div>
+                                            <div class="text">
+                                                Lorem ipsum dolor sit amet lorem ipsum dolor sit amet
+                                            </div>
+                                        </div>
+                                        <div class="tweet">
+                                            <div class="info">
+                                                <span class="avatar"></span>
+                                                <span class="name">TIMTec</span>
+                                                <span class="date">00/00/0000</span>
+                                                <span class="hour">00:00 AM</span>
+                                            </div>
+                                            <div class="text">
+                                                Lorem ipsum dolor sit amet lorem ipsum dolor sit amet
+                                            </div>
+                                        </div>
+                                        <div class="tweet">
+                                            <div class="info">
+                                                <span class="avatar"></span>
+                                                <span class="name">TIMTec</span>
+                                                <span class="date">00/00/0000</span>
+                                                <span class="hour">00:00 AM</span>
+                                            </div>
+                                            <div class="text">
+                                                Lorem ipsum dolor sit amet lorem ipsum dolor sit amet
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </header>
-                </div>
-                <!-- END COURSE -->
-                {% endfor %}
-            </section>
-        </div>
-        <!-- CONTAINER -->
+                            </section><!-- .twitter -->
+                        </div><!-- .col-md-3 -->
+
+                    </div><!-- .row -->
+                </div><!-- .container -->
+
+                <aside class="next-videos" role="complementary">
+
+                    <div class="container">
+
+                        <h3>Próximos <span>lançamentos</span></h3>
+
+                        <div class="prev"></div>
+                        <div class="next"></div>
+                        
+                        <div class="slider">
+
+                            <div class="wrapper">
+
+                                <div class="video">
+                                    <div class="thumb">
+                                    </div>
+                                    <h4>Introdução a lógica de programação</h4>
+                                </div>
+                                <div class="video">
+                                    <div class="thumb">
+                                    </div>
+                                    <h4>Introdução a lógica de programação</h4>
+                                </div>
+                                <div class="video">
+                                    <div class="thumb">
+                                    </div>
+                                    <h4>Introdução a lógica de programação</h4>
+                                </div>
+                                <div class="video">
+                                    <div class="thumb">
+                                    </div>
+                                    <h4>Introdução a lógica de programação</h4>
+                                </div>
+                                <div class="video">
+                                    <div class="thumb">
+                                    </div>
+                                    <h4>Introdução a lógica de programação</h4>
+                                </div>
+                                <div class="video">
+                                    <div class="thumb">
+                                    </div>
+                                    <h4>Introdução a lógica de programação</h4>
+                                </div>
+                                <div class="video">
+                                    <div class="thumb">
+                                    </div>
+                                    <h4>Introdução a lógica de programação</h4>
+                                </div>
+
+                            </div><!-- .wrapper -->
+
+                        </div><!-- .slider -->
+
+                    </div><!-- .container -->
+
+                </aside><!-- .slider-proximos -->
+
+            </section><!-- .content -->
+        </div><!-- #home -->
+        
 {% endblock %}
