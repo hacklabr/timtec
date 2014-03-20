@@ -5382,7 +5382,7 @@ td.visible-print {
 }
 body {
   max-width: 1920px;
-  background-image: url(../img/bg.jpg);
+  background-image: url(../img/timtec/bg.jpg);
   background-position: top center;
 }
 .sr-only {
@@ -5413,7 +5413,7 @@ body {
   margin: 20px 0 0;
   width: 192.66666667px;
   height: 30px;
-  background-image: url(../img/logo-instituto-tim.png);
+  background-image: url(../img/timtec/logo-instituto-tim.png);
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
@@ -5426,7 +5426,7 @@ body {
   margin: 20px 0 0;
   width: 88px;
   height: 30px;
-  background-image: url(../img/logo-timtec.png);
+  background-image: url(../img/timtec/logo-timtec.png);
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
@@ -5570,7 +5570,7 @@ body {
   width: 254px;
   height: 46px;
   margin: 33px 0 0 0;
-  background-image: url(../img/logo-mct.png);
+  background-image: url(../img/timtec/logo-mct.png);
 }
 .main-footer .footer-nav {
   float: right;
@@ -5621,10 +5621,10 @@ body {
   }
 }
 #home .ilust {
-  background-image: url(../img/ilustra.jpg);
+  background-image: url(../img/timtec/ilustra.jpg);
 }
 #home .content .videos {
-  margin-top: 100px;
+  margin-top: 20px;
 }
 #home .content .videos .video {
   margin-bottom: 35px;
@@ -5656,7 +5656,7 @@ body {
 }
 #home .content .twitter {
   overflow: hidden;
-  background-image: url(../img/bg-barra-twitter.png);
+  background-image: url(../img/timtec/bg-barra-twitter.png);
   padding-bottom: 20px;
   margin-bottom: 20px;
 }
