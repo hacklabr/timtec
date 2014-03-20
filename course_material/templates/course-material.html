@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load compressed %}
 {% load staticfiles %}
 {% load timtec_markdown %}
 
 {% block head %}
-{{ block.super }}
-{% include "_course_material_angular.html" %}
+    {{ block.super }}
+    {% compressed_js 'course_material' %}
 {% endblock %}
 
 {% block content %}
@@ -37,10 +38,6 @@
             </div>
             <!-- ASIDE -->
             <aside class="col-sm-3 col-lg-3">
-                <form action="{% url 'file_upload' course.slug %}" class="dropzone textcenter" drop-zone id="file-dropzone" style="display: none;">
-                    <p><strong>{% trans 'Drop' %}</strong> {% trans 'files to upload' %}<br>{% trans '(or click)' %}</p>
-                    {% csrf_token %}
-                </form>
                 <ul class="uploaded-files-list">
                     <li><h5>{% trans "Files" %}</h5></li>
                     {% for file in course_material.files.all %}

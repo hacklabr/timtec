@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 {% load i18n %}
+{% load static %}
     <head>
         {% block head %}
         <meta charset="UTF-8">
@@ -9,8 +10,6 @@
         <title>Admin: {{ course }}</title>
 
         {% include "_assets.html" with admin=True %}
-
-        {% load static %}
 
         {% block js %}{% endblock %}
 

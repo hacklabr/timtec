@@ -119,8 +119,10 @@ STATICFILES_DIRS = (
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (
-    'pipeline.finders.FileSystemFinder',
-    'pipeline.finders.AppDirectoriesFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # 'pipeline.finders.FileSystemFinder',
+    # 'pipeline.finders.AppDirectoriesFinder',
     'pipeline.finders.PipelineFinder',
     'pipeline.finders.CachedFileFinder',
     # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
@@ -199,9 +201,6 @@ PIPELINE_JS = {
             'js/contact_form.js',
             'js/helpers.js',
             'js/angular-youtube.js',
-            'js/reports/app.js',
-            'js/reports/controllers.js',
-            'js/reports/services.js',
         ),
         'output_filename': 'js/all.js',
     },
@@ -228,6 +227,14 @@ PIPELINE_JS = {
         ),
         'output_filename': 'js/codemirrorcomp.js',
     },
+    'markdown_editor': {
+        'source_filenames': (
+            'js/vendor/pagedown/Markdown.Converter.js',
+            'js/vendor/pagedown/Markdown.Editor.js',
+            'js/vendor/pagedown/Markdown.Sanitizer.js',
+        ),
+        'output_filename': 'js/markdown_editor.js',
+    },
     'lesson': {
         'source_filenames': (
             'js/activities/app.js',
@@ -241,7 +248,53 @@ PIPELINE_JS = {
             'js/directives/codemirror.js',
         ),
         'output_filename': 'js/lesson.js',
-    }
+    },
+    'course_material': {
+        'source_filenames': (
+            'js/course_material/app.js',
+            'js/course_material/controllers.js',
+            'js/course_material/directives.js',
+            'js/course_material/filters.js',
+            'js/course_material/services.js',
+            'dropzone/downloads/dropzone.js',
+        ),
+        'output_filename': 'js/course_material.js',
+    },
+    'forum': {
+        'source_filenames': (
+            'js/forum/app.js',
+            'js/forum/controllers.js',
+            'js/forum/directives.js',
+            'js/forum/filters.js',
+            'js/forum/services.js',
+            'js/truncate.js',
+        ),
+        'output_filename': 'js/forum.js',
+    },
+    'notes': {
+        'source_filenames': (
+            'js/notes/app.js',
+            'js/notes/controllers.js',
+            'js/notes/services.js',
+        ),
+        'output_filename': 'js/notes.js',
+    },
+    'admin_course_header': {
+        'source_filenames': (
+            'js/admin-header/app.js',
+            'js/admin-header/controllers.js',
+            'js/factories/timtec-models.js',
+        ),
+        'output_filename': 'js/admin_course_header.js',
+    },
+    'reports': {
+        'source_filenames': (
+            'js/reports/app.js',
+            'js/reports/controllers.js',
+            'js/reports/services.js',
+        ),
+        'output_filename': 'js/reports.js',
+    },
 }
 
 MOMMY_CUSTOM_FIELDS_GEN = {

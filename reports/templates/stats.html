@@ -1,12 +1,12 @@
 {% extends "admin-base.html" %}
+{% load compressed %}
 {% load static %}
 {% load i18n %}
 
 {% block head %}
-{{ block.super }}
-<script src="{% static 'js/admin-header/app.js' %}"></script>
-<script src="{% static 'js/admin-header/controllers.js' %}"></script>
-<script src="{% static 'js/factories/timtec-models.js' %}"></script>
+    {{ block.super }}
+    {% compressed_js 'reports' %}
+    {% compressed_js 'admin_course_header' %}
 {% endblock %}
 
 {% block content %}

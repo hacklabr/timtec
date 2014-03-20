@@ -1,8 +1,14 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load compressed %}
 {% load staticfiles %}
+
+{% block head %}
+    {{ block.super }}
+    {% compressed_js 'notes' %}
+{% endblock %}
+
 {% block content %}
-{% include "_notes_angular.html" %}
 <!-- CONTAINER -->
 <div id="my-notes" class="course-notes" ng-app="notes" ng-controller="CourseNotesCtrl">
 
