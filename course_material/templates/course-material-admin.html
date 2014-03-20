@@ -1,11 +1,13 @@
 {% extends 'admin-base.html' %}
 {% load i18n %}
+{% load compressed %}
 {% load staticfiles %}
 {% load timtec_markdown %}
 
 {% block head %}
-{{ block.super }}
-{% include "_course_material_angular.html" %}
+    {{ block.super }}
+    {% compressed_js 'course_material' %}
+    {% compressed_js 'admin_course_header' %}
 {% endblock %}
 
 {% block content %}

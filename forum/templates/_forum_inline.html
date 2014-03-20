@@ -1,4 +1,4 @@
-{% include "_forum_angular.html" %}
+{% load compressed %}
 {% load timtec_markdown %}
 {% load i18n %}
 
@@ -6,7 +6,8 @@
     window.course_id = {{ course.pk }};
     window.user_id = {{ user.pk }};
 </script>
-
+{% compressed_js 'forum' %}
+{% compressed_js 'admin_course_header' %}
 <section id="forum">
     
     <section id="forum-content" ng-controller="InlineForumCtrl">
