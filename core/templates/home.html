@@ -5,15 +5,15 @@
         
         <div id="home">
 
-            <div class="ilust"></div><!-- .ilust // top ilustration -->
+            <div class="ilust hidden-xs"></div><!-- .ilust // top ilustration -->
 
             <section class="content">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-8"><!-- left column -->
+                        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                             <div class="row">
                                 <section class="videos" role="main">
-                                    <div class="col-md-6">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                         <article class="video">
                                             <div class="video-thumb">
                                             </div>
@@ -23,7 +23,7 @@
                                             </div>
                                         </article>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                         <article class="video">
                                             <div class="video-thumb">
                                             </div>
@@ -33,7 +33,7 @@
                                             </div>
                                         </article>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                         <article class="video">
                                             <div class="video-thumb">
                                             </div>
@@ -43,7 +43,7 @@
                                             </div>
                                         </article>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                         <article class="video">
                                             <div class="video-thumb">
                                             </div>
@@ -53,7 +53,7 @@
                                             </div>
                                         </article>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                         <article class="video">
                                             <div class="video-thumb">
                                             </div>
@@ -63,7 +63,7 @@
                                             </div>
                                         </article>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                         <article class="video">
                                             <div class="video-thumb">
                                             </div>
@@ -77,11 +77,11 @@
                             </div><!-- .row -->
                         </div><!-- .col-md-8 -->
 
-                        <div class="col-md-4">
+                        <div class="col-lg-4 col-md-4 hidden-sm hidden-xs">
                             <section class="twitter" role="complementary">
 
                                 <div class="row">
-                                    <div class="col-md-9 col-md-offset-2">
+                                    <div class="col-lg-9 col-lg-offset-2 col-md-9 col-md-offset-2">
                                         <h3>
                                             <i class="fa fa-twitter"></i>
                                             Veja as últimas<br>informações<br><span>@timtec</span>
@@ -160,64 +160,39 @@
                     </div><!-- .row -->
                 </div><!-- .container -->
 
-                <aside class="next-videos" role="complementary">
+                <aside class="next-videos hidden-sm hidden-xs" role="complementary">
 
                     <div class="container">
+                            
+                        <div class="row">
 
-                        <h3>Próximos <span>lançamentos</span></h3>
+                            <div class="video col-lg-12 col-md-12">
+                                <h3><a href="#">Próximos <span>lançamentos</span></a></h3>
+                            </div>
+                            
+                            <div class="video col-lg-4 col-md-4">
+                                <div class="thumb col-lg-6 col-md-6"></div>
+                                <h4>Introdução a lógica de programação</h4>
+                            </div>
 
-                        <div class="prev"></div>
-                        <div class="next"></div>
-                        
-                        <div class="slider">
+                            <div class="video col-lg-4 col-md-4">
+                                <div class="thumb col-lg-6 col-md-6"></div>
+                                <h4>Introdução a lógica de programação</h4>
+                            </div>
+                            <div class="video col-lg-4 col-md-4">
+                                <div class="thumb col-lg-6 col-md-6">
+                                </div>
+                                <h4>Introdução a lógica de programação</h4>
+                            </div>
 
-                            <div class="wrapper">
-
-                                <div class="video">
-                                    <div class="thumb">
-                                    </div>
-                                    <h4>Introdução a lógica de programação</h4>
-                                </div>
-                                <div class="video">
-                                    <div class="thumb">
-                                    </div>
-                                    <h4>Introdução a lógica de programação</h4>
-                                </div>
-                                <div class="video">
-                                    <div class="thumb">
-                                    </div>
-                                    <h4>Introdução a lógica de programação</h4>
-                                </div>
-                                <div class="video">
-                                    <div class="thumb">
-                                    </div>
-                                    <h4>Introdução a lógica de programação</h4>
-                                </div>
-                                <div class="video">
-                                    <div class="thumb">
-                                    </div>
-                                    <h4>Introdução a lógica de programação</h4>
-                                </div>
-                                <div class="video">
-                                    <div class="thumb">
-                                    </div>
-                                    <h4>Introdução a lógica de programação</h4>
-                                </div>
-                                <div class="video">
-                                    <div class="thumb">
-                                    </div>
-                                    <h4>Introdução a lógica de programação</h4>
-                                </div>
-
-                            </div><!-- .wrapper -->
-
-                        </div><!-- .slider -->
+                        </div><!-- .row -->
 
                     </div><!-- .container -->
 
                 </aside><!-- .slider-proximos -->
 
             </section><!-- .content -->
+
         </div><!-- #home -->
         
 {% endblock %}

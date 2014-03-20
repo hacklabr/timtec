@@ -28,7 +28,8 @@
     background-clip:         padding-box;
 }
 
-/* SITE */
+// SITE STRUCTURE
+// ********************************************************************* //
 
 body {
     max-width: 1920px;
@@ -47,38 +48,43 @@ body {
     border: 0;
 }
 
+// MAIN HEADER
+// ********************************************************************* //
+
 .main-header {
     position: relative;
     z-index: 10;
-    height: 130px;
+    height: 70px;
     .gradient (@startColor: #007dc3, @endColor: #1451a2);
     .box-shadow(0px 5px 5px 0px rgba(0, 0, 0, 0.3));
 
     h1 {
-        float: left;
-        margin: 40px 155px 0 0;
-        width: 289px;
-        height: 45px;
+        margin: 20px 0 0;
+        width: 289px/1.5;
+        height: 45px/1.5;
         background-image: url(../img/logo-instituto-tim.png);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
 
         a {
             display: block;
-            width: 289px;
-            height: 45px;
+            width: 100%;
+            height: 100%;
         }
     } // .header h1
 
     h2 {
-        float: left;
-        margin: 40px 0 0 0;
-        width: 132px;
-        height: 45px;
+        margin: 20px 0 0;
+        width: 132px/1.5;
+        height: 45px/1.5;
         background-image: url(../img/logo-timtec.png);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
 
         a {
             display: block;
-            width: 132px;
-            height: 45px;
+            width: 100%;
+            height: 100%;
         }
     } // .header h2
 
@@ -152,6 +158,10 @@ body {
     } // .social
 } // .header
 
+
+// MAIN NAV
+// ********************************************************************* //
+
 .main-nav {
     position: relative;
     z-index: 9;
@@ -165,9 +175,6 @@ body {
             margin-right: 25px;
 
             a {
-                display: block;
-                height: 45px;
-                padding: 12px;
                 background-color: #b7e5f7;
                 color: #0d4c8f;
                 text-align: center;
@@ -184,11 +191,31 @@ body {
     } // .main-nav ul
 } // .main-nav
 
+
+// ILLUSTRATION
+// ********************************************************************* //
+
+.ilust {
+    position: relative;
+    z-index: 8;
+    margin-top: -45px; 
+    height: 686px;
+    background-position: top center;
+    background-repeat: no-repeat;
+} // .ilust
+
+
+// CONTENT
+// ********************************************************************* //
+
 .content {
     position: relative;
-    margin-top: -280px;
     z-index: 9;
 } // .content
+
+
+// MAIN FOOTER
+// ********************************************************************* //
 
 .main-footer {
     height: 120px;
@@ -227,5 +254,57 @@ body {
     } // .footer-nav
 } // .footer
 
+
+// RESPONSIVE
+// ********************************************************************* //
+
+@media (max-width: 360px) { 
+    .main-nav {
+        ul {
+            li {
+                width: 100%;
+                a {
+                    width: 100%;
+                }
+            }
+        } // .main-nav ul
+    } // .main-nav
+}
+
+@media (max-width: 600px) { 
+    .main-nav {
+        ul {
+            margin: 0 -15px;
+            li {
+                margin: 0;
+                a {
+                    padding: 10px 9px;
+                }
+            }
+        } // .main-nav ul
+    } // .main-nav
+}
+
+@media (min-width: @screen-sm-min) { 
+    .main-header {
+        height: 130px;
+
+        h1 {
+            margin: 40px 0 0;
+            width: 289px;
+            height: 45px;
+        } // .header h1
+
+        h2 {
+            margin: 40px 0 0;
+            width: 132px;
+            height: 45px;
+        } // .header h2
+
+    }
+    .content {
+        margin-top: -280px;
+    } // .content
+}
 
 @import "timtec/home";

@@ -5380,7 +5380,6 @@ td.visible-print {
   font-weight: normal;
   font-style: normal;
 }
-/* SITE */
 body {
   max-width: 1920px;
   background-image: url(../img/bg.jpg);
@@ -5399,7 +5398,7 @@ body {
 .main-header {
   position: relative;
   z-index: 10;
-  height: 130px;
+  height: 70px;
   background-color: #007dc3;
   background: -webkit-gradient(linear, left top, left bottom, from(#007dc3), to(#1451a2));
   background: -webkit-linear-gradient(top, #007dc3, #1451a2);
@@ -5411,28 +5410,30 @@ body {
   box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
 }
 .main-header h1 {
-  float: left;
-  margin: 40px 155px 0 0;
-  width: 289px;
-  height: 45px;
+  margin: 20px 0 0;
+  width: 192.66666667px;
+  height: 30px;
   background-image: url(../img/logo-instituto-tim.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
 .main-header h1 a {
   display: block;
-  width: 289px;
-  height: 45px;
+  width: 100%;
+  height: 100%;
 }
 .main-header h2 {
-  float: left;
-  margin: 40px 0 0 0;
-  width: 132px;
-  height: 45px;
+  margin: 20px 0 0;
+  width: 88px;
+  height: 30px;
   background-image: url(../img/logo-timtec.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
 .main-header h2 a {
   display: block;
-  width: 132px;
-  height: 45px;
+  width: 100%;
+  height: 100%;
 }
 .main-header .search {
   float: right;
@@ -5519,9 +5520,6 @@ body {
   margin-right: 25px;
 }
 .main-nav ul li a {
-  display: block;
-  height: 45px;
-  padding: 12px;
   background-color: #b7e5f7;
   color: #0d4c8f;
   text-align: center;
@@ -5535,9 +5533,16 @@ body {
   background-color: #fff;
   text-decoration: none;
 }
+.ilust {
+  position: relative;
+  z-index: 8;
+  margin-top: -45px;
+  height: 686px;
+  background-position: top center;
+  background-repeat: no-repeat;
+}
 .content {
   position: relative;
-  margin-top: -280px;
   z-index: 9;
 }
 .main-footer {
@@ -5578,14 +5583,45 @@ body {
   text-transform: uppercase;
   color: #fff;
 }
+@media (max-width: 360px) {
+  .main-nav ul li {
+    width: 100%;
+  }
+  .main-nav ul li a {
+    width: 100%;
+  }
+}
+@media (max-width: 600px) {
+  .main-nav ul {
+    margin: 0 -15px;
+  }
+  .main-nav ul li {
+    margin: 0;
+  }
+  .main-nav ul li a {
+    padding: 10px 9px;
+  }
+}
+@media (min-width: 768px) {
+  .main-header {
+    height: 130px;
+  }
+  .main-header h1 {
+    margin: 40px 0 0;
+    width: 289px;
+    height: 45px;
+  }
+  .main-header h2 {
+    margin: 40px 0 0;
+    width: 132px;
+    height: 45px;
+  }
+  .content {
+    margin-top: -280px;
+  }
+}
 #home .ilust {
-  position: relative;
-  z-index: 8;
-  margin-top: -45px;
-  height: 686px;
   background-image: url(../img/ilustra.jpg);
-  background-position: top center;
-  background-repeat: no-repeat;
 }
 #home .content .videos {
   margin-top: 100px;
@@ -5607,6 +5643,10 @@ body {
   -webkit-box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
+}
+#home .content .videos .video .video-thumb img {
+  width: 100%;
+  height: auto;
 }
 #home .content .videos .video .video-info {
   color: #000;
@@ -5658,44 +5698,20 @@ body {
   background-color: rgba(0, 46, 128, 0.8);
 }
 #home .content .next-videos h3 {
+  margin-bottom: 20px;
   font-family: 'teuton_24';
   font-size: 32px;
+  color: #fff;
+}
+#home .content .next-videos h3 a {
   color: #fff;
 }
 #home .content .next-videos h3 span {
   font-family: 'teuton_26';
 }
-#home .content .next-videos .prev,
-#home .content .next-videos .next {
-  width: 51px;
-  height: 121px;
-  background-image: url(../img/arrows.png);
-  cursor: pointer;
-}
-#home .content .next-videos .prev {
-  float: left;
-  background-position: top left;
-}
-#home .content .next-videos .next {
-  float: right;
-  background-position: top right;
-}
-#home .content .next-videos .slider {
-  margin: 0 65px;
-  overflow: hidden;
-}
-#home .content .next-videos .slider .wrapper {
-  overflow: hidden;
-  width: 3000px;
-}
-#home .content .next-videos .video {
-  float: left;
-  width: 400px;
-}
 #home .content .next-videos .video .thumb {
   position: relative;
   float: left;
-  width: 200px;
   height: 121px;
   margin-right: 10px;
   background: #000;
@@ -5709,6 +5725,10 @@ body {
   -webkit-box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
+}
+#home .content .next-videos .video .thumb img {
+  width: 100%;
+  height: auto;
 }
 #home .content .next-videos .video .thumb .play-ico {
   width: 40px;

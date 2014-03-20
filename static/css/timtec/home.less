@@ -1,19 +1,13 @@
 #home {
 
     .ilust {
-        position: relative;
-        z-index: 8;
-        margin-top: -45px; 
-        height: 686px;
         background-image: url(../img/ilustra.jpg);
-        background-position: top center;
-        background-repeat: no-repeat;
     } // .ilust
 
     .content {
 
         .videos {
-            margin-top: 100px;
+            margin-top: 20px;
 
             .video {
                 margin-bottom: 35px;
@@ -25,6 +19,11 @@
                     border: 5px solid #0c4580;
                     .border-radius(3px);
                     .box-shadow(0px 10px 30px 0px rgba(0, 0, 0, 0.3));
+
+                    img {
+                        width: 100%;
+                        height: auto;
+                    }
                 } // .video-thumb
 
                 .video-info {
@@ -90,56 +89,36 @@
             background-color: rgba(0, 46, 128, 0.8);
 
             h3 {
+                margin-bottom: 20px;
                 font-family: 'teuton_24';
                 font-size: 32px;
                 color: #fff;
+
+                a {
+                    color: #fff;
+                }
 
                 span {
                     font-family: 'teuton_26';
                 }
             }
 
-            .prev, .next {
-                width: 51px;
-                height: 121px;
-                background-image: url(../img/arrows.png);
-                cursor: pointer;
-            }
-
-            .prev {
-                float: left;
-                background-position: top left;
-            }
-
-            .next {
-                float: right;
-                background-position: top right;
-            }
-
-            .slider {
-                margin: 0 65px;
-                overflow: hidden;
-
-                .wrapper {
-                    overflow: hidden;
-                    width: 3000px;
-                }
-            }
-
             .video {
-                float: left;
-                width: 400px;
 
                 .thumb {
                     position: relative;
                     float: left;
-                    width: 200px;
                     height: 121px;
                     margin-right: 10px; 
                     background: #000;
                     border: 5px solid #fff;
                     .border-radius(3px);
                     .box-shadow(0px 10px 30px 0px rgba(0, 0, 0, 0.3));
+
+                    img {
+                        width: 100%;
+                        height: auto;
+                    }
 
                     .play-ico {
                         width: 40px;
@@ -161,3 +140,5 @@
         } // .next-videos
     } // .content
 } // .home
+
+
