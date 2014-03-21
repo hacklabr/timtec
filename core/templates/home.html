@@ -1,9 +1,16 @@
 {% extends 'base_timtec.html' %}
+
 {% load i18n %}
+{% load compressed %}
+
+{% block head %}
+{{ block.super }}
+{% compressed_js 'core' %}
+{% endblock %}
 
 {% block content %}
         
-        <div id="home">
+        <div id="home" ng-app="core" ng-controller="HomeCtrl">
 
             <div class="ilust hidden-xs"></div><!-- .ilust // top ilustration -->
 

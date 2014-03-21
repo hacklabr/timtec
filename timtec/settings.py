@@ -315,6 +315,14 @@ PIPELINE_JS = {
         ),
         'output_filename': 'js/reports.js',
     },
+    'core': {
+        'source_filenames': (
+            'js/core/app.js',
+            'js/core/controllers.js',
+            'js/core/services.js',
+        ),
+        'output_filename': 'js/core.js',
+    },
 }
 
 MOMMY_CUSTOM_FIELDS_GEN = {
