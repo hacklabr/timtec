@@ -49,12 +49,20 @@ class VideoSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     intro_video = VideoSerializer(required=False)
     thumbnail_url = serializers.Field(source='get_thumbnail_url')
+    professor_name = serializers.SerializerMethodField('get_professor_name')
 
     class Meta:
         model = Course
         fields = ("id", "slug", "name", "intro_video", "application", "requirement",
                   "abstract", "structure", "workload", "pronatec", "status",
-                  "thumbnail_url", "publication", "home_thumbnail", "home_position", "start_date")
+                  "thumbnail_url", "publication", "home_thumbnail", "home_position",
+                  "start_date", "professor_name", "home_published",)
+
+    @staticmethod
+    def get_professor_name(obj):
+        if obj.professors.all():
+            return obj.professors.all()[0]
+        return ''
 
 
 class CourseThumbSerializer(serializers.ModelSerializer):

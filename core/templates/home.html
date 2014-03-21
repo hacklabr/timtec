@@ -4,8 +4,11 @@
 {% load compressed %}
 
 {% block head %}
-{{ block.super }}
-{% compressed_js 'core' %}
+    {{ block.super }}
+    {% compressed_js 'core' %}
+    <script>
+        window.TWITTER_ACCOUNT = ""
+    </script>
 {% endblock %}
 
 {% block content %}
@@ -20,63 +23,15 @@
                         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                             <div class="row">
                                 <section class="videos" role="main">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div ng-repeat="course in courses" class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                         <article class="video">
                                             <div class="video-thumb">
                                             </div>
                                             <div class="video-info">
-                                                <h3>HTML5 Introdução ao Front End</h3>
-                                                <p>Fabio Flatschart</p>
-                                            </div>
-                                        </article>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <article class="video">
-                                            <div class="video-thumb">
-                                            </div>
-                                            <div class="video-info">
-                                                <h3>HTML5 Introdução ao Front End</h3>
-                                                <p>Fabio Flatschart</p>
-                                            </div>
-                                        </article>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <article class="video">
-                                            <div class="video-thumb">
-                                            </div>
-                                            <div class="video-info">
-                                                <h3>HTML5 Introdução ao Front End</h3>
-                                                <p>Fabio Flatschart</p>
-                                            </div>
-                                        </article>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <article class="video">
-                                            <div class="video-thumb">
-                                            </div>
-                                            <div class="video-info">
-                                                <h3>HTML5 Introdução ao Front End</h3>
-                                                <p>Fabio Flatschart</p>
-                                            </div>
-                                        </article>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <article class="video">
-                                            <div class="video-thumb">
-                                            </div>
-                                            <div class="video-info">
-                                                <h3>HTML5 Introdução ao Front End</h3>
-                                                <p>Fabio Flatschart</p>
-                                            </div>
-                                        </article>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <article class="video">
-                                            <div class="video-thumb">
-                                            </div>
-                                            <div class="video-info">
-                                                <h3>HTML5 Introdução ao Front End</h3>
-                                                <p>Fabio Flatschart</p>
+                                                {% verbatim %}
+                                                <h3>{{ course.name }}</h3>
+                                                <p>{{ course.professor_name }}</p>
+                                                {% endverbatim %}
                                             </div>
                                         </article>
                                     </div>
