@@ -1,4 +1,4 @@
-from core.models import Course, CourseProfessor, CourseStudent, Lesson, Video, StudentProgress, Unit
+from core.models import Course, CourseProfessor, CourseStudent, Lesson, Video, StudentProgress, Unit, ProfessorMessage
 from accounts.serializers import TimtecUserSerializer
 from activities.serializers import ActivitySerializer
 from rest_framework.reverse import reverse
@@ -12,6 +12,24 @@ class CourseProfessorSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('id', 'course', 'user', 'user_info', 'biography', 'role',)
         model = CourseProfessor
+
+
+class ProfessorMessageSerializer(serializers.ModelSerializer):
+
+    professor = TimtecUserSerializer(read_only=True)
+    users = TimtecUserSerializer(read_only=True)
+
+    class Meta:
+        model = ProfessorMessage
+
+    def validate(self, attrs):
+        if attrs['professor'].course != attrs['course']:
+            raise serializers.ValidationError("professor is not allowed to send a message to this course")
+
+        for student in attrs['users']:
+            if student.course != attrs['course']:
+                raise serializers.ValidationError("student is not from specified course")
+        return attrs
 
 
 class CourseStudentSerializer(serializers.ModelSerializer):
@@ -31,12 +49,20 @@ class VideoSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     intro_video = VideoSerializer(required=False)
     thumbnail_url = serializers.Field(source='get_thumbnail_url')
+    professor_name = serializers.SerializerMethodField('get_professor_name')
 
     class Meta:
         model = Course
         fields = ("id", "slug", "name", "intro_video", "application", "requirement",
                   "abstract", "structure", "workload", "pronatec", "status",
-                  "thumbnail_url", "publication",)
+                  "thumbnail_url", "publication", "home_thumbnail", "home_position",
+                  "start_date", "professor_name", "home_published",)
+
+    @staticmethod
+    def get_professor_name(obj):
+        if obj.professors.all():
+            return obj.professors.all()[0]
+        return ''
 
 
 class CourseThumbSerializer(serializers.ModelSerializer):
