@@ -73,8 +73,37 @@
             // END LESSONS
         }
 
-        .right-col {
+        .right-col {    
             background: rgba(40,112,187,0.5); 
+            color: #fff;
+
+            .buttons {
+                margin-top: 20px;
+
+                a {
+                    display: block;
+                    text-align: center;
+                }
+
+                .js-login-required {
+                    margin-bottom: 20px;
+                    padding: 8px 0;
+                    background-color: #f26522;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    color: #fff;
+                }
+
+                .share-facebook {
+                    height: 37px;
+                    background: url(../img/timtec/bt-facebook.png) no-repeat;
+                    text-indent: -9999px;
+                }
+            }
+
+            .instructor {
+                margin-top: 20px;
+            }
         }
     }
 
@@ -164,6 +193,14 @@
     @media (min-width: @screen-sm-min) { 
         .main-content {
             margin-top: -680px;
+
+            .buttons {
+                margin-top: 85px;
+
+                .js-login-required {
+                    margin-bottom: 0;
+                }
+            }
         } // .content
     }
 } // #course

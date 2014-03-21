@@ -5541,7 +5541,13 @@ body {
   background-position: top center;
   background-repeat: no-repeat;
 }
+.main-content {
+  position: relative;
+  z-index: 8;
+}
 .main-footer {
+  position: relative;
+  z-index: 9;
   height: 120px;
   background-color: #007dc3;
   background: -webkit-gradient(linear, left top, left bottom, from(#007dc3), to(#1451a2));
@@ -5578,10 +5584,6 @@ body {
 .main-footer .footer-nav li a {
   text-transform: uppercase;
   color: #fff;
-}
-.main-content {
-  position: relative;
-  z-index: 8;
 }
 #home .illust {
   background-image: url(../img/timtec/home-illust.jpg);
@@ -5768,6 +5770,30 @@ body {
 }
 #course .main-content .right-col {
   background: rgba(40, 112, 187, 0.5);
+  color: #fff;
+}
+#course .main-content .right-col .buttons {
+  margin-top: 20px;
+}
+#course .main-content .right-col .buttons a {
+  display: block;
+  text-align: center;
+}
+#course .main-content .right-col .buttons .js-login-required {
+  margin-bottom: 20px;
+  padding: 8px 0;
+  background-color: #f26522;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+}
+#course .main-content .right-col .buttons .share-facebook {
+  height: 37px;
+  background: url(../img/timtec/bt-facebook.png) no-repeat;
+  text-indent: -9999px;
+}
+#course .main-content .right-col .instructor {
+  margin-top: 20px;
 }
 #course .admin-units {
   margin-top: 66px !important;
@@ -5857,6 +5883,12 @@ body {
 @media (min-width: 768px) {
   #course .main-content {
     margin-top: -680px;
+  }
+  #course .main-content .buttons {
+    margin-top: 85px;
+  }
+  #course .main-content .buttons .js-login-required {
+    margin-bottom: 0;
   }
 }
 @media (max-width: 360px) {
