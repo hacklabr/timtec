@@ -54,7 +54,7 @@ class CourseSerializer(serializers.ModelSerializer):
         model = Course
         fields = ("id", "slug", "name", "intro_video", "application", "requirement",
                   "abstract", "structure", "workload", "pronatec", "status",
-                  "thumbnail_url", "publication",)
+                  "thumbnail_url", "publication", "home_thumbnail", "home_position", "start_date")
 
 
 class CourseThumbSerializer(serializers.ModelSerializer):

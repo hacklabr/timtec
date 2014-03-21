@@ -126,7 +126,7 @@ class ProfessorMessageViewSet(viewsets.ModelViewSet):
 class CourseViewSet(viewsets.ModelViewSet):
     model = Course
     lookup_field = 'id'
-    filter_fields = ('slug',)
+    filter_fields = ('slug', 'home_published',)
     filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = CourseSerializer
 

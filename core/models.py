@@ -52,6 +52,7 @@ class Course(models.Model):
     home_thumbnail = models.ImageField(_('Home thumbnail'), upload_to='home_thumbnails', null=True, blank=True)
     home_position = PositionField(blank=True, null=True)
     start_date = models.DateField(_('Publication'), default=None, blank=True, null=True)
+    home_published = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = _('Course')
