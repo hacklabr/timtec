@@ -30,6 +30,7 @@
     "modernizr": "~2.7.1",
     "font-awesome": "~4.0.3",
     "angular-mocks": "~1.2.4",
-    "angular-bootstrap": "~0.10.0"
+    "angular-bootstrap": "~0.10.0",
+    "angular-gettext": "~0.2.6"
   }
 }

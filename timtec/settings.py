@@ -177,7 +177,7 @@ PIPELINE_JS = {
     'all': {
         'source_filenames': (
             'modernizr/modernizr.js',
-            'jquery/jquery.js',
+            'jquery/dist/jquery.js',
             'jquery-ui/ui/jquery-ui.js',
             'jquery-ui/ui/jquery.ui.sortable.js',
             'bootstrap/dist/js/bootstrap.js',
