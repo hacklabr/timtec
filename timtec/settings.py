@@ -9,7 +9,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 SITE_ID = 1
-SITE_HOME = '/courses/html5/'
+SITE_HOME = ''
 SITE_NAME = 'Timtec'
 SITE_DOMAIN = 'timtec.com.br'
 

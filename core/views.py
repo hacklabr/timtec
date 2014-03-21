@@ -61,7 +61,7 @@ class ContactView(View):
 
 class CourseView(DetailView):
     model = Course
-    template_name = 'course.html'
+    template_name = 'timtec/course.html'
 
     def get_context_data(self, **kwargs):
         context = super(CourseView, self).get_context_data(**kwargs)
