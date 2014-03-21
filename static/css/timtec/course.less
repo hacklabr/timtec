@@ -1,0 +1,172 @@
+#course {
+
+    .illust {
+        background-image: url(../img/timtec/course-illust.jpg);
+    } // .illust
+
+    .main-content {
+        margin-top: 0px;
+
+        .left-col {
+            background: rgba(255,255,255,0.5); 
+
+            .course-main {
+                header {
+                    margin-top: 85px;
+
+                    h1 {
+                        margin: 0;
+                        font-family: 'teuton_26';
+                        color: #007dc3;
+                    }
+
+                    .instructors {
+                        margin: 0 0 20px 0;
+                        padding: 0;
+                        list-style: none;
+                        font-family: 'teuton_24';
+                        font-size: 20px;
+                    }
+                }
+            }
+
+            .lessons {
+                background: rgba(255,255,255,0.5);
+                margin-top: 20px;
+                .lesson {
+                    margin-bottom: 40px;
+                    margin-top: 20px;
+                    .title {
+                        display:block;
+                        font-size: 16px;
+                        font-weight:regular;
+                    }
+                    .description {
+                        font-size:13px;
+                    }
+                    li {
+                        margin:36px 0;
+                    }
+                }
+                // END LESSON
+                .table {
+                    margin-bottom:7px;
+                    tr {
+                        td {
+                            border:none;
+                            margin:0;
+                            padding:0;
+                            a {
+                                color: #fff;
+                            }
+                        }
+                    }
+                }
+                // END TABLE
+                i.fa-youtube-play {
+                    color:@brand-danger;
+                }
+                i.fa-list {
+                    color:@brand-info;
+                }
+            }
+            // END LESSONS
+        }
+
+        .right-col {
+            background: rgba(40,112,187,0.5); 
+        }
+    }
+
+// COURSE UNITS - General
+// ********************************************************************* //
+  .admin-units {
+    margin-top: 66px !important;
+  }
+  .units {
+    margint-top: 20px;
+    .unit {
+      background: #1e9dd9;
+      .box-shadow(inset -1px 0 0 #fff);
+      color:#fff;
+      cursor:pointer;
+      display:block;
+      font-size:12px;
+      height:20px;
+      line-height:1.75;
+      margin:0 0 1px 0;
+      padding:0 0 0 3px;
+      position:relative;
+      text-align:left;
+      z-index:10;
+      &:hover {
+        background: #1e9dd9 + 20%;
+        color:#fff;
+        .transition(all .25s ease-out);
+      }
+      &.current {
+        background-color: @brand-info;
+      }
+      &.done, &.done:hover {
+        background:@brand-warning;
+        .transition(all .25s ease-out);
+        &:hover {
+          background:darken(@brand-warning, 10%);
+        }
+      }
+      &.watching, &.watching:hover {
+        background:@brand-info;
+        .transition(all .25s ease-out);
+        &:hover {
+          background:darken(@brand-info, 10%);
+        }
+      }
+      i {
+        color:#fff !important;
+        font-size:14px;
+        margin:3px 0 0 0;
+      }
+      i.fa-caret-right {
+        color:@brand-info;
+        font-size:18px;
+        left:-10px;
+        line-height:1;
+        top:-2px;
+      }
+      i {
+        position:absolute;
+        right:6px;
+      }
+    }
+    // END UNIT
+
+    // ADD UNIT
+    .add-unit {
+      background-color: @brand-success;
+      line-height: 2;
+      padding: 0;
+      text-align: center;
+      &:hover {
+        background-color: darken(@brand-success, 10%);
+      }
+      i {
+        position: static;
+      }
+    }
+    // END ADD UNIT
+  }
+  // END COURSE UNITS
+
+    @media (max-width: @screen-sm-min) { 
+        margin-top: -40px;
+    }
+       
+    @media (min-width: @screen-sm-min) { 
+        .main-content {
+            margin-top: -680px;
+        } // .content
+    }
+} // #course
+
+
+

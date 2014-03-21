@@ -195,23 +195,15 @@ body {
 // ILLUSTRATION
 // ********************************************************************* //
 
-.ilust {
+.illust {
     position: relative;
     z-index: 8;
     margin-top: -45px; 
     height: 686px;
     background-position: top center;
     background-repeat: no-repeat;
-} // .ilust
+} // .illust
 
-
-// CONTENT
-// ********************************************************************* //
-
-.content {
-    position: relative;
-    z-index: 9;
-} // .content
 
 
 // MAIN FOOTER
@@ -253,6 +245,23 @@ body {
         }
     } // .footer-nav
 } // .footer
+
+
+// MAIN CONTENT
+// ********************************************************************* //
+
+.main-content {
+    position: relative;
+    z-index: 8;
+}
+        
+
+// IMPORT
+// ********************************************************************* //
+
+@import "timtec/home";
+
+@import "timtec/course";
 
 
 // RESPONSIVE
@@ -300,11 +309,10 @@ body {
             width: 132px;
             height: 45px;
         } // .header h2
-
     }
-    .content {
+
+    .main-content {
         margin-top: -280px;
     } // .content
 }
 
-@import "timtec/home";

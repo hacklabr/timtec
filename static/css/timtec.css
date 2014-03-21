@@ -5533,17 +5533,13 @@ body {
   background-color: #fff;
   text-decoration: none;
 }
-.ilust {
+.illust {
   position: relative;
   z-index: 8;
   margin-top: -45px;
   height: 686px;
   background-position: top center;
   background-repeat: no-repeat;
-}
-.content {
-  position: relative;
-  z-index: 9;
 }
 .main-footer {
   height: 120px;
@@ -5583,6 +5579,286 @@ body {
   text-transform: uppercase;
   color: #fff;
 }
+.main-content {
+  position: relative;
+  z-index: 8;
+}
+#home .illust {
+  background-image: url(../img/timtec/home-illust.jpg);
+}
+#home .main-content .videos {
+  margin-top: 20px;
+}
+#home .main-content .videos .video {
+  margin-bottom: 35px;
+}
+#home .main-content .videos .video .video-thumb {
+  position: relative;
+  background: #000;
+  height: 200px;
+  border: 5px solid #0c4580;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
+}
+#home .main-content .videos .video .video-thumb img {
+  width: 100%;
+  height: auto;
+}
+#home .main-content .videos .video .video-info {
+  color: #000;
+}
+#home .main-content .videos .video .video-info h3 {
+  font-weight: bold;
+}
+#home .main-content .twitter {
+  overflow: hidden;
+  background-image: url(../img/timtec/bg-barra-twitter.png);
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+#home .main-content .twitter h3 {
+  font-family: 'teuton_26';
+  margin: 20px 0 20px 0;
+  color: #fff;
+  font-size: 20px;
+}
+#home .main-content .twitter h3 i {
+  float: left;
+  margin-right: 15px;
+  font-size: 70px;
+}
+#home .main-content .twitter h3 span {
+  font-family: 'teuton_24';
+}
+#home .main-content .twitter .tweet {
+  width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  border-bottom: 2px solid #00bfda;
+}
+#home .main-content .twitter .tweet .info {
+  margin-bottom: 15px;
+}
+#home .main-content .twitter .tweet .info .avatar {
+  width: 60px;
+  height: 60px;
+  float: left;
+  background-color: #000;
+  margin: 0 20px 0 0;
+}
+#home .main-content .twitter .tweet .info span {
+  display: block;
+}
+#home .main-content .next-videos {
+  padding-bottom: 30px;
+  background-color: rgba(0, 46, 128, 0.8);
+}
+#home .main-content .next-videos h3 {
+  margin-bottom: 20px;
+  font-family: 'teuton_24';
+  font-size: 32px;
+  color: #fff;
+}
+#home .main-content .next-videos h3 a {
+  color: #fff;
+}
+#home .main-content .next-videos h3 span {
+  font-family: 'teuton_26';
+}
+#home .main-content .next-videos .video .thumb {
+  position: relative;
+  float: left;
+  height: 121px;
+  margin-right: 10px;
+  background: #000;
+  border: 5px solid #fff;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
+}
+#home .main-content .next-videos .video .thumb img {
+  width: 100%;
+  height: auto;
+}
+#home .main-content .next-videos .video .thumb .play-ico {
+  width: 40px;
+  height: 22px;
+  margin: -11px 0 0 -20px;
+}
+#home .main-content .next-videos .video .thumb .play-ico i {
+  margin: 0px 0 0 16px;
+  font-size: 11px;
+}
+#home .main-content .next-videos .video h4 {
+  margin: 0;
+  color: #fff;
+}
+#course .illust {
+  background-image: url(../img/timtec/course-illust.jpg);
+}
+#course .main-content {
+  margin-top: 0px;
+}
+#course .main-content .left-col {
+  background: rgba(255, 255, 255, 0.5);
+}
+#course .main-content .left-col .course-main header {
+  margin-top: 85px;
+}
+#course .main-content .left-col .course-main header h1 {
+  margin: 0;
+  font-family: 'teuton_26';
+  color: #007dc3;
+}
+#course .main-content .left-col .course-main header .instructors {
+  margin: 0 0 20px 0;
+  padding: 0;
+  list-style: none;
+  font-family: 'teuton_24';
+  font-size: 20px;
+}
+#course .main-content .left-col .lessons {
+  background: rgba(255, 255, 255, 0.5);
+  margin-top: 20px;
+}
+#course .main-content .left-col .lessons .lesson {
+  margin-bottom: 40px;
+  margin-top: 20px;
+}
+#course .main-content .left-col .lessons .lesson .title {
+  display: block;
+  font-size: 16px;
+  font-weight: regular;
+}
+#course .main-content .left-col .lessons .lesson .description {
+  font-size: 13px;
+}
+#course .main-content .left-col .lessons .lesson li {
+  margin: 36px 0;
+}
+#course .main-content .left-col .lessons .table {
+  margin-bottom: 7px;
+}
+#course .main-content .left-col .lessons .table tr td {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+#course .main-content .left-col .lessons .table tr td a {
+  color: #fff;
+}
+#course .main-content .left-col .lessons i.fa-youtube-play {
+  color: #d9534f;
+}
+#course .main-content .left-col .lessons i.fa-list {
+  color: #5bc0de;
+}
+#course .main-content .right-col {
+  background: rgba(40, 112, 187, 0.5);
+}
+#course .admin-units {
+  margin-top: 66px !important;
+}
+#course .units {
+  margint-top: 20px;
+}
+#course .units .unit {
+  background: #1e9dd9;
+  -webkit-box-shadow: inset -1px 0 0 #ffffff;
+  -moz-box-shadow: inset -1px 0 0 #ffffff;
+  box-shadow: inset -1px 0 0 #ffffff;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  font-size: 12px;
+  height: 20px;
+  line-height: 1.75;
+  margin: 0 0 1px 0;
+  padding: 0 0 0 3px;
+  position: relative;
+  text-align: left;
+  z-index: 10;
+}
+#course .units .unit:hover {
+  background: #32b1ed;
+  color: #fff;
+  -webkit-transition: all 0.25s ease-out;
+  transition: all 0.25s ease-out;
+}
+#course .units .unit.current {
+  background-color: #5bc0de;
+}
+#course .units .unit.done,
+#course .units .unit.done:hover {
+  background: #f0ad4e;
+  -webkit-transition: all 0.25s ease-out;
+  transition: all 0.25s ease-out;
+}
+#course .units .unit.done:hover,
+#course .units .unit.done:hover:hover {
+  background: #ec971f;
+}
+#course .units .unit.watching,
+#course .units .unit.watching:hover {
+  background: #5bc0de;
+  -webkit-transition: all 0.25s ease-out;
+  transition: all 0.25s ease-out;
+}
+#course .units .unit.watching:hover,
+#course .units .unit.watching:hover:hover {
+  background: #31b0d5;
+}
+#course .units .unit i {
+  color: #fff !important;
+  font-size: 14px;
+  margin: 3px 0 0 0;
+}
+#course .units .unit i.fa-caret-right {
+  color: #5bc0de;
+  font-size: 18px;
+  left: -10px;
+  line-height: 1;
+  top: -2px;
+}
+#course .units .unit i {
+  position: absolute;
+  right: 6px;
+}
+#course .units .add-unit {
+  background-color: #5cb85c;
+  line-height: 2;
+  padding: 0;
+  text-align: center;
+}
+#course .units .add-unit:hover {
+  background-color: #449d44;
+}
+#course .units .add-unit i {
+  position: static;
+}
+@media (max-width: 768px) {
+  #course {
+    margin-top: -40px;
+  }
+}
+@media (min-width: 768px) {
+  #course .main-content {
+    margin-top: -680px;
+  }
+}
 @media (max-width: 360px) {
   .main-nav ul li {
     width: 100%;
@@ -5616,130 +5892,7 @@ body {
     width: 132px;
     height: 45px;
   }
-  .content {
+  .main-content {
     margin-top: -280px;
   }
-}
-#home .ilust {
-  background-image: url(../img/timtec/ilustra.jpg);
-}
-#home .content .videos {
-  margin-top: 20px;
-}
-#home .content .videos .video {
-  margin-bottom: 35px;
-}
-#home .content .videos .video .video-thumb {
-  position: relative;
-  background: #000;
-  height: 200px;
-  border: 5px solid #0c4580;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  -webkit-box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
-}
-#home .content .videos .video .video-thumb img {
-  width: 100%;
-  height: auto;
-}
-#home .content .videos .video .video-info {
-  color: #000;
-}
-#home .content .videos .video .video-info h3 {
-  font-weight: bold;
-}
-#home .content .twitter {
-  overflow: hidden;
-  background-image: url(../img/timtec/bg-barra-twitter.png);
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-}
-#home .content .twitter h3 {
-  font-family: 'teuton_26';
-  margin: 20px 0 20px 0;
-  color: #fff;
-  font-size: 20px;
-}
-#home .content .twitter h3 i {
-  float: left;
-  margin-right: 15px;
-  font-size: 70px;
-}
-#home .content .twitter h3 span {
-  font-family: 'teuton_24';
-}
-#home .content .twitter .tweet {
-  width: 100%;
-  padding: 20px;
-  background-color: #fff;
-  border-bottom: 2px solid #00bfda;
-}
-#home .content .twitter .tweet .info {
-  margin-bottom: 15px;
-}
-#home .content .twitter .tweet .info .avatar {
-  width: 60px;
-  height: 60px;
-  float: left;
-  background-color: #000;
-  margin: 0 20px 0 0;
-}
-#home .content .twitter .tweet .info span {
-  display: block;
-}
-#home .content .next-videos {
-  padding-bottom: 30px;
-  background-color: rgba(0, 46, 128, 0.8);
-}
-#home .content .next-videos h3 {
-  margin-bottom: 20px;
-  font-family: 'teuton_24';
-  font-size: 32px;
-  color: #fff;
-}
-#home .content .next-videos h3 a {
-  color: #fff;
-}
-#home .content .next-videos h3 span {
-  font-family: 'teuton_26';
-}
-#home .content .next-videos .video .thumb {
-  position: relative;
-  float: left;
-  height: 121px;
-  margin-right: 10px;
-  background: #000;
-  border: 5px solid #fff;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  -webkit-box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
-}
-#home .content .next-videos .video .thumb img {
-  width: 100%;
-  height: auto;
-}
-#home .content .next-videos .video .thumb .play-ico {
-  width: 40px;
-  height: 22px;
-  margin: -11px 0 0 -20px;
-}
-#home .content .next-videos .video .thumb .play-ico i {
-  margin: 0px 0 0 16px;
-  font-size: 11px;
-}
-#home .content .next-videos .video h4 {
-  margin: 0;
-  color: #fff;
 }
