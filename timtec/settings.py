@@ -201,8 +201,28 @@ PIPELINE_JS = {
             'js/contact_form.js',
             'js/helpers.js',
             'js/angular-youtube.js',
+            'js/truncate.js',
         ),
         'output_filename': 'js/all.js',
+    },
+    'markdown': {
+        'source_filenames': (
+            'js/vendor/pagedown/Markdown.Converter.js',
+            'js/vendor/pagedown/Markdown.Editor.js',
+            'js/vendor/pagedown/Markdown.Sanitizer.js',
+            'js/markdown/app.js',
+            'js/markdown/filters.js',
+        ),
+        'output_filename': 'js/markdown.js',
+    },
+    'messages': {
+        'source_filenames': (
+            'js/messages/app.js',
+            'js/messages/controllers.js',
+            'js/messages/services.js',
+            'checklist-model/checklist-model.js'
+        ),
+        'output_filename': 'js/messages.js',
     },
     'codemirror': {
         'source_filenames': (

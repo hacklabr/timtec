@@ -1,4 +1,4 @@
-from core.models import Course, CourseProfessor, CourseStudent, Lesson, Video, StudentProgress, Unit
+from core.models import Course, CourseProfessor, CourseStudent, Lesson, Video, StudentProgress, Unit, ProfessorMessage
 from accounts.serializers import TimtecUserSerializer
 from activities.serializers import ActivitySerializer
 from rest_framework.reverse import reverse
@@ -12,6 +12,24 @@ class CourseProfessorSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('id', 'course', 'user', 'user_info', 'biography', 'role',)
         model = CourseProfessor
+
+
+class ProfessorMessageSerializer(serializers.ModelSerializer):
+
+    professor = TimtecUserSerializer(read_only=True)
+    users = TimtecUserSerializer(read_only=True)
+
+    class Meta:
+        model = ProfessorMessage
+
+    def validate(self, attrs):
+        if attrs['professor'].course != attrs['course']:
+            raise serializers.ValidationError("professor is not allowed to send a message to this course")
+
+        for student in attrs['users']:
+            if student.course != attrs['course']:
+                raise serializers.ValidationError("student is not from specified course")
+        return attrs
 
 
 class CourseStudentSerializer(serializers.ModelSerializer):
