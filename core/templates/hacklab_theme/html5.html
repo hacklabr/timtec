@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% block content %}
+
+<script type="text/javascript">
+    $(function() {
+        var body = $('#empty').contents().find('body');
+        var cm = CodeMirror.fromTextArea($('#texto')[0], CodeMirrorConf);
+        cm.markText({line:0, ch:0}, {line:4, ch:0}, {atomic: true, readOnly: true, inclusiveLeft: true});
+        cm.markText({line:4, ch:1000}, {line:7, ch:0}, {atomic: true, readOnly: true, inclusiveRight: true});
+        cm.on('change', function (instance) {
+            data = instance.getValue();
+            $('#empty').contents().find('body').html(data);
+        });
+    });
+</script>
+
+
+<!-- CONTAINER -->
+<div>
+<h1>CODE MIRROR ABAIXO</h1>
+<textarea id="texto" name="" rows=35>
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <p>{% trans 'Hello world! This is HTML5 Boilerplate.' %}</p>
+  </body>
+</html>
+</textarea>
+    <iframe id="empty" src="/empty/"></iframe>
+</div>
+<!-- CONTAINER -->
+{% endblock %}

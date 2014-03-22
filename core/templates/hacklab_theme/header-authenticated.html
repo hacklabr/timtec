@@ -1,0 +1,49 @@
+{% load i18n %}
+{% load usergroup %}
+
+<!-- NAVBAR -->
+<nav id="main-navbar" class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-collapse">
+                <span class="sr-only">{% trans 'Toggle navigation' %}</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">{{ site.name }}</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="main-navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- <li><a href="">{% trans "Available Courses" %}</a></li> -->
+                {% ifusergroup professors %}
+                <li><a href="{% url 'administration.home' %}">{% trans "Admin" %}</a></li>
+                {% endifusergroup %}
+                <li><a href="{% url 'user_courses' %}">{% trans "My Courses" %}</a></li>
+                <li><a href="{% url 'user_notes' %}">{% trans "My Notes" %}</a></li>
+                <li>
+                    <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
+                        {{ user }}
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'profile' %}">{% trans "Profile" %}</a></li>
+                        <li><a href="{% url 'profile_edit' %}">{% trans "Edit Profile and Account Settings" %}</a></li>
+                        <!-- <li><a href="">{% trans "Settings" %}</a></li> -->
+                        <li class='divider'></li>
+                        <li><a href="{% url 'timtec_logout' %}">{% trans "Logout" %}</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<script type="text/javascript">
+ga('set', 'dimension1', '{{ user.id }}');
+ga('set', 'dimension2', '{{ user.get_user_type }}');
+ga('set', 'dimension3', '{{ user.is_pilot }}');
+</script>
+<!-- END NAVBAR -->

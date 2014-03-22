@@ -1,0 +1,160 @@
+{% extends 'base_timtec.html' %}
+
+{% load i18n %}
+{% load compressed %}
+
+{% block head %}
+    {{ block.super }}
+    {% compressed_js 'core' %}
+    <script>
+        window.TWITTER_ACCOUNT = ""
+    </script>
+{% endblock %}
+
+{% block content %}
+        
+        <div id="home" ng-app="core" ng-controller="HomeCtrl">
+
+            <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
+
+            <section class="main-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                            <div class="row">
+                                <section class="videos" role="main">
+                                    <div ng-repeat="course in courses" class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <article class="video">
+                                            <div class="video-thumb">
+                                            </div>
+                                            <div class="video-info">
+                                                {% verbatim %}
+                                                <h3>{{ course.name }}</h3>
+                                                <p>{{ course.professor_name }}</p>
+                                                {% endverbatim %}
+                                            </div>
+                                        </article>
+                                    </div>
+                                </section><!-- .videos -->
+                            </div><!-- .row -->
+                        </div><!-- .col-md-8 -->
+
+                        <div class="col-lg-4 col-md-4 hidden-sm hidden-xs">
+                            <section class="twitter" role="complementary">
+
+                                <div class="row">
+                                    <div class="col-lg-9 col-lg-offset-2 col-md-9 col-md-offset-2">
+                                        <h3>
+                                            <i class="fa fa-twitter"></i>
+                                            Veja as últimas<br>informações<br><span>@timtec</span>
+                                        </h3>
+                                        <div class="tweet">
+                                            <div class="info">
+                                                <span class="avatar"></span>
+                                                <span class="name">TIMTec</span>
+                                                <span class="date">00/00/0000</span>
+                                                <span class="hour">00:00 AM</span>
+                                            </div>
+                                            <div class="text">
+                                                Lorem ipsum dolor sit amet lorem ipsum dolor sit amet
+                                            </div>
+                                        </div>
+                                        <div class="tweet">
+                                            <div class="info">
+                                                <span class="avatar"></span>
+                                                <span class="name">TIMTec</span>
+                                                <span class="date">00/00/0000</span>
+                                                <span class="hour">00:00 AM</span>
+                                            </div>
+                                            <div class="text">
+                                                Lorem ipsum dolor sit amet lorem ipsum dolor sit amet
+                                            </div>
+                                        </div>
+                                        <div class="tweet">
+                                            <div class="info">
+                                                <span class="avatar"></span>
+                                                <span class="name">TIMTec</span>
+                                                <span class="date">00/00/0000</span>
+                                                <span class="hour">00:00 AM</span>
+                                            </div>
+                                            <div class="text">
+                                                Lorem ipsum dolor sit amet lorem ipsum dolor sit amet
+                                            </div>
+                                        </div>
+                                        <div class="tweet">
+                                            <div class="info">
+                                                <span class="avatar"></span>
+                                                <span class="name">TIMTec</span>
+                                                <span class="date">00/00/0000</span>
+                                                <span class="hour">00:00 AM</span>
+                                            </div>
+                                            <div class="text">
+                                                Lorem ipsum dolor sit amet lorem ipsum dolor sit amet
+                                            </div>
+                                        </div>
+                                        <div class="tweet">
+                                            <div class="info">
+                                                <span class="avatar"></span>
+                                                <span class="name">TIMTec</span>
+                                                <span class="date">00/00/0000</span>
+                                                <span class="hour">00:00 AM</span>
+                                            </div>
+                                            <div class="text">
+                                                Lorem ipsum dolor sit amet lorem ipsum dolor sit amet
+                                            </div>
+                                        </div>
+                                        <div class="tweet">
+                                            <div class="info">
+                                                <span class="avatar"></span>
+                                                <span class="name">TIMTec</span>
+                                                <span class="date">00/00/0000</span>
+                                                <span class="hour">00:00 AM</span>
+                                            </div>
+                                            <div class="text">
+                                                Lorem ipsum dolor sit amet lorem ipsum dolor sit amet
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section><!-- .twitter -->
+                        </div><!-- .col-md-3 -->
+
+                    </div><!-- .row -->
+                </div><!-- .container -->
+
+                <aside class="next-videos hidden-sm hidden-xs" role="complementary">
+
+                    <div class="container">
+                            
+                        <div class="row">
+
+                            <div class="video col-lg-12 col-md-12">
+                                <h3><a href="#">Próximos <span>lançamentos</span></a></h3>
+                            </div>
+                            
+                            <div class="video col-lg-4 col-md-4">
+                                <div class="thumb col-lg-6 col-md-6"></div>
+                                <h4>Introdução a lógica de programação</h4>
+                            </div>
+
+                            <div class="video col-lg-4 col-md-4">
+                                <div class="thumb col-lg-6 col-md-6"></div>
+                                <h4>Introdução a lógica de programação</h4>
+                            </div>
+                            <div class="video col-lg-4 col-md-4">
+                                <div class="thumb col-lg-6 col-md-6">
+                                </div>
+                                <h4>Introdução a lógica de programação</h4>
+                            </div>
+
+                        </div><!-- .row -->
+
+                    </div><!-- .container -->
+
+                </aside><!-- .slider-proximos -->
+
+            </section><!-- .content -->
+
+        </div><!-- #home -->
+        
+{% endblock %}

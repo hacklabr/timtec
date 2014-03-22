@@ -1,0 +1,26 @@
+{% extends "messages.html" %}
+{% load i18n %}
+
+{% block messages_content %}
+        <div class="message" ng-controller="MessageController">
+            {% verbatim %}
+            <h1 class="bottom">{{ message.subject }}</h1>
+            <p class="date">{{ message.date|date:"dd/MM/yy" }}</p>
+            {% endverbatim %}
+            <div class="body">
+                <span ng-bind-html="message.message|markdown"> </span>
+            </div>
+            <div class="row">
+                <div class="students col-lg-12">
+                    <h2>{% trans 'Students' %}</h2>
+                    <div class="row" ng-repeat="row in message.users_rows">
+                        <div class="col-lg-2" ng-repeat="user in row">
+                            {% verbatim %}
+                            <div class="student">{{ user.name || user.username }}</div>
+                            {% endverbatim %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

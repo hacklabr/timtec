@@ -1,0 +1,114 @@
+<!-- FOOTER -->
+<footer class="main-footer" role="contentinfo">
+    <div class="container">
+        <h3>Parceria</h3>
+        <span class="logo-mct"><a href="#"><span class="sr-only">Ministério da Ciência e Tecnologia</span></a></span>
+
+        <nav class="footer-nav" role="navigation">
+            <ul class="list-unstyled list-inline">
+                <li><a href="#" data-toggle="modal" data-target="#modal-contact">Contato</a></li>
+                <li><a href="#">Termos de Uso</a></li>
+            </ul>   
+        </nav>
+    </div>
+</footer>
+<!-- END FOOTER -->
+
+<div class="modal fade" id="modal-about">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Sobre o TIM Tec</h4>
+            </div>
+            <div class="modal-body">
+                <p><b>TIM Tec</b> e um projeto do <b>Instituto TIM</b> para alunos do ensino médio técnico e profissionalizante brasileiro.</p>
+                <p>Queremos contribuir para a qualificação e formação de jovens e adultos, para empoderar o trabalhador e proporcionar opções de geração de renda e qualidade social para milhares de pessoas em todas as regiões do país.</p>
+                <p>Para isso, desenvolvemos uma plataforma de MOOC (<i>massive online open courses</i>) em código aberto. Esta plataforma, batizada de <b>TIM Tec</b>, está em constante desenvolvimento e aberta a contribuições e participações dos mais diferentes setores envolvidos com o ensino no país.</p>
+                <p>No site <a href="http://www.timtec.com.br">www.timtec.com.br</a>, utilizamos uma versão desta plataforma para publicar e hospedar cursos alinhados ao Eixo Tecnológicos: Informação e Comunicação do PRONATEC, o Programa Nacional de Acesso ao Ensino Técnico e Emprego do Governo Federal.</p>
+                <p>Os curso publicados aqui foram pensados para possibilitar a qualificação dos alunos na Formação Inicial e Continuada (FIC).</p>
+                <p>Começamos o projeto com cinco concentrações, e em breve expandiremos para outras, visando atender às demandas dos alunos, das instituições de ensino das redes de ensino à distância e presencial no Brasil, e sempre atentos para as necessidades do mercado.</p>
+                <p>Trabalhamos para dar aos alunos a possibilidade de inclusão por meio do estudo e da qualificação. Acreditamos que os alunos interessados podem fazer um excelente uso de ferramentas que transferem a ele a responsabilidade pelo próprio estudo.</p>
+                <p>Por isso, todo o conteúdo publicado neste site está licenciado de forma a poder ser reutilizado por outros usuários, instituições e parceiros, seguindo uma licença Creative Commons.</p>
+                <h3>O MOOC</h3>
+                <p>Moocs, ou cursos massivos online e abertos (<i>massive online open courses</i>), são baseados no princípio de que muitos alunos podem se beneficiar de um mesmo curso, simultaneamente, e sem a necessidade de encontros virtuais com hora marcada. Para isso, é preciso que o sistema Mooc e os cursos sejam pensados e desenhados com este fim.</p>
+                <p>No Mooc, o aluno estuda seguindo o próprio ritmo e desejo, controla a velocidade do aprendizado, testa o conhecimento adquirido a cada etapa do processo e reforça os conceitos aprendidos por meio de recursos multimídia variados. [Leia mais sobre Mooc: <a href="http://pt.wikipedia.org/wiki/MOOC" target="_blank">http://pt.wikipedia.org/wiki/MOOC</a>]</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div class="modal fade" id="modal-contact">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Contato</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-1">
+                        <form class="form-horizontal" method="post" action="{% url 'contact' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label">Sou</label>
+                                <div class="col-lg-8">
+                                    <select class="form-control" name="{{contact_form.occupation.name}}">
+                                        <option>Estudante</option>
+                                        <option>Professor</option>
+                                        <option>Jornalista</option>
+                                        <option>Administrador de instituição educacional</option>
+                                        <option>Outro</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label">Quero falar sobre</label>
+                                <div class="col-lg-8">
+                                    <select class="form-control" name="{{contact_form.subject.name}}">
+                                        <option>Problemas no registro de usuários</option>
+                                        <option>Problemas técnicos</option>
+                                        <option>Acessibilidade para estudantes</option>
+                                        <option>Certificados e exames</option>
+                                        <option>Relacionamento institucional</option>
+                                        <option>Outro assunto</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label">Nome</label>
+                                <div class="col-lg-8">
+                                    <input required type="text" class="form-control" name="{{contact_form.name.name}}"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label">Email</label>
+                                <div class="col-lg-8">
+                                    <input required type="email" class="form-control" name="{{contact_form.email.name}}"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label">Mensagem</label>
+                                <div class="col-lg-8">
+                                    <textarea required class="form-control" rows="6" name="{{contact_form.message.name}}"></textarea>
+                                </div>
+                            </div>
+                            <div class="submit textright">
+                                <button type="reset" class="btn btn-danger">Limpar</button>
+                                <button type="submit" class="btn btn-success">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

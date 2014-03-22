@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load compressed %}
+{% load staticfiles %}
+
+{% block head %}
+    {{ block.super }}
+    {% compressed_js 'notes' %}
+{% endblock %}
+
+{% block content %}
+<!-- CONTAINER -->
+<div id="my-notes" class="course-notes" ng-app="notes" ng-controller="CourseNotesCtrl">
+
+    {% include "_course-header-inline.html"  with course=course question_form=false %}
+    
+    <section id="notes-content" class="container">
+
+        <header>
+            <div class="row">
+                <div class="col-lg-9">
+                    <h1>{% trans "Course Notes" %}</h1>
+                </div>
+                <div class="col-lg-3">
+                    <a href="/notes/" class="btn btn-lg btn-success uppercase">{% trans "My Notes" %}</a>
+                </div>
+            </div>
+        </header>
+
+        <section class="notes">
+            <p ng-if="lessons.length == 0">
+                {% trans "You have not made any notes yet." %}
+            </p>
+            
+            {% verbatim angularjs %}
+            <div id="lesson-{{ lesson.position }}" class="lesson" ng-repeat="lesson in lessons">
+                <h1><span>Aula</span> <a href="/course/{{lesson.course}}/lesson/{{lesson.slug}}">{{ lesson.name }}</a></h1>
+                <div ng-repeat="unit in lesson.units_notes">
+                    <div class="note">
+                        <div class="row">
+                            <div class="col-lg-10">
+                                <p><strong>Unidade {{unit.position + 1}}: {{unit.title}}</strong></p>
+                                <p>{{ unit.user_note.text }}</p>
+                            </div>
+                            <div class="col-lg-2 textright">
+                                <button class="btn btn-warning">Editar</button>
+                                <button class="btn btn-danger" ng-click="delele_note(lesson, unit, unit.user_note)"><i class="fa fa-trash-o"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endverbatim angularjs %}
+        </section>
+    </section>
+</div>
+<!-- CONTAINER -->
+{% endblock %}
