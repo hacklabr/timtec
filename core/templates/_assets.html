@@ -2,11 +2,7 @@
 {% load staticfiles %}
 
 {% compressed_css 'common' %}
-{% if admin %}
-    {% compressed_css 'admin' %}
-{% else %}
-    {% compressed_css 'public' %}
-{% endif %}
+{% compressed_css 'timtec' %}
 
 <script>
     window.STATIC_URL = '{{ STATIC_URL }}';

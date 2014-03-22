@@ -109,7 +109,10 @@
         }
     }
 
-    &.course-lesson {
+    &.course-lesson,
+    &.course-forum,
+    &.course-material,
+    &.course-notes {
         .illust {
             background-image: url(../img/timtec/lesson-illust.jpg);
         } // .illust
@@ -326,7 +329,10 @@
             } // .content
         }
 
-        &.course-lesson {
+        &.course-lesson,
+        &.course-forum,
+        &.course-material,
+        &.course-notes {
             .main-content {
                 margin-top: -605px;
 
@@ -338,7 +344,7 @@
 
 // FORUM
 // ********************************************************************* //
-#forum {
+#forum-inline {
   #forum-content {
     header {
       border-bottom: 1px solid @gray-lighter;
@@ -504,6 +510,3 @@
     }
   }
 }
-
-
-

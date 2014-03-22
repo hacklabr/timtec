@@ -15,39 +15,45 @@
 </script>
 <!-- CONTAINER -->
 <div id="course" class="course-material">
-    <!-- HEADER -->
-    {% include "_course-header-inline.html"  with course=course %}
-    <!-- END HEADER -->
-    <!-- MAIN CONTENT -->
-    <section id="course-content" class="container">
-        <header>
-            <div class="row">
-                <div class="col-lg-9">
-                    <h1>{% trans "Course Material" %}</h1>
+
+    <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
+    <div class="main-content">
+            <div class="container">
+            <!-- HEADER -->
+            {% include "_course-header-inline.html"  with course=course %}
+            <!-- END HEADER -->
+            <!-- MAIN CONTENT -->
+            <section id="course-content" class="container">
+                <header>
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <h1>{% trans "Course Material" %}</h1>
+                        </div>
+                        <div class="col-lg-3">
+                            <a href="{% url "lesson" course.slug course.first_lesson.slug %}" class="goto-course btn btn-lg btn-danger uppercase">{% trans "Go to course" %}</a>
+                        </div>
+                    </div>
+                </header>
+                <div class="row">
+                    <div class="col-sm-9 col-lg-9">
+                        <!-- COURSE MATERIAL TEXT FORM -->
+                        <p class="description">{{ course_material.text|timtec_markdown }}</p>
+                        <!-- COURSE MATERIAL TEXT FORM -->
+                    </div>
+                    <!-- ASIDE -->
+                    <aside class="col-sm-3 col-lg-3">
+                        <ul class="uploaded-files-list">
+                            <li><h5>{% trans "Files" %}</h5></li>
+                            {% for file in course_material.files.all %}
+                                <li><a href="{{ file.file.url }}">{{ file.file.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </aside>
+                    <!-- END ASIDE -->
                 </div>
-                <div class="col-lg-3">
-                    <a href="{% url "lesson" course.slug course.first_lesson.slug %}" class="goto-course btn btn-lg btn-danger uppercase">{% trans "Go to course" %}</a>
-                </div>
-            </div>
-        </header>
-        <div class="row">
-            <div class="col-sm-9 col-lg-9">
-                <!-- COURSE MATERIAL TEXT FORM -->
-                <p class="description">{{ course_material.text|timtec_markdown }}</p>
-                <!-- COURSE MATERIAL TEXT FORM -->
-            </div>
-            <!-- ASIDE -->
-            <aside class="col-sm-3 col-lg-3">
-                <ul class="uploaded-files-list">
-                    <li><h5>{% trans "Files" %}</h5></li>
-                    {% for file in course_material.files.all %}
-                        <li><a href="{{ file.file.url }}">{{ file.file.name }}</a></li>
-                    {% endfor %}
-                </ul>
-            </aside>
-            <!-- END ASIDE -->
+            </section>
         </div>
-    </section>
+    </div>
     <!-- END MAIN CONTENT-->
 </div>
 <!-- END CONTAINER -->

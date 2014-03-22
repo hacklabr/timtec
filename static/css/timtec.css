@@ -5767,30 +5767,54 @@ body {
 #course.course-intro .main-content .right-col .instructor {
   margin-top: 20px;
 }
-#course.course-lesson .illust {
+#course.course-lesson .illust,
+#course.course-forum .illust,
+#course.course-material .illust,
+#course.course-notes .illust {
   background-image: url(../img/timtec/lesson-illust.jpg);
 }
-#course.course-lesson .main-content {
+#course.course-lesson .main-content,
+#course.course-forum .main-content,
+#course.course-material .main-content,
+#course.course-notes .main-content {
   margin-top: 0;
 }
-#course.course-lesson .main-content > .container {
+#course.course-lesson .main-content > .container,
+#course.course-forum .main-content > .container,
+#course.course-material .main-content > .container,
+#course.course-notes .main-content > .container {
   background: rgba(255, 255, 255, 0.6);
 }
-#course.course-lesson .main-content .lesson-units .btn-group {
+#course.course-lesson .main-content .lesson-units .btn-group,
+#course.course-forum .main-content .lesson-units .btn-group,
+#course.course-material .main-content .lesson-units .btn-group,
+#course.course-notes .main-content .lesson-units .btn-group {
   background: #fff;
   -webkit-box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.3);
 }
-#course.course-lesson .main-content .lesson-units .btn-group.open {
+#course.course-lesson .main-content .lesson-units .btn-group.open,
+#course.course-forum .main-content .lesson-units .btn-group.open,
+#course.course-material .main-content .lesson-units .btn-group.open,
+#course.course-notes .main-content .lesson-units .btn-group.open {
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
-#course.course-lesson .main-content .lesson-units .btn-group.open .dropdown-toggle {
+#course.course-lesson .main-content .lesson-units .btn-group.open .dropdown-toggle,
+#course.course-forum .main-content .lesson-units .btn-group.open .dropdown-toggle,
+#course.course-material .main-content .lesson-units .btn-group.open .dropdown-toggle,
+#course.course-notes .main-content .lesson-units .btn-group.open .dropdown-toggle {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
 #course.course-lesson .main-content .lesson-units .btn-group .lesson-name,
-#course.course-lesson .main-content .lesson-units .btn-group .lesson-drop {
+#course.course-forum .main-content .lesson-units .btn-group .lesson-name,
+#course.course-material .main-content .lesson-units .btn-group .lesson-name,
+#course.course-notes .main-content .lesson-units .btn-group .lesson-name,
+#course.course-lesson .main-content .lesson-units .btn-group .lesson-drop,
+#course.course-forum .main-content .lesson-units .btn-group .lesson-drop,
+#course.course-material .main-content .lesson-units .btn-group .lesson-drop,
+#course.course-notes .main-content .lesson-units .btn-group .lesson-drop {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -5817,58 +5841,100 @@ body {
   color: #007dc3;
 }
 #course.course-lesson .main-content .lesson-units .btn-group .lesson-name:active,
-#course.course-lesson .main-content .lesson-units .btn-group .lesson-drop:active {
+#course.course-forum .main-content .lesson-units .btn-group .lesson-name:active,
+#course.course-material .main-content .lesson-units .btn-group .lesson-name:active,
+#course.course-notes .main-content .lesson-units .btn-group .lesson-name:active,
+#course.course-lesson .main-content .lesson-units .btn-group .lesson-drop:active,
+#course.course-forum .main-content .lesson-units .btn-group .lesson-drop:active,
+#course.course-material .main-content .lesson-units .btn-group .lesson-drop:active,
+#course.course-notes .main-content .lesson-units .btn-group .lesson-drop:active {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-#course.course-lesson .main-content .course-sections {
+#course.course-lesson .main-content .course-sections,
+#course.course-forum .main-content .course-sections,
+#course.course-material .main-content .course-sections,
+#course.course-notes .main-content .course-sections {
   float: right;
 }
-#course.course-lesson .main-content .course-sections a {
+#course.course-lesson .main-content .course-sections a,
+#course.course-forum .main-content .course-sections a,
+#course.course-material .main-content .course-sections a,
+#course.course-notes .main-content .course-sections a {
   display: inline-block;
   width: 53px;
   height: 53px;
 }
-#course.course-lesson .main-content .course-sections .has-tooltip {
+#course.course-lesson .main-content .course-sections .has-tooltip,
+#course.course-forum .main-content .course-sections .has-tooltip,
+#course.course-material .main-content .course-sections .has-tooltip,
+#course.course-notes .main-content .course-sections .has-tooltip {
   display: block;
 }
-#course.course-lesson .main-content .course-sections .intro {
+#course.course-lesson .main-content .course-sections .intro,
+#course.course-forum .main-content .course-sections .intro,
+#course.course-material .main-content .course-sections .intro,
+#course.course-notes .main-content .course-sections .intro {
   background: url(../img/timtec/lesson-icons.png) no-repeat 0 0;
   width: 53px;
   height: 53px;
 }
-#course.course-lesson .main-content .course-sections .lessons {
+#course.course-lesson .main-content .course-sections .lessons,
+#course.course-forum .main-content .course-sections .lessons,
+#course.course-material .main-content .course-sections .lessons,
+#course.course-notes .main-content .course-sections .lessons {
   background: url(../img/timtec/lesson-icons.png) no-repeat 0 -59px;
   width: 53px;
   height: 53px;
 }
-#course.course-lesson .main-content .course-sections .forum {
+#course.course-lesson .main-content .course-sections .forum,
+#course.course-forum .main-content .course-sections .forum,
+#course.course-material .main-content .course-sections .forum,
+#course.course-notes .main-content .course-sections .forum {
   background: url(../img/timtec/lesson-icons.png) no-repeat 0 -107px;
   width: 53px;
   height: 53px;
 }
-#course.course-lesson .main-content .course-sections .material {
+#course.course-lesson .main-content .course-sections .material,
+#course.course-forum .main-content .course-sections .material,
+#course.course-material .main-content .course-sections .material,
+#course.course-notes .main-content .course-sections .material {
   background: url(../img/timtec/lesson-icons.png) no-repeat 0 -159px;
   width: 53px;
   height: 53px;
 }
-#course.course-lesson .main-content .course-sections .my-notes {
+#course.course-lesson .main-content .course-sections .my-notes,
+#course.course-forum .main-content .course-sections .my-notes,
+#course.course-material .main-content .course-sections .my-notes,
+#course.course-notes .main-content .course-sections .my-notes {
   background: url(../img/timtec/lesson-icons.png) no-repeat 0 -212px;
   width: 53px;
   height: 53px;
 }
-#course.course-lesson .main-content .course-info {
+#course.course-lesson .main-content .course-info,
+#course.course-forum .main-content .course-info,
+#course.course-material .main-content .course-info,
+#course.course-notes .main-content .course-info {
   padding: 10px 0;
 }
-#course.course-lesson .main-content .course-info .course-name {
+#course.course-lesson .main-content .course-info .course-name,
+#course.course-forum .main-content .course-info .course-name,
+#course.course-material .main-content .course-info .course-name,
+#course.course-notes .main-content .course-info .course-name {
   margin: 0;
   font-size: 20px;
   font-family: 'teuton_24';
 }
-#course.course-lesson .main-content .course-info .course-name a {
+#course.course-lesson .main-content .course-info .course-name a,
+#course.course-forum .main-content .course-info .course-name a,
+#course.course-material .main-content .course-info .course-name a,
+#course.course-notes .main-content .course-info .course-name a {
   color: #333;
 }
-#course.course-lesson .main-content .video-bg {
+#course.course-lesson .main-content .video-bg,
+#course.course-forum .main-content .video-bg,
+#course.course-material .main-content .video-bg,
+#course.course-notes .main-content .video-bg {
   overflow: hidden;
   background-color: rgba(255, 255, 255, 0.6);
 }
@@ -5966,106 +6032,109 @@ body {
   #course.course-intro .main-content .right-col .buttons .js-login-required {
     margin-bottom: 0;
   }
-  #course.course-lesson .main-content {
+  #course.course-lesson .main-content,
+  #course.course-forum .main-content,
+  #course.course-material .main-content,
+  #course.course-notes .main-content {
     margin-top: -605px;
   }
 }
-#forum #forum-content header {
+#forum-inline #forum-content header {
   border-bottom: 1px solid #eeeeee;
   padding-bottom: 20px;
 }
-#forum #forum-content header h1 {
+#forum-inline #forum-content header h1 {
   margin-top: 25px;
 }
-#forum #forum-content header a.ask-a-question {
+#forum-inline #forum-content header a.ask-a-question {
   display: block;
   margin-top: 18px;
 }
-#forum #forum-content .forum-form {
+#forum-inline #forum-content .forum-form {
   background-color: #eeeeee;
   margin-bottom: 20px;
   padding: 20px;
 }
-#forum #forum-content .questions {
+#forum-inline #forum-content .questions {
   margin-top: 20px;
 }
-#forum #forum-content .hide-question {
+#forum-inline #forum-content .hide-question {
   display: block;
   margin-top: 10px;
 }
-#forum #forum-content article {
+#forum-inline #forum-content article {
   border-bottom: 1px solid #eeeeee;
   margin-bottom: 20px;
   padding-bottom: 20px;
 }
-#forum #forum-content article.is-hidden {
+#forum-inline #forum-content article.is-hidden {
   background-color: #ffffff;
   padding: 20px;
 }
-#forum #forum-content article.is-hidden .why-hidden {
+#forum-inline #forum-content article.is-hidden .why-hidden {
   border-top: 1px solid #f0ad4e;
   margin-top: 20px;
   padding: 0 20px;
 }
-#forum #forum-content article.is-hidden .why-hidden h1 {
+#forum-inline #forum-content article.is-hidden .why-hidden h1 {
   font-size: 18px;
   margin-bottom: 20px;
 }
-#forum #forum-content article.is-hidden .why-hidden .content {
+#forum-inline #forum-content article.is-hidden .why-hidden .content {
   font-size: 12px;
 }
-#forum #forum-content article.is-hidden table tr td .content .author {
+#forum-inline #forum-content article.is-hidden table tr td .content .author {
   border-top: 1px solid #fef9f3;
 }
-#forum #forum-content article header {
+#forum-inline #forum-content article header {
   margin-top: 20px;
 }
-#forum #forum-content article .content {
+#forum-inline #forum-content article .content {
   padding: 20px;
 }
-#forum #forum-content article table {
+#forum-inline #forum-content article table {
   margin: 0;
   padding: 0;
   width: 100%;
 }
-#forum #forum-content article table tr td {
+#forum-inline #forum-content article table tr td {
   vertical-align: top;
 }
-#forum #forum-content article table tr td .actions {
+#forum-inline #forum-content article table tr td .actions {
   display: block;
   margin-top: 5px;
 }
-#forum #forum-content article table tr td .stats {
+#forum-inline #forum-content article table tr td .stats {
   background-color: #eeeeee;
   font-size: 12px;
   padding: 10px;
   text-align: center;
   width: 100px;
 }
-#forum #forum-content article table tr td .stats .numbers-votes,
-#forum #forum-content article table tr td .stats .numbers-answers {
+#forum-inline #forum-content article table tr td .stats .numbers-votes,
+#forum-inline #forum-content article table tr td .stats .numbers-answers {
   display: block;
   font-size: 16px;
 }
-#forum #forum-content article table tr td .content {
+#forum-inline #forum-content article table tr td .content {
   font-size: 12px;
   padding: 0 10px 10px 10px;
 }
-#forum #forum-content article table tr td .content h1 {
+#forum-inline #forum-content article table tr td .content h1 {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 18px;
   line-height: 1.5;
 }
-#forum #forum-content article table tr td .content .author {
+#forum-inline #forum-content article table tr td .content .author {
   border-top: 1px solid #eeeeee;
   padding-top: 10px;
   text-align: right;
 }
-#forum #forum-content article table tr td .rating {
+#forum-inline #forum-content article table tr td .rating {
   text-align: center;
   width: 80px;
 }
-#forum #forum-content article table tr td .rating .arrow-up {
+#forum-inline #forum-content article table tr td .rating .arrow-up {
   border-bottom: 21px solid #999999;
   border-left: 21px solid transparent;
   border-right: 21px solid transparent;
@@ -6073,12 +6142,12 @@ body {
   height: 0;
   margin: 0 auto;
 }
-#forum #forum-content article table tr td .rating .arrow-up:hover,
-#forum #forum-content article table tr td .rating .arrow-up.active {
+#forum-inline #forum-content article table tr td .rating .arrow-up:hover,
+#forum-inline #forum-content article table tr td .rating .arrow-up.active {
   border-bottom-color: #f0ad4e;
   cursor: pointer;
 }
-#forum #forum-content article table tr td .rating .arrow-down {
+#forum-inline #forum-content article table tr td .rating .arrow-down {
   border-left: 21px solid transparent;
   border-right: 21px solid transparent;
   border-top: 21px solid #999999;
@@ -6086,35 +6155,35 @@ body {
   width: 0;
   height: 0;
 }
-#forum #forum-content article table tr td .rating .arrow-down:hover,
-#forum #forum-content article table tr td .rating .arrow-down.active {
+#forum-inline #forum-content article table tr td .rating .arrow-down:hover,
+#forum-inline #forum-content article table tr td .rating .arrow-down.active {
   border-top-color: #f0ad4e;
   cursor: pointer;
 }
-#forum #forum-content article table tr td .rating .votes {
+#forum-inline #forum-content article table tr td .rating .votes {
   font-family: "Questrial";
   font-size: 18px;
   margin: 6px 0;
   text-align: center;
 }
-#forum #forum-content article table tr td .rating .set-correct {
+#forum-inline #forum-content article table tr td .rating .set-correct {
   color: #999999;
   cursor: pointer;
   font-size: 36px;
   margin-top: 10px;
 }
-#forum #forum-content article table tr td .rating .set-correct:hover,
-#forum #forum-content article table tr td .rating .set-correct.selected {
+#forum-inline #forum-content article table tr td .rating .set-correct:hover,
+#forum-inline #forum-content article table tr td .rating .set-correct.selected {
   color: #5cb85c;
 }
-#forum #forum-content article.answer {
+#forum-inline #forum-content article.answer {
   padding-top: 20px;
 }
-#forum #forum-content article.answer .rating {
+#forum-inline #forum-content article.answer .rating {
   text-align: center;
   width: 60px;
 }
-#forum #forum-content article.answer .rating .arrow-up {
+#forum-inline #forum-content article.answer .rating .arrow-up {
   border-bottom: 14px solid #999999;
   border-left: 14px solid transparent;
   border-right: 14px solid transparent;
@@ -6122,12 +6191,12 @@ body {
   height: 0;
   margin: 0 auto;
 }
-#forum #forum-content article.answer .rating .arrow-up:hover,
-#forum #forum-content article.answer .rating .arrow-up.active {
+#forum-inline #forum-content article.answer .rating .arrow-up:hover,
+#forum-inline #forum-content article.answer .rating .arrow-up.active {
   border-bottom-color: #f0ad4e;
   cursor: pointer;
 }
-#forum #forum-content article.answer .rating .arrow-down {
+#forum-inline #forum-content article.answer .rating .arrow-down {
   border-left: 14px solid transparent;
   border-right: 14px solid transparent;
   border-top: 14px solid #999999;
@@ -6135,8 +6204,8 @@ body {
   width: 0;
   height: 0;
 }
-#forum #forum-content article.answer .rating .arrow-down:hover,
-#forum #forum-content article.answer .rating .arrow-down.active {
+#forum-inline #forum-content article.answer .rating .arrow-down:hover,
+#forum-inline #forum-content article.answer .rating .arrow-down.active {
   border-top-color: #f0ad4e;
   cursor: pointer;
 }

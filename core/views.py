@@ -62,7 +62,7 @@ class ContactView(View):
 
 class CourseView(DetailView):
     model = Course
-    template_name = 'timtec/course.html'
+    template_name = 'course.html'
 
     def get_context_data(self, **kwargs):
         context = super(CourseView, self).get_context_data(**kwargs)
@@ -169,7 +169,7 @@ class CourseThumbViewSet(viewsets.ModelViewSet):
 
 class LessonDetailView(LoginRequiredMixin, DetailView):
     model = Lesson
-    template_name = "timtec/lesson.html"
+    template_name = "lesson.html"
 
     def get_queryset(self, *args, **kwargs):
         qs = super(LessonDetailView, self).get_queryset(*args, **kwargs)
