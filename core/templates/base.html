@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load i18n %}
 <html>
 <head>
     {% block head %}
@@ -40,6 +41,7 @@
 <body>
 <script>
 window.STATIC_URL = '{{ STATIC_URL }}';
+window.LANGUAGE_CODE = '{{ request.LANGUAGE_CODE }}';
 {% if debug %}window.DEBUG = true;{% endif %}
 </script>
 

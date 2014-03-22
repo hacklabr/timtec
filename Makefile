@@ -121,7 +121,8 @@ setup_coveralls:
 	pip install -q coveralls
 
 setup_js:
-	sudo `which npm` -g install less yuglify karma karma-cli karma-phantomjs-launcher karma-jasmine jshint ngmin --loglevel silent
+	sudo `which npm` -g install less yuglify karma karma-cli karma-phantomjs-launcher karma-jasmine jshint ngmin grunt-cli --loglevel silent
+	npm install grunt grunt-angular-gettext
 
 setup_django: clean
 	python manage.py syncdb --all --noinput
