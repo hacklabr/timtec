@@ -4,12 +4,6 @@
 // MIXINS
 // ********************************************************************* //
 
-.box-shadow (@string) {
-    -webkit-box-shadow: @string;
-    -moz-box-shadow:    @string;
-    box-shadow:         @string;
-}
-
 .gradient (@startColor, @endColor) {
     background-color: @startColor;
     background: -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
@@ -26,6 +20,33 @@
     -moz-background-clip:    padding;
     -webkit-background-clip: padding-box;
     background-clip:         padding-box;
+}
+
+// ARROWS
+// ********************************************************************* //
+.arrow-up(@width, @color) {
+  border-bottom:@width solid @color;
+  border-left:@width solid transparent;
+  border-right:@width solid transparent;
+  .size(0,0);
+}
+.arrow-down(@width, @color) {
+  border-left:@width solid transparent;
+  border-right:@width solid transparent;
+  border-top:@width solid @color;
+  .size(0,0);
+}
+.arrow-right(@width, @color) {
+  border-bottom:@width solid transparent;
+  border-left:@width solid @color;
+  border-top:@width solid transparent;
+  .size(0,0);
+}
+.arrow-left(@width, @color) {
+  border-bottom:@width solid transparent;
+  border-right:@width solid @color;
+  border-top:@width solid transparent;
+  .size(0,0);
 }
 
 // SITE STRUCTURE

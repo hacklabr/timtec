@@ -1,0 +1,140 @@
+{% extends "base_timtec.html" %}
+
+{% load i18n %}
+{% load compressed %}
+{% load staticfiles %}
+{% load timtec_markdown %}
+
+{% block head %}
+{{ block.super }}
+{% compressed_js 'lesson' %}
+{% endblock %}
+
+{% block content %}
+
+<script type="text/javascript">
+window.lessonId = {{ lesson.pk }};
+// Content type id for object type core.Unit used by django generic relations.
+window.unit_content_type_id = {{ unit_content_type_id }};
+
+$(document).ready(function() {
+    $(".nav-tabs a").click(function(e) {
+        e.preventDefault();
+        $(this).tab('show');
+    })
+    $('a.unit').tooltip();
+})
+</script>
+
+<!-- COURSE -->
+<div id="course" class="course-lesson" ng-app="lesson">
+
+    <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
+
+    <div class="main-content">
+        <div class="container">             
+            <!-- HEADER -->
+            {% include "timtec/_course-header-inline.html"  with course=lesson.course %}
+            <!-- END HEADER -->
+
+            <div class="row" ng-controller="MainCtrl">
+
+                {% verbatim %}
+                <!-- UNITS NAVIGATION FOR TABLET AND DESKTOP -->
+                <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs">
+                    <!-- UNITS -->
+                    <div class="units">
+                        <a style="display:block;" data-placement="right"
+                           title="{{unit.video.name}}"
+                           href="#/{{$index+1}}"
+                           class="has-tooltip unit track" data-toggle="tooltip"
+                           ng-repeat="unit in lesson.units"
+                           ng-class="{watching: unit==currentUnit, done: unit.progress.complete}">
+                               <span class="position" ng-bind="unit.position+1"></span>
+                               <i class="fa fa-list" ng-show="unit.activities"></i>
+                        </a>
+                        <label ng-hide="false" style="font-family: monospace">
+                            video <input type="radio" ng-model="section" value="video"/>
+                        </label>
+                        <label ng-hide="false" style="font-family: monospace">
+                            ativi <input type="radio" ng-model="section" value="activity"/>
+                        </label>
+                    </div>
+                    <!-- END UNITS -->
+                </div>
+                <!-- END UNITS NAVIGATION FOR TABLET AND DESKTOP -->
+
+                <!-- UNITS NAVIGATION FOR PHONES -->
+                <div class="col-xs-12 visible-xs">
+                    <p>
+                        <select ng-model="currentUnitPos" class="form-control">
+                            <option ng-repeat="unit in lesson.units"
+                                    ng-value="unit"
+                                    ng-selected="unit==currentUnit"
+                                    value="{{$index+1}}">{% trans 'Unit' %} {{ unit.position + 1 }}</option>
+                        </select>
+                    </p>
+                </div>
+                <!-- END UNITS NAVIGATION FOR PHONES -->
+                {% endverbatim %}
+
+                <div class="col-lg-8 col-md-11 col-sm-11">
+                    <div ng-show="section=='video'">
+                        <div class="video">
+                            <div class="row">
+                                <div id="player-outter" class="col-lg-12 col-md-12 col-sm-12">
+                                    <div id="youtube-player" youtube-player></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="section=='activity'">
+                        <div class="course-activity">
+                            <ng:include src="activityTemplateUrl"></ng:include>
+                        </div>
+                    </div>
+                    <div ng-show="section=='comment'" class="comment">
+                        <div class="panel panel-default" style="min-height: 368px;">
+                            <div class="panel-heading">
+                                <h2 class="panel-title">{% trans 'Professor comment' %}</h2>
+                            </div>
+                            <div class="panel-body" ng-bind-html="currentActivity.comment|markdown"></div>
+                        </div>
+                        <div class="row" ng-if="answer.correct">
+                            <div class="col-lg-12 col-md-12 col-sm-12 textright">
+                                <button class="btn btn-success" ng-click="nextStep()">{% trans 'Continue' %}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- div ng-view></div -->
+
+                <!-- NOTES -->
+                <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs">
+                    <!--<ul class="nav nav-tabs">
+                        <li><a href="#side-notes" data-toggle="tab">{% trans 'Learn more' %}</a></li>
+                        <li class="active"><a href="#notes" data-toggle="tab">{% trans 'Annotations' %}</a></li>
+                    </ul>-->
+                    <div id="side-notes">
+                        <span ng-bind-html="currentUnit.side_notes|markdown"></span>
+                        <p ng-if="!currentUnit.side_notes">{% trans 'This unit has no notes' %}</p>
+                    </div>
+                    {% include "_notes_inline.html" %}
+                </div>
+                <!-- END NOTES -->
+            </div>
+
+            <!-- FORUM -->
+            <div class="row">
+                <div class="col-lg-8 col-sm-10 col-lg-offset-1 col-sm-offset-1">
+                    {% include "_forum_inline.html"  with course=lesson.course question_form=1 %}
+                </div>
+            </div>
+            <!-- END FORUM -->
+            
+        </div>
+    </div>
+</div>
+<!-- END COURSE -->
+
+{% endblock %}

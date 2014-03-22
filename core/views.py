@@ -169,7 +169,7 @@ class CourseThumbViewSet(viewsets.ModelViewSet):
 
 class LessonDetailView(LoginRequiredMixin, DetailView):
     model = Lesson
-    template_name = "lesson.html"
+    template_name = "timtec/lesson.html"
 
     def get_queryset(self, *args, **kwargs):
         qs = super(LessonDetailView, self).get_queryset(*args, **kwargs)

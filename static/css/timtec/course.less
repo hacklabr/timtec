@@ -1,111 +1,226 @@
 #course {
 
-    .illust {
-        background-image: url(../img/timtec/course-illust.jpg);
-    } // .illust
+    &.course-intro {
+        .illust {
+            background-image: url(../img/timtec/course-illust.jpg);
+        } // .illust
 
-    .main-content {
-        margin-top: 0px;
+        .main-content {
+            margin-top: 0px;
 
-        .left-col {
-            background: rgba(255,255,255,0.5); 
+            .left-col {
+                background: rgba(255,255,255,0.5); 
 
-            .course-main {
-                header {
-                    margin-top: 85px;
+                .course-main {
+                    header {
+                        margin-top: 85px;
 
-                    h1 {
-                        margin: 0;
-                        font-family: 'teuton_26';
-                        color: #007dc3;
-                    }
+                        h1 {
+                            margin: 0;
+                            font-family: 'teuton_26';
+                            color: #007dc3;
+                        }
 
-                    .instructors {
-                        margin: 0 0 20px 0;
-                        padding: 0;
-                        list-style: none;
-                        font-family: 'teuton_24';
-                        font-size: 20px;
-                    }
-                }
-            }
-
-            .lessons {
-                background: rgba(255,255,255,0.5);
-                margin-top: 20px;
-                .lesson {
-                    margin-bottom: 40px;
-                    margin-top: 20px;
-                    .title {
-                        display:block;
-                        font-size: 16px;
-                        font-weight:regular;
-                    }
-                    .description {
-                        font-size:13px;
-                    }
-                    li {
-                        margin:36px 0;
-                    }
-                }
-                // END LESSON
-                .table {
-                    margin-bottom:7px;
-                    tr {
-                        td {
-                            border:none;
-                            margin:0;
-                            padding:0;
-                            a {
-                                color: #fff;
-                            }
+                        .instructors {
+                            margin: 0 0 20px 0;
+                            padding: 0;
+                            list-style: none;
+                            font-family: 'teuton_24';
+                            font-size: 20px;
                         }
                     }
                 }
-                // END TABLE
-                i.fa-youtube-play {
-                    color:@brand-danger;
+
+                .lessons {
+                    background: rgba(255,255,255,0.5);
+                    margin-top: 20px;
+                    .lesson {
+                        margin-bottom: 40px;
+                        margin-top: 20px;
+                        .title {
+                            display:block;
+                            font-size: 16px;
+                            font-weight:regular;
+                        }
+                        .description {
+                            font-size:13px;
+                        }
+                        li {
+                            margin:36px 0;
+                        }
+                    }
+                    // END LESSON
+                    .table {
+                        margin-bottom:7px;
+                        tr {
+                            td {
+                                border:none;
+                                margin:0;
+                                padding:0;
+                                a {
+                                    color: #fff;
+                                }
+                            }
+                        }
+                    }
+                    // END TABLE
+                    i.fa-youtube-play {
+                        color:@brand-danger;
+                    }
+                    i.fa-list {
+                        color:@brand-info;
+                    }
                 }
-                i.fa-list {
-                    color:@brand-info;
-                }
+                // END LESSONS
             }
-            // END LESSONS
-        }
 
-        .right-col {    
-            background: rgba(40,112,187,0.5); 
-            color: #fff;
+            .right-col {    
+                background: rgba(40,112,187,0.5); 
+                color: #fff;
 
-            .buttons {
-                margin-top: 20px;
+                .buttons {
+                    margin-top: 20px;
 
-                a {
-                    display: block;
-                    text-align: center;
+                    a {
+                        display: block;
+                        text-align: center;
+                    }
+
+                    .js-login-required {
+                        margin-bottom: 20px;
+                        padding: 8px 0;
+                        background-color: #f26522;
+                        font-weight: bold;
+                        text-transform: uppercase;
+                        color: #fff;
+                    }
+
+                    .share-facebook {
+                        height: 37px;
+                        background: url(../img/timtec/bt-facebook.png) no-repeat;
+                        text-indent: -9999px;
+                    }
                 }
 
-                .js-login-required {
-                    margin-bottom: 20px;
-                    padding: 8px 0;
-                    background-color: #f26522;
-                    font-weight: bold;
-                    text-transform: uppercase;
-                    color: #fff;
+                .instructor {
+                    margin-top: 20px;
                 }
-
-                .share-facebook {
-                    height: 37px;
-                    background: url(../img/timtec/bt-facebook.png) no-repeat;
-                    text-indent: -9999px;
-                }
-            }
-
-            .instructor {
-                margin-top: 20px;
             }
         }
     }
+
+    &.course-lesson {
+        .illust {
+            background-image: url(../img/timtec/lesson-illust.jpg);
+        } // .illust
+
+        .main-content {
+            margin-top: 0;
+
+            &>.container {
+                background: rgba(255,255,255,0.6);
+            } 
+
+            .lesson-units {
+                .btn-group {
+                    background: #fff;
+                    .box-shadow(0px 5px 15px 0px rgba(0, 0, 0, 0.3));
+
+                    &.open {
+                        .box-shadow(inset 0 3px 5px rgba(0,0,0,.125));
+
+                        .dropdown-toggle {
+                            .box-shadow(none);
+
+                        }
+                    }
+
+                    .lesson-name, .lesson-drop {
+                        -webkit-appearance: none;
+                        -moz-appearance:    none;
+                        appearance:         none;
+                        display: inline-block;
+                        margin-bottom: 0; // For input.btn
+                        text-align: center;
+                        vertical-align: middle;
+                        cursor: pointer;
+                        background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+                        background: transparent;
+                        white-space: nowrap;
+                        .button-size(@padding-base-vertical; @padding-base-horizontal; @font-size-base; @line-height-base; @border-radius-base);
+                        .user-select(none);
+                        border: 0;
+                        font-family: 'teuton_26';
+                        font-size: 24px;
+                        color: #007dc3;
+
+                        &:active {
+                            .box-shadow(none);
+                        }
+                    } 
+                }
+            }
+
+            .course-sections {
+                float: right;
+
+                a {
+                    display: inline-block;
+                    width: 53px;
+                    height: 53px;
+                }
+                .has-tooltip {
+                    display: block
+                }
+                .intro {
+                    background: url(../img/timtec/lesson-icons.png) no-repeat 0 0;
+                    width: 53px;
+                    height: 53px;
+                }
+                .lessons {
+                    background: url(../img/timtec/lesson-icons.png) no-repeat 0 -59px;
+                    width: 53px;
+                    height: 53px;
+                }
+                .forum {
+                    background: url(../img/timtec/lesson-icons.png) no-repeat 0 -107px;
+                    width: 53px;
+                    height: 53px;
+                }
+                .material {
+                    background: url(../img/timtec/lesson-icons.png) no-repeat 0 -159px;
+                    width: 53px;
+                    height: 53px;
+                }
+                .my-notes {
+                    background: url(../img/timtec/lesson-icons.png) no-repeat 0 -212px;
+                    width: 53px;
+                    height: 53px;
+                }
+            }
+
+            .course-info {
+                padding: 10px 0;
+
+                .course-name {
+                    margin: 0;
+                    font-size: 20px;
+                    font-family: 'teuton_24';
+
+                    a {
+                        color: #333;    
+                    }
+                }
+            }
+
+            .video-bg {
+                overflow: hidden;
+                background-color: rgba(255,255,255,0.6);
+            }
+        }
+    }
+
+
 
 // COURSE UNITS - General
 // ********************************************************************* //
@@ -187,23 +302,208 @@
   // END COURSE UNITS
 
     @media (max-width: @screen-sm-min) { 
-        margin-top: -40px;
+        &.course-intro {
+            margin-top: -40px;
+        }
     }
        
     @media (min-width: @screen-sm-min) { 
-        .main-content {
-            margin-top: -680px;
 
-            .buttons {
-                margin-top: 85px;
+        &.course-intro {
+            .main-content {
+                margin-top: -680px;
 
-                .js-login-required {
-                    margin-bottom: 0;
+                .right-col {
+                    .buttons {
+                        margin-top: 85px;
+
+                        .js-login-required {
+                            margin-bottom: 0;
+                        }
+                    }
                 }
+
+            } // .content
+        }
+
+        &.course-lesson {
+            .main-content {
+                margin-top: -605px;
+
+
             }
-        } // .content
+        }
     }
 } // #course
+
+// FORUM
+// ********************************************************************* //
+#forum {
+  #forum-content {
+    header {
+      border-bottom: 1px solid @gray-lighter;
+      padding-bottom: 20px;
+      h1 {
+        margin-top: 25px;
+      }
+      a.ask-a-question {
+        display:block;
+        margin-top: 18px;
+      }
+    }
+    .forum-form {
+      background-color: @gray-lighter;
+      margin-bottom: 20px;
+      padding: 20px;
+    }
+    .questions {
+      margin-top: 20px;
+    }
+    .hide-question {
+      display: block;
+      margin-top: 10px;
+    }
+    article {
+      border-bottom: 1px solid @gray-lighter;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      // IF IS HIDDEN
+      &.is-hidden {
+        background-color: lighten(@brand-warning, 45%);
+        padding: 20px;
+        .why-hidden {
+          border-top: 1px solid @brand-warning;
+          margin-top: 20px;
+          padding: 0 20px;
+          h1 {
+            font-size: 18px;
+            margin-bottom: 20px;
+          }
+          .content {
+            font-size: 12px;
+          }
+        }
+        table {
+          tr {
+            td {
+              .content {
+                .author {
+                  border-top: 1px solid lighten(@brand-warning, 35%);
+                }
+              }
+            }
+          }
+        }
+      }
+      header {
+        margin-top: 20px;
+      }
+      .content {
+        padding: 20px;
+      }
+      // TABLE IS THE BEST WAY TO HAVE TWO RESPONSIVE COLUMNS WITH ONE FIXED AND ANOTHER FLUID
+      table {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        tr {
+          td {
+            vertical-align: top;
+            .actions {
+              display: block;
+              margin-top: 5px;
+            }
+            .stats {
+              background-color: @gray-lighter;
+              font-size: 12px;
+              padding: 10px;
+              text-align: center;
+              width: 100px;
+              .numbers-votes, .numbers-answers {
+                display: block;
+                font-size: 16px;
+              }
+            }
+            .content {
+              font-size: 12px;
+              padding: 0 10px 10px 10px;
+              h1 {
+                font-family: @font-family-sans-serif;
+                font-size: 18px;
+                line-height: 1.5;
+              }
+              .author {
+                border-top: 1px solid @gray-lighter;
+                padding-top: 10px;
+                text-align: right;
+              }
+            }
+            .rating {
+              text-align:center;
+              width: 80px;
+              .arrow-up {
+                .arrow-up(21px, @gray-light);
+                margin:0 auto;
+                &:hover, &.active {
+                  border-bottom-color:@brand-warning;
+                  cursor:pointer;
+                }
+              }
+              .arrow-down {
+                .arrow-down(21px, @gray-light);
+                margin:0 auto;
+                .size(0,0);
+                &:hover, &.active {
+                  border-top-color:@brand-warning;
+                  cursor:pointer;
+                }
+              }
+              .votes {
+                font-family:"Questrial";
+                font-size:18px;
+                margin:6px 0;
+                text-align:center;
+              }
+              .set-correct {
+                  color:@gray-light;
+                  cursor:pointer;
+                  font-size:36px;
+                  margin-top:10px;
+                  &:hover, &.selected {
+                      color:@brand-success;
+                  }
+              }
+            }
+          }
+        }
+      }
+      &.answer {
+        padding-top: 20px;
+        .rating {
+          text-align:center;
+          width: 60px;
+          .arrow-up {
+            .arrow-up(14px, @gray-light);
+            margin:0 auto;
+            &:hover, &.active {
+              border-bottom-color:@brand-warning;
+              cursor:pointer;
+            }
+          }
+          .arrow-down {
+            .arrow-down(14px, @gray-light);
+            margin:0 auto;
+            .size(0,0);
+            &:hover, &.active {
+              border-top-color:@brand-warning;
+              cursor:pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+}
 
 
 

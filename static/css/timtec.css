@@ -1623,7 +1623,6 @@ output {
   border: 1px solid #cccccc;
   border-radius: 4px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
@@ -1632,7 +1631,6 @@ output {
   border-color: #66afe9;
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
-  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
 .form-control:-moz-placeholder {
@@ -1754,13 +1752,11 @@ textarea.input-lg {
 .has-warning .form-control {
   border-color: #8a6d3b;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 .has-warning .form-control:focus {
   border-color: #66512c;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;
 }
 .has-warning .input-group-addon {
@@ -1779,13 +1775,11 @@ textarea.input-lg {
 .has-error .form-control {
   border-color: #a94442;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 .has-error .form-control:focus {
   border-color: #843534;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
 }
 .has-error .input-group-addon {
@@ -1804,13 +1798,11 @@ textarea.input-lg {
 .has-success .form-control {
   border-color: #3c763d;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 .has-success .form-control:focus {
   border-color: #2b542c;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
 }
 .has-success .input-group-addon {
@@ -1928,7 +1920,6 @@ textarea.input-lg {
   outline: 0;
   background-image: none;
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  -moz-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 .btn.disabled,
@@ -1939,7 +1930,6 @@ fieldset[disabled] .btn {
   opacity: 0.65;
   filter: alpha(opacity=65);
   -webkit-box-shadow: none;
-  -moz-box-shadow: none;
   box-shadow: none;
 }
 .btn-default {
@@ -2200,7 +2190,6 @@ fieldset[disabled] .btn-info.active {
 fieldset[disabled] .btn-link {
   background-color: transparent;
   -webkit-box-shadow: none;
-  -moz-box-shadow: none;
   box-shadow: none;
 }
 .btn-link,
@@ -2308,7 +2297,6 @@ input[type="button"].btn-block {
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 4px;
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   background-clip: padding-box;
 }
@@ -2519,12 +2507,10 @@ input[type="button"].btn-block {
 }
 .btn-group.open .dropdown-toggle {
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  -moz-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 .btn-group.open .dropdown-toggle.btn-link {
   -webkit-box-shadow: none;
-  -moz-box-shadow: none;
   box-shadow: none;
 }
 .btn .caret {
@@ -3203,7 +3189,6 @@ textarea.input-group-sm > .input-group-btn > .btn {
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
-  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
   margin-top: 8px;
   margin-bottom: 8px;
@@ -3247,7 +3232,6 @@ textarea.input-group-sm > .input-group-btn > .btn {
     padding-top: 0;
     padding-bottom: 0;
     -webkit-box-shadow: none;
-    -moz-box-shadow: none;
     box-shadow: none;
   }
   .navbar-form.navbar-right:last-child {
@@ -3891,7 +3875,6 @@ a.thumbnail.active {
   background-color: #f5f5f5;
   border-radius: 4px;
   -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 .progress-bar {
@@ -3904,7 +3887,6 @@ a.thumbnail.active {
   text-align: center;
   background-color: #428bca;
   -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   -webkit-transition: width 0.6s ease;
   transition: width 0.6s ease;
@@ -4044,7 +4026,6 @@ a.list-group-item.active:focus .list-group-item-text {
   border: 1px solid transparent;
   border-radius: 4px;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 .panel-body {
@@ -4281,7 +4262,6 @@ a.list-group-item.active:focus .list-group-item-text {
   border: 1px solid #e3e3e3;
   border-radius: 4px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 .well blockquote {
@@ -4362,7 +4342,6 @@ button.close {
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 6px;
   -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   background-clip: padding-box;
   outline: none;
@@ -4439,7 +4418,6 @@ button.close {
   }
   .modal-content {
     -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   }
 }
@@ -4556,7 +4534,6 @@ button.close {
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 6px;
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   white-space: normal;
 }
@@ -5406,7 +5383,6 @@ body {
   background: -ms-linear-gradient(top, #007dc3, #1451a2);
   background: -o-linear-gradient(top, #007dc3, #1451a2);
   -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
 }
 .main-header h1 {
@@ -5525,7 +5501,6 @@ body {
   text-align: center;
   text-transform: uppercase;
   -webkit-box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.3);
   transition: all 0.3s;
 }
@@ -5556,7 +5531,6 @@ body {
   background: -ms-linear-gradient(top, #007dc3, #1451a2);
   background: -o-linear-gradient(top, #007dc3, #1451a2);
   -webkit-box-shadow: 0px -2px 5px 0px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0px -2px 5px 0px rgba(0, 0, 0, 0.3);
   box-shadow: 0px -2px 5px 0px rgba(0, 0, 0, 0.3);
 }
 .main-footer h3 {
@@ -5606,7 +5580,6 @@ body {
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
   -webkit-box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
 }
 #home .main-content .videos .video .video-thumb img {
@@ -5688,7 +5661,6 @@ body {
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
   -webkit-box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.3);
 }
 #home .main-content .next-videos .video .thumb img {
@@ -5708,78 +5680,78 @@ body {
   margin: 0;
   color: #fff;
 }
-#course .illust {
+#course.course-intro .illust {
   background-image: url(../img/timtec/course-illust.jpg);
 }
-#course .main-content {
+#course.course-intro .main-content {
   margin-top: 0px;
 }
-#course .main-content .left-col {
+#course.course-intro .main-content .left-col {
   background: rgba(255, 255, 255, 0.5);
 }
-#course .main-content .left-col .course-main header {
+#course.course-intro .main-content .left-col .course-main header {
   margin-top: 85px;
 }
-#course .main-content .left-col .course-main header h1 {
+#course.course-intro .main-content .left-col .course-main header h1 {
   margin: 0;
   font-family: 'teuton_26';
   color: #007dc3;
 }
-#course .main-content .left-col .course-main header .instructors {
+#course.course-intro .main-content .left-col .course-main header .instructors {
   margin: 0 0 20px 0;
   padding: 0;
   list-style: none;
   font-family: 'teuton_24';
   font-size: 20px;
 }
-#course .main-content .left-col .lessons {
+#course.course-intro .main-content .left-col .lessons {
   background: rgba(255, 255, 255, 0.5);
   margin-top: 20px;
 }
-#course .main-content .left-col .lessons .lesson {
+#course.course-intro .main-content .left-col .lessons .lesson {
   margin-bottom: 40px;
   margin-top: 20px;
 }
-#course .main-content .left-col .lessons .lesson .title {
+#course.course-intro .main-content .left-col .lessons .lesson .title {
   display: block;
   font-size: 16px;
   font-weight: regular;
 }
-#course .main-content .left-col .lessons .lesson .description {
+#course.course-intro .main-content .left-col .lessons .lesson .description {
   font-size: 13px;
 }
-#course .main-content .left-col .lessons .lesson li {
+#course.course-intro .main-content .left-col .lessons .lesson li {
   margin: 36px 0;
 }
-#course .main-content .left-col .lessons .table {
+#course.course-intro .main-content .left-col .lessons .table {
   margin-bottom: 7px;
 }
-#course .main-content .left-col .lessons .table tr td {
+#course.course-intro .main-content .left-col .lessons .table tr td {
   border: none;
   margin: 0;
   padding: 0;
 }
-#course .main-content .left-col .lessons .table tr td a {
+#course.course-intro .main-content .left-col .lessons .table tr td a {
   color: #fff;
 }
-#course .main-content .left-col .lessons i.fa-youtube-play {
+#course.course-intro .main-content .left-col .lessons i.fa-youtube-play {
   color: #d9534f;
 }
-#course .main-content .left-col .lessons i.fa-list {
+#course.course-intro .main-content .left-col .lessons i.fa-list {
   color: #5bc0de;
 }
-#course .main-content .right-col {
+#course.course-intro .main-content .right-col {
   background: rgba(40, 112, 187, 0.5);
   color: #fff;
 }
-#course .main-content .right-col .buttons {
+#course.course-intro .main-content .right-col .buttons {
   margin-top: 20px;
 }
-#course .main-content .right-col .buttons a {
+#course.course-intro .main-content .right-col .buttons a {
   display: block;
   text-align: center;
 }
-#course .main-content .right-col .buttons .js-login-required {
+#course.course-intro .main-content .right-col .buttons .js-login-required {
   margin-bottom: 20px;
   padding: 8px 0;
   background-color: #f26522;
@@ -5787,13 +5759,118 @@ body {
   text-transform: uppercase;
   color: #fff;
 }
-#course .main-content .right-col .buttons .share-facebook {
+#course.course-intro .main-content .right-col .buttons .share-facebook {
   height: 37px;
   background: url(../img/timtec/bt-facebook.png) no-repeat;
   text-indent: -9999px;
 }
-#course .main-content .right-col .instructor {
+#course.course-intro .main-content .right-col .instructor {
   margin-top: 20px;
+}
+#course.course-lesson .illust {
+  background-image: url(../img/timtec/lesson-illust.jpg);
+}
+#course.course-lesson .main-content {
+  margin-top: 0;
+}
+#course.course-lesson .main-content > .container {
+  background: rgba(255, 255, 255, 0.6);
+}
+#course.course-lesson .main-content .lesson-units .btn-group {
+  background: #fff;
+  -webkit-box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.3);
+}
+#course.course-lesson .main-content .lesson-units .btn-group.open {
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+#course.course-lesson .main-content .lesson-units .btn-group.open .dropdown-toggle {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+#course.course-lesson .main-content .lesson-units .btn-group .lesson-name,
+#course.course-lesson .main-content .lesson-units .btn-group .lesson-drop {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: inline-block;
+  margin-bottom: 0;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  background: transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  border: 0;
+  font-family: 'teuton_26';
+  font-size: 24px;
+  color: #007dc3;
+}
+#course.course-lesson .main-content .lesson-units .btn-group .lesson-name:active,
+#course.course-lesson .main-content .lesson-units .btn-group .lesson-drop:active {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+#course.course-lesson .main-content .course-sections {
+  float: right;
+}
+#course.course-lesson .main-content .course-sections a {
+  display: inline-block;
+  width: 53px;
+  height: 53px;
+}
+#course.course-lesson .main-content .course-sections .has-tooltip {
+  display: block;
+}
+#course.course-lesson .main-content .course-sections .intro {
+  background: url(../img/timtec/lesson-icons.png) no-repeat 0 0;
+  width: 53px;
+  height: 53px;
+}
+#course.course-lesson .main-content .course-sections .lessons {
+  background: url(../img/timtec/lesson-icons.png) no-repeat 0 -59px;
+  width: 53px;
+  height: 53px;
+}
+#course.course-lesson .main-content .course-sections .forum {
+  background: url(../img/timtec/lesson-icons.png) no-repeat 0 -107px;
+  width: 53px;
+  height: 53px;
+}
+#course.course-lesson .main-content .course-sections .material {
+  background: url(../img/timtec/lesson-icons.png) no-repeat 0 -159px;
+  width: 53px;
+  height: 53px;
+}
+#course.course-lesson .main-content .course-sections .my-notes {
+  background: url(../img/timtec/lesson-icons.png) no-repeat 0 -212px;
+  width: 53px;
+  height: 53px;
+}
+#course.course-lesson .main-content .course-info {
+  padding: 10px 0;
+}
+#course.course-lesson .main-content .course-info .course-name {
+  margin: 0;
+  font-size: 20px;
+  font-family: 'teuton_24';
+}
+#course.course-lesson .main-content .course-info .course-name a {
+  color: #333;
+}
+#course.course-lesson .main-content .video-bg {
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.6);
 }
 #course .admin-units {
   margin-top: 66px !important;
@@ -5804,7 +5881,6 @@ body {
 #course .units .unit {
   background: #1e9dd9;
   -webkit-box-shadow: inset -1px 0 0 #ffffff;
-  -moz-box-shadow: inset -1px 0 0 #ffffff;
   box-shadow: inset -1px 0 0 #ffffff;
   color: #fff;
   cursor: pointer;
@@ -5876,20 +5952,193 @@ body {
   position: static;
 }
 @media (max-width: 768px) {
-  #course {
+  #course.course-intro {
     margin-top: -40px;
   }
 }
 @media (min-width: 768px) {
-  #course .main-content {
+  #course.course-intro .main-content {
     margin-top: -680px;
   }
-  #course .main-content .buttons {
+  #course.course-intro .main-content .right-col .buttons {
     margin-top: 85px;
   }
-  #course .main-content .buttons .js-login-required {
+  #course.course-intro .main-content .right-col .buttons .js-login-required {
     margin-bottom: 0;
   }
+  #course.course-lesson .main-content {
+    margin-top: -605px;
+  }
+}
+#forum #forum-content header {
+  border-bottom: 1px solid #eeeeee;
+  padding-bottom: 20px;
+}
+#forum #forum-content header h1 {
+  margin-top: 25px;
+}
+#forum #forum-content header a.ask-a-question {
+  display: block;
+  margin-top: 18px;
+}
+#forum #forum-content .forum-form {
+  background-color: #eeeeee;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+#forum #forum-content .questions {
+  margin-top: 20px;
+}
+#forum #forum-content .hide-question {
+  display: block;
+  margin-top: 10px;
+}
+#forum #forum-content article {
+  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+}
+#forum #forum-content article.is-hidden {
+  background-color: #ffffff;
+  padding: 20px;
+}
+#forum #forum-content article.is-hidden .why-hidden {
+  border-top: 1px solid #f0ad4e;
+  margin-top: 20px;
+  padding: 0 20px;
+}
+#forum #forum-content article.is-hidden .why-hidden h1 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+#forum #forum-content article.is-hidden .why-hidden .content {
+  font-size: 12px;
+}
+#forum #forum-content article.is-hidden table tr td .content .author {
+  border-top: 1px solid #fef9f3;
+}
+#forum #forum-content article header {
+  margin-top: 20px;
+}
+#forum #forum-content article .content {
+  padding: 20px;
+}
+#forum #forum-content article table {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+#forum #forum-content article table tr td {
+  vertical-align: top;
+}
+#forum #forum-content article table tr td .actions {
+  display: block;
+  margin-top: 5px;
+}
+#forum #forum-content article table tr td .stats {
+  background-color: #eeeeee;
+  font-size: 12px;
+  padding: 10px;
+  text-align: center;
+  width: 100px;
+}
+#forum #forum-content article table tr td .stats .numbers-votes,
+#forum #forum-content article table tr td .stats .numbers-answers {
+  display: block;
+  font-size: 16px;
+}
+#forum #forum-content article table tr td .content {
+  font-size: 12px;
+  padding: 0 10px 10px 10px;
+}
+#forum #forum-content article table tr td .content h1 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+}
+#forum #forum-content article table tr td .content .author {
+  border-top: 1px solid #eeeeee;
+  padding-top: 10px;
+  text-align: right;
+}
+#forum #forum-content article table tr td .rating {
+  text-align: center;
+  width: 80px;
+}
+#forum #forum-content article table tr td .rating .arrow-up {
+  border-bottom: 21px solid #999999;
+  border-left: 21px solid transparent;
+  border-right: 21px solid transparent;
+  width: 0;
+  height: 0;
+  margin: 0 auto;
+}
+#forum #forum-content article table tr td .rating .arrow-up:hover,
+#forum #forum-content article table tr td .rating .arrow-up.active {
+  border-bottom-color: #f0ad4e;
+  cursor: pointer;
+}
+#forum #forum-content article table tr td .rating .arrow-down {
+  border-left: 21px solid transparent;
+  border-right: 21px solid transparent;
+  border-top: 21px solid #999999;
+  margin: 0 auto;
+  width: 0;
+  height: 0;
+}
+#forum #forum-content article table tr td .rating .arrow-down:hover,
+#forum #forum-content article table tr td .rating .arrow-down.active {
+  border-top-color: #f0ad4e;
+  cursor: pointer;
+}
+#forum #forum-content article table tr td .rating .votes {
+  font-family: "Questrial";
+  font-size: 18px;
+  margin: 6px 0;
+  text-align: center;
+}
+#forum #forum-content article table tr td .rating .set-correct {
+  color: #999999;
+  cursor: pointer;
+  font-size: 36px;
+  margin-top: 10px;
+}
+#forum #forum-content article table tr td .rating .set-correct:hover,
+#forum #forum-content article table tr td .rating .set-correct.selected {
+  color: #5cb85c;
+}
+#forum #forum-content article.answer {
+  padding-top: 20px;
+}
+#forum #forum-content article.answer .rating {
+  text-align: center;
+  width: 60px;
+}
+#forum #forum-content article.answer .rating .arrow-up {
+  border-bottom: 14px solid #999999;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  width: 0;
+  height: 0;
+  margin: 0 auto;
+}
+#forum #forum-content article.answer .rating .arrow-up:hover,
+#forum #forum-content article.answer .rating .arrow-up.active {
+  border-bottom-color: #f0ad4e;
+  cursor: pointer;
+}
+#forum #forum-content article.answer .rating .arrow-down {
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 14px solid #999999;
+  margin: 0 auto;
+  width: 0;
+  height: 0;
+}
+#forum #forum-content article.answer .rating .arrow-down:hover,
+#forum #forum-content article.answer .rating .arrow-down.active {
+  border-top-color: #f0ad4e;
+  cursor: pointer;
 }
 @media (max-width: 360px) {
   .main-nav ul li {
