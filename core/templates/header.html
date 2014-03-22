@@ -71,6 +71,9 @@
                             <div class="divider"></div>
                             <div class="row">
                                 <p class="bottom textcenter">
+                                    <a href="{% url 'account_signup' %}">{% trans 'signup' %}</a>
+                                </p>
+                                <p class="bottom textcenter">
                                     {% load socialaccount %}
                                     <a href="{% provider_login_url 'facebook' method='oauth2' %}">{% trans 'Connect with Facebook' %}</a>
                                 </p>
