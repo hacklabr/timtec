@@ -9,7 +9,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 SITE_ID = 1
-SITE_HOME = '/courses/html5/'
+SITE_HOME = ''
 SITE_NAME = 'Timtec'
 SITE_DOMAIN = 'timtec.com.br'
 
@@ -152,6 +152,15 @@ PIPELINE_CSS = {
             'media': 'screen,projection,print',
         },
     },
+    'timtec': {
+        'source_filenames': (
+            'css/timtec.less',
+        ),
+        'output_filename': 'css/timtec.css',
+        'extra_context': {
+            'media': 'screen,projection,print',
+        },
+    },
     'public': {
         'source_filenames': (
             'css/main.less',
@@ -192,8 +201,28 @@ PIPELINE_JS = {
             'js/contact_form.js',
             'js/helpers.js',
             'js/angular-youtube.js',
+            'js/truncate.js',
         ),
         'output_filename': 'js/all.js',
+    },
+    'markdown': {
+        'source_filenames': (
+            'js/vendor/pagedown/Markdown.Converter.js',
+            'js/vendor/pagedown/Markdown.Editor.js',
+            'js/vendor/pagedown/Markdown.Sanitizer.js',
+            'js/markdown/app.js',
+            'js/markdown/filters.js',
+        ),
+        'output_filename': 'js/markdown.js',
+    },
+    'messages': {
+        'source_filenames': (
+            'js/messages/app.js',
+            'js/messages/controllers.js',
+            'js/messages/services.js',
+            'checklist-model/checklist-model.js'
+        ),
+        'output_filename': 'js/messages.js',
     },
     'codemirror': {
         'source_filenames': (
@@ -285,6 +314,14 @@ PIPELINE_JS = {
             'js/reports/services.js',
         ),
         'output_filename': 'js/reports.js',
+    },
+    'core': {
+        'source_filenames': (
+            'js/core/app.js',
+            'js/core/controllers.js',
+            'js/core/services.js',
+        ),
+        'output_filename': 'js/core.js',
     },
 }
 

@@ -2,9 +2,12 @@
 from __future__ import division
 from positions import PositionField
 from django.db import models
+from django.core.mail import send_mail
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.staticfiles.storage import staticfiles_storage
+from django.template import Template, Context
 from django.contrib.contenttypes import generic
+from django.conf import settings
 from autoslug import AutoSlugField
 
 
@@ -46,6 +49,10 @@ class Course(models.Model):
     thumbnail = models.ImageField(_('Thumbnail'), upload_to='course_thumbnails', null=True, blank=True)
     professors = models.ManyToManyField(TimtecUser, related_name='professorcourse_set', through='CourseProfessor')
     students = models.ManyToManyField(TimtecUser, related_name='studentcourse_set', through='CourseStudent')
+    home_thumbnail = models.ImageField(_('Home thumbnail'), upload_to='home_thumbnails', null=True, blank=True)
+    home_position = PositionField(blank=True, null=True)
+    start_date = models.DateField(_('Publication'), default=None, blank=True, null=True)
+    home_published = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = _('Course')
@@ -161,6 +168,32 @@ class CourseProfessor(models.Model):
     def __unicode__(self):
         return u'%s @ %s' % (self.user, self.course)
 
+    def new_message(self, course, subject, message, to=[]):
+        return ProfessorMessage.objects.create(subject=subject,
+                                               message=message,
+                                               course=course,
+                                               users=to,
+                                               professor=self)
+
+
+class ProfessorMessage(models.Model):
+    professor = models.ForeignKey(TimtecUser, verbose_name=_('Professor'))
+    users = models.ManyToManyField(TimtecUser, related_name='messages')
+    subject = models.CharField(_('Subject'), max_length=255)
+    message = models.TextField(_('Message'))
+    date = models.DateTimeField(_('Date'), auto_now_add=True)
+    course = models.ForeignKey(Course, verbose_name=_('Course'), null=True)
+
+    def send(self):
+        to = [u.user.email for u in self.users]
+        try:
+            et = EmailTemplate.objects.get(name='professor-message')
+        except EmailTemplate.DoesNotExist:
+            et = EmailTemplate(name="professor-message", subject="{{subject}}", template="{{message}}")
+        subject = Template(et.subject).render(Context({'subject': self.subject}))
+        message = Template(et.template).render(Context({'message': self.message}))
+        return send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, to, fail_silently=False)
+
 
 class Lesson(models.Model):
     STATES = (
@@ -252,3 +285,9 @@ class StudentProgress(models.Model):
 
     def __unicode__(self):
         return u'%s @ %s c: %s la: %s' % (self.user, self.unit, self.complete, self.last_access)
+
+
+class EmailTemplate(models.Model):
+    name = models.CharField(max_length=50)
+    subject = models.CharField(max_length=255)
+    template = models.TextField()
