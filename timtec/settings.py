@@ -152,15 +152,6 @@ PIPELINE_CSS = {
             'media': 'screen,projection,print',
         },
     },
-    'timtec': {
-        'source_filenames': (
-            'css/timtec.less',
-        ),
-        'output_filename': 'css/timtec.css',
-        'extra_context': {
-            'media': 'screen,projection,print',
-        },
-    },
     'public': {
         'source_filenames': (
             'css/main.less',
