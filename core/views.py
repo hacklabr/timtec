@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 import json
+import time
 
 from django.core.urlresolvers import reverse
+from django.http import HttpResponse
 from django.views.generic import DetailView, ListView
 from django.views.generic.base import RedirectView, View, TemplateView
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404
+from django.conf import settings
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import filters
@@ -22,6 +25,8 @@ from .models import Course, CourseProfessor, Lesson, StudentProgress, Unit, Prof
 
 from forms import ContactForm
 
+from twitter import Twitter, OAuth
+
 
 class HomeView(ListView):
     context_object_name = 'courses'
@@ -29,6 +34,37 @@ class HomeView(ListView):
 
     def get_queryset(self):
         return Course.objects.all()
+
+
+class TwitterApi(View):
+
+    def get(self, request, *args, **kwargs):
+
+        consumer_key = settings.TWITTER_CONSUMER_KEY
+        consumer_secret = settings.TWITTER_CONSUMER_SECRET
+        twitter_name = settings.TWITTER_USER
+        access_token = settings.TWITTER_ACESS_TOKEN
+        access_token_secret = settings.TWITTER_ACESS_TOKEN_SECRET
+        t = Twitter(auth=OAuth(access_token, access_token_secret, consumer_key, consumer_secret))
+        # To see all field returned, see https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
+        response = []
+        for twit in t.statuses.user_timeline(screen_name=twitter_name, count=6):
+            clean_twit = {}
+            # time string example: Wed Aug 29 17:12:58 +0000 2012
+            timestamp = time.strptime(twit['created_at'], "%a %b %d %H:%M:%S +0000 %Y")
+            clean_twit['date'] = time.strftime('%d/%m/%Y', timestamp)
+            clean_twit['hour'] = time.strftime('%H:%M', timestamp)
+            clean_twit['created_at'] = twit['created_at']
+            clean_twit['user_name'] = twit['user']['name']
+            clean_twit['profile_image_url'] = twit['user']['profile_image_url']
+            clean_twit['text'] = twit['text']
+            response.append(clean_twit)
+
+        response = json.dumps(response)
+        return HttpResponse(
+            response,
+            content_type='application/json'
+        )
 
 
 class CoursesView(ListView):

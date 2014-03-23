@@ -16,7 +16,8 @@ from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
                         UserCoursesView, ContactView, LessonDetailView,
                         LessonViewSet, StudentProgressViewSet,
                         UserNotesViewSet, CoursesView,
-                        ProfessorMessageViewSet, CourseStudentViewSet)
+                        ProfessorMessageViewSet, CourseStudentViewSet,
+                        TwitterApi,)
 
 from activities.views import AnswerViewSet
 from accounts.views import TimtecUserViewSet
@@ -45,7 +46,6 @@ router.register(r'note', NotesViewSet)
 router.register(r'user_notes', UserNotesViewSet)
 router.register(r'reports', UserCourseStats)
 
-#    url(r'^api/answer/(?P<unitId>[0-9]*)$', AnswerView.as_view(), name='answer'),
 
 urlpatterns = patterns(
     '',
@@ -70,6 +70,7 @@ urlpatterns = patterns(
 
     # Services
     url(r'^api/', include(router.urls)),
+    url(r'^api/twitter/?$', TwitterApi.as_view(), name='twitter'),
 
     # Forum
     url(r'^forum/(?P<course_slug>[-a-zA-Z0-9_]+)/$', CourseForumView.as_view(), name='forum'),

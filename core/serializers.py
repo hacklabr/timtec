@@ -64,11 +64,13 @@ class CourseSerializer(serializers.ModelSerializer):
         if obj.professors.all():
             return obj.professors.all()[0]
         return ''
+
     @staticmethod
     def get_home_thumbnail_url(obj):
         if obj.home_thumbnail:
             return obj.home_thumbnail.url
         return ''
+
 
 class CourseThumbSerializer(serializers.ModelSerializer):
 

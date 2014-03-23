@@ -488,6 +488,12 @@ ACCOUNT_EMAIL_VERIFICATION = True
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[timtec] "
 SOCIALACCOUNT_EMAIL_VERIFICATION = False
 
+TWITTER_CONSUMER_KEY = ''
+TWITTER_CONSUMER_SECRET = ''
+TWITTER_ACESS_TOKEN = ''
+TWITTER_ACESS_TOKEN_SECRET = ''
+TWITTER_USER = ''
+
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.
