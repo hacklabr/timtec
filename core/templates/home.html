@@ -28,6 +28,7 @@
                                         <article class="video">
                                             <a ng-href="/course/{{ course.slug }}">
                                                 <div class="video-thumb">
+                                                    <img ng-src="{{ course.home_thumbnail_url }}">
                                                 </div>
                                             </a>
                                             <div class="video-info">
@@ -135,21 +136,18 @@
                             <div class="video col-lg-12 col-md-12">
                                 <h3><a href="#">Próximos <span>lançamentos</span></a></h3>
                             </div>
-                            
-                            <div class="video col-lg-4 col-md-4">
-                                <div class="thumb col-lg-6 col-md-6"></div>
-                                <h4>Introdução a lógica de programação</h4>
+                            {% verbatim %}
+                            <div class="video col-lg-4 col-md-4" ng-repeat="course in upcoming_courses">
+                                <a ng-href="/course/{{ course.slug }}">
+                                    <div class="thumb col-lg-6 col-md-6">
+                                        <img ng-src="{{ course.home_thumbnail_url }}">
+                                    </div>
+                                </a>
+                                <a ng-href="/course/{{ course.slug }}">
+                                    <h4>{{ course.name }}</h4>
+                                </a>
                             </div>
-
-                            <div class="video col-lg-4 col-md-4">
-                                <div class="thumb col-lg-6 col-md-6"></div>
-                                <h4>Introdução a lógica de programação</h4>
-                            </div>
-                            <div class="video col-lg-4 col-md-4">
-                                <div class="thumb col-lg-6 col-md-6">
-                                </div>
-                                <h4>Introdução a lógica de programação</h4>
-                            </div>
+                            {% endverbatim %}
 
                         </div><!-- .row -->
 

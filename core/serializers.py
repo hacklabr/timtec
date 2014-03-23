@@ -50,12 +50,13 @@ class CourseSerializer(serializers.ModelSerializer):
     intro_video = VideoSerializer(required=False)
     thumbnail_url = serializers.Field(source='get_thumbnail_url')
     professor_name = serializers.SerializerMethodField('get_professor_name')
+    home_thumbnail_url = serializers.SerializerMethodField('get_home_thumbnail_url')
 
     class Meta:
         model = Course
         fields = ("id", "slug", "name", "intro_video", "application", "requirement",
                   "abstract", "structure", "workload", "pronatec", "status",
-                  "thumbnail_url", "publication", "home_thumbnail", "home_position",
+                  "thumbnail_url", "publication", "home_thumbnail_url", "home_position",
                   "start_date", "professor_name", "home_published",)
 
     @staticmethod
@@ -63,7 +64,11 @@ class CourseSerializer(serializers.ModelSerializer):
         if obj.professors.all():
             return obj.professors.all()[0]
         return ''
-
+    @staticmethod
+    def get_home_thumbnail_url(obj):
+        if obj.home_thumbnail:
+            return obj.home_thumbnail.url
+        return ''
 
 class CourseThumbSerializer(serializers.ModelSerializer):
 
