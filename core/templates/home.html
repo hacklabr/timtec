@@ -24,16 +24,20 @@
                             <div class="row">
                                 <section class="videos" role="main">
                                     <div ng-repeat="course in courses" class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        {% verbatim %}
                                         <article class="video">
-                                            <div class="video-thumb">
-                                            </div>
+                                            <a ng-href="/course/{{ course.slug }}">
+                                                <div class="video-thumb">
+                                                </div>
+                                            </a>
                                             <div class="video-info">
-                                                {% verbatim %}
-                                                <h3>{{ course.name }}</h3>
+                                                <a ng-href="/course/{{ course.slug }}">
+                                                    <h3>{{ course.name }}</h3>
+                                                </a>
                                                 <p>{{ course.professor_name }}</p>
-                                                {% endverbatim %}
                                             </div>
                                         </article>
+                                        {% endverbatim %}
                                     </div>
                                 </section><!-- .videos -->
                             </div><!-- .row -->
