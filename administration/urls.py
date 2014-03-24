@@ -8,7 +8,7 @@ urlpatterns = patterns(
     '',
     # list all courses
     url(r'^$', lr(RedirectView.as_view(url="courses/")), name="administration.home"),
-    url(r'^courses/$', lr(TemplateView.as_view(template_name="courses.html"))),
+    url(r'^courses/$', lr(TemplateView.as_view(template_name="courses_admin.html"))),
 
     # create and edit course
     url(r'^courses/new/$', lr(TemplateView.as_view(template_name="new_course.html"))),
