@@ -262,6 +262,54 @@ body#admin {
       }
     }
   }
+
+  .blink-bg-danger {
+    animation: blink-bg-red 2s infinite;
+    -webkit-animation: blink-bg-red 2s infinite; /* Safari and Chrome */
+  }
+
+
+
+  .lessons.organizing-lessons .handle,
+  .lessons.organizing-lessons .handle * {
+      cursor: move !important;
+  }
+
+  .lessons .lesson {
+      background-color: white;
+      -webkit-transition: background-color 1s;
+  }
+
+  .lessons.organizing-lessons .ui-sortable-helper {
+      padding: 0.5em;
+      background-color: #FFFFAA;
+      box-shadow: 1px 1px 4px #555555;
+      -webkit-transition: background-color 1s;
+  }
+
+  .activity label.btn {
+    white-space: normal;
+    min-height: 4em;
+    width: 100%;
+  }
+
+  .activity .panel-body {
+    min-height: 22em;
+  }
+
+  .btn-group .dropdown-menu{
+    li {
+      margin: 0.5em 0 !important;
+    }
+    a {
+      cursor: pointer;
+    }
+  }
+
+  .add-side-notes .editable {
+      min-height: 150px;
+  }
+
 }
 
 
@@ -298,49 +346,3 @@ body#admin {
     100% {background-color: auto; }
 }
 
-.blink-bg-danger {
-    animation: blink-bg-red 2s infinite;
-    -webkit-animation: blink-bg-red 2s infinite; /* Safari and Chrome */
-}
-
-
-
-.lessons.organizing-lessons .handle,
-.lessons.organizing-lessons .handle * {
-    cursor: move !important;
-}
-
-.lessons .lesson {
-    background-color: white;
-    -webkit-transition: background-color 1s;
-}
-
-.lessons.organizing-lessons .ui-sortable-helper {
-    padding: 0.5em;
-    background-color: #FFFFAA;
-    box-shadow: 1px 1px 4px #555555;
-    -webkit-transition: background-color 1s;
-}
-
-.activity label.btn {
-  white-space: normal;
-  min-height: 4em;
-  width: 100%;
-}
-
-.activity .panel-body {
-  min-height: 22em;
-}
-
-.btn-group .dropdown-menu{
-  li {
-    margin: 0.5em 0 !important;
-  }
-  a {
-    cursor: pointer;
-  }
-}
-
-.add-side-notes .editable {
-    min-height: 150px;
-}
