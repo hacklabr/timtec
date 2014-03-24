@@ -264,7 +264,7 @@ body {
 
             &.open {
 
-                ul.dropdown-menu {
+                .dropdown-menu.user-menu {
                     width: 100%;
 
                     li {
@@ -284,7 +284,33 @@ body {
                         }
                     }  
                 }
-  
+
+                .dropdown-menu.login-menu {
+                    width: 400px;
+                    padding: 15px 0;
+
+                    .form-group {
+                        margin-bottom: 15px;
+
+                        label {
+                            margin-top: 6px;
+                        }
+                    } 
+
+                    a {
+                        background: transparent;
+                        text-transform: initial;
+                        .box-shadow(none);
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+
+                    .divider {
+                        margin: 15px 0;
+                    }
+                }
             }
         }
     } // .main-nav ul

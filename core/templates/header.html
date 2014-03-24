@@ -37,7 +37,7 @@
                         {{ user }}
                         <i class="fa fa-caret-down"></i>
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu user-menu">
                         {% ifusergroup professors %}
                             <li><a href="{% url 'administration.home' %}">{% trans "Admin" %}</a></li>
                         {% endifusergroup %}
@@ -51,7 +51,7 @@
                     </ul>
                 {% else %}
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans 'Sign In' %}</a>
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu login-menu">
                         <form onclick="event.stopPropagation()" method="post" action="{% url 'timtec_login' %}" class="navbar-form">{% csrf_token %}
                             <div class="row">
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12{% if login_form.errors %} has-error{% endif %}">
