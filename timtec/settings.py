@@ -161,16 +161,6 @@ PIPELINE_CSS = {
             'media': 'screen,projection,print',
         },
     },
-    'admin': {
-        'source_filenames': (
-            'css/main-admin.less',
-        ),
-        'output_filename': 'css/admin.css',
-        'extra_context': {
-            'media': 'screen,projection,print',
-        },
-        'variant': 'datauri',
-    },
 }
 
 PIPELINE_JS = {

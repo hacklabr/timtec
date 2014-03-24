@@ -22,6 +22,58 @@
     background-clip:         padding-box;
 }
 
+.bottom(@margin:0, @padding:0) {
+  margin-bottom:@margin !important;
+  padding-bottom:@padding !important;
+}
+
+.left(@margin:0, @padding:0) {
+  margin-left:@margin !important;
+  padding-left:@padding !important;
+}
+
+.right(@margin:0, @padding:0) {
+  margin-right:@margin !important;
+  padding-right:@padding !important;
+}
+
+.top(@margin:0, @padding:0) {
+  margin-top:@margin !important;
+  padding-top:@padding !important;
+}
+
+@media screen and (max-width: @screen-phone) {
+  .bottom-xs {
+    .bottom(0,0);
+  }
+  .left-xs {
+    .left(0,0);
+  }
+  .right-xs {
+    .right(0,0);
+  }
+  .top-xs {
+    .top(0,0);
+  }
+}
+
+// HELPERS
+// ********************************************************************* //
+.alignleft  { float:left; }
+.alignright { float:right; }
+.textcenter { text-align:center; }
+.textleft   { text-align:left; }
+.textright  { text-align:right; }
+.uppercase  { text-transform:uppercase !important; }
+.capitalize { text-transform:capitalize !important; }
+.bottom     { .bottom(0,0); }
+.left       { .left(0,0); }
+.right      { .right(0,0); }
+.top        { .top(0,0); }
+.no-bullet  { .left(0,0); list-style:none; }
+.hidden     { display:none !important; }
+
+
 // ARROWS
 // ********************************************************************* //
 .arrow-up(@width, @color) {
@@ -281,9 +333,10 @@ body {
 // ********************************************************************* //
 
 @import "home";
-
 @import "course";
-
+@import "forum";
+@import "user";
+@import "admin";
 
 // RESPONSIVE
 // ********************************************************************* //
