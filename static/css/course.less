@@ -111,10 +111,61 @@
     }
   }
 
-  &.course-lesson,
-  &.course-forum,
-  &.course-material,
-  &.course-notes {
+  &.course-lesson {
+
+    #annotations {
+      float: left;
+      margin-left: -15px;
+      padding: 10px 13px;
+      //width: 257px;
+      //height: 347px;
+      width: 307px;
+      height: 421px;
+      background: rgba(255,255,255,0.6);
+
+      h2 {
+        margin: 0 0 5px 0;
+        font-size: 16px;
+        color: #0074be;
+      }
+
+      textarea {
+        margin: 10px 0; 
+      }
+    }
+
+    #side-notes {
+      margin-top: 30px;
+      padding: 20px;
+      background: #1e9dd9;
+      color: #fff;
+
+      h2 {
+        margin: 0 0 5px 0;
+        font-size: 25px;
+      }
+    }
+  }
+
+  &.course-material {
+    header {
+      h1 {
+        margin: 0; 
+      }
+    }
+    blockquote {
+      p {
+        font-size: 14px;
+      }
+    }
+    .uploaded-files-list {
+      padding: 0;
+      list-style: inside;
+    }
+  }
+
+  &.course-lesson, &.course-forum, &.course-material, &.course-notes {
+    
     .illust {
       background-image: url(../img/timtec/lesson-illust.jpg);
     } // .illust
@@ -215,39 +266,6 @@
           a {
               color: #333;    
           }
-        }
-      }
-
-      #annotations {
-        float: left;
-        margin-left: -15px;
-        padding: 10px 13px;
-        //width: 257px;
-        //height: 347px;
-        width: 307px;
-        height: 421px;
-        background: rgba(255,255,255,0.6);
-
-        h2 {
-          margin: 0 0 5px 0;
-          font-size: 16px;
-          color: #0074be;
-        }
-
-        textarea {
-          margin: 10px 0; 
-        }
-      }
-
-      #side-notes {
-        margin-top: 30px;
-        padding: 20px;
-        background: #1e9dd9;
-        color: #fff;
-
-        h2 {
-          margin: 0 0 5px 0;
-          font-size: 25px;
         }
       }
     }

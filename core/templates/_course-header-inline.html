@@ -1,7 +1,7 @@
 {% load i18n %}
   <header id="main-header">
       <div class="row">
-        <div class="col-lg-7 col-lg-offset-1 col-sm-7 col-sm-offset-1">
+        <div class="col-lg-7 col-lg-offset-1 col-md-7 col-md-offset-1 col-sm-7">
           <nav class="lesson-units hidden-xs">
               <div class="btn-group">
                   <button type="button" class="lesson-name dropdown-toggle" data-toggle="dropdown">{{ course.first_lesson.name }}</button>
@@ -17,7 +17,7 @@
           </nav>
         </div>
 
-        <div class="col-lg-4 col-sm-4">
+        <div class="col-lg-4 col-md-4 col-sm-5">
           <!-- COURSE-SECTION-NAV -->
           <nav class="course-sections">
             <a href="{% url 'course_intro' course.slug %}"><span class="has-tooltip intro" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Intro' %}"></span></a>
