@@ -1,0 +1,32 @@
+#my-courses {
+
+  .illust {
+    background-image: url(../img/timtec/course-illust.jpg);
+  } // .illust
+
+  .main-content {
+    margin-top: 0px;
+
+    &>.container {
+      padding-top: 50px;
+      background: rgba(255,255,255,0.5); 
+    }   
+  }
+
+  @media (min-width: @screen-sm-min) { 
+
+    .main-content {
+      margin-top: -680px;
+
+      .right-col {
+          .buttons {
+              margin-top: 85px;
+
+              .js-login-required {
+                  margin-bottom: 0;
+              }
+          }
+        }
+    } // .content
+  }
+}
