@@ -9,6 +9,19 @@
                 if (courses.length > 6) {
                     $scope.courses = courses.slice(0,6);
                 }
+                $scope.courses_rows = [];
+                var row = [];
+                var index = 0;
+                angular.forEach($scope.courses, function(course) {
+                    row.push(course);
+                    if (index == 1) {
+                        $scope.courses_rows.push(row);
+                        row = [];
+                        index = 0;
+                    } else
+                        index++;
+                });
+                var bla = 1;
             });
 
             $scope.upcoming_courses = Course.query({'home_published': 'False'}, function(upcoming_courses) {

@@ -23,23 +23,8 @@
                         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                             <div class="row">
                                 <section class="videos" role="main">
-                                    <div class="row">
-                                        <div ng-repeat="course in courses" class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                            {% verbatim %}
-                                            <article class="video">
-                                                <a ng-href="/course/{{ course.slug }}">
-                                                    <div class="video-thumb">
-                                                        <img ng-src="{{ course.home_thumbnail_url }}">
-                                                    </div>
-                                                </a>
-                                                <div class="video-info">
-                                                    <h3><a ng-href="/course/{{ course.slug }}">{{ course.name }}</a></h3>
-                                                    <p>{{ course.professor_name }}</p>
-                                                </div>
-                                            </article>
-                                            {% endverbatim %}
-                                        </div>
-                                        <div ng-repeat="course in courses" class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="row" ng-repeat="courses_row in courses_rows">
+                                        <div ng-repeat="course in courses_row" class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                             {% verbatim %}
                                             <article class="video">
                                                 <a ng-href="/course/{{ course.slug }}">
