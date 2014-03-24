@@ -55,7 +55,7 @@
             <section class="questions clearfix" ng-show="totalItems>0">
                 <div class="search-filter">
                     <div class="row">
-                        <div class="col-lg-7 col-sm-7">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="btn-group">
                                 {% verbatim angularjs %}
                                 <button type="button" class="btn btn-info">{{ sort_label }}</button>
@@ -70,7 +70,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-lg-5 col-sm-5 textright">
+                        <div class="col-lg-6 col-md-6 col-sm-6 textright">
                             <pagination ng-if="totalItems>itemsPerPage" on-select-page="changePageHandler(page)" max-size="5" items-per-page="itemsPerPage" boundary-links="true" total-items="totalItems" page="currentPage" class="pagination-sm top pointer" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
                         </div>
                     </div>
