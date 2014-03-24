@@ -17,7 +17,6 @@
                         <li class="contato"><a href="#" data-toggle="modal" data-target="#modal-contact"><i class="fa fa-envelope"></i><span class="sr-only">Contato</span></a></li>
                         <li class="facebook"><a href="#"><i class="fa fa-facebook"></i><span class="sr-only">Facebook</span></a></li>
                         <li class="twitter"><a href="#"><i class="fa fa-twitter"></i><span class="sr-only">Twitter</span></a></li>
-                        <li class="youtube"><a href="#"><i class="fa fa-youtube"></i><span class="sr-only">Youtube</span></a></li>
                     </ul><!-- .social -->
                 </div><!-- .col-md-4 -->
 
@@ -80,7 +79,7 @@
                                 </div>
                             </div>
                             <div class="submit clearfix">
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 forgot-pass">
                                     <a href="{% url 'account_reset_password' %}">{% trans 'Forgot my password' %}</a>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textright">
@@ -89,10 +88,10 @@
                             </div>
                             <div class="divider"></div>
                             <div class="row">
-                                <p class="bottom textcenter">
-                                    <a href="{% url 'account_signup' %}">{% trans 'signup' %}</a>
+                                <p class="textcenter">
+                                    <a href="{% url 'account_signup' %}">{% trans 'Signup' %}</a>
                                 </p>
-                                <p class="bottom textcenter">
+                                <p class="textcenter">
                                     {% load socialaccount %}
                                     <a href="{% provider_login_url 'facebook' method='oauth2' %}">{% trans 'Connect with Facebook' %}</a>
                                 </p>
