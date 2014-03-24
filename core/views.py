@@ -12,6 +12,7 @@ from django.conf import settings
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import filters
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from braces.views import LoginRequiredMixin
 from notes.models import Note
 
@@ -173,6 +174,7 @@ class CourseViewSet(viewsets.ModelViewSet):
     filter_fields = ('slug', 'home_published',)
     filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = CourseSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get(self, request, **kwargs):
         response = super(CourseViewSet, self).get(request, **kwargs)
