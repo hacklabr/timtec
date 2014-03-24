@@ -238,6 +238,7 @@ body {
 .main-nav {
     position: relative;
     z-index: 9;
+    height: 40px;
 
     ul {
         position: relative;
@@ -259,6 +260,31 @@ body {
                     background-color: #fff;
                     text-decoration: none;
                 }
+            }
+
+            &.open {
+
+                ul.dropdown-menu {
+                    width: 100%;
+
+                    li {
+                        width: 100%;
+                        clear: both;
+                        margin-right: 0;
+
+                        a {
+                            padding: 6px 13px;
+                            background: transparent;
+                            .box-shadow(none);
+                            text-align: left;
+
+                            &:hover {
+                                background-color: #b7e5f7;
+                            }
+                        }
+                    }  
+                }
+  
             }
         }
     } // .main-nav ul
