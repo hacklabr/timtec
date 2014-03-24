@@ -16,20 +16,12 @@ class CourseProfessorSerializer(serializers.ModelSerializer):
 
 class ProfessorMessageSerializer(serializers.ModelSerializer):
 
-    professor = TimtecUserSerializer(read_only=True)
-    users = TimtecUserSerializer(read_only=True)
+    professor = TimtecUserSerializer(source='professor', read_only=True)
+    users_details = TimtecUserSerializer(source='users', read_only=True)
 
     class Meta:
         model = ProfessorMessage
-
-    def validate(self, attrs):
-        if attrs['professor'].course != attrs['course']:
-            raise serializers.ValidationError("professor is not allowed to send a message to this course")
-
-        for student in attrs['users']:
-            if student.course != attrs['course']:
-                raise serializers.ValidationError("student is not from specified course")
-        return attrs
+        fields = ('id', 'course', 'users', 'subject', 'message', 'date', 'users_details',)
 
 
 class CourseStudentSerializer(serializers.ModelSerializer):

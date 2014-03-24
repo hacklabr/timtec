@@ -15,11 +15,11 @@
                             }
                         }
                     });
-                    modalInstance.result.then(function (question) {
-                        question.$update({questionId: question.id}, function(question){
-                            question.hidden_to_user = false;
+                    modalInstance.result.then(function (new_message) {
+                        new_message.$save({}, function(new_message){
+                            $scope.messages.unshift(new_message);
                         });
-                        
+
                     });
                 };
                 var SendMessageModalInstanceCtrl = function ($scope, $modalInstance, course_id) {
@@ -45,6 +45,9 @@
                     });
 
                     $scope.new_message = new Message();
+                    $scope.new_message.course = course_id;
+
+
                     // trick to user modal.all_checked in ng-model html tag
                     $scope.modal = {};
                     $scope.checkAll = function() {
@@ -55,11 +58,7 @@
                     };
 
                     $scope.send = function () {
-                        // $scope.question.hidden = true;
-                        // $scope.question.hidden_by = $window.user_id;
-                        // $scope.question.hidden_justification = $scope.question.hidden_justification;
-                        // $modalInstance.close($scope.question);
-                        $modalInstance.close();
+                        $modalInstance.close($scope.new_message);
                     };
 
                     $scope.cancel = function () {
@@ -74,15 +73,15 @@
                 $scope.messages = Message.query({course: $scope.course_id});
             }
         ]).
-        controller('MessageController', ['$scope', 'Message', 'User',
-            function($scope,  Message, User) {
+        controller('MessageController', ['$scope', 'Message',
+            function($scope, Message) {
                 $scope.course_id = document.location.href.match(/course\/([0-9]+)/)[1];
                 $scope.message_id = document.location.href.match(/message\/([0-9]+)/)[1];
                 $scope.message = Message.get({messageId: $scope.message_id}, function(message) {
-                    message.users_rows = [];
+                    $scope.message.users_rows = [];
                     var row = [];
                     var index = 0;
-                    angular.forEach(message.users, function(user) {
+                    angular.forEach(message.users_details, function(user) {
                         row.push(user);
                         if (index == 5) {
                             message.users_rows.push(row);

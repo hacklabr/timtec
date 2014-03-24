@@ -158,6 +158,14 @@ class ProfessorMessageViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = ProfessorMessageSerializer
 
+    def pre_save(self, obj):
+        obj.professor = self.request.user
+        return super(ProfessorMessageViewSet, self).pre_save(obj)
+
+    def post_save(self, obj, created):
+        if created:
+            obj.send()
+
 
 class CourseViewSet(viewsets.ModelViewSet):
     model = Course
