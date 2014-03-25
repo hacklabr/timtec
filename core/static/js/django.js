@@ -21,7 +21,7 @@
         }
     );
     app.run(function (gettextCatalog, LANGUAGE) {
-        gettextCatalog.debug = true;
+        // gettextCatalog.debug = true;
         console.log('setting language to', LANGUAGE);
         gettextCatalog.currentLanguage = LANGUAGE;
     });
