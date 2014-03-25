@@ -1,3 +1,118 @@
+#admin {
+  #course {
+    &.course-lesson {
+      margin-top: 20px !important;
+      .main-content {
+        margin-top: 10px !important;
+        .add-content {
+          margin-bottom: 10px;
+        }
+        .add-video-intro, .add-thumbnail, .add-activity {
+          background-color: rgba(255,255,255,0.6);
+          color:@brand-danger;
+          height:419px;
+
+          &:before {
+            content:'';
+            height:100%;
+            .vertical-align(middle);
+          }
+
+          .centered {
+            .vertical-align(middle);
+            width:400px;
+          }
+
+          .icon-youtube-play {
+            display:block;
+            font-size:54px;
+          }
+        }
+        #annotations {
+          height: 419px;
+          margin-top: 44px;
+        }
+        #side-notes {
+          margin-bottom: 72px;
+        }
+        .activity {
+            position:relative;
+            .question {
+                h1 {
+                    border-bottom: 1px solid @gray-lighter;
+                    // color: rgb(44,61,147);
+                    color: @brand-info;
+                    font-family: "Teuton";
+                    margin-bottom: 40px;
+                    padding-bottom: 20px;
+                    text-align: center;
+                }
+            }
+            .answers {
+                margin: 20px 0;
+            }
+            .simplechoice-answers {
+                .answer {
+                    border-bottom: 1px solid @gray-lighter;
+                    font-size: 16px;
+                    label {
+                        vertical-align: top;
+                        .icons {
+                            display: inline !important;
+                            margin-top: 10px;
+                            position: initial !important;
+                        }
+                    }
+                }
+            }
+            .multiplechoice-answers {
+                .answer {
+                    border-bottom: 1px solid @gray-lighter;
+                    font-size: 16px;
+                    label {
+                        vertical-align: top;
+                        .icons {
+                            display: inline !important;
+                            margin-top: 10px;
+                            position: initial !important;
+                        }
+                    }
+                }
+            }
+            .trueorfalse-answers {
+                .answer {
+                    border-bottom: 1px solid @gray-lighter;
+                    font-size: 16px;
+                    margin: 10px 0;
+                    padding: 10px 0;
+                }
+            }
+            .relationship-answers {
+                .answer {
+                    border-bottom: 1px solid @gray-lighter;
+                    font-size: 16px;
+                    margin: 10px 0;
+                    padding: 10px 0;
+                    > * {
+                        line-height: 2;
+                    }
+                }
+            }
+            .submit {
+                margin-top: 40px;
+            }
+            label {
+                font-weight:normal;
+            }
+            table tr, table tr td {
+                border:none;
+            }
+        }
+      }
+    }
+  }
+}
+
 #course {
 
   &.course-intro {
@@ -95,6 +210,11 @@
               font-weight: bold;
               text-transform: uppercase;
               color: #fff;
+
+              &.has-tooltip {
+                text-align: center;
+                background-color: #aeaeae;
+              }
             }
 
             .share-facebook {
@@ -158,13 +278,45 @@
         font-size: 14px;
       }
     }
+    a {
+      color: #007dc3;
+    }
+    .goto-course {
+      color: #fff;
+    }
     .uploaded-files-list {
+      list-style: none;
+      margin: 0 0 20px 0;
       padding: 0;
-      list-style: inside;
+      li {
+        border-bottom: 1px solid #fff;
+        padding: 5px 0;
+      }
     }
   }
 
-  &.course-lesson, &.course-forum, &.course-material, &.course-notes {
+
+  &.course-list {
+    .course-link {
+      border-bottom: 1px solid #428bca;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+      h3 {
+        margin: 0; 
+      }
+    }
+
+    // Page Headers
+    .page-header-double {
+      margin-bottom: 30px;
+      h2 {
+        font-family: 'teuton_26';
+        color: #007dc3;
+      }
+    }
+  }
+
+  &.course-lesson, &.course-forum, &.course-material, &.course-notes, &.course-list {
     
     .illust {
       background-image: url(../img/timtec/lesson-illust.jpg);
@@ -271,12 +423,10 @@
     }
   }
 
-
-
-// COURSE UNITS - General
-// ********************************************************************* //
+  // COURSE UNITS - General
+  // ********************************************************************* //
   .admin-units {
-    margin-top: 66px !important;
+    margin-top: 45px !important;
   }
   .units {
     margint-top: 20px;
@@ -351,7 +501,7 @@
     // END ADD UNIT
   }
   // END COURSE UNITS
-
+  
   @media (max-width: @screen-sm-min) { 
     &.course-intro {
       margin-top: -40px;
@@ -379,11 +529,11 @@
     &.course-lesson,
     &.course-forum,
     &.course-material,
-    &.course-notes {
+    &.course-notes,
+    &.course-list {
       .main-content {
         margin-top: -605px;
       }
     }
   }
 } // #course
-

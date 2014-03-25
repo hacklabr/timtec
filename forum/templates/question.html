@@ -28,9 +28,9 @@
             <!-- END HEADER -->
 
             <!-- MAIN CONTENT -->
-            <section id="forum-content" class="container" ng-app="forum" ng-controller="QuestionCtrl">
+            <section id="forum-content" class="row" ng-app="forum" ng-controller="QuestionCtrl">
                 {% verbatim angularjs %}
-                <article class="question no-bottom-border">
+                <article class="question no-bottom-border col-lg-11 col-lg-offset-1 col-md-11 col-md-offset-1 col-sm-12">
                     <header>
                         <table>
                             <tr>
@@ -56,56 +56,54 @@
 
                 <!-- ANSWERS -->
                 <section class="answers">
-                    <div class="row">
-                        <div class="col-lg-10 col-lg-offset-1">
-                            <header class="no-bottom-border">
-                                <h2><span ng-init="num_answers={{ question_django.answers.count }}">{% verbatim angularjs %} {{ num_answers }} {% endverbatim angularjs %}</span> Resposta<span ng-if="num_answers>1">s</span></h2>
-                            </header>
-                            {% verbatim angularjs %}
-                            <article class="answer top" ng-repeat="answer in answers">
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <div class="rating" ng-app="vote" ng-controller="AnswerVoteCtrl">
-                                                <div class="arrow-up" ng-class="{active: answer_vote.value==1}" ng-click=vote('up')></div>
-                                                <div class="votes">{{ answer.votes }}</div>
-                                                <div class="arrow-down" ng-class="{active: answer_vote.value==-1}" ng-click=vote('down')></div>
-                                            </div>
-                                        </td>
-                                        <td style="vertical-align:top; width: 100%;">
-                                            <div class="content">
-                                                <p ng-bind-html="answer.text|markdown"></p>
-                                                <p class="author textright clearfix">
-                                                    Resposta feita em <strong>{{ answer.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ answer.username }}">{{ answer.username }}</a>
-                                                </p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </article>
-                            {% endverbatim angularjs %}
-
-                            <section class="your-answer" ng-show="editor_enabled" id="editor">
-                                <header>
-                                    <h2>Sua Resposta</h2>
-                                </header>
-                                <div class="forum-form">
-                                    <div class="form-group text-editor">
-                                        <div class="wmd-panel" markdowneditor="true">
-                                            <div id="wmd-button-bar" class="js-button-bar"></div>
-                                            <textarea ng-model="new_answer_text" class="form-control" id="wmd-input" rows="10"></textarea>
-                                            <input type="hidden" ng-model="question_id" value="{{ question.pk }}" mp-value-copy/>
+                    <div class="col-lg-11 col-lg-offset-1">
+                        <header class="no-bottom-border">
+                            <h2><span ng-init="num_answers={{ question_django.answers.count }}">{% verbatim angularjs %} {{ num_answers }} {% endverbatim angularjs %}</span> Resposta<span ng-if="num_answers>1">s</span></h2>
+                        </header>
+                        {% verbatim angularjs %}
+                        <article class="answer top" ng-repeat="answer in answers">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div class="rating" ng-app="vote" ng-controller="AnswerVoteCtrl">
+                                            <div class="arrow-up" ng-class="{active: answer_vote.value==1}" ng-click=vote('up')></div>
+                                            <div class="votes">{{ answer.votes }}</div>
+                                            <div class="arrow-down" ng-class="{active: answer_vote.value==-1}" ng-click=vote('down')></div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
-                                    </div>
-                                    <div class="form-group textright bottom">
-                                        <button ng-click="new_answer()" class="btn btn-success">Enviar</button>
+                                    </td>
+                                    <td style="vertical-align:top; width: 100%;">
+                                        <div class="content">
+                                            <p ng-bind-html="answer.text|markdown"></p>
+                                            <p class="author textright clearfix">
+                                                Resposta feita em <strong>{{ answer.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ answer.username }}">{{ answer.username }}</a>
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </article>
+                        {% endverbatim angularjs %}
+
+                        <section class="your-answer" ng-show="editor_enabled" id="editor">
+                            <header>
+                                <h2>Sua Resposta</h2>
+                            </header>
+                            <div class="forum-form">
+                                <div class="form-group text-editor">
+                                    <div class="wmd-panel" markdowneditor="true">
+                                        <div id="wmd-button-bar" class="js-button-bar"></div>
+                                        <textarea ng-model="new_answer_text" class="form-control" id="wmd-input" rows="10"></textarea>
+                                        <input type="hidden" ng-model="question_id" value="{{ question.pk }}" mp-value-copy/>
                                     </div>
                                 </div>
-                            </section>
-                        </div>
+                                <div class="form-group">
+                                    <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
+                                </div>
+                                <div class="form-group textright bottom">
+                                    <button ng-click="new_answer()" class="btn btn-success">Enviar</button>
+                                </div>
+                            </div>
+                        </section>
                     </div>
                 </section>
                 <!-- END MAIN CONTENT-->

@@ -64,8 +64,8 @@
                     <!-- END COURSE-INFO -->
 
                 </section>
-
-                <div class="row">
+                {% if user.is_authenticated and course.has_started %}
+                    <div class="row">
                     <!-- COURSE-LESSONS -->
                     <section class="lessons col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <!-- PAGE-HEADER-DOUBLE -->
@@ -147,6 +147,7 @@
                     </section>
                     <!-- END COURSE-LESSONS -->
                 </div>
+                {% endif %}
             </div>
 
             <div class="right-col col-lg-5 col-md-5 col-sm-12 col-xs-12">
@@ -154,7 +155,12 @@
                 <div class="buttons">
                     {% if course.first_lesson.slug %}
                         {% if user_is_enrolled %}
-                            <a href="{% url "lesson" course.slug course.first_lesson.slug %}" class="js-login-required col-lg-6 col-md-6 col-sm-6 col-xs-12 uppercase">{% trans "Resume" %}</a>
+                            {% if course.has_started %}
+                                <a href="{% url "lesson" course.slug course.first_lesson.slug %}" class="js-login-required col-lg-6 col-md-6 col-sm-6 col-xs-12 uppercase">{% trans "Resume" %}</a>
+                                
+                            {% else %}
+                                <span href="#" class="has-tooltip js-login-required col-lg-6 col-md-6 col-sm-6 col-xs-12 uppercase" data-toggle="tooltip" data-placement="bottom" data-original-title="{% blocktrans with start_date=course.start_date %}Este curso começa dia {{ start_date|date:"d/m/Y" }} e você já está inscrito{% endblocktrans %}" title="{% blocktrans with start_date=course.start_date %}Este curso começa dia {{ start_date|date:"d/m/Y" }} e você já está inscrito{% endblocktrans %}">{% trans "Resume" %}</span>
+                            {% endif %}
                         {% else %}
                             <a
                                 {% if user.is_authenticated %}
@@ -163,10 +169,11 @@
                                     onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 0);"
                                 {% endif %}
                                 href="{% url "enroll_course" course.slug %}" class="js-login-required btn btn-lg btn-info col-lg-6 col-md-6 col-sm-6 col-xs-12 uppercase">{% trans "Take the Class" %}</a>
+
                         {% endif %}
                     {% endif %}
-
                     <a href="#" class="share-facebook col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1 col-sm-5 col-sm-offset-1 col-xs-12">Compartilhar</a>
+                    
                 </div>
 
                 <!-- COURSE-SUMMARY - VISIBLE ONLY FOR PHONES -->

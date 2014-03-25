@@ -3,32 +3,37 @@
 
 {% block content %}
         <!-- CONTAINER -->
-        <div id="home" class="container">
-            <header class="page-header-double">
-                <h3><i class="fa fa-angle-double-right"></i> {% trans 'Courses' %}</h3>
-            </header>
+        <div id="course" class="course-list">
 
-            <section class="courses">
-                {% for course in courses %}
-                <!-- COURSE -->
-                <div class="course">
-                    <header>
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <h1><a href="{% url 'course_intro' course.slug %}">{{ course.name }}</a></h1>
-                            </div>
-                            <div class="col-lg-4 textright">
-                                <div class="btn-group">
-                                    <a href="{% url 'course_intro' course.slug %}" class="btn btn-sm btn-success">{% trans 'Go to course' %}</a>
-                                    <a href="{% url 'course_intro' course.slug %}" class="btn btn-sm btn-success"><i class="fa fa-angle-double-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
+            <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
+
+            <div class="main-content">
+                <div class="container">
+                    <header class="page-header-double">
+                        <h2>{% trans 'Courses' %}</h2>
                     </header>
+
+                    <section>
+                        {% for course in courses %}
+                        <!-- COURSE -->
+                            <header class="course-link">
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <h3><a href="{% url 'course_intro' course.slug %}">{{ course.name }}</a></h3>
+                                    </div>
+                                    <div class="col-lg-4 textright">
+                                        <div class="btn-group">
+                                            <a href="{% url 'course_intro' course.slug %}" class="btn btn-sm btn-success">{% trans 'Go to course' %}</a>
+                                            <a href="{% url 'course_intro' course.slug %}" class="btn btn-sm btn-success"><i class="fa fa-angle-double-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </header>
+                        <!-- END COURSE -->
+                        {% endfor %}
+                    </section>
                 </div>
-                <!-- END COURSE -->
-                {% endfor %}
-            </section>
+            </div>
         </div>
         <!-- CONTAINER -->
 {% endblock %}
