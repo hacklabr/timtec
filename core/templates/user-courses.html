@@ -3,7 +3,7 @@
 
 {% block content %}
         
-        <div id="my-courses">
+        <div id="my-courses" class="page">
 
             <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
 
@@ -13,7 +13,7 @@
                 <div class="container">
 
                     <header class="page-header-double">
-                        <h3><i class="fa fa-angle-double-right"></i> {% trans "My Courses" %}</h3>
+                        <h2>{% trans "My Courses" %}</h2>
                     </header>
 
                     <section class="courses">
@@ -23,7 +23,7 @@
                             <header>
                                 <div class="row">
                                     <div class="col-lg-8">
-                                        <h1>{{ cs.course.name }}</h1>
+                                        <h3>{{ cs.course.name }}</h3>
                                     </div>
                                     <div class="col-lg-4 textright">
                                         <div class="btn-group">
