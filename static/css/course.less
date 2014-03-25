@@ -7,9 +7,32 @@
         .add-content {
           margin-bottom: 10px;
         }
+        .add-video-intro, .add-thumbnail, .add-activity {
+          color:@brand-danger;
+          height:419px;
+
+          &:before {
+            content:'';
+            height:100%;
+            .vertical-align(middle);
+          }
+
+          .centered {
+            .vertical-align(middle);
+            width:400px;
+          }
+
+          .icon-youtube-play {
+            display:block;
+            font-size:54px;
+          }
+        }
         #annotations {
           height: 419px;
           margin-top: 44px;
+        }
+        #side-notes {
+          margin-bottom: 72px;
         }
       }
     }
