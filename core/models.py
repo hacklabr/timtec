@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import division
+
+import datetime
+
 from positions import PositionField
 from django.db import models
 from django.core.mail import send_mail
@@ -51,7 +54,7 @@ class Course(models.Model):
     students = models.ManyToManyField(TimtecUser, related_name='studentcourse_set', through='CourseStudent')
     home_thumbnail = models.ImageField(_('Home thumbnail'), upload_to='home_thumbnails', null=True, blank=True)
     home_position = PositionField(blank=True, null=True)
-    start_date = models.DateField(_('Publication'), default=None, blank=True, null=True)
+    start_date = models.DateField(_('Start date'), default=None, blank=True, null=True)
     home_published = models.BooleanField(default=False)
 
     class Meta:
@@ -84,6 +87,13 @@ class Course(models.Model):
         if self.thumbnail:
             return self.thumbnail.url
         return ''
+
+    @property
+    def has_started(self):
+        if self.start_date <= datetime.date.today():
+            return True
+        else:
+            return False
 
 
 class CourseStudent(models.Model):
