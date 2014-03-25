@@ -4,8 +4,8 @@
         margin: 0; 
       }
     }
-  #forum-content {
 
+  #forum-content {
     .forum-form {
       background-color: @gray-lighter;
       margin-bottom: 20px;
@@ -19,9 +19,7 @@
       margin-top: 10px;
     }
     article {
-      border-bottom: 1px solid @gray-lighter;
       margin-bottom: 20px;
-      padding-bottom: 20px;
       // IF IS HIDDEN
       &.is-hidden {
         background-color: lighten(@brand-warning, 45%);
@@ -54,7 +52,7 @@
         margin-top: 20px;
       }
       .content {
-        padding: 20px;
+        padding-top: 20px;
       }
       // TABLE IS THE BEST WAY TO HAVE TWO RESPONSIVE COLUMNS WITH ONE FIXED AND ANOTHER FLUID
       table {
@@ -64,6 +62,7 @@
         tr {
           td {
             vertical-align: top;
+            padding-right: 20px;
             .actions {
               display: block;
               margin-top: 5px;
@@ -95,7 +94,7 @@
             }
             .rating {
               text-align:center;
-              width: 80px;
+              width: 44px;
               .arrow-up {
                 .arrow-up(21px, @gray-light);
                 margin:0 auto;
@@ -277,7 +276,7 @@
             }
             .rating {
               text-align:center;
-              width: 80px;
+              width: 44px;
               .arrow-up {
                 .arrow-up(21px, @gray-light);
                 margin:0 auto;
