@@ -1,0 +1,5 @@
+<ul class="instructors">
+    {% for course_professor in course.courseprofessor_set.all %}
+        <li><a href="{% url 'profile' course_professor.user.username %}">{{ course_professor.user }}</a></li>
+    {% endfor %}
+</ul>

@@ -152,15 +152,6 @@ PIPELINE_CSS = {
             'media': 'screen,projection,print',
         },
     },
-    'timtec': {
-        'source_filenames': (
-            'css/timtec.less',
-        ),
-        'output_filename': 'css/timtec.css',
-        'extra_context': {
-            'media': 'screen,projection,print',
-        },
-    },
     'public': {
         'source_filenames': (
             'css/main.less',
@@ -169,16 +160,6 @@ PIPELINE_CSS = {
         'extra_context': {
             'media': 'screen,projection,print',
         },
-    },
-    'admin': {
-        'source_filenames': (
-            'css/main-admin.less',
-        ),
-        'output_filename': 'css/admin.css',
-        'extra_context': {
-            'media': 'screen,projection,print',
-        },
-        'variant': 'datauri',
     },
 }
 
@@ -221,7 +202,9 @@ PIPELINE_JS = {
             'js/messages/app.js',
             'js/messages/controllers.js',
             'js/messages/services.js',
-            'checklist-model/checklist-model.js'
+            'checklist-model/checklist-model.js',
+            'js/markdown/app.js',
+            'js/markdown/filters.js',
         ),
         'output_filename': 'js/messages.js',
     },
@@ -437,6 +420,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.flatpages',
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
@@ -459,6 +443,8 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+
+    'django_markdown',
 
     # raven has to be the last one
     'raven.contrib.django.raven_compat',
@@ -497,6 +483,12 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = True
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[timtec] "
 SOCIALACCOUNT_EMAIL_VERIFICATION = False
+
+TWITTER_CONSUMER_KEY = ''
+TWITTER_CONSUMER_SECRET = ''
+TWITTER_ACESS_TOKEN = ''
+TWITTER_ACESS_TOKEN_SECRET = ''
+TWITTER_USER = ''
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

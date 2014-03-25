@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+
+<!-- TABLET AND DESKTOP -->
+<div id="activation-wrapper" class="container visible-lg visible-md visible-sm">
+    <div class="centered">
+        <h1 class="textcenter">
+            <i class="fa fa-frown-o"></i><br/>
+            {% trans "Sorry" %}.
+        </h1>
+        <h3>{% trans "You provided an invalid key" %}.<br/>{% trans "The registration failed" %}.</h3>
+        [ ]s
+    </div>
+</div>
+<!-- END TABLET AND DESKTOP -->
+
+
+<!-- MOBILE -->
+<div class="container visible-xs textcenter">
+    <h1>
+        <i class="fa fa-frown-o"></i><br/>
+        {% trans "Sorry" %}.
+    </h1>
+    <h3>{% trans "You provided an invalid key" %}.<br/>{% trans "The registration failed" %}.</h3>
+    [ ]s
+</div>
+<!-- END MOBILE -->
+
+{% endblock %}

@@ -8,12 +8,12 @@
 </script>
 {% compressed_js 'forum' %}
 {% compressed_js 'admin_course_header' %}
-<section id="forum">
+<section id="forum-inline">
     
     <section id="forum-content" ng-controller="InlineForumCtrl">
         {% if question_form %}
             <div class="page-header-double">
-                <h3><i class="fa fa-angle-double-right"></i> {% trans "Questions & Answers" %}</h3>
+                <h3>{% trans "Questions & Answers" %}</h3>
             </div>
             <!-- QUESTION FORM -->
             <div class="forum-form">

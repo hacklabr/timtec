@@ -1,4 +1,4 @@
-{% extends 'base_timtec.html' %}
+{% extends 'base.html' %}
 
 {% load i18n %}
 {% load compressed %}
@@ -23,17 +23,22 @@
                         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                             <div class="row">
                                 <section class="videos" role="main">
-                                    <div ng-repeat="course in courses" class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <article class="video">
-                                            <div class="video-thumb">
-                                            </div>
-                                            <div class="video-info">
-                                                {% verbatim %}
-                                                <h3>{{ course.name }}</h3>
-                                                <p>{{ course.professor_name }}</p>
-                                                {% endverbatim %}
-                                            </div>
-                                        </article>
+                                    <div class="row" ng-repeat="courses_row in courses_rows">
+                                        <div ng-repeat="course in courses_row" class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            {% verbatim %}
+                                            <article class="video">
+                                                <a ng-href="/course/{{ course.slug }}">
+                                                    <div class="video-thumb">
+                                                        <img ng-src="{{ course.home_thumbnail_url }}">
+                                                    </div>
+                                                </a>
+                                                <div class="video-info">
+                                                    <h3><a ng-href="/course/{{ course.slug }}">{{ course.name }}</a></h3>
+                                                    <p>{{ course.professor_name }}</p>
+                                                </div>
+                                            </article>
+                                            {% endverbatim %}
+                                        </div>
                                     </div>
                                 </section><!-- .videos -->
                             </div><!-- .row -->
@@ -48,72 +53,8 @@
                                             <i class="fa fa-twitter"></i>
                                             Veja as últimas<br>informações<br><span>@timtec</span>
                                         </h3>
-                                        <div class="tweet">
-                                            <div class="info">
-                                                <span class="avatar"></span>
-                                                <span class="name">TIMTec</span>
-                                                <span class="date">00/00/0000</span>
-                                                <span class="hour">00:00 AM</span>
-                                            </div>
-                                            <div class="text">
-                                                Lorem ipsum dolor sit amet lorem ipsum dolor sit amet
-                                            </div>
-                                        </div>
-                                        <div class="tweet">
-                                            <div class="info">
-                                                <span class="avatar"></span>
-                                                <span class="name">TIMTec</span>
-                                                <span class="date">00/00/0000</span>
-                                                <span class="hour">00:00 AM</span>
-                                            </div>
-                                            <div class="text">
-                                                Lorem ipsum dolor sit amet lorem ipsum dolor sit amet
-                                            </div>
-                                        </div>
-                                        <div class="tweet">
-                                            <div class="info">
-                                                <span class="avatar"></span>
-                                                <span class="name">TIMTec</span>
-                                                <span class="date">00/00/0000</span>
-                                                <span class="hour">00:00 AM</span>
-                                            </div>
-                                            <div class="text">
-                                                Lorem ipsum dolor sit amet lorem ipsum dolor sit amet
-                                            </div>
-                                        </div>
-                                        <div class="tweet">
-                                            <div class="info">
-                                                <span class="avatar"></span>
-                                                <span class="name">TIMTec</span>
-                                                <span class="date">00/00/0000</span>
-                                                <span class="hour">00:00 AM</span>
-                                            </div>
-                                            <div class="text">
-                                                Lorem ipsum dolor sit amet lorem ipsum dolor sit amet
-                                            </div>
-                                        </div>
-                                        <div class="tweet">
-                                            <div class="info">
-                                                <span class="avatar"></span>
-                                                <span class="name">TIMTec</span>
-                                                <span class="date">00/00/0000</span>
-                                                <span class="hour">00:00 AM</span>
-                                            </div>
-                                            <div class="text">
-                                                Lorem ipsum dolor sit amet lorem ipsum dolor sit amet
-                                            </div>
-                                        </div>
-                                        <div class="tweet">
-                                            <div class="info">
-                                                <span class="avatar"></span>
-                                                <span class="name">TIMTec</span>
-                                                <span class="date">00/00/0000</span>
-                                                <span class="hour">00:00 AM</span>
-                                            </div>
-                                            <div class="text">
-                                                Lorem ipsum dolor sit amet lorem ipsum dolor sit amet
-                                            </div>
-                                        </div>
+                                        <a class="twitter-timeline" width="262" height="936" href="https://twitter.com/outrobruno" data-widget-id="447856346524680192">Tweets by @outrobruno</a>
+                                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
                                     </div>
                                 </div>
                             </section><!-- .twitter -->
@@ -131,21 +72,18 @@
                             <div class="video col-lg-12 col-md-12">
                                 <h3><a href="#">Próximos <span>lançamentos</span></a></h3>
                             </div>
-                            
-                            <div class="video col-lg-4 col-md-4">
-                                <div class="thumb col-lg-6 col-md-6"></div>
-                                <h4>Introdução a lógica de programação</h4>
+                            {% verbatim %}
+                            <div class="video col-lg-4 col-md-4" ng-repeat="course in upcoming_courses">
+                                <a ng-href="/course/{{ course.slug }}">
+                                    <div class="thumb col-lg-6 col-md-6">
+                                        <img ng-src="{{ course.home_thumbnail_url }}">
+                                    </div>
+                                </a>
+                                <a ng-href="/course/{{ course.slug }}">
+                                    <h4>{{ course.name }}</h4>
+                                </a>
                             </div>
-
-                            <div class="video col-lg-4 col-md-4">
-                                <div class="thumb col-lg-6 col-md-6"></div>
-                                <h4>Introdução a lógica de programação</h4>
-                            </div>
-                            <div class="video col-lg-4 col-md-4">
-                                <div class="thumb col-lg-6 col-md-6">
-                                </div>
-                                <h4>Introdução a lógica de programação</h4>
-                            </div>
+                            {% endverbatim %}
 
                         </div><!-- .row -->
 

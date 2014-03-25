@@ -16,20 +16,12 @@ class CourseProfessorSerializer(serializers.ModelSerializer):
 
 class ProfessorMessageSerializer(serializers.ModelSerializer):
 
-    professor = TimtecUserSerializer(read_only=True)
-    users = TimtecUserSerializer(read_only=True)
+    professor = TimtecUserSerializer(source='professor', read_only=True)
+    users_details = TimtecUserSerializer(source='users', read_only=True)
 
     class Meta:
         model = ProfessorMessage
-
-    def validate(self, attrs):
-        if attrs['professor'].course != attrs['course']:
-            raise serializers.ValidationError("professor is not allowed to send a message to this course")
-
-        for student in attrs['users']:
-            if student.course != attrs['course']:
-                raise serializers.ValidationError("student is not from specified course")
-        return attrs
+        fields = ('id', 'course', 'users', 'subject', 'message', 'date', 'users_details',)
 
 
 class CourseStudentSerializer(serializers.ModelSerializer):
@@ -50,18 +42,25 @@ class CourseSerializer(serializers.ModelSerializer):
     intro_video = VideoSerializer(required=False)
     thumbnail_url = serializers.Field(source='get_thumbnail_url')
     professor_name = serializers.SerializerMethodField('get_professor_name')
+    home_thumbnail_url = serializers.SerializerMethodField('get_home_thumbnail_url')
 
     class Meta:
         model = Course
         fields = ("id", "slug", "name", "intro_video", "application", "requirement",
                   "abstract", "structure", "workload", "pronatec", "status",
-                  "thumbnail_url", "publication", "home_thumbnail", "home_position",
+                  "thumbnail_url", "publication", "home_thumbnail_url", "home_position",
                   "start_date", "professor_name", "home_published",)
 
     @staticmethod
     def get_professor_name(obj):
         if obj.professors.all():
             return obj.professors.all()[0]
+        return ''
+
+    @staticmethod
+    def get_home_thumbnail_url(obj):
+        if obj.home_thumbnail:
+            return obj.home_thumbnail.url
         return ''
 
 

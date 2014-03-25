@@ -40,23 +40,7 @@
 </head>
 <body>
 
-    {% if user.is_authenticated %}
-        {% include 'header-authenticated.html' %}
-    {% else %}
-        {% include 'header-guest.html' %}
-        {% include 'account/login_modal.html' %}
-        <script type="text/javascript" charset="utf-8">
-            $(document).ready(function() {
-                var $modal = $("#login-modal");
-                var $next = $modal.find('input[name=next]');
-                $('a.js-login-required').click(function(e){
-                    $next.val($(this).attr('href'));
-                    $modal.modal();
-                    return false;
-                })
-            })
-        </script>
-    {% endif %}
+    {% include 'header.html' %}
 
     <div class="wrapper">
         {% block content %}

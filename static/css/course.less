@@ -1,0 +1,389 @@
+#course {
+
+  &.course-intro {
+    .illust {
+      background-image: url(../img/timtec/course-illust.jpg);
+    } // .illust
+
+    .main-content {
+      margin-top: 0px;
+
+      .left-col {
+          background: rgba(255,255,255,0.5); 
+
+          .course-main {
+              header {
+                  margin-top: 85px;
+
+                  h1 {
+                      margin: 0;
+                      font-family: 'teuton_26';
+                      color: #007dc3;
+                  }
+
+                  .instructors {
+                      margin: 0 0 20px 0;
+                      padding: 0;
+                      list-style: none;
+                      font-family: 'teuton_24';
+                      font-size: 20px;
+                  }
+              }
+          }
+
+          .lessons {
+            background: rgba(255,255,255,0.5);
+            margin-top: 20px;
+            .lesson {
+              margin-bottom: 40px;
+              margin-top: 20px;
+              .title {
+                  display:block;
+                  font-size: 16px;
+                  font-weight:regular;
+              }
+              .description {
+                  font-size:13px;
+              }
+              li {
+                  margin:36px 0;
+              }
+            }
+            // END LESSON
+            .table {
+              margin-bottom:7px;
+              tr {
+                td {
+                  border:none;
+                  margin:0;
+                  padding:0;
+                  a {
+                      color: #fff;
+                  }
+                }
+              }
+            }
+            // END TABLE
+            i.fa-youtube-play {
+                color:@brand-danger;
+            }
+            i.fa-list {
+                color:@brand-info;
+            }
+          }
+          // END LESSONS
+        }
+
+        .right-col {    
+          background: rgba(40,112,187,0.5); 
+          color: #fff;
+
+          .buttons {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            overflow: hidden;
+
+            a {
+              display: block;
+              text-align: center;
+            }
+
+            .js-login-required {
+              margin-bottom: 20px;
+              padding: 8px 0;
+              background-color: #f26522;
+              font-weight: bold;
+              text-transform: uppercase;
+              color: #fff;
+            }
+
+            .share-facebook {
+              height: 37px;
+              background: url(../img/timtec/bt-facebook.png) no-repeat;
+              text-indent: -9999px;
+            }
+          }
+
+          .instructor {
+            margin-top: 20px;
+          }
+        }
+    }
+  }
+
+  &.course-lesson {
+
+    #annotations {
+      float: left;
+      margin-left: -15px;
+      padding: 10px 13px;
+      //width: 257px;
+      //height: 347px;
+      width: 307px;
+      height: 421px;
+      background: rgba(255,255,255,0.6);
+
+      h2 {
+        margin: 0 0 5px 0;
+        font-size: 16px;
+        color: #0074be;
+      }
+
+      textarea {
+        margin: 10px 0; 
+      }
+    }
+
+    #side-notes {
+      margin-top: 30px;
+      padding: 20px;
+      background: #1e9dd9;
+      color: #fff;
+
+      h2 {
+        margin: 0 0 5px 0;
+        font-size: 25px;
+      }
+    }
+  }
+
+  &.course-material {
+    header {
+      h1 {
+        margin: 0; 
+      }
+    }
+    blockquote {
+      p {
+        font-size: 14px;
+      }
+    }
+    .uploaded-files-list {
+      padding: 0;
+      list-style: inside;
+    }
+  }
+
+  &.course-lesson, &.course-forum, &.course-material, &.course-notes {
+    
+    .illust {
+      background-image: url(../img/timtec/lesson-illust.jpg);
+    } // .illust
+
+    .main-content {
+      margin-top: 0;
+
+      &>.container {
+        background: rgba(255,255,255,0.6);
+      } 
+
+      .lesson-units {
+        .btn-group {
+          background: #fff;
+          .box-shadow(0px 5px 15px 0px rgba(0, 0, 0, 0.3));
+
+          &.open {
+            .box-shadow(inset 0 3px 5px rgba(0,0,0,.125));
+
+            .dropdown-toggle {
+              .box-shadow(none);
+
+            }
+          }
+
+          .lesson-name, .lesson-drop {
+            -webkit-appearance: none;
+            -moz-appearance:    none;
+            appearance:         none;
+            display: inline-block;
+            margin-bottom: 0; // For input.btn
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+            background: transparent;
+            white-space: nowrap;
+            .button-size(@padding-base-vertical; @padding-base-horizontal; @font-size-base; @line-height-base; @border-radius-base);
+            .user-select(none);
+            border: 0;
+            font-family: 'teuton_26';
+            font-size: 24px;
+            color: #007dc3;
+
+            &:active {
+                .box-shadow(none);
+            }
+          } 
+        }
+      }
+
+      .course-sections {
+        float: right;
+
+        a {
+            display: inline-block;
+            width: 53px;
+            height: 53px;
+        }
+        .has-tooltip {
+          display: block
+        }
+        .intro {
+          background: url(../img/timtec/lesson-icons.png) no-repeat 0 0;
+          width: 53px;
+          height: 53px;
+        }
+        .lessons {
+          background: url(../img/timtec/lesson-icons.png) no-repeat 0 -59px;
+          width: 53px;
+          height: 53px;
+        }
+        .forum {
+          background: url(../img/timtec/lesson-icons.png) no-repeat 0 -107px;
+          width: 53px;
+          height: 53px;
+        }
+        .material {
+          background: url(../img/timtec/lesson-icons.png) no-repeat 0 -159px;
+          width: 53px;
+          height: 53px;
+        }
+        .my-notes {
+          background: url(../img/timtec/lesson-icons.png) no-repeat 0 -212px;
+          width: 53px;
+          height: 53px;
+        }
+      }
+
+      .course-info {
+        padding: 10px 0;
+
+        .course-name {
+          margin: 0;
+          font-size: 20px;
+          font-family: 'teuton_24';
+
+          a {
+              color: #333;    
+          }
+        }
+      }
+    }
+  }
+
+
+
+// COURSE UNITS - General
+// ********************************************************************* //
+  .admin-units {
+    margin-top: 66px !important;
+  }
+  .units {
+    margint-top: 20px;
+    .unit {
+      background: #1e9dd9;
+      .box-shadow(inset -1px 0 0 #fff);
+      color:#fff;
+      cursor:pointer;
+      display:block;
+      font-size:12px;
+      height:20px;
+      line-height:1.75;
+      margin:0 0 1px 0;
+      padding:0 0 0 3px;
+      position:relative;
+      text-align:left;
+      z-index:10;
+      &:hover {
+        background: #1e9dd9 + 20%;
+        color:#fff;
+        .transition(all .25s ease-out);
+      }
+      &.current {
+        background-color: @brand-info;
+      }
+      &.done, &.done:hover {
+        background:@brand-warning;
+        .transition(all .25s ease-out);
+        &:hover {
+          background:darken(@brand-warning, 10%);
+        }
+      }
+      &.watching, &.watching:hover {
+        background:@brand-info;
+        .transition(all .25s ease-out);
+        &:hover {
+          background:darken(@brand-info, 10%);
+        }
+      }
+      i {
+        color:#fff !important;
+        font-size:14px;
+        margin:3px 0 0 0;
+      }
+      i.fa-caret-right {
+        color:@brand-info;
+        font-size:18px;
+        left:-10px;
+        line-height:1;
+        top:-2px;
+      }
+      i {
+        position:absolute;
+        right:6px;
+      }
+    }
+    // END UNIT
+
+    // ADD UNIT
+    .add-unit {
+      background-color: @brand-success;
+      line-height: 2;
+      padding: 0;
+      text-align: center;
+      &:hover {
+        background-color: darken(@brand-success, 10%);
+      }
+      i {
+        position: static;
+      }
+    }
+    // END ADD UNIT
+  }
+  // END COURSE UNITS
+
+  @media (max-width: @screen-sm-min) { 
+    &.course-intro {
+      margin-top: -40px;
+    }
+  }
+     
+  @media (min-width: @screen-sm-min) { 
+
+    &.course-intro {
+      .main-content {
+        margin-top: -680px;
+
+        .right-col {
+          .buttons {
+            margin-top: 85px;
+
+            .js-login-required {
+                margin-bottom: 0;
+            }
+          }
+        }
+      } // .content
+    }
+
+    &.course-lesson,
+    &.course-forum,
+    &.course-material,
+    &.course-notes {
+      .main-content {
+        margin-top: -605px;
+      }
+    }
+  }
+} // #course
+

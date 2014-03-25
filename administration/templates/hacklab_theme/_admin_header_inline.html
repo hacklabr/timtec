@@ -1,0 +1,38 @@
+{% load i18n %}
+    <!-- MAIN-HEADER -->
+    <header id="main-header" class="container">
+        <!-- PAGE-HEADER -->
+        <div class="page-header">
+            <!-- ROW -->
+            <div class="row">
+                <!-- COL-LG-9 -->
+                <div class="col-lg-9 col-sm-9">
+                    <h1 class="course-name bottom top">
+                        {% verbatim %}
+                        <a href="/admin/courses/{{course.id}}" ng-bind="course.name"></a>
+                        {% endverbatim %}
+                    </h1>
+                    <ul class="instructors">
+                        <li ng-repeat="p in courseProfessors"><a ng-bind="p.user_info.name"></a></li>
+                    </ul>
+                </div>
+                <!-- END COL-LG-9 -->
+                <!-- COL-LG-3 -->
+                <div class="col-lg-3 col-sm-3">
+                    <!-- COURSE-SECTION-NAV -->
+                    <nav class="course-sections textright">
+                        <a ng-href="{% verbatim %}/{{course_url}}{% endverbatim %}"><span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Course' %}"></span></a>
+                        <a ng-href="{% verbatim %}/{{forum_url}}{% endverbatim %}"><span class="has-tooltip fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Forum' %}"></span></a>
+                        <a ng-href="{% verbatim %}/{{course_material_url}}{% endverbatim %}"><span class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Material' %}"></span></a>
+                        <a ng-href="{% verbatim %}/{{messages_url}}{% endverbatim %}"><span class="has-tooltip fa fa-envelope-o" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Messages' %}"></span></a>
+                        <a ng-href="{% verbatim %}/{{reports_url}}{% endverbatim %}"><span class="has-tooltip fa fa-bar-chart-o" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Statistics' %}"></span></a>
+                    </nav>
+                    <!-- END COURSE-SECTION-NAV -->
+                </div>
+                <!-- END COL-LG-3 -->
+            </div>
+            <!-- END ROW -->
+        </div>
+        <!-- END PAGE-HEADER -->
+    </header>
+    <!-- MAIN-HEADER -->

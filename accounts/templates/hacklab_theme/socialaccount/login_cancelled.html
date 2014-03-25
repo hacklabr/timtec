@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% load url from future %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Login Cancelled" %}{% endblock %}
+
+{% block content %}
+
+<div id="activation-wrapper" class="container">
+    <div class="centered">
+        <h1 class="textcenter">
+            <i class="fa fa-frown-o"></i><br/>
+            {% trans "Login Cancelled" %}
+        </h1>
+        {% url 'account_login' as login_url %}
+        <h3>{% blocktrans %}You decided to cancel logging in to our site using one of your existing accounts. If this was a mistake, please proceed to <a href="{{login_url}}">sign in</a>.{% endblocktrans %}</h3>
+    </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+    windowHeight = window.innerHeight;
+    navbarHeight = $('#main-navbar').innerHeight();
+    footerHeight = $('#main-footer').innerHeight();
+    $('#activation-accomplished').innerHeight(windowHeight - (navbarHeight + footerHeight + 58));
+})
+</script>
+
+{% endblock %}
