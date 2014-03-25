@@ -1,4 +1,4 @@
-#my-courses {
+.page {
 
   .illust {
     background-image: url(../img/timtec/course-illust.jpg);
@@ -9,24 +9,24 @@
 
     &>.container {
       padding-top: 50px;
+      padding-bottom: 15px;
       background: rgba(255,255,255,0.5); 
     }   
+  }
+
+  // Page Headers
+  .page-header-double {
+    margin-bottom: 10px;
+    h2 {
+      font-family: 'teuton_26';
+      color: #007dc3;
+    }
   }
 
   @media (min-width: @screen-sm-min) { 
 
     .main-content {
       margin-top: -680px;
-
-      .right-col {
-          .buttons {
-              margin-top: 85px;
-
-              .js-login-required {
-                  margin-bottom: 0;
-              }
-          }
-        }
     } // .content
   }
 }
