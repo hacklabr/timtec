@@ -6,6 +6,7 @@
         'core.services',
         'ngResource',
         'django',
+        'twitterFilters',
     ]);
 
 })(angular);

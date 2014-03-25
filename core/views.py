@@ -55,8 +55,7 @@ class TwitterApi(View):
             timestamp = time.strptime(twit['created_at'], "%a %b %d %H:%M:%S +0000 %Y")
             clean_twit['date'] = time.strftime('%d/%m/%Y', timestamp)
             clean_twit['hour'] = time.strftime('%H:%M', timestamp)
-            clean_twit['created_at'] = twit['created_at']
-            clean_twit['user_name'] = twit['user']['name']
+            clean_twit['user_name'] = '@' + twit['user']['name']
             clean_twit['profile_image_url'] = twit['user']['profile_image_url']
             clean_twit['text'] = twit['text']
             response.append(clean_twit)

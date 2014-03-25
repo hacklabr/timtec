@@ -303,6 +303,7 @@ PIPELINE_JS = {
             'js/core/app.js',
             'js/core/controllers.js',
             'js/core/services.js',
+            'angular-tweet-filter/index.js',
         ),
         'output_filename': 'js/core.js',
     },
