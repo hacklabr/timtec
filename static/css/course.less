@@ -295,13 +295,27 @@
     }
   }
 
-  &.couses-list {
-    .couses-link {
+  &.course-list {
+    .course-link {
+      border-bottom: 1px solid #428bca;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+      h3 {
+        margin: 0; 
+      }
+    }
 
+    // Page Headers
+    .page-header-double {
+      margin-bottom: 30px;
+      h2 {
+        font-family: 'teuton_26';
+        color: #007dc3;
+      }
     }
   }
-  
-  &.course-lesson, &.course-forum, &.course-material, &.course-notes {
+
+  &.course-lesson, &.course-forum, &.course-material, &.course-notes, &.course-list {
     
     .illust {
       background-image: url(../img/timtec/lesson-illust.jpg);
@@ -408,8 +422,8 @@
     }
   }
 
-// COURSE UNITS - General
-// ********************************************************************* //
+  // COURSE UNITS - General
+  // ********************************************************************* //
   .admin-units {
     margin-top: 45px !important;
   }
@@ -514,7 +528,8 @@
     &.course-lesson,
     &.course-forum,
     &.course-material,
-    &.course-notes {
+    &.course-notes,
+    &.course-list {
       .main-content {
         margin-top: -605px;
       }

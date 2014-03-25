@@ -3,7 +3,7 @@
 
 {% block content %}
         <!-- CONTAINER -->
-        <div id="courses" class="courses-list">
+        <div id="course" class="course-list">
 
             <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
 
@@ -13,10 +13,9 @@
                         <h2>{% trans 'Courses' %}</h2>
                     </header>
 
-                    <section class="courses">
+                    <section>
                         {% for course in courses %}
                         <!-- COURSE -->
-                        <div class="course">
                             <header class="course-link">
                                 <div class="row">
                                     <div class="col-lg-8">
@@ -30,7 +29,6 @@
                                     </div>
                                 </div>
                             </header>
-                        </div>
                         <!-- END COURSE -->
                         {% endfor %}
                     </section>
