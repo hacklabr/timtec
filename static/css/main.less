@@ -122,17 +122,6 @@
 .top        { .top(0,0); }
 .no-bullet  { .left(0,0); list-style:none; }
 .hidden     { display:none !important; }
-
-
-
-// SITE STRUCTURE
-// ********************************************************************* //
-
-body {
-    background-image: url(../img/timtec/bg.jpg);
-    background-position: top center;
-}
-
 .sr-only {
     position: absolute;
     width: 1px;
@@ -142,6 +131,26 @@ body {
     overflow: hidden;
     clip: rect(0,0,0,0);
     border: 0;
+}
+
+
+// SITE STRUCTURE
+// ********************************************************************* //
+
+html,body {
+    height: 100%;
+}
+
+body {
+    background-image: url(../img/timtec/bg.jpg);
+    background-position: top center;
+}
+
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -60px;
 }
 
 // MAIN HEADER
@@ -375,31 +384,38 @@ body {
 
 .main-footer {
     position: relative;
+    bottom: 0;
     z-index: 9;
-    height: 120px;
+    height: 55px;
     .gradient (@startColor: #007dc3, @endColor: #1451a2);
     .box-shadow(0px -2px 5px 0px rgba(0, 0, 0, 0.3));
 
     h3 {
         float: left;
-        margin: 45px 40px 0 0;
+        margin: 18px 25px 0 0;
         color: #fff;
-        font-size: 30px;
+        font-size: 20px;
         font-family: 'teuton_24';
     }
 
     .logo-mct {
         display: block;
         float: left;
-        width: 254px;
-        height: 46px;
-        margin: 33px 0 0 0;
+        margin: 18px 0 0 0;
+        width: 178px/1.5;
+        height: 32px/1.5;
         background-image: url(../img/timtec/logo-mct.png); 
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
     }
 
     .footer-nav {
         float: right;
-        margin: 50px 0 0 0;
+        margin: 20px 0 0 0;
+
+        ul {
+            margin: 0;
+        }
 
         li {
             margin-left: 15px;
@@ -436,6 +452,21 @@ body {
             }
         } // .main-nav ul
     } // .main-nav
+
+    .main-footer {
+        height: 90px;
+        .footer-nav {
+            margin: 0;
+            float: none;
+            display: block;
+            clear: both;
+            padding: 16px 0 0;
+
+            li {
+                margin: 0 10px 0 0; 
+            }
+        }
+    }
 }
 
 @media (max-width: 600px) { 
@@ -472,6 +503,30 @@ body {
     .main-content {
         margin-top: -280px;
     } // .content
+
+    #push {
+        height: 80px;
+    }
+
+    .main-footer {
+        height: 80px;
+
+        h3 {
+            margin: 26px 40px 0 0;
+            font-size: 30px;
+        }
+        .logo-mct {
+            margin: 26px 0 0 0;
+            width: 178px;
+            height: 32px;
+            
+        }
+
+        .footer-nav {
+            float: right;
+            margin: 30px 0 0 0;
+        }
+    }
 }
 
 @media (max-width: @screen-sm-min) { 
