@@ -8,4 +8,9 @@
         });
     });
 
+    app.factory('Twitter', function($resource){
+        return $resource('/api/twitter/', {}, {
+        });
+    });
+
 })(angular);
