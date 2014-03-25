@@ -104,7 +104,7 @@ urlpatterns = patterns(
 
     url(r'^pages/', include('django.contrib.flatpages.urls')),
 
-    url(r'^markdown/', include( 'django_markdown.urls')),
+    url(r'^markdown/', include('django_markdown.urls')),
 
 )
 
