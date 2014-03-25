@@ -26,6 +26,9 @@ from course_material.views import CourseMaterialView, FileUploadView, CourseMate
 from notes.views import NotesViewSet, CourseNotesView, UserNotesView
 from reports.views import UserCourseStats
 from rest_framework import routers
+from django_markdown import flatpages
+
+flatpages.register()
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'user', TimtecUserViewSet)
@@ -98,6 +101,11 @@ urlpatterns = patterns(
 
     # The django-rosetta
     url(r'^rosetta/', include('rosetta.urls')),
+
+    url(r'^pages/', include('django.contrib.flatpages.urls')),
+
+    url(r'^markdown/', include( 'django_markdown.urls')),
+
 )
 
 if settings.DEBUG:
