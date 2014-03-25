@@ -80,7 +80,7 @@ ng-app="edit-lesson"
                     </div>
 
                     <!-- VIDEO SECTION -->
-                    <div class="video" ng-show="section === 'video'">
+                    <div class="video col-lg-12" ng-show="section === 'video'">
                         <!-- ROW -->
                         <div class="row">
                             <div class="waiting col-sm-12 col-lg-12 textcenter jumbotron"
@@ -126,9 +126,9 @@ ng-app="edit-lesson"
                     <!-- END VIDEO SECTION -->
 
                     <!-- ACTIVITIES SECTION -->
-                    <div class="activity" ng-show="section==='activity'">
+                    <div class="activity col-lg-12" ng-show="section==='activity'">
                         <div class="row">
-                            <div class="col-sm-13 col-lg-13 panel panel-default" ng-show="currentActivity">
+                            <div class="panel panel-default" ng-show="currentActivity">
                                 <div class="panel-heading clearfix">
                                     <span ng-repeat="activity in currentUnit.activities">
                                         <button class="btn btn-default" ng-class="{'btn-info':currentActivity==activity}" ng-click="selectActivity(activity)" ng-bind="$index+1"></button>&nbsp;
