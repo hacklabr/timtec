@@ -75,7 +75,8 @@ ng-app="courses"
 
         <!-- COURSE -->
         <div class="course clearfix" ng-repeat="course in (filteredList = (courseList | orderBy:ordering:reverse | filter:filters.check))">
-            <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-12">
                 {% verbatim %}
                 <h1><a href="/admin/courses/{{ course.id }}" title="{{ course.name }}">{{ course.name }}</a></h1>
                 {% endverbatim %}
@@ -145,6 +146,7 @@ ng-app="courses"
                     </div>
                 </div>
 
+            </div>
             </div>
         </div>
         <!-- END COURSE -->
