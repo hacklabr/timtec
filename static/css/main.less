@@ -133,6 +133,24 @@
     border: 0;
 }
 
+// CENTERING ELEMENTS VERTICALLY
+// ********************************************************************* //
+.block {
+  text-align: center;
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em;
+  }
+  .centered {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+
 
 // SITE STRUCTURE
 // ********************************************************************* //
@@ -536,4 +554,6 @@ body {
         right: 0;
     }
 }
+
+
 
