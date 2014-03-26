@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% load django_markdown %}
+
+{% block title %}
+{{ flatpage.title }}
+{% endblock %}
+
+{% block content %}
+        <div id="my-courses">
+
+            <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
+
+            <div class="main-content">
+
+                <!-- CONTAINER -->
+                <div class="container">
+                    {{ flatpage.content|markdown }}
+                </div>
+            </div>
+        </div>
+{% endblock %}

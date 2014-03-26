@@ -102,7 +102,7 @@ python_tests: clean
 	py.test --pep8 --flakes --tb=native --cov . . $*
 
 js_tests:
-	find . -path ./bower_components -prune -o -path bower_components/ -prune -o -path ./static/js/vendor -prune -o -path static/js/vendor/ -prune -o -name '*.js' -exec jshint {} \;
+	find . -path ./bower_components -prune -o -path bower_components/ -prune -o -path ./node_modules -prune -o -path ./static/js/vendor -prune -o -path static/js/vendor/ -prune -o -name '*.js' -exec jshint {} \;
 
 karma_tests:
 	karma start confkarma.js $*
@@ -121,7 +121,8 @@ setup_coveralls:
 	pip install -q coveralls
 
 setup_js:
-	sudo `which npm` -g install less yuglify karma karma-cli karma-phantomjs-launcher karma-jasmine jshint ngmin --loglevel silent
+	sudo `which npm` -g install less yuglify karma karma-cli karma-phantomjs-launcher karma-jasmine jshint ngmin grunt-cli --loglevel silent
+	sudo npm install grunt grunt-angular-gettext
 
 setup_django: clean
 	python manage.py syncdb --all --noinput

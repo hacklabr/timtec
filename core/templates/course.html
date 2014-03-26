@@ -159,7 +159,7 @@
                                 <a href="{% url "lesson" course.slug course.first_lesson.slug %}" class="js-login-required col-lg-6 col-md-6 col-sm-6 col-xs-12 uppercase">{% trans "Resume" %}</a>
                                 
                             {% else %}
-                                <span href="#" class="has-tooltip js-login-required col-lg-6 col-md-6 col-sm-6 col-xs-12 uppercase" data-toggle="tooltip" data-placement="bottom" data-original-title="{% blocktrans with start_date=course.start_date %}Este curso começa dia {{ start_date|date:"d/m/Y" }} e você já está inscrito{% endblocktrans %}" title="{% blocktrans with start_date=course.start_date %}Este curso começa dia {{ start_date|date:"d/m/Y" }} e você já está inscrito{% endblocktrans %}">{% trans "Resume" %}</span>
+                                <span href="#" class="has-tooltip js-login-required col-lg-6 col-md-6 col-sm-6 col-xs-12 uppercase" data-toggle="tooltip" data-placement="bottom" data-original-title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }} e você já está inscrito{% endblocktrans %}" title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }} e você já está inscrito{% endblocktrans %}">{% trans "Resume" %}</span>
                             {% endif %}
                         {% else %}
                             <a

@@ -167,7 +167,7 @@ PIPELINE_JS = {
     'all': {
         'source_filenames': (
             'modernizr/modernizr.js',
-            'jquery/jquery.js',
+            'jquery/dist/jquery.js',
             'jquery-ui/ui/jquery-ui.js',
             'jquery-ui/ui/jquery.ui.sortable.js',
             'bootstrap/dist/js/bootstrap.js',
@@ -178,6 +178,7 @@ PIPELINE_JS = {
             'angular-route/angular-route.js',
             'angular-sanitize/angular-sanitize.js',
             'angular-bootstrap/ui-bootstrap-tpls.js',
+            'angular-gettext/dist/angular-gettext.js',
             'js/django.js',
             'js/contact_form.js',
             'js/helpers.js',
@@ -394,7 +395,7 @@ AUTH_USER_MODEL = 'accounts.TimtecUser'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
+    # 'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -420,6 +421,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.flatpages',
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
@@ -442,6 +444,8 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+
+    'django_markdown',
 
     # raven has to be the last one
     'raven.contrib.django.raven_compat',
