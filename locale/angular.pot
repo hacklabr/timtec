@@ -1,0 +1,35 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: administration/static/templates/directive.modalmarkdowneditor.html
+msgid "Cancel"
+msgstr ""
+
+#: activities/static/templates/activity_php.html
+msgid "Click here to see the result in a new window."
+msgstr ""
+
+#: administration/static/templates/directive.markdowneditor.html
+msgid "Preview"
+msgstr ""
+
+#: activities/static/templates/activity_markdown.html
+#: activities/static/templates/activity_php.html
+msgid "Review the video"
+msgstr ""
+
+#: administration/static/templates/directive.modalmarkdowneditor.html
+msgid "Save changes"
+msgstr ""
+
+#: activities/static/templates/activity_markdown.html
+#: activities/static/templates/activity_php.html
+msgid "Send"
+msgstr ""
+
+#: activities/static/templates/activity_markdown.html
+#: activities/static/templates/activity_php.html
+msgid "Skip"
+msgstr ""

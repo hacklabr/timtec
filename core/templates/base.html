@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load i18n %}
 <html>
 <head>
     {% block head %}
@@ -38,10 +39,6 @@
     {% endblock %}
 </head>
 <body>
-<script>
-window.STATIC_URL = '{{ STATIC_URL }}';
-{% if debug %}window.DEBUG = true;{% endif %}
-</script>
 
     <div class="wrapper">
         {% include 'header.html' %}
