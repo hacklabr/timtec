@@ -45,7 +45,6 @@
                         <li><a href="{% url 'profile' %}">{% trans "Profile" %}</a></li>
                         <li><a href="{% url 'profile_edit' %}">{% trans "Settings" %}</a></li>
                         <!-- <li><a href="">{% trans "Settings" %}</a></li> -->
-                        <li class='divider'></li>
                         <li><a href="{% url 'timtec_logout' %}">{% trans "Logout" %}</a></li>
                     </ul>
                 {% else %}
@@ -54,8 +53,8 @@
                         <form onclick="event.stopPropagation()" method="post" action="{% url 'timtec_login' %}" class="navbar-form">{% csrf_token %}
                             <div class="row">
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12{% if login_form.errors %} has-error{% endif %}">
-                                    <label class="col-lg-5 col-md-5 col-sm-12 col-xs-12 control-label">{% trans 'Username' %}</label>
-                                    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                    <label class="col-lg-3 col-md-3 col-sm-12 col-xs-12 control-label">{% trans 'Username' %}</label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                                         <input name="username" type="text" class="form-control"
                                                value="{{login_form.username.value}}" placeholder="{% trans 'E-mail or username' %}"/>
                                         {% for error in login_form.username.errors %}
@@ -66,8 +65,8 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12{% if login_form.errors %} has-error{% endif %}">
-                                    <label class="col-lg-5 col-md-5 col-sm-12 col-xs-12 control-label">{% trans 'Password' %}</label>
-                                    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                    <label class="col-lg-3 col-md-3 col-sm-12 col-xs-12 control-label">{% trans 'Password' %}</label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                                         <input name="password" type="password" class="form-control" placeholder="{% trans 'Password' %}">
                                         {% for error in login_form.password.errors %}
                                         <small>{{error}}</small>
@@ -83,19 +82,17 @@
                                     <a href="{% url 'account_reset_password' %}">{% trans 'Forgot my password' %}</a>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textright">
-                                    <button class="btn btn-success">{% trans 'Sign In' %} <i class="fa fa-sign-in"></i></button>
+                                    <button class="btn sign-in">{% trans 'Sign In' %}</button>
                                 </div>
                             </div>
-                            <div class="divider"></div>
-                            <div class="row">
-                                <p class="textcenter">
-                                    <a href="{% url 'account_signup' %}">{% trans 'Signup' %}</a>
-                                </p>
-                                <p class="textcenter">
-                                    {% load socialaccount %}
-                                    <a href="{% provider_login_url 'facebook' method='oauth2' %}">{% trans 'Connect with Facebook' %}</a>
-                                </p>
-                            </div>
+                            <p class="col-lg-6 col-md-6 col-sm-6 col-xs-6 textleft">
+                                {% load socialaccount %}
+                                <a href="{% provider_login_url 'facebook' method='oauth2' %}" class="facebook">{% trans 'Connect with Facebook' %}</a>
+                            </p>
+                            <p class="col-lg-6 col-md-6 col-sm-6 col-xs-6 textright">
+                                <a href="{% url 'account_signup' %}" class="btn register">{% trans 'Signup' %}</a>
+                            </p>
+                            
                         </form>
                     </div>
                 {% endif %}
