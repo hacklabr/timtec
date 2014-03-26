@@ -75,8 +75,7 @@
             };
 
             $scope.deleteLesson = function() {
-                var msg = 'Apagar a aula "{0}" e todo seu conteúdo?'
-                          .format($scope.lesson.name);
+                var msg = 'Apagar a aula "'+ $scope.lesson.name + '" e todo seu conteúdo?';
 
                 if(!confirm(msg)) return;
 

@@ -71,8 +71,6 @@ class Answer(models.Model):
             if len(self.given) != len(self.activity.expected):
                 return False
 
-            #import ipdb; ipdb.set_trace()
-
             for given, expected in zip(self.given, self.activity.expected):
                 if isinstance(expected, type(None)) and given not in (None, False,):
                     return False

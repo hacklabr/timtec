@@ -39,5 +39,5 @@ def test_user_picture_url():
     # file is saved as md5(filename + username)
     assert user.get_picture_url().startswith('/media/user-pictures/de7f72f1443cd5e3b63131ffbac0b83f')
 
-    #teardown
+    # teardown
     user.picture.delete()

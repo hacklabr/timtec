@@ -58,7 +58,7 @@ if __name__ == "__main__":
     PORT = 8002
 
     Handler = CORSHTTPRequestHandler
-    #Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
+    # Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
 
     httpd = SocketServer.TCPServer(("", PORT), Handler)
 
