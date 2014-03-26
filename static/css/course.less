@@ -1,5 +1,33 @@
 #admin {
+  .actions {
+    position: relative;
+    z-index: 100;
+  }
   #course {
+    &.course-intro {
+      margin-top: 20px !important;
+      .main-content {
+        margin-top: 10px !important;
+        .left-col, .right-col {
+          margin-top: -110px;
+          padding-top: 130px;
+        }
+        .course-info {
+          margin-top: 20px;
+        }
+        .instructor {
+          margin-bottom: 10px;
+        }
+        .lessons {
+          margin-left: -15px;
+          margin-right: -15px;
+          padding: 10px 15px;
+          .lesson {
+            background-color: transparent;
+          }
+        }
+      }
+    }
     &.course-lesson {
       margin-top: 20px !important;
       .main-content {
