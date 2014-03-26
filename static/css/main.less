@@ -382,10 +382,15 @@ body {
     position: relative;
     z-index: 8;
     margin-top: -45px; 
-    height: 686px;
+    height: 700px;
     background-position: top center;
     background-repeat: no-repeat;
     background-size: 100%;
+
+    @media (max-width: 1366px) { 
+        background-image: url(../img/timtec/illustrations/home-m.png);
+        background-size: 1366px 498px;
+    }
 } // .illust
 
 
@@ -503,7 +508,7 @@ body {
 
 @media (min-width: @screen-sm-min) { 
     .main-header {
-        height: 75px;
+        height: 80px;
 
         h1 {
             margin: 20px 0 0;
@@ -519,11 +524,11 @@ body {
     }
 
     .main-content {
-        margin-top: -345px;
+        margin-top: -375px;
     } // .content
 
     #push {
-        height: 80px;
+        height: 60px;
     }
 
     .main-footer {
@@ -554,3 +559,14 @@ body {
         right: 0;
     }
 }
+
+@media (max-width: @screen-xs-min) { 
+
+    .main-content {
+        margin-top: 65px !important;
+    }
+
+}
+
+
+

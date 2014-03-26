@@ -117,11 +117,19 @@
 
   &.course-intro {
     .illust {
-      background-image: url(../img/timtec/course-illust.jpg);
+      background-image: url(../img/timtec/illustrations/course-intro-l.png);
+
+        @media (max-width: 1366px) { 
+            background-image: url(../img/timtec/illustrations/course-intro-m.png);
+        }
     } // .illust
 
     .main-content {
       margin-top: 0px;
+
+      @media (max-width: @screen-xs-min) { 
+        margin-top: 85px !important;
+      }
 
       .left-col {
           background: rgba(255,255,255,0.5); 
@@ -317,9 +325,13 @@
   }
 
   &.course-lesson, &.course-forum, &.course-material, &.course-notes, &.course-list {
-    
+
     .illust {
-      background-image: url(../img/timtec/lesson-illust.jpg);
+      background-image: url(../img/timtec/illustrations/course-lesson-l.png);
+
+        @media (max-width: 1366px) { 
+            background-image: url(../img/timtec/illustrations/course-lesson-m.png);
+        }
     } // .illust
 
     .main-content {
@@ -512,7 +524,7 @@
 
     &.course-intro {
       .main-content {
-        margin-top: -680px;
+        margin-top: -700px;
 
         .right-col {
           .buttons {
