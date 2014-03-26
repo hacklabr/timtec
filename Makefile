@@ -25,10 +25,10 @@ create-production:
 	touch ~/wsgi-reload
 
 update-test:
-	dropdb timtec-test
-	createdb timtec-test
-	pg_restore -O -x -n public -d timtec-test ~hacklab/sql-backup/last.psqlc
-	cp timtec/settings_local_test.py timtec/settings_local.py
+	# dropdb timtec-test
+	# createdb timtec-test
+	# pg_restore -O -x -n public -d timtec-test ~hacklab/sql-backup/last.psqlc
+	# cp timtec/settings_local_test.py timtec/settings_local.py
 	~/env/bin/pip install -r requirements.txt
 	~/env/bin/python manage.py syncdb --noinput
 	~/env/bin/python manage.py migrate --noinput
