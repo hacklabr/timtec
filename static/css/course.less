@@ -1,32 +1,66 @@
 #admin {
+  .actions {
+    position: relative;
+    z-index: 100;
+  }
+  
+  .add-content {
+    margin-bottom: 10px;
+  }
+  
+  .add-video-intro, .add-thumbnail, .add-activity {
+    background-color: rgba(255,255,255,0.6);
+    color:@brand-danger;
+    height:357px;
+
+    &:before {
+      content:'';
+      height:100%;
+      .vertical-align(middle);
+    }
+
+    .centered {
+      .vertical-align(middle);
+      width:400px;
+    }
+
+    .icon-youtube-play {
+      display:block;
+      font-size:54px;
+    }
+  }
+  
   #course {
+    &.course-intro {
+      margin-top: 20px !important;
+      .main-content {
+        margin-top: 10px !important;
+        .left-col, .right-col {
+          margin-top: -110px;
+          padding-top: 130px;
+        }
+        .course-info {
+          margin-top: 20px;
+        }
+        .instructor {
+          margin-bottom: 10px;
+        }
+        .lessons {
+          margin-left: -15px;
+          margin-right: -15px;
+          padding: 10px 15px;
+          .lesson {
+            background-color: transparent;
+          }
+        }
+      }
+    }
     &.course-lesson {
       margin-top: 20px !important;
       .main-content {
         margin-top: 10px !important;
         .add-content {
           margin-bottom: 10px;
-        }
-        .add-video-intro, .add-thumbnail, .add-activity {
-          background-color: rgba(255,255,255,0.6);
-          color:@brand-danger;
-          height:419px;
-
-          &:before {
-            content:'';
-            height:100%;
-            .vertical-align(middle);
-          }
-
-          .centered {
-            .vertical-align(middle);
-            width:400px;
-          }
-
-          .icon-youtube-play {
-            display:block;
-            font-size:54px;
-          }
         }
         #annotations {
           height: 419px;
@@ -117,11 +151,19 @@
 
   &.course-intro {
     .illust {
-      background-image: url(../img/timtec/course-illust.jpg);
+      background-image: url(../img/timtec/illustrations/course-intro-l.png);
+
+        @media (max-width: 1366px) { 
+            background-image: url(../img/timtec/illustrations/course-intro-m.png);
+        }
     } // .illust
 
     .main-content {
       margin-top: 0px;
+
+      @media (max-width: @screen-xs-min) { 
+        margin-top: 85px !important;
+      }
 
       .left-col {
           background: rgba(255,255,255,0.5); 
@@ -317,9 +359,13 @@
   }
 
   &.course-lesson, &.course-forum, &.course-material, &.course-notes, &.course-list {
-    
+
     .illust {
-      background-image: url(../img/timtec/lesson-illust.jpg);
+      background-image: url(../img/timtec/illustrations/course-lesson-l.png);
+
+        @media (max-width: 1366px) { 
+            background-image: url(../img/timtec/illustrations/course-lesson-m.png);
+        }
     } // .illust
 
     .main-content {
@@ -512,7 +558,7 @@
 
     &.course-intro {
       .main-content {
-        margin-top: -680px;
+        margin-top: -700px;
 
         .right-col {
           .buttons {
