@@ -1,32 +1,75 @@
 # -*- coding: utf-8 -*-
 import json
+import time
 
 from django.core.urlresolvers import reverse
-from django.utils import timezone
+from django.http import HttpResponse
 from django.views.generic import DetailView, ListView
 from django.views.generic.base import RedirectView, View, TemplateView
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404
-from rest_framework import status, viewsets
+from django.conf import settings
+from rest_framework import viewsets
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from rest_framework import filters
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from braces.views import LoginRequiredMixin
 from notes.models import Note
 
 from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           CourseThumbSerializer, LessonSerializer,
                           StudentProgressSerializer, CourseNoteSerializer,
-                          LessonNoteSerializer,)
+                          LessonNoteSerializer, ProfessorMessageSerializer,
+                          CourseStudentSerializer,)
 
-from .models import Course, CourseProfessor, Lesson, StudentProgress, Unit
+from .models import Course, CourseProfessor, Lesson, StudentProgress, Unit, ProfessorMessage, CourseStudent
 
 from forms import ContactForm
+
+from twitter import Twitter, OAuth
 
 
 class HomeView(ListView):
     context_object_name = 'courses'
     template_name = "home.html"
+
+    def get_queryset(self):
+        return Course.objects.all()
+
+
+class TwitterApi(View):
+
+    def get(self, request, *args, **kwargs):
+
+        consumer_key = settings.TWITTER_CONSUMER_KEY
+        consumer_secret = settings.TWITTER_CONSUMER_SECRET
+        twitter_name = settings.TWITTER_USER
+        access_token = settings.TWITTER_ACESS_TOKEN
+        access_token_secret = settings.TWITTER_ACESS_TOKEN_SECRET
+        t = Twitter(auth=OAuth(access_token, access_token_secret, consumer_key, consumer_secret))
+        # To see all field returned, see https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
+        response = []
+        for twit in t.statuses.user_timeline(screen_name=twitter_name, count=6):
+            clean_twit = {}
+            # time string example: Wed Aug 29 17:12:58 +0000 2012
+            timestamp = time.strptime(twit['created_at'], "%a %b %d %H:%M:%S +0000 %Y")
+            clean_twit['date'] = time.strftime('%d/%m/%Y', timestamp)
+            clean_twit['hour'] = time.strftime('%H:%M', timestamp)
+            clean_twit['user_name'] = '@' + twit['user']['name']
+            clean_twit['profile_image_url'] = twit['user']['profile_image_url']
+            clean_twit['text'] = twit['text']
+            response.append(clean_twit)
+
+        response = json.dumps(response)
+        return HttpResponse(
+            response,
+            content_type='application/json'
+        )
+
+
+class CoursesView(ListView):
+    context_object_name = 'courses'
+    template_name = "courses.html"
 
     def get_queryset(self):
         return Course.objects.all()
@@ -100,12 +143,37 @@ class CourseProfessorViewSet(viewsets.ModelViewSet):
     serializer_class = CourseProfessorSerializer
 
 
+class CourseStudentViewSet(viewsets.ModelViewSet):
+    model = CourseStudent
+    lookup_field = 'id'
+    filter_fields = ('course', 'user',)
+#     filter_backends = (filters.DjangoFilterBackend,)
+    serializer_class = CourseStudentSerializer
+
+
+class ProfessorMessageViewSet(viewsets.ModelViewSet):
+    model = ProfessorMessage
+    lookup_field = 'id'
+    filter_fields = ('course',)
+    filter_backends = (filters.DjangoFilterBackend,)
+    serializer_class = ProfessorMessageSerializer
+
+    def pre_save(self, obj):
+        obj.professor = self.request.user
+        return super(ProfessorMessageViewSet, self).pre_save(obj)
+
+    def post_save(self, obj, created):
+        if created:
+            obj.send()
+
+
 class CourseViewSet(viewsets.ModelViewSet):
     model = Course
     lookup_field = 'id'
-    filter_fields = ('slug',)
+    filter_fields = ('slug', 'home_published',)
     filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = CourseSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get(self, request, **kwargs):
         response = super(CourseViewSet, self).get(request, **kwargs)
@@ -188,27 +256,6 @@ class StudentProgressViewSet(viewsets.ModelViewSet):
         return StudentProgress.objects.filter(user=user)
 
 
-class UpdateStudentProgressView(APIView):
-    # fabio: estou desativando esta view
-    model = StudentProgress
-
-    def post(self, request, unitId=None):
-        user = request.user
-
-        try:
-            unit = Unit.objects.get(id=unitId)
-        except Unit.DoesNotExist as e:
-            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
-        response = {}
-        progress, created = StudentProgress.objects.get_or_create(user=user, unit=unit)
-        progress.complete = timezone.now()
-        progress.save()
-        response['msg'] = 'Unit completed.'
-        response['complete'] = progress.complete
-        return Response(response, status=status.HTTP_201_CREATED)
-
-
 class UserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
 
     model = Course
@@ -223,7 +270,7 @@ class UserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
             lessons_dict = {}
             for unit in units:
                 lesson = unit.lesson
-                if not lesson.slug in lessons_dict:
+                if lesson.slug not in lessons_dict:
                     lessons_dict[lesson.slug] = lesson
                     lessons_dict[lesson.slug].units_notes = []
                 unit_type = ContentType.objects.get_for_model(unit)
@@ -243,10 +290,11 @@ class UserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
         for unit in units:
             course = unit.lesson.course
             lesson = unit.lesson
-            if not course.slug in courses:
+            if course.slug not in courses:
                 courses[course.slug] = course
                 courses[course.slug].lessons_dict = {}
-            if not lesson.slug in courses[course.slug].lessons_dict:
+            if lesson.slug not\
+                    in courses[course.slug].lessons_dict:
                 courses[course.slug].lessons_dict[lesson.slug] = lesson
                 courses[course.slug].lessons_dict[lesson.slug].units_notes = []
 #             unit_type = ContentType.objects.get_for_model(unit)
@@ -257,6 +305,7 @@ class UserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
         results = []
         for course in courses.values():
             course.lessons_notes = course.lessons_dict.values()
+            course.course_notes_number = Unit.objects.filter(lesson__course=course, notes__user=user).exclude(notes__isnull=True).count()
             del course.lessons_dict
             results.append(CourseNoteSerializer(course).data)
         return Response(results)

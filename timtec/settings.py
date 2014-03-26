@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Django settings for timtec project.
+from django.utils.translation import ugettext_lazy as _
 import os
 SETTINGS_DIR = os.path.dirname(os.path.realpath(__file__))
 PROJECT_ROOT = os.path.dirname(SETTINGS_DIR)
@@ -8,6 +9,9 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 SITE_ID = 1
+SITE_HOME = ''
+SITE_NAME = 'Timtec'
+SITE_DOMAIN = 'timtec.com.br'
 
 ADMINS = (
     ('Admin1', 'root@localhost'),
@@ -70,7 +74,10 @@ USE_I18N = True
 USE_L10N = True
 
 LANGUAGES = (
-    ('pt-br', u'Português'),
+    ('pt-br', _('Brazilian Portuguese')),
+    ('it', _('Italian')),
+    ('es', _('Spanish')),
+    ('en', _('English')),
 )
 
 LOCALE_PATHS = (
@@ -114,14 +121,14 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'pipeline.finders.FileSystemFinder',
-    'pipeline.finders.AppDirectoriesFinder',
+    # 'pipeline.finders.FileSystemFinder',
+    # 'pipeline.finders.AppDirectoriesFinder',
     'pipeline.finders.PipelineFinder',
-    #'pipeline.finders.CachedFileFinder',
+    'pipeline.finders.CachedFileFinder',
     # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 PIPELINE_JS_COMPRESSOR = 'timtec.ngminyuglify.NgminYuglifyCompressor'
 
@@ -154,22 +161,13 @@ PIPELINE_CSS = {
             'media': 'screen,projection,print',
         },
     },
-    'admin': {
-        'source_filenames': (
-            'css/main-admin.less',
-        ),
-        'output_filename': 'css/admin.css',
-        'extra_context': {
-            'media': 'screen,projection,print',
-        },
-    },
 }
 
 PIPELINE_JS = {
     'all': {
         'source_filenames': (
             'modernizr/modernizr.js',
-            'jquery/jquery.js',
+            'jquery/dist/jquery.js',
             'jquery-ui/ui/jquery-ui.js',
             'jquery-ui/ui/jquery.ui.sortable.js',
             'bootstrap/dist/js/bootstrap.js',
@@ -180,16 +178,35 @@ PIPELINE_JS = {
             'angular-route/angular-route.js',
             'angular-sanitize/angular-sanitize.js',
             'angular-bootstrap/ui-bootstrap-tpls.js',
-            # 'angular-ui-codemirror/angular-ui-codemirror.js',
+            'angular-gettext/dist/angular-gettext.js',
             'js/django.js',
             'js/contact_form.js',
             'js/helpers.js',
             'js/angular-youtube.js',
-            'js/reports/app.js',
-            'js/reports/controllers.js',
-            'js/reports/services.js',
+            'js/truncate.js',
         ),
         'output_filename': 'js/all.js',
+    },
+    'markdown': {
+        'source_filenames': (
+            'js/vendor/pagedown/Markdown.Converter.js',
+            'js/vendor/pagedown/Markdown.Editor.js',
+            'js/vendor/pagedown/Markdown.Sanitizer.js',
+            'js/markdown/app.js',
+            'js/markdown/filters.js',
+        ),
+        'output_filename': 'js/markdown.js',
+    },
+    'messages': {
+        'source_filenames': (
+            'js/messages/app.js',
+            'js/messages/controllers.js',
+            'js/messages/services.js',
+            'checklist-model/checklist-model.js',
+            'js/markdown/app.js',
+            'js/markdown/filters.js',
+        ),
+        'output_filename': 'js/messages.js',
     },
     'codemirror': {
         'source_filenames': (
@@ -207,10 +224,90 @@ PIPELINE_JS = {
             'codemirror/mode/css/css.js',
             'codemirror/mode/javascript/javascript.js',
             'codemirror/mode/htmlmixed/htmlmixed.js',
-            'js/codemirrorconf.js',
+            'codemirror/mode/clike/clike.js',
+            'codemirror/mode/php/php.js',
+            # 'js/codemirrorconf.js',
+            'angular-ui-codemirror/ui-codemirror.js',
         ),
         'output_filename': 'js/codemirrorcomp.js',
-    }
+    },
+    'markdown_editor': {
+        'source_filenames': (
+            'js/vendor/pagedown/Markdown.Converter.js',
+            'js/vendor/pagedown/Markdown.Editor.js',
+            'js/vendor/pagedown/Markdown.Sanitizer.js',
+        ),
+        'output_filename': 'js/markdown_editor.js',
+    },
+    'lesson': {
+        'source_filenames': (
+            'js/activities/app.js',
+            'js/activities/controllers.js',
+            'js/activities/directives.js',
+            'js/activities/services.js',
+            'js/lesson/app.js',
+            'js/lesson/controllers.js',
+            'js/lesson/services.js',
+            'js/directives/markdowneditor.js',
+            'js/directives/codemirror.js',
+        ),
+        'output_filename': 'js/lesson.js',
+    },
+    'course_material': {
+        'source_filenames': (
+            'js/course_material/app.js',
+            'js/course_material/controllers.js',
+            'js/course_material/directives.js',
+            'js/course_material/filters.js',
+            'js/course_material/services.js',
+            'dropzone/downloads/dropzone.js',
+        ),
+        'output_filename': 'js/course_material.js',
+    },
+    'forum': {
+        'source_filenames': (
+            'js/forum/app.js',
+            'js/forum/controllers.js',
+            'js/forum/directives.js',
+            'js/forum/filters.js',
+            'js/forum/services.js',
+            'js/truncate.js',
+        ),
+        'output_filename': 'js/forum.js',
+    },
+    'notes': {
+        'source_filenames': (
+            'js/notes/app.js',
+            'js/notes/controllers.js',
+            'js/notes/services.js',
+        ),
+        'output_filename': 'js/notes.js',
+    },
+    'admin_course_header': {
+        'source_filenames': (
+            'js/admin-header/app.js',
+            'js/admin-header/controllers.js',
+            'js/factories/timtec-models.js',
+        ),
+        'output_filename': 'js/admin_course_header.js',
+    },
+    'reports': {
+        'source_filenames': (
+            'js/reports/app.js',
+            'js/reports/controllers.js',
+            'js/reports/services.js',
+        ),
+        'output_filename': 'js/reports.js',
+    },
+    'core': {
+        'source_filenames': (
+            'js/core/app.js',
+            'js/core/controllers.js',
+            'js/core/services.js',
+            'angular-tweet-filter/index.js',
+        ),
+        'output_filename': 'js/core.js',
+    },
 }
 
 MOMMY_CUSTOM_FIELDS_GEN = {
@@ -261,6 +358,7 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'allauth.account.context_processors.account',
     'allauth.socialaccount.context_processors.socialaccount',
     'core.context_processors.contact_form',
+    'core.context_processors.site_settings',
 )
 
 # Django Suit configuration example
@@ -297,7 +395,7 @@ AUTH_USER_MODEL = 'accounts.TimtecUser'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
+    # 'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -323,6 +421,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.flatpages',
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
@@ -345,6 +444,8 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+
+    'django_markdown',
 
     # raven has to be the last one
     'raven.contrib.django.raven_compat',
@@ -383,6 +484,12 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = True
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[timtec] "
 SOCIALACCOUNT_EMAIL_VERIFICATION = False
+
+TWITTER_CONSUMER_KEY = ''
+TWITTER_CONSUMER_SECRET = ''
+TWITTER_ACESS_TOKEN = ''
+TWITTER_ACESS_TOKEN_SECRET = ''
+TWITTER_USER = ''
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+{% load i18n %}
 <html>
 <head>
     {% block head %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{% block title %}Timtec{% endblock %}</title>
+    <title>{% block title %}{{ site.name }}{% endblock %}</title>
 
     {% include "_assets.html" %}
     {% load metron_tags %}
@@ -38,34 +39,18 @@
     {% endblock %}
 </head>
 <body>
-<script>
-window.STATIC_URL = '{{ STATIC_URL }}';
-{% if debug %}window.DEBUG = true;{% endif %}
-</script>
-
-    {% if user.is_authenticated %}
-        {% include 'header-authenticated.html' %}
-    {% else %}
-        {% include 'header-guest.html' %}
-        {% include 'account/login_modal.html' %}
-        <script type="text/javascript" charset="utf-8">
-            $(document).ready(function() {
-                var $modal = $("#login-modal");
-                var $next = $modal.find('input[name=next]');
-                $('a.js-login-required').click(function(e){
-                    $next.val($(this).attr('href'));
-                    $modal.modal();
-                    return false;
-                })
-            })
-        </script>
-    {% endif %}
 
     <div class="wrapper">
+        {% include 'header.html' %}
+    
         {% block content %}
         <h1>missing content block</h1>
         {% endblock %}
+        
+        <div id="push"></div>
     </div>
+
     {% include 'footer.html' %}
+    
 </body>
 </html>

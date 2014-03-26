@@ -1,4 +1,5 @@
 import pytest
+from django.conf import settings
 
 
 def create_user(username):
@@ -43,3 +44,9 @@ def admin_client(db):
 @pytest.fixture()
 def user(db):
     return create_user('common')
+
+
+def pytest_configure():
+    # workaround to avoid django pipeline issue
+    # refers to https://github.com/cyberdelia/django-pipeline/issues/277
+    settings.STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'

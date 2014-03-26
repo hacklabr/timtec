@@ -1,0 +1,22 @@
+{% load compressed %}
+{% load staticfiles %}
+
+{% compressed_css 'common' %}
+{% if admin %}
+    {% compressed_css 'admin' %}
+{% else %}
+    {% compressed_css 'public' %}
+{% endif %}
+
+<script>
+    window.STATIC_URL = '{{ STATIC_URL }}';
+    window.MEDIA_URL = '{{ MEDIA_URL }}';
+    window.DEBUG = '{{ DEBUG }}';
+</script>
+
+{% compressed_js 'all' %}
+{% compressed_js 'codemirror' %}
+
+<script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Converter.js' %}" charset="utf-8"></script>
+<script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Editor.js' %}" charset="utf-8"></script>
+<script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Sanitizer.js' %}" charset="utf-8"></script>

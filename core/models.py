@@ -1,12 +1,18 @@
 # -*- coding: utf-8 -*-
 from __future__ import division
+
+import datetime
+
 from positions import PositionField
 from django.db import models
 from django.db.models import Count
-from django.template.defaultfilters import slugify
+from django.core.mail import send_mail
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.staticfiles.storage import staticfiles_storage
+from django.template import Template, Context
 from django.contrib.contenttypes import generic
+from django.conf import settings
+from autoslug import AutoSlugField
 
 
 from accounts.models import TimtecUser
@@ -47,6 +53,10 @@ class Course(models.Model):
     thumbnail = models.ImageField(_('Thumbnail'), upload_to='course_thumbnails', null=True, blank=True)
     professors = models.ManyToManyField(TimtecUser, related_name='professorcourse_set', through='CourseProfessor')
     students = models.ManyToManyField(TimtecUser, related_name='studentcourse_set', through='CourseStudent')
+    home_thumbnail = models.ImageField(_('Home thumbnail'), upload_to='home_thumbnails', null=True, blank=True)
+    home_position = PositionField(blank=True, null=True)
+    start_date = models.DateField(_('Start date'), default=None, blank=True, null=True)
+    home_published = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = _('Course')
@@ -79,6 +89,7 @@ class Course(models.Model):
             return self.thumbnail.url
         return ''
 
+<<<<<<< HEAD
     def lessons_by_users(self):
         nstudents = self.coursestudent_set.count()
         lessons = dict([(l.slug, 0) for l in self.lessons.all()])
@@ -88,6 +99,14 @@ class Course(models.Model):
                 lessons[slug] = lessons.get(slug, 0) + 1
 
         return dict([(slug, 100 * total / float(nstudents)) for (slug, total) in lessons.items()])
+=======
+    @property
+    def has_started(self):
+        if self.start_date <= datetime.date.today():
+            return True
+        else:
+            return False
+>>>>>>> master
 
 
 class CourseStudent(models.Model):
@@ -178,6 +197,32 @@ class CourseProfessor(models.Model):
     def __unicode__(self):
         return u'%s @ %s' % (self.user, self.course)
 
+    def new_message(self, course, subject, message, to=[]):
+        return ProfessorMessage.objects.create(subject=subject,
+                                               message=message,
+                                               course=course,
+                                               users=to,
+                                               professor=self)
+
+
+class ProfessorMessage(models.Model):
+    professor = models.ForeignKey(TimtecUser, verbose_name=_('Professor'))
+    users = models.ManyToManyField(TimtecUser, related_name='messages')
+    subject = models.CharField(_('Subject'), max_length=255)
+    message = models.TextField(_('Message'))
+    date = models.DateTimeField(_('Date'), auto_now_add=True)
+    course = models.ForeignKey(Course, verbose_name=_('Course'), null=True)
+
+    def send(self):
+        to = [u.email for u in self.users.all()]
+        try:
+            et = EmailTemplate.objects.get(name='professor-message')
+        except EmailTemplate.DoesNotExist:
+            et = EmailTemplate(name="professor-message", subject="{{subject}}", template="{{message}}")
+        subject = Template(et.subject).render(Context({'subject': self.subject}))
+        message = Template(et.template).render(Context({'message': self.message}))
+        return send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, to, fail_silently=False)
+
 
 class Lesson(models.Model):
     STATES = (
@@ -191,18 +236,13 @@ class Lesson(models.Model):
     name = models.CharField(_('Name'), max_length=255)
     notes = models.TextField(_('Notes'), default="", blank=True)
     position = PositionField(collection='course', default=0)
-    slug = models.SlugField(_('Slug'), max_length=255, editable=False, unique=True)
+    slug = AutoSlugField(_('Slug'), populate_from='name', max_length=255, editable=False, unique=True)
     status = models.CharField(_('Status'), choices=STATES, default=STATES[0][0], max_length=64)
 
     class Meta:
         verbose_name = _('Lesson')
         verbose_name_plural = _('Lessons')
         ordering = ['position']
-
-    def save(self, **kwargs):
-        if not self.id and self.name:
-            self.slug = slugify(self.name)
-        super(Lesson, self).save(**kwargs)
 
     def __unicode__(self):
         return self.name
@@ -274,3 +314,9 @@ class StudentProgress(models.Model):
 
     def __unicode__(self):
         return u'%s @ %s c: %s la: %s' % (self.user, self.unit, self.complete, self.last_access)
+
+
+class EmailTemplate(models.Model):
+    name = models.CharField(max_length=50)
+    subject = models.CharField(max_length=255)
+    template = models.TextField()

@@ -1,0 +1,36 @@
+.page {
+
+  .illust {
+    background-image: url(../img/timtec/illustrations/course-intro-l.png);
+    @media (max-width: 1366px) {
+            background-image: url(../img/timtec/illustrations/course-intro-m.png);
+    }
+  } // .illust
+
+  .main-content {
+    margin-top: 0px;
+
+    &>.container {
+      padding-top: 70px;
+      padding-bottom: 15px;
+      background: rgba(255,255,255,0.5); 
+    }   
+  }
+
+  // Page Headers
+  .page-header-double {
+    margin-bottom: 10px;
+    h2 {
+      margin: 0; 
+      font-family: 'teuton_26';
+      color: #007dc3;
+    }
+  }
+
+  @media (min-width: @screen-sm-min) { 
+
+    .main-content {
+      margin-top: -680px;
+    } // .content
+  }
+}

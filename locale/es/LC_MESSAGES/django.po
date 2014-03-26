@@ -1,0 +1,1518 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-03-24 19:20-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: accounts/adapter.py:13
+msgid "Usernames can only contain letters, digits and ./-/_."
+msgstr ""
+
+#: accounts/forms.py:10
+msgid "email"
+msgstr ""
+
+#: accounts/forms.py:12 accounts/templates/profile-edit.html:140
+#: accounts/templates/account/email_confirmed.html:20
+#: accounts/templates/account/email_confirmed.html:22
+#: accounts/templates/account/login.html:26
+#: accounts/templates/account/login.html:28
+#: accounts/templates/account/login.html:82
+#: accounts/templates/account/login.html:84
+#: accounts/templates/account/login_modal.html:34
+#: accounts/templates/account/login_modal.html:36
+#: accounts/templates/account/login_modal.html:82
+#: accounts/templates/account/password_reset_from_key_done.html:24
+#: accounts/templates/account/password_reset_from_key_done.html:26
+#: accounts/templates/account/password_reset_from_key_done.html:68
+#: accounts/templates/account/password_reset_from_key_done.html:70
+#: accounts/templates/account/signup.html:35
+#: accounts/templates/account/signup.html:95
+#: accounts/templates/hacklab_theme/profile-edit.html:140
+#: accounts/templates/hacklab_theme/account/email_confirmed.html:20
+#: accounts/templates/hacklab_theme/account/email_confirmed.html:22
+#: accounts/templates/hacklab_theme/account/login.html:26
+#: accounts/templates/hacklab_theme/account/login.html:28
+#: accounts/templates/hacklab_theme/account/login.html:82
+#: accounts/templates/hacklab_theme/account/login.html:84
+#: accounts/templates/hacklab_theme/account/login_modal.html:34
+#: accounts/templates/hacklab_theme/account/login_modal.html:36
+#: accounts/templates/hacklab_theme/account/login_modal.html:82
+#: accounts/templates/hacklab_theme/account/password_reset_from_key_done.html:24
+#: accounts/templates/hacklab_theme/account/password_reset_from_key_done.html:26
+#: accounts/templates/hacklab_theme/account/password_reset_from_key_done.html:68
+#: accounts/templates/hacklab_theme/account/password_reset_from_key_done.html:70
+#: accounts/templates/hacklab_theme/account/signup.html:35
+#: accounts/templates/hacklab_theme/account/signup.html:95
+#: core/templates/header.html:69 core/templates/header.html.py:71
+#: core/templates/hacklab_theme/header-guest.html:39
+#: core/templates/hacklab_theme/header-guest.html:41
+#: core/templates/hacklab_theme/header-guest.html:92
+msgid "Password"
+msgstr ""
+
+#: accounts/forms.py:13
+msgid "Password (again)"
+msgstr ""
+
+#: accounts/forms.py:28
+msgid "The two password fields didn't match."
+msgstr ""
+
+#: accounts/models.py:33 accounts/templates/profile-edit.html:120
+#: accounts/templates/account/login.html:16
+#: accounts/templates/account/login.html:72
+#: accounts/templates/account/login_modal.html:70
+#: accounts/templates/account/password_reset_from_key_done.html:14
+#: accounts/templates/account/signup.html:15
+#: accounts/templates/account/signup.html:17
+#: accounts/templates/account/signup.html:75
+#: accounts/templates/account/signup.html:77
+#: accounts/templates/hacklab_theme/profile-edit.html:120
+#: accounts/templates/hacklab_theme/account/login.html:16
+#: accounts/templates/hacklab_theme/account/login.html:72
+#: accounts/templates/hacklab_theme/account/login_modal.html:70
+#: accounts/templates/hacklab_theme/account/password_reset_from_key_done.html:14
+#: accounts/templates/hacklab_theme/account/signup.html:15
+#: accounts/templates/hacklab_theme/account/signup.html:17
+#: accounts/templates/hacklab_theme/account/signup.html:75
+#: accounts/templates/hacklab_theme/account/signup.html:77
+#: administration/templates/users.html:20
+#: administration/templates/users.html:220
+#: administration/templates/hacklab_theme/users.html:20
+#: administration/templates/hacklab_theme/users.html:220
+#: core/templates/header.html:57
+#: core/templates/hacklab_theme/header-guest.html:27
+#: core/templates/hacklab_theme/header-guest.html:76
+msgid "Username"
+msgstr ""
+
+#: accounts/models.py:34
+msgid ""
+"Required. 30 characters or fewer. Letters, numbers and ./+/-/_ characters"
+msgstr ""
+
+#: accounts/models.py:37
+msgid "Enter a valid username."
+msgstr ""
+
+#: accounts/models.py:40
+msgid "Email address"
+msgstr ""
+
+#: accounts/models.py:41
+msgid "First name"
+msgstr ""
+
+#: accounts/models.py:42
+msgid "Last name"
+msgstr ""
+
+#: accounts/models.py:43
+msgid "Staff status"
+msgstr ""
+
+#: accounts/models.py:44
+msgid "Active"
+msgstr ""
+
+#: accounts/models.py:45
+msgid "Date joined"
+msgstr ""
+
+#: accounts/models.py:47
+msgid "Picture"
+msgstr ""
+
+#: accounts/models.py:48 accounts/templates/profile-edit.html:73
+#: accounts/templates/profile.html:19
+#: accounts/templates/hacklab_theme/profile-edit.html:73
+#: accounts/templates/hacklab_theme/profile.html:19 core/forms.py:10
+msgid "Occupation"
+msgstr ""
+
+#: accounts/models.py:49 accounts/templates/profile-edit.html:83
+#: accounts/templates/profile.html:27
+#: accounts/templates/hacklab_theme/profile-edit.html:83
+#: accounts/templates/hacklab_theme/profile.html:27
+msgid "City"
+msgstr ""
+
+#: accounts/models.py:50 accounts/templates/profile-edit.html:93
+#: accounts/templates/profile.html:36
+#: accounts/templates/hacklab_theme/profile-edit.html:93
+#: accounts/templates/hacklab_theme/profile.html:36
+msgid "Site"
+msgstr ""
+
+#: accounts/models.py:51 administration/templates/new_course.html:385
+#: administration/templates/hacklab_theme/new_course.html:385
+#: core/models.py:160
+msgid "Biography"
+msgstr ""
+
+#: accounts/models.py:59
+msgid "user"
+msgstr ""
+
+#: accounts/models.py:60
+msgid "users"
+msgstr ""
+
+#: accounts/templates/profile-edit.html:36
+#: accounts/templates/hacklab_theme/profile-edit.html:36
+msgid "Upload avatar"
+msgstr ""
+
+#: accounts/templates/profile-edit.html:48
+#: accounts/templates/hacklab_theme/profile-edit.html:48
+msgid "Profile Info"
+msgstr ""
+
+#: accounts/templates/profile-edit.html:52
+#: accounts/templates/hacklab_theme/profile-edit.html:52
+msgid "Full Name"
+msgstr ""
+
+#: accounts/templates/profile-edit.html:103 accounts/templates/profile.html:44
+#: accounts/templates/hacklab_theme/profile-edit.html:103
+#: accounts/templates/hacklab_theme/profile.html:44
+msgid "Bio"
+msgstr ""
+
+#: accounts/templates/profile-edit.html:115
+#: accounts/templates/hacklab_theme/profile-edit.html:115
+msgid "Account Settings"
+msgstr ""
+
+#: accounts/templates/profile-edit.html:130
+#: accounts/templates/account/login_modal.html:76
+#: accounts/templates/account/signup.html:25
+#: accounts/templates/account/signup.html:85
+#: accounts/templates/hacklab_theme/profile-edit.html:130
+#: accounts/templates/hacklab_theme/account/login_modal.html:76
+#: accounts/templates/hacklab_theme/account/signup.html:25
+#: accounts/templates/hacklab_theme/account/signup.html:85
+#: core/templates/hacklab_theme/header-guest.html:84
+msgid "E-mail"
+msgstr ""
+
+#: accounts/templates/profile-edit.html:157
+#: accounts/templates/account/password_reset_from_key.html:32
+#: accounts/templates/account/password_reset_from_key.html:71
+#: accounts/templates/hacklab_theme/profile-edit.html:157
+#: accounts/templates/hacklab_theme/account/password_reset_from_key.html:32
+#: accounts/templates/hacklab_theme/account/password_reset_from_key.html:71
+#: administration/templates/new_course.html:38
+#: administration/templates/new_course.html:282
+#: administration/templates/new_course.html:369
+#: administration/templates/new_lesson.html:36
+#: administration/templates/new_lesson.html:191
+#: administration/templates/hacklab_theme/new_course.html:38
+#: administration/templates/hacklab_theme/new_course.html:282
+#: administration/templates/hacklab_theme/new_course.html:369
+#: administration/templates/hacklab_theme/new_lesson.html:36
+#: administration/templates/hacklab_theme/new_lesson.html:191
+msgid "Save"
+msgstr ""
+
+#: accounts/templates/account/activate.html:10
+#: accounts/templates/account/activate.html:23
+#: accounts/templates/hacklab_theme/account/activate.html:10
+#: accounts/templates/hacklab_theme/account/activate.html:23
+msgid "Sorry"
+msgstr ""
+
+#: accounts/templates/account/activate.html:12
+#: accounts/templates/account/activate.html:25
+#: accounts/templates/hacklab_theme/account/activate.html:12
+#: accounts/templates/hacklab_theme/account/activate.html:25
+msgid "You provided an invalid key"
+msgstr ""
+
+#: accounts/templates/account/activate.html:12
+#: accounts/templates/account/activate.html:25
+#: accounts/templates/hacklab_theme/account/activate.html:12
+#: accounts/templates/hacklab_theme/account/activate.html:25
+msgid "The registration failed"
+msgstr ""
+
+#: accounts/templates/account/email_confirm.html:13
+#: accounts/templates/account/email_confirm.html:33
+#: accounts/templates/hacklab_theme/account/email_confirm.html:13
+#: accounts/templates/hacklab_theme/account/email_confirm.html:33
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr ""
+
+#: accounts/templates/account/email_confirm.html:17
+#: accounts/templates/account/email_confirm.html:36
+#: accounts/templates/hacklab_theme/account/email_confirm.html:17
+#: accounts/templates/hacklab_theme/account/email_confirm.html:36
+msgid "Confirm"
+msgstr ""
+
+#: accounts/templates/account/email_confirm.html:21
+#: accounts/templates/account/email_confirm.html:40
+#: accounts/templates/hacklab_theme/account/email_confirm.html:21
+#: accounts/templates/hacklab_theme/account/email_confirm.html:40
+#, python-format
+msgid ""
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+msgstr ""
+
+#: accounts/templates/account/email_confirmed.html:9
+#: accounts/templates/hacklab_theme/account/email_confirmed.html:9
+msgid "Mission accomplished"
+msgstr ""
+
+#: accounts/templates/account/email_confirmed.html:10
+#: accounts/templates/hacklab_theme/account/email_confirmed.html:10
+msgid "You have an active account"
+msgstr ""
+
+#: accounts/templates/account/email_confirmed.html:14
+#: accounts/templates/account/login_modal.html:24
+#: accounts/templates/account/password_reset_from_key_done.html:58
+#: accounts/templates/hacklab_theme/account/email_confirmed.html:14
+#: accounts/templates/hacklab_theme/account/login_modal.html:24
+#: accounts/templates/hacklab_theme/account/password_reset_from_key_done.html:58
+msgid "Login"
+msgstr ""
+
+#: accounts/templates/account/email_confirmed.html:16
+#: accounts/templates/account/login.html:19
+#: accounts/templates/account/login.html:75
+#: accounts/templates/account/login_modal.html:27
+#: accounts/templates/account/password_reset_from_key_done.html:17
+#: accounts/templates/account/password_reset_from_key_done.html:61
+#: accounts/templates/hacklab_theme/account/email_confirmed.html:16
+#: accounts/templates/hacklab_theme/account/login.html:19
+#: accounts/templates/hacklab_theme/account/login.html:75
+#: accounts/templates/hacklab_theme/account/login_modal.html:27
+#: accounts/templates/hacklab_theme/account/password_reset_from_key_done.html:17
+#: accounts/templates/hacklab_theme/account/password_reset_from_key_done.html:61
+#: core/templates/header.html:60
+#: core/templates/hacklab_theme/header-guest.html:30
+msgid "E-mail or username"
+msgstr ""
+
+#: accounts/templates/account/email_confirmed.html:28
+#: accounts/templates/account/login.html:40
+#: accounts/templates/account/login.html:99
+#: accounts/templates/account/login_modal.html:48
+#: accounts/templates/account/password_reset.html:12
+#: accounts/templates/account/password_reset.html:49
+#: accounts/templates/account/password_reset_from_key_done.html:32
+#: accounts/templates/hacklab_theme/account/email_confirmed.html:28
+#: accounts/templates/hacklab_theme/account/login.html:40
+#: accounts/templates/hacklab_theme/account/login.html:99
+#: accounts/templates/hacklab_theme/account/login_modal.html:48
+#: accounts/templates/hacklab_theme/account/password_reset.html:12
+#: accounts/templates/hacklab_theme/account/password_reset.html:49
+#: accounts/templates/hacklab_theme/account/password_reset_from_key_done.html:32
+#: core/templates/header.html:83
+#: core/templates/hacklab_theme/header-guest.html:53
+msgid "Forgot my password"
+msgstr ""
+
+#: accounts/templates/account/email_confirmed.html:29
+#: accounts/templates/account/login.html:11
+#: accounts/templates/account/login.html:41
+#: accounts/templates/account/login.html:64
+#: accounts/templates/account/login.html:96
+#: accounts/templates/account/login_modal.html:18
+#: accounts/templates/account/login_modal.html:51
+#: accounts/templates/account/password_reset_from_key_done.html:33
+#: accounts/templates/account/password_reset_from_key_done.html:76
+#: accounts/templates/hacklab_theme/account/email_confirmed.html:29
+#: accounts/templates/hacklab_theme/account/login.html:11
+#: accounts/templates/hacklab_theme/account/login.html:41
+#: accounts/templates/hacklab_theme/account/login.html:64
+#: accounts/templates/hacklab_theme/account/login.html:96
+#: accounts/templates/hacklab_theme/account/login_modal.html:18
+#: accounts/templates/hacklab_theme/account/login_modal.html:51
+#: accounts/templates/hacklab_theme/account/password_reset_from_key_done.html:33
+#: accounts/templates/hacklab_theme/account/password_reset_from_key_done.html:76
+#: core/templates/header.html:52 core/templates/header.html.py:86
+#: core/templates/hacklab_theme/header-guest.html:22
+#: core/templates/hacklab_theme/header-guest.html:56
+msgid "Sign In"
+msgstr ""
+
+#: accounts/templates/account/login_modal.html:10
+#: accounts/templates/hacklab_theme/account/login_modal.html:10
+msgid "You need to sign in or up to see this content"
+msgstr ""
+
+#: accounts/templates/account/login_modal.html:64
+#: accounts/templates/account/login_modal.html:91
+#: accounts/templates/account/signup.html:10
+#: accounts/templates/account/signup.html:46
+#: accounts/templates/account/signup.html:68
+#: accounts/templates/account/signup.html:105
+#: accounts/templates/hacklab_theme/account/login_modal.html:64
+#: accounts/templates/hacklab_theme/account/login_modal.html:91
+#: accounts/templates/hacklab_theme/account/signup.html:10
+#: accounts/templates/hacklab_theme/account/signup.html:46
+#: accounts/templates/hacklab_theme/account/signup.html:68
+#: accounts/templates/hacklab_theme/account/signup.html:105
+#: core/templates/hacklab_theme/header-guest.html:71
+#: core/templates/hacklab_theme/header-guest.html:101
+msgid "Sign Up"
+msgstr ""
+
+#: accounts/templates/account/login_modal.html:72
+#: accounts/templates/hacklab_theme/account/login_modal.html:72
+#: core/templates/hacklab_theme/header-guest.html:78
+msgid "Choose an username"
+msgstr ""
+
+#: accounts/templates/account/login_modal.html:78
+#: accounts/templates/hacklab_theme/account/login_modal.html:78
+#: core/templates/hacklab_theme/header-guest.html:86
+msgid "Insert your e-mail"
+msgstr ""
+
+#: accounts/templates/account/login_modal.html:84
+#: accounts/templates/hacklab_theme/account/login_modal.html:84
+#: core/templates/hacklab_theme/header-guest.html:94
+msgid "A really strong password"
+msgstr ""
+
+#: accounts/templates/account/login_modal.html:85
+#: accounts/templates/hacklab_theme/account/login_modal.html:85
+#: core/templates/hacklab_theme/header-guest.html:95
+msgid "Confirm your password"
+msgstr ""
+
+#: accounts/templates/account/login_modal.html:102
+#: accounts/templates/account/signup.html:112
+#: accounts/templates/hacklab_theme/account/login_modal.html:102
+#: accounts/templates/hacklab_theme/account/signup.html:112
+msgid "Facebook connect"
+msgstr ""
+
+#: accounts/templates/account/password_reset.html:23
+#: accounts/templates/account/password_reset.html:60
+#: accounts/templates/hacklab_theme/account/password_reset.html:23
+#: accounts/templates/hacklab_theme/account/password_reset.html:60
+msgid ""
+"Insert your e-mail so we can send you the instructions to recover your "
+"password"
+msgstr ""
+
+#: accounts/templates/account/password_reset.html:26
+#: accounts/templates/account/password_reset.html:63
+#: accounts/templates/hacklab_theme/account/password_reset.html:26
+#: accounts/templates/hacklab_theme/account/password_reset.html:63
+msgid "Your e-mail"
+msgstr ""
+
+#: accounts/templates/account/password_reset.html:33
+#: accounts/templates/account/password_reset.html:69
+#: accounts/templates/hacklab_theme/account/password_reset.html:33
+#: accounts/templates/hacklab_theme/account/password_reset.html:69
+#: administration/templates/messages.html:75
+#: administration/templates/hacklab_theme/messages.html:68
+#: forum/templates/_forum_inline.html:121
+#: forum/templates/hacklab_theme/_forum_inline.html:121
+msgid "Send"
+msgstr ""
+
+#: accounts/templates/account/password_reset_done.html:10
+#: accounts/templates/account/password_reset_done.html:21
+#: accounts/templates/account/verification_sent.html:11
+#: accounts/templates/account/verification_sent.html:23
+#: accounts/templates/hacklab_theme/account/password_reset_done.html:10
+#: accounts/templates/hacklab_theme/account/password_reset_done.html:21
+#: accounts/templates/hacklab_theme/account/verification_sent.html:11
+#: accounts/templates/hacklab_theme/account/verification_sent.html:23
+msgid "Check your inbox"
+msgstr ""
+
+#: accounts/templates/account/password_reset_done.html:12
+#: accounts/templates/account/password_reset_done.html:23
+#: accounts/templates/hacklab_theme/account/password_reset_done.html:12
+#: accounts/templates/hacklab_theme/account/password_reset_done.html:23
+msgid "We sent you an e-mail with the instructions to recover your password"
+msgstr ""
+
+#: accounts/templates/account/password_reset_from_key.html:11
+#: accounts/templates/account/password_reset_from_key.html:50
+#: accounts/templates/hacklab_theme/account/password_reset_from_key.html:11
+#: accounts/templates/hacklab_theme/account/password_reset_from_key.html:50
+msgid "Change your password"
+msgstr ""
+
+#: accounts/templates/account/password_reset_from_key.html:15
+#: accounts/templates/account/password_reset_from_key.html:56
+#: accounts/templates/hacklab_theme/account/password_reset_from_key.html:15
+#: accounts/templates/hacklab_theme/account/password_reset_from_key.html:56
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+
+#: accounts/templates/account/password_reset_from_key.html:36
+#: accounts/templates/account/password_reset_from_key.html:75
+#: accounts/templates/hacklab_theme/account/password_reset_from_key.html:36
+#: accounts/templates/hacklab_theme/account/password_reset_from_key.html:75
+msgid "Your password is now changed."
+msgstr ""
+
+#: accounts/templates/account/password_reset_from_key_done.html:10
+#: accounts/templates/account/password_reset_from_key_done.html:54
+#: accounts/templates/hacklab_theme/account/password_reset_from_key_done.html:10
+#: accounts/templates/hacklab_theme/account/password_reset_from_key_done.html:54
+msgid "Password reset complete"
+msgstr ""
+
+#: accounts/templates/account/signup.html:37
+#: accounts/templates/account/signup.html:97
+#: accounts/templates/hacklab_theme/account/signup.html:37
+#: accounts/templates/hacklab_theme/account/signup.html:97
+msgid "Really strong password"
+msgstr ""
+
+#: accounts/templates/account/signup.html:38
+#: accounts/templates/account/signup.html:98
+#: accounts/templates/hacklab_theme/account/signup.html:38
+#: accounts/templates/hacklab_theme/account/signup.html:98
+msgid "Password confirmation"
+msgstr ""
+
+#: accounts/templates/account/verification_sent.html:10
+#: accounts/templates/account/verification_sent.html:22
+#: accounts/templates/hacklab_theme/account/verification_sent.html:10
+#: accounts/templates/hacklab_theme/account/verification_sent.html:22
+msgid "Validation email sent"
+msgstr ""
+
+#: accounts/templates/account/email/password_reset_key_message.txt:1
+#: accounts/templates/hacklab_theme/account/email/password_reset_key_message.txt:1
+#, python-format
+msgid ""
+"You're receiving this e-mail because you or someone else has requested a "
+"password for your user account at %(site_domain)s.\n"
+"It can be safely ignored if you did not request a password reset. Click the "
+"link below to reset your password.\n"
+"\n"
+"%(password_reset_url)s\n"
+"\n"
+"In case you forgot, your username is %(username)s.\n"
+"\n"
+"Thanks for using our site!\n"
+msgstr ""
+
+#: accounts/templates/account/email/password_reset_key_subject.txt:3
+#: accounts/templates/hacklab_theme/account/email/password_reset_key_subject.txt:3
+msgid "Password Reset E-mail"
+msgstr ""
+
+#: accounts/templates/hacklab_theme/socialaccount/authentication_error.html:5
+#: accounts/templates/hacklab_theme/socialaccount/authentication_error.html:13
+#: accounts/templates/socialaccount/authentication_error.html:5
+#: accounts/templates/socialaccount/authentication_error.html:13
+msgid "Social Network Login Failure"
+msgstr ""
+
+#: accounts/templates/hacklab_theme/socialaccount/authentication_error.html:16
+#: accounts/templates/socialaccount/authentication_error.html:16
+msgid ""
+"An error occurred while attempting to login via your social network account."
+msgstr ""
+
+#: accounts/templates/hacklab_theme/socialaccount/login_cancelled.html:6
+#: accounts/templates/hacklab_theme/socialaccount/login_cancelled.html:14
+#: accounts/templates/socialaccount/login_cancelled.html:6
+#: accounts/templates/socialaccount/login_cancelled.html:14
+msgid "Login Cancelled"
+msgstr ""
+
+#: accounts/templates/hacklab_theme/socialaccount/login_cancelled.html:17
+#: accounts/templates/socialaccount/login_cancelled.html:17
+#, python-format
+msgid ""
+"You decided to cancel logging in to our site using one of your existing "
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
+msgstr ""
+
+#: activities/models.py:26
+msgid "Type"
+msgstr ""
+
+#: activities/models.py:27
+msgid "Data"
+msgstr ""
+
+#: activities/models.py:28
+msgid "Expected answer"
+msgstr ""
+
+#: activities/models.py:29 core/models.py:252 core/models.py:278
+msgid "Unit"
+msgstr ""
+
+#: activities/models.py:30 administration/templates/new_lesson.html:187
+#: administration/templates/hacklab_theme/new_lesson.html:187
+msgid "Comment"
+msgstr ""
+
+#: activities/models.py:33 activities/models.py:48
+#: administration/templates/new_lesson.html:104
+#: administration/templates/hacklab_theme/new_lesson.html:104
+#: core/models.py:246
+msgid "Activity"
+msgstr ""
+
+#: activities/models.py:34
+msgid "Activities"
+msgstr ""
+
+#: activities/models.py:49 administration/templates/users.html:30
+#: administration/templates/users.html:40
+#: administration/templates/users.html:50
+#: administration/templates/users.html:60
+#: administration/templates/users.html:70
+#: administration/templates/users.html:80
+#: administration/templates/users.html:90
+#: administration/templates/users.html:100
+#: administration/templates/users.html:110
+#: administration/templates/users.html:120
+#: administration/templates/users.html:130
+#: administration/templates/users.html:140
+#: administration/templates/users.html:150
+#: administration/templates/users.html:160
+#: administration/templates/users.html:170
+#: administration/templates/users.html:180
+#: administration/templates/users.html:190
+#: administration/templates/users.html:200
+#: administration/templates/users.html:250
+#: administration/templates/hacklab_theme/users.html:30
+#: administration/templates/hacklab_theme/users.html:40
+#: administration/templates/hacklab_theme/users.html:50
+#: administration/templates/hacklab_theme/users.html:60
+#: administration/templates/hacklab_theme/users.html:70
+#: administration/templates/hacklab_theme/users.html:80
+#: administration/templates/hacklab_theme/users.html:90
+#: administration/templates/hacklab_theme/users.html:100
+#: administration/templates/hacklab_theme/users.html:110
+#: administration/templates/hacklab_theme/users.html:120
+#: administration/templates/hacklab_theme/users.html:130
+#: administration/templates/hacklab_theme/users.html:140
+#: administration/templates/hacklab_theme/users.html:150
+#: administration/templates/hacklab_theme/users.html:160
+#: administration/templates/hacklab_theme/users.html:170
+#: administration/templates/hacklab_theme/users.html:180
+#: administration/templates/hacklab_theme/users.html:190
+#: administration/templates/hacklab_theme/users.html:200
+#: administration/templates/hacklab_theme/users.html:250 core/models.py:90
+#: core/models.py:277
+msgid "Student"
+msgstr ""
+
+#: activities/models.py:51
+msgid "Given answer"
+msgstr ""
+
+#: activities/models.py:54 forum/models.py:38 forum/models.py:65
+msgid "Answer"
+msgstr ""
+
+#: activities/models.py:55
+msgid "Answers"
+msgstr ""
+
+#: administration/templates/_admin_header_inline.html:24
+#: administration/templates/new_course.html:71
+#: administration/templates/hacklab_theme/_admin_header_inline.html:24
+#: administration/templates/hacklab_theme/new_course.html:71 core/models.py:58
+#: core/models.py:91 core/models.py:159 core/models.py:185 core/models.py:205
+#: forum/models.py:17
+msgid "Course"
+msgstr ""
+
+#: administration/templates/_admin_header_inline.html:25
+#: administration/templates/new_course.html:72
+#: administration/templates/hacklab_theme/_admin_header_inline.html:25
+#: administration/templates/hacklab_theme/new_course.html:72
+#: core/templates/_course-header-inline.html:25
+#: core/templates/hacklab_theme/_course-header-inline.html:16
+msgid "Forum"
+msgstr ""
+
+#: administration/templates/_admin_header_inline.html:26
+#: administration/templates/new_course.html:73
+#: administration/templates/hacklab_theme/_admin_header_inline.html:26
+#: administration/templates/hacklab_theme/new_course.html:73
+msgid "Material"
+msgstr ""
+
+#: administration/templates/_admin_header_inline.html:27
+#: administration/templates/messages.html:29
+#: administration/templates/new_course.html:74
+#: administration/templates/hacklab_theme/_admin_header_inline.html:27
+#: administration/templates/hacklab_theme/messages.html:28
+#: administration/templates/hacklab_theme/new_course.html:74
+msgid "Messages"
+msgstr ""
+
+#: administration/templates/_admin_header_inline.html:28
+#: administration/templates/hacklab_theme/_admin_header_inline.html:28
+#: administration/templates/hacklab_theme/admin-base.html:44
+msgid "Statistics"
+msgstr ""
+
+#: administration/templates/courses_admin.html:23
+#: administration/templates/hacklab_theme/admin-base.html:42
+#: administration/templates/hacklab_theme/courses.html:23 core/models.py:59
+#: core/templates/courses.html:8 core/templates/hacklab_theme/courses.html:8
+msgid "Courses"
+msgstr ""
+
+#: administration/templates/courses_admin.html:26
+#: administration/templates/courses_admin.html:59
+#: administration/templates/hacklab_theme/courses.html:26
+#: administration/templates/hacklab_theme/courses.html:59
+msgid "New course"
+msgstr ""
+
+#: administration/templates/courses_admin.html:41
+#: administration/templates/hacklab_theme/courses.html:41
+msgid "All"
+msgstr ""
+
+#: administration/templates/courses_admin.html:42
+#: administration/templates/courses_admin.html:105
+#: administration/templates/new_course.html:253
+#: administration/templates/new_course.html:270
+#: administration/templates/hacklab_theme/courses.html:42
+#: administration/templates/hacklab_theme/courses.html:105
+#: administration/templates/hacklab_theme/new_course.html:253
+#: administration/templates/hacklab_theme/new_course.html:270
+#: core/models.py:35 core/models.py:202
+msgid "Published"
+msgstr ""
+
+#: administration/templates/courses_admin.html:43
+#: administration/templates/new_course.html:252
+#: administration/templates/new_course.html:266
+#: administration/templates/hacklab_theme/courses.html:43
+#: administration/templates/hacklab_theme/new_course.html:252
+#: administration/templates/hacklab_theme/new_course.html:266
+#: core/models.py:34 core/models.py:201
+msgid "Listed"
+msgstr ""
+
+#: administration/templates/courses_admin.html:44
+#: administration/templates/new_course.html:251
+#: administration/templates/new_course.html:262
+#: administration/templates/hacklab_theme/courses.html:44
+#: administration/templates/hacklab_theme/new_course.html:251
+#: administration/templates/hacklab_theme/new_course.html:262
+#: core/models.py:33 core/models.py:200
+msgid "Draft"
+msgstr ""
+
+#: administration/templates/courses_admin.html:50
+#: administration/templates/hacklab_theme/courses.html:50
+msgid "Keyword"
+msgstr ""
+
+#: administration/templates/courses_admin.html:56
+#: administration/templates/hacklab_theme/courses.html:56
+msgid "Sort"
+msgstr ""
+
+#: administration/templates/courses_admin.html:57
+#: administration/templates/hacklab_theme/courses.html:57 core/models.py:47
+#: core/models.py:211
+msgid "Status"
+msgstr ""
+
+#: administration/templates/courses_admin.html:58
+#: administration/templates/hacklab_theme/courses.html:58
+msgid "Publication date"
+msgstr ""
+
+#: administration/templates/courses_admin.html:64
+#: administration/templates/hacklab_theme/courses.html:64
+msgid "Invert"
+msgstr ""
+
+#: administration/templates/courses_admin.html:94
+#: administration/templates/hacklab_theme/courses.html:94
+#: reports/templates/stats.html:58
+#: reports/templates/hacklab_theme/stats.html:58
+msgid "Show lessons"
+msgstr ""
+
+#: administration/templates/courses_admin.html:111
+#: administration/templates/hacklab_theme/courses.html:111
+msgid "Publish in"
+msgstr ""
+
+#: administration/templates/courses_admin.html:117
+#: administration/templates/hacklab_theme/courses.html:117
+msgid "No publication date"
+msgstr ""
+
+#: administration/templates/courses_admin.html:125
+#: administration/templates/courses_admin.html:128
+#: administration/templates/hacklab_theme/courses.html:125
+#: administration/templates/hacklab_theme/courses.html:128
+msgid "Loading lessons list"
+msgstr ""
+
+#: administration/templates/courses_admin.html:153
+#: administration/templates/hacklab_theme/courses.html:153
+msgid "No courses found"
+msgstr ""
+
+#: administration/templates/message.html:15
+#: administration/templates/hacklab_theme/message.html:15
+#: reports/templates/stats.html:30
+#: reports/templates/hacklab_theme/stats.html:30
+msgid "Students"
+msgstr ""
+
+#: administration/templates/messages.html:32
+#: administration/templates/hacklab_theme/messages.html:31
+msgid "Send New Message"
+msgstr ""
+
+#: administration/templates/messages.html:38
+#: administration/templates/hacklab_theme/messages.html:37
+msgid "New Message"
+msgstr ""
+
+#: administration/templates/messages.html:42
+#: administration/templates/hacklab_theme/messages.html:41 core/forms.py:11
+#: core/models.py:182
+msgid "Subject"
+msgstr ""
+
+#: administration/templates/messages.html:45
+#: administration/templates/hacklab_theme/messages.html:44 core/forms.py:14
+#: core/models.py:183
+msgid "Message"
+msgstr ""
+
+#: administration/templates/messages.html:54
+#: administration/templates/hacklab_theme/messages.html:50
+msgid "Check all"
+msgstr ""
+
+#: administration/templates/messages.html:74
+#: administration/templates/new_course.html:368
+#: administration/templates/new_course.html:461
+#: administration/templates/new_lesson.html:254
+#: administration/templates/hacklab_theme/messages.html:67
+#: administration/templates/hacklab_theme/new_course.html:368
+#: administration/templates/hacklab_theme/new_course.html:461
+#: administration/templates/hacklab_theme/new_lesson.html:254
+#: forum/templates/_forum_inline.html:120
+#: forum/templates/hacklab_theme/_forum_inline.html:120
+msgid "Close"
+msgstr ""
+
+#: administration/templates/messages.html:96
+#: administration/templates/hacklab_theme/messages.html:89
+msgid "More..."
+msgstr ""
+
+#: administration/templates/new_course.html:34
+#: administration/templates/hacklab_theme/new_course.html:34
+msgid "Delete course"
+msgstr ""
+
+#: administration/templates/new_course.html:34
+#: administration/templates/hacklab_theme/new_course.html:34
+msgid "Delete this course"
+msgstr ""
+
+#: administration/templates/new_course.html:39
+#: administration/templates/hacklab_theme/new_course.html:39
+msgid "Publish"
+msgstr ""
+
+#: administration/templates/new_course.html:56
+#: administration/templates/hacklab_theme/new_course.html:56
+msgid "Course name"
+msgstr ""
+
+#: administration/templates/new_course.html:75
+#: administration/templates/hacklab_theme/new_course.html:75
+msgid "Stats"
+msgstr ""
+
+#: administration/templates/new_course.html:97
+#: administration/templates/new_lesson.html:100
+#: administration/templates/hacklab_theme/new_course.html:97
+#: administration/templates/hacklab_theme/new_lesson.html:100
+#: core/models.py:23 core/models.py:245
+msgid "Video"
+msgstr ""
+
+#: administration/templates/new_course.html:101
+#: administration/templates/new_course.html:114
+#: administration/templates/hacklab_theme/new_course.html:101
+#: administration/templates/hacklab_theme/new_course.html:114
+#: core/models.py:49
+msgid "Thumbnail"
+msgstr ""
+
+#: administration/templates/new_course.html:115
+#: administration/templates/hacklab_theme/new_course.html:115
+msgid "min-width"
+msgstr ""
+
+#: administration/templates/new_course.html:123
+#: administration/templates/new_course.html:185
+#: administration/templates/new_course.html:281
+#: administration/templates/new_lesson.html:138
+#: administration/templates/hacklab_theme/new_course.html:123
+#: administration/templates/hacklab_theme/new_course.html:185
+#: administration/templates/hacklab_theme/new_course.html:281
+#: administration/templates/hacklab_theme/new_lesson.html:138
+msgid "Cancel"
+msgstr ""
+
+#: administration/templates/new_course.html:126
+#: administration/templates/new_course.html:189
+#: administration/templates/new_lesson.html:141
+#: administration/templates/new_lesson.html:215
+#: administration/templates/hacklab_theme/new_course.html:126
+#: administration/templates/hacklab_theme/new_course.html:189
+#: administration/templates/hacklab_theme/new_lesson.html:141
+#: administration/templates/hacklab_theme/new_lesson.html:215
+msgid "Add"
+msgstr ""
+
+#: administration/templates/new_course.html:143
+#: administration/templates/hacklab_theme/new_course.html:143
+msgid "Change thumbnail"
+msgstr ""
+
+#: administration/templates/new_course.html:169
+#: administration/templates/new_lesson.html:157
+#: administration/templates/hacklab_theme/new_course.html:169
+#: administration/templates/hacklab_theme/new_lesson.html:157
+msgid "Change video"
+msgstr ""
+
+#: administration/templates/new_course.html:179
+#: administration/templates/hacklab_theme/new_course.html:179
+msgid "Introduction video"
+msgstr ""
+
+#: administration/templates/new_course.html:204
+#: administration/templates/new_course.html:206
+#: administration/templates/hacklab_theme/new_course.html:204
+#: administration/templates/hacklab_theme/new_course.html:206
+#: core/models.py:41
+msgid "Application"
+msgstr ""
+
+#: administration/templates/new_course.html:213
+#: administration/templates/new_course.html:215
+#: administration/templates/hacklab_theme/new_course.html:213
+#: administration/templates/hacklab_theme/new_course.html:215
+msgid "Requirements"
+msgstr ""
+
+#: administration/templates/new_course.html:228
+#: administration/templates/hacklab_theme/new_course.html:228
+#: core/models.py:215 core/templates/_course-header-inline.html:24
+#: core/templates/course.html:73
+#: core/templates/hacklab_theme/_course-header-inline.html:15
+#: core/templates/hacklab_theme/course.html:135
+#: reports/templates/stats.html:31
+#: reports/templates/hacklab_theme/stats.html:31
+msgid "Lessons"
+msgstr ""
+
+#: administration/templates/new_course.html:232
+#: administration/templates/hacklab_theme/new_course.html:232
+msgid "Organize lesson"
+msgstr ""
+
+#: administration/templates/new_course.html:245
+#: administration/templates/new_course.html:300
+#: administration/templates/new_lesson.html:54
+#: administration/templates/hacklab_theme/new_course.html:245
+#: administration/templates/hacklab_theme/new_course.html:300
+#: administration/templates/hacklab_theme/new_lesson.html:54
+msgid "Lesson name"
+msgstr ""
+
+#: administration/templates/new_course.html:301
+#: administration/templates/new_lesson.html:57
+#: administration/templates/hacklab_theme/new_course.html:301
+#: administration/templates/hacklab_theme/new_lesson.html:57
+msgid "Lesson description"
+msgstr ""
+
+#: administration/templates/new_course.html:322
+#: administration/templates/hacklab_theme/new_course.html:322
+#: core/templates/course.html:139 core/templates/hacklab_theme/course.html:201
+msgid "videos"
+msgstr ""
+
+#: administration/templates/new_course.html:322
+#: administration/templates/hacklab_theme/new_course.html:322
+#: core/templates/course.html:139 core/templates/hacklab_theme/course.html:201
+msgid "activities"
+msgstr ""
+
+#: administration/templates/new_course.html:332
+#: administration/templates/hacklab_theme/new_course.html:332
+msgid "Add lesson"
+msgstr ""
+
+#: administration/templates/new_course.html:343
+#: administration/templates/hacklab_theme/new_course.html:343
+#: core/templates/hacklab_theme/course.html:217
+msgid "Instructors"
+msgstr ""
+
+#: administration/templates/new_course.html:348
+#: administration/templates/hacklab_theme/new_course.html:348
+msgid "Organize Instructors"
+msgstr ""
+
+#: administration/templates/new_course.html:357
+#: administration/templates/new_course.html:383
+#: administration/templates/hacklab_theme/new_course.html:357
+#: administration/templates/hacklab_theme/new_course.html:383 core/forms.py:12
+#: core/models.py:39 core/models.py:207
+msgid "Name"
+msgstr ""
+
+#: administration/templates/new_course.html:392
+#: administration/templates/hacklab_theme/new_course.html:392
+msgid "Add instructor"
+msgstr ""
+
+#: administration/templates/new_course.html:407
+#: administration/templates/new_course.html:410
+#: administration/templates/hacklab_theme/new_course.html:407
+#: administration/templates/hacklab_theme/new_course.html:410
+#: core/models.py:43 core/templates/course.html:178
+#: core/templates/hacklab_theme/course.html:103
+#: core/templates/hacklab_theme/course.html:249
+msgid "Abstract"
+msgstr ""
+
+#: administration/templates/new_course.html:417
+#: administration/templates/hacklab_theme/new_course.html:417
+#: core/templates/hacklab_theme/course.html:111
+#: core/templates/hacklab_theme/course.html:257
+msgid "Course structure"
+msgstr ""
+
+#: administration/templates/new_course.html:419
+#: administration/templates/hacklab_theme/new_course.html:419
+#: core/models.py:44
+msgid "Structure"
+msgstr ""
+
+#: administration/templates/new_course.html:426
+#: administration/templates/new_course.html:428
+#: administration/templates/hacklab_theme/new_course.html:426
+#: administration/templates/hacklab_theme/new_course.html:428
+#: core/models.py:45 core/templates/hacklab_theme/course.html:119
+#: core/templates/hacklab_theme/course.html:265
+msgid "Workload"
+msgstr ""
+
+#: administration/templates/new_lesson.html:33
+#: administration/templates/hacklab_theme/new_lesson.html:33
+msgid "Delete this lesson"
+msgstr ""
+
+#: administration/templates/new_lesson.html:37
+#: administration/templates/hacklab_theme/new_lesson.html:37
+msgid "Publish lesson"
+msgstr ""
+
+#: administration/templates/new_lesson.html:109
+#: administration/templates/hacklab_theme/new_lesson.html:109
+msgid "Delete this unit"
+msgstr ""
+
+#: administration/templates/new_lesson.html:131
+#: administration/templates/hacklab_theme/new_lesson.html:131
+msgid "Unit video"
+msgstr ""
+
+#: administration/templates/new_lesson.html:192
+#: administration/templates/hacklab_theme/new_lesson.html:192
+msgid "Delete this activity"
+msgstr ""
+
+#: administration/templates/new_lesson.html:200
+#: administration/templates/hacklab_theme/new_lesson.html:200
+msgid "Unit activity"
+msgstr ""
+
+#: administration/templates/new_lesson.html:228
+#: administration/templates/hacklab_theme/new_lesson.html:228
+#: core/models.py:247
+msgid "Side notes"
+msgstr ""
+
+#: administration/templates/users.html:10
+#: administration/templates/hacklab_theme/admin-base.html:43
+#: administration/templates/hacklab_theme/users.html:10
+msgid "Users"
+msgstr ""
+
+#: administration/templates/users.html:13
+#: administration/templates/hacklab_theme/users.html:13
+msgid "Add user"
+msgstr ""
+
+#: administration/templates/users.html:21
+#: administration/templates/users.html:226
+#: administration/templates/hacklab_theme/users.html:21
+#: administration/templates/hacklab_theme/users.html:226 core/forms.py:13
+msgid "Email"
+msgstr ""
+
+#: administration/templates/users.html:22
+#: administration/templates/users.html:232
+#: administration/templates/hacklab_theme/users.html:22
+#: administration/templates/hacklab_theme/users.html:232
+msgid "Full name"
+msgstr ""
+
+#: administration/templates/users.html:23
+#: administration/templates/users.html:245
+#: administration/templates/hacklab_theme/users.html:23
+#: administration/templates/hacklab_theme/users.html:245 core/models.py:161
+msgid "Role"
+msgstr ""
+
+#: administration/templates/users.html:24
+#: administration/templates/hacklab_theme/users.html:24
+msgid "Actions"
+msgstr ""
+
+#: administration/templates/users.html:248
+#: administration/templates/hacklab_theme/users.html:248
+#: core/templates/header.html:41
+#: core/templates/hacklab_theme/header-authenticated.html:23
+msgid "Admin"
+msgstr ""
+
+#: administration/templates/users.html:249
+#: administration/templates/hacklab_theme/users.html:249 core/models.py:158
+#: core/models.py:180
+msgid "Professor"
+msgstr ""
+
+#: administration/templates/hacklab_theme/admin-base.html:31
+#: core/templates/hacklab_theme/header-authenticated.html:10
+#: core/templates/hacklab_theme/header-guest.html:9
+msgid "Toggle navigation"
+msgstr ""
+
+#: administration/templates/hacklab_theme/admin-base.html:36
+#: administration/templates/hacklab_theme/admin-base.html:46
+msgid "TIM Tec"
+msgstr ""
+
+#: administration/templates/hacklab_theme/admin-base.html:54
+#: core/templates/header.html:45
+#: core/templates/hacklab_theme/header-authenticated.html:33
+msgid "Profile"
+msgstr ""
+
+#: administration/templates/hacklab_theme/admin-base.html:55
+#: core/templates/hacklab_theme/header-authenticated.html:34
+msgid "Edit Profile and Account Settings"
+msgstr ""
+
+#: administration/templates/hacklab_theme/admin-base.html:56
+#: core/templates/header.html:46 core/templates/header.html.py:47
+#: core/templates/hacklab_theme/header-authenticated.html:35
+msgid "Settings"
+msgstr ""
+
+#: administration/templates/hacklab_theme/admin-base.html:58
+#: core/templates/header.html:49
+#: core/templates/hacklab_theme/header-authenticated.html:37
+msgid "Logout"
+msgstr ""
+
+#: core/models.py:24
+msgid "Videos"
+msgstr ""
+
+#: core/models.py:32
+msgid "New"
+msgstr ""
+
+#: core/models.py:38 core/models.py:210 forum/models.py:13
+msgid "Slug"
+msgstr ""
+
+#: core/models.py:40
+msgid "Intro video"
+msgstr ""
+
+#: core/models.py:42
+msgid "Requirement"
+msgstr ""
+
+#: core/models.py:46
+msgid "Pronatec"
+msgstr ""
+
+#: core/models.py:48 core/models.py:54
+msgid "Publication"
+msgstr ""
+
+#: core/models.py:52
+msgid "Home thumbnail"
+msgstr ""
+
+#: core/models.py:153
+msgid "Instructor"
+msgstr ""
+
+#: core/models.py:154
+msgid "Assistant"
+msgstr ""
+
+#: core/models.py:155
+msgid "Pedagogy Assistant"
+msgstr ""
+
+#: core/models.py:165
+msgid "Course Professor"
+msgstr ""
+
+#: core/models.py:166
+msgid "Course Professors"
+msgstr ""
+
+#: core/models.py:184
+msgid "Date"
+msgstr ""
+
+#: core/models.py:206
+msgid "Description"
+msgstr ""
+
+#: core/models.py:208 notes/templates/notes.html:28
+#: notes/templates/hacklab_theme/notes.html:22
+msgid "Notes"
+msgstr ""
+
+#: core/models.py:214 core/models.py:244 forum/models.py:18
+msgid "Lesson"
+msgstr ""
+
+#: core/models.py:243 forum/models.py:11
+msgid "Title"
+msgstr ""
+
+#: core/models.py:253
+msgid "Units"
+msgstr ""
+
+#: core/models.py:284
+msgid "Student Progress"
+msgstr ""
+
+#: core/templates/_course-header-inline.html:23
+#: core/templates/hacklab_theme/_course-header-inline.html:14
+msgid "Intro"
+msgstr ""
+
+#: core/templates/_course-header-inline.html:26
+#: core/templates/hacklab_theme/_course-header-inline.html:17
+msgid "Course material"
+msgstr ""
+
+#: core/templates/_course-header-inline.html:27
+#: core/templates/hacklab_theme/_course-header-inline.html:18
+msgid "My notes"
+msgstr ""
+
+#: core/templates/course.html:48 core/templates/hacklab_theme/course.html:79
+msgid "Why do this course?"
+msgstr ""
+
+#: core/templates/course.html:56 core/templates/hacklab_theme/course.html:87
+msgid "What do I have to know?"
+msgstr ""
+
+#: core/templates/course.html:157 core/templates/hacklab_theme/course.html:29
+msgid "Resume"
+msgstr ""
+
+#: core/templates/course.html:165 core/templates/hacklab_theme/course.html:37
+msgid "Take the Class"
+msgstr ""
+
+#: core/templates/courses.html:22 core/templates/hacklab_theme/courses.html:22
+#: course_material/templates/course-material.html:33
+#: course_material/templates/hacklab_theme/course-material.html:29
+msgid "Go to course"
+msgstr ""
+
+#: core/templates/header.html:43 core/templates/user-courses.html:16
+#: core/templates/hacklab_theme/header-authenticated.html:25
+#: core/templates/hacklab_theme/user-courses.html:8
+msgid "My Courses"
+msgstr ""
+
+#: core/templates/header.html:44 core/templates/user-courses.html:39
+#: core/templates/hacklab_theme/header-authenticated.html:26
+#: core/templates/hacklab_theme/user-courses.html:31
+#: notes/templates/course_notes.html:30 notes/templates/notes.html:17
+#: notes/templates/hacklab_theme/course_notes.html:25
+#: notes/templates/hacklab_theme/notes.html:11
+msgid "My Notes"
+msgstr ""
+
+#: core/templates/header.html:92
+msgid "Signup"
+msgstr ""
+
+#: core/templates/header.html:96
+#: core/templates/hacklab_theme/header-guest.html:63
+#: core/templates/hacklab_theme/header-guest.html:108
+msgid "Connect with Facebook"
+msgstr ""
+
+#: core/templates/lesson.html:99 core/templates/hacklab_theme/lesson.html:137
+msgid "Professor comment"
+msgstr ""
+
+#: core/templates/lesson.html:105 core/templates/hacklab_theme/lesson.html:143
+msgid "Continue"
+msgstr ""
+
+#: core/templates/lesson.html:114 core/templates/hacklab_theme/lesson.html:155
+msgid "Annotations"
+msgstr ""
+
+#: core/templates/lesson.html:126 core/templates/hacklab_theme/lesson.html:154
+msgid "Learn more"
+msgstr ""
+
+#: core/templates/lesson.html:128 core/templates/hacklab_theme/lesson.html:161
+msgid "This unit has no notes"
+msgstr ""
+
+#: core/templates/user-courses.html:30
+#: core/templates/hacklab_theme/user-courses.html:22
+msgid "Resume Class"
+msgstr ""
+
+#: core/templates/user-courses.html:40
+#: core/templates/hacklab_theme/user-courses.html:32
+msgid "Details"
+msgstr ""
+
+#: core/templates/hacklab_theme/header-authenticated.html:21
+msgid "Available Courses"
+msgstr ""
+
+#: core/templates/hacklab_theme/html5.html:28
+msgid "Hello world! This is HTML5 Boilerplate."
+msgstr ""
+
+#: core/templates/hacklab_theme/lesson.html:175
+msgid "Professor notes"
+msgstr ""
+
+#: core/templates/hacklab_theme/lesson.html:193
+msgid "Professor's notes"
+msgstr ""
+
+#: course_material/models.py:8
+msgid "Course Materials"
+msgstr ""
+
+#: course_material/models.py:9 forum/models.py:12 forum/models.py:37
+#: forum/models.py:58
+msgid "Question"
+msgstr ""
+
+#: course_material/models.py:19
+#: course_material/templates/course-material-admin.html:73
+#: course_material/templates/course-material.html:46
+#: course_material/templates/hacklab_theme/course-material-admin.html:73
+#: course_material/templates/hacklab_theme/course-material.html:42
+msgid "Files"
+msgstr ""
+
+#: course_material/templates/course-material-admin.html:28
+#: course_material/templates/hacklab_theme/course-material-admin.html:28
+msgid "Edit text"
+msgstr ""
+
+#: course_material/templates/course-material-admin.html:68
+#: course_material/templates/hacklab_theme/course-material-admin.html:68
+msgid "Drop"
+msgstr ""
+
+#: course_material/templates/course-material-admin.html:68
+#: course_material/templates/hacklab_theme/course-material-admin.html:68
+msgid "files to upload"
+msgstr ""
+
+#: course_material/templates/course-material-admin.html:68
+#: course_material/templates/hacklab_theme/course-material-admin.html:68
+msgid "(or click)"
+msgstr ""
+
+#: course_material/templates/course-material.html:30
+#: course_material/templates/hacklab_theme/course-material.html:26
+msgid "Course Material"
+msgstr ""
+
+#: forum/models.py:14 forum/models.py:20 forum/models.py:39 forum/models.py:51
+#: notes/models.py:11
+msgid "User"
+msgstr ""
+
+#: forum/models.py:15
+msgid "Correct answer"
+msgstr ""
+
+#: forum/models.py:19
+msgid "Hidden"
+msgstr ""
+
+#: forum/models.py:21
+msgid "Justification"
+msgstr ""
+
+#: forum/templates/_forum_inline.html:16 forum/templates/forum.html:18
+#: forum/templates/forum_admin.html:25
+#: forum/templates/hacklab_theme/_forum_inline.html:16
+#: forum/templates/hacklab_theme/forum.html:13
+#: forum/templates/hacklab_theme/forum_admin.html:25
+msgid "Questions & Answers"
+msgstr ""
+
+#: forum/templates/_forum_inline.html:21
+#: forum/templates/hacklab_theme/_forum_inline.html:21
+msgid "What is your question?"
+msgstr ""
+
+#: forum/templates/_forum_inline.html:27
+#: forum/templates/hacklab_theme/_forum_inline.html:27
+msgid "Description of your question"
+msgstr ""
+
+#: forum/templates/_forum_inline.html:37
+#: forum/templates/hacklab_theme/_forum_inline.html:37
+msgid "Questions & Answers policy"
+msgstr ""
+
+#: forum/templates/_forum_inline.html:52
+#: forum/templates/hacklab_theme/_forum_inline.html:52
+msgid "There is no question in this forum yet"
+msgstr ""
+
+#: forum/templates/_forum_inline.html:67
+#: forum/templates/hacklab_theme/_forum_inline.html:67
+msgid "Most voted"
+msgstr ""
+
+#: forum/templates/_forum_inline.html:68
+#: forum/templates/hacklab_theme/_forum_inline.html:68
+msgid "Most recent"
+msgstr ""
+
+#: forum/templates/_forum_inline.html:69
+#: forum/templates/hacklab_theme/_forum_inline.html:69
+msgid "Most answerd"
+msgstr ""
+
+#: forum/templates/_forum_inline.html:111
+#: forum/templates/hacklab_theme/_forum_inline.html:111
+msgid "Why my question was hidden?"
+msgstr ""
+
+#: forum/templates/forum.html:21 forum/templates/forum_admin.html:28
+#: forum/templates/hacklab_theme/forum.html:16
+#: forum/templates/hacklab_theme/forum_admin.html:28
+msgid "Ask a question"
+msgstr ""
+
+#: notes/models.py:10
+msgid "Note"
+msgstr ""
+
+#: notes/templates/course_notes.html:27
+#: notes/templates/hacklab_theme/course_notes.html:22
+msgid "Course Notes"
+msgstr ""
+
+#: notes/templates/course_notes.html:37
+#: notes/templates/hacklab_theme/course_notes.html:32
+msgid "You have not made any notes yet."
+msgstr ""
+
+#: notes/templates/notes.html:31 notes/templates/hacklab_theme/notes.html:25
+msgid "Go to notes"
+msgstr ""
+
+#: notes/templates/notes.html:32 notes/templates/hacklab_theme/notes.html:26
+msgid "Resume course"
+msgstr ""
+
+#: reports/templates/stats.html:22
+#: reports/templates/hacklab_theme/stats.html:22
+msgid "Course Statistics"
+msgstr ""
+
+#: reports/templates/stats.html:41
+#: reports/templates/hacklab_theme/stats.html:41
+msgid "Search student"
+msgstr ""
+
+#: timtec/settings.py:77
+msgid "Brazilian Portuguese"
+msgstr ""
+
+#: timtec/settings.py:78
+msgid "Italian"
+msgstr ""
+
+#: timtec/settings.py:79
+msgid "Spanish"
+msgstr ""
+
+#: timtec/settings.py:80
+msgid "English"
+msgstr ""

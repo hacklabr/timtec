@@ -1,4 +1,4 @@
-from core.models import Course, CourseProfessor, CourseStudent, Lesson, Video, StudentProgress, Unit
+from core.models import Course, CourseProfessor, CourseStudent, Lesson, Video, StudentProgress, Unit, ProfessorMessage
 from accounts.serializers import TimtecUserSerializer
 from activities.serializers import ActivitySerializer
 from rest_framework.reverse import reverse
@@ -12,6 +12,16 @@ class CourseProfessorSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('id', 'course', 'user', 'user_info', 'biography', 'role',)
         model = CourseProfessor
+
+
+class ProfessorMessageSerializer(serializers.ModelSerializer):
+
+    professor = TimtecUserSerializer(source='professor', read_only=True)
+    users_details = TimtecUserSerializer(source='users', read_only=True)
+
+    class Meta:
+        model = ProfessorMessage
+        fields = ('id', 'course', 'users', 'subject', 'message', 'date', 'users_details',)
 
 
 class CourseStudentSerializer(serializers.ModelSerializer):
@@ -31,12 +41,27 @@ class VideoSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     intro_video = VideoSerializer(required=False)
     thumbnail_url = serializers.Field(source='get_thumbnail_url')
+    professor_name = serializers.SerializerMethodField('get_professor_name')
+    home_thumbnail_url = serializers.SerializerMethodField('get_home_thumbnail_url')
 
     class Meta:
         model = Course
         fields = ("id", "slug", "name", "intro_video", "application", "requirement",
                   "abstract", "structure", "workload", "pronatec", "status",
-                  "thumbnail_url", "publication",)
+                  "thumbnail_url", "publication", "home_thumbnail_url", "home_position",
+                  "start_date", "professor_name", "home_published",)
+
+    @staticmethod
+    def get_professor_name(obj):
+        if obj.professors.all():
+            return obj.professors.all()[0]
+        return ''
+
+    @staticmethod
+    def get_home_thumbnail_url(obj):
+        if obj.home_thumbnail:
+            return obj.home_thumbnail.url
+        return ''
 
 
 class CourseThumbSerializer(serializers.ModelSerializer):
@@ -51,6 +76,7 @@ class StudentProgressSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = StudentProgress
+        fields = ('unit', 'complete',)
 
 
 class UnitSerializer(serializers.ModelSerializer):
@@ -113,7 +139,8 @@ class LessonNoteSerializer(serializers.ModelSerializer):
 class CourseNoteSerializer(serializers.ModelSerializer):
 
     lessons_notes = LessonNoteSerializer()
+    course_notes_number = serializers.IntegerField(required=False)
 
     class Meta:
         model = Course
-        fields = ('id', 'slug', 'name', 'lessons_notes',)
+        fields = ('id', 'slug', 'name', 'lessons_notes', 'course_notes_number',)

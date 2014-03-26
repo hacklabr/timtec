@@ -1,0 +1,26 @@
+<div ng-controller="PHPCtrl">
+    <div class="row">
+        <tabset>
+            <tab ng-repeat="file in answer.given" heading="{{file.name}}" select="refresh()" active="file.active">
+                <div class="col-xs-12">
+                    <textarea ui-codemirror="codemirrorConfig" ng-model="file.content" ui-refresh="cm_refresh || file.id">
+                    </textarea>
+                </div>
+            </tab>
+            <tab heading="Result" disabled="disableResultTab">
+                <iframe phpresult width="100%" frameborder="0" height="454" ng-src="{{resultUrl}}" ui-refresh="iframeRefresh"
+                    style="border: 2px solid #dddddd; border-width: 0 2px 2px; background-color: #e8e8e8;"></iframe>
+                <a ng-href="{{resultUrl}}" target="_blank" translate>Click here to see the result in a new window.</a>
+            </tab>
+        </tabset>
+    </div>
+    <div class="submit">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <button onClick="ga('send', 'event', 'activity', 'skip activity');" class="btn btn-default" ng-click="nextStep(true)" translate>Skip</button>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 textright">
+            <button onClick="ga('send', 'event', 'activity', 'rewatch video');" class="btn btn-info" ng-click="play()" translate>Review the video</button>
+            <button class="btn btn-success" ng-click="sendPhpAnswer()" translate>Send</button>
+        </div>
+    </div>
+</div>

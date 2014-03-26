@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+{% load i18n %}
+{% load static %}
+    <head>
+        {% block head %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Admin: {{ course }}</title>
+
+        {% include "_assets.html" with admin=True %}
+
+        {% block js %}{% endblock %}
+
+        <script type="text/javascript" charset="utf-8">
+            $(document).ready(function() {
+                $('.has-tooltip').tooltip();
+            });
+        </script>
+        {% endblock %}
+    </head>
+    <body id="admin" {% spaceless %}{% block body_attrs %}{% endblock %}{% endspaceless %}>
+
+        <!-- NAVBAR -->
+        <div id="main-navbar" class="navbar navbar-inverse">
+            <div class="container">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-collapse">
+                      <span class="sr-only">{% trans 'Toggle navigation' %}</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="/">{% trans 'TIM Tec' %}</a>
+              </div>
+
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse" id="main-navbar-collapse">
+                  <ul class="nav navbar-nav navbar-right">
+                      <li><a href="/admin/courses">{% trans 'Courses' %}</a></li>
+                      <li><a href="/admin/users">{% trans 'Users' %}</a></li>
+                      <li><a href="/admin/stats">{% trans 'Statistics' %}</a></li>
+                      <li class="divider"></li>
+                      <li><a href="/">{% trans 'TIM Tec' %}</a></li>
+                      <li class="divider"></li>
+                      <li>
+                          <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
+                              {{ user }}
+                              <i class="fa fa-caret-down"></i>
+                          </a>
+                          <ul class="dropdown-menu">
+                              <li><a href="{% url 'profile' %}">{% trans "Profile" %}</a></li>
+                              <li><a href="{% url 'profile_edit' %}">{% trans "Edit Profile and Account Settings" %}</a></li>
+                              <!-- <li><a href="">{% trans "Settings" %}</a></li> -->
+                              <li class='divider'></li>
+                              <li><a href="{% url 'timtec_logout' %}">{% trans "Logout" %}</a></li>
+                          </ul>
+                      </li>
+
+                  </ul>
+              </div>
+            </div>
+        </div>
+        <!-- END NAVBAR -->
+
+        <!-- WRAPPER -->
+        <div class="wrapper">
+            {% block content %}
+            <h1>missing content block</h1>
+            {% endblock %}
+        </div>
+        <!-- END WRAPPER -->
+
+        <!-- FOOTER -->
+        {% include 'footer.html' %}
+        <!-- END FOOTER -->
+    </body>
+</html>

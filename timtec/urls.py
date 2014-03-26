@@ -15,7 +15,9 @@ from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
                         CourseProfessorViewSet, EnrollCourseView, HomeView,
                         UserCoursesView, ContactView, LessonDetailView,
                         LessonViewSet, StudentProgressViewSet,
-                        UpdateStudentProgressView, UserNotesViewSet)
+                        UserNotesViewSet, CoursesView,
+                        ProfessorMessageViewSet, CourseStudentViewSet,
+                        TwitterApi,)
 
 from activities.views import AnswerViewSet
 from accounts.views import TimtecUserViewSet
@@ -24,11 +26,16 @@ from course_material.views import CourseMaterialView, FileUploadView, CourseMate
 from notes.views import NotesViewSet, CourseNotesView, UserNotesView
 from reports.views import UserCourseStats
 from rest_framework import routers
+from django_markdown import flatpages
+
+flatpages.register()
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'user', TimtecUserViewSet)
 router.register(r'course', CourseViewSet)
 router.register(r'course_professor', CourseProfessorViewSet)
+router.register(r'course_student', CourseStudentViewSet)
+router.register(r'professor_message', ProfessorMessageViewSet)
 router.register(r'coursethumbs', CourseThumbViewSet)
 router.register(r'lessons', LessonViewSet)
 router.register(r'answer', AnswerViewSet)
@@ -42,11 +49,11 @@ router.register(r'note', NotesViewSet)
 router.register(r'user_notes', UserNotesViewSet)
 router.register(r'reports', UserCourseStats)
 
-#    url(r'^api/answer/(?P<unitId>[0-9]*)$', AnswerView.as_view(), name='answer'),
 
 urlpatterns = patterns(
     '',
     url(r'^$', HomeView.as_view(), name='home_view'),
+    url(r'^courses', CoursesView.as_view(), name='courses'),
 
     # Uncomment the next line to enable the admin:
     url(r'^django/admin/doc/', include('django.contrib.admindocs.urls')),
@@ -66,7 +73,7 @@ urlpatterns = patterns(
 
     # Services
     url(r'^api/', include(router.urls)),
-    url(r'^api/updatestudentprogress/(?P<unitId>[0-9]*)/$', UpdateStudentProgressView.as_view(), name='updatestudentprogress'),
+    url(r'^api/twitter/?$', TwitterApi.as_view(), name='twitter'),
 
     # Forum
     url(r'^forum/(?P<course_slug>[-a-zA-Z0-9_]+)/$', CourseForumView.as_view(), name='forum'),
@@ -94,6 +101,11 @@ urlpatterns = patterns(
 
     # The django-rosetta
     url(r'^rosetta/', include('rosetta.urls')),
+
+    url(r'^pages/', include('django.contrib.flatpages.urls')),
+
+    url(r'^markdown/', include('django_markdown.urls')),
+
 )
 
 if settings.DEBUG:

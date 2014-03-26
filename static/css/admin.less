@@ -1,0 +1,343 @@
+body#admin {
+
+
+  // COURSES LIST
+  #courses {
+    background-color: rgba(255,255,255,0.8);
+    margin: 50px auto 100px;
+    padding-top: 20px;
+
+    .filters {
+      background-color: @gray-lighter;
+      margin-bottom: 50px;
+      padding: 5px 10px;
+      div.checkbox {
+        line-height: 2.5;
+        label {
+          font-size: 14px;
+          margin-right: 10px;
+        }
+        input[type="checkbox"] {
+          display: inline-block;
+        }
+      }
+    }
+
+    .courses-list {
+      .course {
+        border-bottom: 1px solid rgba(255,255,255,0.6);
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        h1 {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+  
+  .not-edited {
+    color: @gray-light;
+  }
+
+  .editable {
+    cursor: pointer;
+    word-break: break-word;
+    &:hover {
+      background-color: lighten(@brand-warning, 40%);
+    }
+  }
+
+  .markdown-required {
+    background-color: lighten(@brand-danger, 40%);
+    position: relative;
+    > div.editable {
+      min-height: 120px;
+    }
+    .markdown-required-label {
+      bottom: 10px;
+      color: @brand-danger;
+      font-size: 11px;
+      position: absolute;
+      right: 15px;
+    }
+  }
+
+  .icon-editable {
+    color: @brand-info;
+    cursor: pointer;
+    font-size: 18px;
+    margin: 0 10px;
+    vertical-align: bottom !important;
+  }
+
+  .icon-addable {
+    color:@brand-success;
+    cursor:pointer;
+    font-size:18px;
+    margin:0 10px;
+    vertical-align:bottom !important;
+  }
+
+  .edit-video-intro {
+    cursor:pointer;
+    left:25px;
+    position:absolute;
+    top:10px;
+    z-index:1000;
+  }
+
+  ul.contacts {
+    list-style:none;
+    margin:0;
+    padding:0;
+    li {
+      border-bottom:1px solid @gray-lighter;
+      padding:3px 0;
+      &.title {
+        color:@brand-info;
+        font-weight:bold;
+      }
+    }
+  }
+
+  .modal-footer {
+    padding-left:0;
+    padding-right:0;
+  }
+
+  .professor-modal {
+
+    input[type="search"] {
+      margin-top:25px;
+    }
+
+    ul.contacts {
+      max-height:450px;
+      overflow:auto;
+      position:relative;
+    }
+
+  }
+
+  .lesson-modal {
+    nav {
+      border-top:1px solid @gray-lighter;
+      margin-top:30px;
+      padding-top:13px;
+      position:relative;
+      button.next {
+        position:absolute;
+        right:0;
+      }
+      button.prev {
+        left:0;
+        position:absolute;
+      }
+      .circle {
+        background:@gray-light;
+        border:5px solid @gray-lighter;
+        border-radius:10px;
+        cursor:pointer;
+        display:inline-block;
+        height:20px;
+        margin-top:5px;
+        width:20px;
+        &.selected, &.selected:hover {
+          background:@brand-success;
+          border:5px solid @gray-lighter;
+        }
+        &:hover {
+          background:@gray;
+          border:5px solid @gray-lighter;
+        }
+      }
+
+    }
+    ul.units {
+      list-style:none;
+      margin:26px 0 0;
+      padding:0;
+      li {
+        border-bottom:1px solid @gray-lighter;
+        padding:6px 0;
+        &:first-child {
+          border-top:1px solid @gray-lighter;
+        }
+        &.selected {
+          font-weight:bold;
+        }
+        .icon-reorder, .icon-remove {
+          color:@gray !important;
+        }
+      }
+    }
+    iframe {
+      margin-top:10px;
+    }
+  }
+
+  .course-lessons {
+    .table {
+      tr {
+        td.add-unit {
+          background:@brand-success;
+          cursor:pointer;
+          text-align:center;
+          width:19px;
+        }
+      }
+    }
+  }
+
+  .form-group {
+    position:relative;
+    &.has-success {
+      .control-label {
+        color:@brand-success;
+      }
+      .form-control {
+        border-color:@brand-success;
+      }
+      i {
+        color:@brand-success;
+        font-size:20px;
+        position:absolute;
+        right:10px;
+        top:32px;
+      }
+    }
+    &.has-error {
+      .control-label {
+        color:@brand-danger;
+      }
+      .form-control {
+        border-color:@brand-danger;
+      }
+      i {
+        color:@brand-danger;
+        font-size:20px;
+        position:absolute;
+        right:10px;
+        top:32px;
+      }
+    }
+    .control-label {
+      text-align:left;
+    }
+    .form-control {
+      border-radius:4px;
+      border-width:2px;
+      box-shadow:none;
+      color:@gray-darker;
+    }
+    &.single-choice {
+      background:@gray-lighter;
+      border-radius:3px;
+      padding:10px;
+    }
+  }
+
+  input[type="search"] {
+    background:@gray-lighter;
+    border-color:@gray-lighter;
+    &:focus {
+      background:darken(@gray-lighter,5%);
+      border-color:darken(@gray-lighter,5%);
+    }
+    &::-webkit-input-placeholder, &::-mox-placeholder {
+      color:@gray;
+      font-size:11px;
+      line-height:2;
+      text-align:center;
+      text-transform:uppercase;
+      &:before {
+        content:"\f002";
+        font-family:"FontAwesome";
+        margin-right:5px;
+      }
+    }
+  }
+
+  .blink-bg-danger {
+    animation: blink-bg-red 2s infinite;
+    -webkit-animation: blink-bg-red 2s infinite; /* Safari and Chrome */
+  }
+
+
+
+  .lessons.organizing-lessons .handle,
+  .lessons.organizing-lessons .handle * {
+      cursor: move !important;
+  }
+
+  .lessons .lesson {
+      background-color: white;
+      -webkit-transition: background-color 1s;
+  }
+
+  .lessons.organizing-lessons .ui-sortable-helper {
+      padding: 0.5em;
+      background-color: #FFFFAA;
+      box-shadow: 1px 1px 4px #555555;
+      -webkit-transition: background-color 1s;
+  }
+
+  .activity label.btn {
+    white-space: normal;
+    min-height: 4em;
+    width: 100%;
+  }
+
+  .activity .panel-body {
+    min-height: 22em;
+  }
+
+  .btn-group .dropdown-menu{
+    li {
+      margin: 0.5em 0 !important;
+    }
+    a {
+      cursor: pointer;
+    }
+  }
+
+  .add-side-notes .editable {
+      min-height: 150px;
+  }
+
+}
+
+
+@keyframes blink-text-red
+{
+    0%   {color: auto; }
+    50%  {color: #b92929; }
+    100% {color: auto; }
+}
+
+@-webkit-keyframes blink-text-red
+{
+    0%   {color: auto; }
+    50%  {color: #b92929; }
+    100% {color: auto; }
+}
+
+.blink-text-danger {
+    animation: blink-text-red 2s infinite;
+    -webkit-animation: blink-text-red 2s infinite; /* Safari and Chrome */
+}
+
+@keyframes blink-bg-red
+{
+    0%   {background-color: auto; }
+    50%  {background-color: #b92929; }
+    100% {background-color: auto; }
+}
+
+@-webkit-keyframes blink-bg-red
+{
+    0%   {background-color: auto; }
+    50%  {background-color: #b92929; }
+    100% {background-color: auto; }
+}
+

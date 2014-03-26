@@ -13,6 +13,7 @@ class Activity(models.Model):
     """
     Generic class to activities
     Data templates (data e type atributes):
+    https://github.com/hacklabr/timtec/wiki/Atividades
     Multiple choice
         type: multiplechoice
         data: {question: "", choices: ["choice1", "choice2", ...]}
@@ -62,15 +63,13 @@ class Answer(models.Model):
 
     def is_correct(self):
 
-        if self.activity.type in ['html5', 'markdown']:
+        if self.activity.type in ['html5', 'markdown', 'php']:
             return True
 
         if type(self.given) is list and type(self.activity.expected) is list:
 
             if len(self.given) != len(self.activity.expected):
                 return False
-
-            #import ipdb; ipdb.set_trace()
 
             for given, expected in zip(self.given, self.activity.expected):
                 if isinstance(expected, type(None)) and given not in (None, False,):

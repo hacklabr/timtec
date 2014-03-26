@@ -2,6 +2,7 @@
     "use strict";
 
     var app = angular.module('lesson', [
+        'activities',
         'directive.markdowneditor',
         'directive.codemirror',
         'ngRoute',
@@ -55,14 +56,19 @@
             };
 
             $scope.play = function() {
-                var youtube_id = $scope.currentUnit.video.youtube_id;
-                $scope.section = 'video';
+                if($scope.currentUnit.video){
+                    var youtube_id = $scope.currentUnit.video.youtube_id;
+                    $scope.section = 'video';
 
-                youtubePlayerApi.loadPlayer().then(function(player){
-                    if(player.getVideoData() &&
-                        player.getVideoData().video_id === youtube_id) return;
-                    player.cueVideoById(youtube_id);
-                });
+                    youtubePlayerApi.loadPlayer().then(function(player){
+                            if(player.getVideoData() &&
+                                player.getVideoData().video_id === youtube_id) return;
+                            player.cueVideoById(youtube_id);
+                    });
+                } else {
+                    $scope.section = 'activity';
+                }
+                
             };
 
             $scope.selectActivity = function(index) {
@@ -117,6 +123,11 @@
                         $scope.currentUnit.activities.length > 0) {
                         $scope.section = 'activity';
                     } else {
+                        var progress = new Progress();
+                        progress.complete = new Date();
+                        progress.unit = $scope.currentUnit.id;
+                        $scope.currentUnit.progress = progress;
+                        progress.$save();
                         $scope.nextUnit();
                     }
                 } else {
@@ -300,53 +311,47 @@
     var _pauseFlag = false;
     var start, whole;
 
+    var lastState = -1;
+
     function  onPlayerStateChange (event) {
         var video_id = event.target.getVideoData().video_id;
 
+        if (event.data == YT.PlayerState.ENDED){
+            if(! (lastState === YT.PlayerState.PAUSED ||   // workaround, YT in html5 mode will fire
+                  lastState === YT.PlayerState.PLAYING)) { // event with ENDED state after cue video.
+                event.data = lastState;
+            } else {
+                ga('send', 'event', 'videos', 'watch To end', video_id);
+                if (whole === 'started') {
+                    var stop = new Date().getTime();
+                    var delta_s = (stop - start) / 1000;
+                    ga('send', 'event', 'videos', 'time tO end', video_id, Math.round(delta_s));
+                    whole = 'ended';
+                }
+            }
+        }
+
         if (event.data == YT.PlayerState.PLAYING){
                 ga('send', 'event', 'videos', 'play', video_id);
-                //thy video plays
-                //reaffirm the pausal beast is not with us
                 _pauseFlag = false;
                 if (whole !== 'ended' && whole !== 'started') {
                     start = new Date().getTime();
                     whole = 'started';
                 }
         }
-        //should the video tire out and cease
-        if (event.data == YT.PlayerState.ENDED){
-            ga('send', 'event', 'videos', 'watch To end', video_id);
-            if (whole === 'started') {
-                var stop = new Date().getTime();
-                var delta_s = (stop - start) / 1000;
-                ga('send', 'event', 'videos', 'time tO end', video_id, Math.round(delta_s));
-                whole = 'ended';
-            }
-        }
-        //and should we tell it to halt, cease, heal.
-        //confirm the pause has but one head and it flies not its flag
-        //lo the pause event will spawn a many headed monster
-        //with events overflowing
+
         if (event.data == YT.PlayerState.PAUSED && _pauseFlag === false){
             ga('send', 'event', 'videos', 'pause', video_id);
-            //tell the monster it may have
-            //but one head
             _pauseFlag = true;
         }
-        //and should the monster think, before it doth play
-        //after we command it to move
         if (event.data == YT.PlayerState.BUFFERING){
             ga('send', 'event', 'videos', 'bufferIng', video_id);
         }
-        //and should it cue
-        //for why not track this as well.
         if (event.data == YT.PlayerState.CUED){
             ga('send', 'event', 'videos', 'cueing', video_id);
         }
 
-        if (event.data === YT.PlayerState.ENDED) {
-            ga("send", "event", "unit", "watched video");
-        }
+        lastState = event.data;
     }
     window.onPlayerStateChange = onPlayerStateChange;
 })();

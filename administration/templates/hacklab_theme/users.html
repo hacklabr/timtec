@@ -1,0 +1,268 @@
+{% extends "admin-base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<section id="users" class="container">
+    <header>
+        <div class="row">
+            <div class="col-lg-6">
+                <h1>{% trans 'Users' %}</h1>
+            </div>
+            <div class="col-lg-6 textright">
+                <button class="btn btn-lg btn-success uppercase">{% trans 'Add user' %}</button>
+            </div>
+        </div>
+    </header>
+    <section id="users-content">
+        <table class="table">
+            <tr>
+                <th class="username">{% trans "Username" %}</th>
+                <th class="email">{% trans "Email" %}</th>
+                <th class="fullname">{% trans "Full name" %}</th>
+                <th class="role">{% trans "Role" %}</th>
+                <th class="actions">{% trans "Actions" %}</th>
+            </tr>
+            <tr>
+                <td>Adrian</td>
+                <td>adrianarrojo13@gmail.com</td>
+                <td>&nbsp;</td>
+                <td>{% trans "Student"%}</td>
+                <td>
+                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>Asa</td>
+                <td>lhfagundes@hacklab.com.br</td>
+                <td>&nbsp;</td>
+                <td>{% trans "Student"%}</td>
+                <td>
+                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>CRISTAL7</td>
+                <td>cristal.automotive@hotmail.com</td>
+                <td>&nbsp;</td>
+                <td>{% trans "Student"%}</td>
+                <td>
+                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>Carla</td>
+                <td>carlatrindade96@live.com</td>
+                <td>&nbsp;</td>
+                <td>{% trans "Student"%}</td>
+                <td>
+                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>Cibele_Duarte</td>
+                <td>cibasd@hotmail.com</td>
+                <td>&nbsp;</td>
+                <td>{% trans "Student"%}</td>
+                <td>
+                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>Daniloluso</td>
+                <td>danilo.luso@gmail.com</td>
+                <td>&nbsp;</td>
+                <td>{% trans "Student"%}</td>
+                <td>
+                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>Danny</td>
+                <td>nily.rosa@gmail.com</td>
+                <td>&nbsp;</td>
+                <td>{% trans "Student"%}</td>
+                <td>
+                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>FCoelho</td>
+                <td>fernandocoelho@hotmail.com</td>
+                <td>&nbsp;</td>
+                <td>{% trans "Student"%}</td>
+                <td>
+                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>Fabiane.Martins</td>
+                <td>fabiane.lopesmartins@hotmail.com</td>
+                <td>&nbsp;</td>
+                <td>{% trans "Student"%}</td>
+                <td>
+                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>Hernesto</td>
+                <td>hernestovautero@gmail.com</td>
+                <td>&nbsp;</td>
+                <td>{% trans "Student"%}</td>
+                <td>
+                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>ISABEL</td>
+                <td>icbelcris@gmail.com</td>
+                <td>&nbsp;</td>
+                <td>{% trans "Student"%}</td>
+                <td>
+                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>JBueno</td>
+                <td>gwidion@gmail.com</td>
+                <td>Joao Oliveira Bueno</td>
+                <td>{% trans "Student"%}</td>
+                <td>
+                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>JFTavares</td>
+                <td>josefernando.tavares@gmail.com</td>
+                <td>&nbsp;</td>
+                <td>{% trans "Student"%}</td>
+                <td>
+                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>JorgeRocha</td>
+                <td>jorgerochaneto@gmail.com</td>
+                <td>&nbsp;</td>
+                <td>{% trans "Student"%}</td>
+                <td>
+                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>Jow</td>
+                <td>jonathanmem@hotmail.com</td>
+                <td>&nbsp;</td>
+                <td>{% trans "Student"%}</td>
+                <td>
+                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>JuniorThomaz</td>
+                <td>juniorthomaz18@outlook.com</td>
+                <td>Junior Thomaz </td>
+                <td>{% trans "Student"%}</td>
+                <td>
+                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>Kátia</td>
+                <td>kathiagislene@gmail.com</td>
+                <td>&nbsp;</td>
+                <td>{% trans "Student"%}</td>
+                <td>
+                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>Lidiane_R_Thomaz</td>
+                <td>lidiane.romaz@gmail.com</td>
+                <td>Lidiane Thomaz </td>
+                <td>{% trans "Student"%}</td>
+                <td>
+                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+        </table>
+    </section>
+</section>
+
+<div class="modal fade" id="edit-user" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Editando usuário NOME DO USUÁRIO</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-lg-3">{% trans "Username" %}</label>
+                        <div class="col-lg-9">
+                            <input type="text" value="andersonorui" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3">{% trans "Email" %}</label>
+                        <div class="col-lg-9">
+                            <input type="text" value="andersonorui@hacklab.com.br" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3">{% trans "Full name" %}</label>
+                        <div class="col-lg-9">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input type="text" value="Anderson" class="form-control">
+                                </div>
+                                <div class="col-lg-6">
+                                    <input type="text" value="Orui" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3">{% trans "Role" %}</label>
+                        <div class="col-lg-9">
+                            <p>
+                                <label class="contro-label"><input type="checkbox"> {% trans "Admin" %}</label><br>
+                                <label class="contro-label"><input type="checkbox"> {% trans "Professor" %}</label><br>
+                                <label class="contro-label"><input type="checkbox"> {% trans "Student" %}</label>
+                            </p>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="col-lg-12">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

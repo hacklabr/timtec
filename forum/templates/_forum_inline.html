@@ -1,4 +1,4 @@
-{% include "_forum_angular.html" %}
+{% load compressed %}
 {% load timtec_markdown %}
 {% load i18n %}
 
@@ -6,13 +6,14 @@
     window.course_id = {{ course.pk }};
     window.user_id = {{ user.pk }};
 </script>
-
-<section id="forum">
+{% compressed_js 'forum' %}
+{% compressed_js 'admin_course_header' %}
+<section id="forum-inline">
     
     <section id="forum-content" ng-controller="InlineForumCtrl">
         {% if question_form %}
             <div class="page-header-double">
-                <h3><i class="fa fa-angle-double-right"></i> {% trans "Questions & Answers" %}</h3>
+                <h3>{% trans "Questions & Answers" %}</h3>
             </div>
             <!-- QUESTION FORM -->
             <div class="forum-form">
@@ -50,44 +51,48 @@
             <section class="questions clearfix" ng-show="totalItems==0">
             {% trans "There is no question in this forum yet" %}
             </section>
-            {% verbatim angularjs %}
+            
             <section class="questions clearfix" ng-show="totalItems>0">
                 <div class="search-filter">
                     <div class="row">
-                        <div class="col-lg-7 col-sm-7">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="btn-group">
+                                {% verbatim angularjs %}
                                 <button type="button" class="btn btn-info">{{ sort_label }}</button>
+                                {% endverbatim angularjs %}
                                 <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-chevron-down"></i>
                                 </button>
                                 <ul class="dropdown-menu top">
-                                    <li><a href="" ng-click="sortBy('votes')">Mais votadas</a></li>
-                                    <li><a href="" ng-click="sortBy('date')">Mais recentes</a></li>
-                                    <li><a href="" ng-click="sortBy('answers')">Mais respondidas</a></li>
+                                    <li><a href="" ng-click="sortBy('votes')">{% trans 'Most voted'%}</a></li>
+                                    <li><a href="" ng-click="sortBy('date')">{% trans 'Most recent'%}</a></li>
+                                    <li><a href="" ng-click="sortBy('answers')">{% trans 'Most answerd'%}</a></li>
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-lg-5 col-sm-5 textright">
+                        <div class="col-lg-6 col-md-6 col-sm-6 textright">
                             <pagination ng-if="totalItems>itemsPerPage" on-select-page="changePageHandler(page)" max-size="5" items-per-page="itemsPerPage" boundary-links="true" total-items="totalItems" page="currentPage" class="pagination-sm top pointer" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
                         </div>
                     </div>
                 </div>
+                
                 <div ng-repeat="question in current_page_questions">
                     <article ng-if="!question.hidden_to_user" ng-class="{'is-hidden': question.hidden}">
                         <table>
                             <tr>
                                 <td>
                                     <div class="stats">
-                                        <p><span class="numbers-votes">{{question.votes}}</span>votos</p>
-                                        <p><span class="numbers-answers">{{ question.answers.length }}</span>respostas</p>
+                                        <p><span class="numbers-votes">{% verbatim angularjs %}{{question.votes}}{% endverbatim angularjs %}</span>votos</p>
+                                        <p><span class="numbers-answers">{% verbatim angularjs %}{{ question.answers.length }}{% endverbatim angularjs %}</span>respostas</p>
                                     </div>
+                                    {% verbatim angularjs %}
                                     <div ng-if="!question.hidden && question.moderator" ng-click="justification_modal(question)" class="hide-question btn btn-danger btn-sm">Ocultar</div>
                                 </td>
                                 <td style="width:100%;">
                                     <div class="content">
                                         <h1 class="top"><a href="/forum/question/{{ question.slug }}">{{ question.title }}</a></h1>
                                         <div class="description" ng-bind-html="question.text|markdown|words:50"></div>
-                                        <p class="author">Pergunta feita feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ question.username }}">{{ question.username }}</a>.</p>
+                                        <p class="author">Pergunta feita feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ question.username }}">{{ question.username }}</a></p>
                                     </div>
                                 </td>
                             </tr>
@@ -100,27 +105,23 @@
                 </div>
                 {% endverbatim angularjs %}
                 <script type="text/ng-template" id="justificationModal.html">
-                <!-- <div class="modal fade" id="new-message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> -->
-                    <!-- <div class="modal-dialog"> -->
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabel">{% trans "Why my question was hidden?" %}</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <textarea class="form-control" rows="10" placeholder="Message" required="true" ng-model="question.hidden_justification"></textarea>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <div class="col-lg-12">
-                                    <button type="button" class="btn btn-danger" ng-click="cancel()">{% trans "Close" %}</button>
-                                    <button type="button" class="btn btn-success" ng-click="ok()" data-dismiss="modal">{% trans "Send" %}</button>
-                                </div>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">{% trans "Why my question was hidden?" %}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <textarea class="form-control" rows="10" placeholder="Message" required="true" ng-model="question.hidden_justification"></textarea>
                             </div>
                         </div>
-                      <!-- </div> -->
-                <!-- </div> -->
+                        <div class="modal-footer">
+                            <div class="col-lg-12">
+                                <button type="button" class="btn btn-danger" ng-click="cancel()">{% trans "Close" %}</button>
+                                <button type="button" class="btn btn-success" ng-click="ok()" data-dismiss="modal">{% trans "Send" %}</button>
+                            </div>
+                        </div>
+                    </div>
                 </script>
             </section>
             <!-- QUESTIONS LIST-->
