@@ -86,7 +86,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="row" ng-repeat="row in users_rows">
-                                                        <div class="col-lg-2" ng-repeat="user in row">
+                                                        <div class="col-lg-6" ng-repeat="user in row">
                                                             <div class="student">
                                                                 {% verbatim %}
                                                                 <label><input type="checkbox" checklist-model="new_message.users" checklist-value="user.id"> {{ user.name || user.username }}</label>
