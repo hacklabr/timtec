@@ -15,14 +15,11 @@
 
         $scope.courses = Course.query({'home_published': 'True'}, function(courses) {
 
-            if (courses.length > 6) {
-                $scope.courses = courses.slice(0,6);
-            }
-            $scope.courses.sort(compare_by_position);
+            courses.sort(compare_by_position);
             $scope.courses_rows = [];
             var row = [];
             var index = 0;
-            angular.forEach($scope.courses, function(course) {
+            angular.forEach(courses, function(course) {
                 row.push(course);
                 if (index == 1) {
                     $scope.courses_rows.push(row);
