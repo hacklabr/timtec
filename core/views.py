@@ -270,7 +270,7 @@ class UserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
             lessons_dict = {}
             for unit in units:
                 lesson = unit.lesson
-                if not lesson.slug in lessons_dict:
+                if lesson.slug not in lessons_dict:
                     lessons_dict[lesson.slug] = lesson
                     lessons_dict[lesson.slug].units_notes = []
                 unit_type = ContentType.objects.get_for_model(unit)
@@ -290,10 +290,11 @@ class UserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
         for unit in units:
             course = unit.lesson.course
             lesson = unit.lesson
-            if not course.slug in courses:
+            if course.slug not in courses:
                 courses[course.slug] = course
                 courses[course.slug].lessons_dict = {}
-            if not lesson.slug in courses[course.slug].lessons_dict:
+            if lesson.slug not\
+                    in courses[course.slug].lessons_dict:
                 courses[course.slug].lessons_dict[lesson.slug] = lesson
                 courses[course.slug].lessons_dict[lesson.slug].units_notes = []
 #             unit_type = ContentType.objects.get_for_model(unit)

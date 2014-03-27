@@ -59,6 +59,17 @@
       margin-top: 20px !important;
       .main-content {
         margin-top: 10px !important;
+        .lesson-units {
+          h1 {
+            background: #fff;
+            .box-shadow(0px 5px 15px 0px rgba(0, 0, 0, 0.3));
+            color: rgb(0, 125, 195);
+            display: inline-block;
+            font-family: teuton_26;
+            font-size: 24px;
+            padding: 12px;
+          }
+        }
         .add-content {
           margin-bottom: 10px;
         }
@@ -141,6 +152,43 @@
             table tr, table tr td {
                 border:none;
             }
+        }
+      }
+    }
+    &.course-messages {
+      .container {
+        padding-bottom: 60px;
+        #main-header {
+          margin-bottom: 60px;
+          .lesson-units {
+            h1 {
+              background: #fff;
+              .box-shadow(0px 5px 15px 0px rgba(0, 0, 0, 0.3));
+              color: rgb(0, 125, 195);
+              display: inline-block;
+              font-family: teuton_26;
+              font-size: 24px;
+              padding: 12px;
+            }
+          }
+        }
+        #messages-content {
+          margin-left: -15px;
+          > div {
+            padding-left: 0;
+          }
+          header {
+            margin-bottom: 30px;
+          }
+          .message {
+            margin-bottom: 20px;
+            .date {
+              font-size: 18px;
+            }
+            .subject {
+              font-size: 18px;
+            }
+          }
         }
       }
     }
@@ -403,7 +451,7 @@
     }
   }
 
-  &.course-lesson, &.course-forum, &.course-material, &.course-notes {
+  &.course-lesson, &.course-forum, &.course-material, &.course-notes, &.course-messages {
 
     .illust {
       background-image: url(../img/timtec/illustrations/course-lesson-l.png);
@@ -620,7 +668,8 @@
     &.course-lesson,
     &.course-forum,
     &.course-material,
-    &.course-notes {
+    &.course-notes,
+    &.course-messages {
       .main-content {
         margin-top: -605px;
       }

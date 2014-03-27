@@ -3,17 +3,8 @@
       <div class="row">
         <div class="col-lg-7 col-lg-offset-1 col-md-7 col-md-offset-1 col-sm-7">
           <nav class="lesson-units hidden-xs">
-              <div class="btn-group">
-                  <button type="button" class="lesson-name dropdown-toggle" data-toggle="dropdown">NOME DA LIÇÃO</button>
-                  <button type="button" class="lesson-drop dropdown-toggle" data-toggle="dropdown">
-                      <i class="fa fa-chevron-down"></i>
-                  </button>
-                  <ul class="dropdown-menu">
-                      {% for list_lesson in course.public_lessons %}
-                          <li><a href="{% url 'lesson' course.slug list_lesson.slug %}">{{ list_lesson.name }}</a></li>
-                      {% endfor %}
-                  </ul>
-              </div>
+              <h1><span ng-class="{'blink-text-danger':errors.name}" ng-model="lesson.name"
+                              placeholder="{% trans 'Lesson name' %}" contenteditable="true"></span></h1>
           </nav>
         </div>
 
@@ -21,9 +12,9 @@
           <!-- COURSE-SECTION-NAV -->
           <nav class="course-sections">
               <a ng-href="{% verbatim %}/{{course_url}}{% endverbatim %}"><span class="has-tooltip intro" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Intro' %}"></span></a>
-              <a ng-href="{% verbatim %}/{{forum_url}}{% endverbatim %}"><span class="has-tooltip lessons" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Lessons' %}"></span></a>
-              <a ng-href="{% verbatim %}/{{course_material_url}}{% endverbatim %}"><span class="has-tooltip forum" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Forum' %}"></span></a>
-              <a ng-href="{% verbatim %}/{{messages_url}}{% endverbatim %}"><span class="has-tooltip material" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Course material' %}"></span></a>
+              <a ng-href="{% verbatim %}/{{forum_url}}{% endverbatim %}"><span class="has-tooltip forum" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Forum' %}"></span></a>
+              <a ng-href="{% verbatim %}/{{course_material_url}}{% endverbatim %}"><span class="has-tooltip material" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Course material' %}"></span></a>
+              <a ng-href="{% verbatim %}/{{messages_url}}{% endverbatim %}"><span class="has-tooltip my-notes" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'My notes' %}"></span></a>
               <a ng-href="{% verbatim %}/{{reports_url}}{% endverbatim %}"><span class="has-tooltip my-notes" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'My notes' %}"></span></a>
           </nav>
           <!-- END COURSE-SECTION-NAV -->
@@ -32,11 +23,13 @@
 
       <div class="course-info row">
         <div class="course-lessons hidden-xs col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1">
-            <p class="description">DESCRIÇÃO DA LIÇÃO</p>
+            <modalmarkdowneditor on-save="saveLesson(lesson)" title="{% trans 'Lesson description' %}" content="lesson.desc"></modalmarkdowneditor>
         </div>
         <div class="col-lg-3 col-md-3">
           <h1 class="course-name">
-              <a href="">NOME DO CURSO</a>
+              {% verbatim %}
+              <a href="/admin/courses/{{course.id}}" ng-bind="course.name"></a>
+              {% endverbatim %}
           </h1>
         </div>
       </div>
