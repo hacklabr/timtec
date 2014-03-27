@@ -15,10 +15,10 @@
               <div class="message">
                   {% if confirmation %}
                   {% user_display confirmation.email_address.user as user_display %}  
-                  <p>{% blocktrans with confirmation.email_address.email as email %}Please confirm that <a href="mailto:{{email}}">{{ email }}</a> is an e-mail address for user {{ user_display }}.{% endblocktrans %}</p>
+                  <p>{% blocktrans with confirmation.email_address.email as email %}Please confirm that <a href="mailto:{{email}}">{{ email }}</a><br>is an e-mail address for user {{ user_display }}.{% endblocktrans %}</p>
                   
 
-                  <form onclick="event.stopPropagation()" method="post" action="{% url 'account_confirm_email' confirmation.key %}" class="form-horizontal">{% csrf_token %}
+                  <form onclick="event.stopPropagation()" method="post" action="{% url 'account_confirm_email' confirmation.key %}" class="form-horizontal textcenter">{% csrf_token %}
                     <button class="btn btn-success btn-lg" type="submit">{% trans 'Confirm' %}</button>
                   </form>
 
