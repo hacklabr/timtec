@@ -15,9 +15,6 @@
                 <h2>{% trans "Sign Up" %}</h2>
             </header>
 
-            <!-- TABLET AND DESKTOP -->
-            <div id="activation-wrapper">
-
                 <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}" class="form-horizontal">{% csrf_token %}
                     {% with errors=form.username.errors %}
                     <div class="form-group{{ errors|yesno:' has-error,' }}">
@@ -58,9 +55,6 @@
                         <a href="{% provider_login_url 'facebook' method='oauth2' %}" class="btn btn-primary">Facebook Connect</a>
                     </div>
                 </form>
-
-            </div>
-            <!-- END TABLET AND DESKTOP -->
 
         </div>
 

@@ -2,27 +2,26 @@
 {% load i18n %}
 {% block content %}
 
-<!-- TABLET AND DESKTOP -->
-<div id="activation-wrapper" class="container visible-lg visible-md visible-sm">
-    <div class="centered">
-        <h1 class="textcenter">
-            <i class="fa fa-inbox"></i><br/>
-            {% trans "Validation email sent" %}.<br/>
-            {% trans "Check your inbox" %}!
-        </h1>
+<div id="email-confirm" class="page">
+
+    <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
+
+    <div class="main-content">
+
+        <!-- CONTAINER -->
+        <div class="container">
+
+            <!-- TABLET AND DESKTOP -->
+            <div class="container visible-lg visible-md visible-sm">
+                <div class="message">
+                    <p>{% trans "Validation email sent" %}.</p>
+                    <p>{% trans "Check your inbox" %}!</p>
+                </div>
+            </div>
+            <!-- END TABLET AND DESKTOP -->
+        </div>
+
     </div>
 </div>
-<!-- END TABLET AND DESKTOP -->
-
-
-<!-- MOBILE -->
-<div class="container visible-xs textcenter">
-    <h1 class="textcenter">
-        <i class="fa fa-inbox"></i><br/>
-        {% trans "Validation email sent" %}.<br/>
-        {% trans "Check your inbox" %}!
-    </h1>
-</div>
-<!-- END MOBILE -->
 
 {% endblock %}
