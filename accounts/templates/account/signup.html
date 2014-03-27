@@ -47,12 +47,13 @@
                         </div>
                     </div>
                     {% endwith %}
-
-                    <div class="submit col-lg-6 col-md-8 col-sm-10 textright">
-                        <button class="btn btn-success">{% trans "Sign Up" %}</button>
-                        <hr/>
-                        {% load socialaccount %}
-                        <a href="{% provider_login_url 'facebook' method='oauth2' %}" class="btn btn-primary">Facebook Connect</a>
+                    <div class="row">
+                        <div class="submit col-lg-6 col-md-8 col-sm-10 textright">
+                            <button class="btn btn-success">{% trans "Sign Up" %}</button>
+                            <hr/>
+                            {% load socialaccount %}
+                            <a href="{% provider_login_url 'facebook' method='oauth2' %}" class="btn btn-primary">Facebook Connect</a>
+                        </div>
                     </div>
                 </form>
 
