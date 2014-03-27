@@ -2,118 +2,69 @@
 {% load i18n %}
 {% block content %}
 
-<!-- TABLET AND DESKTOP -->
-<div id="activation-wrapper" class="container visible-lg visible-md visible-sm">
-    <div class="centered">
-        <h1>
-            <i class="fa fa-smile-o"></i><br/>
-            {% trans "Sign Up" %}!
-        </h1>
-        <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}" class="form-horizontal">{% csrf_token %}
-            {% with errors=form.username.errors %}
-            <div class="form-group{{ errors|yesno:' has-error,' }}">
-                <label class="col-lg-4 col-sm-4 control-label">{% trans "Username" %}</label>
-                <div class="col-lg-8 col-sm-8">
-                    <input name="username" type="text" value="{{form.username.value}}" class="form-control" placeholder="{% trans 'Username' %}">
-                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
-                </div>
-            </div>
-            {% endwith %}
+<div id="signup" class="page">
 
-            {% with errors=form.email.errors %}
-            <div class="form-group{{ errors|yesno:' has-error,' }}">
-                <label class="col-lg-4 col-sm-4 control-label">{% trans "E-mail" %}</label>
-                <div class="col-lg-8 col-sm-8">
-                    <input name="email" type="email" value="{{form.email.value}}" class="form-control" placeholder="Your e-mail">
-                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
-                </div>
-            </div>
-            {% endwith %}
+    <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
 
-            {% with errors=form.password1.errors %}
-              <div class="form-group{% if errors or form.non_field_errors %} has-error{% endif %}">
-                <label class="col-lg-4 col-sm-4 control-label">{% trans "Password" %}</label>
-                <div class="col-lg-8 col-sm-8">
-                    <p><input name="password1" type="password" class="form-control" placeholder="{% trans 'Really strong password' %}"></p>
-                    <input name="password2" type="password" class="form-control" placeholder="{% trans 'Password confirmation' %}">
-                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
-                    {% for error in form.non_field_errors %}<small>{{error}}</small>{% endfor %}
-                </div>
-            </div>
-            {% endwith %}
+    <div class="main-content">
 
-            <div class="submit textright">
-                <button class="btn btn-success">{% trans "Sign Up" %}</button>
-            </div>
+        <!-- CONTAINER -->
+        <div class="container">
 
-            <div class="row">
-                <hr/>
-                <p class="bottom textcenter">
-                    {% load socialaccount %}
-                    <a href="{% provider_login_url 'facebook' method='oauth2' %}">Facebook Connect</a>
-                </p>
+            <header class="page-header-double">
+                <h2>{% trans "Sign Up" %}</h2>
+            </header>
+
+            <!-- TABLET AND DESKTOP -->
+            <div id="activation-wrapper">
+
+                <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}" class="form-horizontal">{% csrf_token %}
+                    {% with errors=form.username.errors %}
+                    <div class="form-group{{ errors|yesno:' has-error,' }}">
+                        <label class="col-lg-2 col-md-3 col-sm-4">{% trans "Username" %}</label>
+                        <div class="col-lg-4 col-md-5 col-sm-6">
+                            <input name="username" type="text" value="{{form.username.value}}" class="form-control" placeholder="{% trans 'Username' %}">
+                            {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                        </div>
+                    </div>
+                    {% endwith %}
+
+                    {% with errors=form.email.errors %}
+                    <div class="form-group{{ errors|yesno:' has-error,' }}">
+                        <label class="col-lg-2 col-md-3 col-sm-4">{% trans "E-mail" %}</label>
+                        <div class="col-lg-4 col-md-5 col-sm-6">
+                            <input name="email" type="email" value="{{form.email.value}}" class="form-control" placeholder="Your e-mail">
+                            {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                        </div>
+                    </div>
+                    {% endwith %}
+
+                    {% with errors=form.password1.errors %}
+                      <div class="form-group{% if errors or form.non_field_errors %} has-error{% endif %}">
+                        <label class="col-lg-2 col-md-3 col-sm-4">{% trans "Password" %}</label>
+                        <div class="col-lg-4 col-md-5 col-sm-6">
+                            <p><input name="password1" type="password" class="form-control" placeholder="{% trans 'Really strong password' %}"></p>
+                            <input name="password2" type="password" class="form-control" placeholder="{% trans 'Password confirmation' %}">
+                            {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                            {% for error in form.non_field_errors %}<small>{{error}}</small>{% endfor %}
+                        </div>
+                    </div>
+                    {% endwith %}
+
+                    <div class="submit col-lg-6 col-md-8 col-sm-10 textright">
+                        <button class="btn btn-success">{% trans "Sign Up" %}</button>
+                        <hr/>
+                        {% load socialaccount %}
+                        <a href="{% provider_login_url 'facebook' method='oauth2' %}" class="btn btn-primary">Facebook Connect</a>
+                    </div>
+                </form>
+
             </div>
-        </form>
+            <!-- END TABLET AND DESKTOP -->
+
+        </div>
+
     </div>
+
 </div>
-<!-- END TABLET AND DESKTOP -->
-
-
-<!-- MOBILE -->
-<div class="container visible-xs">
-    <div class="row">
-        <div class="col-xs-12 textcenter">
-            <h1>
-                <i class="fa fa-smile-o"></i><br/>
-                {% trans "Sign Up" %}!
-            </h1>
-        </div>
-    </div>
-    <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}" class="form-horizontal">{% csrf_token %}
-        {% with errors=form.username.errors %}
-        <div class="form-group{{ errors|yesno:' has-error,' }}">
-            <label class="col-xs-12 control-label">{% trans "Username" %}</label>
-            <div class="col-xs-12">
-                <input name="username" type="text" value="{{form.username.value}}" class="form-control" placeholder="{% trans 'Username' %}">
-                {% for error in errors %}<small>{{error}}</small>{% endfor %}
-            </div>
-        </div>
-        {% endwith %}
-
-        {% with errors=form.email.errors %}
-        <div class="form-group{{ errors|yesno:' has-error,' }}">
-            <label class="col-xs-12 control-label">{% trans "E-mail" %}</label>
-            <div class="col-xs-12">
-                <input name="email" type="email" value="{{form.email.value}}" class="form-control" placeholder="Your e-mail">
-                {% for error in errors %}<small>{{error}}</small>{% endfor %}
-            </div>
-        </div>
-        {% endwith %}
-
-        {% with errors=form.password1.errors %}
-        <div class="form-group{{ errors|yesno:' has-error,' }}">
-            <label class="col-xs-12 control-label">{% trans "Password" %}</label>
-            <div class="col-xs-12">
-                <p><input name="password1" type="password" class="form-control" placeholder="{% trans 'Really strong password' %}"></p>
-                <input name="password2" type="password" class="form-control" placeholder="{% trans 'Password confirmation' %}">
-                {% for error in errors %}<small>{{error}}</small>{% endfor %}
-            </div>
-        </div>
-        {% endwith %}
-
-        <div class="submit">
-            <button class="btn btn-success btn-lg col-xs-12">{% trans "Sign Up" %}</button>
-        </div>
-
-        <div class="row">
-            <hr/>
-            <p class="bottom textcenter">
-                {% load socialaccount %}
-                <a href="{% provider_login_url 'facebook' method='oauth2' %}">{% trans 'Facebook connect' %}</a>
-            </p>
-        </div>
-
-    </form>
-</div>
-<!-- END MOBILE -->
 {% endblock %}
