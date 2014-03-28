@@ -228,7 +228,7 @@ PIPELINE_JS = {
             'codemirror/mode/clike/clike.js',
             'codemirror/mode/php/php.js',
             # 'js/codemirrorconf.js',
-            'angular-ui-codemirror/ui-codemirror.js',
+            'js/vendor/angular-ui-codemirror/ui-codemirror.js',
         ),
         'output_filename': 'js/codemirrorcomp.js',
     },
