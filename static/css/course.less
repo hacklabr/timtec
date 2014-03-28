@@ -59,6 +59,17 @@
       margin-top: 20px !important;
       .main-content {
         margin-top: 10px !important;
+        .lesson-units {
+          h1 {
+            background: #fff;
+            .box-shadow(0px 5px 15px 0px rgba(0, 0, 0, 0.3));
+            color: rgb(0, 125, 195);
+            display: inline-block;
+            font-family: teuton_26;
+            font-size: 24px;
+            padding: 12px;
+          }
+        }
         .add-content {
           margin-bottom: 10px;
         }
@@ -141,6 +152,155 @@
             table tr, table tr td {
                 border:none;
             }
+        }
+      }
+    }
+    &.course-messages {
+      .container {
+        padding-bottom: 60px;
+        #main-header {
+          margin-bottom: 60px;
+          .lesson-units {
+            h1 {
+              background: #fff;
+              .box-shadow(0px 5px 15px 0px rgba(0, 0, 0, 0.3));
+              color: rgb(0, 125, 195);
+              display: inline-block;
+              font-family: teuton_26;
+              font-size: 24px;
+              padding: 12px;
+            }
+          }
+        }
+        #messages-content {
+          margin-left: -15px;
+          > div {
+            padding-left: 0;
+          }
+          header {
+            margin-bottom: 30px;
+          }
+          .message {
+            margin-bottom: 20px;
+            .date {
+              font-size: 18px;
+            }
+            .subject {
+              font-size: 18px;
+            }
+          }
+        }
+      }
+    }
+    &.course-stats {
+      .container {
+        padding-bottom: 60px;
+        #stats-content {
+          margin-left: -15px;
+          > div {
+            padding-left: 0;
+          }
+          header {
+            margin-bottom: 30px;
+          }
+          .message {
+            margin-bottom: 20px;
+            .date {
+              font-size: 18px;
+            }
+            .subject {
+              font-size: 18px;
+            }
+          }
+        }
+        #main-header {
+          margin-bottom: 60px;
+          .lesson-units {
+            h1 {
+              background: #fff;
+              .box-shadow(0px 5px 15px 0px rgba(0, 0, 0, 0.3));
+              color: rgb(0, 125, 195);
+              display: inline-block;
+              font-family: teuton_26;
+              font-size: 24px;
+              padding: 12px;
+            }
+          }
+        }
+        #students {
+          ul.students {
+            list-style: none;
+            margin: 20px 0 0  0;
+            padding: 0;
+            li {
+              border-bottom: 1px solid @gray-light;
+              margin-bottom: 20px;
+              padding-bottom: 20px;
+              &:first-child {
+                border-top: 1px solid @gray-light;
+                margin-top: 10px;
+                padding-top: 10px;
+              }
+              .progress {
+                background: @gray-lighter;
+                border-radius: 0;
+                height: 12px;
+                margin: 4px 0 0 0;
+                padding: 0;
+                position: relative;
+                .progress-bar {
+                  border-radius: 0;
+                }
+              }
+              .lesson {
+                border-top: 1px solid @gray-lighter;
+                margin-top: 10px;
+                padding-top: 10px;
+                &:first-child {
+                  margin-top: 20px;
+                }
+                span {
+                  color: @gray;
+                  font-size: 12px;
+                  margin-right: 20px;
+                }
+              }
+            }
+          }
+        }
+        #lessons {
+          ul.lessons {
+            list-style: none;
+            margin: 20px 0 0  0;
+            padding: 0;
+            li {
+              background-color: none !important;
+              border-top: 1px solid @gray-lighter;
+              margin-top: 10px;
+              padding-top: 10px;
+              &:first-child {
+                border-top: 0;
+                margin-top: 0;
+                padding-top: 0;
+              }
+              .progress {
+                background: @gray-lighter;
+                border-radius: 0;
+                height: 12px;
+                margin: 4px 0 0 0;
+                padding: 0;
+                position: relative;
+                .progress-bar {
+                  border-radius: 0;
+                }
+              }
+              span {
+                color: @gray;
+                font-size: 12px;
+                margin-right: 20px;
+              }
+            }
+          }
         }
       }
     }
@@ -339,26 +499,71 @@
 
 
   &.course-list {
-    .course-link {
-      border-bottom: 1px solid #428bca;
-      padding-bottom: 15px;
-      margin-bottom: 15px;
+    .illust {
+      background-image: url(../img/timtec/illustrations/courses-list-l.png);
+
+        @media (max-width: 1366px) { 
+            background-image: url(../img/timtec/illustrations/courses-list-m.png);
+        }
+    } // .illust
+
+    .col-left {
+      background: rgba(255,255,255,0.5);
+      padding-top: 80px;
+    } 
+    .col-right {
+      background: rgba(40,112,187,0.5);
+      padding-top: 80px;
+    } 
+    .course-thumb {
+      background-color: #000;
+      height: 230px
+    }
+
+    .course-info {
+      margin-bottom: 30px;
       h3 {
-        margin: 0; 
+        margin-top: 0;
+        a {
+          color: #0d4c8f;
+        }
+      }
+
+      .btn {
+        background-color: #f26522;
+        border-radius: 0;
+        color: #fff;
       }
     }
 
-    // Page Headers
-    .page-header-double {
-      margin-bottom: 30px;
-      h2 {
-        font-family: 'teuton_26';
-        color: #007dc3;
+    .box {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+      color: #fff;
+
+      &.cyan {
+        background-color: #00bfda;
+      }
+      &.orange {
+        background-color: #f26522;
+      }
+      &.dark-blue {
+        background-color: #0d4c8f;
+      }
+      &.blue {
+        background-color: #1e9dd9;
+      }
+
+      h3 {
+        margin: 0 0 15px 0;
+        font-weight: bold;
+        font-size: 26px;
       }
     }
   }
 
-  &.course-lesson, &.course-forum, &.course-material, &.course-notes, &.course-list {
+  &.course-lesson, &.course-forum, &.course-material, &.course-notes, &.course-messages, &.course-stats {
 
     .illust {
       background-image: url(../img/timtec/illustrations/course-lesson-l.png);
@@ -576,9 +781,16 @@
     &.course-forum,
     &.course-material,
     &.course-notes,
-    &.course-list {
+    &.course-messages,
+    &.course-stats {
       .main-content {
         margin-top: -605px;
+      }
+    }
+
+    &.course-list {
+      .main-content {
+        margin-top: -695px;
       }
     }
   }
