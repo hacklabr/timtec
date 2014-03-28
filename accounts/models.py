@@ -49,6 +49,7 @@ class TimtecUser(AbstractBaseUser, PermissionsMixin):
     city = models.CharField(_('City'), max_length=30, blank=True)
     site = models.URLField(_('Site'), blank=True)
     biography = models.TextField(_('Biography'), blank=True)
+    accepted_terms = models.BooleanField(_('Accepted terms and condition'), default=False)
 
     objects = UserManager()
 

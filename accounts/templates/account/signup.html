@@ -7,10 +7,8 @@
     <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
 
     <div class="main-content">
-
         <!-- CONTAINER -->
         <div class="container">
-
             <header class="page-header-double">
                 <h2>{% trans "Sign Up" %}</h2>
             </header>
@@ -47,6 +45,17 @@
                         </div>
                     </div>
                     {% endwith %}
+
+                    {% with errors=form.accept_terms.errors %}
+                    <div class="form-group{{ errors|yesno:' has-error,' }}">
+                        <div class="col-lg-offset-2 col-lg-4 col-md-offset-3 col-md-5 col-sm-offset-4 col-sm-6">
+                            <input name="accept_terms" type="checkbox" {% if form.accept_terms.value %}checked=""{% endif %} class="">
+                            <label>Aceito os <a href="{% url 'django.contrib.flatpages.views.flatpage' url='terms/' %}" target="_blank">termos de uso</a></label>
+                            {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                        </div>
+                    </div>
+                    {% endwith %}
+
                     <div class="row">
                         <div class="submit col-lg-6 col-md-8 col-sm-10 textright">
                             <button class="btn btn-success">{% trans "Sign Up" %}</button>
