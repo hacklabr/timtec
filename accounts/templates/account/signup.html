@@ -46,11 +46,11 @@
                     </div>
                     {% endwith %}
 
-                    {% with errors=form.accept_license.errors %}
+                    {% with errors=form.accept_terms.errors %}
                     <div class="form-group{{ errors|yesno:' has-error,' }}">
-                        <label class="col-lg-4 col-sm-4 control-label">Aceito os <a href="{% url 'django.contrib.flatpages.views.flatpage' url='terms/' %}">termos de uso</a></label>
-                        <div class="col-lg-8 col-sm-8">
-                            <input name="accept_license" type="checkbox" value="{{form.accept_license.value}}" class="form-control">
+                        <div class="col-lg-offset-2 col-lg-4 col-md-offset-3 col-md-5 col-sm-offset-4 col-sm-6">
+                            <input name="accept_terms" type="checkbox" {% if form.accept_terms.value %}checked=""{% endif %} class="">
+                            <label>Aceito os <a href="{% url 'django.contrib.flatpages.views.flatpage' url='terms/' %}" target="_blank">termos de uso</a></label>
                             {% for error in errors %}<small>{{error}}</small>{% endfor %}
                         </div>
                     </div>

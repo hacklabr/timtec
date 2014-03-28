@@ -28,7 +28,8 @@ class ContactForm(forms.Form):
 
 
 class SignupForm(forms.Form):
-    accept_license = forms.BooleanField(label='Aceita os ', initial=True)
+    accept_terms = forms.BooleanField(label='Aceita os ', initial=True, required=True)
 
     def save(self, user):
-        pass
+        user.accepted_terms = True
+        user.save()
