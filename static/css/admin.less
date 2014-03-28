@@ -42,13 +42,10 @@ body#admin {
   .editable {
     cursor: pointer;
     word-break: break-word;
-    &:hover {
-      background-color: lighten(@brand-warning, 40%);
-    }
   }
 
   .markdown-required {
-    background-color: lighten(@brand-danger, 40%);
+    background-color: rgba(255,255,255,0.2);
     position: relative;
     > div.editable {
       min-height: 120px;

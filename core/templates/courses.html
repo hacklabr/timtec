@@ -9,29 +9,47 @@
 
             <div class="main-content">
                 <div class="container">
-                    <header class="page-header-double">
-                        <h2>{% trans 'Courses' %}</h2>
-                    </header>
-
-                    <section>
+                    <div class="col-left col-lg-9 col-md-9 col-sm-12">
                         {% for course in courses %}
                         <!-- COURSE -->
-                            <header class="course-link">
-                                <div class="row">
-                                    <div class="col-lg-8">
-                                        <h3><a href="{% url 'course_intro' course.slug %}">{{ course.name }}</a></h3>
-                                    </div>
-                                    <div class="col-lg-4 textright">
-                                        <div class="btn-group">
-                                            <a href="{% url 'course_intro' course.slug %}" class="btn btn-sm btn-success">{% trans 'Go to course' %}</a>
-                                            <a href="{% url 'course_intro' course.slug %}" class="btn btn-sm btn-success"><i class="fa fa-angle-double-right"></i></a>
-                                        </div>
+                            <div class="course row">
+                                <div class="col-lg-5 col-md-5 col-sm-5 hidden-xs">
+                                    <div class="course-thumb">
+                                        <!-- tag img aqui -->
                                     </div>
                                 </div>
-                            </header>
+                                <div class="col-lg-7 col-md-7 col-sm-7">
+                                    <div class="course-info">
+                                        <h3><a href="{% url 'course_intro' course.slug %}">{{ course.name }}</a></h3>
+                                        <h4>Nome do professor</h4>
+                                        <p>Ossim facerat eseque non pellabo. Hitaque moloribus et aut fugitis doluptatem nobita vendi autat ad mi, nis cus inulpa vendem qui andunt assitiis dic tem enim quiatiis mo occuptatur? Qui cu quist plia adit volorec tiorum am, cupti aut lacearum atum nihit ommolup taquosti iduntec tatibus sequiat ratur atemperesed quia illorrum conectur?atempore volorum raesent.</p>
+                                        <a href="{% url 'course_intro' course.slug %}" class="btn">{% trans 'Go to course' %}</a>
+                                    </div>
+                                </div>
+                            </div>
                         <!-- END COURSE -->
                         {% endfor %}
-                    </section>
+                    </div>
+                    <div class="col-right col-lg-3 col-md-3 hidden-sm">
+
+                        <div class="box cyan col-lg-12 col-md-12">
+                            <h3>Fique em contato</h3>
+                            <p>Ossim facerat eseque non pellabo. Hitaque moloribus et aut fugitis dolupta tem nobita vendi autat ad mi, nis cus inulpa vendem qui andunt assitiis atem peresed quia illorrum conectempore volorum raesent.</p>
+                        </div>
+                        <div class="box orange col-lg-12 col-md-12">
+                            <h3>Participe</h3>
+                            <p>Ossim facerat eseque non pellabo. Hitaque moloribus et aut fugitis dolupta tem nobita vendi autat ad mi, nis cus inulpa vendem qui andunt assitiis atem peresed quia illorrum conectempore volorum raesent.</p>
+                        </div>
+                        <div class="box dark-blue col-lg-12 col-md-12">
+                            <h3>Como funciona?</h3>
+                            <p>Ossim facerat eseque non pellabo. Hitaque moloribus et aut fugitis dolupta tem nobita vendi autat ad mi, nis cus inulpa vendem qui andunt assitiis atem peresed quia illorrum conectempore volorum raesent.</p>
+                        </div>
+                        <div class="box blue col-lg-12 col-md-12">
+                            <h3>Você é professor?</h3>
+                            <p>Ossim facerat eseque non pellabo. Hitaque moloribus et aut fugitis dolupta tem nobita vendi autat ad mi, nis cus inulpa vendem qui andunt assitiis atem peresed quia illorrum conectempore volorum raesent.</p>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>

@@ -3,17 +3,6 @@
       <div class="row">
         <div class="col-lg-7 col-lg-offset-1 col-md-7 col-md-offset-1 col-sm-7">
           <nav class="lesson-units hidden-xs">
-              <!--div class="btn-group">
-                  <button type="button" class="lesson-name dropdown-toggle" data-toggle="dropdown" ng-bind="lesson.name"></button>
-                  <button type="button" class="lesson-drop dropdown-toggle" data-toggle="dropdown">
-                      <i class="fa fa-chevron-down"></i>
-                  </button>
-                  <ul class="dropdown-menu">
-                     <li ng-repeat="l in lessons">
-                        <a href="" ng-bind="l.name" ng-click="setLesson(l)"></a>
-                    </li>
-                  </ul>
-              </div -->
               <h1><span ng-class="{'blink-text-danger':errors.name}" ng-model="lesson.name"
                               placeholder="{% trans 'Lesson name' %}" contenteditable="true"></span></h1>
           </nav>
@@ -23,9 +12,9 @@
           <!-- COURSE-SECTION-NAV -->
           <nav class="course-sections">
               <a ng-href="{% verbatim %}/{{course_url}}{% endverbatim %}"><span class="has-tooltip intro" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Intro' %}"></span></a>
-              <a ng-href="{% verbatim %}/{{forum_url}}{% endverbatim %}"><span class="has-tooltip lessons" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Lessons' %}"></span></a>
-              <a ng-href="{% verbatim %}/{{course_material_url}}{% endverbatim %}"><span class="has-tooltip forum" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Forum' %}"></span></a>
-              <a ng-href="{% verbatim %}/{{messages_url}}{% endverbatim %}"><span class="has-tooltip material" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Course material' %}"></span></a>
+              <a ng-href="{% verbatim %}/{{forum_url}}{% endverbatim %}"><span class="has-tooltip forum" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Forum' %}"></span></a>
+              <a ng-href="{% verbatim %}/{{course_material_url}}{% endverbatim %}"><span class="has-tooltip material" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Course material' %}"></span></a>
+              <a ng-href="{% verbatim %}/{{messages_url}}{% endverbatim %}"><span class="has-tooltip my-notes" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'My notes' %}"></span></a>
               <a ng-href="{% verbatim %}/{{reports_url}}{% endverbatim %}"><span class="has-tooltip my-notes" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'My notes' %}"></span></a>
           </nav>
           <!-- END COURSE-SECTION-NAV -->
