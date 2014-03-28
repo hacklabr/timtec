@@ -25,3 +25,10 @@ class ContactForm(forms.Form):
         sender = settings.DEFAULT_FROM_EMAIL
 
         send_mail(subject, message, sender, recipient_list, fail_silently=False)
+
+
+class SignupForm(forms.Form):
+    accept_license = forms.BooleanField(label='Aceita os ', initial=True)
+
+    def save(self, user):
+        pass

@@ -42,6 +42,16 @@
             </div>
             {% endwith %}
 
+            {% with errors=form.accept_license.errors %}
+            <div class="form-group{{ errors|yesno:' has-error,' }}">
+                <label class="col-lg-4 col-sm-4 control-label">Aceito os <a href="{% url 'django.contrib.flatpages.views.flatpage' url='terms/' %}">termos de uso</a></label>
+                <div class="col-lg-8 col-sm-8">
+                    <input name="accept_license" type="checkbox" value="{{form.accept_license.value}}" class="form-control">
+                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                </div>
+            </div>
+            {% endwith %}
+
             <div class="submit textright">
                 <button class="btn btn-success">{% trans "Sign Up" %}</button>
             </div>
