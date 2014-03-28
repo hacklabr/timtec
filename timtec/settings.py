@@ -184,6 +184,7 @@ PIPELINE_JS = {
             'js/helpers.js',
             'js/angular-youtube.js',
             'js/truncate.js',
+            'js/layout.js',
         ),
         'output_filename': 'js/all.js',
     },
