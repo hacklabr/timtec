@@ -170,7 +170,7 @@ body {
     min-height: 100%;
     height: auto !important;
     height: 100%;
-    margin: 0 auto -80px;
+    margin: 0 auto -55px;
 }
 
 // MAIN HEADER
@@ -319,6 +319,7 @@ body {
             &.open {
 
                 .dropdown-menu.user-menu {
+                    position: absolute;
                     left: inherit;
                     right: 0;
                     width: 100%;
@@ -351,6 +352,7 @@ body {
                 }
 
                 .dropdown-menu.login-menu {
+                    position: absolute;
                     left: inherit;
                     right: 0;
                     width: 400px;
@@ -445,6 +447,16 @@ body {
 .main-content {
     position: relative;
     z-index: 8;
+
+    .checkbox-wrapper {
+        display: block;
+        float: left;
+        margin-right: 5px;
+    }
+}
+
+#push {
+    height: 55px;
 }
 
 // MAIN FOOTER
@@ -510,6 +522,7 @@ body {
 // ********************************************************************* //
 
 @media (max-width: 360px) { 
+
     .main-nav {
         ul {
             li {
@@ -552,6 +565,11 @@ body {
 }
 
 @media (min-width: @screen-sm-min) { 
+
+    .wrapper {
+        margin: 0 auto -80px;
+    }
+
     .main-header {
         height: 80px;
 
