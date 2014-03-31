@@ -14,7 +14,7 @@ def create_user(username):
         user = User.objects.get(username=username)
     except User.DoesNotExist:
         user = User.objects.create_user(username, email, password)
-
+        user.accepted_terms = True
         if username == 'admintest':
             user.is_staff = True
             user.is_superuser = True
