@@ -1,9 +1,4 @@
 #admin {
-  .actions {
-    position: relative;
-    z-index: 100;
-  }
-  
   .add-content {
     margin-bottom: 10px;
   }
@@ -32,26 +27,33 @@
   
   #course {
     &.course-intro {
-      margin-top: 20px !important;
       .main-content {
-        margin-top: 10px !important;
-        .left-col, .right-col {
-          margin-top: -110px;
-          padding-top: 130px;
-        }
-        .course-info {
-          margin-top: 20px;
-        }
         .instructor {
           margin-bottom: 10px;
         }
+
+        .course-info {
+          margin: 15px 0; 
+        }
+
+        .actions {
+          margin-top: 75px;
+        }
+
+        .organizing-lessons .submit {
+          margin-bottom: 15px;
+        }
+
+        .left-col .course-main header {
+          margin-top: 20px !important;
+        }
+
         .lessons {
-          margin-left: -15px;
-          margin-right: -15px;
-          padding: 10px 15px;
-          .lesson {
-            background-color: transparent;
-          }
+          padding-bottom: 20px;
+        }
+
+        .right-col .summary {
+          margin-top: 135px;
         }
       }
     }
@@ -327,6 +329,7 @@
 
       .left-col {
           background: rgba(255,255,255,0.5); 
+          padding-bottom: 20px;
 
           .course-main {
               header {
@@ -350,12 +353,12 @@
 
           .lessons {
             background: rgba(255,255,255,0.5);
-            margin-top: 20px;
+            //margin-top: 20px;
             .lesson {
               margin-bottom: 40px;
               margin-top: 20px;
               .title {
-                  display:block;
+                  //display:block;
                   font-size: 16px;
                   font-weight:regular;
               }
@@ -394,6 +397,7 @@
         .right-col {    
           background: rgba(40,112,187,0.5); 
           color: #fff;
+          padding-bottom: 20px;
 
           .buttons {
             margin-top: 20px;
