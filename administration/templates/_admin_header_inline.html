@@ -2,11 +2,14 @@
   <header id="main-header">
       <div class="row">
         <div class="col-lg-7 col-lg-offset-1 col-md-7 col-md-offset-1 col-sm-7">
-          <nav class="lesson-units hidden-xs">
-              <h1><span ng-class="{'blink-text-danger':errors.name}" ng-model="lesson.name"
-                              placeholder="{% trans 'Lesson name' %}" contenteditable="true"></span></h1>
-          </nav>
-        </div>
+            <nav class="lesson-units hidden-xs">
+                <h1 class="course-name">
+                    {% verbatim %}
+                    <a href="/admin/courses/{{course.id}}" ng-bind="course.name"></a>
+                    {% endverbatim %}
+                </h1>
+            </nav>
+          </div>
 
         <div class="col-lg-4 col-md-4 col-sm-5">
           <!-- COURSE-SECTION-NAV -->
@@ -18,19 +21,6 @@
               <a ng-href="{% verbatim %}/{{reports_url}}{% endverbatim %}"><span class="has-tooltip my-notes" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Reports' %}"></span></a>
           </nav>
           <!-- END COURSE-SECTION-NAV -->
-        </div>
-      </div>
-
-      <div class="course-info row">
-        <div class="course-lessons hidden-xs col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1">
-            <modalmarkdowneditor on-save="saveLesson(lesson)" title="{% trans 'Lesson description' %}" content="lesson.desc"></modalmarkdowneditor>
-        </div>
-        <div class="col-lg-3 col-md-3">
-          <h1 class="course-name">
-              {% verbatim %}
-              <a href="/admin/courses/{{course.id}}" ng-bind="course.name"></a>
-              {% endverbatim %}
-          </h1>
         </div>
       </div>
   </header>

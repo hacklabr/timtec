@@ -23,31 +23,7 @@
     <div class="main-content">
         <div class="container">
             <div ng-controller="HeaderController">
-                <header id="main-header">
-                    <div class="row">
-                      <div class="col-lg-7 col-lg-offset-1 col-md-7 col-md-offset-1 col-sm-7">
-                        <nav class="lesson-units hidden-xs">
-                            <h1 class="course-name">
-                                {% verbatim %}
-                                <a href="/admin/courses/{{course.id}}" ng-bind="course.name"></a>
-                                {% endverbatim %}
-                            </h1>
-                        </nav>
-                      </div>
-
-                      <div class="col-lg-4 col-md-4 col-sm-5">
-                        <!-- COURSE-SECTION-NAV -->
-                        <nav class="course-sections">
-                            <a ng-href="{% verbatim %}/{{course_url}}{% endverbatim %}"><span class="has-tooltip intro" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Intro' %}"></span></a>
-                            <a ng-href="{% verbatim %}/{{forum_url}}{% endverbatim %}"><span class="has-tooltip forum" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Forum' %}"></span></a>
-                            <a ng-href="{% verbatim %}/{{course_material_url}}{% endverbatim %}"><span class="has-tooltip material" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Course material' %}"></span></a>
-                            <a ng-href="{% verbatim %}/{{messages_url}}{% endverbatim %}"><span class="has-tooltip my-notes" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Messages' %}"></span></a>
-                            <a ng-href="{% verbatim %}/{{reports_url}}{% endverbatim %}"><span class="has-tooltip my-notes" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Reports' %}"></span></a>
-                        </nav>
-                        <!-- END COURSE-SECTION-NAV -->
-                      </div>
-                    </div>
-                </header>
+                {% include "_admin_header_inline.html"  with course=course %}
             </div>
             <section id="messages-content" class="container" ng-controller="MessagesListController">
                 <div class="col-lg-11 col-lg-offset-1 col-md-11 col-md-offset-1">
