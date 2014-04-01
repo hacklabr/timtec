@@ -20,7 +20,7 @@
                     position: relative;
                     background: #000;
                     height: 200px;
-                    border: 5px solid #0c4580;
+                    border: 4px solid #fff;
                     .border-radius(3px);
                     .box-shadow(0px 10px 30px 0px rgba(0, 0, 0, 0.3));
 
@@ -35,6 +35,7 @@
 
                     h3 {
                         font-weight: bold;
+                        font-size: 20px;
 
                         a {
                             color: #000;
@@ -111,15 +112,49 @@
                 }
             }
 
+
+            .prev, .next {
+                margin-top: 75px;
+                width: 51px;
+                height: 121px;
+                background-image: url(../img/timtec/arrows.png);
+                cursor: pointer;
+            }
+
+            .prev {
+                float: left;
+                background-position: top left;
+            }
+
+            .next {
+                float: right;
+                background-position: top right;
+            }
+
+            .slider {
+                height: 200px;
+                margin: 0 65px;
+                overflow: hidden;
+
+                .wrapper {
+                    overflow: hidden;
+                    width: 3000px;
+                }
+            }
+
             .video {
+                float: left;
+                width: 335px;
+                margin-right: 15px;
 
                 .thumb {
                     position: relative;
                     float: left;
-                    height: 121px;
+                    width: 170px;
+                    height: 120px;
                     margin-right: 10px; 
                     background: #000;
-                    border: 5px solid #fff;
+                    border: 4px solid #fff;
                     .border-radius(3px);
                     .box-shadow(0px 10px 30px 0px rgba(0, 0, 0, 0.3));
 
@@ -143,6 +178,7 @@
                 h4 {
                     margin: 0;
                     color: #fff;
+                    font-size: 16px;
                 }
             } // .video
         } // .next-videos

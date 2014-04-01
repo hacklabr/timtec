@@ -315,6 +315,7 @@ body {
             margin-right: 25px;
 
             a {
+                width: 120px;
                 background-color: #b7e5f7;
                 color: #0d4c8f;
                 text-align: center;
@@ -323,10 +324,19 @@ body {
                 transition: all 0.3s;
                 font-family: 'teuton_24', 'sans-serif';
                 font-size: 16px;
+                white-space: nowrap;
 
                 &:hover {
                     background-color: #fff;
                     text-decoration: none;
+                }
+
+                .tim {
+                    font-family: 'teuton_26', 'sans-serif';
+                }
+
+                .tec {
+                    text-transform: initial;
                 }
             }
 
@@ -336,7 +346,7 @@ body {
                     position: absolute;
                     left: inherit;
                     right: 0;
-                    width: 100%;
+                    width: 200px;
                     background-color: rgba(0, 116, 190, 0.7);
                     border-radius: 0;
 
@@ -350,7 +360,8 @@ body {
                             border-bottom: 0;
                         }
 
-                        a {
+                        a { 
+                            width: 100%;
                             padding: 6px 13px;
                             background: transparent;
                             .box-shadow(none);

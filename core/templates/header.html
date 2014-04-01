@@ -28,7 +28,7 @@
         <div class="container">
             <ul class="nav">
                 <li><a href="{% url 'django.contrib.flatpages.views.flatpage' url='institute/' %}">Instituto TIM</a></li>
-                <li><a href="{% url 'django.contrib.flatpages.views.flatpage' url='about/' %}">Sobre TIMTec</a></li>
+                <li><a href="{% url 'django.contrib.flatpages.views.flatpage' url='about/' %}">Sobre <span class="tim">TIM</span><span class="tec">Tec</span></a></li>
                 <li><a href="{%  url 'courses' %}">Cursos</a></li>
                 <li>
                 {% if user.is_authenticated %}
