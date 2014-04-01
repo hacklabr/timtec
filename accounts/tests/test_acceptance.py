@@ -27,7 +27,7 @@ def test_custom_login_view_email_verification(client, user):
     assert response.context['request'].user.is_authenticated() is False
 
     response = client.post('/accounts/signup/', {'username': "test", 'email': "test@example.com",
-                                                 'password1': 123123, 'password2': 123123})
+                                                 'password1': 123123, 'password2': 123123, "accept_terms": True})
 
     assert response.status_code == 302
 

@@ -137,10 +137,11 @@ class EnrollCourseView(LoginRequiredMixin, RedirectView):
         else:
             return reverse('accept_terms')
 
+
 class AcceptTermsView(FormView):
     template_name = 'accept-terms.html'
     form_class = AcceptTermsForm
-    success_url = reverse_lazy('courses');
+    success_url = reverse_lazy('courses')
 
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.

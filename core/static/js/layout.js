@@ -2,9 +2,9 @@
     'use strict';
 
     function fullHeight(element) {
-        var fullHeight = $('.wrapper').height();
+        var height = $('.wrapper').height();
         if ($('.wrapper').width() > 992) {
-            $(element).height(fullHeight);
+            $(element).height(height);
         }
     }
 
