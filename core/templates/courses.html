@@ -22,8 +22,8 @@
                                     <div class="col-lg-7 col-md-7 col-sm-7">
                                         <div class="course-info">
                                             <h3><a href="{% url 'course_intro' course.slug %}">{{ course.name }}</a></h3>
-                                            <h4>Nome do professor</h4>
-                                            <p>Ossim facerat eseque non pellabo. Hitaque moloribus et aut fugitis doluptatem nobita vendi autat ad mi, nis cus inulpa vendem qui andunt assitiis dic tem enim quiatiis mo occuptatur? Qui cu quist plia adit volorec tiorum am, cupti aut lacearum atum nihit ommolup taquosti iduntec tatibus sequiat ratur atemperesed quia illorrum conectur?atempore volorum raesent.</p>
+                                            <h4>{% for professor in course.professors.all %}{{ professor.get_full_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</h4>
+                                            <p>{{ course.abstract|truncatewords:35 }}</p>
                                             <a href="{% url 'course_intro' course.slug %}" class="btn">{% trans 'Go to course' %}</a>
                                         </div>
                                     </div>

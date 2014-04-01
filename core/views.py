@@ -72,7 +72,7 @@ class CoursesView(ListView):
     template_name = "courses.html"
 
     def get_queryset(self):
-        return Course.objects.all()
+        return Course.objects.all().prefetch_related('professors')
 
 
 class ContactView(View):
