@@ -25,27 +25,30 @@ ng-app="edit-lesson"
 <!-- COURSE-CONTENT -->
 <div id="course" class="course-lesson" ng-controller="EditLessonController">
 
-    <!-- ACTIONS -->
-    <div class="actions">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <button class="btn btn-danger" ng-click="deleteLesson()"><i class="fa fa-trash-o"></i> | {% trans 'Delete this lesson' %}</button>
-                </div>
-                <div class="col-lg-4 textright">
-                    <button class="btn btn-success" ng-click="saveLesson()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
-                    <button class="btn btn-warning" ng-click="publishLesson();">{% trans 'Publish lesson' %} | <i class="fa fa-star-o"></i></button>
+    <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
+
+    <div class="main-content">
+
+        <!-- ACTIONS -->
+        <div class="actions">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-4">
+                        <button class="btn btn-danger" ng-click="deleteLesson()"><i class="fa fa-trash-o"></i> | {% trans 'Delete this lesson' %}</button>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-8 textright">
+                        <button class="btn btn-success" ng-click="saveLesson()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
+                        <button class="btn btn-warning" ng-click="publishLesson();">{% trans 'Publish lesson' %} | <i class="fa fa-star-o"></i></button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- END ACTIONS -->
+        <!-- END ACTIONS -->
 
-    <div class="main-content">
         <div class="container">
             {% include "_admin_header_inline.html" %}
             <div class="row">
-                <div class="col-lg-1">
+                <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs">
                     <div class="units admin-units">
                         {% verbatim %}
                         <a href="" class="unit" ng-repeat="u in lesson.units"
@@ -60,7 +63,7 @@ ng-app="edit-lesson"
                     </div>
                 </div>
 
-                <div class="col-lg-8">
+                <div class="col-lg-8 col-md-11 col-sm-11">
                     <div class="add-content row" ng-init="section='video'">
                         <div class="col-lg-6">
                             <button class="btn btn-default uppercase"
