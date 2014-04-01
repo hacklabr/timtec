@@ -2,9 +2,9 @@
 import json
 import time
 
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponse
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, FormView
 from django.views.generic.base import RedirectView, View, TemplateView
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404
@@ -24,7 +24,7 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
 
 from .models import Course, CourseProfessor, Lesson, StudentProgress, Unit, ProfessorMessage, CourseStudent
 
-from forms import ContactForm
+from .forms import ContactForm, AcceptTermsForm
 
 from twitter import Twitter, OAuth
 
@@ -131,8 +131,23 @@ class EnrollCourseView(LoginRequiredMixin, RedirectView):
 
     def get_redirect_url(self, **kwargs):
         course = self.get_object()
-        course.enroll_student(self.request.user)
-        return reverse('lesson', args=[course.slug, course.first_lesson().slug])
+        if self.request.user.accepted_terms:
+            course.enroll_student(self.request.user)
+            return reverse('lesson', args=[course.slug, course.first_lesson().slug])
+        else:
+            return reverse('accept_terms')
+
+class AcceptTermsView(FormView):
+    template_name = 'accept-terms.html'
+    form_class = AcceptTermsForm
+    success_url = reverse_lazy('courses');
+
+    def form_valid(self, form):
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+        self.request.user.accepted_terms = True
+        self.request.user.save()
+        return super(AcceptTermsView, self).form_valid(form)
 
 
 class CourseProfessorViewSet(viewsets.ModelViewSet):
