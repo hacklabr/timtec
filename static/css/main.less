@@ -282,7 +282,16 @@ body {
             }
 
             &.contato {
-                font-size: 35px;
+                background: url(../img/timtec/icon-contact.png) no-repeat 0px 4px;
+                a {
+                    span {
+                        display: block;
+                        margin: 0 0 0 -5px; 
+                        padding: 44px 0 0 0;
+                        font-size: 9px;
+                        text-transform: uppercase;
+                    }
+                }
             }
             &.facebook {
                 .s-buttons(#3b65c0,#4c76d1);
@@ -329,6 +338,11 @@ body {
                 &:hover {
                     background-color: #fff;
                     text-decoration: none;
+                }
+
+                &.active {
+                    background-color: #0f5caa;
+                    color: #fff;
                 }
 
                 .tim {
