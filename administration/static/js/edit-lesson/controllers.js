@@ -209,6 +209,8 @@
                         $scope.course_url = 'admin/courses/' + course.id;
                         $scope.course_material_url = 'admin/course/' + course.id  + '/material/';
                         $scope.forum_url = 'admin/course/' + course.id +  '/forum/';
+                        $scope.messages_url = 'admin/course/' + course.id   + '/messages/';
+                        $scope.reports_url = 'admin/course/' + course.id   + '/stats/';
                         return $scope.courseProfessors.$promise;
                     });
 
