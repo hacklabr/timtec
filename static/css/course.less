@@ -336,7 +336,14 @@
 
       .left-col {
           background: rgba(255,255,255,0.5); 
-          padding-bottom: 20px;
+          padding-bottom: 0px;
+          
+          @media (min-width: @screen-lg-min) { 
+            padding-bottom: 100px;
+          }
+          @media (min-width: @screen-md-min) { 
+            padding-bottom: 50px;
+          }
 
           .course-main {
               header {
@@ -360,7 +367,6 @@
 
           .lessons {
             background: rgba(255,255,255,0.5);
-            //margin-top: 20px;
             .lesson {
               margin-bottom: 40px;
               margin-top: 20px;
@@ -401,56 +407,62 @@
           // END LESSONS
         }
 
-        .right-col {    
-          background: rgba(40,112,187,0.5); 
-          color: #fff;
-          padding-bottom: 20px;
+      .right-col {    
+        background: rgba(40,112,187,0.5); 
+        color: #fff;
+        padding-bottom: 0px;
+        @media (min-width: @screen-lg-min) { 
+          padding-bottom: 100px;
+        }
+        @media (min-width: @screen-md-min) { 
+          padding-bottom: 50px;
+        }
 
-          .buttons {
-            margin-top: 20px;
+        .buttons {
+          margin-top: 20px;
+          margin-bottom: 20px;
+          overflow: hidden;
+
+          .js-login-required, .share-facebook {
+            display: block;
+            text-align: center;
+          }
+
+          .js-login-required {
             margin-bottom: 20px;
-            overflow: hidden;
+            padding: 8px 0;
+            background-color: #f26522;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #fff;
 
-            .js-login-required, .share-facebook {
-              display: block;
+            &.has-tooltip {
               text-align: center;
-            }
-
-            .js-login-required {
-              margin-bottom: 20px;
-              padding: 8px 0;
-              background-color: #f26522;
-              font-weight: bold;
-              text-transform: uppercase;
-              color: #fff;
-
-              &.has-tooltip {
-                text-align: center;
-                background-color: #aeaeae;
-              }
-            }
-
-            .share-facebook {
-              height: 37px;
-              background: url(../img/timtec/bt-facebook.png) no-repeat;
-              text-indent: -9999px;
-            }
-
-            .terms {
-              padding: 0;
-              margin-top: 10px;
-
-              a {
-                color: #fff;
-                text-decoration: underline;
-              }
+              background-color: #aeaeae;
             }
           }
 
-          .instructor {
-            margin-top: 20px;
+          .share-facebook {
+            height: 37px;
+            background: url(../img/timtec/bt-facebook.png) no-repeat;
+            text-indent: -9999px;
+          }
+
+          .terms {
+            padding: 0;
+            margin-top: 10px;
+
+            a {
+              color: #fff;
+              text-decoration: underline;
+            }
           }
         }
+
+        .instructor {
+          margin-top: 20px;
+        }
+      }
     }
   }
 
