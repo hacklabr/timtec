@@ -69,7 +69,8 @@
                         <section class="lessons col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <!-- PAGE-HEADER-DOUBLE -->
                             <div class="page-header-double">
-                                <h3>{% trans "Lessons" %}</h3>
+                                <h3>{% trans "Estrutura do Curso" %}</h3>
+                                <p>Ossim facerat eseque non pellabo. Hitaque moloribus et aut fugitis doluptatem nobita vendi autat ad mi, nis cus inulpa vendem qui andunt assitiis dic tem enim quiatiis mo occuptatur? Qui culpa vent aut autatet mincta si blatur maximusae renis quaecti optur resciliqui quist plia adit volorec tiorum am, cupti aut lacearum atum nihit ommolup taquosti iduntec tatibus sequiat ratur atemperesed quia illorrum conectur? Quis dolo cus aut adiamus estiuntist, et inum que eum faceptur re labo. Nequibe atempore volorum raesent.</p>
                             </div>
                             <!-- END PAGE-HEADER-DOUBLE -->
 
@@ -150,32 +151,39 @@
                 </div>
                 <div class="right-col col-lg-5 col-md-5 col-sm-12 col-xs-12 js-fullheight">
                     
-                    <div class="buttons">
+                    <div class="buttons row">
                         {% if course.first_lesson.slug %}
                             {% if user_is_enrolled %}
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 {% if course.has_started %}
-                                    <a href="{% url "lesson" course.slug course.first_lesson.slug %}" class="js-login-required col-lg-6 col-md-6 col-sm-6 col-xs-12 uppercase">{% trans "Resume" %}</a>
+                                    <a href="{% url "lesson" course.slug course.first_lesson.slug %}" class="js-login-required">{% trans "Resume" %}</a>
                                 {% else %}
                                     <span href="#" class="has-tooltip js-login-required col-lg-6 col-md-6 col-sm-6 col-xs-12 uppercase" data-toggle="tooltip" data-placement="bottom" data-original-title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }} e você já está inscrito{% endblocktrans %}" title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }} e você já está inscrito{% endblocktrans %}">{% trans "Resume" %}</span>
                                 {% endif %}
-
-                                <a href="#" class="share-facebook col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1 col-sm-5 col-sm-offset-1 col-xs-12">Compartilhar</a>
+                                </div>
+                                <div class=" col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1 col-sm-5 col-sm-offset-1 col-xs-12 textright">
+                                    <a href="#" class="share-facebook">Compartilhar</a>
+                                </div>
 
                             {% else %}
-                                <a
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <a
                                     {% if user.is_authenticated %}
                                         onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 1);"
                                     {% else %}
                                         onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 0);"
                                     {% endif %}
                                     href="{% url "enroll_course" course.slug %}" class="js-login-required btn btn-lg btn-info col-lg-6 col-md-6 col-sm-6 col-xs-12 uppercase">{% trans "Take the Class" %}</a>
+                                </div>
 
-                                    <a href="#" class="share-facebook col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1 col-sm-5 col-sm-offset-1 col-xs-12">Compartilhar</a>
+                                <div class=" col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1 col-sm-5 col-sm-offset-1 col-xs-12 textright">
+                                    <a href="#" class="share-facebook">Compartilhar</a>
+                                </div>
 
-                                    <label class="terms col-lg-12">
-                                        <span class="checkbox-wrapper"><input id="accepted_terms" name="accepted_terms" type="checkbox"></span>
-                                        Aceito os <a href="{% url 'django.contrib.flatpages.views.flatpage' url='terms/' %}" target="_blank">termos de uso</a>
-                                    </label>
+                                <label class="terms col-lg-12">
+                                    <span class="checkbox-wrapper"><input id="accepted_terms" name="accepted_terms" type="checkbox"></span>
+                                    Aceito os <a href="{% url 'django.contrib.flatpages.views.flatpage' url='terms/' %}" target="_blank">termos de uso</a>
+                                </label>
 
                             {% endif %}
                         {% endif %}

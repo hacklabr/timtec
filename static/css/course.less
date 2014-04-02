@@ -341,8 +341,26 @@
           @media (min-width: @screen-lg-min) { 
             padding-bottom: 100px;
           }
-          @media (min-width: @screen-md-min) { 
+          @media (min-width: @screen-md-min) and (max-width: @screen-lg-min) { 
             padding-bottom: 50px;
+          }
+
+          .application {
+            h3 {
+              font-weight: bold;
+            }
+          }
+
+          .requirement {
+            h3 {
+              font-weight: bold;
+            }
+          }
+
+          .lessons {
+            h3 {
+              font-weight: bold;
+            }
           }
 
           .course-main {
@@ -414,7 +432,7 @@
         @media (min-width: @screen-lg-min) { 
           padding-bottom: 100px;
         }
-        @media (min-width: @screen-md-min) { 
+        @media (min-width: @screen-md-min) and (max-width: @screen-lg-min) { 
           padding-bottom: 50px;
         }
 
@@ -443,6 +461,8 @@
           }
 
           .share-facebook {
+            width: 150px;
+            float: right;
             height: 37px;
             background: url(../img/timtec/bt-facebook.png) no-repeat;
             text-indent: -9999px;
@@ -459,9 +479,24 @@
           }
         }
 
+        .summary {
+          h3 {
+            font-weight: bold;
+          }
+        }
+
         .instructor {
           margin-top: 20px;
+
+          h3 {
+          font-weight: bold;
+          }
+
+          a {
+            color: #fff;
+          }
         }
+
       }
     }
   }
