@@ -626,7 +626,7 @@
         margin: 2px 0 0;
         font-weight: bold;
         a {
-          color: #0d4c8f;
+          color: #007dc3;
         }
       }
       h4 {
@@ -698,7 +698,7 @@
         background: rgba(255,255,255,0.6);
       } 
 
-      #course-content, #forumxxx, #forum-content {
+      #course-content, #forumxxx, #forum-content, #notes-content {
         h1 {
           margin: 0;
           font-family: 'teuton_26';
@@ -709,6 +709,33 @@
       #forum-content {
         .forum-form {
           margin: 20px 0;
+        }
+      }
+
+      #notes-content {
+        .notes {
+          margin-top: 20px;
+          .lesson {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            h2 {
+              font-size: 20px;
+              span {
+                color: #007dc3;
+                font-size: 13px;
+                margin-right: 34px;
+                text-transform: uppercase;
+              }
+            }
+            .note {
+              border-bottom: 1px solid @gray-lighter;
+              margin-bottom: 20px;
+              margin-left: 76px;
+            }
+            .actions {
+              margin-top: 20px;
+            }
+          }
         }
       }
 
@@ -815,6 +842,21 @@
           }
         }
       }
+    }
+  }
+
+  .courses {
+    .course {
+      border-bottom:1px solid @gray-lighter;
+      padding:9px 0;
+      small {
+        color: @gray-light;
+        display: block;
+        font-size: 12px;
+      }
+    }
+    .btn {
+      text-transform:uppercase;
     }
   }
 
