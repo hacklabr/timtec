@@ -49,7 +49,7 @@ class TwitterApi(View):
         t = Twitter(auth=OAuth(access_token, access_token_secret, consumer_key, consumer_secret))
         # To see all field returned, see https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
         response = []
-        for twit in t.statuses.user_timeline(screen_name=twitter_name, count=6):
+        for twit in t.statuses.user_timeline(screen_name=twitter_name, count=5):
             clean_twit = {}
             # time string example: Wed Aug 29 17:12:58 +0000 2012
             timestamp = time.strptime(twit['created_at'], "%a %b %d %H:%M:%S +0000 %Y")
