@@ -24,7 +24,7 @@
                                             <h3><a href="{% url 'course_intro' course.slug %}">{{ course.name }}</a></h3>
                                             <h4>{% for professor in course.professors.all %}{{ professor.get_full_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</h4>
                                             <p>{{ course.abstract|truncatewords:35 }}</p>
-                                            <a href="{% url 'course_intro' course.slug %}" class="btn">{% trans 'Go to course' %}</a>
+                                            <a href="{% url 'course_intro' course.slug %}" class="btn btn-success">{% trans 'Go to course' %}</a>
                                         </div>
                                     </div>
                                 </div>

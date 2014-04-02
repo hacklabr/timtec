@@ -532,28 +532,35 @@
       background: rgba(255,255,255,0.5);
       padding-top: 80px;
     } 
+
     .col-right {
       background: rgba(40,112,187,0.5);
       padding-top: 80px;
     } 
+
+    .course {
+      margin-bottom: 40px;
+    }
+
     .course-thumb {
       background-color: #000;
-      height: 230px
+      height: 200px;
+      border: 4px solid #fff;
+      .border-radius(3px);
+      .box-shadow(0px 10px 30px 0px rgba(0, 0, 0, 0.3));
+      img {
+        width: 100%;
+        height: auto;
+      }
     }
 
     .course-info {
-      margin-bottom: 30px;
       h3 {
-        margin-top: 0;
+        margin: 2px 0;
+        font-weight: bold;
         a {
           color: #0d4c8f;
         }
-      }
-
-      .btn {
-        background-color: #f26522;
-        border-radius: 0;
-        color: #fff;
       }
     }
 
@@ -565,19 +572,38 @@
 
       &.cyan {
         background-color: #00bfda;
+        color: #000;
+        h3 {
+          font-size: 27px;
+          color: #1254a5;
+          a {
+            color: #1254a5;
+          }
+        }
       }
       &.orange {
         background-color: #f26522;
+        h3 {
+          font-size: 55px;
+        }
       }
       &.dark-blue {
         background-color: #0d4c8f;
+        h3 {
+          font-weight: normal;
+          font-size: 31px;
+        }
       }
       &.blue {
         background-color: #1e9dd9;
+        h3 {
+          font-weight: normal;
+          font-size: 28px;
+        }
       }
 
       h3 {
-        margin: 0 0 15px 0;
+        margin: 0 0 10px 0;
         font-weight: bold;
         font-size: 26px;
       }
