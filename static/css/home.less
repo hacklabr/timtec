@@ -13,6 +13,35 @@
         .videos {
             margin-top: 75px;
 
+            @media (max-width: 600px) { 
+                .video-wrapper.col-xs-6 {
+                    width: 60%;
+                    margin: 0 20%;
+                    clear: both;
+                }
+            }
+
+            @media (max-width: 500px) { 
+                .video-wrapper.col-xs-6 {
+                    width: 70%;
+                    margin: 0 15%;
+                }
+            }
+
+            @media (max-width: 450px) { 
+                .video-wrapper.col-xs-6 {
+                    width: 80%;
+                    margin: 0 10%;
+                }
+            }
+
+            @media (max-width: 400px) { 
+                .video-wrapper.col-xs-6 {
+                    width: 100%;
+                    margin: 0;
+                }
+            }
+
             .video {
                 margin-bottom: 35px;
 

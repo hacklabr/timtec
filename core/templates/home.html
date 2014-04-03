@@ -24,7 +24,7 @@
                             <div class="row">
                                 <section class="videos col-lg-12 col-md-12 col-sm-12 col-xs-12" role="main">
                                     <div class="row" ng-repeat="courses_row in courses_rows">
-                                        <div ng-repeat="course in courses_row" class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <div ng-repeat="course in courses_row" class="video-wrapper col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                             {% verbatim %}
                                             <article class="video">
                                                 <a ng-href="/course/{{ course.slug }}">
