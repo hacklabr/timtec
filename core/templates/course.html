@@ -12,10 +12,10 @@
     <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
 
     <div class="main-content">
-        <div class="container">         
+        <div class="container">
             <div class="row">
                 <div class="left-col col-lg-7 col-md-7 col-sm-12 col-xs-12 js-fullheight">
-                    
+
                     <section class="course-main" role="main">
 
                         <header>
@@ -150,7 +150,7 @@
                     {% endif %}
                 </div>
                 <div class="right-col col-lg-5 col-md-5 col-sm-12 col-xs-12 js-fullheight">
-                    
+
                     <div class="buttons row">
                         {% if course.first_lesson.slug %}
                             {% if user_is_enrolled %}
@@ -179,15 +179,9 @@
                                 <div class=" col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1 col-sm-5 col-sm-offset-1 col-xs-12 textright">
                                     <a href="#" class="share-facebook">Compartilhar</a>
                                 </div>
-
-                                <label class="terms col-lg-12">
-                                    <span class="checkbox-wrapper"><input id="accepted_terms" name="accepted_terms" type="checkbox"></span>
-                                    Aceito os <a href="{% url 'django.contrib.flatpages.views.flatpage' url='terms/' %}" target="_blank">termos de uso</a>
-                                </label>
-
                             {% endif %}
                         {% endif %}
-                        
+
                     </div>
 
                     <!-- COURSE-SUMMARY - VISIBLE ONLY FOR PHONES -->
