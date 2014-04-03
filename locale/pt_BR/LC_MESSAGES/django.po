@@ -2,20 +2,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-03-24 19:20-0300\n"
-"PO-Revision-Date: 2014-03-24 19:06-0300\n"
+"PO-Revision-Date: 2014-04-03 16:29-0300\n"
 "Last-Translator:   <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Translated-Using: django-rosetta 0.7.3\n"
 
@@ -261,8 +261,8 @@ msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
 "address for user %(user_display)s."
 msgstr ""
-"Por favor confirme que o endereço <a href=\"mailto:%(email)s\">%(email)s</a> "
-"é o email do usuário %(user_display)s."
+"Por favor confirme que o endereço <a href=\"mailto:%(email)s\">%(email)s</a>"
+" é o email do usuário %(user_display)s."
 
 #: accounts/templates/account/email_confirm.html:17
 #: accounts/templates/account/email_confirm.html:36
@@ -277,11 +277,11 @@ msgstr "Confirmar"
 #: accounts/templates/hacklab_theme/account/email_confirm.html:40
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a href="
-"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"Este email de confirmação expirou ou é inválido. Por favor <a href="
-"\"%(email_url)s\">solicite uma nova confirmação de e-mail</a>."
+"Este email de confirmação expirou ou é inválido. Por favor <a "
+"href=\"%(email_url)s\">solicite uma nova confirmação de e-mail</a>."
 
 #: accounts/templates/account/email_confirmed.html:9
 #: accounts/templates/hacklab_theme/account/email_confirmed.html:9
@@ -476,12 +476,12 @@ msgstr "Mudar sua senha"
 #, python-format
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
-"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
-"a>."
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password "
+"reset</a>."
 msgstr ""
 "O link de solicitação de redefinição de senha é inválido, possivelmente "
-"porque já foi usado. Por favor solicite uma <a href=\"%(passwd_reset_url)s"
-"\">nova redefinição de senha</a>."
+"porque já foi usado. Por favor solicite uma <a "
+"href=\"%(passwd_reset_url)s\">nova redefinição de senha</a>."
 
 #: accounts/templates/account/password_reset_from_key.html:36
 #: accounts/templates/account/password_reset_from_key.html:75
@@ -522,10 +522,8 @@ msgstr "Email de validação enviado"
 #: accounts/templates/hacklab_theme/account/email/password_reset_key_message.txt:1
 #, python-format
 msgid ""
-"You're receiving this e-mail because you or someone else has requested a "
-"password for your user account at %(site_domain)s.\n"
-"It can be safely ignored if you did not request a password reset. Click the "
-"link below to reset your password.\n"
+"You're receiving this e-mail because you or someone else has requested a password for your user account at %(site_domain)s.\n"
+"It can be safely ignored if you did not request a password reset. Click the link below to reset your password.\n"
 "\n"
 "%(password_reset_url)s\n"
 "\n"
@@ -533,10 +531,8 @@ msgid ""
 "\n"
 "Thanks for using our site!\n"
 msgstr ""
-"Você está recebendo este e-mail porque você ou alguém solicitou uma "
-"redefinição de senha para sua conta no site %(site_domain)s.\n"
-"Você pode seguramente ignorar esta mensagem se você não solicitou esta "
-"redefinição de senha. Clique no link abaixo para redefinir sua senha.\n"
+"Você está recebendo este e-mail porque você ou alguém solicitou uma redefinição de senha para sua conta no site %(site_domain)s.\n"
+"Você pode seguramente ignorar esta mensagem se você não solicitou esta redefinição de senha. Clique no link abaixo para redefinir sua senha.\n"
 "\n"
 "%(password_reset_url)s\n"
 "\n"
@@ -574,9 +570,11 @@ msgstr "Autenticação cancelada"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
-"\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a "
+"href=\"%(login_url)s\">sign in</a>."
 msgstr ""
+"Você decidiu cancelar o login no nosso site usando uma conta sua existente. "
+"Se isso foi um engano volte para <a href=\"%(login_url)s\">entrar</a>."
 
 #: activities/models.py:26
 msgid "Type"
@@ -597,7 +595,7 @@ msgstr "Unidade"
 #: activities/models.py:30 administration/templates/new_lesson.html:187
 #: administration/templates/hacklab_theme/new_lesson.html:187
 msgid "Comment"
-msgstr ""
+msgstr "Comentar"
 
 #: activities/models.py:33 activities/models.py:48
 #: administration/templates/new_lesson.html:104
@@ -846,7 +844,7 @@ msgstr "Mensagem"
 #: administration/templates/messages.html:54
 #: administration/templates/hacklab_theme/messages.html:50
 msgid "Check all"
-msgstr ""
+msgstr "Marcar todas"
 
 #: administration/templates/messages.html:74
 #: administration/templates/new_course.html:368
@@ -864,7 +862,7 @@ msgstr "Fechar"
 #: administration/templates/messages.html:96
 #: administration/templates/hacklab_theme/messages.html:89
 msgid "More..."
-msgstr ""
+msgstr "Mais..."
 
 #: administration/templates/new_course.html:34
 #: administration/templates/hacklab_theme/new_course.html:34
@@ -911,7 +909,7 @@ msgstr "Thumbnail"
 #: administration/templates/new_course.html:115
 #: administration/templates/hacklab_theme/new_course.html:115
 msgid "min-width"
-msgstr ""
+msgstr "tam. mínimo"
 
 #: administration/templates/new_course.html:123
 #: administration/templates/new_course.html:185
@@ -1154,7 +1152,7 @@ msgstr "Anotações"
 #: core/templates/header.html:41
 #: core/templates/hacklab_theme/header-authenticated.html:23
 msgid "Admin"
-msgstr ""
+msgstr "Administração"
 
 #: administration/templates/users.html:249
 #: administration/templates/hacklab_theme/users.html:249 core/models.py:158
@@ -1171,7 +1169,7 @@ msgstr "Alternar navegação"
 #: administration/templates/hacklab_theme/admin-base.html:36
 #: administration/templates/hacklab_theme/admin-base.html:46
 msgid "TIM Tec"
-msgstr ""
+msgstr "TIM Tec"
 
 #: administration/templates/hacklab_theme/admin-base.html:54
 #: core/templates/header.html:45
@@ -1251,7 +1249,7 @@ msgstr "Professores do curso"
 
 #: core/models.py:184
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: core/models.py:206
 msgid "Description"
@@ -1343,7 +1341,7 @@ msgstr "Inscrever-se"
 #: core/templates/hacklab_theme/header-guest.html:63
 #: core/templates/hacklab_theme/header-guest.html:108
 msgid "Connect with Facebook"
-msgstr ""
+msgstr "Conectar ao Facebook"
 
 #: core/templates/lesson.html:99 core/templates/hacklab_theme/lesson.html:137
 #, fuzzy
@@ -1413,22 +1411,22 @@ msgstr "Arquivos"
 #: course_material/templates/course-material-admin.html:28
 #: course_material/templates/hacklab_theme/course-material-admin.html:28
 msgid "Edit text"
-msgstr ""
+msgstr "Editar texto"
 
 #: course_material/templates/course-material-admin.html:68
 #: course_material/templates/hacklab_theme/course-material-admin.html:68
 msgid "Drop"
-msgstr ""
+msgstr "Solte"
 
 #: course_material/templates/course-material-admin.html:68
 #: course_material/templates/hacklab_theme/course-material-admin.html:68
 msgid "files to upload"
-msgstr ""
+msgstr "arquivos para upload"
 
 #: course_material/templates/course-material-admin.html:68
 #: course_material/templates/hacklab_theme/course-material-admin.html:68
 msgid "(or click)"
-msgstr ""
+msgstr "(ou clique)"
 
 #: course_material/templates/course-material.html:30
 #: course_material/templates/hacklab_theme/course-material.html:26
@@ -1447,7 +1445,7 @@ msgstr "Resposta esperada"
 
 #: forum/models.py:19
 msgid "Hidden"
-msgstr ""
+msgstr "Oculto"
 
 #: forum/models.py:21
 #, fuzzy
@@ -1460,48 +1458,48 @@ msgstr "Publicação"
 #: forum/templates/hacklab_theme/forum.html:13
 #: forum/templates/hacklab_theme/forum_admin.html:25
 msgid "Questions & Answers"
-msgstr ""
+msgstr "Perguntas & Respostas"
 
 #: forum/templates/_forum_inline.html:21
 #: forum/templates/hacklab_theme/_forum_inline.html:21
 msgid "What is your question?"
-msgstr ""
+msgstr "Qual é a sua pergunta?"
 
 #: forum/templates/_forum_inline.html:27
 #: forum/templates/hacklab_theme/_forum_inline.html:27
 msgid "Description of your question"
-msgstr ""
+msgstr "Descrição da sua pergunta"
 
 #: forum/templates/_forum_inline.html:37
 #: forum/templates/hacklab_theme/_forum_inline.html:37
 msgid "Questions & Answers policy"
-msgstr ""
+msgstr "Policias de Perguntas e Respostas"
 
 #: forum/templates/_forum_inline.html:52
 #: forum/templates/hacklab_theme/_forum_inline.html:52
 msgid "There is no question in this forum yet"
-msgstr ""
+msgstr "Não existem perguntas nesse forum ainda"
 
 #: forum/templates/_forum_inline.html:67
 #: forum/templates/hacklab_theme/_forum_inline.html:67
 msgid "Most voted"
-msgstr ""
+msgstr "Mais Votadas"
 
 #: forum/templates/_forum_inline.html:68
 #: forum/templates/hacklab_theme/_forum_inline.html:68
 msgid "Most recent"
-msgstr ""
+msgstr "Mais recentes"
 
 #: forum/templates/_forum_inline.html:69
 #: forum/templates/hacklab_theme/_forum_inline.html:69
 #, fuzzy
 msgid "Most answerd"
-msgstr "Resposta esperada"
+msgstr "Mais respondidas"
 
 #: forum/templates/_forum_inline.html:111
 #: forum/templates/hacklab_theme/_forum_inline.html:111
 msgid "Why my question was hidden?"
-msgstr ""
+msgstr "Porque minha pergunta foi ocultada?"
 
 #: forum/templates/forum.html:21 forum/templates/forum_admin.html:28
 #: forum/templates/hacklab_theme/forum.html:16
@@ -1523,7 +1521,7 @@ msgstr "Cursos"
 #: notes/templates/course_notes.html:37
 #: notes/templates/hacklab_theme/course_notes.html:32
 msgid "You have not made any notes yet."
-msgstr ""
+msgstr "Você não fez nenhuma anotação ainda."
 
 #: notes/templates/notes.html:31 notes/templates/hacklab_theme/notes.html:25
 #, fuzzy
@@ -1549,19 +1547,19 @@ msgstr "Estudante"
 
 #: timtec/settings.py:77
 msgid "Brazilian Portuguese"
-msgstr ""
+msgstr "Português"
 
 #: timtec/settings.py:78
 msgid "Italian"
-msgstr ""
+msgstr "Italiano"
 
 #: timtec/settings.py:79
 msgid "Spanish"
-msgstr ""
+msgstr "Espanhol"
 
 #: timtec/settings.py:80
 msgid "English"
-msgstr ""
+msgstr "Inglês"
 
 #~ msgid "Facebook Connect"
 #~ msgstr "Conectar com Facebook"
