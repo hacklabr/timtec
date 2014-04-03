@@ -63,17 +63,17 @@
                         </section>
                         <!-- END COURSE-INFO -->
                     </section>
-                    {% if user.is_authenticated and course.has_started %}
+
                     <div class="row">
                         <!-- COURSE-LESSONS -->
                         <section class="lessons col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <!-- PAGE-HEADER-DOUBLE -->
                             <div class="page-header-double">
                                 <h3>{% trans "Estrutura do Curso" %}</h3>
-                                <p>Ossim facerat eseque non pellabo. Hitaque moloribus et aut fugitis doluptatem nobita vendi autat ad mi, nis cus inulpa vendem qui andunt assitiis dic tem enim quiatiis mo occuptatur? Qui culpa vent aut autatet mincta si blatur maximusae renis quaecti optur resciliqui quist plia adit volorec tiorum am, cupti aut lacearum atum nihit ommolup taquosti iduntec tatibus sequiat ratur atemperesed quia illorrum conectur? Quis dolo cus aut adiamus estiuntist, et inum que eum faceptur re labo. Nequibe atempore volorum raesent.</p>
+                                <p>{{ course.structure|timtec_markdown }}</p>
                             </div>
                             <!-- END PAGE-HEADER-DOUBLE -->
-
+                            {% if user.is_authenticated and course.has_started %}
                             <!-- FOR LESSON IN COURSE.PUBLIC_LESSONS -->
                             {% for lesson in course.public_lessons %}
                                 <!-- LESSON -->
@@ -144,10 +144,10 @@
                                 <!-- END LESSON -->
                             {% endfor %}
                             <!-- END FOR LESSON IN COURSE.PUBLIC_LESSONS -->
+                            {% endif %}
                         </section>
                         <!-- END COURSE-LESSONS -->
                     </div>
-                    {% endif %}
                 </div>
                 <div class="right-col col-lg-5 col-md-5 col-sm-12 col-xs-12 js-fullheight">
 
