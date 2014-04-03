@@ -165,13 +165,13 @@
 	margin: 30px 0 0 0;
 	overflow: hidden;
 	
-	h3 {
-		margin: 0;
-		padding: 10px;
-		float: left;
-		background: #959595;
-		color: #fff;
-	}
+  	h3 {
+  		margin: 0;
+  		padding: 10px;
+  		float: left;
+  		background: #959595;
+  		color: #fff;
+  	}
   }
   
   #forum-content {
@@ -210,7 +210,6 @@
           margin-top: 20px;
           padding: 0 20px;
           h1 {
-            font-size: 18px;
             margin-bottom: 20px;
           }
           .content {
@@ -262,9 +261,13 @@
               font-size: 12px;
               padding: 0 10px 10px 10px;
               h1 {
-                font-family: @font-family-sans-serif;
-                font-size: 18px;
+                font-family: @font-family-sans-serif !important;
                 line-height: 1.5;
+                font-size: 20px !important;
+                font-weight: bold;
+                a {
+                  color: #007dc3;
+                }
               }
               .author {
                 border-top: 1px solid @gray-lighter;
