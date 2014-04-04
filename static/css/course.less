@@ -2,7 +2,7 @@
   .add-content {
     margin-bottom: 10px;
   }
-  
+
   .add-video-intro, .add-thumbnail, .add-activity {
     background-color: rgba(255,255,255,0.6);
     color:@brand-danger;
@@ -24,7 +24,7 @@
       font-size:54px;
     }
   }
-  
+
   #course {
     &.course-intro {
       .main-content {
@@ -33,7 +33,7 @@
         }
 
         .course-info {
-          margin: 15px 0; 
+          margin: 15px 0;
         }
 
         .actions {
@@ -349,7 +349,7 @@
     .illust {
       background-image: url(../img/timtec/illustrations/course-intro-l.png);
 
-        @media (max-width: 1366px) { 
+        @media (max-width: 1366px) {
             background-image: url(../img/timtec/illustrations/course-intro-m.png);
         }
     } // .illust
@@ -357,18 +357,18 @@
     .main-content {
       margin-top: 0px;
 
-      @media (max-width: @screen-xs-min) { 
+      @media (max-width: @screen-xs-min) {
         margin-top: 100px !important;
       }
 
       .left-col {
-          background: rgba(255,255,255,0.5); 
+          background: rgba(255,255,255,0.5);
           padding-bottom: 0px;
 
-          @media (min-width: @screen-lg-min) { 
+          @media (min-width: @screen-lg-min) {
             padding-bottom: 100px;
           }
-          @media (min-width: @screen-md-min) and (max-width: @screen-lg-min) { 
+          @media (min-width: @screen-md-min) and (max-width: @screen-lg-min) {
             padding-bottom: 50px;
           }
 
@@ -457,21 +457,21 @@
           // END LESSONS
         }
 
-      .right-col {    
-        background: rgba(40,112,187,0.5); 
+      .right-col {
+        background: rgba(40,112,187,0.5);
         color: #fff;
         padding-bottom: 0px;
-        @media (min-width: @screen-lg-min) { 
+        @media (min-width: @screen-lg-min) {
           padding-bottom: 100px;
         }
-        @media (min-width: @screen-md-min) and (max-width: @screen-lg-min) { 
+        @media (min-width: @screen-md-min) and (max-width: @screen-lg-min) {
           padding-bottom: 50px;
         }
 
         .buttons {
-          margin-top: 20px;
-          margin-bottom: 20px;
-          overflow: hidden;
+          margin-top: 10px;
+          margin-bottom: 22px;
+          //overflow: hidden;
 
           .js-login-required, .share-facebook {
             display: block;
@@ -572,7 +572,7 @@
 
       textarea {
         height: 335px;
-        margin: 10px 0; 
+        margin: 10px 0;
       }
 
       .btn {
@@ -596,7 +596,7 @@
   &.course-material {
     header {
       h1 {
-        margin: 0; 
+        margin: 0;
       }
     }
     blockquote {
@@ -626,7 +626,7 @@
     .illust {
       background-image: url(../img/timtec/illustrations/courses-list-l.png);
 
-        @media (max-width: 1366px) { 
+        @media (max-width: 1366px) {
             background-image: url(../img/timtec/illustrations/courses-list-m.png);
         }
     } // .illust
@@ -634,12 +634,12 @@
     .col-left {
       background: rgba(255,255,255,0.5);
       padding-top: 80px;
-    } 
+    }
 
     .col-right {
       background: rgba(40,112,187,0.5);
       padding-top: 80px;
-    } 
+    }
 
     .course {
       margin-bottom: 40px;
@@ -724,7 +724,7 @@
     .illust {
       background-image: url(../img/timtec/illustrations/course-lesson-l.png);
 
-        @media (max-width: 1366px) { 
+        @media (max-width: 1366px) {
             background-image: url(../img/timtec/illustrations/course-lesson-m.png);
         }
     } // .illust
@@ -734,7 +734,7 @@
 
       &>.container {
         background: rgba(255,255,255,0.6);
-      } 
+      }
 
       #course-content, #forumxxx, #forum-content, #notes-content {
         h1 {
@@ -834,7 +834,7 @@
             &:active {
                 .box-shadow(none);
             }
-          } 
+          }
         }
       }
 
@@ -885,7 +885,7 @@
           font-family: 'teuton_24';
 
           a {
-              color: #333;    
+              color: #333;
           }
         }
       }
@@ -985,14 +985,14 @@
     // END ADD UNIT
   }
   // END COURSE UNITS
-  
-  @media (max-width: @screen-sm-min) { 
+
+  @media (max-width: @screen-sm-min) {
     &.course-intro {
       margin-top: -40px;
     }
   }
-     
-  @media (min-width: @screen-sm-min) { 
+
+  @media (min-width: @screen-sm-min) {
 
     &.course-intro {
       .main-content {
@@ -1002,12 +1002,9 @@
         }
 
         .right-col {
-          .buttons {
-            margin-top: 85px;
-
-            .js-login-required {
-                margin-bottom: 0;
-            }
+          padding-top: 80px;
+          .js-login-required {
+              margin-bottom: 0;
           }
         }
       } // .content
@@ -1044,7 +1041,7 @@
     margin-bottom: 40px;
 
     h3 {
-      margin: 0; 
+      margin: 0;
       font-size: 20px;
       font-weight: bold;
       a {
