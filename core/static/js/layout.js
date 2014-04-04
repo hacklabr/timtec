@@ -17,9 +17,9 @@
     $(function () {
         if (window.location.pathname == '/courses') {
             $('#courses-tab').addClass('active');
-        } else if (window.location.pathname == '/about/') {
+        } else if (window.location.pathname == '/pages/about/') {
             $('#about-tab').addClass('active');
-        } else if (window.location.pathname == '/institute/') {
+        } else if (window.location.pathname == '/pages/institute/') {
             $('#institute-tab').addClass('active');
         }
     });
