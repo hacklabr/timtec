@@ -2,13 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-04-03 16:38-0300\n"
-"PO-Revision-Date: 2014-04-03 16:42-0300\n"
+"PO-Revision-Date: 2014-04-04 04:42-0300\n"
 "Last-Translator:   <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,9 @@ msgstr ""
 
 #: accounts/adapter.py:13
 msgid "Usernames can only contain letters, digits and ./-/_."
-msgstr "Nomes podem conter somente letras, digitos e ./-/_."
+msgstr ""
+"Seu nome de usuário não deve conter espaços, e deve conter apenas letras e "
+"números"
 
 #: accounts/forms.py:10
 msgid "email"
@@ -341,7 +343,7 @@ msgstr "Entrar"
 #: core/templates/hacklab_theme/header-guest.html:71
 #: core/templates/hacklab_theme/header-guest.html:101
 msgid "Sign Up"
-msgstr "Inscrever-se"
+msgstr "Cadastre-se"
 
 #: accounts/templates/account/login_modal.html:72
 #: accounts/templates/hacklab_theme/account/login_modal.html:72
@@ -1321,7 +1323,7 @@ msgstr "Conectar ao Facebook"
 
 #: core/templates/header.html:93
 msgid "Signup"
-msgstr "Inscrever-se"
+msgstr "Cadastre-se"
 
 #: core/templates/lesson.html:156 core/templates/hacklab_theme/lesson.html:137
 msgid "Professor comment"
@@ -1333,7 +1335,7 @@ msgstr "Continuar"
 
 #: core/templates/lesson.html:171
 msgid "My Annotations"
-msgstr "Anotações"
+msgstr "Minhas anotações"
 
 #: core/templates/lesson.html:183 core/templates/hacklab_theme/lesson.html:154
 msgid "Learn more"
@@ -1506,7 +1508,7 @@ msgstr "Ver anotações"
 
 #: notes/templates/notes.html:41 notes/templates/hacklab_theme/notes.html:26
 msgid "Resume course"
-msgstr "Curso"
+msgstr "Continuar curso"
 
 #: reports/templates/stats.html:27
 #: reports/templates/hacklab_theme/stats.html:22
