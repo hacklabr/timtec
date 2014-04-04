@@ -27,9 +27,9 @@
     <nav class="main-nav" role="navigation">
         <div class="container">
             <ul class="nav">
-                <li ng-class=""><a href="{% url 'django.contrib.flatpages.views.flatpage' url='institute/' %}">Instituto TIM</a></li>
-                <li ng-class="{active: location.path == '/about/'"><a href="{% url 'django.contrib.flatpages.views.flatpage' url='about/' %}">Sobre <span class="tim">TIM</span><span class="tec">Tec</span></a></li>
-                <li ng-class="{active: window.location.pathname == '/my-courses/'"><a href="{%  url 'courses' %}">Cursos</a></li>
+                <li><a id="institute-tab" href="{% url 'django.contrib.flatpages.views.flatpage' url='institute/' %}">Instituto TIM</a></li>
+                <li><a id="about-tab" href="{% url 'django.contrib.flatpages.views.flatpage' url='about/' %}">Sobre <span class="tim">TIM</span><span class="tec">Tec</span></a></li>
+                <li><a id="courses-tab" href="{%  url 'courses' %}">Cursos</a></li>
                 <li>
                 {% if user.is_authenticated %}
                     <a class="username dropdown-toggle" data-toggle="dropdown" href="#">

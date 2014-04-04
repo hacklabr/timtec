@@ -14,4 +14,14 @@
         fullHeight('.js-fullheight-container', 85);
     });
 
+    $(function () {
+        if (window.location.pathname == '/courses') {
+            $('#courses-tab').addClass('active');
+        } else if (window.location.pathname == '/about/') {
+            $('#about-tab').addClass('active');
+        } else if (window.location.pathname == '/institute/') {
+            $('#institute-tab').addClass('active');
+        }
+    });
+
 })(window.jQuery);
