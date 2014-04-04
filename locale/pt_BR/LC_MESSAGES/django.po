@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-03 16:38-0300\n"
-"PO-Revision-Date: 2014-04-04 04:42-0300\n"
-"Last-Translator:   <timtectimtec@gmail.com>\n"
+"POT-Creation-Date: 2014-04-04 14:23-0300\n"
+"PO-Revision-Date: 2014-04-04 14:26-0300\n"
+"Last-Translator: Admin Master <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -84,6 +84,7 @@ msgstr "As duas senhas são diferentes."
 #: administration/templates/users.html:220
 #: administration/templates/hacklab_theme/users.html:20
 #: administration/templates/hacklab_theme/users.html:220
+#: core/templates/header.html:56
 #: core/templates/hacklab_theme/header-guest.html:27
 #: core/templates/hacklab_theme/header-guest.html:76
 msgid "Username"
@@ -238,7 +239,7 @@ msgid "The registration failed"
 msgstr "O registro falhou"
 
 #: accounts/templates/account/email_confirm.html:18
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a><br>is an "
 "e-mail address for user %(user_display)s."
@@ -253,7 +254,7 @@ msgid "Confirm"
 msgstr "Confirmar"
 
 #: accounts/templates/account/email_confirm.html:27
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This e-mail confirmation link expired or is invalid.</p>\n"
 "                    <p>Please <a href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
@@ -397,7 +398,7 @@ msgstr "Seu email"
 #: accounts/templates/hacklab_theme/account/password_reset.html:69
 #: administration/templates/messages.html:79
 #: administration/templates/hacklab_theme/messages.html:68
-#: forum/templates/_forum_inline.html:121
+#: forum/templates/_forum_inline.html:123
 #: forum/templates/hacklab_theme/_forum_inline.html:121
 msgid "Send"
 msgstr "Enviar"
@@ -418,7 +419,7 @@ msgid "We sent you an e-mail with the instructions to recover your password"
 msgstr "Nós enviamos um email com instruções para recuperar sua senha"
 
 #: accounts/templates/account/password_reset_from_key.html:18
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The password reset link was invalid,<br>possibly because it has already been used.</p>\n"
 "                <p>Please request a <a href=\"%(passwd_reset_url)s\">new password reset</a>."
@@ -652,6 +653,7 @@ msgstr "Vídeo introdutório"
 #: administration/templates/hacklab_theme/new_course.html:72
 #: core/templates/_course-header-inline.html:17 core/templates/lesson.html:60
 #: core/templates/hacklab_theme/_course-header-inline.html:16
+#: forum/templates/_forum_inline.html:16 forum/templates/forum.html:19
 msgid "Forum"
 msgstr "Fórum"
 
@@ -823,7 +825,7 @@ msgstr "Marcar todas"
 #: administration/templates/hacklab_theme/new_course.html:368
 #: administration/templates/hacklab_theme/new_course.html:461
 #: administration/templates/hacklab_theme/new_lesson.html:254
-#: forum/templates/_forum_inline.html:120
+#: forum/templates/_forum_inline.html:122
 #: forum/templates/hacklab_theme/_forum_inline.html:120
 msgid "Close"
 msgstr "Fechar"
@@ -989,7 +991,7 @@ msgstr "Adicionar aula"
 #: administration/templates/new_course.html:316
 #: administration/templates/hacklab_theme/new_course.html:407
 #: administration/templates/hacklab_theme/new_course.html:410
-#: core/models.py:46 core/templates/course.html:193
+#: core/models.py:46 core/templates/course.html:190
 #: core/templates/hacklab_theme/course.html:103
 #: core/templates/hacklab_theme/course.html:249
 msgid "Abstract"
@@ -1263,10 +1265,9 @@ msgstr "Unidades"
 msgid "Student Progress"
 msgstr "Progresso do Estudante"
 
-#: core/templates/_course-header-inline.html:19 core/templates/lesson.html:62
-#: core/templates/hacklab_theme/_course-header-inline.html:18
-msgid "My notes"
-msgstr "Minhas Anotações"
+#: core/templates/_course-header-inline.html:19
+msgid "Course notes"
+msgstr "Anotações do Curso"
 
 #: core/templates/accept-terms.html:5
 msgid "Accept terms and conditions"
@@ -1276,17 +1277,17 @@ msgstr "Aceitar os termos de uso"
 msgid "Estrutura do Curso"
 msgstr "Estrutura do Curso"
 
-#: core/templates/course.html:159 core/templates/course.html.py:161
+#: core/templates/course.html:158 core/templates/course.html.py:160
 #: core/templates/hacklab_theme/course.html:29
 msgid "Resume"
 msgstr "Ir para o curso"
 
-#: core/templates/course.html:161
+#: core/templates/course.html:160
 #, python-format
 msgid "Este curso começa dia %(start_date)s e você já está inscrito"
 msgstr "Este curso começa dia %(start_date)s e você já está inscrito"
 
-#: core/templates/course.html:176 core/templates/hacklab_theme/course.html:37
+#: core/templates/course.html:171 core/templates/hacklab_theme/course.html:37
 msgid "Take the Class"
 msgstr "Fazer o curso"
 
@@ -1311,10 +1312,6 @@ msgstr "Meus cursos"
 msgid "My Notes"
 msgstr "Minhas Anotações"
 
-#: core/templates/header.html:56
-msgid "NAME"
-msgstr "Nome"
-
 #: core/templates/header.html:90
 #: core/templates/hacklab_theme/header-guest.html:63
 #: core/templates/hacklab_theme/header-guest.html:108
@@ -1325,30 +1322,35 @@ msgstr "Conectar ao Facebook"
 msgid "Signup"
 msgstr "Cadastre-se"
 
-#: core/templates/lesson.html:156 core/templates/hacklab_theme/lesson.html:137
+#: core/templates/lesson.html:62
+#: core/templates/hacklab_theme/_course-header-inline.html:18
+msgid "My notes"
+msgstr "Minhas Anotações"
+
+#: core/templates/lesson.html:158 core/templates/hacklab_theme/lesson.html:137
 msgid "Professor comment"
 msgstr "Anotações do professor"
 
-#: core/templates/lesson.html:162 core/templates/hacklab_theme/lesson.html:143
+#: core/templates/lesson.html:164 core/templates/hacklab_theme/lesson.html:143
 msgid "Continue"
 msgstr "Continuar"
 
-#: core/templates/lesson.html:171
+#: core/templates/lesson.html:173
 msgid "My Annotations"
 msgstr "Minhas anotações"
 
-#: core/templates/lesson.html:183 core/templates/hacklab_theme/lesson.html:154
-msgid "Learn more"
-msgstr "Saiba mais"
+#: core/templates/lesson.html:185
+msgid "Addicional materials"
+msgstr "Materiais adicionais"
 
-#: core/templates/lesson.html:185 core/templates/hacklab_theme/lesson.html:161
-msgid "This unit has no notes"
-msgstr "Esta unidade não possui nenhuma anotação"
+#: core/templates/lesson.html:187
+msgid "This unit has no addicional materials"
+msgstr "Esta unidade não possui material adicional"
 
-#: core/templates/user-courses.html:30
-#: core/templates/hacklab_theme/user-courses.html:22
-msgid "Resume Class"
-msgstr "Continuar aula"
+#: core/templates/user-courses.html:30 notes/templates/notes.html:41
+#: notes/templates/hacklab_theme/notes.html:26
+msgid "Resume course"
+msgstr "Continuar curso"
 
 #: core/templates/hacklab_theme/header-authenticated.html:21
 msgid "Available Courses"
@@ -1358,9 +1360,17 @@ msgstr "Cursos disponíveis"
 msgid "Hello world! This is HTML5 Boilerplate."
 msgstr "Hello world! Esse é o HTML5 Boilerplate"
 
+#: core/templates/hacklab_theme/lesson.html:154
+msgid "Learn more"
+msgstr "Saiba mais"
+
 #: core/templates/hacklab_theme/lesson.html:155
 msgid "Annotations"
 msgstr "Anotações"
+
+#: core/templates/hacklab_theme/lesson.html:161
+msgid "This unit has no notes"
+msgstr "Esta unidade não possui nenhuma anotação"
 
 #: core/templates/hacklab_theme/lesson.html:175
 msgid "Professor notes"
@@ -1369,6 +1379,10 @@ msgstr "Anotações do professor"
 #: core/templates/hacklab_theme/lesson.html:193
 msgid "Professor's notes"
 msgstr "Anotações do professor"
+
+#: core/templates/hacklab_theme/user-courses.html:22
+msgid "Resume Class"
+msgstr "Continuar aula"
 
 #: core/templates/hacklab_theme/user-courses.html:32
 msgid "Details"
@@ -1434,14 +1448,6 @@ msgstr "Oculto"
 msgid "Justification"
 msgstr "Publicação"
 
-#: forum/templates/_forum_inline.html:16 forum/templates/forum.html:19
-#: forum/templates/forum_admin.html:29
-#: forum/templates/hacklab_theme/_forum_inline.html:16
-#: forum/templates/hacklab_theme/forum.html:13
-#: forum/templates/hacklab_theme/forum_admin.html:25
-msgid "Questions & Answers"
-msgstr "Perguntas & Respostas"
-
 #: forum/templates/_forum_inline.html:21
 #: forum/templates/hacklab_theme/_forum_inline.html:21
 msgid "What is your question?"
@@ -1452,32 +1458,32 @@ msgstr "Qual é a sua pergunta?"
 msgid "Description of your question"
 msgstr "Descrição da sua pergunta"
 
-#: forum/templates/_forum_inline.html:37
+#: forum/templates/_forum_inline.html:38
 #: forum/templates/hacklab_theme/_forum_inline.html:37
 msgid "Questions & Answers policy"
 msgstr "Policias de Perguntas e Respostas"
 
-#: forum/templates/_forum_inline.html:52
+#: forum/templates/_forum_inline.html:54
 #: forum/templates/hacklab_theme/_forum_inline.html:52
 msgid "There is no question in this forum yet"
 msgstr "Não existem perguntas nesse forum ainda"
 
-#: forum/templates/_forum_inline.html:67
+#: forum/templates/_forum_inline.html:69
 #: forum/templates/hacklab_theme/_forum_inline.html:67
 msgid "Most voted"
 msgstr "Mais Votadas"
 
-#: forum/templates/_forum_inline.html:68
+#: forum/templates/_forum_inline.html:70
 #: forum/templates/hacklab_theme/_forum_inline.html:68
 msgid "Most recent"
 msgstr "Mais recentes"
 
-#: forum/templates/_forum_inline.html:69
+#: forum/templates/_forum_inline.html:71
 #: forum/templates/hacklab_theme/_forum_inline.html:69
 msgid "Most answerd"
 msgstr "Mais respondidas"
 
-#: forum/templates/_forum_inline.html:111
+#: forum/templates/_forum_inline.html:113
 #: forum/templates/hacklab_theme/_forum_inline.html:111
 msgid "Why my question was hidden?"
 msgstr "Porque minha pergunta foi ocultada?"
@@ -1487,6 +1493,13 @@ msgstr "Porque minha pergunta foi ocultada?"
 #: forum/templates/hacklab_theme/forum_admin.html:28
 msgid "Ask a question"
 msgstr "Fazer uma pergunta"
+
+#: forum/templates/forum_admin.html:29
+#: forum/templates/hacklab_theme/_forum_inline.html:16
+#: forum/templates/hacklab_theme/forum.html:13
+#: forum/templates/hacklab_theme/forum_admin.html:25
+msgid "Questions & Answers"
+msgstr "Perguntas & Respostas"
 
 #: notes/models.py:10
 msgid "Note"
@@ -1505,10 +1518,6 @@ msgstr "Você não fez nenhuma anotação ainda."
 #: notes/templates/notes.html:40 notes/templates/hacklab_theme/notes.html:25
 msgid "Go to notes"
 msgstr "Ver anotações"
-
-#: notes/templates/notes.html:41 notes/templates/hacklab_theme/notes.html:26
-msgid "Resume course"
-msgstr "Continuar curso"
 
 #: reports/templates/stats.html:27
 #: reports/templates/hacklab_theme/stats.html:22
@@ -1534,6 +1543,9 @@ msgstr "Espanhol"
 #: timtec/settings.py:80
 msgid "English"
 msgstr "Inglês"
+
+#~ msgid "NAME"
+#~ msgstr "Nome"
 
 #~ msgid "Facebook Connect"
 #~ msgstr "Conectar com Facebook"
