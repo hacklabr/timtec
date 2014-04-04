@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-04-04 14:23-0300\n"
-"PO-Revision-Date: 2014-04-04 14:26-0300\n"
+"PO-Revision-Date: 2014-04-04 18:06-0300\n"
 "Last-Translator: Admin Master <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,8 +21,7 @@ msgstr ""
 #: accounts/adapter.py:13
 msgid "Usernames can only contain letters, digits and ./-/_."
 msgstr ""
-"Seu nome de usuário não deve conter espaços, e deve conter apenas letras e "
-"números"
+"Seu nome de usuário não deve conter espaço, apenas letras, números e ./-/_."
 
 #: accounts/forms.py:10
 msgid "email"
@@ -1337,7 +1336,7 @@ msgstr "Continuar"
 
 #: core/templates/lesson.html:173
 msgid "My Annotations"
-msgstr "Minhas anotações"
+msgstr "Minhas Anotações"
 
 #: core/templates/lesson.html:185
 msgid "Addicional materials"
