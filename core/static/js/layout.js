@@ -3,15 +3,21 @@
 
     function fullHeight(element, extra) {
         if(!extra) extra = 0;
-        var height = ($('.wrapper').height() - ($('.main-header').height() + extra + $('.main-footer').height()));
-        if ($('.wrapper').height() > 780) {
+        var height = ($(window).height() - ($('.main-header').height() + extra + $('.main-footer').height()));
+        if ($(window).height() > 768 || extra === 0) {
             $(element).height(height);
         }
     }
 
-    $(function () {
+    function resizes () {
+        console.log('rere');
         fullHeight('.js-fullheight');
         fullHeight('.js-fullheight-container', 85);
+    }
+
+    $(function () {
+        resizes();
+        $(window).resize(resizes);
     });
 
     $(function () {
