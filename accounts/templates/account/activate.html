@@ -2,17 +2,25 @@
 {% load i18n %}
 {% block content %}
 
-<!-- TABLET AND DESKTOP -->
-<div id="activation-wrapper" class="container visible-lg visible-md visible-sm">
-    <div class="centered">
-        <h1 class="textcenter">
-            <i class="fa fa-frown-o"></i><br/>
-            {% trans "Sorry" %}.
-        </h1>
-        <h3>{% trans "You provided an invalid key" %}.<br/>{% trans "The registration failed" %}.</h3>
-        [ ]s
+<div id="email-confirm" class="page">
+
+    <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
+
+    <div class="main-content">
+
+        <!-- CONTAINER -->
+        <div class="container js-fullheight">
+
+              <div class="message">
+                <h1 class="textcenter">
+		            <i class="fa fa-frown-o"></i><br/>
+		            {% trans "Sorry" %}.
+		        </h1>
+		        <h3>{% trans "You provided an invalid key" %}.<br/>{% trans "The registration failed" %}.</h3>
+              </div>
+
+        </div>
     </div>
 </div>
-<!-- END TABLET AND DESKTOP -->
 
 {% endblock %}
