@@ -3,18 +3,23 @@
 
     var oldHeight;
     function res () {
-        if($('.js-fullheight').height() !== oldHeight) {
-            $('.js-fullheight').height($('.main-footer').position().top - 80);
-        }
-        oldHeight = $('.js-fullheight').height();
-        console.log('vai');
+        var footerpos = $('.main-footer').position().top  -  $('header.main-header').outerHeight(true);
+        $('.js-fullheight').each(function () {
+            var $this = $(this);
+
+            $(this).height(Math.max($(this).height(), this.scrollHeight));
+            $this.height(footerpos - $this.position().top);
+            // console.log($this.attr('class'), $this.height(), $this.innerHeight(), this.scrollHeight, $this.outerHeight());
+        });
+
+        oldHeight = $('.main-footer').position().top;
     }
 
     $(function () {
-    //     resizes();
-        res();
+        // res();
         $(window).resize(res);
-        $(document).bind('DOMSubtreeModified', res);
+        // $(document).bind('DOMSubtreeModified', res);
+        setTimeout(res, 500);
     });
 
     $(function () {
