@@ -8,11 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-04-03 16:38-0300\n"
-<<<<<<< Updated upstream
-"PO-Revision-Date: 2014-04-04 04:41-0300\n"
-=======
 "PO-Revision-Date: 2014-04-04 04:42-0300\n"
->>>>>>> Stashed changes
 "Last-Translator:   <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
