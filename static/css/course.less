@@ -48,10 +48,6 @@
           margin-top: 20px !important;
         }
 
-        .lessons {
-          padding-bottom: 20px;
-        }
-
         .right-col .summary {
           margin-top: 135px;
         }
@@ -166,7 +162,6 @@
     }
     &.course-messages {
       .container {
-        padding-bottom: 60px;
         #main-header {
           margin-bottom: 60px;
           .lesson-units {
@@ -363,14 +358,6 @@
 
       .left-col {
           background: rgba(255,255,255,0.5);
-          padding-bottom: 0px;
-
-          @media (min-width: @screen-lg-min) {
-            padding-bottom: 100px;
-          }
-          @media (min-width: @screen-md-min) and (max-width: @screen-lg-min) {
-            padding-bottom: 50px;
-          }
 
           .application {
             h3 {
@@ -416,7 +403,6 @@
 
           .lessons {
             background: rgba(255,255,255,0.5);
-            padding-bottom: 20px;
             .lesson {
               margin-bottom: 40px;
               margin-top: 20px;
@@ -460,13 +446,6 @@
       .right-col {
         background: rgba(40,112,187,0.5);
         color: #fff;
-        padding-bottom: 0px;
-        @media (min-width: @screen-lg-min) {
-          padding-bottom: 100px;
-        }
-        @media (min-width: @screen-md-min) and (max-width: @screen-lg-min) {
-          padding-bottom: 50px;
-        }
 
         .buttons {
           margin-top: 10px;
@@ -633,12 +612,16 @@
 
     .col-left {
       background: rgba(255,255,255,0.5);
-      padding-top: 80px;
     }
 
     .col-right {
       background: rgba(40,112,187,0.5);
-      padding-top: 80px;
+    }
+
+    .col-left,.col-right {
+      .content {
+        margin-top: 80px;
+      }
     }
 
     .course {
@@ -1002,7 +985,7 @@
         }
 
         .right-col {
-          padding-top: 80px;
+
           .js-login-required {
               margin-bottom: 0;
           }

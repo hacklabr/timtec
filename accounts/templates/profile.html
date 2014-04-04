@@ -12,13 +12,15 @@
             <div class="main-content">
 
                 <!-- CONTAINER -->
-                <div class="container js-fullheight-container">
+                <div class="container js-fullheight">
+
+                  <div class="content">
 
                     <header class="page-header-double">
                         <h2>{% trans "Profile Info" %}</h2>
                     </header>
 
-                      <div class="row">
+                    <div class="row">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                           <img id="profile-avatar" src="{{ profile_user.get_picture_url }}" class="col-lg-12 thumbnail">
                         </div>
@@ -65,6 +67,8 @@
                           </fieldset>
                         </div>
                     </div>
+                  </div>
+
                 </div>
             </div>
         </div>
