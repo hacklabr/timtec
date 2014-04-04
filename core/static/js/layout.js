@@ -1,8 +1,12 @@
 (function($){
     'use strict';
 
+    var oldHeight;
     function res () {
-        $('.js-fullheight').height($('.main-footer').position().top - 80);
+        if($('.js-fullheight').height() !== oldHeight) {
+            $('.js-fullheight').height($('.main-footer').position().top - 80);
+        }
+        oldHeight = $('.js-fullheight').height();
         console.log('vai');
     }
 
