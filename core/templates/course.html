@@ -202,7 +202,7 @@
                             <div class="col-lg-12 col-sm-12">
                                 {% for course_professor in course.courseprofessor_set.all %}
                                     <div id="{{ course_professor.user.username }}" class="instructor row">
-                                        <div class="instructor-photo col-lg-8 col-md-8 col-sm-4">
+                                        <div class="instructor-photo col-lg-4 col-md-5 col-sm-3">
                                             <img src="{{ course_professor.user.get_picture_url }}">
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-8">
