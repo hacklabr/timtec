@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-04-03 16:38-0300\n"
-"PO-Revision-Date: 2014-04-04 01:07-0300\n"
+"PO-Revision-Date: 2014-04-04 04:41-0300\n"
 "Last-Translator:   <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1333,7 +1333,7 @@ msgstr "Continuar"
 
 #: core/templates/lesson.html:171
 msgid "My Annotations"
-msgstr "Anotações"
+msgstr "Minhas anotações"
 
 #: core/templates/lesson.html:183 core/templates/hacklab_theme/lesson.html:154
 msgid "Learn more"
