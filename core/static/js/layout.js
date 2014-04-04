@@ -1,23 +1,16 @@
 (function($){
     'use strict';
 
-    function fullHeight(element, extra) {
-        if(!extra) extra = 0;
-        var height = ($(window).height() - ($('.main-header').height() + extra + $('.main-footer').height()));
-        if ($(window).height() > 768 || extra === 0) {
-            $(element).height(height);
-        }
-    }
-
-    function resizes () {
-        console.log('rere');
-        fullHeight('.js-fullheight');
-        fullHeight('.js-fullheight-container', 85);
+    function res () {
+        $('.js-fullheight').height($('.main-footer').position().top - 80);
+        console.log('vai');
     }
 
     $(function () {
-        resizes();
-        $(window).resize(resizes);
+    //     resizes();
+        res();
+        $(window).resize(res);
+        $(document).bind('DOMSubtreeModified', res);
     });
 
     $(function () {
