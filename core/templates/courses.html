@@ -17,7 +17,9 @@
                                 <div class="course row">
                                     <div class="col-lg-5 col-md-5 col-sm-5 hidden-xs">
                                         <div class="course-thumb">
-                                            <!-- tag img aqui -->
+                                            {% if course.home_thumbnail %}
+                                            <img src="{{ course.home_thumbnail.url }}">
+                                            {% endif %}
                                         </div>
                                     </div>
                                     <div class="col-lg-7 col-md-7 col-sm-7">
