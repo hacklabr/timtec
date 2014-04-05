@@ -21,7 +21,6 @@
                 if(!elementResolved) {
                     element.appendTo(document.body);
                     elementDefer.resolve(element);
-                    console.log(elementDefer);
                 }
             };
 
