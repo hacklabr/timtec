@@ -122,7 +122,7 @@ $(document).ready(function() {
                     <!-- END UNITS -->
                 </div>
                 <!-- END UNITS NAVIGATION FOR TABLET AND DESKTOP -->
-
+                {% endverbatim %}
                 <!-- UNITS NAVIGATION FOR PHONES -->
                 <div class="col-xs-12 visible-xs">
                     <p>
@@ -130,12 +130,12 @@ $(document).ready(function() {
                             <option ng-repeat="unit in lesson.units"
                                     ng-value="unit"
                                     ng-selected="unit==currentUnit"
-                                    value="{{$index+1}}">{% trans 'Unit' %} {{ unit.position + 1 }}</option>
+                                    value="{% verbatim %}{{$index+1}}{% endverbatim %}">{% trans 'Unit' %} {% verbatim %}{{ unit.position + 1 }}{% endverbatim %}</option>
                         </select>
                     </p>
                 </div>
                 <!-- END UNITS NAVIGATION FOR PHONES -->
-                {% endverbatim %}
+
 
                 <div class="col-lg-8 col-md-11 col-sm-10">
                     <div ng-show="section=='video'">
