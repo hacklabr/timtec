@@ -525,10 +525,6 @@
     .main-content {
       margin-top: 0px;
 
-      @media (max-width: @screen-xs-min) {
-        margin-top: 200px !important;
-      }
-
       .left-col {
           background: rgba(255,255,255,0.5);
 
@@ -692,6 +688,31 @@
 
       }
     }
+
+    @media (max-width: 768px) {
+      .main-content {
+        margin-top: -405px !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .main-content {
+        margin-top: 30px !important;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .main-content {
+        margin-top: 40px !important;
+      }
+    }
+
+    @media (max-width: 320px) {
+      .main-content {
+        margin-top: 160px !important;
+      }
+    }
+
   }
 
   &.course-lesson {
