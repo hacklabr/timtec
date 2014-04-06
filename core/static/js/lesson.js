@@ -13,7 +13,7 @@
         'notes'
     ]);
 
-    window.ga = window.ga || function(){ console.log(arguments); };
+    window.ga = window.ga || function(){};
 
     var ACTIVITY_TEMPLATE_PATH = function(the_type){
         return STATIC_URL + '/templates/activity_'+ the_type + '.html';

@@ -6,7 +6,7 @@
     app.controller('MainCtrl', ['$scope', 'LessonData', 'Answer', 'Progress', '$location', 'youtubePlayerApi', 'resolveActivityTemplate',
         function ($scope, LessonData, Answer, Progress, $location, youtubePlayerApi, resolveActivityTemplate) {
 
-            window.ga = window.ga || function(){ console.log(arguments); };
+            window.ga = window.ga || function(){};
 
             youtubePlayerApi.events.onStateChange = function(event){
                 window.onPlayerStateChange.call($scope.currentUnit, event);

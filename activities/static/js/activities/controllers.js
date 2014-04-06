@@ -12,7 +12,6 @@
 
             $scope.refresh  = function() {
                 $scope.cm_refresh += 1;
-                console.log($scope.cm_refresh);
             };
 
             $scope.answer.$promise.finally(function() {
@@ -40,7 +39,6 @@
             };
 
             $scope.codemirrorLoaded = function(cm){
-                console.log('cm loaded');
                 // FIXME refactor this.
                 var pid = setInterval(function(){
                     if ($scope.cm_refresh < 20) {
