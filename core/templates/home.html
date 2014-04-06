@@ -89,26 +89,23 @@
                              -->
                             <div class="slider">
 
-                                <div class="wrapper">
-
-                                    <div class="col-lg-12 col-md-12">
-                                        <h3><a href="#">Próximos <span>lançamentos</span></a></h3>
-                                    </div>
+                                <h3><a href="#">Próximos <span>lançamentos</span></a></h3>
+                                <div class="row">
                                     {% verbatim %}
-                                    <div class="video" ng-repeat="course in upcoming_courses">
+                                    <div class="video col-lg-4 col-md-4" ng-repeat="course in upcoming_courses">
                                         <a ng-href="/course/{{ course.slug }}">
-                                            <div class="thumb">
-                                                <img ng-src="{{ course.home_thumbnail_url }}">
+                                            <div class="col-lg-4 col-md-4 left right">
+                                                <div class="thumb">
+                                                    <img ng-src="{{ course.home_thumbnail_url }}" class="img-responsive">
+                                                </div>
                                             </div>
                                         </a>
                                         <a ng-href="/course/{{ course.slug }}">
-                                            <h4>{{ course.name }}</h4>
+                                            <h4 class="col-lg-8 col-md-8">{{ course.name }}</h4>
                                         </a>
                                     </div>
                                     {% endverbatim %}
-                                
                                 </div>
-
                             </div>
 
 
