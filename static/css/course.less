@@ -353,7 +353,7 @@
       margin-top: 0px;
 
       @media (max-width: @screen-xs-min) {
-        margin-top: 100px !important;
+        margin-top: 200px !important;
       }
 
       .left-col {
@@ -446,6 +446,7 @@
       .right-col {
         background: rgba(40,112,187,0.5);
         color: #fff;
+        padding-top: 80px;
 
         .buttons {
           margin-top: 10px;
@@ -630,7 +631,6 @@
 
     .course-thumb {
       background-color: #000;
-      height: 200px;
       border: 4px solid #fff;
       .border-radius(3px);
       .box-shadow(0px 10px 30px 0px rgba(0, 0, 0, 0.3));
@@ -979,9 +979,9 @@
 
     &.course-intro {
       .main-content {
-        margin-top: -655px;
+        margin-top: -700px;
         @media (max-width: 1366px) {
-          margin-top: -440px;
+          margin-top: -445px;
         }
 
         .right-col {
@@ -1000,13 +1000,13 @@
     &.course-messages,
     &.course-stats {
       .main-content {
-        margin-top: -605px;
+        margin-top: -635px;
       }
     }
 
     &.course-list {
       .main-content {
-        margin-top: -655px;
+        margin-top: -700px;
         @media (max-width: 1366px) {
           margin-top: -440px;
         }
@@ -1040,4 +1040,98 @@
       margin-top: 15px;
     }
   }
+}
+
+.course-activity {
+  background-color: white;
+    border: 1px solid @gray-lighter;
+    padding: 40px 20px;
+    position:relative;
+
+    .question {
+        h1 {
+            border-bottom: 1px solid @gray-lighter;
+            // color: rgb(44,61,147);
+            color: @brand-info;
+            font-family: "Teuton";
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            text-align: center;
+        }
+    }
+
+    .answers {
+        margin: 20px 0;
+    }
+
+    .simplechoice-answers {
+        .answer {
+            border-bottom: 1px solid @gray-lighter;
+            font-size: 16px;
+            label {
+                vertical-align: top;
+                .icons {
+                    display: inline !important;
+                    margin-top: 10px;
+                    position: initial !important;
+                }
+            }
+        }
+    }
+
+    .multiplechoice-answers {
+        .answer {
+            border-bottom: 1px solid @gray-lighter;
+            font-size: 16px;
+            label {
+                vertical-align: top;
+                .icons {
+                    display: inline !important;
+                    margin-top: 10px;
+                    position: initial !important;
+                }
+            }
+        }
+    }
+
+    .trueorfalse-answers {
+        .answer {
+            border-bottom: 1px solid @gray-lighter;
+            font-size: 16px;
+            margin: 10px 0;
+            padding: 10px 0;
+        }
+    }
+
+    .relationship-answers {
+        .answer {
+            border-bottom: 1px solid @gray-lighter;
+            font-size: 16px;
+            margin: 10px 0;
+            padding: 10px 0;
+            > * {
+                line-height: 2;
+            }
+        }
+    }
+
+    .submit {
+        margin-top: 40px;
+    }
+
+    label {
+        font-weight:normal;
+    }
+
+    .wrong {
+        color:@brand-danger;
+    }
+
+    .correct {
+        color:@brand-success;
+    }
+
+    table tr, table tr td {
+        border:none;
+    }
 }
