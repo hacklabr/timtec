@@ -52,8 +52,7 @@
                             <div class="col-lg-12 textright">
                                 <p class="col-lg-6 col-md-6 col-sm-6 col-xs-6 textleft">
                                 {% load socialaccount %}
-                                <a href="{% provider_login_url 'facebook' method='oauth2' %}" class="facebook">{% trans 'Connect with Facebook' %}</a>
-                                <!-- {% load socialaccount %}<a href="{% provider_login_url 'facebook' method='oauth2' %}" class="btn btn-primary">Facebook Connect</a> -->
+                                <a class="facebook-login" href="{% provider_login_url 'facebook' method='oauth2' %}" class="facebook">{% trans 'Connect with Facebook' %}</a>
                                 </p>
                             </div>
                         </div>
