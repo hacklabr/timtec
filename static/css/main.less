@@ -662,10 +662,6 @@ body {
         } // .header h2
     }
 
-    .main-content {
-        margin-top: -375px;
-    } // .content
-
     #push {
         height: 80px;
     }
@@ -691,10 +687,74 @@ body {
     }
 }
 
-@media (max-width: @screen-xs-min) {
 
+// RESPONSIVE MAIN CONTENT
+
+@media (max-width: 320px) {
+  .main-content {
+    margin-top: 165px !important;
+  }
+  .course-lesson {
     .main-content {
-        margin-top: 65px !important;
+      margin-top: 175px !important;
     }
-
+  }
 }
+
+@media (min-width: 321px) and (max-width: 639px) {
+  .main-content {
+    margin-top: 0 !important;
+  }
+  .course-lesson {
+    .main-content {
+      margin-top: 50px !important;
+    }
+  }
+}
+
+
+@media (min-width: 640px) and (max-width: 767px) {
+  .main-content {
+    margin-top:0 !important;
+  }
+  .course-lesson {
+    .main-content {
+      margin-top: 50px !important;
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .main-content {
+    margin-top: -455px !important;
+  }
+  .course-lesson {
+    .main-content {
+      margin-top: -395px !important;
+    }
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1366px) {
+  .main-content {
+    margin-top: -415px !important;
+  }
+  .course-lesson {
+    .main-content {
+      margin-top:-395px !important;
+    }
+  }
+}
+
+@media (min-width: 1367px) {
+  .main-content {
+    margin-top: -405px !important;
+  }
+  .course-lesson {
+    .main-content {
+      margin-top: -650px !important;
+    }
+  }
+}
+
+
