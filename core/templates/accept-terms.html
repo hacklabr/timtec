@@ -11,23 +11,16 @@
             <div class="main-content">
 
                 <!-- CONTAINER -->
-                <div class="container">
-                  <form action="/accept_terms/" method="post">{% csrf_token %}
+                <div class="container js-fullheight">
+                  <form action="/accept_terms/" method="post" style="padding-top: 80px;">{% csrf_token %}
                     {% with errors=form.accept_terms.errors %}
                     <div class="form-group{{ errors|yesno:' has-error,' }}">
-                        <div class="col-lg-offset-2 col-lg-4 col-md-offset-3 col-md-5 col-sm-offset-4 col-sm-6">
-                            <span class="checkbox-wrapper"><input name="accept_terms" type="checkbox" {% if form.accept_terms.value %}checked=""{% endif %} class=""></span>
-                            <label>Aceito os <a href="{% url 'django.contrib.flatpages.views.flatpage' url='terms/' %}" target="_blank">termos de uso</a></label>
-                            {% for error in errors %}<small>{{error}}</small>{% endfor %}
-                        </div>
+                        <span class="checkbox-wrapper"><input name="accept_terms" type="checkbox" {% if form.accept_terms.value %}checked=""{% endif %} class=""></span>
+                        <label>Aceito os <a href="{% url 'django.contrib.flatpages.views.flatpage' url='terms/' %}" target="_blank">termos de uso</a></label>
+                        {% for error in errors %}<small>{{error}}</small>{% endfor %}
                     </div>
                     {% endwith %}
-
-                    <div class="row">
-                        <div class="submit col-lg-6 col-md-8 col-sm-10 textright">
-                            <input class="btn btn-success" type="submit" value="Enviar" />
-                        </div>
-                    </div>
+                    <input class="btn btn-success" type="submit" value="Enviar" />
                   </form>
                 </div>
             </div>
