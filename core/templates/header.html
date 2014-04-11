@@ -33,7 +33,7 @@
                 <li>
                 {% if user.is_authenticated %}
                     <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
-                        {{ user.email|truncatechars:14 }}
+                        {{ user.email|truncatechars:13 }}
                         <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu user-menu">
