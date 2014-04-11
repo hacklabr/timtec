@@ -216,3 +216,105 @@
     } // .content
 } // .home
 
+.safari {
+    #home {
+        .main-content {
+            .videos {
+
+                @media (min-width: 399px) and (max-width: 599px) {
+                    .video-wrapper.col-xs-6 {
+                        width: 336px;
+                        margin: 0 auto;
+                        padding: 0;
+                        clear: both;
+                        float: none;
+                        .video {
+                            .video-thumb {
+                                height: 190px;
+                                width: 336px;
+                            }
+                        }
+                    }
+                }
+
+                @media (min-width: 600px) and (max-width: 639px) {
+                    .video {
+                        .video-thumb {
+                            height: 160px;
+                            width: 282px;
+                        }
+                    }
+                }
+
+                @media (min-width: 640px) and (max-width: 669px) {
+                    .video {
+                        .video-thumb {
+                            height: 165px;
+                            width: 291px;
+                        }
+                    }
+                }
+
+                @media (min-width: 670px) and (max-width: 699px) {
+                    .video {
+                        .video-thumb {
+                            height: 175px;
+                            width: 309px;
+                        }
+                    }
+                }
+
+                @media (min-width: 700px) and (max-width: 739px) {
+                    .video {
+                        .video-thumb {
+                            height: 185px;
+                            width: 327px;
+                        }
+                    }
+                }
+
+                @media (min-width: 740px) and (max-width: 767px) {
+                    .video {
+                        .video-thumb {
+                            height: 200px;
+                        }
+                    }
+                }
+
+                @media (min-width: 768px) and (max-width: 991px) {
+                    .video {
+                       .video-thumb {
+                            height: 195px;
+                        }
+                    }
+                }
+
+                @media (min-width: 992px) and (max-width: 1199px) {
+                    .video {
+                        .video-thumb {
+                            height: 170px;
+                        }
+                    }
+                }
+
+                @media (min-width: 1200px) {
+                    .video {
+                        .video-thumb {
+                            height: 205px;
+                        }
+                    }
+                }
+
+                .video {
+                    .video-thumb {
+                        img {
+                            width: auto;
+                            height: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
