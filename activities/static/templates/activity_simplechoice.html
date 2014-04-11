@@ -3,7 +3,7 @@
 </div>
 <div class="answers simplechoice-answers">
     <div ng-repeat="alt in currentActivity.data.alternatives track by $index" class="answer">
-        <radio ng-model="$parent.answer.given" ng-value="$index">
+        <radio ng-model="$parent.answer.given[$index]" ng-value="$index">
             {{ alt }}
         </radio>
     </div>
