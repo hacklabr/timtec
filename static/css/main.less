@@ -175,21 +175,24 @@
 // ********************************************************************* //
 
 html {
-    position: relative;
     height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    height: 100%;
+    position: relative;
+    min-height: 100%;
+    padding: 0 0 80px;
     background-image: url(../img/timtec/bg.jpg);
     background-position: top center;
 }
 
 .wrapper {
     min-height: 100%;
-    height: auto !important;
+    // height: auto !important;
     height: 100%;
-    margin: 0 auto -55px;
+    margin: 0 auto;
 }
 
 // MAIN HEADER
@@ -509,6 +512,16 @@ body {
     .btn {
         text-transform: uppercase;
     }
+    .container {
+        // background: -moz-linear-gradient(left,  rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.5) 57%, rgba(40,112,187,0.5) 58%, rgba(40,112,187,0.5) 100%);
+        // background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,0.5)), color-stop(75%,rgba(255,255,255,0.5)), color-stop(75%,rgba(40,112,187,0.5)), color-stop(100%,rgba(40,112,187,0.5)));
+        // background: -webkit-linear-gradient(left,  rgba(255,255,255,0.5) 0%,rgba(255,255,255,0.5) 57%,rgba(40,112,187,0.5) 58%,rgba(40,112,187,0.5) 100%);
+        // background: -o-linear-gradient(left,  rgba(255,255,255,0.5) 0%,rgba(255,255,255,0.5) 57%,rgba(40,112,187,0.5) 58%,rgba(40,112,187,0.5) 100%);
+        // background: -ms-linear-gradient(left,  rgba(255,255,255,0.5) 0%,rgba(255,255,255,0.5) 57%,rgba(40,112,187,0.5) 58%,rgba(40,112,187,0.5) 100%);
+        // background: linear-gradient(to right,  rgba(255,255,255,0.5) 0%,rgba(255,255,255,0.5) 57%,rgba(40,112,187,0.5) 58%,rgba(40,112,187,0.5) 100%);
+        // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80ffffff', endColorstr='#802870bb',GradientType=1 );
+
+    }
 }
 
 .modal-dialog {
@@ -539,10 +552,11 @@ body {
 // ********************************************************************* //
 
 .main-footer {
-    position: relative;
+    position: absolute;
+    width: 100%;
     bottom: 0;
     z-index: 9;
-    height: 55px;
+    height: 80px;
     .gradient (@startColor: #007dc3, @endColor: #1451a2);
     .box-shadow(0px -2px 5px 0px rgba(0, 0, 0, 0.3));
 
@@ -610,20 +624,20 @@ body {
         } // .main-nav ul
     } // .main-nav
 
-    .main-footer {
-        height: 90px;
-        .footer-nav {
-            margin: 0;
-            float: none;
-            display: block;
-            clear: both;
-            padding: 16px 0 0;
+    // .main-footer {
+    //     height: 90px;
+    //     .footer-nav {
+    //         margin: 0;
+    //         float: none;
+    //         display: block;
+    //         clear: both;
+    //         padding: 16px 0 0;
 
-            li {
-                margin: 0 10px 0 0;
-            }
-        }
-    }
+    //         li {
+    //             margin: 0 10px 0 0;
+    //         }
+    //     }
+    // }
 }
 
 @media (max-width: 600px) {
@@ -642,9 +656,9 @@ body {
 
 @media (min-width: @screen-sm-min) {
 
-    .wrapper {
-        margin: 0 auto -80px;
-    }
+    // .wrapper {
+    //     margin: 0 auto -80px;
+    // }
 
     .main-header {
         height: 80px;
@@ -666,25 +680,25 @@ body {
         height: 80px;
     }
 
-    .main-footer {
-        height: 80px;
+    // .main-footer {
+    //     height: 80px;
 
-        h3 {
-            margin: 26px 40px 0 0;
-            font-size: 30px;
-        }
-        .logo-mct {
-            margin: 26px 0 0 0;
-            width: 178px;
-            height: 32px;
+    //     h3 {
+    //         margin: 26px 40px 0 0;
+    //         font-size: 30px;
+    //     }
+    //     .logo-mct {
+    //         margin: 26px 0 0 0;
+    //         width: 178px;
+    //         height: 32px;
 
-        }
+    //     }
 
-        .footer-nav {
-            float: right;
-            margin: 30px 0 0 0;
-        }
-    }
+    //     .footer-nav {
+    //         float: right;
+    //         margin: 30px 0 0 0;
+    //     }
+    // }
 }
 
 
@@ -834,6 +848,10 @@ body {
       margin-top: -450px !important;
     }
   }
+}
+
+.js-fullheight {
+    height: 100%;
 }
 
 @media (min-width: 1367px) {

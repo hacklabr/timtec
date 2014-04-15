@@ -3,6 +3,12 @@
 
     var oldHeight;
     function res () {
+        if($(window).width() < 992) {
+            console.log('nao rodei');
+            return
+        } else {
+            console.log($(window).width());
+        }
         var footerpos = $('.main-footer').position().top  -  $('header.main-header').outerHeight(true);
         $('.js-fullheight').each(function () {
             var $this = $(this);
@@ -17,9 +23,9 @@
 
     $(function () {
         // res();
-        $(window).resize(res);
+        // $(window).resize(res);
         // $(document).bind('DOMSubtreeModified', res);
-        setTimeout(res, 500);
+        // setTimeout(res, 500);
     });
 
     $(function () {
