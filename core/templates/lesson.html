@@ -124,7 +124,7 @@ $(document).ready(function() {
                 <!-- END UNITS NAVIGATION FOR TABLET AND DESKTOP -->
                 {% endverbatim %}
                 <!-- UNITS NAVIGATION FOR PHONES -->
-                <div class="col-xs-12 visible-xs">
+                <div class="col-xs-12 visible-xs" style="z-index: 1000;">
                     <p>
                         <select ng-model="currentUnitPos" class="form-control">
                             <option ng-repeat="unit in lesson.units"
