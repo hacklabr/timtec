@@ -363,6 +363,7 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'allauth.socialaccount.context_processors.socialaccount',
     'core.context_processors.contact_form',
     'core.context_processors.site_settings',
+    'timtec.locale_context_processor.locale',
 )
 
 # Django Suit configuration example
