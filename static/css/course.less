@@ -843,7 +843,11 @@
         background-color: #f26522;
         h3 {
           font-size: 55px;
+          @media (max-width: @screen-md-max) {
+            font-size: 44px;
+          }
         }
+
       }
       &.dark-blue {
         background-color: #0d4c8f;
@@ -866,7 +870,7 @@
         font-size: 26px;
       }
     }
-        
+
   }
 
   .courses {
