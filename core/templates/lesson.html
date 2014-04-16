@@ -91,8 +91,8 @@ $(document).ready(function() {
 
           </header>
             <!-- END HEADER -->
-
-            <div class="row" ng-controller="MainCtrl">
+            <div ng-controller="MainCtrl">
+            <div class="row">
 
                 {% verbatim %}
                 <!-- UNITS NAVIGATION FOR TABLET AND DESKTOP -->
@@ -187,6 +187,7 @@ $(document).ready(function() {
                         <p ng-if="!currentUnit.side_notes">{% trans 'This unit has no addicional materials' %}</p>
                     </div>
                 </div>
+            </div>
             </div>
             <!-- FORUM -->
             <div class="row">
