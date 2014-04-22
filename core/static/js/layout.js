@@ -1,31 +1,41 @@
 (function($){
     'use strict';
 
-    var oldHeight;
     function res () {
-        if($(window).width() < 992) {
-            console.log('nao rodei');
-            return
-        } else {
-            console.log($(window).width());
+        var $visibleFull = $('.js-fullheight:visible');
+        var heights = $visibleFull.map(function () {
+            return $(this).height();
+        }).get();
+
+        var footerpos = $('.main-footer').offset().top  -  $('header.main-header').height() + 5; // Discover where does this 5 pixels come from
+        heights.push(footerpos);
+        var tallerSize = Math.max.apply(null, heights);
+
+        console.log($visibleFull.length);
+        console.log(tallerSize, footerpos);
+
+        function positionBack (sel1, sel2) {
+            var $b1 = $(sel1);
+            var $c1 = $(sel2 + ':visible');
+            if($c1.length > 0) {
+                $b1.show();
+                $b1.height(tallerSize);
+                $b1.width($c1.outerWidth());
+                $b1.offset($c1.offset());
+            } else {
+                $b1.hide();
+            }
         }
-        var footerpos = $('.main-footer').position().top  -  $('header.main-header').outerHeight(true);
-        $('.js-fullheight').each(function () {
-            var $this = $(this);
 
-            $(this).height(Math.max($(this).height(), this.scrollHeight));
-            $this.height(footerpos - $this.position().top);
-            // console.log($this.attr('class'), $this.height(), $this.innerHeight(), this.scrollHeight, $this.outerHeight());
-        });
-
-        oldHeight = $('.main-footer').position().top;
+        positionBack('.b1', '.c1');
+        positionBack('.b2', '.c2');
     }
 
     $(function () {
-        // res();
-        // $(window).resize(res);
-        // $(document).bind('DOMSubtreeModified', res);
-        // setTimeout(res, 500);
+        res();
+        $(window).resize(res);
+        $(document).bind('DOMSubtreeModified', res);
+        setTimeout(res, 500);
     });
 
     $(function () {
@@ -37,5 +47,4 @@
             $('#institute-tab').addClass('active');
         }
     });
-
 })(window.jQuery);

@@ -7,12 +7,6 @@
     }
   } // .illust
 
-  .main-content {
-    &>.container {
-      background: rgba(255,255,255,0.5);
-    }
-  }
-
   // Page Headers
   .page-header-double {
     margin-bottom: 10px;
@@ -62,10 +56,8 @@
   .main-content {
 
     &>.container {
-      background: rgba(255,255,255,0.5);
-
       @media (min-width: @screen-md-min) {
-        background: url(../img/timtec/illustrations/instituto-container-m.png) rgba(255,255,255,0.5) no-repeat bottom right;
+        background: url(../img/timtec/illustrations/instituto-container-m.png) no-repeat bottom right;
       }
 
       h2 {
@@ -81,18 +73,4 @@
   .content {
     margin: 80px 0 0;
   }
-}
-
-.page.static-page {
-  .main-content {
-
-    &>.container {
-      background: rgba(255,255,255,0.5);
-
-      @media (min-width: @screen-md-min) {
-        background: rgba(255,255,255,0.5);
-      }
-    }
-  }
-
 }
