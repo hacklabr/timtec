@@ -213,7 +213,7 @@ class Lesson(models.Model):
     )
 
     course = models.ForeignKey(Course, verbose_name=_('Course'), related_name='lessons')
-    desc = models.CharField(_('Description'), max_length=255)
+    desc = models.TextField(_('Description'))
     name = models.CharField(_('Name'), max_length=255)
     notes = models.TextField(_('Notes'), default="", blank=True)
     position = PositionField(collection='course', default=0)
