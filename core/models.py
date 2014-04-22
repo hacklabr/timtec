@@ -237,7 +237,9 @@ class Lesson(models.Model):
             return staticfiles_storage.url('img/lesson-default.png')
 
     def activity_count(self):
-        return self.units.exclude(activity=None).count()
+        # FIXME verify activies app dependency in core app is acceptable, refs to #428
+        from activities.models import Activity
+        return Activity.objects.filter(unit__lesson=self).count()
 
     def unit_count(self):
         return self.units.all().count()

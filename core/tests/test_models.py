@@ -33,13 +33,16 @@ def test_percent_progress_by_lesson(user):
 def test_lesson_counts(settings):
     lesson = mommy.make('Lesson', slug='lesson')
     video = mommy.make('Video')
-    activity = mommy.make('Activity')
-    mommy.make('Unit', lesson=lesson, video=video, activity=activity)
-    mommy.make('Unit', lesson=lesson, video=None, activity=activity)
-    mommy.make('Unit', lesson=lesson, video=video, activity=None)
-    mommy.make('Unit', lesson=lesson, video=video, activity=None)
+    unit1 = mommy.make('Unit', lesson=lesson, video=video)
+    unit2 = mommy.make('Unit', lesson=lesson, video=None)
+    unit3 = mommy.make('Unit', lesson=lesson, video=video)
+    mommy.make('Unit', lesson=lesson, video=video)
+    mommy.make('Activity', unit=unit1)
+    mommy.make('Activity', unit=unit1)
+    mommy.make('Activity', unit=unit2)
+    mommy.make('Activity', unit=unit3)
 
-    assert lesson.activity_count() == 2
+    assert lesson.activity_count() == 4
     assert lesson.video_count() == 3
     assert lesson.unit_count() == 4
 
