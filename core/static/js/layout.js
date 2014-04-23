@@ -13,7 +13,7 @@
         var lefts = $visibleFull.map(function () {
             return $(this).offset().left;
         }).get();
-        var footerpos = $('.main-footer').offset().top  -  $('header.main-header').height() + 5; // Discover where does this 5 pixels come from
+        var footerpos = $('.main-footer').offset().top - $visibleFull.offset().top;
         heights.push(footerpos);
         var tallerSize = Math.max.apply(null, heights);
 
