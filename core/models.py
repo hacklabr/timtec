@@ -106,6 +106,25 @@ class Course(models.Model):
         else:
             return False
 
+    def avg_lessons_users_progress(self):
+        student_enrolled = self.coursestudent_set.all().count()
+        progress_list = []
+        for lesson in self.lessons.all():
+            lesson_progress = {}
+            lesson_progress['name'] = lesson.name
+            lesson_progress['slug'] = lesson.slug
+            lesson_progress['position'] = lesson.position
+            units_len = lesson.unit_count()
+            if units_len:
+                units_done_len = StudentProgress.objects.exclude(complete=None).filter(unit__lesson=lesson).count()
+                lesson_progress['progress'] = 100 * units_done_len / units_len * student_enrolled
+                # lesson_progress['finish'] = self.get_lesson_finish_time(lesson)
+            else:
+                lesson_progress['progress'] = 0
+                lesson_progress['finish'] = ''
+            progress_list.append(lesson_progress)
+        return progress_list
+
 
 class CourseStudent(models.Model):
     user = models.ForeignKey(TimtecUser, verbose_name=_('Student'))
@@ -126,7 +145,7 @@ class CourseStudent(models.Model):
         else:
             try:
                 return self.course.first_lesson().units.order_by('position').first()
-            except (AttributeError):
+            except AttributeError:
                 return None
 
     def percent_progress(self):
