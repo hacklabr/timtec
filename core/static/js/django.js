@@ -27,6 +27,8 @@
         // Maybe this will make everything very slow... be aware
         // this is for resizing the fullheight columns of background on
         // angularjs parts of the site.
-        $rootScope.$watch(window.timtec_res);
+        $rootScope.$watch(function () {
+            setTimeout(window.timtec_res);
+        });
     });
 })(window.angular);
