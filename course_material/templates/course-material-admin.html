@@ -14,20 +14,53 @@
 <!-- CONTAINER -->
 <div id="course" class="course-material" ng-app="courseMaterial">
 
-    <div ng-controller="HeaderController">
-        {% include "_admin_header_inline.html"%}
-    </div>
+    <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
 
-    <!-- MAIN CONTENT -->
-    <section id="main-content" class="container">
-        <div class="row">
-            <div class="col-sm-9 col-lg-9" ng-controller="CourseMaterialEditorCtrl">
-                <p class="description">
-                    <span class="description" ng-bind-html="course_material.text|markdown"></span>
-                </p>
-                <a data-toggle="modal" href="#course-material-modal">{% trans 'Edit text' %}</a>
-                {% verbatim %}
-                <div class="modal fade" id="course-material-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="main-content">
+
+        <div class="container">
+
+            <div ng-controller="HeaderController">
+                {% include "_admin_header_inline.html"%}
+            </div>
+
+            <section id="course-content" ng-controller="CourseMaterialEditorCtrl">
+                <header>
+                    <div class="row">
+                        <div class="col-lg-11 col-lg-offset-1 col-md-11 col-md-offset-1 col-sm-12">
+                            <h1>{% trans "Course Material" %}</h1>
+                        </div>
+                    </div>
+                </header>
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-8">
+                        <p class="description">
+                            <span class="description" ng-bind-html="course_material.text|markdown"></span>
+                        </p>
+                        <a data-toggle="modal" href="#" data-target="#course-material-modal">{% trans 'Edit text' %}</a>
+
+                    </div>
+                    <!-- ASIDE -->
+                    <aside class="col-sm-3 col-lg-3">
+                        <form action="{% url 'file_upload' course.slug %}" class="dropzone textcenter" drop-zone id="file-dropzone">
+                            <p class="btn btn-success"><strong>{% trans 'Drop' %}</strong> {% trans 'files to upload' %}<br>{% trans '(or click)' %}</p>
+                            {% csrf_token %}
+                        </form>
+                        <ul class="uploaded-files-list">
+                            <li>
+                                <h5>{% trans "Files" %}</h5>
+                            </li>
+                            {% for file in course_material.files.all %}
+                            <li>
+                                <a href="{{ file.file.url }}">{{ file.file.name }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </aside>
+                    <!-- END ASIDE -->
+                </div>
+                <!-- EDIT MODAL -->
+                <div class="modal fade" id="course-material-modal" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -60,29 +93,11 @@
                         </div>
                     </div>
                 </div>
-                {% endverbatim %}
-            </div>
-            <!-- ASIDE -->
-            <aside class="col-sm-3 col-lg-3">
-                <form action="{% url 'file_upload' course.slug %}" class="dropzone textcenter" drop-zone id="file-dropzone">
-                    <p><strong>{% trans 'Drop' %}</strong> {% trans 'files to upload' %}<br>{% trans '(or click)' %}</p>
-                    {% csrf_token %}
-                </form>
-                <ul class="uploaded-files-list">
-                    <li>
-                        <h5>{% trans "Files" %}</h5>
-                    </li>
-                    {% for file in course_material.files.all %}
-                    <li>
-                        <a href="{{ file.file.url }}">{{ file.file.name }}</a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </aside>
-            <!-- END ASIDE -->
+                <!-- END EDIT MODAL -->
+            </section>
         </div>
-    </section>
-    <!-- END MAIN CONTENT-->
+    </div>
+
 </div>
 <!-- END CONTAINER -->
 {% endblock %}

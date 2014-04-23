@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block content %}
-        
+
         <div id="my-courses" class="page">
 
             <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
@@ -10,39 +10,40 @@
             <div class="main-content">
 
                 <!-- CONTAINER -->
-                <div class="container">
+                <div class="container js-fullheight">
 
-                    <header class="page-header-double">
-                        <h2>{% trans "My Courses" %}</h2>
-                    </header>
+                    <div class="content">
 
-                    <section class="courses">
-                        {% for cs in request.user.coursestudent_set.all %}
-                        <!-- COURSE -->
-                        <div class="course">
-                            <header>
-                                <div class="row">
-                                    <div class="col-lg-8">
-                                        <h3>{{ cs.course.name }}</h3>
-                                    </div>
-                                    <div class="col-lg-4 textright">
-                                        <div class="btn-group">
-                                            <a href="{% url 'enroll_course' cs.course.slug %}" class="btn btn-sm btn-success">{% trans "Resume Class" %}</a>
-                                            <a href="{% url 'enroll_course' cs.course.slug %}" class="btn btn-sm btn-success"><i class="fa fa-angle-double-right"></i></a>
+                        <header class="page-header-double">
+                            <h2>{% trans "My Courses" %}</h2>
+                        </header>
+
+                        <section class="courses">
+                            {% for cs in request.user.coursestudent_set.all %}
+                            <!-- COURSE -->
+                            <div class="course">
+                                <header>
+                                    <div class="row">
+                                        <div class="col-lg-8 col-md-8 col-sm-8">
+                                            <h3><a href="{% url 'enroll_course' cs.course.slug %}">{{ cs.course.name }}</a></h3>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-4 textright">
+                                            <div class="btn-group">
+                                                <a href="{% url 'enroll_course' cs.course.slug %}" class="btn btn-sm btn-success">{% trans "Resume course" %}</a>
+                                                <a href="{% url 'enroll_course' cs.course.slug %}" class="btn btn-sm btn-success"><i class="fa fa-angle-double-right"></i></a>
+                                            </div>
                                         </div>
                                     </div>
+                                </header>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width:{{cs.percent_progress}}%;"></div>
                                 </div>
-                            </header>
-                            <div class="progress">
-                                <div class="progress-bar" style="width:{{cs.percent_progress}}%;"></div>
+                                <a href="{% url 'user_course_notes' cs.course.slug %}" class="btn btn-default btn-sm">{% trans "My Notes" %}</a>
                             </div>
-                            <a href="{% url 'user_course_notes' cs.course.slug %}" class="btn btn-default btn-sm">{% trans "My Notes" %}</a>
-                            <a href="" class="btn btn-default btn-sm">{% trans "Details" %}</a>
-                            <span class="info">0 min of lecture and 0 quizzes remaining in 1.1a Equivalent Fractions.</span>
-                        </div>
-                        <!-- END COURSE -->
-                        {% endfor %}
-                    </section>
+                            <!-- END COURSE -->
+                            {% endfor %}
+                        </section>
+                    </div>
                 </div>
                 <!-- CONTAINER -->
             </div>

@@ -2,9 +2,11 @@
 
     .illust {
         background-image: url(../img/timtec/illustrations/home-l.png);
+        height: 700px !important;
 
-        @media (max-width: 1366px) { 
+        @media (max-width: 1366px) {
             background-image: url(../img/timtec/illustrations/home-m.png);
+            background-size: 1366px 498px;
         }
     } // .illust
 
@@ -13,16 +15,45 @@
         .videos {
             margin-top: 75px;
 
+            @media (max-width: 600px) {
+                .video-wrapper.col-xs-6 {
+                    width: 60%;
+                    margin: 0 20%;
+                    clear: both;
+                }
+            }
+
+            @media (max-width: 500px) {
+                .video-wrapper.col-xs-6 {
+                    width: 70%;
+                    margin: 0 15%;
+                }
+            }
+
+            @media (max-width: 450px) {
+                .video-wrapper.col-xs-6 {
+                    width: 80%;
+                    margin: 0 10%;
+                }
+            }
+
+            @media (max-width: 400px) {
+                .video-wrapper.col-xs-6 {
+                    width: 100%;
+                    margin: 0;
+                }
+            }
+
             .video {
                 margin-bottom: 35px;
 
                 .video-thumb {
                     position: relative;
                     background: #000;
-                    height: 200px;
-                    border: 5px solid #0c4580;
+                    border: 4px solid #fff;
                     .border-radius(3px);
                     .box-shadow(0px 10px 30px 0px rgba(0, 0, 0, 0.3));
+                    overflow: hidden;
 
                     img {
                         width: 100%;
@@ -35,6 +66,7 @@
 
                     h3 {
                         font-weight: bold;
+                        font-size: 20px;
 
                         a {
                             color: #000;
@@ -74,14 +106,13 @@
                 border-bottom: 2px solid #00bfda;
 
                 .info {
-                    margin-bottom: 15px;
+                    margin-bottom: 8px;
 
                     .avatar {
-                        width: 60px;
-                        height: 60px;
+                        width: 48px;
+                        height: 48px;
                         float: left;
-                        background-color: #000;
-                        margin: 0 20px 0 0;
+                        margin: 0 15px 0 0;
                     }
                     span {
                         display: block;
@@ -111,21 +142,56 @@
                 }
             }
 
+
+            .prev, .next {
+                margin-top: 75px;
+                width: 51px;
+                height: 121px;
+                background-image: url(../img/timtec/arrows.png);
+                cursor: pointer;
+            }
+
+            .prev {
+                float: left;
+                background-position: top left;
+            }
+
+            .next {
+                float: right;
+                background-position: top right;
+            }
+
+            .slider {
+                height: 200px;
+                // margin: 0 65px;
+                margin: 0;
+                overflow: hidden;
+
+                .wrapper {
+                    overflow: hidden;
+                    width: 3000px;
+                }
+            }
+
             .video {
+                // float: left;
+                // width: 335px;
+                // margin-right: 15px;
 
                 .thumb {
                     position: relative;
                     float: left;
-                    height: 121px;
-                    margin-right: 10px; 
+                    width: 100%;
+                    // height: 120px;
+                    margin-right: 10px;
                     background: #000;
-                    border: 5px solid #fff;
+                    border: 4px solid #fff;
                     .border-radius(3px);
                     .box-shadow(0px 10px 30px 0px rgba(0, 0, 0, 0.3));
 
                     img {
                         width: 100%;
-                        height: auto;
+                        height: 100%;
                     }
 
                     .play-ico {
@@ -139,10 +205,11 @@
                         }
                     }
                 }
-                
+
                 h4 {
                     margin: 0;
                     color: #fff;
+                    font-size: 16px;
                 }
             } // .video
         } // .next-videos

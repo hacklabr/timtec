@@ -22,7 +22,6 @@
     "angular-resource": "~1.2.4",
     "angular-route": "~1.2.4",
     "angular-sanitize": "~1.2.4",
-    "angular-ui-codemirror": "~0.0.7",
     "bootstrap": "~3.0.3",
     "codemirror": "~3.19.0",
     "jquery": "<2.0.0",

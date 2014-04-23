@@ -7,15 +7,19 @@
 {% endblock %}
 
 {% block content %}
-        <div id="my-courses">
+        <div class="page static-page">
 
             <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
 
             <div class="main-content">
 
                 <!-- CONTAINER -->
-                <div class="container">
-                    {{ flatpage.content|markdown }}
+                <div class="container js-fullheight">
+
+                    <div class="content col-lg-8 col-md-7">
+                    	{{ flatpage.content|markdown }}
+                    </div>
+
                 </div>
             </div>
         </div>

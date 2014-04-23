@@ -25,27 +25,64 @@ ng-app="edit-lesson"
 <!-- COURSE-CONTENT -->
 <div id="course" class="course-lesson" ng-controller="EditLessonController">
 
-    <!-- ACTIONS -->
-    <div class="actions">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <button class="btn btn-danger" ng-click="deleteLesson()"><i class="fa fa-trash-o"></i> | {% trans 'Delete this lesson' %}</button>
-                </div>
-                <div class="col-lg-4 textright">
-                    <button class="btn btn-success" ng-click="saveLesson()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
-                    <button class="btn btn-warning" ng-click="publishLesson();">{% trans 'Publish lesson' %} | <i class="fa fa-star-o"></i></button>
+    <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
+
+    <div class="main-content">
+
+        <!-- ACTIONS -->
+        <div class="actions">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-4">
+                        <button class="btn btn-danger" ng-click="deleteLesson()"><i class="fa fa-trash-o"></i> | {% trans 'Delete this lesson' %}</button>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-8 textright">
+                        <button class="btn btn-success" ng-click="saveLesson()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
+                        <button class="btn btn-warning" ng-click="publishLesson();">{% trans 'Publish lesson' %} | <i class="fa fa-star-o"></i></button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- END ACTIONS -->
+        <!-- END ACTIONS -->
 
-    <div class="main-content">
         <div class="container">
-            {% include "_admin_header_inline.html" %}
+            <header id="main-header">
+              <div class="row">
+                <div class="col-lg-7 col-lg-offset-1 col-md-7 col-md-offset-1 col-sm-7">
+                  <nav class="lesson-units hidden-xs">
+                      <h1><span ng-class="{'blink-text-danger':errors.name}" ng-model="lesson.name"
+                                      placeholder="{% trans 'Lesson name' %}" contenteditable="true"></span></h1>
+                  </nav>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-5">
+                  <!-- COURSE-SECTION-NAV -->
+                  <nav class="course-sections">
+                      <a ng-href="{% verbatim %}/{{course_url}}{% endverbatim %}"><span class="has-tooltip intro" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Intro' %}"></span></a>
+                      <a ng-href="{% verbatim %}/{{forum_url}}{% endverbatim %}"><span class="has-tooltip forum" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Forum' %}"></span></a>
+                      <a ng-href="{% verbatim %}/{{course_material_url}}{% endverbatim %}"><span class="has-tooltip material" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Course material' %}"></span></a>
+                      <a ng-href="{% verbatim %}/{{messages_url}}{% endverbatim %}"><span class="has-tooltip my-notes" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Messages' %}"></span></a>
+                      <a ng-href="{% verbatim %}/{{reports_url}}{% endverbatim %}"><span class="has-tooltip my-notes" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Reports' %}"></span></a>
+                  </nav>
+                  <!-- END COURSE-SECTION-NAV -->
+                </div>
+              </div>
+
+              <div class="course-info row">
+                <div class="course-lessons hidden-xs col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1">
+                    <modalmarkdowneditor on-save="saveLesson(lesson)" title="{% trans 'Lesson description' %}" content="lesson.desc"></modalmarkdowneditor>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                  <h1 class="course-name">
+                      {% verbatim %}
+                      <a href="/admin/courses/{{course.id}}" ng-bind="course.name"></a>
+                      {% endverbatim %}
+                  </h1>
+                </div>
+              </div>
+          </header>
             <div class="row">
-                <div class="col-lg-1">
+                <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs">
                     <div class="units admin-units">
                         {% verbatim %}
                         <a href="" class="unit" ng-repeat="u in lesson.units"
@@ -59,8 +96,8 @@ ng-app="edit-lesson"
                         <a href="" class="add-unit unit" ng-click="addUnit()"><i class="fa fa-plus"></i></a>
                     </div>
                 </div>
-                
-                <div class="col-lg-8">
+
+                <div class="col-lg-8 col-md-11 col-sm-11">
                     <div class="add-content row" ng-init="section='video'">
                         <div class="col-lg-6">
                             <button class="btn btn-default uppercase"
@@ -108,7 +145,7 @@ ng-app="edit-lesson"
                                 <!-- END CENTERED -->
                             </div>
 
-                            <div class="col-lg-12" style="overflow:hidden;" ng-style="{'margin-left': currentUnit.video && playerReady ?'':'-3000px'}">
+                            <div class="col-lg-12 left right" style="overflow:hidden;" ng-style="{'margin-left': currentUnit.video && playerReady ?'':'-3000px'}">
                                 <div id="youtube-player" player-height="419px" player-width="100%" youtube-player></div>
                                 <div class="row">
                                     <div class="col-lg-8">
@@ -171,7 +208,7 @@ ng-app="edit-lesson"
                     </div>
                     <!-- END ACTIVITIES SECTION -->
                 </div>
-                
+
                 <div id="annotations" class="hidden-md hidden-sm hidden-xs">
                 </div>
             </div>

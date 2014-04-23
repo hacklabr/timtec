@@ -6,6 +6,10 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 
+class AcceptTermsForm(forms.Form):
+    accept_terms = forms.BooleanField(label=_('Accept '), initial=False, required=True)
+
+
 class ContactForm(forms.Form):
     occupation = forms.CharField(label=_('Occupation'), max_length=128)
     subject = forms.CharField(label=_('Subject'), max_length=128)
@@ -25,3 +29,11 @@ class ContactForm(forms.Form):
         sender = settings.DEFAULT_FROM_EMAIL
 
         send_mail(subject, message, sender, recipient_list, fail_silently=False)
+
+
+class SignupForm(forms.Form):
+    accept_terms = forms.BooleanField(label=_('Accept '), initial=True, required=True)
+
+    def save(self, user):
+        user.accepted_terms = True
+        user.save()

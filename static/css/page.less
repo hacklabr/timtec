@@ -1,36 +1,98 @@
 .page {
 
   .illust {
-    background-image: url(../img/timtec/illustrations/course-intro-l.png);
+    background-image: url(../img/timtec/illustrations/instituto-l.png);
     @media (max-width: 1366px) {
-            background-image: url(../img/timtec/illustrations/course-intro-m.png);
+      background-image: url(../img/timtec/illustrations/instituto-m.png);
     }
   } // .illust
 
   .main-content {
-    margin-top: 0px;
-
     &>.container {
-      padding-top: 70px;
-      padding-bottom: 15px;
-      background: rgba(255,255,255,0.5); 
-    }   
+      background: rgba(255,255,255,0.5);
+    }
   }
 
   // Page Headers
   .page-header-double {
     margin-bottom: 10px;
     h2 {
-      margin: 0; 
+      margin: 0;
       font-family: 'teuton_26';
       color: #007dc3;
     }
   }
 
-  @media (min-width: @screen-sm-min) { 
+  .message {
 
-    .main-content {
-      margin-top: -680px;
-    } // .content
+    p {
+      font-size: 30px;
+      text-align: center;
+      color: #0d4c8f;
+    }
   }
+
+}
+
+#signup, #login, #reset-pass {
+  .page-header-double {
+    padding-top: 80px;
+    margin-bottom: 30px;
+  }
+  .facebook-login {
+      text-indent: -99999px;
+      display: block;
+      width: 100px;
+      height: 35px;
+      background-image: url(../img/timtec/login-facebook.png);
+  }
+}
+
+#profile {
+  h3 {
+    font-size: 20px;
+    margin: 2px 0 0;
+    font-weight: bold;
+    color: #007dc3;
+  }
+}
+
+.static-page {
+
+  .main-content {
+
+    &>.container {
+      background: rgba(255,255,255,0.5);
+
+      @media (min-width: @screen-md-min) {
+        background: url(../img/timtec/illustrations/instituto-container-m.png) rgba(255,255,255,0.5) no-repeat bottom right;
+      }
+
+      h2 {
+        margin-bottom: 0 0 10px;
+        font-family: 'teuton_26';
+        color: #007dc3;
+      }
+    }
+  }
+}
+
+.page, .static-page {
+  .content {
+    margin: 80px 0 0;
+  }
+}
+
+.page.static-page {
+  .main-content {
+
+    &>.container {
+      background: rgba(255,255,255,0.5);
+
+      @media (min-width: @screen-md-min) {
+        background: rgba(255,255,255,0.5);
+      }
+    }
+  }
+
 }

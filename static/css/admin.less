@@ -42,13 +42,10 @@ body#admin {
   .editable {
     cursor: pointer;
     word-break: break-word;
-    &:hover {
-      background-color: lighten(@brand-warning, 40%);
-    }
   }
 
   .markdown-required {
-    background-color: lighten(@brand-danger, 40%);
+    background-color: rgba(255,255,255,0.2);
     position: relative;
     > div.editable {
       min-height: 120px;
@@ -263,16 +260,9 @@ body#admin {
     -webkit-animation: blink-bg-red 2s infinite; /* Safari and Chrome */
   }
 
-
-
   .lessons.organizing-lessons .handle,
   .lessons.organizing-lessons .handle * {
       cursor: move !important;
-  }
-
-  .lessons .lesson {
-      background-color: white;
-      -webkit-transition: background-color 1s;
   }
 
   .lessons.organizing-lessons .ui-sortable-helper {

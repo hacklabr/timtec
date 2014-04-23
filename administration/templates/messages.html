@@ -15,99 +15,100 @@
 {% block content %}
 
 <!--  COURSE CONTENT  -->
-<div id="messages" class="course-messages" ng-app="messages">
+<div id="course" class="course-messages" ng-app="messages">
 
-    <div ng-controller="HeaderController">
-        {% include "_admin_header_inline.html" %}
-    </div>
-
+    <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
+    
     <!-- COURSE-CONTENT -->
-    <section id="messages-content" class="container" ng-controller="MessagesListController">
-        <header ng-controller="NewMessageController">
-            <div class="row">
-                <div class="col-lg-9">
-                    <h1>{% trans "Messages" %}</h1>
-                </div>
-                <div class="col-lg-3">
-                    <a class="new-message btn btn-lg btn-danger uppercase" ng-click="new_message()">{% trans "Send New Message" %}</a>
-                </div>
-                    <script type="text/ng-template" id="newMessageModal.html">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabel">{% trans "New Message" %}</h4>
+    <div class="main-content">
+        <div class="container">
+            <div ng-controller="HeaderController">
+                {% include "_admin_header_inline.html"  with course=course %}
+            </div>
+            <section id="messages-content" class="container" ng-controller="MessagesListController">
+                <div class="col-lg-11 col-lg-offset-1 col-md-11 col-md-offset-1">
+                    <header ng-controller="NewMessageController">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <h1>{% trans "Messages" %}</h1>
                             </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" ng-model="new_message.subject" placeholder="{% trans 'Subject' %}"/>
-                                </div>
-                                <div class="form-group">
-                                    <textarea class="form-control" rows="10" ng-model="new_message.message" placeholder="{% trans 'Message' %}"></textarea>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="students col-lg-12">
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <p><input type="search" value="Pesquisar" class="form-control"/>
-                                                    <div>
-                                                        <label>
-                                                            <input type="checkbox" ng-model="modal.all_checked" ng-click="checkAll()"> {% trans 'Check all' %}
-                                                        </label>
-                                                    </div>
-                                                </p>
-                                            </div>
+                            <div class="col-lg-3">
+                                <a class="new-message btn btn-lg btn-danger uppercase" ng-click="new_message()">{% trans "Send New Message" %}</a>
+                            </div>
+                                <script type="text/ng-template" id="newMessageModal.html">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">{% trans "New Message" %}</h4>
                                         </div>
-                                        <div class="row" ng-repeat="row in users_rows">
-                                            <div class="col-lg-2" ng-repeat="user in row">
-                                                <div class="student">
-                                                    {% verbatim %}
-                                                    <label><input type="checkbox" checklist-model="new_message.users" checklist-value="user.id"> {{ user.name || user.username }}</label>
-                                                    {% endverbatim %}
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" ng-model="new_message.subject" placeholder="{% trans 'Subject' %}"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea class="form-control" rows="10" ng-model="new_message.message" placeholder="{% trans 'Message' %}"></textarea>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="students col-lg-12">
+                                                    <div class="row">
+                                                        <div class="col-lg-4">
+                                                            <p><input type="search" value="Pesquisar" class="form-control"/>
+                                                                <div>
+                                                                    <label>
+                                                                        <input type="checkbox" ng-model="modal.all_checked" ng-click="checkAll()"> {% trans 'Check all' %}
+                                                                    </label>
+                                                                </div>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" ng-repeat="row in users_rows">
+                                                        <div class="col-lg-6" ng-repeat="user in row">
+                                                            <div class="student">
+                                                                {% verbatim %}
+                                                                <label><input type="checkbox" checklist-model="new_message.users" checklist-value="user.id"> {{ user.name || user.username }}</label>
+                                                                {% endverbatim %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="modal-footer">
+                                            <div class="col-lg-12">
+                                                <button type="button" class="btn btn-danger" ng-click="cancel()">{% trans "Close" %}</button>
+                                                <button type="button" class="btn btn-success" ng-click="send()">{% trans "Send" %}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </script>
+                        </div>
+                    </header>
+                    {% block messages_content %}
+                    <div class="messages">
+                        <div class="message" ng-repeat="message in messages">
+                            <div class="row">
+                                <div class="col-lg-1 textright">
+                                    {% verbatim %}
+                                    <span class="date">{{ message.date|date:"dd/MM/yy" }}</span>
+                                    {% endverbatim %}
+                                </div>
+                                <div class="col-lg-11">
+                                    {% verbatim %}
+                                    <div class="subject">{{ message.subject }}</div>
+                                    {% endverbatim %}
+                                    <div class="body"> 
+                                    <span ng-bind-html="message.message|markdown|words:50"></span>{% verbatim %} <a ng-href="/admin/course/{{course_id}}/message/{{message.id}}">{% endverbatim %} {% trans 'More...' %}</a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <div class="col-lg-12">
-                                    <button type="button" class="btn btn-danger" ng-click="cancel()">{% trans "Close" %}</button>
-                                    <button type="button" class="btn btn-success" ng-click="send()">{% trans "Send" %}</button>
-                                </div>
-                            </div>
-                        </div>
-                    </script>
-            </div>
-        </header>
-        {% block messages_content %}
-        <div class="messages">
-            <div class="message" ng-repeat="message in messages">
-                <div class="row">
-                    <div class="col-lg-1 textright">
-                        {% verbatim %}
-                        <span class="date">{{ message.date|date:"dd/MM/yy" }}</span>
-                        {% endverbatim %}
-                    </div>
-                    <div class="col-lg-11">
-                        {% verbatim %}
-                        <div class="subject">{{ message.subject }}</div>
-                        {% endverbatim %}
-                        <div class="body"> 
-                        <span ng-bind-html="message.message|markdown|words:50"></span>{% verbatim %} <a ng-href="/admin/course/{{course_id}}/message/{{message.id}}">{% endverbatim %} {% trans 'More...' %}</a>
                         </div>
                     </div>
+                    {% endblock %}
                 </div>
-            </div>
+            </section>
         </div>
-        {% endblock %}
-    </section>
+    </div>
     <!--  END COURSE CONTENT  -->
-
-
-
-
-
-
 </div>
 <!--  END COURSE CONTENT  -->
 

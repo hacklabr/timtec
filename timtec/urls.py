@@ -17,7 +17,7 @@ from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
                         LessonViewSet, StudentProgressViewSet,
                         UserNotesViewSet, CoursesView,
                         ProfessorMessageViewSet, CourseStudentViewSet,
-                        TwitterApi,)
+                        TwitterApi, AcceptTermsView)
 
 from activities.views import AnswerViewSet
 from accounts.views import TimtecUserViewSet
@@ -64,6 +64,7 @@ urlpatterns = patterns(
 
     # Public browsing
     url(r'^my-courses/$', UserCoursesView.as_view(), name='user_courses'),
+    url(r'^accept_terms/$', AcceptTermsView.as_view(), name='accept_terms'),
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/$', CourseView.as_view(), name='course_intro'),
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/enroll/$', EnrollCourseView.as_view(), name='enroll_course'),
     url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/lesson/(?P<slug>[-a-zA-Z0-9_]+)/$', LessonDetailView.as_view(), name='lesson'),

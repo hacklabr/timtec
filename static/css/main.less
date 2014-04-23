@@ -1,5 +1,24 @@
 @import '../../bower_components/bootstrap/less/bootstrap.less';
+@import 'flatui/checkbox-and-radio.less';
 @import "fonts";
+
+// Overwrite Bootstrap variables
+// ********************************************************************* //
+
+@border-radius-base: 0px;
+@border-radius-large: 0px;
+@border-radius-small: 0px;
+@btn-success-bg: #f26522;
+@btn-success-border: darken(@btn-success-bg, 5%);
+@btn-warning-bg: #0074be;
+@btn-warning-border: darken(@btn-warning-bg, 5%);
+@btn-danger-bg: #ec2028;
+@btn-danger-border: darken(@btn-danger-bg, 5%);
+@btn-info-bg: #0074be;
+@btn-info-border: darken(@btn-info-bg, 5%);
+@btn-default-bg: #0074be;
+@btn-default-border: darken(@btn-default-bg, 5%);
+@btn-default-color: #fff;
 
 // MIXINS
 // ********************************************************************* //
@@ -155,11 +174,13 @@
 // SITE STRUCTURE
 // ********************************************************************* //
 
-html,body {
+html {
+    position: relative;
     height: 100%;
 }
 
 body {
+    height: 100%;
     background-image: url(../img/timtec/bg.jpg);
     background-position: top center;
 }
@@ -168,7 +189,7 @@ body {
     min-height: 100%;
     height: auto !important;
     height: 100%;
-    margin: 0 auto -60px;
+    margin: 0 auto -55px;
 }
 
 // MAIN HEADER
@@ -266,7 +287,16 @@ body {
             }
 
             &.contato {
-                font-size: 35px;
+                background: url(../img/timtec/icon-contact.png) no-repeat 0px 4px;
+                a {
+                    span {
+                        display: block;
+                        margin: 0 0 0 -5px;
+                        padding: 44px 0 0 0;
+                        font-size: 9px;
+                        text-transform: uppercase;
+                    }
+                }
             }
             &.facebook {
                 .s-buttons(#3b65c0,#4c76d1);
@@ -286,9 +316,10 @@ body {
 // ********************************************************************* //
 
 .main-nav {
-    position: relative;
-    z-index: 9;
     height: 40px;
+    position: absolute;
+    z-index: 9;
+    width: 100%;
 
     ul {
         position: relative;
@@ -299,45 +330,84 @@ body {
             margin-right: 25px;
 
             a {
+                width: 120px;
                 background-color: #b7e5f7;
                 color: #0d4c8f;
                 text-align: center;
                 text-transform: uppercase;
                 .box-shadow(0px 5px 15px 0px rgba(0, 0, 0, 0.3));
                 transition: all 0.3s;
+                font-family: 'teuton_24', 'sans-serif';
+                font-size: 16px;
+                white-space: nowrap;
 
                 &:hover {
                     background-color: #fff;
                     text-decoration: none;
+                }
+
+                &.active {
+                    background-color: #0f5caa;
+                    color: #fff;
+                }
+
+                .tim {
+                    font-family: 'teuton_26', 'sans-serif';
+                }
+
+                .tec {
+                    text-transform: initial;
                 }
             }
 
             &.open {
 
                 .dropdown-menu.user-menu {
-                    width: 100%;
+                    position: absolute;
+                    left: inherit;
+                    right: 0;
+                    width: 200px;
+                    background-color: rgba(0, 116, 190, 0.7);
+                    border-radius: 0;
 
                     li {
                         width: 100%;
                         clear: both;
                         margin-right: 0;
+                        border-bottom: 2px solid #fff;
+
+                        &:last-child {
+                            border-bottom: 0;
+                        }
 
                         a {
+                            width: 100%;
                             padding: 6px 13px;
                             background: transparent;
                             .box-shadow(none);
-                            text-align: left;
+                            text-align: right;
+                            color: #fff;
 
                             &:hover {
                                 background-color: #b7e5f7;
+                                color: #0074be;
                             }
                         }
-                    }  
+                    }
                 }
 
                 .dropdown-menu.login-menu {
+                    position: absolute;
+                    left: inherit;
+                    right: 0;
                     width: 400px;
                     padding: 15px 0 0;
+                    background-color: rgba(193, 224, 244, 0.7);
+                    border-radius: 0;
+
+                    form {
+                        overflow: hidden;
+                    }
 
                     .form-group {
                         margin-bottom: 15px;
@@ -345,29 +415,59 @@ body {
                         label {
                             margin-top: 6px;
                         }
-                    } 
+                    }
 
                     a {
                         background: transparent;
                         text-transform: initial;
                         .box-shadow(none);
+                        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
                         &:hover {
                             text-decoration: underline;
                         }
                     }
 
-                    .divider {
-                        margin: 15px 0;
+                    .submit {
+                        margin-bottom: 15px;
                     }
 
                     .forgot-pass {
                         margin-top: 7px;
+
+                        a {
+                            font-size: 14px;
+                        }
+
                     }
 
-                    .textcenter {
-                        margin-bottom: 15px;
-                    } 
+                    .sign-in {
+                        background-color: #f26522;
+                        color: #fff;
+                        text-transform: uppercase;
+                        border-radius: 0;
+                        font-size: 14px;
+                    }
+
+                    .register {
+                        background-color: #0074be;
+                        color: #fff;
+                        text-transform: uppercase;
+                        border-radius: 0;
+                        font-size: 14px;
+
+                        &:hover {
+                            text-decoration: none;
+                        }
+                    }
+
+                    .facebook {
+                        text-indent: -99999px;
+                        display: block;
+                        width: 100px;
+                        height: 35px;
+                        background-image: url(../img/timtec/login-facebook.png);
+                    }
                 }
             }
         }
@@ -381,15 +481,14 @@ body {
 .illust {
     position: relative;
     z-index: 8;
-    margin-top: -45px; 
+    // margin-top: -45px;
     height: 700px;
     background-position: top center;
     background-repeat: no-repeat;
     background-size: 100%;
 
-    @media (max-width: 1366px) { 
-        background-image: url(../img/timtec/illustrations/home-m.png);
-        background-size: 1366px 498px;
+    @media (max-width: 1366px) {
+        height: 445px;
     }
 } // .illust
 
@@ -400,6 +499,40 @@ body {
 .main-content {
     position: relative;
     z-index: 8;
+
+    .checkbox-wrapper {
+        display: block;
+        float: left;
+        margin-right: 5px;
+    }
+
+    .btn {
+        text-transform: uppercase;
+    }
+}
+
+.modal-dialog {
+    margin: 170px auto;
+    .modal-content {
+        background-color: rgba(193, 224, 244, 0.7);
+        border-radius: 0;
+        h4 {
+            color: #007dc3;
+            font-family: 'teuton_26';
+        }
+    }
+}
+
+#modal-contact {
+    .modal-footer {
+        .btn {
+            margin-right: 20px;
+        }
+    }
+}
+
+#push {
+    height: 55px;
 }
 
 // MAIN FOOTER
@@ -427,7 +560,7 @@ body {
         margin: 18px 0 0 0;
         width: 178px/1.5;
         height: 32px/1.5;
-        background-image: url(../img/timtec/logo-mct.png); 
+        background-image: url(../img/timtec/logo-mct.png);
         background-size: 100% 100%;
         background-repeat: no-repeat;
     }
@@ -450,7 +583,7 @@ body {
         }
     } // .footer-nav
 } // .footer
-        
+
 
 // IMPORT
 // ********************************************************************* //
@@ -464,7 +597,8 @@ body {
 // RESPONSIVE
 // ********************************************************************* //
 
-@media (max-width: 360px) { 
+@media (max-width: 360px) {
+
     .main-nav {
         ul {
             li {
@@ -486,13 +620,13 @@ body {
             padding: 16px 0 0;
 
             li {
-                margin: 0 10px 0 0; 
+                margin: 0 10px 0 0;
             }
         }
     }
 }
 
-@media (max-width: 600px) { 
+@media (max-width: 600px) {
     .main-nav {
         ul {
             margin: 0 -15px;
@@ -506,7 +640,12 @@ body {
     } // .main-nav
 }
 
-@media (min-width: @screen-sm-min) { 
+@media (min-width: @screen-sm-min) {
+
+    .wrapper {
+        margin: 0 auto -80px;
+    }
+
     .main-header {
         height: 80px;
 
@@ -517,18 +656,14 @@ body {
         } // .header h1
 
         h2 {
-            margin: 20px 0 0;
+            margin: 20px 0 0 45px;
             width: 106px;
             height: 36px;
         } // .header h2
     }
 
-    .main-content {
-        margin-top: -375px;
-    } // .content
-
     #push {
-        height: 60px;
+        height: 80px;
     }
 
     .main-footer {
@@ -542,7 +677,7 @@ body {
             margin: 26px 0 0 0;
             width: 178px;
             height: 32px;
-            
+
         }
 
         .footer-nav {
@@ -552,21 +687,254 @@ body {
     }
 }
 
-@media (max-width: @screen-sm-min) { 
 
-    .main-nav ul li.open .dropdown-menu.login-menu {
-        left: inherit;
-        right: 0;
-    }
-}
+// RESPONSIVE MAIN CONTENT
 
-@media (max-width: @screen-xs-min) { 
-
+@media (max-width: 360px) {
+  .main-content {
+    margin-top: 165px !important;
+  }
+  .course-lesson {
     .main-content {
-        margin-top: 65px !important;
+      margin-top: 175px !important;
     }
-
+  }
+  .course-notes {
+    .main-content {
+      margin-top: 175px !important;
+    }
+  }
+  .course-forum {
+    .main-content {
+      margin-top: 175px !important;
+    }
+  }
+  .course-material {
+    .main-content {
+      margin-top: 175px !important;
+    }
+  }
+  .course-stats {
+    .main-content {
+      margin-top: 175px !important;
+    }
+  }
+  .course-messages {
+    .main-content {
+      margin-top: 175px !important;
+    }
+  }
 }
 
+@media (min-width: 361px) and (max-width: 639px) {
+  .main-content {
+    margin-top: 0px !important;
+  }
+  .course-lesson {
+    .main-content {
+      margin-top: 50px !important;
+    }
+  }
+  .course-notes {
+    .main-content {
+      margin-top: 50px !important;
+    }
+  }
+  .course-forum {
+    .main-content {
+      margin-top: 50px !important;
+    }
+  }
+  .course-material {
+    .main-content {
+      margin-top: 50px !important;
+    }
+  }
+  .course-stats {
+    .main-content {
+      margin-top: 50px !important;
+    }
+  }
+  .course-messages {
+    .main-content {
+      margin-top: 50px !important;
+    }
+  }
+}
+
+
+@media (min-width: 640px) and (max-width: 767px) {
+  .main-content {
+    margin-top:0 !important;
+  }
+  .course-lesson {
+    .main-content {
+      margin-top: 50px !important;
+    }
+  }
+  .course-notes {
+    .main-content {
+      margin-top: 50px !important;
+    }
+  }
+  .course-forum {
+    .main-content {
+      margin-top: 50px !important;
+    }
+  }
+  .course-material {
+    .main-content {
+      margin-top: 50px !important;
+    }
+  }
+  .course-stats {
+    .main-content {
+      margin-top: 50px !important;
+    }
+  }
+  .course-messages {
+    .main-content {
+      margin-top: 50px !important;
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .main-content {
+    margin-top: -455px !important;
+  }
+  .course-lesson {
+    .main-content {
+      margin-top: -395px !important;
+    }
+  }
+  .course-notes {
+    .main-content {
+      margin-top:-395px !important;
+    }
+  }
+  .course-forum {
+    .main-content {
+      margin-top:-395px !important;
+    }
+  }
+  .course-material {
+    .main-content {
+      margin-top:-395px !important;
+    }
+  }
+  .course-stats {
+    .main-content {
+      margin-top:-395px !important;
+    }
+  }
+  .course-messages {
+    .main-content {
+      margin-top:-395px !important;
+    }
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1366px) {
+  .main-content {
+    margin-top: -415px !important;
+  }
+  .course-intro {
+    .main-content {
+      margin-top: -455px !important;
+    }
+  }
+  .course-list {
+    .main-content {
+      margin-top: -455px !important;
+    }
+  }
+  .course-lesson {
+    .main-content {
+      margin-top:-395px !important;
+    }
+  }
+  .course-notes {
+    .main-content {
+      margin-top:-395px !important;
+    }
+  }
+  .course-forum {
+    .main-content {
+      margin-top:-395px !important;
+    }
+  }
+  .course-material {
+    .main-content {
+      margin-top:-395px !important;
+    }
+  }
+  .course-stats {
+    .main-content {
+      margin-top:-395px !important;
+    }
+  }
+  .course-messages {
+    .main-content {
+      margin-top:-395px !important;
+    }
+  }
+  .page {
+    .main-content {
+      margin-top: -450px !important;
+    }
+  }
+}
+
+@media (min-width: 1367px) {
+  .main-content {
+    margin-top: -405px !important;
+  }
+  .course-intro {
+    .main-content {
+      margin-top: -700px !important;
+    }
+  }
+  .course-list {
+    .main-content {
+      margin-top: -700px !important;
+    }
+  }
+  .course-lesson {
+    .main-content {
+      margin-top: -650px !important;
+    }
+  }
+  .course-notes {
+    .main-content {
+      margin-top: -650px !important;
+    }
+  }
+  .course-forum {
+    .main-content {
+      margin-top: -650px !important;
+    }
+  }
+  .course-material {
+    .main-content {
+      margin-top: -650px !important;
+    }
+  }
+  .course-stats {
+    .main-content {
+      margin-top: -650px !important;
+    }
+  }
+  .course-messages {
+    .main-content {
+      margin-top: -650px !important;
+    }
+  }
+  .page {
+    .main-content {
+      margin-top: -700px !important;
+    }
+  }
+}
 
 

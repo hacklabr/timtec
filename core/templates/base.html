@@ -3,7 +3,8 @@
 <html>
 <head>
     {% block head %}
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>{% block title %}{{ site.name }}{% endblock %}</title>
@@ -42,15 +43,30 @@
 
     <div class="wrapper">
         {% include 'header.html' %}
-    
+
         {% block content %}
         <h1>missing content block</h1>
         {% endblock %}
-        
+
         <div id="push"></div>
     </div>
 
+
+
     {% include 'footer.html' %}
-    
+<script type="text/javascript">
+var $buoop = {
+    'v': {i:8,f:25,o:17,s:6,c:28},
+    'reminder': 4,
+    'l': '{{ LOCALE }}'};
+$buoop.ol = window.onload;
+window.onload=function(){
+ try {if ($buoop.ol) $buoop.ol();}catch (e) {}
+ var e = document.createElement("script");
+ e.setAttribute("type", "text/javascript");
+ e.setAttribute("src", "//browser-update.org/update.js");
+ document.body.appendChild(e);
+}
+</script>
 </body>
 </html>

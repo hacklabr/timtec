@@ -15,7 +15,6 @@
 
                 function start(evt, o) {
                     startIdx = jQuery(o.item).index();
-                    console.log();
                 }
 
                 function update(evt, o) {

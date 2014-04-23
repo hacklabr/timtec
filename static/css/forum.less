@@ -8,7 +8,6 @@
   #forum-content {
     .forum-form {
       background-color: @gray-lighter;
-      margin: 20px 0;
       padding: 20px;
     }
     .questions {
@@ -87,9 +86,9 @@
                 line-height: 1.5;
               }
               .author {
-                border-top: 1px solid @gray-lighter;
-                padding-top: 10px;
-                text-align: right;
+                //border-top: 1px solid @gray-lighter;
+                padding-top: 20px;
+                //text-align: right;
               }
             }
             .rating {
@@ -99,7 +98,7 @@
                 .arrow-up(21px, @gray-light);
                 margin:0 auto;
                 &:hover, &.active {
-                  border-bottom-color:@brand-warning;
+                  border-bottom-color:#de500d;
                   cursor:pointer;
                 }
               }
@@ -108,7 +107,7 @@
                 margin:0 auto;
                 .size(0,0);
                 &:hover, &.active {
-                  border-top-color:@brand-warning;
+                  border-top-color:#de500d;
                   cursor:pointer;
                 }
               }
@@ -166,13 +165,13 @@
 	margin: 30px 0 0 0;
 	overflow: hidden;
 	
-	h3 {
-		margin: 0;
-		padding: 10px;
-		float: left;
-		background: #959595;
-		color: #fff;
-	}
+  	h3 {
+  		margin: 0;
+  		padding: 10px;
+  		float: left;
+  		background: #959595;
+  		color: #fff;
+  	}
   }
   
   #forum-content {
@@ -189,7 +188,6 @@
     }
     .forum-form {
       background-color: @gray-lighter;
-      margin: 20px 0;
       padding: 20px;
     }
     .questions {
@@ -212,7 +210,6 @@
           margin-top: 20px;
           padding: 0 20px;
           h1 {
-            font-size: 18px;
             margin-bottom: 20px;
           }
           .content {
@@ -264,14 +261,18 @@
               font-size: 12px;
               padding: 0 10px 10px 10px;
               h1 {
-                font-family: @font-family-sans-serif;
-                font-size: 18px;
+                font-family: @font-family-sans-serif !important;
                 line-height: 1.5;
+                font-size: 20px !important;
+                font-weight: bold;
+                a {
+                  color: #007dc3;
+                }
               }
               .author {
-                border-top: 1px solid @gray-lighter;
-                padding-top: 10px;
-                text-align: right;
+                //border-top: 1px solid @gray-lighter;
+                padding-top: 20px;
+                //text-align: right;
               }
             }
             .rating {
@@ -322,7 +323,7 @@
             .arrow-up(14px, @gray-light);
             margin:0 auto;
             &:hover, &.active {
-              border-bottom-color:@brand-warning;
+              border-bottom-color:#de500d;
               cursor:pointer;
             }
           }
@@ -331,7 +332,7 @@
             margin:0 auto;
             .size(0,0);
             &:hover, &.active {
-              border-top-color:@brand-warning;
+              border-top-color:#de500d;
               cursor:pointer;
             }
           }

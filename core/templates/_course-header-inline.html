@@ -3,17 +3,9 @@
       <div class="row">
         <div class="col-lg-7 col-lg-offset-1 col-md-7 col-md-offset-1 col-sm-7">
           <nav class="lesson-units hidden-xs">
-              <div class="btn-group">
-                  <button type="button" class="lesson-name dropdown-toggle" data-toggle="dropdown">{{ course.first_lesson.name }}</button>
-                  <button type="button" class="lesson-drop dropdown-toggle" data-toggle="dropdown">
-                      <i class="fa fa-chevron-down"></i>
-                  </button>
-                  <ul class="dropdown-menu">
-                      {% for list_lesson in course.public_lessons %}
-                          <li><a href="{% url 'lesson' course.slug list_lesson.slug %}">{{ list_lesson.name }}</a></li>
-                      {% endfor %}
-                  </ul>
-              </div>
+               <h1 class="course-name">
+                  <a href="{% url 'course_intro' course.slug %}">{{ course.name }}</a>
+              </h1>
           </nav>
         </div>
 
@@ -24,20 +16,9 @@
             <a href="{% url "lesson" course.slug course.first_lesson.slug %}"><span class="has-tooltip lessons" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Lessons' %}"></span></a>
             <a href="{% url 'forum' course.slug %}"><span class="has-tooltip forum" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Forum' %}"></span></a>
             <a href="{% url 'course_material' course.slug %}"><span class="has-tooltip material" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Course material' %}"></span></a>
-            <a href="{% url 'user_course_notes' 'html5' %}"><span class="has-tooltip my-notes" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'My notes' %}"></span></a>
+            <a href="{% url 'user_course_notes' 'html5' %}"><span class="has-tooltip my-notes" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Course notes' %}"></span></a>
           </nav>
           <!-- END COURSE-SECTION-NAV -->
-        </div>
-      </div>
-
-      <div class="course-info row">
-        <div class="course-lessons hidden-xs col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1">
-            <p class="description">{{ course.first_lesson.desc }}</p>
-        </div>
-        <div class="col-lg-3 col-md-3">
-          <h1 class="course-name">
-              <a href="{% url 'course_intro' course.slug %}">{{ course.name }}</a>
-          </h1>
         </div>
       </div>
 

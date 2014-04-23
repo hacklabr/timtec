@@ -184,6 +184,7 @@ PIPELINE_JS = {
             'js/helpers.js',
             'js/angular-youtube.js',
             'js/truncate.js',
+            'js/layout.js',
         ),
         'output_filename': 'js/all.js',
     },
@@ -227,7 +228,7 @@ PIPELINE_JS = {
             'codemirror/mode/clike/clike.js',
             'codemirror/mode/php/php.js',
             # 'js/codemirrorconf.js',
-            'angular-ui-codemirror/ui-codemirror.js',
+            'js/vendor/angular-ui-codemirror/ui-codemirror.js',
         ),
         'output_filename': 'js/codemirrorcomp.js',
     },
@@ -329,6 +330,9 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
         'rest_framework.filters.DjangoFilterBackend'
     ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    )
 }
 
 APPEND_SLASH = True
@@ -359,6 +363,7 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'allauth.socialaccount.context_processors.socialaccount',
     'core.context_processors.contact_form',
     'core.context_processors.site_settings',
+    'timtec.locale_context_processor.locale',
 )
 
 # Django Suit configuration example
@@ -483,6 +488,7 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = True
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[timtec] "
+ACCOUNT_SIGNUP_FORM_CLASS = 'core.forms.SignupForm'
 SOCIALACCOUNT_EMAIL_VERIFICATION = False
 
 TWITTER_CONSUMER_KEY = ''

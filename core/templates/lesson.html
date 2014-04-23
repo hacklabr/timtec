@@ -34,16 +34,73 @@ $(document).ready(function() {
     <div class="main-content">
         <div class="container">
             <!-- HEADER -->
-            {% include "_course-header-inline.html"  with course=lesson.course %}
+            <header id="main-header">
+              <div class="row">
+                <div class="col-lg-7 col-lg-offset-1 col-md-7 col-md-offset-1 col-sm-7">
+                  <nav class="lesson-units hidden-xs">
+                      <div class="btn-group">
+                          <button type="button" class="lesson-name dropdown-toggle" data-toggle="dropdown">{{ lesson.name }}</button>
+                          <button type="button" class="lesson-drop dropdown-toggle" data-toggle="dropdown">
+                              <i class="fa fa-chevron-down"></i>
+                          </button>
+                          <ul class="dropdown-menu">
+                              {% for list_lesson in lesson.course.public_lessons %}
+                                  <li><a href="{% url 'lesson' lesson.course.slug list_lesson.slug %}">{{ list_lesson.name }}</a></li>
+                              {% endfor %}
+                          </ul>
+                      </div>
+                  </nav>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-5">
+                  <!-- COURSE-SECTION-NAV -->
+                  <nav class="course-sections">
+                    <a href="{% url 'course_intro' lesson.course.slug %}"><span class="has-tooltip intro" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Intro' %}"></span></a>
+                    <a href="{% url "lesson" lesson.course.slug lesson.course.first_lesson.slug %}"><span class="has-tooltip lessons" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Lessons' %}"></span></a>
+                    <a href="{% url 'forum' lesson.course.slug %}"><span class="has-tooltip forum" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Forum' %}"></span></a>
+                    <a href="{% url 'course_material' lesson.course.slug %}"><span class="has-tooltip material" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Course material' %}"></span></a>
+                    <a href="{% url 'user_course_notes' lesson.course.slug %}"><span class="has-tooltip my-notes" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'My notes' %}"></span></a>
+                  </nav>
+                  <!-- END COURSE-SECTION-NAV -->
+                </div>
+              </div>
+
+              <div class="course-info row">
+                <div class="course-lessons hidden-xs col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1">
+                    <p class="description">{{ lesson.course.first_lesson.desc }}</p>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                  <h1 class="course-name">
+                      <a href="{% url 'course_intro' lesson.course.slug %}">{{ lesson.course.name }}</a>
+                  </h1>
+                </div>
+              </div>
+
+              <!-- LESSON NAVIGATION FOR PHONE -->
+              <p class="visible-xs">
+                  <select onchange="document.location=this.value" class="form-control">
+                      <option>{{lesson.course.first_lesson.name}}</option>
+                      {% for list_lesson in lesson.course.public_lessons %}
+                          {% if list_lesson.name != lesson.name %}
+                              <option value="{% url 'lesson' list_lesson.course.slug list_lesson.slug %}">{{ list_lesson.name }}</option>
+                          {% endif %}
+                      {% endfor %}
+                  </select>
+              </p>
+              <!-- END LESSON NAVIGATION FOR PHONE -->
+
+          </header>
             <!-- END HEADER -->
 
             <div class="row" ng-controller="MainCtrl">
 
                 {% verbatim %}
                 <!-- UNITS NAVIGATION FOR TABLET AND DESKTOP -->
-                <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs">
+                <div class="col-lg-1 col-md-1 col-sm-2 hidden-xs">
+
                     <!-- UNITS -->
                     <div class="units">
+                        <h2>Capítulos</h2>
                         <a style="display:block;" data-placement="right"
                            title="{{unit.video.name}}"
                            href="#/{{$index+1}}"
@@ -53,32 +110,34 @@ $(document).ready(function() {
                                <span class="position" ng-bind="unit.position+1"></span>
                                <i class="fa fa-list" ng-show="unit.activities"></i>
                         </a>
+                        <!--
                         <label ng-hide="false" style="font-family: monospace">
                             video <input type="radio" ng-model="section" value="video"/>
                         </label>
                         <label ng-hide="false" style="font-family: monospace">
                             ativi <input type="radio" ng-model="section" value="activity"/>
                         </label>
+                        -->
                     </div>
                     <!-- END UNITS -->
                 </div>
                 <!-- END UNITS NAVIGATION FOR TABLET AND DESKTOP -->
-
+                {% endverbatim %}
                 <!-- UNITS NAVIGATION FOR PHONES -->
-                <div class="col-xs-12 visible-xs">
+                <div class="col-xs-12 visible-xs phone-units">
                     <p>
                         <select ng-model="currentUnitPos" class="form-control">
                             <option ng-repeat="unit in lesson.units"
                                     ng-value="unit"
                                     ng-selected="unit==currentUnit"
-                                    value="{{$index+1}}">{% trans 'Unit' %} {{ unit.position + 1 }}</option>
+                                    value="{% verbatim %}{{$index+1}}{% endverbatim %}">{% trans 'Unit' %} {% verbatim %}{{ unit.position + 1 }}{% endverbatim %}</option>
                         </select>
                     </p>
                 </div>
                 <!-- END UNITS NAVIGATION FOR PHONES -->
-                {% endverbatim %}
 
-                <div class="col-lg-8 col-md-11 col-sm-11">
+
+                <div class="col-lg-8 col-md-11 col-sm-10">
                     <div ng-show="section=='video'">
                         <div class="video">
                             <div class="row">
@@ -111,7 +170,7 @@ $(document).ready(function() {
 
                 <!-- NOTES -->
                 <div id="annotations" class="hidden-md hidden-sm hidden-xs">
-                    <h2>{% trans 'Annotations' %}</h2>
+                    <h2>{% trans 'My Annotations' %}</h2>
                     <div class="tab-content">
 
                         {% include "_notes_inline.html" %}
@@ -123,9 +182,9 @@ $(document).ready(function() {
             <div class="row">
                 <div class="col-lg-8 col-sm-10 col-lg-offset-1 col-sm-offset-1">
                     <div id="side-notes">
-                        <h2>{% trans 'Learn more' %}</h2>
+                        <h2>{% trans 'Addicional materials' %}</h2>
                         <span ng-bind-html="currentUnit.side_notes|markdown"></span>
-                        <p ng-if="!currentUnit.side_notes">{% trans 'This unit has no notes' %}</p>
+                        <p ng-if="!currentUnit.side_notes">{% trans 'This unit has no addicional materials' %}</p>
                     </div>
                 </div>
             </div>
@@ -136,7 +195,7 @@ $(document).ready(function() {
                 </div>
             </div>
             <!-- END FORUM -->
-            
+
         </div>
     </div>
 </div>

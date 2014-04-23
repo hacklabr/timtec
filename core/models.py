@@ -232,7 +232,7 @@ class Lesson(models.Model):
     )
 
     course = models.ForeignKey(Course, verbose_name=_('Course'), related_name='lessons')
-    desc = models.CharField(_('Description'), max_length=255)
+    desc = models.TextField(_('Description'))
     name = models.CharField(_('Name'), max_length=255)
     notes = models.TextField(_('Notes'), default="", blank=True)
     position = PositionField(collection='course', default=0)
@@ -256,7 +256,9 @@ class Lesson(models.Model):
             return staticfiles_storage.url('img/lesson-default.png')
 
     def activity_count(self):
-        return self.units.exclude(activity=None).count()
+        # FIXME verify activies app dependency in core app is acceptable, refs to #428
+        from activities.models import Activity
+        return Activity.objects.filter(unit__lesson=self).count()
 
     def unit_count(self):
         return self.units.all().count()

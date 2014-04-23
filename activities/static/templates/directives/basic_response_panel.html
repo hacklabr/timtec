@@ -1,27 +1,27 @@
 <div>
     <div ng-show="answer.correct" class="alert alert-success">
-        <i class="fa fa-smile-o"></i><span translate> Your answer is <strong>correct!</strong></span>
+        <i class="fa fa-smile-o"></i><span translate> Sua resposta está <strong>correta!</strong></span>
     </div>
 
     <div ng-show="answer.correct === false" class="alert alert-danger">
-        <i class="fa fa-frown-o"></i> <span translate>Your answer is <strong>wrong</strong>. Review the video more attentively and try again.</span>
+        <i class="fa fa-frown-o"></i> <span translate>Sua resposta está <strong>incorreta</strong>. Reveja o vídeo com mais atenção e tente novamente.</span>
     </div>
 
     <div class="submit">
         <!-- if no answer or incorrect -->
         <div class="row" ng-if="! answer.correct">
             <div class="col-lg-6 col-md-6 col-sm-6">
-                <button onClick="ga('send', 'event', 'activity', 'skip activity');" class="btn btn-default" ng-click="nextStep(true)" translate>Skip</button>
+                <button onClick="ga('send', 'event', 'activity', 'skip activity');" class="btn btn-default" ng-click="nextStep(true)" translate>Pular</button>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 textright">
-                <button onClick="ga('send', 'event', 'activity', 'rewatch video');" class="btn btn-info" ng-click="play()" translate>Review the video</button>
-                <button class="btn btn-success" ng-click="sendAnswer()" translate>Send</button>
+                <button onClick="ga('send', 'event', 'activity', 'rewatch video');" class="btn btn-info" ng-click="play()" translate>Rever o vídeo</button>
+                <button class="btn btn-success" ng-click="sendAnswer()" translate>Enviar</button>
             </div>
         </div>
         <!-- if correct -->
         <div class="row" ng-if="answer.correct">
             <div class="col-lg-12 col-md-12 col-sm-12 textright">
-                <button class="btn btn-success" ng-click="nextStep()" translate>Continue</button>
+                <button class="btn btn-success" ng-click="nextStep()" translate>Continuar</button>
             </div>
         </div>
     </div>

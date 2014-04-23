@@ -9,164 +9,166 @@
   <div class="main-content">
 
       <!-- CONTAINER -->
-      <div class="container">
+      <div class="container js-fullheight">
 
-        <form class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
-          <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-              <fieldset>
-                <script type="text/javascript" charset="utf-8">
-                  $(document).ready(function() {
-                    function onFileSelected(event) {
-                      var selectedFile = event.target.files[0];
-                      var reader = new FileReader();
-                      var imgtag = document.getElementById("profile-avatar");
-                      imgtag.title = selectedFile.name;
+        <div class="content">
 
-                      reader.onload = function(event) {
-                        imgtag.src = event.target.result;
-                      };
+          <form class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <div class="row">
+              <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <fieldset>
+                  <script type="text/javascript" charset="utf-8">
+                    $(document).ready(function() {
+                      function onFileSelected(event) {
+                        var selectedFile = event.target.files[0];
+                        var reader = new FileReader();
+                        var imgtag = document.getElementById("profile-avatar");
+                        imgtag.title = selectedFile.name;
 
-                      reader.readAsDataURL(selectedFile);;
-                    }
+                        reader.onload = function(event) {
+                          imgtag.src = event.target.result;
+                        };
 
-                    function onImgNotFound(event) {
-                      $(this).attr('src', '{% static "img/avatar-default.png" %}')
-                    }
+                        reader.readAsDataURL(selectedFile);;
+                      }
 
-                    $("#upload-avatar").change(onFileSelected);
+                      function onImgNotFound(event) {
+                        $(this).attr('src', '{% static "img/avatar-default.png" %}')
+                      }
 
-                    $("#profile-avatar").error(onImgNotFound);
-                  });
-                </script>
+                      $("#upload-avatar").change(onFileSelected);
 
-                <label for="upload-avatar" class="upload-avatar">
-                  <div class="thumbnail">
-                    <img id="profile-avatar" width="256" src="{{ form.instance.get_picture_url }}">
+                      $("#profile-avatar").error(onImgNotFound);
+                    });
+                  </script>
+
+                  <label for="upload-avatar" class="upload-avatar">
+                    <div class="thumbnail">
+                      <img id="profile-avatar" width="256" src="{{ form.instance.get_picture_url }}">
+                    </div>
+                    <span><i class="fa fa-picture-o"></i> {% trans "Upload avatar" %}</span>
+                  </label>
+                  <input type="file" name="picture" id="upload-avatar" class="hidden"/>
+                </fieldset>
+              </div>
+
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                <fieldset>
+                  <div class="page-header-double">
+                    <h2>{% trans "Profile Info" %}</h2>
                   </div>
-                  <span><i class="fa fa-picture-o"></i> {% trans "Upload avatar" %}</span>
-                </label>
-                <input type="file" name="picture" id="upload-avatar" class="hidden"/>
-              </fieldset>
-            </div>
+                  <div class="form-group">
+                    <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "Full Name" %}</label>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                      {% with errors=form.first_name.errors %}
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 right-xs left{{ errors|yesno:" has-error,"}}">
+                        <input name="first_name" type="text" class="form-control" placeholder="Primeiro nome" value="{{form.first_name.value}}">
+                        {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                      </div>
+                      {% endwith %}
+                      <br class="visible-xs"/>
+                      {% with errors=form.last_name.errors %}
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 left-xs right{{ errors|yesno:" has-error,"}}">
+                        <input name="last_name" type="text" class="form-control" placeholder="Último nome" value="{{form.last_name.value}}">
+                        {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                      </div>
+                      {% endwith %}
+                    </div>
+                  </div>
 
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-              <fieldset>
-                <div class="page-header-double">
-                  <h2>{% trans "Profile Info" %}</h2>
-                </div>
-                <div class="form-group">
-                  <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "Full Name" %}</label>
-                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    {% with errors=form.first_name.errors %}
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 right-xs left{{ errors|yesno:" has-error,"}}">
-                      <input name="first_name" type="text" class="form-control" placeholder="Primeiro nome" value="{{form.first_name.value}}">
+
+                  {% with errors=form.occupation.errors %}
+                  <div class="form-group{{ errors|yesno:" has-error,"}}">
+                    <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "Occupation" %}</label>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                      <input name="occupation" type="text" class="form-control" placeholder="O que você faz?" value="{{form.occupation.value}}">
                       {% for error in errors %}<small>{{error}}</small>{% endfor %}
                     </div>
-                    {% endwith %}
-                    <br class="visible-xs"/>
-                    {% with errors=form.last_name.errors %}
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 left-xs right{{ errors|yesno:" has-error,"}}">
-                      <input name="last_name" type="text" class="form-control" placeholder="Último nome" value="{{form.last_name.value}}">
+                  </div>
+                  {% endwith %}
+
+                  {% with errors=form.city.errors %}
+                  <div class="form-group{{ errors|yesno:" has-error,"}}">
+                    <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "City" %}</label>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                      <input name="city" type="text" class="form-control" placeholder="Qual cidade você vive?" value="{{form.city.value}}">
                       {% for error in errors %}<small>{{error}}</small>{% endfor %}
                     </div>
-                    {% endwith %}
                   </div>
-                </div>
+                  {% endwith %}
 
-
-                {% with errors=form.occupation.errors %}
-                <div class="form-group{{ errors|yesno:" has-error,"}}">
-                  <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "Occupation" %}</label>
-                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <input name="occupation" type="text" class="form-control" placeholder="O que você faz?" value="{{form.occupation.value}}">
-                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
-                  </div>
-                </div>
-                {% endwith %}
-
-                {% with errors=form.city.errors %}
-                <div class="form-group{{ errors|yesno:" has-error,"}}">
-                  <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "City" %}</label>
-                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <input name="city" type="text" class="form-control" placeholder="Qual cidade você vive?" value="{{form.city.value}}">
-                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
-                  </div>
-                </div>
-                {% endwith %}
-
-                {% with errors=form.site.errors %}
-                <div class="form-group{{ errors|yesno:" has-error,"}}">
-                  <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "Site" %}</label>
-                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <input name="site" type="text" class="form-control" placeholder="Você possui algum site pessoal?" value="{{form.site.value}}">
-                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
-                  </div>
-                </div>
-                {% endwith %}
-
-                {% with errors=form.biography.errors %}
-                <div class="form-group{{ errors|yesno:" has-error,"}}">
-                  <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "Bio" %}</label>
-                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <textarea name="biography" class="form-control" rows="7" placeholder="Escreve um pouco sobre você...">{{form.biography.value}}</textarea>
-                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
-                  </div>
-                </div>
-                {% endwith %}
-              </fieldset>
-
-              <fieldset>
-
-                <div class="page-header-double">
-                  <h2>{% trans "Account Settings" %}</h2>
-                </div>
-
-                {% with errors=form.username.errors %}
-                <div class="form-group{{ errors|yesno:" has-error,"}}">
-                  <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "Username" %}</label>
-                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <input readonly name="username" type="text" class="form-control" value="{{form.username.value}}">
-                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
-                  </div>
-                </div>
-                {% endwith %}
-
-                {% with errors=form.email.errors %}
-                <div class="form-group{{ errors|yesno:" has-error,"}}">
-                  <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "E-mail" %}</label>
-                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <input name="email" type="e-mail" class="form-control" placeholder="Qual o seu email?" value="{{form.email.value}}">
-                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
-                  </div>
-                </div>
-                {% endwith %}
-
-                {% with errors=form.password2.errors %}
-                <div class="form-group{{ errors|yesno:" has-error,"}}">
-                  <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "Password" %}</label>
-                  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 right-xs left">
-                      <input name="password1" type="password" class="form-control" placeholder="Nova Senha">
+                  {% with errors=form.site.errors %}
+                  <div class="form-group{{ errors|yesno:" has-error,"}}">
+                    <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "Site" %}</label>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                      <input name="site" type="text" class="form-control" placeholder="Você possui algum site pessoal?" value="{{form.site.value}}">
+                      {% for error in errors %}<small>{{error}}</small>{% endfor %}
                     </div>
-                    <br class="visible-xs"/>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 left-xs right">
-                      <input name="password2" type="password" class="form-control" placeholder="Nova Senha Novamente">
-                    </div>
-                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
                   </div>
-                </div>
-                {% endwith %}
-              </fieldset>
+                  {% endwith %}
 
-              <div class="submit textright">
-    
-                <button type="submit" class="btn btn-success">{% trans "Save" %}</button>
+                  {% with errors=form.biography.errors %}
+                  <div class="form-group{{ errors|yesno:" has-error,"}}">
+                    <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "Bio" %}</label>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                      <textarea name="biography" class="form-control" rows="7" placeholder="Escreve um pouco sobre você...">{{form.biography.value}}</textarea>
+                      {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                    </div>
+                  </div>
+                  {% endwith %}
+                </fieldset>
+
+                <fieldset>
+
+                  <div class="page-header-double">
+                    <h2>{% trans "Account Settings" %}</h2>
+                  </div>
+
+                  {% with errors=form.username.errors %}
+                  <div class="form-group{{ errors|yesno:" has-error,"}}">
+                    <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "Username" %}</label>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                      <input readonly name="username" type="text" class="form-control" value="{{form.username.value}}">
+                      {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                    </div>
+                  </div>
+                  {% endwith %}
+
+                  {% with errors=form.email.errors %}
+                  <div class="form-group{{ errors|yesno:" has-error,"}}">
+                    <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "E-mail" %}</label>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                      <input name="email" type="e-mail" class="form-control" placeholder="Qual o seu email?" value="{{form.email.value}}">
+                      {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                    </div>
+                  </div>
+                  {% endwith %}
+
+                  {% with errors=form.password2.errors %}
+                  <div class="form-group{{ errors|yesno:" has-error,"}}">
+                    <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "Password" %}</label>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 right-xs left">
+                        <input name="password1" type="password" class="form-control" placeholder="Nova Senha">
+                      </div>
+                      <br class="visible-xs"/>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 left-xs right">
+                        <input name="password2" type="password" class="form-control" placeholder="Nova Senha Novamente">
+                      </div>
+                      {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                    </div>
+                  </div>
+                  {% endwith %}
+                </fieldset>
+
+                <div class="submit textright">
+
+                  <button type="submit" class="btn btn-success">{% trans "Save" %}</button>
+                </div>
               </div>
             </div>
-          </div>
-        </form>
-
+          </form>
+        </div>
       </div>
   </div>
 </div>

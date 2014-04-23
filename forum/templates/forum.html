@@ -10,16 +10,16 @@
 
     <div class="main-content">
 
-        <div class="container">
+        <div class="container js-fullheight">
             {% include "_course-header-inline.html"  with course=course question_form=false %}
             <section id="forumxxx">
                 <header>
                     <div class="row">
                         <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1">
-                            <h1>{% trans "Questions & Answers" %}</h1>
+                            <h1>{% trans "Forum" %}</h1>
                         </div>
                         <div class="col-lg-3 textright">
-                            <a href="{% url 'forum_question_create' course.slug %}" class="ask-a-question btn btn-lg btn-danger uppercase">{% trans "Ask a question" %}</a>
+                            <a href="{% url 'forum_question_create' course.slug %}" class="ask-a-question btn btn-success col-lg-12">{% trans "Ask a question" %}</a>
                         </div>
                     </div>
                 </header>

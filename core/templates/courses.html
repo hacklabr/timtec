@@ -9,29 +9,58 @@
 
             <div class="main-content">
                 <div class="container">
-                    <header class="page-header-double">
-                        <h2>{% trans 'Courses' %}</h2>
-                    </header>
-
-                    <section>
-                        {% for course in courses %}
-                        <!-- COURSE -->
-                            <header class="course-link">
-                                <div class="row">
-                                    <div class="col-lg-8">
-                                        <h3><a href="{% url 'course_intro' course.slug %}">{{ course.name }}</a></h3>
+                    <div class="row">
+                        <div class="col-left col-lg-9 col-md-9 col-sm-12 js-fullheight">
+                            <div class="content">
+                            {% for course in courses %}
+                            <!-- COURSE -->
+                                <div class="course row">
+                                    <div class="col-lg-5 col-md-5 col-sm-5 hidden-xs">
+                                        <div class="course-thumb">
+                                            {% if course.home_thumbnail %}
+                                            <img src="{{ course.home_thumbnail.url }}">
+                                            {% endif %}
+                                        </div>
                                     </div>
-                                    <div class="col-lg-4 textright">
-                                        <div class="btn-group">
-                                            <a href="{% url 'course_intro' course.slug %}" class="btn btn-sm btn-success">{% trans 'Go to course' %}</a>
-                                            <a href="{% url 'course_intro' course.slug %}" class="btn btn-sm btn-success"><i class="fa fa-angle-double-right"></i></a>
+                                    <div class="col-lg-7 col-md-7 col-sm-7">
+                                        <div class="course-info">
+                                            <h3><a href="{% url 'course_intro' course.slug %}">{{ course.name }}</a></h3>
+                                            <h4>{% for professor in course.professors.all %}{{ professor.get_full_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</h4>
+                                            <p>{{ course.abstract|truncatewords:35 }}</p>
+                                            <a href="{% url 'course_intro' course.slug %}" class="btn btn-success">{% trans 'Go to course' %}</a>
                                         </div>
                                     </div>
                                 </div>
-                            </header>
-                        <!-- END COURSE -->
-                        {% endfor %}
-                    </section>
+                            <!-- END COURSE -->
+                            {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col-right col-lg-3 col-md-3 hidden-sm js-fullheight">
+                            <div class="content">
+                                <div class="box cyan col-lg-12 col-md-12">
+                                    <h3>Fique em <a href="#" data-toggle="modal" data-target="#modal-contact">contato</a></h3>
+                                    <p>Acesse nossa página no Facebook e acompanhe as publicações do twitter na home de TIM Tec. Você fica informado sobre os lançamentos dos cursos, tem notícias sobre oportunidades de trabalho e carreira e fica sabendo de todas as novidades de TIM Tec.</p>
+                                </div>
+                                <div class="box orange col-lg-12 col-md-12">
+                                    <h3>Participe</h3>
+                                    <p>Nossa equipe está empenhada em oferecer a você os melhores professores e cursos.</p>
+                                    <p>A única coisa que você precisa é de uma conexão internet! Invista em você. Transforme-se num profissional desejado pelo mercado. </p>
+                                </div>
+                                <div class="box dark-blue col-lg-12 col-md-12">
+                                    <h3>Como funciona?</h3>
+                                    <p>1. Entre num curso que te interesse.</p>
+                                    <p>2. Clique em “Fazer curso” e cadastra-se.</p>
+                                    <p>3. Comece o curso ou espere até que ele seja lançado.</p>
+                                    <p>4. Qualifique-se. Invista na sua formação. </p>
+                                </div>
+                                <div class="box blue col-lg-12 col-md-12">
+                                    <h3>Você é professor?</h3>
+                                    <p>Você está interessado em fazer um curso aberto na plataforma TIM Tec?</p>
+                                    <p>Entre em <a style="color: #000000" href="#" data-toggle="modal" data-target="#modal-contact">contato</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

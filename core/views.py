@@ -2,9 +2,9 @@
 import json
 import time
 
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponse
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, FormView
 from django.views.generic.base import RedirectView, View, TemplateView
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404
@@ -24,7 +24,7 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
 
 from .models import Course, CourseProfessor, Lesson, StudentProgress, Unit, ProfessorMessage, CourseStudent
 
-from forms import ContactForm
+from .forms import ContactForm, AcceptTermsForm
 
 from twitter import Twitter, OAuth
 
@@ -49,13 +49,14 @@ class TwitterApi(View):
         t = Twitter(auth=OAuth(access_token, access_token_secret, consumer_key, consumer_secret))
         # To see all field returned, see https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
         response = []
-        for twit in t.statuses.user_timeline(screen_name=twitter_name, count=6):
+        for twit in t.statuses.user_timeline(screen_name=twitter_name, count=5):
             clean_twit = {}
             # time string example: Wed Aug 29 17:12:58 +0000 2012
             timestamp = time.strptime(twit['created_at'], "%a %b %d %H:%M:%S +0000 %Y")
             clean_twit['date'] = time.strftime('%d/%m/%Y', timestamp)
             clean_twit['hour'] = time.strftime('%H:%M', timestamp)
-            clean_twit['user_name'] = '@' + twit['user']['name']
+            clean_twit['user_name'] = twit['user']['name']
+            clean_twit['screen_name'] = twit['user']['screen_name']
             clean_twit['profile_image_url'] = twit['user']['profile_image_url']
             clean_twit['text'] = twit['text']
             response.append(clean_twit)
@@ -72,7 +73,7 @@ class CoursesView(ListView):
     template_name = "courses.html"
 
     def get_queryset(self):
-        return Course.objects.all()
+        return Course.objects.all().prefetch_related('professors')
 
 
 class ContactView(View):
@@ -131,8 +132,24 @@ class EnrollCourseView(LoginRequiredMixin, RedirectView):
 
     def get_redirect_url(self, **kwargs):
         course = self.get_object()
-        course.enroll_student(self.request.user)
-        return reverse('lesson', args=[course.slug, course.first_lesson().slug])
+        if self.request.user.accepted_terms:
+            course.enroll_student(self.request.user)
+            return reverse('lesson', args=[course.slug, course.first_lesson().slug])
+        else:
+            return reverse('accept_terms')
+
+
+class AcceptTermsView(FormView):
+    template_name = 'accept-terms.html'
+    form_class = AcceptTermsForm
+    success_url = reverse_lazy('courses')
+
+    def form_valid(self, form):
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+        self.request.user.accepted_terms = True
+        self.request.user.save()
+        return super(AcceptTermsView, self).form_valid(form)
 
 
 class CourseProfessorViewSet(viewsets.ModelViewSet):
