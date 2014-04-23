@@ -89,7 +89,6 @@ class Course(models.Model):
             return self.thumbnail.url
         return ''
 
-<<<<<<< HEAD
     def lessons_by_users(self):
         nstudents = self.coursestudent_set.count()
         lessons = dict([(l.slug, 0) for l in self.lessons.all()])
@@ -99,14 +98,13 @@ class Course(models.Model):
                 lessons[slug] = lessons.get(slug, 0) + 1
 
         return dict([(slug, 100 * total / float(nstudents)) for (slug, total) in lessons.items()])
-=======
+
     @property
     def has_started(self):
         if self.start_date <= datetime.date.today():
             return True
         else:
             return False
->>>>>>> master
 
 
 class CourseStudent(models.Model):
