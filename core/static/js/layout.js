@@ -34,7 +34,7 @@
     $(function () {
         res();
         $(window).resize(res);
-        $(document).bind('DOMSubtreeModified', res);
+        // $(document).bind('DOMSubtreeModified', res);
         setTimeout(res, 500);
     });
 
