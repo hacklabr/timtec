@@ -298,7 +298,7 @@ ng-app="new-course"
                             <div class="row textcenter">
                                 <div class="col-lg-12">
                                     {% verbatim %}
-                                    <a href="/admin/courses/{{course.id}}/lessons/new" class="col-lg-12 btn btn-lg btn-default uppercase">{% endverbatim %}{% trans 'Add lesson' %}</a>
+                                    <a href="/admin/courses/{{course.id}}/lessons/new" class="col-lg-12 btn btn-lg btn-default uppercase add-lesson">{% endverbatim %}{% trans 'Add lesson' %}</a>
                                 </div>
                             </div>
                         </section>
@@ -343,7 +343,7 @@ ng-app="new-course"
     </div>
 
     <!-- ALERT -->
-    <div class="tt-popup notifications" alert-popup ng-class="{'hideTop': alert.hidden}">
+    <div class="tt-popup notifications" alert-popup ng-class="{'hideTop': alert.hidden}" style="display: none;">
         <div class="alert fade in" ng-class="'alert-' + alert.type">
             <button type="button" class="close" ng-click="alert.hidden=true">×</button>
             <h4 ng-bind="alert.title"></h4>
