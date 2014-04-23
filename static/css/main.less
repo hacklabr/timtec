@@ -546,6 +546,7 @@ body {
     bottom: 0;
     z-index: 9;
     height: 80px;
+    padding: 8px 0;
     .gradient (@startColor: #007dc3, @endColor: #1451a2);
     .box-shadow(0px -2px 5px 0px rgba(0, 0, 0, 0.3));
 
@@ -553,7 +554,7 @@ body {
         float: left;
         margin: 18px 25px 0 0;
         color: #fff;
-        font-size: 20px;
+        font-size: 26px;
         font-family: 'teuton_24';
     }
 
@@ -561,10 +562,9 @@ body {
         display: block;
         float: left;
         margin: 18px 0 0 0;
-        width: 178px/1.5;
-        height: 32px/1.5;
+        width: 178px;
+        height: 32px;
         background-image: url(../img/timtec/logo-mct.png);
-        background-size: 100% 100%;
         background-repeat: no-repeat;
     }
 
@@ -600,8 +600,10 @@ body {
 // RESPONSIVE
 // ********************************************************************* //
 
-@media (max-width: 360px) {
-
+@media (max-width: 500px) {
+    .main-content {
+        margin-top: 165px !important;
+    }
     .main-nav {
         ul {
             li {
@@ -613,20 +615,21 @@ body {
         } // .main-nav ul
     } // .main-nav
 
-    // .main-footer {
-    //     height: 90px;
-    //     .footer-nav {
-    //         margin: 0;
-    //         float: none;
-    //         display: block;
-    //         clear: both;
-    //         padding: 16px 0 0;
+    .main-footer {
+        padding: 0;
+        .footer-nav {
+            margin: 0;
+            padding: 10px 0 0 0;
+            float: none;
+            clear: both;
+            text-align: left;
 
-    //         li {
-    //             margin: 0 10px 0 0;
-    //         }
-    //     }
-    // }
+            li {
+                display: inline-block;
+                margin: 0;
+            }
+        } // .footer-nav
+    } // .main-footer
 }
 
 @media (max-width: 600px) {
@@ -641,14 +644,21 @@ body {
             }
         } // .main-nav ul
     } // .main-nav
+
+    .main-footer {
+        h3 {
+            font-size: 20px;
+        }
+
+        .logo-mct {
+            width: 178px/1.5;
+            height: 32px/1.5;
+            background-size: 100%;
+        }
+    } // .main-footer
 }
 
-@media (min-width: @screen-sm-min) {
-
-    // .wrapper {
-    //     margin: 0 auto -80px;
-    // }
-
+@media (min-width: 767px) {
     .main-header {
         height: 80px;
 
@@ -664,39 +674,11 @@ body {
             height: 36px;
         } // .header h2
     }
-
-    #push {
-        height: 80px;
-    }
-
-    // .main-footer {
-    //     height: 80px;
-
-    //     h3 {
-    //         margin: 26px 40px 0 0;
-    //         font-size: 30px;
-    //     }
-    //     .logo-mct {
-    //         margin: 26px 0 0 0;
-    //         width: 178px;
-    //         height: 32px;
-
-    //     }
-
-    //     .footer-nav {
-    //         float: right;
-    //         margin: 30px 0 0 0;
-    //     }
-    // }
 }
-
 
 // RESPONSIVE MAIN CONTENT
 
 @media (max-width: 360px) {
-  .main-content {
-    margin-top: 165px !important;
-  }
   .course-lesson {
     .main-content {
       margin-top: 175px !important;
@@ -719,10 +701,13 @@ body {
   }
 }
 
-@media (min-width: 361px) and (max-width: 639px) {
+@media (min-width: 501px) {
   .main-content {
     margin-top: 0px !important;
   }
+}
+
+@media (min-width: 361px) and (max-width: 639px) {
   .course-lesson {
     .main-content {
       margin-top: 50px !important;
