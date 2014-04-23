@@ -105,14 +105,14 @@ ng-app="new-course"
                                         </div>
 
                                         <div class="row" ng-show="!addThumb">
-                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 textcenter">
                                                 <img local-image ng-model="thumbfile" class="img-responsive"/>
                                                 {% verbatim %}
-                                                <img ng-src="{{course.thumbnail_url}}" class="img-responsive" ng-show="!thumbfile"/>
+                                                <img ng-src="{{course.thumbnail_url}}" class="img-thumb img-responsive" ng-show="!thumbfile"/>
                                                 {% endverbatim %}
                                             </div>
 
-                                            <div class="col-lg-12 textright">
+                                            <div class="col-lg-12">
                                                 <button class="btn-edit-thumbnail btn btn-success btn-sm uppercase"
                                                         ng-click="addThumb=true">{% trans 'Change thumbnail' %}</button>
                                             </div>
@@ -134,12 +134,13 @@ ng-app="new-course"
                                             <div class="col-lg-12" style="overflow:hidden;" ng-style="{'margin-left': course.hasVideo() && playerReady ?'':'-2000px'}">
                                                 <div id="youtube-player" player-height="357px" player-width="100%" youtube-player></div>
                                                 <div class="row">
-                                                    <div class="col-lg-9">
-                                                        <p class="video-title" ng-model="course.intro_video.name" placeholder="Nome do vídeo" contenteditable><p>
-                                                    </div>
-                                                    <div class="col-lg-3 textright">
+                                                    <div class="col-lg-3">
                                                         <button class="btn-edit-video btn btn-success btn-sm uppercase" ng-click="course.intro_video.youtube_id=''">{% trans 'Change video' %}</button>
                                                     </div>
+                                                    <div class="col-lg-9 textright">
+                                                        <p class="video-title" ng-model="course.intro_video.name" placeholder="Nome do vídeo" contenteditable><p>
+                                                    </div>
+
                                                 </div>
                                             </div>
 
