@@ -54,6 +54,8 @@
         positionBack('.b2', '.c2', makeTall);
     }
 
+    window.timtec_res = res;
+
     $(function () {
         res();
         $(window).resize(res);
