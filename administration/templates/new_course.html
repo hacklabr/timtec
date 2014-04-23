@@ -211,12 +211,12 @@ ng-app="new-course"
                                 <!-- LESSON -->
                                 <div class="lesson row" ng-repeat="lesson in lessons">
 
-                                    <div class="col-lg-8">
+                                    <div class="col-title col-lg-8 col-md-7 col-sm-8 col-xs-7">
                                         <span class="handle"><span class="btn btn-warning"><i class="fa fa-bars"></i></span></span>
                                         <span class="title" ng-bind="lesson.name">{% trans 'Lesson name' %}</span>
                                     </div>
 
-                                    <div class="col-lg-4 textright">
+                                    <div class="col-bts col-lg-4 col-md-5 col-sm-4 col-xs-5 textright">
                                         <div class="btn-group" ng-init="openDropdown=false;">
                                             <button type="button" class="btn btn-default">
                                                 <span ng-show="lesson.status=='draft'"> {% trans 'Draft' %}</span>
