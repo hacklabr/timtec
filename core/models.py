@@ -5,6 +5,7 @@ import datetime
 
 from positions import PositionField
 from django.db import models
+from django.db.models import Count
 from django.core.mail import send_mail
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.staticfiles.storage import staticfiles_storage
@@ -95,6 +96,30 @@ class Course(models.Model):
         else:
             return False
 
+    def avg_lessons_users_progress(self):
+        student_enrolled = self.coursestudent_set.all().count()
+        progress_list = []
+        for lesson in self.lessons.all():
+            lesson_progress = {}
+            lesson_progress['name'] = lesson.name
+            lesson_progress['slug'] = lesson.slug
+            lesson_progress['position'] = lesson.position
+            units_len = lesson.unit_count()
+            if units_len:
+                units_done_len = StudentProgress.objects.exclude(complete=None).filter(unit__lesson=lesson).count()
+                lesson_progress['progress'] = 100 * units_done_len / (units_len * student_enrolled)
+                lesson_progress['forum_questions'] = lesson.forum_questions.count()
+                # lesson_progress['progress'] =
+                # lesson_progress['finish'] = self.get_lesson_finish_time(lesson)
+            else:
+                lesson_progress['progress'] = 0
+                # lesson_progress['finish'] = ''
+            progress_list.append(lesson_progress)
+        return progress_list
+
+    def forum_answers_by_lesson(self):
+        return self.user.forum_answers.values('question__lesson').annotate(Count('question__lesson'))
+
 
 class CourseStudent(models.Model):
     user = models.ForeignKey(TimtecUser, verbose_name=_('Student'))
@@ -115,7 +140,7 @@ class CourseStudent(models.Model):
         else:
             try:
                 return self.course.first_lesson().units.order_by('position').first()
-            except (AttributeError):
+            except AttributeError:
                 return None
 
     def percent_progress(self):
@@ -156,6 +181,12 @@ class CourseStudent(models.Model):
                 lesson_progress['finish'] = ''
             progress_list.append(lesson_progress)
         return progress_list
+
+    def forum_questions_by_lesson(self):
+        return self.user.forum_questions.values('lesson').annotate(Count('lesson'))
+
+    def forum_answers_by_lesson(self):
+        return self.user.forum_answers.values('question__lesson').annotate(Count('question__lesson'))
 
 
 class CourseProfessor(models.Model):
@@ -213,7 +244,7 @@ class Lesson(models.Model):
     )
 
     course = models.ForeignKey(Course, verbose_name=_('Course'), related_name='lessons')
-    desc = models.CharField(_('Description'), max_length=255)
+    desc = models.TextField(_('Description'))
     name = models.CharField(_('Name'), max_length=255)
     notes = models.TextField(_('Notes'), default="", blank=True)
     position = PositionField(collection='course', default=0)

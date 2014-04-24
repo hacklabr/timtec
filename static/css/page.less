@@ -1,3 +1,11 @@
+.static-page-body {
+  .b1 {
+    background-color: rgba(255,255,255,0.5);
+    @media (min-width: @screen-md-min) {
+      background: url(../img/timtec/illustrations/instituto-container-m.png) rgba(255,255,255,0.5) no-repeat bottom right;
+    }
+  }
+}
 .page {
 
   .illust {
@@ -6,12 +14,6 @@
       background-image: url(../img/timtec/illustrations/instituto-m.png);
     }
   } // .illust
-
-  .main-content {
-    &>.container {
-      background: rgba(255,255,255,0.5);
-    }
-  }
 
   // Page Headers
   .page-header-double {
@@ -62,12 +64,6 @@
   .main-content {
 
     &>.container {
-      background: rgba(255,255,255,0.5);
-
-      @media (min-width: @screen-md-min) {
-        background: url(../img/timtec/illustrations/instituto-container-m.png) rgba(255,255,255,0.5) no-repeat bottom right;
-      }
-
       h2 {
         margin-bottom: 0 0 10px;
         font-family: 'teuton_26';
@@ -81,18 +77,4 @@
   .content {
     margin: 80px 0 0;
   }
-}
-
-.page.static-page {
-  .main-content {
-
-    &>.container {
-      background: rgba(255,255,255,0.5);
-
-      @media (min-width: @screen-md-min) {
-        background: rgba(255,255,255,0.5);
-      }
-    }
-  }
-
 }

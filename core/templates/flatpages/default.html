@@ -6,6 +6,10 @@
 {{ flatpage.title }}
 {% endblock %}
 
+{% block body_attrs %}
+class="static-page-body"
+{% endblock %}
+
 {% block content %}
         <div class="page static-page">
 
@@ -14,7 +18,7 @@
             <div class="main-content">
 
                 <!-- CONTAINER -->
-                <div class="container js-fullheight">
+                <div class="container js-fullheight c1">
 
                     <div class="content col-lg-8 col-md-7">
                     	{{ flatpage.content|markdown }}

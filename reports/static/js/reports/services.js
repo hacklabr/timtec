@@ -6,5 +6,8 @@
         factory('CourseUserReport', function($resource){
             return $resource('/api/reports', {}, {
             });
+        }).factory('CourseStats', function($resource){
+            return $resource('/api/course_stats/:courseId', {}, {
+            });
         });
 })(angular);

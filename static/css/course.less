@@ -6,7 +6,7 @@
   .add-video-intro, .add-thumbnail, .add-activity {
     background-color: rgba(255,255,255,0.6);
     color:@brand-danger;
-    height:357px;
+    height:419px;
 
     &:before {
       content:'';
@@ -16,7 +16,11 @@
 
     .centered {
       .vertical-align(middle);
-      width:400px;
+      width: 99%;
+      input {
+        max-width: 300px;
+        margin: 0 auto;
+      }
     }
 
     .icon-youtube-play {
@@ -26,6 +30,65 @@
   }
 
   #course {
+    &.course-list-admin {
+      header {
+        h1 {
+          margin: 30px 0;
+          font-family: 'teuton_26';
+          font-size: 30px;
+          color: #007dc3;
+        }
+      }
+      .btn-new-course {
+        margin: 30px 0;
+      }
+      .filters {
+        background-color: @gray-lighter;
+        margin-bottom: 50px;
+        padding: 5px 10px;
+        div.checkbox {
+          line-height: 2.5;
+          label {
+            font-size: 14px;
+            margin-right: 10px;
+          }
+          input[type="checkbox"] {
+            display: inline-block;
+          }
+        }
+        .form-inline .checkbox {
+          padding: 0;
+        }
+        .form-inline .radio input[type="radio"],
+        .form-inline .checkbox input[type="checkbox"] {
+          float: none;
+          margin-left: 0;
+        }
+
+        @media (max-width: 767px) {
+          input, select {
+            margin-bottom: 5px;
+          }
+        }
+
+        @media (max-width: 385px) {
+          .checkbox label {
+            display: block;
+          }
+        }
+      }
+
+      .courses-list {
+        .course {
+          border-bottom: 1px solid rgba(255,255,255,0.6);
+          margin-bottom: 10px;
+          padding-bottom: 10px;
+          h1 {
+            font-size: 18px;
+          }
+        }
+      }
+    }
     &.course-intro {
       .main-content {
         .instructor {
@@ -40,8 +103,28 @@
           margin-top: 75px;
         }
 
-        .organizing-lessons .submit {
-          margin-bottom: 15px;
+        .organizing-lessons {
+          .handle {
+            float: left;
+            display: block;
+          }
+          .title {
+            margin-left: 50px;
+          }
+          .submit {
+            margin-bottom: 15px;
+          }
+
+          @media (max-width: 455px) {
+            .col-title {
+              width: 100%;
+              margin-bottom: 10px;
+            }
+            .col-bts {
+              width: 100%;
+              text-align: left;
+            }
+          }
         }
 
         .left-col .course-main header {
@@ -50,6 +133,12 @@
 
         .right-col .summary {
           margin-top: 135px;
+        }
+        .img-thumb {
+          margin-bottom: 10px;
+        }
+        .add-lesson {
+          margin-bottom: 20px;
         }
       }
     }
@@ -84,6 +173,9 @@
         }
         #side-notes {
           margin-bottom: 72px;
+        }
+        .search-filter {
+          margin-bottom: 20px;
         }
         .activity {
             position:relative;
@@ -163,7 +255,6 @@
     &.course-messages {
       .container {
         #main-header {
-          margin-bottom: 60px;
           .lesson-units {
             h1 {
               background: #fff;
@@ -218,7 +309,6 @@
           }
         }
         #main-header {
-          margin-bottom: 60px;
           .lesson-units {
             h1 {
               background: #fff;
@@ -330,6 +420,11 @@
             .dz-default.dz-message {
               display: none;
             }
+
+            .btn-drop {
+              width: 100%;
+              white-space: normal;
+            }
           }
 
         }
@@ -340,7 +435,7 @@
 
 #course {
 
-  &.course-lesson, &.course-forum, &.course-material, &.course-notes, &.course-messages, &.course-stats {
+  &.course-lesson, &.course-forum, &.course-material, &.course-notes, &.course-messages, &.course-stats, &.course-list-admin {
 
     .illust {
       background-image: url(../img/timtec/illustrations/course-lesson-l.png);
@@ -352,11 +447,7 @@
 
     .main-content {
 
-      &>.container {
-        background: rgba(255,255,255,0.6);
-      }
-
-      #course-content, #forumxxx, #forum-content, #notes-content {
+      #course-content, #forumxxx, #forum-content, #notes-content, #messages-content, #stats-content {
         h1 {
           margin: 0;
           font-family: 'teuton_26';
@@ -376,6 +467,10 @@
             font-size: 20px;
             font-weight: bold;
           }
+        }
+
+        .answers {
+          clear: both;
         }
       }
 
@@ -458,6 +553,10 @@
         }
       }
 
+      .phone-units {
+        z-index: 100;
+      }
+
       .course-sections {
         float: right;
 
@@ -524,8 +623,6 @@
     .main-content {
 
       .left-col {
-          background: rgba(255,255,255,0.5);
-
           .application {
             h3 {
               font-weight: bold;
@@ -611,7 +708,6 @@
         }
 
       .right-col {
-        background: rgba(40,112,187,0.5);
         color: #fff;
 
         .buttons {
@@ -682,11 +778,31 @@
               height: auto;
             }
           }
-        }
 
+          @media (max-width: 320px) {
+            .instructor-photo, .instructor-info {
+              width: 100%;
+            }
+          }
+
+          @media (min-width: 321px) and (max-width: 500px) {
+            .instructor-photo {
+              width: 70%;
+            }
+            .instructor-info {
+              width: 100%;
+            }
+          }
+
+          @media (min-width: 501px) and (max-width: 767px) {
+            .instructor-photo, .instructor-info {
+              width: 50%;
+              float: left;
+            }
+          }
+        }
       }
     }
-
   }
 
   &.course-lesson {
@@ -736,6 +852,14 @@
         margin: 0 0 5px 0;
         font-size: 25px;
       }
+
+      a {
+        color: #0c4374;
+      }
+    }
+
+    .search-filter {
+      margin-bottom: 20px;
     }
 
   }
@@ -776,14 +900,6 @@
             background-image: url(../img/timtec/illustrations/courses-list-m.png);
         }
     } // .illust
-
-    .col-left {
-      background: rgba(255,255,255,0.5);
-    }
-
-    .col-right {
-      background: rgba(40,112,187,0.5);
-    }
 
     .col-left,.col-right {
       .content {

@@ -3,5 +3,7 @@
     'use strict';
 
     // Declare app level module which depends on filters, and services
-    angular.module('courseMaterial', ['django', 'courseMaterial.services', 'courseMaterial.controllers', 'courseMaterial.directives', 'courseMaterial.filters', 'adminHeader']);
+    angular.module('courseMaterial', ['django', 'courseMaterial.services', 'courseMaterial.controllers',
+                   			      'courseMaterial.directives', 'courseMaterial.filters', 'adminHeader',
+                   			      'directive.markdowneditor',]);
 })(angular);

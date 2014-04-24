@@ -1,40 +1,5 @@
 body#admin {
 
-
-  // COURSES LIST
-  #courses {
-    background-color: rgba(255,255,255,0.8);
-    margin: 50px auto 100px;
-    padding-top: 20px;
-
-    .filters {
-      background-color: @gray-lighter;
-      margin-bottom: 50px;
-      padding: 5px 10px;
-      div.checkbox {
-        line-height: 2.5;
-        label {
-          font-size: 14px;
-          margin-right: 10px;
-        }
-        input[type="checkbox"] {
-          display: inline-block;
-        }
-      }
-    }
-
-    .courses-list {
-      .course {
-        border-bottom: 1px solid rgba(255,255,255,0.6);
-        margin-bottom: 10px;
-        padding-bottom: 10px;
-        h1 {
-          font-size: 18px;
-        }
-      }
-    }
-  }
-  
   .not-edited {
     color: @gray-light;
   }
@@ -331,3 +296,29 @@ body#admin {
     100% {background-color: auto; }
 }
 
+// POPUP NOTIFICATIONS
+.tt-popup {
+  margin-left: 25%;
+  position: fixed;
+  top: 60px;
+  width: 50%;;
+  z-index: 9999;
+  -moz-transition: top 500ms;
+  -webkit-transition: top 500ms;
+  -o-transition: top 500ms;
+  transition: top 500ms;
+  &.hideTop {
+    top: -5000px;
+  }
+  .alert-success {
+    h4 {
+      font-family: @font-family-sans-serif;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 0;
+    }
+  }
+  .close {
+    margin-top: -5px;
+  }
+}

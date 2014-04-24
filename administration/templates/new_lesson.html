@@ -45,7 +45,7 @@ ng-app="edit-lesson"
         </div>
         <!-- END ACTIONS -->
 
-        <div class="container">
+        <div class="container js-fullheight c1">
             <header id="main-header">
               <div class="row">
                 <div class="col-lg-7 col-lg-offset-1 col-md-7 col-md-offset-1 col-sm-7">
@@ -137,15 +137,15 @@ ng-app="edit-lesson"
                                     <p class="form-group">
                                         <input type="text" class="form-control" ng-model="currentUnit.intended_youtube_id"/>
                                     </p>
-                                    <p>
+
                                         <button class="btn btn-danger btn-lg uppercase" ng-click="currentUnit.intended_youtube_id=''">{% trans 'Cancel' %}</button>
                                         <button class="btn btn-success btn-lg uppercase" ng-click="setCurrentUnitVideo()">{% trans 'Add' %}</button>
-                                    </p>
+
                                 </div>
                                 <!-- END CENTERED -->
                             </div>
 
-                            <div class="col-lg-12 left right" style="overflow:hidden;" ng-style="{'margin-left': currentUnit.video && playerReady ?'':'-3000px'}">
+                            <div class="col-lg-12 left right" style="overflow:hidden;" ng-style="{'display': currentUnit.video && playerReady ?'':'none'}">
                                 <div id="youtube-player" player-height="419px" player-width="100%" youtube-player></div>
                                 <div class="row">
                                     <div class="col-lg-8">
@@ -215,8 +215,8 @@ ng-app="edit-lesson"
             <div class="row">
                 <div class="col-lg-8 col-sm-10 col-lg-offset-1 col-sm-offset-1">
                     <div id="side-notes">
-                        <h2>Learn more</h2>
-                        <modalmarkdowneditor title="Saiba mais" content="currentUnit.side_notes"></modalmarkdowneditor>
+                        <h2>{% trans 'Addicional materials' %}</h2>
+                        <modalmarkdowneditor title="{% trans 'Addicional materials' %}" content="currentUnit.side_notes"></modalmarkdowneditor>
                     </div>
                 </div>
             </div>

@@ -18,10 +18,10 @@
 <div id="course" class="course-messages" ng-app="messages">
 
     <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
-    
+
     <!-- COURSE-CONTENT -->
     <div class="main-content">
-        <div class="container">
+        <div class="container js-fullheight c1">
             <div ng-controller="HeaderController">
                 {% include "_admin_header_inline.html"  with course=course %}
             </div>
@@ -33,7 +33,7 @@
                                 <h1>{% trans "Messages" %}</h1>
                             </div>
                             <div class="col-lg-3">
-                                <a class="new-message btn btn-lg btn-danger uppercase" ng-click="new_message()">{% trans "Send New Message" %}</a>
+                                <a class="new-message btn btn-lg btn-success uppercase" ng-click="new_message()">{% trans "Send New Message" %}</a>
                             </div>
                                 <script type="text/ng-template" id="newMessageModal.html">
                                     <div class="modal-content">
@@ -96,7 +96,7 @@
                                     {% verbatim %}
                                     <div class="subject">{{ message.subject }}</div>
                                     {% endverbatim %}
-                                    <div class="body"> 
+                                    <div class="body">
                                     <span ng-bind-html="message.message|markdown|words:50"></span>{% verbatim %} <a ng-href="/admin/course/{{course_id}}/message/{{message.id}}">{% endverbatim %} {% trans 'More...' %}</a>
                                     </div>
                                 </div>
