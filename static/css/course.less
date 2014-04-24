@@ -189,7 +189,6 @@
     &.course-messages {
       .container {
         #main-header {
-          margin-bottom: 60px;
           .lesson-units {
             h1 {
               background: #fff;
@@ -244,7 +243,6 @@
           }
         }
         #main-header {
-          margin-bottom: 60px;
           .lesson-units {
             h1 {
               background: #fff;
@@ -378,7 +376,7 @@
 
     .main-content {
 
-      #course-content, #forumxxx, #forum-content, #notes-content {
+      #course-content, #forumxxx, #forum-content, #notes-content, #messages-content, #stats-content {
         h1 {
           margin: 0;
           font-family: 'teuton_26';
@@ -478,6 +476,10 @@
             }
           }
         }
+      }
+
+      .phone-units {
+        z-index: 100;
       }
 
       .course-sections {
@@ -755,6 +757,10 @@
         margin: 0 0 5px 0;
         font-size: 25px;
       }
+
+      a {
+        color: #0c4374;
+      }
     }
 
   }
@@ -854,7 +860,11 @@
         background-color: #f26522;
         h3 {
           font-size: 55px;
+          @media (max-width: @screen-md-max) {
+            font-size: 44px;
+          }
         }
+
       }
       &.dark-blue {
         background-color: #0d4c8f;

@@ -56,7 +56,10 @@
 
     {% include 'footer.html' %}
 <script type="text/javascript">
-var $buoop = {'l': '{{ LOCALE }}'};
+var $buoop = {
+    'v': {i:8,f:25,o:17,s:6,c:28},
+    'reminder': 4,
+    'l': '{{ LOCALE }}'};
 $buoop.ol = window.onload;
 window.onload=function(){
  try {if ($buoop.ol) $buoop.ol();}catch (e) {}

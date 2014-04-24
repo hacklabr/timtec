@@ -196,6 +196,12 @@ ng-app="new-course"
                     <div class="row">
                         <!--  COURSE-LESSONS  -->
                         <section class="lessons col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <!--  STRUCTURE  -->
+                            <div class="page-header-double">
+                                <h3 class="top"><i ng-class="{'blink-text-danger':errors.structure}" class="fa fa-angle-double-right"></i> {% trans 'Course structure' %}</h3>
+                            </div>
+                            <modalmarkdowneditor tabindex="3" on-save="saveCourse()" title="{% trans 'Structure' %}" content="course.structure"></modalmarkdowneditor>
+                            <!--  END STRUCTURE  -->
                             <!-- PAGE-HEADER-DOUBLE  -->
                             <div class="page-header-double">
                                 <h3> {% trans 'Lessons' %}</h3>
