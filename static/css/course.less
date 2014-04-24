@@ -26,6 +26,45 @@
   }
 
   #course {
+    &.course-list-admin {
+      header {
+        h1 {
+          margin: 30px 0;
+          font-family: 'teuton_26';
+          font-size: 30px;
+          color: #007dc3;
+        }
+      }
+      .btn-new-course {
+        margin: 30px 0;
+      }
+      .filters {
+        background-color: @gray-lighter;
+        margin-bottom: 50px;
+        padding: 5px 10px;
+        div.checkbox {
+          line-height: 2.5;
+          label {
+            font-size: 14px;
+            margin-right: 10px;
+          }
+          input[type="checkbox"] {
+            display: inline-block;
+          }
+        }
+      }
+
+      .courses-list {
+        .course {
+          border-bottom: 1px solid rgba(255,255,255,0.6);
+          margin-bottom: 10px;
+          padding-bottom: 10px;
+          h1 {
+            font-size: 18px;
+          }
+        }
+      }
+    }
     &.course-intro {
       .main-content {
         .instructor {
@@ -364,7 +403,7 @@
 
 #course {
 
-  &.course-lesson, &.course-forum, &.course-material, &.course-notes, &.course-messages, &.course-stats {
+  &.course-lesson, &.course-forum, &.course-material, &.course-notes, &.course-messages, &.course-stats, &.course-list-admin {
 
     .illust {
       background-image: url(../img/timtec/illustrations/course-lesson-l.png);
