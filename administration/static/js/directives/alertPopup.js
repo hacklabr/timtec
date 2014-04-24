@@ -26,7 +26,7 @@
                     success: function(){
                         this.popup.apply(this, arguments);
                         this.type = 'success';
-                        this.hide(null, 1000);
+                        this.hide(null, 3000);
                     },
                     error: function(){
                         this.popup.apply(this, arguments);
@@ -43,7 +43,7 @@
                             if(callback && callback.call)
                                 callback.call();
                             scope.$apply();
-                        }, timeout || 3000);
+                        }, timeout || 5000);
                     }
                 };
                 scope.alert.reset();

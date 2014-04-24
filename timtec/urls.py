@@ -24,7 +24,7 @@ from accounts.views import TimtecUserViewSet
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, QuestionVoteViewSet, AnswerVoteViewSet
 from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialAdminView, CourseMaterialViewSet
 from notes.views import NotesViewSet, CourseNotesView, UserNotesView
-from reports.views import UserCourseStats
+from reports.views import UserCourseStats, CourseStatsByLessonViewSet
 from rest_framework import routers
 from django_markdown import flatpages
 
@@ -48,6 +48,7 @@ router.register(r'course_material', CourseMaterialViewSet)
 router.register(r'note', NotesViewSet)
 router.register(r'user_notes', UserNotesViewSet)
 router.register(r'reports', UserCourseStats)
+router.register(r'course_stats', CourseStatsByLessonViewSet)
 
 
 urlpatterns = patterns(
