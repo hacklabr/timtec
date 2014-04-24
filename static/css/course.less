@@ -6,7 +6,7 @@
   .add-video-intro, .add-thumbnail, .add-activity {
     background-color: rgba(255,255,255,0.6);
     color:@brand-danger;
-    height:357px;
+    height:419px;
 
     &:before {
       content:'';
@@ -16,7 +16,11 @@
 
     .centered {
       .vertical-align(middle);
-      width:400px;
+      width: 99%;
+      input {
+        max-width: 300px;
+        margin: 0 auto;
+      }
     }
 
     .icon-youtube-play {
@@ -169,6 +173,9 @@
         }
         #side-notes {
           margin-bottom: 72px;
+        }
+        .search-filter {
+          margin-bottom: 20px;
         }
         .activity {
             position:relative;
@@ -845,6 +852,10 @@
       a {
         color: #0c4374;
       }
+    }
+
+    .search-filter {
+      margin-bottom: 20px;
     }
 
   }
