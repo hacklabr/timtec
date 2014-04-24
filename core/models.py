@@ -118,12 +118,17 @@ class Course(models.Model):
             if units_len:
                 units_done_len = StudentProgress.objects.exclude(complete=None).filter(unit__lesson=lesson).count()
                 lesson_progress['progress'] = 100 * units_done_len / (units_len * student_enrolled)
+                lesson_progress['forum_questions'] = lesson.forum_questions.count()
+                # lesson_progress['progress'] =
                 # lesson_progress['finish'] = self.get_lesson_finish_time(lesson)
             else:
                 lesson_progress['progress'] = 0
                 # lesson_progress['finish'] = ''
             progress_list.append(lesson_progress)
         return progress_list
+
+    def forum_answers_by_lesson(self):
+        return self.user.forum_answers.values('question__lesson').annotate(Count('question__lesson'))
 
 
 class CourseStudent(models.Model):

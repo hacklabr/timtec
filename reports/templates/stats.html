@@ -68,9 +68,10 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-5">
-                                                                    <span>0 perguntas no fórum</span>
-                                                                    <span>0 respostas no fórum</span>
-                                                                    <span>0 anotações</span>
+                                                                    <!--
+                                                                    <span>{{ lesson.forum_questions }} perguntas no fórum</span>
+                                                                    <span>{{ lesson.forum_answers }} respostas no fórum</span>
+                                                                    <span>0 anotações</span> -->
                                                                 </div>
                                                             </div>
                                                             {% endverbatim %}
@@ -88,34 +89,18 @@
                                                 <div class="row">
                                                     {% verbatim %}
                                                     <div class="col-lg-5">{{ lesson.name }}</div>
-                                                    <div class="col-lg-1 textright">{{ lesson.progress }}%</div>
+                                                    <div class="col-lg-1 textright">{{ lesson.progress  | number:0  }}%</div>
                                                     <div class="col-lg-1">
                                                         <div class="progress">
                                                             <div class="progress-bar" style="width:{{ lesson.progress }}%;"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-5">
-                                                        <span>0 perguntas no fórum</span>
-                                                        <span>0 respostas no fórum</span>
-                                                        <span>0 anotações</span>
+                                                        <!-- <span>{{ lesson.forum_questions }} perguntas no fórum</span>
+                                                        <span>{{ lesson.forum_answers }} respostas no fórum</span>
+                                                        <span>0 anotações</span> -->
                                                     </div>
                                                     {% endverbatim %}
-                                                </div>
-                                            </li>
-                                            <li class="lesson">
-                                                <div class="row">
-                                                    <div class="col-lg-5">Aula 2: Montando a estrutura de um documento HTML</div>
-                                                    <div class="col-lg-1 textright">50%</div>
-                                                    <div class="col-lg-1">
-                                                        <div class="progress">
-                                                            <div class="progress-bar" style="width:50%;"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-5">
-                                                        <span>0 perguntas no fórum</span>
-                                                        <span>0 respostas no fórum</span>
-                                                        <span>0 anotações</span>
-                                                    </div>
                                                 </div>
                                             </li>
                                         </ul>
