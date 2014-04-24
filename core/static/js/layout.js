@@ -1,22 +1,63 @@
 (function($){
     'use strict';
 
-    var oldHeight;
+    var oldMax = 0;
+    var oldVisible = 0;
+    var oldWindowWidth = 0;
+
     function res () {
-        var footerpos = $('.main-footer').position().top  -  $('header.main-header').outerHeight(true);
-        $('.js-fullheight').each(function () {
-            var $this = $(this);
+        var $visibleFull = $('.js-fullheight:visible');
+        var heights = $visibleFull.map(function () {
+            return $(this).height();
+        }).get();
+        var lefts = $visibleFull.map(function () {
+            return $(this).offset().left;
+        }).get();
+        var footerpos = $('.main-footer').offset().top - $visibleFull.offset().top;
+        heights.push(footerpos);
+        var tallerSize = Math.max.apply(null, heights);
 
-            $(this).height(Math.max($(this).height(), this.scrollHeight));
-            $this.height(footerpos - $this.position().top);
-            // console.log($this.attr('class'), $this.height(), $this.innerHeight(), this.scrollHeight, $this.outerHeight());
-        });
+        // cache: only run if things changed since last time
+        if((oldMax === tallerSize) &&
+           (oldVisible === $visibleFull.length) &&
+           (oldWindowWidth === $(window).width())) {
+            return;
+        } else {
+            oldMax = tallerSize;
+            oldVisible = $visibleFull.length;
+            oldWindowWidth = $(window).width();
+        }
 
-        oldHeight = $('.main-footer').position().top;
+        console.log('v', oldVisible, 't', oldMax, 'f', footerpos);
+
+        function positionBack (sel1, sel2, makeTall) {
+            var $b1 = $(sel1);
+            var $c1 = $(sel2 + ':visible');
+            if($c1.length > 0) {
+                $b1.show();
+                if(makeTall)
+                    $b1.height(tallerSize)
+                else
+                    $b1.height($c1.outerHeight())
+                $b1.width($c1.outerWidth());
+                $b1.offset($c1.offset());
+            } else {
+                $b1.hide();
+            }
+        }
+
+        var makeTall = true;
+        if((oldVisible == 2) && (lefts[0] === lefts[1]))
+            makeTall = false;
+        console.log('mt', makeTall);
+        positionBack('.b1', '.c1', makeTall);
+        positionBack('.b2', '.c2', makeTall);
     }
 
+    window.timtec_res = res;
+
     $(function () {
-        // res();
+        res();
         $(window).resize(res);
         // $(document).bind('DOMSubtreeModified', res);
         setTimeout(res, 500);
@@ -31,5 +72,4 @@
             $('#institute-tab').addClass('active');
         }
     });
-
 })(window.jQuery);

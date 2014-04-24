@@ -40,8 +40,28 @@
           margin-top: 75px;
         }
 
-        .organizing-lessons .submit {
-          margin-bottom: 15px;
+        .organizing-lessons {
+          .handle {
+            float: left;
+            display: block;
+          }
+          .title {
+            margin-left: 50px;
+          }
+          .submit {
+            margin-bottom: 15px;
+          }
+
+          @media (max-width: 455px) {
+            .col-title {
+              width: 100%;
+              margin-bottom: 10px;
+            }
+            .col-bts {
+              width: 100%;
+              text-align: left;
+            }
+          }
         }
 
         .left-col .course-main header {
@@ -50,6 +70,12 @@
 
         .right-col .summary {
           margin-top: 135px;
+        }
+        .img-thumb {
+          margin-bottom: 10px;
+        }
+        .add-lesson {
+          margin-bottom: 20px;
         }
       }
     }
@@ -350,10 +376,6 @@
 
     .main-content {
 
-      &>.container {
-        background: rgba(255,255,255,0.6);
-      }
-
       #course-content, #forumxxx, #forum-content, #notes-content, #messages-content, #stats-content {
         h1 {
           margin: 0;
@@ -526,8 +548,6 @@
     .main-content {
 
       .left-col {
-          background: rgba(255,255,255,0.5);
-
           .application {
             h3 {
               font-weight: bold;
@@ -613,7 +633,6 @@
         }
 
       .right-col {
-        background: rgba(40,112,187,0.5);
         color: #fff;
 
         .buttons {
@@ -782,14 +801,6 @@
             background-image: url(../img/timtec/illustrations/courses-list-m.png);
         }
     } // .illust
-
-    .col-left {
-      background: rgba(255,255,255,0.5);
-    }
-
-    .col-right {
-      background: rgba(40,112,187,0.5);
-    }
 
     .col-left,.col-right {
       .content {

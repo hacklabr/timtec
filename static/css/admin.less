@@ -1,9 +1,17 @@
-body#admin {
+body.courses_admin {
+  .back {
+    z-index: inherit;
+  }
 
+  .b1 {
+    background-color: rgba(255,255,255,0.8);
+  }
+}
+
+body#admin {
 
   // COURSES LIST
   #courses {
-    background-color: rgba(255,255,255,0.8);
     margin: 50px auto 100px;
     padding-top: 20px;
 
@@ -34,7 +42,7 @@ body#admin {
       }
     }
   }
-  
+
   .not-edited {
     color: @gray-light;
   }
@@ -330,4 +338,3 @@ body#admin {
     50%  {background-color: #b92929; }
     100% {background-color: auto; }
 }
-
