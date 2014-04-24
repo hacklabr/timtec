@@ -12,11 +12,11 @@
         <div class="col-lg-4 col-md-4 col-sm-5">
           <!-- COURSE-SECTION-NAV -->
           <nav class="course-sections">
-            <a href="{% url 'course_intro' course.slug %}"><span class="has-tooltip intro" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Intro' %}"></span></a>
-            <a href="{% url "lesson" course.slug course.first_lesson.slug %}"><span class="has-tooltip lessons" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Lessons' %}"></span></a>
-            <a href="{% url 'forum' course.slug %}"><span class="has-tooltip forum" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Forum' %}"></span></a>
-            <a href="{% url 'course_material' course.slug %}"><span class="has-tooltip material" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Course material' %}"></span></a>
-            <a href="{% url 'user_course_notes' 'html5' %}"><span class="has-tooltip my-notes" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Course notes' %}"></span></a>
+            <a href="{% url 'course_intro' course.slug %}"><span class="has-tooltip intro" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Intro' %}"></span></a>
+            <a href="{% url "lesson" course.slug course.first_lesson.slug %}"><span class="has-tooltip lessons" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Lessons' %}"></span></a>
+            <a href="{% url 'forum' course.slug %}"><span class="has-tooltip forum" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Forum' %}"></span></a>
+            <a href="{% url 'course_material' course.slug %}"><span class="has-tooltip material" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Course material' %}"></span></a>
+            <a href="{% url 'user_course_notes' 'html5' %}"><span class="has-tooltip my-notes" data-toggle="tooltip" data-placement="bottom" data-original-title="{%  trans 'Course notes' %}"></span></a>
           </nav>
           <!-- END COURSE-SECTION-NAV -->
         </div>
