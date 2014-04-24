@@ -1,7 +1,8 @@
 (function(angular){
+    'use strict';
 
-    angular.module('messages.controllers', []).
-        controller('NewMessageController', ['$scope', '$modal', 'Message', 'Student',
+    var module = angular.module('messages.controllers', []);
+    module.controller('NewMessageController', ['$scope', '$modal', 'Message', 'Student',
             function($scope, $modal,  Message, Student) {
                 $scope.course_id = document.location.href.match(/course\/([0-9]+)/)[1];
 
@@ -54,7 +55,7 @@
                         if ($scope.modal.all_checked)
                             $scope.new_message.users = [];
                         else
-                            $scope.new_message.users = $scope.all_users.map(function(item) { return item.id; }); 
+                            $scope.new_message.users = $scope.all_users.map(function(item) { return item.id; });
                     };
 
                     $scope.send = function () {
@@ -66,31 +67,33 @@
                     };
                 };
             }
-        ]).
-        controller('MessagesListController', ['$scope', '$modal', 'Message', 'User',
-            function($scope, $modal,  Message, User) {
-                $scope.course_id = document.location.href.match(/course\/([0-9]+)/)[1];
-                $scope.messages = Message.query({course: $scope.course_id});
-            }
-        ]).
-        controller('MessageController', ['$scope', 'Message',
-            function($scope, Message) {
-                $scope.course_id = document.location.href.match(/course\/([0-9]+)/)[1];
-                $scope.message_id = document.location.href.match(/message\/([0-9]+)/)[1];
-                $scope.message = Message.get({messageId: $scope.message_id}, function(message) {
-                    $scope.message.users_rows = [];
-                    var row = [];
-                    var index = 0;
-                    angular.forEach(message.users_details, function(user) {
-                        row.push(user);
-                        if (index == 5) {
-                            message.users_rows.push(row);
-                            row = [];
-                            index = 0;
-                        } else
-                            index++;
-                    });
-                });
-            }
         ]);
+
+    module.controller('MessagesListController', ['$scope', '$modal', 'Message', 'User',
+        function($scope, $modal,  Message, User) {
+            $scope.course_id = document.location.href.match(/course\/([0-9]+)/)[1];
+            $scope.messages = Message.query({course: $scope.course_id});
+        }
+    ]);
+
+    module.controller('MessageController', ['$scope', 'Message',
+        function($scope, Message) {
+            $scope.course_id = document.location.href.match(/course\/([0-9]+)/)[1];
+            $scope.message_id = document.location.href.match(/message\/([0-9]+)/)[1];
+            $scope.message = Message.get({messageId: $scope.message_id}, function(message) {
+                $scope.message.users_rows = [];
+                var row = [];
+                var index = 0;
+                angular.forEach(message.users_details, function(user) {
+                    row.push(user);
+                    if (index == 5) {
+                        message.users_rows.push(row);
+                        row = [];
+                        index = 0;
+                    } else
+                        index++;
+                });
+            });
+        }
+    ]);
 })(angular);
