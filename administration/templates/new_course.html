@@ -350,7 +350,7 @@ ng-app="new-course"
     </div>
 
     <!-- ALERT -->
-    <div class="tt-popup notifications" alert-popup ng-class="{'hideTop': alert.hidden}" style="display: none;">
+    <div class="tt-popup notifications" alert-popup ng-class="{'hideTop': alert.hidden}">
         <div class="alert fade in" ng-class="'alert-' + alert.type">
             <button type="button" class="close" ng-click="alert.hidden=true">×</button>
             <h4 ng-bind="alert.title"></h4>
