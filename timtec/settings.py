@@ -179,6 +179,7 @@ PIPELINE_JS = {
             'angular-sanitize/angular-sanitize.js',
             'angular-bootstrap/ui-bootstrap-tpls.js',
             'angular-gettext/dist/angular-gettext.js',
+            'js/consolelogfallback.js',
             'js/django.js',
             'js/contact_form.js',
             'js/helpers.js',
