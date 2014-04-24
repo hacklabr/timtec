@@ -137,15 +137,15 @@ ng-app="edit-lesson"
                                     <p class="form-group">
                                         <input type="text" class="form-control" ng-model="currentUnit.intended_youtube_id"/>
                                     </p>
-                                    <p>
+
                                         <button class="btn btn-danger btn-lg uppercase" ng-click="currentUnit.intended_youtube_id=''">{% trans 'Cancel' %}</button>
                                         <button class="btn btn-success btn-lg uppercase" ng-click="setCurrentUnitVideo()">{% trans 'Add' %}</button>
-                                    </p>
+
                                 </div>
                                 <!-- END CENTERED -->
                             </div>
 
-                            <div class="col-lg-12 left right" style="overflow:hidden;" ng-style="{'margin-left': currentUnit.video && playerReady ?'':'-3000px'}">
+                            <div class="col-lg-12 left right" style="overflow:hidden;" ng-style="{'display': currentUnit.video && playerReady ?'':'none'}">
                                 <div id="youtube-player" player-height="419px" player-width="100%" youtube-player></div>
                                 <div class="row">
                                     <div class="col-lg-8">
