@@ -35,7 +35,8 @@
                                     <div class="tab-pane fade in" id="students" ng-controller="CourseUsersReportsCtrl">
                                         <div class="row">
                                             <div class="col-lg-8">
-                                                <h2>Total de alunos: {% verbatim %}{{ users_reports.length }}{% endverbatim %} alunos</h2>
+                                                <h3>Progresso dos alunos</h3>
+                                                <p>Total de alunos: {% verbatim %}{{ users_reports.length }}{% endverbatim %} alunos</p>
                                             </div>
                                         </div>
                                         <ul class="students">
@@ -84,6 +85,11 @@
                                 </tab>
                                 <tab heading="{% trans "Lessons" %}">
                                     <div class="tab-pane fade in" id="lessons" ng-controller="CourseLessonsReportsCtrl">
+                                        <div class="row">
+                                            <div class="col-lg-8">
+                                                <h3>Média do progresso dos alunos por aula</h3>
+                                            </div>
+                                        </div>
                                         <ul class="lessons">
                                             <li class="lesson" ng-repeat="lesson in course_stats.lessons_avg_progress">
                                                 <div class="row">
