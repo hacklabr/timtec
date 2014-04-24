@@ -39,7 +39,7 @@
     </script>
     {% endblock %}
 </head>
-<body>
+<body {% spaceless %}{% block body_attrs %}{% endblock %}{% endspaceless %}>
 <div class="back b1"></div>
 <div class="back b2"></div>
 
