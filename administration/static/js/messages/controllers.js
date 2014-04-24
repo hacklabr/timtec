@@ -9,7 +9,7 @@
                 $scope.new_message = function () {
                     var modalInstance = $modal.open({
                         templateUrl: 'newMessageModal.html',
-                        controller: SendMessageModalInstanceCtrl,
+                        controller: ['$scope', '$modalInstance', 'course_id', SendMessageModalInstanceCtrl],
                         resolve: {
                             course_id: function () {
                                 return $scope.course_id;
