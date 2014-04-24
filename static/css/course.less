@@ -742,11 +742,31 @@
               height: auto;
             }
           }
-        }
 
+          @media (max-width: 320px) {
+            .instructor-photo, .instructor-info {
+              width: 100%;
+            }
+          }
+
+          @media (min-width: 321px) and (max-width: 500px) {
+            .instructor-photo {
+              width: 70%;
+            }
+            .instructor-info {
+              width: 100%;
+            }
+          }
+
+          @media (min-width: 501px) and (max-width: 767px) {
+            .instructor-photo, .instructor-info {
+              width: 50%;
+              float: left;
+            }
+          }
+        }
       }
     }
-
   }
 
   &.course-lesson {

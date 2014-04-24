@@ -206,10 +206,10 @@
                             <div class="col-lg-12 col-sm-12">
                                 {% for course_professor in course.courseprofessor_set.all %}
                                     <div id="{{ course_professor.user.username }}" class="instructor row">
-                                        <div class="instructor-photo col-lg-4 col-md-5 col-sm-3">
+                                        <div class="instructor-photo col-lg-4 col-md-5 col-sm-4">
                                             <img src="{{ course_professor.user.get_picture_url }}">
                                         </div>
-                                        <div class="col-lg-12 col-md-12 col-sm-8">
+                                        <div class="instructor-info col-lg-12 col-md-12 col-sm-8">
                                             <h3 class="fullname bottom top">{{ course_professor.user.first_name }} {{ course_professor.user.last_name }}</h3>
                                             <h4 class="job-title top">{{ course_professor.get_job_display }}</h4>
                                             <p>{{ course_professor.biography|timtec_markdown }}</p>
