@@ -7,6 +7,10 @@
 
     function res () {
         var $visibleFull = $('.js-fullheight:visible');
+        var visible = $visibleFull.length;
+        if(visible <= 0)
+            return;
+
         var heights = $visibleFull.map(function () {
             return $(this).height();
         }).get();
@@ -19,12 +23,12 @@
 
         // cache: only run if things changed since last time
         if((oldMax === tallerSize) &&
-           (oldVisible === $visibleFull.length) &&
+           (oldVisible === visible) &&
            (oldWindowWidth === $(window).width())) {
             return;
         } else {
             oldMax = tallerSize;
-            oldVisible = $visibleFull.length;
+            oldVisible = visible;
             oldWindowWidth = $(window).width();
         }
 
@@ -36,9 +40,9 @@
             if($c1.length > 0) {
                 $b1.show();
                 if(makeTall)
-                    $b1.height(tallerSize)
+                    $b1.height(tallerSize);
                 else
-                    $b1.height($c1.outerHeight())
+                    $b1.height($c1.outerHeight());
                 $b1.width($c1.outerWidth());
                 $b1.offset($c1.offset());
             } else {
