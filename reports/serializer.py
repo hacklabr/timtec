@@ -53,19 +53,12 @@ class UserCourseStats(serializers.ModelSerializer):
 
 
 class CourseStats(serializers.ModelSerializer):
-    lessons_by_users = serializers.SerializerMethodField('get_lessons_by_users')
-    forum_posts = serializers.SerializerMethodField('get_forum_posts')
-    answered_forum_questions = serializers.SerializerMethodField('get_forum_answers_percentage')
+    lessons_avg_progress = serializers.SerializerMethodField('get_lessons_avg_progress')
 
     class Meta:
         model = Course
-        fields = ('name', 'lessons_by_users', 'forum_posts', 'answered_forum_questions')
+        fields = ('slug', 'name', 'lessons_avg_progress',)
 
-    def get_lessons_by_users(self, obj):
-        return obj.lessons_by_users()
-
-    def get_forum_posts(self, obj):
-        return obj.total_forum_posts()
-
-    def get_forum_answers_percentage(self, obj):
-        return obj.forum_questions_answered_percentage()
+    @staticmethod
+    def get_lessons_avg_progress(obj):
+        return obj.avg_lessons_users_progress()

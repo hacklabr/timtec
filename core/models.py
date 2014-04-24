@@ -117,11 +117,11 @@ class Course(models.Model):
             units_len = lesson.unit_count()
             if units_len:
                 units_done_len = StudentProgress.objects.exclude(complete=None).filter(unit__lesson=lesson).count()
-                lesson_progress['progress'] = 100 * units_done_len / units_len * student_enrolled
+                lesson_progress['progress'] = 100 * units_done_len / (units_len * student_enrolled)
                 # lesson_progress['finish'] = self.get_lesson_finish_time(lesson)
             else:
                 lesson_progress['progress'] = 0
-                lesson_progress['finish'] = ''
+                # lesson_progress['finish'] = ''
             progress_list.append(lesson_progress)
         return progress_list
 
