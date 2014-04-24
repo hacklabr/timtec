@@ -52,6 +52,26 @@
             display: inline-block;
           }
         }
+        .form-inline .checkbox {
+          padding: 0;
+        }
+        .form-inline .radio input[type="radio"],
+        .form-inline .checkbox input[type="checkbox"] {
+          float: none;
+          margin-left: 0;
+        }
+
+        @media (max-width: 767px) {
+          input, select {
+            margin-bottom: 5px;
+          }
+        }
+
+        @media (max-width: 385px) {
+          .checkbox label {
+            display: block;
+          }
+        }
       }
 
       .courses-list {

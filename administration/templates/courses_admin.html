@@ -43,7 +43,7 @@ ng-app="courses" class="courses_admin"
                     <!-- ROW -->
                     <div class="row">
                         <!-- COL-LG-6 -->
-                        <div class="col-lg-5">
+                        <div class="col-lg-4 col-md-5 col-sm-12">
                             <div class="checkbox">
                                 <label><input ng-model="filters.all" type="checkbox"> {% trans 'All' %}</label>
                                 <label><input ng-model="filters.published" type="checkbox"> {% trans 'Published' %}</label>
@@ -53,12 +53,12 @@ ng-app="courses" class="courses_admin"
                         </div>
                         <!-- END COL-LG-6 -->
                         <!-- COL-LG-3 -->
-                        <div class="col-lg-3 textright">
+                        <div class="col-lg-3 col-md-3 col-sm-4 textright">
                             <input type="text" ng-model="filters.textsearch" placeholder="{% trans 'Keyword' %}" class="form-control"/>
                         </div>
                         <!-- END COL-LG-3 -->
                         <!-- COL-LG-3 -->
-                        <div class="col-lg-3 textright">
+                        <div class="col-lg-3 col-md-2 col-sm-3 textright">
                             <select ng-model="ordering" class="form-control">
                                 <option value="id">{% trans 'Sort' %} ...</option>
                                 <option value="status">{% trans 'Status' %}</option>
@@ -67,7 +67,7 @@ ng-app="courses" class="courses_admin"
                             </select>
                         </div>
                         <!-- END COL-LG-3 -->
-                        <div class="col-lg-1 textcenter">
+                        <div class="col-lg-2 col-md-2 col-sm-2 textright">
                             <button class="btn btn-info" ng-class="{active:reverse}" ng-click="reverse=!reverse">{% trans 'Invert' %}</button>
                         </div>
                     </div>
