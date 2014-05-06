@@ -1,7 +1,7 @@
 from core.models import Course, CourseProfessor, CourseStudent, Lesson, Video, StudentProgress, Unit, ProfessorMessage
 from accounts.serializers import TimtecUserSerializer
 from activities.serializers import ActivitySerializer
-from portfolio.serializers import PortfolioSerializer
+from portfolios.serializers import PortfolioSerializer
 from rest_framework.reverse import reverse
 from notes.models import Note
 from rest_framework import serializers
