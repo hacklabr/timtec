@@ -1,6 +1,7 @@
 from core.models import Course, CourseProfessor, CourseStudent, Lesson, Video, StudentProgress, Unit, ProfessorMessage
 from accounts.serializers import TimtecUserSerializer
 from activities.serializers import ActivitySerializer
+from portfolios.serializers import PortfolioSerializer
 from rest_framework.reverse import reverse
 from notes.models import Note
 from rest_framework import serializers
@@ -93,10 +94,11 @@ class StudentProgressSerializer(serializers.ModelSerializer):
 class UnitSerializer(serializers.ModelSerializer):
     video = VideoSerializer(required=False)
     activities = ActivitySerializer(many=True, allow_add_remove=True)
+    portfolios = PortfolioSerializer(many=True, allow_add_remove=True)
 
     class Meta:
         model = Unit
-        fields = ('id', 'title', 'video', 'activities', 'side_notes', 'position',)
+        fields = ('id', 'title', 'video', 'activities', 'portfolios', 'side_notes', 'position',)
 
 
 class LessonHyperlinkedIdentityField(serializers.HyperlinkedIdentityField):

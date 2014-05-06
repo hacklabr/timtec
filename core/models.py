@@ -290,6 +290,7 @@ class Unit(models.Model):
     side_notes = models.TextField(_('Side notes'), blank=True)
     position = PositionField(collection='lesson', default=0)
     notes = generic.GenericRelation(Note)
+    portfolio = models.ForeignKey('portfolios.Portfolio', verbose_name=_('Portfolio'), null=True, blank=True, related_name='units')
 
     class Meta:
         verbose_name = _('Unit')

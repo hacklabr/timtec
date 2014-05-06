@@ -24,7 +24,7 @@ class LessonAdmin(ModelAdmin):
 
 
 class UnitAdmin(ModelAdmin):
-    list_display = ('position', 'lesson', 'video', 'activity',)
+    list_display = ('position', 'lesson', 'video', 'activity', 'portfolio')
 
 
 class CourseAdmin(ModelAdmin):

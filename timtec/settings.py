@@ -450,8 +450,10 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
-
     'django_markdown',
+
+    # enois
+    'portfolios',
 
     # raven has to be the last one
     'raven.contrib.django.raven_compat',
