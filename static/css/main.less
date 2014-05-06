@@ -570,6 +570,16 @@ body {
         background-repeat: no-repeat;
     }
 
+    .logo-ifsul {
+        display: block;
+        float: left;
+        margin: 18px 0 0 18px;
+        width: 102px;
+        height: 34px;
+        background-image: url(../img/timtec/logo-ifsul.png);
+        background-repeat: no-repeat;
+    }
+
     .footer-nav {
         float: right;
         margin: 20px 0 0 0;
@@ -613,22 +623,6 @@ body {
             }
         } // .main-nav ul
     } // .main-nav
-
-    .main-footer {
-        padding: 0;
-        .footer-nav {
-            margin: 0;
-            padding: 10px 0 0 0;
-            float: none;
-            clear: both;
-            text-align: left;
-
-            li {
-                display: inline-block;
-                margin: 0;
-            }
-        } // .footer-nav
-    } // .main-footer
 }
 
 @media (max-width: 639px) {
@@ -645,15 +639,25 @@ body {
     } // .main-nav
 
     .main-footer {
+        padding: 0;
         h3 {
-            font-size: 20px;
+            margin: 18px 15px 0 0;
         }
+        .logo-ifsul {
+            margin: 18px 0 0 10px;
+        }
+        .footer-nav {
+            margin: 0;
+            padding: 10px 0 0 0;
+            float: none;
+            clear: both;
+            text-align: left;
 
-        .logo-mct {
-            width: 178px/1.5;
-            height: 32px/1.5;
-            background-size: 100%;
-        }
+            li {
+                display: inline-block;
+                margin: 0;
+            }
+        } // .footer-nav
     } // .main-footer
 }
 
@@ -673,6 +677,26 @@ body {
             height: 36px;
         } // .header h2
     }
+}
+
+
+@media (max-width: 991px) {
+    .main-footer {
+        h3 {
+            font-size: 20px;
+        }
+
+        .logo-mct {
+            width: 178px/1.5;
+            height: 32px/1.5;
+            background-size: 100%;
+        }
+        .logo-ifsul {
+            width: 102px/1.5;
+            height: 34px/1.5;
+            background-size: 100%;
+        }
+    } // .main-footer
 }
 
 // RESPONSIVE MAIN CONTENT
