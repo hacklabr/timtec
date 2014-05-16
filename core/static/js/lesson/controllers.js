@@ -70,15 +70,21 @@
                         var giv = answer.given;
                         // FIXME why this name?
                         // TODO test if professor changes the activity (create a new alternative, the user lost his answer?
-                        var shouldUseLastAnswer = (exp !== null && exp !== undefined) ||
+                        var shouldUseLastAnswer = (exp !== null && exp !== undefined) &&
                             (angular.isArray(exp) && angular.isArray(giv) && giv.length === exp.length);
 
+                        console.log(exp, giv, shouldUseLastAnswer)
                         if (!shouldUseLastAnswer) {
                             // Initialize empty given answer
                             if(angular.isArray($scope.currentActivity.expected)) {
                                 answer.given = $scope.currentActivity.expected.map(function(){});
+                                delete answer.correct;
                             }
                         }
+                    },
+                    function (answer) {
+                        console.log('resposta não existe ainda ou outro erro')
+                        $scope.answer = new Answer({given: $scope.currentActivity.expected.map(function(){})});
                     });
                 } else {
                     $scope.currentActivity = null;
@@ -87,8 +93,10 @@
             };
 
             $scope.sendAnswer = function() {
+                console.log('mandando resposta');
                 $scope.answer.activity = $scope.currentActivity.id;
                 $scope.answer.$update({activityId: $scope.answer.activity}).then(function(d){
+                    console.log(d, d.correct);
                     ga('send', 'event', 'activity', 'result', '', d.correct);
                     return Progress.getProgressByUnitId($scope.currentUnit.id);
                 }).then(function(progress){

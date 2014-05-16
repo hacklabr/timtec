@@ -34,5 +34,16 @@ class ActivityAdmin(ModelAdmin):
             return
 
 
+class AnswerAdmin(ModelAdmin):
+    ordering = ('timestamp',)
+    list_display = ('activity', 'user', 'timestamp', 'given', 'unit')
+    readonly_fields = ('unit',)
+
+    def unit(self, object):
+        try:
+            return object.activity.units.first().title
+        except AttributeError:
+            return
+
 admin.site.register(Activity, ActivityAdmin)
-admin.site.register(Answer)
+admin.site.register(Answer, AnswerAdmin)
