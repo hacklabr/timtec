@@ -31,12 +31,37 @@
         });
 
         $scope.upcoming_courses = Course.query({'home_published': 'False'}, function(upcoming_courses) {
-            if (upcoming_courses.length > 3) {
+            /*if (upcoming_courses.length > 3) {
                 $scope.upcoming_courses = upcoming_courses.slice(0,3);
-            }
+            }*/
+
+            $scope.upcoming_courses_rows = [];
+            var row = [];
+            var lastItems = [];
+            var index = 0;
+            var count = $scope.upcoming_courses.length-1;
+            console.log("qtde:" + count);
+
+            
+            angular.forEach(upcoming_courses, function(course) {
+                row.push(course);
+                console.log("course name:" + course.name);
+                console.log("index:" + index);
+
+                if (index == 2) {
+                    $scope.upcoming_courses_rows.push(row);
+                    row = [];
+                    index = 0;
+                } else
+                    index++;
+            });
+
+            
         });
 
         $scope.twits = Twitter.query({});
+
     }]);
 
 })(angular);
+
