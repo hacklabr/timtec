@@ -73,7 +73,7 @@
                         var shouldUseLastAnswer = (exp !== null && exp !== undefined) &&
                             (angular.isArray(exp) && angular.isArray(giv) && giv.length === exp.length);
 
-                        console.log(exp, giv, shouldUseLastAnswer)
+                        console.log(exp, giv, shouldUseLastAnswer);
                         if (!shouldUseLastAnswer) {
                             // Initialize empty given answer
                             if(angular.isArray($scope.currentActivity.expected)) {
@@ -83,7 +83,7 @@
                         }
                     },
                     function (answer) {
-                        console.log('resposta não existe ainda ou outro erro')
+                        console.log('resposta não existe ainda ou outro erro');
                         $scope.answer = new Answer({given: $scope.currentActivity.expected.map(function(){})});
                     });
                 } else {
