@@ -86,9 +86,9 @@
                         <div class="slider">
                             {% verbatim %}
                             <carousel>
-                                <slide ng-repeat="upcoming_courses_rows in upcoming_courses_rows" active="slide.active">
+                                <slide ng-repeat="row in upcoming_courses_rows_3" active="slide.active">
                                     <div class="row">
-                                        <div class="col-lg-4 col-md-4" ng-repeat="course in upcoming_courses_rows">
+                                        <div class="col-lg-4 col-md-4" ng-repeat="course in row">
                                             <div class="row">
                                                 <a ng-href="/course/{{ course.slug }}">
                                                     <div class="col-lg-6 col-md-6">

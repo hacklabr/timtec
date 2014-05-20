@@ -31,34 +31,27 @@
         });
 
         $scope.upcoming_courses = Course.query({'home_published': 'False'}, function(upcoming_courses) {
-            /*if (upcoming_courses.length > 3) {
-                $scope.upcoming_courses = upcoming_courses.slice(0,3);
-            }*/
 
-            $scope.upcoming_courses_rows = [];
-            var row = [];
-            var lastItems = [];
-            var index = 0;
-            var count = $scope.upcoming_courses.length-1;
-            console.log("qtde:" + count);
+            $scope.upcoming_courses_rows_3 = [];
 
-            
-            angular.forEach(upcoming_courses, function(course) {
-                row.push(course);
-                console.log("course name:" + course.name);
-                console.log("index:" + index);
+            for (var i = 0; i < upcoming_courses.length; i++) {
+                var row = [];
+                row[0] = $scope.upcoming_courses[i];
 
-                if (index == 2) {
-                    $scope.upcoming_courses_rows.push(row);
-                    row = [];
-                    index = 0;
-                } else
-                    index++;
-            });
-
-            
+                if (upcoming_courses.length - i > 1){
+                    // normal case
+                    row[1] = $scope.upcoming_courses[i+1];
+                    if (upcoming_courses.length - i > 2)
+                        row[2] = $scope.upcoming_courses[i+2];
+                    else
+                        row[2] = $scope.upcoming_courses[upcoming_courses.length - i - 2];
+                } else {
+                    row[1] = $scope.upcoming_courses[upcoming_courses.length - i - 1];
+                    row[2] = $scope.upcoming_courses[upcoming_courses.length - i];
+                }
+                $scope.upcoming_courses_rows_3.push(row);
+            }
         });
-
         $scope.twits = Twitter.query({});
 
     }]);
