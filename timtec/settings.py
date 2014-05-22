@@ -4,7 +4,9 @@ from django.utils.translation import ugettext_lazy as _
 import os
 SETTINGS_DIR = os.path.dirname(os.path.realpath(__file__))
 PROJECT_ROOT = os.path.dirname(SETTINGS_DIR)
+THEMES_DIR = os.path.join(PROJECT_ROOT, 'themes')
 
+TIMTEC_THEME = 'default'
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -112,8 +114,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(PROJECT_ROOT, 'static', 'hacklab_theme'),
-    os.path.join(PROJECT_ROOT, "static"),
+    os.path.join(THEMES_DIR, TIMTEC_THEME, 'static'),
     os.path.join(PROJECT_ROOT, 'bower_components'),
 )
 
@@ -353,7 +354,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(PROJECT_ROOT, 'themes', 'default'),
+    os.path.join(THEMES_DIR, TIMTEC_THEME, 'templates'),
 )
 
 
