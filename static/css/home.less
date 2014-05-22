@@ -183,7 +183,6 @@
                     display: none;
                 }
 
-
                 .carousel-control {
                     width: 37px;
                     height: 83px;
@@ -216,4 +215,20 @@
         } // .next-videos
     } // .content
 } // .home
+
+.carousel-inner {
+  > .next {
+    left: 100%/3;
+  }
+  > .prev {
+    left: -100%/3;
+  }
+  > .active.left {
+    left: -100%/3;
+  }
+  > .active.right {
+    left: 100%/3;
+  }
+}
+
 

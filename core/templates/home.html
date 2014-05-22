@@ -86,20 +86,16 @@
                         <div class="slider">
                             {% verbatim %}
                             <carousel>
-                                <slide ng-repeat="row in upcoming_courses_rows_3" active="slide.active">
-                                    <div class="row">
-                                        <div class="col-lg-4 col-md-4" ng-repeat="course in row">
-                                            <div class="row">
-                                                <a ng-href="/course/{{ course.slug }}">
-                                                    <div class="col-lg-6 col-md-6">
-                                                        <div class="thumb">
-                                                            <img ng-src="{{ course.home_thumbnail_url }}">
-                                                        </div>
-                                                    </div>
-                                                    <h4 class="col-lg-6 col-md-6">{{ course.name }}</h4>
-                                                </a>
+                                <slide ng-repeat="row in upcoming_courses_rows_3">
+                                    <div class="col-lg-4 col-md-4" ng-repeat="course in row">
+                                        <a ng-href="/course/{{ course.slug }}">
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="thumb">
+                                                    <img ng-src="{{ course.home_thumbnail_url }}">
+                                                </div>
                                             </div>
-                                        </div>
+                                            <h4 class="col-lg-6 col-md-6">{{ course.name }}</h4>
+                                        </a>
                                     </div>
                                 </slide>
                             </carousel>
