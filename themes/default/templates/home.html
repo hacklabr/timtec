@@ -11,8 +11,19 @@
 {% block content %}
         
     <div id="home" ng-app="core" ng-controller="HomeCtrl">
+        <div id="highlight">
+            <nav class="nav-left">
+                <img src="static/img/arrow-left.png">
+            </nav>
+            <img src="static/img/banner-003.jpg" class="img-responsive">
+            <nav class="nav-right">
+                <img src="static/img/arrow-right.png">
+            </nav>
+        </div>
         <div id="courses" class="container">
-            <h1>Confira nossos cursos</h1>
+            <header>
+                <h1>Confira nossos cursos</h1>
+            </header>
             <div class="row">
                 <div ng-repeat="course in courses" class="course col-md-4 col-sm-6 col-xs-12">
                     {% verbatim %}
