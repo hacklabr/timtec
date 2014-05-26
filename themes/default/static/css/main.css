@@ -5909,23 +5909,22 @@ a:active {
   margin-bottom: -60px;
 }
 #home #highlight {
-  height: 700px;
+  max-height: 700px;
   overflow: hidden;
   position: relative;
-}
-#home #highlight .nav-left,
-#home #highlight .nav-right {
-  color: white;
-  font-size: 144px;
-  position: absolute;
-  top: 30%;
-  z-index: 10;
-}
-#home #highlight .nav-left {
-  left: 20px;
-}
-#home #highlight .nav-right {
-  right: 20px;
+  /*.nav-left, .nav-right {
+            color: white;
+            font-size: 144px;
+            position: absolute;
+            top: 30%;
+            z-index: 10;
+        }
+        .nav-left {
+            left: 20px;
+        }
+        .nav-right {
+            right: 20px;
+        }*/
 }
 #home #courses {
   margin-bottom: 40px;
@@ -5974,7 +5973,7 @@ a:active {
   color: #555555;
   font-size: 20px;
   margin: 0 0 10px 0;
-  max-height: 50px;
+  max-height: 45px;
   overflow: hidden;
   position: relative;
 }
