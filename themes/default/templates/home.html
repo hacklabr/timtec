@@ -10,113 +10,41 @@
 
 {% block content %}
         
-        <div id="home" ng-app="core" ng-controller="HomeCtrl">
+    <div id="home" ng-app="core" ng-controller="HomeCtrl">
+        <div id="courses" class="container">
+            <h1>Confira nossos cursos</h1>
+            <div class="row">
+                <div ng-repeat="course in courses" class="course col-md-4 col-sm-6 col-xs-12">
+                    {% verbatim %}
+                    <div class="img">
+                        <a ng-href="/course/{{ course.slug }}">
+                            <span style="background-image: url({{ course.home_thumbnail_url }})"></span>
+                        </a>
+                    </div>
+                    <div class="info">
+                        <h3><a ng-href="/course/{{ course.slug }}">{{ course.name }}</a></h3>
+                        <p class="instructors">{{ course.professors_names }}</p>
+                        <p class="abstract">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis neque, varius at nisi ac, adipiscing hendrerit metus. Donec sed metus at diam gravida ultricies eget nec ante. Cras nunc mi, interdum vitae porta ac, eleifend a lectus. Quisque semper elit vel suscipit lobortis. Donec gravida in quam in vestibulum. Nullam suscipit neque magna, et semper tellus porttitor ac. Vivamus ornare lacus vitae nisl fringilla, vitae mollis velit porta. Vestibulum ut odio consectetur, tincidunt purus vitae, posuere turpis. Phasellus feugiat risus sit amet dolor lobortis sodales. Nam fermentum lectus id venenatis tempus.</p>
+                    </div>
+                    <div class="enroll">
+                        <a href="">
+                            <span>
+                                <i class="fa fa-calendar"></i> Jul, 2014
+                            </span>
+                            <span class="enroll-link textright uppercase">
+                                Começar curso <i class="fa fa-angle-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                    {% endverbatim %}
+                </div>
+            </div><!-- .row -->
 
-            <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
-
-            <section class="main-content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                            <div class="row">
-                                <section class="videos col-lg-12 col-md-12 col-sm-12 col-xs-12" role="main">
-                                    <div class="row" ng-repeat="courses_row in courses_rows">
-                                        <div ng-repeat="course in courses_row" class="video-wrapper col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                            {% verbatim %}
-                                            <article class="video">
-                                                <a ng-href="/course/{{ course.slug }}">
-                                                    <div class="video-thumb">
-                                                        <img ng-src="{{ course.home_thumbnail_url }}">
-                                                    </div>
-                                                </a>
-                                                <div class="video-info">
-                                                    <h3><a ng-href="/course/{{ course.slug }}">{{ course.name }}</a></h3>
-                                                    <p>{{ course.professors_names }}</p>
-                                                </div>
-                                            </article>
-                                            {% endverbatim %}
-                                        </div>
-                                    </div>
-                                </section><!-- .videos -->
-                            </div><!-- .row -->
-                        </div><!-- .col-md-8 -->
-
-                        <div class="col-lg-4 col-md-4 hidden-sm hidden-xs">
-
-                            <div class="row">
-                                
-                                <section class="twitter col-lg-10 col-lg-offset-2 col-md-11 col-md-offset-1" role="complementary">
-
-                                    <div class="row">
-                                        <div class="col-lg-10 col-lg-offset-2 col-md-10 col-md-offset-2">
-                                            <h3>
-                                                <i class="fa fa-twitter"></i>
-                                                Veja as últimas<br>informações<br><span>@TIMTec_oficial</span>
-                                            </h3>
-                                            <div class="tweet" ng-repeat="twit in twits">
-                                                {% verbatim %}
-                                                <div class="info">
-                                                    <span class="avatar">
-                                                        <img ng-src="{{ twit.profile_image_url }}">
-                                                    </span>
-                                                    <a class="name" ng-href="https://twitter.com/{{ twit.screen_name }}" target="_blank">{{ twit.user_name }}</a>
-                                                    <span class="date">{{ twit.date }}</span>
-                                                    <span class="hour">{{ twit.hour }}</span>
-                                                </div>
-                                                <div class="text" ng-bind-html="twit.text|tweet">
-                                                </div>
-                                                {% endverbatim %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section><!-- .twitter -->
-                            </div>
-                            
-                        </div><!-- .col-md-3 -->
-
-                    </div><!-- .row -->
-                </div><!-- .container -->
-
-                <aside class="next-videos hidden-sm hidden-xs" role="complementary">
-
-                    <div class="container">
-                            
-                        <div class="row">
-
-                            <!--
-                                <div class="prev"></div>
-                                <div class="next"></div>
-                             -->
-                            <div class="slider">
-
-                                <h3><a href="#">Próximos <span>lançamentos</span></a></h3>
-                                <div class="row">
-                                    {% verbatim %}
-                                    <div class="video col-lg-4 col-md-4" ng-repeat="course in upcoming_courses">
-                                        <a ng-href="/course/{{ course.slug }}">
-                                            <div class="col-lg-4 col-md-4 left right">
-                                                <div class="thumb">
-                                                    <img ng-src="{{ course.home_thumbnail_url }}" class="img-responsive">
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a ng-href="/course/{{ course.slug }}">
-                                            <h4 class="col-lg-8 col-md-8">{{ course.name }}</h4>
-                                        </a>
-                                    </div>
-                                    {% endverbatim %}
-                                </div>
-                            </div>
+        </div>
 
 
-                        </div><!-- .row -->
+    </div><!-- #home -->
 
-                    </div><!-- .container -->
-
-                </aside><!-- .slider-proximos -->
-
-            </section><!-- .content -->
-
-        </div><!-- #home -->
+</div>
         
 {% endblock %}

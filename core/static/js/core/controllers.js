@@ -14,29 +14,8 @@
         }
 
         $scope.courses = Course.query({'home_published': 'True'}, function(courses) {
-
             courses.sort(compare_by_position);
-            $scope.courses_rows = [];
-            var row = [];
-            var index = 0;
-            angular.forEach(courses, function(course) {
-                row.push(course);
-                if (index == 1) {
-                    $scope.courses_rows.push(row);
-                    row = [];
-                    index = 0;
-                } else
-                    index++;
-            });
         });
-
-        $scope.upcoming_courses = Course.query({'home_published': 'False'}, function(upcoming_courses) {
-            if (upcoming_courses.length > 3) {
-                $scope.upcoming_courses = upcoming_courses.slice(0,3);
-            }
-        });
-
-        $scope.twits = Twitter.query({});
     }]);
 
 })(angular);
