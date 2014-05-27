@@ -5926,6 +5926,9 @@ a:active {
             right: 20px;
         }*/
 }
+#home #highlight img {
+  margin: 0 auto;
+}
 #home #courses {
   margin-bottom: 40px;
   margin-top: 40px;
@@ -5937,10 +5940,25 @@ a:active {
 }
 #home #courses header h1 {
   font-family: "Questrial";
-  font-size: 45px;
+  font-size: 6vw;
   font-weight: normal;
-  margin-bottom: 0;
+  margin: 0;
   text-transform: uppercase;
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  #home #courses header h1 {
+    font-size: 5vw;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  #home #courses header h1 {
+    font-size: 4vw;
+  }
+}
+@media (min-width: 1200px) {
+  #home #courses header h1 {
+    font-size: 3vw;
+  }
 }
 #home #courses header p {
   color: #999999;

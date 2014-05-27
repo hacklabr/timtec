@@ -383,6 +383,9 @@ a, a:hover, a:active {
         max-height: 700px;
         overflow: hidden;
         position: relative;
+        img {
+          margin: 0 auto;
+        }
         /*.nav-left, .nav-right {
             color: white;
             font-size: 144px;
@@ -406,10 +409,19 @@ a, a:hover, a:active {
             padding-bottom: 18px;
             h1 {
                 font-family: "Questrial";
-                font-size: 45px;
+                font-size: 6vw;
                 font-weight: normal; 
-                margin-bottom: 0;
+                margin: 0;
                 text-transform: uppercase;
+                @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { 
+                  font-size: 5vw;
+                }
+                @media (min-width: @screen-md-min) and (max-width: @screen-md-max) { 
+                  font-size: 4vw;
+                }
+                @media (min-width: @screen-lg-min) { 
+                  font-size: 3vw;
+                }
             }
             p {
                 color: @gray-light;
