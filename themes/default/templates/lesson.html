@@ -151,15 +151,15 @@ $(document).ready(function() {
             <!-- NOTES -->
             <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs" style="height:420px;">
                 <ul class="nav nav-tabs">
-                    <li><a href="#side-notes" data-toggle="tab">{% trans 'Learn more' %}</a></li>
+                    <!--<li><a href="#side-notes" data-toggle="tab">{% trans 'Learn more' %}</a></li>-->
                     <li class="active"><a href="#notes" data-toggle="tab">{% trans 'Annotations' %}</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane" id="side-notes">
+                    <!--<div class="tab-pane" id="side-notes">
                         <br>
                         <span ng-bind-html="currentUnit.side_notes|markdown"></span>
                         <p ng-if="!currentUnit.side_notes">{% trans 'This unit has no notes' %}</p>
-                    </div>
+                    </div>-->
                     {% include "_notes_inline.html" %}
                 </div>
             </div>
@@ -180,13 +180,24 @@ $(document).ready(function() {
         </div>
         {% endif %}
 
-        <!-- FORUM -->
+        
         <div class="row">
             <div class="col-lg-8 col-sm-10 col-lg-offset-1 col-sm-offset-1">
-                {% include "_forum_inline.html"  with course=lesson.course question_form=1 %}
-            </div>
+                <!-- SIDENOTES -->
+                <div class="side-notes">
+                    <div class="page-header-double">
+                        <h3><i class="fa fa-angle-double-right"></i> {% trans 'Learn more' %}</h3>
+                    </div>   
+                    <span ng-bind-html="currentUnit.side_notes|markdown"></span>
+                    <p ng-if="!currentUnit.side_notes">{% trans 'This unit has no notes' %}</p>
+                </div>
+                <!-- END SIDENOTES -->
 
-        <!-- END FORUM -->
+                <!-- FORUM -->
+                {% include "_forum_inline.html"  with course=lesson.course question_form=1 %}
+                <!-- END FORUM -->
+            </div>
+        
             <div class="col-lg-3 hidden-md hidden-sm hidden-xs">
                 <section class="course-instructions">
                     <div class="page-header-double">
