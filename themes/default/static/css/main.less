@@ -458,23 +458,31 @@ a, a:hover, a:active {
             }
         }
         .course {
+            margin-bottom: 40px;
             @media (min-width: 380px) and (max-width: @screen-xs-max) {  
               float: none;
               margin: 0 auto 40px; 
               width: 360px;
             }
-            margin-bottom: 40px;
-            .img {
-                span {
-                  display: block;
-                  height: 145px;
-                  background-size: cover;
-                  background-position: top center;
-                  .transition(opacity .25s ease-out);
-                  &:hover {
-                    opacity: 0.8;
-                  }
+            &> a {
+              display: block;
+              &:hover {
+                .img span {
+                  opacity: 0.8;
                 }
+                .enroll {
+                  background-color: @brand-success;
+                }
+              }
+            }
+            .img {
+              span {
+                display: block;
+                height: 145px;
+                background-size: cover;
+                background-position: top center;
+                .transition(all .25s ease-out);
+              }
             }
             .info {
                 background-color: @gray-lighter;
@@ -506,6 +514,7 @@ a, a:hover, a:active {
                     position:relative;
                 }
                 .abstract {
+                    color: @gray-dark;
                     font-size: 12px;
                     height: 51px;
                     position: relative;
@@ -513,14 +522,11 @@ a, a:hover, a:active {
                 }
             }
             .enroll {
-                background-color: @brand-success;
+                background-color: darken(@brand-success, 5%);
                 color: #fff;
                 font-family: 'Questrial';
                 line-height: 3;
-                .transition(background-color .25s ease-out);
-                &:hover {
-                    background-color: darken(@brand-success, 5%);
-                }
+                .transition(all .25s ease-out);
                 a {
                   color: #fff;
                   display: block;
