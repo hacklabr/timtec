@@ -5884,6 +5884,10 @@ a:active {
 #main-navbar .submit {
   line-height: 2.5;
 }
+#main-navbar .navbar-toggle:hover,
+#main-navbar .navbar-toggle:focus {
+  background-color: #002c50;
+}
 @media screen and (min-width: 768px) {
   #main-navbar .dropdown-menu {
     width: 400px;
@@ -5905,8 +5909,12 @@ a:active {
   }
 }
 #home {
-  margin-top: -20px;
   margin-bottom: -60px;
+}
+@media screen and (min-width: 480px) {
+  #home {
+    margin-top: -20px;
+  }
 }
 #home #highlight {
   max-height: 700px;

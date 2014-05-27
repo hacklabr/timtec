@@ -22,8 +22,6 @@
                 {% ifusergroup professors %}
                 <li><a href="{% url 'administration.home' %}">{% trans "Admin" %}</a></li>
                 {% endifusergroup %}
-                <li><a href="{% url 'user_courses' %}">{% trans "My Courses" %}</a></li>
-                <li><a href="{% url 'user_notes' %}">{% trans "My Notes" %}</a></li>
                 <li>
                     <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
                         {{ user }}
@@ -34,9 +32,13 @@
                         <li><a href="{% url 'profile_edit' %}">{% trans "Edit Profile and Account Settings" %}</a></li>
                         <!-- <li><a href="">{% trans "Settings" %}</a></li> -->
                         <li class='divider'></li>
+                        <li><a href="{% url 'user_courses' %}">{% trans "My Courses" %}</a></li>
+                        <li><a href="{% url 'user_notes' %}">{% trans "My Notes" %}</a></li>
+                        <li class='divider'></li>
                         <li><a href="{% url 'timtec_logout' %}">{% trans "Logout" %}</a></li>
                     </ul>
                 </li>
+                <li><a href="">{% trans 'About' %}</a></li>
             </ul>
         </div>
     </div>

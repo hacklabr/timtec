@@ -128,6 +128,7 @@ a, a:hover, a:active {
 @navbar-inverse-brand-hover-bg:             transparent;
 
 
+
 // Scale up the modal
 @media screen and (min-width: @screen-tablet) {
   .modal-dialog {
@@ -347,6 +348,12 @@ a, a:hover, a:active {
   .submit {
     line-height: 2.5;
   }
+  .navbar-toggle {
+    &:hover,
+    &:focus {
+      background-color: #002c50;
+    }
+  }
 }
 
 @media screen and (min-width: @screen-tablet) {
@@ -377,7 +384,7 @@ a, a:hover, a:active {
 
 // HOME
 #home {
-    margin-top: -20px;
+    @media screen and (min-width: @screen-xs-min) { margin-top: -20px; }
     margin-bottom: -60px;
     #highlight {
         max-height: 700px;
