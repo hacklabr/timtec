@@ -36,7 +36,7 @@ ng-app="courses"
             <!-- ROW -->
             <div class="row">
                 <!-- COL-LG-6 -->
-                <div class="col-lg-5">
+                <div class="filter-checkbox col-md-4 col-sm-12">
                     <div class="checkbox">
                         <label><input ng-model="filters.all" type="checkbox"> {% trans 'All' %}</label>
                         <label><input ng-model="filters.published" type="checkbox"> {% trans 'Published' %}</label>
@@ -46,12 +46,12 @@ ng-app="courses"
                 </div>
                 <!-- END COL-LG-6 -->
                 <!-- COL-LG-3 -->
-                <div class="col-lg-3 textright">
+                <div class="filter-keyword col-md-3 col-sm-5 textright">
                     <input type="text" ng-model="filters.textsearch" placeholder="{% trans 'Keyword' %}" class="form-control"/>
                 </div>
                 <!-- END COL-LG-3 -->
                 <!-- COL-LG-3 -->
-                <div class="col-lg-3 textright">
+                <div class="filter-ordering col-md-3 col-sm-5 textright">
                     <select ng-model="ordering" class="form-control">
                         <option value="id">{% trans 'Sort' %} ...</option>
                         <option value="status">{% trans 'Status' %}</option>
@@ -60,8 +60,8 @@ ng-app="courses"
                     </select>
                 </div>
                 <!-- END COL-LG-3 -->
-                <div class="col-lg-1 textcenter">
-                    <button class="btn btn-info" ng-class="{active:reverse}" ng-click="reverse=!reverse">{% trans 'Invert' %}</button>
+                <div class="filter-reverse col-md-2 col-sm-2 textright">
+                    <button class="btn btn-info btn-block" ng-class="{active:reverse}" ng-click="reverse=!reverse">{% trans 'Invert' %}</button>
                 </div>
             </div>
             <!-- END ROW -->
