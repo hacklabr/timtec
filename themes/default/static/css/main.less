@@ -416,19 +416,57 @@ a, a:hover, a:active {
       img {
         margin: 0 auto;
       }
-      span {
+      .text {
         color: #000;
         font-family: "Questrial";
         position: absolute;
-        &.line1 {
-          top: 66px;
-          font-size: 48px;
-          right: 95px;
+        right: 15px;
+        top: 15px;
+        p {
+          margin: 0;
+          text-align: right;
         }
-        &.line2 {
-          top: 125px;
-          font-size: 34px;
+        .line1 {
+          font-size: 3.4vw;
+        }
+        .line2 {
+          font-size: 2.4vw;
+        }
+      }
+      @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { 
+        .text {
+          right: 55px;
+          top: 40px;
+          .line1 {
+            font-size: 3.4vw;
+          }
+          .line2 {
+            font-size: 2.4vw;
+          }
+        }
+      }
+      @media (min-width: @screen-md-min) and (max-width: @screen-md-max) { 
+        .text {
+          right: 70px;
+          top: 50px;
+          .line1 {
+            font-size: 3.3vw;
+          }
+          .line2 {
+            font-size: 2.3vw;
+          }
+        }
+      }
+      @media (min-width: @screen-lg-min) { 
+        .text {
           right: 95px;
+          top: 65px;
+          .line1 {
+            font-size: 3vw;
+          }
+          .line2 {
+            font-size: 2vw;
+          }
         }
       }
       /*.nav-left, .nav-right {
