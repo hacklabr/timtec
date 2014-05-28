@@ -410,60 +410,59 @@ a, a:hover, a:active {
     @media screen and (min-width: @screen-xs-min) { margin-top: -20px; }
     margin-bottom: -60px;
     #highlight {
-        max-height: 700px;
-        overflow: hidden;
-        position: relative;
-        img {
-          margin: 0 auto;
+      max-height: 700px;
+      overflow: hidden;
+      position: relative;
+      img {
+        margin: 0 auto;
+      }
+      /*.nav-left, .nav-right {
+          color: white;
+          font-size: 144px;
+          position: absolute;
+          top: 30%;
+          z-index: 10;
+      }
+      .nav-left {
+          left: 20px;
+      }
+      .nav-right {
+          right: 20px;
+      }*/
+    }
+    header {
+      border-bottom: 1px solid @gray-lighter;
+      margin-bottom: 36px;
+      padding-bottom: 18px;
+      h1 {
+        font-family: "Questrial";
+        font-size: 6.5vw;
+        font-weight: normal; 
+        margin: 0;
+        text-transform: uppercase;
+        @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { 
+          font-size: 5vw;
         }
-        /*.nav-left, .nav-right {
-            color: white;
-            font-size: 144px;
-            position: absolute;
-            top: 30%;
-            z-index: 10;
+        @media (min-width: @screen-md-min) and (max-width: @screen-md-max) { 
+          font-size: 4vw;
         }
-        .nav-left {
-            left: 20px;
+        @media (min-width: @screen-lg-min) { 
+          font-size: 3vw;
         }
-        .nav-right {
-            right: 20px;
-        }*/
+      }
+    }
+    .block {
+      margin-bottom: 40px;
+      @media (min-width: 380px) and (max-width: @screen-xs-max) {  
+        float: none;
+        margin: 0 auto 40px; 
+        width: 360px;
+      }        
     }
     #courses {
         margin-bottom: 40px;
         margin-top: 40px;
-        header {
-            border-bottom: 1px solid @gray-lighter;
-            margin-bottom: 36px;
-            padding-bottom: 18px;
-            h1 {
-                font-family: "Questrial";
-                font-size: 6vw;
-                font-weight: normal; 
-                margin: 0;
-                text-transform: uppercase;
-                @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { 
-                  font-size: 5vw;
-                }
-                @media (min-width: @screen-md-min) and (max-width: @screen-md-max) { 
-                  font-size: 4vw;
-                }
-                @media (min-width: @screen-lg-min) { 
-                  font-size: 3vw;
-                }
-            }
-            p {
-                color: @gray-light;
-            }
-        }
         .course {
-            margin-bottom: 40px;
-            @media (min-width: 380px) and (max-width: @screen-xs-max) {  
-              float: none;
-              margin: 0 auto 40px; 
-              width: 360px;
-            }
             &> a {
               display: block;
               position: relative;
@@ -485,7 +484,6 @@ a, a:hover, a:active {
                 }
               }
             }
-            
             .img {
               .mouseover {
                 background-color: @brand-info;
@@ -508,10 +506,9 @@ a, a:hover, a:active {
             .info {
                 background-color: @gray-lighter;
                 height: 160px;
-                max-height: 160px;
+                overflow: hidden;
                 padding: 10px;
                 position: relative;
-                overflow: hidden;
                 .transition(all 0.25s ease);
                 h3 {
                     color: @gray;
@@ -544,7 +541,7 @@ a, a:hover, a:active {
                 }
             }
             .enroll {
-                background-color: darken(@brand-success, 5%);
+                background-color: @brand-success;
                 color: #fff;
                 font-family: 'Questrial';
                 line-height: 3;
@@ -561,6 +558,39 @@ a, a:hover, a:active {
                     margin: 0 9px;
                 }
             }
+        }
+    }
+    #how-it-works {
+        background-color: @gray-lighter;
+        color: @gray;
+        padding-bottom: 40px;
+        padding-top: 40px;
+        header {
+          border-bottom-color: lighten(@gray-light,20%);
+        }
+        .highlight {
+            border-bottom: 1px solid lighten(@gray-light,20%);
+            margin-bottom: 36px;
+            padding-bottom: 18px;
+        }
+        .block {
+          .info {
+            background-color: #fff;
+            padding: 15px;
+            h3 {
+              font-size: 22px;
+              margin-top: 0;
+              @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) { 
+                font-size: 24px;
+              }
+              @media (min-width: @screen-lg-min) { 
+                font-size: 28px;
+              }
+            }
+            p {
+              margin-bottom: 0;
+            }
+          }
         }
     }
 }
