@@ -466,22 +466,43 @@ a, a:hover, a:active {
             }
             &> a {
               display: block;
+              position: relative;
               &:hover {
-                .img span {
-                  opacity: 0.8;
+                .mouseover {
+                  .opacity(0.4);
+                }
+                .info {
+                  background-color: rgba(52,152,219,0.3);
+                  h3, .abstract {
+                    color: #000;  
+                  }
+                  .instructors {
+                    color: @gray;
+                  }
                 }
                 .enroll {
-                  background-color: @brand-success;
+                  background-color: @brand-info;
                 }
               }
             }
+            
             .img {
-              span {
+              .mouseover {
+                background-color: @brand-info;
                 display: block;
                 height: 145px;
+                .opacity(0);
+                position: absolute;
+                .transition(all 0.25s ease);
+                width: 100%;
+                z-index: 1;
+              }
+              span {
                 background-size: cover;
                 background-position: top center;
-                .transition(all .25s ease-out);
+                display: block;
+                height: 145px;
+                .transition(all 0.25s ease);
               }
             }
             .info {
@@ -491,6 +512,7 @@ a, a:hover, a:active {
                 padding: 10px;
                 position: relative;
                 overflow: hidden;
+                .transition(all 0.25s ease);
                 h3 {
                     color: @gray;
                     font-size: 20px;
@@ -526,7 +548,7 @@ a, a:hover, a:active {
                 color: #fff;
                 font-family: 'Questrial';
                 line-height: 3;
-                .transition(all .25s ease-out);
+                .transition(all 0.25s ease);
                 a {
                   color: #fff;
                   display: block;
@@ -1688,6 +1710,10 @@ a, a:hover, a:active {
       a {
         color: #fff;
         display: inline-block;
+        cursor: pointer;
+        &:hover {
+          text-decoration: underline; 
+        }
       }
     }
   }
