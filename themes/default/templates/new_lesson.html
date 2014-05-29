@@ -29,10 +29,10 @@ ng-app="edit-lesson"
     <div class="actions" fixed-bar>
         <div class="container">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
                     <button class="btn btn-danger" ng-click="deleteLesson()"><i class="fa fa-trash-o"></i> | {% trans 'Delete this lesson' %}</button>
                 </div>
-                <div class="col-lg-4 textright">
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 textright">
                     <button class="btn btn-success" ng-click="saveLesson()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
                     <button class="btn btn-warning" ng-click="publishLesson();">{% trans 'Publish lesson' %} | <i class="fa fa-star-o"></i></button>
                 </div>
@@ -77,7 +77,7 @@ ng-app="edit-lesson"
         <!-- ROW -->
         <div class="row">
 
-            <div class="col-lg-1">
+            <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
                 <div class="units admin-units">
                     {% verbatim %}
                     <a href="" class="unit" ng-repeat="u in lesson.units"
@@ -92,9 +92,9 @@ ng-app="edit-lesson"
                 </div>
             </div>
 
-            <div class="col-lg-8">
+            <div class="col-lg-8 col-md-8 col-sm-10 col-xs-10">
                 <div class="add-content row" ng-init="section='video'">
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <button class="btn btn-default uppercase"
                                 ng-class="{'btn-info': section === 'video'}"
                                 ng-click="section ='video'">{% trans 'Video' %}</button>
@@ -103,7 +103,7 @@ ng-app="edit-lesson"
                                 ng-class="{'btn-info': section === 'activity'}"
                                 ng-click="section ='activity'">{% trans 'Activity' %}</button>
                     </div>
-                    <div class="col-lg-6 textright">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 textright">
                         <button class="btn btn-danger delete" ng-click="removeCurrentUnit()"
                                 title="Apagar unidade">
                             <i class="fa fa-trash-o"></i> | {% trans 'Delete this unit' %}
@@ -145,7 +145,7 @@ ng-app="edit-lesson"
                         </div>
 
                         <div class="col-lg-12" style="overflow:hidden;"
-                             ng-style="{'margin-left': currentUnit.video && playerReady ?'':'-3000px'}">
+                             ng-style="{'display': currentUnit.video && playerReady ?'':'none'}">
 
                             <div id="youtube-player" player-height="419px" player-width="100%" youtube-player></div>
                             <div class="row">
@@ -167,7 +167,7 @@ ng-app="edit-lesson"
                 <!-- ACTIVITIES SECTION -->
                 <div class="activity" ng-show="section==='activity'">
                     <div class="row">
-                        <div class="col-sm-13 col-lg-13 panel panel-default" ng-show="currentActivity">
+                        <div class="col-sm-12 col-lg-12 panel panel-default" ng-show="currentActivity">
                             <div class="panel-heading clearfix">
                                 <span ng-repeat="activity in currentUnit.activities">
                                     <button class="btn btn-default"
@@ -222,14 +222,16 @@ ng-app="edit-lesson"
                 <!-- END ACTIVITIES SECTION -->
 
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
                 <div class="add-side-notes">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#side-notes" data-toggle="tab">{% trans 'Side notes' %}</a></li>
+                        <li class="active"><a href="#side-notes" data-toggle="tab">{% trans 'Annotations' %}</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="side-notes">
-                            <modalmarkdowneditor title="Saiba mais" content="currentUnit.side_notes"></modalmarkdowneditor>
+                            <form class="textright ng-pristine ng-valid">
+                                <textarea ng-model="note_text" rows="5" class="col-lg-12 ng-pristine ng-valid" disabled="disabled"></textarea>
+                            </form>
                         </div>
                     </div>
                 </div>
