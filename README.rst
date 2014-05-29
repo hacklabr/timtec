@@ -1,3 +1,6 @@
+.. image:: https://badge.waffle.io/hacklabr/timtec.png?label=ready&title=Ready 
+ :target: https://waffle.io/hacklabr/timtec
+ :alt: 'Stories in Ready'
 Timtec
 ======
 
