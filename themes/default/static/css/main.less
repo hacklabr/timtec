@@ -191,6 +191,14 @@ a, a:hover, a:active {
   }
 }
 
+@media screen and (max-width: @screen-xs-max) {
+  .textleft-xs {
+    text-align: left !important;
+  }
+  .textright-xs {
+    text-align: right !important;
+  }
+}
 
 
 
@@ -1487,8 +1495,14 @@ a, a:hover, a:active {
         margin-top: 18px;
       }
     }
+    .btn-my-notes {
+      max-width: 300px;
+    }
     .notes {
       margin-top: 20px;
+      .col-xs-12 {
+        padding-bottom: 20px;
+      }
       .lesson {
         margin-bottom: 20px;
         padding-bottom: 20px;
@@ -1499,6 +1513,9 @@ a, a:hover, a:active {
             font-size: 12px;
             margin-right: 40px;
             text-transform: uppercase;
+            height: 40px;
+            display: block;
+            float: left;
           }
         }
         .note {
