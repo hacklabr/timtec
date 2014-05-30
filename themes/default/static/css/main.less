@@ -693,6 +693,10 @@ a, a:hover, a:active {
   .top(27px,27px);
   label.upload-avatar {
     position:relative;
+    @media (max-width: @screen-xs-max) {
+      width: 100%;
+    }
+    
     &:hover span {
       display:block;
     }
@@ -704,10 +708,15 @@ a, a:hover, a:active {
       display:none;
       font-size:13px;
       font-weight:normal;
-      left:0px;
+      left: 0;
       padding:3px 9px;
       position:absolute;
-      right:0px;
+      
+      @media (max-width: @screen-xs-max) {
+        left: 50%;
+        right: initial;
+        margin-left: -133px;
+      }
     }
   }
   .thumbnail {
