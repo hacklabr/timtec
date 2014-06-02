@@ -20,7 +20,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#" data-toggle="modal" data-target="#modal-about">{% trans 'About' %}</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#modal-contact">{% trans 'Contact' %}</a></li>
-                <li><a href="#">{% trans 'Courses' %}</a></li>
+                <li><a href="/courses">{% trans 'Courses' %}</a></li>
                 <li class="navbar-divider"></li>
                 {% ifusergroup professors %}
                 <li><a href="{% url 'administration.home' %}">{% trans "Admin" %}</a></li>
