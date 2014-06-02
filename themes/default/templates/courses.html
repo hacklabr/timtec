@@ -16,13 +16,15 @@
                         <a ng-href="/course/{{ course.slug }}" class="course-link">
                             <div class="img">
                                 <span class="mouseover"></span>
-                                <span style="background-image: url(/media/home_thumbnails/html5.jpeg)"></span>
+                                {% if course.home_thumbnail %}
+                                <span style="background-image: url({{ course.home_thumbnail.url }})"></span>
+                                {% endif %}
                             </div>
                             <div class="info-box">
                                 <div class="info">
                                     <h3>{{ course.name }}</h3>
-                                    <p class="instructors">Lorem ipsum dolor sit amet</p>
-                                    <p class="abstract">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis neque, varius at nisi ac, adipiscing hendrerit metus. Donec sed metus at diam gravida ultricies eget nec ante. Cras nunc mi, interdum vitae porta ac, eleifend a lectus. Quisque semper elit vel suscipit lobortis. Donec gravida in quam in vestibulum. Nullam suscipit neque magna, et semper tellus porttitor ac. Vivamus ornare lacus vitae nisl fringilla, vitae mollis velit porta. Vestibulum ut odio consectetur, tincidunt purus vitae, posuere turpis. Phasellus feugiat risus sit amet dolor lobortis sodales. Nam fermentum lectus id venenatis tempus.</p>
+                                    <p class="instructors">{% for professor in course.professors.all %}{{ professor.get_full_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                                    <p class="abstract">{{ course.abstract }}</p>
                                 </div> 
                                 <div class="enroll">
                                     <span>
