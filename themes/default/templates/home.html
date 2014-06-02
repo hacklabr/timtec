@@ -31,7 +31,7 @@
             <div class="row">
                 <div ng-repeat="course in courses" class="block course col-md-4 col-sm-6 col-xs-12">
                     {% verbatim %}
-                    <a ng-href="/course/{{ course.slug }}">
+                    <a ng-href="/course/{{ course.slug }}" class="course-link">
                         <div class="img">
                             <span class="mouseover"></span>
                             <span style="background-image: url({{ course.home_thumbnail_url }})"></span>

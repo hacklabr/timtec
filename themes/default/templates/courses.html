@@ -3,31 +3,68 @@
 
 {% block content %}
         <!-- CONTAINER -->
-        <div id="home" class="container">
+        <div id="courses-page" class="container">
             <header class="page-header-double">
-                <h3><i class="fa fa-angle-double-right"></i> {% trans 'Courses' %}</h3>
+                <h2><i class="fa fa-angle-double-right"></i> {% trans 'Courses' %}</h2>
             </header>
 
-            <section class="courses">
-                {% for course in courses %}
-                <!-- COURSE -->
-                <div class="course">
-                    <header>
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <h1><a href="{% url 'course_intro' course.slug %}">{{ course.name }}</a></h1>
+            <section id="courses" class="row">
+                <div class="col-md-8">
+                    {% for course in courses %}
+                    <!-- COURSE -->
+                    <div class="course">
+                        <a ng-href="/course/{{ course.slug }}" class="course-link">
+                            <div class="img">
+                                <span class="mouseover"></span>
+                                <span style="background-image: url(/media/home_thumbnails/html5.jpeg)"></span>
                             </div>
-                            <div class="col-lg-4 textright">
-                                <div class="btn-group">
-                                    <a href="{% url 'course_intro' course.slug %}" class="btn btn-sm btn-success">{% trans 'Go to course' %}</a>
-                                    <a href="{% url 'course_intro' course.slug %}" class="btn btn-sm btn-success"><i class="fa fa-angle-double-right"></i></a>
+                            <div class="info-box">
+                                <div class="info">
+                                    <h3>{{ course.name }}</h3>
+                                    <p class="instructors">Lorem ipsum dolor sit amet</p>
+                                    <p class="abstract">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis neque, varius at nisi ac, adipiscing hendrerit metus. Donec sed metus at diam gravida ultricies eget nec ante. Cras nunc mi, interdum vitae porta ac, eleifend a lectus. Quisque semper elit vel suscipit lobortis. Donec gravida in quam in vestibulum. Nullam suscipit neque magna, et semper tellus porttitor ac. Vivamus ornare lacus vitae nisl fringilla, vitae mollis velit porta. Vestibulum ut odio consectetur, tincidunt purus vitae, posuere turpis. Phasellus feugiat risus sit amet dolor lobortis sodales. Nam fermentum lectus id venenatis tempus.</p>
+                                </div> 
+                                <div class="enroll">
+                                    <span>
+                                        <i class="fa fa-calendar"></i> Jul, 2014
+                                    </span>
+                                    <span class="enroll-link textright uppercase">
+                                        Começar curso <i class="fa fa-angle-right"></i>
+                                    </span>
                                 </div>
                             </div>
-                        </div>
-                    </header>
+                        </a>
+                    </div>
+                    <!-- END COURSE -->
+                    {% endfor %}
                 </div>
-                <!-- END COURSE -->
-                {% endfor %}
+                <div class="col-md-4">
+                    <aside class="more-info">
+                        <div class="box">
+                            <h3>Fique em contato</h3>
+                            <p>Curta nossa página no Facebook para ficar informado sobre os lançamentos dos cursos.</p>
+                        </div>
+                        <div class="box">
+                            <h3>Participe</h3>
+                            <p>Nossa equipe está empenhada em oferecer a você os melhores professores e cursos.</p>
+                            <p>A única coisa que você precisa é de uma conexão internet! Invista em você. Transforme-se num profissional desejado pelo mercado.</p>
+                        </div>
+                        <div class="box">
+                            <h3>Como funciona?</h3>
+                            <ol>
+                                <li>Entre num curso que te interesse.</li>
+                                <li>Clique em “Fazer curso” e cadastra-se.</li>
+                                <li>Comece o curso ou espere até que ele seja lançado.</li>
+                                <li>Qualifique-se. Invista na sua formação. </li>
+                            </ol>
+                        </div>
+                        <div class="box">
+                            <h3>Você é professor?</h3>
+                            <p>Você está interessado em fazer um curso aberto na plataforma TIM Tec?</p>
+                            <a href="#" class="btn btn-info btn-block btn-lg" data-toggle="modal" data-target="#modal-contact">Entre em contato <i class="fa fa-chevron-right"></i></a>
+                        </div>
+                    </aside>
+                </div>
             </section>
         </div>
         <!-- CONTAINER -->
