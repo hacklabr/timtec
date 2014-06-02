@@ -10,6 +10,27 @@
 
             <section id="courses" class="row">
                 <div class="col-md-8">
+                    <div class="filters">
+                        <!--  FORM INLINE -->
+                        <div class="form-inline">
+                            <!-- ROW -->
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <button class="btn btn-info">Todos</button>
+                                    <button class="btn btn-default">Em andamento</button>
+                                    <button class="btn btn-default">Próximos</button>                                
+                                </div>
+
+                                <div class="col-sm-5 textright">
+                                    <div class="input-group">
+                                        <input type="text" ng-model="filters.textsearch" placeholder="Pesquisar" class="form-control ng-pristine ng-valid">
+                                        <span class="input-group-btn"><button class="btn btn-info"><i class="fa fa-search"></i></button></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END FORM INLINE -->
+                    </div>
                     {% for course in courses %}
                     <!-- COURSE -->
                     <div class="course">

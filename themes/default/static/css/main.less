@@ -719,6 +719,22 @@ a, a:hover, a:active {
 // ********************************************************************* //
 
 #courses-page {
+  .filters {
+    background: @gray-lighter;
+    margin-bottom: 30px;
+    padding: 10px;
+    .btn-default {
+      background-color: lighten(@gray-light, 20%);
+      &:hover {
+        background-color: lighten(@gray-light, 15%);
+      }
+    }
+    .input-group-btn {
+      .btn {
+        height: 34px;
+      }
+    }
+  }
   .more-info {
     .box {
       border-bottom: 1px solid @gray-lighter;
