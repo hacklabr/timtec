@@ -4,7 +4,7 @@
 {% load staticfiles %}
 {% load timtec_markdown %}
 
-{% block js %}
+{% block head %}
     {{block.super}}
     {% compressed_js 'forum' %}
     {% compressed_js 'admin_course_header' %}

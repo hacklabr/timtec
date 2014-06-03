@@ -52,7 +52,6 @@ nosetests.xml
 # Local configuration
 settings_local.py
 
-/themes/default/static/css/main.css
 /static/css/main.css
 /static/css/main-admin.css
 /themes/*/static/css/main.css

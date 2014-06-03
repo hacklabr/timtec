@@ -16,25 +16,30 @@
                 <img src="static/img/arrow-left.png">
             </nav>-->
             <img src="static/img/banner-003.jpg" class="img-responsive">
+            <div class="text">
+                <p class="line1">Seu trabalho, sua carreira, seu futuro.</p>
+                <p class="line2">Cursos online, profissionalizantes e gratuitos.</p>
+            </div>
             <!--<nav class="nav-right">
                 <img src="static/img/arrow-right.png">
             </nav>-->
         </div>
-        <div id="courses" class="container">
+        <section id="courses" class="container">
             <header>
                 <h1>Confira nossos cursos</h1>
             </header>
             <div class="row">
-                <div ng-repeat="course in courses" class="course col-md-4 col-sm-6 col-xs-12">
+                <div ng-repeat="course in courses" class="block course col-md-4 col-sm-6 col-xs-12">
                     {% verbatim %}
-                    <a ng-href="/course/{{ course.slug }}">
+                    <a ng-href="/course/{{ course.slug }}" class="course-link">
                         <div class="img">
+                            <span class="mouseover"></span>
                             <span style="background-image: url({{ course.home_thumbnail_url }})"></span>
                         </div>
                         <div class="info">
                             <h3>{{ course.name }}</h3>
                             <p class="instructors">{{ course.professors_names }}</p>
-                            <p class="abstract">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis neque, varius at nisi ac, adipiscing hendrerit metus. Donec sed metus at diam gravida ultricies eget nec ante. Cras nunc mi, interdum vitae porta ac, eleifend a lectus. Quisque semper elit vel suscipit lobortis. Donec gravida in quam in vestibulum. Nullam suscipit neque magna, et semper tellus porttitor ac. Vivamus ornare lacus vitae nisl fringilla, vitae mollis velit porta. Vestibulum ut odio consectetur, tincidunt purus vitae, posuere turpis. Phasellus feugiat risus sit amet dolor lobortis sodales. Nam fermentum lectus id venenatis tempus.</p>
+                            <p class="abstract">{{ course.abstract }}</p>
                         </div>
                         <div class="enroll">
                             <span>
@@ -46,12 +51,41 @@
                         </div>
                     </a>
                     {% endverbatim %}
+
                 </div>
             </div><!-- .row -->
+        </section><!-- #courses -->
 
-        </div>
-
-
+        <section id="how-it-works">
+            <div class="container">
+                <header>
+                    <h1>Como funciona</h1>                
+                </header>
+                <div class="highlight textcenter">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam libero enim, congue sit amet diam eu, faucibus placerat nibh. Suspendisse sollicitudin fermentum mauris id mollis. Maecenas in neque lacus. Nulla sed elit ac libero pulvinar egestas at ac dolor.</p>
+                </div>
+                <div class="row">
+                    <div class="block col-md-4 col-sm-6 col-xs-12">
+                        <div class="info">
+                            <h3>Lorem ipsum dolor sit amet consectetur</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis neque, varius at nisi ac, adipiscing hendrerit metus. Donec sed metus at diam gravida ultricies eget nec ante. Cras nunc mi, interdum vitae porta ac, eleifend a lectus.</p>
+                        </div>
+                    </div>
+                    <div class="block col-md-4 col-sm-6 col-xs-12">
+                        <div class="info">
+                            <h3>Lorem ipsum dolor sit amet consectetur</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis neque, varius at nisi ac, adipiscing hendrerit metus. Donec sed metus at diam gravida ultricies eget nec ante. Cras nunc mi, interdum vitae porta ac, eleifend a lectus.</p>
+                        </div>
+                    </div>
+                    <div class="block col-md-4 col-sm-6 col-xs-12">
+                        <div class="info">
+                            <h3>Lorem ipsum dolor sit amet consectetur</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec turpis neque, varius at nisi ac, adipiscing hendrerit metus. Donec sed metus at diam gravida ultricies eget nec ante. Cras nunc mi, interdum vitae porta ac, eleifend a lectus.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section><!-- #how-it-works -->
     </div><!-- #home -->
 
 </div>
