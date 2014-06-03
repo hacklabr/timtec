@@ -15,7 +15,7 @@ angular.module('gettext').factory('gettextCatalog', [
   function (gettextPlurals, $http, $cacheFactory) {
     var catalog;
     var prefixDebug = function (string) {
-      if (catalog.debug && catalog.currentLanguage !== 'en') {
+      if (catalog.debug && catalog.currentLanguage !== catalog.baseLanguage) {
         return '[MISSING]: ' + string;
       } else {
         return string;
@@ -24,6 +24,7 @@ angular.module('gettext').factory('gettextCatalog', [
     catalog = {
       debug: false,
       strings: {},
+      baseLanguage: 'en',
       currentLanguage: 'en',
       cache: $cacheFactory('strings'),
       setStrings: function (language, strings) {
@@ -100,9 +101,15 @@ angular.module('gettext').directive('translate', [
           };
           assert(!attrs.translatePlural || attrs.translateN, 'translate-n', 'translate-plural');
           assert(!attrs.translateN || attrs.translatePlural, 'translate-plural', 'translate-n');
-          assert(!attrs.ngIf, 'ng-if', 'translate');
-          assert(!attrs.ngSwitchWhen, 'ng-switch-when', 'translate');
+          // See https://github.com/angular/angular.js/issues/4852
+          if (attrs.ngIf) {
+            throw new Error('You should not combine translate with ng-if, this will lead to problems.');
+          }
+          if (attrs.ngSwitchWhen) {
+            throw new Error('You should not combine translate with ng-switch-when, this will lead to problems.');
+          }
           var countFn = $parse(attrs.translateN);
+          var pluralScope = null;
           transclude($scope, function (clone) {
             var input = trim(clone.html());
             clone.removeAttr('translate');
@@ -112,7 +119,9 @@ angular.module('gettext').directive('translate', [
               // Fetch correct translated string.
               var translated;
               if (attrs.translatePlural) {
-                translated = gettextCatalog.getPlural(countFn($scope), input, attrs.translatePlural);
+                $scope = pluralScope || (pluralScope = $scope.$new());
+                $scope.$count = countFn($scope);
+                translated = gettextCatalog.getPlural($scope.$count, input, attrs.translatePlural);
               } else {
                 translated = gettextCatalog.getString(input);
               }
