@@ -148,6 +148,8 @@ PIPELINE_CSS = {
             'codemirror/addon/hint/show-hint.css',
             'codemirror/theme/monokai.css',
             'css/codemirrorconf.css',
+            'intro.js/introjs.css',
+            'intro.js/themes/introjs-nassim.css',
         ),
         'output_filename': 'css/common.css',
         'extra_context': {
@@ -181,6 +183,7 @@ PIPELINE_JS = {
             'angular-sanitize/angular-sanitize.js',
             'angular-bootstrap/ui-bootstrap-tpls.js',
             'angular-gettext/dist/angular-gettext.js',
+            'intro.js/intro.js',
             'js/consolelogfallback.js',
             'js/django.js',
             'js/contact_form.js',

@@ -17,6 +17,8 @@ font-awesome/less
 font-awesome/scss
 font-awesome/src
 grunt.js
+intro.js/example/
+intro.js/introjs-rtl.css
 jquery/src
 jquery-ui/ui/
 jquery-ui/component.json
