@@ -387,6 +387,7 @@ a, a:hover, a:active {
     }
   }
   .navbar-collapse {
+    overflow: hidden;
     max-height: initial;
   }
 
@@ -422,7 +423,7 @@ a, a:hover, a:active {
 // ********************************************************************* //
 
 #home {
-    @media screen and (min-width: @screen-xs-min) { margin-top: -20px; }
+    @media screen and (min-width: @screen-sm-min) { margin-top: -20px; }
     margin-bottom: -60px;
     #highlight {
       max-height: 700px;
@@ -1350,6 +1351,9 @@ a, a:hover, a:active {
       border-bottom:1px solid @gray-lighter;
       .bottom(9px,9px);
       font-size:14px;
+    }
+    .instructor-photo {
+      margin-bottom: 20px;
     }
     .missing-avatar {
       border:1px solid #ddd;

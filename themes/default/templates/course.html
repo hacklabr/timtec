@@ -201,32 +201,6 @@
                 </section>
                 <!-- END COURSE-LESSONS -->
 
-                <!-- COURSE-INSTRUCTORS -->
-                {% if course.courseprofessor_set.all %}
-                    <section class="instructors row">
-                        <div class="col-lg-12 col-sm-12">
-                            <div class="page-header-double">
-                                <h3><i class="fa fa-angle-double-right"></i> {% trans "Instructors" %}</h3>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12 col-sm-12">
-                            {% for course_professor in course.courseprofessor_set.all %}
-                                <div id="{{ course_professor.user.username }}" class="instructor row">
-                                    <div class="col-lg-3 col-sm-3">
-                                        <img src="{{ course_professor.user.get_picture_url }}" class="img-thumbnail">
-                                    </div>
-                                    <div class="col-lg-9 col-sm-9">
-                                        <h1 class="fullname bottom top">{{ course_professor.user.first_name }} {{ course_professor.user.last_name }}</h1>
-                                        <h2 class="job-title top">{{ course_professor.get_job_display }}</h2>
-                                        <p>{{ course_professor.biography|timtec_markdown }}</p>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </section>
-                {% endif %}
-                <!-- END COURSE-INSTRUCTORS -->
             </div>
             <!-- END COL-LG-9 -->
 
@@ -252,7 +226,27 @@
                         <hr/>
                         <!-- END STRUCTURE -->
 
-                        {{course.pronatec|timtec_markdown}}
+                        <!-- COURSE-INSTRUCTORS -->
+                        <section class="instructors">
+                            {% if course.courseprofessor_set.all %}
+                            <div class="page-header-double top">
+                                <h3><i class="fa fa-angle-double-right"></i> {% trans "Instructors" %}</h3>
+                            </div>
+                            {% for course_professor in course.courseprofessor_set.all %}
+                                <div id="{{ course_professor.user.username }}" class="instructor row">
+                                    <div class="instructor-photo col-sm-12">
+                                        <img src="{{ course_professor.user.get_picture_url }}" class="img-thumbnail">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <h1 class="fullname bottom top">{{ course_professor.user.first_name }} {{ course_professor.user.last_name }}</h1>
+                                        <h2 class="job-title top">{{ course_professor.get_job_display }}</h2>
+                                        <p>{{ course_professor.biography|timtec_markdown }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            {% endif %}
+                        </section>
+                        <!-- END COURSE-INSTRUCTORS -->
                     </section>
                     <!-- END COURSE-SUMMARY -->
                 </div>
