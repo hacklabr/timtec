@@ -2456,6 +2456,625 @@ input[type="button"].btn-block {
   transition: height 0.35s ease;
   -webkit-backface-visibility: hidden;
 }
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('../fonts/glyphicons-halflings-regular.eot');
+  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+}
+.glyphicon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.glyphicon:empty {
+  width: 1em;
+}
+.glyphicon-asterisk:before {
+  content: "\2a";
+}
+.glyphicon-plus:before {
+  content: "\2b";
+}
+.glyphicon-euro:before {
+  content: "\20ac";
+}
+.glyphicon-minus:before {
+  content: "\2212";
+}
+.glyphicon-cloud:before {
+  content: "\2601";
+}
+.glyphicon-envelope:before {
+  content: "\2709";
+}
+.glyphicon-pencil:before {
+  content: "\270f";
+}
+.glyphicon-glass:before {
+  content: "\e001";
+}
+.glyphicon-music:before {
+  content: "\e002";
+}
+.glyphicon-search:before {
+  content: "\e003";
+}
+.glyphicon-heart:before {
+  content: "\e005";
+}
+.glyphicon-star:before {
+  content: "\e006";
+}
+.glyphicon-star-empty:before {
+  content: "\e007";
+}
+.glyphicon-user:before {
+  content: "\e008";
+}
+.glyphicon-film:before {
+  content: "\e009";
+}
+.glyphicon-th-large:before {
+  content: "\e010";
+}
+.glyphicon-th:before {
+  content: "\e011";
+}
+.glyphicon-th-list:before {
+  content: "\e012";
+}
+.glyphicon-ok:before {
+  content: "\e013";
+}
+.glyphicon-remove:before {
+  content: "\e014";
+}
+.glyphicon-zoom-in:before {
+  content: "\e015";
+}
+.glyphicon-zoom-out:before {
+  content: "\e016";
+}
+.glyphicon-off:before {
+  content: "\e017";
+}
+.glyphicon-signal:before {
+  content: "\e018";
+}
+.glyphicon-cog:before {
+  content: "\e019";
+}
+.glyphicon-trash:before {
+  content: "\e020";
+}
+.glyphicon-home:before {
+  content: "\e021";
+}
+.glyphicon-file:before {
+  content: "\e022";
+}
+.glyphicon-time:before {
+  content: "\e023";
+}
+.glyphicon-road:before {
+  content: "\e024";
+}
+.glyphicon-download-alt:before {
+  content: "\e025";
+}
+.glyphicon-download:before {
+  content: "\e026";
+}
+.glyphicon-upload:before {
+  content: "\e027";
+}
+.glyphicon-inbox:before {
+  content: "\e028";
+}
+.glyphicon-play-circle:before {
+  content: "\e029";
+}
+.glyphicon-repeat:before {
+  content: "\e030";
+}
+.glyphicon-refresh:before {
+  content: "\e031";
+}
+.glyphicon-list-alt:before {
+  content: "\e032";
+}
+.glyphicon-lock:before {
+  content: "\e033";
+}
+.glyphicon-flag:before {
+  content: "\e034";
+}
+.glyphicon-headphones:before {
+  content: "\e035";
+}
+.glyphicon-volume-off:before {
+  content: "\e036";
+}
+.glyphicon-volume-down:before {
+  content: "\e037";
+}
+.glyphicon-volume-up:before {
+  content: "\e038";
+}
+.glyphicon-qrcode:before {
+  content: "\e039";
+}
+.glyphicon-barcode:before {
+  content: "\e040";
+}
+.glyphicon-tag:before {
+  content: "\e041";
+}
+.glyphicon-tags:before {
+  content: "\e042";
+}
+.glyphicon-book:before {
+  content: "\e043";
+}
+.glyphicon-bookmark:before {
+  content: "\e044";
+}
+.glyphicon-print:before {
+  content: "\e045";
+}
+.glyphicon-camera:before {
+  content: "\e046";
+}
+.glyphicon-font:before {
+  content: "\e047";
+}
+.glyphicon-bold:before {
+  content: "\e048";
+}
+.glyphicon-italic:before {
+  content: "\e049";
+}
+.glyphicon-text-height:before {
+  content: "\e050";
+}
+.glyphicon-text-width:before {
+  content: "\e051";
+}
+.glyphicon-align-left:before {
+  content: "\e052";
+}
+.glyphicon-align-center:before {
+  content: "\e053";
+}
+.glyphicon-align-right:before {
+  content: "\e054";
+}
+.glyphicon-align-justify:before {
+  content: "\e055";
+}
+.glyphicon-list:before {
+  content: "\e056";
+}
+.glyphicon-indent-left:before {
+  content: "\e057";
+}
+.glyphicon-indent-right:before {
+  content: "\e058";
+}
+.glyphicon-facetime-video:before {
+  content: "\e059";
+}
+.glyphicon-picture:before {
+  content: "\e060";
+}
+.glyphicon-map-marker:before {
+  content: "\e062";
+}
+.glyphicon-adjust:before {
+  content: "\e063";
+}
+.glyphicon-tint:before {
+  content: "\e064";
+}
+.glyphicon-edit:before {
+  content: "\e065";
+}
+.glyphicon-share:before {
+  content: "\e066";
+}
+.glyphicon-check:before {
+  content: "\e067";
+}
+.glyphicon-move:before {
+  content: "\e068";
+}
+.glyphicon-step-backward:before {
+  content: "\e069";
+}
+.glyphicon-fast-backward:before {
+  content: "\e070";
+}
+.glyphicon-backward:before {
+  content: "\e071";
+}
+.glyphicon-play:before {
+  content: "\e072";
+}
+.glyphicon-pause:before {
+  content: "\e073";
+}
+.glyphicon-stop:before {
+  content: "\e074";
+}
+.glyphicon-forward:before {
+  content: "\e075";
+}
+.glyphicon-fast-forward:before {
+  content: "\e076";
+}
+.glyphicon-step-forward:before {
+  content: "\e077";
+}
+.glyphicon-eject:before {
+  content: "\e078";
+}
+.glyphicon-chevron-left:before {
+  content: "\e079";
+}
+.glyphicon-chevron-right:before {
+  content: "\e080";
+}
+.glyphicon-plus-sign:before {
+  content: "\e081";
+}
+.glyphicon-minus-sign:before {
+  content: "\e082";
+}
+.glyphicon-remove-sign:before {
+  content: "\e083";
+}
+.glyphicon-ok-sign:before {
+  content: "\e084";
+}
+.glyphicon-question-sign:before {
+  content: "\e085";
+}
+.glyphicon-info-sign:before {
+  content: "\e086";
+}
+.glyphicon-screenshot:before {
+  content: "\e087";
+}
+.glyphicon-remove-circle:before {
+  content: "\e088";
+}
+.glyphicon-ok-circle:before {
+  content: "\e089";
+}
+.glyphicon-ban-circle:before {
+  content: "\e090";
+}
+.glyphicon-arrow-left:before {
+  content: "\e091";
+}
+.glyphicon-arrow-right:before {
+  content: "\e092";
+}
+.glyphicon-arrow-up:before {
+  content: "\e093";
+}
+.glyphicon-arrow-down:before {
+  content: "\e094";
+}
+.glyphicon-share-alt:before {
+  content: "\e095";
+}
+.glyphicon-resize-full:before {
+  content: "\e096";
+}
+.glyphicon-resize-small:before {
+  content: "\e097";
+}
+.glyphicon-exclamation-sign:before {
+  content: "\e101";
+}
+.glyphicon-gift:before {
+  content: "\e102";
+}
+.glyphicon-leaf:before {
+  content: "\e103";
+}
+.glyphicon-fire:before {
+  content: "\e104";
+}
+.glyphicon-eye-open:before {
+  content: "\e105";
+}
+.glyphicon-eye-close:before {
+  content: "\e106";
+}
+.glyphicon-warning-sign:before {
+  content: "\e107";
+}
+.glyphicon-plane:before {
+  content: "\e108";
+}
+.glyphicon-calendar:before {
+  content: "\e109";
+}
+.glyphicon-random:before {
+  content: "\e110";
+}
+.glyphicon-comment:before {
+  content: "\e111";
+}
+.glyphicon-magnet:before {
+  content: "\e112";
+}
+.glyphicon-chevron-up:before {
+  content: "\e113";
+}
+.glyphicon-chevron-down:before {
+  content: "\e114";
+}
+.glyphicon-retweet:before {
+  content: "\e115";
+}
+.glyphicon-shopping-cart:before {
+  content: "\e116";
+}
+.glyphicon-folder-close:before {
+  content: "\e117";
+}
+.glyphicon-folder-open:before {
+  content: "\e118";
+}
+.glyphicon-resize-vertical:before {
+  content: "\e119";
+}
+.glyphicon-resize-horizontal:before {
+  content: "\e120";
+}
+.glyphicon-hdd:before {
+  content: "\e121";
+}
+.glyphicon-bullhorn:before {
+  content: "\e122";
+}
+.glyphicon-bell:before {
+  content: "\e123";
+}
+.glyphicon-certificate:before {
+  content: "\e124";
+}
+.glyphicon-thumbs-up:before {
+  content: "\e125";
+}
+.glyphicon-thumbs-down:before {
+  content: "\e126";
+}
+.glyphicon-hand-right:before {
+  content: "\e127";
+}
+.glyphicon-hand-left:before {
+  content: "\e128";
+}
+.glyphicon-hand-up:before {
+  content: "\e129";
+}
+.glyphicon-hand-down:before {
+  content: "\e130";
+}
+.glyphicon-circle-arrow-right:before {
+  content: "\e131";
+}
+.glyphicon-circle-arrow-left:before {
+  content: "\e132";
+}
+.glyphicon-circle-arrow-up:before {
+  content: "\e133";
+}
+.glyphicon-circle-arrow-down:before {
+  content: "\e134";
+}
+.glyphicon-globe:before {
+  content: "\e135";
+}
+.glyphicon-wrench:before {
+  content: "\e136";
+}
+.glyphicon-tasks:before {
+  content: "\e137";
+}
+.glyphicon-filter:before {
+  content: "\e138";
+}
+.glyphicon-briefcase:before {
+  content: "\e139";
+}
+.glyphicon-fullscreen:before {
+  content: "\e140";
+}
+.glyphicon-dashboard:before {
+  content: "\e141";
+}
+.glyphicon-paperclip:before {
+  content: "\e142";
+}
+.glyphicon-heart-empty:before {
+  content: "\e143";
+}
+.glyphicon-link:before {
+  content: "\e144";
+}
+.glyphicon-phone:before {
+  content: "\e145";
+}
+.glyphicon-pushpin:before {
+  content: "\e146";
+}
+.glyphicon-usd:before {
+  content: "\e148";
+}
+.glyphicon-gbp:before {
+  content: "\e149";
+}
+.glyphicon-sort:before {
+  content: "\e150";
+}
+.glyphicon-sort-by-alphabet:before {
+  content: "\e151";
+}
+.glyphicon-sort-by-alphabet-alt:before {
+  content: "\e152";
+}
+.glyphicon-sort-by-order:before {
+  content: "\e153";
+}
+.glyphicon-sort-by-order-alt:before {
+  content: "\e154";
+}
+.glyphicon-sort-by-attributes:before {
+  content: "\e155";
+}
+.glyphicon-sort-by-attributes-alt:before {
+  content: "\e156";
+}
+.glyphicon-unchecked:before {
+  content: "\e157";
+}
+.glyphicon-expand:before {
+  content: "\e158";
+}
+.glyphicon-collapse-down:before {
+  content: "\e159";
+}
+.glyphicon-collapse-up:before {
+  content: "\e160";
+}
+.glyphicon-log-in:before {
+  content: "\e161";
+}
+.glyphicon-flash:before {
+  content: "\e162";
+}
+.glyphicon-log-out:before {
+  content: "\e163";
+}
+.glyphicon-new-window:before {
+  content: "\e164";
+}
+.glyphicon-record:before {
+  content: "\e165";
+}
+.glyphicon-save:before {
+  content: "\e166";
+}
+.glyphicon-open:before {
+  content: "\e167";
+}
+.glyphicon-saved:before {
+  content: "\e168";
+}
+.glyphicon-import:before {
+  content: "\e169";
+}
+.glyphicon-export:before {
+  content: "\e170";
+}
+.glyphicon-send:before {
+  content: "\e171";
+}
+.glyphicon-floppy-disk:before {
+  content: "\e172";
+}
+.glyphicon-floppy-saved:before {
+  content: "\e173";
+}
+.glyphicon-floppy-remove:before {
+  content: "\e174";
+}
+.glyphicon-floppy-save:before {
+  content: "\e175";
+}
+.glyphicon-floppy-open:before {
+  content: "\e176";
+}
+.glyphicon-credit-card:before {
+  content: "\e177";
+}
+.glyphicon-transfer:before {
+  content: "\e178";
+}
+.glyphicon-cutlery:before {
+  content: "\e179";
+}
+.glyphicon-header:before {
+  content: "\e180";
+}
+.glyphicon-compressed:before {
+  content: "\e181";
+}
+.glyphicon-earphone:before {
+  content: "\e182";
+}
+.glyphicon-phone-alt:before {
+  content: "\e183";
+}
+.glyphicon-tower:before {
+  content: "\e184";
+}
+.glyphicon-stats:before {
+  content: "\e185";
+}
+.glyphicon-sd-video:before {
+  content: "\e186";
+}
+.glyphicon-hd-video:before {
+  content: "\e187";
+}
+.glyphicon-subtitles:before {
+  content: "\e188";
+}
+.glyphicon-sound-stereo:before {
+  content: "\e189";
+}
+.glyphicon-sound-dolby:before {
+  content: "\e190";
+}
+.glyphicon-sound-5-1:before {
+  content: "\e191";
+}
+.glyphicon-sound-6-1:before {
+  content: "\e192";
+}
+.glyphicon-sound-7-1:before {
+  content: "\e193";
+}
+.glyphicon-copyright-mark:before {
+  content: "\e194";
+}
+.glyphicon-registration-mark:before {
+  content: "\e195";
+}
+.glyphicon-cloud-download:before {
+  content: "\e197";
+}
+.glyphicon-cloud-upload:before {
+  content: "\e198";
+}
+.glyphicon-tree-conifer:before {
+  content: "\e199";
+}
+.glyphicon-tree-deciduous:before {
+  content: "\e200";
+}
 .caret {
   display: inline-block;
   width: 0;
@@ -5764,6 +6383,14 @@ a:active {
     padding-top: 0 !important;
   }
 }
+@media screen and (max-width: 767px) {
+  .textleft-xs {
+    text-align: left !important;
+  }
+  .textright-xs {
+    text-align: right !important;
+  }
+}
 .no-bottom-border {
   border-bottom: none !important;
 }
@@ -5870,9 +6497,17 @@ a:active {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-align: left;
 }
+.checkbox input,
+.radio input {
+  display: inline-block;
+}
 #main-navbar {
   border-radius: 0;
   font-family: 'Questrial';
+}
+#main-navbar .navbar-brand {
+  font-weight: bold;
+  font-size: 22px;
 }
 #main-navbar .form-group {
   margin-bottom: 15px;
@@ -5888,6 +6523,26 @@ a:active {
 #main-navbar .navbar-toggle:focus {
   background-color: #002c50;
 }
+@media (min-width: 768px) {
+  #main-navbar .navbar-divider {
+    box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.15);
+    border-right: 1px solid #000;
+    height: 50px;
+    width: 2px;
+    margin: 0 5px;
+  }
+}
+@media (max-width: 767px) {
+  #main-navbar .navbar-divider {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border-top: 1px solid #000203;
+    height: 2px;
+    margin: 0 5px;
+  }
+}
+#main-navbar .navbar-collapse {
+  max-height: initial;
+}
 @media screen and (min-width: 768px) {
   #main-navbar .dropdown-menu {
     width: 400px;
@@ -5896,7 +6551,7 @@ a:active {
     width: 300px;
   }
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 767px) {
   #main-navbar {
     color: #fff;
     margin-bottom: 0;
@@ -5921,129 +6576,354 @@ a:active {
   overflow: hidden;
   position: relative;
   /*.nav-left, .nav-right {
-            color: white;
-            font-size: 144px;
-            position: absolute;
-            top: 30%;
-            z-index: 10;
-        }
-        .nav-left {
-            left: 20px;
-        }
-        .nav-right {
-            right: 20px;
-        }*/
+          color: white;
+          font-size: 144px;
+          position: absolute;
+          top: 30%;
+          z-index: 10;
+      }
+      .nav-left {
+          left: 20px;
+      }
+      .nav-right {
+          right: 20px;
+      }*/
 }
 #home #highlight img {
   margin: 0 auto;
 }
-#home #courses {
-  margin-bottom: 40px;
-  margin-top: 40px;
+#home #highlight .text {
+  color: #000;
+  font-family: "Questrial";
+  position: absolute;
+  right: 15px;
+  top: 15px;
 }
-#home #courses header {
+#home #highlight .text p {
+  margin: 0;
+  text-align: right;
+}
+#home #highlight .text .line1 {
+  font-size: 3.4vw;
+}
+#home #highlight .text .line2 {
+  font-size: 2.4vw;
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  #home #highlight .text {
+    right: 55px;
+    top: 40px;
+  }
+  #home #highlight .text .line1 {
+    font-size: 3.4vw;
+  }
+  #home #highlight .text .line2 {
+    font-size: 2.4vw;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  #home #highlight .text {
+    right: 70px;
+    top: 50px;
+  }
+  #home #highlight .text .line1 {
+    font-size: 3.3vw;
+  }
+  #home #highlight .text .line2 {
+    font-size: 2.3vw;
+  }
+}
+@media (min-width: 1200px) {
+  #home #highlight .text {
+    right: 95px;
+    top: 65px;
+  }
+  #home #highlight .text .line1 {
+    font-size: 3vw;
+  }
+  #home #highlight .text .line2 {
+    font-size: 2vw;
+  }
+}
+#home header {
   border-bottom: 1px solid #eeeeee;
   margin-bottom: 36px;
   padding-bottom: 18px;
 }
-#home #courses header h1 {
+#home header h1 {
   font-family: "Questrial";
-  font-size: 6vw;
+  font-size: 6.5vw;
   font-weight: normal;
   margin: 0;
   text-transform: uppercase;
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  #home #courses header h1 {
+  #home header h1 {
     font-size: 5vw;
   }
 }
 @media (min-width: 992px) and (max-width: 1199px) {
-  #home #courses header h1 {
+  #home header h1 {
     font-size: 4vw;
   }
 }
 @media (min-width: 1200px) {
-  #home #courses header h1 {
+  #home header h1 {
     font-size: 3vw;
   }
 }
-#home #courses header p {
-  color: #999999;
-}
-#home #courses .course {
+#home .block {
   margin-bottom: 40px;
 }
 @media (min-width: 380px) and (max-width: 767px) {
-  #home #courses .course {
+  #home .block {
     float: none;
     margin: 0 auto 40px;
     width: 360px;
   }
 }
+#home #courses .course .img {
+  width: 100%;
+}
 #home #courses .course .img span {
-  display: block;
   height: 145px;
-  background-size: cover;
-  background-position: top center;
 }
 #home #courses .course .info {
-  background-color: #eeeeee;
-  height: 160px;
-  max-height: 160px;
   padding: 10px;
-  position: relative;
-  overflow: hidden;
+  height: 145px;
 }
 #home #courses .course .info h3 {
+  margin-bottom: 10px;
+}
+#home #courses .course .info .instructors {
+  margin-bottom: 10px;
+}
+#home #courses .course .info .abstract {
+  max-height: 51px;
+}
+#home #how-it-works {
+  background-color: #eeeeee;
+  color: #555555;
+  padding-bottom: 40px;
+  padding-top: 40px;
+}
+#home #how-it-works header {
+  border-bottom-color: #cccccc;
+}
+#home #how-it-works .highlight {
+  border-bottom: 1px solid #cccccc;
+  margin-bottom: 36px;
+  padding-bottom: 18px;
+}
+#home #how-it-works .block .info {
+  background-color: #fff;
+  padding: 15px;
+}
+#home #how-it-works .block .info h3 {
+  font-size: 22px;
+  margin-top: 0;
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  #home #how-it-works .block .info h3 {
+    font-size: 24px;
+  }
+}
+@media (min-width: 1200px) {
+  #home #how-it-works .block .info h3 {
+    font-size: 28px;
+  }
+}
+#home #how-it-works .block .info p {
+  margin-bottom: 0;
+}
+#courses {
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+#courses .course {
+  margin-bottom: 40px;
+  overflow: hidden;
+  position: relative;
+}
+#courses .course .course-link {
+  display: block;
+  position: relative;
+  cursor: pointer;
+}
+#courses .course .course-link:hover .mouseover {
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
+#courses .course .course-link:hover .info {
+  background-color: rgba(52, 152, 219, 0.3);
+}
+#courses .course .course-link:hover .info h3,
+#courses .course .course-link:hover .info .abstract {
+  color: #000;
+}
+#courses .course .course-link:hover .info .instructors {
+  color: #555555;
+}
+#courses .course .course-link:hover .enroll {
+  background-color: #3498db;
+}
+#courses .course .img {
+  position: relative;
+  width: 100%;
+}
+@media (min-width: 540px) and (max-width: 767px) {
+  #courses .course .img {
+    float: left;
+    width: 50%;
+  }
+}
+@media (min-width: 768px) {
+  #courses .course .img {
+    float: left;
+    width: 40%;
+  }
+}
+#courses .course .img .mouseover {
+  background-color: #3498db;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  position: absolute;
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+  -webkit-backface-visibility: hidden;
+  width: 100%;
+  z-index: 1;
+}
+#courses .course .img span {
+  background-size: cover;
+  background-position: top center;
+  display: block;
+  height: 195px;
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+  -webkit-backface-visibility: hidden;
+}
+#courses .course .info-box {
+  position: relative;
+  width: 100%;
+}
+@media (min-width: 540px) and (max-width: 767px) {
+  #courses .course .info-box {
+    float: left;
+    width: 50%;
+  }
+}
+@media (min-width: 768px) {
+  #courses .course .info-box {
+    float: left;
+    width: 60%;
+  }
+}
+#courses .course .info {
+  background-color: #eeeeee;
+  height: 153px;
+  overflow: hidden;
+  padding: 15px;
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+  -webkit-backface-visibility: hidden;
+}
+#courses .course .info h3 {
   color: #555555;
   font-size: 20px;
-  margin: 0 0 10px 0;
+  margin: 0 0 5px 0;
   max-height: 45px;
   overflow: hidden;
   position: relative;
 }
-#home #courses .course .info h3 a {
+#courses .course .info h3 a {
   color: #555555;
 }
-#home #courses .course .info .instructors {
+#courses .course .info h3 a:hover {
+  color: #222222;
+}
+#courses .course .info .instructors {
   color: #999999;
   font-size: 13px;
   font-style: italic;
+  margin-bottom: 5px;
   max-height: 18px;
   overflow: hidden;
   position: relative;
 }
-#home #courses .course .info .abstract {
+#courses .course .info .abstract {
+  color: #333333;
   font-size: 12px;
-  height: 51px;
+  max-height: 36px;
   position: relative;
   overflow: hidden;
 }
-#home #courses .course .enroll {
+#courses .course .enroll {
+  width: 100%;
   background-color: #2ecc71;
   color: #fff;
   font-family: 'Questrial';
   line-height: 3;
-  -webkit-transition: background-color 0.25s ease-out;
-  -moz-transition: background-color 0.25s ease-out;
-  -o-transition: background-color 0.25s ease-out;
-  transition: background-color 0.25s ease-out;
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  transition: all 0.25s ease;
   -webkit-backface-visibility: hidden;
 }
-#home #courses .course .enroll:hover {
-  background-color: #29b765;
-}
-#home #courses .course .enroll a {
+#courses .course .enroll a {
   color: #fff;
   display: block;
   line-height: 3;
 }
-#home #courses .course .enroll .enroll-link {
+#courses .course .enroll .enroll-link {
   float: right;
 }
-#home #courses .course .enroll .fa {
+#courses .course .enroll .fa {
   margin: 0 9px;
+}
+#courses-page .filters {
+  background: #eeeeee;
+  margin-bottom: 30px;
+  padding: 10px;
+}
+@media (max-width: 767px) {
+  #courses-page .filters .status .btn {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+}
+#courses-page .filters .btn-default {
+  background-color: #cccccc;
+}
+#courses-page .filters .btn-default:hover {
+  background-color: #bfbfbf;
+}
+#courses-page .filters .input-group-btn .btn {
+  height: 34px;
+}
+#courses-page .more-info .box {
+  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+}
+#courses-page .more-info .box h3 {
+  font-size: 30px;
+  margin-top: 0;
+}
+#courses-page .more-info .box .btn-info {
+  font-size: 18px;
+  margin-top: 20px;
+  text-transform: uppercase;
+}
+#courses-page .more-info .box .btn-info .fa {
+  font-size: 16px;
+  margin-left: 10px;
 }
 #activation-wrapper {
   text-align: center;
@@ -6077,21 +6957,36 @@ a:active {
 #profile label.upload-avatar {
   position: relative;
 }
+@media (max-width: 767px) {
+  #profile label.upload-avatar {
+    width: 100%;
+  }
+}
 #profile label.upload-avatar:hover span {
   display: block;
 }
 #profile label.upload-avatar span {
   background: rgba(0, 0, 0, 0.8);
-  bottom: 10px;
+  bottom: 0px;
   color: #fff;
   cursor: pointer;
   display: none;
   font-size: 13px;
   font-weight: normal;
-  left: 10px;
+  left: 0;
   padding: 3px 9px;
   position: absolute;
-  right: 10px;
+}
+@media (max-width: 767px) {
+  #profile label.upload-avatar span {
+    left: 50%;
+    right: initial;
+    margin-left: -133px;
+  }
+}
+#profile .thumbnail {
+  max-width: 266px;
+  margin: 0 auto 30px;
 }
 #admin #main-navbar.navbar-inverse {
   background-color: #555555;
@@ -6101,6 +6996,31 @@ a:active {
 #admin #main-navbar.navbar-inverse a:hover {
   background-color: #494949;
   color: #fff;
+}
+#admin #courses .filters {
+  margin: 20px 0;
+}
+@media (max-width: 991px) {
+  #admin #courses .filters .filter-checkbox {
+    margin-bottom: 20px;
+  }
+}
+@media (max-width: 767px) {
+  #admin #courses .filters .filter-keyword,
+  #admin #courses .filters .filter-ordering,
+  #admin #courses .filters .filter-reverse {
+    margin-bottom: 10px;
+  }
+  #admin #courses .filters .filter-checkbox .checkbox {
+    padding-left: 23px;
+  }
+  #admin #courses .filters .filter-checkbox .checkbox label {
+    display: block;
+    margin-bottom: 10px;
+  }
+}
+#admin #courses .filters .filter-ordering select {
+  width: 100%;
 }
 #admin #courses #all-courses.courses-list .course {
   background-color: #fbfbfb;
@@ -6149,7 +7069,7 @@ a:active {
   background-color: #eeeeee;
   margin-bottom: 20px;
   margin-top: -20px;
-  padding: 10px;
+  padding: 10px 0;
   position: relative;
 }
 #admin #course .actions .status,
@@ -6166,6 +7086,25 @@ a:active {
   margin-right: -5px;
   padding: 10px 12px;
   text-transform: uppercase;
+}
+@media screen and (max-width: 767px) {
+  #admin #course .actions,
+  #admin #forum .actions {
+    margin-top: 0;
+  }
+}
+@media screen and (max-width: 450px) {
+  #admin #course .actions .col-xs-5,
+  #admin #forum .actions .col-xs-5,
+  #admin #course .actions .col-xs-7,
+  #admin #forum .actions .col-xs-7 {
+    width: 100%;
+  }
+  #admin #course .actions .col-xs-7,
+  #admin #forum .actions .col-xs-7 {
+    text-align: left;
+    margin-top: 10px;
+  }
 }
 #admin #course.course-intro .add-content,
 #admin #forum.course-intro .add-content {
@@ -6190,6 +7129,16 @@ a:active {
 #admin #forum .add-content button.delete {
   font-size: 14px;
   padding: 8px 20px;
+}
+@media (max-width: 560px) {
+  #admin #course .add-content .col-xs-6,
+  #admin #forum .add-content .col-xs-6 {
+    width: 100%;
+  }
+  #admin #course .add-content .col-xs-6.textright,
+  #admin #forum .add-content .col-xs-6.textright {
+    text-align: left;
+  }
 }
 #admin #course .add-video-intro,
 #admin #forum .add-video-intro,
@@ -6219,7 +7168,6 @@ a:active {
 #admin #forum .add-activity .centered {
   display: inline-block;
   vertical-align: middle;
-  width: 400px;
 }
 #admin #course .add-video-intro .icon-youtube-play,
 #admin #forum .add-video-intro .icon-youtube-play,
@@ -6632,9 +7580,14 @@ a:active {
 }
 #course-content .notes textarea {
   border: 2px solid #eeeeee;
-  height: 310px;
+  height: 235px;
   margin: 20px 0;
   padding: 10px;
+}
+@media (min-width: 1200px) {
+  #course-content .notes textarea {
+    height: 310px;
+  }
 }
 #course-content .add-side-notes {
   margin-top: 68px;
@@ -6644,8 +7597,18 @@ a:active {
   height: 300px;
   margin-top: 20px;
 }
+#course-content .add-side-notes textarea {
+  border: 2px solid #eeeeee;
+  height: 310px;
+  margin: 20px 0;
+}
 #course-content .admin-units {
   margin-top: 66px !important;
+}
+@media (max-width: 560px) {
+  #course-content .admin-units {
+    margin-top: 113px !important;
+  }
 }
 #course-content .units {
   margint-top: 20px;
@@ -6793,8 +7756,14 @@ a:active {
   display: block;
   margin-top: 18px;
 }
+#my-notes #notes-content .btn-my-notes {
+  max-width: 300px;
+}
 #my-notes #notes-content .notes {
   margin-top: 20px;
+}
+#my-notes #notes-content .notes .col-xs-12 {
+  padding-bottom: 20px;
 }
 #my-notes #notes-content .notes .lesson {
   margin-bottom: 20px;
@@ -6808,6 +7777,9 @@ a:active {
   font-size: 12px;
   margin-right: 40px;
   text-transform: uppercase;
+  height: 40px;
+  display: block;
+  float: left;
 }
 #my-notes #notes-content .notes .lesson .note {
   border-bottom: 1px solid #eeeeee;
@@ -6847,6 +7819,9 @@ a:active {
 }
 #forum #forum-content .questions {
   margin-top: 20px;
+}
+#forum #forum-content .questions .search-filter {
+  margin-bottom: 20px;
 }
 #forum #forum-content .hide-question {
   display: block;
@@ -7136,6 +8111,10 @@ a:active {
 #main-footer ul li a {
   color: #fff;
   display: inline-block;
+  cursor: pointer;
+}
+#main-footer ul li a:hover {
+  text-decoration: underline;
 }
 .nav-lesson-xs {
   margin-bottom: 10px;
