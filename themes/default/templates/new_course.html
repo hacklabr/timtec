@@ -150,7 +150,7 @@ ng-app="new-course"
                 <!--  COURSE-VIDEO  -->
                 <section class="video" ng-show="mediaSection=='video'">
                     <div class="row">
-                        <div class="col-sm-12 col-lg-12" ng-show="course.intro_video.youtube_id && !playerReady">
+                        <div class="col-xs-12" ng-show="course.intro_video.youtube_id && !playerReady">
                             <div class="waiting textcenter jumbotron" style="height: 515px">
                                 <div class="middle">
                                     <i class="fa fa-refresh fa-5x"></i>
@@ -158,7 +158,7 @@ ng-app="new-course"
                             </div>
                         </div>
 
-                        <div class="col-lg-12" style="overflow:hidden;"
+                        <div class="col-xs-12" style="overflow:hidden;"
                              ng-style="{'margin-left': course.hasVideo() && playerReady ?'':'-2000px'}">
 
                             <div id="youtube-player" player-height="475px" player-width="100%" youtube-player></div>
