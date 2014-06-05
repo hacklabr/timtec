@@ -32,9 +32,9 @@
                 <div ng-repeat="course in courses" class="block course col-md-4 col-sm-6 col-xs-12">
                     {% verbatim %}
                     <a ng-href="/course/{{ course.slug }}" class="course-link">
-                        <div class="img">
+                        <div class="thumb-wrapper">
                             <span class="mouseover"></span>
-                            <span style="background-image: url({{ course.home_thumbnail_url }})"></span>
+                            <span class="thumb" style="background-image: url({{ course.home_thumbnail_url }})"></span>
                         </div>
                         <div class="info">
                             <h3>{{ course.name }}</h3>
