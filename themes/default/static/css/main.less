@@ -615,14 +615,6 @@ a, a:hover, a:active {
         .thumb-wrapper { // course thumbnail
           position: relative;
           width: 100%;
-          @media (min-width: 540px) and (max-width: @screen-xs-max) {
-            float: left;
-            width: 50%;
-          }
-          @media (min-width: @screen-sm-min) {
-            float: left;
-            width: 40%;
-          }
           .mouseover {
             background-color: @brand-info;
             display: block;
@@ -716,6 +708,19 @@ a, a:hover, a:active {
 // ********************************************************************* //
 
 #courses-page {
+  .course {
+    .thumb-wrapper {
+      @media (min-width: 540px) and (max-width: @screen-xs-max) {
+        float: left;
+        width: 50%;
+      }
+      @media (min-width: @screen-sm-min) {
+        float: left;
+        width: 40%;
+      }
+    }
+  }
+           
   .filters {
     background: @gray-lighter;
     margin-bottom: 30px;
