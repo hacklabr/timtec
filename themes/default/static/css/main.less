@@ -281,6 +281,7 @@ a, a:hover, a:active {
 
 
 
+
 // WAITING/LOADING
 // ********************************************************************* //
 
@@ -320,9 +321,6 @@ a, a:hover, a:active {
   top: 0;
   z-index: 1001;
 }
-
-
-
 
 
 
@@ -387,6 +385,7 @@ a, a:hover, a:active {
     }
   }
   .navbar-collapse {
+    overflow: hidden;
     max-height: initial;
   }
 
@@ -422,8 +421,10 @@ a, a:hover, a:active {
 // ********************************************************************* //
 
 #home {
-    @media screen and (min-width: @screen-xs-min) { margin-top: -20px; }
+    @media screen and (min-width: @screen-sm-min) { margin-top: -20px; }
     margin-bottom: -60px;
+
+    // banner
     #highlight {
       max-height: 700px;
       overflow: hidden;
@@ -484,20 +485,9 @@ a, a:hover, a:active {
           }
         }
       }
-      /*.nav-left, .nav-right {
-          color: white;
-          font-size: 144px;
-          position: absolute;
-          top: 30%;
-          z-index: 10;
-      }
-      .nav-left {
-          left: 20px;
-      }
-      .nav-right {
-          right: 20px;
-      }*/
-    }
+    } // #hightlight
+
+    // page title
     header {
       border-bottom: 1px solid @gray-lighter;
       margin-bottom: 36px;
@@ -518,7 +508,9 @@ a, a:hover, a:active {
           font-size: 3vw;
         }
       }
-    }
+    } //.page-title
+
+    // repeatable blocks from home
     .block {
       margin-bottom: 40px;
       @media (min-width: 380px) and (max-width: @screen-xs-max) {  
@@ -526,7 +518,9 @@ a, a:hover, a:active {
         margin: 0 auto 40px; 
         width: 360px;
       }        
-    }
+    } // .block
+
+    // courses section
     #courses {
       .course {
         .img {
@@ -549,7 +543,9 @@ a, a:hover, a:active {
           }
         }
       }
-    }
+    } // #courses
+
+    // how it works
     #how-it-works {
         background-color: @gray-lighter;
         color: @gray;
@@ -582,12 +578,11 @@ a, a:hover, a:active {
             }
           }
         }
-    }
+    } // #how-it-works
 }
 
 // COURSES BOXES FROM HOME AND COURSES PAGE
 // ********************************************************************* //
-
 #courses {
     margin-bottom: 40px;
     margin-top: 40px;
@@ -595,9 +590,9 @@ a, a:hover, a:active {
       margin-bottom: 40px;
       overflow: hidden;
       position: relative;
-        .course-link {
+        .course-link { // link wrapper
           display: block;
-          position: relative;
+          position: relative; 
           cursor: pointer;
           &:hover {
             .mouseover {
@@ -616,35 +611,29 @@ a, a:hover, a:active {
               background-color: @brand-info;
             }
           }
-        }
-        .img {
+        } // .course-link
+        .thumb-wrapper { // course thumbnail
           position: relative;
           width: 100%;
-          @media (min-width: 540px) and (max-width: @screen-xs-max) {
-            float: left;
-            width: 50%;
-          }
-          @media (min-width: @screen-sm-min) {
-            float: left;
-            width: 40%;
-          }
           .mouseover {
             background-color: @brand-info;
+            display: block;
+            height: 195px;
             .opacity(0);
             position: absolute;
             .transition(all 0.25s ease);
             width: 100%;
             z-index: 1;
           }
-          span {
+          .thumb { 
             background-size: cover;
             background-position: top center;
             display: block;
             height: 195px;
-            .transition(all 0.25s ease);
-          }
-        }
-        .info-box {
+            width: 100%;
+          } 
+        } // .thumb-wrapper
+        .info-box { // info wrapper for courses page
           position: relative;
           width: 100%;
            @media (min-width: 540px) and (max-width: @screen-xs-max) {
@@ -655,8 +644,8 @@ a, a:hover, a:active {
             float: left;
             width: 60%;
           }
-        }
-        .info {
+        } // .info-box
+        .info { // course info
             background-color: @gray-lighter;
             height: 153px;
             overflow: hidden;
@@ -692,8 +681,8 @@ a, a:hover, a:active {
                 position: relative;
                 overflow: hidden;
             }
-        }
-        .enroll {
+        } // .info
+        .enroll { // go to course link
             width: 100%;
             background-color: @brand-success;
             color: #fff;
@@ -711,14 +700,27 @@ a, a:hover, a:active {
             .fa {
                 margin: 0 9px;
             }
-        }
-    }
+        } // .enroll
+    } // .course
 }
 
 // COURSES PAGE
 // ********************************************************************* //
 
 #courses-page {
+  .course {
+    .thumb-wrapper {
+      @media (min-width: 540px) and (max-width: @screen-xs-max) {
+        float: left;
+        width: 50%;
+      }
+      @media (min-width: @screen-sm-min) {
+        float: left;
+        width: 40%;
+      }
+    }
+  }
+           
   .filters {
     background: @gray-lighter;
     margin-bottom: 30px;
@@ -985,10 +987,48 @@ a, a:hover, a:active {
       margin-bottom: 10px !important;
     }
 
+    &.course-lesson {
+      .units {
+        float: left;
+        margin: 20px 15px 0;
+        width: 60px;
+        @media (max-width: 560px) {
+          margin-top: 0;
+        }
+        @media (max-width: 400px) {
+          width: 100%;
+          padding-right: 30px;
+          margin-bottom: 10px;
+        }
+      }
+
+      .video {
+        border: 0;
+        margin-top: 20px;
+
+        @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+          width: 65%;
+        }
+        @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+          width: 88%;
+        }
+        @media (max-width: @screen-xs-max) {
+          margin-top: 86px;
+        }
+        .current-video {
+          border: 1px solid @gray-lighter;
+        }
+      }
+
+      .add-side-notes {
+        margin-top: 20px;
+      }
+    }
+
     // ADD CONTENT - Admin
     // ********************************************************************* //
     .add-content {
-      margin-bottom: -20px;
+      margin-bottom: 0px;
       margin-top: 20px;
       button {
         font-size: 11px;
@@ -1007,7 +1047,6 @@ a, a:hover, a:active {
           }
         }  
       }
-      
     }
     // END CONTENT
 
@@ -1030,6 +1069,16 @@ a, a:hover, a:active {
       .icon-youtube-play {
         display:block;
         font-size:54px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .add-thumbnail {
+        .centered {
+          input {
+            width: 260px;
+          }
+        }
       }
     }
 
@@ -1305,6 +1354,15 @@ a, a:hover, a:active {
       .description {
         font-size:13px;
       }
+      .editable {
+        ul {
+          margin: 0 0 15px 0;
+          padding: 0 0 0 29px;
+          li {
+            margin: 0;
+          }
+        }
+      }
       li {
         margin:36px 0;
       }
@@ -1340,6 +1398,7 @@ a, a:hover, a:active {
     .instructor {
       margin-bottom: 10px;
       margin-top: 10px;
+
     }
     h1.fullname {
       .bottom(0,0);
@@ -1350,6 +1409,10 @@ a, a:hover, a:active {
       border-bottom:1px solid @gray-lighter;
       .bottom(9px,9px);
       font-size:14px;
+    }
+    .instructor-photo {
+      margin-bottom: 20px;
+      max-width: 260px;
     }
     .missing-avatar {
       border:1px solid #ddd;
@@ -1397,9 +1460,6 @@ a, a:hover, a:active {
   // ********************************************************************* //
   .video, .activity {
     border: 1px solid @gray-lighter;
-    #admin & {
-      .top(20px);
-    }
     .video-title {
       margin: 2px 10px 0;
     }
@@ -1438,14 +1498,8 @@ a, a:hover, a:active {
 
   // COURSE UNITS - General
   // ********************************************************************* //
-  .admin-units {
-    margin-top: 66px !important;
-     @media (max-width: 560px) {
-      margin-top: 113px !important;
-    }
-  }
   .units {
-    margint-top: 20px;
+    margin-top: 20px;
     .unit {
       background:@gray-lighter - 20%;
       .box-shadow(inset -1px 0 0 #fff);
@@ -1523,6 +1577,17 @@ a, a:hover, a:active {
 #course.course-intro {
   .video {
     .top(25px);
+  }
+}
+
+#course.course-stats {
+  .students, .lessons {
+    margin: 20px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .students li {
+    margin-bottom: 20px;
   }
 }
 
@@ -1733,6 +1798,7 @@ a, a:hover, a:active {
             .stats {
               background-color: @gray-lighter;
               font-size: 12px;
+              margin-right: 10px;
               padding: 10px;
               text-align: center;
               width: 100px;
@@ -1742,8 +1808,8 @@ a, a:hover, a:active {
               }
             }
             .content {
-              font-size: 12px;
-              padding: 0 10px 10px 10px;
+              font-size: 14px;
+              padding: 10px 0;
               h1 {
                 font-family: @font-family-sans-serif;
                 font-size: 18px;
@@ -1821,7 +1887,6 @@ a, a:hover, a:active {
     }
   }
 }
-
 
 
 // STATS
@@ -1920,6 +1985,14 @@ a, a:hover, a:active {
 // MY COURSES
 // ********************************************************************* //
 #my-courses {
+  @media (max-width: @screen-xs-max) {
+    header {
+      margin-bottom: 10px;
+      .textright {
+        text-align: left;
+      }
+    }
+  }
   .courses {
     h1 {
       font-size:24px;

@@ -16,14 +16,14 @@
             <!-- ROW -->
             <div class="row">
                 <!-- COL-LG-9 -->
-                <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+                <div class="col-md-9 col-sm-8 col-xs-12">
                     <h1>{{course.name}}</h1>
                     {% include "_course-professors-inline.html" with course=course %}
                 </div>
                 <!-- END COL-LG-9 -->
 
                 <!-- COL-LG-3 -->
-                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 textright">
+                <div class="col-md-3 col-sm-4 col-xs-12 textright">
                     {% if course.first_lesson.slug %}
                         {% if user_is_enrolled %}
                             <a href="{% url "lesson" course.slug course.first_lesson.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Resume" %}</a>
@@ -74,15 +74,16 @@
                     <!-- ROW -->
                     <div class="row">
                         <!-- COL-LG-6 -->
-                        <div class="application col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="application col-sm-6 col-xs-12">
                             <div class="page-header-double">
                                 <h3 class="top"><i class="fa fa-angle-double-right"></i> {% trans "Why do this course?" %}</h3>
                             </div>
                             <div class="content">{{ course.application|timtec_markdown }}</div>
                         </div>
                         <!-- END COL-LG-6 -->
+
                         <!-- COL-LG-6 -->
-                        <div class="requirement col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="requirement col-sm-6 col-xs-12">
                             <div class="page-header-double">
                                 <h3 class="top"><i class="fa fa-angle-double-right"></i> {% trans "What do I have to know?" %}</h3>
                             </div>
@@ -114,7 +115,26 @@
                         <hr/>
                         <!-- END STRUCTURE -->
 
-                        {{course.pronatec|timtec_markdown}}
+                        <!-- COURSE-INSTRUCTORS -->
+                        <section class="instructors">
+                            {% if course.courseprofessor_set.all %}
+                            <div class="page-header-double top">
+                                <h3><i class="fa fa-angle-double-right"></i> {% trans "Instructors" %}</h3>
+                            </div>
+                            {% for course_professor in course.courseprofessor_set.all %}
+                                <div id="{{ course_professor.user.username }}" class="instructor row">
+                                    <div class="instructor-photo col-xs-12">
+                                        <img src="{{ course_professor.user.get_picture_url }}" class="img-thumbnail">
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <h1 class="fullname bottom top">{{ course_professor.user.first_name }} {{ course_professor.user.last_name }}</h1>
+                                        <h2 class="job-title top">{{ course_professor.get_job_display }}</h2>
+                                        <p>{{ course_professor.biography|timtec_markdown }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            {% endif %}
+                        </section>
                     </div>
                     <!-- END COL-XS-12 -->
                 </section>
@@ -201,62 +221,52 @@
                 </section>
                 <!-- END COURSE-LESSONS -->
 
-                <!-- COURSE-INSTRUCTORS -->
-                {% if course.courseprofessor_set.all %}
-                    <section class="instructors row">
-                        <div class="col-lg-12 col-sm-12">
-                            <div class="page-header-double">
-                                <h3><i class="fa fa-angle-double-right"></i> {% trans "Instructors" %}</h3>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12 col-sm-12">
-                            {% for course_professor in course.courseprofessor_set.all %}
-                                <div id="{{ course_professor.user.username }}" class="instructor row">
-                                    <div class="col-lg-3 col-sm-3">
-                                        <img src="{{ course_professor.user.get_picture_url }}" class="img-thumbnail">
-                                    </div>
-                                    <div class="col-lg-9 col-sm-9">
-                                        <h1 class="fullname bottom top">{{ course_professor.user.first_name }} {{ course_professor.user.last_name }}</h1>
-                                        <h2 class="job-title top">{{ course_professor.get_job_display }}</h2>
-                                        <p>{{ course_professor.biography|timtec_markdown }}</p>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </section>
-                {% endif %}
-                <!-- END COURSE-INSTRUCTORS -->
             </div>
             <!-- END COL-LG-9 -->
 
             <!-- COL-LG-3 -->
-            <div class="col-lg-3 col-md-3 col-sm-4 hidden-xs">
-                <!-- ROW -->
-                <div class="row">
-                    <!-- COURSE-SUMMARY -->
-                    <section class="summary col-lg-12 col-sm-12">
-                        <!-- ABSTRACT -->
-                        <div class="page-header-double top">
-                            <h3 class="top"><i class="fa fa-angle-double-right"></i> {% trans 'Abstract' %}</h3>
-                        </div>
-                        {{course.abstract|timtec_markdown}}
-                        <hr/>
-                        <!-- END ABSTRACT -->
+            <div class="col-md-3 col-sm-4 hidden-xs">
+                <!-- COURSE-SUMMARY -->
+                <section class="summary">
+                    <!-- ABSTRACT -->
+                    <div class="page-header-double top">
+                        <h3 class="top"><i class="fa fa-angle-double-right"></i> {% trans 'Abstract' %}</h3>
+                    </div>
+                    {{course.abstract|timtec_markdown}}
+                    <hr/>
+                    <!-- END ABSTRACT -->
 
-                        <!-- STRUCTURE -->
-                        <div class="page-header-double top">
-                            <h3 class="top"><i class="fa fa-angle-double-right"></i> {% trans 'Course structure' %}</h3>
-                        </div>
-                        {{course.structure|timtec_markdown}}
-                        <hr/>
-                        <!-- END STRUCTURE -->
+                    <!-- STRUCTURE -->
+                    <div class="page-header-double top">
+                        <h3 class="top"><i class="fa fa-angle-double-right"></i> {% trans 'Course structure' %}</h3>
+                    </div>
+                    {{course.structure|timtec_markdown}}
+                    <hr/>
+                    <!-- END STRUCTURE -->
 
-                        {{course.pronatec|timtec_markdown}}
+                    <!-- COURSE-INSTRUCTORS -->
+                    <section class="instructors">
+                        {% if course.courseprofessor_set.all %}
+                        <div class="page-header-double top">
+                            <h3><i class="fa fa-angle-double-right"></i> {% trans "Instructors" %}</h3>
+                        </div>
+                        {% for course_professor in course.courseprofessor_set.all %}
+                            <div id="{{ course_professor.user.username }}" class="instructor row">
+                                <div class="instructor-photo col-sm-12">
+                                    <img src="{{ course_professor.user.get_picture_url }}" class="img-thumbnail">
+                                </div>
+                                <div class="col-sm-12">
+                                    <h1 class="fullname bottom top">{{ course_professor.user.first_name }} {{ course_professor.user.last_name }}</h1>
+                                    <h2 class="job-title top">{{ course_professor.get_job_display }}</h2>
+                                    <p>{{ course_professor.biography|timtec_markdown }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {% endif %}
                     </section>
-                    <!-- END COURSE-SUMMARY -->
-                </div>
-                <!-- END ROW -->
+                    <!-- END COURSE-INSTRUCTORS -->
+                </section>
+                <!-- END COURSE-SUMMARY -->
             </div>
             <!-- END COL-LG-3 -->
         </div>

@@ -35,10 +35,10 @@
                     <!-- COURSE -->
                     <div class="course">
                         <a ng-href="/course/{{ course.slug }}" class="course-link">
-                            <div class="img">
+                            <div class="thumb-wrapper">
                                 <span class="mouseover"></span>
                                 {% if course.home_thumbnail %}
-                                <span style="background-image: url({{ course.home_thumbnail.url }})"></span>
+                                <span class="thumb" style="background-image: url({{ course.home_thumbnail.url }})"></span>
                                 {% endif %}
                             </div>
                             <div class="info-box">
