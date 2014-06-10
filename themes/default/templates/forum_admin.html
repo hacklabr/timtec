@@ -1,4 +1,4 @@
-{% extends 'admin-base.html' %}
+{% extends 'base.html' %}
 {% load i18n %}
 {% load compressed %}
 {% load staticfiles %}
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </header>
-        
+
         <section class="questions col-sm-12 col-lg-12 clearfix">
             <div class="row" >
                 {% include "_forum_inline.html"  with course=course %}

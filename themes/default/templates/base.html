@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+{% load i18n %}
+{% load static %}
 <head>
     {% block head %}
     <meta charset="UTF-8">
@@ -8,6 +10,9 @@
     <title>{% block title %}{{ site.name }}{% endblock %}</title>
 
     {% include "_assets.html" %}
+
+    {% block js %}{% endblock %}
+
     {% load metron_tags %}
     {% analytics %}
     <script type="text/javascript" charset="utf-8">
@@ -37,13 +42,15 @@
     </script>
     {% endblock %}
 </head>
-<body>
-<script>
-window.STATIC_URL = '{{ STATIC_URL }}';
-{% if debug %}window.DEBUG = true;{% endif %}
-</script>
+<body {% if in_admin %}id="admin"{% endif %} {% spaceless %}{% block body_attrs %}{% endblock %}{% endspaceless %}>
+    <script>
+    window.STATIC_URL = '{{ STATIC_URL }}';
+    {% if debug %}window.DEBUG = true;{% endif %}
+    </script>
 
-    {% if user.is_authenticated %}
+    {% if in_admin %}
+        {% include 'header-admin.html' %}
+    {% elif user.is_authenticated %}
         {% include 'header-authenticated.html' %}
     {% else %}
         {% include 'header-guest.html' %}

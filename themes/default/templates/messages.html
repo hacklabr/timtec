@@ -1,4 +1,4 @@
-{% extends "admin-base.html" %}
+{% extends "base.html" %}
 {% load compressed %}
 {% load static %}
 {% load i18n %}
@@ -85,7 +85,7 @@
                         {% verbatim %}
                         <div class="subject">{{ message.subject }}</div>
                         {% endverbatim %}
-                        <div class="body"> 
+                        <div class="body">
                         <span ng-bind-html="message.message|markdown|words:50"></span>{% verbatim %} <a ng-href="/admin/course/{{course_id}}/message/{{message.id}}">{% endverbatim %} {% trans 'More...' %}</a>
                         </div>
                     </div>
