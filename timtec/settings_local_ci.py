@@ -3,6 +3,9 @@
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+import tempfile
+STATIC_ROOT = tempfile.mkdtemp('static')
+
 ALLOWED_HOSTS = [
     'timtec-dev.hacklab.com.br',
     '.timtec.com.br',
