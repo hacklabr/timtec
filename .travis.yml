@@ -1,0 +1,14 @@
+language: python
+python:
+  - '2.7'
+node_js:
+  - '0.10'
+service:
+  - postgresql
+install: make ci
+script: make all_tests
+after_success: coveralls
+notifications:
+  hipchat:
+    rooms:
+      secure: hKIv8CxnKhtlKJg3ndm/x7RfyD41xp0N2xijukXXLgSp617yIu5b7Xv3N2JuBunY9zzqEbAhG28zQJzBr8eDxA2iLBEnOYbR73aMnkSxYkK1vM3gNGKR8l0uFkclh3In88u+4gQOoawRK0gyE2gDUBPD4lEiZrVRfr1E/Q/b9Xw=
