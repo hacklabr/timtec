@@ -11,8 +11,8 @@ urlpatterns = patterns(
     url(r'^courses/$', AdminView.as_view(template_name="courses_admin.html")),
 
     # create and edit course
-    url(r'^courses/new/$', AdminView.as_view(template_name="new_course.html")),
-    url(r'^courses/(?P<pk>[1-9][0-9]*)/$', AdminView.as_view(template_name="new_course.html")),
+    url(r'^courses/new/$', AdminView.as_view(template_name="course.html")),
+    url(r'^courses/(?P<pk>[1-9][0-9]*)/$', AdminView.as_view(template_name="course.html")),
 
     # create and edit lesson
     url(r'^courses/(?P<course_id>[1-9][0-9]*)/lessons/new/$', AdminView.as_view(template_name="new_lesson.html")),
