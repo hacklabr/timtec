@@ -563,6 +563,12 @@ a, a:hover, a:active {
           .info {
             background-color: #fff;
             padding: 15px;
+            @media (min-width: @screen-md-min) and (max-width: @screen-md-max) { 
+              height: 315px;
+            }
+            @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max), (min-width: @screen-lg-min) { 
+              height: 265px;
+            }
             h3 {
               font-size: 22px;
               margin-top: 0;
