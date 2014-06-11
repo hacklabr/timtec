@@ -267,6 +267,7 @@ PIPELINE_JS = {
             'js/course_material/directives.js',
             'js/course_material/filters.js',
             'js/course_material/services.js',
+            'js/directives/markdowneditor.js',
             'dropzone/downloads/dropzone.js',
         ),
         'output_filename': 'js/course_material.js',
