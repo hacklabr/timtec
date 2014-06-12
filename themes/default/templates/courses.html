@@ -10,31 +10,31 @@
 
             <section id="courses" class="row">
                 <div class="col-md-8">
-                    <div class="filters">
-                        <!--  FORM INLINE -->
-                        <div class="form-inline">
-                            <!-- ROW -->
-                            <div class="row">
-                                <div class="status col-sm-7">
-                                    <button class="btn btn-info">Todos</button>
-                                    <button class="btn btn-default">Em andamento</button>
-                                    <button class="btn btn-default">Próximos</button>                                
-                                </div>
+{#                    <div class="filters">#}
+{#                        <!--  FORM INLINE -->#}
+{#                        <div class="form-inline">#}
+{#                            <!-- ROW -->#}
+{#                            <div class="row">#}
+{#                                <div class="status col-sm-7">#}
+{#                                    <button class="btn btn-info">Todos</button>#}
+{#                                    <button class="btn btn-default">Em andamento</button>#}
+{#                                    <button class="btn btn-default">Próximos</button>                                #}
+{#                                </div>#}
 
-                                <div class="col-sm-5 textright">
-                                    <div class="search input-group">
-                                        <input type="text" ng-model="filters.textsearch" placeholder="Pesquisar" class="form-control ng-pristine ng-valid">
-                                        <span class="input-group-btn"><button class="btn btn-info"><i class="fa fa-search"></i></button></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END FORM INLINE -->
-                    </div>
+{#                                <div class="col-sm-5 textright">#}
+{#                                    <div class="search input-group">#}
+{#                                        <input type="text" ng-model="filters.textsearch" placeholder="Pesquisar" class="form-control ng-pristine ng-valid">#}
+{#                                        <span class="input-group-btn"><button class="btn btn-info"><i class="fa fa-search"></i></button></span>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <!-- END FORM INLINE -->#}
+{#                    </div>#}
                     {% for course in courses %}
                     <!-- COURSE -->
                     <div class="course">
-                        <a ng-href="/course/{{ course.slug }}" class="course-link">
+                        <a href="{% url "course_intro" course.slug %}" class="course-link">
                             <div class="thumb-wrapper">
                                 <span class="mouseover"></span>
                                 {% if course.home_thumbnail %}
@@ -49,7 +49,7 @@
                                 </div> 
                                 <div class="enroll">
                                     <span>
-                                        <i class="fa fa-calendar"></i> Jul, 2014
+                                        <i class="fa fa-calendar"></i> {{ course.start_date |date:"M, Y" }}
                                     </span>
                                     <span class="enroll-link textright uppercase">
                                         Começar curso <i class="fa fa-angle-right"></i>
