@@ -67,9 +67,6 @@ update-staging:
 	touch ~/wsgi-reload
 
 update-design:
-	dropdb timtec-design
-	createdb timtec-design
-	pg_restore -O -x -n public -d timtec-design ~hacklab/sql-backup/last.psqlc
 	cp timtec/settings_local_design.py timtec/settings_local.py
 	~/env/bin/pip install -r requirements.txt
 	~/env/bin/python manage.py syncdb --noinput
