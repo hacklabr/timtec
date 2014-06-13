@@ -4,7 +4,7 @@ DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 SITE_ID = 1
-
+SITE_NAME = 'Marca da instituição'
 ALLOWED_HOSTS = [
     'timtec-design.hacklab.com.br',
     '.timtec.com.br',
