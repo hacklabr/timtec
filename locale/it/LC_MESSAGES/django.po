@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-13 14:32-0300\n"
+"POT-Creation-Date: 2014-06-13 16:32-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -320,7 +320,7 @@ msgstr ""
 
 #: core/models.py:39 core/models.py:243
 #: themes/default/templates/courses_admin.html:42
-#: themes/default/templates/courses_admin.html:105
+#: themes/default/templates/courses_admin.html:109
 #: themes/default/templates/new_course.html:340
 #: themes/default/templates/new_course.html:357
 #: themes/timtec/templates/courses_admin.html:49
@@ -874,31 +874,31 @@ msgstr ""
 msgid "Invert"
 msgstr ""
 
-#: themes/default/templates/courses_admin.html:94
+#: themes/default/templates/courses_admin.html:98
 #: themes/default/templates/stats.html:58
 #: themes/timtec/templates/courses_admin.html:102
 #: themes/timtec/templates/stats.html:56
 msgid "Show lessons"
 msgstr ""
 
-#: themes/default/templates/courses_admin.html:111
+#: themes/default/templates/courses_admin.html:115
 #: themes/timtec/templates/courses_admin.html:120
 msgid "Publish in"
 msgstr ""
 
-#: themes/default/templates/courses_admin.html:117
+#: themes/default/templates/courses_admin.html:121
 #: themes/timtec/templates/courses_admin.html:126
 msgid "No publication date"
 msgstr ""
 
-#: themes/default/templates/courses_admin.html:125
-#: themes/default/templates/courses_admin.html:128
+#: themes/default/templates/courses_admin.html:129
+#: themes/default/templates/courses_admin.html:132
 #: themes/timtec/templates/courses_admin.html:135
 #: themes/timtec/templates/courses_admin.html:138
 msgid "Loading lessons list"
 msgstr ""
 
-#: themes/default/templates/courses_admin.html:153
+#: themes/default/templates/courses_admin.html:157
 #: themes/timtec/templates/courses_admin.html:164
 msgid "No courses found"
 msgstr ""
@@ -1258,6 +1258,14 @@ msgstr ""
 #: themes/default/templates/profile-edit.html:114
 #: themes/timtec/templates/profile-edit.html:124
 msgid "Account Settings"
+msgstr ""
+
+#: themes/default/templates/profile-edit.html:142
+msgid "New password"
+msgstr ""
+
+#: themes/default/templates/profile-edit.html:145
+msgid "Confirm new password"
 msgstr ""
 
 #: themes/default/templates/stats.html:22
