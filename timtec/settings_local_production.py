@@ -3,6 +3,8 @@
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
+TIMTEC_THEME = 'timtec'
+
 SITE_ID = 2
 
 ALLOWED_HOSTS = [

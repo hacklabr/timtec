@@ -2,11 +2,16 @@
 # Django settings for timtec project.
 from django.utils.translation import ugettext_lazy as _
 import os
+
 SETTINGS_DIR = os.path.dirname(os.path.realpath(__file__))
 PROJECT_ROOT = os.path.dirname(SETTINGS_DIR)
-THEMES_DIR = os.path.join(PROJECT_ROOT, 'themes')
 
-TIMTEC_THEME = 'default'
+#
+# Theme related options
+#
+THEMES_DIR = os.path.join(PROJECT_ROOT, 'themes')
+TIMTEC_THEME = os.getenv('TIMTEC_THEME', 'default')  # don't forget to re run collectstatic if you change the theme
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -115,6 +120,7 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(THEMES_DIR, TIMTEC_THEME, 'static'),
+    os.path.join(THEMES_DIR, 'default', 'static'),
     os.path.join(PROJECT_ROOT, 'bower_components'),
 )
 
@@ -359,6 +365,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(THEMES_DIR, TIMTEC_THEME, 'templates'),
+    os.path.join(THEMES_DIR, 'default', 'templates'),
 )
 
 
