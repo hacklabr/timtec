@@ -1,7 +1,7 @@
 from core.models import Course, CourseProfessor, CourseStudent, Lesson, Video, StudentProgress, Unit, ProfessorMessage
 from accounts.serializers import TimtecUserSerializer
 from activities.serializers import ActivitySerializer
-from rest_framework.reverse import reverse
+from rest_framework.reverse import reverse_lazy
 from notes.models import Note
 from rest_framework import serializers
 
@@ -104,7 +104,7 @@ class LessonHyperlinkedIdentityField(serializers.HyperlinkedIdentityField):
     # lookups
     def get_url(self, obj, view_name, request, format):
         kwargs = {'slug': obj.slug, 'course_slug': obj.course.slug}
-        return reverse(view_name, kwargs=kwargs, request=request, format=format)
+        return reverse_lazy(view_name, kwargs=kwargs, request=request, format=format)
 
 
 class LessonSerializer(serializers.HyperlinkedModelSerializer):
