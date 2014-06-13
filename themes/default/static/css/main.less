@@ -335,11 +335,6 @@ a, a:hover, a:active {
     text-align:left;
   }
 }
-.checkbox, .radio {
-  input {
-    display: inline-block;
-  }
-}
 
 
 
@@ -864,6 +859,11 @@ a, a:hover, a:active {
   #courses {
     .filters {
       margin: 20px 0;
+      .checkbox, .radio {
+        input {
+          display: inline-block;
+        }
+      }
       .filter-checkbox {
         @media (max-width: @screen-sm-max) {
           margin-bottom: 20px;
