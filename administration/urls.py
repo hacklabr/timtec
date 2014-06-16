@@ -2,6 +2,7 @@ from django.conf.urls import patterns, url
 from django.views.generic.base import RedirectView
 from django.contrib.auth.decorators import login_required as lr
 from forum.views import AdminCourseForumView
+from course_material.views import CourseMaterialAdminView
 from views import AdminView
 
 urlpatterns = patterns(
@@ -23,6 +24,8 @@ urlpatterns = patterns(
     url(r'^course/(?P<course_id>[1-9][0-9]*)/message/(?P<message_id>[1-9][0-9]*)$', AdminView.as_view(template_name="message.html")),
 
     url(r'^course/(?P<course_id>[1-9][0-9]*)/forum/', AdminCourseForumView.as_view(template_name="forum.html")),
+
+    url(r'^course/(?P<pk>[0-9]*)/material/$', CourseMaterialAdminView.as_view(), name='course_material_admin'),
 
     url(r'^users/$', AdminView.as_view(template_name="users.html")),
 

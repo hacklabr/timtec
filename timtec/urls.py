@@ -22,7 +22,7 @@ from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
 from activities.views import AnswerViewSet
 from accounts.views import TimtecUserViewSet
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, QuestionVoteViewSet, AnswerVoteViewSet
-from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialAdminView, CourseMaterialViewSet
+from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialViewSet
 from notes.views import NotesViewSet, CourseNotesView, UserNotesView
 from reports.views import UserCourseStats, CourseStatsByLessonViewSet
 from rest_framework import routers
@@ -85,7 +85,6 @@ urlpatterns = patterns(
     # Course Material
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/material/file_upload/$', FileUploadView.as_view(), name='file_upload'),
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/material/$', CourseMaterialView.as_view(), name='course_material'),
-    url(r'^admin/course/(?P<pk>[0-9]*)/material/$', CourseMaterialAdminView.as_view(), name='course_material_admin'),
 
     # Notes
     url(r'^notes/(?P<username>[\w.+-]+)?$', UserNotesView.as_view(), name='user_notes'),
