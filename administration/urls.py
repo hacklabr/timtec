@@ -22,7 +22,7 @@ urlpatterns = patterns(
     url(r'^course/(?P<course_id>[1-9][0-9]*)/messages/$', AdminView.as_view(template_name="messages.html")),
     url(r'^course/(?P<course_id>[1-9][0-9]*)/message/(?P<message_id>[1-9][0-9]*)$', AdminView.as_view(template_name="message.html")),
 
-    url(r'^course/(?P<course_id>[1-9][0-9]*)/forum/', AdminCourseForumView.as_view()),
+    url(r'^course/(?P<course_id>[1-9][0-9]*)/forum/', AdminCourseForumView.as_view(template_name="forum.html")),
 
     url(r'^users/$', AdminView.as_view(template_name="users.html")),
 
