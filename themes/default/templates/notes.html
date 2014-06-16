@@ -3,7 +3,7 @@
 {% load compressed %}
 {% load staticfiles %}
 
-{% block head %}
+{% block js %}
     {{ block.super }}
     {% compressed_js 'notes' %}
 {% endblock %}

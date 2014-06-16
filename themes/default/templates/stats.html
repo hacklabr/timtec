@@ -3,7 +3,7 @@
 {% load static %}
 {% load i18n %}
 
-{% block head %}
+{% block js %}
     {{ block.super }}
     {% compressed_js 'reports' %}
     {% compressed_js 'admin_course_header' %}
@@ -32,7 +32,7 @@
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane fade in active" id="students" ng-controller="CourseReportsCtrl">
+                    <div class="tab-pane fade in active" id="students" ng-controller="CourseUsersReportsCtrl">
                         <div class="row">
                             <div class="col-lg-8">
                                 <h2>Total de alunos: {% verbatim %}{{ users_reports.length }}{% endverbatim %} alunos</h2>
