@@ -3,7 +3,6 @@
 {% load i18n %}
 {% load static %}
 <head>
-    {% block head %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -40,7 +39,6 @@
             $(window).resize(resize_activation_wrapper);
         })();
     </script>
-    {% endblock %}
 </head>
 <body {% if in_admin %}id="admin"{% endif %} {% spaceless %}{% block body_attrs %}{% endblock %}{% endspaceless %}>
     <script>
