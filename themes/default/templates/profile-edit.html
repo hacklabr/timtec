@@ -139,10 +139,10 @@
             <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "Password" %}</label>
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 left">
-                <input name="password1" type="password" class="form-control" placeholder="Nova Senha">
+                <input name="password1" type="password" class="form-control" placeholder="{% trans 'New password' %}">
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 right">
-                <input name="password2" type="password" class="form-control" placeholder="Nova Senha Novamente">
+                <input name="password2" type="password" class="form-control" placeholder="{% trans 'Confirm new password' %}">
               </div>
               {% for error in errors %}<small>{{error}}</small>{% endfor %}
             </div>

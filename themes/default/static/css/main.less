@@ -151,6 +151,16 @@ a, a:hover, a:active {
   }
 }
 
+#modal-about {
+  h5 {
+    border-bottom: 1px solid #ccc;
+    font-size: 20px;
+    margin: 30px 0 20px;
+    padding-bottom: 5px;
+    text-transform: capitalize;    
+  }
+}
+
 
 
 
@@ -335,11 +345,6 @@ a, a:hover, a:active {
     text-align:left;
   }
 }
-.checkbox, .radio {
-  input {
-    display: inline-block;
-  }
-}
 
 
 
@@ -449,7 +454,7 @@ a, a:hover, a:active {
           font-size: 2.4vw;
         }
       }
-      @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { 
+      @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
         .text {
           right: 55px;
           top: 40px;
@@ -461,7 +466,7 @@ a, a:hover, a:active {
           }
         }
       }
-      @media (min-width: @screen-md-min) and (max-width: @screen-md-max) { 
+      @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
         .text {
           right: 70px;
           top: 50px;
@@ -473,7 +478,7 @@ a, a:hover, a:active {
           }
         }
       }
-      @media (min-width: @screen-lg-min) { 
+      @media (min-width: @screen-lg-min) {
         .text {
           right: 95px;
           top: 65px;
@@ -495,16 +500,16 @@ a, a:hover, a:active {
       h1 {
         font-family: "Questrial";
         font-size: 6.5vw;
-        font-weight: normal; 
+        font-weight: normal;
         margin: 0;
         text-transform: uppercase;
-        @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { 
+        @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
           font-size: 5vw;
         }
-        @media (min-width: @screen-md-min) and (max-width: @screen-md-max) { 
+        @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
           font-size: 4vw;
         }
-        @media (min-width: @screen-lg-min) { 
+        @media (min-width: @screen-lg-min) {
           font-size: 3vw;
         }
       }
@@ -513,11 +518,11 @@ a, a:hover, a:active {
     // repeatable blocks from home
     .block {
       margin-bottom: 40px;
-      @media (min-width: 380px) and (max-width: @screen-xs-max) {  
+      @media (min-width: 380px) and (max-width: @screen-xs-max) {
         float: none;
-        margin: 0 auto 40px; 
+        margin: 0 auto 40px;
         width: 360px;
-      }        
+      }
     } // .block
 
     // courses section
@@ -563,13 +568,19 @@ a, a:hover, a:active {
           .info {
             background-color: #fff;
             padding: 15px;
+            @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+              height: 315px;
+            }
+            @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max), (min-width: @screen-lg-min) {
+              height: 265px;
+            }
             h3 {
               font-size: 22px;
               margin-top: 0;
-              @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) { 
+              @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
                 font-size: 24px;
               }
-              @media (min-width: @screen-lg-min) { 
+              @media (min-width: @screen-lg-min) {
                 font-size: 28px;
               }
             }
@@ -592,7 +603,7 @@ a, a:hover, a:active {
       position: relative;
         .course-link { // link wrapper
           display: block;
-          position: relative; 
+          position: relative;
           cursor: pointer;
           &:hover {
             .mouseover {
@@ -601,7 +612,7 @@ a, a:hover, a:active {
             .info {
               background-color: rgba(52,152,219,0.3);
               h3, .abstract {
-                color: #000;  
+                color: #000;
               }
               .instructors {
                 color: @gray;
@@ -625,13 +636,13 @@ a, a:hover, a:active {
             width: 100%;
             z-index: 1;
           }
-          .thumb { 
+          .thumb {
             background-size: cover;
             background-position: top center;
             display: block;
             height: 195px;
             width: 100%;
-          } 
+          }
         } // .thumb-wrapper
         .info-box { // info wrapper for courses page
           position: relative;
@@ -720,7 +731,7 @@ a, a:hover, a:active {
       }
     }
   }
-           
+
   .filters {
     background: @gray-lighter;
     margin-bottom: 30px;
@@ -808,7 +819,7 @@ a, a:hover, a:active {
     @media (max-width: @screen-xs-max) {
       width: 100%;
     }
-    
+
     &:hover span {
       display:block;
     }
@@ -823,7 +834,7 @@ a, a:hover, a:active {
       left: 0;
       padding:3px 9px;
       position:absolute;
-      
+
       @media (max-width: @screen-xs-max) {
         left: 50%;
         right: initial;
@@ -874,6 +885,11 @@ a, a:hover, a:active {
   #courses {
     .filters {
       margin: 20px 0;
+      .checkbox, .radio {
+        input {
+          display: inline-block;
+        }
+      }
       .filter-checkbox {
         @media (max-width: @screen-sm-max) {
           margin-bottom: 20px;
@@ -893,7 +909,7 @@ a, a:hover, a:active {
           }
         }
       }
-          
+
       .filter-ordering {
         select {
           width: 100%;
@@ -1061,7 +1077,7 @@ a, a:hover, a:active {
           &.textright {
             text-align: left;
           }
-        }  
+        }
       }
     }
     // END CONTENT
@@ -1696,7 +1712,7 @@ a, a:hover, a:active {
             font-size: 12px;
             margin-right: 40px;
             text-transform: uppercase;
-            height: 40px;
+            height: 20px;
             display: block;
             float: left;
           }
@@ -2081,7 +2097,7 @@ a, a:hover, a:active {
         display: inline-block;
         cursor: pointer;
         &:hover {
-          text-decoration: underline; 
+          text-decoration: underline;
         }
       }
     }

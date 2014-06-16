@@ -12,104 +12,112 @@
 {% block content %}
 <div id="course" class="course-stats" ng-app="reports">
 
-    <div class="container">
-        <div ng-controller="HeaderController">
-             {% include "_admin_header_inline.html"  with course=course %}
-        </div>
-        <section id="stats-content" class="container">
-            <div class="col-lg-11 col-lg-offset-1 col-md-11 col-md-offset-1">
-                <header>
-                    <div class="row">
-                        <h1>{% trans "Course Statistics" %}</h1>
-                    </div>
-                </header>
-                <div class="row">
-                    <tabset>
-                        <tab heading="{% trans "Students" %}">
-                            <div class="tab-pane fade in" id="students" ng-controller="CourseUsersReportsCtrl">
-                                <div class="row">
-                                    <div class="col-sm-8">
-                                        <h3>Progresso dos alunos</h3>
-                                        <p>Total de alunos: {% verbatim %}{{ users_reports.length }}{% endverbatim %} alunos</p>
-                                    </div>
-                                </div>
-                                <ul class="students">
-                                    <li ng-repeat="user in users_reports">
+    <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
+
+    <div class="main-content">
+        <div class="container js-fullheight c1">
+            <div ng-controller="HeaderController">
+                 {% include "_admin_header_inline.html"  with course=course %}
+            </div>
+            <section id="stats-content" class="container">
+                <div class="col-lg-11 col-lg-offset-1 col-md-11 col-md-offset-1">
+                    <header>
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <h1>{% trans "Course Statistics" %}</h1>
+                            </div>
+                        </div>
+                    </header>
+                    <section class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <tabset>
+                                <tab heading="{% trans "Students" %}">
+                                    <div class="tab-pane fade in" id="students" ng-controller="CourseUsersReportsCtrl">
                                         <div class="row">
-                                        {% verbatim %}
-                                            <div class="col-sm-4"><strong>{{ user.name || user.username }}<br>({{ user.email }})</strong></div>
-                                            <div class="col-lg-1 col-sm-2 textright">{{ user.course_progress }}%</div>
-                                            <div class="col-lg-5 col-sm-3">
-                                                <div class="progress">
-                                                    <div class="progress-bar" style="width:{{ user.course_progress }}%;"></div>
-                                                </div>
+                                            <div class="col-lg-8">
+                                                <h3>Progresso dos alunos</h3>
+                                                <p>Total de alunos: {% verbatim %}{{ users_reports.length }}{% endverbatim %} alunos</p>
                                             </div>
-                                        {% endverbatim %}
-                                            <div class="col-sm-3 textright">
-                                                <span class="label label-default pointer" ng-click="showLessons=!showLessons">
-                                                    {% trans 'Show lessons' %}
-                                                    <i class="fa" ng-class="{'fa fa-caret-down':!showLessons,'fa fa-caret-up':showLessons}"></i>
-                                                </span>
-                                            </div>
-                                            <div class="lessons col-xs-12" ng-show="showLessons">
-                                                <div class="lesson" ng-repeat="lesson in user.lessons_progress">
-                                                    {% verbatim %}
-                                                    <div class="row">
-                                                        <div class="col-lg-5 col-sm-3">{{ lesson.name }}</div>
-                                                        <div class="col-lg-1 col-sm-2 textright">{{ lesson.progress | number:0 }}%</div>
-                                                        <div class="col-lg-1 col-sm-3">
-                                                            <div class="progress">
-                                                                <div class="progress-bar" style="width:{{ lesson.progress }}%;"></div>
+                                        </div>
+                                        <ul class="students">
+                                            <li ng-repeat="user in users_reports">
+                                                <div class="row">
+                                                {% verbatim %}
+                                                    <div class="col-lg-4"><strong>{{ user.name || user.username }}<br>({{ user.email }})</strong></div>
+                                                    <div class="col-lg-1 textright">{{ user.course_progress }}%</div>
+                                                    <div class="col-lg-5">
+                                                        <div class="progress">
+                                                            <div class="progress-bar" style="width:{{ user.course_progress }}%;"></div>
+                                                        </div>
+                                                    </div>
+                                                {% endverbatim %}
+                                                    <div class="col-lg-2 textright">
+                                                        <span class="label label-default pointer" ng-click="showLessons=!showLessons">
+                                                            {% trans 'Show lessons' %}
+                                                            <i class="fa" ng-class="{'fa fa-caret-down':!showLessons,'fa fa-caret-up':showLessons}"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="lessons col-lg-12" ng-show="showLessons">
+                                                        <div class="lesson" ng-repeat="lesson in user.lessons_progress">
+                                                            {% verbatim %}
+                                                            <div class="row">
+                                                                <div class="col-lg-5">{{ lesson.name }}</div>
+                                                                <div class="col-lg-1 textright">{{ lesson.progress | number:0 }}%</div>
+                                                                <div class="col-lg-1">
+                                                                    <div class="progress">
+                                                                        <div class="progress-bar" style="width:{{ lesson.progress }}%;"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-5">
+                                                                    <!--
+                                                                    <span>{{ lesson.forum_questions }} perguntas no fórum</span>
+                                                                    <span>{{ lesson.forum_answers }} respostas no fórum</span>
+                                                                    <span>0 anotações</span> -->
+                                                                </div>
                                                             </div>
+                                                            {% endverbatim %}
                                                         </div>
-                                                        <div class="col-sm-4">
-                                                            <!--
-                                                            <span>{{ lesson.forum_questions }} perguntas no fórum</span>
-                                                            <span>{{ lesson.forum_answers }} respostas no fórum</span>
-                                                            <span>0 anotações</span> -->
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </tab>
+                                <tab heading="{% trans "Lessons" %}">
+                                    <div class="tab-pane fade in" id="lessons" ng-controller="CourseLessonsReportsCtrl">
+                                        <div class="row">
+                                            <div class="col-lg-8">
+                                                <h3>Média do progresso dos alunos por aula</h3>
+                                            </div>
+                                        </div>
+                                        <ul class="lessons">
+                                            <li class="lesson" ng-repeat="lesson in course_stats.lessons_avg_progress">
+                                                <div class="row">
+                                                    {% verbatim %}
+                                                    <div class="col-lg-5">{{ lesson.name }}</div>
+                                                    <div class="col-lg-1 textright">{{ lesson.progress  | number:0  }}%</div>
+                                                    <div class="col-lg-1">
+                                                        <div class="progress">
+                                                            <div class="progress-bar" style="width:{{ lesson.progress }}%;"></div>
                                                         </div>
+                                                    </div>
+                                                    <div class="col-lg-5">
+                                                        <!-- <span>{{ lesson.forum_questions }} perguntas no fórum</span>
+                                                        <span>{{ lesson.forum_answers }} respostas no fórum</span>
+                                                        <span>0 anotações</span> -->
                                                     </div>
                                                     {% endverbatim %}
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </tab>
-                        <tab heading="{% trans "Lessons" %}">
-                            <div class="tab-pane fade in" id="lessons" ng-controller="CourseLessonsReportsCtrl">
-                                <div class="row">
-                                    <div class="col-lg-8 col-sm-8">
-                                        <h3>Média do progresso dos alunos por aula</h3>
+                                            </li>
+                                        </ul>
                                     </div>
-                                </div>
-                                <ul class="lessons">
-                                    <li class="lesson" ng-repeat="lesson in course_stats.lessons_avg_progress">
-                                        <div class="row">
-                                            {% verbatim %}
-                                            <div class="col-lg-5 col-sm-4">{{ lesson.name }}</div>
-                                            <div class="col-lg-1 col-sm-2 textright">{{ lesson.progress  | number:0  }}%</div>
-                                            <div class="col-lg-1 col-sm-2">
-                                                <div class="progress">
-                                                    <div class="progress-bar" style="width:{{ lesson.progress }}%;"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-5 col-sm-4">
-                                                <!-- <span>{{ lesson.forum_questions }} perguntas no fórum</span>
-                                                <span>{{ lesson.forum_answers }} respostas no fórum</span>
-                                                <span>0 anotações</span> -->
-                                            </div>
-                                            {% endverbatim %}
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </tab>
-                    </tabset>
+                                </tab>
+                            </tabset>
+                        </div>
+                    </section>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </div>
 </div>
 

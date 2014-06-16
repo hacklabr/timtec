@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 # configurations for the design server
 # https://docs.djangoproject.com/en/dev/ref/settings/
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 SITE_ID = 1
-
+SITE_NAME = 'Marca da instituição'
 ALLOWED_HOSTS = [
     'timtec-design.hacklab.com.br',
     '.timtec.com.br',
@@ -34,17 +35,30 @@ LOGGING = {
             '()': 'django.utils.log.RequireDebugFalse'
         }
     },
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(asctime)s %(message)s'
+        },
+    },
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
+            'handlers': ['mail_admins', 'console'],
+            'level': 'DEBUG',
             'propagate': True,
         },
     }

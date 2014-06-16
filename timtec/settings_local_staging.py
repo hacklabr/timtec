@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # configurations for the staging server
 # https://docs.djangoproject.com/en/dev/ref/settings/
 DEBUG = False
