@@ -29,11 +29,19 @@
                 $('#activation-wrapper').innerHeight(windowHeight - (navbarHeight + footerHeight + 58));
             }
 
+            function wrapper_min_height() {
+                windowHeight = window.innerHeight;
+                navbarHeight = $('#main-navbar').outerHeight(true);
+                footerHeight = $('#main-footer').outerHeight(true);
+                $('.wrapper').css('min-height', windowHeight - navbarHeight - footerHeight);
+            }
+
             $(document).ready(function() {
                 $('.has-tooltip').tooltip();
                 $(document).on('DOMNodeInserted','#player-outter', resize_player);
                 resize_player();
                 resize_activation_wrapper();
+                wrapper_min_height();
             });
             $(window).resize(resize_player);
             $(window).resize(resize_activation_wrapper);
