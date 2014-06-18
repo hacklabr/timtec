@@ -1,15 +1,13 @@
 {% extends 'base.html' %}
 {% load i18n %}
-{% load compressed %}
 {% load staticfiles %}
 {% load timtec_markdown %}
+{% load compressed %}
 
 {% block js %}
     {{ block.super }}
     {% compressed_js 'course_material' %}
-    {% if in_admin %}
-        {% compressed_js 'admin_course_header' %}
-    {% endif %}
+    {% compressed_js 'admin_course_header' %}
 {% endblock %}
 
 {% block content %}
@@ -21,16 +19,14 @@
 {% endif %}
 
 <!-- CONTAINER -->
-<div id="course" class="course-material">
-    <!-- HEADER -->
+<div id="course" class="course-material" ng-app="courseMaterial">
     {% if in_admin %}
         <div ng-controller="HeaderController">
             {% include "_admin_header_inline.html"%}
         </div>
     {% else %}
-        {% include "_course-header-inline.html"  with course=course %}
+        {% include "_course-header-inline.html"  with course=course question_form=false %}
     {% endif %}
-    <!-- END HEADER -->
 
     <!-- MAIN CONTENT -->
     <section id="course-content" class="container">
@@ -96,7 +92,7 @@
                         <p><strong>{% trans 'Drop' %}</strong> {% trans 'files to upload' %}<br>{% trans '(or click)' %}</p>
                         {% csrf_token %}
                     </form>
-                {% endif %} 
+                {% endif %}
                 <ul class="uploaded-files-list">
                     <li><h5>{% trans "Files" %}</h5></li>
                     {% for file in course_material.files.all %}

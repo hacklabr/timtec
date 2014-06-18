@@ -25,7 +25,7 @@ urlpatterns = patterns(
 
     url(r'^course/(?P<course_id>[1-9][0-9]*)/forum/', AdminCourseForumView.as_view(template_name="forum.html")),
 
-    url(r'^course/(?P<pk>[0-9]*)/material/$', CourseMaterialAdminView.as_view(template_name="course-material.html"), name='course_material'),
+    url(r'^course/(?P<pk>[1-9][0-9]*)/material/$', CourseMaterialAdminView.as_view(template_name="course-material.html")),
 
     url(r'^users/$', AdminView.as_view(template_name="users.html")),
 
