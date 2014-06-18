@@ -2,17 +2,33 @@
 <html>
 {% load i18n %}
 {% load static %}
+{% load compressed %}
+{% load metron_tags %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>{% block title %}{{ site.name }}{% endblock %}</title>
 
-    {% include "_assets.html" %}
+    {% compressed_css 'common' %}
+    {% compressed_css 'public' %}
+
+
+    <script>
+        window.STATIC_URL = '{{ STATIC_URL }}';
+        window.MEDIA_URL = '{{ MEDIA_URL }}';
+        window.DEBUG = '{{ DEBUG }}';
+    </script>
+
+    {% compressed_js 'all' %}
+    {% compressed_js 'codemirror' %}
+
+    <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Converter.js' %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Editor.js' %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Sanitizer.js' %}" charset="utf-8"></script>
 
     {% block js %}{% endblock %}
 
-    {% load metron_tags %}
     {% analytics %}
     <script type="text/javascript" charset="utf-8">
         (function(){
@@ -39,7 +55,9 @@
             $(document).ready(function() {
                 $('.has-tooltip').tooltip();
                 $(document).on('DOMNodeInserted','#player-outter', resize_player);
-                resize_player();
+                {% if not in_admin %}
+                    resize_player();
+                {% endif %}
                 resize_activation_wrapper();
                 wrapper_min_height();
             });
@@ -53,7 +71,7 @@
     window.STATIC_URL = '{{ STATIC_URL }}';
     {% if debug %}window.DEBUG = true;{% endif %}
     </script>
-    
+
     {% include 'header.html' %}
 
     <div class="wrapper">
