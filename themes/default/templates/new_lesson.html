@@ -142,7 +142,9 @@ ng-app="edit-lesson"
 
                 <div class="current-video" style="overflow:hidden;" ng-style="{'display': currentUnit.video && playerReady ?'':'none'}">
 
-                    <div id="youtube-player" player-height="419px" player-width="100%" youtube-player></div>
+                    <div id="player-outter">
+                        <div id="youtube-player" player-height="419px" player-width="100%" youtube-player></div>
+                    </div>
                     <div class="row">
                         <div class="col-xs-6">
                             <p class="video-title" ng-model="currentUnit.video.name" placeholder="Nome do vídeo" contenteditable><p>
@@ -216,7 +218,7 @@ ng-app="edit-lesson"
             <!-- END ACTIVITIES SECTION -->
 
             <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
-                <div class="add-side-notes">
+                <!--<div class="add-side-notes">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#side-notes" data-toggle="tab">{% trans 'Annotations' %}</a></li>
                     </ul>
@@ -227,7 +229,7 @@ ng-app="edit-lesson"
                             </form>
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
         <!-- END ROW -->
