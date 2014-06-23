@@ -2,16 +2,13 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load timtec_markdown %}
+{% load compressed %}
 
-{% if in_admin %}
-    {% load compressed %}
-
-    {% block js %}
-    {{block.super}}
+{% block js %}
+    {{ block.super }}
     {% compressed_js 'forum' %}
     {% compressed_js 'admin_course_header' %}
-    {% endblock %}
-{% endif %}
+{% endblock %}
 
 {% block content %}
 
@@ -35,7 +32,7 @@
                 </div>
             </div>
         </header>
-        
+
         <section class="questions col-sm-12 col-lg-12 clearfix">
             <div class="row" ng-app="forum">
                 {% include "_forum_inline.html"  with course=course %}

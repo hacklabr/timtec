@@ -56,7 +56,6 @@ class FileUploadView(LoginRequiredMixin, FormView):
 class CourseMaterialAdminView(AdminMixin, DetailView):
     model = CourseMaterial
     context_object_name = 'course_material'
-    template_name = 'course-material-admin.html'
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context

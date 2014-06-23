@@ -10,12 +10,12 @@ class AdminMixin(TemplateResponseMixin, ContextMixin,):
         context['in_admin'] = True
         return context
 
-    # def get_template_names(self):
-    #     """
-    #     Returns two template options, either the administration specific
-    #     or the common template
-    #     """
-    #     return ['administration/' + self.template_name, self.template_name]
+    def get_template_names(self):
+        """
+        Returns two template options, either the administration specific
+        or the common template
+        """
+        return ['administration/' + self.template_name, self.template_name]
 
 
 class AdminView(views.LoginRequiredMixin, views.GroupRequiredMixin, AdminMixin, TemplateView):
