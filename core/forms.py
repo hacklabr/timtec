@@ -25,7 +25,7 @@ class ContactForm(forms.Form):
         message_from = 'From %s <%s>' % (name, email,)
         message = message_from + '\n\n\n' + message
 
-        recipient_list = ['%s <%s>' % manager for manager in settings.MANAGERS]
+        recipient_list = settings.CONTACT_RECIPIENT_LIST
         sender = settings.DEFAULT_FROM_EMAIL
 
         send_mail(subject, message, sender, recipient_list, fail_silently=False)
