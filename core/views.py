@@ -2,7 +2,7 @@
 import json
 import time
 
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse
 from django.views.generic import DetailView, ListView, FormView
 from django.views.generic.base import RedirectView, View, TemplateView
@@ -134,9 +134,9 @@ class EnrollCourseView(LoginRequiredMixin, RedirectView):
         course = self.get_object()
         if self.request.user.accepted_terms:
             course.enroll_student(self.request.user)
-            return reverse('lesson', args=[course.slug, course.first_lesson().slug])
+            return reverse_lazy('lesson', args=[course.slug, course.first_lesson().slug])
         else:
-            return reverse('accept_terms')
+            return reverse_lazy('accept_terms')
 
 
 class AcceptTermsView(FormView):

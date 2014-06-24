@@ -27,7 +27,7 @@ class UserNotesView(LoginRequiredMixin, TemplateView):
 
 
 class CourseNotesView(LoginRequiredMixin, TemplateView):
-    template_name = 'course_notes.html'
+    template_name = 'course-notes.html'
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context

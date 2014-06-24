@@ -1,7 +1,10 @@
+# -*- coding: utf-8 -*-
 # configurations for the staging server
 # https://docs.djangoproject.com/en/dev/ref/settings/
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
+
+TIMTEC_THEME = 'timtec'
 
 SITE_ID = 1
 

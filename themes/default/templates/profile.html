@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% block content %}
+<div id="profile" class="container">
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="thumbnail">
+                <img id="profile-avatar" width="256" src="{{ profile_user.get_picture_url }}">
+            </div>
+        </div>
+        <hr class="visible-xs"/>
+
+        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+            <fieldset>
+                <div class="page-header-double textleft top">
+                    <h3 class="top"><i class="fa fa-angle-double-right"></i> {{profile_user.first_name}} {{profile_user.last_name}}</h3>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <strong>{% trans "Occupation" %}</strong>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                        <p>{{profile_user.occupation}}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <strong>{% trans "City" %}</strong>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                        <p>{{profile_user.city}}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <strong>{% trans "Site" %}</strong>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                        <p><a href="{{profile_user.site}}" target="_blank">{{profile_user.site}}</a></p>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <strong>{% trans "Bio" %}</strong>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                        <p>{{profile_user.biography}}</p>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+{% endblock %}

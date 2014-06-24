@@ -1,7 +1,7 @@
 pip-tools
-pytest==2.4.2
+pytest==2.5.2
 pytest-cov
 pytest-flakes
 pytest-pep8
-pytest-django==2.4
+pytest-django==2.6.2
 model_mommy==1.2

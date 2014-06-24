@@ -18,10 +18,11 @@ def test_course_material(admin_client, user):
 
 @pytest.mark.django_db
 def test_file_upload(rf, user):
+    from django.conf import settings
     from course_material.views import FileUploadView
     import os
 
-    file_name = 'media/dbsql/dummy_file.txt'
+    file_name = settings.MEDIA_ROOT + '/dbsql/dummy_file.txt'
     if os.path.exists(file_name):
         os.remove(file_name)
 

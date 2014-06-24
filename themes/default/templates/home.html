@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% load compressed %}
+
+{% block js %}
+    {{ block.super }}
+    {% compressed_js 'core' %}
+{% endblock %}
+
+{% block content %}
+
+    <div id="home" ng-app="core" ng-controller="HomeCtrl">
+        <div id="highlight">
+            <!--<nav class="nav-left">
+                <img src="static/img/arrow-left.png">
+            </nav>-->
+            <img src="static/img/banner-003.jpg" class="img-responsive">
+            <div class="text">
+                <p class="line1">Texto da imagem de destaque</p>
+                <!-- <p class="line2">Cursos online, profissionalizantes e gratuitos.</p> -->
+            </div>
+            <!--<nav class="nav-right">
+                <img src="static/img/arrow-right.png">
+            </nav>-->
+        </div>
+        <section id="courses" class="container">
+            <header>
+                <h1>Cursos em destaque</h1>
+            </header>
+            <div class="row">
+                <div ng-repeat="course in courses" class="block course col-md-4 col-sm-6 col-xs-12">
+                    {% verbatim %}
+                    <a ng-href="/course/{{ course.slug }}" class="course-link">
+                        <div class="thumb-wrapper">
+                            <span class="mouseover"></span>
+                            <span class="thumb" style="background-image: url({{ course.home_thumbnail_url }})"></span>
+                        </div>
+                        <div class="info">
+                            <h3>{{ course.name }}</h3>
+                            <p class="instructors">{{ course.professors_names }}</p>
+                            <p class="abstract">{{ course.abstract }}</p>
+                        </div>
+                        <div class="enroll">
+                            <span>
+                                <i class="fa fa-calendar"></i> Jul, 2014
+                            </span>
+                            <span class="enroll-link textright uppercase">
+                                Começar curso <i class="fa fa-angle-right"></i>
+                            </span>
+                        </div>
+                    </a>
+                    {% endverbatim %}
+
+                </div>
+            </div><!-- .row -->
+        </section><!-- #courses -->
+
+        <section id="how-it-works">
+            <div class="container">
+                <header>
+                    <h1>Área de instruções</h1>
+                </header>
+                <div class="highlight textcenter">
+                    <p>Cursos online massivos ou simplesmente MOOCs (Massive Open Online Courses), combinam vídeos online com elementos interativos como testes, simuladores e fóruns. Estudantes podem assistir aulas fracionadas em pequenos capítulos, acessar materias complementares e fazer anotações em um caderno virtual.  Gestores e professores podem acompanhar os avanços dos alunos, gerenciar turmas e fóruns de discussão.</p>
+                </div>
+                <div class="row">
+                    <div class="block col-md-4 col-sm-6 col-xs-12">
+                        <div class="info">
+                            <h3>Vídeos online</h3>
+                            <p>Vídeos online são a base dos MOOCs, com eles as aulas são divididas em pequenos capítulos com apenas alguns minutos de duração. Os estudantes podem assistir cada um dos capítulos de acordo com sua disponibilidade.</p>
+                        </div>
+                    </div>
+                    <div class="block col-md-4 col-sm-6 col-xs-12">
+                        <div class="info">
+                            <h3>Testes e simuladores</h3>
+                            <p>Ao final de cada capítulo os estudantes podem responder um ou mais testes que ajudam a verificar se compreenderam os conceitos-chave, além disso, podem realizar exercícios em simuladores criados para cada tema abordado, por exemplo, simuladores de linguagens de programação para computadores.</p>
+                        </div>
+                    </div>
+                    <div class="block col-md-4 col-sm-6 col-xs-12">
+                        <div class="info">
+                            <h3>Colaboração e materiais complementares</h3>
+                            <p>Estudantes podem fazer e responder perguntas no fórum de cada curso. É possível votar nas melhores perguntas e respostas que são automaticamente colocadas no topo da lista deixando a vista os melhores conteúdos. Além disso, os professores podem disponibilizar links, textos, vídeos, imagens e bibliografia básica em uma área de materias didáticos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section><!-- #how-it-works -->
+    </div><!-- #home -->
+
+</div>
+
+{% endblock %}

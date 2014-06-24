@@ -14,7 +14,6 @@
         }
 
         $scope.courses = Course.query({'home_published': 'True'}, function(courses) {
-
             courses.sort(compare_by_position);
             $scope.courses_rows = [];
             var row = [];
@@ -53,7 +52,6 @@
             }
         });
         $scope.twits = Twitter.query({});
-
     }]);
 
 })(angular);

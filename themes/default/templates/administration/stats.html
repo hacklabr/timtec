@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% load compressed %}
+{% load static %}
+{% load i18n %}
+
+{% block js %}
+    {{ block.super }}
+    {% compressed_js 'reports' %}
+    {% compressed_js 'admin_course_header' %}
+{% endblock %}
+
+{% block content %}
+<div id="stats" class="course-stats" ng-app="reports">
+
+    <div ng-controller="HeaderController">
+        {% include "_admin_header_inline.html" %}
+    </div>
+    <section id="stats-content" class="container">
+        <header>
+            <div class="row">
+                <div class="col-sm-9">
+                    <h1>{% trans "Course Statistics" %}</h1>
+                </div>
+            </div>
+        </header>
+
+        <section class="row">
+            <div class="col-xs-12">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#students" data-toggle="tab">{% trans "Students" %}</a></li>
+                    <li><a href="#lessons" data-toggle="tab">{% trans "Lessons" %}</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="students" ng-controller="CourseUsersReportsCtrl">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <h2>Total de alunos: {% verbatim %}{{ users_reports.length }}{% endverbatim %} alunos</h2>
+                            </div>
+                            <div class="col-sm-4 textright">
+                                <input type="text" placeholder="{% blocktrans %}Search student{% endblocktrans %}" class="form-control search-filter">
+                            </div>
+                        </div>
+                        <ul class="students">
+                            <li ng-repeat="user in users_reports">
+                                <div class="row">
+                                {% verbatim %}
+                                    <div class="col-md-3 col-sm-4 col-xs-10"><strong>{{ user.name || user.username }}<br>({{ user.email }})</strong></div>
+                                    <div class="col-lg-1 col-xs-2 textright">{{ user.course_progress }}%</div>
+                                    <div class="col-md-2 col-sm-3 hidden-xs">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width:{{ user.course_progress }}%;"></div>
+                                        </div>
+                                    </div>
+                                {% endverbatim %}
+                                    <div class="col-md-2 col-sm-3 col-xs-12 textright">
+                                        <span class="label label-default pointer" ng-click="showLessons=!showLessons">
+                                            {% trans 'Show lessons' %}
+                                            <i class="fa" ng-class="{'fa fa-caret-down':!showLessons,'fa fa-caret-up':showLessons}"></i>
+                                        </span>
+                                    </div>
+                                    <div class="lessons col-xs-12" ng-show="showLessons">
+                                        <div class="lesson" ng-repeat="lesson in user.lessons_progress">
+                                            {% verbatim %}
+                                            <div class="row">
+                                                <div class="col-lg-5 col-md-6 col-sm-7 col-xs-10">{{ lesson.name }}</div>
+                                                <div class="col-md-1 col-sm-2 col-xs-2 textright">{{ lesson.progress | number:0 }}%</div>
+                                                <div class="col-md-2 col-sm-3 hidden-xs">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" style="width:{{ lesson.progress }}%;"></div>
+                                                    </div>
+                                                </div>
+                                                <!--<div class="col-lg-5">
+                                                    <span>0 perguntas no fórum</span>
+                                                    <span>0 respostas no fórum</span>
+                                                    <span>0 anotações</span>
+                                                </div>-->
+                                            </div>
+                                            {% endverbatim %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade in" id="lessons" ng-controller="CourseLessonsReportsCtrl">
+                        <ul class="lessons">
+                            <li class="lesson" ng-repeat="lesson in course_stats.lessons_avg_progress">
+                                {% verbatim %}
+                                <div class="row">
+                                    <div class="col-lg-5 col-md-6 col-sm-7 col-xs-10">{{ lesson.name }}</div>
+                                    <div class="col-sm-1 col-xs-2 textright">{{ lesson.progress  | number:0  }}%</div>
+                                    <div class="col-md-2 col-sm-3 hidden-xs">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width:{{ lesson.progress }}%;"></div>
+                                        </div>
+                                    </div>
+                                    <!--<div class="col-lg-5">
+                                        <span>0 perguntas no fórum</span>
+                                        <span>0 respostas no fórum</span>
+                                        <span>0 anotações</span>
+                                    </div>-->
+                                </div>
+                                {% endverbatim %}
+                            </li>
+                        </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+</div>
+
+
+{% endblock content %}

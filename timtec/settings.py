@@ -2,8 +2,15 @@
 # Django settings for timtec project.
 from django.utils.translation import ugettext_lazy as _
 import os
+
 SETTINGS_DIR = os.path.dirname(os.path.realpath(__file__))
 PROJECT_ROOT = os.path.dirname(SETTINGS_DIR)
+
+#
+# Theme related options
+#
+THEMES_DIR = os.path.join(PROJECT_ROOT, 'themes')
+TIMTEC_THEME = os.getenv('TIMTEC_THEME', 'default')  # don't forget to re run collectstatic if you change the theme
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -112,7 +119,8 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(PROJECT_ROOT, "static"),
+    os.path.join(THEMES_DIR, TIMTEC_THEME, 'static'),
+    os.path.join(THEMES_DIR, 'default', 'static'),
     os.path.join(PROJECT_ROOT, 'bower_components'),
 )
 
@@ -146,6 +154,8 @@ PIPELINE_CSS = {
             'codemirror/addon/hint/show-hint.css',
             'codemirror/theme/monokai.css',
             'css/codemirrorconf.css',
+            'intro.js/introjs.css',
+            'intro.js/themes/introjs-nassim.css',
         ),
         'output_filename': 'css/common.css',
         'extra_context': {
@@ -179,6 +189,7 @@ PIPELINE_JS = {
             'angular-sanitize/angular-sanitize.js',
             'angular-bootstrap/ui-bootstrap-tpls.js',
             'angular-gettext/dist/angular-gettext.js',
+            'intro.js/intro.js',
             'js/consolelogfallback.js',
             'js/django.js',
             'js/contact_form.js',
@@ -262,6 +273,7 @@ PIPELINE_JS = {
             'js/course_material/directives.js',
             'js/course_material/filters.js',
             'js/course_material/services.js',
+            'js/directives/markdowneditor.js',
             'dropzone/downloads/dropzone.js',
         ),
         'output_filename': 'js/course_material.js',
@@ -352,7 +364,8 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(SETTINGS_DIR, 'templates'),
+    os.path.join(THEMES_DIR, TIMTEC_THEME, 'templates'),
+    os.path.join(THEMES_DIR, 'default', 'templates'),
 )
 
 

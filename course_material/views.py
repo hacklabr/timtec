@@ -11,6 +11,7 @@ from django.views.generic.edit import FormView
 from rest_framework import viewsets
 from rest_framework import filters
 import json
+from administration.views import AdminMixin
 
 
 class CourseMaterialView(LoginRequiredMixin, DetailView):
@@ -52,10 +53,9 @@ class FileUploadView(LoginRequiredMixin, FormView):
             return self.render_to_json_response(data, status=400)
 
 
-class CourseMaterialAdminView(LoginRequiredMixin, DetailView):
+class CourseMaterialAdminView(AdminMixin, DetailView):
     model = CourseMaterial
     context_object_name = 'course_material'
-    template_name = 'course-material-admin.html'
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context

@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import login
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect, get_object_or_404
 from django.template.response import TemplateResponse
 from django.utils.http import is_safe_url
@@ -26,7 +26,7 @@ class CustomLoginView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(CustomLoginView, self).get_context_data()
-        default_next = reverse('home_view')
+        default_next = reverse_lazy('home_view')
         next_step = self.request.REQUEST.get('next', default_next)
 
         if not is_safe_url(next_step):
@@ -67,7 +67,7 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
     template_name = 'profile-edit.html'
 
     def get_success_url(self):
-        return reverse('profile')
+        return reverse_lazy('profile')
 
     def get_object(self):
         return self.request.user

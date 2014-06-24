@@ -12,7 +12,7 @@ module.exports = function(config){
             'bower_components/angular-mocks/angular-mocks.js',
             'bower_components/angular-gettext/dist/angular-gettext.js',
 
-            'static/js/vendor/pagedown/*.js',
+            'themes/default/static/js/vendor/pagedown/*.js',
             'core/static/js/django.js',
             'forum/static/js/truncate.js',
             'forum/static/js/forum/*.js',

@@ -67,9 +67,6 @@ update-staging:
 	touch ~/wsgi-reload
 
 update-design:
-	dropdb timtec-design
-	createdb timtec-design
-	pg_restore -O -x -n public -d timtec-design ~hacklab/sql-backup/last.psqlc
 	cp timtec/settings_local_design.py timtec/settings_local.py
 	~/env/bin/pip install -r requirements.txt
 	~/env/bin/python manage.py syncdb --noinput
@@ -99,10 +96,10 @@ clean:
 	find . -type f -name '*.py[co]' -exec rm {} \;
 
 python_tests: clean
-	py.test --pep8 --flakes --tb=native --cov . . $*
+	py.test --pep8 --flakes --tb=native --reuse-db --cov . . $*
 
 js_tests:
-	find . -path ./bower_components -prune -o -path bower_components/ -prune -o -path ./node_modules -prune -o -path ./static/js/vendor -prune -o -path static/js/vendor/ -prune -o -name '*.js' -exec jshint {} \;
+	find . -path ./bower_components -prune -o -path bower_components/ -prune -o -path ./node_modules -prune -o -regex ".*/vendor/.*" -prune -o -name '*.js' -exec jshint {} \;
 
 karma_tests:
 	karma start confkarma.js $*

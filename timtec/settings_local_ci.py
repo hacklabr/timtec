@@ -1,7 +1,11 @@
+# -*- coding: utf-8 -*-
 # configurations for the continous integration server
 # https://docs.djangoproject.com/en/dev/ref/settings/
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
+import tempfile
+STATIC_ROOT = tempfile.mkdtemp('static')
 
 ALLOWED_HOSTS = [
     'timtec-dev.hacklab.com.br',
