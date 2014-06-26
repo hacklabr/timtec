@@ -52,6 +52,11 @@ update-dev:
 	$(call reset_media)
 	$(call base_update,timtec_dev)
 
+update-demo:
+	$(call resetdb_to_backup,timtec-demo)
+	$(call reset_media)
+	$(call base_update,timtec_demo)
+
 update-staging:
 	$(call resetdb_to_backup,timtec-staging)
 	$(call reset_media)
