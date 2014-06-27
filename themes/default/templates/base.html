@@ -13,8 +13,6 @@
     {% compressed_css 'common' %}
     {% compressed_css 'public' %}
 
-    <link href="{% static 'css/introjs.min.css' %}" rel="stylesheet">
-
     <script>
         window.STATIC_URL = '{{ STATIC_URL }}';
         window.MEDIA_URL = '{{ MEDIA_URL }}';
@@ -61,7 +59,7 @@
                 {% endif %}
                 resize_activation_wrapper();
                 wrapper_min_height();
-                startIntro();
+                setTimeout(startIntro, 1000);
             });
             $(window).resize(resize_player);
             $(window).resize(resize_activation_wrapper);
@@ -82,123 +80,5 @@
         {% endblock %}
     </div>
     {% include 'footer.html' %}
-
-    <script type="text/javascript" src="{% static 'js/intro.min.js' %}" charset="utf-8"></script>
-    <script type="text/javascript">
-        function startIntro(){
-            var intro = introJs();
-            intro.setOptions({
-                steps: [
-                    {
-                        element: '#site-brand',
-                        intro: 'Área para marca da Instituição',
-                        position: 'bottom'
-                    },
-                    {
-                        element: '#site-nav',
-                        intro: 'Menu superior',
-                        position: 'bottom'
-                    },
-                    {
-                        //element: '#highlight',
-                        intro: 'Imagem de destaque',
-                        position: 'bottom'
-                    },
-                    {
-                        element: '#courses header',
-                        intro: 'Área para cursos em destaque',
-                        position: 'top'
-                    },
-                    {
-                        element: '#how-it-works header',
-                        intro: 'Área para instruções aos usuários',
-                        position: 'top'
-                    },
-                    {
-                        element: '.course',
-                        intro: 'Clique para ir ao curso',
-                        position: 'bottom'
-                    },
-                    {
-                        element: '#step7',
-                        intro: 'Página inicial de um curso',
-                        position: 'left'
-                    },
-                    {
-                        element: '#course-video',
-                        intro: 'Vídeo de apresentação do curso',
-                        position: 'right'
-                    },
-                    {
-                        element: '#instructors-info',
-                        intro: 'Currículo do professor',
-                        position: 'left'
-                    },
-                    {
-                        element: '#lesson-list',
-                        intro: 'Estrutura do curso e lista das aulas',
-                        position: 'top'
-                    },
-                    {
-                        element: '#go-to-course',
-                        intro: 'Clique para iniciar o curso',
-                        position: 'bottom'
-                    },
-                    {
-                        element: '#step12',
-                        intro: 'Página das aulas',
-                        position: 'left'
-                    },
-                    {
-                        element: '#lesson-list-dropdown',
-                        intro: 'Menu com a lista de aulas',
-                        position: 'bottom'
-                    },
-                    {
-                        element: '#lesson-units-nav',
-                        intro: 'Conjunto de capítulos de uma aula',
-                        position: 'right'
-                    },
-                    {
-                        element: '#student-notes',
-                        intro: 'Área para anotações do aluno',
-                        position: 'left'
-                    },
-                    {
-                        element: '#materials',
-                        intro: 'Área para materiais adicionais',
-                        position: 'top'
-                    },
-                    {
-                        element: '#forum',
-                        intro: 'Fórum do curso',
-                        position: 'top'
-                    },
-                    {
-                        element: '#course-nav',
-                        intro: 'Menu para acessar cada uma das áreas e o caderno virtual',
-                        position: 'bottom'
-                    },
-                    {
-                        element: '#admin-link',
-                        intro: 'Administração dos cursos',
-                        position: 'bottom'
-                    },
-                    {
-                        element: '#step20',
-                        intro: 'Botões para inserir vídeos e atividades',
-                        position: 'left'
-                    },
-                    {
-                        element: '#save-publish-buttons',
-                        intro: 'Botões para salvar e publicar aulas',
-                        position: 'bottom'
-                    }
-                ]
-            });
-
-            intro.start();
-        }
-    </script>
 </body>
 </html>

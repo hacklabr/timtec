@@ -26,6 +26,10 @@ ng-app="new-course"
 
 {% block content %}
 
+{% if not in_admin %}
+<script type="text/javascript" src="{% static 'js/introjs/course.js' %}"></script>
+{% endif %}
+
 <!-- COURSE -->
 <div id="course" class="course-intro" ng-controller="CourseEditController">
 

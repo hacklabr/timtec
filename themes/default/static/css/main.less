@@ -998,9 +998,6 @@ a, a:hover, a:active {
           margin-top: 10px;
         }
       }
-      #save-publish-buttons {
-        float: right;
-      }
     }
     // END ACTIONS
 
@@ -1009,6 +1006,12 @@ a, a:hover, a:active {
     }
 
     &.course-lesson {
+      #save-publish-buttons {
+        float: right;
+      }
+      #video-activity-buttons {
+        float: left;
+      }
       .units {
         float: left;
         margin: 20px 15px 0;
@@ -2629,3 +2632,4 @@ ul.uploaded-files-list {
   cursor: pointer;
 }
 
+@import 'introjs.less';

@@ -8,6 +8,7 @@
 {% block js %}
 {{ block.super }}
 {% compressed_js 'lesson' %}
+<script type="text/javascript" src="{% static 'js/introjs/lesson.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -87,7 +88,6 @@ $(document).ready(function() {
                        class="has-tooltip unit track" data-toggle="tooltip"
                        ng-repeat="unit in lesson.units"
                        ng-class="{watching: unit==currentUnit, done: unit.progress.complete}">
-                           <i class="fa fa-caret-right"></i>
                            <span class="position" ng-bind="unit.position+1"></span>
                            <i class="fa fa-list" ng-show="unit.activities"></i>
                     </a>
