@@ -7,7 +7,7 @@ TEMPLATE_DEBUG = DEBUG
 SITE_ID = 1
 SITE_NAME = 'Marca da instituição'
 ALLOWED_HOSTS = [
-    'timtec-demo.hacklab.com.br',
+    'demo.hacklab.com.br',
     '.timtec.com.br',
 ]
 
