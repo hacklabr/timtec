@@ -17,7 +17,7 @@ from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
                         LessonViewSet, StudentProgressViewSet,
                         UserNotesViewSet, CoursesView,
                         ProfessorMessageViewSet, CourseStudentViewSet,
-                        TwitterApi, AcceptTermsView)
+                        AcceptTermsView)
 
 from activities.views import AnswerViewSet
 from accounts.views import TimtecUserViewSet
@@ -75,8 +75,6 @@ urlpatterns = patterns(
 
     # Services
     url(r'^api/', include(router.urls)),
-    url(r'^api/twitter/?$', TwitterApi.as_view(), name='twitter'),
-
     # Forum
     url(r'^forum/(?P<course_slug>[-a-zA-Z0-9_]+)/$', CourseForumView.as_view(), name='forum'),
     url(r'^forum/question/(?P<slug>[-a-zA-Z0-9_]+)/$', QuestionView.as_view(), name='forum_question'),
@@ -108,6 +106,12 @@ urlpatterns = patterns(
     url(r'^markdown/', include('django_markdown.urls')),
 
 )
+
+if settings.TWITTER_USER != '':
+    from core.views import TwitterApi
+
+    urlpatterns += url(r'^api/twitter/?$', TwitterApi.as_view(), name='twitter'),
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
