@@ -5,38 +5,23 @@
         .service('youtubePlayerApi', ['$window', '$document', '$rootScope', '$log', '$q',
             function ($window, $document, $rootScope, $log, $q) {
 
-                var service = $rootScope.$new(true);
-                service.playerId = null;
-                service.player = null;
-                service.videoId = null;
-                service.events = {};
-                service.autoplay = 0;
-                service.playerHeight = '423';
-                service.playerWidth = '750';
-
-                // we will create player after bindVideoPlayer promise
-                var bindVideoPlayerDeferred = $q.defer();
-                var playerDeffered = $q.defer();
-                var playerCreated = false;
-
-                service.loadLibrary = function() {
-                    // <script src="//www.youtube.com/iframe_api"></script>
-                    this.libraryDeferred = $q.defer();
-                    window.onYouTubeIframeAPIReady = function() {
-                        service.libraryDeferred.resolve(window.YT);
-                    };
-
-                    if(!window.YT) {
-                        var script = $document[0].createElement('script');
-                        script.type = 'text/javascript';
-                        script.src = '//www.youtube.com/iframe_api';
-                        $document[0].body.appendChild(script);
-                    } else {
-                        this.libraryDeferred.resolve(window.YT);
-                    }
-
-                    return this.libraryDeferred.promise;
+                var deffered = $q.defer();
+                window.onYouTubeIframeAPIReady = function() {
+                    deffered.resolve(window.YT);
                 };
+
+                if(!window.YT) {
+                    var tag = $document[0].createElement('script');
+                    tag.src = 'https://www.youtube.com/iframe_api';
+                    var firstScriptTag = $document[0].getElementsByTagName('script')[0];
+                    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+                } else {
+                    deffered.resolve(window.YT);
+                }
+
+                return deffered.promise;
+
+
 
                 service.bindVideoPlayer = function (elementId) {
                     $log.info('Binding to player ' + elementId);
@@ -99,16 +84,49 @@
         .directive('youtubePlayer', ['youtubePlayerApi',
             function (youtubePlayerApi) {
                 return {
-                    restrict:'A',
+                    restrict:'E',
+                    scope: {
+                        playerHeight: '=',
+                        playerWidth: '=',
+                        onReady: '&',
+                        videoId: '='
+                    },
+                    controller: function ($scope) {
+                        $scope.events = {};
+                        $scope.autoplay = 0;
+                        $scope.playerHeight = '423';
+                        $scope.playerWidth = '750';
+                        $scope.$watch('videoId', function (newVal) {
+                            $scope.player.cueVideo(newVal);
+                        });
+                        youtubePlayerApi.then(function (api) {
+                            $scope.player = new api.Player($scope.playerId, {
+                                height: $scope.playerHeight,
+                                width: $scope.playerWidth,
+                                videoId: $scope.videoId,
+                                playerVars: {
+                                    autoplay: $scope.autoplay,
+                                    color: 'white',
+                                    fs: 1,
+                                    modestbranding: 1,
+                                    rel: 0,
+                                    showinfo: 0,
+                                    theme: 'light',
+                                    wmode: 'opaque'
+                                },
+                                events: $scope.events
+                            });
+                        });
+                    },
                     link:function (scope, element, attrs) {
-                        if(attrs.playerHeight) {
-                            youtubePlayerApi.playerHeight = attrs.playerHeight;
-                        }
-                        if(attrs.playerWidth) {
-                            youtubePlayerApi.playerWidth = attrs.playerWidth;
-                        }
-
-                        youtubePlayerApi.bindVideoPlayer(element[0].id);
+                        scope.player = youtubePlayerApi.createPlayer(element[0].id, {
+                            height: scope.playerHeight,
+                            width: scope.playerWidth,
+                            videoId: scope.videoId,
+                            events: {
+                                onReady: scope.onReady
+                            }
+                        });
                     }
                 };
             }]);
