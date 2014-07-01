@@ -2,6 +2,11 @@ import pytest
 from django.conf import settings
 
 
+def pytest_addoption(parser):
+    parser.addoption("--collectstatic", action="store_true",
+                     help="run slow collectstatic test")
+
+
 def create_user(username):
     """A Django common user"""
     email = username + '@example.com'

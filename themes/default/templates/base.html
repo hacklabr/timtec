@@ -54,8 +54,8 @@
 
             $(document).ready(function() {
                 $('.has-tooltip').tooltip();
-                $(document).on('DOMNodeInserted','#player-outter', resize_player);
                 {% if not in_admin %}
+                    $(document).on('DOMNodeInserted','#player-outter', resize_player);
                     resize_player();
                 {% endif %}
                 resize_activation_wrapper();
