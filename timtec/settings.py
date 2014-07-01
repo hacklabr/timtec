@@ -139,7 +139,7 @@ STATICFILES_FINDERS = (
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
-PIPELINE_JS_COMPRESSOR = 'timtec.ngminyuglify.NgminYuglifyCompressor'
+PIPELINE_JS_COMPRESSOR = 'timtec.ngmincombo.NgminComboCompressor'
 
 PIPELINE_COMPILERS = (
     'pipeline.compilers.less.LessCompiler',
