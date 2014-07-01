@@ -1026,7 +1026,7 @@ a, a:hover, a:active {
         }
       }
 
-      .video {
+      .video, .activity {
         border: 0;
         margin-top: 20px;
 
@@ -1039,8 +1039,9 @@ a, a:hover, a:active {
         @media (max-width: @screen-xs-max) {
           margin-top: 86px;
         }
-        .current-video {
+        .current-video, .add-activity {
           border: 1px solid @gray-lighter;
+          overflow: hidden;
         }
       }
 
@@ -1087,7 +1088,7 @@ a, a:hover, a:active {
 
       .centered {
         .vertical-align(middle);
-        //width:400px;
+        width: 98%;
       }
 
       .icon-youtube-play {

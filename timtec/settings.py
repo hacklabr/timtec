@@ -30,6 +30,7 @@ MANAGERS = (ADMINS[1],)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'localhost'
 DEFAULT_FROM_EMAIL = 'donotreply-dev@m.timtec.com.br'
+CONTACT_RECIPIENT_LIST = ['timtec-dev@listas.hacklab.com.br', ]
 
 DATABASES = {
     'default': {
@@ -138,7 +139,7 @@ STATICFILES_FINDERS = (
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
-PIPELINE_JS_COMPRESSOR = 'timtec.ngminyuglify.NgminYuglifyCompressor'
+PIPELINE_JS_COMPRESSOR = 'timtec.ngmincombo.NgminComboCompressor'
 
 PIPELINE_COMPILERS = (
     'pipeline.compilers.less.LessCompiler',
