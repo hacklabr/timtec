@@ -161,9 +161,9 @@ ng-app="edit-lesson"
             <!-- END VIDEO SECTION -->
 
             <!-- ACTIVITIES SECTION -->
-            <div class="activity" ng-show="section==='activity'">
+            <div class="activity col-sm-8" ng-show="section==='activity'">
                 <div class="row">
-                    <div class="col-sm-12 col-lg-12 panel panel-default" ng-show="currentActivity">
+                    <div class="panel panel-default" ng-show="currentActivity">
                         <div class="panel-heading clearfix">
                             <span ng-repeat="activity in currentUnit.activities">
                                 <button class="btn btn-default"
@@ -189,14 +189,13 @@ ng-app="edit-lesson"
                         </div>
                     </div>
 
-                    <div class="add-activity col-sm-12 col-lg-12 textcenter" ng-hide="currentActivity">
+                    <div class="add-activity textcenter" ng-hide="currentActivity">
                         <!-- CENTERED -->
                         <div class="centered">
                             <i class="fa fa-pencil fa-4x"></i>
                             <h1 class="top">{% trans 'Unit activity' %}</h1>
-                            <div class="form-group row">
                                 {% verbatim %}
-                                <p class="col-sm-4 col-lg-4" ng-repeat="type in activityTypes">
+                                <p class="col-md-4 col-sm-12" ng-repeat="type in activityTypes">
                                     <label class="btn btn-default"
                                            ng-class="{'btn-info':$parent.newActivityType===type.name}"
                                            for="new-activity-type-{{type.name}}">{{type.label}}</label>
@@ -204,7 +203,6 @@ ng-app="edit-lesson"
                                            ng-model="$parent.newActivityType" value="{{type.name}}"/>
                                 </p>
                                 {% endverbatim %}
-                            </div>
                             <div>
                                 <button class="btn btn-success btn-lg uppercase"
                                         ng-disabled="!newActivityType"
