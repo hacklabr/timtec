@@ -17,12 +17,12 @@ from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
                         LessonViewSet, StudentProgressViewSet,
                         UserNotesViewSet, CoursesView,
                         ProfessorMessageViewSet, CourseStudentViewSet,
-                        TwitterApi, AcceptTermsView)
+                        AcceptTermsView)
 
 from activities.views import AnswerViewSet
 from accounts.views import TimtecUserViewSet
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, QuestionVoteViewSet, AnswerVoteViewSet
-from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialAdminView, CourseMaterialViewSet
+from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialViewSet
 from notes.views import NotesViewSet, CourseNotesView, UserNotesView
 from reports.views import UserCourseStats, CourseStatsByLessonViewSet
 from rest_framework import routers
@@ -75,8 +75,6 @@ urlpatterns = patterns(
 
     # Services
     url(r'^api/', include(router.urls)),
-    url(r'^api/twitter/?$', TwitterApi.as_view(), name='twitter'),
-
     # Forum
     url(r'^forum/(?P<course_slug>[-a-zA-Z0-9_]+)/$', CourseForumView.as_view(), name='forum'),
     url(r'^forum/question/(?P<slug>[-a-zA-Z0-9_]+)/$', QuestionView.as_view(), name='forum_question'),
@@ -85,7 +83,6 @@ urlpatterns = patterns(
     # Course Material
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/material/file_upload/$', FileUploadView.as_view(), name='file_upload'),
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/material/$', CourseMaterialView.as_view(), name='course_material'),
-    url(r'^admin/course/(?P<pk>[0-9]*)/material/$', CourseMaterialAdminView.as_view(), name='course_material_admin'),
 
     # Notes
     url(r'^notes/(?P<username>[\w.+-]+)?$', UserNotesView.as_view(), name='user_notes'),
@@ -109,6 +106,12 @@ urlpatterns = patterns(
     url(r'^markdown/', include('django_markdown.urls')),
 
 )
+
+if settings.TWITTER_USER != '':
+    from core.views import TwitterApi
+
+    urlpatterns += url(r'^api/twitter/?$', TwitterApi.as_view(), name='twitter'),
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

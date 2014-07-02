@@ -3,13 +3,13 @@
 {% load i18n %}
 {% load compressed %}
 
-{% block head %}
+{% block js %}
     {{ block.super }}
     {% compressed_js 'core' %}
 {% endblock %}
 
 {% block content %}
-        
+
     <div id="home" ng-app="core" ng-controller="HomeCtrl">
         <div id="highlight">
             <!--<nav class="nav-left">
@@ -89,5 +89,5 @@
     </div><!-- #home -->
 
 </div>
-        
+
 {% endblock %}

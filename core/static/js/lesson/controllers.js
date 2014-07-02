@@ -78,13 +78,17 @@
                             // Initialize empty given answer
                             if(angular.isArray($scope.currentActivity.expected)) {
                                 answer.given = $scope.currentActivity.expected.map(function(){});
-                                delete answer.correct;
                             }
+                            delete answer.correct;
                         }
                     },
-                    function (answer) {
-                        console.log('resposta não existe ainda ou outro erro');
-                        $scope.answer = new Answer({given: $scope.currentActivity.expected.map(function(){})});
+                    function (error) {
+                        console.log('answer does not exists or other errors');
+                        var answer = {};
+                        if(angular.isArray($scope.currentActivity.expected)) {
+                            answer.given = $scope.currentActivity.expected.map(function(){});
+                        }
+                        $scope.answer = new Answer(answer);
                     });
                 } else {
                     $scope.currentActivity = null;

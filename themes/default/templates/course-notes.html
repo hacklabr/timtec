@@ -3,7 +3,7 @@
 {% load compressed %}
 {% load staticfiles %}
 
-{% block head %}
+{% block js %}
     {{ block.super }}
     {% compressed_js 'notes' %}
 {% endblock %}
@@ -13,7 +13,7 @@
 <div id="my-notes" class="course-notes" ng-app="notes" ng-controller="CourseNotesCtrl">
 
     {% include "_course-header-inline.html"  with course=course question_form=false %}
-    
+
     <section id="notes-content" class="container">
 
         <header>
@@ -31,7 +31,7 @@
             <p ng-if="lessons.length == 0">
                 {% trans "You have not made any notes yet." %}
             </p>
-            
+
             {% verbatim angularjs %}
             <div id="lesson-{{ lesson.position }}" class="lesson" ng-repeat="lesson in lessons">
                 <h1><span>Aula</span> <a href="/course/{{lesson.course}}/lesson/{{lesson.slug}}">{{ lesson.name }}</a></h1>

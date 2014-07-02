@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load staticfiles %}
 
-{% block head %}
+{% block js %}
     {{ block.super }}
     <script>
     // FIXME refactor this to angular
@@ -20,7 +20,7 @@
     <!-- HEADER -->
     {% include "_course-header-inline.html"  with course=course %}
     <!-- END HEADER -->
-    
+
     <!-- MAIN CONTENT -->
     <section id="forum-content" class="container">
         <header>
@@ -31,7 +31,7 @@
         <form class="forum-form" action="{% url 'forum_question_create' course.slug %}" method="post">
             {% csrf_token %}
             {{ form.non_field_errors }}
-            
+
             <div class="form-group">
                 <input id="id-title" name="title" type="text" class="form-control" placeholder="Qual é a sua dúvida?">
             </div>

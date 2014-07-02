@@ -7,6 +7,7 @@
         'ngResource',
         'django',
         'twitterFilters',
+        'ui.bootstrap',
     ]);
 
 })(angular);

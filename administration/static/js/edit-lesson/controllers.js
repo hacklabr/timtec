@@ -160,6 +160,17 @@
                 if(!$scope.currentUnit.activities) $scope.currentUnit.activities = [];
 
                 var type = $scope.newActivityType;
+                var expected;
+                switch (type) {
+                    case 'simplechoice':
+                        expected = 0;
+                        break;
+                    case 'html5':
+                        expected = '';  // shouldn't it be ['']?
+                        break;
+                    default:
+                        expected = [];
+                }
                 $scope.currentActivity = {
                     'type': type,
                     'data': {
@@ -168,7 +179,7 @@
                         'column1': [],
                         'column2': []
                     },
-                    'expected': (type==='simplechoice' || type==='html5') ? '' : []
+                    'expected': expected
                 };
                 $scope.currentUnit.activities.push($scope.currentActivity);
                 $scope.newActivityType = null;

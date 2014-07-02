@@ -813,7 +813,8 @@ a, a:hover, a:active {
 // PROFILE
 // ********************************************************************* //
 #profile {
-  .top(27px,27px);
+  padding-top: 30px;
+  //.top(27px,27px);
   label.upload-avatar {
     position:relative;
     @media (max-width: @screen-xs-max) {
@@ -862,6 +863,22 @@ a, a:hover, a:active {
     a:hover {
       background-color: darken(@gray, 5%);
       color: #fff;
+    }
+    .navbar-collapse, .navbar-inverse .navbar-form {
+      border-top-color: #444;
+    }
+    .navbar-divider {
+      border-top: 1px solid #444;
+      @media (min-width: @screen-sm-min) {
+        border-right: 1px solid #444;
+      }
+    }
+    .navbar-toggle {
+      border-color: #666;
+      &:hover,
+      &:focus {
+        background-color: #444;
+      }
     }
   }
 
@@ -948,15 +965,6 @@ a, a:hover, a:active {
   // COURSE, FORUM
   #course,
   #forum {
-    // HEADER - Admin
-    // ********************************************************************* //
-    header {
-      margin-bottom: 20px;
-      margin-top: -20px;
-    }
-    // END HEADER
-
-
     // ACTIONS - Admin
     // ********************************************************************* //
     .actions {
@@ -993,12 +1001,6 @@ a, a:hover, a:active {
     }
     // END ACTIONS
 
-    &.course-intro {
-      .add-content {
-        margin-top: -18px;
-      }
-    }
-
     nav.lesson-units {
       margin-bottom: 10px !important;
     }
@@ -1018,7 +1020,7 @@ a, a:hover, a:active {
         }
       }
 
-      .video {
+      .video, .activity {
         border: 0;
         margin-top: 20px;
 
@@ -1031,8 +1033,9 @@ a, a:hover, a:active {
         @media (max-width: @screen-xs-max) {
           margin-top: 86px;
         }
-        .current-video {
+        .current-video, .add-activity {
           border: 1px solid @gray-lighter;
+          overflow: hidden;
         }
       }
 
@@ -1079,7 +1082,7 @@ a, a:hover, a:active {
 
       .centered {
         .vertical-align(middle);
-        //width:400px;
+        width: 98%;
       }
 
       .icon-youtube-play {
@@ -1515,7 +1518,7 @@ a, a:hover, a:active {
   // COURSE UNITS - General
   // ********************************************************************* //
   .units {
-    margin-top: 20px;
+    //margin-top: 20px;
     .unit {
       background:@gray-lighter - 20%;
       .box-shadow(inset -1px 0 0 #fff);
@@ -1926,11 +1929,11 @@ a, a:hover, a:active {
         margin: 20px 0 0  0;
         padding: 0;
         li {
-          border-bottom: 1px solid @gray-light;
+          border-bottom: 1px solid @gray-lighter;
           margin-bottom: 20px;
           padding-bottom: 20px;
           &:first-child {
-            border-top: 1px solid @gray-light;
+            border-top: 1px solid @gray-lighter;
             margin-top: 10px;
             padding-top: 10px;
           }

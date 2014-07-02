@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-        
+
         <div id="home" ng-app="core" ng-controller="HomeCtrl">
 
             <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
@@ -44,7 +44,7 @@
                         <div class="col-lg-4 col-md-4 hidden-sm hidden-xs">
 
                             <div class="row">
-                                
+
                                 <section class="twitter col-lg-10 col-lg-offset-2 col-md-11 col-md-offset-1" role="complementary">
 
                                     <div class="row">
@@ -71,7 +71,7 @@
                                     </div>
                                 </section><!-- .twitter -->
                             </div>
-                            
+
                         </div><!-- .col-md-3 -->
 
                     </div><!-- .row -->
@@ -80,36 +80,27 @@
                 <aside class="next-videos hidden-sm hidden-xs" role="complementary">
 
                     <div class="container">
-                            
-                        <div class="row">
+                        <h3>Próximos <span>lançamentos</span></h3>
 
-                            <!--
-                                <div class="prev"></div>
-                                <div class="next"></div>
-                             -->
-                            <div class="slider">
 
-                                <h3><a href="#">Próximos <span>lançamentos</span></a></h3>
-                                <div class="row">
-                                    {% verbatim %}
-                                    <div class="video col-lg-4 col-md-4" ng-repeat="course in upcoming_courses">
+                        <div class="slider">
+                            {% verbatim %}
+                            <carousel>
+                                <slide ng-repeat="row in upcoming_courses_rows_3">
+                                    <div class="col-lg-4 col-md-4" ng-repeat="course in row">
                                         <a ng-href="/course/{{ course.slug }}">
-                                            <div class="col-lg-4 col-md-4 left right">
+                                            <div class="col-lg-6 col-md-6">
                                                 <div class="thumb">
-                                                    <img ng-src="{{ course.home_thumbnail_url }}" class="img-responsive">
+                                                    <img ng-src="{{ course.home_thumbnail_url }}">
                                                 </div>
                                             </div>
-                                        </a>
-                                        <a ng-href="/course/{{ course.slug }}">
-                                            <h4 class="col-lg-8 col-md-8">{{ course.name }}</h4>
+                                            <h4 class="col-lg-6 col-md-6">{{ course.name }}</h4>
                                         </a>
                                     </div>
-                                    {% endverbatim %}
-                                </div>
-                            </div>
-
-
-                        </div><!-- .row -->
+                                </slide>
+                            </carousel>
+                            {% endverbatim %}
+                        </div>
 
                     </div><!-- .container -->
 
@@ -118,5 +109,5 @@
             </section><!-- .content -->
 
         </div><!-- #home -->
-        
+
 {% endblock %}

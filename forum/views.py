@@ -11,6 +11,7 @@ from forum.forms import QuestionForm
 from forum.serializers import QuestionSerializer, AnswerSerializer, QuestionVoteSerializer, AnswerVoteSerializer
 from forum.permissions import HideQuestionPermission
 from rest_framework import viewsets
+from administration.views import AdminMixin
 
 
 class CourseForumView(LoginRequiredMixin, ListView):
@@ -29,7 +30,7 @@ class CourseForumView(LoginRequiredMixin, ListView):
         return context
 
 
-class AdminCourseForumView(LoginRequiredMixin, ListView):
+class AdminCourseForumView(AdminMixin, ListView):
     context_object_name = 'questions'
     template_name = "forum_admin.html"
 
