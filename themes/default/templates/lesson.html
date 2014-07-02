@@ -8,6 +8,7 @@
 {% block js %}
 {{ block.super }}
 {% compressed_js 'lesson' %}
+<script type="text/javascript" src="{% static 'js/introjs/lesson.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -23,6 +24,8 @@ $(document).ready(function() {
         $(this).tab('show');
     })
     $('a.unit').tooltip();
+
+    startIntro();
 })
 </script>
 
@@ -46,7 +49,7 @@ $(document).ready(function() {
         </nav>
 
         <nav class="lesson-units hidden-xs">
-            <div class="btn-group">
+            <div class="btn-group" id="lesson-list-dropdown">
                 <button type="button" class="btn btn-sm btn-default">{{ lesson.name }}</button>
                 <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-chevron-down"></i>
@@ -78,7 +81,7 @@ $(document).ready(function() {
 
             {% verbatim %}
             <!-- UNITS NAVIGATION FOR TABLET AND DESKTOP -->
-            <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs">
+            <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs" id="lesson-units-nav">
                 <!-- UNITS -->
                 <div class="units">
                     <a style="display:block;" data-placement="right"
@@ -87,7 +90,6 @@ $(document).ready(function() {
                        class="has-tooltip unit track" data-toggle="tooltip"
                        ng-repeat="unit in lesson.units"
                        ng-class="{watching: unit==currentUnit, done: unit.progress.complete}">
-                           <i class="fa fa-caret-right"></i>
                            <span class="position" ng-bind="unit.position+1"></span>
                            <i class="fa fa-list" ng-show="unit.activities"></i>
                     </a>
@@ -109,7 +111,7 @@ $(document).ready(function() {
                         <option ng-repeat="unit in lesson.units"
                                 ng-value="unit"
                                 ng-selected="unit==currentUnit"
-                                value="{{$index+1}}">{% trans 'Unit' %} {{ unit.position + 1 }}</option>
+                                value="{{$index+1}}">{% endverbatim %}{% trans 'Unit' %}{% verbatim %} {{ unit.position + 1 }}</option>
                     </select>
                 </p>
             </div>
@@ -149,7 +151,7 @@ $(document).ready(function() {
             <!-- div ng-view></div -->
 
             <!-- NOTES -->
-            <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
+            <div class="col-lg-3 col-md-3 hidden-sm hidden-xs" id="student-notes">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#notes" data-toggle="tab">{% trans 'Annotations' %}</a></li>
                 </ul>
@@ -164,7 +166,7 @@ $(document).ready(function() {
         <div class="row">
             <div class="col-lg-8 col-sm-10 col-lg-offset-1 col-sm-offset-1">
                 <!-- SIDENOTES -->
-                <div class="side-notes">
+                <div class="side-notes" id="materials">
                     <div class="page-header-double">
                         <h3><i class="fa fa-angle-double-right"></i> {% trans 'Addicional materials' %}</h3>
                     </div>   
