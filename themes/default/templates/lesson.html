@@ -121,7 +121,7 @@ $(document).ready(function() {
                     <div class="video">
                         <div class="row">
                             <div id="player-outter" class="col-lg-12 col-md-12 col-sm-12">
-                                <div id="youtube-player" youtube-player></div>
+                                <youtube state-change="onStateChange($event)" videoId="youtube_id"></div>
                             </div>
                         </div>
                     </div>
@@ -160,14 +160,14 @@ $(document).ready(function() {
             <!-- END NOTES -->
         </div>
         <!-- END ROW -->
-        
+
         <div class="row">
             <div class="col-lg-8 col-sm-10 col-lg-offset-1 col-sm-offset-1">
                 <!-- SIDENOTES -->
                 <div class="side-notes">
                     <div class="page-header-double">
                         <h3><i class="fa fa-angle-double-right"></i> {% trans 'Addicional materials' %}</h3>
-                    </div>   
+                    </div>
                     <span ng-bind-html="currentUnit.side_notes|markdown"></span>
                     <p ng-if="!currentUnit.side_notes">{% trans 'This unit has no notes' %}</p>
                 </div>

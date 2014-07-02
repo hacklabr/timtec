@@ -19,10 +19,10 @@
         return STATIC_URL + '/templates/activity_'+ the_type + '.html';
     };
 
-    app.controller('MainCtrl', ['$scope', 'LessonData', 'Answer', 'Progress', '$location', 'youtubePlayerApi',
-        function ($scope, LessonData, Answer, Progress, $location, youtubePlayerApi) {
+    app.controller('MainCtrl', ['$scope', 'LessonData', 'Answer', 'Progress', '$location',
+        function ($scope, LessonData, Answer, Progress, $location) {
 
-            youtubePlayerApi.events.onStateChange = function(event){
+            $scope.onStateChange = function(event){
                 window.onPlayerStateChange.call($scope.currentUnit, event);
                 if (event.data === YT.PlayerState.ENDED) {
                     $scope.nextStep();
@@ -57,18 +57,12 @@
 
             $scope.play = function() {
                 if($scope.currentUnit.video){
-                    var youtube_id = $scope.currentUnit.video.youtube_id;
+                    $scope.youtube_id = $scope.currentUnit.video.youtube_id;
                     $scope.section = 'video';
-
-                    youtubePlayerApi.loadPlayer().then(function(player){
-                            if(player.getVideoData() &&
-                                player.getVideoData().video_id === youtube_id) return;
-                            player.cueVideoById(youtube_id);
-                    });
                 } else {
                     $scope.section = 'activity';
                 }
-                
+
             };
 
             $scope.selectActivity = function(index) {

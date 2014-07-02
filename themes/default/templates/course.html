@@ -48,7 +48,7 @@ ng-app="new-course"
         </div>
         <!-- END ACTIONS -->
     {% endif %}
-    
+
     <!-- HEADER -->
     <header class="container">
         <!-- PAGE-HEADER -->
@@ -75,7 +75,7 @@ ng-app="new-course"
                         {% include "_course-professors-inline.html" with course=course %}
                 {% endif %}
                 </div>
- 
+
                 <div class="col-md-3 col-sm-4 col-xs-12 textright">
                     {% if in_admin %}
                         <nav class="course-sections textright">
@@ -100,7 +100,7 @@ ng-app="new-course"
                             {% endif %}
                         {% endif %}
                     {% endif %}
-                   
+
                 </div>
             </div>
             <!-- END ROW -->
@@ -187,7 +187,7 @@ ng-app="new-course"
                             <div class="col-xs-12" style="overflow:hidden;"
                                  ng-style="{'margin-left': course.hasVideo() && playerReady ?'':'-2000px'}">
 
-                                <div id="youtube-player" player-height="475px" player-width="100%" youtube-player></div>
+                                <youtube height="475px" width="100%"></div>
                                 <div class="row">
                                     <div class="col-lg-10">
                                         <p class="video-title" ng-model="course.intro_video.name" placeholder="Nome do vídeo" contenteditable><p>
@@ -236,7 +236,7 @@ ng-app="new-course"
                         <!-- END ROW -->
                     </section>
                     <!-- END COURSE-VIDEO -->
-                {% endif %}              
+                {% endif %}
 
                 <!-- COURSE-INFO -->
                 <section class="course-info">
@@ -296,7 +296,7 @@ ng-app="new-course"
                         {% else %}
                             {{ course.structure|timtec_markdown }}
                         {% endif %}
-                        
+
                         <hr/>
                         <!-- END STRUCTURE -->
 
@@ -573,7 +573,7 @@ ng-app="new-course"
                     {% else %}
                         {{course.abstract|timtec_markdown}}
                     {% endif %}
-                                        
+
                     <hr/>
                     <!-- END ABSTRACT -->
 
@@ -586,7 +586,7 @@ ng-app="new-course"
                     {% else %}
                         {{course.structure|timtec_markdown}}
                     {% endif %}
-                    
+
                     <hr/>
                     <!-- END STRUCTURE -->
 
@@ -660,7 +660,7 @@ ng-app="new-course"
                             {% endfor %}
                             {% endif %}
                         {% endif %}
-                       
+
                     </section>
                     <!-- END COURSE-INSTRUCTORS -->
                 </section>

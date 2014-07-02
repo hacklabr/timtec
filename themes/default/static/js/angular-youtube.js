@@ -1,6 +1,14 @@
 (function(angular){
     'use strict';
 
+    // from http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
+    function uuid () {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+            return v.toString(16);
+        });
+    }
+
     angular.module('youtube', ['ng'])
         .service('youtubePlayerApi', ['$window', '$document', '$rootScope', '$log', '$q',
             function ($window, $document, $rootScope, $log, $q) {
@@ -10,7 +18,7 @@
                     deffered.resolve(window.YT);
                 };
 
-                if(!window.YT) {
+                if(!angular.isDefined(window.YT)) {
                     var tag = $document[0].createElement('script');
                     tag.src = 'https://www.youtube.com/iframe_api';
                     var firstScriptTag = $document[0].getElementsByTagName('script')[0];
@@ -20,89 +28,45 @@
                 }
 
                 return deffered.promise;
-
-
-
-                service.bindVideoPlayer = function (elementId) {
-                    $log.info('Binding to player ' + elementId);
-                    service.playerId = elementId;
-                    bindVideoPlayerDeferred.resolve(elementId);
-                };
-
-                service.createPlayer = function () {
-                    playerCreated = true;
-                    $log.info('Creating a new Youtube player for DOM id ' + this.playerId + ' and video ' + this.videoId);
-
-                    bindVideoPlayerDeferred.promise
-                        .then(function(){
-                            return service.loadLibrary();
-                        })
-                        .then(function(YT){
-                            var oldOnReady = service.events.onReady;
-
-                            function newOnReady( ) {
-                                playerDeffered.resolve(service.player);
-                                if(oldOnReady) {
-                                    oldOnReady.call(null, arguments);
-                                }
-                            }
-
-                            service.events.onReady = newOnReady;
-
-                            service.player = new YT.Player(service.playerId, {
-                                height: service.playerHeight,
-                                width: service.playerWidth,
-                                videoId: service.videoId,
-                                playerVars: {
-                                    autoplay: service.autoplay,
-                                    color: 'white',
-                                    fs: 1,
-                                    modestbranding: 1,
-                                    rel: 0,
-                                    showinfo: 0,
-                                    theme: 'light',
-                                    wmode: 'opaque'
-                                },
-                                events: service.events
-                            });
-                        })['catch'](function(){
-                            playerCreated = false;
-                        });
-
-                    return playerDeffered.promise;
-                };
-
-                service.loadPlayer = function () {
-                    if(playerCreated) {
-                        return playerDeffered.promise;
-                    }
-                    return service.createPlayer();
-                };
-
-                return service;
             }])
-        .directive('youtubePlayer', ['youtubePlayerApi',
-            function (youtubePlayerApi) {
+        .directive('youtube', ['youtubePlayerApi', '$q',
+            function (youtubePlayerApi, $q) {
                 return {
                     restrict:'E',
                     scope: {
-                        playerHeight: '=',
-                        playerWidth: '=',
-                        onReady: '&',
-                        videoId: '='
+                        height: '=?',
+                        width: '=?',
+                        ready: '&?',
+                        stateChange: '&?',
+                        videoId: '=?'
                     },
                     controller: function ($scope) {
-                        $scope.events = {};
                         $scope.autoplay = 0;
-                        $scope.playerHeight = '423';
-                        $scope.playerWidth = '750';
-                        $scope.$watch('videoId', function (newVal) {
-                            $scope.player.cueVideo(newVal);
-                        });
+                        if(!angular.isDefined($scope.height))
+                            $scope.height = '423';
+                        if(!angular.isDefined($scope.width))
+                            $scope.width = '750';
+                        var events = {};
+                        if(angular.isDefined($scope.ready))
+                            events.onReady = function (event) {
+                                console.log('onReady event fired', event);
+                                $scope.$apply(function () {
+                                    $scope.ready({'$event': event});
+                                });
+                            }
+                        if(angular.isDefined($scope.stateChange))
+                            events.onStateChange = function (event) {
+                                console.log('onStateChange event fired', event);
+                                $scope.$apply(function () {
+                                    $scope.stateChange({'$event': event});
+                                });
+                            }
+
+                        $scope.playerDeffered = $q.deffered();
                         youtubePlayerApi.then(function (api) {
                             $scope.player = new api.Player($scope.playerId, {
-                                height: $scope.playerHeight,
-                                width: $scope.playerWidth,
+                                height: $scope.height,
+                                width: $scope.width,
                                 videoId: $scope.videoId,
                                 playerVars: {
                                     autoplay: $scope.autoplay,
@@ -114,19 +78,20 @@
                                     theme: 'light',
                                     wmode: 'opaque'
                                 },
-                                events: $scope.events
+                                events: events
                             });
+                            $scope.playerDeffered.resolve($scope.player);
+                        });
+
+                        $scope.$watch('videoId', function (newVal) {
+                            if(angular.isDefined(newVal))
+                                $scope.playerDeffered.promise.then(function (player) {
+                                    player.cueVideo(newVal);
+                                });
                         });
                     },
                     link:function (scope, element, attrs) {
-                        scope.player = youtubePlayerApi.createPlayer(element[0].id, {
-                            height: scope.playerHeight,
-                            width: scope.playerWidth,
-                            videoId: scope.videoId,
-                            events: {
-                                onReady: scope.onReady
-                            }
-                        });
+                        scope.playerId = element[0];
                     }
                 };
             }]);
