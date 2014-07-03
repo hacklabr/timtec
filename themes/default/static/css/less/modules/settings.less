@@ -1,0 +1,48 @@
+// OVERWRITE BOOTSTRAP VARIABLES AND STYLES
+// ********************************************************************* //
+
+// COLORS
+@gray-darker: lighten(#000, 13.5%); // #222
+@gray-dark: lighten(#000, 20%);   // #333
+@gray: lighten(#000, 33.5%); // #555
+@gray-light: lighten(#000, 60%);   // #999
+@gray-lighter: lighten(#000, 93.5%); // #eee
+
+@brand-primary: #3498db;
+@brand-success: #2ecc71;
+@brand-warning: #f1c40f;
+@brand-danger: #e74c3c;
+@brand-info: #3498db;
+
+
+// TYPOGRAPHY
+body { color:#333; }
+// Headings
+h1, h2, h3, h4, h5, h6 {
+  font-family:'Questrial';
+  font-weight: normal;
+}
+h1 { font-size:28px; }
+h2 { font-size:24px; }
+h3 { font-size:20px; }
+h4 { font-size:18px; }
+h5 { text-transform:uppercase; }
+h6 {
+  font-size:14px;
+  margin-bottom:0;
+  text-transform:uppercase;
+}
+
+// Links
+@link-color: @brand-info;
+@link-hover-color: darken(@link-color, 15%);
+a, a:hover, a:active {
+  text-decoration:none;
+  .transition(all .25s ease-out);
+}
+
+// Components
+@border-radius-base: 2px;
+@border-radius-large: 2px;
+@border-radius-small: 2px;
+@padding-large-vertical: 14px;

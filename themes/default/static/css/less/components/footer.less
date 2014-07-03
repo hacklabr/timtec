@@ -1,0 +1,32 @@
+// MAIN FOOTER
+// ********************************************************************* //
+#main-footer {
+  background: @brand-info;
+  margin-top: 60px;
+  padding: 40px 0;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+      display: inline-block;
+      &:after {
+        color: #fff;
+        content: "•";
+        font-size: 18px;
+        margin: 0 8px 0 10px;
+      }
+      &:last-child:after {
+        content: "";
+      }
+      a {
+        color: #fff;
+        display: inline-block;
+        cursor: pointer;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

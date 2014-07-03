@@ -1,0 +1,343 @@
+// ADMIN STYLES
+// ********************************************************************* //
+#admin {
+  // MAIN NAVBAR
+  #main-navbar.navbar-inverse {
+    background-color: @gray;
+    border-color: darken(@gray, 15%);
+    border-radius: 0;
+    a:hover {
+      background-color: darken(@gray, 5%);
+      color: #fff;
+    }
+    .navbar-collapse, .navbar-inverse .navbar-form {
+      border-top-color: #444;
+    }
+    .navbar-divider {
+      border-top: 1px solid #444;
+      @media (min-width: @screen-sm-min) {
+        border-right: 1px solid #444;
+      }
+    }
+    .navbar-toggle {
+      border-color: #666;
+      &:hover,
+      &:focus {
+        background-color: #444;
+      }
+    }
+  }
+
+  // COURSES
+  #courses {
+    .filters {
+      margin: 20px 0;
+      .checkbox, .radio {
+        input {
+          display: inline-block;
+        }
+      }
+      .filter-checkbox {
+        @media (max-width: @screen-sm-max) {
+          margin-bottom: 20px;
+        }
+      }
+      @media (max-width: @screen-xs-max) {
+        .filter-keyword, .filter-ordering, .filter-reverse {
+          margin-bottom: 10px;
+        }
+        .filter-checkbox {
+          .checkbox {
+            padding-left: 23px;
+            label {
+              display: block;
+              margin-bottom: 10px;
+            }
+          }
+        }
+      }
+
+      .filter-ordering {
+        select {
+          width: 100%;
+        }
+      }
+    }
+    #all-courses {
+      &.courses-list {
+        .course {
+          background-color: lighten(@gray-lighter, 5%);
+          border-bottom: 1px solid @gray-lighter;
+          border-top: 1px solid @gray-lighter;
+          margin-bottom: 40px;
+          h1 {
+            font-size: 18px;
+            a {
+              color: @gray-darker;
+              &:hover {
+                color: @brand-info;
+              }
+              &:hover:after {
+                content: "(Editar)";
+                font-family: @font-family-sans-serif;
+                font-size: 11px;
+                margin-left: 5px;
+                text-transform: lowercase;
+              }
+            }
+          }
+          .lessons {
+            .lesson {
+              border-top: 1px solid @gray-lighter;
+              padding: 10px 0 12px 0;
+              &:hover {
+                background-color: @gray-lighter;
+              }
+              h1 {
+                font-family: @font-family-sans-serif;
+                font-size: 12px;
+                margin-bottom: 0;
+                margin-top: 5px;
+                padding-bottom: 0;
+                padding-top: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // COURSE, FORUM
+  #course,
+  #forum {
+    // ACTIONS - Admin
+    // ********************************************************************* //
+    .actions {
+      background-color: @gray-lighter;
+      margin-bottom: 20px;
+      margin-top: -20px;
+      padding: 10px 0;
+      position: relative;
+      .status {
+        margin-left: 40px;
+        margin-right: 10px;
+      }
+      .label {
+        background-color: darken(@gray-lighter, 10%);
+        color: @gray-darker;
+        font-size: 11px;
+        font-weight: normal;
+        margin-right: -5px;
+        padding: 10px 12px;
+        text-transform: uppercase;
+      }
+      @media screen and (max-width: @screen-xs-max) {
+        margin-top: 0;
+      }
+      @media screen and (max-width: 450px) {
+        .col-xs-5, .col-xs-7 {
+          width: 100%;
+        }
+        .col-xs-7 {
+          text-align: left;
+          margin-top: 10px;
+        }
+      }
+    }
+    // END ACTIONS
+
+    nav.lesson-units {
+      margin-bottom: 10px !important;
+    }
+
+    &.course-lesson {
+      .units {
+        float: left;
+        margin: 20px 15px 0;
+        width: 60px;
+        @media (max-width: 560px) {
+          margin-top: 0;
+        }
+        @media (max-width: 400px) {
+          width: 100%;
+          padding-right: 30px;
+          margin-bottom: 10px;
+        }
+      }
+
+      .video, .activity {
+        border: 0;
+        margin-top: 20px;
+
+        @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+          width: 65%;
+        }
+        @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+          width: 88%;
+        }
+        @media (max-width: @screen-xs-max) {
+          margin-top: 86px;
+        }
+        .current-video, .add-activity {
+          border: 1px solid @gray-lighter;
+          overflow: hidden;
+        }
+      }
+
+      .add-side-notes {
+        margin-top: 20px;
+      }
+    }
+
+    // ADD CONTENT - Admin
+    // ********************************************************************* //
+    .add-content {
+      margin-bottom: 0px;
+      margin-top: 20px;
+      button {
+        font-size: 11px;
+        margin-bottom: 10px;
+        padding: 10px 20px;
+        &.delete {
+          font-size: 14px;
+          padding: 8px 20px;
+        }
+      }
+      @media (max-width: 560px) {
+        .col-xs-6 {
+          width: 100%;
+          &.textright {
+            text-align: left;
+          }
+        }
+      }
+    }
+    // END CONTENT
+
+    // ADD VIDEO, THUMBNAIL, ACTIVITIES
+    .add-video-intro, .add-thumbnail, .add-activity {
+      color:@brand-danger;
+      height:489px;
+
+      &:before {
+        content:'';
+        height:100%;
+        .vertical-align(middle);
+      }
+
+      .centered {
+        .vertical-align(middle);
+        width: 98%;
+      }
+
+      .icon-youtube-play {
+        display:block;
+        font-size:54px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .add-thumbnail {
+        .centered {
+          input {
+            width: 260px;
+          }
+        }
+      }
+    }
+
+    // ORGANIZING LESSONS AND INSTRUCTORS
+    .lessons.organizing-lessons,
+    .instructors.organizing-instructors {
+      margin-bottom: 10px;
+
+      .lesson,
+      .instructor {
+        border-bottom: 1px solid @gray-lighter;
+        margin-bottom: 0;
+        margin-top: 10px;
+        padding-bottom: 10px;
+        .title {
+          display: inline-block;
+          font-size: 14px;
+          margin-left: 10px;
+        }
+        .fa.fa-bars {
+          cursor: move;
+        }
+        .fa.fa-minus-circle {
+          cursor: pointer;
+          color: @brand-danger;
+        }
+      }
+      .submit {
+        margin-top: 10px;
+      }
+    }
+  }
+
+  #users {
+    header {
+      border-bottom: 1px solid @gray-lighter;
+      margin-bottom: 40px;
+    }
+    table {
+      tr {
+        th {
+          border-top: 0;
+          &.actions {
+            text-align: center;
+            width: 100px;
+          }
+        }
+        td {
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+
+  // CONTENT EDITABLE
+  [contenteditable] {
+    font-weight: thin;
+    padding: 3px 0 0 0;
+    &:empty {
+      background-color: lighten(@brand-danger, 40%);
+      color: @gray-light;
+      &:before {
+        background-color: none;
+      }
+    }
+    &:hover {
+      background-color: lighten(@brand-warning, 40%);
+    }
+  }
+
+  // POPUP NOTIFICATIONS
+  .tt-popup {
+      margin-left: 25%;
+      position: fixed;
+      top: 60px;
+      width: 50%;;
+      z-index: 9999;
+      // -moz-transition: top 500ms;
+      // -webkit-transition: top 500ms;
+      // -o-transition: top 500ms;
+      // transition: top 500ms;
+      &.hideTop {
+        top: -5000px;
+      }
+      .alert-success {
+        h4 {
+          font-family: @font-family-sans-serif;
+          font-size: 12px;
+          font-weight: bold;
+          margin-bottom: 0;
+        }
+      }
+      .close {
+        margin-top: -5px;
+      }
+  }
+}
