@@ -27,7 +27,6 @@
                 <li><a href="/admin/courses">{% trans 'Courses' %}</a></li>
                 <!--<li><a href="/admin/users">{% trans 'Users' %}</a></li>-->
                 <li class="navbar-divider"></li>
-                <li><a href="/">{{ site.name }}</a></li>
                 <li>
                     <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
                         {{ user }}
@@ -56,9 +55,6 @@
                         <li><a href="{% url 'profile' %}">{% trans "Profile" %}</a></li>
                         <li><a href="{% url 'profile_edit' %}">{% trans "Edit Profile and Account Settings" %}</a></li>
                         <!-- <li><a href="">{% trans "Settings" %}</a></li> -->
-                        <li class='divider'></li>
-                        <li><a href="{% url 'user_courses' %}">{% trans "My Courses" %}</a></li>
-                        <li><a href="{% url 'user_notes' %}">{% trans "My Notes" %}</a></li>
                         <li class='divider'></li>
                         <li><a href="{% url 'timtec_logout' %}">{% trans "Logout" %}</a></li>
                     </ul>
