@@ -4,7 +4,7 @@
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-SITE_ID = 1
+SITE_ID = 2
 SITE_NAME = 'Marca da instituição'
 ALLOWED_HOSTS = [
     'demo.hacklab.com.br',
@@ -25,7 +25,7 @@ STATIC_ROOT = "/home/timtec-demo/webfiles/static/"
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'localhost'
 EMAIL_SUBJECT_PREFIX = '[timtec-demo]'
-DEFAULT_FROM_EMAIL = 'timtec-demo@timtec.com.br'
+DEFAULT_FROM_EMAIL = 'donotreply@m.timtec.com.br'
 
 LOGGING = {
     'version': 1,
