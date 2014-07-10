@@ -1,7 +1,7 @@
 // NAVBAR
 // Reset inverted navbar basics
 @navbar-inverse-color:                      #fff;
-@navbar-inverse-bg:                         #001e36;
+@navbar-inverse-bg:                         @brand-primary;
 @navbar-inverse-border:                     darken(@navbar-inverse-bg, 10%);
 
 // Inverted navbar links
@@ -24,10 +24,15 @@
 #main-navbar {
   
   border-radius: 0;
-  font-family:'Questrial';
+  font-family: @font-family-base;
   .navbar-brand {
-    font-weight: bold;
-    font-size: 22px;
+    .text-hide();
+    height: 50px;
+    width: 170px;
+    background-image: url(../img/logo.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 70%;
   }
   .form-group {
     margin-bottom: 15px;
@@ -48,7 +53,7 @@
   .navbar-divider {
     @media (min-width: @screen-sm-min) {
       box-shadow: inset 1px 0 0 rgba(255,255,255,.15);
-      border-right: 1px solid #000;
+      border-right: 1px solid @brand-dark;
       height: 50px;
       width: 2px;
       margin: 0 5px;
