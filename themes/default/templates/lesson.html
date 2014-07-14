@@ -128,6 +128,11 @@ $(document).ready(function() {
                         </div>
                     </div>
                 </div>
+                <div class="row" ng-show="section=='video'">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <button class="btn btn-default" ng-click="nextStep()">Pular Video</button>
+                  </div>
+                </div>
                 <div ng-show="section=='activity'">
                     <div class="course-activity">
                         <ng:include src="activityTemplateUrl"></ng:include>
