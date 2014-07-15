@@ -34,7 +34,7 @@
                     <a ng-href="/course/{{ course.slug }}" class="course-link">
                         <div class="thumb-wrapper">
                             <span class="mouseover"></span>
-                            <span class="thumb" style="background-image: url({{ course.home_thumbnail_url }})"></span>
+                            <span class="thumb" ng-style="{'background-image': 'url(' + course.home_thumbnail_url + ')'}"></span>
                         </div>
                         <div class="info">
                             <h3>{{ course.name }}</h3>

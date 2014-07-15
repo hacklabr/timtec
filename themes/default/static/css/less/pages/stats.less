@@ -1,0 +1,91 @@
+// STATS
+// ********************************************************************* //
+#stats {
+  #stats-content {
+    header {
+      border-bottom: 1px solid @gray-lighter;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      h1 {
+        margin-top: 25px;
+      }
+    }
+    .search-filter {
+      margin-top: 20px;
+    }
+    #students {
+      ul.students {
+        list-style: none;
+        margin: 20px 0 0  0;
+        padding: 0;
+        li {
+          border-bottom: 1px solid @gray-lighter;
+          margin-bottom: 20px;
+          padding-bottom: 20px;
+          &:first-child {
+            border-top: 1px solid @gray-lighter;
+            margin-top: 10px;
+            padding-top: 10px;
+          }
+          .progress {
+            background: @gray-lighter;
+            border-radius: 0;
+            height: 12px;
+            margin: 4px 0 0 0;
+            padding: 0;
+            position: relative;
+            .progress-bar {
+              border-radius: 0;
+            }
+          }
+          .lesson {
+            border-top: 1px solid @gray-lighter;
+            margin-top: 10px;
+            padding-top: 10px;
+            &:first-child {
+              margin-top: 20px;
+            }
+            span {
+              color: @gray;
+              font-size: 12px;
+              margin-right: 20px;
+            }
+          }
+        }
+      }
+    }
+    #lessons {
+      ul.lessons {
+        list-style: none;
+        margin: 20px 0 0  0;
+        padding: 0;
+        li {
+          border-top: 1px solid @gray-lighter;
+          margin-top: 10px;
+          padding-top: 10px;
+          &:first-child {
+            border-top: 0;
+            margin-top: 0;
+            padding-top: 0;
+          }
+          .progress {
+            background: @gray-lighter;
+            border-radius: 0;
+            height: 12px;
+            margin: 4px 0 0 0;
+            padding: 0;
+            position: relative;
+            .progress-bar {
+              border-radius: 0;
+            }
+          }
+          span {
+            color: @gray;
+            font-size: 12px;
+            margin-right: 20px;
+          }
+        }
+      }
+    }
+  }
+}

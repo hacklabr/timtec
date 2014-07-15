@@ -1,0 +1,49 @@
+// MESSAGES
+// ********************************************************************* //
+#messages {
+  #messages-content {
+    header {
+      border-bottom: 1px solid @gray-lighter;
+      padding-bottom: 20px;
+      h1 {
+        margin-top: 25px;
+      }
+      a.new-message {
+        display:block;
+        margin-top: 18px;
+      }
+    }
+    .messages {
+      margin-top: 20px;
+      .message {
+        border-bottom: 1px solid @gray-lighter;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        .date {
+          font-size: 12px;
+          font-weight: bold;
+        }
+        .subject {
+          font-size: 14px;
+          font-weight: bold;
+          margin-bottom: 5px;
+        }
+        .body {
+          font-size: 13px;
+        }
+      }
+    }
+  }
+  .students {
+    font-size: 12px;
+    max-height: 300px;
+    overflow: auto;
+    position: relative;
+    .student {
+      height: 22px;
+      margin-bottom: 5px;
+      overflow: hidden;
+      position: relative;
+    }
+  }
+}
