@@ -16,14 +16,24 @@ ng-app="courses"
 {% block content %}
 <!-- COURSES -->
 <section id="courses" class="container" ng-controller="CourseListController">
+
+    <!-- ACTIONS -->
+    <div class="actions" fixed-bar>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-offset-5 col-xs-7 textright">
+                    <a class="btn btn-success" href="/admin/courses/new">{% trans 'New course' %} | <i class="fa fa-save"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END ACTIONS -->
+
     <!--  HEADER -->
     <header>
         <div class="row">
             <div class="col-lg-6">
                 <h1>{% trans 'Courses' %}</h1>
-            </div>
-            <div class="col-lg-6 textright">
-                <a href="/admin/courses/new" class="btn btn-lg btn-success uppercase">{% trans 'New course' %}</a>
             </div>
         </div>
     </header>

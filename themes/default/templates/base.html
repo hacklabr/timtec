@@ -54,10 +54,10 @@
 
             $(document).ready(function() {
                 $('.has-tooltip').tooltip();
-                {% if not in_admin %}
-                    $(document).on('DOMNodeInserted','#player-outter', resize_player);
-                    resize_player();
-                {% endif %}
+                // {% if not in_admin %}
+                $(document).on('DOMNodeInserted','#player-outter', resize_player);
+                resize_player();
+                // {% endif %}
                 resize_activation_wrapper();
                 wrapper_min_height();
             });
@@ -67,10 +67,6 @@
     </script>
 </head>
 <body {% if in_admin %}id="admin"{% else %}id="notadmin"{% endif %} {% spaceless %}{% block body_attrs %}{% endblock %}{% endspaceless %}>
-    <script>
-    window.STATIC_URL = '{{ STATIC_URL }}';
-    {% if debug %}window.DEBUG = true;{% endif %}
-    </script>
 
     {% include 'header.html' %}
 
@@ -80,5 +76,26 @@
         {% endblock %}
     </div>
     {% include 'footer.html' %}
+
+{% if user.is_authenticated %}
+    <script type="text/javascript">
+    ga('set', 'dimension1', '{{ user.id }}');
+    ga('set', 'dimension2', '{{ user.get_user_type }}');
+    ga('set', 'dimension3', '{{ user.is_pilot }}');
+    </script>
+{% else %}
+    {% include 'account/login_modal.html' %}
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            var $modal = $("#login-modal");
+            var $next = $modal.find('input[name=next]');
+            $('a.js-login-required').click(function(e){
+                $next.val($(this).attr('href'));
+                $modal.modal();
+                return false;
+            });
+        });
+    </script>
+{% endif %}
 </body>
 </html>
