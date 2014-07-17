@@ -5,23 +5,22 @@
 {% load timtec_markdown %}
 
 {% if in_admin %}
-{% block js %} {{block.super}}
-<script type="text/javascript" src="{% static 'js/new-course/app.js' %}">// must be the 1º</script>
-<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}">// must be the 2º</script>
-<script type="text/javascript" src="{% static 'js/filters/text.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/new-course/directives.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/directives/contenteditable.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/directives/sortable.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/new-course/controllers.js' %}"></script>
-{% endblock %}
+    {% block js %} {{block.super}}
+    <script type="text/javascript" src="{% static 'js/new-course/app.js' %}">// must be the 1º</script>
+    <script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}">// must be the 2º</script>
+    <script type="text/javascript" src="{% static 'js/filters/text.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/new-course/directives.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/directives/contenteditable.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/directives/sortable.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/new-course/controllers.js' %}"></script>
+    {% endblock %}
 
-{% block body_attrs %}
-ng-app="new-course"
-{% endblock %}
-
+    {% block body_attrs %}
+    ng-app="new-course"
+    {% endblock %}
 {% endif %}
 
 {% block content %}
