@@ -114,4 +114,8 @@ if settings.TWITTER_USER != '':
 
 
 if settings.DEBUG:
+    import debug_toolbar
+    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+    urlpatterns += patterns('', url(r'^__debug__/', include(debug_toolbar.urls)))
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += staticfiles_urlpatterns()
