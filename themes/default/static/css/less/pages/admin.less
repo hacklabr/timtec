@@ -34,6 +34,8 @@
   // COURSES
   // ********************************************************************* //
   #courses {
+    margin-top: 0;
+    
     > header {
       border-bottom: 1px solid @gray-lighter;
     }
@@ -355,41 +357,6 @@
   // ********************************************************************* //
   #course,
   #forum {
-    // ACTIONS - Admin
-    .actions {
-      background-color: @gray-lighter;
-      margin-bottom: 20px;
-      margin-top: -20px;
-      padding: 10px 0;
-      position: relative;
-      .status {
-        margin-left: 40px;
-        margin-right: 10px;
-      }
-      .label {
-        background-color: darken(@gray-lighter, 10%);
-        color: @gray-darker;
-        font-size: 11px;
-        font-weight: normal;
-        margin-right: -5px;
-        padding: 10px 12px;
-        text-transform: uppercase;
-      }
-      @media screen and (max-width: @screen-xs-max) {
-        margin-top: 0;
-      }
-      @media screen and (max-width: 450px) {
-        .col-xs-5, .col-xs-7 {
-          width: 100%;
-        }
-        .col-xs-7 {
-          text-align: left;
-          margin-top: 10px;
-        }
-      }
-    }
-    // END ACTIONS
-
     nav.lesson-units {
       margin-bottom: 10px !important;
     }
@@ -520,7 +487,6 @@
 
   // USERS
   // ********************************************************************* //
-
   #users {
     header {
       border-bottom: 1px solid @gray-lighter;
@@ -541,6 +507,41 @@
       }
     }
   }
+
+  // ACTIONS - Admin
+  .actions {
+    background-color: @gray-lighter;
+    margin-bottom: 20px;
+    margin-top: -20px;
+    padding: 10px 0;
+    position: relative;
+    .status {
+      margin-left: 40px;
+      margin-right: 10px;
+    }
+    .label {
+      background-color: darken(@gray-lighter, 10%);
+      color: @gray-darker;
+      font-size: 11px;
+      font-weight: normal;
+      margin-right: -5px;
+      padding: 10px 12px;
+      text-transform: uppercase;
+    }
+    @media screen and (max-width: @screen-xs-max) {
+      margin-top: 0;
+    }
+    @media screen and (max-width: 450px) {
+      .col-xs-5, .col-xs-7 {
+        width: 100%;
+      }
+      .col-xs-7 {
+        text-align: left;
+        margin-top: 10px;
+      }
+    }
+  }
+  // END ACTIONS
 
   // CONTENT EDITABLE
   [contenteditable] {
