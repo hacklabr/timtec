@@ -7,6 +7,25 @@ def pytest_addoption(parser):
                      help="run slow collectstatic test")
 
 
+from pytest_django.lazy_django import django_settings_is_configured
+
+
+@pytest.fixture(autouse=True, scope='session')
+def _django_test_environment(request):
+    """
+        overwrite pytest_django/plugin.py
+    """
+    if django_settings_is_configured():
+        from django.conf import settings
+        from pytest_django.compat import (setup, setup_test_environment,
+                                          teardown_test_environment)
+        settings.DEBUG = True  # OVERWRITEN CONFIG
+        setup()
+
+        setup_test_environment()
+        request.addfinalizer(teardown_test_environment)
+
+
 def create_user(username):
     """A Django common user"""
     email = username + '@example.com'
@@ -51,7 +70,17 @@ def user(db):
     return create_user('common')
 
 
+@pytest.fixture()
+def timbrowser(browser, live_server):
+    browser.url = unicode(live_server)
+    browser.live_server = live_server
+    return browser
+
+
 def pytest_configure():
+    # removes django debug toolbar that was interfering with tests
+    settings.INTERNAL_IPS = ('',)
+
     # workaround to avoid django pipeline issue
     # refers to https://github.com/cyberdelia/django-pipeline/issues/277
     settings.STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
