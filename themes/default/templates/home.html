@@ -6,6 +6,7 @@
 {% block js %}
     {{ block.super }}
     {% compressed_js 'core' %}
+    <script type="text/javascript" src="/static/js/introjs/home.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -24,6 +25,13 @@
                 <img src="static/img/arrow-right.png">
             </nav>-->
         </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <span id="start-intro" class="btn btn-lg btn-primary btn-block">Começar tour</span>
+                </div>
+            </div>
+        </div>
         <section id="courses" class="container">
             <header>
                 <h1>Cursos em destaque</h1>
@@ -34,7 +42,7 @@
                     <a ng-href="/course/{{ course.slug }}" class="course-link">
                         <div class="thumb-wrapper">
                             <span class="mouseover"></span>
-                            <span class="thumb" style="background-image: url({{ course.home_thumbnail_url }})"></span>
+                            <span class="thumb" ng-style="{'background-image': 'url(' + course.home_thumbnail_url + ')'}"></span>
                         </div>
                         <div class="info">
                             <h3>{{ course.name }}</h3>

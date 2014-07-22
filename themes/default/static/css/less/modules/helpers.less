@@ -1,0 +1,42 @@
+// HELPERS
+// ********************************************************************* //
+
+// NO BORDERS
+
+.no-bottom-border { border-bottom: none !important; }
+.no-left-border { border-left: none !important; }
+.no-right-border { border-right: none !important; }
+.no-top-border { border-top: none !important; }
+
+// ALIGNS
+
+.alignleft  { float:left; }
+.alignright { float:right; }
+.textcenter { text-align:center; }
+.textleft   { text-align:left; }
+.textright  { text-align:right; }
+.uppercase  { text-transform:uppercase !important; }
+.capitalize { text-transform:capitalize !important; }
+.bottom     { .bottom(0,0); }
+.left       { .left(0,0); }
+.right      { .right(0,0); }
+.top        { .top(0,0); }
+.no-bullet  { .left(0,0); list-style:none; }
+.hidden     { display:none !important; }
+
+// POINTER CURSOR
+
+.pointer {
+  cursor: pointer;
+}
+
+// ERROR MESSAGE
+
+.has-error {
+  text-align:left;
+  small {
+    color:@brand-danger;
+    font-family:@font-family-sans-serif;
+    text-align:left;
+  }
+}

@@ -52,6 +52,9 @@ update-dev:
 	$(call reset_media)
 	$(call base_update,timtec_dev)
 
+update-demo:
+	$(call base_update,demo)
+
 update-staging:
 	$(call resetdb_to_backup,timtec-staging)
 	$(call reset_media)
@@ -65,13 +68,13 @@ update-production:
 	$(call base_update,production)
 
 test_collectstatic: clean
-	python manage.py collectstatic --noinput -n
+	py.test --collectstatic tests/test_collectstatic.py
 
 clean:
 	find . -type f -name '*.py[co]' -exec rm {} \;
 
 python_tests: clean
-	py.test --pep8 --flakes --tb=native --reuse-db --cov . . $*
+	py.test --pep8 --flakes --splinter-webdriver=phantomjs --reuse-db --cov . . $*
 
 js_tests:
 	find . -path ./bower_components -prune -o -path bower_components/ -prune -o -path ./node_modules -prune -o -regex ".*/vendor/.*" -prune -o -name '*.js' -exec jshint {} \;
@@ -79,7 +82,7 @@ js_tests:
 karma_tests:
 	karma start confkarma.js $*
 
-all_tests: clean test_collectstatic python_tests karma_tests js_tests
+all_tests: clean python_tests karma_tests js_tests test_collectstatic
 
 setup_ci:
 	psql -c 'create database timtec_ci;' -U postgres
@@ -94,7 +97,7 @@ setup_coveralls:
 	pip install -q coveralls
 
 setup_js:
-	sudo `which npm` install -g less yuglify uglifyjs karma karma-cli karma-phantomjs-launcher karma-jasmine jshint ngmin grunt-cli --loglevel silent
+	sudo `which npm` install -g less yuglify uglify-js cssmin karma karma-cli karma-phantomjs-launcher karma-jasmine jshint ngmin grunt-cli --loglevel silent
 	sudo npm install grunt grunt-angular-gettext
 
 setup_django: clean

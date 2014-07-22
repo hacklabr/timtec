@@ -1,0 +1,38 @@
+// PROFILE
+// ********************************************************************* //
+#profile {
+  padding-top: 30px;
+  //.top(27px,27px);
+  label.upload-avatar {
+    position:relative;
+    @media (max-width: @screen-xs-max) {
+      width: 100%;
+    }
+
+    &:hover span {
+      display:block;
+    }
+    span {
+      background:rgba(0,0,0,.8);
+      bottom:0px;
+      color:#fff;
+      cursor:pointer;
+      display:none;
+      font-size:13px;
+      font-weight:normal;
+      left: 0;
+      padding:3px 9px;
+      position:absolute;
+
+      @media (max-width: @screen-xs-max) {
+        left: 50%;
+        right: initial;
+        margin-left: -133px;
+      }
+    }
+  }
+  .thumbnail {
+    max-width: 266px;
+    margin: 0 auto 30px;
+  }
+}

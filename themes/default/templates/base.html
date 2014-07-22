@@ -13,7 +13,6 @@
     {% compressed_css 'common' %}
     {% compressed_css 'public' %}
 
-
     <script>
         window.STATIC_URL = '{{ STATIC_URL }}';
         window.MEDIA_URL = '{{ MEDIA_URL }}';
@@ -54,23 +53,29 @@
 
             $(document).ready(function() {
                 $('.has-tooltip').tooltip();
-                $(document).on('DOMNodeInserted','#player-outter', resize_player);
+
                 {% if not in_admin %}
+                    $(document).on('DOMNodeInserted','#player-outter', resize_player);
                     resize_player();
+
+                    if ($('.course-intro').length || $('.course-lesson').length) {
+                        startIntro();
+                    }
                 {% endif %}
+
                 resize_activation_wrapper();
                 wrapper_min_height();
+
+                $('#start-intro').click(function(){
+                    startIntro();
+                });
             });
             $(window).resize(resize_player);
             $(window).resize(resize_activation_wrapper);
         })();
     </script>
 </head>
-<body {% if in_admin %}id="admin"{% endif %} {% spaceless %}{% block body_attrs %}{% endblock %}{% endspaceless %}>
-    <script>
-    window.STATIC_URL = '{{ STATIC_URL }}';
-    {% if debug %}window.DEBUG = true;{% endif %}
-    </script>
+<body {% if in_admin %}id="admin"{% else %}id="notadmin"{% endif %} {% spaceless %}{% block body_attrs %}{% endblock %}{% endspaceless %}>
 
     {% include 'header.html' %}
 
@@ -80,5 +85,26 @@
         {% endblock %}
     </div>
     {% include 'footer.html' %}
+
+{% if user.is_authenticated %}
+    <script type="text/javascript">
+    ga('set', 'dimension1', '{{ user.id }}');
+    ga('set', 'dimension2', '{{ user.get_user_type }}');
+    ga('set', 'dimension3', '{{ user.is_pilot }}');
+    </script>
+{% else %}
+    {% include 'account/login_modal.html' %}
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            var $modal = $("#login-modal");
+            var $next = $modal.find('input[name=next]');
+            $('a.js-login-required').click(function(e){
+                $next.val($(this).attr('href'));
+                $modal.modal();
+                return false;
+            });
+        });
+    </script>
+{% endif %}
 </body>
 </html>
