@@ -8,7 +8,9 @@
 {% block js %}
 {{ block.super }}
 {% compressed_js 'lesson' %}
-{# <script type="text/javascript" src="{% static 'js/introjs/lesson.js' %}"></script> #}
+
+<script type="text/javascript" src="{% static 'js/introjs/lesson.js' %}"></script>
+
 {% endblock %}
 
 {% block content %}
@@ -25,8 +27,8 @@ $(document).ready(function() {
     })
     $('a.unit').tooltip();
 
-    // startIntro();
-})
+    startIntro();
+
 </script>
 
 <!-- COURSE -->

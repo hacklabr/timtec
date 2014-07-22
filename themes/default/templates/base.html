@@ -13,7 +13,6 @@
     {% compressed_css 'common' %}
     {% compressed_css 'public' %}
 
-
     <script>
         window.STATIC_URL = '{{ STATIC_URL }}';
         window.MEDIA_URL = '{{ MEDIA_URL }}';
@@ -54,12 +53,22 @@
 
             $(document).ready(function() {
                 $('.has-tooltip').tooltip();
-                // {% if not in_admin %}
-                $(document).on('DOMNodeInserted','#player-outter', resize_player);
-                resize_player();
-                // {% endif %}
+
+                {% if not in_admin %}
+                    $(document).on('DOMNodeInserted','#player-outter', resize_player);
+                    resize_player();
+
+                    if ($('.course-intro').length || $('.course-lesson').length) {
+                        startIntro();
+                    }
+                {% endif %}
+
                 resize_activation_wrapper();
                 wrapper_min_height();
+
+                $('#start-intro').click(function(){
+                    startIntro();
+                });
             });
             $(window).resize(resize_player);
             $(window).resize(resize_activation_wrapper);
