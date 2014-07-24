@@ -3,12 +3,14 @@
 
     var app = angular.module('lesson.controllers', []);
 
-    app.controller('MainCtrl', ['$scope', 'LessonData', 'Answer', 'Progress', '$location', 'youtubePlayerApi', 'resolveActivityTemplate',
-        function ($scope, LessonData, Answer, Progress, $location, youtubePlayerApi, resolveActivityTemplate) {
+    app.controller('MainCtrl', ['$scope', 'LessonData', 'Answer', 'Progress', '$location', 'resolveActivityTemplate',
+        function ($scope, LessonData, Answer, Progress, $location, resolveActivityTemplate) {
 
             window.ga = window.ga || function(){};
+            $scope.youtube_id = 0;
 
-            youtubePlayerApi.events.onStateChange = function(event){
+            $scope.onStateChange = function(event){
+                console.log('trocou');
                 window.onPlayerStateChange.call($scope.currentUnit, event);
                 if (event.data === YT.PlayerState.ENDED) {
                     $scope.nextStep();
@@ -42,19 +44,14 @@
             };
 
             $scope.play = function() {
+                // console.log('youtube_id', youtube_id);
                 if($scope.currentUnit.video){
-                    var youtube_id = $scope.currentUnit.video.youtube_id;
+                    $scope.youtube_id = $scope.currentUnit.video.youtube_id;
+                    console.log('youtube_id', $scope.youtube_id);
                     $scope.section = 'video';
-
-                    youtubePlayerApi.loadPlayer().then(function(player){
-                            if(player.getVideoData() &&
-                                player.getVideoData().video_id === youtube_id) return;
-                            player.cueVideoById(youtube_id);
-                    });
                 } else {
                     $scope.section = 'activity';
                 }
-
             };
 
             $scope.selectActivity = function(index) {

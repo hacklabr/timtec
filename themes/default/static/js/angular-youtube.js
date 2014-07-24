@@ -10,12 +10,12 @@
     }
 
     angular.module('youtube', ['ng'])
-        .service('youtubePlayerApi', ['$window', '$document', '$rootScope', '$log', '$q',
+        .service('youtubePlayerApiB', ['$window', '$document', '$rootScope', '$log', '$q',
             function ($window, $document, $rootScope, $log, $q) {
 
-                var deffered = $q.defer();
+                var deferred = $q.defer();
                 window.onYouTubeIframeAPIReady = function() {
-                    deffered.resolve(window.YT);
+                    deferred.resolve(window.YT);
                 };
 
                 if(!angular.isDefined(window.YT)) {
@@ -24,13 +24,13 @@
                     var firstScriptTag = $document[0].getElementsByTagName('script')[0];
                     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
                 } else {
-                    deffered.resolve(window.YT);
+                    deferred.resolve(window.YT);
                 }
 
-                return deffered.promise;
+                return deferred.promise;
             }])
-        .directive('youtube', ['youtubePlayerApi', '$q',
-            function (youtubePlayerApi, $q) {
+        .directive('youtube', ['youtubePlayerApiB', '$q',
+            function (youtubePlayerApiB, $q) {
                 return {
                     restrict:'E',
                     scope: {
@@ -38,7 +38,7 @@
                         width: '=?',
                         ready: '&?',
                         stateChange: '&?',
-                        videoId: '=?'
+                        videoId: '='
                     },
                     controller: function ($scope) {
                         $scope.autoplay = 0;
@@ -47,23 +47,26 @@
                         if(!angular.isDefined($scope.width))
                             $scope.width = '750';
                         var events = {};
-                        if(angular.isDefined($scope.ready))
-                            events.onReady = function (event) {
-                                console.log('onReady event fired', event);
+                        events.onReady = function (event) {
+                            console.log('onReady event fired', event);
+                            if(angular.isDefined($scope.ready)) {
                                 $scope.$apply(function () {
                                     $scope.ready({'$event': event});
                                 });
                             }
+                            $scope.playerDeferred.resolve($scope.player);
+                        };
+
                         if(angular.isDefined($scope.stateChange))
                             events.onStateChange = function (event) {
                                 console.log('onStateChange event fired', event);
                                 $scope.$apply(function () {
                                     $scope.stateChange({'$event': event});
                                 });
-                            }
+                            };
 
-                        $scope.playerDeffered = $q.deffered();
-                        youtubePlayerApi.then(function (api) {
+                        $scope.playerDeferred = $q.defer();
+                        youtubePlayerApiB.then(function (api) {
                             $scope.player = new api.Player($scope.playerId, {
                                 height: $scope.height,
                                 width: $scope.width,
@@ -80,14 +83,17 @@
                                 },
                                 events: events
                             });
-                            $scope.playerDeffered.resolve($scope.player);
                         });
 
+
                         $scope.$watch('videoId', function (newVal) {
-                            if(angular.isDefined(newVal))
-                                $scope.playerDeffered.promise.then(function (player) {
-                                    player.cueVideo(newVal);
+                            console.log('vai', newVal);
+                            if(angular.isDefined(newVal)) {
+                                $scope.playerDeferred.promise.then(function (player) {
+                                    // console.log(player, typeof(player.cueVideoById));
+                                    player.cueVideoById(newVal);
                                 });
+                            }
                         });
                     },
                     link:function (scope, element, attrs) {

@@ -24,10 +24,11 @@ $(document).ready(function() {
     $(".nav-tabs a").click(function(e) {
         e.preventDefault();
         $(this).tab('show');
-    })
+    });
     $('a.unit').tooltip();
 
-    startIntro();
+    // startIntro();
+});
 
 </script>
 
@@ -125,7 +126,7 @@ $(document).ready(function() {
                     <div class="video">
                         <div class="row">
                             <div id="player-outter" class="col-lg-12 col-md-12 col-sm-12">
-                                <youtube state-change="onStateChange($event)" videoId="youtube_id"></div>
+                                <youtube state-change="onStateChange($event)" video-id="youtube_id"></div>
                             </div>
                         </div>
                     </div>
