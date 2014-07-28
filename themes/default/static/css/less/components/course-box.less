@@ -13,7 +13,7 @@
           cursor: pointer;
           &:hover {
             .mouseover {
-              .opacity(0.4);
+              .opacity(0);
             }
             .info {
               background-color: fade(@brand-hover, 40%);
@@ -37,7 +37,7 @@
             background-color: @brand-hover;
             display: block;
             height: 195px;
-            .opacity(0);
+            .opacity(0.4);
             position: absolute;
             .transition(all 0.25s ease);
             width: 100%;
@@ -64,7 +64,7 @@
           }
         } // .info-box
         .info { // course info
-            background-color: @brand-light;
+            background-color: @brand-transparent;
             height: 153px;
             overflow: hidden;
             padding: 15px;
