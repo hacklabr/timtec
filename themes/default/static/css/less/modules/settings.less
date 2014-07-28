@@ -59,9 +59,12 @@
 }
 
 @headings-font-family: 'pt_sansbold';
-body { color:#333;
+
+body {
+  color:#333;
   background: url(../img/bg.png) repeat;
 }
+
 // Headings
 h1, h2, h3, h4, h5, h6 {
   font-family: @headings-font-family;
@@ -76,6 +79,17 @@ h6 {
   font-size:14px;
   margin-bottom:0;
   text-transform:uppercase;
+}
+
+// Fonts
+@font-face {
+    font-family: 'Questrial';
+    src: url('../fonts/questrial/questrial-regular-webfont.eot');
+    src: url('../fonts/questrial/questrial-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/questrial/questrial-regular-webfont.woff') format('woff'),
+         url('../fonts/questrial/questrial-regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 // Links
