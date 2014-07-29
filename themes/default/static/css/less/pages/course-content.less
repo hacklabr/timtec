@@ -2,11 +2,14 @@
 #course-content {
 
   header {
-    border-bottom: 1px solid @gray-lighter;
+    border-bottom: 1px solid fade(@brand-primary, 20%);
     margin-bottom: 20px;
     padding-bottom: 20px;
     h1 {
-      margin-top: 25px;
+      color: darken(@brand-primary, 10%);
+      margin-top: 35px;
+      font-size: 24px;
+
     }
     a.goto-course {
       display:block;
@@ -25,8 +28,11 @@
   .lessons {
     margin-top: 20px;
     .lesson {
-      margin-bottom: 40px;
-      margin-top: 20px;
+      background: #fff;
+      overflow: hidden;
+      padding: 15px 0;
+      margin-bottom: 20px;
+      border-radius: @border-radius-base;
       .title {
         display:block;
         font-size: 16px;
@@ -82,7 +88,7 @@
 
     }
     h1.fullname {
-      .bottom(0,0);
+      margin-bottom: 10px;
       font-size:21px;
       text-transform:none;
     }
@@ -278,7 +284,7 @@ ul.uploaded-files-list {
   margin: 0;
   padding: 0;
   li {
-    border-bottom: 1px solid @gray-lighter;
+    border-bottom: 1px solid fade(@brand-primary, 20%);
     padding: 5px 0;
   }
 }

@@ -2,6 +2,8 @@
 // ********************************************************************* //
 
 // COLORS
+@body-bg: #eafaba;
+
 @gray-darker: lighten(#000, 13.5%); // #222
 @gray-dark: lighten(#000, 20%);   // #333
 @gray: lighten(#000, 33.5%); // #555
@@ -14,8 +16,7 @@
 @brand-danger: @gray-light;
 @brand-info: #C8DB00;
 @brand-accent: #DC241F;
-@brand-transparent:   rgba(118,185,0, .4);
-
+@brand-transparent: rgba(118,185,0, .4);
 @brand-dark: #4D5A12;
 @brand-light: #D7E9A1;
 @brand-hover: lighten(@brand-primary, 5%);
@@ -58,8 +59,6 @@
 
 }
 
-@headings-font-family: 'pt_sansbold';
-
 body {
   color:#333;
   background: url(../img/bg.png) repeat;
@@ -67,7 +66,6 @@ body {
 
 // Headings
 h1, h2, h3, h4, h5, h6 {
-  font-family: @headings-font-family;
   font-weight: normal;
 }
 h1 { font-size:28px; }

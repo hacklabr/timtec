@@ -4,8 +4,8 @@
     display: inline-block;
     height: 28px;
     span {
-      border-right: 1px solid @gray-lighter;
-      color: @gray-light;
+      border-right: 1px solid fade(@brand-primary, 20%);
+      color: darken(@brand-primary,10%);
       display: inline-block;
       font-size: 22px;
       height: 28px;
@@ -15,7 +15,7 @@
       position: relative;
       text-align: center;
       &:hover {
-        color: @brand-info;
+        color: @brand-primary;
         cursor: pointer;
         text-decoration: none;
         .transition(all 0.1s ease-out);
@@ -30,7 +30,10 @@
     nav.course-lessons {
       h1 {
         .bottom(0,0);
-        font-size: 30px;
+        color: darken(@brand-primary, 10%);
+        margin-top: 35px;
+        font-size: 24px;
+
       }
       p.description {
         color: @gray-light;

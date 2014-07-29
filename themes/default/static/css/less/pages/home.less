@@ -2,7 +2,7 @@
 // ********************************************************************* //
 
 #home {
-    @media screen and (min-width: @screen-sm-min) { margin-top: -20px; }
+    @media screen and (min-width: @screen-sm-min) { margin-top: -50px; }
     margin-bottom: -60px;
 
     // banner
@@ -72,11 +72,12 @@
 
     // page title
     header {
-      border-bottom: 1px solid @gray-lighter;
+      //border-bottom: 1px solid fade(@brand-primary, 20%);
       margin-bottom: 36px;
-      padding-bottom: 18px;
+      padding-bottom: 10px;
       h1 {
-        font-family: @headings-font-family;
+        font-family: 'amatic';
+        color: @brand-accent;
         font-size: 6.5vw;
         font-weight: normal;
         margin: 0;
@@ -135,10 +136,10 @@
         padding-bottom: 40px;
         padding-top: 40px;
         header {
-          border-bottom-color: lighten(@gray-light,20%);
+          border-bottom-color: lighten(@brand-light,10%);
         }
         .highlight {
-            border-bottom: 1px solid lighten(@gray-light,20%);
+            border-bottom: 1px solid darken(#d7e9a1,20%);
             margin-bottom: 36px;
             padding-bottom: 18px;
         }
@@ -151,11 +152,19 @@
               height: 315px;
             }
             @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max), (min-width: @screen-lg-min) {
-              height: 265px;
+              height: 342px;
+            }
+            .icon {
+              text-align: center;
+              .fa {
+                color: @brand-primary;
+                font-size: 60px;
+              }
             }
             h3 {
               font-size: 22px;
-              margin-top: 0;
+              margin-top: 10px;
+              text-align: center;
               @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
                 font-size: 24px;
               }

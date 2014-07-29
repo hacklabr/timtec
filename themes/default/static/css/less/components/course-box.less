@@ -13,10 +13,10 @@
           cursor: pointer;
           &:hover {
             .mouseover {
-              .opacity(0);
+              .opacity(0.4);
             }
             .info {
-              background-color: fade(@brand-hover, 40%);
+              background-color: lighten(@brand-primary, 40%);
 
               h3, .abstract {
                 color: #000;
@@ -26,7 +26,7 @@
               }
             }
             .enroll {
-              background-color: @brand-hover;
+              background-color: darken(@brand-primary, 5%);
             }
           }
         } // .course-link
@@ -37,7 +37,7 @@
             background-color: @brand-hover;
             display: block;
             height: 195px;
-            .opacity(0.4);
+            .opacity(0);
             position: absolute;
             .transition(all 0.25s ease);
             width: 100%;
@@ -64,7 +64,7 @@
           }
         } // .info-box
         .info { // course info
-            background-color: @brand-transparent;
+            background-color: lighten(@brand-primary, 50%);
             height: 153px;
             overflow: hidden;
             padding: 15px;
