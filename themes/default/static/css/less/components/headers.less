@@ -1,12 +1,12 @@
 // Page Headers
 .page-header-double {
-  border-bottom:1px solid @gray-lighter;
+  border-bottom:2px dashed @brand-accent;
   margin:40px 0 20px;
   padding:0;
   h1,h2,h3,h4,h5,h6 {
-    border-bottom:1px solid @gray-lighter;
-    color:#2c3e50;
-    margin-bottom:1px;
+    font-family: 'amatic';
+    font-size: 40px;
+    color: @brand-accent;
     padding-bottom:7px;
     i {
       color:@brand-accent;
@@ -22,7 +22,7 @@
 #stats {
   header {
     .page-header {
-      border-bottom: 1px solid @gray-lighter;
+      border-bottom:2px dashed @brand-accent;
       margin-bottom: 20px;
       h1 {
         .bottom(0,0);
@@ -72,6 +72,7 @@
 }
 
 // HEADER STYLES FOR THE INTERNAL PAGES (Lesson, Forum, Notes, Material)
+#course.course-intro,
 #course.course-lesson,
 #course.course-material,
 #forum.course-forum,
@@ -82,11 +83,19 @@
     .page-header {
       margin-bottom: 0;
       h1 {
-        font-size: 16px;
-        text-transform: uppercase;
+        font-family: 'amatic';
+        font-size: 40px;
+        color: @brand-accent;
+        a {
+          color: @brand-accent;
+          &:hover {
+            color: darken(@brand-accent, 20%);
+          }
+        }
       }
       ul.instructors {
         font-size: 12px;
+        margin-top: 10px;
       }
     }
   }

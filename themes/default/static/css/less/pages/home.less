@@ -2,7 +2,7 @@
 // ********************************************************************* //
 
 #home {
-    @media screen and (min-width: @screen-sm-min) { margin-top: -20px; }
+    @media screen and (min-width: @screen-sm-min) { margin-top: -50px; }
     margin-bottom: -60px;
 
     // banner
@@ -10,13 +10,14 @@
       max-height: 700px;
       overflow: hidden;
       position: relative;
+      background-color: #eafaba;
       img {
         margin: 0 auto;
       }
       .text {
         color: #000;
-        font-family: @headings-font-family;
-        text-transform: uppercase;
+        font-family: 'amatic';
+        color: @brand-accent;
         position: absolute;
         right: 15px;
         top: 15px;
@@ -25,7 +26,7 @@
           text-align: right;
         }
         .line1 {
-          font-size: 3.4vw;
+          font-size: 60px;
         }
         .line2 {
           font-size: 2.4vw;
@@ -36,7 +37,7 @@
           right: 55px;
           top: 40px;
           .line1 {
-            font-size: 3.4vw;
+            font-size: 60px;
           }
           .line2 {
             font-size: 2.4vw;
@@ -48,7 +49,7 @@
           right: 70px;
           top: 50px;
           .line1 {
-            font-size: 3.3vw;
+            font-size: 60px;
           }
           .line2 {
             font-size: 2.3vw;
@@ -60,7 +61,7 @@
           right: 95px;
           top: 65px;
           .line1 {
-            font-size: 3vw;
+            font-size: 60px;
           }
           .line2 {
             font-size: 2vw;
@@ -71,11 +72,12 @@
 
     // page title
     header {
-      border-bottom: 1px solid @gray-lighter;
+      //border-bottom: 1px solid fade(@brand-primary, 20%);
       margin-bottom: 36px;
-      padding-bottom: 18px;
+      padding-bottom: 10px;
       h1 {
-        font-family: @headings-font-family;
+        font-family: 'amatic';
+        color: @brand-accent;
         font-size: 6.5vw;
         font-weight: normal;
         margin: 0;
@@ -134,10 +136,10 @@
         padding-bottom: 40px;
         padding-top: 40px;
         header {
-          border-bottom-color: lighten(@gray-light,20%);
+          border-bottom-color: lighten(@brand-light,10%);
         }
         .highlight {
-            border-bottom: 1px solid lighten(@gray-light,20%);
+            border-bottom: 2px dashed @brand-accent;
             margin-bottom: 36px;
             padding-bottom: 18px;
         }
@@ -150,16 +152,26 @@
               height: 315px;
             }
             @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max), (min-width: @screen-lg-min) {
-              height: 265px;
+              height: 342px;
+            }
+            .icon {
+              text-align: center;
+              .fa {
+                color: darken(@brand-light, 10%);
+                font-size: 100px;
+              }
             }
             h3 {
               font-size: 22px;
-              margin-top: 0;
+              font-family: 'amatic';
+              color: @brand-accent;
+              margin-top: 10px;
+              text-align: center;
               @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
                 font-size: 24px;
               }
               @media (min-width: @screen-lg-min) {
-                font-size: 28px;
+                font-size: 36px;
               }
             }
             p {
@@ -169,3 +181,4 @@
         }
     } // #how-it-works
 }
+6

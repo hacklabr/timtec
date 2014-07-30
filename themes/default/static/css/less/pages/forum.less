@@ -3,14 +3,17 @@
 #forum {
   #forum-content {
     header {
-      border-bottom: 1px solid @gray-lighter;
+      border-bottom: 1px solid fade(@brand-primary, 20%);
       padding-bottom: 20px;
       h1 {
-        margin-top: 25px;
+        color: darken(@brand-primary, 10%);
+        margin-top: 35px;
+        font-size: 24px;
+
       }
       a.ask-a-question {
         display:block;
-        margin-top: 18px;
+        margin-top: 24px;
       }
     }
     .forum-form {
@@ -29,7 +32,7 @@
       margin-top: 10px;
     }
     article {
-      border-bottom: 1px solid @gray-lighter;
+      border-bottom: 1px solid fade(@brand-primary, 20%);
       margin-bottom: 20px;
       padding-bottom: 20px;
       // IF IS HIDDEN
@@ -99,7 +102,7 @@
                 line-height: 1.5;
               }
               .author {
-                border-top: 1px solid @gray-lighter;
+                border-bottom: 1px solid fade(@brand-primary, 20%);
                 padding-top: 10px;
                 text-align: right;
               }

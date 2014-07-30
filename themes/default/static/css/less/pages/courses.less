@@ -16,7 +16,8 @@
   }
 
   .filters {
-    background: @gray-lighter;
+    background: @brand-transparent;
+    border-radius: @border-radius-base;
     margin-bottom: 30px;
     padding: 10px;
     .status {
@@ -40,13 +41,18 @@
     }
   }
   .more-info {
+    background-color: @brand-transparent;
+    padding: 15px;
+    border-radius: @border-radius-base;
     .box {
-      border-bottom: 1px solid @gray-lighter;
+      border-bottom: 2px dashed @brand-accent;
       margin-bottom: 25px;
       padding-bottom: 20px;
       h3 {
-        font-size: 30px;
+        font-size: 40px;
         margin-top: 0;
+        font-family: amatic;
+        color: @brand-accent;
       }
       .btn-info {
         font-size: 18px;

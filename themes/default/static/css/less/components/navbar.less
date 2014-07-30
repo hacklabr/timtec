@@ -1,16 +1,16 @@
 // NAVBAR
 // Reset inverted navbar basics
-@navbar-inverse-color:                      #fff;
-@navbar-inverse-bg:                         @brand-primary;
-@navbar-inverse-border:                     darken(@navbar-inverse-bg, 10%);
+@navbar-inverse-color:                      @brand-primary;
+@navbar-inverse-bg:                         @brand-light;
+@navbar-inverse-border:                     transparent;
 
 // Inverted navbar links
-@navbar-inverse-link-color:                 #fff;
-@navbar-inverse-link-hover-color:           #fff;
-@navbar-inverse-link-hover-bg:              lighten(@navbar-inverse-bg, 5%);
-@navbar-inverse-link-active-color:          #fff;
-@navbar-inverse-link-active-bg:             darken(@navbar-inverse-bg, 5%);
-@navbar-inverse-link-disabled-color:        #fff;
+@navbar-inverse-link-color:                 @brand-primary;
+@navbar-inverse-link-hover-color:           @brand-primary;
+@navbar-inverse-link-hover-bg:              white;
+@navbar-inverse-link-active-color:          white;
+@navbar-inverse-link-active-bg:             @brand-hover;
+@navbar-inverse-link-disabled-color:        @brand-hover;
 @navbar-inverse-link-disabled-bg:           transparent;
 
 // Inverted navbar brand label
@@ -18,25 +18,36 @@
 @navbar-inverse-brand-hover-color:          #fff;
 @navbar-inverse-brand-hover-bg:             transparent;
 
+@dropdown-link-hover-bg:                    lighten(@brand-light, 5%);
+
 
 // MAIN NAVBAR - DROPDOWN MENUS FOR SIGNIN AND SIGNUP
 // ********************************************************************* //
 #main-navbar {
   border-radius: 0;
+  border: none;
   font-family: @font-family-base;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0, .2);
+  margin-bottom: 50px;
+  z-index: 20;
   .navbar-brand {
     .text-hide();
-    height: 50px;
-    width: 120px;
+    height: 100px;
+    width: 200px;
     background-image: url(../img/logo.png);
     background-repeat: no-repeat;
-    background-position: left center;
-    background-size: 100%;
-    
+    background-position: center;
+    background-color: white;
+    border-radius: 0 0 4px 4px;
+    border-top: 3px solid @brand-primary;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+    position: absolute;
+    z-index: 900;
+    margin-left: 0;
+
     @media (max-width: @screen-xs-max) {
       margin-left: 15px;
     }
-
   }
   .form-group {
     margin-bottom: 15px;
@@ -56,8 +67,7 @@
   }
   .navbar-divider {
     @media (min-width: @screen-sm-min) {
-      box-shadow: inset 1px 0 0 rgba(255,255,255,.15);
-      border-right: 1px solid @brand-dark;
+      border-right: 1px solid @brand-light;
       height: 50px;
       width: 2px;
       margin: 0 5px;
@@ -104,7 +114,7 @@
 .navbar-nav {
   > li > a {
     border-radius: @border-radius-base;
-    padding-top:    10px;
+    padding-top:    0px;
     padding-bottom: 10px;
     line-height: @line-height-computed;
   }
