@@ -139,7 +139,7 @@
           border-bottom-color: lighten(@brand-light,10%);
         }
         .highlight {
-            border-bottom: 1px solid darken(#d7e9a1,20%);
+            border-bottom: 2px dashed @brand-accent;
             margin-bottom: 36px;
             padding-bottom: 18px;
         }
@@ -157,19 +157,21 @@
             .icon {
               text-align: center;
               .fa {
-                color: @brand-primary;
-                font-size: 60px;
+                color: darken(@brand-light, 10%);
+                font-size: 100px;
               }
             }
             h3 {
               font-size: 22px;
+              font-family: 'amatic';
+              color: @brand-accent;
               margin-top: 10px;
               text-align: center;
               @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
                 font-size: 24px;
               }
               @media (min-width: @screen-lg-min) {
-                font-size: 28px;
+                font-size: 36px;
               }
             }
             p {
@@ -179,3 +181,4 @@
         }
     } // #how-it-works
 }
+6
