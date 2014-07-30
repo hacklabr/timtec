@@ -8,7 +8,9 @@
 {% block js %}
 {{ block.super }}
 {% compressed_js 'lesson' %}
+
 <script type="text/javascript" src="{% static 'js/introjs/lesson.js' %}"></script>
+
 {% endblock %}
 
 {% block content %}
@@ -24,7 +26,9 @@ $(document).ready(function() {
         $(this).tab('show');
     })
     $('a.unit').tooltip();
-})
+
+    startIntro();
+
 </script>
 
 <!-- COURSE -->
@@ -109,7 +113,7 @@ $(document).ready(function() {
                         <option ng-repeat="unit in lesson.units"
                                 ng-value="unit"
                                 ng-selected="unit==currentUnit"
-                                value="{{$index+1}}">{% trans 'Unit' %} {{ unit.position + 1 }}</option>
+                                value="{{$index+1}}">{% endverbatim %}{% trans 'Unit' %}{% verbatim %} {{ unit.position + 1 }}</option>
                     </select>
                 </p>
             </div>
@@ -160,14 +164,14 @@ $(document).ready(function() {
             <!-- END NOTES -->
         </div>
         <!-- END ROW -->
-        
+
         <div class="row">
             <div class="col-lg-8 col-sm-10 col-lg-offset-1 col-sm-offset-1">
                 <!-- SIDENOTES -->
                 <div class="side-notes" id="materials">
                     <div class="page-header-double">
                         <h3><i class="fa fa-angle-double-right"></i> {% trans 'Addicional materials' %}</h3>
-                    </div>   
+                    </div>
                     <span ng-bind-html="currentUnit.side_notes|markdown"></span>
                     <p ng-if="!currentUnit.side_notes">{% trans 'This unit has no notes' %}</p>
                 </div>

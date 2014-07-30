@@ -1,0 +1,53 @@
+// MY COURSES
+// ********************************************************************* //
+#my-courses {
+  @media (max-width: @screen-xs-max) {
+    header {
+      margin-bottom: 10px;
+      .textright {
+        text-align: left;
+      }
+    }
+  }
+  .courses {
+    h1 {
+      font-size:24px;
+    }
+
+    .course {
+      border-bottom:1px solid @gray-lighter;
+      margin-bottom:36px;
+      padding-bottom:14px;
+
+      header {
+        a {
+          margin-top:10px;
+        }
+        .btn-group {
+          text-transform:uppercase;
+        }
+      }
+
+      h1 {
+        font-size:18px;
+      }
+
+      .info {
+        color:@gray;
+        font-size:12px;
+        margin-left:9px;
+      }
+
+      .progress {
+        background:@gray-lighter;
+        border-radius:0;
+        height:12px;
+        position:relative;
+
+        .progress-bar {
+          border-radius:0;
+        }
+      }
+    }
+  }
+}

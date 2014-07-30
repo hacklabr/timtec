@@ -1,0 +1,62 @@
+// COURSES PAGE
+// ********************************************************************* //
+
+#courses-page {
+  .course {
+    .thumb-wrapper {
+      @media (min-width: 540px) and (max-width: @screen-xs-max) {
+        float: left;
+        width: 50%;
+      }
+      @media (min-width: @screen-sm-min) {
+        float: left;
+        width: 40%;
+      }
+    }
+  }
+
+  .filters {
+    background: @gray-lighter;
+    margin-bottom: 30px;
+    padding: 10px;
+    .status {
+      @media (max-width: @screen-xs-max) {
+        .btn {
+          margin-bottom: 10px;
+          width: 100%;
+        }
+      }
+    }
+    .btn-default {
+      background-color: lighten(@gray-light, 20%);
+      &:hover {
+        background-color: lighten(@gray-light, 15%);
+      }
+    }
+    .input-group-btn {
+      .btn {
+        height: 34px;
+      }
+    }
+  }
+  .more-info {
+    .box {
+      border-bottom: 1px solid @gray-lighter;
+      margin-bottom: 25px;
+      padding-bottom: 20px;
+      h3 {
+        font-size: 30px;
+        margin-top: 0;
+      }
+      .btn-info {
+        font-size: 18px;
+        margin-top: 20px;
+        text-transform: uppercase;
+        .fa {
+          font-size: 16px;
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}

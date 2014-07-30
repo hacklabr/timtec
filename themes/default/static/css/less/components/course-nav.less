@@ -1,0 +1,55 @@
+// COURSE SECTIONS (NAVGATION)
+.course-sections {
+  a {
+    display: inline-block;
+    height: 28px;
+    span {
+      border-right: 1px solid @gray-lighter;
+      color: @gray-light;
+      display: inline-block;
+      font-size: 22px;
+      height: 28px;
+      margin-left: -3px;
+      overflow: hidden;
+      padding: 3px 9px;
+      position: relative;
+      text-align: center;
+      &:hover {
+        color: @brand-info;
+        cursor: pointer;
+        text-decoration: none;
+        .transition(all 0.1s ease-out);
+      }
+    }
+  }
+}
+
+// LESSON HEADER AND NAVIGATION
+#course.course-lesson {
+  #course-content {
+    nav.course-lessons {
+      h1 {
+        .bottom(0,0);
+        font-size: 30px;
+      }
+      p.description {
+        color: @gray-light;
+      }
+    }
+    nav.lesson-units {
+      margin-bottom: 60px;
+      ul.dropdown-menu {
+        li {
+          a {
+            color: @gray-light;
+            font-size: 12px;
+            &:hover {
+              background-color: transparent;
+              color: @gray;
+            }
+          }
+        }
+      }
+    }
+  }
+}
