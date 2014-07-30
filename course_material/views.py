@@ -3,14 +3,13 @@ from braces.views import LoginRequiredMixin
 from core.models import Course
 from course_material.forms import FileForm
 from course_material.serializers import CourseMaterialSerializer
-from course_material.models import CourseMaterial, File
-from django.http import HttpResponse
+from course_material.models import CourseMaterial
 from django.shortcuts import get_object_or_404
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import CreateView
+from django.http import HttpResponse
 from rest_framework import viewsets
 from rest_framework import filters
-import json
 from administration.views import AdminMixin
 
 
@@ -28,8 +27,13 @@ class CourseMaterialView(LoginRequiredMixin, DetailView):
         return context
 
 
-class FileUploadView(LoginRequiredMixin, FormView):
+class FileUploadView(LoginRequiredMixin, CreateView):
     form_class = FileForm
+    success_url = '/'
+
+    def form_valid(self, form):
+        super(FileUploadView, self).form_valid(form)
+        return HttpResponse()
 
 
 class CourseMaterialAdminView(AdminMixin, DetailView):
