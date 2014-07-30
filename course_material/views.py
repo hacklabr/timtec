@@ -31,27 +31,6 @@ class CourseMaterialView(LoginRequiredMixin, DetailView):
 class FileUploadView(LoginRequiredMixin, FormView):
     form_class = FileForm
 
-    def render_to_json_response(self, context, **response_kwargs):
-        data = json.dumps(context)
-        response_kwargs['content_type'] = 'application/json'
-        return HttpResponse(data, **response_kwargs)
-
-    def post(self, request, *args, **kwargs):
-        """
-        Handles POST requests, instantiating a form instance with the passed
-        POST variables and then checked for validity.
-        """
-        new_file = File()
-        new_file.course_material = get_object_or_404(CourseMaterial, course__slug=self.kwargs['slug'])
-        form = FileForm(instance=new_file, **self.get_form_kwargs())
-        if form.is_valid():
-            form.save()
-            data = {'success': 200}
-            return self.render_to_json_response(data)
-        else:
-            data = {'error': 400}
-            return self.render_to_json_response(data, status=400)
-
 
 class CourseMaterialAdminView(AdminMixin, DetailView):
     model = CourseMaterial

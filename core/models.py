@@ -243,16 +243,13 @@ class PositionedModel(models.Model):
 
     def save(self, *args, **kwargs):
         if self.id:
-            print "tenho id", id
             return
 
         args = {self.collection_name: getattr(self, self.collection_name)}
-        print "args", args
         latest = self.__class__.objects.filter(**args) \
             .aggregate(models.Max('position')) \
             .get('position__max')
 
-        print "latest", latest
         if latest is not None:
             self.position = latest + 1
 
@@ -293,7 +290,6 @@ class Lesson(PositionedModel):
             return staticfiles_storage.url('img/lesson-default.png')
 
     def activity_count(self):
-        # FIXME verify activies app dependency in core app is acceptable, refs to #428
         from activities.models import Activity
         return Activity.objects.filter(unit__lesson=self).count()
 
