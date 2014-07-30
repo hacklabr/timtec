@@ -15,16 +15,18 @@ class LessonInline(admin.TabularInline):
 
 class UnitInline(admin.TabularInline):
     model = Unit
-    fields = ('video', 'activity', 'position',)
+    fields = ('title', 'video', 'activity', 'position',)
 
 
 class LessonAdmin(ModelAdmin):
     list_display = ('name', 'course',)
+    search_fields = ('course__name',)
     inlines = (UnitInline,)
 
 
 class UnitAdmin(ModelAdmin):
-    list_display = ('position', 'lesson', 'video', 'activity',)
+    search_fields = ('title',)
+    list_display = ('title', 'position', 'lesson', 'video', 'activity',)
 
 
 class CourseAdmin(ModelAdmin):
