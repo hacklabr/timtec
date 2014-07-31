@@ -114,3 +114,6 @@ reset_db: clean
 
 messages: clean
 	python manage.py makemessages -a -d django
+
+hipchat_report:
+	curl -d "room_id=timtec&from=ci&color=green" --data-urlencode "message=Build done $DRONE_BUILD_URL" "https://api.hipchat.com/v1/rooms/message?auth_token=$HIPCHAT_TOKEN&format=json"
