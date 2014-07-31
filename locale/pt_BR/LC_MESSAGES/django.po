@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-13 16:32-0300\n"
-"PO-Revision-Date: 2014-06-13 16:38-0300\n"
+"PO-Revision-Date: 2014-07-30 15:54-0300\n"
 "Last-Translator: Administrador TIMTec <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1071,7 +1071,7 @@ msgstr "Esta unidade não possui nenhuma anotação"
 #: themes/timtec/templates/message.html:15
 #: themes/timtec/templates/stats.html:34
 msgid "Students"
-msgstr "Estudante"
+msgstr "Estudantes"
 
 #: themes/default/templates/messages.html:32
 #: themes/timtec/templates/messages.html:36

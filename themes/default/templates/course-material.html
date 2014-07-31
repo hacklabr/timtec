@@ -91,6 +91,7 @@
                     <form action="{% url 'file_upload' course.slug %}" class="dropzone textcenter" drop-zone id="file-dropzone">
                         <p><strong>{% trans 'Drop' %}</strong> {% trans 'files to upload' %}<br>{% trans '(or click)' %}</p>
                         {% csrf_token %}
+                        <input type="hidden" name="course_material" value="{{ course_material.id }}" id="id_course_material">
                     </form>
                 {% endif %}
                 <ul class="uploaded-files-list">
