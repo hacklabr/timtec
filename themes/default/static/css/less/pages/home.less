@@ -7,64 +7,58 @@
 
     // banner
     #highlight {
-      max-height: 700px;
+      max-height: 400px;
       overflow: hidden;
-      position: relative;
       background-color: #eafaba;
+      .container {
+        position: relative;
+        background-image: url(../img/ilustra-home-bg.png);
+        background-position: left;
+        background-repeat: no-repeat;
+        .clearfix;
+      }
       img {
-        margin: 0 auto;
+        float: right;
       }
       .text {
         color: #000;
         font-family: 'amatic';
         color: @brand-accent;
         position: absolute;
-        right: 15px;
+        left: 100px;
         top: 15px;
+        border: 2px dashed @brand-accent;
+        padding: 20px;
+        width: 350px;
         p {
           margin: 0;
-          text-align: right;
-        }
-        .line1 {
-          font-size: 60px;
-        }
-        .line2 {
-          font-size: 2.4vw;
+          font-size: 3vw;
         }
       }
       @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
         .text {
-          right: 55px;
+          left: 100px;
           top: 40px;
-          .line1 {
-            font-size: 60px;
-          }
-          .line2 {
-            font-size: 2.4vw;
+          p {
+            font-size: 3vw;
           }
         }
       }
       @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
         .text {
-          right: 70px;
+          left: 70px;
           top: 50px;
-          .line1 {
-            font-size: 60px;
-          }
-          .line2 {
-            font-size: 2.3vw;
+          p {
+            font-size: 3vw;
           }
         }
       }
       @media (min-width: @screen-lg-min) {
         .text {
-          right: 95px;
-          top: 65px;
-          .line1 {
-            font-size: 60px;
-          }
-          .line2 {
-            font-size: 2vw;
+          left: 170px;
+          top: 100px;
+          p {
+            font-size: 3vw;
           }
         }
       }
