@@ -7,6 +7,9 @@ Timtec
 .. image:: https://coveralls.io/repos/hacklabr/timtec/badge.png
     :target: https://coveralls.io/r/hacklabr/timtec
 
+.. image:: https://badge.waffle.io/hacklabr/timtec.svg?label=In%20Progress&title=In%20Progress
+ :target: https://waffle.io/hacklabr/timtec 
+ :alt: 'Stories in Ready'
 
 Dependencies
 ------------
@@ -20,10 +23,13 @@ Getting Started
 ---------------
 
 - create a Python 2.X virtualenv
+    virtualenv ../timtec-env
 - activate the virtual env
-- go to this directory
-- make
-- ./manage.py runserver
+    source ../timtec-env/bin/activate
+- run make
+    make
+- run the django devel server
+    ./manage.py runserver
 
 Running Tests
 -------------
