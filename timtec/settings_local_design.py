@@ -26,6 +26,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'localhost'
 EMAIL_SUBJECT_PREFIX = '[timtec-design]'
 DEFAULT_FROM_EMAIL = 'timtec-design@timtec.com.br'
+CONTACT_RECIPIENT_LIST = ['timtec-dev@listas.hacklab.com.br', ]
 
 LOGGING = {
     'version': 1,
