@@ -111,9 +111,12 @@ class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
             raise Http404(error_msg)
 
         for question in self.object_list:
-            if request.user in question.course.professors.all():
+            # if request.user in question.course.professors.all():
+            #     question.moderator = True
+            if request.user.groups.filter(name="professors"):
                 question.moderator = True
             if question.user == request.user or request.user in question.course.professors.all():
+                # FIXME remove this after implement tutor professor
                 question.hidden_to_user = False
             else:
                 if question.hidden:
