@@ -242,16 +242,14 @@ class PositionedModel(models.Model):
         abstract = True
 
     def save(self, *args, **kwargs):
-        if self.id:
-            return
+        if not self.id:
+            args = {self.collection_name: getattr(self, self.collection_name)}
+            latest = self.__class__.objects.filter(**args) \
+                .aggregate(models.Max('position')) \
+                .get('position__max')
 
-        args = {self.collection_name: getattr(self, self.collection_name)}
-        latest = self.__class__.objects.filter(**args) \
-            .aggregate(models.Max('position')) \
-            .get('position__max')
-
-        if latest is not None:
-            self.position = latest + 1
+            if latest is not None:
+                self.position = latest + 1
 
         return super(PositionedModel, self).save(*args, **kwargs)
 

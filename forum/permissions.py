@@ -13,3 +13,6 @@ class HideQuestionPermission(permissions.BasePermission):
             return True
         elif request.user in obj.course.professors.all():
             return True
+        elif request.user.groups.filter(name="professors"):
+            # FIXME remove this after implement tutor professor
+            return True

@@ -30,6 +30,7 @@ class CourseMaterialView(LoginRequiredMixin, DetailView):
 class FileUploadView(LoginRequiredMixin, CreateView):
     form_class = FileForm
     success_url = '/'
+    template_name = 'base.html'
 
     def form_valid(self, form):
         super(FileUploadView, self).form_valid(form)

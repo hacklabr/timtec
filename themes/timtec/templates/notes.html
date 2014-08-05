@@ -26,6 +26,10 @@
                             <h2>{% trans "My Notes" %}</h2>
                         </header>
 
+                        <p ng-if="courses.length == 0">
+                            {% trans "You have not made any notes yet." %}
+                        </p>
+
                         <div class="courses" ng-repeat="course in courses">
 
                             <div class="course">
