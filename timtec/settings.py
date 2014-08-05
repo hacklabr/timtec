@@ -52,7 +52,7 @@ METRON_SETTINGS = {
 }
 
 
-LOGIN_URL = '/accounts/login/'
+LOGIN_URL = '/login/'
 
 LOGIN_REDIRECT_URL = '/'
 
