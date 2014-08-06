@@ -1,0 +1,254 @@
+{% extends "admin-base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block js %} {{block.super}}
+<script type="text/javascript" src="{% static 'js/courses/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/courses/filters.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/courses/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
+{% endblock %}
+
+{% block body_attrs %}
+ng-app="courses" class="courses_admin"
+{% endblock %}
+
+{% block content %}
+<!-- COURSES -->
+
+<section id="home" class="home-admin" ng-controller="">
+
+    <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
+
+    <div class="modal fade" id="modalSelectCourses">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Editar cursos da home</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+                <div class="select-course col-xs-6">
+                    <div class="course-thumb">
+                        <img src="http://localhost:8000/media/home_thumbnails/html5.jpeg">
+                        <span class="selected"></span>
+                    </div>
+                    <div class="course-info">
+                    <h3>HTML5 - Introdução ao Front End</h3>
+                    </div>
+                </div>
+                <div class="select-course col-xs-6 active">
+                    <div class="course-thumb">
+                        <img src="http://localhost:8000/media/home_thumbnails/html5.jpeg">
+                        <span class="selected"></span>
+                    </div>
+                    <div class="course-info">
+                    <h3>HTML5 - Introdução ao Front End</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="select-course col-xs-6">
+                    <div class="course-thumb">
+                        <img src="http://localhost:8000/media/home_thumbnails/html5.jpeg">
+                        <span class="selected"></span>
+                    </div>
+                    <div class="course-info">
+                    <h3>HTML5 - Introdução ao Front End</h3>
+                    </div>
+                </div>
+                <div class="select-course col-xs-6">
+                    <div class="course-thumb">
+                        <img src="http://localhost:8000/media/home_thumbnails/html5.jpeg">
+                        <span class="selected"></span>
+                    </div>
+                    <div class="course-info">
+                    <h3>HTML5 - Introdução ao Front End</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="select-course col-xs-6 active">
+                    <div class="course-thumb">
+                        <img src="http://localhost:8000/media/home_thumbnails/html5.jpeg">
+                        <span class="selected"></span>
+                    </div>
+                    <div class="course-info">
+                    <h3>HTML5 - Introdução ao Front End</h3>
+                    </div>
+                </div>
+                <div class="select-course col-xs-6 active">
+                    <div class="course-thumb">
+                        <img src="http://localhost:8000/media/home_thumbnails/html5.jpeg">
+                        <span class="selected"></span>
+                    </div>
+                    <div class="course-info">
+                    <h3>HTML5 - Introdução ao Front End</h3>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-success">Salvar</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <section class="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-xs-12">
+                    <div class="row">
+                        <section class="videos col-xs-12" role="main">
+                            <div class="header col-xs-12">
+                                <div class="col-xs-6">
+                                    <h2>Cursos na home</h2>
+                                </div>
+                                <div class="col-xs-6">
+                                    <button class="btn btn-success add-videos" data-toggle="modal" data-target="#modalSelectCourses">Adicionar ou remover cursos</button>
+                                </div>
+                                <p class="col-xs-12">Clique e arraste os cursos abaixo para reposicioná-los.</p>
+                            </div>
+                            <div class="row">
+                                <div class="video-wrapper col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <article class="video">
+                                        <div class="video-thumb">
+                                            <img src="http://localhost:8000/media/home_thumbnails/html5.jpeg">
+                                        </div>
+                                        <div class="video-info">
+                                            <h3>HTML5 - Introdução ao Front End</h3>
+                                            <p>Fábio Flatschart</p>
+                                        </div>
+                                        <span class="drag-button"><span class="btn btn-warning"><i class="fa fa-bars"></i></span></span>
+                                    </article>
+                                </div>
+                                <div class="video-wrapper col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <article class="video">
+                                        <div class="video-thumb">
+                                            <img src="http://localhost:8000/media/home_thumbnails/html5.jpeg">
+                                        </div>
+                                        <div class="video-info">
+                                            <h3>HTML5 - Introdução ao Front End</h3>
+                                            <p>Fábio Flatschart</p>
+                                        </div>
+                                        <span class="drag-button"><span class="btn btn-warning"><i class="fa fa-bars"></i></span></span>
+                                    </article>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="video-wrapper col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <article class="video">
+                                        <div class="video-thumb">
+                                            <img src="http://localhost:8000/media/home_thumbnails/html5.jpeg">
+                                        </div>
+                                        <div class="video-info">
+                                            <h3>HTML5 - Introdução ao Front End</h3>
+                                            <p>Fábio Flatschart</p>
+                                        </div>
+                                        <span class="drag-button"><span class="btn btn-warning"><i class="fa fa-bars"></i></span></span>
+                                    </article>
+                                </div>
+                                <div class="video-wrapper col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <article class="video">
+                                        <div class="video-thumb">
+                                            <img src="http://localhost:8000/media/home_thumbnails/html5.jpeg">
+                                        </div>
+                                        <div class="video-info">
+                                            <h3>HTML5 - Introdução ao Front End</h3>
+                                            <p>Fábio Flatschart</p>
+                                        </div>
+                                        <span class="drag-button"><span class="btn btn-warning"><i class="fa fa-bars"></i></span></span>
+                                    </article>
+                                </div>
+                            </div>
+                        </section><!-- .videos -->
+                    </div><!-- .row -->
+                </div><!-- .col-md-8 -->
+
+                <div class="col-lg-4 col-md-4 hidden-sm hidden-xs">
+
+                    <div class="row">
+
+                        <section class="twitter col-lg-10 col-lg-offset-2 col-md-11 col-md-offset-1" role="complementary">
+
+                            <div class="row">
+                                <div class="col-lg-10 col-lg-offset-2 col-md-10 col-md-offset-2">
+                                    <h3>
+                                        <i class="fa fa-twitter"></i>
+                                        Veja as últimas<br>informações<br><span>@TIMTec_oficial</span>
+                                    </h3>
+                                    <div class="tweet" ng-repeat="twit in twits">
+                                        {% verbatim %}
+                                        <div class="info">
+                                            <span class="avatar">
+                                                <img ng-src="{{ twit.profile_image_url }}">
+                                            </span>
+                                            <a class="name" ng-href="https://twitter.com/{{ twit.screen_name }}" target="_blank">{{ twit.user_name }}</a>
+                                            <span class="date">{{ twit.date }}</span>
+                                            <span class="hour">{{ twit.hour }}</span>
+                                        </div>
+                                        <div class="text" ng-bind-html="twit.text|tweet">
+                                        </div>
+                                        {% endverbatim %}
+                                    </div>
+                                </div>
+                            </div>
+                        </section><!-- .twitter -->
+                    </div>
+
+                </div><!-- .col-md-3 -->
+
+            </div><!-- .row -->
+        </div><!-- .container -->
+
+        <aside class="next-videos hidden-sm hidden-xs" role="complementary">
+
+            <div class="container">
+
+                <div class="row">
+
+                    <!--
+                        <div class="prev"></div>
+                        <div class="next"></div>
+                     -->
+                    <div class="slider">
+
+                        <div class="col-lg-6">
+                            <h3><a href="#">Próximos <span>lançamentos</span></a></h3>
+                        </div>
+                        <div class="col-lg-6">
+                            <button class="btn btn-success add-videos" data-toggle="modal" data-target="#modalSelectCourses">Adicionar ou remover cursos</button>
+                        </div>
+
+                        <div class="row">
+                            {% verbatim %}
+                            <div class="video col-lg-4 col-md-4" ng-repeat="course in upcoming_courses">
+                                <a ng-href="/course/{{ course.slug }}">
+                                    <div class="col-lg-4 col-md-4 left right">
+                                        <div class="thumb">
+                                            <img ng-src="{{ course.home_thumbnail_url }}" class="img-responsive">
+                                        </div>
+                                    </div>
+                                </a>
+                                <a ng-href="/course/{{ course.slug }}">
+                                    <h4 class="col-lg-8 col-md-8">{{ course.name }}</h4>
+                                </a>
+                            </div>
+                            {% endverbatim %}
+                        </div>
+                    </div>
+
+
+                </div><!-- .row -->
+
+            </div><!-- .container -->
+        </aside><!-- .slider-proximos -->
+    </section><!-- .content -->
+
+</section>
+<!-- END COURSES -->
+
+
+{% endblock %}

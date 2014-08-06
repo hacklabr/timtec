@@ -30,4 +30,6 @@ urlpatterns = patterns(
     url(r'^users/$', AdminView.as_view(template_name="users.html")),
 
     url(r'^course/(?P<course_id>[1-9][0-9]*)/stats/$', AdminView.as_view(template_name="stats.html")),
+
+    url(r'^home/$', lr(AdminView.as_view(template_name="home.html"))),
 )
