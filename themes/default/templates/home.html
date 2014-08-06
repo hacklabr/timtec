@@ -33,9 +33,21 @@
             </div>
         </div>
         <section id="courses" class="container">
+            {% if in_admin %}
+            <header class="row">
+                <div class="col-sm-8 col-xs-12">
+                    <h1>Cursos em destaque</h1>
+                </div>
+                <div class="col-sm-4 col-xs-12">
+                    <button class="btn btn-default edit-videos" data-toggle="modal" data-target="#modalSelectCourses">Editar cursos | <i class="fa fa-pencil-square-o"></i></button>
+                </div>
+            </header>
+            {% else %}
             <header>
                 <h1>Cursos em destaque</h1>
             </header>
+            {% endif %}
+
             <div class="row">
                 <div ng-repeat="course in courses" class="block course col-md-4 col-sm-6 col-xs-12">
                     {% verbatim %}
@@ -94,8 +106,89 @@
                 </div>
             </div>
         </section><!-- #how-it-works -->
+
+        {% if in_admin %}
+            <div class="modal fade" id="modalSelectCourses">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Editar cursos da home</h4>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                        <div class="select-course col-xs-6">
+                            <div class="course-thumb">
+                                <img src="http://localhost:8000/media/home_thumbnails/html5.jpeg">
+                                <span class="selected"></span>
+                            </div>
+                            <div class="course-info">
+                            <h3>HTML5 - Introdução ao Front End</h3>
+                            </div>
+                        </div>
+                        <div class="select-course col-xs-6 active">
+                            <div class="course-thumb">
+                                <img src="http://localhost:8000/media/home_thumbnails/html5.jpeg">
+                                <span class="selected"></span>
+                            </div>
+                            <div class="course-info">
+                            <h3>HTML5 - Introdução ao Front End</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="select-course col-xs-6">
+                            <div class="course-thumb">
+                                <img src="http://localhost:8000/media/home_thumbnails/html5.jpeg">
+                                <span class="selected"></span>
+                            </div>
+                            <div class="course-info">
+                            <h3>HTML5 - Introdução ao Front End</h3>
+                            </div>
+                        </div>
+                        <div class="select-course col-xs-6">
+                            <div class="course-thumb">
+                                <img src="http://localhost:8000/media/home_thumbnails/html5.jpeg">
+                                <span class="selected"></span>
+                            </div>
+                            <div class="course-info">
+                            <h3>HTML5 - Introdução ao Front End</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="select-course col-xs-6 active">
+                            <div class="course-thumb">
+                                <img src="http://localhost:8000/media/home_thumbnails/html5.jpeg">
+                                <span class="selected"></span>
+                            </div>
+                            <div class="course-info">
+                            <h3>HTML5 - Introdução ao Front End</h3>
+                            </div>
+                        </div>
+                        <div class="select-course col-xs-6 active">
+                            <div class="course-thumb">
+                                <img src="http://localhost:8000/media/home_thumbnails/html5.jpeg">
+                                <span class="selected"></span>
+                            </div>
+                            <div class="course-info">
+                            <h3>HTML5 - Introdução ao Front End</h3>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-success">Salvar</button>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+        {% endif %}
     </div><!-- #home -->
 
 </div>
+
+
 
 {% endblock %}
