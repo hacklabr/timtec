@@ -49,5 +49,5 @@ function startIntro(){
         ]
     });
 
-    intro.start();
+    // intro.start();
 }

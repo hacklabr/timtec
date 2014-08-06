@@ -1,6 +1,13 @@
 @import '../../../../bower_components/bootstrap/less/bootstrap.less';
 @import 'flatui/checkbox-and-radio.less';
 
+// this class exists to circunvent a flash + youtube api error
+// in which if the video div is really hidden the api breaks
+.hidder {
+    position: absolute;
+    left: -3000px;
+}
+
 // MODULES
 @import 'less/modules/settings.less';
 @import 'less/modules/mixins.less';
@@ -32,6 +39,6 @@
 
 // ADMIN
 // should be the last import
-@import 'less/pages/admin.less'; 
+@import 'less/pages/admin.less';
 
 @import 'introjs.less';
