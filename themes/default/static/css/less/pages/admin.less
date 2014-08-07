@@ -480,10 +480,11 @@
   }
 
   #home {
-    header {
-      .edit-videos {
-        float: right;
-      }
+    #courses {
+      margin-top: 40px;
+    }
+    .edit-videos {
+      float: right;
     }
     .modal {
       .modal-dialog {
@@ -494,53 +495,62 @@
       }
       .modal-body {
         .select-course {
-            @media (max-width: 650px) { width: 100%; }
-            margin-bottom: 15px;
+          @media (max-width: 650px) { width: 100%; }
+          margin-bottom: 15px;
+          .course-thumb {
+            @media (min-width: 400px) and (max-width: 519px) { width: 40%; }
+            @media (min-width: 520px) and (max-width: 650px) { width: 33%; }
+            position: relative;
+            float: left;
+            width: 50%;
+            height: 95px;
+            background: #000;
+            border: 4px solid @gray-lighter;
+            overflow: hidden;
+            cursor: pointer;
+            transition : all 0.3s;
+            .selected {
+              opacity: 0;
+              position: absolute;
+              right: -3px;
+              bottom: -3px;
+              background: url(../img/selected.png) no-repeat center center;
+              width: 24px;
+              height: 24px;
+              transition : all 0.3s;
+            }
+            img {
+              .img-responsive;
+            }
+          }
+          &.active {
             .course-thumb {
-                @media (min-width: 400px) and (max-width: 519px) { width: 40%; }
-                @media (min-width: 520px) and (max-width: 650px) { width: 33%; }
-                position: relative;
-                float: left;
-                width: 50%;
-                height: 95px;
-                background: #000;
-                border: 4px solid @gray-lighter;
-                overflow: hidden;
-                cursor: pointer;
-                .selected {
-                    display: none;
-                    position: absolute;
-                    right: -3px;
-                    bottom: -3px;
-                    background: url(../img/selected.png) no-repeat center center @brand-info;
-                    -webkit-border-top-left-radius: 3px;
-                    -moz-border-radius-topleft: 3px;
-                    border-top-left-radius: 3px;
-                    width: 24px;
-                    height: 24px;
-                }
-                img {
-                    .img-responsive;
-                }
+              border-color: @brand-info;
+              .selected {
+                opacity: 1;
+                background-color: @brand-info;
+              }
             }
-            &.active {
-                .course-thumb {
-                    border-color: @brand-info;
-                    .selected {
-                        display: block;
-                    }
-                }
+          }
+          &:hover {
+            .course-thumb {
+              border-color: @gray-light;
+              .selected {
+                opacity: 1;
+                background-color: @gray-light;
+              }
             }
-            .course-info {
-                position: relative;
-                float: left;
-                width: 50%;
-                padding: 0 0 0 15px;
-                h3 {
-                    margin: 0;
-                    font-size: 16px;
-                }
+          }
+          .course-info {
+            position: relative;
+            float: left;
+            width: 50%;
+            padding: 0 0 0 15px;
+            h3 {
+              margin: 0;
+              font-size: 16px;
             }
+          }
         }
       }
       .modal-footer {

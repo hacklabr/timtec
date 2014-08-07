@@ -16,7 +16,7 @@
             <!--<nav class="nav-left">
                 <img src="static/img/arrow-left.png">
             </nav>-->
-            <img src="static/img/banner-003.jpg" class="img-responsive">
+            <img src="/static/img/banner-003.jpg" class="img-responsive">
             <div class="text">
                 <p class="line1">Texto da imagem de destaque</p>
                 <!-- <p class="line2">Cursos online, profissionalizantes e gratuitos.</p> -->
@@ -28,12 +28,14 @@
 
         <section id="courses" class="container">
             {% if in_admin %}
-            <header class="row">
-                <div class="col-sm-8 col-xs-12">
-                    <h1>Cursos em destaque</h1>
-                </div>
-                <div class="col-sm-4 col-xs-12">
-                    <button class="btn btn-default edit-videos" data-toggle="modal" data-target="#modalSelectCourses">Editar cursos | <i class="fa fa-pencil-square-o"></i></button>
+            <header>
+                <div class="row">
+                    <div class="col-sm-8 col-xs-12">
+                        <h1>Cursos em destaque</h1>
+                    </div>
+                    <div class="col-sm-4 col-xs-12">
+                        <button class="btn btn-default edit-videos" data-toggle="modal" data-target="#modalSelectCourses">Editar cursos | <i class="fa fa-pencil-square-o"></i></button>
+                    </div>
                 </div>
             </header>
             {% else %}
