@@ -58,10 +58,6 @@
                 {% if not in_admin %}
                     $(document).on('DOMNodeInserted','#player-outter', resize_player);
                     resize_player();
-
-                    if ($('.course-intro').length || $('.course-lesson').length) {
-                        startIntro();
-                    }
                 {% endif %}
 
                 resize_activation_wrapper();

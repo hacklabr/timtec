@@ -22,7 +22,6 @@
 // MAIN NAVBAR - DROPDOWN MENUS FOR SIGNIN AND SIGNUP
 // ********************************************************************* //
 #main-navbar {
-  
   border-radius: 0;
   font-family:'Questrial';
   .navbar-brand {
@@ -64,6 +63,13 @@
     overflow: hidden;
     max-height: initial;
   }
+  #start-intro {
+    margin: 11px 10px 0 0;
+    .fa {
+      margin-left: 5px;
+      vertical-align: middle;
+    }
+  }
 }
 
 @media screen and (min-width: @screen-tablet) {
@@ -89,5 +95,11 @@
     label {
       line-height: 1;
     }
+  }
+}
+
+@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+  .nav > li > a {
+    padding: 15px 10px;
   }
 }
