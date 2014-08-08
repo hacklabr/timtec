@@ -16,6 +16,8 @@
                     <a href="{% url 'forum' course.slug %}"><span class="has-tooltip fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Forum' %}"></span></a>
                     <a href="{% url 'course_material' course.slug %}"><span class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Course material' %}"></span></a>
                     <a href="{% url 'user_course_notes' 'html5' %}"><span class="has-tooltip fa fa-pencil-square-o" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'My notes' %}"></span></a>
+                    <!-- se o usuário for professor tutor mostrar-->
+                    <a href="#"><span class="has-tooltip fa fa-users" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Class' %}"></span></a>
                 </nav>
                 <!-- END COURSE-SECTION-NAV -->
             </div>
