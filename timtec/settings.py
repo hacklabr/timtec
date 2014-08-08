@@ -52,7 +52,7 @@ METRON_SETTINGS = {
 }
 
 
-LOGIN_URL = '/accounts/login/'
+LOGIN_URL = '/login/'
 
 LOGIN_REDIRECT_URL = '/'
 
@@ -109,21 +109,11 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
 STATIC_URL = '/static/'
-
-# Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    os.path.join(THEMES_DIR, TIMTEC_THEME, 'static'),
-    os.path.join(THEMES_DIR, 'default', 'static'),
-    os.path.join(PROJECT_ROOT, 'bower_components'),
-)
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -359,15 +349,6 @@ TEMPLATE_LOADERS = (
     # 'django.template.loaders.eggs.Loader',
 )
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    os.path.join(THEMES_DIR, TIMTEC_THEME, 'templates'),
-    os.path.join(THEMES_DIR, 'default', 'templates'),
-)
-
-
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
@@ -478,19 +459,6 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-if DEBUG:
-    MIDDLEWARE_CLASSES += (
-        'debug_toolbar.middleware.DebugToolbarMiddleware',
-    )
-    INSTALLED_APPS += (
-        'debug_toolbar',
-    )
-    INTERNAL_IPS = ('127.0.0.1', )
-    DEBUG_TOOLBAR_CONFIG = {
-        'INTERCEPT_REDIRECTS': False,
-    }
-
-
 # django-registration flag
 # ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_DEFAULT_GROUP_NAME = 'students'
@@ -543,3 +511,33 @@ try:
     from .settings_local import *
 except ImportError:
     pass
+
+# Additional locations of static files
+STATICFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(THEMES_DIR, TIMTEC_THEME, 'static'),
+    os.path.join(THEMES_DIR, 'default', 'static'),
+    os.path.join(PROJECT_ROOT, 'bower_components'),
+)
+
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(THEMES_DIR, TIMTEC_THEME, 'templates'),
+    os.path.join(THEMES_DIR, 'default', 'templates'),
+)
+
+if DEBUG:
+    MIDDLEWARE_CLASSES += (
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    )
+    INSTALLED_APPS += (
+        'debug_toolbar',
+    )
+    INTERNAL_IPS = ('127.0.0.1', )
+    DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': False,
+    }

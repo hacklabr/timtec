@@ -21,8 +21,6 @@
                 });
 
                 $scope.save = function(){
-                    console.log('salvando');
-                    $scope.course_material.text = $scope.editor_text;
                     $scope.course_material.$update({course: $scope.courseId});
                 };
                 $scope.reset = function(){

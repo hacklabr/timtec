@@ -74,7 +74,7 @@ clean:
 	find . -type f -name '*.py[co]' -exec rm {} \;
 
 python_tests: clean
-	py.test --pep8 --flakes --reuse-db --cov . . $*
+	py.test --pep8 --flakes --splinter-webdriver=phantomjs --reuse-db --cov . . $*
 
 js_tests:
 	find . -path ./bower_components -prune -o -path bower_components/ -prune -o -path ./node_modules -prune -o -regex ".*/vendor/.*" -prune -o -name '*.js' -exec jshint {} \;
@@ -114,3 +114,6 @@ reset_db: clean
 
 messages: clean
 	python manage.py makemessages -a -d django
+
+hipchat_report:
+	curl -d "room_id=timtec&from=ci&color=green" --data-urlencode "message=Build done $$DRONE_BUILD_URL" "https://api.hipchat.com/v1/rooms/message?auth_token=$$HIPCHAT_TOKEN&format=json"

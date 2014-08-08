@@ -25,6 +25,7 @@ STATIC_ROOT = "/home/timtec-test/webfiles/static/"
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_SUBJECT_PREFIX = '[timtec-test]'
 DEFAULT_FROM_EMAIL = 'donotreply-test@m.timtec.com.br'
+CONTACT_RECIPIENT_LIST = ['timtec-dev@listas.hacklab.com.br', ]
 
 LOGGING = {
     'version': 1,

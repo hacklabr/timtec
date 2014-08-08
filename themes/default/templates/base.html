@@ -6,13 +6,13 @@
 {% load metron_tags %}
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>{% block title %}{{ site.name }}{% endblock %}</title>
 
     {% compressed_css 'common' %}
     {% compressed_css 'public' %}
-
 
     <script>
         window.STATIC_URL = '{{ STATIC_URL }}';
@@ -54,12 +54,18 @@
 
             $(document).ready(function() {
                 $('.has-tooltip').tooltip();
-                // {% if not in_admin %}
-                $(document).on('DOMNodeInserted','#player-outter', resize_player);
-                resize_player();
-                // {% endif %}
+
+                {% if not in_admin %}
+                    $(document).on('DOMNodeInserted','#player-outter', resize_player);
+                    resize_player();
+                {% endif %}
+
                 resize_activation_wrapper();
                 wrapper_min_height();
+
+                $('#start-intro').click(function(){
+                    startIntro();
+                });
             });
             $(window).resize(resize_player);
             $(window).resize(resize_activation_wrapper);

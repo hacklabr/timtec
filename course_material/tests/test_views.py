@@ -30,7 +30,7 @@ def test_file_upload(rf, user):
     course_material = mommy.make('CourseMaterial', course=course, text='foobar**bold**')
 
     with open('course_material/tests/dummy_file.txt') as fp:
-        request = rf.post('/course_material/file_upload/dbsql', {'file': fp})
+        request = rf.post('/course_material/file_upload/dbsql', {'file': fp, 'course_material': course_material.id})
         request.user = user
         view = FileUploadView(request=request)
         view.kwargs = {'slug': 'dbsql'}

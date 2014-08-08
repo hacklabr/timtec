@@ -3,14 +3,13 @@ from braces.views import LoginRequiredMixin
 from core.models import Course
 from course_material.forms import FileForm
 from course_material.serializers import CourseMaterialSerializer
-from course_material.models import CourseMaterial, File
-from django.http import HttpResponse
+from course_material.models import CourseMaterial
 from django.shortcuts import get_object_or_404
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import CreateView
+from django.http import HttpResponse
 from rest_framework import viewsets
 from rest_framework import filters
-import json
 from administration.views import AdminMixin
 
 
@@ -28,29 +27,14 @@ class CourseMaterialView(LoginRequiredMixin, DetailView):
         return context
 
 
-class FileUploadView(LoginRequiredMixin, FormView):
+class FileUploadView(LoginRequiredMixin, CreateView):
     form_class = FileForm
+    success_url = '/'
+    template_name = 'base.html'
 
-    def render_to_json_response(self, context, **response_kwargs):
-        data = json.dumps(context)
-        response_kwargs['content_type'] = 'application/json'
-        return HttpResponse(data, **response_kwargs)
-
-    def post(self, request, *args, **kwargs):
-        """
-        Handles POST requests, instantiating a form instance with the passed
-        POST variables and then checked for validity.
-        """
-        new_file = File()
-        new_file.course_material = get_object_or_404(CourseMaterial, course__slug=self.kwargs['slug'])
-        form = FileForm(instance=new_file, **self.get_form_kwargs())
-        if form.is_valid():
-            form.save()
-            data = {'success': 200}
-            return self.render_to_json_response(data)
-        else:
-            data = {'error': 400}
-            return self.render_to_json_response(data, status=400)
+    def form_valid(self, form):
+        super(FileUploadView, self).form_valid(form)
+        return HttpResponse()
 
 
 class CourseMaterialAdminView(AdminMixin, DetailView):

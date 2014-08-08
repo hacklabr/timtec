@@ -14,6 +14,7 @@
 <script type="text/javascript" src="{% static 'js/directives/codemirror.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/sortable.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/edit-lesson/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/introjs/admin-lesson.js' %}"></script>
 {% endblock %}
 
 {% block body_attrs %}
@@ -77,13 +78,15 @@ ng-app="edit-lesson"
 
             <div class="add-content" ng-init="section='video'">
                 <div class="col-xs-6 col-xs-6">
-                    <button class="btn btn-default uppercase"
-                            ng-class="{'btn-info': section === 'video'}"
-                            ng-click="section ='video'">{% trans 'Video' %}</button>
+                    <div id="video-activity-buttons">
+                        <button class="btn btn-default uppercase"
+                                ng-class="{'btn-info': section === 'video'}"
+                                ng-click="section ='video'">{% trans 'Video' %}</button>
 
-                    <button class="btn btn-default uppercase"
-                            ng-class="{'btn-info': section === 'activity'}"
-                            ng-click="section ='activity'">{% trans 'Activity' %}</button>
+                        <button class="btn btn-default uppercase"
+                                ng-class="{'btn-info': section === 'activity'}"
+                                ng-click="section ='activity'">{% trans 'Activity' %}</button>
+                    </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 textright">
                     <button class="btn btn-danger delete" ng-click="removeCurrentUnit()"

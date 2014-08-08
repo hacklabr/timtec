@@ -6,6 +6,7 @@
 {% block js %}
     {{ block.super }}
     {% compressed_js 'core' %}
+    <script type="text/javascript" src="/static/js/introjs/home.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -19,6 +20,7 @@
                 <img src="static/img/ilustra-home.png">
             </div>
         </div>
+
         <section id="courses" class="container">
             <header>
                 <h1>Cursos em destaque</h1>

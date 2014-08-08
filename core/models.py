@@ -3,7 +3,6 @@ from __future__ import division
 
 import datetime
 
-from positions import PositionField
 from django.db import models
 from django.db.models import Count
 from django.core.mail import send_mail
@@ -54,7 +53,7 @@ class Course(models.Model):
     professors = models.ManyToManyField(TimtecUser, related_name='professorcourse_set', through='CourseProfessor')
     students = models.ManyToManyField(TimtecUser, related_name='studentcourse_set', through='CourseStudent')
     home_thumbnail = models.ImageField(_('Home thumbnail'), upload_to='home_thumbnails', null=True, blank=True)
-    home_position = PositionField(blank=True, null=True)
+    home_position = models.IntegerField(null=True, blank=True)
     start_date = models.DateField(_('Start date'), default=None, blank=True, null=True)
     home_published = models.BooleanField(default=False)
 
@@ -236,7 +235,26 @@ class ProfessorMessage(models.Model):
         return send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, to, fail_silently=False)
 
 
-class Lesson(models.Model):
+class PositionedModel(models.Model):
+    collection_name = 'pk'
+
+    class Meta:
+        abstract = True
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            args = {self.collection_name: getattr(self, self.collection_name)}
+            latest = self.__class__.objects.filter(**args) \
+                .aggregate(models.Max('position')) \
+                .get('position__max')
+
+            if latest is not None:
+                self.position = latest + 1
+
+        return super(PositionedModel, self).save(*args, **kwargs)
+
+
+class Lesson(PositionedModel):
     STATES = (
         ('draft', _('Draft')),
         ('listed', _('Listed')),
@@ -247,9 +265,11 @@ class Lesson(models.Model):
     desc = models.TextField(_('Description'))
     name = models.CharField(_('Name'), max_length=255)
     notes = models.TextField(_('Notes'), default="", blank=True)
-    position = PositionField(collection='course', default=0)
+    position = models.IntegerField(default=0)
     slug = AutoSlugField(_('Slug'), populate_from='name', max_length=255, editable=False, unique=True)
     status = models.CharField(_('Status'), choices=STATES, default=STATES[0][0], max_length=64)
+
+    collection_name = 'course'
 
     class Meta:
         verbose_name = _('Lesson')
@@ -268,7 +288,6 @@ class Lesson(models.Model):
             return staticfiles_storage.url('img/lesson-default.png')
 
     def activity_count(self):
-        # FIXME verify activies app dependency in core app is acceptable, refs to #428
         from activities.models import Activity
         return Activity.objects.filter(unit__lesson=self).count()
 
@@ -282,14 +301,16 @@ class Lesson(models.Model):
         return self.status == 'published' and self.units.exists()
 
 
-class Unit(models.Model):
+class Unit(PositionedModel):
     title = models.CharField(_('Title'), max_length=128, blank=True)
     lesson = models.ForeignKey(Lesson, verbose_name=_('Lesson'), related_name='units')
     video = models.ForeignKey(Video, verbose_name=_('Video'), null=True, blank=True)
     activity = models.ForeignKey('activities.Activity', verbose_name=_('Activity'), null=True, blank=True, related_name='units')
     side_notes = models.TextField(_('Side notes'), blank=True)
-    position = PositionField(collection='lesson', default=0)
+    position = models.IntegerField(default=0)
     notes = generic.GenericRelation(Note)
+
+    collection_name = 'lesson'
 
     class Meta:
         verbose_name = _('Unit')
@@ -298,22 +319,6 @@ class Unit(models.Model):
 
     def __unicode__(self):
         return u'%s - %s - %s - %s' % (self.lesson, self.position, self.video, self.activity)
-
-    @staticmethod
-    def set_position_for_new_unit(sender, instance, **kwargs):
-        if instance.id:
-            return
-
-        latest = sender.objects.filter(lesson=instance.lesson) \
-                               .aggregate(models.Max('position')) \
-                               .get('position__max')
-
-        if latest is not None:
-            instance.position = latest + 1
-
-
-models.signals.pre_save.connect(Unit.set_position_for_new_unit, sender=Unit,
-                                dispatch_uid="Unit.set_position_for_new_unit")
 
 
 class StudentProgress(models.Model):
