@@ -1,20 +1,29 @@
 {% extends "base.html" %}
+{% load compressed %}
+{% load static %}
 {% load i18n %}
 
-{% block content %}
+{% block js %}
+    {{ block.super }}
+    {% compressed_js 'admin_course_header' %}
+{% endblock %}
 
-<section id="users" class="container">
-    <header>
-        <div class="row">
-            <div class="col-lg-6">
-                <h1>{% trans 'Users' %}</h1>
-            </div>
-            <div class="col-lg-6 textright">
-                <button class="btn btn-lg btn-success uppercase">{% trans 'Add user' %}</button>
-            </div>
-        </div>
-    </header>
+{% block content %}
+<section id="users" class="container" ng-app="adminHeader">
+    <div ng-controller="HeaderController">
+        {% include "_admin_header_inline.html" %}
+    </div>
     <section id="users-content">
+        <header>
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1>{% trans 'Users' %}</h1>
+                </div>
+                <div class="col-lg-6 textright">
+                    <button class="btn btn-lg btn-success uppercase">{% trans 'Add user' %}</button>
+                </div>
+            </div>
+        </header>
         <table class="table">
             <tr>
                 <th class="username">{% trans "Username" %}</th>

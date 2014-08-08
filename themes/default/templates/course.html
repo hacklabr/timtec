@@ -87,7 +87,8 @@
                             <a ng-href="{% verbatim %}/{{reports_url}}{% endverbatim %}"><span class="has-tooltip fa fa-bar-chart-o" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Stats' %}"></span></a>
                             <!-- se o usuário for professor tutor mostrar-->
                             <a href="#"><span class="has-tooltip fa fa-users" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Group' %}"></span></a>
-                            </nav>
+                            <a ng-href="{% verbatim %}/{{permissions_url}}{% endverbatim %}"><span class="has-tooltip fa fa-bar-chart-o" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Permissions' %}"></span></a>
+                        </nav>
                     {% else %}
                         {% if course.first_lesson.slug %}
                             {% if user_is_enrolled %}

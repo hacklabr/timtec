@@ -27,6 +27,7 @@
                         $scope.forum_url = 'admin/course/' + course.id +  '/forum/';
                         $scope.messages_url = 'admin/course/' + course.id   + '/messages/';
                         $scope.reports_url = 'admin/course/' + course.id   + '/stats/';
+                        $scope.permissions_url = 'admin/course/' + course.id + '/permissions/';
                     })
                     .then(function(){
                         $scope.courseProfessors = CourseProfessor.query({ course: match[1] });
