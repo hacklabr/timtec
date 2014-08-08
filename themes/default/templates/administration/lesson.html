@@ -29,10 +29,8 @@ ng-app="edit-lesson"
     <div class="actions" fixed-bar>
         <div class="container">
             <div class="row">
-                <div class="col-xs-5">
-                    <button class="btn btn-danger" ng-click="deleteLesson()"><i class="fa fa-trash-o"></i> | {% trans 'Delete this lesson' %}</button>
-                </div>
-                <div class="col-xs-7 textright">
+                <div class="col-xs-offset-5 col-xs-7 textright">
+                    <button class="btn btn-danger" ng-click="deleteLesson()">{% trans 'Delete this lesson' %} | <i class="fa fa-trash-o"></i></button>
                     <button class="btn btn-success" ng-click="saveLesson()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
                     <button class="btn btn-warning" ng-click="publishLesson();">{% trans 'Publish lesson' %} | <i class="fa fa-star-o"></i></button>
                 </div>

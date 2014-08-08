@@ -33,11 +33,9 @@
         <div class="actions" fixed-bar>
             <div class="container">
                 <div class="row">
-                    <div class="col-xs-5">
-                        <button class="btn btn-danger" title="{% trans 'Delete course' %}" ng-click="deleteCourse()"><i class="fa fa-trash-o"></i> | {% trans 'Delete this course' %}</button>
-                    </div>
-                    <div class="col-xs-7 textright">
+                    <div class="col-xs-offset-5 col-xs-7 textright">
                         <!-- <button class="btn btn-info">Listar | <i class="fa fa-star-o"></i></button> -->
+                        <button class="btn btn-danger" title="{% trans 'Delete course' %}" ng-click="deleteCourse()">{% trans 'Delete this course' %} | <i class="fa fa-trash-o"></i></button>
                         <button class="btn btn-success" ng-click="saveCourse()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
                         <button class="btn btn-warning" ng-click="publishCourse()">{% trans 'Publish' %} | <i class="fa fa-star-o"></i></button>
                     </div>
