@@ -459,10 +459,6 @@
   // USERS
   // ********************************************************************* //
   #users {
-    header {
-      border-bottom: 1px solid fade(@brand-primary, 20%);
-      margin-bottom: 40px;
-    }
     table {
       tr {
         th {
@@ -475,6 +471,22 @@
         td {
           vertical-align: middle;
         }
+      }
+    }
+  }
+  #users-content {
+    header {
+      border-bottom: 1px solid fade(@brand-primary, 20%);
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      h1 {
+        color: darken(@brand-primary, 10%);
+        margin-top: 35px;
+        font-size: 24px;
+      }
+      .btn {
+        display:block;
+        margin-top: 18px;
       }
     }
   }

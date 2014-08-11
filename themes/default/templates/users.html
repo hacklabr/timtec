@@ -9,18 +9,18 @@
 {% endblock %}
 
 {% block content %}
-<section id="users" class="container" ng-app="adminHeader">
+<section id="users" ng-app="adminHeader">
     <div ng-controller="HeaderController">
         {% include "_admin_header_inline.html" %}
     </div>
-    <section id="users-content">
+    <section id="users-content" class="container">
         <header>
             <div class="row">
-                <div class="col-lg-6">
-                    <h1>{% trans 'Users' %}</h1>
+                <div class="col-lg-9">
+                    <h1>{% trans 'Permissions' %}</h1>
                 </div>
-                <div class="col-lg-6 textright">
-                    <button class="btn btn-lg btn-success uppercase">{% trans 'Add user' %}</button>
+                <div class="col-lg-3">
+                    <a class="btn btn-lg btn-danger uppercase">{% trans 'Add user' %}</a>
                 </div>
             </div>
         </header>
@@ -38,8 +38,8 @@
                 <td>&nbsp;</td>
                 <td>{% trans "Student"%}</td>
                 <td>
-                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
                 </td>
             </tr>
             <tr>
@@ -48,8 +48,8 @@
                 <td>&nbsp;</td>
                 <td>{% trans "Student"%}</td>
                 <td>
-                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
                 </td>
             </tr>
             <tr>
@@ -58,8 +58,8 @@
                 <td>&nbsp;</td>
                 <td>{% trans "Student"%}</td>
                 <td>
-                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
                 </td>
             </tr>
             <tr>
@@ -68,8 +68,8 @@
                 <td>&nbsp;</td>
                 <td>{% trans "Student"%}</td>
                 <td>
-                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
                 </td>
             </tr>
             <tr>
@@ -78,8 +78,8 @@
                 <td>&nbsp;</td>
                 <td>{% trans "Student"%}</td>
                 <td>
-                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
                 </td>
             </tr>
             <tr>
@@ -88,8 +88,8 @@
                 <td>&nbsp;</td>
                 <td>{% trans "Student"%}</td>
                 <td>
-                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
                 </td>
             </tr>
             <tr>
@@ -98,8 +98,8 @@
                 <td>&nbsp;</td>
                 <td>{% trans "Student"%}</td>
                 <td>
-                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
                 </td>
             </tr>
             <tr>
@@ -108,8 +108,8 @@
                 <td>&nbsp;</td>
                 <td>{% trans "Student"%}</td>
                 <td>
-                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
                 </td>
             </tr>
             <tr>
@@ -118,8 +118,8 @@
                 <td>&nbsp;</td>
                 <td>{% trans "Student"%}</td>
                 <td>
-                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
                 </td>
             </tr>
             <tr>
@@ -128,8 +128,8 @@
                 <td>&nbsp;</td>
                 <td>{% trans "Student"%}</td>
                 <td>
-                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
                 </td>
             </tr>
             <tr>
@@ -138,8 +138,8 @@
                 <td>&nbsp;</td>
                 <td>{% trans "Student"%}</td>
                 <td>
-                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
                 </td>
             </tr>
             <tr>
@@ -148,8 +148,8 @@
                 <td>Joao Oliveira Bueno</td>
                 <td>{% trans "Student"%}</td>
                 <td>
-                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
                 </td>
             </tr>
             <tr>
@@ -158,8 +158,8 @@
                 <td>&nbsp;</td>
                 <td>{% trans "Student"%}</td>
                 <td>
-                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
                 </td>
             </tr>
             <tr>
@@ -168,8 +168,8 @@
                 <td>&nbsp;</td>
                 <td>{% trans "Student"%}</td>
                 <td>
-                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
                 </td>
             </tr>
             <tr>
@@ -178,8 +178,8 @@
                 <td>&nbsp;</td>
                 <td>{% trans "Student"%}</td>
                 <td>
-                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
                 </td>
             </tr>
             <tr>
@@ -188,8 +188,8 @@
                 <td>Junior Thomaz </td>
                 <td>{% trans "Student"%}</td>
                 <td>
-                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
                 </td>
             </tr>
             <tr>
@@ -198,8 +198,8 @@
                 <td>&nbsp;</td>
                 <td>{% trans "Student"%}</td>
                 <td>
-                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
                 </td>
             </tr>
             <tr>
@@ -208,8 +208,8 @@
                 <td>Lidiane Thomaz </td>
                 <td>{% trans "Student"%}</td>
                 <td>
-                    <button class="btn btn-warning" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
                 </td>
             </tr>
         </table>
