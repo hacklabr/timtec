@@ -229,6 +229,13 @@ class CourseThumbViewSet(viewsets.ModelViewSet):
             return Response(serializer.errors, status=400)
 
 
+class CarouselCourseView(viewsets.ReadOnlyModelViewSet):
+    lookup_field = 'id'
+    serializer_class = CourseSerializer
+    filter_fields = ('slug', 'home_published',)
+    queryset = Course.objects.exclude(status=Course.STATES[0][0]).exclude(status=Course.STATES[1][0])
+
+
 class LessonDetailView(LoginRequiredMixin, DetailView):
     model = Lesson
     template_name = "lesson.html"
