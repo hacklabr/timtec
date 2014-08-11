@@ -44,14 +44,6 @@ ng-app="edit-lesson"
     </div>
     <!-- END ACTIONS -->
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <span id="start-intro" class="btn btn-lg btn-primary btn-block">Começar tour</span>
-            </div>
-        </div>
-    </div>
-
     {% include "_admin_header_inline.html" %}
 
     <!-- COURSE-CONTENT -->
@@ -246,24 +238,7 @@ ng-app="edit-lesson"
         <!-- END ROW -->
     </section>
     <!-- END COURSE-CONTENT -->
-    <!-- ALERT -->
-    <div class="tt-popup notifications" alert-popup ng-class="{'hideTop': alert.hidden}">
-        <div class="alert fade in" ng-class="'alert-' + alert.type">
-            <button type="button" class="close" ng-click="alert.hidden=true">×</button>
-            <h4 ng-bind="alert.title"></h4>
-            <p class="bottom">
-                <ol class="bottom">
-                    <li ng-repeat="message in alert.messages" ng-bind="message"></li>
-                </ol>
-            </p>
-            <div ng-show="alert.showControls">
-                <hr/>
-                <button type="button" class="btn" ng-class="'btn-'+alert.type"
-                         ng-click="alert.hidden=true">{% trans 'Close' %}</button>
-            </div>
-        </div>
-    </div>
-    <!-- ALERT -->
+    {% include 'administration/_alert.html' %}
 </div>
 <!-- END COURSE-CONTENT -->
 <div waiting-screen class="waiting waiting-screen">

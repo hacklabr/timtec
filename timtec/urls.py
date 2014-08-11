@@ -17,7 +17,7 @@ from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
                         LessonViewSet, StudentProgressViewSet,
                         UserNotesViewSet, CoursesView,
                         ProfessorMessageViewSet, CourseStudentViewSet,
-                        AcceptTermsView)
+                        AcceptTermsView, CarouselCourseView,)
 
 from activities.views import AnswerViewSet
 from accounts.views import TimtecUserViewSet
@@ -33,6 +33,7 @@ flatpages.register()
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'user', TimtecUserViewSet)
 router.register(r'course', CourseViewSet)
+router.register(r'course_carousel', CarouselCourseView)
 router.register(r'course_professor', CourseProfessorViewSet)
 router.register(r'course_student', CourseStudentViewSet)
 router.register(r'professor_message', ProfessorMessageViewSet)
