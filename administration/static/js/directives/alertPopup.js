@@ -3,7 +3,7 @@
 
     var app = angular.module('directive.alertPopup', []);
 
-    app.directive('alertPopup', function(){
+    app.directive('alertPopup', ['$timeout', function($timeout){
         return {
             'restrict': 'A',
             'link': function(scope) {
@@ -38,16 +38,15 @@
                     },
                     hide: function(callback, timeout) {
                         var that = this;
-                        setTimeout(function(){
+                        $timeout(function(){
                             that.hidden = true;
                             if(callback && callback.call)
                                 callback.call();
-                            scope.$apply();
                         }, timeout || 5000);
                     }
                 };
                 scope.alert.reset();
             }
         };
-    });
+    }]);
 })(window.angular);
