@@ -32,7 +32,7 @@
             oldWindowWidth = $(window).width();
         }
 
-        console.log('v', oldVisible, 't', oldMax, 'f', footerpos);
+        // console.log('v', oldVisible, 't', oldMax, 'f', footerpos);
 
         function positionBack (sel1, sel2, makeTall) {
             var $b1 = $(sel1);
@@ -53,7 +53,7 @@
         var makeTall = true;
         if((oldVisible == 2) && (lefts[0] === lefts[1]))
             makeTall = false;
-        console.log('mt', makeTall);
+        // console.log('mt', makeTall);
         positionBack('.b1', '.c1', makeTall);
         positionBack('.b2', '.c2', makeTall);
     }
