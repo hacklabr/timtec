@@ -17,7 +17,7 @@ from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
                         LessonViewSet, StudentProgressViewSet,
                         UserNotesViewSet, CoursesView,
                         ProfessorMessageViewSet, CourseStudentViewSet,
-                        AcceptTermsView, KlassListView)
+                        AcceptTermsView, CarouselCourseView, KlassListView,)
 
 from activities.views import AnswerViewSet
 from accounts.views import TimtecUserViewSet
