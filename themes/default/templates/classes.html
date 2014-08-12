@@ -17,6 +17,19 @@
                 </div>
             </div>
         </header>
+        <table class="table table-list">
+            <tr>
+                <th class="classname">{% trans "Class name" %}</th>
+                <th class="actions">{% trans "Actions" %}</th>
+            </tr>
+            <tr>
+                <td>Nome da Turma</td>
+                <td>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#edit-user"><i class="fa fa-gear"></i></button>
+                    <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+        </table>
     </section>
 </div>
 {% endblock %}
