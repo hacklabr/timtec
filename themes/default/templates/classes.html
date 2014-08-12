@@ -6,6 +6,17 @@
 {% block content %}
 <div id="classes" class="course-classes">
     {% include "_course-header-inline.html"  with course=course %}
-    <h1 class="col-lg-12">start here</h1>
+    <section id="classes-content" class="container">
+    	<header class="secondary-header">
+            <div class="row">
+                <div class="col-lg-9">
+                    <h1>{% trans 'Classes' %}</h1>
+                </div>
+                <div class="col-lg-3">
+                    <a class="btn btn-lg btn-danger uppercase">{% trans 'Add class' %}</a>
+                </div>
+            </div>
+        </header>
+    </section>
 </div>
 {% endblock %}
