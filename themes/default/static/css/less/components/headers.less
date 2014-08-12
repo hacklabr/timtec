@@ -10,58 +10,51 @@
 }
 
 // SHARED HEADER STYLES
-#course,
-#forum,
-#messages,
-#my-notes,
-#stats,
-#users {
-  header {
-    .page-header {
-      border-bottom: 1px solid @brand-light;
-      margin-bottom: 20px;
-      h1 {
-        .bottom(0,0);
-        .top(0,0);
-        span {
-          display: inline-block;
-        }
-        a {
-          color: @gray-darker;
-          &:hover {
-            color: @brand-info;
-          }
-        }
-      }
-    }
-    .course-slug {
-      margin-bottom: 5px;
-      label {
-        color: @gray-light;
-        font-weight: normal;
-      }
-    }
-    ul.instructors {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      li {
+.main-header {
+  .page-header {
+    border-bottom: 1px solid @brand-light;
+    margin-bottom: 20px;
+    h1 {
+      .bottom(0,0);
+      .top(0,0);
+      span {
         display: inline-block;
-        text-transform: uppercase;
-        a {
-          color:@brand-success;
-          &:hover {
-            color:darken(@brand-success, 10%);
-          }
-          &:after {
-            content: " // ";
-            color: black;
-            margin-right: 3px;
-          }
+      }
+      a {
+        color: @gray-darker;
+        &:hover {
+          color: @brand-info;
         }
-        &:last-child a:after {
-            content: "";
+      }
+    }
+  }
+  .course-slug {
+    margin-bottom: 5px;
+    label {
+      color: @gray-light;
+      font-weight: normal;
+    }
+  }
+  ul.instructors {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+      display: inline-block;
+      text-transform: uppercase;
+      a {
+        color:@brand-success;
+        &:hover {
+          color:darken(@brand-success, 10%);
         }
+        &:after {
+          content: " // ";
+          color: black;
+          margin-right: 3px;
+        }
+      }
+      &:last-child a:after {
+          content: "";
       }
     }
   }
