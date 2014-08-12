@@ -18,7 +18,7 @@
                     <div class="form-group{{ errors|yesno:' has-error,' }}">
                         <label class="col-lg-2 col-md-3 col-sm-4">{% trans "Username" %}</label>
                         <div class="col-lg-4 col-md-5 col-sm-6">
-                            <input name="username" type="text" value="{{form.username.value}}" class="form-control" placeholder="{% trans 'Username' %}">
+                            <input name="username" type="text" value="{{form.username.value|default_if_none:""}}" class="form-control" placeholder="{% trans 'Username' %}">
                             {% for error in errors %}<small>{{error}}</small>{% endfor %}
                         </div>
                     </div>
@@ -28,7 +28,7 @@
                     <div class="form-group{{ errors|yesno:' has-error,' }}">
                         <label class="col-lg-2 col-md-3 col-sm-4">{% trans "E-mail" %}</label>
                         <div class="col-lg-4 col-md-5 col-sm-6">
-                            <input name="email" type="email" value="{{form.email.value}}" class="form-control" placeholder="{% trans 'Your e-mail' %}">
+                            <input name="email" type="email" value="{{form.email.value|default_if_none:""}}" class="form-control" placeholder="{% trans 'Your e-mail' %}">
                             {% for error in errors %}<small>{{error}}</small>{% endfor %}
                         </div>
                     </div>
