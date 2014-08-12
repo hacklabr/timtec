@@ -245,6 +245,15 @@ class LessonDetailView(LoginRequiredMixin, DetailView):
         return context
 
 
+class KlassListView(TemplateView):
+    template_name = 'classes.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(KlassListView, self).get_context_data(**kwargs)
+        context['course'] = get_object_or_404(Course, slug=self.kwargs.get('course_slug'))
+        return context
+
+
 class LessonViewSet(viewsets.ModelViewSet):
     model = Lesson
     serializer_class = LessonSerializer

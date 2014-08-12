@@ -17,7 +17,7 @@ from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
                         LessonViewSet, StudentProgressViewSet,
                         UserNotesViewSet, CoursesView,
                         ProfessorMessageViewSet, CourseStudentViewSet,
-                        AcceptTermsView)
+                        AcceptTermsView, KlassListView)
 
 from activities.views import AnswerViewSet
 from accounts.views import TimtecUserViewSet
@@ -72,6 +72,10 @@ urlpatterns = patterns(
     url(r'^html5/', TemplateView.as_view(template_name="html5.html")),
     url(r'^empty/', TemplateView.as_view(template_name="empty.html")),
     url(r'^contact/?$', ContactView.as_view(), name="contact"),
+
+    # Classes
+    url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/classes/$', KlassListView.as_view(), name='classes'),
+
 
     # Services
     url(r'^api/', include(router.urls)),

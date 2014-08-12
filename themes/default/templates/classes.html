@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+<div id="classes" class="course-classes">
+    {% include "_course-header-inline.html"  with course=course %}
+    <h1 class="col-lg-12">start here</h1>
+</div>
+{% endblock %}
