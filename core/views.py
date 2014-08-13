@@ -262,6 +262,15 @@ class KlassListView(TemplateView):
         return context
 
 
+class KlassUpdateView(TemplateView):
+    template_name = 'class_edit.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(KlassUpdateView, self).get_context_data(**kwargs)
+        context['course'] = get_object_or_404(Course, slug=self.kwargs.get('course_slug'))
+        return context
+
+
 class LessonViewSet(viewsets.ModelViewSet):
     model = Lesson
     serializer_class = LessonSerializer
