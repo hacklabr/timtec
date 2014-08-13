@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+<div id="classes" class="course-classes">
+    {% include "_course-header-inline.html"  with course=course %}
+    <section id="classes-content" class="container">
+    	<header class="secondary-header">
+            <div class="row">
+                <div class="col-lg-9">
+                    <h1>{% trans 'Classes' %}</h1>
+                </div>
+                <div class="col-lg-3">
+                    <a class="btn btn-lg btn-danger uppercase">{% trans 'Add class' %}</a>
+                </div>
+            </div>
+        </header>
+        <table class="table table-list">
+            <tr>
+                <th class="classname">{% trans "Class name" %}</th>
+                <th class="actions">{% trans "Actions" %}</th>
+            </tr>
+            <tr>
+                <td>Nome da Turma</td>
+                <td>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#edit-user"><i class="fa fa-gear"></i></button>
+                    <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
+                </td>
+            </tr>
+        </table>
+    </section>
+</div>
+{% endblock %}
