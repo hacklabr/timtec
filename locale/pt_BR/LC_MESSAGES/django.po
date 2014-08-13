@@ -2,19 +2,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-12 14:20-0300\n"
-"PO-Revision-Date: 2014-07-30 15:54-0300\n"
+"PO-Revision-Date: 2014-08-13 14:28-0300\n"
 "Last-Translator: Administrador TIMTec <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Translated-Using: django-rosetta 0.7.3\n"
 
@@ -559,12 +559,12 @@ msgstr "Estatística"
 #: themes/default/templates/_admin_header_inline.html:30
 #: themes/default/templates/_course-header-inline.html:21
 msgid "Class"
-msgstr ""
+msgstr "Turma"
 
 #: themes/default/templates/_admin_header_inline.html:31
 #: themes/default/templates/course.html:90
 msgid "Permissions"
-msgstr ""
+msgstr "Permissões"
 
 #: themes/default/templates/_course-header-inline.html:14
 #: themes/timtec/templates/_admin_header_inline.html:17
@@ -576,7 +576,7 @@ msgstr "Vídeo introdutório"
 
 #: themes/default/templates/_course-header-inline.html:15
 msgid "Classes"
-msgstr ""
+msgstr "Turmas"
 
 #: themes/default/templates/_course-header-inline.html:18
 #: themes/timtec/templates/_admin_header_inline.html:19
@@ -755,9 +755,8 @@ msgstr "Apagar curso"
 
 #: themes/default/templates/course.html:42
 #: themes/default/templates/administration/lesson.html:34
-#, fuzzy
 msgid "Delete"
-msgstr "Apagar curso"
+msgstr "Apagar"
 
 #: themes/default/templates/course.html:44
 #: themes/default/templates/administration/lesson.html:36
@@ -776,7 +775,7 @@ msgstr "Situação"
 
 #: themes/default/templates/course.html:89
 msgid "Group"
-msgstr ""
+msgstr "Turma"
 
 #: themes/default/templates/course.html:95
 #: themes/timtec/templates/course.html:158
@@ -1184,7 +1183,7 @@ msgstr "Nome"
 #: themes/default/templates/users.html:33
 #: themes/timtec/templates/users.html:24
 msgid "Actions"
-msgstr "Anotações"
+msgstr "Ações"
 
 #: themes/default/templates/account/activate.html:10
 #: themes/default/templates/account/activate.html:23
@@ -1211,8 +1210,8 @@ msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
 "address for user %(user_display)s."
 msgstr ""
-"Por favor confirme que o endereço <a href=\"mailto:%(email)s\">%(email)s</a> "
-"é o email do usuário %(user_display)s."
+"Por favor confirme que o endereço <a href=\"mailto:%(email)s\">%(email)s</a>"
+" é o email do usuário %(user_display)s."
 
 #: themes/default/templates/account/email_confirm.html:17
 #: themes/default/templates/account/email_confirm.html:36
@@ -1224,11 +1223,11 @@ msgstr "Confirmar"
 #: themes/default/templates/account/email_confirm.html:40
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a href="
-"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"Este email de confirmação expirou ou é inválido. Por favor <a href="
-"\"%(email_url)s\">solicite uma nova confirmação de e-mail</a>."
+"Este email de confirmação expirou ou é inválido. Por favor <a "
+"href=\"%(email_url)s\">solicite uma nova confirmação de e-mail</a>."
 
 #: themes/default/templates/account/email_confirmed.html:9
 #: themes/timtec/templates/account/email_confirmed.html:16
@@ -1301,12 +1300,12 @@ msgstr "Mudar sua senha"
 #, python-format
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
-"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
-"a>."
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password "
+"reset</a>."
 msgstr ""
 "O link de solicitação de redefinição de senha é inválido, possivelmente "
-"porque já foi usado. Por favor solicite uma <a href=\"%(passwd_reset_url)s"
-"\">nova redefinição de senha</a>."
+"porque já foi usado. Por favor solicite uma <a "
+"href=\"%(passwd_reset_url)s\">nova redefinição de senha</a>."
 
 #: themes/default/templates/account/password_reset_from_key.html:36
 #: themes/default/templates/account/password_reset_from_key.html:75
@@ -1342,10 +1341,8 @@ msgstr "Email de validação enviado"
 #: themes/timtec/templates/account/email/password_reset_key_message.txt:1
 #, python-format
 msgid ""
-"You're receiving this e-mail because you or someone else has requested a "
-"password for your user account at %(site_domain)s.\n"
-"It can be safely ignored if you did not request a password reset. Click the "
-"link below to reset your password.\n"
+"You're receiving this e-mail because you or someone else has requested a password for your user account at %(site_domain)s.\n"
+"It can be safely ignored if you did not request a password reset. Click the link below to reset your password.\n"
 "\n"
 "%(password_reset_url)s\n"
 "\n"
@@ -1353,10 +1350,8 @@ msgid ""
 "\n"
 "Thanks for using our site!\n"
 msgstr ""
-"Você está recebendo este e-mail porque você ou alguém solicitou uma "
-"redefinição de senha para sua conta no site %(site_domain)s.\n"
-"Você pode seguramente ignorar esta mensagem se você não solicitou esta "
-"redefinição de senha. Clique no link abaixo para redefinir sua senha.\n"
+"Você está recebendo este e-mail porque você ou alguém solicitou uma redefinição de senha para sua conta no site %(site_domain)s.\n"
+"Você pode seguramente ignorar esta mensagem se você não solicitou esta redefinição de senha. Clique no link abaixo para redefinir sua senha.\n"
 "\n"
 "%(password_reset_url)s\n"
 "\n"
@@ -1484,8 +1479,8 @@ msgstr "Autenticação cancelada"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
-"\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a "
+"href=\"%(login_url)s\">sign in</a>."
 msgstr ""
 "Você decidiu cancelar o login no nosso site usando uma conta sua existente. "
 "Se isso foi um engano volte para <a href=\"%(login_url)s\">entrar</a>."
@@ -1530,33 +1525,30 @@ msgstr "Esta unidade não possui material adicional"
 #: themes/timtec/templates/account/email_confirm.html:20
 #, python-format
 msgid ""
-"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a><br>is an e-"
-"mail address for user %(user_display)s."
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a><br>is an "
+"e-mail address for user %(user_display)s."
 msgstr ""
-"Por favor confirme que o endereço <a href=\"mailto:%(email)s\">%(email)s</a> "
-"é o email do usuário %(user_display)s."
+"Por favor confirme que o endereço <a href=\"mailto:%(email)s\">%(email)s</a>"
+" é o email do usuário %(user_display)s."
 
 #: themes/timtec/templates/account/email_confirm.html:26
 #, fuzzy, python-format
 msgid ""
 "This e-mail confirmation link expired or is invalid.</p>\n"
-"                <p>Please <a href=\"%(email_url)s\">issue a new e-mail "
-"confirmation request</a>."
+"                <p>Please <a href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"Este email de confirmação expirou ou é inválido.</h2> <p>Por favor <a href="
-"\"%(email_url)s\">solicite uma nova confirmação de e-mail</a>."
+"Este email de confirmação expirou ou é inválido.</h2> <p>Por favor <a "
+"href=\"%(email_url)s\">solicite uma nova confirmação de e-mail</a>."
 
 #: themes/timtec/templates/account/password_reset_from_key.html:18
 #, python-format
 msgid ""
-"The password reset link was invalid,<br>possibly because it has already been "
-"used.</p>\n"
-"                <p>Please request a <a href=\"%(passwd_reset_url)s\">new "
-"password reset</a>."
+"The password reset link was invalid,<br>possibly because it has already been used.</p>\n"
+"                <p>Please request a <a href=\"%(passwd_reset_url)s\">new password reset</a>."
 msgstr ""
 "O link de solicitação de redefinição de senha é inválido, possivelmente "
-"porque já foi usado. Por favor solicite uma <a href=\"%(passwd_reset_url)s"
-"\">nova redefinição de senha</a>."
+"porque já foi usado. Por favor solicite uma <a "
+"href=\"%(passwd_reset_url)s\">nova redefinição de senha</a>."
 
 #: themes/timtec/templates/administration/course.html:38
 msgid "Delete this course"
