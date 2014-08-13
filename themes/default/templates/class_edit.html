@@ -4,29 +4,59 @@
 {% load i18n %}
 
 {% block content %}
+
+<!-- class-modal -->
+<div class="modal fade" id="class-modal" tabindex="-1" role="dialog" aria-labelledby="class-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="class-modal-label">Nome da Turma</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class"form-group">
+                        <label for="class-users-list">{% trans 'Users' %}</label>
+                        <textarea id="class-users-list" class="form-control" rows="10" placeholder="Paste users list here, one user per line.">
+                            
+                        </textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">{% trans 'Add users' %}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="classes" class="course-classes">
     {% include "_course-header-inline.html"  with course=course %}
     <section id="classes-content" class="container">
     	<header class="secondary-header">
             <div class="row">
                 <div class="col-lg-9">
-                    <h1>{% trans 'Classes' %}</h1>
+                    <h1>Nome da turma</h1>
                 </div>
                 <div class="col-lg-3">
-                    <a class="btn btn-lg btn-danger uppercase">{% trans 'Add class' %}</a>
+                    <a class="btn btn-lg btn-danger uppercase" data-toggle="modal" data-target="#class-modal">{% trans 'Add users' %}</a>
                 </div>
             </div>
         </header>
         <table class="table table-list">
             <tr>
-                <th class="classname">{% trans "Class name" %}</th>
+                <th class="classname">{% trans "Username" %}</th>
+                <th class="email">{% trans "Email" %}</th>
+                <th class="fullname">{% trans "Full name" %}</th>
                 <th class="actions">{% trans "Actions" %}</th>
             </tr>
             <tr>
-                <td>Nome da Turma</td>
+                <td>Nome do user</td>
+                <td>email@email.com</td>
+                <td>Nome completo do user</td>
                 <td>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#edit-user"><i class="fa fa-gear"></i></button>
-                    <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
+                    <a href="#" class="btn btn-warning center-block"><i class="fa fa-trash-o"></i></a>
                 </td>
             </tr>
         </table>
