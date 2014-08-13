@@ -129,8 +129,12 @@ STATICFILES_FINDERS = (
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
+PIPELINE_YUGLIFY_BINARY = os.path.join(PROJECT_ROOT, 'node_modules', 'yuglify', 'bin', 'yuglify')
+PIPELINE_UGLIFYJS_BINARY = os.path.join(PROJECT_ROOT, 'node_modules', 'uglify-js', 'bin', 'uglifyjs')
+PIPELINE_NGMIN_BINARY = os.path.join(PROJECT_ROOT, 'node_modules', 'ngmin', 'bin', 'ngmin')
 PIPELINE_JS_COMPRESSOR = 'timtec.ngmincombo.NgminComboCompressor'
 
+PIPELINE_LESS_BINARY = os.path.join(PROJECT_ROOT, 'node_modules', 'less', 'bin', 'lessc')
 PIPELINE_COMPILERS = (
     'pipeline.compilers.less.LessCompiler',
 )
