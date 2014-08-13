@@ -77,10 +77,10 @@ python_tests: clean
 	py.test --pep8 --flakes --splinter-webdriver=phantomjs --reuse-db --cov . . $*
 
 js_tests:
-	find . -path ./bower_components -prune -o -path bower_components/ -prune -o -path ./node_modules -prune -o -regex ".*/vendor/.*" -prune -o -name '*.js' -exec jshint {} \;
+	find . -path ./bower_components -prune -o -path bower_components/ -prune -o -path ./node_modules -prune -o -regex ".*/vendor/.*" -prune -o -name '*.js' -exec ./node_modules/jshint/bin/jshint {} \;
 
 karma_tests:
-	karma start confkarma.js $*
+	./node_modules/karma-cli/bin/karma start confkarma.js $*
 
 all_tests: clean python_tests karma_tests js_tests test_collectstatic
 
@@ -97,8 +97,7 @@ setup_coveralls:
 	pip install -q coveralls
 
 setup_js:
-	sudo `which npm` install -g less yuglify uglify-js cssmin karma karma-cli karma-phantomjs-launcher karma-jasmine jshint ngmin grunt-cli --loglevel silent
-	sudo npm install grunt grunt-angular-gettext
+	npm install --loglevel silent
 
 setup_django: clean
 	python manage.py syncdb --all --noinput
