@@ -51,57 +51,61 @@
     {% endif %}
 
     <!-- HEADER -->
-    <header class="container">
+    <header class="main-header container">
         <!-- PAGE-HEADER -->
         <div class="page-header">
             <!-- ROW -->
             <div class="row">
-                <div class="col-md-8 col-xs-12">
                 {% if in_admin %}
-                    <h1><i class="fa fa-angle-double-right"></i>
-                        <span ng-class="{'blink-text-danger':errors.name}" ng-model="course.name"
-                        placeholder="{% trans 'Course name' %}" contenteditable="true"
-                        tabindex="1"></span>
-                    </h1>
+                    <div class="col-md-8 col-xs-12">
+                        <h1>
+                            <span ng-class="{'blink-text-danger':errors.name}" ng-model="course.name"
+                            placeholder="{% trans 'Course name' %}" contenteditable="true"
+                            tabindex="1"></span>
+                        </h1>
 
-                    <div class="course-slug clearfix">
-                      <label>http://{{ site.domain }}/course/</label>
-                        <strong>
-                            <span ng-bind="course.name|slugify" ng-hide="course.slug"></span>
-                            <span ng-model="course.slug" contenteditable></span>
-                        </strong>
+                        <div class="course-slug clearfix">
+                          <label>http://{{ site.domain }}/course/</label>
+                            <strong>
+                                <span ng-bind="course.name|slugify" ng-hide="course.slug"></span>
+                                <span ng-model="course.slug" contenteditable></span>
+                            </strong>
+                        </div>
                     </div>
                 {% else %}
-                    <h1><i class="fa fa-angle-double-right"></i> {{course.name}}</h1>
+                    <div class="col-md-9 col-xs-12">
+                        <h1><i class="fa fa-angle-double-right"></i> {{course.name}}</h1>
                         {% include "_course-professors-inline.html" with course=course %}
+                    </div>
                 {% endif %}
-                </div>
+                
 
-                <div class="col-md-4 col-xs-12 textright">
                     {% if in_admin %}
-                        <nav class="course-sections textright">
-                            <a href=""><span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Course' %}"></span></a>
-                            <a ng-href="{% verbatim %}/{{forum_url}}{% endverbatim %}"><span class="has-tooltip fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Forum' %}"></span></a>
-                            <a ng-href="{% verbatim %}/{{course_material_url}}{% endverbatim %}"><span class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Material' %}"></span></a>
-                            <a ng-href="{% verbatim %}/{{messages_url}}{% endverbatim %}"><span class="has-tooltip fa fa-envelope-o" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Messages' %}"></span></a>
-                            <a ng-href="{% verbatim %}/{{reports_url}}{% endverbatim %}"><span class="has-tooltip fa fa-bar-chart-o" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Stats' %}"></span></a>
-                            <!-- se o usuário for professor tutor mostrar-->
-                            <a href="#"><span class="has-tooltip fa fa-users" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Group' %}"></span></a>
-                            <a ng-href="{% verbatim %}/{{permissions_url}}{% endverbatim %}"><span class="has-tooltip fa fa-key" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Permissions' %}"></span></a>
-                        </nav>
+                        <div class="col-md-4 col-xs-12 textright">
+                            <nav class="course-sections textright">
+                                <a href=""><span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Course' %}"></span></a>
+                                <a ng-href="{% verbatim %}/{{forum_url}}{% endverbatim %}"><span class="has-tooltip fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Forum' %}"></span></a>
+                                <a ng-href="{% verbatim %}/{{course_material_url}}{% endverbatim %}"><span class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Material' %}"></span></a>
+                                <a ng-href="{% verbatim %}/{{messages_url}}{% endverbatim %}"><span class="has-tooltip fa fa-envelope-o" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Messages' %}"></span></a>
+                                <a ng-href="{% verbatim %}/{{reports_url}}{% endverbatim %}"><span class="has-tooltip fa fa-bar-chart-o" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Stats' %}"></span></a>
+                                <a ng-href="{% verbatim %}/{{permissions_url}}{% endverbatim %}"><span class="has-tooltip fa fa-key" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Permissions' %}"></span></a>
+                            </nav>
+                        </div>
                     {% else %}
                         {% if course.first_lesson.slug %}
-                            {% if user_is_enrolled %}
-                                <a href="{% url "lesson" course.slug course.first_lesson.slug %}" id="go-to-course" class="btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Resume" %}</a>
-                            {% else %}
-                                <a
-                                    {% if user.is_authenticated %}
-                                        onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 1);"
-                                    {% else %}
-                                        onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 0);"
-                                    {% endif %}
-                                    href="{% url "enroll_course" course.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Take the Class" %}</a>
-                            {% endif %}
+                            <div class="col-md-3 col-xs-12 textright">
+                                {% if user_is_enrolled %}
+                                    <a href="{% url "lesson" course.slug course.first_lesson.slug %}" id="go-to-course" class="btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Resume" %}</a>
+                                {% else %}
+                                    <a
+                                        {% if user.is_authenticated %}
+                                            onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 1);"
+                                        {% else %}
+                                            onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 0);"
+                                        {% endif %}
+                                        href="{% url "enroll_course" course.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Take the Class" %}</a>
+                                {% endif %}
+                            </div>
                         {% endif %}
                     {% endif %}
 
