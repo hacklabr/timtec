@@ -16,5 +16,9 @@
     "karma-phantomjs-launcher": "~0.1.4",
     "karma-jasmine": "~0.1.5",
     "jshint": "~2.5.3"
+  },
+  "scripts": {
+    "nggettext_compile": "grunt compile",
+    "nggettext_extract": "grunt extract"
   }
 }
