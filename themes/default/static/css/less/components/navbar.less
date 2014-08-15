@@ -5,7 +5,7 @@
 @navbar-inverse-border:                     transparent;
 
 // Inverted navbar links
-@navbar-inverse-link-color:                 @brand-primary;
+@navbar-inverse-link-color:                 darken(@brand-primary, 10%);
 @navbar-inverse-link-hover-color:           @brand-primary;
 @navbar-inverse-link-hover-bg:              white;
 @navbar-inverse-link-active-color:          @brand-primary;
@@ -101,6 +101,16 @@
       margin-left: 5px;
       vertical-align: middle;
     }
+  }
+  #session-nav {
+    background-color: darken(@brand-light, 10%);
+    padding: 0 5px;
+    @media (min-width: @screen-sm-min) {
+      margin-right: -15px;
+    }
+  }
+  #site-nav {
+    float: right !important;
   }
 }
 
