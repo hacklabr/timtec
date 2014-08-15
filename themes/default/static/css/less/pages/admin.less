@@ -504,6 +504,21 @@
     }
     &:hover {
       background-color: lighten(@brand-warning, 40%);
+      &:after {
+        color: lighten(black, 20%);
+      }
+    }
+    &:after {
+      display: inline-block;
+      font-family: FontAwesome;
+      font-style: normal;
+      font-weight: normal;
+      line-height: 1;
+      margin-left: 5px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      content:'\f040';
+      color: lighten(black, 80%);
     }
   }
 
