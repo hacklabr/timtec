@@ -14,7 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   # config.vm.box = "chef/debian-7.6"
   config.vm.box = "ubuntu/trusty64"
-  # config.vm.provision :shell, path: "scripts/bootstrap-ubuntu.sh"
+  config.vm.provision :shell, path: "scripts/bootstrap-ubuntu.sh"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs

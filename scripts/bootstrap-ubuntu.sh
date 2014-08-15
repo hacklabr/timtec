@@ -17,7 +17,9 @@ apt-get install -y libpq-dev libjpeg-dev libpng12-dev build-essential python-dev
 # apt-get install -y nginx uwsgi
 
 # su - ${TIMTEC_USER}
-# virtualenv timtec-env
-# source timtec-env/bin/activate
+virtualenv timtec-env
+# sudo chown -R vagrant:vagrant ../timtec-env/
+source timtec-env/bin/activate
+# ln -s /timtec timtec
 #cd timtec
-# make
+#make
