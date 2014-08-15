@@ -37,7 +37,9 @@
     	<header class="secondary-header">
             <div class="row">
                 <div class="col-lg-9">
-                    <h1>Nome da turma</h1>
+                    <h1>
+                        <span contenteditable=true>{% trans 'Class name' %}</span>
+                    </h1>
                 </div>
                 <div class="col-lg-3">
                     <a class="btn btn-lg btn-danger uppercase" data-toggle="modal" data-target="#class-modal">{% trans 'Add users' %}</a>
