@@ -25,7 +25,7 @@
         };
     }
 
-    function InlineForumCtrl($scope, $window, $modal, Question) {
+    function InlineForumCtrl($scope, $window, $modal, $http, Question) {
         function compare_by_dates(a,b) {
             if (a.timestamp > b.timestamp)
                return -1;
@@ -75,6 +75,19 @@
             $scope.maxSize = 5;
             $scope.itemsPerPage = 15;
             $scope.current_page_questions = $scope.questions.slice(0,$scope.itemsPerPage);
+        });
+
+        $http({method: 'GET', url: '/api/is_forum_moderator/' + course_id + '/'}).
+            success(function(data, status, headers, config) {
+                if (data === "true"){
+                    $scope.is_current_user_forum_moderator = true;
+                } else {
+                    $scope.is_current_user_forum_moderator = false;
+                }
+
+            }).
+            error(function(data, status, headers, config) {
+                $scope.is_current_user_forum_moderator = false;
         });
 
         $scope.changePageHandler = function (page) {
@@ -170,7 +183,7 @@
 
     angular.module('forum.controllers', ['ngCookies']).
         controller('QuestionCtrl', ['$scope', '$sce', '$window', 'Question', 'ForumAnswer', QuestionCtrl]).
-        controller('InlineForumCtrl', ['$scope', '$window', '$modal', 'Question', InlineForumCtrl]).
+        controller('InlineForumCtrl', ['$scope', '$window', '$modal', '$http', 'Question', InlineForumCtrl]).
         controller('QuestionVoteCtrl', ['$scope', '$window', 'QuestionVote',
             function ($scope, $window, QuestionVote) {
                 $scope.questionId = parseInt($window.question_id, 10);
