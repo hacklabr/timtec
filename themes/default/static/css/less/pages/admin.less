@@ -514,22 +514,6 @@
   }
   // END ACTIONS
 
-  // CONTENT EDITABLE
-  [contenteditable] {
-    font-weight: thin;
-    padding: 3px 0 0 0;
-    &:empty {
-      background-color: lighten(@brand-danger, 40%);
-      color: @gray-light;
-      &:before {
-        background-color: none;
-      }
-    }
-    &:hover {
-      background-color: lighten(@brand-warning, 40%);
-    }
-  }
-
   // POPUP NOTIFICATIONS
   .tt-popup {
     margin-left: 25%;
