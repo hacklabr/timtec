@@ -42,11 +42,15 @@ class VideoAdmin(ModelAdmin):
     list_display = ('name', 'youtube_id',)
 
 
+class StudentProgressAdmin(ModelAdmin):
+    search_fields = ('user__username',)
+    list_display = ('user', 'unit', 'complete', 'last_access')
+
 admin.site.register(Video, VideoAdmin)
 admin.site.register(CourseProfessor, CourseProfessorAdmin)
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Unit, UnitAdmin)
-admin.site.register(StudentProgress)
+admin.site.register(StudentProgress, StudentProgressAdmin)
 admin.site.register(CourseStudent)
 admin.site.register(ProfessorMessage)

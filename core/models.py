@@ -318,7 +318,7 @@ class Unit(PositionedModel):
         ordering = ['lesson', 'position']
 
     def __unicode__(self):
-        return u'%s - %s - %s - %s' % (self.lesson, self.position, self.video, self.activity)
+        return u'%s - %s' % (self.title, self.position)
 
 
 class StudentProgress(models.Model):
