@@ -62,13 +62,13 @@
             <div class="row">
                 <div class="col-md-9 col-sm-8 col-xs-12">
                 {% if in_admin %}
-                    <h1>
+                    <h1 class="editable-content">
                         <span ng-class="{'blink-text-danger':errors.name}" ng-model="course.name"
                         placeholder="{% trans 'Course name' %}" contenteditable="true"
                         tabindex="1"></span>
                     </h1>
 
-                    <div class="course-slug clearfix">
+                    <div class="course-slug editable-content clearfix">
                       <label>http://{{ site.domain }}/course/</label>
                         <strong>
                             <span ng-bind="course.name|slugify" ng-hide="course.slug"></span>
@@ -195,7 +195,7 @@
                                 <div id="youtube-player" player-height="475px" player-width="100%" youtube-player></div>
                                 <div class="row">
                                     <div class="col-lg-10">
-                                        <p class="video-title" ng-model="course.intro_video.name" placeholder="Nome do vídeo" contenteditable><p>
+                                        <p class="video-title editable-content" ng-model="course.intro_video.name" placeholder="Nome do vídeo" contenteditable><p>
                                     </div>
                                     <div class="col-lg-2 textcenter">
                                         <button class="btn-edit-video btn btn-success btn-sm uppercase"
