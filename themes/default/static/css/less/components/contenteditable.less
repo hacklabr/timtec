@@ -1,22 +1,45 @@
 // CONTENT EDITABLE
 [contenteditable] {
-font-weight: thin;
-padding: 3px 0 0 0;
-&:empty {
+  font-weight: thin;
+  padding: 3px 0 0 0;
+  &:empty {
+    background-color: lighten(@brand-danger, 40%);
+    color: @gray-light;
+    &:before {
+      background-color: none;
+    }
+  }
+  &:hover {
+    background-color: lighten(@brand-warning, 40%);
+  }
+}
+
+.editable {
+  cursor: pointer;
+  word-break: break-word;
+  &:hover {
+    background-color: lighten(@brand-warning, 40%);
+  }
+}
+.markdown-required {
   background-color: lighten(@brand-danger, 40%);
-  color: @gray-light;
-  &:before {
-    background-color: none;
+  position: relative;
+  > div.editable {
+    min-height: 120px;
+    text-align: center;
+    line-height: 120px;
+  }
+  .markdown-required-label {
+    bottom: 10px;
+    color: @brand-danger;
+    font-size: 11px;
+    position: absolute;
+    right: 15px;
   }
 }
-&:hover {
-  background-color: lighten(@brand-warning, 40%);
-  &:after {
-    color: lighten(black, 20%);
-  }
-}
-&:after {
-  display: inline-block;
+
+
+.editable-content:after, .editable p:last-child:after, .markdown-required .editable:after {
   font-family: FontAwesome;
   font-style: normal;
   font-weight: normal;
@@ -25,6 +48,17 @@ padding: 3px 0 0 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content:'\f040';
-  color: lighten(black, 80%);
+  color: lighten(black, 70%);
 }
+
+.editable-content:after {
+  display: inline-block;
+}
+
+.editable p:last-child:after {
+  font-size: 16px;
+}
+
+.markdown-required .editable:after {
+  font-size: 20px;
 }
