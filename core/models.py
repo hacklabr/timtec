@@ -243,8 +243,8 @@ class PositionedModel(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            args = {self.collection_name: getattr(self, self.collection_name)}
-            latest = self.__class__.objects.filter(**args) \
+            filters = {self.collection_name: getattr(self, self.collection_name)}
+            latest = self.__class__.objects.filter(**filters) \
                 .aggregate(models.Max('position')) \
                 .get('position__max')
 
