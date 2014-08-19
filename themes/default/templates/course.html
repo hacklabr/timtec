@@ -228,17 +228,12 @@
                     <!--  END COURSE-VIDEO  -->
                 {% else %}
                     <!-- COURSE-VIDEO -->
-                    <section class="video" id="course-video">
-                        <!-- ROW -->
-                        <div class="row">
-                            {% with yid=course.intro_video.youtube_id %}
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-sx-12">
-                                    <iframe id="youtube-player" type="text/html" frameborder="0" src="//www.youtube.com/embed/{{yid}}?rel=0&showinfo=0&autohide=1&theme=light&wmode=opaque" allowfullscreen>
-                                    </iframe>
-                                </div>
-                            {% endwith %}
-                        </div>
-                        <!-- END ROW -->
+                    <section class="video embed-responsive embed-responsive-16by9" id="course-video">
+                        <iframe id="youtube-player"
+                                type="text/html"
+                                src="//www.youtube.com/embed/{{course.intro_video.youtube_id}}?rel=0&showinfo=0&autohide=1&theme=light&wmode=opaque"
+                                allowfullscreen>
+                        </iframe>
                     </section>
                     <!-- END COURSE-VIDEO -->
                 {% endif %}

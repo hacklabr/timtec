@@ -32,12 +32,6 @@
     {% analytics %}
     <script type="text/javascript" charset="utf-8">
         (function(){
-            function resize_player() {
-                var $p = $('#youtube-player');
-                $p.css('width','100%');
-                $p.height(Math.floor($p.width() * 0.5624));
-            }
-
             function resize_activation_wrapper() {
                 windowHeight = window.innerHeight;
                 navbarHeight = $('#main-navbar').innerHeight();
@@ -55,11 +49,6 @@
             $(document).ready(function() {
                 $('.has-tooltip').tooltip();
 
-                {% if not in_admin %}
-                    $(document).on('DOMNodeInserted','#player-outter', resize_player);
-                    resize_player();
-                {% endif %}
-
                 resize_activation_wrapper();
                 wrapper_min_height();
 
@@ -67,7 +56,6 @@
                     startIntro();
                 });
             });
-            $(window).resize(resize_player);
             $(window).resize(resize_activation_wrapper);
         })();
     </script>
