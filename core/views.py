@@ -3,8 +3,9 @@ import json
 import time
 
 from django.core.urlresolvers import reverse_lazy
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
-from django.views.generic import DetailView, ListView, FormView
+from django.views.generic import DetailView, ListView, FormView, DeleteView
 from django.views.generic.base import RedirectView, View, TemplateView
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404
@@ -22,7 +23,8 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           LessonNoteSerializer, ProfessorMessageSerializer,
                           CourseStudentSerializer,)
 
-from .models import Course, CourseProfessor, Lesson, StudentProgress, Unit, ProfessorMessage, CourseStudent
+from .models import (Course, CourseProfessor, Lesson, StudentProgress,
+                     Unit, ProfessorMessage, CourseStudent, Class)
 
 from .forms import ContactForm, AcceptTermsForm
 
@@ -253,22 +255,51 @@ class LessonDetailView(LoginRequiredMixin, DetailView):
         return context
 
 
-class KlassListView(TemplateView):
+class ClassListView(LoginRequiredMixin, ListView):
+    model = Class
     template_name = 'classes.html'
 
+    def get_queryset(self):
+        self.course = get_object_or_404(Course, slug=self.kwargs.get('course_slug'))
+        user = self.request.user
+        # TODO support per user permission in the course
+        return self.model.objects.filter(course=self.course, assistant=user)
+
     def get_context_data(self, **kwargs):
-        context = super(KlassListView, self).get_context_data(**kwargs)
-        context['course'] = get_object_or_404(Course, slug=self.kwargs.get('course_slug'))
+        context = super(ClassListView, self).get_context_data(**kwargs)
+        context['course'] = self.course
         return context
 
 
-class KlassUpdateView(TemplateView):
+class ClassDetailView(LoginRequiredMixin, DetailView):
+    model = Class
     template_name = 'class_edit.html'
 
     def get_context_data(self, **kwargs):
-        context = super(KlassUpdateView, self).get_context_data(**kwargs)
-        context['course'] = get_object_or_404(Course, slug=self.kwargs.get('course_slug'))
+        context = super(ClassDetailView, self).get_context_data(**kwargs)
+
+        # TODO support per user permission in the course
+        if self.request.user != self.object.assistant:
+            raise PermissionDenied
+
         return context
+
+
+class ClassDeleteView(LoginRequiredMixin, DeleteView):
+    model = Class
+    template_name = 'base.html'
+    http_method_names = ['post', ]
+
+    def get_success_url(self):
+        return reverse_lazy('classes', kwargs={'course_slug': self.object.course.slug})
+
+    def get_object(self, queryset=None):
+        object = super(ClassDeleteView, self).get_object(queryset=queryset)
+
+        # TODO support per user permission in the course
+        if self.request.user != object.assistant:
+            raise PermissionDenied
+        return object
 
 
 class LessonViewSet(viewsets.ModelViewSet):

@@ -339,3 +339,10 @@ class EmailTemplate(models.Model):
     name = models.CharField(max_length=50)
     subject = models.CharField(max_length=255)
     template = models.TextField()
+
+
+class Class(models.Model):
+    name = models.CharField(max_length=200)
+    assistant = models.ForeignKey(TimtecUser, verbose_name=_('Assistant'))
+    students = models.ManyToManyField(TimtecUser, related_name='classes', blank=True)
+    course = models.ForeignKey(Course, verbose_name=_('Course'))

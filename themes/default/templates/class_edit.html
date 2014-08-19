@@ -11,15 +11,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="class-modal-label">Nome da Turma</h4>
+                <h4 class="modal-title" id="class-modal-label">{{ object.name }}</h4>
             </div>
             <div class="modal-body">
                 <form role="form">
                     <div class"form-group">
                         <label for="class-users-list">{% trans 'Users' %}</label>
-                        <textarea id="class-users-list" class="form-control" rows="10" placeholder="Paste users list here, one user per line.">
-                            
-                        </textarea>
+                        <textarea id="class-users-list" class="form-control" rows="10" placeholder="Paste users list here, one user per line."></textarea>
                     </div>
                 </form>
             </div>
@@ -32,13 +30,13 @@
 </div>
 
 <div id="classes" class="course-classes">
-    {% include "_course-header-inline.html"  with course=course %}
+    {% include "_course-header-inline.html"  with course=object.course %}
     <section id="classes-content" class="container">
     	<header class="secondary-header">
             <div class="row">
                 <div class="col-lg-9">
                     <h1>
-                        <span contenteditable=true>{% trans 'Class name' %}</span>
+                        <span contenteditable=true>{{ object.name }}</span>
                     </h1>
                 </div>
                 <div class="col-lg-3">
@@ -53,14 +51,16 @@
                 <th class="fullname">{% trans "Full name" %}</th>
                 <th class="actions">{% trans "Actions" %}</th>
             </tr>
+            {% for student in object.students.all %}
             <tr>
-                <td>Nome do user</td>
-                <td>email@email.com</td>
-                <td>Nome completo do user</td>
+                <td>{{ student.username }}</td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.get_full_name }}</td>
                 <td class="actions">
                     <a href="#" class="btn btn-warning"><i class="fa fa-trash-o"></i></a>
                 </td>
             </tr>
+            {% endfor %}
         </table>
     </section>
 </div>

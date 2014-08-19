@@ -22,13 +22,18 @@
                 <th class="classname">{% trans "Class name" %}</th>
                 <th class="actions">{% trans "Actions" %}</th>
             </tr>
+            {% for class in object_list %}
             <tr>
-                <td>Nome da Turma</td>
+                <td>{{ class.name }}</td>
                 <td class="actions">
-                    <a href="{% url 'class' 'html5' %}" class="btn btn-danger"><i class="fa fa-gear"></i></a>
-                    <a href="#" class="btn btn-warning"><i class="fa fa-trash-o"></i></a>
+                    <a href="{% url 'class' pk=class.id %}" class="btn btn-danger"><i class="fa fa-gear"></i></a>
+                    <form method="post" action="{% url 'class-delete' pk=class.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
+                    </form>
                 </td>
             </tr>
+            {% endfor %}
         </table>
     </section>
 </div>
