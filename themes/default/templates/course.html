@@ -189,10 +189,10 @@
                                 </div>
                             </div>
 
-                            <div class="col-xs-12" style="overflow:hidden;"
-                                 ng-style="{'margin-left': course.hasVideo() && playerReady ?'':'-2000px'}">
-
-                                <div id="youtube-player" player-height="475px" player-width="100%" youtube-player></div>
+                            <div class="col-xs-12" ng-class="{'hidder': !(course.hasVideo() && playerReady)}">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <div class="embed-responsive-item" id="youtube-player" youtube-player></div>
+                                </div>
                                 <div class="row">
                                     <div class="col-lg-10">
                                         <p class="video-title editable-content" ng-model="course.intro_video.name" placeholder="Nome do vídeo" contenteditable><p>
