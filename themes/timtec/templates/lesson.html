@@ -67,7 +67,7 @@ $(document).ready(function() {
 
               <div class="course-info row">
                 <div class="course-lessons hidden-xs col-lg-5 col-lg-offset-1 col-md-5 col-md-offset-1">
-                    <p class="description">{{ lesson.desc }}</p>
+                    <div class="description">{{ lesson.desc|timtec_markdown }}</div>
                 </div>
                 <div class="col-lg-3 col-md-3">
                   <h1 class="course-name">

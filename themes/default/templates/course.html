@@ -450,7 +450,7 @@
                             <!--  COL-LG-9  -->
                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                                 <a {% verbatim %}href="lessons/{{lesson.id}}"{% endverbatim %} class="title" ng-bind="lesson.name">{% trans 'Lesson name' %}</a>
-                                <div ng-bind="lesson.desc|markdown"></div>
+                                <div ng-bind-html="lesson.desc|markdown"></div>
                                 <!--  HIDDEN-XS  -->
                                 <div class="hidden-xs" ng-show="lesson.units">
                                     <table class="table units">
@@ -503,7 +503,7 @@
                                         {% else %}
                                             <span class="title">{{ lesson.name }}</span>
                                         {% endif %}
-                                        <span class="description">{{ lesson.desc }}</span>
+                                        <div class="description">{{ lesson.desc|timtec_markdown }}</div>
                                     </p>
 
                                     <!-- HIDDEN-XS -->
