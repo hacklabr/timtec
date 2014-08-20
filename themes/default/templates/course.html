@@ -16,6 +16,8 @@
     <script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/directives/sortable.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/new-course/controllers.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/markdown/app.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/markdown/filters.js' %}"></script>
     {% endblock %}
 
     {% block body_attrs %}
@@ -62,18 +64,12 @@
             <div class="row">
                 <div class="col-md-9 col-sm-8 col-xs-12">
                 {% if in_admin %}
-                    <h1 class="editable-content">
-                        <span ng-class="{'blink-text-danger':errors.name}" ng-model="course.name"
-                        placeholder="{% trans 'Course name' %}" contenteditable="true"
-                        tabindex="1"></span>
-                    </h1>
-
-                    <div class="course-slug editable-content clearfix">
+                    <div class="editable-title"><input type="text" ng-model="course.name" placeholder="{% trans 'Course name' %}"></div>
+                    <div class="course-slug clearfix">
                       <label>http://{{ site.domain }}/course/</label>
-                        <strong>
-                            <span ng-bind="course.name|slugify" ng-hide="course.slug"></span>
-                            <span ng-model="course.slug" contenteditable></span>
-                        </strong>
+                      {% verbatim %}
+                      <div class="editable-slug"><input type="text" ng-model="course.slug" placeholder="{{course.name|slugify}}"></div>
+                      {% endverbatim %}
                     </div>
                 {% else %}
                     <h1>{{course.name}}</h1>
@@ -453,10 +449,8 @@
 
                             <!--  COL-LG-9  -->
                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                <p>
-                                    <a {% verbatim %}href="lessons/{{lesson.id}}"{% endverbatim %} class="title editable" ng-bind="lesson.name">{% trans 'Lesson name' %}</a>
-                                    <modalmarkdowneditor on-save="saveLesson(lesson)" title="{% trans 'Lesson description' %}" content="lesson.desc"></modalmarkdowneditor>
-                                </p>
+                                <a {% verbatim %}href="lessons/{{lesson.id}}"{% endverbatim %} class="title" ng-bind="lesson.name">{% trans 'Lesson name' %}</a>
+                                <div ng-bind="lesson.desc|markdown"></div>
                                 <!--  HIDDEN-XS  -->
                                 <div class="hidden-xs" ng-show="lesson.units">
                                     <table class="table units">

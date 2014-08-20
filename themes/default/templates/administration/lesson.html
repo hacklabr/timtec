@@ -52,12 +52,10 @@ ng-app="edit-lesson"
         <nav class="course-lessons">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="editable-content"><span ng-class="{'blink-text-danger':errors.name}" ng-model="lesson.name"
-                              placeholder="{% trans 'Lesson name' %}" contenteditable="true"></span></h1>
-
-                    <p class="description editable editable-content">
-                        <span ng-model="lesson.desc" placeholder="{% trans 'Lesson description' %}"
-                              contenteditable="true"></span></p>
+                    <div class="editable-title"><input type="text" ng-model="lesson.name" placeholder="{% trans 'Lesson name' %}"></div>
+                    <div class="editable-description">
+                        <input type="text" ng-model="lesson.desc" placeholder="{% trans 'Lesson description' %}">
+                    </div>
                 </div>
             </div>
         </nav>

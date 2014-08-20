@@ -1,38 +1,69 @@
-// CONTENT EDITABLE
-[contenteditable] {
-  font-weight: thin;
+.editable {
   padding: 3px 0 0 0;
-  &:empty {
-    background-color: lighten(@brand-danger, 40%);
-    color: @gray-light;
-    &:before {
-      background-color: none;
+  background-color: lighten(@brand-danger, 40%);
+  color: @gray-light;
+  &:hover {
+    background-color: lighten(@brand-warning, 40%);
+  }
+}
+
+.editable-input {  
+  input {
+    border: none;
+    background: none;
+    display: inline-block;
+    margin: 0;
+    padding: 0 20px 0 0;
+    width: 100%;
+  }
+}
+
+.editable-title {
+  .editable;
+  .editable-input;
+  font-size: 28px;
+  input {
+    padding: 0 40px 0 0;
+    font-family: 'Questrial';
+    font-weight: normal;
+  }
+}
+
+.editable-slug {
+  .editable;
+  .editable-input;
+  display: inline-block;
+  font-size: 14px;
+  width: 150px;
+  margin-top: 3px;
+  input {
+    padding: 0 20px 0 0;
+    font-weight: bold;
+  }
+}
+
+.editable-description {
+  .editable;
+  .editable-input;
+  margin: 3px 0 10px;
+  input {
+    color: #999;
+    width: 99%; //pau gozado do chrome!!!
+  }
+}
+
+.editable-text-box {
+    cursor: pointer;
+    word-break: break-word;
+    padding: 4px;
+    &:empty {
+      min-height: 120px;
+      text-align: center;
+      line-height: 120px;
     }
   }
-  &:hover {
-    background-color: lighten(@brand-warning, 40%);
-  }
-}
 
-.editable {
-  cursor: pointer;
-  word-break: break-word;
-  &:hover {
-    background-color: lighten(@brand-warning, 40%);
-  }
-}
-.markdown-required {
-  background-color: lighten(@brand-danger, 40%);
-  position: relative;
-  > div.editable {
-    min-height: 120px;
-    text-align: center;
-    line-height: 120px;
-  }
-}
-
-
-.editable-content:after, .editable p:last-child:after, .markdown-required .editable:after {
+.editable-title:after, .editable-slug:after, .editable-description:after, .editable p:last-child:after, .editable-text-box:empty:after {
   font-family: FontAwesome;
   font-style: normal;
   font-weight: normal;
@@ -42,16 +73,21 @@
   -moz-osx-font-smoothing: grayscale;
   content:'\f040';
   color: lighten(black, 70%);
+  display: inline-block;
 }
 
-.editable-content:after {
-  display: inline-block;
+.editable-title:after {
+  margin-left: -32px;
+}
+
+.editable-slug:after, .editable-description:after {
+  margin-left: -16px;
 }
 
 .editable p:last-child:after {
   font-size: 16px;
 }
 
-.markdown-required .editable:after {
+.editable-text-box:empty:after {
   font-size: 20px;
 }
