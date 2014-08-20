@@ -1,25 +1,28 @@
 #!/bin/bash
 
-# TIMTEC_USER=timtec
+TIMTEC_USER=vagrant
 
 # useradd -U -m ${TIMTEC_USER}
 
-apt-get update
-apt-get install -y libpq-dev libjpeg-dev libpng12-dev build-essential python-dev gettext python-virtualenv nodejs
+sudo apt-get update
+sudo apt-get install -y libpq-dev libjpeg-dev libpng12-dev build-essential python-dev gettext python-virtualenv nodejs npm
+
+sudo ln -s /usr/bin/nodejs /usr/local/bin/node
 
 # Database
 # For timtec main project, we use postgresql to simulate prodution enviroment
 # TODO: the developer version should use lighter databases, like sqlite.
 
-# apt-get install -y postgresql
+sudo apt-get install -y postgresql
+sudo su - postgres -c "createuser -d ${TIMTEC_USER}"
+createdb timtec
 
 # production
 # apt-get install -y nginx uwsgi
 
-# su - ${TIMTEC_USER}
 virtualenv timtec-env
-# sudo chown -R vagrant:vagrant ../timtec-env/
 source timtec-env/bin/activate
-# ln -s /timtec timtec
-#cd timtec
-#make
+cd timtec
+make
+
+
