@@ -4,8 +4,8 @@
 {% load i18n %}
 
 {% block content %}
-<div class="modal fade" id="class-modal" tabindex="-1" role="dialog" aria-labelledby="class-modal-label" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="class-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -16,8 +16,8 @@
                 <input type="hidden" name="course" value="{{course.id}}">
                 <div class="modal-body">
                         <div class"form-group">
-                            <label for="class-name"></label>
-                            <input id="class-name" name="name" class="form-control" placeholder="Nome da turma"></input>
+                            <label for="class-name" class="sr-only">{% trans 'New class name' %}</label>
+                            <input id="class-name" name="name" class="form-control" placeholder="{% trans 'New class name' %}"></input>
                         </div>
                 </div>
                 <div class="modal-footer">
@@ -49,7 +49,7 @@
             </tr>
             {% for class in object_list %}
             <tr>
-                <td>{{ class.name }}</td>
+                <td><a href="{% url 'class' pk=class.id %}">{{ class.name }}</a></td>
                 <td class="actions">
                     <form method="post" action="{% url 'class-delete' pk=class.id %}">
                         <a href="{% url 'class' pk=class.id %}" class="btn btn-danger"><i class="fa fa-gear"></i></a>
