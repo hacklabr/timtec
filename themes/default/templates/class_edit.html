@@ -36,8 +36,11 @@
             <div class="row">
                 <div class="col-xs-offset-5 col-xs-7 textright">
                     <!-- <button class="btn btn-info">Listar | <i class="fa fa-star-o"></i></button> -->
-                    <button class="btn btn-danger" title="{% trans 'Delete course' %}" ng-click="deleteCourse()">{% trans 'Delete' %} | <i class="fa fa-trash-o"></i></button>
-                    <button class="btn btn-success" ng-click="saveCourse()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
+                    <form method="post" action="{% url 'class-delete' pk=class.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger" title="{% trans 'Delete course' %}">{% trans 'Delete' %} | <i class="fa fa-trash-o"></i></button>
+                        <button class="btn btn-success" onclick="document.getElementById('myForm').submit();">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -50,7 +53,7 @@
     	<header class="secondary-header">
             <div class="row">
                 <div class="col-lg-9">
-                    <div class="editable-title"><input type="text" ng-model="object.name" placeholder="{{ object.name }}"></div>
+                    <div class="editable-title"><input type="text" placeholder="{{ object.name }}"></div>
                 </div>
                 <div class="col-lg-3">
                     <a class="btn btn-lg btn-danger uppercase" data-toggle="modal" data-target="#class-modal">{% trans 'Add users' %}</a>
