@@ -18,7 +18,7 @@ from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
                         UserNotesViewSet, CoursesView,
                         ProfessorMessageViewSet, CourseStudentViewSet,
                         AcceptTermsView, CarouselCourseView, ClassListView,
-                        ClassDetailView, ClassDeleteView)
+                        ClassCreateView, ClassDetailView, ClassDeleteView)
 
 from activities.views import AnswerViewSet
 from accounts.views import TimtecUserViewSet
@@ -77,6 +77,7 @@ urlpatterns = patterns(
 
     # Classes
     url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/classes/$', ClassListView.as_view(), name='classes'),
+    url(r'^class/create/$', ClassCreateView.as_view(), name='class-create'),
     url(r'^class/(?P<pk>[0-9]+)/$', ClassDetailView.as_view(), name='class'),
     url(r'^class/(?P<pk>[0-9]+)/delete/$', ClassDeleteView.as_view(), name='class-delete'),
 

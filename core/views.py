@@ -5,7 +5,8 @@ import time
 from django.core.urlresolvers import reverse_lazy
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
-from django.views.generic import DetailView, ListView, FormView, DeleteView
+from django.views.generic import (DetailView, ListView, FormView, DeleteView,
+                                  CreateView, )
 from django.views.generic.base import RedirectView, View, TemplateView
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404
@@ -269,6 +270,16 @@ class ClassListView(LoginRequiredMixin, ListView):
         context = super(ClassListView, self).get_context_data(**kwargs)
         context['course'] = self.course
         return context
+
+
+class ClassCreateView(LoginRequiredMixin, CreateView):
+    model = Class
+    # template_name = 'class_edit.html'
+    fields = ('course', 'name', )
+
+    def form_valid(self, form):
+        form.instance.assistant = self.request.user
+        return super(ClassCreateView, self).form_valid(form)
 
 
 class ClassDetailView(LoginRequiredMixin, DetailView):

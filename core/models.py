@@ -6,6 +6,7 @@ import datetime
 from django.db import models
 from django.db.models import Count
 from django.core.mail import send_mail
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.template import Template, Context
@@ -346,3 +347,6 @@ class Class(models.Model):
     assistant = models.ForeignKey(TimtecUser, verbose_name=_('Assistant'))
     students = models.ManyToManyField(TimtecUser, related_name='classes', blank=True)
     course = models.ForeignKey(Course, verbose_name=_('Course'))
+
+    def get_absolute_url(self):
+        return reverse('class', kwargs={'pk': self.id})
