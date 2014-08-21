@@ -50,9 +50,7 @@
     	<header class="secondary-header">
             <div class="row">
                 <div class="col-lg-9">
-                    <h1>
-                        <span contenteditable=true>{{ object.name }}</span>
-                    </h1>
+                    <div class="editable-title"><input type="text" ng-model="object.name" placeholder="{{ object.name }}"></div>
                 </div>
                 <div class="col-lg-3">
                     <a class="btn btn-lg btn-danger uppercase" data-toggle="modal" data-target="#class-modal">{% trans 'Add users' %}</a>
