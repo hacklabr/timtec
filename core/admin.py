@@ -26,7 +26,8 @@ class LessonAdmin(ModelAdmin):
 
 class UnitAdmin(ModelAdmin):
     search_fields = ('title',)
-    list_display = ('title', 'position', 'lesson', 'video', 'activity',)
+    list_display = ('title', 'position', 'lesson', 'video')
+    list_select_related = ('lesson', 'video')
 
 
 class CourseAdmin(ModelAdmin):
@@ -45,6 +46,7 @@ class VideoAdmin(ModelAdmin):
 class ClassAdmin(ModelAdmin):
     search_fields = ('name', 'course', 'assistant')
     list_display = ('name', 'assistant', 'course')
+    filter_horizontal = ('students', )
 
 
 class StudentProgressAdmin(ModelAdmin):
