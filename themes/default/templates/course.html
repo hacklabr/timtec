@@ -535,7 +535,7 @@
                                                             <span class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
                                                                   data-toggle="tooltip" data-placement="bottom"
                                                                   data-original-title="Unidade {{ forloop.counter }}">
-                                                                  {% if unit.activity %}
+                                                                  {% if unit.activities.all %}
                                                                       <i class="fa fa-list"></i>
                                                                   {% endif %}
                                                             </span>
