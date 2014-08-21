@@ -12,6 +12,7 @@ class ModelAdmin(admin.ModelAdmin):
 
 
 class ActivityAdmin(ModelAdmin):
+    search_fields = ('type', 'data')
     list_display = ('lesson', 'unit', 'unit_position', 'type', 'question', '__unicode__')
     readonly_fields = ('unit_position', 'lesson')
 
