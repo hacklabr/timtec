@@ -16,6 +16,8 @@
     <script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/directives/sortable.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/new-course/controllers.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/markdown/app.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/markdown/filters.js' %}"></script>
     {% endblock %}
 
     {% block body_attrs %}
@@ -57,20 +59,12 @@
             <!-- ROW -->
             <div class="row">
                 {% if in_admin %}
-                    <div class="col-md-8 col-xs-12">
-                        <h1>
-                            <span ng-class="{'blink-text-danger':errors.name}" ng-model="course.name"
-                            placeholder="{% trans 'Course name' %}" contenteditable="true"
-                            tabindex="1"></span>
-                        </h1>
-
-                        <div class="course-slug clearfix">
-                          <label>http://{{ site.domain }}/course/</label>
-                            <strong>
-                                <span ng-bind="course.name|slugify" ng-hide="course.slug"></span>
-                                <span ng-model="course.slug" contenteditable></span>
-                            </strong>
-                        </div>
+                    <div class="editable-title"><input type="text" ng-model="course.name" placeholder="{% trans 'Course name' %}"></div>
+                    <div class="course-slug clearfix">
+                      <label>http://{{ site.domain }}/course/</label>
+                      {% verbatim %}
+                      <div class="editable-slug"><input type="text" ng-model="course.slug" placeholder="{{course.name|slugify}}"></div>
+                      {% endverbatim %}
                     </div>
                 {% else %}
                     <div class="col-md-9 col-xs-12">
@@ -198,7 +192,7 @@
                                 <div id="youtube-player" player-height="475px" player-width="100%" youtube-player></div>
                                 <div class="row">
                                     <div class="col-lg-10">
-                                        <p class="video-title" ng-model="course.intro_video.name" placeholder="Nome do vídeo" contenteditable><p>
+                                        <p class="video-title editable-content" ng-model="course.intro_video.name" placeholder="Nome do vídeo" contenteditable><p>
                                     </div>
                                     <div class="col-lg-2 textcenter">
                                         <button class="btn-edit-video btn btn-success btn-sm uppercase"
@@ -449,41 +443,37 @@
                         <!-- END ORGANIZING LESSONS -->
 
                         <!--  LESSON  -->
-                        <div class="row" ng-repeat="lesson in lessons" ng-hide="organizingLessons">
-                            <div class="col-xs-12">
-                                <div class="lesson">
-                                    <!--  COL-LG-3  -->
-                                    <div class="col-lg-3 col-sm-3 col-sm-3 hidden-xs">
-                                        {% verbatim %}
-                                        <img ng-src="{{ lesson.thumbnail }}" class="img-thumbnail">
-                                        {% endverbatim %}
-                                    </div>
-                                    <!--  END COL-LG-3  -->
+                        <div class="lesson row" ng-repeat="lesson in lessons" ng-hide="organizingLessons">
+                            <!--  COL-LG-3  -->
+                            <div class="col-lg-3 col-sm-3 col-sm-3 hidden-xs">
+                                {% verbatim %}
+                                <img ng-src="{{ lesson.thumbnail }}" class="img-thumbnail">
+                                {% endverbatim %}
+                            </div>
+                            <!--  END COL-LG-3  -->
 
-                                    <!--  COL-LG-9  -->
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                        <p>
-                                            <a {% verbatim %}href="lessons/{{lesson.id}}"{% endverbatim %} class="title editable" ng-bind="lesson.name">{% trans 'Lesson name' %}</a>
-                                            <modalmarkdowneditor on-save="saveLesson(lesson)" title="{% trans 'Lesson description' %}" content="lesson.desc"></modalmarkdowneditor>
-                                        </p>
-                                        <!--  HIDDEN-XS  -->
-                                        <div class="hidden-xs" ng-show="lesson.units">
-                                            <table class="table units">
-                                                <tbody>
-                                                    <tr>
-                                                        <td ng-repeat="unit in lesson.units">
-                                                            {% verbatim %}
-                                                            <span class="has-tooltip unit " data-toggle="tooltip"
-                                                                  data-placement="bottom" data-original-title="{{unit.title}}">
-                                                                <i class="fa fa-list" ng-show="unit.activities"></i>
-                                                            </span>
-                                                            {% endverbatim %}
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <!--  END HIDDEN-XS  -->
+                            <!--  COL-LG-9  -->
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                <a {% verbatim %}href="lessons/{{lesson.id}}"{% endverbatim %} class="title" ng-bind="lesson.name">{% trans 'Lesson name' %}</a>
+                                <div ng-bind-html="lesson.desc|markdown"></div>
+                                <!--  HIDDEN-XS  -->
+                                <div class="hidden-xs" ng-show="lesson.units">
+                                    <table class="table units">
+                                        <tbody>
+                                            <tr>
+                                                <td ng-repeat="unit in lesson.units">
+                                                    {% verbatim %}
+                                                    <span class="has-tooltip unit " data-toggle="tooltip"
+                                                          data-placement="bottom" data-original-title="{{unit.title}}">
+                                                        <i class="fa fa-list" ng-show="unit.activities"></i>
+                                                    </span>
+                                                    {% endverbatim %}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!--  END HIDDEN-XS  -->
 
                                         <p><i class="fa fa-youtube-play"></i> <small>{% verbatim %}{{ lesson.countVideos() }}{% endverbatim %} {% trans 'videos' %}</small> | <i class="fa fa-list"></i> <small>{% verbatim %}{{ lesson.countActivities() }}{% endverbatim %} {% trans 'activities' %}</small></p>
 
@@ -504,71 +494,61 @@
                         <!-- FOR LESSON IN COURSE.PUBLIC_LESSONS -->
                         {% for lesson in course.public_lessons %}
                             <!-- LESSON -->
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="lesson">
-                                        <!-- COL-LG-3 -->
-                                        <div class="col-lg-3 col-sm-3 col-sm-3 hidden-xs">
-                                            <img src="{{ lesson.thumbnail }}" class="img-thumbnail img-responsive">
-                                        </div>
-                                        <!-- END COL-LG-3 -->
+                            <div class="lesson row">
+                                <!-- COL-LG-3 -->
+                                <div class="col-lg-3 col-sm-3 col-sm-3 hidden-xs">
+                                    <img src="{{ lesson.thumbnail }}" class="img-thumbnail img-responsive">
+                                </div>
+                                <!-- END COL-LG-3 -->
 
-                                        <!-- COL-LG-9 -->
-                                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                <!-- COL-LG-9 -->
+                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 
-                                            <p>
-                                                {% if lesson.is_ready and user_is_enrolled %}
-                                                    <a href="{% url 'lesson' course.slug lesson.slug %}" class="title">{{ lesson.name }}</a>
-                                                {% else %}
-                                                    <span class="title">{{ lesson.name }}</span>
-                                                {% endif %}
-                                                <span class="description">{{ lesson.desc }}</span>
-                                            </p>
+                                    <p>
+                                        {% if lesson.is_ready and user_is_enrolled %}
+                                            <a href="{% url 'lesson' course.slug lesson.slug %}" class="title">{{ lesson.name }}</a>
+                                        {% else %}
+                                            <span class="title">{{ lesson.name }}</span>
+                                        {% endif %}
+                                        <div class="description">{{ lesson.desc|timtec_markdown }}</div>
+                                    </p>
 
-                                            <!-- HIDDEN-XS -->
-                                            <div class="hidden-xs">
-                                                <!-- TABLE -->
-                                                <table class="units table ">
-                                                    <!-- TR -->
-                                                    <tr>
-                                                        <!-- FOR UNIT IN UNITS -->
-                                                        {% for unit in lesson.units.all %}
-                                                            <!-- TD -->
-                                                            <td>
-                                                                {% if lesson.is_ready and user_is_enrolled %}
-                                                                    <a class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
-                                                                       data-toggle="tooltip" data-placement="bottom"
-                                                                       data-original-title="Unidade {{ forloop.counter }}"
-                                                                       href="{% url 'lesson' course.slug lesson.slug %}#/{{ forloop.counter }}">
-                                                                       {% if unit.activity %}
-                                                                           <i class="fa fa-list"></i>
-                                                                       {% endif %}
-                                                                    </a>
-                                                                {% else %}
-                                                                    <span class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
-                                                                          data-toggle="tooltip" data-placement="bottom"
-                                                                          data-original-title="Unidade {{ forloop.counter }}">
-                                                                          {% if unit.activity %}
-                                                                              <i class="fa fa-list"></i>
-                                                                          {% endif %}
-                                                                    </span>
-                                                                {% endif %}
-                                                            </td>
-                                                            <!-- END TD -->
-                                                        {% endfor %}
-                                                        <!-- END FOR -->
-                                                    </tr>
-                                                    <!-- END TR -->
-                                                </table>
-                                                <!-- END TABLE -->
-                                            </div>
-                                            <!-- END HIDDEN-XS -->
-
-                                            {% if lesson.is_ready %}
-                                                <p><i class="fa fa-youtube-play"></i> <small>{{ lesson.video_count }} {% trans "videos" %}</small> | <i class="fa fa-list"></i> <small>{{ lesson.activity_count }} {% trans "activities" %}</small></p>
-                                            {% endif %}
-                                        </div>
-                                        <!-- END COL-LG-9 -->
+                                    <!-- HIDDEN-XS -->
+                                    <div class="hidden-xs">
+                                        <!-- TABLE -->
+                                        <table class="units table ">
+                                            <!-- TR -->
+                                            <tr>
+                                                <!-- FOR UNIT IN UNITS -->
+                                                {% for unit in lesson.units.all %}
+                                                    <!-- TD -->
+                                                    <td>
+                                                        {% if lesson.is_ready and user_is_enrolled %}
+                                                            <a class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
+                                                               data-toggle="tooltip" data-placement="bottom"
+                                                               data-original-title="Unidade {{ forloop.counter }}"
+                                                               href="{% url 'lesson' course.slug lesson.slug %}#/{{ forloop.counter }}">
+                                                               {% if unit.activity %}
+                                                                   <i class="fa fa-list"></i>
+                                                               {% endif %}
+                                                            </a>
+                                                        {% else %}
+                                                            <span class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
+                                                                  data-toggle="tooltip" data-placement="bottom"
+                                                                  data-original-title="Unidade {{ forloop.counter }}">
+                                                                  {% if unit.activity %}
+                                                                      <i class="fa fa-list"></i>
+                                                                  {% endif %}
+                                                            </span>
+                                                        {% endif %}
+                                                    </td>
+                                                    <!-- END TD -->
+                                                {% endfor %}
+                                                <!-- END FOR -->
+                                            </tr>
+                                            <!-- END TR -->
+                                        </table>
+                                        <!-- END TABLE -->
                                     </div>
                                 </div>
                             </div>

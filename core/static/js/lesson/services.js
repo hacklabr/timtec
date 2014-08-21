@@ -10,7 +10,8 @@
     });
 
     app.factory('Progress', ['$resource', '$q', function($resource, $q){
-        var Progress = $resource('/api/student_progress/:id');
+        var Progress = $resource('/api/student_progress/:unit', null,
+                                 {'update': { method:'PUT' }});
 
         Progress.getProgressByUnitId = function(unit) {
             var deferred = $q.defer();
@@ -28,6 +29,14 @@
             }
 
             return deferred.promise;
+        };
+
+        Progress.complete = function (unit) {
+            var progress = new Progress();
+            progress.complete = new Date();
+            progress.unit = unit;
+            Progress.update({unit: progress.unit}, progress);
+            return progress;
         };
 
         return Progress;

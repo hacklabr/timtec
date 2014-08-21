@@ -48,13 +48,10 @@ ng-app="edit-lesson"
         <nav class="course-lessons">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="top editable"></h1>
-                    <h1><span ng-class="{'blink-text-danger':errors.name}" ng-model="lesson.name"
-                              placeholder="{% trans 'Lesson name' %}" contenteditable="true"></span></h1>
-
-                    <p class="description editable">
-                        <span ng-model="lesson.desc" placeholder="{% trans 'Lesson description' %}"
-                              contenteditable="true"></span></p>
+                    <div class="editable-title"><input type="text" ng-model="lesson.name" placeholder="{% trans 'Lesson name' %}"></div>
+                    <div class="editable-description">
+                        <input type="text" ng-model="lesson.desc" placeholder="{% trans 'Lesson description' %}">
+                    </div>
                 </div>
             </div>
         </nav>
@@ -148,7 +145,7 @@ ng-app="edit-lesson"
                     </div>
                     <div class="row">
                         <div class="col-xs-6">
-                            <p class="video-title" ng-model="currentUnit.video.name" placeholder="Nome do vídeo" contenteditable><p>
+                            <p class="video-title editable-content" ng-model="currentUnit.video.name" placeholder="Nome do vídeo" contenteditable><p>
                         </div>
                         <div class="col-xs-6 textright">
                             <button class="btn-edit-video btn btn-success btn-sm uppercase"

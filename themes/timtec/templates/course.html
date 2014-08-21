@@ -93,7 +93,7 @@
                                             {% else %}
                                                 <span class="title">{{ lesson.name }}</span>
                                             {% endif %}
-                                            <span class="description">{{ lesson.desc }}</span>
+                                            <div class="description">{{ lesson.desc|timtec_markdown }}</div>
                                         </p>
 
                                         <!-- HIDDEN-XS -->

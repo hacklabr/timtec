@@ -11,6 +11,7 @@ from django.views.generic.base import RedirectView, View, TemplateView
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404
 from django.conf import settings
+from django.utils import timezone
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import filters
@@ -331,10 +332,21 @@ class StudentProgressViewSet(viewsets.ModelViewSet):
     model = StudentProgress
     serializer_class = StudentProgressSerializer
     filter_fields = ('unit', 'unit__lesson',)
+    lookup_field = 'unit'
+
+    def update(self, request, *args, **kwargs):
+        self.object = self.get_object_or_none()
+        if self.object:
+            self.object.save()
+            return HttpResponse('')
+        else:
+            return super(StudentProgressViewSet, self).update(request, *args, **kwargs)
 
     def pre_save(self, obj):
         obj.user = self.request.user
-        return super(StudentProgressViewSet, self).pre_save(obj)
+        obj.unit = Unit.objects.get(id=self.kwargs.get('unit'))
+        obj.complete = timezone.now()
+        return obj
 
     def get_queryset(self):
         user = self.request.user

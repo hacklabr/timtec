@@ -9,7 +9,7 @@ django_admin.autodiscover()
 
 from django.views.generic import TemplateView
 from accounts.views import CustomLoginView, ProfileEditView, ProfileView
-from forum.views import AnswerViewSet as ForumAnswerViewSet
+from forum.views import AnswerViewSet as ForumAnswerViewSet, ForumModeratorView
 
 from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
                         CourseProfessorViewSet, EnrollCourseView, HomeView,
@@ -88,6 +88,7 @@ urlpatterns = patterns(
     url(r'^forum/(?P<course_slug>[-a-zA-Z0-9_]+)/$', CourseForumView.as_view(), name='forum'),
     url(r'^forum/question/(?P<slug>[-a-zA-Z0-9_]+)/$', QuestionView.as_view(), name='forum_question'),
     url(r'^forum/question/add/(?P<course_slug>[-a-zA-Z0-9_]+)/$', QuestionCreateView.as_view(), name='forum_question_create'),
+    url(r'^api/is_forum_moderator/(?P<course_id>[1-9][0-9]*)/$', ForumModeratorView.as_view(), name='is_forum_moderator'),
 
     # Course Material
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/material/file_upload/$', FileUploadView.as_view(), name='file_upload'),

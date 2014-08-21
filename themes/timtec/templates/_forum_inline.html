@@ -77,9 +77,8 @@
                         </div>
                     </div>
                 </div>
-                
                 <div ng-repeat="question in current_page_questions">
-                    <article ng-if="!question.hidden_to_user" ng-class="{'is-hidden': question.hidden}">
+                    <article ng-class="{'is-hidden': question.hidden}">
                         <table>
                             <tr>
                                 <td>
@@ -88,7 +87,7 @@
                                         <p><span class="numbers-answers">{% verbatim angularjs %}{{ question.answers.length }}{% endverbatim angularjs %}</span>respostas</p>
                                     </div>
                                     {% verbatim angularjs %}
-                                    <div ng-if="!question.hidden && question.moderator" ng-click="justification_modal(question)" class="hide-question btn btn-danger btn-sm">Ocultar</div>
+                                    <div ng-if="!question.hidden && is_current_user_forum_moderator" ng-click="justification_modal(question)" class="hide-question btn btn-danger btn-sm">Ocultar</div>
                                 </td>
                                 <td style="width:100%;">
                                     <div class="content">

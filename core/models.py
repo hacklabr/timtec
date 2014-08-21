@@ -244,8 +244,8 @@ class PositionedModel(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            args = {self.collection_name: getattr(self, self.collection_name)}
-            latest = self.__class__.objects.filter(**args) \
+            filters = {self.collection_name: getattr(self, self.collection_name)}
+            latest = self.__class__.objects.filter(**filters) \
                 .aggregate(models.Max('position')) \
                 .get('position__max')
 
@@ -319,7 +319,7 @@ class Unit(PositionedModel):
         ordering = ['lesson', 'position']
 
     def __unicode__(self):
-        return u'%s - %s - %s - %s' % (self.lesson, self.position, self.video, self.activity)
+        return u'%s - %s' % (self.title, self.position)
 
 
 class StudentProgress(models.Model):
