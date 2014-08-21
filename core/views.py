@@ -9,6 +9,7 @@ from django.views.generic.base import RedirectView, View, TemplateView
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404
 from django.conf import settings
+from django.db.models import Q
 from django.utils import timezone
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -74,7 +75,7 @@ class CoursesView(ListView):
     template_name = "courses.html"
 
     def get_queryset(self):
-        return Course.objects.all().prefetch_related('professors')
+        return Course.objects.filter(Q(status='published') | Q(status='listed')).prefetch_related('professors')
 
 
 class ContactView(View):
