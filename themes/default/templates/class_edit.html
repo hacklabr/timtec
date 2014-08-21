@@ -30,6 +30,21 @@
 </div>
 
 <div id="classes" class="course-classes">
+    <!-- ACTIONS -->
+    <div class="actions-menu" fixed-bar>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-offset-5 col-xs-7 textright">
+                    <!-- <button class="btn btn-info">Listar | <i class="fa fa-star-o"></i></button> -->
+                    <button class="btn btn-danger" title="{% trans 'Delete course' %}" ng-click="deleteCourse()">{% trans 'Delete' %} | <i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-success" ng-click="saveCourse()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- END ACTIONS -->
+
     {% include "_course-header-inline.html"  with course=object.course %}
     <section id="classes-content" class="container">
     	<header class="secondary-header">
@@ -64,4 +79,5 @@
         </table>
     </section>
 </div>
+
 {% endblock %}

@@ -76,6 +76,21 @@
 
     {% include 'header.html' %}
 
+    <!-- ALERT -->
+    <div class="tt-popup notifications hideTop">
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4>Mensagem de sucesso</h4>
+        </div>
+    </div>
+    <div class="tt-popup notifications hideTop">
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4>Mensagem de erro</h4>
+        </div>
+    </div>
+    <!-- ALERT -->
+
     <div class="wrapper">
         {% block content %}
         <h1>missing content block</h1>
@@ -103,5 +118,6 @@
         });
     </script>
 {% endif %}
+
 </body>
 </html>
