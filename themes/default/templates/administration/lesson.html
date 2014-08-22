@@ -53,7 +53,7 @@ ng-app="edit-lesson"
             <div class="row">
                 <div class="col-lg-12">
                     <div class="editable-title"><input type="text" ng-model="lesson.name" placeholder="{% trans 'Lesson name' %}"></div>
-                    <div class="editable-description">
+                    <div class="editable-text">
                         <input type="text" ng-model="lesson.desc" placeholder="{% trans 'Lesson description' %}">
                     </div>
                 </div>
@@ -149,7 +149,7 @@ ng-app="edit-lesson"
                     </div>
                     <div class="row">
                         <div class="col-xs-6">
-                            <p class="video-title editable-content" ng-model="currentUnit.video.name" placeholder="Nome do vídeo" contenteditable><p>
+                            <div class="editable-text"><input type="text" ng-model="currentUnit.video.name" placeholder="currentUnit.video.name"></div>
                         </div>
                         <div class="col-xs-6 textright">
                             <button class="btn-edit-video btn btn-success btn-sm uppercase"
