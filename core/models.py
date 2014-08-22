@@ -193,7 +193,7 @@ class CourseProfessor(models.Model):
     ROLES = (
         ('instructor', _('Instructor')),
         ('assistant', _('Assistant')),
-        ('pedagogy_assistant', _('Pedagogy Assistant')),
+        ('coordinator', _('Professor Coordinator')),
     )
 
     user = models.ForeignKey(TimtecUser, verbose_name=_('Professor'))

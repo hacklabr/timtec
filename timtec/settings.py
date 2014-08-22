@@ -311,6 +311,13 @@ PIPELINE_JS = {
         ),
         'output_filename': 'js/core.js',
     },
+    'course_permissions': {
+        'source_filenames': (
+            'js/course-permissions/app.js',
+            'js/course-permissions/controllers.js',
+        ),
+        'output_filename': 'js/course_permissions.js',
+    },
 }
 
 MOMMY_CUSTOM_FIELDS_GEN = {

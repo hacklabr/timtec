@@ -15,7 +15,7 @@ from django.utils import timezone
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import filters
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, DjangoModelPermissions, AllowAny
 from braces.views import LoginRequiredMixin
 from notes.models import Note
 
@@ -29,6 +29,8 @@ from .models import (Course, CourseProfessor, Lesson, StudentProgress,
                      Unit, ProfessorMessage, CourseStudent, Class)
 
 from .forms import ContactForm, AcceptTermsForm
+
+from .permissions import IsProfessorCoordinatorOrAdminPermissionOrReadOnly
 
 
 class HomeView(ListView):
@@ -162,6 +164,7 @@ class CourseProfessorViewSet(viewsets.ModelViewSet):
     filter_fields = ('course', 'user',)
     filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = CourseProfessorSerializer
+    permission_classes = [IsProfessorCoordinatorOrAdminPermissionOrReadOnly, ]
 
 
 class CourseStudentViewSet(viewsets.ModelViewSet):
