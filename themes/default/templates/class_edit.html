@@ -9,22 +9,23 @@
 <div class="modal fade" id="class-modal" tabindex="-1" role="dialog" aria-labelledby="class-modal-label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="class-modal-label">{{ object.name }}</h4>
-            </div>
-            <div class="modal-body">
-                <form role="form">
+            <form role="form" method="post" action="{% url 'class-add-users' pk=class.id %}">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="class-modal-label">{{ object.name }}</h4>
+                </div>
+                <div class="modal-body">
                     <div class"form-group">
                         <label for="class-users-list">{% trans 'Users' %}</label>
-                        <textarea id="class-users-list" class="form-control" rows="10" placeholder="Paste users list here, one user per line."></textarea>
+                        <textarea id="class-users-list" class="form-control" rows="10" placeholder="Paste users list here, one user per line." name="students_text"></textarea>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">{% trans 'Add users' %}</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">{% trans 'Add users' %}</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -39,7 +40,7 @@
                     <form method="post" action="{% url 'class-delete' pk=class.id %}">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-danger" title="{% trans 'Delete course' %}">{% trans 'Delete' %} | <i class="fa fa-trash-o"></i></button>
-                        <button class="btn btn-success" onclick="document.getElementById('myForm').submit();">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
+                        <button class="btn btn-success" onclick="document.getElementById('mainForm').submit();return false;">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
                     </form>
                 </div>
             </div>
@@ -53,7 +54,10 @@
     	<header class="secondary-header">
             <div class="row">
                 <div class="col-lg-9">
-                    <div class="editable-title"><input type="text" placeholder="{{ object.name }}"></div>
+                    <form id="mainForm" method="post" action="{% url 'class' pk=class.id %}">
+                        {% csrf_token %}
+                        <div class="editable-title"><input type="text" name="name" value="{{ object.name }}"></div>
+                    </form>
                 </div>
                 <div class="col-lg-3">
                     <a class="btn btn-lg btn-danger uppercase" data-toggle="modal" data-target="#class-modal">{% trans 'Add users' %}</a>
@@ -73,7 +77,11 @@
                 <td>{{ student.email }}</td>
                 <td>{{ student.get_full_name }}</td>
                 <td class="actions">
-                    <a href="#" class="btn btn-warning"><i class="fa fa-trash-o"></i></a>
+                    <form method="post" action="{% url 'class-remove-user' pk=class.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="user_id" value="{{ student.id }}"></input>
+                        <button type="submit" class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
+                    </form>
                 </td>
             </tr>
             {% endfor %}
