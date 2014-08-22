@@ -11,6 +11,69 @@
 {% endblock %}
 
 {% block content %}
+
+<!-- modal add user -->
+<div class="modal fade" id="add-users-modal" tabindex="-1" role="dialog" aria-labelledby="add-users-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="add-users-modal-label">{% trans 'Add user' %}</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <label for="search-user" class="control-label">{% trans 'Search user' %}</label>
+                    <input type="text" id="search-user" class="form-control" placeholder="{% trans 'Search user' %}">
+                    <div class="autocomplete">
+                        <ul>
+                            <li>Lorem ipsum dolor sit amet</li>
+                            <li>Lorem ipsum dolor sit amet</li>
+                            <li>Lorem ipsum dolor sit amet</li>
+                        </ul>
+                    </div>
+                    <table class="table table-list">
+                        <tr>
+                            <th class="username">{% trans "Username" %}</th>
+                            <th class="email">{% trans "Email" %}</th>
+                            <th class="fullname">{% trans "Full name" %}</th>
+                            <th class="actions">{% trans "Actions" %}</th>
+                        </tr>
+                        <tr>
+                            <td>loremipsum</td>
+                            <td>loremipsum@gmail.com</td>
+                            <td>Lorem ipsum dolor sit amet</td>
+                            <td class="textcenter"><button class="btn btn-warning"><i class="fa fa-trash-o"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>loremipsum</td>
+                            <td>loremipsum@gmail.com</td>
+                            <td>Lorem ipsum dolor sit amet</td>
+                            <td class="textcenter"><button class="btn btn-warning"><i class="fa fa-trash-o"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>loremipsum</td>
+                            <td>loremipsum@gmail.com</td>
+                            <td>Lorem ipsum dolor sit amet</td>
+                            <td class="textcenter"><button class="btn btn-warning"><i class="fa fa-trash-o"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>loremipsum</td>
+                            <td>loremipsum@gmail.com</td>
+                            <td>Lorem ipsum dolor sit amet</td>
+                            <td class="textcenter"><button class="btn btn-warning"><i class="fa fa-trash-o"></i></button></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">{% trans 'Add users' %}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <section id="users" ng-app="course-permissions" ng-controller="PermissionsController">
     <div>
         {% include "_admin_header_inline.html" %}
@@ -22,7 +85,7 @@
                     <h1>{% trans 'Permissions' %}</h1>
                 </div>
                 <div class="col-lg-3">
-                    <a class="btn btn-lg btn-danger uppercase">{% trans 'Add user' %}</a>
+                    <a class="btn btn-lg btn-danger uppercase" data-toggle="modal" data-target="#add-users-modal">{% trans 'Add user' %}</a>
                 </div>
             </div>
         </header>
@@ -35,13 +98,20 @@
                 <th class="actions">{% trans "Actions" %}</th>
             </tr>
             <tr ng-repeat="professor in professors">
-                {%  verbatim %}
+                {% verbatim %}
                 <td>{{professor.user_info.name}}</td>
                 <td>{{professor.user_info.email}}</td>
                 <td>{{professor.user_info.username}}</td>
-                <td>{{ professor.role }}</td>
-                <td>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
+                {% endverbatim %}
+                <td><select class="form-control">
+                        <option>{% trans "Admin" %}</option>
+                        <option>{% trans "Professor" %}</option>
+                        <option>{% trans "Student" %}</option>
+                    </select>
+                    {{ professor.role }}
+                </td>
+                {% verbatim %}
+                <td class="textcenter">
                     <button class="btn btn-warning" ng-click="remove_professor(professor.id, $index)"><i class="fa fa-trash-o"></i></button>
                 </td>
                 {% endverbatim %}
@@ -50,72 +120,16 @@
                 <td>Asa</td>
                 <td>lhfagundes@hacklab.com.br</td>
                 <td>&nbsp;</td>
-                <td>{% trans "Student"%}</td>
-                <td>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#edit-user"><i class="fa fa-pencil"></i></button>
-                    <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
+                <td><select class="form-control">
+                        <option>{% trans "Admin" %}</option>
+                        <option>{% trans "Professor" %}</option>
+                        <option>{% trans "Student" %}</option>
+                    </select>
                 </td>
+                <td class="textcenter"><button class="btn btn-warning"><i class="fa fa-trash-o"></i></button></td>
             </tr>
         </table>
     </section>
 </section>
-
-<div class="modal fade" id="edit-user" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Editando usuário NOME DO USUÁRIO</h4>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label class="control-label col-lg-3">{% trans "Username" %}</label>
-                        <div class="col-lg-9">
-                            <input type="text" value="andersonorui" class="form-control" disabled>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-3">{% trans "Email" %}</label>
-                        <div class="col-lg-9">
-                            <input type="text" value="andersonorui@hacklab.com.br" class="form-control" disabled>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-3">{% trans "Full name" %}</label>
-                        <div class="col-lg-9">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <input type="text" value="Anderson" class="form-control">
-                                </div>
-                                <div class="col-lg-6">
-                                    <input type="text" value="Orui" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-3">{% trans "Role" %}</label>
-                        <div class="col-lg-9">
-                            <p>
-                                <label class="contro-label"><input type="checkbox"> {% trans "Admin" %}</label><br>
-                                <label class="contro-label"><input type="checkbox"> {% trans "Professor" %}</label><br>
-                                <label class="contro-label"><input type="checkbox"> {% trans "Student" %}</label>
-                            </p>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-            <div class="modal-footer">
-                <div class="col-lg-12">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 {% endblock %}
