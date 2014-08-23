@@ -15,7 +15,7 @@ from django.utils import timezone
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import filters
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, DjangoModelPermissions, AllowAny
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from braces.views import LoginRequiredMixin
 from notes.models import Note
 
