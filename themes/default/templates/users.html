@@ -12,70 +12,8 @@
 
 {% block content %}
 
-<!-- modal add user -->
-<div class="modal fade" id="add-users-modal" tabindex="-1" role="dialog" aria-labelledby="add-users-modal-label" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="add-users-modal-label">{% trans 'Add user' %}</h4>
-            </div>
-            <div class="modal-body">
-                <form role="form">
-                    <label for="search-user" class="control-label">{% trans 'Search user' %}</label>
-                    <input type="text" id="search-user" class="form-control" placeholder="{% trans 'Search user' %}">
-                    <div class="autocomplete">
-                        <ul>
-                            <li>Lorem ipsum dolor sit amet</li>
-                            <li>Lorem ipsum dolor sit amet</li>
-                            <li>Lorem ipsum dolor sit amet</li>
-                        </ul>
-                    </div>
-                    <table class="table table-list">
-                        <tr>
-                            <th class="username">{% trans "Username" %}</th>
-                            <th class="email">{% trans "Email" %}</th>
-                            <th class="fullname">{% trans "Full name" %}</th>
-                            <th class="actions">{% trans "Actions" %}</th>
-                        </tr>
-                        <tr>
-                            <td>loremipsum</td>
-                            <td>loremipsum@gmail.com</td>
-                            <td>Lorem ipsum dolor sit amet</td>
-                            <td class="textcenter"><button class="btn btn-warning"><i class="fa fa-trash-o"></i></button></td>
-                        </tr>
-                        <tr>
-                            <td>loremipsum</td>
-                            <td>loremipsum@gmail.com</td>
-                            <td>Lorem ipsum dolor sit amet</td>
-                            <td class="textcenter"><button class="btn btn-warning"><i class="fa fa-trash-o"></i></button></td>
-                        </tr>
-                        <tr>
-                            <td>loremipsum</td>
-                            <td>loremipsum@gmail.com</td>
-                            <td>Lorem ipsum dolor sit amet</td>
-                            <td class="textcenter"><button class="btn btn-warning"><i class="fa fa-trash-o"></i></button></td>
-                        </tr>
-                        <tr>
-                            <td>loremipsum</td>
-                            <td>loremipsum@gmail.com</td>
-                            <td>Lorem ipsum dolor sit amet</td>
-                            <td class="textcenter"><button class="btn btn-warning"><i class="fa fa-trash-o"></i></button></td>
-                        </tr>
-                    </table>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">{% trans 'Add users' %}</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <section id="users" ng-app="course-permissions" ng-controller="PermissionsController">
-    <div>
+    <div ng-controller="HeaderController">
         {% include "_admin_header_inline.html" %}
     </div>
     <section id="users-content" class="container">
@@ -85,7 +23,7 @@
                     <h1>{% trans 'Permissions' %}</h1>
                 </div>
                 <div class="col-lg-3">
-                    <a class="btn btn-lg btn-danger uppercase" data-toggle="modal" data-target="#add-users-modal">{% trans 'Add user' %}</a>
+                    <a class="btn btn-lg btn-danger uppercase" ng-click="new_professors()">{% trans 'Add user' %}</a>
                 </div>
             </div>
         </header>
@@ -116,20 +54,51 @@
                 </td>
                 {% endverbatim %}
             </tr>
-            <tr>
-                <td>Asa</td>
-                <td>lhfagundes@hacklab.com.br</td>
-                <td>&nbsp;</td>
-                <td><select class="form-control">
-                        <option>{% trans "Admin" %}</option>
-                        <option>{% trans "Professor" %}</option>
-                        <option>{% trans "Student" %}</option>
-                    </select>
-                </td>
-                <td class="textcenter"><button class="btn btn-warning"><i class="fa fa-trash-o"></i></button></td>
-            </tr>
         </table>
     </section>
+    <!-- modal add user -->
+    <script type="text/ng-template" id="newProfessorModal.html">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="add-users-modal-label">{% trans 'Add user' %}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                            <label for="search-user" class="control-label">{% trans 'Search user' %}</label>
+                            <input type="text" id="search-user" class="form-control" ng-model="asyncSelected" placeholder="{% trans 'Search user' %}"
+                                   typeahead="user for user in getUsers($viewValue)" typeahead-loading="loadingLocations" >
+                            <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                            <div class="autocomplete">
+                                <ul>
+                                    <li>Lorem ipsum dolor sit amet</li>
+                                    <li>Lorem ipsum dolor sit amet</li>
+                                    <li>Lorem ipsum dolor sit amet</li>
+                                </ul>
+                            </div>
+                            <table class="table table-list">
+                                <tr>
+                                    <th class="username">{% trans "Username" %}</th>
+                                    <th class="email">{% trans "Email" %}</th>
+                                    <th class="fullname">{% trans "Full name" %}</th>
+                                    <th class="actions">{% trans "Actions" %}</th>
+                                </tr>
+                                <tr>
+                                    <td>loremipsum</td>
+                                    <td>loremipsum@gmail.com</td>
+                                    <td>Lorem ipsum dolor sit amet</td>
+                                    <td class="textcenter"><button class="btn btn-warning"><i class="fa fa-trash-o"></i></button></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
+                        <button type="button" class="btn btn-primary">{% trans 'Add users' %}</button>
+                    </div>
+                </div>
+    </script>
+
 </section>
 
 {% endblock %}
