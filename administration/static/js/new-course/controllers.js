@@ -40,7 +40,7 @@
                         return $scope.lessons.promise;
                     })
                     .then(function(){
-                        $scope.courseProfessors = CourseProfessor.query({ course: match[1] });
+                        $scope.courseProfessors = CourseProfessor.query({course: match[1], role: 'instructor'});
                         return $scope.courseProfessors.promise;
                     })['catch'](function(resp){
                         $scope.alert.error(httpErrors[resp.status.toString()]);
