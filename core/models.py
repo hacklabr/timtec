@@ -125,9 +125,19 @@ class Course(models.Model):
 
     def get_professor_role(self, user):
         try:
-            return self.courseprofessor_set.get(user=user).role
-        except:
-            return ''
+            cp = self.courseprofessor_set.get(user=user)
+            return cp.role
+        except CourseProfessor.DoesNotExist:
+            return False
+
+    def has_perm_own_classes(self, user):
+        role = self.get_professor_role(user)
+        return role in ['assistant', 'coordinator']
+
+    def has_perm_own_all_classes(self, user):
+        role = self.get_professor_role(user)
+        return role == 'coordinator' or user.is_superuser
+
 
 class CourseStudent(models.Model):
     user = models.ForeignKey(TimtecUser, verbose_name=_('Student'))
@@ -355,6 +365,9 @@ class Class(models.Model):
     assistant = models.ForeignKey(TimtecUser, verbose_name=_('Assistant'))
     students = models.ManyToManyField(TimtecUser, related_name='classes', blank=True)
     course = models.ForeignKey(Course, verbose_name=_('Course'))
+
+    def __unicode__(self):
+        return u'%s @ %s' % (self.name, self.course)
 
     def get_absolute_url(self):
         return reverse('class', kwargs={'pk': self.id})

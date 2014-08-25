@@ -16,7 +16,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import filters
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from braces.views import LoginRequiredMixin
+from braces.views import LoginRequiredMixin, UserPassesTestMixin
 from notes.models import Note
 
 from .serializers import (CourseSerializer, CourseProfessorSerializer,
@@ -266,10 +266,15 @@ class ClassListView(LoginRequiredMixin, ListView):
     template_name = 'classes.html'
 
     def get_queryset(self):
-        self.course = get_object_or_404(Course, slug=self.kwargs.get('course_slug'))
+        course = get_object_or_404(Course, slug=self.kwargs.get('course_slug'))
+        self.course = course
         user = self.request.user
-        # TODO support per user permission in the course
-        return self.model.objects.filter(course=self.course, assistant=user)
+        queryset = course.class_set.all()
+
+        if course.has_perm_own_all_classes(user):
+            return queryset
+        else:
+            return queryset.filter(assistant=user)
 
     def get_context_data(self, **kwargs):
         context = super(ClassListView, self).get_context_data(**kwargs)
@@ -287,7 +292,20 @@ class ClassCreateView(LoginRequiredMixin, CreateView):
         return super(ClassCreateView, self).form_valid(form)
 
 
-class ClassUpdateView(LoginRequiredMixin, UpdateView):
+class CanEditClassMixin(object):
+    def check_permission(self, object):
+        user = self.request.user
+        if not (user == object.assistant or
+                object.course.has_perm_own_all_classes(user)):
+            raise PermissionDenied
+
+    def get_object(self, queryset=None):
+        object = super(CanEditClassMixin, self).get_object(queryset=queryset)
+        self.check_permission(object)
+        return object
+
+
+class ClassUpdateView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
     model = Class
     template_name = 'class_edit.html'
     fields = ('name', )
@@ -295,14 +313,10 @@ class ClassUpdateView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super(ClassUpdateView, self).get_context_data(**kwargs)
 
-        # TODO support per user permission in the course
-        if self.request.user != self.object.assistant:
-            raise PermissionDenied
-
         return context
 
 
-class ClassDeleteView(LoginRequiredMixin, DeleteView):
+class ClassDeleteView(LoginRequiredMixin, CanEditClassMixin, DeleteView):
     model = Class
     template_name = 'base.html'
     http_method_names = ['post', ]
@@ -310,16 +324,8 @@ class ClassDeleteView(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         return reverse_lazy('classes', kwargs={'course_slug': self.object.course.slug})
 
-    def get_object(self, queryset=None):
-        object = super(ClassDeleteView, self).get_object(queryset=queryset)
 
-        # TODO support per user permission in the course
-        if self.request.user != object.assistant:
-            raise PermissionDenied
-        return object
-
-
-class ClassRemoveUserView(LoginRequiredMixin, UpdateView):
+class ClassRemoveUserView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
     model = Class
     form_class = RemoveStudentForm
     http_method_names = ['post', ]
@@ -327,30 +333,14 @@ class ClassRemoveUserView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse_lazy('class', kwargs={'pk': self.object.id})
 
-    def get_object(self, queryset=None):
-        object = super(ClassRemoveUserView, self).get_object(queryset=queryset)
 
-        # TODO support per user permission in the course
-        if self.request.user != object.assistant:
-            raise PermissionDenied
-        return object
-
-
-class ClassAddUsersView(LoginRequiredMixin, UpdateView):
+class ClassAddUsersView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
     model = Class
     form_class = AddStudentsForm
     http_method_names = ['post', ]
 
     def get_success_url(self):
         return reverse_lazy('class', kwargs={'pk': self.object.id})
-
-    def get_object(self, queryset=None):
-        object = super(ClassAddUsersView, self).get_object(queryset=queryset)
-
-        # TODO support per user permission in the course
-        if self.request.user != object.assistant:
-            raise PermissionDenied
-        return object
 
 
 class LessonViewSet(viewsets.ModelViewSet):

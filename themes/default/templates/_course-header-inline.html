@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load can_see_classes %}
 <header class="main-header container">
     <div class="page-header">
         <div class="row">
@@ -12,7 +13,9 @@
                 <!-- COURSE-SECTION-NAV -->
                 <nav class="course-sections textright" id="course-nav">
                     <a href="{% url 'course_intro' course.slug %}"><span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Intro' %}"></span></a>
-                    <a href="{% url 'classes' course.slug %}"><span class="has-tooltip fa fa-users" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Classes' %}"></span></a>
+                    {% if user|can_see_classes:course %}
+                        <a href="{% url 'classes' course.slug %}"><span class="has-tooltip fa fa-users" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Classes' %}"></span></a>
+                    {% endif %}
                     <a href="{% url 'lesson' course.slug course.first_lesson.slug %}"><span class="has-tooltip fa fa-film" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Lessons' %}"></span></a>
                     <a href="{% url 'forum' course.slug %}"><span class="has-tooltip fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Forum' %}"></span></a>
                     <a href="{% url 'course_material' course.slug %}"><span class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Course material' %}"></span></a>
