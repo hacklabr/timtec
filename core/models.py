@@ -123,6 +123,11 @@ class Course(models.Model):
     def get_video_professors(self):
         return self.courseprofessor_set.filter(role="instructor")
 
+    def get_professor_role(self, user):
+        try:
+            return self.courseprofessor_set.get(user=user).role
+        except:
+            return ''
 
 class CourseStudent(models.Model):
     user = models.ForeignKey(TimtecUser, verbose_name=_('Student'))
@@ -202,7 +207,7 @@ class CourseProfessor(models.Model):
     user = models.ForeignKey(TimtecUser, verbose_name=_('Professor'))
     course = models.ForeignKey(Course, verbose_name=_('Course'))
     biography = models.TextField(_('Biography'), blank=True)
-    role = models.CharField(_('Role'), choices=ROLES, max_length=128)
+    role = models.CharField(_('Role'), choices=ROLES, default=ROLES[1][0], max_length=128)
 
     class Meta:
         unique_together = (('user', 'course'),)
