@@ -167,6 +167,12 @@ class CourseProfessorViewSet(viewsets.ModelViewSet):
     serializer_class = CourseProfessorSerializer
     permission_classes = [IsProfessorCoordinatorOrAdminPermissionOrReadOnly, ]
 
+    def pre_save(self, obj):
+        # Verify if current user is coordinator. The has_object_permission method is not called when creating objects,
+        # so we call it explicitly here. See: https://github.com/tomchristie/django-rest-framework/issues/1103
+        self.check_object_permissions(self.request, obj)
+        return super(CourseProfessorViewSet, self).pre_save(obj)
+
 
 class CourseStudentViewSet(viewsets.ModelViewSet):
     model = CourseStudent
