@@ -354,11 +354,11 @@
                                 </div>
                             </div>
                         {% else %}
-                            {% if course.courseprofessor_set.all %}
+                            {% if course.get_video_professors %}
                             <div class="page-header-double top">
                                 <h3><i class="fa fa-angle-double-right"></i> {% trans "Instructors" %}</h3>
                             </div>
-                                {% for course_professor in course.courseprofessor_set.all %}
+                                {% for course_professor in course.get_video_professors %}
                                     <div id="{{ course_professor.user.username }}" class="instructor row">
                                         <div class="instructor-photo col-xs-12">
                                             <img src="{{ course_professor.user.get_picture_url }}" class="img-thumbnail">
@@ -636,12 +636,12 @@
                                 </div>
                             </div>
                         {% else %}
-                            {% if course.courseprofessor_set.all %}
+                            {% if course.get_video_professors %}
                             <div class="page-header-double top">
                                 <h3><i class="fa fa-angle-double-right"></i> {% trans "Instructors" %}</h3>
                             </div>
 
-                            {% for course_professor in course.courseprofessor_set.all %}
+                            {% for course_professor in course.get_video_professors %}
                                 <div id="{{ course_professor.user.username }}" class="instructor row">
                                     <div class="instructor-photo col-sm-12">
                                         <img src="{{ course_professor.user.get_picture_url }}" class="img-thumbnail">

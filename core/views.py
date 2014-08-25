@@ -162,7 +162,7 @@ class AcceptTermsView(FormView):
 class CourseProfessorViewSet(viewsets.ModelViewSet):
     model = CourseProfessor
     lookup_field = 'id'
-    filter_fields = ('course', 'user',)
+    filter_fields = ('course', 'user', 'role',)
     filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = CourseProfessorSerializer
     permission_classes = [IsProfessorCoordinatorOrAdminPermissionOrReadOnly, ]
