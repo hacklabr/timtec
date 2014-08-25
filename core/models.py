@@ -139,7 +139,6 @@ class Course(models.Model):
         return role == 'coordinator' or user.is_superuser
 
 
-
 class CourseStudent(models.Model):
     user = models.ForeignKey(TimtecUser, verbose_name=_('Student'))
     course = models.ForeignKey(Course, verbose_name=_('Course'))
