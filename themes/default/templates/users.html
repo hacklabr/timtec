@@ -41,10 +41,10 @@
                 <td>{{professor.user_info.email}}</td>
                 <td>{{professor.user_info.username}}</td>
                 {% endverbatim %}
-                <td><select class="form-control">
-                        <option>{% trans "Admin" %}</option>
-                        <option>{% trans "Professor" %}</option>
-                        <option>{% trans "Student" %}</option>
+                <td>
+                    <select class="form-control" ng-model="professor.role" ng-change="update_professor_role(professor)">
+                        <option value="assistant">{% trans "Assistant Professor" %}</option>
+                        <option value="coordinator">{% trans "Coordinator Professor" %}</option>
                     </select>
                     {{ professor.role }}
                 </td>
@@ -66,9 +66,15 @@
                     <div class="modal-body">
                         <form role="form">
                             <label for="search-user" class="control-label">{% trans 'Search user' %}</label>
-                            <input type="text" id="search-user" class="form-control" ng-model="asyncSelected" placeholder="{% trans 'Search user' %}"
-                                   typeahead="user for user in getUsers($viewValue)" typeahead-loading="loadingLocations" >
+                            <input type="text" id="search-user" class="form-control" ng-model="asyncSelected"
+                                    placeholder="{% trans 'Type the name, email or user name of the professor to search...' %}"
+                                    typeahead="user as user.formated_name for user in getUsers($viewValue)"
+                                    typeahead-loading="loadingLocations"
+                                    typeahead-on-select="on_select_professor($model); asyncSelected = '';"
+                                    typeahead-min-length="2"
+                                    typeahead-wait-ms="500">
                             <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                            <!--
                             <div class="autocomplete">
                                 <ul>
                                     <li>Lorem ipsum dolor sit amet</li>
@@ -76,25 +82,28 @@
                                     <li>Lorem ipsum dolor sit amet</li>
                                 </ul>
                             </div>
-                            <table class="table table-list">
+                            -->
+                            <table class="table table-list" ng-show="new_professors.length">
                                 <tr>
-                                    <th class="username">{% trans "Username" %}</th>
-                                    <th class="email">{% trans "Email" %}</th>
                                     <th class="fullname">{% trans "Full name" %}</th>
+                                    <th class="email">{% trans "Email" %}</th>
+                                    <th class="username">{% trans "Username" %}</th>
                                     <th class="actions">{% trans "Actions" %}</th>
                                 </tr>
-                                <tr>
-                                    <td>loremipsum</td>
-                                    <td>loremipsum@gmail.com</td>
-                                    <td>Lorem ipsum dolor sit amet</td>
-                                    <td class="textcenter"><button class="btn btn-warning"><i class="fa fa-trash-o"></i></button></td>
+                                <tr ng-repeat="new_professor in new_professors">
+                                    {% verbatim %}
+                                    <td>{{new_professor.name}}</td>
+                                    <td>{{new_professor.email}}</td>
+                                    <td>{{new_professor.username}}</td>
+                                    {% endverbatim %}
+                                    <td class="textcenter"><button class="btn btn-warning" ng-click="remove_new_professor($index)"><i class="fa fa-trash-o"></i></button></td>
                                 </tr>
                             </table>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
-                        <button type="button" class="btn btn-primary">{% trans 'Add users' %}</button>
+                        <button type="button" class="btn btn-primary" ng-click="add_professors()">{% trans 'Add users' %}</button>
                     </div>
                 </div>
     </script>

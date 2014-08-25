@@ -7,12 +7,17 @@
             $scope.courseId = /course\/([^\/]+)\/permissions/.extract(location.pathname, 1);
             $scope.professors = CourseProfessor.query({course: $scope.courseId});
             $scope.remove_professor = function(course_professor_id, index) {
-                    if(!confirm('Tem certeza que deseja remover este professor deste curso?')) return;
-                    var bla = 1;
-                    CourseProfessor.remove({id: course_professor_id}, function (){
-                        $scope.professors.splice(index, 1);
-                    });
-                };
+                if(!confirm('Tem certeza que deseja remover este professor deste curso?')) return;
+                var bla = 1;
+                CourseProfessor.remove({id: course_professor_id}, function (){
+                    $scope.professors.splice(index, 1);
+                });
+            };
+
+            $scope.update_professor_role = function(professor){
+                professor.$update({id: professor.id});
+            };
+
             $scope.new_professors = function () {
                 var modalInstance = $modal.open({
                     templateUrl: 'newProfessorModal.html',
@@ -24,21 +29,31 @@
                     }
                 });
                 modalInstance.result.then(function (new_professors) {
-//                    new_message.$save({}, function(new_message){
-//                        $scope.messages.unshift(new_message);
-//                    });
-
+                    angular.forEach(new_professors, function(professor){
+                        var new_professor = CourseProfessor.save({course: $scope.courseId, user: professor.id});
+                        $scope.professors.unshift(new_professor);
+                    });
                 });
             };
             var addProfessorsModalInstanceCtrl = function ($scope, $modalInstance, course_id) {
 
-                $scope.send = function () {
-//                    $modalInstance.close($scope.new_message);
-                    $modalInstance.close();
+                $scope.new_professors = [];
+                $scope.add_professors = function () {
+                    $modalInstance.close($scope.new_professors);
                 };
 
                 $scope.cancel = function () {
                     $modalInstance.dismiss();
+                };
+
+                $scope.on_select_professor = function(model) {
+                    var bla = 1;
+                    $scope.new_professors.unshift(model);
+                    $scope.asyncSelected = '';
+                };
+
+                $scope.remove_new_professor = function(index) {
+                    $scope.new_professors.splice(index, 1);
                 };
 
                 $scope.getUsers = function(val) {
@@ -60,7 +75,8 @@
                             formated_name += item.username;
                             if (item.email)
                                 formated_name = formated_name + ' - ' + item.email;
-                            professors_found.push(formated_name);
+                            item.formated_name = formated_name;
+                            professors_found.push(item);
                         });
                         return professors_found;
                     });
