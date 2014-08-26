@@ -25,8 +25,8 @@ class LessonAdmin(ModelAdmin):
 
 
 class UnitAdmin(ModelAdmin):
-    search_fields = ('title',)
-    list_display = ('title', 'position', 'lesson', 'video')
+    search_fields = ('title', 'lesson__name')
+    list_display = ('title', 'position', 'lesson', 'video', 'activity',)
     list_select_related = ('lesson', 'video')
 
 

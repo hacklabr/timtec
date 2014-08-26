@@ -9,7 +9,7 @@
 {% compressed_js 'forum' %}
 {% compressed_js 'admin_course_header' %}
 <section id="forum-inline">
-    
+
     <section id="forum-content" ng-controller="InlineForumCtrl">
         {% if question_form %}
             <div class="page-header-double">
@@ -38,7 +38,7 @@
                             <small><a href="">{% trans "Questions & Answers policy" %}</a></small>
                         </div>
                         -->
-                        <div class="col-lg-4 col-sm-4 textright">
+                        <div class="col-xs-12 textright">
                             <input type="submit" class="btn btn-success" value="Enviar" ng-click="new_question()">
                         </div>
                     </div>
@@ -46,14 +46,14 @@
             </div>
             <!-- END QUESTION FORM -->
         {% endif %}
-    
-    
+
+
 
             <!-- QUESTIONS LIST-->
             <section class="questions clearfix" ng-show="totalItems==0">
             {% trans "There is no question in this forum yet" %}
             </section>
-            
+
             <section class="questions clearfix" ng-show="totalItems>0">
                 <div class="search-filter">
                     <div class="row">

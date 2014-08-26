@@ -27,6 +27,9 @@
                 } else
                     index++;
             });
+            if (row.length > 0) {
+                $scope.courses_rows.push(row);
+            }
         });
 
         $scope.upcoming_courses = CarouselCourse.query({'home_published': 'False'}, function(upcoming_courses) {
