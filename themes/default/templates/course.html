@@ -58,7 +58,7 @@
         <div class="page-header">
             <!-- ROW -->
             <div class="row">
-                <div class="col-md-9 col-sm-8 col-xs-12">
+                <div class="col-md-9 col-xs-12">
                 {% if in_admin %}
                     <div class="editable-title"><input type="text" ng-model="course.name" placeholder="{% trans 'Course name' %}"></div>
                     <div class="course-slug clearfix">
@@ -68,10 +68,8 @@
                       {% endverbatim %}
                     </div>
                 {% else %}
-                    <div class="col-md-9 col-xs-12">
-                        <h1><i class="fa fa-angle-double-right"></i> {{course.name}}</h1>
-                        {% include "_course-professors-inline.html" with course=course %}
-                    </div>
+                    <h1><i class="fa fa-angle-double-right"></i> {{course.name}}</h1>
+                    {% include "_course-professors-inline.html" with course=course %}
                 {% endif %}
                 </div>
 

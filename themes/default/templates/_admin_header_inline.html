@@ -6,7 +6,7 @@
             <!-- ROW -->
             <div class="row">
                 <!-- COL-LG-8 -->
-                <div class="col-lg-8 col-sm-8">
+                <div class="col-lg-8 col-sm-12">
                     <h1 class="course-name bottom top">
                         {% verbatim %}
                         <a href="/admin/courses/{{course.id}}" ng-bind="course.name"></a>
@@ -18,7 +18,7 @@
                 </div>
                 <!-- END COL-LG-8 -->
                 <!-- COL-LG-4 -->
-                <div class="col-lg-4 col-sm-4">
+                <div class="col-lg-4 col-sm-12">
                     <!-- COURSE-SECTION-NAV -->
                     <nav class="course-sections textright">
                         <a ng-href="{% verbatim %}/{{course_url}}{% endverbatim %}"><span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Course' %}"></span></a>
