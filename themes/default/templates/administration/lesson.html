@@ -107,7 +107,7 @@ ng-app="edit-lesson"
             </div>
 
             <!-- VIDEO SECTION -->
-            <div class="video col-sm-8" ng-show="section === 'video'">
+            <div class="video col-sm-8" ng-class="{'hidder': section !== 'video'}">
 
                 <div class="waiting textcenter jumbotron"
                      style="height: 419px"
@@ -138,10 +138,10 @@ ng-app="edit-lesson"
                     <!-- END CENTERED -->
                 </div>
 
-                <div class="current-video" style="overflow:hidden;" ng-style="{'display': currentUnit.video && playerReady ?'':'none'}">
+                <div class="col-xs-12 current-video" ng-class="{'hidder': !(course.hasVideo() && playerReady)}">
 
-                    <div id="player-outter">
-                        <div id="youtube-player" player-height="419px" player-width="100%" youtube-player></div>
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <div class="embed-responsive-item" id="youtube-player" youtube-player></div>
                     </div>
                     <div class="row">
                         <div class="col-xs-6">

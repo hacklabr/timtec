@@ -125,19 +125,11 @@ $(document).ready(function() {
                 this class exists to circunvent a flash + youtube api error
                 in which if the video div is really hidden the api breaks
                 -->
-                <div ng-class="{hidder: section!='video'}">
-                    <div class="video">
-                        <div class="row">
-                            <div id="player-outter" class="col-lg-12 col-md-12 col-sm-12">
-                                <div id="youtube-player" youtube-player></div>
-                            </div>
-                        </div>
-                    </div>
+                <div ng-class="{hidder: section!='video'}" class="video embed-responsive embed-responsive-16by9">
+                    <div class="embed-responsive-item" id="youtube-player" youtube-player></div>
                 </div>
-                <div ng-show="section=='activity'">
-                    <div class="course-activity">
-                        <ng:include src="activityTemplateUrl"></ng:include>
-                    </div>
+                <div ng-show="section=='activity'" class="course-activity">
+                    <ng:include src="activityTemplateUrl"></ng:include>
                 </div>
                 <div ng-show="section=='comment'" class="comment">
                     <div class="panel panel-default" style="min-height: 368px;">
