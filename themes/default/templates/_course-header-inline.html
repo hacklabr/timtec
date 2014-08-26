@@ -3,13 +3,13 @@
 <header class="main-header container">
     <div class="page-header">
         <div class="row">
-            <div class="col-lg-9 col-sm-8">
+            <div class="col-lg-9 col-sm-7">
                 <h1 class="course-name bottom top">
                     <a href="{% url 'course_intro' course.slug %}">{{ course.name }}</a>
                 </h1>
                 {% include "_course-professors-inline.html" with course=course %}
             </div>
-            <div class="col-lg-3 col-sm-4">
+            <div class="col-lg-3 col-sm-5">
                 <!-- COURSE-SECTION-NAV -->
                 <nav class="course-sections textright" id="course-nav">
                     <a href="{% url 'course_intro' course.slug %}"><span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Intro' %}"></span></a>

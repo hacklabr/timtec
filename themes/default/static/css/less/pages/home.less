@@ -16,9 +16,11 @@
         background-position: left;
         background-repeat: no-repeat;
         .clearfix;
+        @media screen and (max-width: 640px) { background-size: 77%; }
       }
       img {
         float: right;
+        max-width: 100%;
       }
       .text {
         color: #000;
@@ -35,19 +37,16 @@
           font-size: 3vw;
         }
       }
-      @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+      @media (max-width: @screen-sm-max) {
         .text {
-          left: 100px;
-          top: 40px;
-          p {
-            font-size: 3vw;
-          }
+          display: none;
         }
       }
       @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
         .text {
-          left: 70px;
-          top: 50px;
+          left: 60px;
+          top: 75px;
+          width: 340px;
           p {
             font-size: 3vw;
           }
