@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # configurations for the production server
 # https://docs.djangoproject.com/en/dev/ref/settings/
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 TIMTEC_THEME = 'default'

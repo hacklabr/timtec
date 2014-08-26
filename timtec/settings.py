@@ -550,10 +550,4 @@ if DEBUG:
     }
 
 # Fix debug toolbar issue: https://github.com/django-debug-toolbar/django-debug-toolbar/issues/521
-try:
-    if sys.argv[1] == 'runserver' or sys.argv[1] == 'runserver_plus':
-        DEBUG_TOOLBAR_PATCH_SETTINGS = DEBUG
-    else:
-        DEBUG_TOOLBAR_PATCH_SETTINGS = False
-except IndexError:
-        DEBUG_TOOLBAR_PATCH_SETTINGS = False
+# DEBUG_TOOLBAR_PATCH_SETTINGS = False
