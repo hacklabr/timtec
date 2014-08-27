@@ -1,7 +1,7 @@
 // MAIN FOOTER
 // ********************************************************************* //
 #main-footer {
-  background-color: @brand-info;
+  background-color: darken(@brand-light, 10%);
   margin-top: 60px;
   padding: 40px 0;
   ul {
@@ -11,7 +11,7 @@
     li {
       display: inline-block;
       &:after {
-        color: #fff;
+        color: @brand-primary;
         content: "•";
         font-size: 18px;
         margin: 0 8px 0 10px;
@@ -20,7 +20,7 @@
         content: "";
       }
       a {
-        color: #fff;
+        color: darken(@brand-primary, 10%);
         display: inline-block;
         cursor: pointer;
         &:hover {

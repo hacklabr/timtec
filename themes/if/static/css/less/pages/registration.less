@@ -1,0 +1,28 @@
+// REGISTRATION AND AUTHENTICATION
+// ********************************************************************* //
+#activation-wrapper {
+  text-align:center;
+  &:before {
+    content:'';
+    height:100%;
+    .vertical-align(middle);
+  }
+
+  .centered {
+    .vertical-align(middle);
+    width:500px;
+  }
+
+  form {
+    border-top:1px solid @gray-lighter;
+    .top(14px,21px);
+    .submit {
+      a {
+        margin-top:7px;
+        &:hover {
+          background:none !important;
+        }
+      }
+    }
+  }
+}

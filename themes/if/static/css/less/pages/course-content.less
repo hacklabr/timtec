@@ -12,8 +12,11 @@
   .lessons {
     margin-top: 20px;
     .lesson {
-      margin-bottom: 40px;
-      margin-top: 20px;
+      background: #fff;
+      overflow: hidden;
+      padding: 15px 0;
+      margin-bottom: 20px;
+      border-radius: @border-radius-base;
       .title {
         display:block;
         font-size: 16px;
@@ -69,7 +72,7 @@
 
     }
     h1.fullname {
-      .bottom(0,0);
+      margin-bottom: 10px;
       font-size:21px;
       text-transform:none;
     }
@@ -265,7 +268,7 @@ ul.uploaded-files-list {
   margin: 0;
   padding: 0;
   li {
-    border-bottom: 1px solid @gray-lighter;
+    border-bottom: 1px solid fade(@brand-primary, 20%);
     padding: 5px 0;
   }
 }

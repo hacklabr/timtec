@@ -2,68 +2,62 @@
 // ********************************************************************* //
 
 #home {
-    @media screen and (min-width: @screen-sm-min) { margin-top: -20px; }
+    @media screen and (min-width: @screen-sm-min) { margin-top: -50px; }
     margin-bottom: -60px;
 
     // banner
     #highlight {
-      max-height: 700px;
+      max-height: 400px;
       overflow: hidden;
-      position: relative;
+      background-color: #eafaba;
+      .container {
+        position: relative;
+        background-image: url(../img/ilustra-home-bg.png);
+        background-position: left;
+        background-repeat: no-repeat;
+        .clearfix;
+        @media screen and (max-width: 640px) { background-size: 77%; }
+      }
       img {
-        margin: 0 auto;
-        width: 100%;
+        float: right;
+        max-width: 100%;
       }
       .text {
         color: #000;
-        font-family: "Questrial";
+        font-family: 'amatic';
+        color: @brand-accent;
         position: absolute;
-        right: 15px;
+        left: 100px;
         top: 15px;
+        border: 2px dashed @brand-accent;
+        padding: 20px;
+        width: 435px;
         p {
           margin: 0;
-          text-align: right;
-        }
-        .line1 {
-          font-size: 3.4vw;
-        }
-        .line2 {
-          font-size: 2.4vw;
+          font-size: 3vw;
         }
       }
-      @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+      @media (max-width: @screen-sm-max) {
         .text {
-          right: 55px;
-          top: 40px;
-          .line1 {
-            font-size: 3.4vw;
-          }
-          .line2 {
-            font-size: 2.4vw;
-          }
+          display: none;
         }
       }
       @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
         .text {
-          right: 70px;
-          top: 50px;
-          .line1 {
-            font-size: 3.3vw;
-          }
-          .line2 {
-            font-size: 2.3vw;
+          left: 60px;
+          top: 75px;
+          width: 340px;
+          p {
+            font-size: 3vw;
           }
         }
       }
       @media (min-width: @screen-lg-min) {
         .text {
-          right: 95px;
-          top: 65px;
-          .line1 {
-            font-size: 3vw;
-          }
-          .line2 {
-            font-size: 2vw;
+          left: 170px;
+          top: 100px;
+          p {
+            font-size: 41px;
           }
         }
       }
@@ -71,11 +65,12 @@
 
     // page title
     header {
-      border-bottom: 1px solid @gray-lighter;
+      //border-bottom: 1px solid fade(@brand-primary, 20%);
       margin-bottom: 36px;
-      padding-bottom: 18px;
+      padding-bottom: 10px;
       h1 {
-        font-family: "Questrial";
+        font-family: 'amatic';
+        color: @brand-accent;
         font-size: 6.5vw;
         font-weight: normal;
         margin: 0;
@@ -129,15 +124,15 @@
 
     // how it works
     #how-it-works {
-        background-color: @gray-lighter;
+        background-color: @brand-light;
         color: @gray;
         padding-bottom: 40px;
         padding-top: 40px;
         header {
-          border-bottom-color: lighten(@gray-light,20%);
+          border-bottom-color: lighten(@brand-light,10%);
         }
         .highlight {
-            border-bottom: 1px solid lighten(@gray-light,20%);
+            border-bottom: 2px dashed @brand-accent;
             margin-bottom: 36px;
             padding-bottom: 18px;
         }
@@ -161,15 +156,15 @@
             }
             h3 {
               font-size: 22px;
-              font-family: 'Questrial';
-              // color: @brand-accent;
+              font-family: 'amatic';
+              color: @brand-accent;
               margin-top: 10px;
               text-align: center;
               @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
                 font-size: 24px;
               }
               @media (min-width: @screen-lg-min) {
-                font-size: 32px;
+                font-size: 36px;
               }
             }
             p {

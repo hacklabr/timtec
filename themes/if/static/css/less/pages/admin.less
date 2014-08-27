@@ -8,10 +8,11 @@
     margin-top: 0;
 
     > header {
-      border-bottom: 1px solid @gray-lighter;
+      border-bottom: 1px solid fade(@brand-primary, 20%);
     }
     .filters {
-      background-color: @gray-lighter;
+      background-color: darken(@brand-light, 10%);
+      border-radius: @border-radius-base;
       padding: 5px 10px;
       margin: 20px 0 50px;
 
@@ -65,7 +66,6 @@
           }
         }
         .course {
-          border-bottom: 1px solid @gray-lighter;
           margin: 10px 0;
           padding-bottom: 10px;
           .date-label {
@@ -76,9 +76,7 @@
         }
       }
       .course {
-        background-color: lighten(@gray-lighter, 5%);
-        border-bottom: 1px solid @gray-lighter;
-        border-top: 1px solid @gray-lighter;
+        border-top: 1px solid @brand-light;
         margin-bottom: 40px;
         h1 {
           font-size: 18px;
@@ -328,6 +326,33 @@
           border: 1px solid @gray-lighter;
           overflow: hidden;
         }
+        .current-video {
+          .editable-text {
+            margin-left: 8px;
+          }
+        }
+      }
+
+      .activity {
+        .editable-title {
+          margin-bottom: 10px;
+        }
+        .answer {
+          margin-bottom: 10px;
+        }
+        .editable-text {
+          display: inline-block;
+          width: 96%;
+        }
+        .relationship-answers {
+          .editable-text {
+            display: inline-block;
+            width: 95%;
+            input {
+              width: 98%;
+            }
+          }
+        }
       }
 
       .add-side-notes {
@@ -398,7 +423,6 @@
       margin-bottom: 10px;
       .lesson,
       .instructor {
-        border-bottom: 1px solid @gray-lighter;
         margin-bottom: 0;
         margin-top: 10px;
         padding-bottom: 10px;
@@ -415,6 +439,9 @@
           color: @brand-danger;
         }
       }
+      .lesson {
+        padding: 15px;
+      }
       .submit {
         margin-top: 10px;
       }
@@ -423,86 +450,9 @@
 
   // USERS
   // ********************************************************************* //
-  #users {
-    header {
-      border-bottom: 1px solid @gray-lighter;
-      margin-bottom: 40px;
-    }
-    table {
-      tr {
-        th {
-          border-top: 0;
-          &.actions {
-            text-align: center;
-            width: 100px;
-          }
-        }
-        td {
-          vertical-align: middle;
-        }
-      }
-    }
-  }
-
-  // ACTIONS - Admin
-  .actions {
-    background-color: @gray-lighter;
-    margin-bottom: 20px;
-    margin-top: -20px;
-    padding: 10px 0;
-    position: relative;
-    .status {
-      margin-left: 40px;
-      margin-right: 10px;
-    }
-    .label {
-      background-color: darken(@gray-lighter, 10%);
-      color: @gray-darker;
-      font-size: 11px;
-      font-weight: normal;
-      margin-right: -5px;
-      padding: 10px 12px;
-      text-transform: uppercase;
-    }
-    @media screen and (max-width: @screen-xs-max) {
-      margin-top: 0;
-    }
-    @media screen and (max-width: 450px) {
-      .col-xs-5, .col-xs-7 {
-        width: 100%;
-      }
-      .col-xs-7 {
-        text-align: left;
-        margin-top: 10px;
-      }
-    }
-  }
-  // END ACTIONS
-
-  // POPUP NOTIFICATIONS
-  .tt-popup {
-    margin-left: 25%;
-    position: fixed;
-    top: 60px;
-    width: 50%;;
-    z-index: 9999;
-    // -moz-transition: top 500ms;
-    // -webkit-transition: top 500ms;
-    // -o-transition: top 500ms;
-    // transition: top 500ms;
-    &.hideTop {
-      top: -5000px;
-    }
-    .alert-success {
-      h4 {
-        font-family: @font-family-sans-serif;
-        font-size: 12px;
-        font-weight: bold;
-        margin-bottom: 0;
-      }
-    }
-    .close {
-      margin-top: -5px;
+  #add-users-modal {
+    #search-user {
+      margin-bottom: 20px;
     }
   }
 }
@@ -551,7 +501,6 @@
 }
 
 .lessons .lesson {
-    background-color: white;
     -webkit-transition: background-color 1s;
 }
 

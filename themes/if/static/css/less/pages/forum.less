@@ -16,9 +16,10 @@
     .hide-question {
       display: block;
       margin-top: 10px;
+      width: 100px;
     }
     article {
-      border-bottom: 1px solid @gray-lighter;
+      border-bottom: 1px solid fade(@brand-primary, 20%);
       margin-bottom: 20px;
       padding-bottom: 20px;
       // IF IS HIDDEN
@@ -88,7 +89,7 @@
                 line-height: 1.5;
               }
               .author {
-                border-top: 1px solid @gray-lighter;
+                border-bottom: 1px solid fade(@brand-primary, 20%);
                 padding-top: 10px;
                 text-align: right;
               }
@@ -114,7 +115,7 @@
                 }
               }
               .votes {
-                font-family:"Questrial";
+                font-family:@font-family-base;
                 font-size:18px;
                 margin:6px 0;
                 text-align:center;

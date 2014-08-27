@@ -1,0 +1,168 @@
+// NAVBAR
+// Reset inverted navbar basics
+@navbar-inverse-color:                      @brand-primary;
+@navbar-inverse-bg:                         @brand-light;
+@navbar-inverse-border:                     transparent;
+
+// Inverted navbar links
+@navbar-inverse-link-color:                 darken(@brand-primary, 10%);
+@navbar-inverse-link-hover-color:           @brand-primary;
+@navbar-inverse-link-hover-bg:              white;
+@navbar-inverse-link-active-color:          @brand-primary;
+@navbar-inverse-link-active-bg:             white;
+@navbar-inverse-link-disabled-color:        transparent;
+@navbar-inverse-link-disabled-bg:           transparent;
+
+// Inverted navbar brand label
+@navbar-inverse-brand-color:                @navbar-inverse-link-color;
+@navbar-inverse-brand-hover-color:          #fff;
+@navbar-inverse-brand-hover-bg:             transparent;
+
+@dropdown-link-hover-bg:                    @brand-light;
+@dropdown-border:                           transparent;
+@dropdown-divider-bg:                       @brand-light;
+@dropdown-link-color:                       @brand-primary;
+@dropdown-link-hover-color:                 @brand-primary;
+
+// MAIN NAVBAR - DROPDOWN MENUS FOR SIGNIN AND SIGNUP
+// ********************************************************************* //
+#main-navbar {
+  border-radius: 0;
+  border: none;
+  font-family: @font-family-base;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0, .2);
+  margin-bottom: 50px;
+  z-index: 20;
+  .navbar-brand {
+    .text-hide();
+    height: 90px;
+    width: 200px;
+    background-image: url(../img/logo.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: white;
+    border-radius: 0 0 4px 4px;
+    border-top: 3px solid @brand-primary;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+    position: absolute;
+    z-index: 900;
+    margin-left: 0;
+
+    @media (max-width: @screen-xs-max) {
+      margin-left: 15px;
+    }
+
+    @media (max-width: @screen-sm-max) {
+      height: 50px;
+      width: 120px;
+      background-size: 90%;
+      border-radius: 0;
+      border-top: none;
+      box-shadow: none;
+    }
+  }
+  .form-group {
+    margin-bottom: 15px;
+  }
+  label {
+    font-weight: normal;
+    line-height: 2.5;
+  }
+  .submit {
+    line-height: 2.5;
+  }
+  .navbar-toggle {
+    border-color: #fff;
+    &:hover,
+    &:focus {
+      background-color: @brand-hover;
+    }
+  }
+  .navbar-divider {
+    @media (min-width: @screen-sm-min) {
+      border-right: 1px solid @brand-light;
+      height: 50px;
+      width: 2px;
+      margin: 0 5px;
+    }
+    @media (max-width: @screen-xs-max) {
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+      border-top: 1px solid @brand-light;
+      height: 2px;
+      margin: 0 5px;
+    }
+  }
+  .navbar-collapse {
+    overflow: hidden;
+    max-height: initial;
+  }
+  #start-intro {
+    margin: 11px 10px 0 0;
+    .fa {
+      margin-left: 5px;
+      vertical-align: middle;
+    }
+  }
+  #session-nav {
+    background-color: darken(@brand-light, 10%);
+    padding: 0 5px;
+    @media (min-width: @screen-sm-min) {
+      margin-right: -15px;
+    }
+  }
+  #site-nav {
+    float: right !important;
+  }
+}
+
+@media screen and (min-width: @screen-tablet) {
+  #main-navbar {
+    .dropdown-menu {
+      width: 400px;
+    }
+    &.navbar-authenticated {
+      .dropdown-menu {
+        width: 300px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  #main-navbar {
+    margin-bottom: 0;
+    label {
+      line-height: 1;
+    }
+    .navbar-nav {
+      > li > a {
+        padding-top: 10px;
+      }
+    }
+    #session-nav {
+      padding: 8px 0 0 0;
+    }
+    #site-nav {
+      float: none !important;
+    }
+    .dropdown-menu .divider {
+      background-color:  @brand-light;
+    }
+  }
+}
+
+.navbar-nav {
+  > li > a {
+    border-radius: @border-radius-base;
+    padding-top:    0px;
+    padding-bottom: 10px;
+    line-height: @line-height-computed;
+  }
+  @media (min-width: @grid-float-breakpoint) {
+    > li > a {
+        padding-top:    10px;
+        padding-bottom: 10px;
+        margin: 5px;
+    }
+  }
+}
