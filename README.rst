@@ -11,16 +11,26 @@ Timtec
  :target: https://waffle.io/hacklabr/timtec 
  :alt: 'Stories in Ready'
 
+
+Getting Started
+---------------
+
+If you want the things fast, just do:
+
+vagrant up
+
+See the Vagrantfile and script folder for more details.
+
 Dependencies
-------------
+++++++++++++
 
 - Python 2.7 with virtualenv and pip
 - build essentials and many dev packages if on debian/ubuntu/fedora
     - libpq-dev, libjpeg-dev, libpng12-dev, build-essential, python-dev, gettext
 - nodejs (probably 0.8+ but tested on 0.10) (you will need a ppa for ubuntu < 14.04)
 
-Getting Started
----------------
+Python env
+++++++++++
 
 - create a Python 2.X virtualenv
     virtualenv ../timtec-env
