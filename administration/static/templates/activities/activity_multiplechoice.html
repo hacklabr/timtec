@@ -1,14 +1,14 @@
-<div class="question textleft">
-    <h1 class="top" ng-model="currentActivity.data.question"
-        contenteditable placeholder="Título da atividade"></h1>
+<div class="question">
+    <div class="editable-title"><input type="text" ng-model="currentActivity.data.question" placeholder="Título da atividade"></div>
 </div>
 <div class="answers multiplechoice-answers">
     <div ng-repeat="alt in currentActivity.data.alternatives track by $index" class="answer">
         <div class="row">
             <div class="col-lg-11 col-md-11 col-sm-11">
                 <input type="checkbox" ng-model="currentActivity.expected[$index]"/>
-                <label ng-model="currentActivity.data.alternatives[$index]"
-                       contenteditable placeholder="Texto para alternativa"></label>
+                <span class="editable-text">
+                    <input type="text" ng-model="currentActivity.data.alternatives[$index]" placeholder="Texto para alternativa"/>
+                </span>
             </div>
 
             <div class="col-lg-1 col-md-1 col-sm-1">
@@ -18,7 +18,6 @@
                                   currentActivity.expected.splice($index,1)"><i class="fa fa-trash-o"></i></button>
             </div>
         </div>
-        <br/>
     </div>
     <div>
         <button class="btn btn-success"

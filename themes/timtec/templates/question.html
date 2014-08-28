@@ -43,14 +43,14 @@
                                 </td>
                                 <td style="vertical-align: middle; width: 100%;">
                                     <h1 class="top bottom">{{ question.title }}</h1>
-                                    <p class="author bottom">Pergunta feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="{% url 'profile' question.user.username %}">{{ question.user.username }}</a></p>
+                                    <div class="content">
+                                        <p ng-bind-html="question.text|markdown"></p>
+                                    </div>
+                                    <p class="author bottom">Pergunta feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{question.username}}">{{ question.username }}</a></p>
                                 </td>
                             </tr>
                         </table>
                     </header>
-                    <div class="content">
-                        <p ng-bind-html="question.text|markdown"></p>
-                    </div>
                 </article>
                 {% endverbatim angularjs %}
 

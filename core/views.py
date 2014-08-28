@@ -3,12 +3,16 @@ import json
 import time
 
 from django.core.urlresolvers import reverse_lazy
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
-from django.views.generic import DetailView, ListView, FormView
+from django.views.generic import (DetailView, ListView, FormView, DeleteView,
+                                  CreateView, UpdateView)
 from django.views.generic.base import RedirectView, View, TemplateView
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404
 from django.conf import settings
+from django.db.models import Q
+from django.utils import timezone
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import filters
@@ -22,9 +26,13 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           LessonNoteSerializer, ProfessorMessageSerializer,
                           CourseStudentSerializer,)
 
-from .models import Course, CourseProfessor, Lesson, StudentProgress, Unit, ProfessorMessage, CourseStudent
+from .models import (Course, CourseProfessor, Lesson, StudentProgress,
+                     Unit, ProfessorMessage, CourseStudent, Class)
 
-from .forms import ContactForm, AcceptTermsForm
+from .forms import (ContactForm, AcceptTermsForm, RemoveStudentForm,
+                    AddStudentsForm, )
+
+from .permissions import IsProfessorCoordinatorOrAdminPermissionOrReadOnly
 
 
 class HomeView(ListView):
@@ -73,7 +81,7 @@ class CoursesView(ListView):
     template_name = "courses.html"
 
     def get_queryset(self):
-        return Course.objects.all().prefetch_related('professors')
+        return Course.objects.filter(Q(status='published') | Q(status='listed')).prefetch_related('professors')
 
 
 class ContactView(View):
@@ -155,9 +163,16 @@ class AcceptTermsView(FormView):
 class CourseProfessorViewSet(viewsets.ModelViewSet):
     model = CourseProfessor
     lookup_field = 'id'
-    filter_fields = ('course', 'user',)
+    filter_fields = ('course', 'user', 'role',)
     filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = CourseProfessorSerializer
+    permission_classes = [IsProfessorCoordinatorOrAdminPermissionOrReadOnly, ]
+
+    def pre_save(self, obj):
+        # Verify if current user is coordinator. The has_object_permission method is not called when creating objects,
+        # so we call it explicitly here. See: https://github.com/tomchristie/django-rest-framework/issues/1103
+        self.check_object_permissions(self.request, obj)
+        return super(CourseProfessorViewSet, self).pre_save(obj)
 
 
 class CourseStudentViewSet(viewsets.ModelViewSet):
@@ -253,6 +268,88 @@ class LessonDetailView(LoginRequiredMixin, DetailView):
         return context
 
 
+class ClassListView(LoginRequiredMixin, ListView):
+    model = Class
+    template_name = 'classes.html'
+
+    def get_queryset(self):
+        course = get_object_or_404(Course, slug=self.kwargs.get('course_slug'))
+        self.course = course
+        user = self.request.user
+        queryset = course.class_set.all()
+
+        if course.has_perm_own_all_classes(user):
+            return queryset
+        else:
+            return queryset.filter(assistant=user)
+
+    def get_context_data(self, **kwargs):
+        context = super(ClassListView, self).get_context_data(**kwargs)
+        context['course'] = self.course
+        return context
+
+
+class ClassCreateView(LoginRequiredMixin, CreateView):
+    model = Class
+    # template_name = 'class_edit.html'
+    fields = ('course', 'name', )
+
+    def form_valid(self, form):
+        form.instance.assistant = self.request.user
+        return super(ClassCreateView, self).form_valid(form)
+
+
+class CanEditClassMixin(object):
+    def check_permission(self, object):
+        user = self.request.user
+        if not (user == object.assistant or
+                object.course.has_perm_own_all_classes(user)):
+            raise PermissionDenied
+
+    def get_object(self, queryset=None):
+        object = super(CanEditClassMixin, self).get_object(queryset=queryset)
+        self.check_permission(object)
+        return object
+
+
+class ClassUpdateView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
+    model = Class
+    template_name = 'class_edit.html'
+    fields = ('name', )
+
+    def get_context_data(self, **kwargs):
+        context = super(ClassUpdateView, self).get_context_data(**kwargs)
+
+        return context
+
+
+class ClassDeleteView(LoginRequiredMixin, CanEditClassMixin, DeleteView):
+    model = Class
+    template_name = 'base.html'
+    http_method_names = ['post', ]
+
+    def get_success_url(self):
+        return reverse_lazy('classes', kwargs={'course_slug': self.object.course.slug})
+
+
+class ClassRemoveUserView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
+    model = Class
+    form_class = RemoveStudentForm
+    http_method_names = ['post', ]
+
+    def get_success_url(self):
+        return reverse_lazy('class', kwargs={'pk': self.object.id})
+
+
+class ClassAddUsersView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
+    model = Class
+    form_class = AddStudentsForm
+    http_method_names = ['post', ]
+
+    def get_success_url(self):
+        return reverse_lazy('class', kwargs={'pk': self.object.id})
+
+
 class LessonViewSet(viewsets.ModelViewSet):
     model = Lesson
     serializer_class = LessonSerializer
@@ -271,10 +368,21 @@ class StudentProgressViewSet(viewsets.ModelViewSet):
     model = StudentProgress
     serializer_class = StudentProgressSerializer
     filter_fields = ('unit', 'unit__lesson',)
+    lookup_field = 'unit'
+
+    def update(self, request, *args, **kwargs):
+        self.object = self.get_object_or_none()
+        if self.object:
+            self.object.save()
+            return HttpResponse('')
+        else:
+            return super(StudentProgressViewSet, self).update(request, *args, **kwargs)
 
     def pre_save(self, obj):
         obj.user = self.request.user
-        return super(StudentProgressViewSet, self).pre_save(obj)
+        obj.unit = Unit.objects.get(id=self.kwargs.get('unit'))
+        obj.complete = timezone.now()
+        return obj
 
     def get_queryset(self):
         user = self.request.user

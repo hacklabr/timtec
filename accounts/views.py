@@ -15,6 +15,7 @@ from braces.views import LoginRequiredMixin
 
 from rest_framework import viewsets
 from rest_framework import filters
+from rest_framework import generics
 
 
 class CustomLoginView(TemplateView):
@@ -95,3 +96,23 @@ class TimtecUserViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter,)
     serializer_class = TimtecUserSerializer
     ordering = ('first_name', 'username',)
+
+
+class UserSearchView(LoginRequiredMixin, generics.ListAPIView):
+    model = get_user_model()
+    serializer_class = TimtecUserSerializer
+
+    def get_queryset(self):
+        """
+        This view should return a list of
+            if q, all tags that contain q
+            else, all tags
+        """
+        queryset = self.model.objects.all()
+        query = self.request.QUERY_PARAMS.get('name', None)
+        if query is not None:
+            queryset = queryset.filter(Q(first_name__icontains=query) |
+                                       Q(last_name__icontains=query) |
+                                       Q(username__icontains=query) |
+                                       Q(email__icontains=query))
+        return queryset

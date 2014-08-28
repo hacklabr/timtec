@@ -32,12 +32,6 @@
     {% analytics %}
     <script type="text/javascript" charset="utf-8">
         (function(){
-            function resize_player() {
-                var $p = $('#youtube-player');
-                $p.css('width','100%');
-                $p.height(Math.floor($p.width() * 0.5624));
-            }
-
             function resize_activation_wrapper() {
                 windowHeight = window.innerHeight;
                 navbarHeight = $('#main-navbar').innerHeight();
@@ -55,11 +49,6 @@
             $(document).ready(function() {
                 $('.has-tooltip').tooltip();
 
-                {% if not in_admin %}
-                    $(document).on('DOMNodeInserted','#player-outter', resize_player);
-                    resize_player();
-                {% endif %}
-
                 resize_activation_wrapper();
                 wrapper_min_height();
 
@@ -67,7 +56,6 @@
                     startIntro();
                 });
             });
-            $(window).resize(resize_player);
             $(window).resize(resize_activation_wrapper);
         })();
     </script>
@@ -75,6 +63,21 @@
 <body {% if in_admin %}id="admin"{% else %}id="notadmin"{% endif %} {% spaceless %}{% block body_attrs %}{% endblock %}{% endspaceless %}>
 
     {% include 'header.html' %}
+
+    <!-- ALERT -->
+    <div class="tt-popup notifications hideTop">
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4>Mensagem de sucesso</h4>
+        </div>
+    </div>
+    <div class="tt-popup notifications hideTop">
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4>Mensagem de erro</h4>
+        </div>
+    </div>
+    <!-- ALERT -->
 
     <div class="wrapper">
         {% block content %}
@@ -103,5 +106,6 @@
         });
     </script>
 {% endif %}
+
 </body>
 </html>

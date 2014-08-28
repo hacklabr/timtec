@@ -60,6 +60,9 @@ update-staging:
 	$(call reset_media)
 	$(call base_update,staging)
 
+update-ifsul:
+	$(call base_update,ifsul)
+
 update-design:
 	$(call base_update,design)
 

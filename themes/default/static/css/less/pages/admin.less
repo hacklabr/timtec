@@ -116,41 +116,6 @@
         .not-edited {
           color: @gray-light;
         }
-        .editable {
-          cursor: pointer;
-          word-break: break-word;
-          &:hover {
-            background-color: lighten(@brand-warning, 40%);
-          }
-        }
-        .markdown-required {
-          background-color: lighten(@brand-danger, 40%);
-          position: relative;
-          > div.editable {
-            min-height: 120px;
-          }
-          .markdown-required-label {
-            bottom: 10px;
-            color: @brand-danger;
-            font-size: 11px;
-            position: absolute;
-            right: 15px;
-          }
-        }
-        .icon-editable {
-          color: @brand-info;
-          cursor: pointer;
-          font-size: 18px;
-          margin: 0 10px;
-          vertical-align: bottom !important;
-        }
-        .icon-addable {
-          color:@brand-success;
-          cursor:pointer;
-          font-size:18px;
-          margin:0 10px;
-          vertical-align:bottom !important;
-        }
         .edit-video-intro {
           cursor:pointer;
           left:25px;
@@ -513,22 +478,6 @@
     }
   }
   // END ACTIONS
-
-  // CONTENT EDITABLE
-  [contenteditable] {
-    font-weight: thin;
-    padding: 3px 0 0 0;
-    &:empty {
-      background-color: lighten(@brand-danger, 40%);
-      color: @gray-light;
-      &:before {
-        background-color: none;
-      }
-    }
-    &:hover {
-      background-color: lighten(@brand-warning, 40%);
-    }
-  }
 
   // POPUP NOTIFICATIONS
   .tt-popup {
