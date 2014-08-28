@@ -4,7 +4,7 @@
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-TIMTEC_THEME = 'default'
+TIMTEC_THEME = 'if'
 
 SITE_ID = 2
 
