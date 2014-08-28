@@ -8,8 +8,8 @@
 </script>
 {% compressed_js 'forum' %}
 {% compressed_js 'admin_course_header' %}
-<section id="forum">
-    
+<section id="forum" class="forum-inline">
+
     <section id="forum-content" ng-controller="InlineForumCtrl">
         {% if question_form %}
             <div class="page-header-double">
@@ -44,14 +44,14 @@
             </div>
             <!-- END QUESTION FORM -->
         {% endif %}
-    
-    
+
+
 
             <!-- QUESTIONS LIST-->
             <section class="questions clearfix" ng-show="totalItems==0">
             {% trans "There is no question in this forum yet" %}
             </section>
-            
+
             <section class="questions clearfix" ng-show="totalItems>0">
                 <div class="search-filter">
                     <div class="row">
@@ -76,31 +76,29 @@
                     </div>
                 </div>
                 <div ng-repeat="question in current_page_questions">
-                    <article ng-class="{'is-hidden': question.hidden}">
+                    <div class="question" ng-class="{'is-hidden': question.hidden}">
                         <table>
                             <tr>
-                                <td>
-                                    <div class="stats">
+                                <td class="stats">
+                                    <div class="votes">
                                         <p><span class="numbers-votes">{% verbatim angularjs %}{{question.votes}}{% endverbatim angularjs %}</span>votos</p>
                                         <p><span class="numbers-answers">{% verbatim angularjs %}{{ question.answers.length }}{% endverbatim angularjs %}</span>respostas</p>
                                     </div>
                                     {% verbatim angularjs %}
                                     <div ng-if="!question.hidden && is_current_user_forum_moderator" ng-click="justification_modal(question)" class="hide-question btn btn-danger btn-sm">Ocultar</div>
                                 </td>
-                                <td style="width:100%;">
-                                    <div class="content">
-                                        <h1 class="top"><a href="/forum/question/{{ question.slug }}">{{ question.title }}</a></h1>
-                                        <div class="description" ng-bind-html="question.text|markdown|words:50"></div>
-                                        <p class="author">Pergunta feita feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ question.username }}">{{ question.username }}</a></p>
-                                    </div>
+                                <td class="content">
+                                    <h1 class="title"><a href="/forum/question/{{ question.slug }}">{{ question.title }}</a></h1>
+                                    <div class="text" ng-bind-html="question.text|markdown|words:50"></div>
+                                    <div class="author">Pergunta feita feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ question.username }}">{{ question.username }}</a></div>
                                 </td>
                             </tr>
                         </table>
-                        <div ng-if="question.hidden" class="clear why-hidden">
-                            <h1 class="bottom">Entenda porque sua pergunta foi ocultada</h1>
-                            <div class="content">{{ question.hidden_justification }}</div>
+                        <div ng-if="question.hidden" class="why-hidden">
+                            <h1>Entenda porque sua pergunta foi ocultada</h1>
+                            <p>{{ question.hidden_justification }}</p>
                         </div>
-                    </article>
+                    </div>
                 </div>
                 {% endverbatim angularjs %}
                 <script type="text/ng-template" id="justificationModal.html">
