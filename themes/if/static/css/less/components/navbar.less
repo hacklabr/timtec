@@ -93,6 +93,9 @@
     }
   }
   .navbar-collapse {
+    @media (min-width: @screen-sm-min) {
+      float: right;
+    } 
     overflow: hidden;
     max-height: initial;
   }
@@ -109,9 +112,6 @@
     @media (min-width: @screen-sm-min) {
       margin-right: -15px;
     }
-  }
-  #site-nav {
-    float: right !important;
   }
 }
 
