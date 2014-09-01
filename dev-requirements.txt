@@ -1,5 +1,5 @@
 pip-tools
-pytest==2.5.2
+pytest==2.6.0
 pytest-cov
 pytest-flakes
 pytest-pep8
