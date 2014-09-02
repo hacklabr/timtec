@@ -38,16 +38,13 @@
         <!-- ACTIONS -->
         <div class="actions-menu" fixed-bar>
             <div class="container">
-                <div class="row">
-                    <div class="col-xs-12 textright">
-                        <!-- <button class="btn btn-info">Listar | <i class="fa fa-star-o"></i></button> -->
-                        <button class="btn btn-danger" title="{% trans 'Delete course' %}" ng-click="deleteCourse()">{% trans 'Delete' %} | <i class="fa fa-trash-o"></i></button>
-                        <button class="btn btn-success" ng-click="saveCourse()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
-                        <button class="btn btn-warning" ng-click="publishCourse()">{% trans 'Publish' %} | <i class="fa fa-star-o"></i></button>
-                    </div>
+                <div class="actions-buttons">
+                    <button class="btn btn-danger" title="{% trans 'Delete course' %}" ng-click="deleteCourse()">{% trans 'Delete' %} | <i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-success" ng-click="saveCourse()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
+                    <button class="btn btn-warning" ng-click="publishCourse()">{% trans 'Publish' %} | <i class="fa fa-star-o"></i></button>
                 </div>
+                {% include 'administration/_alert.html' %}
             </div>
-
         </div>
         <!-- END ACTIONS -->
     {% endif %}
@@ -640,7 +637,6 @@
     <!-- END COURSE CONTENT -->
 
     {% if in_admin %}
-        {% include 'administration/_alert.html' %}
         <professorslist on-select="addProfessor" active="professorsModalActive"></professorslist>
     {% endif %}
 

@@ -21,13 +21,10 @@
   @media screen and (max-width: @screen-xs-max) {
     margin-top: 0;
   }
-  @media screen and (max-width: 450px) {
-    .col-xs-5, .col-xs-7 {
-      width: 100%;
-    }
-    .col-xs-7 {
-      text-align: left;
-      margin-top: 10px;
+  .actions-buttons {
+    text-align: right;
+    @media (min-width: @screen-sm-min) {
+      float: right;
     }
   }
 }

@@ -34,18 +34,15 @@
     <!-- ACTIONS -->
     <div class="actions-menu" fixed-bar>
         <div class="container">
-            <div class="row">
-                <div class="col-xs-12 textright">
-                    <!-- <button class="btn btn-info">Listar | <i class="fa fa-star-o"></i></button> -->
-                    <form method="post" action="{% url 'class-delete' pk=class.id %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-danger" title="{% trans 'Delete course' %}">{% trans 'Delete' %} | <i class="fa fa-trash-o"></i></button>
-                        <button class="btn btn-success" onclick="document.getElementById('mainForm').submit();return false;">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
-                    </form>
-                </div>
+            <div class="actions-buttons">
+                <form method="post" action="{% url 'class-delete' pk=class.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" title="{% trans 'Delete course' %}">{% trans 'Delete' %} | <i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-success" onclick="document.getElementById('mainForm').submit();return false;">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
+                </form>
             </div>
+            {% include 'administration/_alert.html' %}
         </div>
-
     </div>
     <!-- END ACTIONS -->
 
