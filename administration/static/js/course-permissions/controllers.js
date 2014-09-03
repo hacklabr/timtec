@@ -47,7 +47,6 @@
                 };
 
                 $scope.on_select_professor = function(model) {
-                    var bla = 1;
                     $scope.new_professors.unshift(model);
                     $scope.asyncSelected = '';
                 };
