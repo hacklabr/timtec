@@ -2,10 +2,18 @@
     'use strict';
 
     var module = angular.module('messages.controllers', []);
-    module.controller('NewMessageController', ['$scope', '$modal', 'Message', 'Student',
-            function($scope, $modal,  Message, Student) {
-                $scope.course_id = document.location.href.match(/course\/([0-9]+)/)[1];
 
+    // Service to share data across the controllers
+    module.factory('messages_list', function() {
+        return {
+            messages : []
+        };
+    });
+
+    module.controller('NewMessageController', ['$scope', '$modal', 'Message', 'Student', 'StudentSearch', 'messages_list', '$rootScope',
+            function($scope, $modal,  Message, Student, StudentSearch, messages_list, $rootScope) {
+                $scope.course_id = document.location.href.match(/course\/([0-9]+)/)[1];
+                $scope.messages = messages_list.messages;
                 $scope.new_message = function () {
                     var modalInstance = $modal.open({
                         templateUrl: 'newMessageModal.html',
@@ -18,61 +26,68 @@
                     });
                     modalInstance.result.then(function (new_message) {
                         new_message.$save({}, function(new_message){
-                            $scope.messages.unshift(new_message);
+                            messages_list.messages.unshift(new_message);
+                            $rootScope.$broadcast('newMessage');
                         });
 
                     });
                 };
                 var SendMessageModalInstanceCtrl = function ($scope, $modalInstance, course_id) {
 
+                    $scope.new_message = new Message();
+                    $scope.new_message.course = course_id;
+                    $scope.new_message.users = [];
+                    $scope.recipient_list = [];
+
                     $scope.students = Student.query({course: $scope.course_id}, function(students) {
                         // Student service refer to CourseStudent django model.
-                        $scope.users_rows = [];
                         $scope.all_users = [];
-                        var row = [];
-                        var index = 0;
-                        // TODO This is ugly! Refactor if you can...
                         angular.forEach(students, function(user_ref) {
-                            row.push(user_ref.user);
                             $scope.all_users.push(user_ref.user);
-                            // each row will have 6 names
-                            if (index == 6) {
-                                $scope.users_rows.push(row);
-                                row = [];
-                                index = 0;
-                            } else
-                                index++;
                         });
                     });
 
-                    $scope.new_message = new Message();
-                    $scope.new_message.course = course_id;
-
-
                     // trick to user modal.all_checked in ng-model html tag
                     $scope.modal = {};
-                    $scope.checkAll = function() {
-                        if ($scope.modal.all_checked)
-                            $scope.new_message.users = [];
-                        else
-                            $scope.new_message.users = $scope.all_users.map(function(item) { return item.id; });
-                    };
+                    $scope.modal.all_checked = true;
 
                     $scope.send = function () {
+                        // TODO validação dos campo: títle e message não podem ser vazios
+                        if ($scope.modal.all_checked) {
+                            $scope.new_message.users = $scope.all_users.map(function(item) { return item.id; });
+                        }
                         $modalInstance.close($scope.new_message);
                     };
 
                     $scope.cancel = function () {
                         $modalInstance.dismiss();
                     };
+                    $scope.getUsers = function(val) {
+                        return new StudentSearch(val);
+                    };
+
+                    $scope.on_select_student = function(model) {
+                        $scope.new_message.users.unshift(model.id);
+                        $scope.recipient_list.unshift(model);
+                        $scope.asyncSelected = '';
+                    };
+
+                    $scope.remove_student = function(index) {
+                        $scope.new_message.users.splice(index, 1);
+                };
+
                 };
             }
         ]);
 
-    module.controller('MessagesListController', ['$scope', '$modal', 'Message', 'User',
-        function($scope, $modal,  Message, User) {
+    module.controller('MessagesListController', ['$scope', '$modal', 'Message', 'messages_list',
+        function($scope, $modal,  Message, messages_list) {
             $scope.course_id = document.location.href.match(/course\/([0-9]+)/)[1];
-            $scope.messages = Message.query({course: $scope.course_id});
+            messages_list.messages = Message.query({course: $scope.course_id});
+            $scope.messages = messages_list.messages;
+            $scope.$on('newMessage', function() {
+                $scope.messages = messages_list.messages;
+            });
         }
     ]);
 
