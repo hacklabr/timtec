@@ -75,10 +75,11 @@ ng-app="edit-lesson"
             <div class="add-content" ng-init="section='video'">
                 <div class="col-xs-12">
                     <div class="secondary-header">
-                        <h2>Unidade 1</h2>
+                        <h2>Unidade 1 <button class="btn btn-sm btn-danger delete" ng-click="removeCurrentUnit()" title="{% trans 'Delete this unit' %}"><i class="fa fa-trash-o"></i>
+                        </button></h2>
                     </div>
                 </div>
-                <div class="col-xs-6 col-xs-6">
+                <div class="col-xs-12">
                     <div id="video-activity-buttons">
                         <button class="btn btn-default uppercase"
                                 ng-class="{'btn-info': section === 'video'}"
@@ -88,12 +89,6 @@ ng-app="edit-lesson"
                                 ng-class="{'btn-info': section === 'activity'}"
                                 ng-click="section ='activity'">{% trans 'Activity' %}</button>
                     </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 textright">
-                    <button class="btn btn-danger delete" ng-click="removeCurrentUnit()"
-                            title="Apagar unidade">
-                        {% trans 'Delete this unit' %} | <i class="fa fa-trash-o"></i> 
-                    </button>
                 </div>
             </div>
 

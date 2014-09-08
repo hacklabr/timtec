@@ -369,22 +369,24 @@
     // ********************************************************************* //
     .add-content {
       margin-bottom: 0px;
-      button {
-        font-size: 11px;
-        margin-bottom: 10px;
-        padding: 10px 20px;
-        &.delete {
-          font-size: 14px;
-          padding: 8px 12px;
+      #video-activity-buttons {
+        button {
+          font-size: 11px;
+          margin-bottom: 10px;
+          padding: 10px 20px;
         }
-      }
-      @media (max-width: 560px) {
-        .col-xs-6 {
-          width: 100%;
-          &.textright {
-            text-align: left;
+        @media (max-width: 560px) {
+          .col-xs-6 {
+            width: 100%;
+            &.textright {
+              text-align: left;
+            }
           }
         }
+      }
+      .secondary-header .btn {
+        display: inline-block;
+        margin: 0 0 0 10px;
       }
     }
     // END CONTENT
