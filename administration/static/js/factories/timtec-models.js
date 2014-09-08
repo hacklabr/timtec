@@ -224,8 +224,6 @@
                 return student_found;
             });
         };
-
-
     }]);
 
 
