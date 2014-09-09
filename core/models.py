@@ -146,6 +146,9 @@ class CourseStudent(models.Model):
     class Meta:
         unique_together = (('user', 'course'),)
 
+    def __unicode__(self):
+        return u'{0} - {1}'.format(self.course, self.user)
+
     @property
     def units_done(self):
         return StudentProgress.objects.exclude(complete=None)\
@@ -362,7 +365,7 @@ class EmailTemplate(models.Model):
 
 class Class(models.Model):
     name = models.CharField(max_length=200)
-    assistant = models.ForeignKey(TimtecUser, verbose_name=_('Assistant'))
+    assistant = models.ForeignKey(TimtecUser, verbose_name=_('Assistant'), related_name='professor_classes')
     students = models.ManyToManyField(TimtecUser, related_name='classes', blank=True)
     course = models.ForeignKey(Course, verbose_name=_('Course'))
 

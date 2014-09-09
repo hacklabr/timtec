@@ -197,12 +197,14 @@
 
     /**
      * StudentSearch model. Used in typeahead input with ui.bootstrap.typeahead.
+     * It uses http instead resource cause it has to be synchronous.
      */
     app.factory('StudentSearch', ['$http', function($http){
-        return function(val) {
-            return $http.get('/api/user_search', {
+        return function(val, course_id) {
+            return $http.get('/api/student_search', {
                 params: {
                     name: val,
+                    course: course_id,
                     sensor: false
                 }
             }).then(function (res) {

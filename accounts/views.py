@@ -103,12 +103,33 @@ class UserSearchView(LoginRequiredMixin, generics.ListAPIView):
     serializer_class = TimtecUserSerializer
 
     def get_queryset(self):
-        """
-        This view should return a list of
-            if q, all tags that contain q
-            else, all tags
-        """
         queryset = self.model.objects.all()
+        query = self.request.QUERY_PARAMS.get('name', None)
+        if query is not None:
+            queryset = queryset.filter(Q(first_name__icontains=query) |
+                                       Q(last_name__icontains=query) |
+                                       Q(username__icontains=query) |
+                                       Q(email__icontains=query))
+        return queryset
+
+
+class StudentSearchView(LoginRequiredMixin, generics.ListAPIView):
+    model = get_user_model()
+    serializer_class = TimtecUserSerializer
+    search_fields = ('first_name', 'last_name', 'username', 'email')
+
+    def get_queryset(self):
+        queryset = self.model.objects.all()
+        course = self.request.QUERY_PARAMS.get('course', None)
+
+        classes = self.request.user.professor_classes.all()
+
+        if classes:
+            queryset = queryset.filter(classes__in=classes)
+        else:
+            # FIXME: if every student is in a class, this is useless.
+            if course is not None:
+                queryset = queryset.filter(studentcourse_set=course)
         query = self.request.QUERY_PARAMS.get('name', None)
         if query is not None:
             queryset = queryset.filter(Q(first_name__icontains=query) |

@@ -63,7 +63,7 @@
                         $modalInstance.dismiss();
                     };
                     $scope.getUsers = function(val) {
-                        return new StudentSearch(val);
+                        return new StudentSearch(val, course_id);
                     };
 
                     $scope.on_select_student = function(model) {
@@ -74,6 +74,7 @@
 
                     $scope.remove_student = function(index) {
                         $scope.new_message.users.splice(index, 1);
+                        $scope.recipient_list.splice(index, 1);
                 };
 
                 };

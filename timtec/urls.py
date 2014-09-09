@@ -8,7 +8,8 @@ from django.contrib import admin as django_admin
 django_admin.autodiscover()
 
 from django.views.generic import TemplateView
-from accounts.views import CustomLoginView, ProfileEditView, ProfileView, UserSearchView
+from accounts.views import (CustomLoginView, ProfileEditView, ProfileView, UserSearchView,
+                            TimtecUserViewSet, StudentSearchView)
 from forum.views import AnswerViewSet as ForumAnswerViewSet, ForumModeratorView
 
 from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
@@ -22,7 +23,6 @@ from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
                         ClassRemoveUserView, ClassAddUsersView)
 
 from activities.views import AnswerViewSet
-from accounts.views import TimtecUserViewSet
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, QuestionVoteViewSet, AnswerVoteViewSet
 from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialViewSet
 from notes.views import NotesViewSet, CourseNotesView, UserNotesView
@@ -111,6 +111,7 @@ urlpatterns = patterns(
     # The django-allauth
     url(r'^accounts/', include('allauth.urls')),
     url(r'^api/user_search/?$', UserSearchView.as_view(), name='user_search'),
+    url(r'^api/student_search/?$', StudentSearchView.as_view(), name='student_search'),
 
     # The django-rosetta
     url(r'^rosetta/', include('rosetta.urls')),
