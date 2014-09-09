@@ -32,6 +32,11 @@
             }
         });
 
+        $scope.all_courses = Course.query({'home_published': 'True'}, function(all_courses) {
+            var row = [];
+            row.push(course);
+        });
+
         $scope.upcoming_courses = CarouselCourse.query({'home_published': 'False'}, function(upcoming_courses) {
 
             $scope.upcoming_courses_rows_3 = [];
@@ -54,6 +59,7 @@
                 $scope.upcoming_courses_rows_3.push(row);
             }
         });
+
         $scope.twits = Twitter.query({});
     }]);
 

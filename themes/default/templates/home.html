@@ -105,66 +105,18 @@
                     <h4 class="modal-title">Editar cursos da home</h4>
                   </div>
                   <div class="modal-body">
-                    <div class="row">
-                        <div class="select-course col-xs-6">
-                            <div class="course-thumb">
-                                <img src="http://localhost:8000/media/home_thumbnails/html5.jpeg">
+                      <div class="row">
+                        {% verbatim %}
+                        <div class="select-course col-xs-6" ng-repeat="course in all_courses" >
+                            <div class="course-thumb" style="background-image: url({{ course.home_thumbnail_url }});">
                                 <span class="selected"></span>
                             </div>
                             <div class="course-info">
-                            <h3>HTML5 - Introdução ao Front End</h3>
+                                <h3>{{ course.name }}</h3>
                             </div>
                         </div>
-                        <div class="select-course col-xs-6 active">
-                            <div class="course-thumb">
-                                <img src="http://localhost:8000/media/home_thumbnails/html5.jpeg">
-                                <span class="selected"></span>
-                            </div>
-                            <div class="course-info">
-                            <h3>HTML5 - Introdução ao Front End</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="select-course col-xs-6">
-                            <div class="course-thumb">
-                                <img src="http://localhost:8000/media/home_thumbnails/html5.jpeg">
-                                <span class="selected"></span>
-                            </div>
-                            <div class="course-info">
-                            <h3>HTML5 - Introdução ao Front End</h3>
-                            </div>
-                        </div>
-                        <div class="select-course col-xs-6">
-                            <div class="course-thumb">
-                                <img src="http://localhost:8000/media/home_thumbnails/html5.jpeg">
-                                <span class="selected"></span>
-                            </div>
-                            <div class="course-info">
-                            <h3>HTML5 - Introdução ao Front End</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="select-course col-xs-6 active">
-                            <div class="course-thumb">
-                                <img src="http://localhost:8000/media/home_thumbnails/html5.jpeg">
-                                <span class="selected"></span>
-                            </div>
-                            <div class="course-info">
-                            <h3>HTML5 - Introdução ao Front End</h3>
-                            </div>
-                        </div>
-                        <div class="select-course col-xs-6 active">
-                            <div class="course-thumb">
-                                <img src="http://localhost:8000/media/home_thumbnails/html5.jpeg">
-                                <span class="selected"></span>
-                            </div>
-                            <div class="course-info">
-                            <h3>HTML5 - Introdução ao Front End</h3>
-                            </div>
-                        </div>
-                    </div>
+                        {% endverbatim %}
+                      </div>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
