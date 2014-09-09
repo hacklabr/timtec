@@ -196,6 +196,40 @@
 
 
     /**
+     * StudentSearch model. Used in typeahead input with ui.bootstrap.typeahead.
+     */
+    app.factory('StudentSearch', ['$http', function($http){
+        return function(val) {
+            return $http.get('/api/user_search', {
+                params: {
+                    name: val,
+                    sensor: false
+                }
+            }).then(function (res) {
+                var student_found = [];
+                angular.forEach(res.data, function (item) {
+                    var formated_name = '';
+                    if (item.first_name)
+                        formated_name += item.first_name;
+                    if (item.last_name)
+                        formated_name = formated_name + ' ' + item.last_name;
+                    if (formated_name)
+                        formated_name = formated_name + ' - ';
+                    formated_name += item.username;
+                    if (item.email)
+                        formated_name = formated_name + ' - ' + item.email;
+                    item.formated_name = formated_name;
+                    student_found.push(item);
+                });
+                return student_found;
+            });
+        };
+
+
+    }]);
+
+
+    /**
      * A object that fetch info from Youtube. It expects a video ID and returns
      * a promise that video info will be fetched.
      */
