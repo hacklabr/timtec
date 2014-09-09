@@ -23,3 +23,22 @@
     margin-left: 8px;
   }
 }
+
+.alert-danger {
+  ul {
+    padding: 0;
+    list-style-position: inside;
+    li {
+      margin-bottom: 5px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    a {
+      color: @brand-warning;
+      &:hover {
+        color: darken(@brand-warning, 20%);
+      }
+    }
+  }
+}

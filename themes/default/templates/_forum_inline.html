@@ -17,6 +17,12 @@
             </div>
             <!-- QUESTION FORM -->
             <div class="forum-form">
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                        <li><a href="#id-title">Preencha o título da questão.</a></li>
+                        <li><a href="#wmd-input">Preencha o conteúdo da questão.</a></li>
+                    </ul>
+                </div>
                 <div class="form-group" ng-class="question_title_validation">
                     <input id="id-title" ng-model="new_question_title" name="title" type="text" class="form-control" placeholder="{% trans 'What is your question?' %}">
                 </div>
