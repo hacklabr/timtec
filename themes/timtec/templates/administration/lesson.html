@@ -226,22 +226,7 @@ ng-app="edit-lesson"
 </div>
 <!-- END COURSE-CONTENT -->
 
-<div class="tt-popup notifications hidden" alert-popup ng-class="{'hideTop': alert.hidden}">
-    <div class="alert fade in" ng-class="'alert-' + alert.type">
-        <button type="button" class="close" ng-click="alert.hidden=true">×</button>
-        <h4 ng-bind="alert.title"></h4>
-        <p class="bottom">
-            <ol class="bottom">
-                <li ng-repeat="message in alert.messages" ng-bind="message"></li>
-            </ol>
-        </p>
-        <div ng-show="alert.showControls">
-            <hr/>
-            <button type="button" class="btn" ng-class="'btn-'+alert.type"
-                     ng-click="alert.hidden=true">{% trans 'Close' %}</button>
-        </div>
-    </div>
-</div>
+{% include 'administration/_alert.html' %}
 
 <div waiting-screen class="waiting waiting-screen hidden">
     <div class="middle">

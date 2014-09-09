@@ -1,0 +1,9 @@
+{% load i18n %}
+<!-- ALERT -->
+<div class="tt-popup notifications" alert-popup ng-class="{'hidden': alert.hidden}">
+    <div class="alert" ng-class="'alert-' + alert.type">
+        <span class="message" ng-bind="alert.title"></span>
+        <button type="button" class="close" ng-click="alert.hidden=true"><i class="fa fa-times"></i></button>
+    </div>
+</div>
+<!-- ALERT -->

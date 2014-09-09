@@ -14,6 +14,8 @@
 <script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/sortable.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/new-course/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/markdown/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/markdown/filters.js' %}"></script>
 {% endblock %}
 
 {% block body_attrs %}
@@ -271,7 +273,7 @@ ng-app="new-course"
                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                                     <p>
                                         <a {% verbatim %}href="lessons/{{lesson.id}}"{% endverbatim %} class="title editable" ng-bind="lesson.name">{% trans 'Lesson name' %}</a>
-                                        <modalmarkdowneditor on-save="saveLesson(lesson)" title="{% trans 'Lesson description' %}" content="lesson.desc"></modalmarkdowneditor>
+                                        <div ng-bind-html="lesson.desc|markdown"></div>
                                     </p>
                                     <!--  HIDDEN-XS  -->
                                     <div class="hidden-xs" ng-show="lesson.units">
@@ -346,24 +348,7 @@ ng-app="new-course"
         </div>
     </div>
 
-    <!-- ALERT -->
-    <div class="tt-popup notifications" alert-popup ng-class="{'hideTop': alert.hidden}">
-        <div class="alert fade in" ng-class="'alert-' + alert.type">
-            <button type="button" class="close" ng-click="alert.hidden=true">×</button>
-            <h4 ng-bind="alert.title"></h4>
-            <div class="bottom">
-                <ol class="bottom">
-                    <li ng-repeat="message in alert.messages" ng-bind="message"></li>
-                </ol>
-            </div>
-            <div ng-show="alert.showControls">
-                <hr/>
-                <button type="button" class="btn" ng-class="'btn-'+alert.type"
-                         ng-click="alert.hidden=true">{% trans 'Close' %}</button>
-            </div>
-        </div>
-    </div>
-    <!-- ALERT -->
+    {% include 'administration/_alert.html' %}
     <professorslist on-select="addProfessor" active="professorsModalActive"></professorslist>
 </div>
 <!--  END COURSE CONTENT  -->

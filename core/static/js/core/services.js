@@ -8,6 +8,11 @@
         });
     });
 
+    app.factory('CarouselCourse', function($resource){
+        return $resource('/api/course_carousel/:courseId', {}, {
+        });
+    });
+
     app.factory('Twitter', function($resource){
         return $resource('/api/twitter/', {}, {
         });

@@ -27,7 +27,7 @@ urlpatterns = patterns(
 
     url(r'^course/(?P<pk>[1-9][0-9]*)/material/$', CourseMaterialAdminView.as_view(template_name="course-material.html")),
 
-    url(r'^users/$', AdminView.as_view(template_name="users.html")),
+    url(r'^course/(?P<pk>[1-9][0-9]*)/permissions/$', AdminView.as_view(template_name="users.html"), name="course.permissions"),
 
     url(r'^course/(?P<course_id>[1-9][0-9]*)/stats/$', AdminView.as_view(template_name="stats.html")),
 

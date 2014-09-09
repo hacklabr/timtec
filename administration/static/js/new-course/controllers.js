@@ -33,13 +33,14 @@
                         $scope.forum_url = 'admin/course/' + course.id +  '/forum/';
                         $scope.messages_url = 'admin/course/' + course.id   + '/messages/';
                         $scope.reports_url = 'admin/course/' + course.id   + '/stats/';
+                        $scope.permissions_url = 'admin/course/' + course.id + '/permissions/';
                     })
                     .then(function(){
                         $scope.lessons = Lesson.query({'course__id': match[1]});
                         return $scope.lessons.promise;
                     })
                     .then(function(){
-                        $scope.courseProfessors = CourseProfessor.query({ course: match[1] });
+                        $scope.courseProfessors = CourseProfessor.query({course: match[1], role: 'instructor'});
                         return $scope.courseProfessors.promise;
                     })['catch'](function(resp){
                         $scope.alert.error(httpErrors[resp.status.toString()]);

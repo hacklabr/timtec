@@ -28,7 +28,7 @@
         .bottom(0,0);
         .top(0,0);
         span {
-          display: block;
+          display: inline-block;
         }
         a {
           color: @gray-darker;
@@ -71,23 +71,29 @@
   }
 }
 
-// HEADER STYLES FOR THE INTERNAL PAGES (Lesson, Forum, Notes, Material)
-#course.course-lesson,
-#course.course-material,
-#forum.course-forum,
-#messages.course-messages,
-#my-notes.course-notes,
-#stats.course-stats {
-  header {
-    .page-header {
-      margin-bottom: 0;
-      h1 {
-        font-size: 16px;
-        text-transform: uppercase;
-      }
-      ul.instructors {
-        font-size: 12px;
-      }
+// HEADER STYLES FOR THE INTERNAL PAGES (Lesson, Forum, Notes, Material, Classes)
+.main-header {
+  .page-header {
+    margin-bottom: 0;
+    h1 {
+      font-size: 16px;
+      text-transform: uppercase;
     }
+    ul.instructors {
+      font-size: 12px;
+    }
+  }
+}
+
+.secondary-header {
+  border-bottom: 1px solid @gray-lighter;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  h1 {
+    margin-top: 25px;
+  }
+  .btn {
+    display:block;
+    margin-top: 18px;
   }
 }

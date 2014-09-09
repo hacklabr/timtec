@@ -44,7 +44,7 @@
                             <div class="info-box">
                                 <div class="info">
                                     <h3>{{ course.name }}</h3>
-                                    <p class="instructors">{% for professor in course.professors.all %}{{ professor.get_full_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                                    <p class="instructors">{% for professor in course.get_video_professors %}{{ professor.user.get_full_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
                                     <p class="abstract">{{ course.abstract }}</p>
                                 </div>
                                 <div class="enroll">

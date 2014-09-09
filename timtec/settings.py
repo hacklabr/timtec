@@ -311,6 +311,13 @@ PIPELINE_JS = {
         ),
         'output_filename': 'js/core.js',
     },
+    'course_permissions': {
+        'source_filenames': (
+            'js/course-permissions/app.js',
+            'js/course-permissions/controllers.js',
+        ),
+        'output_filename': 'js/course_permissions.js',
+    },
 }
 
 MOMMY_CUSTOM_FIELDS_GEN = {
@@ -541,3 +548,6 @@ if DEBUG:
     DEBUG_TOOLBAR_CONFIG = {
         'INTERCEPT_REDIRECTS': False,
     }
+
+# Fix debug toolbar issue: https://github.com/django-debug-toolbar/django-debug-toolbar/issues/521
+# DEBUG_TOOLBAR_PATCH_SETTINGS = False

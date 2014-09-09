@@ -116,41 +116,6 @@
         .not-edited {
           color: @gray-light;
         }
-        .editable {
-          cursor: pointer;
-          word-break: break-word;
-          &:hover {
-            background-color: lighten(@brand-warning, 40%);
-          }
-        }
-        .markdown-required {
-          background-color: lighten(@brand-danger, 40%);
-          position: relative;
-          > div.editable {
-            min-height: 120px;
-          }
-          .markdown-required-label {
-            bottom: 10px;
-            color: @brand-danger;
-            font-size: 11px;
-            position: absolute;
-            right: 15px;
-          }
-        }
-        .icon-editable {
-          color: @brand-info;
-          cursor: pointer;
-          font-size: 18px;
-          margin: 0 10px;
-          vertical-align: bottom !important;
-        }
-        .icon-addable {
-          color:@brand-success;
-          cursor:pointer;
-          font-size:18px;
-          margin:0 10px;
-          vertical-align:bottom !important;
-        }
         .edit-video-intro {
           cursor:pointer;
           left:25px;
@@ -557,84 +522,6 @@
         padding-right: 20px;
         padding-left: 20px;
       }
-    }
-  }
-
-  // ACTIONS - Admin
-  .actions {
-    background-color: @gray-lighter;
-    margin-bottom: 20px;
-    margin-top: -20px;
-    padding: 10px 0;
-    position: relative;
-    .status {
-      margin-left: 40px;
-      margin-right: 10px;
-    }
-    .label {
-      background-color: darken(@gray-lighter, 10%);
-      color: @gray-darker;
-      font-size: 11px;
-      font-weight: normal;
-      margin-right: -5px;
-      padding: 10px 12px;
-      text-transform: uppercase;
-    }
-    @media screen and (max-width: @screen-xs-max) {
-      margin-top: 0;
-    }
-    @media screen and (max-width: 450px) {
-      .col-xs-5, .col-xs-7 {
-        width: 100%;
-      }
-      .col-xs-7 {
-        text-align: left;
-        margin-top: 10px;
-      }
-    }
-  }
-  // END ACTIONS
-
-  // CONTENT EDITABLE
-  [contenteditable] {
-    font-weight: thin;
-    padding: 3px 0 0 0;
-    &:empty {
-      background-color: lighten(@brand-danger, 40%);
-      color: @gray-light;
-      &:before {
-        background-color: none;
-      }
-    }
-    &:hover {
-      background-color: lighten(@brand-warning, 40%);
-    }
-  }
-
-  // POPUP NOTIFICATIONS
-  .tt-popup {
-    margin-left: 25%;
-    position: fixed;
-    top: 60px;
-    width: 50%;;
-    z-index: 9999;
-    // -moz-transition: top 500ms;
-    // -webkit-transition: top 500ms;
-    // -o-transition: top 500ms;
-    // transition: top 500ms;
-    &.hideTop {
-      top: -5000px;
-    }
-    .alert-success {
-      h4 {
-        font-family: @font-family-sans-serif;
-        font-size: 12px;
-        font-weight: bold;
-        margin-bottom: 0;
-      }
-    }
-    .close {
-      margin-top: -5px;
     }
   }
 }

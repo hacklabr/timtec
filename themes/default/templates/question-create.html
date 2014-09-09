@@ -29,6 +29,12 @@
 
         <!-- QUESTION FORM -->
         <form class="forum-form" action="{% url 'forum_question_create' course.slug %}" method="post">
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    <li><a href="#id-title">Preencha o título da questão.</a></li>
+                    <li><a href="#wmd-input">Preencha o conteúdo da questão.</a></li>
+                </ul>
+            </div>
             {% csrf_token %}
             {{ form.non_field_errors }}
 

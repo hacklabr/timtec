@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from braces.views import LoginRequiredMixin
 from django.core.urlresolvers import reverse_lazy
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
@@ -11,6 +12,9 @@ from forum.forms import QuestionForm
 from forum.serializers import QuestionSerializer, AnswerSerializer, QuestionVoteSerializer, AnswerVoteSerializer
 from forum.permissions import HideQuestionPermission
 from rest_framework import viewsets
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from administration.views import AdminMixin
 
 
@@ -97,6 +101,10 @@ class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
         from rest_framework.response import Response
         self.object_list = self.filter_queryset(self.get_queryset())
 
+        # test if user is moderator. In this case, all questions are shown
+        if not request.user.groups.filter(name="professors"):
+            self.object_list = self.object_list.filter(Q(hidden=False) | Q(user=request.user))
+
         # Default is to allow empty querysets.  This can be altered by setting
         # `.allow_empty = False`, to raise 404 errors on empty querysets.
         if not self.allow_empty and not self.object_list:
@@ -110,19 +118,6 @@ class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
             error_msg = self.empty_error % {'class_name': class_name}
             raise Http404(error_msg)
 
-        for question in self.object_list:
-            # if request.user in question.course.professors.all():
-            #     question.moderator = True
-            if request.user.groups.filter(name="professors"):
-                question.moderator = True
-            if question.user == request.user or request.user in question.course.professors.all():
-                # FIXME remove this after implement tutor professor
-                question.hidden_to_user = False
-            else:
-                if question.hidden:
-                    self.object_list = self.object_list.exclude(id=question.id)
-
-        # Switch between paginated or standard style responses
         page = self.paginate_queryset(self.object_list)
         if page is not None:
             serializer = self.get_pagination_serializer(page)
@@ -178,3 +173,15 @@ class AnswerVoteViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         return AnswerVote.objects.filter(user=user)
+
+
+class ForumModeratorView(LoginRequiredMixin, APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, format=None, *args, **kwargs):
+        if request.user.groups.filter(name="professors"):
+            user_moderator = True
+        else:
+            user_moderator = False
+        return Response(user_moderator)

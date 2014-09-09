@@ -23,7 +23,7 @@
 
     <!-- COURSE-CONTENT -->
     <section id="messages-content" class="container">
-        <header ng-controller="NewMessageController">
+        <header class="secondary-header" ng-controller="NewMessageController">
             <div class="row">
                 <div class="col-lg-9">
                     <h1>{% trans "Messages" %}</h1>
@@ -32,42 +32,57 @@
                     <a class="new-message btn btn-lg btn-danger uppercase" ng-click="new_message()">{% trans "Send New Message" %}</a>
                 </div>
                     <script type="text/ng-template" id="newMessageModal.html">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabel">{% trans "New Message" %}</h4>
+                        <div class="modal-header">
+                            <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">{% trans "New Message" %}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input type="text" class="form-control" ng-model="new_message.subject" placeholder="{% trans 'Subject' %}"/>
                             </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" ng-model="new_message.subject" placeholder="{% trans 'Subject' %}"/>
-                                </div>
-                                <div class="form-group">
-                                    <textarea class="form-control" rows="10" new_message.message placeholder="{% trans 'Message' %}"></textarea>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="students col-lg-12">
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <p><input type="search" value="Pesquisar" class="form-control"/> <div><label><input type="checkbox" ng-model="modal.all_checked" ng-click="checkAll()"> {% trans 'Check all' %}</label></div></p>
-                                            </div>
-                                        </div>
-                                        <div class="row" ng-repeat="row in users_rows">
-                                            <div class="col-lg-2" ng-repeat="user in row">
-                                                <div class="student">
-                                                    {% verbatim %}
-                                                    <label><input type="checkbox" checklist-model="new_message.users" checklist-value="user.id"> {{ user.name || user.username }}</label>
-                                                    {% endverbatim %}
-                                                </div>
-                                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" rows="10" ng-model="new_message.message" placeholder="{% trans 'Message' %}"></textarea>
+                            </div>
+                            <div class="form-group row">
+                                <div class="students col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <p>
+                                            <div><label><input type="checkbox" ng-model="modal.all_checked"> {% trans 'Send to all students of this class' %}</label></div>
+                                            </p>
                                         </div>
                                     </div>
+                                    <div ng-show="!modal.all_checked">
+                                        <input type="text" id="search-user" class="form-control" ng-model="asyncSelected"
+                                                        placeholder="{% trans 'Type the name, email or user name of the professor to search...' %}"
+                                                        typeahead="user as user.formated_name for user in getUsers($viewValue)"
+                                                        typeahead-loading="loadingLocations"
+                                                        typeahead-on-select="on_select_student($model); asyncSelected = '';"
+                                                        typeahead-min-length="2"
+                                                        typeahead-wait-ms="500">
+                                        <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                                    </div>
+                                    <table class="table table-list" ng-show="!modal.all_checked && recipient_list.length">
+                                        <tr>
+                                            <th class="fullname">{% trans "Full name" %}</th>
+                                            <th class="email">{% trans "Email" %}</th>
+                                            <th class="username">{% trans "Username" %}</th>
+                                            <th class="actions">{% trans "Actions" %}</th>
+                                        </tr>
+                                        <tr ng-repeat="student in recipient_list">
+                                            {% verbatim %}
+                                            <td>{{student.name}}</td>
+                                            <td>{{student.email}}</td>
+                                            <td>{{student.username}}</td>
+                                            {% endverbatim %}
+                                            <td class="textcenter"><button class="btn btn-warning" ng-click="remove_student($index)"><i class="fa fa-trash-o"></i></button></td>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <div class="col-lg-12">
-                                    <button type="button" class="btn btn-danger" ng-click="cancel()">{% trans "Close" %}</button>
-                                    <button type="button" class="btn btn-success" ng-click="send()">{% trans "Send" %}</button>
-                                </div>
+                                <button type="button" class="btn btn-danger" ng-click="cancel()">{% trans "Close" %}</button>
+                                <button type="button" class="btn btn-success" ng-click="send()">{% trans "Send" %}</button>
                             </div>
                         </div>
                     </script>

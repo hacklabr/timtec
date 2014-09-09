@@ -27,19 +27,14 @@ ng-app="edit-lesson"
 <div id="course" class="course-lesson" ng-controller="EditLessonController">
 
     <!-- ACTIONS -->
-    <div class="actions" fixed-bar>
+    <div class="actions-menu" fixed-bar>
         <div class="container">
-            <div class="row">
-                <div class="col-xs-5">
-                    <button class="btn btn-danger" ng-click="deleteLesson()"><i class="fa fa-trash-o"></i> | {% trans 'Delete this lesson' %}</button>
-                </div>
-                <div class="col-xs-7 textright">
-                    <div id="save-publish-buttons">
-                        <button class="btn btn-success" ng-click="saveLesson()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
-                        <button class="btn btn-warning" ng-click="publishLesson();">{% trans 'Publish lesson' %} | <i class="fa fa-star-o"></i></button>
-                    </div>
-                </div>
+            <div class="actions-buttons">
+                <button class="btn btn-danger" ng-click="deleteLesson()">{% trans 'Delete' %} | <i class="fa fa-trash-o"></i></button>
+                <button class="btn btn-success" ng-click="saveLesson()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
+                <button class="btn btn-warning" ng-click="publishLesson();">{% trans 'Publish' %} | <i class="fa fa-star-o"></i></button>
             </div>
+            {% include 'administration/_alert.html' %}
         </div>
     </div>
     <!-- END ACTIONS -->
@@ -52,13 +47,10 @@ ng-app="edit-lesson"
         <nav class="course-lessons">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="top editable"></h1>
-                    <h1><span ng-class="{'blink-text-danger':errors.name}" ng-model="lesson.name"
-                              placeholder="{% trans 'Lesson name' %}" contenteditable="true"></span></h1>
-
-                    <p class="description editable">
-                        <span ng-model="lesson.desc" placeholder="{% trans 'Lesson description' %}"
-                              contenteditable="true"></span></p>
+                    <div class="editable-title"><input type="text" ng-model="lesson.name" placeholder="{% trans 'Lesson name' %}"></div>
+                    <div class="editable-text">
+                        <input type="text" ng-model="lesson.desc" placeholder="{% trans 'Lesson description' %}">
+                    </div>
                 </div>
             </div>
         </nav>
@@ -114,7 +106,7 @@ ng-app="edit-lesson"
             </div>
 
             <!-- VIDEO SECTION -->
-            <div class="video col-sm-8" ng-show="section === 'video'">
+            <div class="video col-sm-8" ng-class="{'hidder': section !== 'video'}">
 
                 <div class="waiting textcenter jumbotron"
                      style="height: 419px"
@@ -145,14 +137,14 @@ ng-app="edit-lesson"
                     <!-- END CENTERED -->
                 </div>
 
-                <div class="current-video" style="overflow:hidden;" ng-style="{'display': currentUnit.video && playerReady ?'':'none'}">
+                <div class="current-video" ng-class="{'hidder': !(course.hasVideo() && playerReady)}">
 
-                    <div id="player-outter">
-                        <div id="youtube-player" player-height="419px" player-width="100%" youtube-player></div>
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <div class="embed-responsive-item" id="youtube-player" youtube-player></div>
                     </div>
                     <div class="row">
                         <div class="col-xs-6">
-                            <p class="video-title" ng-model="currentUnit.video.name" placeholder="Nome do vídeo" contenteditable><p>
+                            <div class="editable-text"><input type="text" ng-model="currentUnit.video.name" placeholder="currentUnit.video.name"></div>
                         </div>
                         <div class="col-xs-6 textright">
                             <button class="btn-edit-video btn btn-success btn-sm uppercase"
@@ -238,24 +230,6 @@ ng-app="edit-lesson"
         <!-- END ROW -->
     </section>
     <!-- END COURSE-CONTENT -->
-    <!-- ALERT -->
-    <div class="tt-popup notifications" alert-popup ng-class="{'hideTop': alert.hidden}">
-        <div class="alert fade in" ng-class="'alert-' + alert.type">
-            <button type="button" class="close" ng-click="alert.hidden=true">×</button>
-            <h4 ng-bind="alert.title"></h4>
-            <p class="bottom">
-                <ol class="bottom">
-                    <li ng-repeat="message in alert.messages" ng-bind="message"></li>
-                </ol>
-            </p>
-            <div ng-show="alert.showControls">
-                <hr/>
-                <button type="button" class="btn" ng-class="'btn-'+alert.type"
-                         ng-click="alert.hidden=true">{% trans 'Close' %}</button>
-            </div>
-        </div>
-    </div>
-    <!-- ALERT -->
 </div>
 <!-- END COURSE-CONTENT -->
 <div waiting-screen class="waiting waiting-screen">

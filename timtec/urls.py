@@ -8,8 +8,8 @@ from django.contrib import admin as django_admin
 django_admin.autodiscover()
 
 from django.views.generic import TemplateView
-from accounts.views import CustomLoginView, ProfileEditView, ProfileView
-from forum.views import AnswerViewSet as ForumAnswerViewSet
+from accounts.views import CustomLoginView, ProfileEditView, ProfileView, UserSearchView
+from forum.views import AnswerViewSet as ForumAnswerViewSet, ForumModeratorView
 
 from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
                         CourseProfessorViewSet, EnrollCourseView, HomeView,
@@ -17,7 +17,9 @@ from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
                         LessonViewSet, StudentProgressViewSet,
                         UserNotesViewSet, CoursesView,
                         ProfessorMessageViewSet, CourseStudentViewSet,
-                        AcceptTermsView)
+                        AcceptTermsView, CarouselCourseView, ClassListView,
+                        ClassCreateView, ClassUpdateView, ClassDeleteView,
+                        ClassRemoveUserView, ClassAddUsersView)
 
 from activities.views import AnswerViewSet
 from accounts.views import TimtecUserViewSet
@@ -33,6 +35,7 @@ flatpages.register()
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'user', TimtecUserViewSet)
 router.register(r'course', CourseViewSet)
+router.register(r'course_carousel', CarouselCourseView)
 router.register(r'course_professor', CourseProfessorViewSet)
 router.register(r'course_student', CourseStudentViewSet)
 router.register(r'professor_message', ProfessorMessageViewSet)
@@ -73,12 +76,22 @@ urlpatterns = patterns(
     url(r'^empty/', TemplateView.as_view(template_name="empty.html")),
     url(r'^contact/?$', ContactView.as_view(), name="contact"),
 
+    # Classes
+    url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/classes/$', ClassListView.as_view(), name='classes'),
+    url(r'^class/create/$', ClassCreateView.as_view(), name='class-create'),
+    url(r'^class/(?P<pk>[0-9]+)/$', ClassUpdateView.as_view(), name='class'),
+    url(r'^class/(?P<pk>[0-9]+)/delete/$', ClassDeleteView.as_view(), name='class-delete'),
+    url(r'^class/(?P<pk>[0-9]+)/remove_user/$', ClassRemoveUserView.as_view(), name='class-remove-user'),
+    url(r'^class/(?P<pk>[0-9]+)/add_users/$', ClassAddUsersView.as_view(), name='class-add-users'),
+
+
     # Services
     url(r'^api/', include(router.urls)),
     # Forum
     url(r'^forum/(?P<course_slug>[-a-zA-Z0-9_]+)/$', CourseForumView.as_view(), name='forum'),
     url(r'^forum/question/(?P<slug>[-a-zA-Z0-9_]+)/$', QuestionView.as_view(), name='forum_question'),
     url(r'^forum/question/add/(?P<course_slug>[-a-zA-Z0-9_]+)/$', QuestionCreateView.as_view(), name='forum_question_create'),
+    url(r'^api/is_forum_moderator/(?P<course_id>[1-9][0-9]*)/$', ForumModeratorView.as_view(), name='is_forum_moderator'),
 
     # Course Material
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/material/file_upload/$', FileUploadView.as_view(), name='file_upload'),
@@ -97,6 +110,7 @@ urlpatterns = patterns(
 
     # The django-allauth
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^api/user_search/?$', UserSearchView.as_view(), name='user_search'),
 
     # The django-rosetta
     url(r'^rosetta/', include('rosetta.urls')),

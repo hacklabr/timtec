@@ -3,7 +3,7 @@
 
     var app = angular.module('core.controllers', []);
 
-    app.controller('HomeCtrl', ['$scope', 'Course', 'Twitter', function ($scope, Course, Twitter) {
+    app.controller('HomeCtrl', ['$scope', 'Course', 'CarouselCourse', 'Twitter', function ($scope, Course, CarouselCourse, Twitter) {
 
         function compare_by_position(a,b) {
             if (a.home_position < b.home_position)
@@ -27,9 +27,12 @@
                 } else
                     index++;
             });
+            if (row.length > 0) {
+                $scope.courses_rows.push(row);
+            }
         });
 
-        $scope.upcoming_courses = Course.query({'home_published': 'False'}, function(upcoming_courses) {
+        $scope.upcoming_courses = CarouselCourse.query({'home_published': 'False'}, function(upcoming_courses) {
 
             $scope.upcoming_courses_rows_3 = [];
 

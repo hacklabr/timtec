@@ -120,3 +120,23 @@
         } // .enroll
     } // .course
 }
+
+#home{
+    .mouseover, .thumb {
+        .border-top-radius(@border-radius-base);
+    }
+    .enroll {
+        .border-bottom-radius(@border-radius-base);
+    }
+}
+#courses-page{
+    .mouseover, .thumb {
+        .border-left-radius(@border-radius-base);
+    }
+    .info {
+        border-radius: 0 @border-radius-base 0 0;
+    }
+    .enroll {
+        border-radius: 0 0 @border-radius-base 0;
+    }
+}
