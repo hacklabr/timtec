@@ -45,14 +45,8 @@
                             </div>
                             <div class="form-group row">
                                 <div class="students col-lg-12">
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <p>
-                                            <div><label><input type="checkbox" ng-model="modal.all_checked"> {% trans 'Send to all students of this class' %}</label></div>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div ng-show="!modal.all_checked">
+                                    <p><label><input type="checkbox" ng-model="modal.all_checked"> {% trans 'Send to all students of this class' %}</label></p>
+                                    <div class="autocomplete" ng-show="!modal.all_checked">
                                         <input type="text" id="search-user" class="form-control" ng-model="asyncSelected"
                                                         placeholder="{% trans 'Type the name, email or user name of the professor to search...' %}"
                                                         typeahead="user as user.formated_name for user in getUsers($viewValue)"
@@ -60,7 +54,7 @@
                                                         typeahead-on-select="on_select_student($model); asyncSelected = '';"
                                                         typeahead-min-length="2"
                                                         typeahead-wait-ms="500">
-                                        <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                                        <i ng-show="loadingLocations" class="loading fa fa-refresh fa-spin"></i>
                                     </div>
                                     <table class="table table-list" ng-show="!modal.all_checked && recipient_list.length">
                                         <tr>
