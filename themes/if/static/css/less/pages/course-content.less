@@ -129,13 +129,48 @@
 
   // COURSE VIDEO - General
   // ********************************************************************* //
-  .video, .activity {
+  .video {
     border: 1px solid @gray-lighter;
     .video-title {
       margin: 2px 10px 0;
     }
     .btn-edit-video {
       margin: 1px 5px 0 0;
+    }
+  }
+  // END COURSE VIDEO
+
+  // NEXT LESSON
+  // ********************************************************************* //
+  .next-lesson {
+    border: 1px solid #eeeeee;
+    padding: 40px 20px;
+    position: relative;
+    text-align: center;
+    @media (min-width: @screen-lg-min) {
+      height: 424px;
+    }
+    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+      height: 349px;
+    }
+    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+      height: 372px;
+    }
+    &:before {
+      content: '';
+      height: 100%;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .btn {
+      span {
+        float: left;
+      }
+      .fa {
+        margin: 1px 0 0 10px;
+        font-size: 18px;
+        float: right;
+      }
     }
   }
   // END COURSE VIDEO
