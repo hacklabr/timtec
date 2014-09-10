@@ -67,6 +67,42 @@
                 <header>
                     <h1>Área de instruções</h1>
                 </header>
+                {% if in_admin %}
+                <div class="highlight textcenter">
+                    <div class="editable editable-text-box">
+                        <p>Cursos online massivos ou simplesmente MOOCs (Massive Open Online Courses), combinam vídeos online com elementos interativos como testes, simuladores e fóruns. Estudantes podem assistir aulas fracionadas em pequenos capítulos, acessar materias complementares e fazer anotações em um caderno virtual.  Gestores e professores podem acompanhar os avanços dos alunos, gerenciar turmas e fóruns de discussão.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="block col-md-4 col-sm-6 col-xs-12">
+                        <div class="info">
+                            <div class="icon"><i class="fa fa-video-camera"></i></div>
+                            <div class="editable editable-text-box">
+                                <h3>Vídeos online</h3>
+                                <p>Vídeos online são a base dos MOOCs, com eles as aulas são divididas em pequenos capítulos com apenas alguns minutos de duração. Os estudantes podem assistir cada um dos capítulos de acordo com sua disponibilidade.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block col-md-4 col-sm-6 col-xs-12">
+                        <div class="info">
+                            <div class="icon"><i class="fa fa-check-square-o"></i></div>
+                            <div class="editable editable-text-box">
+                                <h3>Testes e simuladores</h3>
+                                <p>Ao final de cada capítulo os estudantes podem responder um ou mais testes que ajudam a verificar se compreenderam os conceitos-chave, além disso, podem realizar exercícios em simuladores criados para cada tema abordado, por exemplo, simuladores de linguagens de programação para computadores.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block col-md-4 col-sm-6 col-xs-12">
+                        <div class="info">
+                            <div class="icon"><i class="fa fa-comments-o"></i></div>
+                            <div class="editable editable-text-box">
+                                <h3>Colaboração</h3>
+                                <p>Estudantes podem fazer e responder perguntas no fórum de cada curso. É possível votar nas melhores perguntas e respostas que são automaticamente colocadas no topo da lista deixando a vista os melhores conteúdos.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
                 <div class="highlight textcenter">
                     <p>Cursos online massivos ou simplesmente MOOCs (Massive Open Online Courses), combinam vídeos online com elementos interativos como testes, simuladores e fóruns. Estudantes podem assistir aulas fracionadas em pequenos capítulos, acessar materias complementares e fazer anotações em um caderno virtual.  Gestores e professores podem acompanhar os avanços dos alunos, gerenciar turmas e fóruns de discussão.</p>
                 </div>
@@ -93,6 +129,7 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </section><!-- #how-it-works -->
 
