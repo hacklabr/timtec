@@ -5,6 +5,7 @@
 
     app.factory('Course', function($resource){
         return $resource('/api/course/:courseId', {}, {
+            update: {method: 'PUT'}
         });
     });
 

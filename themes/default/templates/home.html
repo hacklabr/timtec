@@ -144,12 +144,14 @@
                   <div class="modal-body">
                       <div class="row">
                         {% verbatim %}
-                        <div class="select-course col-xs-6" ng-repeat="course in all_courses" >
-                            <div class="course-thumb" style="background-image: url({{ course.home_thumbnail_url }});">
-                                <span class="selected"></span>
-                            </div>
-                            <div class="course-info">
-                                <h3>{{ course.name }}</h3>
+                        <div ng-repeat="course in all_courses">
+                            <div class="select-course col-xs-6" ng-click="selectCourse(course)" ng-class="{active: course.home_published}">
+                                <div class="course-thumb" style="background-image: url({{ course.home_thumbnail_url }});">
+                                    <span class="selected"></span>
+                                </div>
+                                <div class="course-info">
+                                    <h3>{{ course.name }}</h3>
+                                </div>
                             </div>
                         </div>
                         {% endverbatim %}
@@ -157,7 +159,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-success">Salvar</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="saveCourses()">Salvar</button>
                   </div>
                 </div><!-- /.modal-content -->
               </div><!-- /.modal-dialog -->

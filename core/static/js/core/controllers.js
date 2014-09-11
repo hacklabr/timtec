@@ -13,6 +13,7 @@
             return 0;
         }
 
+
         $scope.courses = Course.query({'home_published': 'True'}, function(courses) {
             courses.sort(compare_by_position);
             $scope.courses_rows = [];
@@ -32,10 +33,28 @@
             }
         });
 
-        $scope.all_courses = Course.query({'home_published': 'True'}, function(all_courses) {
-            var row = [];
-            row.push(course);
+        $scope.all_courses = Course.query({'public_courses': 'True'}, function(all_courses) {
+
         });
+
+        $scope.selectCourse = function(course) {
+            course.home_published = !course.home_published;
+            course.toBeSaved = true;
+        };
+
+        $scope.saveCourses = function(course) {
+            var homeCourses = [];
+            angular.forEach($scope.all_courses, function(course) {
+                if (course.home_published) {
+                    homeCourses.push(course);
+                }
+                if (course.toBeSaved) {
+                    course.$update({courseId: course.id});
+                }
+            });
+            homeCourses.sort(compare_by_position);
+            $scope.courses = homeCourses;
+        };
 
         $scope.upcoming_courses = CarouselCourse.query({'home_published': 'False'}, function(upcoming_courses) {
 
