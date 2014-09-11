@@ -229,6 +229,11 @@
     }]);
 
 
+    app.factory('Class', function($resource){
+            return $resource('/api/course_classes/', {}, {});
+    });
+
+
     /**
      * A object that fetch info from Youtube. It expects a video ID and returns
      * a promise that video info will be fetched.

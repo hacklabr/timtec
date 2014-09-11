@@ -46,6 +46,11 @@
                             <div class="form-group row">
                                 <div class="students col-lg-12">
                                     <p><label><input type="checkbox" ng-model="modal.all_checked"> {% trans 'Send to all students of this class' %}</label></p>
+                                    {% verbatim %}
+                                    <div ng-repeat="klass in classes">
+                                        <label ng-show="!modal.all_checked"><input type="checkbox" checklist-model="classes.checked" checklist-value="klass.students"> {{ klass.name }}</label>
+                                    </div>
+                                    {% endverbatim %}
                                     <div class="autocomplete" ng-show="!modal.all_checked">
                                         <input type="text" id="search-user" class="form-control" ng-model="asyncSelected"
                                                         placeholder="{% trans 'Type the name, email or user name of the professor to search...' %}"

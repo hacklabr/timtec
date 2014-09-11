@@ -10,8 +10,8 @@
         };
     });
 
-    module.controller('NewMessageController', ['$scope', '$modal', 'Message', 'Student', 'StudentSearch', 'messages_list', '$rootScope',
-            function($scope, $modal,  Message, Student, StudentSearch, messages_list, $rootScope) {
+    module.controller('NewMessageController', ['$scope', '$modal', 'Message', 'Student', 'StudentSearch', 'Class', 'messages_list', '$rootScope',
+            function($scope, $modal,  Message, Student, StudentSearch, Class, messages_list, $rootScope) {
                 $scope.course_id = document.location.href.match(/course\/([0-9]+)/)[1];
                 $scope.messages = messages_list.messages;
                 $scope.new_message = function () {
@@ -47,6 +47,11 @@
                         });
                     });
 
+                    $scope.classes = Class.query({course: $scope.course_id}, function(classes){
+                        classes.checked = [];
+                        return classes;
+                    });
+
                     // trick to user modal.all_checked in ng-model html tag
                     $scope.modal = {};
                     $scope.modal.all_checked = true;
@@ -55,6 +60,10 @@
                         // TODO validação dos campo: títle e message não podem ser vazios
                         if ($scope.modal.all_checked) {
                             $scope.new_message.users = $scope.all_users.map(function(item) { return item.id; });
+                        } else if ($scope.classes.checked) {
+                            angular.forEach($scope.classes.checked, function(klass) {
+                                $scope.new_message.users = $scope.new_message.users.concat(klass);
+                            });
                         }
                         $modalInstance.close($scope.new_message);
                     };

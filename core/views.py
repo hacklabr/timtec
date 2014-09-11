@@ -24,7 +24,7 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           CourseThumbSerializer, LessonSerializer,
                           StudentProgressSerializer, CourseNoteSerializer,
                           LessonNoteSerializer, ProfessorMessageSerializer,
-                          CourseStudentSerializer,)
+                          CourseStudentSerializer, ClassSerializer)
 
 from .models import (Course, CourseProfessor, Lesson, StudentProgress,
                      Unit, ProfessorMessage, CourseStudent, Class)
@@ -442,3 +442,14 @@ class UserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
             del course.lessons_dict
             results.append(CourseNoteSerializer(course).data)
         return Response(results)
+
+
+class ClassViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
+
+    model = Class
+    serializer_class = ClassSerializer
+    filter_fields = ('course',)
+
+    def get_queryset(self):
+        user = self.request.user
+        return Class.objects.filter(assistant=user)
