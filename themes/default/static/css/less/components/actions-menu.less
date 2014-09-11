@@ -1,11 +1,15 @@
 // ACTIONS
 .actions-menu {
   background-color: darken(@brand-light, 10%);
+  height: 52px;
   margin-bottom: 20px;
   // TODO: margin-top should be relative to main-nav size
   margin-top: -20px;
   padding: 10px 0;
   position: relative;
+  .container {
+    position: relative;
+  }
   .status {
     margin-left: 40px;
     margin-right: 10px;
@@ -23,10 +27,9 @@
     margin-top: 0;
   }
   .actions-buttons {
-    text-align: right;
-    @media (min-width: @screen-sm-min) {
-      float: right;
-    }
+    display: inline-block;
+    position: absolute;
+    right: 15px;
   }
 }
 // END ACTIONS

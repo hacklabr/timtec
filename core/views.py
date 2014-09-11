@@ -264,6 +264,13 @@ class LessonDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(LessonDetailView, self).get_context_data(**kwargs)
         unit_content_type = ContentType.objects.get_for_model(Unit)
+        course = self.object.course
+        lessons = list(course.public_lessons)
+        if self.object != lessons[-1]:
+            index = lessons.index(self.object)
+            context['next_url'] = reverse_lazy('lesson',
+                                               args=[course.slug,
+                                                     lessons[index + 1].slug])
         context['unit_content_type_id'] = unit_content_type.id
         return context
 
