@@ -207,6 +207,13 @@ class CourseViewSet(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
+    def get_queryset(self):
+        queryset = super(CourseViewSet, self).get_queryset()
+        public_courses = self.request.QUERY_PARAMS.get('public_courses', None)
+        if public_courses:
+            queryset = queryset.filter(Q(status='published') | Q(status='listed')).prefetch_related('professors')
+        return queryset
+
     def get(self, request, **kwargs):
         response = super(CourseViewSet, self).get(request, **kwargs)
         response['Cache-Control'] = 'no-cache'
