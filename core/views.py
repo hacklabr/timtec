@@ -270,7 +270,7 @@ class LessonDetailView(LoginRequiredMixin, DetailView):
             index = lessons.index(self.object)
             context['next_url'] = reverse_lazy('lesson',
                                                args=[course.slug,
-                                                     lessons[index+1].slug])
+                                                     lessons[index + 1].slug])
         context['unit_content_type_id'] = unit_content_type.id
         return context
 
