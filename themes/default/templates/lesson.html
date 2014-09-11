@@ -124,7 +124,7 @@ $(document).ready(function() {
                 this class exists to circunvent a flash + youtube api error
                 in which if the video div is really hidden the api breaks
                 -->
-                <div ng-class="{hidder: section!='video'}" class="video embed-responsive embed-responsive-16by9" style="display:none;">
+                <div ng-class="{hidder: section!='video'}" class="video embed-responsive embed-responsive-16by9">
                     <div class="embed-responsive-item" id="youtube-player" youtube-player></div>
                 </div>
                 <div ng-show="section=='activity'" class="course-activity">
@@ -143,8 +143,12 @@ $(document).ready(function() {
                         </div>
                     </div>
                 </div>
-                <div class="next-lesson">
-                    <button class="btn btn-info"><span>Vá para a próxima aula</span><i class="fa fa-caret-right"></i></button>
+                <div ng-show="section=='end'" class="next-lesson">
+                    {% if next_url %}
+                        <a class="btn btn-info" href="{{ next_url }}"><span>Vá para a próxima aula</span><i class="fa fa-caret-right"></i></a>
+                    {% else %}
+                        <a class="btn btn-info" href="{% url 'course_intro' lesson.course.slug %}"><span>Voltar para home do curso</span><i class="fa fa-caret-right"></i></a>
+                    {% endif %}
                 </div>
             </div>
 

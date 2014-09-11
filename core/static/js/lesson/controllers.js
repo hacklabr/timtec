@@ -37,8 +37,11 @@
 
                 if(index < $scope.lesson.units.length) {
                     $location.path('/{0}'.format(index+1));
+                } else {
+                    // no next unit, so mark it as the end,
+                    // and the template will show a next lesson
+                    $scope.section = 'end';
                 }
-                // e se não tiver nextUnit, faz o que?
             };
 
             $scope.play = function() {
