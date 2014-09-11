@@ -192,20 +192,14 @@ ng-app="edit-lesson"
                         <div class="centered">
                             <i class="fa fa-pencil fa-4x"></i>
                             <h1 class="top">{% trans 'Unit activity' %}</h1>
-                                {% verbatim %}
-                                <p class="col-md-4 col-sm-12" ng-repeat="type in activityTypes">
-                                    <label class="btn btn-default"
-                                           ng-class="{'btn-info':$parent.newActivityType===type.name}"
-                                           for="new-activity-type-{{type.name}}">{{type.label}}</label>
-                                    <input class="hidden" id="new-activity-type-{{type.name}}" type="radio"
-                                           ng-model="$parent.newActivityType" value="{{type.name}}"/>
-                                </p>
-                                {% endverbatim %}
-                            <div>
-                                <button class="btn btn-success btn-lg uppercase"
-                                        ng-disabled="!newActivityType"
-                                        ng-click="addNewActivity()">{% trans 'Add' %}</button>
+                            {% verbatim %}
+                            <div class="col-md-4 col-sm-12" ng-repeat="type in activityTypes">
+                                <button class="activity-btn btn btn-default"
+                                        ng-click="addNewActivity(type.name)">
+                                    {{type.label}}
+                                </button>
                             </div>
+                            {% endverbatim %}
                         </div>
                         <!-- END CENTERED -->
                     </div>
