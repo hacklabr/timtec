@@ -37,6 +37,12 @@
                             <h4 class="modal-title" id="myModalLabel">{% trans "New Message" %}</h4>
                         </div>
                         <div class="modal-body">
+                            <div class="alert alert-danger" role="alert" ng-show="empty_msg_subject_error || empty_msg_body_error ">
+                                <ul>
+                                    <li ng-show="empty_msg_subject_error"><a href="#id-title">{% trans 'Fill the message subject' %}</a></li>
+                                    <li ng-show="empty_msg_body_error"><a href="#wmd-input">{% trans 'Fill the message body' %}</a></li>
+                                </ul>
+                            </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" ng-model="new_message.subject" placeholder="{% trans 'Subject' %}"/>
                             </div>

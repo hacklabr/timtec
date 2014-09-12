@@ -38,14 +38,8 @@
                     $scope.new_message.course = course_id;
                     $scope.new_message.users = [];
                     $scope.recipient_list = [];
-
-                    $scope.students = Student.query({course: $scope.course_id}, function(students) {
-                        // Student service refer to CourseStudent django model.
-                        $scope.all_users = [];
-                        angular.forEach(students, function(user_ref) {
-                            $scope.all_users.push(user_ref.user);
-                        });
-                    });
+                    $scope.empty_msg_subject_error = false;
+                    $scope.empty_msg_body_error = false;
 
                     $scope.classes = Class.query({course: $scope.course_id}, function(classes){
                         classes.checked = [];
@@ -59,13 +53,30 @@
                     $scope.send = function () {
                         // TODO validação dos campo: títle e message não podem ser vazios
                         if ($scope.modal.all_checked) {
-                            $scope.new_message.users = $scope.all_users.map(function(item) { return item.id; });
+                            $scope.new_message.users = [];
+                            angular.forEach($scope.classes, function(klass) {
+                                $scope.new_message.users = $scope.new_message.users.concat(klass.students);
+                            });
                         } else if ($scope.classes.checked) {
                             angular.forEach($scope.classes.checked, function(klass) {
                                 $scope.new_message.users = $scope.new_message.users.concat(klass);
                             });
                         }
-                        $modalInstance.close($scope.new_message);
+                        if ($scope.new_message.message && $scope.new_message.subject) {
+                            $modalInstance.close($scope.new_message);
+                            $scope.empty_msg_subject_error = false;
+                            $scope.empty_msg_body_error = false;
+                        }
+                        if (!$scope.new_message.message) {
+                            $scope.empty_msg_body_error = true;
+                        } else {
+                            $scope.empty_msg_body_error = false;
+                        }
+                        if (!$scope.new_message.subject) {
+                            $scope.empty_msg_subject_error = true;
+                        } else {
+                            $scope.empty_msg_subject_error = false;
+                        }
                     };
 
                     $scope.cancel = function () {
