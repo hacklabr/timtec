@@ -23,19 +23,52 @@
                     <div class="col-sm-8 col-xs-12">
                         <h1>Cursos em destaque</h1>
                     </div>
-                    <div class="col-sm-4 col-xs-12">
-                        <button class="btn btn-default edit-videos" data-toggle="modal" data-target="#modalSelectCourses">Editar cursos | <i class="fa fa-pencil-square-o"></i></button>
+                    <div class="col-sm-4 col-xs-12 text-right">
+                        <button class="btn btn-default" ng-click="organizingCourses=true">
+                        Organizar cursos | <i class="fa fa-th-large"></i></button>
+                        <button class="btn btn-default" data-toggle="modal" data-target="#modalSelectCourses">
+                        Editar cursos | <i class="fa fa-pencil-square-o"></i></button>
                     </div>
                 </div>
             </header>
+
+            <div class="row" class="sortable-container grid" sv-root sv-part="courses" ng-show="organizingCourses">
+                <div ng-repeat="course in courses" sv-element="opts" class="grid block course col-md-4 col-sm-6 col-xs-12" ng-class="{drag:organizingCourses}">
+                    {% verbatim %}
+                    <span class="btn btn-warning btn-drag" sv-handle ng-show="organizingCourses"><i class="fa fa-bars"></i></span>
+                    <div class="thumb-wrapper">
+                        <span class="mouseover"></span>
+                        <span class="thumb" ng-style="{'background-image': 'url(' + course.home_thumbnail_url + ')'}"></span>
+                    </div>
+                    <div class="info">
+                        <h3>{{ course.name }}</h3>
+                        <p class="instructors">{{ course.professors_names }}</p>
+                        <p class="abstract">{{ course.abstract }}</p>
+                    </div>
+                    <div class="enroll">
+                        <span>
+                            <i class="fa fa-calendar"></i> Jul, 2014
+                        </span>
+                        <span class="enroll-link textright uppercase">
+                            Começar curso <i class="fa fa-angle-right"></i>
+                        </span>
+                    </div>
+                    {% endverbatim %}
+                </div>
+                <div class="col-xs-12 textright" ng-show="organizingCourses">
+                    <button class="btn btn-danger" ng-click="organizingCourses=false">{% trans 'Cancel' %} | <i class="fa fa-times"></i></button>
+                    <button class="btn btn-success">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
+                </div>
+            </div><!-- .row -->
+
             {% else %}
             <header>
                 <h1>Cursos em destaque</h1>
             </header>
             {% endif %}
 
-            <div class="row">
-                <div ng-repeat="course in courses" class="block course col-md-4 col-sm-6 col-xs-12">
+            <div class="row" class="sortable-container grid" sv-root sv-part="courses" ng-show="!organizingCourses">
+                <div ng-repeat="course in courses" sv-element="opts" class="grid block course col-md-4 col-sm-6 col-xs-12" ng-class="{drag:organizingCourses}">
                     {% verbatim %}
                     <a ng-href="/course/{{ course.slug }}" class="course-link">
                         <div class="thumb-wrapper">
@@ -57,9 +90,13 @@
                         </div>
                     </a>
                     {% endverbatim %}
-
+                </div>
+                <div class="col-xs-12 textright" ng-show="organizingCourses">
+                    <button class="btn btn-danger" ng-click="organizingCourses=false">{% trans 'Cancel' %} | <i class="fa fa-times"></i></button>
+                    <button class="btn btn-success">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
                 </div>
             </div><!-- .row -->
+
         </section><!-- #courses -->
 
         <section id="how-it-works">
