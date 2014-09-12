@@ -308,6 +308,7 @@ PIPELINE_JS = {
             'js/core/controllers.js',
             'js/core/services.js',
             'angular-tweet-filter/index.js',
+            'angular-sortable-view/src/angular-sortable-view.min.js',
         ),
         'output_filename': 'js/core.js',
     },

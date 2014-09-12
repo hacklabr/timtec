@@ -8,6 +8,7 @@
         'django',
         'twitterFilters',
         'ui.bootstrap',
+        'angular-sortable-view',
     ]);
 
 })(angular);
