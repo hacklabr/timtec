@@ -182,6 +182,7 @@ ng-app="edit-lesson"
                         <div class="panel-body">
                             <ng-include src="loadActivityTemplateUrl()"></ng-include>
                             <hr/>
+                            <p>{% trans 'The text bellow will be shown to students when they correctly finish this activity.' %}</p>
                             <markdowneditor title="{% trans 'Comment' %}" content="currentActivity.comment"></markdowneditor>
                         </div>
                     </div>
