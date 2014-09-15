@@ -145,11 +145,17 @@
       height: 235px;
       @media (min-width: @screen-lg-min) { height: 310px; }
       margin: 20px 0 10px;
-      padding: 10px;
     }
     .message {
       font-size: 12px;
-      clear: both;
+      display: none;
+      float: left;
+      text-align: left;
+      width: 140px;
+      @media (min-width: @screen-lg-min) { width: 175px; }
+    }
+    .btn {
+      float: right;
     }
   }
   .add-side-notes {
