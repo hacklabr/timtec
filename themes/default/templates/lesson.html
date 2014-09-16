@@ -41,15 +41,6 @@ $(document).ready(function() {
     <!-- COURSE CONTENT -->
     <section id="course-content" class="container">
 
-        <nav class="course-lessons hidden-xs">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1>{{ lesson.name }}</h1>
-                    <p class="description">{{ lesson.desc }}</p>
-                </div>
-            </div>
-        </nav>
-
         <nav class="lesson-units hidden-xs">
             <div class="btn-group" id="lesson-list-dropdown">
                 <button type="button" class="btn btn-sm btn-default">{{ lesson.name }}</button>
@@ -64,6 +55,14 @@ $(document).ready(function() {
             </div>
         </nav>
 
+        <nav class="course-lessons hidden-xs">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>{{ lesson.name }}</h1>
+                    <div class="description">{{ lesson.desc|timtec_markdown }}</div>
+                </div>
+            </div>
+        </nav>
 
         <!-- LESSON NAVIGATION FOR PHONE -->
         <p class="visible-xs">
@@ -125,19 +124,11 @@ $(document).ready(function() {
                 this class exists to circunvent a flash + youtube api error
                 in which if the video div is really hidden the api breaks
                 -->
-                <div ng-class="{hidder: section!='video'}">
-                    <div class="video">
-                        <div class="row">
-                            <div id="player-outter" class="col-lg-12 col-md-12 col-sm-12">
-                                <div id="youtube-player" youtube-player></div>
-                            </div>
-                        </div>
-                    </div>
+                <div ng-class="{hidder: section!='video'}" class="video embed-responsive embed-responsive-16by9">
+                    <div class="embed-responsive-item" id="youtube-player" youtube-player></div>
                 </div>
-                <div ng-show="section=='activity'">
-                    <div class="course-activity">
-                        <ng:include src="activityTemplateUrl"></ng:include>
-                    </div>
+                <div ng-show="section=='activity'" class="course-activity">
+                    <ng:include src="activityTemplateUrl"></ng:include>
                 </div>
                 <div ng-show="section=='comment'" class="comment">
                     <div class="panel panel-default" style="min-height: 368px;">
@@ -151,6 +142,13 @@ $(document).ready(function() {
                             <button class="btn btn-success" ng-click="nextStep()">{% trans 'Continue' %}</button>
                         </div>
                     </div>
+                </div>
+                <div ng-show="section=='end'" class="next-lesson">
+                    {% if next_url %}
+                        <a class="btn btn-info" href="{{ next_url }}"><span>Vá para a próxima aula</span><i class="fa fa-caret-right"></i></a>
+                    {% else %}
+                        <a class="btn btn-info" href="{% url 'course_intro' lesson.course.slug %}"><span>Voltar para home do curso</span><i class="fa fa-caret-right"></i></a>
+                    {% endif %}
                 </div>
             </div>
 

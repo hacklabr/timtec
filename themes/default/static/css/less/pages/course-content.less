@@ -1,6 +1,6 @@
 // COURSE CONTENT
 #course-content {
-  
+
   // COURSE SUMMARY - Course intro
   // ********************************************************************* //
   .summary {
@@ -144,8 +144,18 @@
       border: 2px solid @gray-lighter;
       height: 235px;
       @media (min-width: @screen-lg-min) { height: 310px; }
-      margin: 20px 0;
-      padding: 10px;
+      margin: 20px 0 10px;
+    }
+    .message {
+      font-size: 12px;
+      display: none;
+      float: left;
+      text-align: left;
+      width: 140px;
+      @media (min-width: @screen-lg-min) { width: 175px; }
+    }
+    .btn {
+      float: right;
     }
   }
   .add-side-notes {

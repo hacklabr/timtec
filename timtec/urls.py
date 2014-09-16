@@ -8,7 +8,8 @@ from django.contrib import admin as django_admin
 django_admin.autodiscover()
 
 from django.views.generic import TemplateView
-from accounts.views import CustomLoginView, ProfileEditView, ProfileView
+from accounts.views import (CustomLoginView, ProfileEditView, ProfileView, UserSearchView,
+                            TimtecUserViewSet, StudentSearchView)
 from forum.views import AnswerViewSet as ForumAnswerViewSet, ForumModeratorView
 
 from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
@@ -17,10 +18,11 @@ from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
                         LessonViewSet, StudentProgressViewSet,
                         UserNotesViewSet, CoursesView,
                         ProfessorMessageViewSet, CourseStudentViewSet,
-                        AcceptTermsView, CarouselCourseView,)
+                        AcceptTermsView, CarouselCourseView, ClassListView,
+                        ClassCreateView, ClassUpdateView, ClassDeleteView,
+                        ClassRemoveUserView, ClassAddUsersView, ClassViewSet)
 
 from activities.views import AnswerViewSet
-from accounts.views import TimtecUserViewSet
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, QuestionVoteViewSet, AnswerVoteViewSet
 from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialViewSet
 from notes.views import NotesViewSet, CourseNotesView, UserNotesView
@@ -50,6 +52,7 @@ router.register(r'note', NotesViewSet)
 router.register(r'user_notes', UserNotesViewSet)
 router.register(r'reports', UserCourseStats)
 router.register(r'course_stats', CourseStatsByLessonViewSet)
+router.register(r'course_classes', ClassViewSet)
 
 
 urlpatterns = patterns(
@@ -73,6 +76,15 @@ urlpatterns = patterns(
     url(r'^html5/', TemplateView.as_view(template_name="html5.html")),
     url(r'^empty/', TemplateView.as_view(template_name="empty.html")),
     url(r'^contact/?$', ContactView.as_view(), name="contact"),
+
+    # Classes
+    url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/classes/$', ClassListView.as_view(), name='classes'),
+    url(r'^class/create/$', ClassCreateView.as_view(), name='class-create'),
+    url(r'^class/(?P<pk>[0-9]+)/$', ClassUpdateView.as_view(), name='class'),
+    url(r'^class/(?P<pk>[0-9]+)/delete/$', ClassDeleteView.as_view(), name='class-delete'),
+    url(r'^class/(?P<pk>[0-9]+)/remove_user/$', ClassRemoveUserView.as_view(), name='class-remove-user'),
+    url(r'^class/(?P<pk>[0-9]+)/add_users/$', ClassAddUsersView.as_view(), name='class-add-users'),
+
 
     # Services
     url(r'^api/', include(router.urls)),
@@ -99,6 +111,8 @@ urlpatterns = patterns(
 
     # The django-allauth
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^api/user_search/?$', UserSearchView.as_view(), name='user_search'),
+    url(r'^api/student_search/?$', StudentSearchView.as_view(), name='student_search'),
 
     # The django-rosetta
     url(r'^rosetta/', include('rosetta.urls')),

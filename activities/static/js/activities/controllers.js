@@ -61,4 +61,12 @@
         }
     ]);
 
+    app.controller('RelationshipCtrl', ['$scope',
+        function ($scope) {
+            $scope.possibleAnswers = [];
+            angular.forEach($scope.currentActivity.expected, function(value) {
+                this.push(value);
+            }, $scope.possibleAnswers);
+        }
+    ]);
 })(angular);

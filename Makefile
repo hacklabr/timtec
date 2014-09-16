@@ -17,7 +17,7 @@ endef
 
 define base_update
 	cp timtec/settings_local_$1.py timtec/settings_local.py
-	~/env/bin/pip install -r requirements.txt
+	~/env/bin/pip install -U -r requirements.txt
 	~/env/bin/python manage.py syncdb --noinput
 	~/env/bin/python manage.py migrate --noinput
 	~/env/bin/python manage.py collectstatic --noinput
@@ -59,6 +59,9 @@ update-staging:
 	$(call resetdb_to_backup,timtec-staging)
 	$(call reset_media)
 	$(call base_update,staging)
+
+update-ifsul:
+	$(call base_update,ifsul)
 
 update-design:
 	$(call base_update,design)

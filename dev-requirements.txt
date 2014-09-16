@@ -1,8 +1,8 @@
 pip-tools
-pytest==2.5.2
+pytest>=2.5.2
 pytest-cov
 pytest-flakes
 pytest-pep8
 pytest-django==2.6.2
-pytest-splinter==1.0.3
-model_mommy==1.2
+pytest-splinter==1.1.0
+model_mommy==1.2.2

@@ -1,6 +1,6 @@
 <div class="question textleft">
-    <h1 class="top" ng-model="currentActivity.data.question"
-        contenteditable placeholder="Título da atividade"></h1>
+    <div class="editable-title"><input type="text" ng-model="currentActivity.data.question" placeholder="Título da atividade"></div>
+    <button class="btn btn-danger" ng-click="removeCurrentActivity()"><i class="fa fa-trash-o"></i></button>
 </div>
 <div class="answers trueorfalse-answers">
     <div class="row">
@@ -11,8 +11,9 @@
     <div class="answer" ng-repeat="alt in currentActivity.data.alternatives track by $index">
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-8">
-                <label class="radio" ng-model="currentActivity.data.alternatives[$index]"
-                       contenteditable placeholder="Texto para alternativa"></label>
+                <span class="editable-text">
+                    <input type="text" ng-model="currentActivity.data.alternatives[$index]" placeholder="Texto para alternativa"/>
+                </span>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 textcenter">
                 <input type="radio" ng-model="currentActivity.expected[$index]" ng-value="true" />

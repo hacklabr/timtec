@@ -17,7 +17,19 @@
       display: block;
       margin-top: 10px;
     }
-    article {
+    .question, .answer {
+      margin-bottom: 30px;
+      table {
+        width: 100%;
+        tr {
+          td {
+            vertical-align: top;
+          }
+        }
+      }
+    }
+    .question {
+      border: 0;
       margin-bottom: 20px;
       // IF IS HIDDEN
       &.is-hidden {
@@ -50,107 +62,97 @@
       header {
         margin-top: 20px;
       }
-      .content {
-        padding-top: 20px;
+    }
+    .content {
+      border-bottom: 1px solid @gray-lighter;
+      padding: 0 0 10px 10px;
+      font-size: 14px;
+    }
+    .actions {
+      display: block;
+      margin-top: 5px;
+    }
+    .stats {
+      padding-right: 10px;
+      width: 100px;
+      .votes {
+        background-color: @gray-lighter;
+        font-size: 12px;
+        padding: 10px;
+        text-align: center;
       }
-      // TABLE IS THE BEST WAY TO HAVE TWO RESPONSIVE COLUMNS WITH ONE FIXED AND ANOTHER FLUID
-      table {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        tr {
-          td {
-            vertical-align: top;
-            padding-right: 20px;
-            .actions {
-              display: block;
-              margin-top: 5px;
-            }
-            .stats {
-              background-color: @gray-lighter;
-              font-size: 12px;
-              padding: 10px;
-              text-align: center;
-              width: 100px;
-              .numbers-votes, .numbers-answers {
-                display: block;
-                font-size: 16px;
-              }
-            }
-            .content {
-              font-size: 12px;
-              padding: 0 10px 10px 10px;
-              h1 {
-                font-family: @font-family-sans-serif;
-                font-size: 18px;
-                line-height: 1.5;
-              }
-              .author {
-                //border-top: 1px solid @gray-lighter;
-                padding-top: 20px;
-                //text-align: right;
-              }
-            }
-            .rating {
-              text-align:center;
-              width: 44px;
-              .arrow-up {
-                .arrow-up(21px, @gray-light);
-                margin:0 auto;
-                &:hover, &.active {
-                  border-bottom-color:#de500d;
-                  cursor:pointer;
-                }
-              }
-              .arrow-down {
-                .arrow-down(21px, @gray-light);
-                margin:0 auto;
-                .size(0,0);
-                &:hover, &.active {
-                  border-top-color:#de500d;
-                  cursor:pointer;
-                }
-              }
-              .votes {
-                font-family:"Questrial";
-                font-size:18px;
-                margin:6px 0;
-                text-align:center;
-              }
-              .set-correct {
-                  color:@gray-light;
-                  cursor:pointer;
-                  font-size:36px;
-                  margin-top:10px;
-                  &:hover, &.selected {
-                      color:@brand-success;
-                  }
-              }
-            }
-          }
+      .numbers-votes, .numbers-answers {
+        display: block;
+        font-size: 16px;
+      }
+    }
+    .rating {
+      text-align:center;
+      width: 44px;
+      padding-right: 10px;
+      .arrow-up {
+        .arrow-up(21px, @gray-light);
+        margin:0 auto;
+        &:hover, &.active {
+          border-bottom-color:#de500d;
+          cursor:pointer;
         }
       }
-      &.answer {
-        padding-top: 20px;
-        .rating {
-          text-align:center;
-          width: 60px;
-          .arrow-up {
-            .arrow-up(14px, @gray-light);
-            margin:0 auto;
-            &:hover, &.active {
-              border-bottom-color:@brand-warning;
-              cursor:pointer;
-            }
+      .arrow-down {
+        .arrow-down(21px, @gray-light);
+        margin:0 auto;
+        .size(0,0);
+        &:hover, &.active {
+          border-top-color:#de500d;
+          cursor:pointer;
+        }
+      }
+      .votes {
+        font-family:"Questrial";
+        font-size:18px;
+        margin:6px 0;
+        text-align:center;
+      }
+      .set-correct {
+          color:@gray-light;
+          cursor:pointer;
+          font-size:36px;
+          margin-top:10px;
+          &:hover, &.selected {
+              color:@brand-success;
           }
-          .arrow-down {
-            .arrow-down(14px, @gray-light);
-            margin:0 auto;
-            .size(0,0);
-            &:hover, &.active {
-              border-top-color:@brand-warning;
-              cursor:pointer;
-            }
+      }
+    }
+    .title {
+      font-family: @font-family-sans-serif;
+      font-size: 18px;
+      line-height: 1.5;
+    }
+    .author {
+      border-top: 1px solid @gray-lighter;
+      padding-top: 10px;
+      text-align: right;
+    }
+    .answer {
+      padding-top: 20px;
+      .rating {
+        text-align:center;
+        width: 60px;
+        .arrow-up {
+          .arrow-up(14px, @gray-light);
+          margin:0 auto;
+          &:hover, &.active {
+            border-bottom-color:@brand-warning;
+            cursor:pointer;
+          }
+        }
+        .arrow-down {
+          .arrow-down(14px, @gray-light);
+          margin:0 auto;
+          .size(0,0);
+          &:hover, &.active {
+            border-top-color:@brand-warning;
+            cursor:pointer;
           }
         }
       }
@@ -234,9 +236,7 @@
       header {
         margin-top: 20px;
       }
-      .content {
-        padding: 20px;
-      }
+
       // TABLE IS THE BEST WAY TO HAVE TWO RESPONSIVE COLUMNS WITH ONE FIXED AND ANOTHER FLUID
       table {
         margin: 0;

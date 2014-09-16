@@ -14,6 +14,8 @@
 <script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/sortable.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/new-course/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/markdown/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/markdown/filters.js' %}"></script>
 {% endblock %}
 
 {% block body_attrs %}
@@ -271,7 +273,7 @@ ng-app="new-course"
                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                                     <p>
                                         <a {% verbatim %}href="lessons/{{lesson.id}}"{% endverbatim %} class="title editable" ng-bind="lesson.name">{% trans 'Lesson name' %}</a>
-                                        <modalmarkdowneditor on-save="saveLesson(lesson)" title="{% trans 'Lesson description' %}" content="lesson.desc"></modalmarkdowneditor>
+                                        <div ng-bind-html="lesson.desc|markdown"></div>
                                     </p>
                                     <!--  HIDDEN-XS  -->
                                     <div class="hidden-xs" ng-show="lesson.units">

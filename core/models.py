@@ -6,6 +6,7 @@ import datetime
 from django.db import models
 from django.db.models import Count
 from django.core.mail import send_mail
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.template import Template, Context
@@ -119,6 +120,24 @@ class Course(models.Model):
     def forum_answers_by_lesson(self):
         return self.user.forum_answers.values('question__lesson').annotate(Count('question__lesson'))
 
+    def get_video_professors(self):
+        return self.courseprofessor_set.filter(role="instructor")
+
+    def get_professor_role(self, user):
+        try:
+            cp = self.courseprofessor_set.get(user=user)
+            return cp.role
+        except CourseProfessor.DoesNotExist:
+            return False
+
+    def has_perm_own_classes(self, user):
+        role = self.get_professor_role(user)
+        return role in ['assistant', 'coordinator']
+
+    def has_perm_own_all_classes(self, user):
+        role = self.get_professor_role(user)
+        return role == 'coordinator' or user.is_superuser
+
 
 class CourseStudent(models.Model):
     user = models.ForeignKey(TimtecUser, verbose_name=_('Student'))
@@ -126,6 +145,9 @@ class CourseStudent(models.Model):
 
     class Meta:
         unique_together = (('user', 'course'),)
+
+    def __unicode__(self):
+        return u'{0} - {1}'.format(self.course, self.user)
 
     @property
     def units_done(self):
@@ -192,13 +214,13 @@ class CourseProfessor(models.Model):
     ROLES = (
         ('instructor', _('Instructor')),
         ('assistant', _('Assistant')),
-        ('pedagogy_assistant', _('Pedagogy Assistant')),
+        ('coordinator', _('Professor Coordinator')),
     )
 
     user = models.ForeignKey(TimtecUser, verbose_name=_('Professor'))
     course = models.ForeignKey(Course, verbose_name=_('Course'))
     biography = models.TextField(_('Biography'), blank=True)
-    role = models.CharField(_('Role'), choices=ROLES, default=ROLES[0][0], max_length=128)
+    role = models.CharField(_('Role'), choices=ROLES, default=ROLES[1][0], max_length=128)
 
     class Meta:
         unique_together = (('user', 'course'),)
@@ -339,3 +361,16 @@ class EmailTemplate(models.Model):
     name = models.CharField(max_length=50)
     subject = models.CharField(max_length=255)
     template = models.TextField()
+
+
+class Class(models.Model):
+    name = models.CharField(max_length=200)
+    assistant = models.ForeignKey(TimtecUser, verbose_name=_('Assistant'), related_name='professor_classes')
+    students = models.ManyToManyField(TimtecUser, related_name='classes', blank=True)
+    course = models.ForeignKey(Course, verbose_name=_('Course'))
+
+    def __unicode__(self):
+        return u'%s @ %s' % (self.name, self.course)
+
+    def get_absolute_url(self):
+        return reverse('class', kwargs={'pk': self.id})

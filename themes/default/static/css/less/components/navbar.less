@@ -18,6 +18,11 @@
 @navbar-inverse-brand-hover-color:          #fff;
 @navbar-inverse-brand-hover-bg:             transparent;
 
+@dropdown-link-hover-bg:                    @brand-light;
+@dropdown-border:                           transparent;
+@dropdown-divider-bg:                       @brand-light;
+@dropdown-link-color:                       @brand-primary;
+@dropdown-link-hover-color:                 @brand-primary;
 
 // MAIN NAVBAR - DROPDOWN MENUS FOR SIGNIN AND SIGNUP
 // ********************************************************************* //
@@ -60,6 +65,9 @@
     }
   }
   .navbar-collapse {
+    @media (min-width: @screen-sm-min) {
+      float: right;
+    } 
     overflow: hidden;
     max-height: initial;
   }
@@ -94,6 +102,11 @@
     }
     label {
       line-height: 1;
+    }
+    .navbar-nav {
+      > li > a {
+        padding-top: 10px;
+      }
     }
   }
 }
