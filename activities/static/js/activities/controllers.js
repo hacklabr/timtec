@@ -63,10 +63,11 @@
 
     app.controller('RelationshipCtrl', ['$scope',
         function ($scope) {
-            $scope.possibleAnswers = [];
-            angular.forEach($scope.currentActivity.expected, function(value) {
-                this.push(value);
-            }, $scope.possibleAnswers);
+            $scope.possibleAnswers = $scope.currentActivity.expected.slice(0);
+            function compareNumbers(a, b) {
+              return a - b;
+            }
+            $scope.possibleAnswers.sort(compareNumbers);
         }
     ]);
 })(angular);
