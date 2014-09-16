@@ -17,10 +17,10 @@
             </div>
             <!-- QUESTION FORM -->
             <div class="forum-form">
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger" role="alert" ng-show="question_title_validation || question_text_validation">
                     <ul>
-                        <li><a href="#id-title">Preencha o título da questão.</a></li>
-                        <li><a href="#wmd-input">Preencha o conteúdo da questão.</a></li>
+                        <li ng-show="question_title_validation"><a href="#id-title">Preencha o título da questão.</a></li>
+                        <li ng-show="question_text_validation"><a href="#wmd-input">Preencha o conteúdo da questão.</a></li>
                     </ul>
                 </div>
                 <div class="form-group" ng-class="question_title_validation">
