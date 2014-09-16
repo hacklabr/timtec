@@ -224,7 +224,8 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     def metadata(self, request):
         data = super(CourseViewSet, self).metadata(request)
-        data.get('actions').get('POST').get('status').update({'choices': dict(Course.STATES[1:])})
+        if data.get('actions'):
+            data.get('actions').get('POST').get('status').update({'choices': dict(Course.STATES[1:])})
         return data
 
 
