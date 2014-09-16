@@ -58,9 +58,9 @@
                             <tr>
                                 <td class="rating">
                                     <div ng-app="vote" ng-controller="AnswerVoteCtrl">
-                                        <div class="arrow-up" ng-class="{active: answer_vote.value==1}" ng-click=vote('up')></div>
+                                        <div class="arrow-up" ng-class="{active: answer_vote.value==1}" ng-click=vote(answer,'up')></div>
                                         <div class="votes">{{ answer.votes }}</div>
-                                        <div class="arrow-down" ng-class="{active: answer_vote.value==-1}" ng-click=vote('down')></div>
+                                        <div class="arrow-down" ng-class="{active: answer_vote.value==-1}" ng-click=vote(answer,'down')></div>
                                     </div>
                                 </td>
                                 <td class="content">
@@ -78,9 +78,9 @@
                             <h2>Sua Resposta</h2>
                         </header>
                         <div class="forum-form">
-                            <div class="alert alert-danger" role="alert">
+                            <div class="alert alert-danger" role="alert" ng-if="new_answer_validation_error">
                                 <ul>
-                                    <li><a href="#wmd-input">Preencha o conteúdo da questão.</a></li>
+                                    <li><a href="#wmd-input">Preencha o conteúdo da resposta.</a></li>
                                 </ul>
                             </div>
                             <div class="form-group text-editor">
