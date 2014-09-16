@@ -15,7 +15,7 @@ class LessonInline(admin.TabularInline):
 
 class UnitInline(admin.TabularInline):
     model = Unit
-    fields = ('title', 'video', 'activity', 'position',)
+    fields = ('title', 'video', 'position',)
 
 
 class LessonAdmin(ModelAdmin):
@@ -26,7 +26,7 @@ class LessonAdmin(ModelAdmin):
 
 class UnitAdmin(ModelAdmin):
     search_fields = ('title', 'lesson__name')
-    list_display = ('title', 'position', 'lesson', 'video', 'activity',)
+    list_display = ('title', 'position', 'lesson', 'video',)
     list_select_related = ('lesson', 'video')
 
 
