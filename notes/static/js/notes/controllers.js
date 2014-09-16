@@ -15,7 +15,7 @@
                     }
                     promisse.then(function () {
                         $('.notes .message').show().delay(2000).fadeOut();
-                    })
+                    });
                 };
                 function load_note() {
                     LessonData.then(function (lesson) {
