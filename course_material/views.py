@@ -41,6 +41,10 @@ class CourseMaterialAdminView(AdminMixin, DetailView):
     model = CourseMaterial
     context_object_name = 'course_material'
 
+    def get_object(self, queryset=None):
+        course_id = self.kwargs.get('pk', None)
+        return get_object_or_404(CourseMaterial, course__id=course_id)
+
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(CourseMaterialAdminView, self).get_context_data(**kwargs)

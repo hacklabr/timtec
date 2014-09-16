@@ -8,6 +8,9 @@ class CourseMaterial(models.Model):
     course = models.ForeignKey(Course, related_name='course_material', verbose_name=_('Course Materials'))
     text = models.TextField(_('Question'))
 
+    def __unicode__(self):
+        return self.course.name
+
 
 def get_upload_path(instance, filename):
     return u'{0}/{1}'.format(instance.course_material.course.slug, filename)

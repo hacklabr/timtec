@@ -508,7 +508,7 @@
                                                                data-toggle="tooltip" data-placement="bottom"
                                                                data-original-title="Unidade {{ forloop.counter }}"
                                                                href="{% url 'lesson' course.slug lesson.slug %}#/{{ forloop.counter }}">
-                                                               {% if unit.activity %}
+                                                               {% if unit.activities.exists %}
                                                                    <i class="fa fa-list"></i>
                                                                {% endif %}
                                                             </a>
@@ -516,7 +516,7 @@
                                                             <span class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
                                                                   data-toggle="tooltip" data-placement="bottom"
                                                                   data-original-title="Unidade {{ forloop.counter }}">
-                                                                  {% if unit.activities.all %}
+                                                                  {% if unit.activities.exists %}
                                                                       <i class="fa fa-list"></i>
                                                                   {% endif %}
                                                             </span>
