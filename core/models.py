@@ -14,8 +14,6 @@ from django.contrib.contenttypes import generic
 from django.conf import settings
 from autoslug import AutoSlugField
 
-
-from accounts.models import TimtecUser
 from notes.models import Note
 
 
@@ -51,8 +49,8 @@ class Course(models.Model):
     status = models.CharField(_('Status'), choices=STATES, default=STATES[0][0], max_length=64)
     publication = models.DateField(_('Publication'), default=None, blank=True, null=True)
     thumbnail = models.ImageField(_('Thumbnail'), upload_to='course_thumbnails', null=True, blank=True)
-    professors = models.ManyToManyField(TimtecUser, related_name='professorcourse_set', through='CourseProfessor')
-    students = models.ManyToManyField(TimtecUser, related_name='studentcourse_set', through='CourseStudent')
+    professors = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='professorcourse_set', through='CourseProfessor')
+    students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='studentcourse_set', through='CourseStudent')
     home_thumbnail = models.ImageField(_('Home thumbnail'), upload_to='home_thumbnails', null=True, blank=True)
     home_position = models.IntegerField(null=True, blank=True)
     start_date = models.DateField(_('Start date'), default=None, blank=True, null=True)
@@ -140,7 +138,7 @@ class Course(models.Model):
 
 
 class CourseStudent(models.Model):
-    user = models.ForeignKey(TimtecUser, verbose_name=_('Student'))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Student'))
     course = models.ForeignKey(Course, verbose_name=_('Course'))
 
     class Meta:
@@ -217,7 +215,7 @@ class CourseProfessor(models.Model):
         ('coordinator', _('Professor Coordinator')),
     )
 
-    user = models.ForeignKey(TimtecUser, verbose_name=_('Professor'))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Professor'))
     course = models.ForeignKey(Course, verbose_name=_('Course'))
     biography = models.TextField(_('Biography'), blank=True)
     role = models.CharField(_('Role'), choices=ROLES, default=ROLES[1][0], max_length=128)
@@ -239,8 +237,8 @@ class CourseProfessor(models.Model):
 
 
 class ProfessorMessage(models.Model):
-    professor = models.ForeignKey(TimtecUser, verbose_name=_('Professor'))
-    users = models.ManyToManyField(TimtecUser, related_name='messages')
+    professor = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Professor'))
+    users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='messages')
     subject = models.CharField(_('Subject'), max_length=255)
     message = models.TextField(_('Message'))
     date = models.DateTimeField(_('Date'), auto_now_add=True)
@@ -344,7 +342,7 @@ class Unit(PositionedModel):
 
 
 class StudentProgress(models.Model):
-    user = models.ForeignKey(TimtecUser, verbose_name=_('Student'))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Student'))
     unit = models.ForeignKey(Unit, verbose_name=_('Unit'), related_name='progress')
     complete = models.DateTimeField(editable=True, null=True, blank=True)
     last_access = models.DateTimeField(auto_now=True, editable=False)
@@ -365,8 +363,8 @@ class EmailTemplate(models.Model):
 
 class Class(models.Model):
     name = models.CharField(max_length=200)
-    assistant = models.ForeignKey(TimtecUser, verbose_name=_('Assistant'), related_name='professor_classes')
-    students = models.ManyToManyField(TimtecUser, related_name='classes', blank=True)
+    assistant = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Assistant'), related_name='professor_classes')
+    students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='classes', blank=True)
     course = models.ForeignKey(Course, verbose_name=_('Course'))
 
     def __unicode__(self):
