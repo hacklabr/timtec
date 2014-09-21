@@ -11,9 +11,10 @@ def test_get_user_type(user):
 
 @pytest.mark.django_db
 def test_username_validator():
-    from accounts.models import TimtecUser
+    from django.contrib.auth import get_user_model
     from django.core.exceptions import ValidationError
     try:
+        TimtecUser = get_user_model()
         t = TimtecUser.objects.create(username="test@test", email="test@example.com")
         t.full_clean()
     except ValidationError:
