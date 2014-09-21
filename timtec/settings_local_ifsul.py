@@ -31,6 +31,9 @@ EMAIL_SUBJECT_PREFIX = '[timtec-ifsul]'
 DEFAULT_FROM_EMAIL = 'donotreply@m.timtec.com.br'
 CONTACT_RECIPIENT_LIST = ['timtec-dev@listas.hacklab.com.br', ]
 
+ACCOUNT_SIGNUP_FORM_CLASS = 'if.forms.IfSignupForm'
+AUTH_USER_MODEL = 'if.IfUser'
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
