@@ -4,6 +4,7 @@ from accounts.models import TimtecUser
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import UserManager
 
+
 class IfUser(TimtecUser):
 
     # students fields
@@ -14,9 +15,9 @@ class IfUser(TimtecUser):
 
     # professors fields
     cpf = models.CharField(_('Cpf'), max_length=30, blank=True)
+    siape = models.CharField(_('Siape'), max_length=30, blank=True)
 
     # common fields
     campus = models.CharField(_('Campus'), max_length=30, blank=True)
-    siape = models.CharField(_('Siape'), max_length=30, blank=True)
 
     objects = UserManager()

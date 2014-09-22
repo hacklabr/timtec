@@ -11,6 +11,7 @@ class IfSignupForm(forms.ModelForm):
 
     password1 = forms.CharField(widget=forms.PasswordInput, label=_("Password"), required=False)
     password2 = forms.CharField(widget=forms.PasswordInput, label=_("Password (again)"), required=False)
+    if_student = forms.BooleanField(required=False)
 
     class Meta:
         model = User
@@ -32,7 +33,7 @@ class IfSignupForm(forms.ModelForm):
             self.instance.set_password(self.cleaned_data['password1'])
         return super(IfSignupForm, self).save(commit=commit)
 
-    def signup(self, request, user):
-        user.first_name = self.cleaned_data['first_name']
-        user.last_name = self.cleaned_data['last_name']
-        user.save()
+    # def signup(self, request, user):
+    #     user.first_name = self.cleaned_data['first_name']
+    #     user.last_name = self.cleaned_data['last_name']
+    #     user.save()
