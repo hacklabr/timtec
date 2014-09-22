@@ -3,8 +3,6 @@ from django.contrib.auth import get_user_model
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-User = get_user_model()
-
 
 class IfSignupForm(forms.ModelForm):
     email = forms.RegexField(label=_("email"), max_length=75, regex=r"^[\w.@+-]+$")
@@ -14,11 +12,8 @@ class IfSignupForm(forms.ModelForm):
     if_student = forms.BooleanField(required=False)
 
     class Meta:
-        model = User
-        fields = ('if_id', 'first_name', 'last_name',  'email', 'campus', 'city', 'course',)
-
-    def clean_username(self):
-        return self.instance.username
+        model = get_user_model()
+        fields = ('ifid', 'first_name', 'last_name',  'email', 'campus', 'city', 'course', 'klass')
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
@@ -28,12 +23,34 @@ class IfSignupForm(forms.ModelForm):
                 raise forms.ValidationError(_("The two password fields didn't match."))
         return password2
 
-    def save(self, commit=True):
-        if self.cleaned_data['password1']:
-            self.instance.set_password(self.cleaned_data['password1'])
-        return super(IfSignupForm, self).save(commit=commit)
+    def clean_ifid(self):
+        data = self.cleaned_data['ifid']
+        if 'if_student' in self.data and not data:
+            raise forms.ValidationError('O campo código de matrícula é obrigatório para alunos do IFSUL.')
+        return data
 
-    # def signup(self, request, user):
-    #     user.first_name = self.cleaned_data['first_name']
-    #     user.last_name = self.cleaned_data['last_name']
-    #     user.save()
+    def clean_course(self):
+        data = self.cleaned_data['course']
+        if self.data['if_student'] and not data:
+            raise forms.ValidationError('O campo curso é obrigatório para alunos do IFSUL.')
+        return data
+
+    def clean_klass(self):
+        data = self.cleaned_data['klass']
+        if 'if_student' in self.data and not data:
+            raise forms.ValidationError('O campo turma é obrigatório para alunos do IFSUL.')
+        return data
+
+    def clean_campus(self):
+        data = self.cleaned_data['campus']
+        if 'if_student' in self.data and not data:
+            raise forms.ValidationError('O campo campus é obrigatório para alunos do IFSUL.')
+        return data
+
+    def save(self, user):
+        if 'if_student' in self.data:
+            user.ifid = self.cleaned_data['ifid']
+            user.course = self.cleaned_data['course']
+            user.klass = self.cleaned_data['klass']
+            user.campus = self.cleaned_data['campus']
+            user.save()
