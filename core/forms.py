@@ -5,7 +5,10 @@ from django.core.mail import send_mail
 from django.contrib.auth import get_user_model
 from django.conf import settings
 
-from .models import Class
+from .models import Class, CourseStudent
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class AcceptTermsForm(forms.Form):
@@ -49,7 +52,8 @@ class RemoveStudentForm(forms.ModelForm):
     user_id = forms.IntegerField()
 
     def save(self, commit=True):
-        self.instance.students.remove(self.cleaned_data['user_id'])
+        uid = self.cleaned_data['user_id']
+        self.instance.remove_students(get_user_model().objects.get(id=uid))
         return super(RemoveStudentForm, self).save(commit=commit)
 
 
@@ -66,6 +70,13 @@ class AddStudentsForm(forms.ModelForm):
         return data
 
     def save(self, commit=True):
+        User = get_user_model()
         students = self.cleaned_data['students_text']
-        self.instance.students.add(*get_user_model().objects.filter(username__in=students))
+        for student_name in students:
+            try:
+                student = User.objects.get(username=student_name)
+            except User.DoesNotExist:
+                logger.info(u'student with username: %s does not exist' % student_name)
+
+            self.instance.add_students(student)
         return super(AddStudentsForm, self).save(commit=commit)
