@@ -31,8 +31,8 @@ class Video(models.Model):
 
 class Class(models.Model):
     name = models.CharField(max_length=200)
-    assistant = models.ForeignKey(TimtecUser, verbose_name=_('Assistant'), related_name='professor_classes', null=True, blank=True)
-    students = models.ManyToManyField(TimtecUser, related_name='classes', blank=True)
+    assistant = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Assistant'), related_name='professor_classes', null=True, blank=True)
+    students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='classes', blank=True)
     course = models.ForeignKey('Course', verbose_name=_('Course'))
 
     def __unicode__(self):
