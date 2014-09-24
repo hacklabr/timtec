@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth import get_user_model
 from django import forms
+from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
+from allauth.account.forms import LoginForm
 
 
 class IfSignupForm(forms.ModelForm):
@@ -13,7 +15,7 @@ class IfSignupForm(forms.ModelForm):
 
     class Meta:
         model = get_user_model()
-        fields = ('ifid', 'first_name', 'last_name',  'email', 'campus', 'city', 'course', 'klass')
+        fields = ('ifid', 'first_name', 'last_name', 'email', 'campus', 'city', 'course', 'klass')
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
@@ -31,7 +33,7 @@ class IfSignupForm(forms.ModelForm):
 
     def clean_course(self):
         data = self.cleaned_data['course']
-        if self.data['if_student'] and not data:
+        if 'if_student' in self.data and not data:
             raise forms.ValidationError('O campo curso é obrigatório para alunos do IFSUL.')
         return data
 
@@ -53,4 +55,23 @@ class IfSignupForm(forms.ModelForm):
             user.course = self.cleaned_data['course']
             user.klass = self.cleaned_data['klass']
             user.campus = self.cleaned_data['campus']
+            user.campus.is_if_student = True
             user.save()
+
+
+class IfLoginForm(LoginForm):
+    def login(self, request, redirect_url=None):
+        response = super(IfLoginForm, self).login(request, redirect_url)
+        # if self.user.is_authenticated():
+        #     if not self.user.email or
+        #     return HttpResponseRedirect(r)
+
+        return response
+
+
+class SignupStudentCompletion(forms.ModelForm):
+    pass
+
+
+class SignupProfessorCompletion(forms.ModelForm):
+    pass
