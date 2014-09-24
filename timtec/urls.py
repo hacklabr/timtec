@@ -8,7 +8,7 @@ from django.contrib import admin as django_admin
 django_admin.autodiscover()
 
 from django.views.generic import TemplateView
-from accounts.views import (CustomLoginView, ProfileEditView, ProfileView, UserSearchView,
+from accounts.views import (ProfileEditView, ProfileView, UserSearchView,
                             TimtecUserViewSet, StudentSearchView)
 from forum.views import AnswerViewSet as ForumAnswerViewSet, ForumModeratorView
 
@@ -103,7 +103,6 @@ urlpatterns = patterns(
     url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/mynotes/$', CourseNotesView.as_view(), name='user_course_notes'),
 
     # Authentication
-    url(r'^login/', CustomLoginView.as_view(), name='timtec_login'),
     url(r'^logout/', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='timtec_logout'),
 
     url(r'^profile/edit/?$', ProfileEditView.as_view(), name="profile_edit"),

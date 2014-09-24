@@ -25,7 +25,7 @@ def test_enroll_user(client, user):
 
     assert not CourseStudent.objects.filter(user__username=user.username, course__slug=course.slug).exists()
 
-    reponse = client.post('/login/', {'username': user.username, 'password': 'password'})
+    reponse = client.post('/accounts/login/', {'login': user.username, 'password': 'password'})
     reponse = client.get('/course/' + course.slug + '/enroll/')
     assert reponse['Location'] == 'http://testserver/course/' + course.slug + '/lesson/' + lesson.slug + '/'
 
@@ -40,6 +40,10 @@ def test_timtec_adapter_validates_username(client):
     assert response.status_code == 302  # ok
     # assert "./-/_" not in response.content  # validator
 
+
+@pytest.mark.django_db
+def test_timtec_adapter_invalidates_username(client):
+    mommy.make('Group', name="students")
     response = client.post('/accounts/signup/', {'username': "test@test", 'email': "test2@example.com",
                                                  'password1': 123123, 'password2': 123123, "accept_terms": True})
     assert response.status_code == 200  # ok

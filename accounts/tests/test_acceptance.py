@@ -3,13 +3,13 @@ from model_mommy import mommy
 
 
 @pytest.mark.django_db
-def test_custom_login_view(client, user):
-    response = client.get('/login/')
+def test_login_form(client, user):
+    response = client.get('/accounts/login/')
     assert response.status_code == 200
     assert response.context['request'].user.is_authenticated() is False
 
-    response = client.post('/login/', {'username': user.username,
-                                       'password': 'password'})
+    response = client.post('/accounts/login/', {'login': user.username,
+                                                'password': 'password'})
     assert response.status_code == 302
 
     course = mommy.make('Course')
@@ -19,7 +19,7 @@ def test_custom_login_view(client, user):
 
 
 @pytest.mark.django_db
-def test_custom_login_view_email_verification(client, user):
+def test_login_form_email_verification(client, user):
     from allauth.account.models import EmailAddress
     mommy.make('Group', name="students")
     response = client.get('/accounts/signup/')
@@ -31,18 +31,11 @@ def test_custom_login_view_email_verification(client, user):
 
     assert response.status_code == 302
 
-    response = client.post('/login/', {'username': "test",
-                                       'password': '123123'})
-    assert response.status_code == 302
-
-    response = client.get('/login/')
-    assert response.context['request'].user.is_authenticated() is False
-
     ea = EmailAddress.objects.get(email="test@example.com")
     ea.verified = True
     ea.save()
-    response = client.post('/login/', {'username': "test",
-                                       'password': '123123'})
+    client.post('/accounts/login/', {'login': "test",
+                                     'password': '123123'})
     course = mommy.make('Course')
     response = client.get('/course/' + course.slug + '/')
     assert response.status_code == 200
@@ -51,29 +44,29 @@ def test_custom_login_view_email_verification(client, user):
 
 @pytest.mark.django_db
 def test_custom_login_view_with_next_field(client, user):
-    response = client.get('/login/')
+    response = client.get('/accounts/login/')
     assert response.status_code == 200
     assert response.context['request'].user.is_authenticated() is False
 
-    response = client.post('/login/', {'username': user.username,
-                                       'password': 'password',
-                                       'next': '/profile/edit'})
+    response = client.post('/accounts/login/', {'login': user.username,
+                                                'password': 'password',
+                                                'next': '/profile/edit'})
     assert response.status_code == 302
     assert response['Location'] == 'http://testserver/profile/edit'
 
 
 @pytest.mark.django_db
 def test_custom_login_redirect_already_authenticated_user(client, user):
-    response = client.post('/login/', {'username': user.username, 'password': 'password'})
+    response = client.post('/accounts/login/', {'login': user.username, 'password': 'password'})
     assert response.status_code == 302
 
-    response = client.get('/login/')
+    response = client.get('/accounts/login/')
     assert response.status_code == 302
 
 
 @pytest.mark.django_db
 def test_custom_login_page(client):
-    response = client.get('/login/', {'next': 'http://fakenext.com/profile/edit'})
+    response = client.get('/accounts/login/', {'next': 'http://fakenext.com/profile/edit'})
 
     assert response.status_code == 200
     assert 'login' in response.content
@@ -81,7 +74,7 @@ def test_custom_login_page(client):
 
 @pytest.mark.django_db
 def test_custom_login_does_not_redirect_to_unsafe_next(admin_client):
-    response = admin_client.get('/login/', {'next': 'http://fakenext.com/profile/edit'})
+    response = admin_client.get('/accounts/login/', {'next': 'http://fakenext.com/profile/edit'})
 
     assert response.status_code == 302
     assert response['Location'] == 'http://testserver/'
@@ -89,16 +82,16 @@ def test_custom_login_does_not_redirect_to_unsafe_next(admin_client):
 
 @pytest.mark.django_db
 def test_custom_login_has_login_form_in_context_when_login_fail(client):
-    response = client.post('/login/', {'username': 'invalid',
-                                       'password': 'invalid'})
+    response = client.post('/accounts/login/', {'login': 'invalid',
+                                                'password': 'invalid'})
 
     assert response.status_code == 200
-    assert 'login_form' in response.context_data
+    assert 'form' in response.context_data
 
 
 @pytest.mark.django_db
 def test_user_instance_for_profile_edit_form_is_the_same_of_request(client, user):
-    response = client.post('/login/', {'username': user.username, 'password': 'password'})
+    response = client.post('/accounts/login/', {'login': user.username, 'password': 'password'})
 
     response = client.get('/profile/edit')
     assert response.status_code == 200
@@ -120,20 +113,20 @@ def test_admin_user(admin_client):
 
 @pytest.mark.django_db
 def test_username_login(client, user):
-    response = client.post('/login/', {'username': user.username, 'password': 'password'})
+    response = client.post('/accounts/login/', {'login': user.username, 'password': 'password'})
     assert response.status_code == 302
     assert response['Location'] == 'http://testserver/'
 
 
 @pytest.mark.django_db
 def test_email_login(client, user):
-    response = client.post('/login/', {'username': user.email, 'password': 'password'})
+    response = client.post('/accounts/login/', {'login': user.email, 'password': 'password'})
     assert response.status_code == 302
     assert response['Location'] == 'http://testserver/'
 
 
 @pytest.mark.django_db
 def test_next_field_still_works(client, user):
-    reponse = client.post('/login/', {'username': user.email, 'password': 'password', 'next': '/profile/edit'})
+    reponse = client.post('/accounts/login/', {'login': user.email, 'password': 'password', 'next': '/profile/edit'})
     assert reponse.status_code == 302
     assert reponse['Location'] == 'http://testserver/profile/edit'

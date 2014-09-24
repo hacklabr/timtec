@@ -5,10 +5,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.core import validators
 from django.core.mail import send_mail
 from django.conf import settings
-from django.contrib.auth.models import Group, AbstractBaseUser, PermissionsMixin, UserManager
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager, Group
 from django.utils import timezone
-from allauth.account.signals import user_signed_up
-
 
 import re
 import os
@@ -27,7 +25,7 @@ def path_and_rename(path):
     return wrapper
 
 
-class BaseTimtecUser(AbstractBaseUser, PermissionsMixin):
+class TimtecUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_REGEXP = re.compile('^[\w.+-]+$')
     username = models.CharField(
         _('Username'), max_length=30, unique=True,
@@ -59,7 +57,6 @@ class BaseTimtecUser(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
-        abstract = True
 
     def __unicode__(self):
         if self.first_name or self.last_name:
@@ -95,15 +92,15 @@ class BaseTimtecUser(AbstractBaseUser, PermissionsMixin):
     def is_pilot(self):
         return self.groups.filter(name='pilot_course').count() > 0
 
-    @staticmethod
-    def add_default_group(sender, user, **kwargs):
-        if settings.REGISTRATION_DEFAULT_GROUP_NAME:
-            user.groups.add(Group.objects.get(name=settings.REGISTRATION_DEFAULT_GROUP_NAME))
-            user.save()
+    def save(self, *args, **kwargs):
 
+        is_new = self.pk is None
 
-class TimtecUser(AbstractBaseUser):
-    pass
+        super(TimtecUser, self).save(*args, **kwargs)
 
-
-# user_signed_up.connect(TimtecUser.add_default_group, dispatch_uid="TimtecUser.add_default_group")
+        if is_new and settings.REGISTRATION_DEFAULT_GROUP_NAME:
+            try:
+                self.groups.add(Group.objects.get(name=settings.REGISTRATION_DEFAULT_GROUP_NAME))
+                self.save()
+            except models.exceptions.ObjectDoesNotExist:
+                pass

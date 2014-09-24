@@ -26,7 +26,9 @@ def test_username_validator():
 @pytest.mark.django_db
 def test_user_picture_url():
     from django.core.files.base import ContentFile
-    user = mommy.make('TimtecUser')
+    from django.contrib.auth import get_user_model
+    TimtecUser = get_user_model()
+    user = mommy.make(TimtecUser)
     user.username = u'Usér'
     user.save()
 
