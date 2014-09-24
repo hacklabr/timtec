@@ -53,12 +53,17 @@ class StudentProgressAdmin(ModelAdmin):
     search_fields = ('user__username',)
     list_display = ('user', 'unit', 'complete', 'last_access')
 
+
+class CourseStudentAdmin(ModelAdmin):
+    search_fields = ('user__username',)
+    list_display = ('user', 'course')
+
 admin.site.register(Video, VideoAdmin)
 admin.site.register(CourseProfessor, CourseProfessorAdmin)
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Unit, UnitAdmin)
 admin.site.register(StudentProgress, StudentProgressAdmin)
-admin.site.register(CourseStudent)
+admin.site.register(CourseStudent, CourseStudentAdmin)
 admin.site.register(ProfessorMessage)
 admin.site.register(Class, ClassAdmin)

@@ -66,9 +66,6 @@ def test_enroll_user_create_single_entry_of_coursestudent(user):
     course.enroll_student(user)
     assert CourseStudent.objects.filter(user=user, course=course).count() == 1
 
-    course.enroll_student(user)
-    assert CourseStudent.objects.filter(user=user, course=course).count() == 1
-
 
 @pytest.mark.django_db
 def test_resume(user):

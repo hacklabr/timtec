@@ -29,6 +29,33 @@ class Video(models.Model):
         return self.name
 
 
+class Class(models.Model):
+    name = models.CharField(max_length=200)
+    assistant = models.ForeignKey(TimtecUser, verbose_name=_('Assistant'), related_name='professor_classes', null=True, blank=True)
+    students = models.ManyToManyField(TimtecUser, related_name='classes', blank=True)
+    course = models.ForeignKey('Course', verbose_name=_('Course'))
+
+    def __unicode__(self):
+        return u'%s @ %s' % (self.name, self.course)
+
+    def get_absolute_url(self):
+        return reverse('class', kwargs={'pk': self.id})
+
+    def add_students(self, *objs):
+        for obj in objs:
+            try:
+                c = Class.objects.get(course=self.course, students=obj)
+                c.students.remove(obj)
+            except Class.DoesNotExist:
+                pass
+
+    def remove_students(self, *objs):
+        for obj in objs:
+            self.students.remove(obj)
+            if CourseStudent.objects.filter(course=self.course, user=obj).exists():
+                self.course.default_class.students.add(obj)
+
+
 class Course(models.Model):
     STATES = (
         ('new', _('New')),
@@ -55,6 +82,7 @@ class Course(models.Model):
     home_position = models.IntegerField(null=True, blank=True)
     start_date = models.DateField(_('Start date'), default=None, blank=True, null=True)
     home_published = models.BooleanField(default=False)
+    default_class = models.OneToOneField(Class, verbose_name=_('Default Class'), related_name='default_course', null=True, blank=True)
 
     class Meta:
         verbose_name = _('Course')
@@ -76,11 +104,10 @@ class Course(models.Model):
             return self.lessons.all()[0]
 
     def enroll_student(self, student):
-        params = {'user': student, 'course': self}
-        try:
-            return CourseStudent.objects.get(**params)
-        except CourseStudent.DoesNotExist:
-            return CourseStudent.objects.create(**params)
+        if not Class.objects.filter(course=self, students=student).exists():
+            self.default_class.students.add(student)
+
+        CourseStudent.objects.create(course=self, user=student)
 
     def get_thumbnail_url(self):
         if self.thumbnail:
@@ -130,11 +157,21 @@ class Course(models.Model):
 
     def has_perm_own_classes(self, user):
         role = self.get_professor_role(user)
-        return role in ['assistant', 'coordinator']
+        return role in ['assistant', 'coordinator'] or user.is_superuser
 
     def has_perm_own_all_classes(self, user):
         role = self.get_professor_role(user)
         return role == 'coordinator' or user.is_superuser
+
+    def save(self, *args, **kwargs):
+        is_new = self.pk is None
+
+        super(Course, self).save(*args, **kwargs)
+
+        if is_new:
+            c = Class.objects.create(name=self.name, course=self)
+            self.default_class = c
+            self.save()
 
 
 class CourseStudent(models.Model):
