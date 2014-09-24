@@ -1,11 +1,11 @@
 # coding=utf-8
 from django.db import models
-from accounts.models import BaseTimtecUser
+from accounts.models import TimtecUser
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import UserManager
 
 
-class IfUser(BaseTimtecUser):
+class IfUser(TimtecUser):
 
     # students fields
     # if_id eh o identificador de matricula
