@@ -19,5 +19,6 @@ class IfUser(TimtecUser):
 
     # common fields
     campus = models.CharField(_('Campus'), max_length=30, blank=True)
+    is_if_staff = models.BooleanField(default=False)
 
     objects = UserManager()
