@@ -25,7 +25,7 @@ def path_and_rename(path):
     return wrapper
 
 
-class TimtecUser(AbstractBaseUser, PermissionsMixin):
+class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_REGEXP = re.compile('^[\w.+-]+$')
     username = models.CharField(
         _('Username'), max_length=30, unique=True,
@@ -57,6 +57,7 @@ class TimtecUser(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
+        abstract = True
 
     def __unicode__(self):
         if self.first_name or self.last_name:
@@ -96,7 +97,7 @@ class TimtecUser(AbstractBaseUser, PermissionsMixin):
 
         is_new = self.pk is None
 
-        super(TimtecUser, self).save(*args, **kwargs)
+        super(AbstractTimtecUser, self).save(*args, **kwargs)
 
         if is_new and settings.REGISTRATION_DEFAULT_GROUP_NAME:
             try:
@@ -104,3 +105,14 @@ class TimtecUser(AbstractBaseUser, PermissionsMixin):
                 self.save()
             except models.exceptions.ObjectDoesNotExist:
                 pass
+
+
+class TimtecUser(AbstractTimtecUser):
+    """
+    Timtec customized user.
+
+    Username, password and email are required. Other fields are optional.
+    """
+
+    class Meta(AbstractTimtecUser.Meta):
+        swappable = 'AUTH_USER_MODEL'

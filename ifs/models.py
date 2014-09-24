@@ -1,15 +1,13 @@
 # coding=utf-8
 from django.db import models
-from accounts.models import TimtecUser
+from accounts.models import AbstractTimtecUser
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import UserManager
 
 
-class IfUser(TimtecUser):
-
+class IfUser(AbstractTimtecUser):
     # students fields
     # if_id eh o identificador de matricula
-    ifid = models.CharField(_('Academic Identificator'), max_length=30, blank=True)
+    ifid = models.CharField(_('Academic ID'), max_length=30, blank=True)
     course = models.CharField(_('Course'), max_length=30, blank=True)
     klass = models.CharField(_('Class'), max_length=30, blank=True)
 
@@ -21,4 +19,5 @@ class IfUser(TimtecUser):
     campus = models.CharField(_('Campus'), max_length=30, blank=True)
     is_if_staff = models.BooleanField(default=False)
 
-    objects = UserManager()
+    class Meta(AbstractTimtecUser.Meta):
+        swappable = 'AUTH_USER_MODEL'
