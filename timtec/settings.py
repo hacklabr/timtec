@@ -515,8 +515,8 @@ LOGGING = {
 }
 
 try:
-    from .settings_local import *
-except ImportError:
+    execfile(os.path.join(SETTINGS_DIR, 'settings_local.py'))
+except IOError:
     pass
 
 # Additional locations of static files
