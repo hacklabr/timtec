@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth import get_user_model
 from django import forms
-from django.http import HttpResponseRedirect
+# from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
 from allauth.account.forms import LoginForm
 
