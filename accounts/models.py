@@ -35,7 +35,6 @@ class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
             validators.RegexValidator(USERNAME_REGEXP, _('Enter a valid username.'), 'invalid')
         ])
 
-    email = models.EmailField(_('Email address'), blank=False, unique=True)
     first_name = models.CharField(_('First name'), max_length=30, blank=True)
     last_name = models.CharField(_('Last name'), max_length=30, blank=True)
     is_staff = models.BooleanField(_('Staff status'), default=False)
@@ -113,6 +112,8 @@ class TimtecUser(AbstractTimtecUser):
 
     Username, password and email are required. Other fields are optional.
     """
+
+    email = models.EmailField(_('Email address'), blank=False, unique=True)
 
     class Meta(AbstractTimtecUser.Meta):
         swappable = 'AUTH_USER_MODEL'

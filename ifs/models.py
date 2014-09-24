@@ -7,6 +7,8 @@ from django.utils.translation import ugettext_lazy as _
 class IfUser(AbstractTimtecUser):
     # students fields
     # if_id eh o identificador de matricula
+    email = models.EmailField(_('Email address'), blank=True, unique=False)
+
     ifid = models.CharField(_('Academic ID'), max_length=30, blank=True)
     course = models.CharField(_('Course'), max_length=30, blank=True)
     klass = models.CharField(_('Class'), max_length=30, blank=True)
