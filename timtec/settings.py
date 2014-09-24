@@ -443,7 +443,6 @@ INSTALLED_APPS = (
     'course_material',
     'notes',
     'reports',
-    'if',
     # django-metron
     'metron',
     # allauth

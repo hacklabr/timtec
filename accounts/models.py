@@ -25,7 +25,7 @@ def path_and_rename(path):
     return wrapper
 
 
-class BaseTimtecUser(AbstractBaseUser, PermissionsMixin):
+class TimtecUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_REGEXP = re.compile('^[\w.+-]+$')
     username = models.CharField(
         _('Username'), max_length=30, unique=True,
@@ -57,7 +57,6 @@ class BaseTimtecUser(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
-        abstract = True
 
     def __unicode__(self):
         if self.first_name or self.last_name:
