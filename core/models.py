@@ -107,7 +107,8 @@ class Course(models.Model):
         if not Class.objects.filter(course=self, students=student).exists():
             self.default_class.students.add(student)
 
-        CourseStudent.objects.create(course=self, user=student)
+        if not CourseStudent.objects.filter(course=self, user=student).exists():
+            CourseStudent.objects.create(course=self, user=student)
 
     def get_thumbnail_url(self):
         if self.thumbnail:
