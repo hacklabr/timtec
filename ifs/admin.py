@@ -9,7 +9,7 @@ class IfUserAdmin(UserAdmin):
     model = User
 
     fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('ifid', 'campus', 'city', 'course', 'klass')}),
+        (None, {'fields': ('ifid', 'campus', 'city', 'course', 'klass', 'is_if_staff',)}),
     )
 
 admin.site.unregister(User)
