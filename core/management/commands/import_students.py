@@ -1,35 +1,41 @@
 # -*- coding: utf-8 -*-
-from django.core.exceptions import ObjectDoesNotExist
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Group
-from django.conf import settings
+from django.db import transaction
 
 import unicodecsv
 
 User = get_user_model()
 
+sizes = {
+    'username': 30,
+    'last_name': 30,
+    'first_name': 30,
+}
+
 
 class Command(BaseCommand):
-    args = ''
+    args = 'file'
     help = 'import users'
 
-    def handle(self, *args, **options):
-        try:
-            default_group = Group.objects.get(name=settings.REGISTRATION_DEFAULT_GROUP_NAME)
-        except ObjectDoesNotExist:
-            print "Grupo padrão não configurado. Verifique a variável " \
-                  "REGISTRATION_DEFAULT_GROUP_NAME no arquivo settings.py e se o grupo exite"
-        with open('../ifsul.csv', 'r') as csvfile:
+    @transaction.atomic
+    def handle(self, *files, **options):
+
+        if not len(files) == 1:
+            raise CommandError('No file to import')
+
+        with open(files[0], 'r') as csvfile:
             readf = unicodecsv.DictReader(csvfile)
+            count = 0
             for row in readf:
-                for i in ['username',
-                          'last_name',
-                          'first_name']:
-                    if i in row:
-                        row[i] = row[i][:30]
+                for fieldname, size in sizes.items():
+                    if fieldname in row:
+                        row[fieldname] = row[fieldname][:size]
+                set_password = row.pop('set_password')
                 nu = User.objects.create(**row)
-                nu.set_password('x')
-                nu.groups.add(default_group)
+                nu.set_password(set_password)
                 nu.is_if_staff = True
                 nu.save()
+                count += 1
+                if count % 10 == 0:
+                    print '.',
