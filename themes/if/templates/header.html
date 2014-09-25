@@ -98,47 +98,7 @@
                     </div>
                 </li>
                 <li>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans 'Sign Up' %}</a>
-                    <div class="dropdown-menu">
-                        <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}" class="navbar-form">{% csrf_token %}
-                            <div class="row">
-                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <label class="col-lg-5 col-md-5 col-sm-12 col-xs-12 control-label">{% trans "Username" %}</label>
-                                    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                                        <input name="username" type="text" class="form-control" placeholder="{% trans 'Choose an username' %}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <label class="col-lg-5 col-md-5 col-sm-12 col-xs-12 control-label">{% trans 'E-mail' %}</label>
-                                    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                                        <input name="email" type="email" class="form-control" placeholder="{% trans 'Insert your e-mail' %}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <label class="col-lg-5 col-md-5 col-sm-12 col-xs-12 control-label">{% trans 'Password' %}</label>
-                                    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                                        <p><input name="password1" type="password" class="form-control" placeholder="{% trans 'A really strong password' %}"></p>
-                                        <input name="password2" type="password" class="form-control" placeholder="{% trans 'Confirm your password' %}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="submit textright clearfix">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <button class="btn btn-success">{% trans 'Sign Up' %}</button>
-                                </div>
-                            </div>
-                            <div class="divider"></div>
-                            <div class="row">
-                                <p class="bottom textcenter">
-                                    <a href="{% provider_login_url 'facebook' method='oauth2' %}">{% trans 'Connect with Facebook' %}</a>
-                                </p>
-                            </div>
-                        </form>
-                    </div>
+                    <a class="dropdown-toggle" href="{% url 'account_signup' %}">{% trans 'Sign Up' %}</a>
                 </li>
             {% endif %}
             </ul>

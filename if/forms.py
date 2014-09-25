@@ -1,21 +1,17 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth import get_user_model
 from django import forms
-# from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
+from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from allauth.account.forms import LoginForm
 
 
-class IfSignupForm(forms.ModelForm):
+class BaseUserChangeForm(forms.ModelForm):
     email = forms.RegexField(label=_("email"), max_length=75, regex=r"^[\w.@+-]+$")
 
     password1 = forms.CharField(widget=forms.PasswordInput, label=_("Password"), required=False)
     password2 = forms.CharField(widget=forms.PasswordInput, label=_("Password (again)"), required=False)
-    if_student = forms.BooleanField(required=False)
-
-    class Meta:
-        model = get_user_model()
-        fields = ('ifid', 'first_name', 'last_name', 'email', 'campus', 'city', 'course', 'klass')
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
@@ -24,6 +20,75 @@ class IfSignupForm(forms.ModelForm):
             if password1 != password2:
                 raise forms.ValidationError(_("The two password fields didn't match."))
         return password2
+
+
+class SignupStudentCompletion(BaseUserChangeForm):
+
+    def __init__(self, *args, **kwargs):
+        super(SignupStudentCompletion, self).__init__(*args, **kwargs)
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+        self.fields['city'].required = True
+        self.fields['ifid'].required = True
+        self.fields['course'].required = True
+        self.fields['klass'].required = True
+        self.fields['campus'].required = True
+
+    class Meta:
+        model = get_user_model()
+        fields = ('ifid', 'first_name', 'last_name', 'email', 'campus', 'city', 'course', 'klass')
+
+    def save(self, **kwargs):
+        user = super(SignupStudentCompletion, self).save(commit=False)
+        user.ifid = self.cleaned_data['ifid']
+        user.course = self.cleaned_data['course']
+        user.klass = self.cleaned_data['klass']
+        user.campus = self.cleaned_data['campus']
+        user.campus = self.cleaned_data['city']
+        if self.cleaned_data['password1']:
+            user.set_password(self.cleaned_data['password1'])
+        user.save()
+
+
+class SignupProfessorCompletion(BaseUserChangeForm):
+
+    def __init__(self, *args, **kwargs):
+        super(SignupStudentCompletion, self).__init__(*args, **kwargs)
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+        self.fields['city'].required = True
+        self.fields['siape'].required = True
+        self.fields['cpf'].required = True
+        self.fields['campus'].required = True
+
+    class Meta:
+        model = get_user_model()
+        fields = ('first_name', 'last_name', 'email', 'campus', 'city', 'siape', 'cpf')
+
+    def save(self, **kwargs):
+        user = super(SignupStudentCompletion, self).save(commit=False)
+        user.ifid = self.cleaned_data['siape']
+        user.course = self.cleaned_data['cpf']
+        user.campus = self.cleaned_data['campus']
+        user.campus = self.cleaned_data['city']
+        if self.cleaned_data['password2']:
+            user.set_password(self.cleaned_data['password2'])
+        user.save()
+
+
+class IfSignupForm(BaseUserChangeForm):
+
+    def __init__(self, *args, **kwargs):
+        super(IfSignupForm, self).__init__(*args, **kwargs)
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+        self.fields['city'].required = True
+
+    if_student = forms.BooleanField(required=False)
+
+    class Meta:
+        model = get_user_model()
+        fields = ('ifid', 'first_name', 'last_name', 'email', 'campus', 'city', 'course', 'klass')
 
     def clean_ifid(self):
         data = self.cleaned_data['ifid']
@@ -49,29 +114,24 @@ class IfSignupForm(forms.ModelForm):
             raise forms.ValidationError('O campo campus é obrigatório para alunos do IFSUL.')
         return data
 
-    def save(self, user):
+    def signup(self, request, user):
         if 'if_student' in self.data:
             user.ifid = self.cleaned_data['ifid']
             user.course = self.cleaned_data['course']
             user.klass = self.cleaned_data['klass']
             user.campus = self.cleaned_data['campus']
-            user.campus.is_if_student = True
+            user.city = self.cleaned_data['city']
+            user.is_if_staff = True
             user.save()
 
 
 class IfLoginForm(LoginForm):
     def login(self, request, redirect_url=None):
         response = super(IfLoginForm, self).login(request, redirect_url)
-        # if self.user.is_authenticated():
-        #     if not self.user.email or
-        #     return HttpResponseRedirect(r)
-
+        if self.user.is_authenticated():
+            if self.user.is_if_staff:
+                if not (self.user.campus and self.user.klass and self.user.course and self.user.ifid):
+                    url = reverse_lazy('signup_completion')
+                    url += '?next=' + response.url
+                    return redirect(url)
         return response
-
-
-class SignupStudentCompletion(forms.ModelForm):
-    pass
-
-
-class SignupProfessorCompletion(forms.ModelForm):
-    pass

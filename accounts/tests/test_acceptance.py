@@ -27,7 +27,8 @@ def test_login_form_email_verification(client, user):
     assert response.context['request'].user.is_authenticated() is False
 
     response = client.post('/accounts/signup/', {'username': "test", 'email': "test@example.com",
-                                                 'password1': 123123, 'password2': 123123, "accept_terms": True})
+                                                 'password1': 123123, 'password2': 123123, "accept_terms": True,
+                                                 'first_name': "test", 'last_name': "test", 'city': "test"})
 
     assert response.status_code == 302
 
