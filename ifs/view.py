@@ -11,7 +11,7 @@ class SignupCompletionView(LoginRequiredMixin, UpdateView):
     are not present after login.
     """
     model = get_user_model()
-    template_name = 'if/signup-completion.html'
+    template_name = 'ifs/signup-completion.html'
 
     def get_success_url(self):
         url = self.request.REQUEST.get('next', None)
