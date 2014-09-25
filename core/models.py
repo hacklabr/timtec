@@ -397,16 +397,3 @@ class EmailTemplate(models.Model):
     name = models.CharField(max_length=50)
     subject = models.CharField(max_length=255)
     template = models.TextField()
-
-
-class Class(models.Model):
-    name = models.CharField(max_length=200)
-    assistant = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Assistant'), related_name='professor_classes')
-    students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='classes', blank=True)
-    course = models.ForeignKey(Course, verbose_name=_('Course'))
-
-    def __unicode__(self):
-        return u'%s @ %s' % (self.name, self.course)
-
-    def get_absolute_url(self):
-        return reverse('class', kwargs={'pk': self.id})
