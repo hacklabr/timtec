@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from south.v2 import DataMigration
-from django.db import db
+from django import db
 from django.core.management.color import no_style
 import django
 

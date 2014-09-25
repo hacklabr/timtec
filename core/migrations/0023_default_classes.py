@@ -16,7 +16,7 @@ class Migration(DataMigration):
         for course in courses:
             klass = orm.Class(name=course.name, course=course)
             klass.save()
-            stds = orm[settings.AUTH_USER_MODEL].objects \
+            stds = orm[u'accounts.timtecuser'].objects \
                 .filter(coursestudent__course=course) \
                 .exclude(classes__course=course)
             klass.students.add(*stds)
