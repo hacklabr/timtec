@@ -31,7 +31,7 @@ class Migration(DataMigration):
                 print 'u:', old_u.username, 'f:', old_u.first_name, old_u.id
                 raise
 
-            sequence_sql = db.connection.ops.sequence_reset_sql(no_style(), [orm['accounts.timtecuser']])
+            sequence_sql = db.connection.ops.sequence_reset_sql(no_style(), [orm.IfUser])
             cursor = db.connection.cursor()
             for line in sequence_sql:
                 cursor.execute(line)
