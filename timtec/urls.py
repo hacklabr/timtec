@@ -125,8 +125,11 @@ urlpatterns = patterns(
 if settings.TWITTER_USER != '':
     from core.views import TwitterApi
 
-    urlpatterns += url(r'^api/twitter/?$', TwitterApi.as_view(), name='twitter'),
+    urlpatterns += (url(r'^api/twitter/?$', TwitterApi.as_view(), name='twitter'),)
 
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if 'ifs' in settings.INSTALLED_APPS:
+    urlpatterns += (url(r'^ifs/', include('ifs.urls')),)
