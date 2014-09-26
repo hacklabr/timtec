@@ -18,8 +18,7 @@ endef
 define base_update
 	cp timtec/settings_local_$1.py timtec/settings_local.py
 	~/env/bin/pip install -U -r requirements.txt
-	~/env/bin/python manage.py syncdb --noinput
-	~/env/bin/python manage.py migrate --noinput
+	~/env/bin/python manage.py syncdb --all --noinput
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
 	touch ~/wsgi-reload
@@ -34,8 +33,7 @@ create-staging:
 create-production: create-staging
 	cp timtec/settings_local_production.py timtec/settings_local.py
 	cp ../settings_production.py timtec/settings_production.py
-	~/env/bin/python manage.py syncdb --noinput --no-initial-data
-	~/env/bin/python manage.py migrate --noinput --no-initial-data
+	~/env/bin/python manage.py syncdb --all --noinput --no-initial-data
 	~/env/bin/python manage.py loaddata production
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
@@ -113,7 +111,6 @@ dumpdata: clean
 reset_db: clean
 	python manage.py reset_db --router=default --noinput -U $(USER)
 	python manage.py syncdb --all --noinput
-	python manage.py migrate --noinput --fake
 
 messages: clean
 	python manage.py makemessages -a -d django
