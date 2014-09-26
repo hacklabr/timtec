@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
-
 {% block content %}
 
 <!-- TABLET, DESKTOP AND MOBILE -->
@@ -11,20 +10,20 @@
             <i class="fa fa-smile-o"></i><br/>
             {% trans "Sign Up" %}!
         </h1>
-        <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}" class="form-horizontal">{% csrf_token %}
+        <form method="post" action="{% url 'signup_completion' %}" class="form-horizontal">{% csrf_token %}
             <div class="form-group">
                 <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "Full Name" %}</label>
 
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                     {% with errors=form.first_name.errors %}
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-xs-12 left{{ errors|yesno:" has-error,"}}">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 left{{ errors|yesno:" has-error,"}}">
                         <input name="first_name" type="text" class="form-control" placeholder="Primeiro nome" value="{{form.first_name.value|default_if_none:""}}">
                         {% for error in errors %}<small>{{error}}</small>{% endfor %}
                     </div>
                     {% endwith %}
 
                     {% with errors=form.last_name.errors %}
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-xs-12 right{{ errors|yesno:" has-error,"}}">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 right{{ errors|yesno:" has-error,"}}">
                         <input name="last_name" type="text" class="form-control" placeholder="Último nome" value="{{form.last_name.value|default_if_none:""}}">
                         {% for error in errors %}<small>{{error}}</small>{% endfor %}
                     </div>
