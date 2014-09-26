@@ -25,11 +25,12 @@ DATABASES = {
     }
 }
 
+INSTALLED_APPS = list(INSTALLED_APPS)
+INSTALLED_APPS.insert(INSTALLED_APPS.index('accounts') + 1, 'ifs')
+
 ACCOUNT_SIGNUP_FORM_CLASS = 'ifs.forms.IfSignupForm'
 AUTH_USER_MODEL = 'ifs.IfUser'
 ACCOUNT_FORMS = {'login': 'ifs.forms.IfLoginForm'}
-INSTALLED_APPS = list(INSTALLED_APPS)
-INSTALLED_APPS.insert(INSTALLED_APPS.index('accounts') + 1, 'ifs')
 
 MEDIA_ROOT = "/home/timtec-ifsul/webfiles/media/"
 STATIC_ROOT = "/home/timtec-ifsul/webfiles/static/"
@@ -38,9 +39,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_SUBJECT_PREFIX = '[timtec-ifsul]'
 DEFAULT_FROM_EMAIL = 'donotreply@m.timtec.com.br'
 CONTACT_RECIPIENT_LIST = ['timtec-dev@listas.hacklab.com.br', ]
-
-ACCOUNT_SIGNUP_FORM_CLASS = 'if.forms.IfSignupForm'
-AUTH_USER_MODEL = 'if.IfUser'
 
 LOGGING = {
     'version': 1,
