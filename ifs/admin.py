@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import get_user_model
+from .models import Campus
 
 User = get_user_model()
 
@@ -15,3 +16,4 @@ class IfUserAdmin(UserAdmin):
 admin.site.unregister(User)
 
 admin.site.register(User, IfUserAdmin)
+admin.site.register(Campus)

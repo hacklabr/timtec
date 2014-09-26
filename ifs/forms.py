@@ -5,6 +5,7 @@ from django.shortcuts import redirect
 from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from allauth.account.forms import LoginForm
+from .models import Campus
 
 
 class BaseUserChangeForm(forms.ModelForm):
@@ -83,6 +84,8 @@ class IfSignupForm(BaseUserChangeForm):
         self.fields['first_name'].required = True
         self.fields['last_name'].required = True
         self.fields['city'].required = True
+        # self.fields['campus'] = forms.ModelChoiceField(queryset=Campus.objects.all())
+        import ipdb;ipdb.set_trace()
 
     if_student = forms.BooleanField(required=False)
 
