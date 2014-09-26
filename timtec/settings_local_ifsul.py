@@ -13,6 +13,8 @@ ALLOWED_HOSTS = [
     '.ifsul.timtec.com.br',
     'ifsul.hacklab.com.br',
     '.ifsul.hacklab.com.br',
+    'mooc.ifsul.edu.br',
+    '.mooc.ifsul.edu.br',
 ]
 
 DATABASES = {
@@ -22,6 +24,12 @@ DATABASES = {
         'USER': 'timtec-ifsul',
     }
 }
+
+ACCOUNT_SIGNUP_FORM_CLASS = 'ifs.forms.IfSignupForm'
+AUTH_USER_MODEL = 'ifs.IfUser'
+ACCOUNT_FORMS = {'login': 'ifs.forms.IfLoginForm'}
+INSTALLED_APPS = list(INSTALLED_APPS)
+INSTALLED_APPS.insert(INSTALLED_APPS.index('accounts') + 1, 'ifs')
 
 MEDIA_ROOT = "/home/timtec-ifsul/webfiles/media/"
 STATIC_ROOT = "/home/timtec-ifsul/webfiles/static/"
