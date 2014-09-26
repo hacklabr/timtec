@@ -2,7 +2,7 @@
 from django.views.generic import UpdateView
 from django.contrib.auth import get_user_model
 from braces.views import LoginRequiredMixin
-from .forms import IfSignupForm, SignupProfessorCompletion
+from .forms import SignupStudentCompletion, SignupProfessorCompletion
 
 
 class SignupCompletionView(LoginRequiredMixin, UpdateView):
@@ -25,7 +25,7 @@ class SignupCompletionView(LoginRequiredMixin, UpdateView):
         if self.request.user.groups.filter(name='professors').exists():
             return SignupProfessorCompletion
         else:
-            return IfSignupForm
+            return SignupStudentCompletion
 
     def get_object(self):
         return self.request.user
