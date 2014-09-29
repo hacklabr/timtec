@@ -10,7 +10,7 @@
             <i class="fa fa-smile-o"></i><br/>
             {% trans "Please verify and complete you account information" %}
         </h1>
-        <form method="post" action="{% url 'account_signup' %}" class="form-horizontal">{% csrf_token %}
+        <form method="post" action="{% url 'signup_completion' %}" class="form-horizontal">{% csrf_token %}
             <div class="form-group">
                 <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "Full Name" %}</label>
 
