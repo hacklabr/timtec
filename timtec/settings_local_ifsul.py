@@ -40,6 +40,8 @@ EMAIL_SUBJECT_PREFIX = '[timtec-ifsul]'
 DEFAULT_FROM_EMAIL = 'donotreply@m.timtec.com.br'
 CONTACT_RECIPIENT_LIST = ['timtec-dev@listas.hacklab.com.br', ]
 
+TERMS_ACCEPTANCE_REQUIRED = False
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

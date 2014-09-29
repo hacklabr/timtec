@@ -32,6 +32,8 @@ EMAIL_HOST = 'localhost'
 DEFAULT_FROM_EMAIL = 'donotreply-dev@m.timtec.com.br'
 CONTACT_RECIPIENT_LIST = ['timtec-dev@listas.hacklab.com.br', ]
 
+TERMS_ACCEPTANCE_REQUIRED = True
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
