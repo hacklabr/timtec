@@ -32,4 +32,3 @@ class IfUser(AbstractTimtecUser):
 
     class Meta(AbstractTimtecUser.Meta):
         swappable = 'AUTH_USER_MODEL'
-
