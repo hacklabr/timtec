@@ -1,7 +1,14 @@
 #!/bin/bash
 
-virtualenv timtec-env
-source timtec-env/bin/activate
-cd timtec
-make
+TIMTEC_VIRTUALENVFOLDER=~/timtec-env
+TIMTEC_FOLDER=~/timtec
 
+## Create virtualenv
+
+virtualenv ${TIMTEC_VIRTUALENVFOLDER}
+source ${TIMTEC_VIRTUALENVFOLDER}/bin/activate
+
+## Install depencencies and basic django setup
+
+cd ${TIMTEC_FOLDER}
+make
