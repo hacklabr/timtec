@@ -17,7 +17,7 @@ endef
 
 define base_update
 	cp timtec/settings_local_$1.py timtec/settings_local.py
-	~/env/bin/pip install -r requirements.txt
+	~/env/bin/pip install -U -r requirements.txt
 	~/env/bin/python manage.py syncdb --noinput
 	~/env/bin/python manage.py migrate --noinput
 	~/env/bin/python manage.py collectstatic --noinput
@@ -112,8 +112,8 @@ dumpdata: clean
 
 reset_db: clean
 	python manage.py reset_db --router=default --noinput -U $(USER)
-	python manage.py syncdb --all --noinput
-	python manage.py migrate --noinput --fake
+	python manage.py syncdb --noinput
+	python manage.py migrate --noinput
 
 messages: clean
 	python manage.py makemessages -a -d django

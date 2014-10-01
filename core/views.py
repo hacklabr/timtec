@@ -24,7 +24,7 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           CourseThumbSerializer, LessonSerializer,
                           StudentProgressSerializer, CourseNoteSerializer,
                           LessonNoteSerializer, ProfessorMessageSerializer,
-                          CourseStudentSerializer,)
+                          CourseStudentSerializer, ClassSerializer)
 
 from .models import (Course, CourseProfessor, Lesson, StudentProgress,
                      Unit, ProfessorMessage, CourseStudent, Class)
@@ -140,7 +140,7 @@ class EnrollCourseView(LoginRequiredMixin, RedirectView):
 
     def get_redirect_url(self, **kwargs):
         course = self.get_object()
-        if self.request.user.accepted_terms:
+        if self.request.user.accepted_terms or not settings.TERMS_ACCEPTANCE_REQUIRED:
             course.enroll_student(self.request.user)
             return reverse_lazy('lesson', args=[course.slug, course.first_lesson().slug])
         else:
@@ -224,7 +224,8 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     def metadata(self, request):
         data = super(CourseViewSet, self).metadata(request)
-        data.get('actions').get('POST').get('status').update({'choices': dict(Course.STATES[1:])})
+        if data.get('actions'):
+            data.get('actions').get('POST').get('status').update({'choices': dict(Course.STATES[1:])})
         return data
 
 
@@ -264,6 +265,13 @@ class LessonDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(LessonDetailView, self).get_context_data(**kwargs)
         unit_content_type = ContentType.objects.get_for_model(Unit)
+        course = self.object.course
+        lessons = list(course.public_lessons)
+        if self.object != lessons[-1]:
+            index = lessons.index(self.object)
+            context['next_url'] = reverse_lazy('lesson',
+                                               args=[course.slug,
+                                                     lessons[index + 1].slug])
         context['unit_content_type_id'] = unit_content_type.id
         return context
 
@@ -442,3 +450,14 @@ class UserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
             del course.lessons_dict
             results.append(CourseNoteSerializer(course).data)
         return Response(results)
+
+
+class ClassViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
+
+    model = Class
+    serializer_class = ClassSerializer
+    filter_fields = ('course',)
+
+    def get_queryset(self):
+        user = self.request.user
+        return Class.objects.filter(assistant=user)

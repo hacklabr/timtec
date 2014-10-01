@@ -12,11 +12,12 @@ def test_percent_progress_by_lesson(user):
     course = mommy.make('Course')
     lesson = mommy.make('Lesson', name='Test Course', slug='test-course', course=course)
     video = mommy.make('Video')
-    activity = mommy.make('Activity')
-    unit1 = mommy.make('Unit', lesson=lesson, video=video, activity=activity)
-    unit2 = mommy.make('Unit', lesson=lesson, video=None, activity=activity)
-    unit3 = mommy.make('Unit', lesson=lesson, video=video, activity=None)
-    unit4 = mommy.make('Unit', lesson=lesson, video=video, activity=None)
+    unit1 = mommy.make('Unit', lesson=lesson, video=video)
+    mommy.make('Activity', unit=unit1)
+    unit2 = mommy.make('Unit', lesson=lesson, video=None)
+    mommy.make('Activity', unit=unit2)
+    unit3 = mommy.make('Unit', lesson=lesson, video=video)
+    unit4 = mommy.make('Unit', lesson=lesson, video=video)
     course_student = mommy.make('CourseStudent', course=course, user=user)
     mommy.make('StudentProgress', user=user, unit=unit1, complete=datetime.now())
     mommy.make('StudentProgress', user=user, unit=unit2, complete=datetime.now())
@@ -61,9 +62,6 @@ def test_enroll_user_create_single_entry_of_coursestudent(user):
     course = mommy.make('Course', slug='dbsql1234')
 
     assert CourseStudent.objects.filter(user=user, course=course).count() == 0
-
-    course.enroll_student(user)
-    assert CourseStudent.objects.filter(user=user, course=course).count() == 1
 
     course.enroll_student(user)
     assert CourseStudent.objects.filter(user=user, course=course).count() == 1

@@ -11,7 +11,7 @@ def test_login(timbrowser, user):
     b.visit(b.url)
     b.find_by_xpath('//a[normalize-space(text())="Entrar"]').click()
     assert b.is_element_present_by_css('.open .dropdown-menu')
-    b.fill('username', user.username)
+    b.fill('login', user.username)
     b.fill('password', 'password')
     b.find_by_css('.submit .btn-success').first.click()
     assert b.is_element_present_by_css('.username')

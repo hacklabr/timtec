@@ -6,12 +6,16 @@
         controller('NoteCtrl', ['$scope', '$window', '$location', 'LessonData', 'Note',
             function ($scope, $window, $location, LessonData, Note) {
                 $scope.save_note = function() {
+                    var promisse;
                     $scope.note.text = $scope.note_text;
                     if ($scope.note.id) {
-                        $scope.note.$update({note_id: $scope.note.id});
+                        promisse = $scope.note.$update({note_id: $scope.note.id});
                     } else {
-                        $scope.note.$save();
+                        promisse = $scope.note.$save();
                     }
+                    promisse.then(function () {
+                        $('.notes .message').show().delay(2000).fadeOut();
+                    });
                 };
                 function load_note() {
                     LessonData.then(function (lesson) {

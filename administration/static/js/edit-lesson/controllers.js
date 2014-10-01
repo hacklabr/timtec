@@ -156,6 +156,7 @@
                 $scope.currentUnit.video.youtube_id = youtube_id;
                 VideoData.load(youtube_id).then(function(data){
                     $scope.currentUnit.video.name = data.entry.title.$t;
+                    $scope.currentUnit.title = data.entry.title.$t;
                 });
                 $scope.play(youtube_id);
             };
@@ -166,20 +167,16 @@
                        .format($scope.currentActivity.type);
             };
 
-            $scope.addNewActivity = function() {
+            $scope.addNewActivity = function(type) {
                 if(!$scope.currentUnit) return;
                 if(!$scope.currentUnit.activities) $scope.currentUnit.activities = [];
 
-                var type = $scope.newActivityType;
                 var expected;
-                switch (type) {
-                    case 'simplechoice':
-                        expected = 0;
-                        break;
-                    case 'html5':
-                        expected = '';  // shouldn't it be ['']?
-                        break;
-                    default:
+                if (type === 'simplechoice') {
+                    expected = 0;
+                } else if (type === 'html5') {
+                    expected = '';  // shouldn't it be ['']?
+                } else {
                         expected = [];
                 }
                 $scope.currentActivity = {

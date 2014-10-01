@@ -32,6 +32,8 @@ EMAIL_HOST = 'localhost'
 DEFAULT_FROM_EMAIL = 'donotreply-dev@m.timtec.com.br'
 CONTACT_RECIPIENT_LIST = ['timtec-dev@listas.hacklab.com.br', ]
 
+TERMS_ACCEPTANCE_REQUIRED = True
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -52,7 +54,7 @@ METRON_SETTINGS = {
 }
 
 
-LOGIN_URL = '/login/'
+LOGIN_URL = '/accounts/login/'
 
 LOGIN_REDIRECT_URL = '/'
 
@@ -474,7 +476,7 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = True
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[timtec] "
 ACCOUNT_SIGNUP_FORM_CLASS = 'core.forms.SignupForm'
 SOCIALACCOUNT_EMAIL_VERIFICATION = False
@@ -515,8 +517,8 @@ LOGGING = {
 }
 
 try:
-    from .settings_local import *
-except ImportError:
+    execfile(os.path.join(SETTINGS_DIR, 'settings_local.py'))
+except IOError:
     pass
 
 # Additional locations of static files
@@ -545,9 +547,6 @@ if DEBUG:
         'debug_toolbar',
     )
     INTERNAL_IPS = ('127.0.0.1', )
-    DEBUG_TOOLBAR_CONFIG = {
-        'INTERCEPT_REDIRECTS': False,
-    }
 
 # Fix debug toolbar issue: https://github.com/django-debug-toolbar/django-debug-toolbar/issues/521
 # DEBUG_TOOLBAR_PATCH_SETTINGS = False

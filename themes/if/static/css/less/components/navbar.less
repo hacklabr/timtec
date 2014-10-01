@@ -93,6 +93,9 @@
     }
   }
   .navbar-collapse {
+    @media (min-width: @screen-sm-min) {
+      float: right;
+    }
     overflow: hidden;
     max-height: initial;
   }
@@ -110,8 +113,9 @@
       margin-right: -15px;
     }
   }
-  #site-nav {
-    float: right !important;
+  .dropdown-menu {
+    left: initial;
+    right: 0;
   }
 }
 

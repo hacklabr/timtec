@@ -1,10 +1,14 @@
 // ACTIONS
 .actions-menu {
   background-color: darken(@brand-light, 10%);
+  height: 52px;
   margin-bottom: 20px;
   margin-top: -50px;
   padding: 10px 0;
   position: relative;
+  .container {
+    position: relative;
+  }
   .status {
     margin-left: 40px;
     margin-right: 10px;
@@ -21,14 +25,10 @@
   @media screen and (max-width: @screen-xs-max) {
     margin-top: 0;
   }
-  @media screen and (max-width: 450px) {
-    .col-xs-5, .col-xs-7 {
-      width: 100%;
-    }
-    .col-xs-7 {
-      text-align: left;
-      margin-top: 10px;
-    }
+  .actions-buttons {
+    display: inline-block;
+    position: absolute;
+    right: 15px;
   }
 }
 // END ACTIONS

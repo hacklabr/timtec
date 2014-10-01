@@ -38,16 +38,13 @@
         <!-- ACTIONS -->
         <div class="actions-menu" fixed-bar>
             <div class="container">
-                <div class="row">
-                    <div class="col-xs-12 textright">
-                        <!-- <button class="btn btn-info">Listar | <i class="fa fa-star-o"></i></button> -->
-                        <button class="btn btn-danger" title="{% trans 'Delete course' %}" ng-click="deleteCourse()">{% trans 'Delete' %} | <i class="fa fa-trash-o"></i></button>
-                        <button class="btn btn-success" ng-click="saveCourse()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
-                        <button class="btn btn-warning" ng-click="publishCourse()">{% trans 'Publish' %} | <i class="fa fa-star-o"></i></button>
-                    </div>
+                <div class="actions-buttons">
+                    <button class="btn btn-danger" title="{% trans 'Delete course' %}" ng-click="deleteCourse()">{% trans 'Delete' %} | <i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-success" ng-click="saveCourse()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
+                    <button class="btn btn-warning" ng-click="publishCourse()">{% trans 'Publish' %} | <i class="fa fa-star-o"></i></button>
                 </div>
+                {% include 'administration/_alert.html' %}
             </div>
-
         </div>
         <!-- END ACTIONS -->
     {% endif %}
@@ -224,11 +221,17 @@
                 {% else %}
                     <!-- COURSE-VIDEO -->
                     <section class="video embed-responsive embed-responsive-16by9" id="course-video">
-                        <iframe id="youtube-player"
-                                type="text/html"
-                                src="//www.youtube.com/embed/{{course.intro_video.youtube_id}}?rel=0&showinfo=0&autohide=1&theme=light&wmode=opaque"
-                                allowfullscreen>
-                        </iframe>
+                        {% with yid=course.intro_video.youtube_id %}
+                        {% if yid %}
+                            <iframe id="youtube-player"
+                                    type="text/html"
+                                    src="//www.youtube.com/embed/{{yid}}?rel=0&showinfo=0&autohide=1&theme=light&wmode=opaque"
+                                    allowfullscreen>
+                            </iframe>
+                        {% elif course.thumbnail %}
+                            <img class="img-responsive" src="{{ course.thumbnail.url }}">
+                        {% endif %}
+                        {% endwith %}
                     </section>
                     <!-- END COURSE-VIDEO -->
                 {% endif %}
@@ -505,7 +508,7 @@
                                                                data-toggle="tooltip" data-placement="bottom"
                                                                data-original-title="Unidade {{ forloop.counter }}"
                                                                href="{% url 'lesson' course.slug lesson.slug %}#/{{ forloop.counter }}">
-                                                               {% if unit.activity %}
+                                                               {% if unit.activities.exists %}
                                                                    <i class="fa fa-list"></i>
                                                                {% endif %}
                                                             </a>
@@ -513,7 +516,7 @@
                                                             <span class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
                                                                   data-toggle="tooltip" data-placement="bottom"
                                                                   data-original-title="Unidade {{ forloop.counter }}">
-                                                                  {% if unit.activity %}
+                                                                  {% if unit.activities.exists %}
                                                                       <i class="fa fa-list"></i>
                                                                   {% endif %}
                                                             </span>
@@ -634,7 +637,6 @@
     <!-- END COURSE CONTENT -->
 
     {% if in_admin %}
-        {% include 'administration/_alert.html' %}
         <professorslist on-select="addProfessor" active="professorsModalActive"></professorslist>
     {% endif %}
 

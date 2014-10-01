@@ -64,6 +64,7 @@
                 $httpBackend.expect('POST', '/api/forum_answer').
                     respond({"id": 5, "question": 3, "text": "Resposta de Teste\n\nasdfsafdsafhnasilduasoidfsainaosi", "votes": 0, "timestamp": "2013-10-17T16:46:13.632Z", "username": "abcd"});
 
+                scope.new_text = 'asdf';
                 scope.new_answer();
                 $httpBackend.flush();
                 expect(scope.answers.pop()).toEqualData({"id": 5, "question": 3, "text": "Resposta de Teste\n\nasdfsafdsafhnasilduasoidfsainaosi", "votes": 0, "timestamp": "2013-10-17T16:46:13.632Z", "username": "abcd"});

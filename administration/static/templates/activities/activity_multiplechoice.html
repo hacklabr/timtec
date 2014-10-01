@@ -1,5 +1,6 @@
 <div class="question">
     <div class="editable-title"><input type="text" ng-model="currentActivity.data.question" placeholder="Título da atividade"></div>
+    <button class="btn btn-danger" ng-click="removeCurrentActivity()"><i class="fa fa-trash-o"></i></button>
 </div>
 <div class="answers multiplechoice-answers">
     <div ng-repeat="alt in currentActivity.data.alternatives track by $index" class="answer">

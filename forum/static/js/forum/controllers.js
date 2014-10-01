@@ -38,9 +38,16 @@
 
                 $scope.new_answer = function () {
                     var questionId = parseInt($window.question_id, 10);
-                    var new_answer = ForumAnswer.save({question: questionId, text: $scope.new_text});
-                    $scope.answers.push(new_answer);
-                    $scope.editor_enabled = false;
+                    if ($scope.new_text === undefined || $scope.new_text === '') {
+                        $scope.new_answer_validation_error = true;
+                    } else {
+                        var new_answer = ForumAnswer.save({question: questionId, text: $scope.new_text}, function(new_answer){
+                            new_answer.votes = 0;
+                        });
+                        $scope.answers.push(new_answer);
+                        $scope.editor_enabled = false;
+                    }
+
                 };
         }]).
         controller('InlineForumCtrl', ['$scope', '$window', '$modal', '$http', 'Question',
@@ -208,11 +215,11 @@
                             $scope.answer_vote.value = 0;
                         }
                     });
-                $scope.vote = function(vote_type) {
+                $scope.vote = function(answer_voted, vote_type) {
                     var current_vote = $scope.answer_vote.value;
                     $scope.answer_vote.value = vote_value(vote_type, current_vote);
                     $scope.answer.votes += $scope.answer_vote.value - current_vote;
-                    $scope.answer_vote.$update({answer: $scope.answer_vote.answer});
+                    $scope.answer_vote.$update({answer: answer_voted.id});
                 };
         }]);
 })(angular);
