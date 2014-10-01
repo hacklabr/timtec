@@ -11,6 +11,14 @@ We provide a vagrant file for easy dev environment creation. Install
 
     vagrant up
 
+Them you just need to go inside the machine to start the dev server:
+
+    vagrant ssh
+
+On the VM console:
+
+    ./manage.py runserver 0.0.0.0:8000
+
 See the Vagrantfile and script folder for more details.
 
 ## Dependencies
