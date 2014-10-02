@@ -8,6 +8,12 @@ from allauth.account.forms import LoginForm
 
 
 class BaseUserChangeForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(BaseUserChangeForm, self).__init__(*args, **kwargs)
+        self.fields['password1'].required = True
+        self.fields['password2'].required = True
+
     email = forms.RegexField(label=_("email"), max_length=75, regex=r"^[\w.@+-]+$")
 
     password1 = forms.CharField(widget=forms.PasswordInput, label=_("Password"), required=False)
@@ -66,7 +72,7 @@ class SignupProfessorCompletion(BaseUserChangeForm):
         fields = ('first_name', 'last_name', 'email', 'campus', 'city', 'siape', 'cpf')
 
     def save(self, **kwargs):
-        user = super(SignupStudentCompletion, self).save(commit=False)
+        user = super(SignupProfessorCompletion, self).save(commit=False)
         user.ifid = self.cleaned_data['siape']
         user.course = self.cleaned_data['cpf']
         user.campus = self.cleaned_data['campus']
@@ -131,8 +137,14 @@ class IfLoginForm(LoginForm):
         response = super(IfLoginForm, self).login(request, redirect_url)
         if self.user.is_authenticated():
             if self.user.is_if_staff:
-                if not (self.user.campus and self.user.klass and self.user.course and self.user.ifid):
-                    url = reverse_lazy('signup_completion')
-                    url += '?next=' + response.url
-                    return redirect(url)
+                if request.user.groups.filter(name='professors').exists():
+                    if not (self.user.campus and self.user.cpf and self.user.siape):
+                        url = reverse_lazy('signup_completion')
+                        url += '?next=' + response.url
+                        return redirect(url)
+                else:
+                    if not (self.user.campus and self.user.klass and self.user.course and self.user.ifid):
+                        url = reverse_lazy('signup_completion')
+                        url += '?next=' + response.url
+                        return redirect(url)
         return response

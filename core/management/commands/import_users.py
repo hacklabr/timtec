@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.core.management.base import BaseCommand, CommandError
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, models
 from django.db import transaction
 
 import unicodecsv
@@ -36,6 +36,8 @@ class Command(BaseCommand):
                 nu.set_password(set_password)
                 nu.is_if_staff = True
                 nu.save()
+                if nu.cpf:  # only valid for IfUsers, remove if you don't need it
+                    nu.groups.add(models.Group.objects.get(name="professors"))
                 count += 1
                 if count % 10 == 0:
                     print '.',
