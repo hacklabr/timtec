@@ -97,7 +97,11 @@
             <div ng-show="ifstudent" class="form-group{{ errors|yesno:' has-error,' }}">
                 <label class="col-lg-4 col-sm-4 col-xs-12 control-label">{% trans "Campus" %}</label>
                 <div class="col-lg-8 col-sm-8 col-xs-12">
-                    {{form.campus}}
+                    <select id="id_campus" name="campus">
+                    {% for x,y in form.fields.campus.choices %}
+                        <option value="{{ x }}">{{ y }}</option>
+                    {% endfor %}
+                    </select>
                     {% for error in errors %}<small>{{error}}</small>{% endfor %}
                 </div>
             </div>

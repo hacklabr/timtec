@@ -67,7 +67,11 @@
             <div class="form-group{{ errors|yesno:' has-error,' }}">
                 <label class="col-sm-4 col-xs-12 control-label">{% trans "Campus" %}</label>
                 <div class="col-sm-8 col-xs-12">
-                    <input name="campus" type="text" value="{{form.campus.value|default_if_none:""}}" class="form-control" placeholder="{% trans 'Campus' %}">
+                    <select id="id_campus" name="campus">
+                        {% for x,y in form.fields.campus.choices %}
+                            <option value="{{ x }}">{{ y }}</option>
+                        {% endfor %}
+                    </select>
                     {% for error in errors %}<small>{{error}}</small>{% endfor %}
                 </div>
             </div>
