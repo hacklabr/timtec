@@ -30,25 +30,29 @@
         <!-- FILTERS -->
         <div class="filters">
             <!--  FORM INLINE -->
-            <div class="form-inline">
+            <form class="form-inline">
                 <!-- ROW -->
                 <div class="row">
-                    <div class="filter-checkbox col-sm-12">
-                        <select ng-model="filters.selected_class" ng-change="filter_stats()">
-                            <option value="all" ng-if="current_user.role == 'coordinator'">Todas as turmas deste curso</option>
-                            <option value="my_classes">Minhas turmas</option>
-                            {% verbatim %}
-                            <option ng-repeat="klass in my_classes" id="{{klass.id}}" value="{{klass.id}}">{{ klass.name }}</option>
-                            {% endverbatim %}
-                             <option value="others_classes" ng-if="current_user.role == 'coordinator'">Turmas dos outros professores</option>
-                            {% verbatim %}
-                            <option ng-repeat="klass in others_classes" id="{{klass.id}}" value="{{klass.id}}">{{ klass.name }}</option>
-                            {% endverbatim %}
-                        </select>
+                    <div class="col-sm-12">
+                        <label for="filter-class"> {% trans "Filter classes" %}:
+                            <select class="form-control" id="filter-class" ng-model="filters.selected_class" ng-change="filter_stats()">
+                                <optgroup label="Liste por:">
+                                    <option value="my_classes">Minhas turmas</option>
+                                    <option value="all" ng-if="current_user.role == 'coordinator'">Todas as turmas deste curso</option>
+                                    <option value="others_classes" ng-if="current_user.role == 'coordinator'">Turmas dos outros professores</option>
+                                </optgroup>
+                                <optgroup label="Ou escolha uma turma:">
+                                    {% verbatim %}
+                                    <option ng-repeat="klass in my_classes" id="{{klass.id}}" value="{{klass.id}}">{{ klass.name }}</option>
+                                    <option ng-repeat="klass in others_classes" id="{{klass.id}}" value="{{klass.id}}">{{ klass.name }}</option>
+                                    {% endverbatim %}
+                                </optgroup>
+                            </select>
+                        </label>
                     </div>
                 </div>
                 <!-- END ROW -->
-            </div>
+            </form>
             <!-- END FORM INLINE -->
         </div>
         <!-- END FILTERS -->
