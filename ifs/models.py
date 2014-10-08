@@ -4,6 +4,15 @@ from accounts.models import AbstractTimtecUser
 from django.utils.translation import ugettext_lazy as _
 
 
+class Campus(models.Model):
+    name = models.CharField(_('Name'), max_length=30, blank=True)
+    city = models.CharField(_('City'), max_length=30)
+    address = models.CharField(_('Address'), max_length=30, blank=True)
+
+    def __unicode__(self):
+        return self.name or self.city
+
+
 class IfUser(AbstractTimtecUser):
     # students fields
     # if_id eh o identificador de matricula
@@ -18,7 +27,7 @@ class IfUser(AbstractTimtecUser):
     siape = models.CharField(_('Siape'), max_length=30, blank=True)
 
     # common fields
-    campus = models.CharField(_('Campus'), max_length=30, blank=True)
+    campus = models.ForeignKey(Campus, verbose_name=_('Campus'), related_name='users', null=True, blank=True)
     is_if_staff = models.BooleanField(default=False)
 
     class Meta(AbstractTimtecUser.Meta):
