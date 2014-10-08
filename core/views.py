@@ -460,4 +460,9 @@ class ClassViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
+        course_id = self.request.QUERY_PARAMS.get('course')
+        if course_id:
+            role = user.teaching_courses.get(course__id=course_id).role
+            if role == 'coordinator':
+                return Class.objects.all()
         return Class.objects.filter(assistant=user)

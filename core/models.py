@@ -122,8 +122,11 @@ class Course(models.Model):
         else:
             return False
 
-    def avg_lessons_users_progress(self):
-        student_enrolled = self.coursestudent_set.all().count()
+    def avg_lessons_users_progress(self, classes=None):
+        if classes:
+            student_enrolled = self.coursestudent_set.filter(user__classes__in=classes).count()
+        else:
+            student_enrolled = self.coursestudent_set.all().count()
         progress_list = []
         for lesson in self.lessons.all():
             lesson_progress = {}
@@ -132,9 +135,12 @@ class Course(models.Model):
             lesson_progress['position'] = lesson.position
             units_len = lesson.unit_count()
             if units_len:
-                units_done_len = StudentProgress.objects.exclude(complete=None).filter(unit__lesson=lesson).count()
+                units_done = StudentProgress.objects.exclude(complete=None).filter(unit__lesson=lesson)
+                if classes:
+                    units_done = units_done.filter(user__classes__in=classes)
+                units_done_len = units_done.count()
                 lesson_progress['progress'] = 100 * units_done_len / (units_len * student_enrolled)
-                lesson_progress['forum_questions'] = lesson.forum_questions.count()
+                # lesson_progress['forum_questions'] = lesson.forum_questions.count()
                 # lesson_progress['progress'] =
                 # lesson_progress['finish'] = self.get_lesson_finish_time(lesson)
             else:
@@ -222,6 +228,7 @@ class CourseStudent(models.Model):
         """
         Returns a list with dictionaries with keys name (lesson name), slug (lesson slug) and progress (percent lesson progress, decimal)
         """
+        # TODO refator to make one query to count unts done for all lessons
         progress_list = []
         for lesson in self.course.lessons.all():
             lesson_progress = {}
@@ -253,7 +260,7 @@ class CourseProfessor(models.Model):
         ('coordinator', _('Professor Coordinator')),
     )
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Professor'))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Professor'), related_name='teaching_courses')
     course = models.ForeignKey(Course, verbose_name=_('Course'))
     biography = models.TextField(_('Biography'), blank=True)
     role = models.CharField(_('Role'), choices=ROLES, default=ROLES[1][0], max_length=128)
