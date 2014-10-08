@@ -19,7 +19,7 @@
                     var current_user = course_professor[0];
                     $scope.classes = Class.query({course: $scope.courseId}, function(classes){
                         if (current_user.role == 'assistant') {
-                            $scope.my_classes = classes
+                            $scope.my_classes = classes;
                             $scope.filters.selected_class = 'my_classes';
                         } else if (current_user.role == 'coordinator') {
                             $scope.filters.selected_class = 'all';
@@ -56,5 +56,5 @@
                         $scope.course_stats = CourseStats.get({courseId: $scope.courseId, classes: $scope.filters.selected_class});
                     }
                 };
-        }])
+        }]);
 })(angular);
