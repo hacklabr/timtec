@@ -1,0 +1,26 @@
+server {
+    listen       80;
+    server_name  www.yourdomain.com.br;
+    return       301 http://yourdomain.com.br$request_uri;
+}
+
+server {
+    listen 80;
+    client_max_body_size 4m;
+    server_name timtec.com.br;
+
+    access_log /var/log/nginx/production.timtec.com.br.access.log;
+    error_log /var/log/nginx/production.timtec.com.br.error.log;
+
+    root /home/timtec-production/webfiles/;
+
+    location / {
+        try_files $uri @uwsgi;
+    }
+
+    location @uwsgi {
+        uwsgi_pass 127.0.0.1:8002;
+        include uwsgi_params;
+    }
+}
+

@@ -105,6 +105,8 @@ setup_js:
 
 setup_django: clean
 	python manage.py syncdb --all --noinput
+	python manage.py migrate --fake --noinput
+	python manage.py loaddata minimal
 	python manage.py compilemessages
 
 dumpdata: clean
