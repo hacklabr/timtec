@@ -8,6 +8,9 @@ from django.db.models import get_app, get_models
 
 
 class Migration(SchemaMigration):
+    depends_on = (
+        ('accounts', '0002_create_timtecuser'),
+    )
 
     def forwards(self, orm):
         # Adding model 'Note'
