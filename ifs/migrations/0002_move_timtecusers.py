@@ -31,11 +31,17 @@ class Migration(DataMigration):
                 print 'u:', old_u.username, 'f:', old_u.first_name, old_u.id
                 raise
 
-            sequence_sql = db.connection.ops.sequence_reset_sql(no_style(), [orm.IfUser])
-            cursor = db.connection.cursor()
-            for line in sequence_sql:
-                cursor.execute(line)
-            cursor.close()
+        for group in orm['auth.group'].objects.all():
+            for user in group.user_set.all():
+                new_u = orm.IfUser.objects.get(id=user.id)
+                new_u.groups.add(group)
+                new_u.save()
+
+        sequence_sql = db.connection.ops.sequence_reset_sql(no_style(), [orm.IfUser])
+        cursor = db.connection.cursor()
+        for line in sequence_sql:
+            cursor.execute(line)
+        cursor.close()
 
     def backwards(self, orm):
         "Write your backwards methods here."
