@@ -1,6 +1,6 @@
 twitter
 Django==1.6.7
-jsonfield==0.9.20
+jsonfield==1.0.0
 django-suit==0.2.5
 south==0.8.4
 Pillow==2.4.0
