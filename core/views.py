@@ -105,6 +105,12 @@ class ContactView(View):
         return response
 
 
+class GenericCourseView(DetailView):
+    model = Course
+    context_object_name = 'course'
+    slug_url_kwarg = 'course_slug'
+
+
 class CourseView(DetailView):
     model = Course
     template_name = 'course.html'

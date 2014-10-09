@@ -10,9 +10,9 @@
         };
     });
 
-    module.controller('NewMessageController', ['$scope', '$modal', 'Message', 'Student', 'StudentSearch', 'Class', 'messages_list', '$rootScope',
-            function($scope, $modal,  Message, Student, StudentSearch, Class, messages_list, $rootScope) {
-                $scope.course_id = document.location.href.match(/course\/([0-9]+)/)[1];
+    module.controller('NewMessageController', ['$scope', '$modal', '$window', 'Message', 'Student', 'StudentSearch', 'Class', 'messages_list', '$rootScope',
+            function($scope, $modal, $window, Message, Student, StudentSearch, Class, messages_list, $rootScope) {
+                $scope.course_id = parseInt($window.course_id, 10);
                 $scope.messages = messages_list.messages;
                 $scope.new_message = function () {
                     var modalInstance = $modal.open({
@@ -101,9 +101,10 @@
             }
         ]);
 
-    module.controller('MessagesListController', ['$scope', '$modal', 'Message', 'messages_list',
-        function($scope, $modal,  Message, messages_list) {
-            $scope.course_id = document.location.href.match(/course\/([0-9]+)/)[1];
+    module.controller('MessagesListController', ['$scope', '$modal', '$window', 'Message', 'messages_list',
+        function($scope, $modal, $window, Message, messages_list) {
+            $scope.course_id = parseInt($window.course_id, 10);
+            $scope.course_slug = $window.course_slug;
             messages_list.messages = Message.query({course: $scope.course_id});
             $scope.messages = messages_list.messages;
             $scope.$on('newMessage', function() {
@@ -112,9 +113,9 @@
         }
     ]);
 
-    module.controller('MessageController', ['$scope', 'Message',
-        function($scope, Message) {
-            $scope.course_id = document.location.href.match(/course\/([0-9]+)/)[1];
+    module.controller('MessageController', ['$scope', '$window', 'Message',
+        function($scope, $window, Message) {
+            $scope.course_id = parseInt($window.course_id, 10);
             $scope.message_id = document.location.href.match(/message\/([0-9]+)/)[1];
             $scope.message = Message.get({messageId: $scope.message_id}, function(message) {
             });
