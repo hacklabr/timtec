@@ -89,6 +89,7 @@ class IfSignupForm(BaseUserChangeForm):
         self.fields['first_name'].required = True
         self.fields['last_name'].required = True
         self.fields['city'].required = True
+        # self.fields['campus'] = forms.ModelChoiceField(queryset=Campus.objects.all())
 
     if_student = forms.BooleanField(required=False)
 
