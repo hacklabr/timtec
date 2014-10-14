@@ -19,7 +19,15 @@ On the VM console:
 
     ./manage.py runserver 0.0.0.0:8000
 
+Now the system is running, you can go to `http://localhost:8000` on your web
+browser and navigate on it.
+To create a new superuser (so you can give permissions to other make other users professors) run:
+
+    ./manage.py createsuperuser
+
 See the Vagrantfile and script folder for more details.
+
+
 
 ## Dependencies
 
