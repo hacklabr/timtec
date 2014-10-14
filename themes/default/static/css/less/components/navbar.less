@@ -33,16 +33,24 @@
     font-weight: bold;
     font-size: 22px;
   }
-  .form-group {
-    margin-bottom: 15px;
+  .navbar-form {
+    margin: 5px 0;
+    padding: 0;
+    .form-group {
+      width: 100%;
+      margin: 10px 0;
+    }
+    .form-control {
+      width: 100%;
+    }
+    label {
+      font-weight: normal;
+    }
+    .submit {
+      line-height: 2.5;
+    }
   }
-  label {
-    font-weight: normal;
-    line-height: 2.5;
-  }
-  .submit {
-    line-height: 2.5;
-  }
+
   .navbar-toggle {
     &:hover,
     &:focus {
@@ -67,7 +75,7 @@
   .navbar-collapse {
     @media (min-width: @screen-sm-min) {
       float: right;
-    } 
+    }
     overflow: hidden;
     max-height: initial;
   }
@@ -77,6 +85,10 @@
       margin-left: 5px;
       vertical-align: middle;
     }
+  }
+  .dropdown-menu {
+    left: initial;
+    right: 0;
   }
 }
 
