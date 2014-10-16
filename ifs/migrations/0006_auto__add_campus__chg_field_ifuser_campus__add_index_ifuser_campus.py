@@ -1,74 +1,44 @@
 # -*- coding: utf-8 -*-
-from south.v2 import DataMigration
-from django import db
-from django.core.management.color import no_style
-import django
+from south.utils import datetime_utils as datetime
+from south.db import db
+from south.v2 import SchemaMigration
+from django.db import models
 
 
-class Migration(DataMigration):
+class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        "Write your forwards methods here."
-        for old_u in orm['accounts.timtecuser'].objects.all():
-            try:
-                new_u = orm.IfUser.objects.create(
-                    username=old_u.username,
-                    date_joined=old_u.date_joined,
-                    email=old_u.email,
-                    first_name=old_u.first_name,
-                    id=old_u.id,
-                    is_active=old_u.is_active,
-                    is_staff=old_u.is_staff,
-                    is_superuser=old_u.is_superuser,
-                    last_login=old_u.last_login,
-                    last_name=old_u.last_name,
-                    password=old_u.password)
-                for perm in old_u.user_permissions.all():
-                    new_u.user_permissions.add(perm)
-                for group in old_u.groups.all():
-                    new_u.groups.add(group)
-            except django.db.utils.IntegrityError:
-                print 'u:', old_u.username, 'f:', old_u.first_name, old_u.id
-                raise
+        # Adding model 'Campus'
+        db.create_table(u'ifs_campus', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
+            ('city', self.gf('django.db.models.fields.CharField')(max_length=30)),
+            ('address', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
+        ))
+        db.send_create_signal(u'ifs', ['Campus'])
 
-        for group in orm['auth.group'].objects.all():
-            for user in group.user_set.all():
-                new_u = orm.IfUser.objects.get(id=user.id)
-                new_u.groups.add(group)
-                new_u.save()
 
-        sequence_sql = db.connection.ops.sequence_reset_sql(no_style(), [orm.IfUser])
-        cursor = db.connection.cursor()
-        for line in sequence_sql:
-            cursor.execute(line)
-        cursor.close()
+        # Renaming column for 'IfUser.campus' to match new field type.
+        db.delete_column(u'ifs_ifuser', 'campus')
+        # db.rename_column(u'ifs_ifuser', 'campus', 'campus_id')
+        db.add_column(u'ifs_ifuser', 'campus',
+                      self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='users', null=True, to=orm['ifs.Campus']),
+                      keep_default=False)
 
     def backwards(self, orm):
-        "Write your backwards methods here."
+        # Removing index on 'IfUser', fields ['campus']
+        db.delete_index(u'ifs_ifuser', ['campus_id'])
+
+        # Deleting model 'Campus'
+        db.delete_table(u'ifs_campus')
+
+
+        # Renaming column for 'IfUser.campus' to match new field type.
+        # db.rename_column(u'ifs_ifuser', 'campus_id', 'campus')
+        # Changing field 'IfUser.campus'
+        db.add_column(u'ifs_ifuser', 'campus', self.gf('django.db.models.fields.CharField')(default='', max_length=30))
 
     models = {
-        u'accounts.timtecuser': {
-            'Meta': {'object_name': 'TimtecUser'},
-            'accepted_terms': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'biography': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'city': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'unique': 'True', 'max_length': '75'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Group']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'occupation': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'picture': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'blank': 'True'}),
-            'site': ('django.db.models.fields.URLField', [], {'max_length': '200', 'blank': 'True'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"}),
-            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
-        },
         u'auth.group': {
             'Meta': {'object_name': 'Group'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -89,16 +59,23 @@ class Migration(DataMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
+        u'ifs.campus': {
+            'Meta': {'object_name': 'Campus'},
+            'address': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
+            'city': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'})
+        },
         u'ifs.ifuser': {
             'Meta': {'object_name': 'IfUser'},
             'accepted_terms': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'biography': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'campus': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
+            'campus': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'users'", 'null': 'True', 'to': u"orm['ifs.Campus']"}),
             'city': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'course': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'cpf': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'unique': 'True', 'max_length': '75'}),
+            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'groups': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Group']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -120,5 +97,4 @@ class Migration(DataMigration):
         }
     }
 
-    complete_apps = ['accounts', 'ifs']
-    symmetrical = True
+    complete_apps = ['ifs']
