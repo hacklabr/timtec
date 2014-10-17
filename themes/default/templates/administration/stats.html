@@ -7,6 +7,10 @@
     {{ block.super }}
     {% compressed_js 'reports' %}
     {% compressed_js 'admin_course_header' %}
+    <script>
+        window.user_id = {{ user.pk }};
+        window.is_admin = ('{{ in_admin }}' === 'True');
+    </script>
 {% endblock %}
 
 {% block content %}
@@ -20,7 +24,8 @@
         {% include "_course-header-inline.html"  with course=course %}
     {% endif %}
 
-    <section id="stats-content" class="container">
+    <section id="stats-content" class="container" ng-controller="ReportsCtrl">
+
         <header class="secondary-header">
             <div class="row">
                 <div class="col-sm-9">
@@ -28,6 +33,36 @@
                 </div>
             </div>
         </header>
+
+        <!-- FILTERS -->
+        <div class="filters">
+            <!--  FORM INLINE -->
+            <form class="form-inline">
+                <!-- ROW -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="filter-class"> {% trans "Filter classes" %}:
+                            <select class="form-control" id="filter-class" ng-model="filters.selected_class" ng-change="filter_stats()">
+                                <optgroup label="Liste por:">
+                                    <option ng-if="my_classes.length" value="my_classes">Minhas turmas</option>
+                                    <option value="all" ng-if="current_user_role == 'coordinator'">Todas as turmas deste curso</option>
+                                    <option value="others_classes" ng-if="current_user_role == 'coordinator' && others_classes.length">Turmas dos outros professores</option>
+                                </optgroup>
+                                <optgroup ng-if="others_classes.length || my_classes.length " label="Ou escolha uma turma:">
+                                    {% verbatim %}
+                                    <option ng-repeat="klass in my_classes" id="{{klass.id}}" value="{{klass.id}}">{{ klass.name }}</option>
+                                    <option ng-repeat="klass in others_classes" id="{{klass.id}}" value="{{klass.id}}">{{ klass.name }}</option>
+                                    {% endverbatim %}
+                                </optgroup>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+                <!-- END ROW -->
+            </form>
+            <!-- END FORM INLINE -->
+        </div>
+        <!-- END FILTERS -->
 
         <section class="row">
             <div class="col-xs-12">
@@ -37,16 +72,20 @@
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane fade in active" id="students" ng-controller="CourseUsersReportsCtrl">
-                        <div class="row">
+                    <div class="tab-pane fade in active" id="students">
+                        <div class="col-lg-12" ng-hide="users_reports.$resolved">
+                            <p>{% trans 'Loading students statistics' %}...   <i class="loading fa fa-refresh fa-spin"></i></p>
+                        </div>
+                        <div class="row" ng-show="users_reports.$resolved">
                             <div class="col-sm-8">
-                                <h2>Total de alunos: {% verbatim %}{{ users_reports.length }}{% endverbatim %} alunos</h2>
+                                <h3>{% trans 'Students progress' %}</h3>
+                                <h4>{% trans 'Total number of students' %}: {% verbatim %}{{ users_reports.length }}{% endverbatim %}</h4   >
                             </div>
                             <div class="col-sm-4 textright">
                                 <input type="text" placeholder="{% blocktrans %}Search student{% endblocktrans %}" class="form-control search-filter">
                             </div>
                         </div>
-                        <ul class="students">
+                        <ul class="students" ng-show="users_reports.$resolved">
                             <li ng-repeat="user in users_reports">
                                 <div class="row">
                                 {% verbatim %}
@@ -59,13 +98,16 @@
                                     </div>
                                 {% endverbatim %}
                                     <div class="col-md-2 col-sm-3 col-xs-12 textright">
-                                        <span class="label label-default pointer" ng-click="showLessons=!showLessons">
+                                        <span class="label label-default pointer" ng-click="show_user_progress_details(user);showLessons=!showLessons">
                                             {% trans 'Show lessons' %}
                                             <i class="fa" ng-class="{'fa fa-caret-down':!showLessons,'fa fa-caret-up':showLessons}"></i>
                                         </span>
                                     </div>
-                                    <div class="lessons col-xs-12" ng-show="showLessons">
-                                        <div class="lesson" ng-repeat="lesson in user.lessons_progress">
+                                    <div class="lessons col-xs-12" ng-if="showLessons">
+                                        <div class="col-lg-12" ng-hide="user.lessons_stats.$resolved">
+                                            <span>{% trans 'Loading students statistics' %}...   <i class="loading fa fa-refresh fa-spin"></i></span>
+                                        </div>
+                                        <div class="lesson" ng-repeat="lesson in user.lessons_stats.lessons_progress">
                                             {% verbatim %}
                                             <div class="row">
                                                 <div class="col-lg-5 col-md-6 col-sm-7 col-xs-10">{{ lesson.name }}</div>
@@ -88,7 +130,15 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="tab-pane fade in" id="lessons" ng-controller="CourseLessonsReportsCtrl">
+                    <div class="tab-pane fade in" id="lessons">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <h3>{% trans 'Average student progress per class' %}</h3>
+                                <div class="col-lg-12" ng-hide="course_stats.$resolved">
+                                    <p>{% trans 'Loading lessons statistics' %}...   <i class="loading fa fa-refresh fa-spin"></i></p>
+                                </div>
+                            </div>
+                        </div>
                         <ul class="lessons">
                             <li class="lesson" ng-repeat="lesson in course_stats.lessons_avg_progress">
                                 {% verbatim %}
