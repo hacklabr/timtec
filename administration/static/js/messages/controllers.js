@@ -41,7 +41,7 @@
                     $scope.empty_msg_subject_error = false;
                     $scope.empty_msg_body_error = false;
 
-                    $scope.classes = Class.query({course: $scope.course_id}, function(classes){
+                    $scope.classes = Class.query({course: course_id}, function(classes){
                         classes.checked = [];
                         return classes;
                     });
