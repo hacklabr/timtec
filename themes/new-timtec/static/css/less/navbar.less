@@ -1,7 +1,6 @@
 body {
     position: relative;
     min-height: 100%;
-    padding: 0 0 80px;
     background-image: url('../img/bg.jpg');
     background-position: top center;
 }
@@ -14,6 +13,10 @@ body {
     height: 80px;
     .gradient (@startColor: #007dc3, @endColor: #1451a2);
     .box-shadow(0px 5px 5px 0px rgba(0, 0, 0, 0.3));
+
+    a {
+        text-decoration: none;
+    }
 
     h1, h2 {
         background-size: 100% 100%;
@@ -65,6 +68,27 @@ body {
         font-family: @font-family-sans-serif;
         label {
             font-weight: bold;
+        }
+        &.user-menu {
+            background-color: rgba(0, 116, 190, 0.7);
+            width: initial;
+            li {
+                border-bottom: 2px solid #fff;
+                &:last-child {
+                    border-bottom: 0;
+                }
+                a {
+                    color: #fff;
+                    font-family: @teuton-24;
+                    padding: 7px 15px;
+                    text-align: right;
+                    text-transform: uppercase;
+                    &:hover {
+                        background-color: #b7e5f7;
+                        color: #0074be;
+                    }
+                }
+            }
         }
     }
 

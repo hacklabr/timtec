@@ -36,6 +36,7 @@
                 </div><!-- .row -->
             </section><!-- #courses -->
 
+            <!-- twitter sidebar -->
             <div class="col-md-4 hidden-sm hidden-xs">
                 <div class="row">
                     <section class="twitter col-lg-10 col-lg-offset-2 col-md-11 col-md-offset-1" role="complementary">
@@ -65,8 +66,32 @@
                     </section><!-- .twitter -->
                 </div>
             </div><!-- .col-md-4 -->
+            <!-- twitter sidebar -->
+        </div><!-- .container -->
 
-        </div>
+        <aside class="next-videos hidden-sm hidden-xs" role="complementary">
+            <div class="container">
+                <h3>Próximos <span>lançamentos</span></h3>
+                <div class="slider">
+                    {% verbatim %}
+                    <carousel>
+                        <slide ng-repeat="row in upcoming_courses_rows_3">
+                            <div class="col-lg-4 col-md-4" ng-repeat="course in row">
+                                <a ng-href="/course/{{ course.slug }}">
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="thumb">
+                                            <img ng-src="{{ course.home_thumbnail_url }}">
+                                        </div>
+                                    </div>
+                                    <h4 class="col-lg-6 col-md-6">{{ course.name }}</h4>
+                                </a>
+                            </div>
+                        </slide>
+                    </carousel>
+                    {% endverbatim %}
+                </div>
+            </div><!-- .container -->
+        </aside><!-- .next-videos -->
     </div><!-- #home -->
 
 </div>
