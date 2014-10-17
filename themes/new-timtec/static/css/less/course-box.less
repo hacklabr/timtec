@@ -7,7 +7,7 @@
             border-radius: 3px;
             .box-shadow(0px 10px 30px 0px rgba(0, 0, 0, 0.3));
             .mouseover {
-                background-color: @brand-info;
+                display: none;
             }
         } // .thumb-wrapper
         .course-link { // link wrapper
@@ -52,6 +52,9 @@
             float: left;
             background-color: @brand-success;
             padding: 6px 12px;
+            &:hover {
+              background-color: darken(@brand-success, 10%);
+            }
           }
         }
     }
