@@ -1,0 +1,79 @@
+// COURSES PAGE
+// ********************************************************************* //
+
+#courses-page {
+  #courses > div:first-child {
+    background-color: rgba(255,255,255,0.5);
+  }
+  .course {
+    .thumb-wrapper {
+      @media (min-width: 540px) and (max-width: @screen-xs-max) {
+        float: left;
+        width: 50%;
+      }
+      @media (min-width: @screen-sm-min) {
+        float: left;
+        width: 40%;
+      }
+    }
+  }
+
+  .filters {
+    background: @gray-lighter;
+    margin-bottom: 30px;
+    padding: 10px;
+    .status {
+      @media (max-width: @screen-xs-max) {
+        .btn {
+          margin-bottom: 10px;
+          width: 100%;
+        }
+      }
+    }
+    .btn-default {
+      background-color: lighten(@gray-light, 20%);
+      &:hover {
+        background-color: lighten(@gray-light, 15%);
+      }
+    }
+    .input-group-btn {
+      .btn {
+        height: 34px;
+      }
+    }
+  }
+  .more-info {
+    margin: 0 -15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: rgba(40,112,187,0.5);
+    .box {
+      border-bottom: none;
+      padding: 15px;
+      margin: 0 15px 15px;
+      color: #fff;
+      &:first-child {
+        background-color: #00bfda;
+        color: #000;
+        h3 {
+          font-size: 27px;
+          font-weight: bold;
+          color: #1254a5;
+        }
+      }
+      &:nth-child(2) {
+        background-color: @brand-success;
+        h3 {
+          font-size: 55px;
+          font-weight: bold;
+        }
+      }
+      &:nth-child(3) {
+        background-color: #0d4c8f;
+      }
+      &:nth-child(4) {
+        background-color: #1e9dd9;
+      }
+    }
+  }
+}
