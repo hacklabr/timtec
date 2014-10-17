@@ -9,6 +9,7 @@
     {% compressed_js 'admin_course_header' %}
     <script>
         window.user_id = {{ user.pk }};
+        window.is_admin = ('{{ in_admin }}' === 'True');
     </script>
 {% endblock %}
 
@@ -37,11 +38,11 @@
                         <label for="filter-class"> {% trans "Filter classes" %}:
                             <select class="form-control" id="filter-class" ng-model="filters.selected_class" ng-change="filter_stats()">
                                 <optgroup label="Liste por:">
-                                    <option value="my_classes">Minhas turmas</option>
-                                    <option value="all" ng-if="current_user.role == 'coordinator'">Todas as turmas deste curso</option>
-                                    <option value="others_classes" ng-if="current_user.role == 'coordinator'">Turmas dos outros professores</option>
+                                    <option ng-if="my_classes.length" value="my_classes">Minhas turmas</option>
+                                    <option value="all" ng-if="current_user_role == 'coordinator'">Todas as turmas deste curso</option>
+                                    <option value="others_classes" ng-if="current_user_role == 'coordinator' && others_classes.length">Turmas dos outros professores</option>
                                 </optgroup>
-                                <optgroup label="Ou escolha uma turma:">
+                                <optgroup ng-if="others_classes.length || my_classes.length " label="Ou escolha uma turma:">
                                     {% verbatim %}
                                     <option ng-repeat="klass in my_classes" id="{{klass.id}}" value="{{klass.id}}">{{ klass.name }}</option>
                                     <option ng-repeat="klass in others_classes" id="{{klass.id}}" value="{{klass.id}}">{{ klass.name }}</option>

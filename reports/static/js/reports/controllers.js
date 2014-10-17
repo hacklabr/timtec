@@ -17,14 +17,26 @@
 
                 CourseProfessor.query({course: $scope.courseId, user: current_user_id}, function(course_professor){
                     var current_user = course_professor[0];
+                    var current_user_role = '';
+                    // If current_user is undefined, he is not course professor, but may be admin
+                    if (current_user === undefined) {
+                        if ($window.is_admin)
+                            // if user is admin, set role to coordinator, higher role in course.
+                            current_user_role = 'coordinator';
+                    } else {
+                        current_user_role = current_user.role;
+                    }
+
                     $scope.classes = Class.query({course: $scope.courseId}, function(classes){
-                        if (current_user.role == 'assistant') {
+                        if (current_user_role == 'assistant') {
                             $scope.my_classes = classes;
                             $scope.filters.selected_class = 'my_classes';
-                        } else if (current_user.role == 'coordinator') {
+                        } else if (current_user_role == 'coordinator') {
                             $scope.filters.selected_class = 'all';
                             classes.forEach(function(klass) {
-                                if (klass.assistant == current_user.user) {
+                                // if current user is undefined, he is not course professor, so he don't have any class
+                                // in this course.
+                                if (current_user !== undefined && klass.assistant == current_user.user) {
                                     $scope.my_classes.unshift(klass);
                                 } else {
                                     $scope.others_classes.unshift(klass);
@@ -32,7 +44,7 @@
                             });
                         }
                     });
-                    $scope.current_user =  current_user;
+                    $scope.current_user_role =  current_user_role;
                 });
 
                 $scope.show_user_progress_details = function(user) {
