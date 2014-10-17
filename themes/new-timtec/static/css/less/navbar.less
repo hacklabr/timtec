@@ -69,6 +69,27 @@ body {
         label {
             font-weight: bold;
         }
+        &.user-menu {
+            background-color: rgba(0, 116, 190, 0.7);
+            width: initial;
+            li {
+                border-bottom: 2px solid #fff;
+                &:last-child {
+                    border-bottom: 0;
+                }
+                a {
+                    color: #fff;
+                    font-family: @teuton-24;
+                    padding: 7px 15px;
+                    text-align: right;
+                    text-transform: uppercase;
+                    &:hover {
+                        background-color: #b7e5f7;
+                        color: #0074be;
+                    }
+                }
+            }
+        }
     }
 
     @media (min-width: @screen-sm-min) {
