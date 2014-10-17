@@ -177,11 +177,15 @@
 
   // COURSE NOTES - General
   // ********************************************************************* //
+  #student-notes {
+    @media (max-width: @screen-sm-max) { margin-top: 20px; }
+  }
   .notes {
     textarea {
       border: 2px solid @gray-lighter;
       height: 235px;
       @media (min-width: @screen-lg-min) { height: 310px; }
+      @media (max-width: @screen-sm-max) { width: 100%; }
       margin: 20px 0 10px;
     }
     .message {
@@ -214,6 +218,11 @@
 
   // COURSE UNITS - General
   // ********************************************************************* //
+  #lesson-units-nav {
+    @media (max-width: @screen-sm-max) {
+      width: 13% !important;
+    }
+  }
   .units {
     //margin-top: 20px;
     .unit {

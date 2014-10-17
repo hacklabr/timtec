@@ -50,7 +50,7 @@ class SignupStudentCompletion(BaseUserChangeForm):
         user.course = self.cleaned_data['course']
         user.klass = self.cleaned_data['klass']
         user.campus = self.cleaned_data['campus']
-        user.campus = self.cleaned_data['city']
+        user.city = self.cleaned_data['city']
         if self.cleaned_data['password1']:
             user.set_password(self.cleaned_data['password1'])
         user.save()
@@ -76,7 +76,7 @@ class SignupProfessorCompletion(BaseUserChangeForm):
         user.ifid = self.cleaned_data['siape']
         user.course = self.cleaned_data['cpf']
         user.campus = self.cleaned_data['campus']
-        user.campus = self.cleaned_data['city']
+        user.city = self.cleaned_data['city']
         if self.cleaned_data['password2']:
             user.set_password(self.cleaned_data['password2'])
         user.save()

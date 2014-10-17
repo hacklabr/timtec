@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
-from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import SchemaMigration
-from django.db import models
 
 
 class Migration(SchemaMigration):
+    depends_on = (
+        ('activities', '0007_expected_empty'),
+        ('forum', '0005_auto__add_field_question_hidden_justification'),
+        ('notes', '0001_initial'),
+    )
 
     def forwards(self, orm):
         # Changing field 'Answer.user'

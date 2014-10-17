@@ -36,9 +36,9 @@ MEDIA_ROOT = "/home/timtec-ifsul/webfiles/media/"
 STATIC_ROOT = "/home/timtec-ifsul/webfiles/static/"
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_SUBJECT_PREFIX = '[timtec-ifsul]'
+EMAIL_SUBJECT_PREFIX = '[ifsul]'
 DEFAULT_FROM_EMAIL = 'donotreply@m.timtec.com.br'
-CONTACT_RECIPIENT_LIST = ['timtec-dev@listas.hacklab.com.br', ]
+CONTACT_RECIPIENT_LIST = ['mooc@ifsul.edu.br', ]
 
 TERMS_ACCEPTANCE_REQUIRED = False
 

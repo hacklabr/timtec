@@ -35,11 +35,11 @@
                 <div ng-repeat="unit in lesson.units_notes">
                     <div class="note">
                         <div class="row">
-                            <div class="col-lg-10 col-sm-9 col-xs-12">
+                            <div class="col-lg-10 col-sm-9 col-xs-9">
                                 <p><strong>Unidade {{unit.position + 1}}: {{unit.title}}</strong></p>
                                 <p>{{ unit.user_note.text }}</p>
                             </div>
-                            <div class="col-lg-2 col-sm-3 col-xs-12 textright textleft-xs ">
+                            <div class="col-lg-2 col-sm-3 col-xs-3 textright">
                                 <!-- <button class="btn btn-warning">Editar</button> -->
                                 <button class="btn btn-danger" ng-click="delele_note(lesson, unit, unit.user_note)"><i class="fa fa-trash-o"></i></button>
                             </div>
