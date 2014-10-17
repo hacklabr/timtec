@@ -12,9 +12,14 @@
 {% block content %}
 <div id="stats" class="course-stats" ng-app="reports">
 
+    {% if in_admin %}
     <div ng-controller="HeaderController">
         {% include "_admin_header_inline.html" %}
     </div>
+    {% else %}
+        {% include "_course-header-inline.html"  with course=course %}
+    {% endif %}
+
     <section id="stats-content" class="container">
         <header class="secondary-header">
             <div class="row">
