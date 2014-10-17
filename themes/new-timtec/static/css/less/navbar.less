@@ -2,8 +2,12 @@ body {
     position: relative;
     min-height: 100%;
     padding: 0 0 80px;
-    background-image: url(../img/bg.jpg);
+    background-image: url('../img/bg.jpg');
     background-position: top center;
+}
+
+.btn {
+    text-transform: uppercase;
 }
 
 #main-navbar {
@@ -22,15 +26,25 @@ body {
         }
     }
     h1 {
-        margin: 20px 0 0;
-        width: 236px;
-        height: 36px;
+        margin-top: 26px;
+        width: 236px/1.5;
+        height: 36px/1.5;
+        @media (min-width: @screen-lg-min) {
+            margin-top: 20px;
+            width: 236px;
+            height: 36px;
+        }
         background-image: url('../img/logo-instituto-tim.png');
     }
     h2 {
-        margin: 20px 0 0 100px;
-        width: 106px;
-        height: 36px;
+        margin: 26px 0 0 70px;
+        width: 106px/1.5;
+        height: 36px/1.5;
+        @media (min-width: @screen-lg-min) {
+            margin-top: 20px;
+            width: 106px;
+            height: 36px;
+        }
         background-image: url('../img/logo-timtec.png');
     }
     .tim {
@@ -45,8 +59,16 @@ body {
     .navbar-nav > li > a {
         text-transform: uppercase;
     }
+    .dropdown-menu {
+        background-color: rgba(193, 224, 244, 0.7);
+        border-radius: 0;
+        font-family: @font-family-sans-serif;
+        label {
+            font-weight: bold;
+        }
+    }
 
-    @media (min-width: 768px) {
+    @media (min-width: @screen-sm-min) {
         .navbar-nav > li > a {
             padding-top: 30px;
             padding-bottom: 29px;
