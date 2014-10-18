@@ -1,5 +1,5 @@
 {% load i18n %}
-{% load can_see_classes %}
+{% load is_assistant_or_coordinator %}
 <header class="main-header container">
     <div class="page-header">
         <div class="row">
@@ -17,7 +17,7 @@
                     <a href="{% url 'forum' course.slug %}"><span class="has-tooltip fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Forum' %}"></span></a>
                     <a href="{% url 'course_material' course.slug %}"><span class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Course material' %}"></span></a>
                     <a href="{% url 'user_course_notes' course.slug %}"><span class="has-tooltip fa fa-pencil-square-o" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Course notes' %}"></span></a>
-                    {% if user|can_see_classes:course %}
+                    {% if user|is_assistant_or_coordinator:course %}
                         <a href="{% url 'classes' course.slug %}"><span class="has-tooltip fa fa-users" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Classes' %}"></span></a>
                         <a href="{% url 'messages' course.slug %}"><span class="has-tooltip fa fa-envelope-o" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Messages' %}"></span></a>
                         <a href="{% url 'reports' course.slug %}"><span class="has-tooltip fa fa-bar-chart-o" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Reports' %}"></span></a>
