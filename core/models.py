@@ -139,7 +139,11 @@ class Course(models.Model):
                 if classes:
                     units_done = units_done.filter(user__classes__in=classes)
                 units_done_len = units_done.count()
-                lesson_progress['progress'] = 100 * units_done_len / (units_len * student_enrolled)
+                if units_len and student_enrolled:
+                    # avoid zero divizion
+                    lesson_progress['progress'] = 100 * units_done_len / (units_len * student_enrolled)
+                else:
+                    lesson_progress['progress'] = 0
                 # lesson_progress['forum_questions'] = lesson.forum_questions.count()
                 # lesson_progress['progress'] =
                 # lesson_progress['finish'] = self.get_lesson_finish_time(lesson)

@@ -73,7 +73,7 @@ class CourseStats(serializers.ModelSerializer):
 
     @staticmethod
     def get_lessons_avg_progress(obj):
-        if obj.classes:
+        if hasattr(obj, 'classes') and obj.classes:
             return obj.avg_lessons_users_progress(obj.classes)
         else:
             return obj.avg_lessons_users_progress()
