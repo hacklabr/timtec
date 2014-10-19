@@ -8,8 +8,13 @@
     {% compressed_js 'reports' %}
     {% compressed_js 'admin_course_header' %}
     <script>
+        window.course_id = {{ course.pk }};
         window.user_id = {{ user.pk }};
-        window.is_admin = ('{{ in_admin }}' === 'True');
+        {% if user.is_staff or user.is_superuser  %}
+        window.is_admin = true;
+        {% else %}
+        window.is_admin = false;
+        {% endif %}
     </script>
 {% endblock %}
 
@@ -81,9 +86,11 @@
                                 <h3>{% trans 'Students progress' %}</h3>
                                 <h4>{% trans 'Total number of students' %}: {% verbatim %}{{ users_reports.length }}{% endverbatim %}</h4   >
                             </div>
+                            <!--
                             <div class="col-sm-4 textright">
                                 <input type="text" placeholder="{% blocktrans %}Search student{% endblocktrans %}" class="form-control search-filter">
                             </div>
+                            -->
                         </div>
                         <ul class="students" ng-show="users_reports.$resolved">
                             <li ng-repeat="user in users_reports">
