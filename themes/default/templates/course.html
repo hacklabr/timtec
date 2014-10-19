@@ -58,7 +58,7 @@
         <div class="page-header">
             <!-- ROW -->
             <div class="row">
-                <div class="col-md-9 col-xs-12">
+                <div class="col-md-8 col-xs-12">
                     <div class="editable-title"><input type="text" ng-model="course.name" placeholder="{% trans 'Course name' %}"></div>
                     <div class="course-slug clearfix">
                       <label>http://{{ site.domain }}/course/</label>
@@ -68,13 +68,14 @@
                     </div>
                 </div>
 
-                <div class="col-md-3 col-xs-12 textright">
+                <div class="col-md-4 col-xs-12 textright">
                     <nav class="course-sections textright">
                         <a href=""><span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Course' %}"></span></a>
                         <a ng-href="{% verbatim %}/{{forum_url}}{% endverbatim %}"><span class="has-tooltip fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Forum' %}"></span></a>
                         <a ng-href="{% verbatim %}/{{course_material_url}}{% endverbatim %}"><span class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Material' %}"></span></a>
                         <a ng-href="{% verbatim %}/{{messages_url}}{% endverbatim %}"><span class="has-tooltip fa fa-envelope-o" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Messages' %}"></span></a>
                         <a ng-href="{% verbatim %}/{{reports_url}}{% endverbatim %}"><span class="has-tooltip fa fa-bar-chart-o" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Stats' %}"></span></a>
+                        <a ng-href="{% verbatim %}/{{classes_url}}{% endverbatim %}"><span class="has-tooltip fa fa-users" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Classes' %}"></span></a>
                         <a ng-href="{% verbatim %}/{{permissions_url}}{% endverbatim %}"><span class="has-tooltip fa fa-key" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Permissions' %}"></span></a>
                     </nav>
                 </div>
