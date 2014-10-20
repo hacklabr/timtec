@@ -4,9 +4,13 @@ from model_mommy import mommy
 
 @pytest.mark.django_db
 def test_course_material(admin_client, user):
+    from course_material.models import CourseMaterial
     course = mommy.make('Course', name='Test Course', slug='dbsql')
     mommy.make('Lesson', course=course, slug='lesson')
-    course_material = mommy.make('CourseMaterial', course=course, text='foobar**bold**')
+    # course_material = mommy.make('CourseMaterial', course=course, text='foobar**bold**')
+    course_material = CourseMaterial.objects.get(course=course)
+    course_material.text = 'foobar**bold**'
+    course_material.save()
 
     response = admin_client.get('/course/' + course.slug + '/material/')
 
@@ -20,6 +24,7 @@ def test_course_material(admin_client, user):
 def test_file_upload(rf, user):
     from django.conf import settings
     from course_material.views import FileUploadView
+    from course_material.models import CourseMaterial
     import os
 
     file_name = settings.MEDIA_ROOT + '/dbsql/dummy_file.txt'
@@ -27,7 +32,8 @@ def test_file_upload(rf, user):
         os.remove(file_name)
 
     course = mommy.make('Course', name='Test Course', slug='dbsql')
-    course_material = mommy.make('CourseMaterial', course=course, text='foobar**bold**')
+    # course_material = mommy.make('CourseMaterial', course=course, text='foobar**bold**')
+    course_material = CourseMaterial.objects.get(course=course)
 
     with open('course_material/tests/dummy_file.txt') as fp:
         request = rf.post('/course_material/file_upload/dbsql', {'file': fp, 'course_material': course_material.id})

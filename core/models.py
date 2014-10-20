@@ -15,6 +15,7 @@ from django.conf import settings
 from autoslug import AutoSlugField
 
 from notes.models import Note
+from course_material.models import CourseMaterial
 
 
 class Video(models.Model):
@@ -185,6 +186,7 @@ class Course(models.Model):
             c = Class.objects.create(name=self.name, course=self)
             self.default_class = c
             self.save()
+            CourseMaterial.objects.create(course=self)
 
 
 class CourseStudent(models.Model):
