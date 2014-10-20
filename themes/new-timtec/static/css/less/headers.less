@@ -5,9 +5,9 @@
   border-bottom: none;
   h1,h2,h3,h4,h5,h6 {
     border-bottom: none;
-    color: #fff;
+    color: #0d4c8f;
     i {
-      color:#fff;
+      color:#0d4c8f;
     }
   }
   h1, h2 {
@@ -21,9 +21,9 @@
     border-bottom: none;
     h1 {
       a {
-        color: @gray-darker;
+        color: #007dc3;
         &:hover {
-          color: @brand-info;
+          color: #007dc3;
         }
       }
     }
@@ -36,25 +36,13 @@
     }
   }
   ul.instructors {
-    list-style: none;
-    margin: 0;
-    padding: 0;
     li {
-      display: inline-block;
-      text-transform: uppercase;
+      text-transform: none;
       a {
-        color:@brand-success;
+        color: #000;
         &:hover {
-          color:darken(@brand-success, 10%);
+          color: #000;
         }
-        &:after {
-          content: " // ";
-          color: black;
-          margin-right: 3px;
-        }
-      }
-      &:last-child a:after {
-          content: "";
       }
     }
   }
@@ -65,17 +53,20 @@
   .page-header {
     margin-bottom: 20px;
     h1 {
-      font-size: 16px;
-      text-transform: uppercase;
+      font-family: @teuton-26;
+      font-size: 24px;
+      text-transform: none;
+      color: #007dc3;
     }
     ul.instructors {
-      font-size: 12px;
+      font-family: @teuton-24;
+      font-size: 18px;
     }
   }
 }
 
 .secondary-header {
-  border-bottom: 1px solid @gray-lighter;
+  border-bottom: 1px solid #fff;
   margin-bottom: 20px;
   padding-bottom: 20px;
   h1 {

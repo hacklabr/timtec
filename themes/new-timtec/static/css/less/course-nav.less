@@ -1,0 +1,46 @@
+// COURSE SECTIONS (NAVGATION)
+.course-sections {
+  a {
+    span {
+      border-right: 1px solid @gray-lighter;
+      color: #000;
+      &:hover {
+        color: @brand-info;
+
+      }
+    }
+  }
+}
+
+// LESSON HEADER AND NAVIGATION
+#course.course-lesson {
+  #course-content {
+    nav.course-lessons {
+      margin-bottom: 20px;
+      h1 {
+        .bottom(0,0);
+        font-size: 30px;
+      }
+      .editable-title {
+        font-size: 30px;
+      }
+      p.description {
+        color: @gray-light;
+      }
+    }
+    nav.lesson-units {
+      ul.dropdown-menu {
+        li {
+          a {
+            color: @gray-light;
+            font-size: 12px;
+            &:hover {
+              background-color: transparent;
+              color: @gray;
+            }
+          }
+        }
+      }
+    }
+  }
+}
