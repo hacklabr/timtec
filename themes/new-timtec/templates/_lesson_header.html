@@ -1,8 +1,8 @@
 {% load timtec_markdown %}
         <nav class="lesson-units hidden-xs">
             <div class="btn-group" id="lesson-list-dropdown">
-                <button type="button" class="btn btn-sm btn-default">{{ lesson.name }}</button>
-                <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+                <button type="button" class="btn">{{ lesson.name }}</button>
+                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-chevron-down"></i>
                 </button>
                 <ul class="dropdown-menu">
@@ -16,7 +16,6 @@
         <nav class="course-lessons hidden-xs">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>{{ lesson.name }}</h1>
                     <div class="description">{{ lesson.desc|timtec_markdown }}</div>
                 </div>
             </div>
