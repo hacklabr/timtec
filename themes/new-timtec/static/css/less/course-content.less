@@ -14,7 +14,12 @@
     .page-header-double {
       margin-top: 0;
       h3 {
+        color: #000;
+        font-weight: bold;
         margin-top: 0;
+        i {
+          color: #000;
+        }
       }
     }
     .lesson {
@@ -22,6 +27,9 @@
     }
   }
   // END LESSONS
+
+  // COURSE SUMMARY - Course intro
+  // ********************************************************************* //
   .summary {
     background-color: rgba(40,112,187,0.5);
     margin-top: 15px;
@@ -29,11 +37,71 @@
     > .page-header-double {
       margin-top: 0;
     }
+    .page-header-double {
+      margin-bottom: 0;
+      h3 {
+        font-weight: bold;
+      }
+    }
+    p {
+      color: #fff;
+    }
   }
+  .instructors {
+    h1.fullname {
+      border-bottom: 0;
+      color: #fff;
+    }
+    h2.job-title {
+      border-bottom: 0;
+    }
+  }
+  // END INSTRUCTORS
+
+  // COURSE INFO - Course intro
+  // ********************************************************************* //
+  .course-info {
+    .page-header-double {
+      margin: 10px 0 0;
+      h3 {
+        color: #000;
+        font-weight: bold;
+        i {
+          color: #000;
+        }
+      }
+    }
+  }
+  // END INFO
+
+  // COURSE UNITS - General
+  // ********************************************************************* //
+  .units {
+    .unit {
+      background: #f0ad4e;
+      &:hover {
+        background: darken(#f0ad4e, 10%);
+      }
+      &.current {
+        background-color: @brand-info;
+      }
+    }
+    // END UNIT
+  }
+  // END COURSE UNITS
 }
+
+
 
 // COURSE INTRO
 #course.course-intro {
+  #go-to-course {
+    background-color: @brand-success;
+    text-decoration: none;
+    &:hover {
+      background-color: darken(@brand-success, 10%);
+    }
+  }
   .video {
     .top(15px);
   }
