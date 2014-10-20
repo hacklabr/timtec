@@ -52,7 +52,7 @@
                 var question = scope.answers[0].question;
                 expect(scope.answers.length).toEqual(2);
                 expect(question).toEqual(1);
-                expect(scope.answers).toEqualData([{"id": 1, "question": 1, "text": "O MySQL \u00e9 melhor, pois \u00e9 o mais usado e aceito.", "votes": 0, "timestamp": "2013-09-11T16:28:10.754Z", "username": "abcd"}, {"id": 2, "question": 1, "text": "Depende da aplica\u00e7\u00e3o. N\u00e3o h\u00e1 um SGBD que seja melhor para todas as aplica\u00e7\u00f5es.", "votes": 0, "timestamp": "2013-09-11T16:28:10.761Z", "username": "luciano"}]);
+                expect(scope.answers).toEqualData([{"id": 2, "question": 1, "text": "Depende da aplica\u00e7\u00e3o. N\u00e3o h\u00e1 um SGBD que seja melhor para todas as aplica\u00e7\u00f5es.", "votes": 0, "timestamp": "2013-09-11T16:28:10.761Z", "username": "luciano"}, {"id": 1, "question": 1, "text": "O MySQL \u00e9 melhor, pois \u00e9 o mais usado e aceito.", "votes": 0, "timestamp": "2013-09-11T16:28:10.754Z", "username": "abcd"}]);
             }));
 
             it('QuestionCtrl: add answer function should add an answer to end of questions answers', (function () {

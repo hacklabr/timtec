@@ -21,12 +21,33 @@
         }
     }
 
+    function compare_by_dates(a,b) {
+        if (a.timestamp > b.timestamp)
+           return -1;
+        if (a.timestamp < b.timestamp)
+           return 1;
+        return 0;
+    }
+
+    function compare_by_votes(a,b) {
+        if (a.votes > b.votes)
+           return -1;
+        if (a.votes < b.votes)
+           return 1;
+        return 0;
+    }
+
     angular.module('forum.controllers', ['ngCookies']).
         controller('QuestionCtrl', ['$scope', '$sce', '$window', 'Question', 'ForumAnswer',
             function ($scope, $sce, $window, Question, ForumAnswer) {
                 var questionId = parseInt($window.question_id, 10);
                 var userId = parseInt($window.user_id, 10);
-                $scope.answers = ForumAnswer.query({question: questionId});
+
+                $scope.answers = ForumAnswer.query({question: questionId}, function(answers){
+                    answers.sort(compare_by_dates);
+                    answers.sort(compare_by_votes);
+                    return answers;
+                });
                 $scope.question = Question.get({questionId: questionId});
                 // $scope.question_votes = $scope.question.votes;
                 $scope.editor_enabled = true;
@@ -52,21 +73,6 @@
         }]).
         controller('InlineForumCtrl', ['$scope', '$window', '$modal', '$http', 'Question',
                 function ($scope, $window, $modal, $http, Question) {
-                    function compare_by_dates(a,b) {
-                        if (a.timestamp > b.timestamp)
-                           return -1;
-                        if (a.timestamp < b.timestamp)
-                           return 1;
-                        return 0;
-                    }
-
-                    function compare_by_votes(a,b) {
-                        if (a.votes > b.votes)
-                           return -1;
-                        if (a.votes < b.votes)
-                           return 1;
-                        return 0;
-                    }
 
                     function compare_by_answers(a,b) {
                         if (a.answers.length > b.answers.length)
