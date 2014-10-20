@@ -7,7 +7,7 @@
     border-bottom: none;
     color: #0d4c8f;
     i {
-      color:#0d4c8f;
+      display: none;
     }
   }
   h1, h2 {
@@ -50,11 +50,13 @@
 
 // HEADER STYLES FOR THE INTERNAL PAGES (Lesson, Forum, Notes, Material, Classes)
 .main-header {
+  position: relative;
+  z-index: 10;
   .page-header {
     margin-bottom: 20px;
     h1 {
       font-family: @teuton-26;
-      font-size: 24px;
+      font-size: 32px;
       text-transform: none;
       color: #007dc3;
     }

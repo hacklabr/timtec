@@ -1,7 +1,11 @@
 // COURSE CONTENT
 #course-content {
-  background-color: rgba(255,255,255,0.5);
-
+  margin-top: -150px;
+  > div.row > div:first-child {
+    padding-top: 150px;
+    background-color: rgba(255,255,255,0.5);
+  }
+  
   // COURSE LESSONS - Course intro
   // ********************************************************************* //
   .lessons {
@@ -18,7 +22,7 @@
         font-weight: bold;
         margin-top: 0;
         i {
-          color: #000;
+          display: none;
         }
       }
     }
@@ -32,8 +36,8 @@
   // ********************************************************************* //
   .summary {
     background-color: rgba(40,112,187,0.5);
-    margin-top: 15px;
-    padding: 15px;
+    margin: 0 -15px;
+    padding: 150px 15px 0;
     > .page-header-double {
       margin-top: 0;
     }
@@ -41,9 +45,13 @@
       margin-bottom: 0;
       h3 {
         font-weight: bold;
+        color: #fff;
+        i {
+          display: none;
+        }
       }
     }
-    p {
+    p, a {
       color: #fff;
     }
   }
