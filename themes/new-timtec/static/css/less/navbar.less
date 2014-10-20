@@ -1,18 +1,8 @@
-body {
-    position: relative;
-    min-height: 100%;
-    background-image: url('../img/bg.jpg');
-    background-position: top center;
-}
-
-.btn {
-    text-transform: uppercase;
-}
-
 #main-navbar {
     height: 80px;
     margin-bottom: 0;
     .gradient (@startColor: #007dc3, @endColor: #1451a2);
+    border-color: #1451a2;
     .box-shadow(0px 5px 5px 0px rgba(0, 0, 0, 0.3));
 
     a {
@@ -59,9 +49,13 @@ body {
     }
     .navbar-divider {
         height: 79px;
+        border-right: 1px solid #0d4c8f;
     }
     .navbar-nav > li > a {
         text-transform: uppercase;
+        &:hover {
+            background-color: #0d4c8f;
+        }
     }
     .dropdown-menu {
         background-color: rgba(193, 224, 244, 0.7);
