@@ -64,7 +64,7 @@
 
     {% include 'header.html' %}
 
-    <div class="wrapper">
+    <div class="wrapper {% spaceless %}{% block wrapper_classes %}{% endblock %}{% endspaceless %}">
         {% block content %}
         <h1>missing content block</h1>
         {% endblock %}
