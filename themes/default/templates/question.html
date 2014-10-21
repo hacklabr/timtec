@@ -30,9 +30,9 @@
                 <tr>
                     <td class="rating">
                         <div ng-app="vote" ng-controller="QuestionVoteCtrl">
-                            <div class="arrow-up" ng-class="{active: question_vote.value==1}" ng-click=vote('up')></div>
+                            <div class="arrow-up" ng-class="{active: question_vote.value==1}" ng-click=vote_question('up')></div>
                             <div class="votes" >{{ question.votes }}</div>
-                            <div class="arrow-down" ng-class="{active: question_vote.value==-1}" ng-click=vote('down')></div>
+                            <div class="arrow-down" ng-class="{active: question_vote.value==-1}" ng-click=vote_question('down')></div>
                         </div>
                     </td>
                     <td class="content">
@@ -57,10 +57,10 @@
                         <table>
                             <tr>
                                 <td class="rating">
-                                    <div ng-app="vote" ng-controller="AnswerVoteCtrl">
-                                        <div class="arrow-up" ng-class="{active: answer_vote.value==1}" ng-click=vote(answer,'up')></div>
+                                    <div>
+                                        <div class="arrow-up" ng-class="{active: answer.current_user_vote.value==1}" ng-click=vote(answer,'up')></div>
                                         <div class="votes">{{ answer.votes }}</div>
-                                        <div class="arrow-down" ng-class="{active: answer_vote.value==-1}" ng-click=vote(answer,'down')></div>
+                                        <div class="arrow-down" ng-class="{active: answer.current_user_vote.value==-1}" ng-click=vote(answer,'down')></div>
                                     </div>
                                 </td>
                                 <td class="content">

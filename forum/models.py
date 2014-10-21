@@ -49,9 +49,9 @@ class Answer(models.Model):
 
 class Vote(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('User'))
-    timestamp = models.DateTimeField(auto_now_add=True, editable=False)
+    timestamp = models.DateTimeField(auto_now=True)
     # Defines vote up or vote down. Vote up:1; Vote down: -1.
-    value = models.IntegerField(null=False, blank=False)
+    value = models.IntegerField(null=False, blank=False, default=0)
 
 
 class QuestionVote(Vote):

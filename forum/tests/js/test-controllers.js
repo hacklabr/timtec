@@ -182,23 +182,5 @@
                 expect(ctrl).toBeDefined();
             }));
         });
-
-        describe('AnswerVoteCtrl', function(){
-            var scope = {};
-            var ctrl;
-            beforeEach(inject(function ($controller) {
-                $httpBackend.expectPOST('/api/forum_question').
-                    respond([]);
-                scope = $rootScope.$new();
-                scope.answer = {};
-                scope.answer.id = 1;
-                ctrl = $controller('AnswerVoteCtrl', {$scope: scope});
-            }));
-
-            it('should have a AnswerVoteCtrl controller', (function () {
-                expect(ctrl).toBeDefined();
-            }));
-        });
-
     });
 })(angular, describe);

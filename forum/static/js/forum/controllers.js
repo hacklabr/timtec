@@ -38,8 +38,8 @@
     }
 
     angular.module('forum.controllers', ['ngCookies']).
-        controller('QuestionCtrl', ['$scope', '$sce', '$window', 'Question', 'ForumAnswer',
-            function ($scope, $sce, $window, Question, ForumAnswer) {
+        controller('QuestionCtrl', ['$scope', '$sce', '$window', 'Question', 'ForumAnswer', 'AnswerVote',
+            function ($scope, $sce, $window, Question, ForumAnswer, AnswerVote) {
                 var questionId = parseInt($window.question_id, 10);
                 var userId = parseInt($window.user_id, 10);
 
@@ -70,6 +70,14 @@
                     }
 
                 };
+
+                $scope.vote = function(answer_voted, vote_type) {
+                    var current_vote = answer_voted.current_user_vote.value;
+                    answer_voted.current_user_vote.value = vote_value(vote_type, current_vote);
+                    answer_voted.votes += answer_voted.current_user_vote.value - current_vote;
+                    var current_vote_object = new AnswerVote(answer_voted.current_user_vote);
+                    current_vote_object.$update({answer: answer_voted.current_user_vote.answer});
+                }
         }]).
         controller('InlineForumCtrl', ['$scope', '$window', '$modal', '$http', 'Question',
                 function ($scope, $window, $modal, $http, Question) {
@@ -205,27 +213,11 @@
                         $scope.question_vote.value = 0;
                     }
                 });
-                $scope.vote = function(vote_type) {
+                $scope.vote_question = function(vote_type) {
                     var current_vote = $scope.question_vote.value;
                     $scope.question_vote.value = vote_value(vote_type, current_vote);
                     $scope.question.votes += $scope.question_vote.value - current_vote;
                     $scope.question_vote.$update({question: $scope.questionId});
-                };
-        }]).
-        controller('AnswerVoteCtrl', ['$scope', '$window', 'AnswerVote',
-            function ($scope, $window, AnswerVote) {
-                // Verify if user has voted up or down for this answer
-                $scope.answer_vote = AnswerVote.get({answer: $scope.answer.id}, function (){}, function (httpResponse){
-                        if (httpResponse.status == 404) {
-                            $scope.answer_vote.answer = $scope.answer.id;
-                            $scope.answer_vote.value = 0;
-                        }
-                    });
-                $scope.vote = function(answer_voted, vote_type) {
-                    var current_vote = $scope.answer_vote.value;
-                    $scope.answer_vote.value = vote_value(vote_type, current_vote);
-                    $scope.answer.votes += $scope.answer_vote.value - current_vote;
-                    $scope.answer_vote.$update({answer: answer_voted.id});
                 };
         }]);
 })(angular);
