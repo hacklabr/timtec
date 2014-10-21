@@ -3,7 +3,7 @@
   margin-top: -150px;
   padding-top: 150px;
   background-color: rgba(255,255,255,0.5);
-  
+
   // COURSE LESSONS - Course intro
   // ********************************************************************* //
   .lessons {
@@ -92,6 +92,32 @@
     // END UNIT
   }
   // END COURSE UNITS
+
+  // COURSE NOTES - General
+  // ********************************************************************* //
+  .notes {
+    textarea {
+      margin-top: 0;
+      @media (min-width: @screen-lg-min) { height: 330px; }
+    }
+  }
+
+  #forum #forum-content {
+    background-color: transparent;
+    padding: 0;
+    margin-top: 0;
+    .page-header-double {
+      margin-bottom: 0;
+      overflow: hidden;
+      h3 {
+        margin: 0;
+        padding: 10px;
+        float: left;
+        background: #959595;
+        color: #fff;
+      }
+    }
+  }
 }
 
 // COURSE INTRO
