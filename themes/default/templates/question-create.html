@@ -36,23 +36,30 @@
 
         <!-- QUESTION FORM -->
         <form class="forum-form" action="{% url 'forum_question_create' course.slug %}" method="post">
-            <!-- <div class="alert alert-danger" role="alert">
-                <ul>
-                    <li><a href="#id-title">Preencha o título da questão.</a></li>
-                    <li><a href="#wmd-input">Preencha o conteúdo da questão.</a></li>
-                </ul>
-            </div> -->
-            {% csrf_token %}
-            {{ form.non_field_errors }}
 
-            <div class="form-group">
-                <input id="id-title" name="title" type="text" class="form-control" placeholder="Qual é a sua dúvida?">
+
+            {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    {% if form.title.errors %}
+                    <li><a href="#id-title">{% trans 'Fill the question title.' %}</a></li>
+                    {% endif %}
+                    {% if form.text.errors %}
+                    <li><a href="#wmd-input">{% trans 'Fill the question text.' %}</a></li>
+                    {% endif %}
+                    {{ form.non_field_errors }}
+                </ul>
             </div>
-            <div class="form-group text-editor">
+            {% endif %}
+            {% csrf_token %}
+            <div class="form-group{{ form.title.errors|yesno:' has-error,' }}">
+                <input id="id-title" name="title" type="text" class="form-control" value="{{form.title.value|default_if_none:""}}" placeholder="Qual é a sua dúvida?">
+            </div>
+            <div class="form-group text-editor{{ form.text.errors|yesno:' has-error,' }}">
                 <div class="wmd-panel" markdowneditor="true">
                     <div id="wmd-button-bar" class="js-button-bar"></div>
                     <div class="form-group">
-                        <textarea id="wmd-input" name="text" class="form-control" rows="4" placeholder="Descrição da sua dúvida"></textarea>
+                        <textarea id="wmd-input" name="text" class="form-control" rows="4" placeholder="Descrição da sua dúvida">{{form.text.value|default_if_none:""}}</textarea>
                     </div>
                 </div>
             </div>
