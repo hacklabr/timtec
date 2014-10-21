@@ -33,9 +33,10 @@
 
             {% with errors=form.username.errors %}
             <div class="form-group{{ errors|yesno:' has-error,' }}">
-                <label class="col-sm-4 col-xs-12 control-label">{% trans "Username" %}</label>
+                <label ng-show="!ifstudent" class="col-sm-4 col-xs-12 control-label">{% trans "Username" %}</label>
+                <label ng-show="ifstudent" class="col-sm-4 col-xs-12 control-label">{% trans "Academic Identifier" %}</label>
                 <div class="col-sm-8 col-xs-12">
-                    <input name="username" type="text" value="{{form.username.value|default_if_none:""}}" class="form-control" placeholder="{% trans 'Username' %}">
+                    <input name="username" type="text" value="{{form.username.value|default_if_none:""}}" class="form-control">
                     {% for error in errors %}<small>{{error}}</small>{% endfor %}
                 </div>
             </div>
@@ -78,16 +79,6 @@
                 <label class="col-sm-8 col-sm-offset-4 col-xs-12">
                     <input class="if-student" name="if_student" type="checkbox" value="1" ng-model="ifstudent" ng-checked="ifstudent" ng-init="ifstudent='1'">Sou estudante do Instituto Federal Sul-Riograndense</label>
                     {% for error in errors %}<small>{{error}}</small>{% endfor %}
-            </div>
-            {% endwith %}
-
-            {% with errors=form.ifid.errors %}
-            <div ng-show="ifstudent" class="form-group{{ errors|yesno:' has-error,' }}">
-                <label class="col-sm-4 col-xs-12 control-label">{% trans "Academic Identifier" %}</label>
-                <div class="col-sm-8 col-xs-12">
-                    <input name="ifid" type="text" value="{{form.ifid.value|default_if_none:""}}" class="form-control" placeholder="{% trans 'Academic Identifier' %}">
-                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
-                </div>
             </div>
             {% endwith %}
 
