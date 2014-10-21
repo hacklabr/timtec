@@ -64,6 +64,8 @@ update-ifsul:
 	$(call base_update,ifsul)
 
 update-design:
+    $(call resetdb_to_backup,timtec-design)
+	$(call reset_media)
 	$(call base_update,design)
 
 update-production:
