@@ -77,7 +77,7 @@
                     answer_voted.votes += answer_voted.current_user_vote.value - current_vote;
                     var current_vote_object = new AnswerVote(answer_voted.current_user_vote);
                     current_vote_object.$update({answer: answer_voted.current_user_vote.answer});
-                }
+                };
         }]).
         controller('InlineForumCtrl', ['$scope', '$window', '$modal', '$http', 'Question',
                 function ($scope, $window, $modal, $http, Question) {
