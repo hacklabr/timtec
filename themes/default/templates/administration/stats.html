@@ -34,7 +34,7 @@
         <header class="secondary-header">
             <div class="row">
                 <div class="col-sm-9">
-                    <h1>{% trans "Course Statistics" %}</h1>
+                    <h1>{% trans "Course reports" %}</h1>
                 </div>
             </div>
         </header>
@@ -79,7 +79,7 @@
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="students">
                         <div class="col-lg-12" ng-hide="users_reports.$resolved">
-                            <p>{% trans 'Loading students statistics' %}...   <i class="loading fa fa-refresh fa-spin"></i></p>
+                            <p>{% trans 'Loading students report' %}...   <i class="loading fa fa-refresh fa-spin"></i></p>
                         </div>
                         <div class="row" ng-show="users_reports.$resolved">
                             <div class="col-sm-8">
@@ -112,7 +112,7 @@
                                     </div>
                                     <div class="lessons col-xs-12" ng-if="showLessons">
                                         <div class="col-lg-12" ng-hide="user.lessons_stats.$resolved">
-                                            <span>{% trans 'Loading students statistics' %}...   <i class="loading fa fa-refresh fa-spin"></i></span>
+                                            <span>{% trans 'Loading student report' %}...   <i class="loading fa fa-refresh fa-spin"></i></span>
                                         </div>
                                         <div class="lesson" ng-repeat="lesson in user.lessons_stats.lessons_progress">
                                             {% verbatim %}
@@ -142,7 +142,7 @@
                             <div class="col-lg-8">
                                 <h3>{% trans 'Average student progress per class' %}</h3>
                                 <div class="col-lg-12" ng-hide="course_stats.$resolved">
-                                    <p>{% trans 'Loading lessons statistics' %}...   <i class="loading fa fa-refresh fa-spin"></i></p>
+                                    <p>{% trans 'Loading lessons report' %}...   <i class="loading fa fa-refresh fa-spin"></i></p>
                                 </div>
                             </div>
                         </div>
