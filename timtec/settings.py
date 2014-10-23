@@ -366,6 +366,7 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'allauth.socialaccount.context_processors.socialaccount',
     'core.context_processors.contact_form',
     'core.context_processors.site_settings',
+    'core.context_processors.get_current_path',
     'timtec.locale_context_processor.locale',
 )
 
