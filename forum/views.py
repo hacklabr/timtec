@@ -98,10 +98,16 @@ class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
         return super(QuestionViewSet, self).pre_save(obj)
 
     def get_queryset(self):
+        # filter by course
         queryset = super(QuestionViewSet, self).get_queryset()
 
-        course_id = self.request.QUERY_PARAMS.get('course')
+        classes_id = self.request.QUERY_PARAMS.getlist('classes')
+        if classes_id:
+            classes = Class.objects.filter(id__in=classes_id)
+            queries_list = [Q(user__in=klass.students.all()) for klass in classes.all()]
+            queryset = queryset.filter(reduce(operator.or_, queries_list))
 
+        course_id = self.request.QUERY_PARAMS.get('course')
         try:
             role = self.request.user.teaching_courses.get(course__id=course_id).role
         except ObjectDoesNotExist:
