@@ -108,6 +108,10 @@ class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
             queryset = queryset.filter(reduce(operator.or_, queries_list))
 
         course_id = self.request.QUERY_PARAMS.get('course')
+
+        if not (classes_id or course_id):
+            return queryset
+
         try:
             role = self.request.user.teaching_courses.get(course__id=course_id).role
         except ObjectDoesNotExist:
