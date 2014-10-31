@@ -23,7 +23,7 @@
                 <li><a href="http://ead.ifsul.edu.br/">Portal EAD</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#modal-about">{% trans 'About' %}</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#modal-contact">{% trans 'Contact' %}</a></li>
-                <li><a href="/courses">{% trans 'Courses' %}</a></li>
+                <li><a href="{% url 'courses' %}">{% trans 'Courses' %}</a></li>
             </ul>
             <ul class="nav navbar-nav" id="session-nav">
             {% if user.is_authenticated %}

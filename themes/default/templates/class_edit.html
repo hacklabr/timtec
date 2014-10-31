@@ -16,7 +16,7 @@
                     <h4 class="modal-title" id="class-modal-label">{{ object.name }}</h4>
                 </div>
                 <div class="modal-body">
-                    <div class"form-group">
+                    <div class="form-group">
                         <label for="class-users-list">{% trans 'Users' %}</label>
                         <textarea id="class-users-list" class="form-control" rows="10" placeholder="Paste users list here, one user per line." name="students_text"></textarea>
                     </div>
@@ -41,7 +41,9 @@
                     <button class="btn btn-success" onclick="document.getElementById('mainForm').submit();return false;">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
                 </form>
             </div>
-            {% include 'administration/_alert.html' %}
+
+            {# {% include 'administration/_alert.html' %} #}
+
         </div>
     </div>
     <!-- END ACTIONS -->

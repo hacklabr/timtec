@@ -49,6 +49,7 @@ class Class(models.Model):
                 c.students.remove(obj)
             except Class.DoesNotExist:
                 pass
+            self.students.add(obj)
 
     def remove_students(self, *objs):
         for obj in objs:
