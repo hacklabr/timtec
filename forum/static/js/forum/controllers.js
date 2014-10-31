@@ -122,6 +122,7 @@
                         $scope.maxSize = 5;
                         $scope.itemsPerPage = 15;
                         $scope.current_page_questions = $scope.questions.slice(0,$scope.itemsPerPage);
+                        return questions;
                     });
                 }
 

@@ -102,12 +102,14 @@
                             </div>
                         </div>
                         <div class="col-lg-5 col-sm-5 textright">
-                            <pagination ng-if="totalItems>itemsPerPage" on-select-page="changePageHandler(page)"
+                            <!--
+                            <pagination ng-if="totalItems>itemsPerPage" ng-change="changePageHandler(page)"
                                         max-size="5" items-per-page="itemsPerPage" boundary-links="true"
                                         total-items="totalItems" page="currentPage" class="pagination-sm top pointer"
                                         previous-text="&lsaquo;" next-text="&rsaquo;"
                                         first-text="&laquo;" last-text="&raquo;">
                             </pagination>
+                            -->
                         </div>
                     </div>
                 </div>
@@ -115,7 +117,7 @@
                 <div class="col-lg-12" ng-hide="questions.$resolved">
                     <p>{% trans 'Loading questions' %}...   <i class="loading fa fa-refresh fa-spin"></i></p>
                 </div>
-                <div ng-repeat="question in current_page_questions">
+                <div ng-repeat="question in questions">
                     <div class="question" ng-class="{'is-hidden': question.hidden}">
                         <table>
                             <tr>
