@@ -97,11 +97,15 @@
 
                 response_data = [{"id": 3, "title": "asdfasfdasfasdfdssadf", "course": 1, "answers": [5], "text": "asdfasfdsafdsafd", "slug": "asdfasfdasfasdfdssadf", "votes": 0, "timestamp": "2013-10-17T16:45:55.028Z", "username": "abcd"}, {"id": 2, "title": "Elementum dictumst adipiscing, sit, aliquet diam adipiscing tincidunt, mus nunc nunc est hac egestas amet, diam. Non urna, vel auctor, nisi mus, auctor odio, diam eu ultrices?", "course": 1, "answers": [3, 4], "text": "Nascetur proin est ridiculus aliquet mattis pellentesque integer", "slug": "elementum-dictumst-adipiscing-sit-aliquet-diam-adipiscing-tincidunt-mus-nunc-nunc-est-hac-egestas-amet-diam-non-urna-vel-auctor-nisi-mus-auctor-odio-diam-eu-ultrices", "votes": 0, "timestamp": "2013-09-11T16:36:01.488Z", "username": "abcd"}, {"id": 1, "title": "Qual \u00e9 o melhor SGBD atualmente?", "course": 1, "answers": [1, 2], "text": "Entre todos os Sistema de Gerenciamento de Bancos de Dados, quel deles \u00e9 o mais r\u00e1pido e mais seguro?", "slug": "qual-e-o-melhor-sgbd-atualmente", "votes": 0, "timestamp": "2013-09-11T15:01:55.414Z", "username": "abcd"}];
 
+                $httpBackend.expectGET('/api/course_professor?course=1&user=1').
+                    respond([]);
                 $httpBackend.expectGET('/api/forum_question?course=1').
                     respond(response_data);
-
                 $httpBackend.expectGET('/api/is_forum_moderator/1/').
                     respond(response_data);
+                $httpBackend.expectGET('/api/course_classes?course=1').
+                    respond([]);
+
                 scope = $rootScope.$new();
                 $window.course_id = 1;
                 ctrl = $controller('InlineForumCtrl', {$scope: scope});
