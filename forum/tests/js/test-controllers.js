@@ -20,9 +20,13 @@
             $window = $injector.get('$window');
         }));
         beforeEach(function(){
-            this.addMatchers({
-                toEqualData: function(expected) {
-                    return angular.equals(this.actual, expected);
+            jasmine.addMatchers({
+                toEqualData: function() { return {
+                    compare: function(actual, expected) {
+                        var result = {};
+                        result.pass = angular.equals(actual, expected);
+                        return result;
+                    }};
                 }
             });
         });
@@ -75,7 +79,7 @@
                 $httpBackend.expect('GET', '/api/forum_question/1').
                     respond({"id": 1, "text": "O MySQL \u00e9 melhor?", "votes": 0, "timestamp": "2013-09-11T16:28:10.754Z", "username": "abcd"});
                 $httpBackend.expect('GET', '/api/forum_answer?question=1&user=1').
-                    respond([{"id": 1, "question": 1, "text": "O MySQL \u00e9 melhor, pois \u00e9 o mais usado e aceito.", "votes": 0, "timestamp": "2013-09-11T16:28:10.754Z", "username": "abcd"}]);    
+                    respond([{"id": 1, "question": 1, "text": "O MySQL \u00e9 melhor, pois \u00e9 o mais usado e aceito.", "votes": 0, "timestamp": "2013-09-11T16:28:10.754Z", "username": "abcd"}]);
                 $httpBackend.flush();
                 expect(scope.editor_enabled).toBe(false);
             }));
@@ -181,7 +185,7 @@
                 scope = $rootScope.$new();
                 ctrl = $controller('QuestionVoteCtrl', {$scope: scope});
             }));
-    
+
             it('should have a QuestionVoteCtrl controller', (function () {
                 expect(ctrl).toBeDefined();
             }));
