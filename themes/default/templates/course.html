@@ -561,7 +561,7 @@
                     <div class="page-header-double">
                         <h3 class="top"><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Start date' %}</h3>
                     </div>
-                    <input type="text" class="form-control" ng-model="start_date" datepicker-popup="MM/dd/yyyy" is-open="opened" ng-click="opened = true" />
+                    <input type="text" class="form-control" ng-model="course.start_date" datepicker-popup="dd/MM/yyyy" is-open="opened" show-button-bar="false" ng-click="opened = true" />
 
                     <!-- ABSTRACT -->
                     <div class="page-header-double">
