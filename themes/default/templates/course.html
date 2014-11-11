@@ -557,9 +557,15 @@
             <div class="col-md-3 col-sm-4 hidden-xs">
                 <!-- COURSE-SUMMARY -->
                 <section class="summary">
+                    <!-- START DATE -->
+                    <div class="page-header-double">
+                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Start date' %}</h3>
+                    </div>
+                    <input type="text" class="form-control" ng-model="start_date" datepicker-popup="MM/dd/yyyy" is-open="opened" ng-click="opened = true" />
+
                     <!-- ABSTRACT -->
                     <div class="page-header-double">
-                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Abstract' %}</h3>
+                        <h3><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Abstract' %}</h3>
                     </div>
 
                     {% if in_admin %}

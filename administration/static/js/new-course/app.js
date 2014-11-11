@@ -12,6 +12,7 @@
         'filters.text',
         'ngResource',
         'youtube',
-        'markdown'
+        'markdown',
+        'ui.bootstrap'
     ]);
 })(window.angular);
