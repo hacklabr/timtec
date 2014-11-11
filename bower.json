@@ -34,6 +34,7 @@
     "angular-gettext": "~0.2.9",
     "checklist-model": "~0.1.3",
     "angular-tweet-filter": "*",
-    "intro.js": "~0.9.0"
+    "intro.js": "~0.9.0",
+    "angular-i18n": "~1.3.2"
   }
 }

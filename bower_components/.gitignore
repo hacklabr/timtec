@@ -31,3 +31,5 @@ modernizr/test
 package.json
 README
 themes/
+angular-i18n/*.js
+
