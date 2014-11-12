@@ -465,8 +465,7 @@ INSTALLED_APPS = (
 
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
-        'SCOPE': ['email', 'publish_stream'],
-        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'SCOPE': ['email'],
         'METHOD': 'oauth2',
     }
 }
