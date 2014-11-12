@@ -7,6 +7,7 @@ TEMPLATE_DEBUG = DEBUG
 TIMTEC_THEME = 'if'
 
 SITE_ID = 2
+SITE_NAME = 'IFSUL'
 
 ALLOWED_HOSTS = [
     'ifsul.timtec.com.br',
