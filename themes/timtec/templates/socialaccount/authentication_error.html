@@ -1,29 +1,27 @@
-{% extends "base.html" %}
+{% extends "socialaccount/base.html" %}
 
 {% load i18n %}
 
 {% block head_title %}{% trans "Social Network Login Failure" %}{% endblock %}
 
 {% block content %}
+<div id="signup" class="page">
 
-<div id="activation-wrapper" class="container">
-    <div class="centered">
-        <h1 class="textcenter">
-            <i class="fa fa-frown-o"></i><br/>
-            {% trans "Social Network Login Failure" %}
-        </h1>
-        {% url 'account_login' as login_url %}
-        <h3>{% trans "An error occurred while attempting to login via your social network account." %}</h3>
+    <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
+
+    <div class="main-content">
+        <!-- CONTAINER -->
+        <div class="container js-fullheight c1">
+            <header class="page-header-double">
+                <h2 class="textcenter">
+                    <i class="fa fa-frown-o"></i><br/>
+                    {% trans "Social Network Login Failure" %}
+                </h2>
+            </header>
+
+            {% url 'account_login' as login_url %}
+            <h3 class="textcenter">{% trans "An error occurred while attempting to login via your social network account." %}</h3>
+        </div>
     </div>
 </div>
-
-<script type="text/javascript" charset="utf-8">
-$(document).ready(function() {
-    windowHeight = window.innerHeight;
-    navbarHeight = $('#main-navbar').innerHeight();
-    footerHeight = $('#main-footer').innerHeight();
-    $('#activation-accomplished').innerHeight(windowHeight - (navbarHeight + footerHeight + 58));
-})
-</script>
-
 {% endblock %}
