@@ -37,9 +37,9 @@
                         {% if not course.has_started %}<span class="coming-soon-label">Em breve</span>{% endif %}
                         <a href="{% url "course_intro" course.slug %}" class="course-link">
                             <div class="thumb-wrapper">
-                                <span class="mouseover"></span>
+                                <div class="mouseover"></div>
                                 {% if course.home_thumbnail %}
-                                <span class="thumb" style="background-image: url({{ course.home_thumbnail.url }})"></span>
+                                <div class="thumb" style="background-image: url({{ course.home_thumbnail.url }})"></div>
                                 {% endif %}
                             </div>
                             <div class="info-box">
