@@ -1,16 +1,17 @@
+# coding: utf-8
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
+from accounts.admin import TimtecUserAdmin
 from django.contrib.auth import get_user_model
 from .models import Campus
 
 User = get_user_model()
 
 
-class IfUserAdmin(UserAdmin):
+class IfUserAdmin(TimtecUserAdmin):
     model = User
 
-    fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('ifid', 'campus', 'city', 'course', 'klass', 'is_if_staff', 'cpf', 'siape',)}),
+    fieldsets = TimtecUserAdmin.fieldsets + (
+        (u'Informações dos IFs', {'fields': ('ifid', 'campus', 'city', 'course', 'klass', 'is_if_staff', 'cpf', 'siape',)}),
     )
 
 admin.site.unregister(User)
