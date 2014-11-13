@@ -52,7 +52,7 @@
                 <li>
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans 'Sign In' %}</a>
                     <div class="dropdown-menu">
-                        <form onclick="event.stopPropagation()" method="post" action="{% url 'account_login' %}" class="navbar-form form-horizontal">{% csrf_token %}
+                        <form method="post" action="{% url 'account_login' %}" class="navbar-form form-horizontal">{% csrf_token %}
 
                             <div class="form-group {% if form.errors %}has-error{% endif %}">
                                 <label class="col-sm-5 col-xs-12 control-label">{% trans 'Username' %}</label>
