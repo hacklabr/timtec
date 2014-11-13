@@ -109,9 +109,9 @@ $(document).ready(function() {
             <!-- UNITS NAVIGATION FOR PHONES -->
             <div class="col-xs-12 visible-xs">
                 <p>
-                    <select ng-model="currentUnitPos" class="form-control">
+                    <select ng-model="selectedIndex" ng-change="locationChange(selectedIndex)" class="form-control">
                         <option ng-repeat="unit in lesson.units"
-                                ng-value="unit"
+                                ng-value="$index+1"
                                 ng-selected="unit==currentUnit"
                                 value="{{$index+1}}">{% endverbatim %}{% trans 'Unit' %}{% verbatim %} {{ unit.position + 1 }}</option>
                     </select>

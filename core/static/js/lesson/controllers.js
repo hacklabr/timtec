@@ -31,6 +31,10 @@
                 $scope.selectActivity(0);
             };
 
+            $scope.locationChange = function(unitIndex) {
+                $location.path('/' + unitIndex);
+            };
+
             $scope.nextUnit = function() {
                 var index = $scope.lesson.units.indexOf($scope.currentUnit);
                 index++;
