@@ -558,13 +558,14 @@
                 <!-- COURSE-SUMMARY -->
                 <section class="summary">
                     <!-- START DATE -->
+                    {% if in_admin %}
                     <div class="page-header-double">
                         <h3 class="top"><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Start date' %}</h3>
                     </div>
                     <div class="editable editable-text">
                         <input type="text" ng-model="course.start_date" datepicker-popup="dd/MM/yyyy" is-open="opened" show-button-bar="false" ng-click="opened = true" />
                     </div>
-
+                    {% endif %}
                     <!-- ABSTRACT -->
                     <div class="page-header-double">
                         <h3><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Abstract' %}</h3>
