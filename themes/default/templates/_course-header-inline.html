@@ -1,25 +1,27 @@
 {% load i18n %}
-{% load can_see_classes %}
+{% load is_assistant_or_coordinator %}
 <header class="main-header container">
     <div class="page-header">
         <div class="row">
-            <div class="col-lg-9 col-sm-7">
+            <div class="col-lg-8 col-sm-7">
                 <h1 class="course-name bottom top">
                     <a href="{% url 'course_intro' course.slug %}">{{ course.name }}</a>
                 </h1>
                 {% include "_course-professors-inline.html" with course=course %}
             </div>
-            <div class="col-lg-3 col-sm-5">
+            <div class="col-lg-4 col-sm-5">
                 <!-- COURSE-SECTION-NAV -->
                 <nav class="course-sections textright" id="course-nav">
                     <a href="{% url 'course_intro' course.slug %}"><span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Intro' %}"></span></a>
-                    {% if user|can_see_classes:course %}
-                        <a href="{% url 'classes' course.slug %}"><span class="has-tooltip fa fa-users" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Classes' %}"></span></a>
-                    {% endif %}
                     <a href="{% url 'lesson' course.slug course.first_lesson.slug %}"><span class="has-tooltip fa fa-film" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Lessons' %}"></span></a>
                     <a href="{% url 'forum' course.slug %}"><span class="has-tooltip fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Forum' %}"></span></a>
                     <a href="{% url 'course_material' course.slug %}"><span class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Course material' %}"></span></a>
                     <a href="{% url 'user_course_notes' course.slug %}"><span class="has-tooltip fa fa-pencil-square-o" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Course notes' %}"></span></a>
+                    {% if user|is_assistant_or_coordinator:course %}
+                        <a href="{% url 'messages' course.slug %}"><span class="has-tooltip fa fa-envelope-o" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Messages' %}"></span></a>
+                        <a href="{% url 'reports' course.slug %}"><span class="has-tooltip fa fa-bar-chart-o" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Reports' %}"></span></a>
+                        <a href="{% url 'classes' course.slug %}"><span class="has-tooltip fa fa-users" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Classes' %}"></span></a>
+                    {% endif %}
                 </nav>
                 <!-- END COURSE-SECTION-NAV -->
             </div>

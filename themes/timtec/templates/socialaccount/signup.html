@@ -1,0 +1,67 @@
+{% extends "socialaccount/base.html" %}
+{% load url from future %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+<div id="signup" class="page">
+
+    <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
+
+    <div class="main-content">
+        <!-- CONTAINER -->
+        <div class="container js-fullheight c1">
+            <header class="page-header-double">
+                <h2>{% trans "Sign Up" %}</h2>
+            </header>
+
+            <p>{% blocktrans with provider_name=account.get_provider.name site_name=site.name %}You are about to use your {{provider_name}} account to login to
+{{site_name}}. As a final step, please complete the following form:{% endblocktrans %}</p>
+
+            <form class="signup form-horizontal" id="signup_form" method="post" action="{% url 'socialaccount_signup' %}">{% csrf_token %}
+                {% with errors=form.username.errors %}
+                <div class="form-group{{ errors|yesno:' has-error,' }}">
+                    <label class="col-lg-2 col-md-3 col-sm-4">{% trans "Username" %}</label>
+                    <div class="col-lg-4 col-md-5 col-sm-6">
+                        <input name="username" type="text" value="{{form.username.value|default_if_none:""}}" class="form-control" placeholder="{% trans 'Username' %}">
+                        {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                    </div>
+                </div>
+                {% endwith %}
+
+                {% with errors=form.email.errors %}
+                <div class="form-group{{ errors|yesno:' has-error,' }}">
+                    <label class="col-lg-2 col-md-3 col-sm-4">{% trans "E-mail" %}</label>
+                    <div class="col-lg-4 col-md-5 col-sm-6">
+                        <input name="email" type="email" value="{{form.email.value|default_if_none:""}}" class="form-control" placeholder="{% trans 'Your e-mail' %}">
+                        {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                    </div>
+                </div>
+                {% endwith %}
+
+                {% with errors=form.accept_terms.errors %}
+                <div class="form-group{{ errors|yesno:' has-error,' }}">
+                    <div class="col-lg-offset-2 col-lg-4 col-md-offset-3 col-md-5 col-sm-offset-4 col-sm-6">
+                        <span class="checkbox-wrapper"><input name="accept_terms" type="checkbox" {% if form.accept_terms.value %}checked=""{% endif %} class=""></span>
+                        <label>Aceito os <a href="{% url 'django.contrib.flatpages.views.flatpage' url='terms/' %}" target="_blank">termos de uso</a></label>
+                        {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                    </div>
+                </div>
+                {% endwith %}
+
+                {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                <div class="row">
+                    <div class="submit col-lg-6 col-md-8 col-sm-10 textright">
+                        <button class="btn btn-success" type="submit">{% trans "Sign Up" %} &raquo;</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

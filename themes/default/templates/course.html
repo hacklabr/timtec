@@ -3,6 +3,7 @@
 {% load staticfiles %}
 {% load i18n %}
 {% load timtec_markdown %}
+{% load is_assistant_or_coordinator %}
 
 {% if in_admin %}
     {% block js %} {{block.super}}
@@ -49,6 +50,8 @@
         <!-- END ACTIONS -->
     {% endif %}
 
+
+    {% if in_admin %}
     <!-- HEADER -->
     <header class="main-header container">
         <!-- PAGE-HEADER -->
@@ -56,7 +59,6 @@
             <!-- ROW -->
             <div class="row">
                 <div class="col-md-9 col-xs-12">
-                {% if in_admin %}
                     <div class="editable-title"><input type="text" ng-model="course.name" placeholder="{% trans 'Course name' %}"></div>
                     <div class="course-slug clearfix">
                       <label>http://{{ site.domain }}/course/</label>
@@ -64,13 +66,8 @@
                       <div class="editable-slug"><input type="text" ng-model="course.slug" placeholder="{{course.name|slugify}}"></div>
                       {% endverbatim %}
                     </div>
-                {% else %}
-                    <h1><i class="fa fa-angle-double-right"></i> {{course.name}}</h1>
-                    {% include "_course-professors-inline.html" with course=course %}
-                {% endif %}
                 </div>
 
-                {% if in_admin %}
                 <div class="col-md-3 col-xs-12 textright">
                     <nav class="course-sections textright">
                         <a href=""><span class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Course' %}"></span></a>
@@ -81,30 +78,47 @@
                         <a ng-href="{% verbatim %}/{{permissions_url}}{% endverbatim %}"><span class="has-tooltip fa fa-key" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Permissions' %}"></span></a>
                     </nav>
                 </div>
-                {% else %}
-                    {% if course.first_lesson.slug %}
-                        <div class="col-md-3 col-xs-12 textright">
-                            {% if user_is_enrolled %}
-                                <a href="{% url "lesson" course.slug course.first_lesson.slug %}" id="go-to-course" class="btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Resume" %}</a>
-                            {% else %}
-                                <a
-                                    {% if user.is_authenticated %}
-                                        onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 1);"
-                                    {% else %}
-                                        onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 0);"
-                                    {% endif %}
-                                    href="{% url "enroll_course" course.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Take the Class" %}</a>
-                            {% endif %}
-                        </div>
-                    {% endif %}
-                {% endif %}
-
             </div>
             <!-- END ROW -->
         </div>
         <!-- END PAGE-HEADER -->
     </header>
     <!-- END HEADER -->
+    {% elif user|is_assistant_or_coordinator:course or user_is_enrolled %}
+        {% include "_course-header-inline.html"  with course=course %}
+    {% else %}
+    <!-- HEADER -->
+    <header class="main-header container">
+        <!-- PAGE-HEADER -->
+        <div class="page-header">
+            <!-- ROW -->
+            <div class="row">
+                <div class="col-md-9 col-xs-12">
+                    <h1><i class="fa fa-angle-double-right"></i> {{course.name}}</h1>
+                    {% include "_course-professors-inline.html" with course=course %}
+                </div>
+                {% if course.first_lesson.slug %}
+                    <div class="col-md-3 col-xs-12 textright">
+                        {% if user_is_enrolled %}
+                            <a href="{% url "lesson" course.slug course.first_lesson.slug %}" id="go-to-course" class="btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Resume" %}</a>
+                        {% else %}
+                            <a
+                                {% if user.is_authenticated %}
+                                    onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 1);"
+                                {% else %}
+                                    onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 0);"
+                                {% endif %}
+                                href="{% url "enroll_course" course.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Take the Class" %}</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+            <!-- END ROW -->
+        </div>
+        <!-- END PAGE-HEADER -->
+    </header>
+    <!-- END HEADER -->
+    {% endif %}
 
     <!-- COURSE-CONTENT -->
     <section id="course-content" class="container">
@@ -543,9 +557,18 @@
             <div class="col-md-3 col-sm-4 hidden-xs">
                 <!-- COURSE-SUMMARY -->
                 <section class="summary">
+                    <!-- START DATE -->
+                    {% if in_admin %}
+                    <div class="page-header-double">
+                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Start date' %}</h3>
+                    </div>
+                    <div class="editable editable-text">
+                        <input type="text" ng-model="course.start_date" datepicker-popup="dd/MM/yyyy" is-open="opened" show-button-bar="false" ng-click="opened = true" />
+                    </div>
+                    {% endif %}
                     <!-- ABSTRACT -->
                     <div class="page-header-double">
-                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Abstract' %}</h3>
+                        <h3><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Abstract' %}</h3>
                     </div>
 
                     {% if in_admin %}

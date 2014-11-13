@@ -180,6 +180,7 @@ PIPELINE_JS = {
             'angular-sanitize/angular-sanitize.js',
             'angular-bootstrap/ui-bootstrap-tpls.js',
             'angular-gettext/dist/angular-gettext.js',
+            'angular-i18n/angular-locale_pt-br.js',
             'intro.js/intro.js',
             'js/consolelogfallback.js',
             'js/django.js',
@@ -309,6 +310,7 @@ PIPELINE_JS = {
             'js/core/app.js',
             'js/core/controllers.js',
             'js/core/services.js',
+            'js/core/filters.js',
             'angular-tweet-filter/index.js',
         ),
         'output_filename': 'js/core.js',
@@ -366,6 +368,7 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'allauth.socialaccount.context_processors.socialaccount',
     'core.context_processors.contact_form',
     'core.context_processors.site_settings',
+    'core.context_processors.get_current_path',
     'timtec.locale_context_processor.locale',
 )
 
@@ -462,8 +465,7 @@ INSTALLED_APPS = (
 
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
-        'SCOPE': ['email', 'publish_stream'],
-        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'SCOPE': ['email'],
         'METHOD': 'oauth2',
     }
 }

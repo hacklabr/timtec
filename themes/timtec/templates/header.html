@@ -92,7 +92,7 @@
                             <p class="col-lg-6 col-md-6 col-sm-6 col-xs-6 textright">
                                 <a href="{% url 'account_signup' %}" class="btn register">{% trans 'Signup' %}</a>
                             </p>
-
+                            <input type="hidden" name="next" value="{{ current_path }}" />
                         </form>
                     </div>
                 {% endif %}

@@ -1,0 +1,107 @@
+[
+    {
+        "fields": {
+            "domain": "localhost",
+            "name": "localhost"
+        },
+        "model": "sites.site",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "name": "students",
+            "permissions": []
+        },
+        "model": "auth.group",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "name": "professors",
+            "permissions": []
+        },
+        "model": "auth.group",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "biography": "",
+            "city": "",
+            "date_joined": "2013-10-28T20:42:19Z",
+            "email": "admin@localhost",
+            "first_name": "",
+            "groups": [
+                [
+                    "professors"
+                ]
+            ],
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": true,
+            "last_login": "2013-11-27T15:51:25Z",
+            "last_name": "",
+            "occupation": "",
+            "password": "pbkdf2_sha256$12000$lV232BOaZxqd$DLRhDcxwPzDJnVDomrg5nPwrzkr7gFl64KhrijrgVAA=",
+            "picture": "",
+            "site": "",
+            "user_permissions": [],
+            "username": "admin"
+        },
+        "model": "accounts.timtecuser",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "biography": "",
+            "city": "",
+            "date_joined": "2013-10-28T20:42:19Z",
+            "email": "student@localhost",
+            "first_name": "",
+            "groups": [
+                [
+                    "students"
+                ]
+            ],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": "2013-11-27T15:51:25Z",
+            "last_name": "",
+            "occupation": "",
+            "password": "pbkdf2_sha256$12000$QRO6HtP9F1Em$VZST+J9CZGWfBxII0Rv5Ed4+VkodzfVff2n8pZPPD9Y=",
+            "picture": "",
+            "site": "",
+            "user_permissions": [],
+            "username": "student"
+        },
+        "model": "accounts.timtecuser",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "biography": "",
+            "city": "",
+            "date_joined": "2013-10-28T20:42:19Z",
+            "email": "professor@localhost",
+            "first_name": "",
+            "groups": [
+                [
+                    "professors"
+                ]
+            ],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": "2013-11-27T15:51:25Z",
+            "last_name": "",
+            "occupation": "",
+            "password": "pbkdf2_sha256$12000$Yim96SEHccMa$HCW2IYXtfwONi1WJ+qu9Jw04VYHlS5K8El7ct/iY+3E=",
+            "picture": "",
+            "site": "",
+            "user_permissions": [],
+            "username": "professor"
+        },
+        "model": "accounts.timtecuser",
+        "pk": 3
+    }
+]

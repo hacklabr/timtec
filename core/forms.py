@@ -72,11 +72,11 @@ class AddStudentsForm(forms.ModelForm):
     def save(self, commit=True):
         User = get_user_model()
         students = self.cleaned_data['students_text']
+
         for student_name in students:
             try:
                 student = User.objects.get(username=student_name)
+                self.instance.add_students(student)
             except User.DoesNotExist:
                 logger.info(u'student with username: %s does not exist' % student_name)
-
-            self.instance.add_students(student)
         return super(AddStudentsForm, self).save(commit=commit)
