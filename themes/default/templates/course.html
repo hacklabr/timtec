@@ -280,6 +280,17 @@
                                 <div class="content">{{ course.requirement|timtec_markdown }}</div>
                             {% endif %}
                         </div>
+                        <div class="structure col-xs-12">
+                            <div class="page-header-double">
+                                <h3 class="top"><i ng-class="{'blink-text-danger':errors.requirement}" class="fa fa-angle-double-right"></i> {% trans "Estrutura do Curso" %}</h3>
+                            </div>
+                            {% if in_admin %}
+                                <modalmarkdowneditor tabindex="8" on-save="saveCourse()" title="{% trans 'Estrutura do Curso' %}" content="course.structure"></modalmarkdowneditor>
+                            {% else %}
+                                <p>{{ course.structure|timtec_markdown }}</p>
+                            {% endif %}
+
+                        </div>
                     </div>
                     <!-- END ROW -->
                 </section>
