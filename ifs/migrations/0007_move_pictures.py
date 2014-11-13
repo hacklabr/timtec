@@ -13,7 +13,7 @@ class Migration(DataMigration):
                     new_u.picture = old_u.picture
                     new_u.save()
             except:
-                print 'u:', old_u.username, 'f:', old_u.first_name, old_u.id
+                print 'u:', old_u.username, 'id:', old_u.id
 
     def backwards(self, orm):
         "Write your backwards methods here."
