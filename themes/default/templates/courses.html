@@ -34,13 +34,12 @@
                     {% for course in courses %}
                     <!-- COURSE -->
                     <div class="course">
-                        {% if not course.has_started %}<span class="coming-soon-label">Em breve</span>{% endif %}
                         <a href="{% url "course_intro" course.slug %}" class="course-link">
+                            {% if not course.has_started %}<span class="coming-soon-label">Em breve</span>{% endif %}
                             <div class="thumb-wrapper">
                                 <div class="mouseover"></div>
-                                {% if course.home_thumbnail %}
-                                <div class="thumb" style="background-image: url({{ course.home_thumbnail.url }})"></div>
-                                {% endif %}
+                                <div class="thumb" {% if course.home_thumbnail %}style="background-image: url({{ course.home_thumbnail.url }})"{% endif %}></div>
+
                             </div>
                             <div class="info-box">
                                 <div class="info">
