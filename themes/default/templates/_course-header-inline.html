@@ -9,6 +9,7 @@
                 </h1>
                 {% include "_course-professors-inline.html" with course=course %}
             </div>
+            {% if course.first_lesson.slug %}
             <div class="col-lg-4 col-sm-5">
                 <!-- COURSE-SECTION-NAV -->
                 <nav class="course-sections textright" id="course-nav">
@@ -25,6 +26,7 @@
                 </nav>
                 <!-- END COURSE-SECTION-NAV -->
             </div>
+            {% endif %}
         </div>
     </div>
 </header>
