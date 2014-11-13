@@ -84,7 +84,7 @@
         <!-- END PAGE-HEADER -->
     </header>
     <!-- END HEADER -->
-    {% elif user|is_assistant_or_coordinator:course or user_is_enrolled %}
+    {% elif user|is_assistant_or_coordinator:course or user_is_enrolled and course.has_started %}
         {% include "_course-header-inline.html"  with course=course %}
     {% else %}
     <!-- HEADER -->
@@ -101,14 +101,18 @@
                     <div class="col-md-3 col-xs-12 textright">
                         {% if user_is_enrolled %}
                             <a href="{% url "lesson" course.slug course.first_lesson.slug %}" id="go-to-course" class="btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Resume" %}</a>
-                        {% else %}
-                            <a
-                                {% if user.is_authenticated %}
-                                    onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 1);"
+                            {% if course.has_started %}
+                                    <a href="{% url "lesson" course.slug course.first_lesson.slug %}" class="btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase js-login-required">{% trans "Resume" %}</a>
                                 {% else %}
-                                    onClick="ga('send', 'event', 'course', 'take the course', 'authenticated user', 0);"
+                                    <span href="#" class="btn btn-lg btn-danger col-lg-12 col-md-12 col-sm-12 col-xs-12 has-tooltip js-login-required uppercase" data-toggle="tooltip" data-placement="bottom" data-original-title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}" title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}">{% trans "Take the Class" %}</span>
                                 {% endif %}
-                                href="{% url "enroll_course" course.slug %}" class="js-login-required btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Take the Class" %}</a>
+                            <a href="{% url "lesson" course.slug course.first_lesson.slug %}" id="go-to-course" class="btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Resume" %}</a>
+                        {% else %}
+                            {% if course.has_started %}
+                                <a href="{% url "enroll_course" course.slug %}" class="btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 js-login-required uppercase">{% trans "Take the Class" %}</a>
+                            {% else %}
+                                <span href="#" class="btn btn-lg btn-danger col-lg-12 col-md-12 col-sm-12 col-xs-12 has-tooltip js-login-required uppercase" data-toggle="tooltip" data-placement="bottom" data-original-title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}" title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}">{% trans "Resume" %}</span>
+                            {% endif %}
                         {% endif %}
                     </div>
                 {% endif %}
@@ -485,6 +489,7 @@
                             </div>
                         </div>
                     {% else %}
+                        {% if user.is_authenticated and course.has_started %}
                         <!-- FOR LESSON IN COURSE.PUBLIC_LESSONS -->
                         {% for lesson in course.public_lessons %}
                             <!-- LESSON -->
@@ -549,6 +554,7 @@
                             <!-- END LESSON -->
                         {% endfor %}
                         <!-- END FOR LESSON IN COURSE.PUBLIC_LESSONS -->
+                        {% endif %}
                     {% endif %}
                 </section>
                 <!-- END COURSE-LESSONS -->
@@ -565,6 +571,13 @@
                     <div class="editable editable-text">
                         <input type="text" ng-model="course.start_date" datepicker-popup="dd/MM/yyyy" is-open="opened" show-button-bar="false" ng-click="opened = true" />
                     </div>
+                    {% elif not course.has_started %}
+                        <div class="page-header-double">
+                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Start date' %}</h3>
+                    </div>
+
+                    <div class="content">{{ course.start_date }}</div>
+
                     {% endif %}
                     <!-- ABSTRACT -->
                     <div class="page-header-double">
