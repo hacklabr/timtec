@@ -5,7 +5,7 @@ import datetime
 
 from django.db import models
 from django.db.models import Count
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.staticfiles.storage import staticfiles_storage
@@ -299,14 +299,15 @@ class ProfessorMessage(models.Model):
     course = models.ForeignKey(Course, verbose_name=_('Course'), null=True)
 
     def send(self):
-        to = [u.email for u in self.users.all()]
+        bcc = [u.email for u in self.users.all()]
         try:
             et = EmailTemplate.objects.get(name='professor-message')
         except EmailTemplate.DoesNotExist:
             et = EmailTemplate(name="professor-message", subject="{{subject}}", template="{{message}}")
         subject = Template(et.subject).render(Context({'subject': self.subject}))
         message = Template(et.template).render(Context({'message': self.message}))
-        return send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, to, fail_silently=False)
+        email = EmailMessage(subject, message, settings.DEFAULT_FROM_EMAIL, None, bcc)
+        return email.send()
 
 
 class PositionedModel(models.Model):
