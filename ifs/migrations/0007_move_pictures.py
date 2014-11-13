@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from south.v2 import DataMigration
-import django
 
 
 class Migration(DataMigration):
@@ -13,9 +12,8 @@ class Migration(DataMigration):
                 if not new_u.picture:
                     new_u.picture = old_u.picture
                     new_u.save()
-            except django.db.utils.IntegrityError:
+            except:
                 print 'u:', old_u.username, 'f:', old_u.first_name, old_u.id
-                raise
 
     def backwards(self, orm):
         "Write your backwards methods here."
