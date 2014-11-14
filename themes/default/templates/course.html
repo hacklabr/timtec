@@ -390,13 +390,14 @@
 
                 <!-- COURSE-LESSONS -->
                 <section class="lessons" id="lesson-list">
-                    <!-- PAGE-HEADER-DOUBLE -->
-                    <div class="page-header-double">
-                        <h3><i class="fa fa-angle-double-right"></i> {% trans "Lessons" %}</h3>
-                    </div>
-                    <!-- END PAGE-HEADER-DOUBLE -->
-
                     {% if in_admin %}
+
+                        <!-- PAGE-HEADER-DOUBLE -->
+                        <div class="page-header-double">
+                            <h3><i class="fa fa-angle-double-right"></i> {% trans "Lessons" %}</h3>
+                        </div>
+                        <!-- END PAGE-HEADER-DOUBLE -->
+
                         <p><a href="" ng-click="organizingLessons=true" ng-show="!organizingLessons">{% trans 'Organize lesson' %}</a></p>
 
                         <!-- ORGANIZING LESSONS -->
@@ -501,6 +502,11 @@
                         </div>
                     {% else %}
                         {% if user.is_authenticated and course.has_started %}
+                        <!-- PAGE-HEADER-DOUBLE -->
+                        <div class="page-header-double">
+                            <h3><i class="fa fa-angle-double-right"></i> {% trans "Lessons" %}</h3>
+                        </div>
+                        <!-- END PAGE-HEADER-DOUBLE -->
                         <!-- FOR LESSON IN COURSE.PUBLIC_LESSONS -->
                         {% for lesson in course.public_lessons %}
                             <!-- LESSON -->
