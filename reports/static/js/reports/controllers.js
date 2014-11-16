@@ -3,14 +3,70 @@
     'use strict';
     /* Controllers */
     angular.module('reports.controllers', []).
-        controller('CourseUsersReportsCtrl', ['$scope', '$window', '$location', 'CourseUserReport',
-            function ($scope, $window, $location, CourseUserReport) {
-                $scope.courseId = /course\/([^\/]+)\/stats/.extract(location.pathname, 1);
-                $scope.users_reports = CourseUserReport.query({course: $scope.courseId}, function (users_reports){});
-        }]).
-        controller('CourseLessonsReportsCtrl', ['$scope', '$window', '$location', 'CourseUserReport', 'CourseStats',
-            function ($scope, $window, $location, CourseUserReport, CourseStats) {
-                $scope.courseId = /course\/([^\/]+)\/stats/.extract(location.pathname, 1);
-                $scope.course_stats = CourseStats.get({courseId: $scope.courseId}, function (course_stats){});
+        controller('ReportsCtrl', ['$scope', '$location', '$sce', '$window', 'CourseUserReport', 'LessonsUserProgress', 'StudentSearch', 'Class', 'CourseStats', 'CourseProfessor',
+            function ($scope, $location, $sce, $window, CourseUserReport, LessonsUserProgress, StudentSearch, Class, CourseStats, CourseProfessor) {
+                $scope.course_id = parseInt($window.course_id, 10);
+                var current_user_id = parseInt($window.user_id, 10);
+
+                $scope.course_stats = CourseStats.get({courseId: $scope.course_id});
+                $scope.users_reports = CourseUserReport.query({course: $scope.course_id});
+
+                $scope.my_classes = [];
+                $scope.others_classes = [];
+                $scope.filters = {};
+
+                CourseProfessor.query({course: $scope.course_id, user: current_user_id}, function(course_professor){
+                    var current_user = course_professor[0];
+                    var current_user_role = '';
+                    // If current_user is undefined, he is not course professor, but may be admin
+                    if (current_user === undefined) {
+                        if ($window.is_admin)
+                            // if user is admin, set role to coordinator, higher role in course.
+                            current_user_role = 'coordinator';
+                    } else {
+                        current_user_role = current_user.role;
+                    }
+
+                    $scope.classes = Class.query({course: $scope.course_id}, function(classes){
+                        if (current_user_role == 'assistant') {
+                            $scope.my_classes = classes;
+                            $scope.filters.selected_class = 'my_classes';
+                        } else if (current_user_role == 'coordinator') {
+                            $scope.filters.selected_class = 'all';
+                            classes.forEach(function(klass) {
+                                // if current user is undefined, he is not course professor, so he don't have any class
+                                // in this course.
+                                if (current_user !== undefined && klass.assistant == current_user.user) {
+                                    $scope.my_classes.unshift(klass);
+                                } else {
+                                    $scope.others_classes.unshift(klass);
+                                }
+                            });
+                        }
+                    });
+                    $scope.current_user_role =  current_user_role;
+                });
+
+                $scope.show_user_progress_details = function(user) {
+                    if (user.lessons_stats === undefined) {
+                        user.lessons_stats = LessonsUserProgress.get({courseId: $scope.course_id, user: user.user_id});
+                    }
+                };
+
+                $scope.filter_stats = function(){
+                    if ($scope.filters.selected_class == 'all') {
+                        $scope.course_stats = CourseStats.get({courseId: $scope.course_id}, function (course_stats){});
+                        $scope.users_reports = CourseUserReport.query({course: $scope.course_id}, function (users_reports){});
+                    } else if ($scope.filters.selected_class == 'my_classes') {
+                        $scope.users_reports = CourseUserReport.query({course: $scope.course_id, classes: $scope.my_classes.map(function(x) {return x.id; })});
+                        $scope.course_stats = CourseStats.get({courseId: $scope.course_id, classes: $scope.my_classes.map(function(x) {return x.id; })});
+                    } else if ($scope.filters.selected_class == 'others_classes') {
+                        $scope.users_reports = CourseUserReport.query({course: $scope.course_id, classes: $scope.others_classes.map(function(x) {return x.id; })});
+                        $scope.course_stats = CourseStats.get({courseId: $scope.course_id, classes: $scope.others_classes.map(function(x) {return x.id; })});
+                    } else {
+                        $scope.users_reports = CourseUserReport.query({course: $scope.course_id, classes: $scope.filters.selected_class});
+                        $scope.course_stats = CourseStats.get({courseId: $scope.course_id, classes: $scope.filters.selected_class});
+                    }
+                };
         }]);
 })(angular);

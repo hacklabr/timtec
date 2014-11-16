@@ -41,15 +41,6 @@ $(document).ready(function() {
     <!-- COURSE CONTENT -->
     <section id="course-content" class="container">
 
-        <nav class="course-lessons hidden-xs">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1>{{ lesson.name }}</h1>
-                    <div class="description">{{ lesson.desc|timtec_markdown }}</div>
-                </div>
-            </div>
-        </nav>
-
         <nav class="lesson-units hidden-xs">
             <div class="btn-group" id="lesson-list-dropdown">
                 <button type="button" class="btn btn-sm btn-default">{{ lesson.name }}</button>
@@ -64,6 +55,14 @@ $(document).ready(function() {
             </div>
         </nav>
 
+        <nav class="course-lessons hidden-xs">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>{{ lesson.name }}</h1>
+                    <div class="description">{{ lesson.desc|timtec_markdown }}</div>
+                </div>
+            </div>
+        </nav>
 
         <!-- LESSON NAVIGATION FOR PHONE -->
         <p class="visible-xs">
@@ -79,11 +78,12 @@ $(document).ready(function() {
         <!-- END LESSON NAVIGATION FOR PHONE -->
 
         <!-- ROW -->
-        <div class="row" ng-controller="MainCtrl">
+        <div ng-controller="MainCtrl">
+        <div class="row" >
 
             {% verbatim %}
             <!-- UNITS NAVIGATION FOR TABLET AND DESKTOP -->
-            <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs" id="lesson-units-nav">
+            <div class="col-md-1 col-sm-2 hidden-xs" id="lesson-units-nav">
                 <!-- UNITS -->
                 <div class="units">
                     <a style="display:block;" data-placement="right"
@@ -109,9 +109,9 @@ $(document).ready(function() {
             <!-- UNITS NAVIGATION FOR PHONES -->
             <div class="col-xs-12 visible-xs">
                 <p>
-                    <select ng-model="currentUnitPos" class="form-control">
+                    <select ng-model="selectedIndex" ng-change="locationChange(selectedIndex)" class="form-control">
                         <option ng-repeat="unit in lesson.units"
-                                ng-value="unit"
+                                ng-value="$index+1"
                                 ng-selected="unit==currentUnit"
                                 value="{{$index+1}}">{% endverbatim %}{% trans 'Unit' %}{% verbatim %} {{ unit.position + 1 }}</option>
                     </select>
@@ -120,7 +120,7 @@ $(document).ready(function() {
             <!-- END UNITS NAVIGATION FOR PHONES -->
             {% endverbatim %}
 
-            <div class="col-lg-8 col-md-8 col-sm-11 col-xs-12">
+            <div class="col-lg-8 col-md-8 col-sm-10 col-xs-12">
                 <!--
                 this class exists to circunvent a flash + youtube api error
                 in which if the video div is really hidden the api breaks
@@ -144,15 +144,20 @@ $(document).ready(function() {
                         </div>
                     </div>
                 </div>
+                <div ng-show="section=='end'" class="next-lesson">
+                    {% if next_url %}
+                        <a class="btn btn-info" href="{{ next_url }}"><span>Vá para a próxima aula</span><i class="fa fa-caret-right"></i></a>
+                    {% else %}
+                        <a class="btn btn-info" href="{% url 'course_intro' lesson.course.slug %}"><span>Voltar para home do curso</span><i class="fa fa-caret-right"></i></a>
+                    {% endif %}
+                </div>
             </div>
 
             <!-- div ng-view></div -->
 
             <!-- NOTES -->
-            <div class="col-lg-3 col-md-3 hidden-sm hidden-xs" id="student-notes">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#notes" data-toggle="tab">{% trans 'Annotations' %}</a></li>
-                </ul>
+            <div class="col-lg-3 col-md-3 col-sm-10 col-xs-12 col-md-offset-0 col-sm-offset-1" id="student-notes">
+                <h3 class="top"><i class="fa fa-angle-double-right"></i> {% trans 'Annotations' %}</h3>
                 <div class="tab-content">
                     {% include "_notes_inline.html" %}
                 </div>
@@ -169,7 +174,7 @@ $(document).ready(function() {
                         <h3><i class="fa fa-angle-double-right"></i> {% trans 'Addicional materials' %}</h3>
                     </div>
                     <span ng-bind-html="currentUnit.side_notes|markdown"></span>
-                    <p ng-if="!currentUnit.side_notes">{% trans 'This unit has no notes' %}</p>
+                    <p ng-if="!currentUnit.side_notes">{% trans 'This unit has no addicional materials' %}</p>
                 </div>
                 <!-- END SIDENOTES -->
 
@@ -177,6 +182,7 @@ $(document).ready(function() {
                 {% include "_forum_inline.html"  with course=lesson.course question_form=1 %}
                 <!-- END FORUM -->
             </div>
+        </div>
         </div>
     </section>
     <!-- END COURSE CONTENT -->

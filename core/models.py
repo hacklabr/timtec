@@ -5,7 +5,7 @@ import datetime
 
 from django.db import models
 from django.db.models import Count
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.staticfiles.storage import staticfiles_storage
@@ -14,9 +14,8 @@ from django.contrib.contenttypes import generic
 from django.conf import settings
 from autoslug import AutoSlugField
 
-
-from accounts.models import TimtecUser
 from notes.models import Note
+from course_material.models import CourseMaterial
 
 
 class Video(models.Model):
@@ -29,6 +28,34 @@ class Video(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class Class(models.Model):
+    name = models.CharField(max_length=200)
+    assistant = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Assistant'), related_name='professor_classes', null=True, blank=True)
+    students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='classes', blank=True)
+    course = models.ForeignKey('Course', verbose_name=_('Course'))
+
+    def __unicode__(self):
+        return u'%s @ %s' % (self.name, self.course)
+
+    def get_absolute_url(self):
+        return reverse('class', kwargs={'pk': self.id})
+
+    def add_students(self, *objs):
+        for obj in objs:
+            try:
+                c = Class.objects.get(course=self.course, students=obj)
+                c.students.remove(obj)
+            except Class.DoesNotExist:
+                pass
+            self.students.add(obj)
+
+    def remove_students(self, *objs):
+        for obj in objs:
+            self.students.remove(obj)
+            if CourseStudent.objects.filter(course=self.course, user=obj).exists():
+                self.course.default_class.students.add(obj)
 
 
 class Course(models.Model):
@@ -51,12 +78,13 @@ class Course(models.Model):
     status = models.CharField(_('Status'), choices=STATES, default=STATES[0][0], max_length=64)
     publication = models.DateField(_('Publication'), default=None, blank=True, null=True)
     thumbnail = models.ImageField(_('Thumbnail'), upload_to='course_thumbnails', null=True, blank=True)
-    professors = models.ManyToManyField(TimtecUser, related_name='professorcourse_set', through='CourseProfessor')
-    students = models.ManyToManyField(TimtecUser, related_name='studentcourse_set', through='CourseStudent')
+    professors = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='professorcourse_set', through='CourseProfessor')
+    students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='studentcourse_set', through='CourseStudent')
     home_thumbnail = models.ImageField(_('Home thumbnail'), upload_to='home_thumbnails', null=True, blank=True)
     home_position = models.IntegerField(null=True, blank=True)
     start_date = models.DateField(_('Start date'), default=None, blank=True, null=True)
     home_published = models.BooleanField(default=False)
+    default_class = models.OneToOneField(Class, verbose_name=_('Default Class'), related_name='default_course', null=True, blank=True)
 
     class Meta:
         verbose_name = _('Course')
@@ -78,11 +106,11 @@ class Course(models.Model):
             return self.lessons.all()[0]
 
     def enroll_student(self, student):
-        params = {'user': student, 'course': self}
-        try:
-            return CourseStudent.objects.get(**params)
-        except CourseStudent.DoesNotExist:
-            return CourseStudent.objects.create(**params)
+        if not Class.objects.filter(course=self, students=student).exists():
+            self.default_class.students.add(student)
+
+        if not CourseStudent.objects.filter(course=self, user=student).exists():
+            CourseStudent.objects.create(course=self, user=student)
 
     def get_thumbnail_url(self):
         if self.thumbnail:
@@ -96,8 +124,11 @@ class Course(models.Model):
         else:
             return False
 
-    def avg_lessons_users_progress(self):
-        student_enrolled = self.coursestudent_set.all().count()
+    def avg_lessons_users_progress(self, classes=None):
+        if classes:
+            student_enrolled = self.coursestudent_set.filter(user__classes__in=classes).count()
+        else:
+            student_enrolled = self.coursestudent_set.all().count()
         progress_list = []
         for lesson in self.lessons.all():
             lesson_progress = {}
@@ -106,9 +137,16 @@ class Course(models.Model):
             lesson_progress['position'] = lesson.position
             units_len = lesson.unit_count()
             if units_len:
-                units_done_len = StudentProgress.objects.exclude(complete=None).filter(unit__lesson=lesson).count()
-                lesson_progress['progress'] = 100 * units_done_len / (units_len * student_enrolled)
-                lesson_progress['forum_questions'] = lesson.forum_questions.count()
+                units_done = StudentProgress.objects.exclude(complete=None).filter(unit__lesson=lesson)
+                if classes:
+                    units_done = units_done.filter(user__classes__in=classes)
+                units_done_len = units_done.count()
+                if units_len and student_enrolled:
+                    # avoid zero divizion
+                    lesson_progress['progress'] = 100 * units_done_len / (units_len * student_enrolled)
+                else:
+                    lesson_progress['progress'] = 0
+                # lesson_progress['forum_questions'] = lesson.forum_questions.count()
                 # lesson_progress['progress'] =
                 # lesson_progress['finish'] = self.get_lesson_finish_time(lesson)
             else:
@@ -130,21 +168,37 @@ class Course(models.Model):
         except CourseProfessor.DoesNotExist:
             return False
 
-    def has_perm_own_classes(self, user):
+    def is_assistant_or_coordinator(self, user):
+        if user.is_staff or user.is_superuser:
+            return True
         role = self.get_professor_role(user)
-        return role in ['assistant', 'coordinator']
+        return role in ['assistant', 'coordinator'] or user.is_superuser
 
     def has_perm_own_all_classes(self, user):
         role = self.get_professor_role(user)
         return role == 'coordinator' or user.is_superuser
 
+    def save(self, *args, **kwargs):
+        is_new = self.pk is None
+
+        super(Course, self).save(*args, **kwargs)
+
+        if is_new:
+            c = Class.objects.create(name=self.name, course=self)
+            self.default_class = c
+            self.save()
+            CourseMaterial.objects.create(course=self)
+
 
 class CourseStudent(models.Model):
-    user = models.ForeignKey(TimtecUser, verbose_name=_('Student'))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Student'))
     course = models.ForeignKey(Course, verbose_name=_('Course'))
 
     class Meta:
         unique_together = (('user', 'course'),)
+
+    def __unicode__(self):
+        return u'{0} - {1}'.format(self.course, self.user)
 
     @property
     def units_done(self):
@@ -183,6 +237,7 @@ class CourseStudent(models.Model):
         """
         Returns a list with dictionaries with keys name (lesson name), slug (lesson slug) and progress (percent lesson progress, decimal)
         """
+        # TODO refator to make one query to count unts done for all lessons
         progress_list = []
         for lesson in self.course.lessons.all():
             lesson_progress = {}
@@ -214,7 +269,7 @@ class CourseProfessor(models.Model):
         ('coordinator', _('Professor Coordinator')),
     )
 
-    user = models.ForeignKey(TimtecUser, verbose_name=_('Professor'))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Professor'), related_name='teaching_courses')
     course = models.ForeignKey(Course, verbose_name=_('Course'))
     biography = models.TextField(_('Biography'), blank=True)
     role = models.CharField(_('Role'), choices=ROLES, default=ROLES[1][0], max_length=128)
@@ -236,22 +291,23 @@ class CourseProfessor(models.Model):
 
 
 class ProfessorMessage(models.Model):
-    professor = models.ForeignKey(TimtecUser, verbose_name=_('Professor'))
-    users = models.ManyToManyField(TimtecUser, related_name='messages')
+    professor = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Professor'))
+    users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='messages')
     subject = models.CharField(_('Subject'), max_length=255)
     message = models.TextField(_('Message'))
     date = models.DateTimeField(_('Date'), auto_now_add=True)
     course = models.ForeignKey(Course, verbose_name=_('Course'), null=True)
 
     def send(self):
-        to = [u.email for u in self.users.all()]
+        bcc = [u.email for u in self.users.all()]
         try:
             et = EmailTemplate.objects.get(name='professor-message')
         except EmailTemplate.DoesNotExist:
             et = EmailTemplate(name="professor-message", subject="{{subject}}", template="{{message}}")
         subject = Template(et.subject).render(Context({'subject': self.subject}))
         message = Template(et.template).render(Context({'message': self.message}))
-        return send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, to, fail_silently=False)
+        email = EmailMessage(subject, message, settings.DEFAULT_FROM_EMAIL, None, bcc)
+        return email.send()
 
 
 class PositionedModel(models.Model):
@@ -324,7 +380,7 @@ class Unit(PositionedModel):
     title = models.CharField(_('Title'), max_length=128, blank=True)
     lesson = models.ForeignKey(Lesson, verbose_name=_('Lesson'), related_name='units')
     video = models.ForeignKey(Video, verbose_name=_('Video'), null=True, blank=True)
-    activity = models.ForeignKey('activities.Activity', verbose_name=_('Activity'), null=True, blank=True, related_name='units')
+    # activity = models.ForeignKey('activities.Activity', verbose_name=_('Activity'), null=True, blank=True, related_name='units')
     side_notes = models.TextField(_('Side notes'), blank=True)
     position = models.IntegerField(default=0)
     notes = generic.GenericRelation(Note)
@@ -341,7 +397,7 @@ class Unit(PositionedModel):
 
 
 class StudentProgress(models.Model):
-    user = models.ForeignKey(TimtecUser, verbose_name=_('Student'))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Student'))
     unit = models.ForeignKey(Unit, verbose_name=_('Unit'), related_name='progress')
     complete = models.DateTimeField(editable=True, null=True, blank=True)
     last_access = models.DateTimeField(auto_now=True, editable=False)
@@ -358,16 +414,3 @@ class EmailTemplate(models.Model):
     name = models.CharField(max_length=50)
     subject = models.CharField(max_length=255)
     template = models.TextField()
-
-
-class Class(models.Model):
-    name = models.CharField(max_length=200)
-    assistant = models.ForeignKey(TimtecUser, verbose_name=_('Assistant'))
-    students = models.ManyToManyField(TimtecUser, related_name='classes', blank=True)
-    course = models.ForeignKey(Course, verbose_name=_('Course'))
-
-    def __unicode__(self):
-        return u'%s @ %s' % (self.name, self.course)
-
-    def get_absolute_url(self):
-        return reverse('class', kwargs={'pk': self.id})

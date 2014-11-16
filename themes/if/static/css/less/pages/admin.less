@@ -6,56 +6,11 @@
   // ********************************************************************* //
   #courses {
     margin-top: 0;
-
     > header {
       border-bottom: 1px solid fade(@brand-primary, 20%);
     }
-    .filters {
-      background-color: darken(@brand-light, 10%);
-      border-radius: @border-radius-base;
-      padding: 5px 10px;
-      margin: 20px 0 50px;
-
-      .checkbox {
-        line-height: 2.5;
-        label {
-          font-size: 14px;
-          margin-right: 10px;
-        }
-        input[type="checkbox"] {
-          display: inline-block;
-        }
-      }
-      .checkbox, .radio {
-        input {
-          display: inline-block;
-        }
-      }
-      .filter-checkbox {
-        @media (max-width: @screen-sm-max) {
-          margin-bottom: 20px;
-        }
-      }
-      @media (max-width: @screen-xs-max) {
-        .filter-keyword, .filter-ordering, .filter-reverse {
-          margin-bottom: 10px;
-        }
-        .filter-checkbox {
-          .checkbox {
-            padding-left: 23px;
-            label {
-              display: block;
-              margin-bottom: 10px;
-            }
-          }
-        }
-      }
-
-      .filter-ordering {
-        select {
-          width: 100%;
-        }
-      }
+    .course {
+      min-height: 20px;
     }
     #all-courses {
       &.courses-list {
@@ -336,6 +291,11 @@
       .activity {
         .editable-title {
           margin-bottom: 10px;
+          float: left;
+          width: 90%;
+        }
+        .question .btn-danger {
+            float: right;
         }
         .answer {
           margin-bottom: 10px;
@@ -364,22 +324,31 @@
     // ********************************************************************* //
     .add-content {
       margin-bottom: 0px;
-      margin-top: 20px;
-      button {
-        font-size: 11px;
-        margin-bottom: 10px;
-        padding: 10px 20px;
-        &.delete {
-          font-size: 14px;
-          padding: 8px 20px;
+      #video-activity-buttons {
+        button {
+          font-size: 11px;
+          margin-bottom: 10px;
+          padding: 10px 20px;
+        }
+        @media (max-width: 560px) {
+          .col-xs-6 {
+            width: 100%;
+            &.textright {
+              text-align: left;
+            }
+          }
         }
       }
-      @media (max-width: 560px) {
-        .col-xs-6 {
-          width: 100%;
-          &.textright {
-            text-align: left;
+      .secondary-header {
+        .editable-text {
+          margin: 0 40px 0 0;
+          input {
+            font-size: 18px;
           }
+        }
+        .btn {
+          float: right;
+          margin: -28px 0 0 0;
         }
       }
     }
@@ -605,10 +574,11 @@
     -webkit-transition: background-color 1s;
 }
 
-.activity label.btn {
+.activity-btn {
   white-space: normal;
   min-height: 4em;
   width: 100%;
+  margin-bottom: 10px;
 }
 
 .activity .panel-body {

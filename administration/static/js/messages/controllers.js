@@ -10,9 +10,9 @@
         };
     });
 
-    module.controller('NewMessageController', ['$scope', '$modal', 'Message', 'Student', 'StudentSearch', 'messages_list', '$rootScope',
-            function($scope, $modal,  Message, Student, StudentSearch, messages_list, $rootScope) {
-                $scope.course_id = document.location.href.match(/course\/([0-9]+)/)[1];
+    module.controller('NewMessageController', ['$scope', '$modal', '$window', 'Message', 'Student', 'StudentSearch', 'Class', 'messages_list', '$rootScope',
+            function($scope, $modal, $window, Message, Student, StudentSearch, Class, messages_list, $rootScope) {
+                $scope.course_id = parseInt($window.course_id, 10);
                 $scope.messages = messages_list.messages;
                 $scope.new_message = function () {
                     var modalInstance = $modal.open({
@@ -38,13 +38,12 @@
                     $scope.new_message.course = course_id;
                     $scope.new_message.users = [];
                     $scope.recipient_list = [];
+                    $scope.empty_msg_subject_error = false;
+                    $scope.empty_msg_body_error = false;
 
-                    $scope.students = Student.query({course: $scope.course_id}, function(students) {
-                        // Student service refer to CourseStudent django model.
-                        $scope.all_users = [];
-                        angular.forEach(students, function(user_ref) {
-                            $scope.all_users.push(user_ref.user);
-                        });
+                    $scope.classes = Class.query({course: course_id}, function(classes){
+                        classes.checked = [];
+                        return classes;
                     });
 
                     // trick to user modal.all_checked in ng-model html tag
@@ -54,16 +53,37 @@
                     $scope.send = function () {
                         // TODO validação dos campo: títle e message não podem ser vazios
                         if ($scope.modal.all_checked) {
-                            $scope.new_message.users = $scope.all_users.map(function(item) { return item.id; });
+                            $scope.new_message.users = [];
+                            angular.forEach($scope.classes, function(klass) {
+                                $scope.new_message.users = $scope.new_message.users.concat(klass.students);
+                            });
+                        } else if ($scope.classes.checked) {
+                            angular.forEach($scope.classes.checked, function(klass) {
+                                $scope.new_message.users = $scope.new_message.users.concat(klass);
+                            });
                         }
-                        $modalInstance.close($scope.new_message);
+                        if ($scope.new_message.message && $scope.new_message.subject) {
+                            $modalInstance.close($scope.new_message);
+                            $scope.empty_msg_subject_error = false;
+                            $scope.empty_msg_body_error = false;
+                        }
+                        if (!$scope.new_message.message) {
+                            $scope.empty_msg_body_error = true;
+                        } else {
+                            $scope.empty_msg_body_error = false;
+                        }
+                        if (!$scope.new_message.subject) {
+                            $scope.empty_msg_subject_error = true;
+                        } else {
+                            $scope.empty_msg_subject_error = false;
+                        }
                     };
 
                     $scope.cancel = function () {
                         $modalInstance.dismiss();
                     };
                     $scope.getUsers = function(val) {
-                        return new StudentSearch(val);
+                        return new StudentSearch(val, course_id);
                     };
 
                     $scope.on_select_student = function(model) {
@@ -74,15 +94,17 @@
 
                     $scope.remove_student = function(index) {
                         $scope.new_message.users.splice(index, 1);
+                        $scope.recipient_list.splice(index, 1);
                 };
 
                 };
             }
         ]);
 
-    module.controller('MessagesListController', ['$scope', '$modal', 'Message', 'messages_list',
-        function($scope, $modal,  Message, messages_list) {
-            $scope.course_id = document.location.href.match(/course\/([0-9]+)/)[1];
+    module.controller('MessagesListController', ['$scope', '$modal', '$window', 'Message', 'messages_list',
+        function($scope, $modal, $window, Message, messages_list) {
+            $scope.course_id = parseInt($window.course_id, 10);
+            $scope.course_slug = $window.course_slug;
             messages_list.messages = Message.query({course: $scope.course_id});
             $scope.messages = messages_list.messages;
             $scope.$on('newMessage', function() {
@@ -91,23 +113,11 @@
         }
     ]);
 
-    module.controller('MessageController', ['$scope', 'Message',
-        function($scope, Message) {
-            $scope.course_id = document.location.href.match(/course\/([0-9]+)/)[1];
+    module.controller('MessageController', ['$scope', '$window', 'Message',
+        function($scope, $window, Message) {
+            $scope.course_id = parseInt($window.course_id, 10);
             $scope.message_id = document.location.href.match(/message\/([0-9]+)/)[1];
             $scope.message = Message.get({messageId: $scope.message_id}, function(message) {
-                $scope.message.users_rows = [];
-                var row = [];
-                var index = 0;
-                angular.forEach(message.users_details, function(user) {
-                    row.push(user);
-                    if (index == 5) {
-                        message.users_rows.push(row);
-                        row = [];
-                        index = 0;
-                    } else
-                        index++;
-                });
             });
         }
     ]);

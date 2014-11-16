@@ -3,7 +3,7 @@ import json
 import time
 
 from django.core.urlresolvers import reverse_lazy
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.http import HttpResponse
 from django.views.generic import (DetailView, ListView, FormView, DeleteView,
                                   CreateView, UpdateView)
@@ -24,7 +24,7 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           CourseThumbSerializer, LessonSerializer,
                           StudentProgressSerializer, CourseNoteSerializer,
                           LessonNoteSerializer, ProfessorMessageSerializer,
-                          CourseStudentSerializer,)
+                          CourseStudentSerializer, ClassSerializer)
 
 from .models import (Course, CourseProfessor, Lesson, StudentProgress,
                      Unit, ProfessorMessage, CourseStudent, Class)
@@ -105,6 +105,12 @@ class ContactView(View):
         return response
 
 
+class GenericCourseView(DetailView):
+    model = Course
+    context_object_name = 'course'
+    slug_url_kwarg = 'course_slug'
+
+
 class CourseView(DetailView):
     model = Course
     template_name = 'course.html'
@@ -140,7 +146,7 @@ class EnrollCourseView(LoginRequiredMixin, RedirectView):
 
     def get_redirect_url(self, **kwargs):
         course = self.get_object()
-        if self.request.user.accepted_terms:
+        if self.request.user.accepted_terms or not settings.TERMS_ACCEPTANCE_REQUIRED:
             course.enroll_student(self.request.user)
             return reverse_lazy('lesson', args=[course.slug, course.first_lesson().slug])
         else:
@@ -231,7 +237,8 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     def metadata(self, request):
         data = super(CourseViewSet, self).metadata(request)
-        data.get('actions').get('POST').get('status').update({'choices': dict(Course.STATES[1:])})
+        if data.get('actions'):
+            data.get('actions').get('POST').get('status').update({'choices': dict(Course.STATES[1:])})
         return data
 
 
@@ -271,6 +278,13 @@ class LessonDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(LessonDetailView, self).get_context_data(**kwargs)
         unit_content_type = ContentType.objects.get_for_model(Unit)
+        course = self.object.course
+        lessons = list(course.public_lessons)
+        if lessons and self.object != lessons[-1]:
+            index = lessons.index(self.object)
+            context['next_url'] = reverse_lazy('lesson',
+                                               args=[course.slug,
+                                                     lessons[index + 1].slug])
         context['unit_content_type_id'] = unit_content_type.id
         return context
 
@@ -449,3 +463,27 @@ class UserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
             del course.lessons_dict
             results.append(CourseNoteSerializer(course).data)
         return Response(results)
+
+
+class ClassViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
+
+    model = Class
+    serializer_class = ClassSerializer
+    filter_fields = ('course',)
+
+    def get_queryset(self):
+        queryset = super(ClassViewSet, self).get_queryset()
+        if self.request.user.is_staff or self.request.user.is_superuser:
+            return queryset
+
+        course_id = self.request.QUERY_PARAMS.get('course')
+        if course_id:
+            try:
+                role = self.request.user.teaching_courses.get(course__id=course_id).role
+            except ObjectDoesNotExist:
+                role = ''
+            # if user is not coordinator or admin, only show his classes
+            if not role or role == 'assistant':
+                queryset = queryset.filter(assistant=self.request.user)
+
+        return queryset

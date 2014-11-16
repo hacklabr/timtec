@@ -3,7 +3,7 @@ from django.views.generic.base import RedirectView
 from django.contrib.auth.decorators import login_required as lr
 from forum.views import AdminCourseForumView
 from course_material.views import CourseMaterialAdminView
-from views import AdminView
+from views import AdminView, CourseAdminView
 
 urlpatterns = patterns(
     '',
@@ -20,8 +20,8 @@ urlpatterns = patterns(
     url(r'^courses/(?P<course_id>[1-9][0-9]*)/lessons/(?P<pk>[1-9][0-9]*)/$', AdminView.as_view(template_name="lesson.html")),
 
     # messages
-    url(r'^course/(?P<course_id>[1-9][0-9]*)/messages/$', AdminView.as_view(template_name="messages.html")),
-    url(r'^course/(?P<course_id>[1-9][0-9]*)/message/(?P<message_id>[1-9][0-9]*)$', AdminView.as_view(template_name="message.html")),
+    url(r'^course/(?P<course_id>[1-9][0-9]*)/messages/$', CourseAdminView.as_view(template_name="messages.html")),
+    url(r'^course/(?P<course_id>[1-9][0-9]*)/message/(?P<message_id>[1-9][0-9]*)$', CourseAdminView.as_view(template_name="message.html")),
 
     url(r'^course/(?P<course_id>[1-9][0-9]*)/forum/', AdminCourseForumView.as_view(template_name="forum.html")),
 
@@ -29,7 +29,8 @@ urlpatterns = patterns(
 
     url(r'^course/(?P<pk>[1-9][0-9]*)/permissions/$', AdminView.as_view(template_name="users.html"), name="course.permissions"),
 
-    url(r'^course/(?P<course_id>[1-9][0-9]*)/stats/$', AdminView.as_view(template_name="stats.html")),
+    url(r'^course/(?P<course_id>[1-9][0-9]*)/stats/$', CourseAdminView.as_view(template_name="stats.html")),
 
     url(r'^home/$', lr(AdminView.as_view(template_name="home.html"))),
+
 )

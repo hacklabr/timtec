@@ -59,5 +59,9 @@ settings_local.py
 /.cache
 /node_modules
 
+# Vagrant
+.vagrant
+
+
 *.psqlc
 *.log

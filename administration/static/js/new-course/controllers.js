@@ -102,6 +102,10 @@
                     $scope.course.slug = $filter('slugify')($scope.course.name);
                 }
 
+                if ($scope.course.start_date) {
+                    $scope.course.start_date = $filter('date')($scope.course.start_date, 'yyyy-MM-dd');
+                }
+
                 $scope.course.save()
                     .then(function(){
                         return $scope.saveThumb();

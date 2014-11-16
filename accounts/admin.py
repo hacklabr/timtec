@@ -1,5 +1,17 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import TimtecUser
+from django.contrib.auth import get_user_model
+from django.utils.translation import ugettext_lazy as _
 
-admin.site.register(TimtecUser, UserAdmin)
+
+User = get_user_model()
+
+
+class TimtecUserAdmin(UserAdmin):
+    model = User
+
+    fieldsets = UserAdmin.fieldsets + (
+        (_('Timtec Info'), {'fields': ('accepted_terms', 'picture')}),
+    )
+
+admin.site.register(User, TimtecUserAdmin)

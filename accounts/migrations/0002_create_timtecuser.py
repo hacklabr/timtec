@@ -6,6 +6,9 @@ from django.db import models
 
 
 class Migration(SchemaMigration):
+    depends_on = (
+        ('core', '0008_auto__del_field_lesson_published'),
+    )
 
     def forwards(self, orm):
         # Adding model 'TimtecUser'

@@ -13,7 +13,6 @@
     margin-top: 20px;
     .lesson {
       background: #fff;
-      overflow: hidden;
       padding: 15px 0;
       margin-bottom: 20px;
       border-radius: @border-radius-base;
@@ -129,7 +128,7 @@
 
   // COURSE VIDEO - General
   // ********************************************************************* //
-  .video, .activity {
+  .video {
     border: 1px solid @gray-lighter;
     .video-title {
       margin: 2px 10px 0;
@@ -140,19 +139,64 @@
   }
   // END COURSE VIDEO
 
+  // NEXT LESSON
+  // ********************************************************************* //
+  .next-lesson {
+    border: 1px solid #eeeeee;
+    padding: 40px 20px;
+    position: relative;
+    text-align: center;
+    @media (min-width: @screen-lg-min) {
+      height: 424px;
+    }
+    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+      height: 349px;
+    }
+    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+      height: 372px;
+    }
+    &:before {
+      content: '';
+      height: 100%;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .btn {
+      span {
+        float: left;
+      }
+      .fa {
+        margin: 1px 0 0 10px;
+        font-size: 18px;
+        float: right;
+      }
+    }
+  }
+  // END COURSE VIDEO
+
   // COURSE NOTES - General
   // ********************************************************************* //
+  #student-notes {
+    @media (max-width: @screen-sm-max) { margin-top: 20px; }
+  }
   .notes {
     textarea {
       border: 2px solid @gray-lighter;
       height: 235px;
       @media (min-width: @screen-lg-min) { height: 310px; }
+      @media (max-width: @screen-sm-max) { width: 100%; }
       margin: 20px 0 10px;
-      padding: 10px;
     }
     .message {
       font-size: 12px;
-      clear: both;
+      display: none;
+      float: left;
+      text-align: left;
+      width: 140px;
+      @media (min-width: @screen-lg-min) { width: 175px; }
+    }
+    .btn {
+      float: right;
     }
   }
   .add-side-notes {
@@ -173,13 +217,20 @@
 
   // COURSE UNITS - General
   // ********************************************************************* //
+  #lesson-units-nav {
+    @media (max-width: @screen-sm-max) {
+      width: 13% !important;
+    }
+  }
   .units {
     //margin-top: 20px;
+    a.unit {
+      cursor:pointer;
+    }
     .unit {
       background:@gray-lighter - 20%;
       .box-shadow(inset -1px 0 0 #fff);
       color:#fff;
-      cursor:pointer;
       display:block;
       font-size:12px;
       height:20px;

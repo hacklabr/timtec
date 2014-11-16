@@ -1,6 +1,7 @@
 // REGISTRATION AND AUTHENTICATION
 // ********************************************************************* //
-#activation-wrapper {
+
+#activation-wrapper, #sign-wrapper, #signup-wrapper {
   text-align:center;
   &:before {
     content:'';
@@ -10,11 +11,18 @@
 
   .centered {
     .vertical-align(middle);
-    width:500px;
+    width:600px;
+    @media (max-width: @screen-xs-max) {
+      width: initial;
+      max-width:400px;
+    }
   }
 
   form {
     border-top:1px solid @gray-lighter;
+    @media (max-width: @screen-xs-max) {
+      text-align: left;
+    }
     .top(14px,21px);
     .submit {
       a {
@@ -24,5 +32,17 @@
         }
       }
     }
+    .first-name {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+// checkbox on sign up form
+.if-student {
+  text-align: left;
+  input {
+    float: left;
+    margin: 4px 10px 0px 0;
   }
 }

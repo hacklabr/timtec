@@ -6,6 +6,10 @@
 
 {% block js %}
     {{block.super}}
+    <script>
+        window.course_id = {{ course.pk }};
+        window.course_slug = '{{ course.slug }}';
+    </script>
     {% compressed_js 'admin_course_header' %}
     {% compressed_js 'messages' %}
 {% endblock %}
@@ -17,9 +21,13 @@
 <!--  COURSE CONTENT  -->
 <div id="messages" class="course-messages" ng-app="messages">
 
+    {% if in_admin %}
     <div ng-controller="HeaderController">
         {% include "_admin_header_inline.html" %}
     </div>
+    {% else %}
+        {% include "_course-header-inline.html"  with course=course %}
+    {% endif %}
 
     <!-- COURSE-CONTENT -->
     <section id="messages-content" class="container">
@@ -29,7 +37,7 @@
                     <h1>{% trans "Messages" %}</h1>
                 </div>
                 <div class="col-lg-3">
-                    <a class="new-message btn btn-lg btn-danger uppercase" ng-click="new_message()">{% trans "Send New Message" %}</a>
+                    <a class="new-message btn btn-lg btn-danger uppercase" ng-click="new_message()">{% trans "New Message" %}</a>
                 </div>
                     <script type="text/ng-template" id="newMessageModal.html">
                         <div class="modal-header">
@@ -37,6 +45,12 @@
                             <h4 class="modal-title" id="myModalLabel">{% trans "New Message" %}</h4>
                         </div>
                         <div class="modal-body">
+                            <div class="alert alert-danger" role="alert" ng-show="empty_msg_subject_error || empty_msg_body_error ">
+                                <ul>
+                                    <li ng-show="empty_msg_subject_error"><a href="#id-title">{% trans 'Fill the message subject' %}</a></li>
+                                    <li ng-show="empty_msg_body_error"><a href="#wmd-input">{% trans 'Fill the message body' %}</a></li>
+                                </ul>
+                            </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" ng-model="new_message.subject" placeholder="{% trans 'Subject' %}"/>
                             </div>
@@ -45,14 +59,13 @@
                             </div>
                             <div class="form-group row">
                                 <div class="students col-lg-12">
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <p>
-                                            <div><label><input type="checkbox" ng-model="modal.all_checked"> {% trans 'Send to all students of this class' %}</label></div>
-                                            </p>
-                                        </div>
+                                    <p><label><input type="checkbox" ng-model="modal.all_checked"> {% trans 'Send to all classes' %}</label></p>
+                                    {% verbatim %}
+                                    <div ng-repeat="klass in classes">
+                                        <label ng-show="!modal.all_checked"><input type="checkbox" checklist-model="classes.checked" checklist-value="klass.students"> {{ klass.name }}</label>
                                     </div>
-                                    <div ng-show="!modal.all_checked">
+                                    {% endverbatim %}
+                                    <div class="autocomplete" ng-show="!modal.all_checked">
                                         <input type="text" id="search-user" class="form-control" ng-model="asyncSelected"
                                                         placeholder="{% trans 'Type the name, email or user name of the professor to search...' %}"
                                                         typeahead="user as user.formated_name for user in getUsers($viewValue)"
@@ -60,7 +73,7 @@
                                                         typeahead-on-select="on_select_student($model); asyncSelected = '';"
                                                         typeahead-min-length="2"
                                                         typeahead-wait-ms="500">
-                                        <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                                        <i ng-show="loadingLocations" class="loading fa fa-refresh fa-spin"></i>
                                     </div>
                                     <table class="table table-list" ng-show="!modal.all_checked && recipient_list.length">
                                         <tr>
@@ -102,7 +115,12 @@
                         <div class="subject">{{ message.subject }}</div>
                         {% endverbatim %}
                         <div class="body">
-                        <span ng-bind-html="message.message|markdown|words:50"></span>{% verbatim %} <a ng-href="/admin/course/{{course_id}}/message/{{message.id}}">{% endverbatim %} {% trans 'More...' %}</a>
+                        <span ng-bind-html="message.message|markdown|words:50"></span>
+                            {% if in_admin %}
+                                {% verbatim %}<a ng-href="/admin/course/{{course_id}}/message/{{message.id}}">{% endverbatim %} {% trans 'More...' %}</a>
+                            {% else %}
+                                {% verbatim %}<a ng-href="/course/{{course_slug}}/message/{{message.id}}">{% endverbatim %} {% trans 'More...' %}</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

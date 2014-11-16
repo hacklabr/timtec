@@ -17,7 +17,7 @@ endef
 
 define base_update
 	cp timtec/settings_local_$1.py timtec/settings_local.py
-	~/env/bin/pip install -r requirements.txt
+	~/env/bin/pip install -U -r requirements.txt
 	~/env/bin/python manage.py syncdb --noinput
 	~/env/bin/python manage.py migrate --noinput
 	~/env/bin/python manage.py collectstatic --noinput
@@ -28,6 +28,7 @@ endef
 create-staging:
 	virtualenv ~/env
 	~/env/bin/pip install -r requirements.txt
+	sudo `which npm` install -g less yuglify uglify-js cssmin ngmin --loglevel silent
 	mkdir -p ~/webfiles/static
 	mkdir -p ~/webfiles/media
 
@@ -105,6 +106,8 @@ setup_js:
 
 setup_django: clean
 	python manage.py syncdb --all --noinput
+	python manage.py migrate --fake --noinput
+	python manage.py loaddata minimal
 	python manage.py compilemessages
 
 dumpdata: clean
@@ -112,8 +115,8 @@ dumpdata: clean
 
 reset_db: clean
 	python manage.py reset_db --router=default --noinput -U $(USER)
-	python manage.py syncdb --all --noinput
-	python manage.py migrate --noinput --fake
+	python manage.py syncdb --noinput
+	python manage.py migrate --noinput
 
 messages: clean
 	python manage.py makemessages -a -d django

@@ -30,6 +30,19 @@
           border-bottom: 1px solid fade(@brand-primary, 20%);
           margin-bottom: 20px;
           margin-left: 76px;
+          padding: 5px;
+          .transition(background-color 0.3s);
+          &:hover {
+            background-color: @gray-lighter;
+            border-radius: 4px;
+          }
+          .note-content {
+            background: none;
+            border: 0;
+            font-family: @font-family-sans-serif;
+            font-size: 14px;
+            padding: 0;
+          }
         }
         .actions {
           margin-top: 20px;

@@ -35,23 +35,21 @@
   z-index: 20;
   .navbar-brand {
     .text-hide();
-    height: 90px;
-    width: 200px;
+    height: 70px;
+    width: 150px;
     background-image: url(../img/logo.png);
     background-repeat: no-repeat;
     background-position: center;
     background-color: white;
-    border-radius: 0 0 4px 4px;
+    background-size: 130px;
     border-top: 3px solid @brand-primary;
     box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
     position: absolute;
     z-index: 900;
     margin-left: 0;
-
     @media (max-width: @screen-xs-max) {
       margin-left: 15px;
     }
-
     @media (max-width: @screen-sm-max) {
       height: 50px;
       width: 120px;
@@ -61,15 +59,22 @@
       box-shadow: none;
     }
   }
-  .form-group {
-    margin-bottom: 15px;
-  }
-  label {
-    font-weight: normal;
-    line-height: 2.5;
-  }
-  .submit {
-    line-height: 2.5;
+  .navbar-form {
+    margin: 5px 0;
+    padding: 0;
+    .form-group {
+      width: 100%;
+      margin: 10px 0;
+    }
+    .form-control {
+      width: 100%;
+    }
+    label {
+      font-weight: normal;
+    }
+    .submit {
+      line-height: 2.5;
+    }
   }
   .navbar-toggle {
     border-color: #fff;
@@ -95,7 +100,7 @@
   .navbar-collapse {
     @media (min-width: @screen-sm-min) {
       float: right;
-    } 
+    }
     overflow: hidden;
     max-height: initial;
   }
@@ -112,6 +117,10 @@
     @media (min-width: @screen-sm-min) {
       margin-right: -15px;
     }
+  }
+  .dropdown-menu {
+    left: initial;
+    right: 0;
   }
 }
 
@@ -157,12 +166,13 @@
     padding-top:    0px;
     padding-bottom: 10px;
     line-height: @line-height-computed;
-  }
-  @media (min-width: @grid-float-breakpoint) {
-    > li > a {
-        padding-top:    10px;
-        padding-bottom: 10px;
-        margin: 5px;
+    @media (min-width: @grid-float-breakpoint) {
+      padding-top:    10px;
+      padding-bottom: 10px;
+      margin: 15px 5px;
+    }
+    @media (max-width: @screen-sm-max) {
+      margin: 5px;
     }
   }
 }

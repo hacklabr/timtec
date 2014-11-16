@@ -5,10 +5,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.core import validators
 from django.core.mail import send_mail
 from django.conf import settings
-from django.contrib.auth.models import Group, AbstractBaseUser, PermissionsMixin, UserManager
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager, Group
 from django.utils import timezone
-from allauth.account.signals import user_signed_up
-
 
 import re
 import os
@@ -27,7 +25,7 @@ def path_and_rename(path):
     return wrapper
 
 
-class TimtecUser(AbstractBaseUser, PermissionsMixin):
+class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_REGEXP = re.compile('^[\w.+-]+$')
     username = models.CharField(
         _('Username'), max_length=30, unique=True,
@@ -37,7 +35,6 @@ class TimtecUser(AbstractBaseUser, PermissionsMixin):
             validators.RegexValidator(USERNAME_REGEXP, _('Enter a valid username.'), 'invalid')
         ])
 
-    email = models.EmailField(_('Email address'), blank=False, unique=True)
     first_name = models.CharField(_('First name'), max_length=30, blank=True)
     last_name = models.CharField(_('Last name'), max_length=30, blank=True)
     is_staff = models.BooleanField(_('Staff status'), default=False)
@@ -59,6 +56,7 @@ class TimtecUser(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
+        abstract = True
 
     def __unicode__(self):
         if self.first_name or self.last_name:
@@ -94,10 +92,28 @@ class TimtecUser(AbstractBaseUser, PermissionsMixin):
     def is_pilot(self):
         return self.groups.filter(name='pilot_course').count() > 0
 
-    @staticmethod
-    def add_default_group(sender, user, **kwargs):
-        if settings.REGISTRATION_DEFAULT_GROUP_NAME:
-            user.groups.add(Group.objects.get(name=settings.REGISTRATION_DEFAULT_GROUP_NAME))
-            user.save()
+    def save(self, *args, **kwargs):
 
-user_signed_up.connect(TimtecUser.add_default_group, dispatch_uid="TimtecUser.add_default_group")
+        is_new = self.pk is None
+
+        super(AbstractTimtecUser, self).save(*args, **kwargs)
+
+        if is_new and settings.REGISTRATION_DEFAULT_GROUP_NAME:
+            try:
+                self.groups.add(Group.objects.get(name=settings.REGISTRATION_DEFAULT_GROUP_NAME))
+                self.save()
+            except models.exceptions.ObjectDoesNotExist:
+                pass
+
+
+class TimtecUser(AbstractTimtecUser):
+    """
+    Timtec customized user.
+
+    Username, password and email are required. Other fields are optional.
+    """
+
+    email = models.EmailField(_('Email address'), blank=False, unique=True)
+
+    class Meta(AbstractTimtecUser.Meta):
+        swappable = 'AUTH_USER_MODEL'

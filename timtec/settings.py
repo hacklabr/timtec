@@ -32,6 +32,8 @@ EMAIL_HOST = 'localhost'
 DEFAULT_FROM_EMAIL = 'donotreply-dev@m.timtec.com.br'
 CONTACT_RECIPIENT_LIST = ['timtec-dev@listas.hacklab.com.br', ]
 
+TERMS_ACCEPTANCE_REQUIRED = True
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -52,7 +54,7 @@ METRON_SETTINGS = {
 }
 
 
-LOGIN_URL = '/login/'
+LOGIN_URL = '/accounts/login/'
 
 LOGIN_REDIRECT_URL = '/'
 
@@ -178,6 +180,7 @@ PIPELINE_JS = {
             'angular-sanitize/angular-sanitize.js',
             'angular-bootstrap/ui-bootstrap-tpls.js',
             'angular-gettext/dist/angular-gettext.js',
+            'angular-i18n/angular-locale_pt-br.js',
             'intro.js/intro.js',
             'js/consolelogfallback.js',
             'js/django.js',
@@ -307,6 +310,7 @@ PIPELINE_JS = {
             'js/core/app.js',
             'js/core/controllers.js',
             'js/core/services.js',
+            'js/core/filters.js',
             'angular-tweet-filter/index.js',
             'angular-sortable-view/src/angular-sortable-view.min.js',
         ),
@@ -365,6 +369,7 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'allauth.socialaccount.context_processors.socialaccount',
     'core.context_processors.contact_form',
     'core.context_processors.site_settings',
+    'core.context_processors.get_current_path',
     'timtec.locale_context_processor.locale',
 )
 
@@ -461,8 +466,7 @@ INSTALLED_APPS = (
 
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
-        'SCOPE': ['email', 'publish_stream'],
-        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'SCOPE': ['email'],
         'METHOD': 'oauth2',
     }
 }
@@ -475,9 +479,9 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = True
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[timtec] "
-ACCOUNT_SIGNUP_FORM_CLASS = 'core.forms.SignupForm'
+# ACCOUNT_SIGNUP_FORM_CLASS = 'core.forms.SignupForm'
 SOCIALACCOUNT_EMAIL_VERIFICATION = False
 
 TWITTER_CONSUMER_KEY = ''
@@ -516,8 +520,8 @@ LOGGING = {
 }
 
 try:
-    from .settings_local import *
-except ImportError:
+    execfile(os.path.join(SETTINGS_DIR, 'settings_local.py'))
+except IOError:
     pass
 
 # Additional locations of static files
@@ -546,9 +550,6 @@ if DEBUG:
         'debug_toolbar',
     )
     INTERNAL_IPS = ('127.0.0.1', )
-    DEBUG_TOOLBAR_CONFIG = {
-        'INTERCEPT_REDIRECTS': False,
-    }
 
 # Fix debug toolbar issue: https://github.com/django-debug-toolbar/django-debug-toolbar/issues/521
 # DEBUG_TOOLBAR_PATCH_SETTINGS = False
