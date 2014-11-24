@@ -56,7 +56,9 @@
                     <form method="post" action="{% url 'class-delete' pk=class.id %}">
                         <a href="{% url 'class' pk=class.id %}" class="btn btn-danger"><i class="fa fa-gear"></i></a>
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
+                        {% if class.course.default_class.id != class.id %}
+                            <button type="submit" class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
+                        {% endif %}
                     </form>
                 </td>
             </tr>
