@@ -45,18 +45,22 @@
         <table class="table table-list">
             <tr>
                 <th class="classname">{% trans "Class name" %}</th>
+                <th class="assistant">{% trans "Assistant Professor" %}</th>
                 <th class="students">{% trans "Students" %}</th>
                 <th class="actions">{% trans "Actions" %}</th>
             </tr>
             {% for class in object_list %}
             <tr>
                 <td><a href="{% url 'class' pk=class.id %}">{{ class.name }}</a></td>
+                <td>{{ class.assistant | default:'' }}</td>
                 <td>{{ class.students.count }}</td>
                 <td class="actions">
                     <form method="post" action="{% url 'class-delete' pk=class.id %}">
                         <a href="{% url 'class' pk=class.id %}" class="btn btn-danger"><i class="fa fa-gear"></i></a>
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
+                        {% if class == course.default_class %}
+                            <button type="submit" class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
+                        {% endif %}
                     </form>
                 </td>
             </tr>
