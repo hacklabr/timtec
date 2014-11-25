@@ -302,6 +302,7 @@ msgid "Videos"
 msgstr ""
 
 #: core/models.py:35 core/models.py:268
+#: themes/default/templates/classes.html:48
 msgid "Assistant"
 msgstr ""
 
@@ -782,7 +783,7 @@ msgid "Full name"
 msgstr ""
 
 #: themes/default/templates/class_edit.html:71
-#: themes/default/templates/classes.html:49
+#: themes/default/templates/classes.html:50
 #: themes/default/templates/messages.html:83
 #: themes/default/templates/users.html:36
 #: themes/default/templates/users.html:84
@@ -809,7 +810,7 @@ msgstr ""
 msgid "Class name"
 msgstr ""
 
-#: themes/default/templates/classes.html:48
+#: themes/default/templates/classes.html:49
 #: themes/default/templates/administration/stats.html:75
 #: themes/timtec/templates/message.html:15
 #: themes/timtec/templates/administration/stats.html:34
