@@ -65,7 +65,9 @@
                     <div class="col-lg-9">
                         <label>{% trans 'Assistant' %}</label>
                         <select name="assistant" class="form-control">
-                            <option value="-1">{% trans 'Select a professor' %}</option>
+                            {% if not object.assistant.id %}
+                                <option value="-1">{% trans 'Select a professor' %}</option>
+                            {% endif %}
                             {% for professor in object.course.professors.all %}
                                 <option value="{{ professor.id }}" {% if professor.id == object.assistant.id %}selected{% endif %}>{{ professor }}</option>
                             {% endfor %}
