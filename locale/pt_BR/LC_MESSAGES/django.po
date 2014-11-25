@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-25 14:36-0200\n"
-"PO-Revision-Date: 2014-11-25 14:37-0200\n"
+"PO-Revision-Date: 2014-11-25 14:59-0200\n"
 "Last-Translator: Administrador TIMTec <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -793,7 +793,7 @@ msgstr "Ações"
 
 #: themes/default/templates/class_edit.html:88
 msgid "No students found"
-msgstr "Nenhum curso encontrado"
+msgstr "Nenhum aluno encontrado"
 
 #: themes/default/templates/classes.html:12
 #: themes/default/templates/classes.html:19
