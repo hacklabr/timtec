@@ -76,7 +76,7 @@ msgstr "Senha (novamente)"
 msgid "The two password fields didn't match."
 msgstr "As duas senhas são diferentes."
 
-#: accounts/models.py:31 themes/default/templates/class_edit.html:68
+#: accounts/models.py:31 themes/default/templates/class_edit.html:79
 #: themes/default/templates/header.html:58
 #: themes/default/templates/header.html:104
 #: themes/default/templates/message.html:20
@@ -274,7 +274,7 @@ msgstr "Assunto"
 msgid "Name"
 msgstr "Nome"
 
-#: core/forms.py:22 themes/default/templates/class_edit.html:69
+#: core/forms.py:22 themes/default/templates/class_edit.html:80
 #: themes/default/templates/message.html:19
 #: themes/default/templates/messages.html:81
 #: themes/default/templates/users.html:33
@@ -304,6 +304,7 @@ msgstr "Videos"
 
 #: core/models.py:35 core/models.py:268
 #: themes/default/templates/classes.html:48
+#: themes/default/templates/class_edit.html:66
 msgid "Assistant"
 msgstr "Assistente"
 
@@ -736,7 +737,7 @@ msgid "Users"
 msgstr "Usuários"
 
 #: themes/default/templates/class_edit.html:26
-#: themes/default/templates/class_edit.html:62
+#: themes/default/templates/class_edit.html:61
 #: themes/default/templates/users.html:99
 msgid "Add users"
 msgstr "Adicionar usuário"
@@ -773,7 +774,11 @@ msgstr "Apagar"
 msgid "Save"
 msgstr "Salvar"
 
-#: themes/default/templates/class_edit.html:70
+#: themes/default/templates/class_edit.html:68
+msgid "Select a professor"
+msgstr "Selecione um professor"
+
+#: themes/default/templates/class_edit.html:81
 #: themes/default/templates/message.html:18
 #: themes/default/templates/messages.html:80
 #: themes/default/templates/users.html:32
@@ -783,8 +788,8 @@ msgstr "Salvar"
 msgid "Full name"
 msgstr "Nome"
 
-#: themes/default/templates/class_edit.html:71
-#: themes/default/templates/classes.html:50
+#: themes/default/templates/class_edit.html:82
+#: themes/default/templates/classes.html:49
 #: themes/default/templates/messages.html:83
 #: themes/default/templates/users.html:36
 #: themes/default/templates/users.html:84

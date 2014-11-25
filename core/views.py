@@ -329,7 +329,7 @@ class CanEditClassMixin(object):
 class ClassUpdateView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
     model = Class
     template_name = 'class_edit.html'
-    fields = ('name', )
+    fields = ('name', 'assistant', )
 
     def get_context_data(self, **kwargs):
         context = super(ClassUpdateView, self).get_context_data(**kwargs)
