@@ -9,6 +9,7 @@ from django.views.generic import (DetailView, ListView, FormView, DeleteView,
                                   CreateView, UpdateView)
 from django.views.generic.base import RedirectView, View, TemplateView
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.flatpages.models import FlatPage
 from django.shortcuts import get_object_or_404
 from django.conf import settings
 from django.db.models import Q
@@ -16,7 +17,7 @@ from django.utils import timezone
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import filters
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
 from braces.views import LoginRequiredMixin
 from notes.models import Note
 
@@ -24,7 +25,8 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           CourseThumbSerializer, LessonSerializer,
                           StudentProgressSerializer, CourseNoteSerializer,
                           LessonNoteSerializer, ProfessorMessageSerializer,
-                          CourseStudentSerializer, ClassSerializer)
+                          CourseStudentSerializer, ClassSerializer,
+                          FlatpageSerializer)
 
 from .models import (Course, CourseProfessor, Lesson, StudentProgress,
                      Unit, ProfessorMessage, CourseStudent, Class)
@@ -486,4 +488,19 @@ class ClassViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
             if not role or role == 'assistant':
                 queryset = queryset.filter(assistant=self.request.user)
 
+        return queryset
+
+
+class FlatpageViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
+
+    model = FlatPage
+    serializer_class = FlatpageSerializer
+    filter_fields = ('url',)
+    permission_classes = (IsAdminUser,)
+
+    def get_queryset(self):
+        queryset = super(FlatpageViewSet, self).get_queryset()
+        url_prefix = self.request.QUERY_PARAMS.get('url_prefix')
+        if url_prefix:
+            queryset = queryset.filter(url__startswith=url_prefix)
         return queryset

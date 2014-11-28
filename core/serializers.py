@@ -1,3 +1,4 @@
+from django.contrib.flatpages.models import FlatPage
 from core.models import Course, CourseProfessor, CourseStudent, Lesson, Video, StudentProgress, Unit, ProfessorMessage, Class
 from accounts.serializers import TimtecUserSerializer
 from activities.serializers import ActivitySerializer
@@ -161,3 +162,9 @@ class ClassSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Class
+
+
+class FlatpageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FlatPage

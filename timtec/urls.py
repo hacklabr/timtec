@@ -20,7 +20,8 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         ProfessorMessageViewSet, CourseStudentViewSet,
                         AcceptTermsView, CarouselCourseView, ClassListView,
                         ClassCreateView, ClassUpdateView, ClassDeleteView,
-                        ClassRemoveUserView, ClassAddUsersView, ClassViewSet)
+                        ClassRemoveUserView, ClassAddUsersView, ClassViewSet,
+                        FlatpageViewSet,)
 
 from activities.views import AnswerViewSet
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, QuestionVoteViewSet, AnswerVoteViewSet
@@ -54,7 +55,7 @@ router.register(r'reports', UserCourseStats)
 router.register(r'lessons_user_progress', UserCourseLessonsStats)
 router.register(r'course_stats', CourseStatsByLessonViewSet)
 router.register(r'course_classes', ClassViewSet)
-
+router.register(r'flatpage', FlatpageViewSet)
 
 urlpatterns = patterns(
     '',
