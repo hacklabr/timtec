@@ -2,19 +2,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-12 17:40-0200\n"
-"PO-Revision-Date: 2014-11-12 17:50-0200\n"
+"POT-Creation-Date: 2014-11-25 14:36-0200\n"
+"PO-Revision-Date: 2014-11-25 14:59-0200\n"
 "Last-Translator: Administrador TIMTec <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
@@ -76,7 +76,7 @@ msgstr "Senha (novamente)"
 msgid "The two password fields didn't match."
 msgstr "As duas senhas são diferentes."
 
-#: accounts/models.py:31 themes/default/templates/class_edit.html:68
+#: accounts/models.py:31 themes/default/templates/class_edit.html:79
 #: themes/default/templates/header.html:58
 #: themes/default/templates/header.html:104
 #: themes/default/templates/message.html:20
@@ -166,8 +166,8 @@ msgid "Site"
 msgstr "Página"
 
 #: accounts/models.py:48 core/models.py:274
-#: themes/default/templates/course.html:343
-#: themes/default/templates/course.html:618
+#: themes/default/templates/course.html:358
+#: themes/default/templates/course.html:650
 #: themes/timtec/templates/administration/course.html:339
 msgid "Biography"
 msgstr "Biografia"
@@ -200,8 +200,8 @@ msgstr "Dado"
 msgid "Expected answer"
 msgstr "Resposta esperada"
 
-#: activities/models.py:29 core/models.py:390 core/models.py:400
-#: themes/default/templates/lesson.html:115
+#: activities/models.py:29 core/models.py:391 core/models.py:401
+#: themes/default/templates/lesson.html:116
 #: themes/default/templates/administration/lesson.html:78
 #: themes/timtec/templates/lesson.html:133
 msgid "Unit"
@@ -223,7 +223,7 @@ msgstr "Atividade"
 msgid "Activities"
 msgstr "Atividades"
 
-#: activities/models.py:49 core/models.py:194 core/models.py:399
+#: activities/models.py:49 core/models.py:194 core/models.py:400
 #: themes/timtec/templates/users.html:30 themes/timtec/templates/users.html:40
 #: themes/timtec/templates/users.html:50 themes/timtec/templates/users.html:60
 #: themes/timtec/templates/users.html:70 themes/timtec/templates/users.html:80
@@ -265,16 +265,16 @@ msgstr "Aceitar"
 msgid "Subject"
 msgstr "Assunto"
 
-#: core/forms.py:21 core/models.py:70 core/models.py:340 ifs/models.py:8
-#: themes/default/templates/course.html:316
-#: themes/default/templates/course.html:341
-#: themes/default/templates/course.html:591
-#: themes/default/templates/course.html:617
+#: core/forms.py:21 core/models.py:70 core/models.py:341 ifs/models.py:8
+#: themes/default/templates/course.html:331
+#: themes/default/templates/course.html:356
+#: themes/default/templates/course.html:623
+#: themes/default/templates/course.html:649
 #: themes/timtec/templates/administration/course.html:337
 msgid "Name"
 msgstr "Nome"
 
-#: core/forms.py:22 themes/default/templates/class_edit.html:69
+#: core/forms.py:22 themes/default/templates/class_edit.html:80
 #: themes/default/templates/message.html:19
 #: themes/default/templates/messages.html:81
 #: themes/default/templates/users.html:33
@@ -290,8 +290,8 @@ msgstr "Email"
 msgid "Message"
 msgstr "Mensagem"
 
-#: core/models.py:26 core/models.py:381
-#: themes/default/templates/course.html:136
+#: core/models.py:26 core/models.py:382
+#: themes/default/templates/course.html:140
 #: themes/default/templates/administration/lesson.html:91
 #: themes/timtec/templates/administration/course.html:72
 #: themes/timtec/templates/administration/lesson.html:105
@@ -303,11 +303,13 @@ msgid "Videos"
 msgstr "Videos"
 
 #: core/models.py:35 core/models.py:268
+#: themes/default/templates/classes.html:48
+#: themes/default/templates/class_edit.html:66
 msgid "Assistant"
 msgstr "Assistente"
 
 #: core/models.py:37 core/models.py:90 core/models.py:195 core/models.py:273
-#: core/models.py:299 core/models.py:338 forum/models.py:17 ifs/models.py:22
+#: core/models.py:299 core/models.py:339 forum/models.py:17 ifs/models.py:22
 #: themes/default/templates/_admin_header_inline.html:24
 #: themes/default/templates/course.html:73
 #: themes/if/templates/account/signup.html:102
@@ -321,9 +323,9 @@ msgstr "Curso"
 msgid "New"
 msgstr "Novo"
 
-#: core/models.py:64 core/models.py:333
-#: themes/default/templates/course.html:403
-#: themes/default/templates/course.html:414
+#: core/models.py:64 core/models.py:334
+#: themes/default/templates/course.html:419
+#: themes/default/templates/course.html:430
 #: themes/default/templates/administration/courses.html:56
 #: themes/timtec/templates/administration/course.html:227
 #: themes/timtec/templates/administration/course.html:238
@@ -331,9 +333,9 @@ msgstr "Novo"
 msgid "Draft"
 msgstr "Rascunho"
 
-#: core/models.py:65 core/models.py:334
-#: themes/default/templates/course.html:404
-#: themes/default/templates/course.html:418
+#: core/models.py:65 core/models.py:335
+#: themes/default/templates/course.html:420
+#: themes/default/templates/course.html:434
 #: themes/default/templates/administration/courses.html:55
 #: themes/timtec/templates/administration/course.html:228
 #: themes/timtec/templates/administration/course.html:242
@@ -341,9 +343,9 @@ msgstr "Rascunho"
 msgid "Listed"
 msgstr "Listado"
 
-#: core/models.py:66 core/models.py:335
-#: themes/default/templates/course.html:405
-#: themes/default/templates/course.html:422
+#: core/models.py:66 core/models.py:336
+#: themes/default/templates/course.html:421
+#: themes/default/templates/course.html:438
 #: themes/default/templates/administration/courses.html:54
 #: themes/default/templates/administration/courses.html:121
 #: themes/timtec/templates/administration/course.html:229
@@ -353,7 +355,7 @@ msgstr "Listado"
 msgid "Published"
 msgstr "Público"
 
-#: core/models.py:69 core/models.py:343 forum/models.py:13
+#: core/models.py:69 core/models.py:344 forum/models.py:13
 msgid "Slug"
 msgstr "Slug"
 
@@ -361,7 +363,7 @@ msgstr "Slug"
 msgid "Intro video"
 msgstr "Vídeo introdutório"
 
-#: core/models.py:72 themes/default/templates/course.html:263
+#: core/models.py:72 themes/default/templates/course.html:267
 #: themes/timtec/templates/administration/course.html:178
 msgid "Application"
 msgstr "Aplicação"
@@ -370,10 +372,10 @@ msgstr "Aplicação"
 msgid "Requirement"
 msgstr "Requisitos"
 
-#: core/models.py:74 themes/default/templates/course.html:289
-#: themes/default/templates/course.html:293
-#: themes/default/templates/course.html:568
-#: themes/default/templates/course.html:572
+#: core/models.py:74 themes/default/templates/course.html:304
+#: themes/default/templates/course.html:308
+#: themes/default/templates/course.html:600
+#: themes/default/templates/course.html:604
 #: themes/timtec/templates/course.html:198
 #: themes/timtec/templates/administration/course.html:320
 #: themes/timtec/templates/administration/course.html:322
@@ -392,7 +394,7 @@ msgstr "Carga horária"
 msgid "Pronatec"
 msgstr "Pronatec"
 
-#: core/models.py:78 core/models.py:344
+#: core/models.py:78 core/models.py:345
 #: themes/default/templates/administration/courses.html:69
 #: themes/timtec/templates/administration/courses.html:65
 msgid "Status"
@@ -402,8 +404,8 @@ msgstr "Situação"
 msgid "Publication"
 msgstr "Publicação"
 
-#: core/models.py:80 themes/default/templates/course.html:140
-#: themes/default/templates/course.html:153
+#: core/models.py:80 themes/default/templates/course.html:144
+#: themes/default/templates/course.html:157
 #: themes/timtec/templates/administration/course.html:73
 #: themes/timtec/templates/administration/course.html:87
 msgid "Thumbnail"
@@ -413,7 +415,8 @@ msgstr "Thumbnail"
 msgid "Home thumbnail"
 msgstr "Trocar thumbnail"
 
-#: core/models.py:85 themes/default/templates/course.html:562
+#: core/models.py:85 themes/default/templates/course.html:586
+#: themes/default/templates/course.html:593
 msgid "Start date"
 msgstr "Data de início"
 
@@ -460,21 +463,22 @@ msgstr "Professores do curso"
 msgid "Date"
 msgstr "Data"
 
-#: core/models.py:339
+#: core/models.py:340
 msgid "Description"
 msgstr "Descrição"
 
-#: core/models.py:341 themes/default/templates/notes.html:32
+#: core/models.py:342 themes/default/templates/notes.html:32
 #: themes/timtec/templates/notes.html:41
 msgid "Notes"
 msgstr "Anotações"
 
-#: core/models.py:349 core/models.py:380 forum/models.py:18
+#: core/models.py:350 core/models.py:381 forum/models.py:18
 msgid "Lesson"
 msgstr "Aula"
 
-#: core/models.py:350 themes/default/templates/_course-header-inline.html:16
-#: themes/default/templates/course.html:380
+#: core/models.py:351 themes/default/templates/_course-header-inline.html:17
+#: themes/default/templates/course.html:397
+#: themes/default/templates/course.html:507
 #: themes/default/templates/administration/stats.html:76
 #: themes/timtec/templates/_course-header-inline.html:16
 #: themes/timtec/templates/lesson.html:59
@@ -483,19 +487,19 @@ msgstr "Aula"
 msgid "Lessons"
 msgstr "Aulas"
 
-#: core/models.py:379 forum/models.py:11
+#: core/models.py:380 forum/models.py:11
 msgid "Title"
 msgstr "Título"
 
-#: core/models.py:383
+#: core/models.py:384
 msgid "Side notes"
 msgstr "Anotações"
 
-#: core/models.py:391
+#: core/models.py:392
 msgid "Units"
 msgstr "Unidades"
 
-#: core/models.py:406
+#: core/models.py:407
 msgid "Student Progress"
 msgstr "Progresso do Estudante"
 
@@ -565,7 +569,7 @@ msgid "Note"
 msgstr "Anotação"
 
 #: themes/default/templates/_admin_header_inline.html:25
-#: themes/default/templates/_course-header-inline.html:17
+#: themes/default/templates/_course-header-inline.html:18
 #: themes/default/templates/course.html:74
 #: themes/timtec/templates/_admin_header_inline.html:18
 #: themes/timtec/templates/_course-header-inline.html:17
@@ -582,7 +586,7 @@ msgid "Material"
 msgstr "Material"
 
 #: themes/default/templates/_admin_header_inline.html:27
-#: themes/default/templates/_course-header-inline.html:21
+#: themes/default/templates/_course-header-inline.html:22
 #: themes/default/templates/course.html:76
 #: themes/default/templates/messages.html:37
 #: themes/timtec/templates/_admin_header_inline.html:20
@@ -592,7 +596,7 @@ msgid "Messages"
 msgstr "Mensagens"
 
 #: themes/default/templates/_admin_header_inline.html:28
-#: themes/default/templates/_course-header-inline.html:22
+#: themes/default/templates/_course-header-inline.html:23
 #: themes/timtec/templates/_admin_header_inline.html:21
 #: themes/timtec/templates/administration/lesson.html:65
 msgid "Reports"
@@ -604,7 +608,7 @@ msgstr "Relatórios"
 msgid "Permissions"
 msgstr "Permissões"
 
-#: themes/default/templates/_course-header-inline.html:15
+#: themes/default/templates/_course-header-inline.html:16
 #: themes/timtec/templates/_admin_header_inline.html:17
 #: themes/timtec/templates/_course-header-inline.html:15
 #: themes/timtec/templates/lesson.html:58
@@ -612,7 +616,7 @@ msgstr "Permissões"
 msgid "Intro"
 msgstr "Vídeo introdutório"
 
-#: themes/default/templates/_course-header-inline.html:18
+#: themes/default/templates/_course-header-inline.html:19
 #: themes/timtec/templates/_admin_header_inline.html:19
 #: themes/timtec/templates/_course-header-inline.html:18
 #: themes/timtec/templates/lesson.html:61
@@ -620,12 +624,12 @@ msgstr "Vídeo introdutório"
 msgid "Course material"
 msgstr "Material didático"
 
-#: themes/default/templates/_course-header-inline.html:19
+#: themes/default/templates/_course-header-inline.html:20
 #: themes/timtec/templates/_course-header-inline.html:19
 msgid "Course notes"
 msgstr "Anotações do Curso"
 
-#: themes/default/templates/_course-header-inline.html:23
+#: themes/default/templates/_course-header-inline.html:24
 #: themes/default/templates/classes.html:38
 msgid "Classes"
 msgstr "Turmas"
@@ -704,8 +708,8 @@ msgid "Why my question was hidden?"
 msgstr "Porque minha pergunta foi ocultada?"
 
 #: themes/default/templates/_forum_inline.html:168
-#: themes/default/templates/course.html:327
-#: themes/default/templates/course.html:602
+#: themes/default/templates/course.html:342
+#: themes/default/templates/course.html:634
 #: themes/default/templates/messages.html:97
 #: themes/timtec/templates/_forum_inline.html:119
 #: themes/timtec/templates/messages.html:78
@@ -733,7 +737,7 @@ msgid "Users"
 msgstr "Usuários"
 
 #: themes/default/templates/class_edit.html:26
-#: themes/default/templates/class_edit.html:62
+#: themes/default/templates/class_edit.html:61
 #: themes/default/templates/users.html:99
 msgid "Add users"
 msgstr "Adicionar usuário"
@@ -753,9 +757,9 @@ msgstr "Apagar"
 #: themes/default/templates/class_edit.html:41
 #: themes/default/templates/course-material.html:74
 #: themes/default/templates/course.html:44
-#: themes/default/templates/course.html:328
-#: themes/default/templates/course.html:436
-#: themes/default/templates/course.html:603
+#: themes/default/templates/course.html:343
+#: themes/default/templates/course.html:452
+#: themes/default/templates/course.html:635
 #: themes/default/templates/profile-edit.html:157
 #: themes/default/templates/account/password_reset_from_key.html:32
 #: themes/default/templates/account/password_reset_from_key.html:71
@@ -770,7 +774,11 @@ msgstr "Apagar"
 msgid "Save"
 msgstr "Salvar"
 
-#: themes/default/templates/class_edit.html:70
+#: themes/default/templates/class_edit.html:68
+msgid "Select a professor"
+msgstr "Selecione um professor"
+
+#: themes/default/templates/class_edit.html:81
 #: themes/default/templates/message.html:18
 #: themes/default/templates/messages.html:80
 #: themes/default/templates/users.html:32
@@ -780,7 +788,7 @@ msgstr "Salvar"
 msgid "Full name"
 msgstr "Nome"
 
-#: themes/default/templates/class_edit.html:71
+#: themes/default/templates/class_edit.html:82
 #: themes/default/templates/classes.html:49
 #: themes/default/templates/messages.html:83
 #: themes/default/templates/users.html:36
@@ -788,6 +796,10 @@ msgstr "Nome"
 #: themes/timtec/templates/users.html:24
 msgid "Actions"
 msgstr "Ações"
+
+#: themes/default/templates/class_edit.html:88
+msgid "No students found"
+msgstr "Nenhum aluno encontrado"
 
 #: themes/default/templates/classes.html:12
 #: themes/default/templates/classes.html:19
@@ -804,7 +816,7 @@ msgstr "Adicionar turma"
 msgid "Class name"
 msgstr "Nome da turma"
 
-#: themes/default/templates/classes.html:48
+#: themes/default/templates/classes.html:49
 #: themes/default/templates/administration/stats.html:75
 #: themes/timtec/templates/message.html:15
 #: themes/timtec/templates/administration/stats.html:34
@@ -827,9 +839,9 @@ msgid "Edit course material"
 msgstr "Editar material didático"
 
 #: themes/default/templates/course-material.html:71
-#: themes/default/templates/course.html:162
-#: themes/default/templates/course.html:224
-#: themes/default/templates/course.html:435
+#: themes/default/templates/course.html:166
+#: themes/default/templates/course.html:228
+#: themes/default/templates/course.html:451
 #: themes/default/templates/administration/lesson.html:136
 #: themes/timtec/templates/administration/course.html:96
 #: themes/timtec/templates/administration/course.html:154
@@ -881,24 +893,34 @@ msgid "Stats"
 msgstr "Situação"
 
 #: themes/default/templates/course.html:103
+#: themes/default/templates/course.html:105
+#: themes/default/templates/course.html:109
+#: themes/default/templates/course.html:114
 #: themes/timtec/templates/course.html:162
 #: themes/timtec/templates/course.html:164
 #: themes/timtec/templates/course.html:178
 msgid "Resume"
 msgstr "Ir para o curso"
 
-#: themes/default/templates/course.html:111
+#: themes/default/templates/course.html:107
+#: themes/default/templates/course.html:114
+#, python-format
+msgid "Este curso começa dia %(start_date)s"
+msgstr "Este curso começa dia %(start_date)s"
+
+#: themes/default/templates/course.html:107
+#: themes/default/templates/course.html:112
 #: themes/timtec/templates/course.html:176
 msgid "Take the Class"
 msgstr "Fazer o curso"
 
-#: themes/default/templates/course.html:154
+#: themes/default/templates/course.html:158
 #: themes/timtec/templates/administration/course.html:88
 msgid "min-width"
 msgstr "tam. mínimo"
 
-#: themes/default/templates/course.html:165
-#: themes/default/templates/course.html:228
+#: themes/default/templates/course.html:169
+#: themes/default/templates/course.html:232
 #: themes/default/templates/administration/lesson.html:139
 #: themes/timtec/templates/administration/course.html:99
 #: themes/timtec/templates/administration/course.html:155
@@ -907,64 +929,70 @@ msgstr "tam. mínimo"
 msgid "Add"
 msgstr "Adicionar"
 
-#: themes/default/templates/course.html:182
+#: themes/default/templates/course.html:186
 #: themes/timtec/templates/administration/course.html:116
 msgid "Change thumbnail"
 msgstr "Trocar thumbnail"
 
-#: themes/default/templates/course.html:208
+#: themes/default/templates/course.html:212
 #: themes/default/templates/administration/lesson.html:156
 #: themes/timtec/templates/administration/course.html:137
 #: themes/timtec/templates/administration/lesson.html:155
 msgid "Change video"
 msgstr "Trocar vídeo"
 
-#: themes/default/templates/course.html:218
+#: themes/default/templates/course.html:222
 #: themes/timtec/templates/administration/course.html:150
 msgid "Introduction video"
 msgstr "Vídeo introdutório"
 
-#: themes/default/templates/course.html:259
+#: themes/default/templates/course.html:263
 #: themes/timtec/templates/course.html:52
 #: themes/timtec/templates/administration/course.html:176
 msgid "Why do this course?"
 msgstr "Por que fazer esse curso?"
 
-#: themes/default/templates/course.html:271
+#: themes/default/templates/course.html:275
 #: themes/timtec/templates/course.html:60
 #: themes/timtec/templates/administration/course.html:184
 msgid "What do I have to know?"
 msgstr "O que eu preciso saber?"
 
-#: themes/default/templates/course.html:274
+#: themes/default/templates/course.html:278
 #: themes/timtec/templates/administration/course.html:186
 msgid "Requirements"
 msgstr "Requisitos"
 
-#: themes/default/templates/course.html:305
-#: themes/default/templates/course.html:355
-#: themes/default/templates/course.html:631
+#: themes/default/templates/course.html:285
+#: themes/default/templates/course.html:288
+#: themes/timtec/templates/course.html:76
+msgid "Estrutura do Curso"
+msgstr "Estrutura do Curso"
+
+#: themes/default/templates/course.html:320
+#: themes/default/templates/course.html:370
+#: themes/default/templates/course.html:663
 msgid "Instructors"
 msgstr "Instrutores"
 
-#: themes/default/templates/course.html:308
-#: themes/default/templates/course.html:583
+#: themes/default/templates/course.html:323
+#: themes/default/templates/course.html:615
 msgid "Organize Instructors"
 msgstr "Organizar instrutores"
 
-#: themes/default/templates/course.html:349
-#: themes/default/templates/course.html:625
+#: themes/default/templates/course.html:364
+#: themes/default/templates/course.html:657
 #: themes/timtec/templates/administration/course.html:344
 msgid "Add instructor"
 msgstr "Adicionar instrutor"
 
-#: themes/default/templates/course.html:385
+#: themes/default/templates/course.html:401
 #: themes/timtec/templates/administration/course.html:210
 msgid "Organize lesson"
 msgstr "Organizar aulas"
 
-#: themes/default/templates/course.html:397
-#: themes/default/templates/course.html:453
+#: themes/default/templates/course.html:413
+#: themes/default/templates/course.html:469
 #: themes/default/templates/administration/lesson.html:64
 #: themes/timtec/templates/administration/course.html:221
 #: themes/timtec/templates/administration/course.html:275
@@ -972,19 +1000,19 @@ msgstr "Organizar aulas"
 msgid "Lesson name"
 msgstr "Nome da aula"
 
-#: themes/default/templates/course.html:474
+#: themes/default/templates/course.html:490
 #: themes/timtec/templates/course.html:143
 #: themes/timtec/templates/administration/course.html:297
 msgid "videos"
 msgstr "videos"
 
-#: themes/default/templates/course.html:474
+#: themes/default/templates/course.html:490
 #: themes/timtec/templates/course.html:143
 #: themes/timtec/templates/administration/course.html:297
 msgid "activities"
 msgstr "atividades"
 
-#: themes/default/templates/course.html:484
+#: themes/default/templates/course.html:500
 #: themes/timtec/templates/administration/course.html:307
 msgid "Add lesson"
 msgstr "Adicionar aula"
@@ -1174,31 +1202,32 @@ msgstr "Confirme sua senha"
 msgid "All courses"
 msgstr "Todos os cursos"
 
-#: themes/default/templates/lesson.html:136
+#: themes/default/templates/lesson.html:137
 #: themes/timtec/templates/lesson.html:162
 msgid "Professor comment"
 msgstr "Anotações do professor"
 
-#: themes/default/templates/lesson.html:142
+#: themes/default/templates/lesson.html:143
 #: themes/timtec/templates/lesson.html:168
 msgid "Continue"
 msgstr "Continuar"
 
-#: themes/default/templates/lesson.html:159
+#: themes/default/templates/lesson.html:160
 #: themes/default/templates/administration/lesson.html:213
 msgid "Annotations"
 msgstr "Anotações"
 
-#: themes/default/templates/lesson.html:173
+#: themes/default/templates/lesson.html:174
 #: themes/timtec/templates/lesson.html:189
 #: themes/timtec/templates/administration/lesson.html:218
 #: themes/timtec/templates/administration/lesson.html:219
 msgid "Addicional materials"
 msgstr "Materiais adicionais"
 
-#: themes/default/templates/lesson.html:176
-msgid "This unit has no notes"
-msgstr "Esta unidade não possui nenhuma anotação"
+#: themes/default/templates/lesson.html:177
+#: themes/timtec/templates/lesson.html:191
+msgid "This unit has no addicional materials"
+msgstr "Esta unidade não possui material adicional"
 
 #: themes/default/templates/message.html:15
 msgid "Recipients"
@@ -1338,8 +1367,8 @@ msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
 "address for user %(user_display)s."
 msgstr ""
-"Por favor confirme que o endereço <a href=\"mailto:%(email)s\">%(email)s</a>"
-" é o email do usuário %(user_display)s."
+"Por favor confirme que o endereço <a href=\"mailto:%(email)s\">%(email)s</a> "
+"é o email do usuário %(user_display)s."
 
 #: themes/default/templates/account/email_confirm.html:17
 #: themes/default/templates/account/email_confirm.html:36
@@ -1351,11 +1380,11 @@ msgstr "Confirmar"
 #: themes/default/templates/account/email_confirm.html:40
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a "
-"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"Este email de confirmação expirou ou é inválido. Por favor <a "
-"href=\"%(email_url)s\">solicite uma nova confirmação de e-mail</a>."
+"Este email de confirmação expirou ou é inválido. Por favor <a href="
+"\"%(email_url)s\">solicite uma nova confirmação de e-mail</a>."
 
 #: themes/default/templates/account/email_confirmed.html:9
 #: themes/timtec/templates/account/email_confirmed.html:16
@@ -1431,12 +1460,12 @@ msgstr "Mudar sua senha"
 #, python-format
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
-"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password "
-"reset</a>."
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
 msgstr ""
 "O link de solicitação de redefinição de senha é inválido, possivelmente "
-"porque já foi usado. Por favor solicite uma <a "
-"href=\"%(passwd_reset_url)s\">nova redefinição de senha</a>."
+"porque já foi usado. Por favor solicite uma <a href=\"%(passwd_reset_url)s"
+"\">nova redefinição de senha</a>."
 
 #: themes/default/templates/account/password_reset_from_key.html:36
 #: themes/default/templates/account/password_reset_from_key.html:75
@@ -1476,8 +1505,10 @@ msgstr "Email de validação enviado"
 #: themes/timtec/templates/account/email/password_reset_key_message.txt:1
 #, python-format
 msgid ""
-"You're receiving this e-mail because you or someone else has requested a password for your user account at %(site_domain)s.\n"
-"It can be safely ignored if you did not request a password reset. Click the link below to reset your password.\n"
+"You're receiving this e-mail because you or someone else has requested a "
+"password for your user account at %(site_domain)s.\n"
+"It can be safely ignored if you did not request a password reset. Click the "
+"link below to reset your password.\n"
 "\n"
 "%(password_reset_url)s\n"
 "\n"
@@ -1485,8 +1516,10 @@ msgid ""
 "\n"
 "Thanks for using our site!\n"
 msgstr ""
-"Você está recebendo este e-mail porque você ou alguém solicitou uma redefinição de senha para sua conta no site %(site_domain)s.\n"
-"Você pode seguramente ignorar esta mensagem se você não solicitou esta redefinição de senha. Clique no link abaixo para redefinir sua senha.\n"
+"Você está recebendo este e-mail porque você ou alguém solicitou uma "
+"redefinição de senha para sua conta no site %(site_domain)s.\n"
+"Você pode seguramente ignorar esta mensagem se você não solicitou esta "
+"redefinição de senha. Clique no link abaixo para redefinir sua senha.\n"
 "\n"
 "%(password_reset_url)s\n"
 "\n"
@@ -1646,8 +1679,8 @@ msgstr "Autenticação cancelada"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a "
-"href=\"%(login_url)s\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
 msgstr ""
 "Você decidiu cancelar o login no nosso site usando uma conta sua existente. "
 "Se isso foi um engano volte para <a href=\"%(login_url)s\">entrar</a>."
@@ -1674,10 +1707,6 @@ msgstr "Por favor verifique e complete seus dados"
 msgid "Go to course"
 msgstr "Ir para curso"
 
-#: themes/timtec/templates/course.html:76
-msgid "Estrutura do Curso"
-msgstr "Estrutura do Curso"
-
 #: themes/timtec/templates/course.html:164
 #: themes/timtec/templates/course.html:178
 #, python-format
@@ -1692,10 +1721,6 @@ msgstr "Minhas Anotações"
 msgid "My Annotations"
 msgstr "Minhas Anotações"
 
-#: themes/timtec/templates/lesson.html:191
-msgid "This unit has no addicional materials"
-msgstr "Esta unidade não possui material adicional"
-
 #: themes/timtec/templates/messages.html:36
 msgid "Send New Message"
 msgstr "Nova mensagem"
@@ -1707,30 +1732,33 @@ msgstr "Marcar todas"
 #: themes/timtec/templates/account/email_confirm.html:20
 #, python-format
 msgid ""
-"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a><br>is an "
-"e-mail address for user %(user_display)s."
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a><br>is an e-"
+"mail address for user %(user_display)s."
 msgstr ""
-"Por favor confirme que o endereço <a href=\"mailto:%(email)s\">%(email)s</a>"
-" é o email do usuário %(user_display)s."
+"Por favor confirme que o endereço <a href=\"mailto:%(email)s\">%(email)s</a> "
+"é o email do usuário %(user_display)s."
 
 #: themes/timtec/templates/account/email_confirm.html:26
 #, python-format
 msgid ""
 "This e-mail confirmation link expired or is invalid.</p>\n"
-"                <p>Please <a href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"                <p>Please <a href=\"%(email_url)s\">issue a new e-mail "
+"confirmation request</a>."
 msgstr ""
-"Este email de confirmação expirou ou é inválido.</h2> <p>Por favor <a "
-"href=\"%(email_url)s\">solicite uma nova confirmação de e-mail</a>."
+"Este email de confirmação expirou ou é inválido.</h2> <p>Por favor <a href="
+"\"%(email_url)s\">solicite uma nova confirmação de e-mail</a>."
 
 #: themes/timtec/templates/account/password_reset_from_key.html:18
 #, python-format
 msgid ""
-"The password reset link was invalid,<br>possibly because it has already been used.</p>\n"
-"                <p>Please request a <a href=\"%(passwd_reset_url)s\">new password reset</a>."
+"The password reset link was invalid,<br>possibly because it has already been "
+"used.</p>\n"
+"                <p>Please request a <a href=\"%(passwd_reset_url)s\">new "
+"password reset</a>."
 msgstr ""
 "O link de solicitação de redefinição de senha é inválido, possivelmente "
-"porque já foi usado. Por favor solicite uma <a "
-"href=\"%(passwd_reset_url)s\">nova redefinição de senha</a>."
+"porque já foi usado. Por favor solicite uma <a href=\"%(passwd_reset_url)s"
+"\">nova redefinição de senha</a>."
 
 #: themes/timtec/templates/administration/course.html:40
 msgid "Delete this course"
@@ -1781,6 +1809,9 @@ msgstr "Espanhol"
 msgid "English"
 msgstr "Inglês"
 
+#~ msgid "This unit has no notes"
+#~ msgstr "Esta unidade não possui nenhuma anotação"
+
 #~ msgid "Statistics"
 #~ msgstr "Estatística"
 
@@ -1792,9 +1823,6 @@ msgstr "Inglês"
 
 #~ msgid "Group"
 #~ msgstr "Turma"
-
-#~ msgid "Este curso começa dia %(start_date)s"
-#~ msgstr "Este curso começa dia %(start_date)s"
 
 #~ msgid "TIM Tec"
 #~ msgstr "TIM Tec"
