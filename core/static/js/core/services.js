@@ -14,6 +14,12 @@
         });
     });
 
+    app.factory('FlatPage', function($resource){
+        return $resource('/api/flatpage/:flatpageId', {}, {
+            update: {method: 'PUT'}
+        });
+    });
+
     app.factory('Twitter', function($resource){
         return $resource('/api/twitter/', {}, {
         });
