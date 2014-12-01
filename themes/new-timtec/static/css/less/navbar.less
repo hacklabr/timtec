@@ -1,9 +1,11 @@
 #main-navbar {
-    height: 80px;
-    margin-bottom: 0;
-    .gradient (@startColor: #007dc3, @endColor: #1451a2);
     border-color: #1451a2;
     .box-shadow(0px 5px 5px 0px rgba(0, 0, 0, 0.3));
+    .gradient (@startColor: #007dc3, @endColor: #1451a2);
+    height: 80px;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 9999;
 
     a {
         text-decoration: none;
@@ -41,6 +43,13 @@
         }
         background-image: url('../img/logo-timtec.png');
     }
+    #main-navbar-collapse {
+        @media (min-width: @screen-sm-min) {
+            position: absolute;
+            top: 79px;
+            float: none;
+        }
+    }
     .tim {
         font-family: @teuton-26;
     }
@@ -51,10 +60,38 @@
         height: 79px;
         border-right: 1px solid #0d4c8f;
     }
-    .navbar-nav > li > a {
-        text-transform: uppercase;
-        &:hover {
-            background-color: #0d4c8f;
+    .container > .navbar-header {
+            margin: 0;
+    }
+    .navbar-nav {
+        @media (min-width: @screen-sm-min) {
+            float: left;
+            margin: 0;
+        }
+        > li {
+            @media (min-width: @screen-sm-min) {
+                float: left;
+                margin-right: 15px;
+            }
+            > a {
+                background-color: #b7e5f7;
+                .box-shadow(0 5px 15px 0 rgba(0,0,0,0.3));
+                color: #0d4c8f;
+                font-family: @teuton-24;
+                font-size: 16px;
+                padding: 12px 15px;
+                text-align: center;
+                text-transform: uppercase;
+                .transition(all .3s);
+                @media (min-width: @screen-sm-min) {
+                    width: 120px;
+                }
+                white-space: nowrap;
+                &:hover {
+                    background-color: #fff;
+                    text-decoration: none;
+                }
+            }
         }
     }
     .dropdown-menu {
@@ -88,9 +125,6 @@
     }
 
     @media (min-width: @screen-sm-min) {
-        .navbar-nav > li > a {
-            padding-top: 30px;
-            padding-bottom: 29px;
-        }
+
     }
 }
