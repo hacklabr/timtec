@@ -22,25 +22,15 @@
         }
     }
     h1 {
-        margin-top: 26px;
-        width: 236px/1.5;
-        height: 36px/1.5;
-        @media (min-width: @screen-lg-min) {
-            margin-top: 20px;
-            width: 236px;
-            height: 36px;
-        }
+        margin-top: 20px;
+        width: 236px;
+        height: 36px;
         background-image: url('../img/logo-instituto-tim.png');
     }
     h2 {
-        margin: 26px 0 0 70px;
-        width: 106px/1.5;
-        height: 36px/1.5;
-        @media (min-width: @screen-lg-min) {
-            margin-top: 20px;
-            width: 106px;
-            height: 36px;
-        }
+        margin: 20px 0 0 70px;
+        width: 106px;
+        height: 36px;
         background-image: url('../img/logo-timtec.png');
     }
     #main-navbar-collapse {
@@ -60,16 +50,29 @@
         height: 79px;
         border-right: 1px solid #0d4c8f;
     }
-    .container > .navbar-header {
+    .container {
+        > .navbar-header{
+            height: 79px;
             margin: 0;
+        }
+        > .navbar-collapse {
+            padding: 0;
+        }
+    }
+    .navbar-toggle {
+        margin-right: 0;
+        margin-top: 22px;
     }
     .navbar-nav {
+        margin: 0;
         @media (min-width: @screen-sm-min) {
             float: left;
-            margin: 0;
         }
         > li {
             @media (min-width: @screen-sm-min) {
+                margin-right: 5px;
+            }
+            @media (min-width: @screen-md-min) {
                 float: left;
                 margin-right: 15px;
             }
@@ -79,12 +82,15 @@
                 color: #0d4c8f;
                 font-family: @teuton-24;
                 font-size: 16px;
-                padding: 12px 15px;
                 text-align: center;
                 text-transform: uppercase;
                 .transition(all .3s);
                 @media (min-width: @screen-sm-min) {
-                    width: 120px;
+                    min-width: 120px;
+                    padding: 12px 10px;
+                }
+                @media (min-width: @screen-md-min) {
+                    padding: 12px 15px;
                 }
                 white-space: nowrap;
                 &:hover {
