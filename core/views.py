@@ -4,7 +4,7 @@ import time
 
 from django.core.urlresolvers import reverse_lazy
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.views.generic import (DetailView, ListView, FormView, DeleteView,
                                   CreateView, UpdateView)
 from django.views.generic.base import RedirectView, View, TemplateView
@@ -335,6 +335,14 @@ class ClassUpdateView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
         context = super(ClassUpdateView, self).get_context_data(**kwargs)
 
         return context
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_object().course
+
+        if form.is_course_coordinator(request.user):
+            return super(ClassUpdateView, self).post(request, *args, **kwargs)
+        else:
+            return HttpResponseForbidden()
 
 
 class ClassDeleteView(LoginRequiredMixin, CanEditClassMixin, DeleteView):
