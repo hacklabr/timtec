@@ -5,7 +5,7 @@ import datetime
 
 from django.db import models
 from django.db.models import Count
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.staticfiles.storage import staticfiles_storage
@@ -15,6 +15,7 @@ from django.conf import settings
 from autoslug import AutoSlugField
 
 from notes.models import Note
+from course_material.models import CourseMaterial
 
 
 class Video(models.Model):
@@ -48,6 +49,7 @@ class Class(models.Model):
                 c.students.remove(obj)
             except Class.DoesNotExist:
                 pass
+            self.students.add(obj)
 
     def remove_students(self, *objs):
         for obj in objs:
@@ -122,8 +124,11 @@ class Course(models.Model):
         else:
             return False
 
-    def avg_lessons_users_progress(self):
-        student_enrolled = self.coursestudent_set.all().count()
+    def avg_lessons_users_progress(self, classes=None):
+        if classes:
+            student_enrolled = self.coursestudent_set.filter(user__classes__in=classes).count()
+        else:
+            student_enrolled = self.coursestudent_set.all().count()
         progress_list = []
         for lesson in self.lessons.all():
             lesson_progress = {}
@@ -132,9 +137,16 @@ class Course(models.Model):
             lesson_progress['position'] = lesson.position
             units_len = lesson.unit_count()
             if units_len:
-                units_done_len = StudentProgress.objects.exclude(complete=None).filter(unit__lesson=lesson).count()
-                lesson_progress['progress'] = 100 * units_done_len / (units_len * student_enrolled)
-                lesson_progress['forum_questions'] = lesson.forum_questions.count()
+                units_done = StudentProgress.objects.exclude(complete=None).filter(unit__lesson=lesson)
+                if classes:
+                    units_done = units_done.filter(user__classes__in=classes)
+                units_done_len = units_done.count()
+                if units_len and student_enrolled:
+                    # avoid zero divizion
+                    lesson_progress['progress'] = 100 * units_done_len / (units_len * student_enrolled)
+                else:
+                    lesson_progress['progress'] = 0
+                # lesson_progress['forum_questions'] = lesson.forum_questions.count()
                 # lesson_progress['progress'] =
                 # lesson_progress['finish'] = self.get_lesson_finish_time(lesson)
             else:
@@ -156,7 +168,9 @@ class Course(models.Model):
         except CourseProfessor.DoesNotExist:
             return False
 
-    def has_perm_own_classes(self, user):
+    def is_assistant_or_coordinator(self, user):
+        if user.is_staff or user.is_superuser:
+            return True
         role = self.get_professor_role(user)
         return role in ['assistant', 'coordinator'] or user.is_superuser
 
@@ -173,6 +187,7 @@ class Course(models.Model):
             c = Class.objects.create(name=self.name, course=self)
             self.default_class = c
             self.save()
+            CourseMaterial.objects.create(course=self)
 
 
 class CourseStudent(models.Model):
@@ -222,6 +237,7 @@ class CourseStudent(models.Model):
         """
         Returns a list with dictionaries with keys name (lesson name), slug (lesson slug) and progress (percent lesson progress, decimal)
         """
+        # TODO refator to make one query to count unts done for all lessons
         progress_list = []
         for lesson in self.course.lessons.all():
             lesson_progress = {}
@@ -253,7 +269,7 @@ class CourseProfessor(models.Model):
         ('coordinator', _('Professor Coordinator')),
     )
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Professor'))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Professor'), related_name='teaching_courses')
     course = models.ForeignKey(Course, verbose_name=_('Course'))
     biography = models.TextField(_('Biography'), blank=True)
     role = models.CharField(_('Role'), choices=ROLES, default=ROLES[1][0], max_length=128)
@@ -283,14 +299,15 @@ class ProfessorMessage(models.Model):
     course = models.ForeignKey(Course, verbose_name=_('Course'), null=True)
 
     def send(self):
-        to = [u.email for u in self.users.all()]
+        bcc = [u.email for u in self.users.all()]
         try:
             et = EmailTemplate.objects.get(name='professor-message')
         except EmailTemplate.DoesNotExist:
             et = EmailTemplate(name="professor-message", subject="{{subject}}", template="{{message}}")
         subject = Template(et.subject).render(Context({'subject': self.subject}))
         message = Template(et.template).render(Context({'message': self.message}))
-        return send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, to, fail_silently=False)
+        email = EmailMessage(subject, message, settings.DEFAULT_FROM_EMAIL, None, bcc)
+        return email.send()
 
 
 class PositionedModel(models.Model):

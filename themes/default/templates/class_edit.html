@@ -20,7 +20,7 @@ wrapper-course-lesson
                     <h4 class="modal-title" id="class-modal-label">{{ object.name }}</h4>
                 </div>
                 <div class="modal-body">
-                    <div class"form-group">
+                    <div class="form-group">
                         <label for="class-users-list">{% trans 'Users' %}</label>
                         <textarea id="class-users-list" class="form-control" rows="10" placeholder="Paste users list here, one user per line." name="students_text"></textarea>
                     </div>
@@ -45,7 +45,9 @@ wrapper-course-lesson
                     <button class="btn btn-success" onclick="document.getElementById('mainForm').submit();return false;">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
                 </form>
             </div>
-            {% include 'administration/_alert.html' %}
+
+            {# {% include 'administration/_alert.html' %} #}
+
         </div>
     </div>
     <!-- END ACTIONS -->
@@ -53,17 +55,30 @@ wrapper-course-lesson
     {% include "_course-header-inline.html"  with course=object.course %}
     <section id="classes-content" class="container">
     	<header class="secondary-header">
-            <div class="row">
-                <div class="col-lg-9">
-                    <form id="mainForm" method="post" action="{% url 'class' pk=class.id %}">
-                        {% csrf_token %}
-                        <div class="editable-title"><input type="text" name="name" value="{{ object.name }}"></div>
-                    </form>
+            <form id="mainForm" method="post" action="{% url 'class' pk=class.id %}">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-9">
+                            <div class="editable-title"><input type="text" name="name" value="{{ object.name }}"></div>
+                    </div>
+                    <div class="col-lg-3">
+                        <a class="btn btn-lg btn-danger uppercase" data-toggle="modal" data-target="#class-modal">{% trans 'Add users' %}</a>
+                    </div>
                 </div>
-                <div class="col-lg-3">
-                    <a class="btn btn-lg btn-danger uppercase" data-toggle="modal" data-target="#class-modal">{% trans 'Add users' %}</a>
-                </div>
-            </div>
+                <div class="row">
+                    <div class="col-lg-9">
+                        <label>{% trans 'Assistant' %}</label>
+                        <select name="assistant" class="form-control">
+                            {% if not object.assistant.id %}
+                                <option value="-1">{% trans 'Select a professor' %}</option>
+                            {% endif %}
+                            {% for professor in object.course.professors.all %}
+                                <option value="{{ professor.id }}" {% if professor.id == object.assistant.id %}selected{% endif %}>{{ professor }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                 </div>
+            </form>
         </header>
         <table class="table table-list">
             <tr>
@@ -84,6 +99,10 @@ wrapper-course-lesson
                         <button type="submit" class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
                     </form>
                 </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">{% trans 'No students found' %}</td>
             </tr>
             {% endfor %}
         </table>

@@ -3,7 +3,7 @@ import json
 import time
 
 from django.core.urlresolvers import reverse_lazy
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.http import HttpResponse
 from django.views.generic import (DetailView, ListView, FormView, DeleteView,
                                   CreateView, UpdateView)
@@ -103,6 +103,12 @@ class ContactView(View):
         response.status_code = status_code
 
         return response
+
+
+class GenericCourseView(DetailView):
+    model = Course
+    context_object_name = 'course'
+    slug_url_kwarg = 'course_slug'
 
 
 class CourseView(DetailView):
@@ -323,7 +329,7 @@ class CanEditClassMixin(object):
 class ClassUpdateView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
     model = Class
     template_name = 'class_edit.html'
-    fields = ('name', )
+    fields = ('name', 'assistant', )
 
     def get_context_data(self, **kwargs):
         context = super(ClassUpdateView, self).get_context_data(**kwargs)
@@ -459,5 +465,18 @@ class ClassViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
     filter_fields = ('course',)
 
     def get_queryset(self):
-        user = self.request.user
-        return Class.objects.filter(assistant=user)
+        queryset = super(ClassViewSet, self).get_queryset()
+        if self.request.user.is_staff or self.request.user.is_superuser:
+            return queryset
+
+        course_id = self.request.QUERY_PARAMS.get('course')
+        if course_id:
+            try:
+                role = self.request.user.teaching_courses.get(course__id=course_id).role
+            except ObjectDoesNotExist:
+                role = ''
+            # if user is not coordinator or admin, only show his classes
+            if not role or role == 'assistant':
+                queryset = queryset.filter(assistant=self.request.user)
+
+        return queryset

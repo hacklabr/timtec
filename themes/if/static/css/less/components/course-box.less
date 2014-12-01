@@ -5,8 +5,21 @@
     margin-top: 40px;
     .course {
       margin-bottom: 40px;
-      overflow: hidden;
+      min-height: 195px;
       position: relative;
+        .coming-soon-label {
+          background-color: @brand-warning;
+          border-radius: 0px 2px 2px 0px;
+          box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.3);
+          color: #fff;
+          font-size: 12px;
+          left: -5px;
+          padding: 6px 10px;
+          position: absolute;
+          text-transform: uppercase;
+          top: 10px;
+          z-index: 999;
+        }
         .course-link { // link wrapper
           display: block;
           position: relative;
@@ -46,6 +59,7 @@
           .thumb {
             background-size: cover;
             background-position: top center;
+            background-color: lighten(@brand-primary, 45%);
             display: block;
             height: 195px;
             width: 100%;
@@ -101,6 +115,7 @@
             }
         } // .info
         .enroll { // go to course link
+            min-height: 42px;
             width: 100%;
             background-color: @brand-primary;
             color: #fff;

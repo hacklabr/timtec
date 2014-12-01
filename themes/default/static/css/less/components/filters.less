@@ -1,0 +1,60 @@
+#forum-content {
+  .filters {
+    margin: 50px 0;
+  }
+}
+
+.filters {
+  background-color: @gray-lighter;
+  padding: 5px 10px;
+  margin: 20px 0 50px;
+
+  label {
+    margin-bottom: 0;
+  }
+
+  .checkbox {
+    line-height: 2.5;
+    label {
+      font-size: 14px;
+      margin-right: 10px;
+    }
+    input[type="checkbox"] {
+      display: inline-block;
+    }
+  }
+  .checkbox, .radio {
+    input {
+      display: inline-block;
+    }
+  }
+  .filter-checkbox {
+    @media (max-width: @screen-sm-max) {
+      margin-bottom: 20px;
+    }
+  }
+  @media (max-width: @screen-xs-max) {
+    .filter-keyword, .filter-ordering, .filter-reverse {
+      margin-bottom: 10px;
+    }
+    .filter-checkbox {
+      .checkbox {
+        padding-left: 23px;
+        label {
+          display: block;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+
+  .filter-ordering {
+    select {
+      width: 100%;
+    }
+  }
+
+  #filter-class {
+    margin-left: 10px;
+  }
+}

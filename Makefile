@@ -28,6 +28,7 @@ endef
 create-staging:
 	virtualenv ~/env
 	~/env/bin/pip install -r requirements.txt
+	sudo `which npm` install -g less yuglify uglify-js cssmin ngmin --loglevel silent
 	mkdir -p ~/webfiles/static
 	mkdir -p ~/webfiles/media
 

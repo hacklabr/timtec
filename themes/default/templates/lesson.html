@@ -48,7 +48,8 @@ $(document).ready(function() {
         {% include '_lesson_header.html' %}
 
         <!-- ROW -->
-        <div class="row" ng-controller="MainCtrl">
+        <div ng-controller="MainCtrl">
+        <div class="row" >
 
             {% verbatim %}
             <!-- UNITS NAVIGATION FOR TABLET AND DESKTOP -->
@@ -78,9 +79,9 @@ $(document).ready(function() {
             <!-- UNITS NAVIGATION FOR PHONES -->
             <div class="col-xs-12 visible-xs">
                 <p>
-                    <select ng-model="currentUnitPos" class="form-control">
+                    <select ng-model="selectedIndex" ng-change="locationChange(selectedIndex)" class="form-control">
                         <option ng-repeat="unit in lesson.units"
-                                ng-value="unit"
+                                ng-value="$index+1"
                                 ng-selected="unit==currentUnit"
                                 value="{{$index+1}}">{% endverbatim %}{% trans 'Unit' %}{% verbatim %} {{ unit.position + 1 }}</option>
                     </select>
@@ -143,7 +144,7 @@ $(document).ready(function() {
                         <h3><i class="fa fa-angle-double-right"></i> {% trans 'Addicional materials' %}</h3>
                     </div>
                     <span ng-bind-html="currentUnit.side_notes|markdown"></span>
-                    <p ng-if="!currentUnit.side_notes">{% trans 'This unit has no notes' %}</p>
+                    <p ng-if="!currentUnit.side_notes">{% trans 'This unit has no addicional materials' %}</p>
                 </div>
                 <!-- END SIDENOTES -->
 
@@ -151,6 +152,7 @@ $(document).ready(function() {
                 {% include "_forum_inline.html"  with course=lesson.course question_form=1 %}
                 <!-- END FORUM -->
             </div>
+        </div>
         </div>
     </section>
     <!-- END COURSE CONTENT -->

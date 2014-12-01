@@ -50,7 +50,7 @@ class SignupStudentCompletion(BaseUserChangeForm):
         user.course = self.cleaned_data['course']
         user.klass = self.cleaned_data['klass']
         user.campus = self.cleaned_data['campus']
-        user.campus = self.cleaned_data['city']
+        user.city = self.cleaned_data['city']
         if self.cleaned_data['password1']:
             user.set_password(self.cleaned_data['password1'])
         user.save()
@@ -76,7 +76,7 @@ class SignupProfessorCompletion(BaseUserChangeForm):
         user.ifid = self.cleaned_data['siape']
         user.course = self.cleaned_data['cpf']
         user.campus = self.cleaned_data['campus']
-        user.campus = self.cleaned_data['city']
+        user.city = self.cleaned_data['city']
         if self.cleaned_data['password2']:
             user.set_password(self.cleaned_data['password2'])
         user.save()
@@ -95,12 +95,15 @@ class IfSignupForm(BaseUserChangeForm):
 
     class Meta:
         model = get_user_model()
-        fields = ('ifid', 'first_name', 'last_name', 'email', 'campus', 'city', 'course', 'klass')
+        fields = ('first_name', 'last_name', 'email', 'campus', 'city', 'course', 'klass')
 
-    def clean_ifid(self):
-        data = self.cleaned_data['ifid']
-        if 'if_student' in self.data and not data:
-            raise forms.ValidationError('O campo código de matrícula é obrigatório para alunos do IFSUL.')
+    def clean_username(self):
+        data = self.cleaned_data['username']
+        if not data:
+            if 'if_student' in self.data:
+                raise forms.ValidationError('O campo código de matrícula é obrigatório para alunos do IFSUL.')
+            else:
+                super(IfSignupForm, self).clean_username(self)
         return data
 
     def clean_course(self):
@@ -123,7 +126,7 @@ class IfSignupForm(BaseUserChangeForm):
 
     def signup(self, request, user):
         if 'if_student' in self.data:
-            user.ifid = self.cleaned_data['ifid']
+            user.ifid = self.cleaned_data['username']
             user.course = self.cleaned_data['course']
             user.klass = self.cleaned_data['klass']
             user.campus = self.cleaned_data['campus']

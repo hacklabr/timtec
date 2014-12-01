@@ -88,6 +88,9 @@
                 $modal.modal();
                 return false;
             });
+            $('.dropdown-menu form').click(function(e) {
+                e.stopPropagation();
+            });
         });
     </script>
 {% endif %}

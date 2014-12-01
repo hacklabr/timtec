@@ -25,7 +25,7 @@ home
                 <h1>Cursos em destaque</h1>
             </header>
             <div class="row">
-                <div ng-repeat="course in courses" class="block course col-md-4 col-sm-6 col-xs-12">
+                <div ng-repeat="course in courses" class="block course col-md-4 col-sm-6">
                     {% verbatim %}
                     <a ng-href="/course/{{ course.slug }}" class="course-link">
                         <div class="thumb-wrapper">
@@ -39,7 +39,7 @@ home
                         </div>
                         <div class="enroll">
                             <span>
-                                <i class="fa fa-calendar"></i> Jul, 2014
+                                <i class="fa fa-calendar"></i> {{ course.start_date | date : 'MMM, yyyy' | capitalize}}
                             </span>
                             <span class="enroll-link textright uppercase">
                                 Começar curso <i class="fa fa-angle-right"></i>
@@ -47,15 +47,19 @@ home
                         </div>
                     </a>
                     {% endverbatim %}
-
                 </div>
             </div><!-- .row -->
+            <div class="row">
+                <div class="see-all-courses col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+                    <a href="{% url 'courses' %}" class="btn btn-lg btn-info btn-block">{% trans "All courses" %}</a>
+                </div>
+            </div>
         </section><!-- #courses -->
 
         <section id="how-it-works">
             <div class="container">
                 <header>
-                    <h1>Área de instruções</h1>
+                    <h1>Saiba mais sobre o MOOC IFSul</h1>
                 </header>
                 <div class="highlight textcenter">
                     <p>Cursos online massivos ou simplesmente MOOCs (Massive Open Online Courses), combinam vídeos online com elementos interativos como testes, simuladores e fóruns. Estudantes podem assistir aulas fracionadas em pequenos capítulos, acessar materias complementares e fazer anotações em um caderno virtual.  Gestores e professores podem acompanhar os avanços dos alunos, gerenciar turmas e fóruns de discussão.</p>

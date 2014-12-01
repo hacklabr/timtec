@@ -12,11 +12,11 @@ from accounts.views import (ProfileEditView, ProfileView, UserSearchView,
                             TimtecUserViewSet, StudentSearchView)
 from forum.views import AnswerViewSet as ForumAnswerViewSet, ForumModeratorView
 
-from core.views import (CourseView, CourseViewSet, CourseThumbViewSet,
+from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         CourseProfessorViewSet, EnrollCourseView, HomeView,
                         UserCoursesView, ContactView, LessonDetailView,
                         LessonViewSet, StudentProgressViewSet,
-                        UserNotesViewSet, CoursesView,
+                        UserNotesViewSet, CoursesView, CourseThumbViewSet,
                         ProfessorMessageViewSet, CourseStudentViewSet,
                         AcceptTermsView, CarouselCourseView, ClassListView,
                         ClassCreateView, ClassUpdateView, ClassDeleteView,
@@ -26,7 +26,7 @@ from activities.views import AnswerViewSet
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, QuestionVoteViewSet, AnswerVoteViewSet
 from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialViewSet
 from notes.views import NotesViewSet, CourseNotesView, UserNotesView
-from reports.views import UserCourseStats, CourseStatsByLessonViewSet
+from reports.views import UserCourseStats, CourseStatsByLessonViewSet, UserCourseLessonsStats
 from rest_framework import routers
 from django_markdown import flatpages
 
@@ -51,6 +51,7 @@ router.register(r'course_material', CourseMaterialViewSet)
 router.register(r'note', NotesViewSet)
 router.register(r'user_notes', UserNotesViewSet)
 router.register(r'reports', UserCourseStats)
+router.register(r'lessons_user_progress', UserCourseLessonsStats)
 router.register(r'course_stats', CourseStatsByLessonViewSet)
 router.register(r'course_classes', ClassViewSet)
 
@@ -101,6 +102,13 @@ urlpatterns = patterns(
     # Notes
     url(r'^notes/(?P<username>[\w.+-]+)?$', UserNotesView.as_view(), name='user_notes'),
     url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/mynotes/$', CourseNotesView.as_view(), name='user_course_notes'),
+
+    # Messages
+    url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/messages/$', GenericCourseView.as_view(template_name="messages.html"), name='messages'),
+    url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/message/(?P<message_id>[1-9][0-9]*)$', GenericCourseView.as_view(template_name="message.html"), name='message_detail'),
+
+    # Reports
+    url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/reports/$', GenericCourseView.as_view(template_name="administration/stats.html"), name='reports'),
 
     # Authentication
     url(r'^logout/', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='timtec_logout'),

@@ -22,7 +22,7 @@
                 <li><span id="start-intro" class="btn btn-primary btn-sm">Começar tour <i class="fa fa-caret-right"></i></span></li>
                 <li><a href="#" data-toggle="modal" data-target="#modal-about">{% trans 'About' %}</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#modal-contact">{% trans 'Contact' %}</a></li>
-                <li><a href="/courses">{% trans 'Courses' %}</a></li>
+                <li><a href="{% url 'courses' %}">{% trans 'Courses' %}</a></li>
                 <li class="navbar-divider"></li>
             </ul>
             <ul class="nav navbar-nav" id="session-nav">
@@ -52,7 +52,7 @@
                 <li>
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans 'Sign In' %}</a>
                     <div class="dropdown-menu">
-                        <form onclick="event.stopPropagation()" method="post" action="{% url 'account_login' %}" class="navbar-form form-horizontal">{% csrf_token %}
+                        <form method="post" action="{% url 'account_login' %}" class="navbar-form form-horizontal">{% csrf_token %}
 
                             <div class="form-group {% if form.errors %}has-error{% endif %}">
                                 <label class="col-sm-5 col-xs-12 control-label">{% trans 'Username' %}</label>
@@ -127,13 +127,16 @@
                                     <button class="btn btn-success">{% trans 'Sign Up' %}</button>
                                 </div>
                             </div>
+                            <!--
                             <div class="divider"></div>
+
                             <div class="row">
                                 <p class="bottom textcenter">
                                     <a href="{% provider_login_url 'facebook' method='oauth2' %}">{% trans 'Connect with Facebook' %}</a>
                                 </p>
                             </div>
-
+                            -->
+                            <input type="hidden" name="next" value="{{ current_path }}" />
                         </form>
                     </div>
                 </li>
