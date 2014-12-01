@@ -1,5 +1,4 @@
 from django.contrib.auth import get_user_model
-from django.test.client import Client
 
 import pytest
 from model_mommy import mommy
@@ -27,7 +26,7 @@ def create_professor(course, professor_user_name, professor_email, role):
 
 
 @pytest.mark.django_db
-def test_assistant_professor_shouldnot_change_class_professor(admin_client):
+def test_assistant_professor_shouldnot_change_class_professor(client):
 
     course = mommy.make('Course', slug='dbsql', name='Test course name')
 
@@ -39,9 +38,8 @@ def test_assistant_professor_shouldnot_change_class_professor(admin_client):
 
     clazz = mommy.make('Class', name='Test class name', course=course, assistant=coordinator_professor)
 
-    client = Client()
     client.login(username=assistant_professor.username, password='password')
 
     # post passing new_assistant as new assistant
-    response = admin_client.post('/class/' + str(clazz.id) + '/', {'assistant': another_assistant})
+    response = client.post('/class/' + str(clazz.id) + '/', {'assistant': another_assistant})
     assert response.status_code == 403
