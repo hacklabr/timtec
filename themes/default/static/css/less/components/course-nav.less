@@ -1,28 +1,26 @@
 // COURSE SECTIONS (NAVGATION)
 .course-sections {
-  a {
+  margin-top: 16px;
+
+  a.fa {
     display: inline-block;
     height: 28px;
-    span {
-      border-right: 1px solid @gray-lighter;
-      color: @gray-light;
-      display: inline-block;
-      font-size: 22px;
-      height: 28px;
-      margin-left: -3px;
-      overflow: hidden;
-      padding: 3px 9px;
-      position: relative;
-      text-align: center;
+    border-right: 1px solid @gray-lighter;
+    color: @gray-light;
+    font-size: 22px;
+    overflow: hidden;
+    padding: 3px 9px;
+    position: relative;
+    text-align: center;
+    &.active, &:hover, &:focus {
+      color: @brand-info;
+      cursor: pointer;
+      text-decoration: none;
+      .transition(all 0.1s ease-out);
     }
-    &.active, &:hover {
-      span {
-        color: @brand-info;
-        cursor: pointer;
-        text-decoration: none;
-        .transition(all 0.1s ease-out);
-      }
-    }
+  }
+  .dropdown {
+    display: inline-block;
   }
 }
 
