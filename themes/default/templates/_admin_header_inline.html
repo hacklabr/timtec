@@ -12,9 +12,10 @@
                         <a href="/admin/courses/{{course.id}}" ng-bind="course.name"></a>
                         {% endverbatim %}
                     </h1>
-                    <ul class="instructors">
-                        <li ng-repeat="p in courseProfessors"><a ng-bind="p.user_info.name"></a></li>
-                    </ul>
+                    <div class="course-details">
+                        <div><span class="label">{% trans 'By' %}:</span> {% include "_course-professors-inline.html" with course=course %}</div>
+                        <div><span class="label">{% trans 'Tutor' %}:</span> Nome do Professor <span class="label">{% trans 'Class' %}:</span> Nome da turma</div>
+                    </div>
                 </div>
                 <!-- END COL-LG-8 -->
                 <!-- COL-LG-4 -->
