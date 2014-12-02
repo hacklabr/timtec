@@ -2,17 +2,23 @@
 // ********************************************************************* //
 
 #courses-page {
+  .page-header-double {
+    margin: 30px 0 45px;
+    @media screen and (min-width: @screen-sm-min) {
+      margin: 80px 0 50px;
+    }
+  }
   #courses {
     position: relative;
-    margin-top: -120px;
+    margin-top: -170px;
     > div:first-child {
       padding-top: 135px;
       background-color: rgba(255,255,255,0.5);
     }
-  } 
+  }
   .more-info {
     margin: 0 -15px;
-    padding-top: 135px;
+    padding-top: 145px;
     padding-bottom: 15px;
     background-color: rgba(40,112,187,0.5);
     .box {

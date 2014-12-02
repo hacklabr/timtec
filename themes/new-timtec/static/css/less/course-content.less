@@ -1,7 +1,5 @@
 // COURSE CONTENT
 #course-content {
-  margin-top: -150px;
-  padding-top: 150px;
   background-color: rgba(255,255,255,0.5);
 
   // COURSE LESSONS - Course intro
@@ -121,23 +119,32 @@
 }
 
 // COURSE INTRO
-#course.course-intro {
-  #course-content {
-    padding-top: 0;
-    background-color: transparent;
-    > div.row > div:first-child {
-      padding-top: 150px;
-      background-color: rgba(255,255,255,0.5);
+#course {
+  &.course-intro {
+    #course-content {
+      background-color: transparent;
+      margin-top: -170px;
+      padding-top: 0;
+      > div.row > div:first-child {
+        background-color: rgba(255,255,255,0.5);
+        padding-top: 150px;
+      }
+    }
+    #go-to-course {
+      background-color: @brand-success;
+      text-decoration: none;
+      &:hover {
+        background-color: darken(@brand-success, 10%);
+      }
+    }
+    .video {
+      .top(15px);
     }
   }
-  #go-to-course {
-    background-color: @brand-success;
-    text-decoration: none;
-    &:hover {
-      background-color: darken(@brand-success, 10%);
+  &.course-lesson, &.course-material {
+    #course-content {
+      margin-top: -170px;
+      padding-top: 170px;
     }
-  }
-  .video {
-    .top(15px);
   }
 }
