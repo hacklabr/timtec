@@ -1,14 +1,14 @@
 #main-navbar {
-    height: 80px;
-    margin-bottom: 0;
-    .gradient (@startColor: #007dc3, @endColor: #1451a2);
     border-color: #1451a2;
     .box-shadow(0px 5px 5px 0px rgba(0, 0, 0, 0.3));
-
+    .gradient (@startColor: #007dc3, @endColor: #1451a2);
+    height: 80px;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 9999;
     a {
         text-decoration: none;
     }
-
     h1, h2 {
         background-size: 100% 100%;
         background-repeat: no-repeat;
@@ -19,49 +19,182 @@
             height: 100%;
         }
     }
-    h1 {
-        margin-top: 26px;
-        width: 236px/1.5;
-        height: 36px/1.5;
-        @media (min-width: @screen-lg-min) {
+    h1 { // instituto tim logo
+        background-image: url('../img/logo-instituto-tim.png');
+        margin-top: 32px;
+        width: 236px/1.8;
+        height: 36px/1.8;
+        @media (min-width: @screen-xs-min) {
+            margin-top: 26px;
+            width: 236px/1.5;
+            height: 36px/1.5;
+        }
+        @media (min-width: @screen-sm-min) {
             margin-top: 20px;
             width: 236px;
             height: 36px;
         }
-        background-image: url('../img/logo-instituto-tim.png');
-    }
-    h2 {
-        margin: 26px 0 0 70px;
-        width: 106px/1.5;
-        height: 36px/1.5;
-        @media (min-width: @screen-lg-min) {
-            margin-top: 20px;
+    } // h1
+    h2 { // timtec logo
+        background-image: url('../img/logo-timtec.png');
+        margin: 30px 0 0 20px;
+        width: 106px/1.8;
+        height: 36px/1.8;
+        @media (min-width: @screen-xs-min) {
+            margin: 26px 0 0 50px;
+            width: 106px/1.5;
+            height: 36px/1.5;
+        }
+        @media (min-width: @screen-sm-min) {
+            margin: 20px 0 0 70px;
             width: 106px;
             height: 36px;
         }
-        background-image: url('../img/logo-timtec.png');
-    }
-    .tim {
-        font-family: @teuton-26;
-    }
-    .tec {
-        text-transform: initial;
-    }
-    .navbar-divider {
-        height: 79px;
-        border-right: 1px solid #0d4c8f;
-    }
-    .navbar-nav > li > a {
-        text-transform: uppercase;
-        &:hover {
-            background-color: #0d4c8f;
+    } // h2
+    .social { // contact and social buttons
+        display: none;
+        @media screen and (min-width: 520px) {
+            display: block;
+            float: right;
+            margin: 22px 20px 0 0;
+        }
+        @media screen and (min-width: @screen-sm-min) {
+            margin: 16px 0 0 0;
+        }
+        li {
+            display: block;
+            float: left;
+            margin-left: 10px;
+            width: 35px;
+            height: 35px;
+            font-size: 24px;
+            text-align: center;
+            line-height: 1px;
+            &:after {
+                content: none;
+            }
+            a {
+                display: block;
+                width: 33px;
+                height: 33px;
+                color: #fff;
+            }
+            .s-buttons(@bg-color, @h-color) {
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                a {
+                    padding-top: 6px;
+                    background-color: @bg-color;
+                    transition: all 0.3s;
+
+                    &:hover {
+                        background-color: @h-color;
+                    }
+                }
+            }
+            &.contato {
+                background: url(../img/icon-contact.png) no-repeat 0px 4px;
+                display: none;
+                @media screen and (min-width: @screen-sm-min) {
+                    display: inline-block;
+                }
+                a {
+                    span {
+                        display: block;
+                        margin: 0 0 0 -5px;
+                        padding: 44px 0 0 0;
+                        font-family: @font-family-sans-serif;
+                        font-size: 9px;
+                        text-transform: uppercase;
+                    }
+                }
+            }
+            &.facebook {
+                .s-buttons(#3b65c0,#4c76d1);
+            }
+            &.twitter {
+                .s-buttons(#27b7ec,#3fc9fc);
+            }
+            &.youtube {
+                .s-buttons(#ed5a47,#f97362);
+            }
+        } // .social li
+    } // .social
+    .container { // adjustments for responsive
+        > .navbar-header {
+            height: 79px;
+            margin: 0;
+            width: 100%;
+        }
+        > .navbar-collapse {
+            padding: 0;
         }
     }
+    .navbar-toggle { // fix toggle button position
+        margin-right: 0;
+        margin-top: 22px;
+    }
+    #main-navbar-collapse { // navbar wrapper
+        @media (min-width: @screen-sm-min) {
+            position: absolute;
+            top: 79px;
+            float: none;
+        }
+        // styles for about timtec link on navbar
+        .tim {
+            font-family: @teuton-26;
+        }
+        .tec {
+            text-transform: initial;
+        }
+        // ul.navbar-nav // navbar list links
+        .navbar-nav {
+            margin: 0;
+            @media (min-width: @screen-sm-min) {
+                float: left;
+            }
+            > li {
+                @media (min-width: @screen-sm-min) {
+                    margin-right: 5px;
+                    &.contact-link {
+                        display: none;
+                    }
+                }
+                @media (min-width: @screen-md-min) {
+                    float: left;
+                    margin-right: 15px;
+                }
+                > a {
+                    background-color: #b7e5f7;
+                    .box-shadow(0 5px 15px 0 rgba(0,0,0,0.3));
+                    color: #0d4c8f;
+                    font-family: @teuton-24;
+                    font-size: 16px;
+                    text-align: center;
+                    text-transform: uppercase;
+                    .transition(all .3s);
+                    @media (min-width: @screen-sm-min) {
+                        min-width: 120px;
+                        padding: 12px 10px;
+                    }
+                    @media (min-width: @screen-md-min) {
+                        padding: 12px 15px;
+                    }
+                    white-space: nowrap;
+                    &:hover {
+                        background-color: #fff;
+                        text-decoration: none;
+                    }
+                }
+            }
+        } // .navbar-nav
+    } // #main-navbar-collapse
+
     .dropdown-menu {
         background-color: rgba(193, 224, 244, 0.7);
         border-radius: 0;
         font-family: @font-family-sans-serif;
         label {
+            color: #333;
             font-weight: bold;
         }
         &.user-menu {
@@ -85,12 +218,16 @@
                 }
             }
         }
-    }
+    } // .dropdown-menu
+}
 
-    @media (min-width: @screen-sm-min) {
-        .navbar-nav > li > a {
-            padding-top: 30px;
-            padding-bottom: 29px;
+@media (max-width: @screen-xs-max) {
+    .navbar-inverse {
+        .navbar-nav .open .dropdown-menu .divider {
+            background-color: @gray-lighter;
+        }
+        .navbar-form {
+            border: 0;
         }
     }
 }
