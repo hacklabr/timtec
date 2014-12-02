@@ -1,3 +1,3 @@
 {% for course_professor in course.get_video_professors %}
-	<a href="{% url 'profile' course_professor.user.username %}">{{ course_professor.user }}</a>
+	<a class="course-instructor" href="{% url 'profile' course_professor.user.username %}">{{ course_professor.user }}</a>
 {% endfor %}
