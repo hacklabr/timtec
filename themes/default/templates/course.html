@@ -73,9 +73,14 @@
                         <a href="" class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Course' %}"></a>
                         <a ng-href="{% verbatim %}/{{forum_url}}{% endverbatim %}" class="has-tooltip fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Forum' %}"></a>
                         <a ng-href="{% verbatim %}/{{course_material_url}}{% endverbatim %}" class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Material' %}"></a>
-                        <a ng-href="{% verbatim %}/{{messages_url}}{% endverbatim %}" class="has-tooltip fa fa-envelope-o" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Messages' %}"></a>
-                        <a ng-href="{% verbatim %}/{{reports_url}}{% endverbatim %}" class="has-tooltip fa fa-bar-chart-o" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Stats' %}"></a>
-                        <a ng-href="{% verbatim %}/{{permissions_url}}{% endverbatim %}" class="has-tooltip fa fa-key" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Permissions' %}"></a>
+                        <div class="dropdown">
+                            <a class="has-tooltip fa fa-cog dropdown-toggle" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Tools' %}" id="course-tools" data-toggle="dropdown" aria-expanded="true"></a>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="course-tools">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" ng-href="{% verbatim %}/{{messages_url}}{% endverbatim %}">{% trans 'Messages' %}</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1"  ng-href="{% verbatim %}/{{reports_url}}{% endverbatim %}">{% trans 'Reports' %}</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" ng-href="{% verbatim %}/{{permissions_url}}{% endverbatim %}">{% trans 'Permissions' %}</a></li>
+                            </ul>
+                        </div>
                     </nav>
                 </div>
             </div>
