@@ -55,11 +55,11 @@
                                         <i class="fa fa-calendar"></i> {{ course.start_date |date:"M, Y" }}
                                     </span>
                                     <span class="enroll-link textright uppercase">
-                                        Começar curso <i class="fa fa-angle-right"></i>
+                                        {% trans 'Go to course' %} <i class="fa fa-angle-right"></i>
                                     </span>
                                     {% else %}
                                         <span class="enroll-link textright uppercase">
-                                            Mais informações <i class="fa fa-angle-right"></i>
+                                            {% trans 'More information' %} <i class="fa fa-angle-right"></i>
                                         </span>
                                     {% endif %}
                                 </div>

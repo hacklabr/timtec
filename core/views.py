@@ -81,7 +81,7 @@ class CoursesView(ListView):
     template_name = "courses.html"
 
     def get_queryset(self):
-        return Course.objects.filter(Q(status='published') | Q(status='listed')).prefetch_related('professors')
+        return Course.objects.filter(Q(status='published') | Q(status='listed')).prefetch_related('professors').order_by('start_date')
 
 
 class ContactView(View):
