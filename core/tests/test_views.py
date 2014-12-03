@@ -3,6 +3,7 @@ import pytest
 from model_mommy import mommy
 
 from conftest import create_user
+from core.models import Class
 
 
 @pytest.mark.django_db
@@ -43,11 +44,11 @@ def test_assistant_professor_should_cannot_change_class_professor(client):
 
     another_assistant = assign_professor_to_course(course, new_professor_username='another_assistant', role='assistant')
 
-    clazz = mommy.make('Class', name='Test class name', course=course, assistant=coordinator_professor)
+    klass = mommy.make('Class', name='Test class name', course=course, assistant=coordinator_professor)
 
     client.login(username=assistant_professor.username, password='password')
 
-    response = client.post('/class/' + str(clazz.id) + '/', {'assistant': another_assistant})
+    response = client.post('/class/' + str(klass.id) + '/', {'name': 'A class', 'assistant': another_assistant.id})
 
     assert response.status_code == 403
 
@@ -62,10 +63,15 @@ def test_coordinator_professor_should_can_change_class_professor(client):
 
     another_assistant = assign_professor_to_course(course, new_professor_username='another_assistant', role='assistant')
 
-    clazz = mommy.make('Class', name='Test class name', course=course, assistant=assistant_professor)
+    klass = mommy.make('Class', name='A class', course=course, assistant=assistant_professor)
 
     client.login(username=coordinator_professor.username, password='password')
 
-    response = client.post('/class/' + str(clazz.id) + '/', {'assistant': another_assistant})
+    response = client.post('/class/' + str(klass.id) + '/', {'name': 'A class', 'assistant': another_assistant.id})
 
-    assert response.status_code == 200
+    # A página redireciona para outro lugar em caso de sucesso
+    assert response.status_code == 302
+
+    changed_class = Class.objects.get(id=klass.id)
+
+    assert changed_class.assistant == another_assistant
