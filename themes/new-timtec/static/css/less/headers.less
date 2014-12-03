@@ -1,11 +1,8 @@
-// Page Headers
-.page-header-double {
-  position: relative;
-  z-index: 10;
-  border-bottom: none;
+// Common styles
+header, .main-header, .secondary-header, .page-header-double {
   h1,h2,h3,h4,h5,h6 {
     border-bottom: none;
-    color: #0d4c8f;
+    color: #007dc3;
     i {
       display: none;
     }
@@ -13,6 +10,13 @@
   h1, h2 {
     font-family: @teuton-26;
   }
+}
+
+// Page Headers
+.page-header-double {
+  position: relative;
+  z-index: 10;
+  border-bottom: none;
 }
 
 // SHARED HEADER STYLES
@@ -57,13 +61,8 @@
   .page-header {
     margin-bottom: 20px;
     h1 {
-      font-family: @teuton-26;
       font-size: 32px;
       text-transform: none;
-      color: #007dc3;
-      i {
-        display: none;
-      }
     }
     ul.instructors {
       font-family: @teuton-24;
@@ -77,8 +76,6 @@
   margin: 0;
   padding: 0;
   h1 {
-    color: #007dc3;
-    font-family: @teuton-26;
     margin-top: 25px;
   }
   .btn {
