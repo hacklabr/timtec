@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load is_assistant_or_coordinator %}
+{% load get_current_class %}
 <header class="main-header container">
     <div class="page-header">
         <div class="row">
@@ -9,7 +10,9 @@
                 </h1>
                 <div class="course-details">
                     <div><span class="label">{% trans 'By' %}:</span> {% include "_course-professors-inline.html" with course=course %}</div>
-                    <div><span class="label">{% trans 'Tutor' %}:</span> Nome do Professor <span class="label">{% trans 'Class' %}:</span> Nome da turma</div>
+
+                    {% get_current_class course as current_class %}
+                    <div>{% if current_class.assistant %}<span class="label">{% trans 'Assistant Professor' %}:</span> {{ current_class.assistant.get_full_name }} {% endif %} {% if not course.default_class %} <span class="label">{% trans 'Class' %}:</span> {{ current_class.name }} {% endif %}</div>
                 </div>
             </div>
             {% if course.first_lesson.slug %}
