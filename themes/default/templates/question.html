@@ -10,6 +10,10 @@
     {% compressed_js 'admin_course_header' %}
 {% endblock %}
 
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
 {% block content %}
 <script>
  window.question_id = {{ question_django.pk }};
