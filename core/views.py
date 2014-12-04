@@ -314,16 +314,15 @@ class ClassCreateView(LoginRequiredMixin, CreateView):
 
 
 class CanEditClassMixin(object):
-    def check_permission(self, object):
+    def check_permission(self, klass):
         user = self.request.user
-        if not (user == object.assistant or
-                object.course.has_perm_own_all_classes(user)):
+        if not (user == klass.assistant or klass.course.has_perm_own_all_classes(user)):
             raise PermissionDenied
 
     def get_object(self, queryset=None):
-        object = super(CanEditClassMixin, self).get_object(queryset=queryset)
-        self.check_permission(object)
-        return object
+        klass = super(CanEditClassMixin, self).get_object(queryset=queryset)
+        self.check_permission(klass)
+        return klass
 
 
 class ClassUpdateView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
@@ -335,6 +334,13 @@ class ClassUpdateView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
         context = super(ClassUpdateView, self).get_context_data(**kwargs)
 
         return context
+
+    def form_valid(self, form):
+        if form.changed_data:
+            if 'assistant' in form.changed_data and not self.object.course.is_course_coordinator(self.request.user):
+                raise PermissionDenied
+
+        return super(ClassUpdateView, self).form_valid(form)
 
 
 class ClassDeleteView(LoginRequiredMixin, CanEditClassMixin, DeleteView):
