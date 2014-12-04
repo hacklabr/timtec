@@ -325,35 +325,7 @@ class CanEditClassMixin(object):
         return klass
 
 
-class CanPostClassMixin(object):
-    def can_post(self):
-        if self.is_trying_to_change_assistant():
-            user_can_change_professor = self.object.course.is_course_coordinator(self.request.user)
-
-            return user_can_change_professor
-        else:
-            return True
-
-    def is_trying_to_change_assistant(self):
-        if not self.form._changed_data:
-            return False
-
-        for field in self.form.changed_data:
-            if field == 'assistant':
-                return True
-
-        return False
-
-    def form_valid(self, form):
-        self.form = form
-
-        if not self.can_post():
-            raise PermissionDenied
-
-        return super(CanPostClassMixin, self).form_valid(form)
-
-
-class ClassUpdateView(LoginRequiredMixin, CanEditClassMixin, CanPostClassMixin, UpdateView):
+class ClassUpdateView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
     model = Class
     template_name = 'class_edit.html'
     fields = ('name', 'assistant', )
@@ -362,6 +334,13 @@ class ClassUpdateView(LoginRequiredMixin, CanEditClassMixin, CanPostClassMixin, 
         context = super(ClassUpdateView, self).get_context_data(**kwargs)
 
         return context
+
+    def form_valid(self, form):
+        if form.changed_data:
+            if 'assistant' in form.changed_data and not self.object.course.is_course_coordinator(self.request.user):
+                raise PermissionDenied
+
+        return super(ClassUpdateView, self).form_valid(form)
 
 
 class ClassDeleteView(LoginRequiredMixin, CanEditClassMixin, DeleteView):

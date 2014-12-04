@@ -35,7 +35,7 @@ def assign_professor_to_course(course, existing_professor=None, new_professor_us
 
 
 @pytest.mark.django_db
-def test_assistant_professor_should_cannot_change_class_professor(client):
+def test_assistant_professor_cannot_change_class_professor(client):
     course = mommy.make('Course', slug='dbsql', name='Test course name')
 
     coordinator_professor = assign_professor_to_course(course, new_professor_username='coordinator_professor', role='coordinator')
@@ -54,7 +54,7 @@ def test_assistant_professor_should_cannot_change_class_professor(client):
 
 
 @pytest.mark.django_db
-def test_coordinator_professor_should_can_change_class_professor(client):
+def test_coordinator_professor_can_change_class_professor(client):
     course = mommy.make('Course', slug='dbsql', name='Test course name')
 
     coordinator_professor = assign_professor_to_course(course, new_professor_username='coordinator_professor', role='coordinator')
@@ -78,7 +78,7 @@ def test_coordinator_professor_should_can_change_class_professor(client):
 
 
 @pytest.mark.django_db
-def test_assistant_professor_should_can_change_other_data_than_professor_on_its_own_class(client):
+def test_assistant_professor_can_change_other_data_than_professor_on_its_own_class(client):
     course = mommy.make('Course', slug='dbsql', name='Another course')
 
     assign_professor_to_course(course, new_professor_username='coordinator_professor', role='coordinator')
