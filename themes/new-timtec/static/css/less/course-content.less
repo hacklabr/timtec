@@ -143,8 +143,8 @@
   }
   &.course-lesson, &.course-material {
     #course-content {
-      margin-top: -170px;
-      padding-top: 170px;
+      margin-top: -230px;
+      padding-top: 230px;
     }
   }
   &.course-lesson {
@@ -156,13 +156,20 @@
 
 #admin {
   #course {
-    &.course-intro {
+    &.course-intro, &.course-lesson {
       .main-header {
-        margin-top: 0;
-        padding-top: 0;
+        padding-top: 50px;
       }
+    }
+    &.course-intro {
       #course-content {
-        margin-top: -148px;
+        margin-top: -250px;
+        > div.row > div:first-child {
+          padding-top: 230px;
+        }
+        .summary {
+          padding-top: 230px;
+        }
       }
     }
   }
