@@ -75,3 +75,25 @@ def test_coordinator_professor_should_can_change_class_professor(client):
     changed_class = Class.objects.get(id=klass.id)
 
     assert changed_class.assistant == another_assistant
+
+
+@pytest.mark.django_db
+def test_assistant_professor_should_can_change_other_data_than_professor_on_its_own_class(client):
+    course = mommy.make('Course', slug='dbsql', name='Another course')
+
+    assign_professor_to_course(course, new_professor_username='coordinator_professor', role='coordinator')
+
+    assistant_professor = assign_professor_to_course(course, new_professor_username='assistant_professor', role='assistant')
+
+    klass = mommy.make('Class', name='Old class name', course=course, assistant=assistant_professor)
+
+    client.login(username=assistant_professor.username, password='password')
+
+    response = client.post('/class/' + str(klass.id) + '/', {'name': 'New class name', 'assistant': assistant_professor.id})
+
+    # A página redireciona para outro lugar em caso de sucesso
+    assert response.status_code == 302
+
+    changed_class = Class.objects.get(id=klass.id)
+
+    assert changed_class.name == 'New class name'

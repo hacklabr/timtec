@@ -314,21 +314,40 @@ class ClassCreateView(LoginRequiredMixin, CreateView):
 
 
 class CanEditClassMixin(object):
-    def check_permission(self, object):
+    def check_permission(self, klass):
         user = self.request.user
-        if not (user == object.assistant or
-                object.course.has_perm_own_all_classes(user)):
+        if not (user == klass.assistant or klass.course.has_perm_own_all_classes(user)):
             raise PermissionDenied
 
     def get_object(self, queryset=None):
-        object = super(CanEditClassMixin, self).get_object(queryset=queryset)
-        self.check_permission(object)
-        return object
+        klass = super(CanEditClassMixin, self).get_object(queryset=queryset)
+        self.check_permission(klass)
+        return klass
 
 
 class CanPostClassMixin(object):
+    def can_post(self):
+        if self.is_trying_to_change_assistant():
+            user_can_change_professor = self.object.course.is_course_coordinator(self.request.user)
+
+            return user_can_change_professor
+        else:
+            return True
+
+    def is_trying_to_change_assistant(self):
+        if not self.form._changed_data:
+            return False
+
+        for field in self.form.changed_data:
+            if field == 'assistant':
+                return True
+
+        return False
+
     def form_valid(self, form):
-        if not self.object.course.is_course_coordinator(self.request.user):
+        self.form = form
+
+        if not self.can_post():
             raise PermissionDenied
 
         return super(CanPostClassMixin, self).form_valid(form)
