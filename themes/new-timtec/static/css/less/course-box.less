@@ -24,9 +24,6 @@
             }
           }
         } // .course-link
-        .info-box {
-          padding: 0 30px;
-        }
         .info {
             background-color: transparent;
             padding: 0;
@@ -65,12 +62,25 @@
   #courses {
     .course {
       .info {
+        height: initial;
+        @media (min-width: 540px) {
+          height: 153px;
+        }
         h3 {
             color: #007dc3;
         }
         .instructors {
             font-size: 16px;
             font-weight: bold;
+        }
+      }
+      .info-box {
+        margin-top: 20px;
+        overflow: hidden;
+        padding: 0;
+        @media (min-width: 540px) {
+          margin-top: 0;
+          padding: 0 15px !important;
         }
       }
     }
