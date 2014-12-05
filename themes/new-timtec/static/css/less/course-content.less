@@ -33,7 +33,7 @@
   .summary {
     background-color: rgba(40,112,187,0.5);
     margin: 0 -15px;
-    padding: 150px 15px 0;
+    padding: 260px 15px 0;
     > .page-header-double {
       margin-top: 0;
     }
@@ -96,6 +96,7 @@
   .notes {
     textarea {
       margin-top: 0;
+      @media (max-width: @screen-sm-max) { width: 100%; }
       @media (min-width: @screen-lg-min) { height: 330px; }
     }
   }
@@ -123,11 +124,11 @@
   &.course-intro {
     #course-content {
       background-color: transparent;
-      margin-top: -170px;
+      margin-top: -280px;
       padding-top: 0;
       > div.row > div:first-child {
         background-color: rgba(255,255,255,0.5);
-        padding-top: 150px;
+        padding-top: 260px;
       }
     }
     #go-to-course {
