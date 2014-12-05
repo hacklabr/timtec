@@ -15,6 +15,7 @@
 
   .checkbox {
     line-height: 2.5;
+    padding: 0;
     label {
       font-size: 14px;
       margin-right: 10px;
@@ -28,6 +29,9 @@
       display: inline-block;
     }
   }
+  .filter-keyword input {
+    width: 100%;
+  }
   .filter-checkbox {
     @media (max-width: @screen-sm-max) {
       margin-bottom: 20px;
@@ -39,9 +43,8 @@
     }
     .filter-checkbox {
       .checkbox {
-        padding-left: 23px;
+        line-height: 22px;
         label {
-          display: block;
           margin-bottom: 10px;
         }
       }
