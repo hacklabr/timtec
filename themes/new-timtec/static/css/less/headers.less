@@ -21,7 +21,9 @@ header, .main-header, .secondary-header, .page-header-double {
 
 // SHARED HEADER STYLES
 .main-header {
-  padding-top: 40px;
+  @media (min-width: @screen-sm-min) {
+    padding-top: 40px;
+  }
   .page-header {
     border-bottom: none;
     margin-top: 40px;
