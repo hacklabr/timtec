@@ -1,13 +1,19 @@
 {% extends 'base.html' %}
 
-{% block body_attrs %}{% endblock %}
+{% block body_attrs %}class="registration"{% endblock %}
 
 {% block content %}
 
-{% block account_content %}
-{% endblock %}
+    <div id="activation-wrapper" class="container visible-lg visible-md visible-sm">
+        <div class="centered">
+            {% block account_content %}
+            {% endblock %}
+        </div>
+    </div>
 
-{% block account_content_mobile %}
-{% endblock %}
+    <div class="container visible-xs textcenter">
+        {% block account_content_mobile %}
+        {% endblock %}
+    </div>
 
 {% endblock %}
