@@ -2,6 +2,7 @@
 
 {% load staticfiles %}
 {% load i18n %}
+{% load is_course_coordinator %}
 
 {% block wrapper_classes %}
 wrapper-course-lesson
@@ -67,15 +68,19 @@ wrapper-course-lesson
                 </div>
                 <div class="row">
                     <div class="col-lg-9">
-                        <label>{% trans 'Assistant' %}</label>
-                        <select name="assistant" class="form-control">
-                            {% if not object.assistant.id %}
-                                <option value="-1">{% trans 'Select a professor' %}</option>
-                            {% endif %}
-                            {% for professor in object.course.professors.all %}
-                                <option value="{{ professor.id }}" {% if professor.id == object.assistant.id %}selected{% endif %}>{{ professor }}</option>
-                            {% endfor %}
-                        </select>
+                        <label>{% trans 'Assistant' %}:</label>
+                        {% if user|is_course_coordinator:object.course %}
+                            <select name="assistant" class="form-control">
+                                {% if not object.assistant.id %}
+                                    <option value="-1">{% trans 'Select a professor' %}</option>
+                                {% endif %}
+                                {% for professor in object.course.professors.all %}
+                                    <option value="{{ professor.id }}" {% if professor.id == object.assistant.id %}selected{% endif %}>{{ professor }}</option>
+                                {% endfor %}
+                            </select>
+                        {% else %}
+                            <label>{{ object.assistant }}</label>
+                        {% endif %}
                     </div>
                  </div>
             </form>

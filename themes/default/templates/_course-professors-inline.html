@@ -1,5 +1,0 @@
-<ul class="instructors">
-    {% for course_professor in course.get_video_professors %}
-        <li><a href="{% url 'profile' course_professor.user.username %}">{{ course_professor.user }}</a></li>
-    {% endfor %}
-</ul>

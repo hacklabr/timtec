@@ -210,19 +210,13 @@ wrapper-course-lesson
             </div>
             <!-- END ACTIVITIES SECTION -->
 
-            <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
-                <!--<div class="add-side-notes">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="#side-notes" data-toggle="tab">{% trans 'Annotations' %}</a></li>
-                    </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="side-notes">
-                            <form class="textright ng-pristine ng-valid">
-                                <textarea ng-model="note_text" rows="5" class="col-lg-12 ng-pristine ng-valid" disabled="disabled"></textarea>
-                            </form>
-                        </div>
-                    </div>
-                </div>-->
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-sm-10 col-lg-offset-1 col-sm-offset-1">
+                <div id="side-notes">
+                    <h2>{% trans 'Addicional materials' %}</h2>
+                    <modalmarkdowneditor title="{% trans 'Addicional materials' %}" content="currentUnit.side_notes"></modalmarkdowneditor>
+                </div>
             </div>
         </div>
         <!-- END ROW -->

@@ -5,8 +5,30 @@
     margin-top: 40px;
     .course {
       margin-bottom: 40px;
-      min-height: 195px;
       position: relative;
+      &:hover {
+        .fa-check {
+          background-color: lighten(@brand-info, 20%);
+        }
+      }
+      .fa-check {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        z-index: 2;
+        color: #fff;
+        background-color: darken(@gray-lighter, 10%);
+        border-radius: 14px;
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+        text-align: center;
+      }
+      &.started {
+        .fa-check {
+          background-color: @brand-success;
+        }
+      }
         .coming-soon-label {
           background-color: @brand-warning;
           border-radius: 0px 2px 2px 0px;
@@ -38,7 +60,7 @@
               }
             }
             .enroll {
-              background-color: @brand-info;
+              background-color: darken(@brand-info, 10%);
             }
           }
         } // .course-link
@@ -79,7 +101,7 @@
             background-color: @gray-lighter;
             height: 153px;
             overflow: hidden;
-            padding: 15px;
+            padding: 15px 44px 15px 15px;
             .transition(all 0.25s ease);
             h3 {
                 color: @gray;
@@ -114,11 +136,12 @@
         } // .info
         .enroll { // go to course link
             width: 100%;
-            background-color: @brand-success;
+            background-color: @brand-info;
             color: #fff;
             font-family: 'Questrial';
             line-height: 3;
             .transition(all 0.25s ease);
+            overflow: hidden;
             a {
               color: #fff;
               display: block;
@@ -143,6 +166,9 @@
     }
 }
 #courses-page{
+    .course {
+      min-height: 195px;
+    }
     .mouseover, .thumb {
         .border-left-radius(@border-radius-base);
     }
