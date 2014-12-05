@@ -17,7 +17,7 @@
                 </div>
                 {% else %}
                 <!-- COL-LG-8 -->
-                <div class="col-lg-8 col-sm-12">
+                <div class="col-md-8 col-sm-12">
                     <h1 class="course-name bottom top">
                         {% verbatim %}
                         <a href="/admin/courses/{{course.id}}" ng-bind="course.name"></a>
@@ -28,7 +28,7 @@
                 <!-- END COL-LG-8 -->
                 {% endif %}
                 <!-- COL-LG-4 -->
-                <div class="{% if course_intro_admin %}col-lg-3{% else %}col-lg-4{% endif %} col-sm-12">
+                <div class="{% if course_intro_admin %}col-md-3{% else %}col-md-4{% endif %} col-sm-12">
                     <!-- COURSE-SECTION-NAV -->
                     <nav class="course-sections textright">
                         <a ng-href="{% verbatim %}/{{course_url}}{% endverbatim %}" class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Course' %}"></a>
