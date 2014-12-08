@@ -351,6 +351,14 @@ class ClassDeleteView(LoginRequiredMixin, CanEditClassMixin, DeleteView):
     def get_success_url(self):
         return reverse_lazy('classes', kwargs={'course_slug': self.object.course.slug})
 
+    def get_object(self, queryset=None):
+        klass = super(ClassDeleteView, self).get_object(queryset=queryset)
+
+        if (klass == klass.course.default_class):
+            raise PermissionDenied
+
+        return klass
+
 
 class ClassRemoveUserView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
     model = Class
