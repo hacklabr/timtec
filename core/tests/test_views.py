@@ -3,7 +3,7 @@ import pytest
 from model_mommy import mommy
 
 from conftest import create_user
-from core.models import Class
+from core.models import Class, Course
 
 
 @pytest.mark.django_db
@@ -97,3 +97,18 @@ def test_assistant_professor_can_change_other_data_than_professor_on_its_own_cla
     changed_class = Class.objects.get(id=klass.id)
 
     assert changed_class.name == 'New class name'
+
+
+@pytest.mark.django_db
+def test_cannot_remove_courses_default_class(admin_client):
+    course = mommy.make('Course', slug='mysql', name='A course')
+
+    klass = course.default_class
+
+    response = admin_client.post('/class/' + str(klass.id) + '/delete/')
+
+    assert response.status_code == 403
+
+    assert Class.objects.filter(id=klass.id).exists()
+
+    assert Course.objects.filter(id=course.id).exists()
