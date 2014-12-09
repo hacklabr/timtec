@@ -97,3 +97,44 @@ def test_assistant_professor_can_change_other_data_than_professor_on_its_own_cla
     changed_class = Class.objects.get(id=klass.id)
 
     assert changed_class.name == 'New class name'
+
+
+@pytest.mark.django_db
+def test_get_courses_user_has_role(client):
+    course = mommy.make('Course', slug='dbsql', name='A course')
+
+    another_course = mommy.make('Course', slug='mysql', name='Another course')
+
+    course_whose_professor_coordinate = mommy.make('Course', slug='coordinatedcourse', name='Course whose professor coordinate')
+
+    another_course_whose_professor_coordinate = mommy.make('Course', slug='anothercoordinatedcourse', name='Another course whose professor coordinate')
+
+
+    professor1 = assign_professor_to_course(course, new_professor_username='professor1', role='assistant')
+
+    assign_professor_to_course(another_course, existing_professor=professor1, role='assistant')
+
+    assign_professor_to_course(course_whose_professor_coordinate, existing_professor=professor1, role='coordinator')
+
+    assign_professor_to_course(another_course_whose_professor_coordinate, existing_professor=professor1, role='coordinator')
+
+
+    client.login(username=professor1.username, password='password')
+
+    response = client.get('/my-courses/')
+
+    assert response.status_code == 200
+
+
+    courses_user_assist = response.context[-1]['courses_user_assist']
+
+    assert course in courses_user_assist
+
+    assert another_course in courses_user_assist
+
+
+    courses_user_coordinate = response.context[-1]['courses_user_coordinate']
+
+    assert course_whose_professor_coordinate in courses_user_coordinate
+
+    assert another_course_whose_professor_coordinate in courses_user_coordinate
