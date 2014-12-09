@@ -12,13 +12,13 @@
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#course-as-student" aria-controls="course-as-student" role="tab" data-toggle="tab">{% trans "Courses I follow" %}</a></li>
                     <li role="presentation"><a href="#course-as-teacher" aria-controls="course-as-teacher" role="tab" data-toggle="tab">{% trans "Courses I assist" %}</a></li>
+                    <li role="presentation"><a href="#course-as-coordinator" aria-controls="course-as-coordinator" role="tab" data-toggle="tab">{% trans "Courses I coordinate" %}</a></li>
                 </ul>
 
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="course-as-student">
                         {% for cs in request.user.coursestudent_set.all %}
-                            <!-- COURSE -->
                             <div class="course">
                                 <header>
                                     <div class="row">
@@ -40,19 +40,25 @@
             {#                    <a href="" class="btn btn-default btn-sm">{% trans "Details" %}</a>#}
             {#                    <span class="info">0 min of lecture and 0 quizzes remaining in 1.1a Equivalent Fractions.</span>#}
                             </div>
-                            <!-- END COURSE -->
-                            {% endfor %}
+                        {% endfor %}
                     </div>
                     <div role="tabpanel" class="tab-pane" id="course-as-teacher">
-                        {% for cs in request.user.coursestudent_set.all %}
-                            <!-- COURSE -->
+                        {% for cs in request.courses_user_assist %}
                             <div>
                                 {% include "_course-header-inline.html"  with course=cs.course %}
             {#                    <a href="" class="btn btn-default btn-sm">{% trans "Details" %}</a>#}
             {#                    <span class="info">0 min of lecture and 0 quizzes remaining in 1.1a Equivalent Fractions.</span>#}
                             </div>
-                            <!-- END COURSE -->
-                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="course-as-coordinator">
+                        {% for cs in request.user.courses_user_coordinate %}
+                            <div>
+                                {% include "_course-header-inline.html"  with course=cs.course %}
+            {#                    <a href="" class="btn btn-default btn-sm">{% trans "Details" %}</a>#}
+            {#                    <span class="info">0 min of lecture and 0 quizzes remaining in 1.1a Equivalent Fractions.</span>#}
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             </section>
