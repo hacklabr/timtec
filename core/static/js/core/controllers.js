@@ -5,6 +5,8 @@
 
     app.controller('HomeCtrl', ['$scope', 'Course', 'CarouselCourse', 'Twitter', 'FlatPage', function ($scope, Course, CarouselCourse, Twitter, FlatPage) {
 
+        var success_save_msg = 'Alterações salvas com sucesso.';
+
         function compare_by_position(a,b) {
             if (a.home_position < b.home_position)
                return -1;
@@ -14,23 +16,8 @@
         }
 
         // Fetch home courses
-        $scope.courses = Course.query({'home_published': 'True'}, function(courses) {
-            courses.sort(compare_by_position);
-            $scope.courses_rows = [];
-            var row = [];
-            var index = 0;
-            angular.forEach(courses, function(course) {
-                row.push(course);
-                if (index == 1) {
-                    $scope.courses_rows.push(row);
-                    row = [];
-                    index = 0;
-                } else
-                    index++;
-            });
-            if (row.length > 0) {
-                $scope.courses_rows.push(row);
-            }
+        $scope.home_courses = Course.query({'home_published': 'True'}, function(home_courses) {
+            return home_courses.sort(compare_by_position);
         });
 
         $scope.home_bottom_intro = new FlatPage();
@@ -72,26 +59,41 @@
         };
 
         $scope.saveCourses = function(course) {
-            var homeCourses = [];
+            var home_courses = [];
             angular.forEach($scope.all_courses, function(course) {
                 if (course.home_published) {
-                    homeCourses.push(course);
+                    home_courses.push(course);
                 }
                 if (course.toBeSaved) {
                     course.$update({courseId: course.id});
                 }
             });
-            homeCourses.sort(compare_by_position);
-            $scope.courses = homeCourses;
-            $scope.alert.success('Alterações salvas com sucesso.');
+            home_courses.sort(compare_by_position);
+            $scope.home_courses = home_courses;
+            $scope.alert.success(success_save_msg);
+        };
+
+        // controls if home order has changed
+        $scope.order_changed = false;
+
+        $scope.set_order_changed = function() {
+            $scope.order_changed = true;
         };
 
         $scope.save_home = function() {
+            if ($scope.order_changed) {
+                $scope.home_courses.forEach(function(course, i){
+                    course.home_position = i;
+                    course.$update({courseId: course.id});
+                });
+            }
+            $scope.order_changed = false;
+            $scope.alert.success(success_save_msg);
 
         };
 
         $scope.cancel_home_changes = function() {
-
+            $scope.home_courses = $scope.home_courses.sort(compare_by_position);
         };
 
         $scope.save_home_text = function(flatpage) {
@@ -100,8 +102,8 @@
             } else {
                 flatpage.$save();
             }
-        }
-
+            $scope.alert.success(success_save_msg);
+        };
 
         // Upcoming course and twitter, only for timtec theme
         $scope.upcoming_courses = CarouselCourse.query({'home_published': 'False'}, function(upcoming_courses) {
