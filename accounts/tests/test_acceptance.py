@@ -13,7 +13,7 @@ def test_login_form(client, user):
     assert response.status_code == 302
 
     course = mommy.make('Course')
-    response = client.get('/course/' + course.slug + '/')
+    response = client.get('/course/' + course.slug + '/intro/')
     assert response.status_code == 200
     assert response.context['request'].user.is_authenticated()
 
@@ -38,7 +38,7 @@ def test_login_form_email_verification(client, user):
     client.post('/accounts/login/', {'login': "test",
                                      'password': '123123'})
     course = mommy.make('Course')
-    response = client.get('/course/' + course.slug + '/')
+    response = client.get('/course/' + course.slug + '/intro/')
     assert response.status_code == 200
     assert response.context['request'].user.is_authenticated()
 

@@ -5,6 +5,17 @@
         <div class="page-header">
             <!-- ROW -->
             <div class="row">
+                {% if course_intro_admin %}
+                <div class="col-md-9 col-xs-12">
+                    <div class="editable-title"><input type="text" ng-model="course.name" placeholder="{% trans 'Course name' %}"></div>
+                    <div class="course-slug clearfix">
+                      <label>http://{{ site.domain }}/course/</label>
+                      {% verbatim %}
+                      <div class="editable-slug"><input type="text" ng-model="course.slug" placeholder="{{course.name|slugify}}"></div>
+                      {% endverbatim %}
+                    </div>
+                </div>
+                {% else %}
                 <!-- COL-LG-8 -->
                 <div class="col-lg-8 col-sm-12">
                     <h1 class="course-name bottom top">
@@ -12,21 +23,19 @@
                         <a href="/admin/courses/{{course.id}}" ng-bind="course.name"></a>
                         {% endverbatim %}
                     </h1>
-                    <div class="course-details">
-                        <div><span class="label">{% trans 'By' %}:</span> {% include "_course-professors-inline.html" with course=course %}</div>
-                        <div><span class="label">{% trans 'Tutor' %}:</span> Nome do Professor <span class="label">{% trans 'Class' %}:</span> Nome da turma</div>
-                    </div>
+                    {% include "_course-details-inline.html" with course=course %}
                 </div>
                 <!-- END COL-LG-8 -->
+                {% endif %}
                 <!-- COL-LG-4 -->
-                <div class="col-lg-4 col-sm-12">
+                <div class="{% if course_intro_admin %}col-lg-3{% else %}col-lg-4{% endif %} col-sm-12">
                     <!-- COURSE-SECTION-NAV -->
                     <nav class="course-sections textright">
                         <a ng-href="{% verbatim %}/{{course_url}}{% endverbatim %}" class="has-tooltip fa fa-home" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Course' %}"></a>
                         <a ng-href="{% verbatim %}/{{forum_url}}{% endverbatim %}" class="has-tooltip fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Forum' %}"></a>
                         <a ng-href="{% verbatim %}/{{course_material_url}}{% endverbatim %}" class="has-tooltip fa fa-file" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Material' %}"></a>
                         <div class="dropdown">
-                            <a class="has-tooltip fa fa-cog dropdown-toggle" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Tools' %}" id="course-tools" data-toggle="dropdown" aria-expanded="true"></a>
+                            <a class="has-tooltip fa fa-cog dropdown-toggle" data-placement="top" data-original-title="{% trans 'Tools' %}" id="course-tools" data-toggle="dropdown" aria-expanded="true"></a>
                             <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="course-tools">
                                 <li role="presentation"><a role="menuitem" tabindex="-1" ng-href="{% verbatim %}/{{messages_url}}{% endverbatim %}">{% trans 'Messages' %}</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1"  ng-href="{% verbatim %}/{{reports_url}}{% endverbatim %}">{% trans 'Reports' %}</a></li>
