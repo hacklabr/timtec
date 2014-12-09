@@ -20,7 +20,7 @@
                     <a href="{% url 'user_course_notes' course.slug %}" class="has-tooltip fa fa-pencil-square-o {% if 'notes' in request.path %}active{% endif %}" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Course notes' %}"></a>
                     {% if user|is_assistant_or_coordinator:course %}
                         <div class="dropdown">
-                            <a class="has-tooltip fa fa-cog dropdown-toggle {% if 'messages' in request.path or 'reports' in request.path or 'classes' in request.path %}active{% endif %}" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Tools' %}" id="course-tools" data-toggle="dropdown" aria-expanded="true"></a>
+                            <a class="has-tooltip fa fa-cog dropdown-toggle{% if 'messages' in request.path or 'reports' in request.path or 'classes' in request.path %} active{% endif %}" data-placement="top" data-original-title="{% trans 'Tools' %}" id="course-tools" data-toggle="dropdown" aria-expanded="true"></a>
                             <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="course-tools">
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'messages' course.slug %}">{% trans 'Messages' %}</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'reports' course.slug %}">{% trans 'Reports' %}</a></li>
@@ -35,4 +35,3 @@
         </div>
     </div>
 </header>
-
