@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<!-- COURSES -->
+<section id="users">
+
+    <div class="container">
+        <!--  HEADER -->
+        <header>
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1>{% trans 'Users' %}</h1>
+                </div>
+            </div>
+        </header>
+        <!-- END HEADER -->
+
+        <!-- FILTERS -->
+        <div class="filters">
+            <!--  FORM INLINE -->
+            <div class="form-inline">
+                <!-- ROW -->
+                <div class="row">
+                    <!-- COL-LG-6 -->
+                    <div class="filter-checkbox col-md-5 col-sm-12">
+                        <div class="checkbox">
+                            <label><input type="checkbox"> {% trans 'All' %}</label>
+                            <label><input type="checkbox"> {% trans 'Teacher' %}</label>
+                        </div>
+                    </div>
+                    <!-- END COL-LG-6 -->
+                    <!-- COL-LG-3 -->
+                    <div class="filter-keyword col-md-3 col-sm-5 textright">
+                        <input type="text" placeholder="{% trans 'Keyword' %}" class="form-control"/>
+                    </div>
+                    <!-- END COL-LG-3 -->
+                </div>
+                <!-- END ROW -->
+            </div>
+            <!-- END FORM INLINE -->
+        </div>
+        <!-- END FILTERS -->
+
+        <section id="all-courses" class="user-list">
+            <table class="table table-list">
+                <tr>
+                    <th class="fullname">{% trans "Full name" %}</th>
+                    <th class="email">{% trans "Email" %}</th>
+                    <th class="username">{% trans "Username" %}</th>
+                    <th class="role">{% trans "Role" %}</th>
+                    <th class="actions">{% trans "Actions" %}</th>
+                </tr>
+                {% for user in user_list %}
+                    <tr>
+                        <td>{{user.get_full_name}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.username}}</td>
+                        <td>
+                            {{ user.groups.all }}
+                        </td>
+                        <td class="textcenter">
+                            <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </section>
+        {% if is_paginated %}
+            <div class="pagination">
+                <span class="page-links">
+                    {% if page_obj.has_previous %}
+                        <a href="{% url 'administration.users' %}?page={{ page_obj.previous_page_number }}">previous</a>
+                    {% endif %}
+                    <span class="page-current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+                    {% if page_obj.has_next %}
+                        <a href="{% url 'administration.users' %}?page={{ page_obj.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
+    </div>
+
+</section>
+<!-- END COURSES -->
+
+
+{% endblock %}
