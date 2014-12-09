@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-09 16:30-0200\n"
-"PO-Revision-Date: 2014-12-09 16:30-0200\n"
+"POT-Creation-Date: 2014-12-09 18:08-0200\n"
+"PO-Revision-Date: 2014-12-09 18:08-0200\n"
 "Last-Translator: Administrador TIMTec <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1345,6 +1345,10 @@ msgstr "Cursos que sigo"
 #: themes/default/templates/user-courses.html:14
 msgid "Courses I assist"
 msgstr "Cursos que assisto"
+
+#: themes/default/templates/user-courses.html:15
+msgid "Courses I coordinate"
+msgstr "Cursos que coordeno"
 
 #: themes/default/templates/user-courses.html:30
 msgid "Resume Class"
