@@ -3,7 +3,7 @@ import pytest
 from model_mommy import mommy
 
 from conftest import create_user
-from core.models import Class, CourseProfessor
+from core.models import Class, Course, CourseProfessor
 
 
 @pytest.mark.django_db
@@ -134,3 +134,18 @@ def test_get_courses_user_has_role(client):
     assert CourseProfessor.objects.filter(course=course_whose_professor_coordinate, user=professor1)[0] in courses_user_coordinate
 
     assert CourseProfessor.objects.filter(course=another_course_whose_professor_coordinate, user=professor1)[0] in courses_user_coordinate
+
+
+@pytest.mark.django_db
+def test_cannot_remove_courses_default_class(admin_client):
+    course = mommy.make('Course', slug='mysql', name='A course')
+
+    klass = course.default_class
+
+    response = admin_client.post('/class/' + str(klass.id) + '/delete/')
+
+    assert response.status_code == 403
+
+    assert Class.objects.filter(id=klass.id).exists()
+
+    assert Course.objects.filter(id=course.id).exists()
