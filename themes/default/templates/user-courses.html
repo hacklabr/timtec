@@ -43,20 +43,16 @@
                         {% endfor %}
                     </div>
                     <div role="tabpanel" class="tab-pane" id="course-as-teacher">
-                        {% for course in courses_user_assist %}
+                        {% for courseprofessor in courses_user_assist %}
                             <div>
-                                {% include "_course-header-inline.html"  with course=course %}
-            {#                    <a href="" class="btn btn-default btn-sm">{% trans "Details" %}</a>#}
-            {#                    <span class="info">0 min of lecture and 0 quizzes remaining in 1.1a Equivalent Fractions.</span>#}
+                                {% include "_course-header-inline.html"  with course=courseprofessor.course %}
                             </div>
                         {% endfor %}
                     </div>
                     <div role="tabpanel" class="tab-pane" id="course-as-coordinator">
-                        {% for course in courses_user_coordinate %}
+                        {% for courseprofessor in courses_user_coordinate %}
                             <div>
-                                {% include "_course-header-inline.html"  with course=course %}
-            {#                    <a href="" class="btn btn-default btn-sm">{% trans "Details" %}</a>#}
-            {#                    <span class="info">0 min of lecture and 0 quizzes remaining in 1.1a Equivalent Fractions.</span>#}
+                                {% include "_course-header-inline.html"  with course=courseprofessor.course %}
                             </div>
                         {% endfor %}
                     </div>

@@ -2,7 +2,6 @@
 import json
 import time
 
-from accounts.models import TimtecUser
 from django.core.urlresolvers import reverse_lazy
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.http import HttpResponse
@@ -135,24 +134,15 @@ class CourseView(DetailView):
 class UserCoursesView(LoginRequiredMixin, TemplateView):
     template_name = 'user-courses.html'
 
-    def courses_user_has_role(self, role):
-        courseprofessor_user_has_role = CourseProfessor.objects.filter(user=self.request.user, role=role)
-
-        courses_user_has_role = []
-
-        for courseprofessor in courseprofessor_user_has_role:
-            courses_user_has_role.append(courseprofessor.course)
-
-        return courses_user_has_role
-
     def get_context_data(self, **kwargs):
         context = super(UserCoursesView, self).get_context_data(**kwargs)
 
-        context['courses_user_assist'] = self.courses_user_has_role('assistant')
+        context['courses_user_assist'] = CourseProfessor.objects.filter(user=self.request.user, role='assistant')
 
-        context['courses_user_coordinate'] = self.courses_user_has_role('coordinator')
+        context['courses_user_coordinate'] = CourseProfessor.objects.filter(user=self.request.user, role='coordinator')
 
         return context
+
 
 class EnrollCourseView(LoginRequiredMixin, RedirectView):
     permanent = False
