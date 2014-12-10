@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load i18n %}
+{% load in_group %}
 
 {% block content %}
 <!-- COURSES -->
@@ -27,7 +28,7 @@
                     <div class="filter-checkbox col-md-5 col-sm-12">
                         <div class="checkbox">
                             <label><input type="checkbox"> {% trans 'All' %}</label>
-                            <label><input type="checkbox"> {% trans 'Teacher' %}</label>
+                            <label><input type="checkbox"> {% trans 'Professors' %}</label>
                         </div>
                     </div>
                     <!-- END COL-LG-6 -->
@@ -49,7 +50,7 @@
                     <th class="fullname">{% trans "Full name" %}</th>
                     <th class="email">{% trans "Email" %}</th>
                     <th class="username">{% trans "Username" %}</th>
-                    <th class="role">{% trans "Role" %}</th>
+                    <th class="role" colspan="2">{% trans "Role" %}</th>
                     <th class="actions">{% trans "Actions" %}</th>
                 </tr>
                 {% for user in user_list %}
@@ -57,9 +58,8 @@
                         <td>{{user.get_full_name}}</td>
                         <td>{{user.email}}</td>
                         <td>{{user.username}}</td>
-                        <td>
-                            {{ user.groups.all }}
-                        </td>
+                        <td><input type="checkbox" {% if user|in_group:'students' %}checked{% endif %}> {% trans 'Student' %}</td>
+                        <td><input type="checkbox" {% if user|in_group:'professors' %}checked{% endif %}> {% trans 'Professor' %}</td>
                         <td class="textcenter">
                             <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
                         </td>
