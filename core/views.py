@@ -134,6 +134,15 @@ class CourseView(DetailView):
 class UserCoursesView(LoginRequiredMixin, TemplateView):
     template_name = 'user-courses.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(UserCoursesView, self).get_context_data(**kwargs)
+
+        context['courses_user_assist'] = CourseProfessor.objects.filter(user=self.request.user, role='assistant')
+
+        context['courses_user_coordinate'] = CourseProfessor.objects.filter(user=self.request.user, role='coordinator')
+
+        return context
+
 
 class EnrollCourseView(LoginRequiredMixin, RedirectView):
     permanent = False
