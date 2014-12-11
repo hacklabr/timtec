@@ -16,22 +16,22 @@ urlpatterns = patterns(
 
     # create and edit course
     url(r'^courses/new/$', CourseCreateView.as_view(), name="administration.new_course"),
-    url(r'^courses/(?P<pk>[1-9][0-9]*)/$', AdminView.as_view(template_name="course.html"), name="administration.edit_course"),
+    url(r'^courses/(?P<course_id>[1-9][0-9]*)/$', CourseAdminView.as_view(template_name="course.html"), name="administration.edit_course"),
 
     # create and edit lesson
     url(r'^courses/(?P<course_id>[1-9][0-9]*)/lessons/new/$', CourseAdminView.as_view(template_name="lesson.html")),
     url(r'^courses/(?P<course_id>[1-9][0-9]*)/lessons/(?P<pk>[1-9][0-9]*)/$', CourseAdminView.as_view(template_name="lesson.html")),
 
     # messages
-    url(r'^course/(?P<course_id>[1-9][0-9]*)/messages/$', CourseAdminView.as_view(template_name="messages.html")),
+    url(r'^course/(?P<course_id>[1-9][0-9]*)/messages/$', CourseAdminView.as_view(template_name="messages.html"), name="administration.messages"),
     url(r'^course/(?P<course_id>[1-9][0-9]*)/message/(?P<message_id>[1-9][0-9]*)$', CourseAdminView.as_view(template_name="message.html")),
 
-    url(r'^course/(?P<course_id>[1-9][0-9]*)/forum/', AdminCourseForumView.as_view(template_name="forum.html")),
+    url(r'^course/(?P<course_id>[1-9][0-9]*)/forum/', AdminCourseForumView.as_view(template_name="forum.html"), name="administration.forum"),
 
-    url(r'^course/(?P<pk>[1-9][0-9]*)/material/$', CourseMaterialAdminView.as_view(template_name="course-material.html")),
+    url(r'^course/(?P<pk>[1-9][0-9]*)/material/$', CourseMaterialAdminView.as_view(template_name="course-material.html"), name="administration.course_material"),
 
     url(r'^course/(?P<course_id>[1-9][0-9]*)/permissions/$', CourseAdminView.as_view(template_name="users.html"), name="course.permissions"),
 
-    url(r'^course/(?P<course_id>[1-9][0-9]*)/stats/$', CourseAdminView.as_view(template_name="stats.html")),
+    url(r'^course/(?P<course_id>[1-9][0-9]*)/reports/$', CourseAdminView.as_view(template_name="stats.html"), name="administration.reports"),
 
 )

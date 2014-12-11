@@ -7,11 +7,7 @@
         var $httpBackend, $rootScope, createController, $window;
 
         beforeEach(module('forum'));
-        // beforeEach(module(function ($provide) {
-            // $provide.value('adminHeader', {});
-        // }));
-        
-        // beforeEach(module('adminHeader'));
+
         // beforeEach(module('forum.controllers'));
 
         beforeEach(inject(function ($injector) {

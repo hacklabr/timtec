@@ -204,6 +204,7 @@ PIPELINE_JS = {
             'checklist-model/checklist-model.js',
             'js/markdown/app.js',
             'js/markdown/filters.js',
+            'js/factories/timtec-models.js',
         ),
         'output_filename': 'js/messages.js',
     },
@@ -272,6 +273,7 @@ PIPELINE_JS = {
             'js/forum/filters.js',
             'js/forum/services.js',
             'js/truncate.js',
+            'js/factories/timtec-models.js',
         ),
         'output_filename': 'js/forum.js',
     },
@@ -283,19 +285,12 @@ PIPELINE_JS = {
         ),
         'output_filename': 'js/notes.js',
     },
-    'admin_course_header': {
-        'source_filenames': (
-            'js/admin-header/app.js',
-            'js/admin-header/controllers.js',
-            'js/factories/timtec-models.js',
-        ),
-        'output_filename': 'js/admin_course_header.js',
-    },
     'reports': {
         'source_filenames': (
             'js/reports/app.js',
             'js/reports/controllers.js',
             'js/reports/services.js',
+            'js/factories/timtec-models.js',
         ),
         'output_filename': 'js/reports.js',
     },
@@ -317,6 +312,7 @@ PIPELINE_JS = {
         'source_filenames': (
             'js/course-permissions/app.js',
             'js/course-permissions/controllers.js',
+            'js/factories/timtec-models.js',
         ),
         'output_filename': 'js/course_permissions.js',
     },
