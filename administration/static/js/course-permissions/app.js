@@ -3,7 +3,6 @@
 
     angular.module('course-permissions', [
         'course-permissions.controllers',
-        'adminHeader',
         'ui.bootstrap',
         'django',
         'timtec-models',

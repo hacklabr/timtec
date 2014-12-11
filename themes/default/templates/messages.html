@@ -10,7 +10,6 @@
         window.course_id = {{ course.pk }};
         window.course_slug = '{{ course.slug }}';
     </script>
-    {% compressed_js 'admin_course_header' %}
     {% compressed_js 'messages' %}
 {% endblock %}
 
@@ -22,9 +21,7 @@
 <div id="messages" class="course-messages" ng-app="messages">
 
     {% if in_admin %}
-    <div ng-controller="HeaderController">
-        {% include "_admin_header_inline.html" %}
-    </div>
+        {% include "_admin_header_inline.html" with course=course %}
     {% else %}
         {% include "_course-header-inline.html"  with course=course %}
     {% endif %}

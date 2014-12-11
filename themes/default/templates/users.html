@@ -5,7 +5,6 @@
 
 {% block js %}
     {{ block.super }}
-    {% compressed_js 'admin_course_header' %}
     {% compressed_js 'course_permissions' %}
 
 {% endblock %}
@@ -13,9 +12,9 @@
 {% block content %}
 
 <section id="users" ng-app="course-permissions" ng-controller="PermissionsController">
-    <div ng-controller="HeaderController">
-        {% include "_admin_header_inline.html" %}
-    </div>
+
+    {% include "_admin_header_inline.html" with course=course %}
+
     <section id="users-content" class="container">
         <header class="secondary-header">
             <div class="row">

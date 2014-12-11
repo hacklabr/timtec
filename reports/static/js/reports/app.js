@@ -6,7 +6,6 @@
     angular.module('reports', [
         'reports.controllers',
         'reports.services',
-        'adminHeader',
         'timtec-models',
         'ui.bootstrap']);
 })(angular);

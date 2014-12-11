@@ -69,4 +69,4 @@ class CourseCreateView(views.SuperuserRequiredMixin, View, ModelFormMixin):
         return HttpResponseRedirect(reverse_lazy('administration.courses'))
 
     def get_success_url(self):
-        return reverse_lazy('administration.edit_course', kwargs={'pk': self.object.id})
+        return reverse_lazy('administration.edit_course', kwargs={'course_id': self.object.id})
