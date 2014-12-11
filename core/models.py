@@ -136,18 +136,18 @@ class Course(models.Model):
             lesson_progress['slug'] = lesson.slug
             lesson_progress['position'] = lesson.position
             units_len = lesson.unit_count()
-            # avoid zero division
-            #if units_len and student_enrolled:
-            units_done = StudentProgress.objects.exclude(complete=None).filter(unit__lesson=lesson)
-            if classes:
-                units_done = units_done.filter(user__classes__in=classes)
-            units_done_len = units_done.count()
-            lesson_progress['progress'] = 100 * units_done_len / (units_len * student_enrolled)
-            # lesson_progress['forum_questions'] = lesson.forum_questions.count()
-            # lesson_progress['progress'] =
-            # lesson_progress['finish'] = self.get_lesson_finish_time(lesson)
-            #else:
-            #    lesson_progress['progress'] = 0
+            # avoid zero divisfion
+            if units_len and student_enrolled:
+                units_done = StudentProgress.objects.exclude(complete=None).filter(unit__lesson=lesson)
+                if classes:
+                    units_done = units_done.filter(user__classes__in=classes)
+                units_done_len = units_done.count()
+                lesson_progress['progress'] = 100 * units_done_len / (units_len * student_enrolled)
+                # lesson_progress['forum_questions'] = lesson.forum_questions.count()
+                # lesson_progress['progress'] =
+                # lesson_progress['finish'] = self.get_lesson_finish_time(lesson)
+            else:
+                lesson_progress['progress'] = 0
                 # lesson_progress['finish'] = ''
             progress_list.append(lesson_progress)
         return progress_list
@@ -283,7 +283,7 @@ class CourseProfessor(models.Model):
         ('coordinator', _('Professor Coordinator')),
     )
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Professor'), related_name='teaching_courses')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Professor'), related_name='teaching_courses', blank=True, null=True)
     course = models.ForeignKey(Course, verbose_name=_('Course'))
     biography = models.TextField(_('Biography'), blank=True)
     role = models.CharField(_('Role'), choices=ROLES, default=ROLES[1][0], max_length=128)

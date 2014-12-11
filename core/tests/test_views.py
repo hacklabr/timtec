@@ -160,9 +160,9 @@ def test_course_average_lessons_users_progress_should_return_zero_with_no_studen
 
     lesson1 = mommy.make('Lesson', course=course, slug='lesson1')
 
-    lesson2 = mommy.make('Lesson', course=course, slug='lesson2')
+    mommy.make('Lesson', course=course, slug='lesson2')
 
-    unit1 = mommy.make('Unit', lesson=lesson1, title='Title 1')
+    mommy.make('Unit', lesson=lesson1, title='Title 1')
 
     progress_list = course.avg_lessons_users_progress()
 
