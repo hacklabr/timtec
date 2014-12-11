@@ -27,9 +27,23 @@
             </ul>
             <ul class="nav navbar-nav" id="session-nav">
             {% if user.is_authenticated %}
-                {% ifusergroup professors %}
-                <li {% if in_admin %}class="active"{% endif %}><a href="{% url 'administration.home' %}" id="admin-link">{% trans "Admin" %}</a></li>
-                {% endifusergroup %}
+                {% if user.is_superuser %}
+                    <li>
+                        <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
+                            {% trans "Admin" %}
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu{% if in_admin %} active{% endif %}>">
+                            <li><a href="{% url 'administration.home' %}">{% trans 'Home edit' %}</a></li>
+                            <li><a href="{% url 'administration.courses' %}" id="admin-link">{% trans "Courses" %}</a></li>
+                            <li><a href="#">{% trans 'Users' %}</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    {% ifusergroup professors %}
+                        <li {% if in_admin %}class="active"{% endif %}><a href="{% url 'administration.courses' %}" id="admin-link">{% trans "Admin" %}</a></li>
+                    {% endifusergroup %}
+                {% endif %}
                 <li>
                     <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
                         {{ user }}

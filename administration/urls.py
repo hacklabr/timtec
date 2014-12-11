@@ -7,8 +7,11 @@ from views import AdminView, CourseAdminView
 
 urlpatterns = patterns(
     '',
+    # home admin
+    url(r'^home/$', lr(AdminView.as_view(template_name="home.html")), name="administration.home"),
+
     # list all courses
-    url(r'^$', lr(RedirectView.as_view(url="courses/")), name="administration.home"),
+    url(r'^$', lr(RedirectView.as_view(url="courses/")), name="administration.courses"),
     url(r'^courses/$', AdminView.as_view(template_name="courses.html")),
 
     # create and edit course
@@ -30,7 +33,5 @@ urlpatterns = patterns(
     url(r'^course/(?P<course_id>[1-9][0-9]*)/permissions/$', CourseAdminView.as_view(template_name="users.html"), name="course.permissions"),
 
     url(r'^course/(?P<course_id>[1-9][0-9]*)/stats/$', CourseAdminView.as_view(template_name="stats.html")),
-
-    url(r'^home/$', lr(AdminView.as_view(template_name="home.html"))),
 
 )
