@@ -5,6 +5,60 @@
 
 {% block content %}
 <!-- COURSES -->
+<script type="text/javascript">
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+$(function () {
+    $('.js-update').on('click', function () {
+        var $this = $(this);
+        var id = $this.data('id');
+        var data = {
+            action: $this.data('action'),
+            value: $this.is(':checked'),
+        }
+        $.post('{% url "administration.user-update" pk="000" %}'.replace('000', id), data, function (result) {
+            console.log(result);
+        });
+    });
+    $('.js-update').on('click', function () {
+        var $this = $(this);
+        var id = $this.data('id');
+        $.post('{% url "administration.user-delete" pk="000" %}'.replace('000', id), undefined, function (result) {
+            console.log(result);
+        });
+    });
+
+});
+
+</script>
 <section id="users">
 
     <div class="container">
@@ -50,18 +104,19 @@
                     <th class="fullname">{% trans "Full name" %}</th>
                     <th class="email">{% trans "Email" %}</th>
                     <th class="username">{% trans "Username" %}</th>
-                    <th class="role" colspan="2">{% trans "Role" %}</th>
+                    <th class="role" colspan="3">{% trans "Role" %}</th>
                     <th class="actions">{% trans "Actions" %}</th>
                 </tr>
                 {% for user in user_list %}
                     <tr>
-                        <td>{{user.get_full_name}}</td>
-                        <td>{{user.email}}</td>
-                        <td>{{user.username}}</td>
+                        <td>{{ user.get_full_name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.username }}</td>
                         <td><input type="checkbox" {% if user|in_group:'students' %}checked{% endif %}> {% trans 'Student' %}</td>
-                        <td><input type="checkbox" {% if user|in_group:'professors' %}checked{% endif %}> {% trans 'Professor' %}</td>
+                        <td><input class="js-update" data-action="professors" data-id="{{ user.id }}"type="checkbox" {% if user|in_group:'professors' %}checked{% endif %}> {% trans 'Professor' %}</td>
+                        <td><input class="js-update" data-action="is_superuser" data-id="{{ user.id }}" type="checkbox" {% if user.is_superuser %}checked{% endif %}> {% trans 'Administrator' %}</td>
                         <td class="textcenter">
-                            <button class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
+                            <button class="btn btn-warning js-delete" data-id="{{ user.id }}"><i class="fa fa-trash-o"></i></button>
                         </td>
                     </tr>
                 {% endfor %}

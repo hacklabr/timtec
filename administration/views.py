@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
-from django.views.generic import TemplateView, DetailView, ListView
+from django.views.generic import TemplateView, DetailView, ListView, UpdateView, DeleteView
 from django.views.generic.base import TemplateResponseMixin, ContextMixin
-from braces import views
-from core.models import Course
+from django.http import HttpResponse
 from django.contrib.auth import get_user_model
+from braces import views
 import django_filters
+from core.models import Course
+from .forms import UserUpdateForm
 
 
 User = get_user_model()
@@ -35,6 +37,7 @@ class UserFilter(django_filters.FilterSet):
     class Meta:
         model = User
         fields = ['email', 'is_superuser', ]
+        order_by = ['email', ]
 
 
 class UserListView(AdminMixin, ListView):
@@ -47,6 +50,24 @@ class UserListView(AdminMixin, ListView):
         qs = super(UserListView, self).get_queryset().prefetch_related('groups')
         f = UserFilter(self.request.GET, queryset=qs)
         return f.qs  # .filter(is_superuser=self.kwargs['admin'])
+
+
+class UserUpdateView(AdminMixin, UpdateView):
+    model = User
+    form_class = UserUpdateForm
+    template_name = 'base.html'
+
+    def form_valid(self, form):
+        form.save()
+        return self.render_to_response(self.get_context_data(form=form))
+
+    def render_to_response(self, context, **response_kwargs):
+        return HttpResponse(str(context['form'].errors))
+
+
+class UserDeleteView(AdminMixin, DeleteView):
+    model = User
+
 
 class CourseAdminView(AdminMixin, DetailView):
     model = Course
