@@ -17,7 +17,9 @@
 
         // Fetch home courses
         $scope.home_courses = Course.query({'home_published': 'True'}, function(home_courses) {
-            return home_courses.sort(compare_by_position);
+            home_courses.sort(compare_by_position);
+            $scope.home_courses_bkp = angular.copy(home_courses);
+            return home_courses;
         });
 
         $scope.home_bottom_intro = new FlatPage();
@@ -51,26 +53,48 @@
             });
         });
 
-        $scope.all_courses = Course.query({'public_courses': 'True'});
+        $scope.all_courses = Course.query({'public_courses': 'True'}, function (all_courses) {
+            $scope.all_courses_bkp = angular.copy(all_courses);
+        });
 
-        $scope.selectCourse = function(course) {
-            course.home_published = !course.home_published;
-            course.toBeSaved = true;
+        $scope.start_changing_home_cousers = function () {
+            $scope.home_courses_changed = angular.copy($scope.home_courses);
+            $scope.all_courses_before_changes = angular.copy($scope.all_courses);
         };
 
-        $scope.saveCourses = function(course) {
-            var home_courses = [];
-            angular.forEach($scope.all_courses, function(course) {
-                if (course.home_published) {
-                    home_courses.push(course);
+        var last_position = 100;
+        $scope.selectCourse = function(course) {
+            // if the course is not published in home, insert it in home courses and set its positions to last.
+            // If the course is in home_published, it will be saved to set the new home_position. If it isn't,
+            // the 'toBeSaved is set true to save it.
+            if (!course.home_published) {
+                course.home_position = last_position;
+                last_position +=1;
+                $scope.home_courses_changed.push(course);
+            } else {
+                for (var i = 0; i < $scope.home_courses_changed.length; i++) {
+                    if (course.slug == $scope.home_courses_changed[i].slug) {
+                        $scope.home_courses_changed.splice(i, 1);
+                        break;
+                    }
                 }
-                if (course.toBeSaved) {
-                    course.$update({courseId: course.id});
-                }
-            });
-            home_courses.sort(compare_by_position);
-            $scope.home_courses = home_courses;
-            $scope.alert.success(success_save_msg);
+                course.toBeSaved = true;
+            }
+            course.home_published = !course.home_published;
+        };
+
+        $scope.cancel_courses_selection = function(course) {
+        //    $scope.home_courses = $scope.home_courses_bkp;
+            $scope.all_courses = angular.copy($scope.all_courses_before_changes);
+        };
+
+        $scope.apply_courses_selection = function() {
+
+            $scope.home_courses = angular.copy($scope.home_courses_changed);
+            //$scope.all_courses = angular.copy($scope.all_courses_changed);
+            $scope.order_changed = true;
+
+            //$scope.alert.success(success_save_msg);
         };
 
         // controls if home order has changed
@@ -88,12 +112,19 @@
                 });
             }
             $scope.order_changed = false;
-            $scope.alert.success(success_save_msg);
 
+            angular.forEach($scope.all_courses, function(course) {
+                if (course.toBeSaved && !course.home_published) {
+                    course.$update({courseId: course.id});
+                }
+            });
+            $scope.alert.success(success_save_msg);
         };
 
         $scope.cancel_home_changes = function() {
-            $scope.home_courses = $scope.home_courses.sort(compare_by_position);
+            $scope.home_courses = angular.copy($scope.home_courses_bkp);
+            $scope.all_courses = angular.copy($scope.all_courses_bkp);
+            $scope.alert.success('Alterações nos cursos da home canceladas.');
         };
 
         $scope.save_home_text = function(flatpage) {
