@@ -17,6 +17,21 @@ from autoslug import AutoSlugField
 from notes.models import Note
 from course_material.models import CourseMaterial
 
+import os
+import hashlib
+
+
+def path_and_rename(path):
+    def wrapper(instance, filename):
+        root, ext = os.path.splitext(filename)
+        m = hashlib.md5()
+        m.update(root.encode('utf-8'))
+        m.update(instance.username.encode('utf-8'))
+        filename = m.hexdigest() + ext
+        # return the whole path to the file
+        return os.path.join(path, filename)
+    return wrapper
+
 
 class Video(models.Model):
     name = models.CharField(max_length=255)
