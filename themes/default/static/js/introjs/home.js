@@ -40,6 +40,6 @@ function startIntro(){
         ],
     });
     intro.setOption('doneLabel', 'Próxima página').start().oncomplete(function() {
-      window.location.href = 'course/html5/?multipage=true';
+      window.location.href = 'course/html5/intro/?multipage=true';
     });
 }
