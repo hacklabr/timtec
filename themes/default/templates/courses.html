@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load is_enrolled %}
 
 {% block content %}
         <!-- CONTAINER -->
@@ -33,7 +34,7 @@
 {#                    </div>#}
                     {% for course in courses %}
                     <!-- COURSE -->
-                    <div class="course">
+                    <div class="course{% if user|is_enrolled:course %} started{% endif %}">
                         <a href="{% url "course_intro" course.slug %}" class="course-link">
                             {% if not course.has_started %}<span class="coming-soon-label">Em breve</span>{% endif %}
                             <div class="thumb-wrapper">

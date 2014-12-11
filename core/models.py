@@ -112,6 +112,9 @@ class Course(models.Model):
         if not CourseStudent.objects.filter(course=self, user=student).exists():
             CourseStudent.objects.create(course=self, user=student)
 
+    def is_enrolled(self, user):
+        return CourseStudent.objects.filter(course=self, user=user).exists()
+
     def get_thumbnail_url(self):
         if self.thumbnail:
             return self.thumbnail.url
