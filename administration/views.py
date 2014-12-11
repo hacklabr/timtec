@@ -7,7 +7,6 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 from braces import views
-import django_filters
 from core.models import Course
 from .forms import UserUpdateForm
 
@@ -43,9 +42,9 @@ class UserListView(views.SuperuserRequiredMixin, AdminMixin, ListView):
 
     def get_queryset(self):
         qs = super(UserListView, self) \
-                .get_queryset() \
-                .prefetch_related('groups') \
-                .order_by('username')
+            .get_queryset() \
+            .prefetch_related('groups') \
+            .order_by('username')
         print self.request.GET
         if self.request.GET.get('admin', '').lower() == 'on':
             qs = qs.filter(is_superuser=True)
@@ -121,4 +120,3 @@ class CourseCreateView(views.SuperuserRequiredMixin, View, ModelFormMixin):
 
     def get_success_url(self):
         return reverse_lazy('administration.edit_course', kwargs={'pk': self.object.id})
-

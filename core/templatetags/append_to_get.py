@@ -5,10 +5,12 @@ register = template.Library()
 """
 Decorator to facilitate template tag creation
 """
+
+
 def easy_tag(func):
     """deal with the repetitive parts of parsing template tags"""
     def inner(parser, token):
-        #print token
+        # print token
         try:
             return func(*token.split_contents())
         except TypeError:
@@ -18,29 +20,28 @@ def easy_tag(func):
     return inner
 
 
-
 class AppendGetNode(template.Node):
     def __init__(self, dict):
         self.dict_pairs = {}
         for pair in dict.split(','):
             pair = pair.split('=')
             self.dict_pairs[pair[0]] = template.Variable(pair[1])
-            
+
     def render(self, context):
         get = context['request'].GET.copy()
 
         for key in self.dict_pairs:
             get[key] = self.dict_pairs[key].resolve(context)
-        
+
         path = context['request'].META['PATH_INFO']
-        
-        #print "&".join(["%s=%s" % (key, value) for (key, value) in get.items() if value])
-        
+
+        # print "&".join(["%s=%s" % (key, value) for (key, value) in get.items() if value])
+
         if len(get):
             path += "?%s" % "&".join(["%s=%s" % (key, value) for (key, value) in get.items() if value])
-        
-        
+
         return path
+
 
 @register.tag()
 @easy_tag
