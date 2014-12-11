@@ -48,7 +48,7 @@ $(function () {
             console.log(result);
         });
     });
-    $('.js-update').on('click', function () {
+    $('.js-delete').on('click', function () {
         var $this = $(this);
         var id = $this.data('id');
         $.post('{% url "administration.user-delete" pk="000" %}'.replace('000', id), undefined, function (result) {

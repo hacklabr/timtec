@@ -68,6 +68,11 @@ class UserUpdateView(AdminMixin, UpdateView):
 class UserDeleteView(AdminMixin, DeleteView):
     model = User
 
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.delete()
+        return HttpResponse('ok')
+
 
 class CourseAdminView(AdminMixin, DetailView):
     model = Course
