@@ -15,10 +15,7 @@ from .forms import UserUpdateForm
 User = get_user_model()
 
 
-class AdminMixin(views.LoginRequiredMixin, views.GroupRequiredMixin, TemplateResponseMixin, ContextMixin,):
-    group_required = u'professors'
-    raise_exception = True
-
+class AdminMixin(TemplateResponseMixin, ContextMixin,):
     def get_context_data(self, **kwargs):
         context = super(AdminMixin, self).get_context_data(**kwargs)
         context['in_admin'] = True
@@ -32,33 +29,38 @@ class AdminMixin(views.LoginRequiredMixin, views.GroupRequiredMixin, TemplateRes
         return ['administration/' + self.template_name, self.template_name]
 
 
-class AdminView(AdminMixin, TemplateView):
-    pass
+class AdminView(views.GroupRequiredMixin, AdminMixin, TemplateView):
+    group_required = u'professors'
+    raise_exception = True
 
 
-class UserFilter(django_filters.FilterSet):
-    class Meta:
-        model = User
-        fields = ['email', 'is_superuser', ]
-        order_by = ['email', ]
-
-
-class UserListView(AdminMixin, ListView):
+class UserListView(views.SuperuserRequiredMixin, AdminMixin, ListView):
     model = User
     template_name = 'users.html'
     context_object_name = 'user_list'
-    paginate_by = 100
+    paginate_by = 50
+    raise_exception = True
 
     def get_queryset(self):
-        qs = super(UserListView, self).get_queryset().prefetch_related('groups')
-        f = UserFilter(self.request.GET, queryset=qs)
-        return f.qs  # .filter(is_superuser=self.kwargs['admin'])
+        qs = super(UserListView, self) \
+                .get_queryset() \
+                .prefetch_related('groups') \
+                .order_by('username')
+        print self.request.GET
+        if self.request.GET.get('admin', '').lower() == 'on':
+            qs = qs.filter(is_superuser=True)
+        if self.request.GET.get('professors', '').lower() == 'on':
+            qs = qs.filter(groups__name='professors')
+        if self.request.GET.get('keyword', '') != '':
+            qs = qs.filter(username__icontains=self.request.GET.get('keyword'))
+        return qs
 
 
-class UserUpdateView(AdminMixin, UpdateView):
+class UserUpdateView(views.SuperuserRequiredMixin, AdminMixin, UpdateView):
     model = User
     form_class = UserUpdateForm
     template_name = 'base.html'
+    raise_exception = True
 
     def form_valid(self, form):
         form.save()
@@ -68,8 +70,9 @@ class UserUpdateView(AdminMixin, UpdateView):
         return HttpResponse(str(context['form'].errors))
 
 
-class UserDeleteView(AdminMixin, DeleteView):
+class UserDeleteView(views.SuperuserRequiredMixin, DeleteView):
     model = User
+    raise_exception = True
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -77,10 +80,12 @@ class UserDeleteView(AdminMixin, DeleteView):
         return HttpResponse('ok')
 
 
-class CourseAdminView(AdminMixin, DetailView):
+class CourseAdminView(views.GroupRequiredMixin, AdminMixin, DetailView):
     model = Course
     context_object_name = 'course'
     pk_url_kwarg = 'course_id'
+    group_required = u'professors'
+    raise_exception = True
 
 
 class CourseCreateView(views.SuperuserRequiredMixin, View, ModelFormMixin):

@@ -9,7 +9,7 @@ class UserUpdateForm(forms.ModelForm):
         model = get_user_model()
         fields = []
 
-    action = forms.ChoiceField(choices='professors is_superuser'.split())
+    action = forms.ChoiceField(choices=[(c, c) for c in ['professors', 'is_superuser', 'is_active']])
     value = forms.BooleanField(required=False)
 
     def save(self, commit=True):
@@ -18,6 +18,9 @@ class UserUpdateForm(forms.ModelForm):
         value = self.cleaned_data['value']
         if action == 'is_superuser':
             user.is_superuser = value
+            user.save()
+        if action == 'is_active':
+            user.is_active = value
             user.save()
         elif action == 'professors':
             g = Group.objects.get(name='professors')

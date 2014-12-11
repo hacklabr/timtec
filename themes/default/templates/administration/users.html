@@ -2,6 +2,7 @@
 {% load static %}
 {% load i18n %}
 {% load in_group %}
+{% load append_to_get %}
 
 {% block content %}
 <!-- COURSES -->
@@ -72,28 +73,31 @@ $(function () {
         </header>
         <!-- END HEADER -->
 
-        <!-- FILTERS -->
         <div class="filters">
-            <!--  FORM INLINE -->
-            <div class="form-inline">
-                <!-- ROW -->
-                <div class="row">
-                    <!-- COL-LG-6 -->
-                    <div class="filter-checkbox col-md-5 col-sm-12">
-                        <div class="checkbox">
-                            <label><input type="checkbox"> {% trans 'All' %}</label>
-                            <label><input type="checkbox"> {% trans 'Professors' %}</label>
-                        </div>
-                    </div>
-                    <!-- END COL-LG-6 -->
-                    <!-- COL-LG-3 -->
-                    <div class="filter-keyword col-md-3 col-sm-5 textright">
-                        <input type="text" placeholder="{% trans 'Keyword' %}" class="form-control"/>
-                    </div>
-                    <!-- END COL-LG-3 -->
+            <form role="form" class="form-inline" method="GET">
+                <div class="form-group">
+                    <p class="form-control-static">Filters:</p>
                 </div>
-                <!-- END ROW -->
-            </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" class="form-control" name="professors"{% if request.GET.professors %}checked{% endif %}> {% trans 'Professors' %}
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" class="form-control" name="admin" {% if request.GET.admin %}checked{% endif %}> {% trans 'Administrators' %}
+                        </label> 
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="keyword">{% trans 'Keyword' %}</label>
+                    <input type="text" placeholder="{% trans 'Keyword' %}" class="form-control" id="keyword" name="keyword" {% if request.GET.keyword %}value="{{ request.GET.keyword }}"{% endif %}>
+                </div>
+                <button type="submit" class="btn btn-info">{% trans 'filter' %}</button>
+            </form>
             <!-- END FORM INLINE -->
         </div>
         <!-- END FILTERS -->
@@ -101,20 +105,28 @@ $(function () {
         <section id="all-courses" class="user-list">
             <table class="table table-list">
                 <tr>
-                    <th class="fullname">{% trans "Full name" %}</th>
-                    <th class="email">{% trans "Email" %}</th>
                     <th class="username">{% trans "Username" %}</th>
-                    <th class="role" colspan="3">{% trans "Role" %}</th>
+                    <th class="email">{% trans "Email" %}</th>
+                    <th class="fullname">{% trans "Full name" %}</th>
+                    <th class="role text-center">{% trans 'Professor' %}</th>
+                    <th class="role text-center">{% trans 'Administrator' %}</th>
+                    <th class="role text-center">{% trans 'Active' %}</th>
                     <th class="actions">{% trans "Actions" %}</th>
                 </tr>
                 {% for user in user_list %}
                     <tr>
-                        <td>{{ user.get_full_name }}</td>
-                        <td>{{ user.email }}</td>
                         <td>{{ user.username }}</td>
-                        <td><input type="checkbox" {% if user|in_group:'students' %}checked{% endif %}> {% trans 'Student' %}</td>
-                        <td><input class="js-update" data-action="professors" data-id="{{ user.id }}"type="checkbox" {% if user|in_group:'professors' %}checked{% endif %}> {% trans 'Professor' %}</td>
-                        <td><input class="js-update" data-action="is_superuser" data-id="{{ user.id }}" type="checkbox" {% if user.is_superuser %}checked{% endif %}> {% trans 'Administrator' %}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.get_full_name }}</td>
+                        <td class="text-center">
+                            <input class="js-update" data-action="professors" data-id="{{ user.id }}" type="checkbox" {% if user|in_group:'professors' %}checked{% endif %}>
+                        </td>
+                        <td class="text-center">
+                            <input class="js-update" data-action="is_superuser" data-id="{{ user.id }}" type="checkbox" {% if user.is_superuser %}checked{% endif %}>
+                        </td>
+                        <td class="text-center">
+                            <input class="js-update" data-action="is_active" data-id="{{ user.id }}" type="checkbox" {% if user.is_active %}checked{% endif %}>
+                        </td>
                         <td class="textcenter">
                             <button class="btn btn-warning js-delete" data-id="{{ user.id }}"><i class="fa fa-trash-o"></i></button>
                         </td>
@@ -126,13 +138,13 @@ $(function () {
             <div class="pagination">
                 <span class="page-links">
                     {% if page_obj.has_previous %}
-                        <a href="{% url 'administration.users' %}?page={{ page_obj.previous_page_number }}">previous</a>
+                        <a href="{% append_to_get page=page_obj.previous_page_number %}">previous</a>
                     {% endif %}
                     <span class="page-current">
                         Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
                     </span>
                     {% if page_obj.has_next %}
-                        <a href="{% url 'administration.users' %}?page={{ page_obj.next_page_number }}">next</a>
+                        <a href="{% append_to_get page=page_obj.next_page_number %}">next</a>
                     {% endif %}
                 </span>
             </div>
