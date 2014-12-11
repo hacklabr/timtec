@@ -149,3 +149,27 @@ def test_cannot_remove_courses_default_class(admin_client):
     assert Class.objects.filter(id=klass.id).exists()
 
     assert Course.objects.filter(id=course.id).exists()
+
+
+@pytest.mark.django_db
+def test_course_average_lessons_users_progress_should_return_zero_with_no_students_on_course():
+
+    # import ipdb; ipdb.set_trace()
+
+    course = mommy.make('Course', slug='dbsql', name='A course')
+
+    lesson1 = mommy.make('Lesson', course=course, slug='lesson1')
+
+    lesson2 = mommy.make('Lesson', course=course, slug='lesson2')
+
+    unit1 = mommy.make('Unit', lesson=lesson1, title='Title 1')
+
+    progress_list = course.avg_lessons_users_progress()
+
+    assert progress_list[0]['slug'] == 'lesson1'
+
+    assert progress_list[0]['progress'] == 0
+
+    assert progress_list[1]['slug'] == 'lesson2'
+
+    assert progress_list[1]['progress'] == 0
