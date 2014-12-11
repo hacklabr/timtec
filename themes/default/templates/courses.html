@@ -36,7 +36,7 @@
                     <!-- COURSE -->
                     <div class="course{% if user|is_enrolled:course %} started{% endif %}">
                         <a href="{% url "course_intro" course.slug %}" class="course-link">
-                            {% if not course.has_started %}<span class="coming-soon-label">Em breve</span>{% endif %}
+                            {% if not course.has_started %}<span class="coming-soon-label">{% trans 'Soon' %}</span>{% endif %}
                             <div class="thumb-wrapper">
                                 <div class="mouseover"></div>
                                 <div class="thumb" {% if course.home_thumbnail %}style="background-image: url({{ course.home_thumbnail.url }})"{% endif %}></div>
