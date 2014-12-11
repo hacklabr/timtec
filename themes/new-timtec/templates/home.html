@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% load compressed %}
+
+{% block js %}
+    {{ block.super }}
+    {% compressed_js 'core' %}
+    <script type="text/javascript" src="/static/js/introjs/home.js"></script>
+{% endblock %}
+
+{% block content %}
+
+    <div id="home" ng-app="core" ng-controller="HomeCtrl">
+        <div id="highlight">
+            {% include '_highlight.html' %}
+        </div>
+
+        <div class="container">
+            <section id="courses" class="col-md-8 col-xs-12">
+                <div class="row">
+                    <div ng-repeat="course in courses" class="block course col-sm-6 col-xs-12">
+                        {% verbatim %}
+                        <a ng-href="/course/{{ course.slug }}" class="course-link">
+                            <div class="thumb-wrapper">
+                                <span class="mouseover"></span>
+                                <span class="thumb" ng-style="{'background-image': 'url(' + course.home_thumbnail_url + ')'}"></span>
+                            </div>
+                            <div class="info">
+                                <h3>{{ course.name }}</h3>
+                                <p class="instructors">{{ course.professors_names }}</p>
+                            </div>
+                        </a>
+                        {% endverbatim %}
+                    </div>
+                </div><!-- .row -->
+            </section><!-- #courses -->
+
+            <!-- twitter sidebar -->
+            <div class="col-md-4 hidden-sm hidden-xs">
+                <div class="row">
+                    <section class="twitter col-lg-10 col-lg-offset-2 col-md-11 col-md-offset-1" role="complementary">
+
+                        <div class="row">
+                            <div class="col-lg-10 col-lg-offset-2 col-md-10 col-md-offset-2">
+                                <h3>
+                                    <i class="fa fa-twitter"></i>
+                                    Veja as últimas<br>informações<br><span>@TIMTec_oficial</span>
+                                </h3>
+                                <div class="tweet" ng-repeat="twit in twits">
+                                    {% verbatim %}
+                                    <div class="info">
+                                        <span class="avatar">
+                                            <img ng-src="{{ twit.profile_image_url }}">
+                                        </span>
+                                        <a class="name" ng-href="https://twitter.com/{{ twit.screen_name }}" target="_blank">{{ twit.user_name }}</a>
+                                        <span class="date">{{ twit.date }}</span>
+                                        <span class="hour">{{ twit.hour }}</span>
+                                    </div>
+                                    <div class="text" ng-bind-html="twit.text|tweet">
+                                    </div>
+                                    {% endverbatim %}
+                                </div>
+                            </div>
+                        </div>
+                    </section><!-- .twitter -->
+                </div>
+            </div><!-- .col-md-4 -->
+            <!-- twitter sidebar -->
+        </div><!-- .container -->
+
+        <aside class="next-videos hidden-sm hidden-xs" role="complementary">
+            <div class="container">
+                <h3>Próximos <span>lançamentos</span></h3>
+                <div class="slider">
+                    {% verbatim %}
+                    <carousel>
+                        <slide ng-repeat="row in upcoming_courses_rows_3">
+                            <div class="col-lg-4 col-md-4" ng-repeat="course in row">
+                                <a ng-href="/course/{{ course.slug }}">
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="thumb">
+                                            <img ng-src="{{ course.home_thumbnail_url }}">
+                                        </div>
+                                    </div>
+                                    <h4 class="col-lg-6 col-md-6">{{ course.name }}</h4>
+                                </a>
+                            </div>
+                        </slide>
+                    </carousel>
+                    {% endverbatim %}
+                </div>
+            </div><!-- .container -->
+        </aside><!-- .next-videos -->
+    </div><!-- #home -->
+
+</div>
+
+{% endblock %}

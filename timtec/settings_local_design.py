@@ -11,6 +11,8 @@ ALLOWED_HOSTS = [
     '.timtec.com.br',
 ]
 
+TIMTEC_THEME = 'new-timtec'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',

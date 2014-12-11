@@ -1,0 +1,40 @@
+// LAYOUT DA MODAL DE CADASTRO E LOGIN DOS USUÁRIOS
+#login-modal {
+    .modal {
+        // .modal-content
+        &-content {
+            background-color: rgba(255,255,255,0.9);
+        }
+        // .modal-header
+        &-header {
+            border-bottom: none;
+            // Escondendo a frase que diz que
+            // a pessoa precisa logar ou se cadastrar
+            // para ver o conteúdo do curso do tema padrão
+            > h3 {
+                display: none;
+            }
+        }
+        // .modal-body
+        &-body {
+            // .panel
+            .panel {
+                background-color: transparent;
+                // .panel-heading
+                &-heading {
+                    h3 {
+                        color: @brand-primary;
+                        font-family: 'teuton_26', sans-serif;
+                        font-size: 30px;
+                        margin-top: 0;
+                    }
+                    // Escondendo as setas que aparecem
+                    // antes do título no tema padrão
+                    i {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
