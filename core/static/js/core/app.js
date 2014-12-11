@@ -9,6 +9,10 @@
         'django',
         'twitterFilters',
         'ui.bootstrap',
+        'angular-sortable-view',
+        'directive.fixedBar',
+        'directive.alertPopup',
+        'directive.markdowneditor',
     ]);
 
 })(angular);

@@ -9,6 +9,7 @@ from django.views.generic import (DetailView, ListView, FormView, DeleteView,
                                   CreateView, UpdateView)
 from django.views.generic.base import RedirectView, View, TemplateView
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.flatpages.models import FlatPage
 from django.shortcuts import get_object_or_404
 from django.conf import settings
 from django.db.models import Q
@@ -16,7 +17,7 @@ from django.utils import timezone
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import filters
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
 from braces.views import LoginRequiredMixin
 from notes.models import Note
 
@@ -24,7 +25,8 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           CourseThumbSerializer, LessonSerializer,
                           StudentProgressSerializer, CourseNoteSerializer,
                           LessonNoteSerializer, ProfessorMessageSerializer,
-                          CourseStudentSerializer, ClassSerializer)
+                          CourseStudentSerializer, ClassSerializer,
+                          FlatpageSerializer)
 
 from .models import (Course, CourseProfessor, Lesson, StudentProgress,
                      Unit, ProfessorMessage, CourseStudent, Class)
@@ -134,6 +136,15 @@ class CourseView(DetailView):
 class UserCoursesView(LoginRequiredMixin, TemplateView):
     template_name = 'user-courses.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(UserCoursesView, self).get_context_data(**kwargs)
+
+        context['courses_user_assist'] = CourseProfessor.objects.filter(user=self.request.user, role='assistant')
+
+        context['courses_user_coordinate'] = CourseProfessor.objects.filter(user=self.request.user, role='coordinator')
+
+        return context
+
 
 class EnrollCourseView(LoginRequiredMixin, RedirectView):
     permanent = False
@@ -212,6 +223,13 @@ class CourseViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = CourseSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def get_queryset(self):
+        queryset = super(CourseViewSet, self).get_queryset()
+        public_courses = self.request.QUERY_PARAMS.get('public_courses', None)
+        if public_courses:
+            queryset = queryset.filter(Q(status='published') | Q(status='listed')).prefetch_related('professors')
+        return queryset
 
     def get(self, request, **kwargs):
         response = super(CourseViewSet, self).get(request, **kwargs)
@@ -351,6 +369,14 @@ class ClassDeleteView(LoginRequiredMixin, CanEditClassMixin, DeleteView):
     def get_success_url(self):
         return reverse_lazy('classes', kwargs={'course_slug': self.object.course.slug})
 
+    def get_object(self, queryset=None):
+        klass = super(ClassDeleteView, self).get_object(queryset=queryset)
+
+        if (klass == klass.course.default_class):
+            raise PermissionDenied
+
+        return klass
+
 
 class ClassRemoveUserView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
     model = Class
@@ -485,4 +511,19 @@ class ClassViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
             if not role or role == 'assistant':
                 queryset = queryset.filter(assistant=self.request.user)
 
+        return queryset
+
+
+class FlatpageViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
+
+    model = FlatPage
+    serializer_class = FlatpageSerializer
+    filter_fields = ('url',)
+    permission_classes = (IsAdminUser,)
+
+    def get_queryset(self):
+        queryset = super(FlatpageViewSet, self).get_queryset()
+        url_prefix = self.request.QUERY_PARAMS.get('url_prefix')
+        if url_prefix:
+            queryset = queryset.filter(url__startswith=url_prefix)
         return queryset

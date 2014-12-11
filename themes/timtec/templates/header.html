@@ -38,7 +38,7 @@
                     </a>
                     <ul class="dropdown-menu user-menu">
                         {% ifusergroup professors %}
-                            <li><a href="{% url 'administration.home' %}">{% trans "Admin" %}</a></li>
+                            <li><a href="{% url 'administration.courses' %}">{% trans "Admin" %}</a></li>
                         {% endifusergroup %}
                         <li><a href="{% url 'user_courses' %}">{% trans "My Courses" %}</a></li>
                         <li><a href="{% url 'user_notes' %}">{% trans "My Notes" %}</a></li>

@@ -32,4 +32,6 @@ package.json
 README
 themes/
 angular-i18n/*.js
+angular-sortable-view/src/angular-sortable-view.js
+angular-sortable-view/Gruntfile.js
 

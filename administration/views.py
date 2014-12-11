@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.views.generic import TemplateView, DetailView, ListView, UpdateView, DeleteView
-from django.views.generic.base import TemplateResponseMixin, ContextMixin
-from django.http import HttpResponse
+from django.views.generic.base import TemplateResponseMixin, ContextMixin, View
+from django.views.generic.edit import ModelFormMixin
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth import get_user_model
+from django.utils.text import slugify
 from braces import views
 import django_filters
 from core.models import Course
@@ -78,3 +81,39 @@ class CourseAdminView(AdminMixin, DetailView):
     model = Course
     context_object_name = 'course'
     pk_url_kwarg = 'course_id'
+
+
+class CourseCreateView(views.SuperuserRequiredMixin, View, ModelFormMixin):
+    model = Course
+    fields = ('name',)
+    raise_exception = True
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handles POST requests, instantiating a form instance with the passed
+        POST variables and then checked for validity.
+        """
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        base_slug = slugify(form.instance.name)
+        slug = base_slug
+        i = 1
+        while Course.objects.filter(slug=slug).exists():
+            slug = base_slug + str(i)
+            i += 1
+        form.instance.slug = slug
+        return super(CourseCreateView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        return HttpResponseRedirect(reverse_lazy('administration.courses'))
+
+    def get_success_url(self):
+        return reverse_lazy('administration.edit_course', kwargs={'pk': self.object.id})
+

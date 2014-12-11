@@ -221,6 +221,128 @@
             }
         } // .next-videos
     } // .content
+
+    &.home-admin {
+        .header {
+            overflow: hidden;
+            margin-bottom: 30px;
+            padding: 15px 0;
+            background: rgba(255, 255, 255, 0.5);
+            h2 {
+                margin: 0;
+                font-family: 'teuton_26';
+                color: #007dc3;
+            }
+            @media (max-width: 550px) {
+                .col-xs-6 {
+                    width: 100%;
+                    .add-videos {
+                        float: left;
+                    }
+                }
+            }
+        }
+        .add-videos {
+            float: right;
+        }
+        .videos {
+            margin-top: 160px;
+            .video {
+                position: relative;
+                cursor: move;
+                .drag-button {
+                    position: absolute;
+                    display: block;
+                    left: 50%;
+                    margin-left: -20px;
+                    top: 75px;
+                    background-color: #000;
+                    opacity: 0;
+                    transition: all 0.3s ease;
+                    .btn {
+                        cursor: move;
+                    }
+                }
+                &:hover {
+                    .drag-button {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+        .next-videos {
+            .add-videos {
+                margin-top: 20px;
+            }
+        }
+        .modal {
+            .modal-dialog {
+                @media (min-width: 768px) { width: 768px; }
+            }
+            .modal-title {
+                font-size: 26px;
+            }
+            .modal-body {
+                .select-course {
+                    @media (max-width: 650px) { width: 100%; }
+                    margin-bottom: 15px;
+                    .course-thumb {
+                        @media (min-width: 400px) and (max-width: 519px) { width: 40%; }
+                        @media (min-width: 520px) and (max-width: 650px) { width: 33%; }
+                        position: relative;
+                        float: left;
+                        width: 50%;
+                        height: 95px;
+                        background: #000;
+                        border: 4px solid #fff;
+                        .border-radius(3px);
+                        overflow: hidden;
+                        cursor: pointer;
+                        .selected {
+                            display: none;
+                            position: absolute;
+                            right: -3px;
+                            bottom: -3px;
+                            background: url(../img/timtec/selected.png) no-repeat center center #0074be;
+                            -webkit-border-top-left-radius: 3px;
+                            -moz-border-radius-topleft: 3px;
+                            border-top-left-radius: 3px;
+                            width: 24px;
+                            height: 24px;
+                        }
+                        img {
+                            .img-responsive;
+                        }
+                    }
+                    &.active {
+                        .course-thumb {
+                            border-color: #0074be;
+                            .selected {
+                                display: block;
+                            }
+                        }
+                    }
+                    .course-info {
+                        position: relative;
+                        float: left;
+                        width: 50%;
+                        padding: 0 0 0 15px;
+                        h3 {
+                            margin: 0;
+                            font-weight: bold;
+                            font-size: 16px;
+                            color: #000;
+                        }
+                    }
+                }
+            }
+            .modal-footer {
+                padding-right: 20px;
+                padding-left: 20px;
+            }
+
+        }
+    }
 } // .home
 
 .carousel-inner {
