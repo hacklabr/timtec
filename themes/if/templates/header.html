@@ -40,11 +40,9 @@
                         <li><a href="{% url 'profile_edit' %}">{% trans "Edit Profile and Account Settings" %}</a></li>
                         <!-- <li><a href="">{% trans "Settings" %}</a></li> -->
                         <li class='divider'></li>
-                        {% if not in_admin %}
                         <li><a href="{% url 'user_courses' %}">{% trans "My Courses" %}</a></li>
                         <li><a href="{% url 'user_notes' %}">{% trans "My Notes" %}</a></li>
                         <li class='divider'></li>
-                        {% endif %}
                         <li><a href="{% url 'timtec_logout' %}">{% trans "Logout" %}</a></li>
                     </ul>
                 </li>

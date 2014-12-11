@@ -168,11 +168,28 @@ class Course(models.Model):
         except CourseProfessor.DoesNotExist:
             return False
 
+    def get_role_professors(self, role):
+        try:
+            cp_set = self.courseprofessor_set.filter(role=role)
+        except CourseProfessor.DoesNotExist:
+            return False
+
+        professors = []
+        for cp in cp_set:
+            professors.append(cp.user)
+
+        return iter(professors)
+
     def is_assistant_or_coordinator(self, user):
         if user.is_staff or user.is_superuser:
             return True
         role = self.get_professor_role(user)
         return role in ['assistant', 'coordinator'] or user.is_superuser
+
+    def is_course_coordinator(self, user):
+        course_coordinators = self.get_role_professors('coordinator')
+
+        return user.is_superuser or user.is_staff or user in course_coordinators
 
     def has_perm_own_all_classes(self, user):
         role = self.get_professor_role(user)

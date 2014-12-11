@@ -83,7 +83,7 @@ class CoursesView(ListView):
     template_name = "courses.html"
 
     def get_queryset(self):
-        return Course.objects.filter(Q(status='published') | Q(status='listed')).prefetch_related('professors')
+        return Course.objects.filter(Q(status='published') | Q(status='listed')).prefetch_related('professors').order_by('start_date')
 
 
 class ContactView(View):
@@ -135,6 +135,15 @@ class CourseView(DetailView):
 
 class UserCoursesView(LoginRequiredMixin, TemplateView):
     template_name = 'user-courses.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(UserCoursesView, self).get_context_data(**kwargs)
+
+        context['courses_user_assist'] = CourseProfessor.objects.filter(user=self.request.user, role='assistant')
+
+        context['courses_user_coordinate'] = CourseProfessor.objects.filter(user=self.request.user, role='coordinator')
+
+        return context
 
 
 class EnrollCourseView(LoginRequiredMixin, RedirectView):
@@ -323,16 +332,15 @@ class ClassCreateView(LoginRequiredMixin, CreateView):
 
 
 class CanEditClassMixin(object):
-    def check_permission(self, object):
+    def check_permission(self, klass):
         user = self.request.user
-        if not (user == object.assistant or
-                object.course.has_perm_own_all_classes(user)):
+        if not (user == klass.assistant or klass.course.has_perm_own_all_classes(user)):
             raise PermissionDenied
 
     def get_object(self, queryset=None):
-        object = super(CanEditClassMixin, self).get_object(queryset=queryset)
-        self.check_permission(object)
-        return object
+        klass = super(CanEditClassMixin, self).get_object(queryset=queryset)
+        self.check_permission(klass)
+        return klass
 
 
 class ClassUpdateView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
@@ -345,6 +353,13 @@ class ClassUpdateView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
 
         return context
 
+    def form_valid(self, form):
+        if form.changed_data:
+            if 'assistant' in form.changed_data and not self.object.course.is_course_coordinator(self.request.user):
+                raise PermissionDenied
+
+        return super(ClassUpdateView, self).form_valid(form)
+
 
 class ClassDeleteView(LoginRequiredMixin, CanEditClassMixin, DeleteView):
     model = Class
@@ -353,6 +368,14 @@ class ClassDeleteView(LoginRequiredMixin, CanEditClassMixin, DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('classes', kwargs={'course_slug': self.object.course.slug})
+
+    def get_object(self, queryset=None):
+        klass = super(ClassDeleteView, self).get_object(queryset=queryset)
+
+        if (klass == klass.course.default_class):
+            raise PermissionDenied
+
+        return klass
 
 
 class ClassRemoveUserView(LoginRequiredMixin, CanEditClassMixin, UpdateView):

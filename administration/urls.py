@@ -16,8 +16,8 @@ urlpatterns = patterns(
     url(r'^courses/(?P<pk>[1-9][0-9]*)/$', AdminView.as_view(template_name="course.html")),
 
     # create and edit lesson
-    url(r'^courses/(?P<course_id>[1-9][0-9]*)/lessons/new/$', AdminView.as_view(template_name="lesson.html")),
-    url(r'^courses/(?P<course_id>[1-9][0-9]*)/lessons/(?P<pk>[1-9][0-9]*)/$', AdminView.as_view(template_name="lesson.html")),
+    url(r'^courses/(?P<course_id>[1-9][0-9]*)/lessons/new/$', CourseAdminView.as_view(template_name="lesson.html")),
+    url(r'^courses/(?P<course_id>[1-9][0-9]*)/lessons/(?P<pk>[1-9][0-9]*)/$', CourseAdminView.as_view(template_name="lesson.html")),
 
     # messages
     url(r'^course/(?P<course_id>[1-9][0-9]*)/messages/$', CourseAdminView.as_view(template_name="messages.html")),
@@ -27,7 +27,7 @@ urlpatterns = patterns(
 
     url(r'^course/(?P<pk>[1-9][0-9]*)/material/$', CourseMaterialAdminView.as_view(template_name="course-material.html")),
 
-    url(r'^course/(?P<pk>[1-9][0-9]*)/permissions/$', AdminView.as_view(template_name="users.html"), name="course.permissions"),
+    url(r'^course/(?P<course_id>[1-9][0-9]*)/permissions/$', CourseAdminView.as_view(template_name="users.html"), name="course.permissions"),
 
     url(r'^course/(?P<course_id>[1-9][0-9]*)/stats/$', CourseAdminView.as_view(template_name="stats.html")),
 
