@@ -153,9 +153,6 @@ def test_cannot_remove_courses_default_class(admin_client):
 
 @pytest.mark.django_db
 def test_course_average_lessons_users_progress_should_return_zero_with_no_students_on_course():
-
-    # import ipdb; ipdb.set_trace()
-
     course = mommy.make('Course', slug='dbsql', name='A course')
 
     lesson1 = mommy.make('Lesson', course=course, slug='lesson1')
@@ -173,3 +170,75 @@ def test_course_average_lessons_users_progress_should_return_zero_with_no_studen
     assert progress_list[1]['slug'] == 'lesson2'
 
     assert progress_list[1]['progress'] == 0
+
+
+@pytest.mark.django_db
+def test_user_courses_cannot_show_assistant_and_coordinator_tabs_for_students(client):
+    student = create_user('student')
+
+    client.login(username=student.username, password='password')
+
+    response = client.get('/my-courses/')
+
+    assert 'href="#course-as-teacher"' not in response.content
+
+    assert 'href="#course-as-coordinator"' not in response.content
+
+
+@pytest.mark.django_db
+def test_user_courses_must_show_assistant_tab_for_assistant(client):
+    course = mommy.make('Course', slug='dbsql', name='A course')
+
+    professor = assign_professor_to_course(course, new_professor_username='assistant_professor', role='assistant')
+
+    client.login(username=professor.username, password='password')
+
+    response = client.get('/my-courses/')
+
+    assert 'href="#course-as-teacher"' in response.content
+
+    assert 'href="#course-as-coordinator"' not in response.content
+
+
+@pytest.mark.django_db
+def test_user_courses_must_show_coordinator_tab_for_coordinator(client):
+    course = mommy.make('Course', slug='dbsql', name='A course')
+
+    professor = assign_professor_to_course(course, new_professor_username='coordinator_professor', role='coordinator')
+
+    client.login(username=professor.username, password='password')
+
+    response = client.get('/my-courses/')
+
+    assert 'href="#course-as-teacher"' not in response.content
+
+    assert 'href="#course-as-coordinator"' in response.content
+
+
+
+@pytest.mark.django_db
+def test_user_courses_must_show_assistant_and_coordinator_tabs_for_assistant_and_coordinator_professor(client):
+    course_assisted = mommy.make('Course', slug='dbsql', name='Assisted course')
+
+    professor = assign_professor_to_course(course_assisted, new_professor_username='professor', role='assistant')
+
+    course_coordinated = mommy.make('Course', slug='dbsql', name='Coordinated course')
+
+    assign_professor_to_course(course_coordinated, existing_professor=professor, role='coordinator')
+
+    client.login(username=professor.username, password='password')
+
+    response = client.get('/my-courses/')
+
+    assert 'href="#course-as-teacher"' in response.content
+
+    assert 'href="#course-as-coordinator"' in response.content
+
+
+@pytest.mark.django_db
+def test_user_courses_must_show_assistant_and_coordinator_tabs_for_admin(admin_client):
+    response = admin_client.get('/my-courses/')
+
+    assert 'href="#course-as-teacher"' in response.content
+
+    assert 'href="#course-as-coordinator"' in response.content
