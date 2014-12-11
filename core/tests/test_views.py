@@ -215,14 +215,13 @@ def test_user_courses_must_show_coordinator_tab_for_coordinator(client):
     assert 'href="#course-as-coordinator"' in response.content
 
 
-
 @pytest.mark.django_db
 def test_user_courses_must_show_assistant_and_coordinator_tabs_for_assistant_and_coordinator_professor(client):
     course_assisted = mommy.make('Course', slug='dbsql', name='Assisted course')
 
     professor = assign_professor_to_course(course_assisted, new_professor_username='professor', role='assistant')
 
-    course_coordinated = mommy.make('Course', slug='dbsql', name='Coordinated course')
+    course_coordinated = mommy.make('Course', slug='coordinatedcourse', name='Coordinated course')
 
     assign_professor_to_course(course_coordinated, existing_professor=professor, role='coordinator')
 
