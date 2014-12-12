@@ -9,17 +9,58 @@
     <script type="text/javascript" src="/static/js/introjs/home.js"></script>
 {% endblock %}
 
+{% block wrapper_classes %}
+home
+{% endblock %}
+
 {% block content %}
 
     <div id="home" ng-app="core" ng-controller="HomeCtrl">
+        {% if in_admin %}
+        <!-- ACTIONS -->
+        <div class="actions-menu" fixed-bar>
+            <div class="container">
+                <div class="actions-buttons">
+                    <button class="btn btn-default" ng-click="organizingCourses=!organizingCourses">
+                        {% trans 'Organize courses' %} | <i class="fa fa-th-large"></i></button>
+                    <button class="btn btn-default" data-toggle="modal" data-target="#modalSelectCourses" ng-click="start_changing_home_cousers()">
+                        {% trans 'Choose home courses' %} | <i class="fa fa-pencil-square-o"></i></button>
+                    <button class="btn btn-danger" ng-click="cancel_home_changes()">{% trans 'Cancel' %} | <i class="fa fa-times"></i></button>
+                    <button class="btn btn-success" ng-click="save_home()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
+                </div>
+                {% include 'administration/_alert.html' %}
+            </div>
+        </div>
+        <!-- END ACTIONS -->
+        {% endif %}
+
         <div id="highlight">
             {% include '_highlight.html' %}
         </div>
 
         <div class="container">
             <section id="courses" class="col-md-8 col-xs-12">
+                {% if in_admin %}
+                <div class="row" class="sortable-container grid" sv-root sv-part="home_courses" sv-on-sort="set_order_changed()">
+                    <div ng-repeat="course in home_courses" sv-element="opts" class="grid block course col-sm-6 col-xs-12" ng-class="{drag:organizingCourses}">
+                        {% verbatim %}
+                        <span class="btn btn-warning btn-drag" sv-handle ng-show="organizingCourses"><i class="fa fa-bars"></i></span>
+                        <div class="thumb-wrapper">
+                            <span class="mouseover"></span>
+                            <span class="thumb" ng-style="{'background-image': 'url(' + course.home_thumbnail_url + ')'}"></span>
+                        </div>
+                        <div class="info">
+                            <h3>{{ course.name }}</h3>
+                            <p class="instructors">{{ course.professors_names }}</p>
+                        </div>
+                        {% endverbatim %}
+                    </div>
+                </div><!-- .row -->
+
+                {% else %}
+
                 <div class="row">
-                    <div ng-repeat="course in courses" class="block course col-sm-6 col-xs-12">
+                    <div ng-repeat="course in home_courses" class="block course col-sm-6 col-xs-12">
                         {% verbatim %}
                         <a ng-href="/course/{{ course.slug }}" class="course-link">
                             <div class="thumb-wrapper">
@@ -34,6 +75,9 @@
                         {% endverbatim %}
                     </div>
                 </div><!-- .row -->
+
+                {% endif %}
+
             </section><!-- #courses -->
 
             <!-- twitter sidebar -->
@@ -92,6 +136,38 @@
                 </div>
             </div><!-- .container -->
         </aside><!-- .next-videos -->
+        {% if in_admin %}
+            <div class="modal fade" id="modalSelectCourses">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel_courses_selection()">&times;</button>
+                    <h4 class="modal-title">{% trans 'Edit home courses' %}</h4>
+                  </div>
+                  <div class="modal-body">
+                      <div class="row">
+                        {% verbatim %}
+                        <div ng-repeat="course in all_courses">
+                            <div class="select-course col-xs-6" ng-click="selectCourse(course)" ng-class="{active: course.home_published}">
+                                <div class="course-thumb" style="background-image: url({{ course.home_thumbnail_url }});">
+                                    <span class="selected"></span>
+                                </div>
+                                <div class="course-info">
+                                    <h3>{{ course.name }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        {% endverbatim %}
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel_courses_selection()">{% trans 'Cancel' %}</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="apply_courses_selection()">Ok</button>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+        {% endif %}
     </div><!-- #home -->
 
 </div>
