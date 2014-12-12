@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load in_group %}
+{% load append_to_get %}
+
+{% block content %}
+<!-- COURSES -->
+<script type="text/javascript">
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+$(function () {
+    $('.js-update').on('click', function () {
+        var $this = $(this);
+        var id = $this.data('id');
+        var data = {
+            action: $this.data('action'),
+            value: $this.is(':checked'),
+        }
+        $.post('{% url "administration.user-update" pk="000" %}'.replace('000', id), data, function (result) {
+            console.log(result);
+        });
+    });
+    $('.js-delete').on('click', function () {
+        var $this = $(this);
+        var id = $this.data('id');
+        $.post('{% url "administration.user-delete" pk="000" %}'.replace('000', id), undefined, function (result) {
+            console.log(result);
+        });
+    });
+
+});
+
+</script>
+<section id="users">
+
+    <div class="container">
+        <!--  HEADER -->
+        <header>
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1>{% trans 'Users' %}</h1>
+                </div>
+            </div>
+        </header>
+        <!-- END HEADER -->
+
+        <div class="filters">
+            <form role="form" class="form-inline" method="GET">
+                <div class="form-group">
+                    <p class="form-control-static">Filters:</p>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" class="form-control" name="professors"{% if request.GET.professors %}checked{% endif %}> {% trans 'Professors' %}
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" class="form-control" name="admin" {% if request.GET.admin %}checked{% endif %}> {% trans 'Administrators' %}
+                        </label> 
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="keyword">{% trans 'Keyword' %}</label>
+                    <input type="text" placeholder="{% trans 'Keyword' %}" class="form-control" id="keyword" name="keyword" {% if request.GET.keyword %}value="{{ request.GET.keyword }}"{% endif %}>
+                </div>
+                <button type="submit" class="btn btn-info">{% trans 'filter' %}</button>
+            </form>
+            <!-- END FORM INLINE -->
+        </div>
+        <!-- END FILTERS -->
+
+        <section id="all-courses" class="user-list">
+            <table class="table table-list">
+                <tr>
+                    <th class="username">{% trans "Username" %}</th>
+                    <th class="email">{% trans "Email" %}</th>
+                    <th class="fullname">{% trans "Full name" %}</th>
+                    <th class="role text-center">{% trans 'Professor' %}</th>
+                    <th class="role text-center">{% trans 'Administrator' %}</th>
+                    <th class="role text-center">{% trans 'Active' %}</th>
+                    <th class="actions">{% trans "Actions" %}</th>
+                </tr>
+                {% for user in user_list %}
+                    <tr>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.get_full_name }}</td>
+                        <td class="text-center">
+                            <input class="js-update" data-action="professors" data-id="{{ user.id }}" type="checkbox" {% if user|in_group:'professors' %}checked{% endif %}>
+                        </td>
+                        <td class="text-center">
+                            <input class="js-update" data-action="is_superuser" data-id="{{ user.id }}" type="checkbox" {% if user.is_superuser %}checked{% endif %}>
+                        </td>
+                        <td class="text-center">
+                            <input class="js-update" data-action="is_active" data-id="{{ user.id }}" type="checkbox" {% if user.is_active %}checked{% endif %}>
+                        </td>
+                        <td class="textcenter">
+                            <button class="btn btn-warning js-delete" data-id="{{ user.id }}"><i class="fa fa-trash-o"></i></button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </section>
+        {% if is_paginated %}
+            <div class="pagination">
+                <span class="page-links">
+                    {% if page_obj.has_previous %}
+                        <a href="{% append_to_get page=page_obj.previous_page_number %}">previous</a>
+                    {% endif %}
+                    <span class="page-current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+                    {% if page_obj.has_next %}
+                        <a href="{% append_to_get page=page_obj.next_page_number %}">next</a>
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
+    </div>
+
+</section>
+<!-- END COURSES -->
+
+
+{% endblock %}
