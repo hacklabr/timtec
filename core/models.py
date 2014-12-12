@@ -17,6 +17,21 @@ from autoslug import AutoSlugField
 from notes.models import Note
 from course_material.models import CourseMaterial
 
+import os
+import hashlib
+
+
+def path_and_rename(path):
+    def wrapper(instance, filename):
+        root, ext = os.path.splitext(filename)
+        m = hashlib.md5()
+        m.update(root.encode('utf-8'))
+        m.update(instance.username.encode('utf-8'))
+        filename = m.hexdigest() + ext
+        # return the whole path to the file
+        return os.path.join(path, filename)
+    return wrapper
+
 
 class Video(models.Model):
     name = models.CharField(max_length=255)
@@ -290,6 +305,8 @@ class CourseProfessor(models.Model):
     course = models.ForeignKey(Course, verbose_name=_('Course'))
     biography = models.TextField(_('Biography'), blank=True)
     role = models.CharField(_('Role'), choices=ROLES, default=ROLES[1][0], max_length=128)
+    picture = models.ImageField(_('Picture'), upload_to=path_and_rename('user-pictures'), blank=True, null=True)
+    name = models.TextField(_('Name'), max_length=30, blank=True, null=True)
 
     class Meta:
         unique_together = (('user', 'course'),)

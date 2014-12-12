@@ -9,20 +9,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserM
 from django.utils import timezone
 
 import re
-import os
-import hashlib
-
-
-def path_and_rename(path):
-    def wrapper(instance, filename):
-        root, ext = os.path.splitext(filename)
-        m = hashlib.md5()
-        m.update(root.encode('utf-8'))
-        m.update(instance.username.encode('utf-8'))
-        filename = m.hexdigest() + ext
-        # return the whole path to the file
-        return os.path.join(path, filename)
-    return wrapper
+from core.models import path_and_rename
 
 
 class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
