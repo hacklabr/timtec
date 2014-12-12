@@ -305,6 +305,8 @@ class CourseProfessor(models.Model):
     course = models.ForeignKey(Course, verbose_name=_('Course'))
     biography = models.TextField(_('Biography'), blank=True)
     role = models.CharField(_('Role'), choices=ROLES, default=ROLES[1][0], max_length=128)
+    picture = models.ImageField(_('Picture'), upload_to=path_and_rename('user-pictures'), blank=True, null=True)
+    name = models.TextField(_('Name'), max_length=30, blank=True, null=True)
 
     class Meta:
         unique_together = (('user', 'course'),)
