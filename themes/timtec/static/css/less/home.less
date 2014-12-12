@@ -187,3 +187,19 @@
         }
     } // .next-videos
 }
+
+// this needs to be here, apparently angular builds the dom outside of the three and plugs is back
+.carousel-inner {
+  > .next {
+    left: 100%/3;
+  }
+  > .prev {
+    left: -100%/3;
+  }
+  > .active.left {
+    left: -100%/3;
+  }
+  > .active.right {
+    left: 100%/3;
+  }
+}
