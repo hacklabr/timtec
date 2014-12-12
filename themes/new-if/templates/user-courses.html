@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+        <!-- CONTAINER -->
+        <div id="my-courses" class="container">
+            <header class="page-header-double">
+                <h2><i class="fa fa-angle-double-right"></i> {% trans "My Courses" %}</h2>
+            </header>
+
+            <section class="courses" role="tabpanel">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#course-as-student" aria-controls="course-as-student" role="tab" data-toggle="tab">{% trans "Courses I follow" %}</a></li>
+                    {% if courses_user_assist or request.user.is_superuser %}
+                    <li role="presentation"><a href="#course-as-teacher" aria-controls="course-as-teacher" role="tab" data-toggle="tab">{% trans "Courses I assist" %}</a></li>
+                    {% endif %}
+                    {% if courses_user_coordinate or request.user.is_superuser %}
+                    <li role="presentation"><a href="#course-as-coordinator" aria-controls="course-as-coordinator" role="tab" data-toggle="tab">{% trans "Courses I coordinate" %}</a></li>
+                    {% endif %}
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="course-as-student">
+                        {% for cs in request.user.coursestudent_set.all %}
+                            <div class="course">
+                                <header>
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <h1>{{ cs.course.name }}</h1>
+                                        </div>
+                                        <div class="col-sm-4 textright">
+                                            <div class="btn-group">
+                                                <a href="{% url 'enroll_course' cs.course.slug %}" class="btn btn-sm btn-success">{% trans "Resume Class" %}</a>
+                                                <a href="{% url 'enroll_course' cs.course.slug %}" class="btn btn-sm btn-success"><i class="fa fa-angle-double-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </header>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width:{{cs.percent_progress}}%;"></div>
+                                </div>
+                                <a href="{% url 'user_course_notes' cs.course.slug %}" class="btn btn-default btn-sm">{% trans "My Notes" %}</a>
+            {#                    <a href="" class="btn btn-default btn-sm">{% trans "Details" %}</a>#}
+            {#                    <span class="info">0 min of lecture and 0 quizzes remaining in 1.1a Equivalent Fractions.</span>#}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="course-as-teacher">
+                        {% for courseprofessor in courses_user_assist %}
+                            <div>
+                                {% include "_course-header-inline.html"  with course=courseprofessor.course %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="course-as-coordinator">
+                        {% for courseprofessor in courses_user_coordinate %}
+                            <div>
+                                {% include "_course-header-inline.html"  with course=courseprofessor.course %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- CONTAINER -->
+{% endblock %}

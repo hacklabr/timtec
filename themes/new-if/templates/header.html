@@ -1,0 +1,159 @@
+{% load i18n %}
+{% load socialaccount %}
+{% load usergroup %}
+
+<nav id="main-navbar" class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-collapse">
+                <span class="sr-only">{% trans 'Toggle navigation' %}</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" id="site-brand" href="/">{{ site.name }}</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="main-navbar-collapse">
+            <ul class="nav navbar-nav" id="site-nav">
+                <li><span id="start-intro" class="btn btn-primary btn-sm">Começar tour <i class="fa fa-caret-right"></i></span></li>
+                <li><a href="#" data-toggle="modal" data-target="#modal-about">{% trans 'About' %}</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#modal-contact">{% trans 'Contact' %}</a></li>
+                <li><a href="{% url 'courses' %}">{% trans 'Courses' %}</a></li>
+                <li class="navbar-divider"></li>
+            </ul>
+            <ul class="nav navbar-nav" id="session-nav">
+            {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                    <li>
+                        <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
+                            {% trans "Admin" %}
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu{% if in_admin %} active{% endif %}">
+                            <li><a href="{% url 'administration.home' %}">{% trans 'Home edit' %}</a></li>
+                            <li><a href="{% url 'administration.courses' %}" id="admin-link">{% trans "Courses" %}</a></li>
+                            <li><a href="#">{% trans 'Users' %}</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    {% ifusergroup professors %}
+                        <li {% if in_admin %}class="active"{% endif %}><a href="{% url 'administration.courses' %}" id="admin-link">{% trans "Admin" %}</a></li>
+                    {% endifusergroup %}
+                {% endif %}
+                <li>
+                    <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
+                        {{ user }}
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'profile' %}">{% trans "Profile" %}</a></li>
+                        <li><a href="{% url 'profile_edit' %}">{% trans "Edit Profile and Account Settings" %}</a></li>
+                        <!-- <li><a href="">{% trans "Settings" %}</a></li> -->
+                        <li class='divider'></li>
+                        <li><a href="{% url 'user_courses' %}">{% trans "My Courses" %}</a></li>
+                        <li><a href="{% url 'user_notes' %}">{% trans "My Notes" %}</a></li>
+                        <li class='divider'></li>
+                        <li><a href="{% url 'timtec_logout' %}">{% trans "Logout" %}</a></li>
+                    </ul>
+                </li>
+            {% else %}
+                <li>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans 'Sign In' %}</a>
+                    <div class="dropdown-menu">
+                        <form method="post" action="{% url 'account_login' %}" class="navbar-form form-horizontal">{% csrf_token %}
+
+                            <div class="form-group {% if form.errors %}has-error{% endif %}">
+                                <label class="col-sm-5 col-xs-12 control-label">{% trans 'Username' %}</label>
+                                <div class="col-sm-7 col-xs-12">
+                                    <input name="login" type="text" class="form-control"
+                                           value="{{form.login.value}}" placeholder="{% trans 'E-mail or username' %}"/>
+                                    {% for error in form.login.errors %}
+                                    <small>{{error}}</small>
+                                    {% endfor error in %}
+                                </div>
+                            </div>
+
+                            <div class="form-group {% if form.errors %}has-error{% endif %}">
+                                <label class="col-sm-5 col-xs-12 control-label">{% trans 'Password' %}</label>
+                                <div class="col-sm-7 col-xs-12">
+                                    <input name="password" type="password" class="form-control" placeholder="{% trans 'Password' %}">
+                                    {% for error in form.password.errors %}
+                                    <small>{{error}}</small>
+                                    {% endfor %}
+                                    {% for error in form.non_field_errors %}
+                                    <small>{{error}}</small>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="submit clearfix">
+                                <div class="col-xs-8">
+                                    <a href="{% url 'account_reset_password' %}">{% trans 'Forgot my password' %}</a>
+                                </div>
+                                <div class="col-xs-4 textright">
+                                    <button class="btn btn-success">{% trans 'Sign In' %} <i class="fa fa-sign-in"></i></button>
+                                </div>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="row">
+                                <p class="bottom textcenter">
+                                    {% load socialaccount %}
+                                    <a href="{% provider_login_url 'facebook' method='oauth2' %}">{% trans 'Connect with Facebook' %}</a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+                <li>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans 'Sign Up' %}</a>
+                    <div class="dropdown-menu">
+                        <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}" class="navbar-form form-horizontal">{% csrf_token %}
+                            <div class="form-group">
+                                <label class="col-sm-5 col-xs-12 control-label">{% trans "Username" %}</label>
+                                <div class="col-sm-7 col-xs-12">
+                                    <input name="username" type="text" class="form-control" placeholder="{% trans 'Choose an username' %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 col-xs-12 control-label">{% trans 'E-mail' %}</label>
+                                <div class="col-sm-7 col-xs-12">
+                                    <input name="email" type="email" class="form-control" placeholder="{% trans 'Insert your e-mail' %}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-5 col-xs-12 control-label">{% trans 'Password' %}</label>
+                                <div class="col-sm-7 col-xs-12">
+                                    <p><input name="password1" type="password" class="form-control" placeholder="{% trans 'A really strong password' %}"></p>
+                                    <input name="password2" type="password" class="form-control" placeholder="{% trans 'Confirm your password' %}">
+                                </div>
+                            </div>
+
+                            <div class="submit textright clearfix">
+                                <div class="col-xs-12">
+                                    <button class="btn btn-success">{% trans 'Sign Up' %}</button>
+                                </div>
+                            </div>
+                            <!--
+                            <div class="divider"></div>
+
+                            <div class="row">
+                                <p class="bottom textcenter">
+                                    <a href="{% provider_login_url 'facebook' method='oauth2' %}">{% trans 'Connect with Facebook' %}</a>
+                                </p>
+                            </div>
+                            -->
+                            <input type="hidden" name="next" value="{{ current_path }}" />
+                        </form>
+                    </div>
+                </li>
+            {% endif %}
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div>
+</nav>

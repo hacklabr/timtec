@@ -1,0 +1,673 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+{% load timtec_markdown %}
+{% load is_assistant_or_coordinator %}
+
+{% if in_admin %}
+    {% block js %} {{block.super}}
+    <script type="text/javascript" src="{% static 'js/new-course/app.js' %}">// must be the 1º</script>
+    <script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}">// must be the 2º</script>
+    <script type="text/javascript" src="{% static 'js/filters/text.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/new-course/directives.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/directives/contenteditable.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/directives/sortable.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/new-course/controllers.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/markdown/app.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/markdown/filters.js' %}"></script>
+    {% endblock %}
+
+    {% block body_attrs %}
+    ng-app="new-course"
+    {% endblock %}
+{% endif %}
+
+{% block wrapper_classes %}
+wrapper-course-intro
+{% endblock %}
+
+{% block content %}
+
+{% if not in_admin %}
+<script type="text/javascript" src="{% static 'js/introjs/course.js' %}"></script>
+{% endif %}
+
+<!-- COURSE -->
+<div id="course" class="course-intro" ng-controller="CourseEditController">
+
+    {% if in_admin %}
+        <!-- ACTIONS -->
+        <div class="actions-menu" fixed-bar>
+            <div class="container">
+                <div class="actions-buttons">
+                    <button class="btn btn-danger" title="{% trans 'Delete course' %}" ng-click="deleteCourse()">{% trans 'Delete' %} | <i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-success" ng-click="saveCourse()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
+                    <button class="btn btn-warning" ng-click="publishCourse()">{% trans 'Publish' %} | <i class="fa fa-star-o"></i></button>
+                </div>
+                {% include 'administration/_alert.html' %}
+            </div>
+        </div>
+        <!-- END ACTIONS -->
+    {% endif %}
+
+
+    {% if in_admin %}
+    <!-- HEADER -->
+        {% include "_admin_header_inline.html" with course=course course_intro_admin=1 %}
+    <!-- END HEADER -->
+    {% elif user|is_assistant_or_coordinator:course or user_is_enrolled and course.has_started %}
+        {% include "_course-header-inline.html"  with course=course %}
+    {% else %}
+    <!-- HEADER -->
+    <header class="main-header container">
+        <!-- PAGE-HEADER -->
+        <div class="page-header">
+            <!-- ROW -->
+            <div class="row">
+                <div class="col-md-9 col-xs-12">
+                    <h1><i class="fa fa-angle-double-right"></i> {{course.name}}</h1>
+                    {% include "_course-details-inline.html" with course=course %}
+                </div>
+                {% if course.first_lesson.slug %}
+                    <div class="col-md-3 col-xs-12 textright">
+                        {% if user_is_enrolled %}
+                            <a href="{% url "lesson" course.slug course.first_lesson.slug %}" id="go-to-course" class="btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Resume" %}</a>
+                            {% if course.has_started %}
+                                    <a href="{% url "lesson" course.slug course.first_lesson.slug %}" class="btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase js-login-required">{% trans "Resume" %}</a>
+                                {% else %}
+                                    <span href="#" class="btn btn-lg btn-danger col-lg-12 col-md-12 col-sm-12 col-xs-12 has-tooltip js-login-required uppercase" data-toggle="tooltip" data-placement="bottom" data-original-title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}" title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}">{% trans "Take the Class" %}</span>
+                                {% endif %}
+                            <a href="{% url "lesson" course.slug course.first_lesson.slug %}" id="go-to-course" class="btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Resume" %}</a>
+                        {% else %}
+                            {% if course.has_started %}
+                                <a href="{% url "enroll_course" course.slug %}" class="btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 js-login-required uppercase">{% trans "Take the Class" %}</a>
+                            {% else %}
+                                <span href="#" class="btn btn-lg btn-danger col-lg-12 col-md-12 col-sm-12 col-xs-12 has-tooltip js-login-required uppercase" data-toggle="tooltip" data-placement="bottom" data-original-title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}" title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}">{% trans "Resume" %}</span>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+            <!-- END ROW -->
+        </div>
+        <!-- END PAGE-HEADER -->
+    </header>
+    <!-- END HEADER -->
+    {% endif %}
+
+    <!-- COURSE-CONTENT -->
+    <section id="course-content" class="container">
+        <!-- ROW -->
+        <div class="row">
+            <!-- COL-LG-9 -->
+            <div class="col-md-9 col-sm-8 col-xs-12" ng-init="mediaSection='video'">
+
+                {% if in_admin %}
+                    <!-- ADD CONTENT -->
+                    <div class="add-content row">
+                        <div class="col-lg-6">
+                            <button ng-click="mediaSection='video'"
+                                    ng-class="{'btn-success':mediaSection=='video'}"
+                                    class="btn btn-default uppercase selected">{% trans 'Video' %}</button>
+
+                            <button class="btn btn-default uppercase"
+                                    ng-class="{'btn-success':mediaSection=='thumbnail'}"
+                                    ng-click="mediaSection='thumbnail'">{% trans 'Thumbnail' %}</button>
+                        </div>
+                    </div>
+                    <!-- END ADD CONTENT -->
+
+                    <section class="thumbnail" ng-show="mediaSection=='thumbnail'" ng-init="thumbfile=null">
+
+                        <div class="row" ng-show="addThumb" ng-init="addThumb=(thumbfile===null)">
+
+                            <div class="add-thumbnail col-sm-12 col-lg-12 textcenter">
+                                <div class="centered">
+                                    <div class="form-group">
+                                        <i class="fa fa-picture-o fa-4x"></i>
+                                        <h1 class="bottom top">{% trans 'Thumbnail' %}</h1>
+                                        <p>({% trans "min-width" %}: 845px)</p>
+
+                                        <file ng-model="thumbfile" name="thumbnail" class="form-control"></file>
+                                    </div>
+
+                                    <p>
+                                        <br>
+                                        <button class="btn btn-danger btn-lg uppercase"
+                                                ng-click="thumbfile=null; addThumb=!course.thumbnail_url">{% trans 'Cancel' %}</button>
+
+                                        <button class="btn btn-success btn-lg uppercase"
+                                                ng-click="addThumb=(thumbfile===null); saveThumb()">{% trans 'Add' %}</button>
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" ng-show="!addThumb">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <img local-image ng-model="thumbfile" class="img-responsive"/>
+                                {% verbatim %}
+                                <img ng-src="{{course.thumbnail_url}}" class="img-responsive" ng-show="!thumbfile"/>
+                                {% endverbatim %}
+                            </div>
+
+                            <div class="col-lg-12 textright">
+                                <button class="btn-edit-thumbnail btn btn-success btn-sm uppercase"
+                                        ng-click="addThumb=true">{% trans 'Change thumbnail' %}</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!--  COURSE-VIDEO  -->
+                    <section class="video" ng-show="mediaSection=='video'">
+                        <div class="row">
+                            <div class="col-xs-12" ng-show="course.intro_video.youtube_id && !playerReady">
+                                <div class="waiting textcenter jumbotron" style="height: 515px">
+                                    <div class="middle">
+                                        <i class="fa fa-refresh fa-5x"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12" ng-class="{'hidder': !(course.hasVideo() && playerReady)}">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <div class="embed-responsive-item" id="youtube-player" youtube-player></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-10">
+                                        <p class="video-title editable-content" ng-model="course.intro_video.name" placeholder="Nome do vídeo" contenteditable><p>
+                                    </div>
+                                    <div class="col-lg-2 textcenter">
+                                        <button class="btn-edit-video btn btn-success btn-sm uppercase"
+                                                ng-click="course.intro_video.youtube_id=''">{% trans 'Change video' %}</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="add-video-intro col-sm-12 col-lg-12 textcenter"
+                                 ng-show="!course.intro_video.youtube_id">
+                                <div class="centered">
+                                    <div class="form-group">
+                                        <i class="fa fa-youtube-play fa-4x"></i>
+                                        <h1 class="top">{% trans 'Introduction video' %}</h1>
+                                        <input type="text" tabindex="8" ng-model="youtube_id" class="form-control"/>
+                                    </div>
+
+                                    <p>
+                                        <button class="btn btn-danger btn-lg uppercase"
+                                                ng-click="course.intro_video.youtube_id=''">{% trans 'Cancel' %}</button>
+                                        <button tabindex="9"
+                                                class="btn btn-success btn-lg uppercase"
+                                                ng-show="!course.intro_video.youtube_id"
+                                                ng-click="course.intro_video.youtube_id=youtube_id">{% trans 'Add' %}</button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!--  END COURSE-VIDEO  -->
+                {% else %}
+                    <!-- COURSE-VIDEO -->
+                    <section class="video embed-responsive embed-responsive-16by9" id="course-video">
+                        {% with yid=course.intro_video.youtube_id %}
+                        {% if yid %}
+                            <iframe id="youtube-player"
+                                    type="text/html"
+                                    src="//www.youtube.com/embed/{{yid}}?rel=0&showinfo=0&autohide=1&theme=light&wmode=opaque"
+                                    allowfullscreen>
+                            </iframe>
+                        {% elif course.thumbnail %}
+                            <img class="img-responsive" src="{{ course.thumbnail.url }}">
+                        {% endif %}
+                        {% endwith %}
+                    </section>
+                    <!-- END COURSE-VIDEO -->
+                {% endif %}
+
+                <!-- COURSE-INFO -->
+                <section class="course-info">
+                    <!-- ROW -->
+                    <div class="row">
+                        <div class="application col-sm-6 col-xs-12">
+                            <div class="page-header-double">
+                                <h3 class="top"><i ng-class="{'blink-text-danger':errors.application}" class="fa fa-angle-double-right"></i> {% trans "Why do this course?" %}</h3>
+                            </div>
+
+                            {% if in_admin %}
+                                <modalmarkdowneditor tabindex="6" on-save="saveCourse()" title="{% trans 'Application' %}" content="course.application"></modalmarkdowneditor>
+                            {% else %}
+                                <div class="content">{{ course.application|timtec_markdown }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="requirement col-sm-6 col-xs-12">
+                            <div class="page-header-double">
+                                <h3 class="top"><i ng-class="{'blink-text-danger':errors.requirement}" class="fa fa-angle-double-right"></i> {% trans "What do I have to know?" %}</h3>
+                            </div>
+                            {% if in_admin %}
+                                <modalmarkdowneditor tabindex="7" on-save="saveCourse()" title="{% trans 'Requirements' %}" content="course.requirement"></modalmarkdowneditor>
+                            {% else %}
+                                <div class="content">{{ course.requirement|timtec_markdown }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="structure col-xs-12">
+                            <div class="page-header-double">
+                                <h3 class="top"><i ng-class="{'blink-text-danger':errors.requirement}" class="fa fa-angle-double-right"></i> {% trans "Estrutura do Curso" %}</h3>
+                            </div>
+                            {% if in_admin %}
+                                <modalmarkdowneditor tabindex="8" on-save="saveCourse()" title="{% trans 'Estrutura do Curso' %}" content="course.structure"></modalmarkdowneditor>
+                            {% else %}
+                                <p>{{ course.structure|timtec_markdown }}</p>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                </section>
+                <!-- END COURSE-INFO -->
+
+                <!-- COURSE-SUMMARY - VISIBLE ONLY FOR PHONES -->
+                <section class="summary hidden-lg hidden-md hidden-sm visible-xs row">
+                    <div class="col-xs-12">
+                        <!-- ABSTRACT -->
+                        <div class="page-header-double top">
+                            <h3 class="top"><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Abstract' %}</h3>
+                        </div>
+
+                        {% if in_admin %}
+                            <modalmarkdowneditor tabindex="2" on-save="saveCourse()" title="{% trans 'Abstract' %}" content="course.abstract"></modalmarkdowneditor>
+                        {% else %}
+                            {{ course.abstract|timtec_markdown }}
+                        {% endif %}
+
+                        <hr/>
+                        <!-- END ABSTRACT -->
+
+                        <!-- COURSE-INSTRUCTORS -->
+                        <section class="instructors">
+                        {% if in_admin %}
+                            <div class="page-header-double">
+                                <h3><i class="fa fa-angle-double-right"></i> {% trans 'Instructors'%}</h3>
+                            </div>
+
+                            <p><a href="" ng-click="organizingInstructors=true" ng-hide="organizingInstructors">{% trans 'Organize Instructors'%}</a></p>
+
+                            <div class="instructors organizing-instructors" ng-show="organizingInstructors" sortable="courseProfessors" on-update="repositionInstructors()">
+
+                                <div class="instructor" ng-repeat="professor in courseProfessors">
+                                    <div class="row">
+                                        <div class="col-lg-11">
+                                            <span class="handle"><span class="btn btn-warning"><i class="fa fa-bars"></i></span></span>
+                                            <span class="title" ng-bind="professor.user_info.name">{% trans 'Name' %}</span>
+                                        </div>
+                                        <div class="col-lg-1 textright">
+                                            <button class="btn btn-danger"
+                                                    ng-click="deleteProfessor(professor)">
+                                                <i class="fa fa-trash-o"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="submit textright">
+                                    <button class="btn btn-danger" ng-click="organizingInstructors=false">{% trans 'Close' %}</button>
+                                    <button class="btn btn-success" ng-click="saveAllInstructors()">{% trans 'Save' %}</button>
+                                </div>
+                            </div>
+
+                            <div id="" class="instructor row" ng-repeat="professor in courseProfessors" ng-hide="organizingInstructors">
+                                <div class="instructor-photo col-sm-12">
+                                    {% verbatim %}
+                                    <img ng-src="{{ professor.user_info.picture }}"
+                                         onerror="this.src='/static/img/avatar-default.png'"
+                                         class="img-thumbnail">
+                                    {% endverbatim %}
+                                </div>
+                                <div class="col-sm-12">
+                                    <h1 class="fullname bottom top" ng-bind="professor.user_info.name">{% trans 'Name' %}</h1>
+                                    <h2 class="job-title top"></h2>
+                                    <modalmarkdowneditor title="{% trans 'Biography' %}" on-save="saveProfessor(professor)" content="professor.biography"></modalmarkdowneditor>
+                                </div>
+                            </div>
+
+                            <div class="row textcenter">
+                                <div class="col-lg-12">
+                                    <a ng-click="professorsModalActive=true" class="col-lg-12 btn btn-lg btn-default uppercase">{% trans 'Add instructor' %}</a>
+                                </div>
+                            </div>
+                        {% else %}
+                            {% if course.get_video_professors %}
+                            <div class="page-header-double top">
+                                <h3><i class="fa fa-angle-double-right"></i> {% trans "Instructors" %}</h3>
+                            </div>
+                                {% for course_professor in course.get_video_professors %}
+                                    <div id="{{ course_professor.user.username }}" class="instructor row">
+                                        <div class="instructor-photo col-xs-12">
+                                            <img src="{{ course_professor.user.get_picture_url }}" class="img-thumbnail">
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <h1 class="fullname bottom top">{{ course_professor.user.first_name }} {{ course_professor.user.last_name }}</h1>
+                                            <h2 class="job-title top">{{ course_professor.get_job_display }}</h2>
+                                            <p>{{ course_professor.biography|timtec_markdown }}</p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endif %}
+                        </section>
+                    </div>
+                </section>
+                <!-- END COURSE-SUMMARY - VISIBLE ONLY FOR PHONES -->
+
+                <!-- COURSE-LESSONS -->
+                <section class="lessons" id="lesson-list">
+                    {% if in_admin %}
+
+                        <!-- PAGE-HEADER-DOUBLE -->
+                        <div class="page-header-double">
+                            <h3><i class="fa fa-angle-double-right"></i> {% trans "Lessons" %}</h3>
+                        </div>
+                        <!-- END PAGE-HEADER-DOUBLE -->
+
+                        <p><a href="" ng-click="organizingLessons=true" ng-show="!organizingLessons">{% trans 'Organize lesson' %}</a></p>
+
+                        <!-- ORGANIZING LESSONS -->
+                        <div class="lessons organizing-lessons" ng-show="organizingLessons" sortable="lessons" on-update="repositionLessons()">
+                            <!-- LESSON -->
+                            <div class="row" ng-repeat="lesson in lessons">
+                                <div class="col-xs-12">
+                                    <div class="lesson">
+                                        <div class="row">
+
+                                            <div class="col-lg-9">
+                                                <span class="handle"><span class="btn btn-warning"><i class="fa fa-bars"></i></span></span>
+                                                <span class="title" ng-bind="lesson.name">{% trans 'Lesson name' %}</span>
+                                            </div>
+
+                                            <div class="col-lg-3 textright">
+                                                <div class="btn-group" ng-init="openDropdown=false;">
+                                                    <button type="button" class="btn btn-default">
+                                                        <span ng-show="lesson.status=='draft'"> {% trans 'Draft' %}</span>
+                                                        <span ng-show="lesson.status=='listed'"> {% trans 'Listed' %}</span>
+                                                        <span ng-show="lesson.status=='published'"> {% trans 'Published' %}</span>
+                                                    </button>
+                                                    <button type="button" class="btn btn-default dropdown-toggle"
+                                                            ng-click="openDropdown=!openDropdown;">
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu textleft" ng-style="{display:openDropdown?'block':'none'}">
+                                                        <li>
+                                                            <a ng-click="lesson.status='draft';openDropdown=false;"
+                                                               ng-show="lesson.status!='draft'"> {% trans 'Draft' %}</a>
+                                                       </li>
+                                                        <li>
+                                                            <a ng-click="lesson.status='listed';openDropdown=false;"
+                                                               ng-show="lesson.status!='listed'"> {% trans 'Listed' %}</a>
+                                                       </li>
+                                                        <li>
+                                                            <a ng-click="lesson.status='published';openDropdown=false;"
+                                                               ng-show="lesson.status!='published'"> {% trans 'Published' %}</a>
+                                                       </li>
+                                                    </ul>
+                                                </div>
+                                                <button class="btn btn-danger" ng-click="deleteLesson(lesson)"><i class="fa fa-trash-o"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END LESSON -->
+
+                            <div class="submit textright">
+                                <button class="btn btn-danger" ng-click="organizingLessons=false">{% trans 'Cancel' %}</button>
+                                <button class="btn btn-success" ng-click="saveAllLessons()">{% trans 'Save' %}</button>
+                            </div>
+                        </div>
+                        <!-- END ORGANIZING LESSONS -->
+
+                        <!--  LESSON  -->
+                        <div class="lesson row" ng-repeat="lesson in lessons" ng-hide="organizingLessons">
+                            <!--  COL-LG-3  -->
+                            <div class="col-lg-3 col-sm-3 col-sm-3 hidden-xs">
+                                {% verbatim %}
+                                <img ng-src="{{ lesson.thumbnail }}" class="img-thumbnail">
+                                {% endverbatim %}
+                            </div>
+                            <!--  END COL-LG-3  -->
+
+                            <!--  COL-LG-9  -->
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                <a {% verbatim %}href="lessons/{{lesson.id}}"{% endverbatim %} class="title" ng-bind="lesson.name">{% trans 'Lesson name' %}</a>
+                                <div ng-bind-html="lesson.desc|markdown"></div>
+                                <!--  HIDDEN-XS  -->
+                                <div class="hidden-xs" ng-show="lesson.units">
+                                    <table class="table units">
+                                        <tbody>
+                                            <tr>
+                                                <td ng-repeat="unit in lesson.units">
+                                                    {% verbatim %}
+                                                    <span class="has-tooltip unit " data-toggle="tooltip"
+                                                          data-placement="bottom" data-original-title="{{unit.title}}">
+                                                        <i class="fa fa-list" ng-show="unit.activities"></i>
+                                                    </span>
+                                                    {% endverbatim %}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!--  END HIDDEN-XS  -->
+
+                                        <p><i class="fa fa-youtube-play"></i> <small>{% verbatim %}{{ lesson.countVideos() }}{% endverbatim %} {% trans 'videos' %}</small> | <i class="fa fa-list"></i> <small>{% verbatim %}{{ lesson.countActivities() }}{% endverbatim %} {% trans 'activities' %}</small></p>
+
+                            </div>
+                            <!--  END COL-LG-9  -->
+                        </div>
+                        <!--  END LESSON  -->
+
+                        <div class="row textcenter">
+                            <div class="col-lg-12">
+                                {% verbatim %}
+                                <a href="/admin/courses/{{course.id}}/lessons/new" class="col-lg-12 btn btn-lg btn-default uppercase">{% endverbatim %}{% trans 'Add lesson' %}</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        {% if user.is_authenticated and course.has_started %}
+                        <!-- PAGE-HEADER-DOUBLE -->
+                        <div class="page-header-double">
+                            <h3><i class="fa fa-angle-double-right"></i> {% trans "Lessons" %}</h3>
+                        </div>
+                        <!-- END PAGE-HEADER-DOUBLE -->
+                        <!-- FOR LESSON IN COURSE.PUBLIC_LESSONS -->
+                        {% for lesson in course.public_lessons %}
+                            <!-- LESSON -->
+                            <div class="lesson row">
+                                <!-- COL-LG-3 -->
+                                <div class="col-lg-3 col-sm-3 col-sm-3 hidden-xs">
+                                    <img src="{{ lesson.thumbnail }}" class="img-thumbnail img-responsive">
+                                </div>
+                                <!-- END COL-LG-3 -->
+
+                                <!-- COL-LG-9 -->
+                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+
+                                    <p>
+                                        {% if lesson.is_ready and user_is_enrolled %}
+                                            <a href="{% url 'lesson' course.slug lesson.slug %}" class="title">{{ lesson.name }}</a>
+                                        {% else %}
+                                            <span class="title">{{ lesson.name }}</span>
+                                        {% endif %}
+                                        <div class="description">{{ lesson.desc|timtec_markdown }}</div>
+                                    </p>
+
+                                    <!-- HIDDEN-XS -->
+                                    <div class="hidden-xs">
+                                        <!-- TABLE -->
+                                        <table class="units table ">
+                                            <!-- TR -->
+                                            <tr>
+                                                <!-- FOR UNIT IN UNITS -->
+                                                {% for unit in lesson.units.all %}
+                                                    <!-- TD -->
+                                                    <td>
+                                                        {% if lesson.is_ready and user_is_enrolled %}
+                                                            <a class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
+                                                               data-toggle="tooltip" data-placement="bottom"
+                                                               data-original-title="Unidade {{ forloop.counter }}"
+                                                               href="{% url 'lesson' course.slug lesson.slug %}#/{{ forloop.counter }}">
+                                                               {% if unit.activities.exists %}
+                                                                   <i class="fa fa-list"></i>
+                                                               {% endif %}
+                                                            </a>
+                                                        {% else %}
+                                                            <span class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
+                                                                  data-toggle="tooltip" data-placement="bottom"
+                                                                  data-original-title="Unidade {{ forloop.counter }}">
+                                                                  {% if unit.activities.exists %}
+                                                                      <i class="fa fa-list"></i>
+                                                                  {% endif %}
+                                                            </span>
+                                                        {% endif %}
+                                                    </td>
+                                                    <!-- END TD -->
+                                                {% endfor %}
+                                                <!-- END FOR -->
+                                            </tr>
+                                            <!-- END TR -->
+                                        </table>
+                                        <!-- END TABLE -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END LESSON -->
+                        {% endfor %}
+                        <!-- END FOR LESSON IN COURSE.PUBLIC_LESSONS -->
+                        {% endif %}
+                    {% endif %}
+                </section>
+                <!-- END COURSE-LESSONS -->
+            </div>
+
+            <div class="col-md-3 col-sm-4 hidden-xs">
+                <!-- COURSE-SUMMARY -->
+                <section class="summary">
+                    <!-- START DATE -->
+                    {% if in_admin %}
+                    <div class="page-header-double">
+                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Start date' %}</h3>
+                    </div>
+                    <div class="editable editable-text">
+                        <input type="text" ng-model="course.start_date" datepicker-popup="dd/MM/yyyy" is-open="opened" show-button-bar="false" ng-click="opened = true" />
+                    </div>
+                    {% elif not course.has_started and course.start_date %}
+                    <div class="page-header-double">
+                        <h3 class="top"><i class="fa fa-angle-double-right"></i> {% trans 'Start date' %}</h3>
+                    </div>
+                    <div class="content">{{ course.start_date }}</div>
+                    {% endif %}
+
+                    <!-- ABSTRACT -->
+                    <div class="page-header-double">
+                        <h3><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Abstract' %}</h3>
+                    </div>
+
+                    {% if in_admin %}
+                        <modalmarkdowneditor tabindex="2" on-save="saveCourse()" title="{% trans 'Abstract' %}" content="course.abstract"></modalmarkdowneditor>
+                    {% else %}
+                        {{course.abstract|timtec_markdown}}
+                    {% endif %}
+
+                    <!-- END ABSTRACT -->
+
+                    <!-- COURSE-INSTRUCTORS -->
+                    <section class="instructors" id="instructors-info">
+
+                        {% if in_admin %}
+                            <p><a href="" ng-click="organizingInstructors=true" ng-hide="organizingInstructors">{% trans 'Organize Instructors'%}</a></p>
+
+                            <div class="instructors organizing-instructors" ng-show="organizingInstructors" sortable="courseProfessors" on-update="repositionInstructors()">
+
+                                <div class="instructor" ng-repeat="professor in courseProfessors">
+                                    <div class="row">
+                                        <div class="col-lg-11">
+                                            <span class="handle"><span class="btn btn-warning"><i class="fa fa-bars"></i></span></span>
+                                            <span class="title" ng-bind="professor.user_info.name">{% trans 'Name' %}</span>
+                                        </div>
+                                        <div class="col-lg-1 textright">
+                                            <button class="btn btn-danger"
+                                                    ng-click="deleteProfessor(professor)">
+                                                <i class="fa fa-trash-o"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="submit textright">
+                                    <button class="btn btn-danger" ng-click="organizingInstructors=false">{% trans 'Close' %}</button>
+                                    <button class="btn btn-success" ng-click="saveAllInstructors()">{% trans 'Save' %}</button>
+                                </div>
+                            </div>
+
+                            <!-- INSTRUCTOR -->
+                            <div id="" class="instructor row" ng-repeat="professor in courseProfessors" ng-hide="organizingInstructors">
+                                <div class="instructor-photo col-sm-12">
+                                    {% verbatim %}
+                                    <img ng-src="{{ professor.user_info.picture }}"
+                                         onerror="this.src='/static/img/avatar-default.png'"
+                                         class="img-thumbnail">
+                                    {% endverbatim %}
+                                </div>
+                                <div class="col-sm-12">
+                                    <h1 class="fullname top" ng-bind="professor.user_info.name">{% trans 'Name' %}</h1>
+                                    <modalmarkdowneditor title="{% trans 'Biography' %}" on-save="saveProfessor(professor)" content="professor.biography"></modalmarkdowneditor>
+                                </div>
+                            </div>
+                            <!-- END INSTRUCTOR -->
+
+                            <div class="row textcenter">
+                                <div class="col-lg-12">
+                                    <a ng-click="professorsModalActive=true" class="col-lg-12 btn btn-lg btn-default uppercase">{% trans 'Add instructor' %}</a>
+                                </div>
+                            </div>
+                        {% else %}
+                            {% if course.get_video_professors %}
+                            <div class="page-header-double top">
+                                <h3><i class="fa fa-angle-double-right"></i> {% trans "Instructors" %}</h3>
+                            </div>
+
+                            {% for course_professor in course.get_video_professors %}
+                                <div id="{{ course_professor.user.username }}" class="instructor row">
+                                    <div class="instructor-photo col-sm-12">
+                                        <img src="{{ course_professor.user.get_picture_url }}" class="img-thumbnail">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <h1 class="fullname bottom top">{{ course_professor.user.first_name }} {{ course_professor.user.last_name }}</h1>
+                                        <h2 class="job-title top">{{ course_professor.get_job_display }}</h2>
+                                        <p>{{ course_professor.biography|timtec_markdown }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            {% endif %}
+                        {% endif %}
+
+                    </section>
+                    <!-- END COURSE-INSTRUCTORS -->
+                </section>
+                <!-- END COURSE-SUMMARY -->
+            </div>
+        </div>
+        <!-- END ROW -->
+    </section>
+    <!-- END COURSE CONTENT -->
+
+    {% if in_admin %}
+        <professorslist on-select="addProfessor" active="professorsModalActive"></professorslist>
+    {% endif %}
+
+</div>
+<!-- END COURSE -->
+
+{% endblock %}

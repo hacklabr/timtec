@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block js %}
+    {{ block.super }}
+    <script>
+    // FIXME refactor this to angular
+    $(document).ready(function() {
+        var converter1 = Markdown.getSanitizingConverter();
+        var editor1 = new Markdown.Editor(converter1);
+        editor1.run();
+    });
+    </script>
+{% endblock %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
+{% block content %}
+<!-- CONTAINER -->
+<div id="forum" class="course-forum">
+    <!-- HEADER -->
+    {% include "_course-header-inline.html"  with course=course %}
+    <!-- END HEADER -->
+
+    <!-- MAIN CONTENT -->
+    <section id="forum-content" class="container">
+        <header class="secondary-header">
+            <div class="row">
+                <div class="col-lg-9">
+                    <h1>{% trans "Questions & Answers" %}</h1>
+                </div>
+            </div>
+        </header>
+        <header>
+            <h1>Qual a sua pergunta?</h1>
+        </header>
+
+        <!-- QUESTION FORM -->
+        <form class="forum-form" action="{% url 'forum_question_create' course.slug %}" method="post">
+
+
+            {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    {% if form.title.errors %}
+                    <li><a href="#id-title">{% trans 'Fill the question title.' %}</a></li>
+                    {% endif %}
+                    {% if form.text.errors %}
+                    <li><a href="#wmd-input">{% trans 'Fill the question text.' %}</a></li>
+                    {% endif %}
+                    {{ form.non_field_errors }}
+                </ul>
+            </div>
+            {% endif %}
+            {% csrf_token %}
+            <div class="form-group{{ form.title.errors|yesno:' has-error,' }}">
+                <input id="id-title" name="title" type="text" class="form-control" value="{{form.title.value|default_if_none:""}}" placeholder="Qual é a sua dúvida?">
+            </div>
+            <div class="form-group text-editor{{ form.text.errors|yesno:' has-error,' }}">
+                <div class="wmd-panel" markdowneditor="true">
+                    <div id="wmd-button-bar" class="js-button-bar"></div>
+                    <div class="form-group">
+                        <textarea id="wmd-input" name="text" class="form-control" rows="4" placeholder="Descrição da sua dúvida">{{form.text.value|default_if_none:""}}</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
+            </div>
+            <div class="form-group bottom">
+                <div class="row">
+                    <!--
+                    <div class="col-lg-8 col-sm-8">
+                        <small><a href="">Política de Perguntas e Respostas</a></small>
+                    </div>
+                    -->
+                    <div class="col-lg-12 col-sm-12 textright">
+                        <input type="submit" class="btn btn-success" value="Enviar">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

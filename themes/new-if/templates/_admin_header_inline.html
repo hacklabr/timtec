@@ -1,0 +1,73 @@
+{% load i18n %}
+    <!-- MAIN-HEADER -->
+    <header class="main-header container">
+        <!-- PAGE-HEADER -->
+        <div class="page-header">
+            <!-- ROW -->
+            <div class="row">
+                {% if course_intro_admin %}
+                <div class="col-md-9 col-xs-12">
+                    <div class="editable-title"><input type="text" ng-model="course.name" placeholder="{% trans 'Course name' %}"></div>
+                    <div class="course-slug clearfix">
+                      <label>http://{{ site.domain }}/course/</label>
+                      {% verbatim %}
+                      <div class="editable-slug"><input type="text" ng-model="course.slug" placeholder="{{course.name|slugify}}"></div>
+                      {% endverbatim %}
+                    </div>
+                </div>
+                {% else %}
+                <!-- COL-LG-8 -->
+                <div class="col-md-8 col-sm-12">
+                    <h1 class="course-name bottom top">
+                        <a href="{% url 'administration.edit_course' course.id %}">{{ course.name }}</a>
+                    </h1>
+                    {% include "_course-details-inline.html" with course=course %}
+                </div>
+                <!-- END COL-LG-8 -->
+                {% endif %}
+                <!-- COL-LG-4 -->
+                <div class="{% if course_intro_admin %}col-md-3{% else %}col-md-4{% endif %} col-sm-12">
+                    <!-- COURSE-SECTION-NAV -->
+                    <nav class="course-sections textright">
+                        <a ng-href="{% url 'administration.edit_course' course.id %}"
+                           class="has-tooltip fa fa-home{% if course_intro_admin %} active{% endif %}"
+                           data-original-title="{% trans 'Course' %}"
+                           data-toggle="tooltip" data-placement="top">
+                        </a>
+                        <a ng-href="{% url 'administration.forum' course.id %}"
+                           class="has-tooltip fa fa-comments{% if '/forum/' in request.path %} active{% endif %}"
+                           data-original-title="{% trans 'Forum' %}"
+                           data-toggle="tooltip" data-placement="top">
+                        </a>
+                        <a ng-href="{% url 'administration.course_material' course.id %}"
+                           class="has-tooltip fa fa-file {% if '/material/' in request.path %} active{% endif %}"
+                           data-original-title="{% trans 'Material' %}"
+                           data-toggle="tooltip" data-placement="top">
+                        </a>
+                        <div class="dropdown">
+                            <a class="has-tooltip fa fa-cog dropdown-toggle{% if '/messages/' in request.path or '/message/' in request.path or '/reports/' in request.path or '/permissions/' in request.path %} active{% endif %}"
+                               data-original-title="{% trans 'Tools' %}"
+                               data-placement="top" id="course-tools" data-toggle="dropdown" aria-expanded="true">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="course-tools">
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" ng-href="{% url 'administration.messages' course.id %}">{% trans 'Messages' %}</a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1"  ng-href="{% url 'administration.reports' course.id %}">{% trans 'Reports' %}</a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" ng-href="{% url 'course.permissions' course.id %}">{% trans 'Permissions' %}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <!-- END COURSE-SECTION-NAV -->
+                </div>
+                <!-- END COL-LG-4 -->
+            </div>
+            <!-- END ROW -->
+        </div>
+        <!-- END PAGE-HEADER -->
+    </header>
+    <!-- MAIN-HEADER -->

@@ -1,0 +1,176 @@
+{% load compressed %}
+{% load timtec_markdown %}
+{% load i18n %}
+
+<script>
+    window.course_id = {{ course.pk }};
+    window.user_id = {{ user.pk }};
+    {% if user.is_staff or user.is_superuser  %}
+    window.is_admin = true;
+    {% else %}
+    window.is_admin = false;
+    {% endif %}
+</script>
+{% compressed_js 'forum' %}
+<section id="forum" class="forum-inline">
+
+    <section id="forum-content" ng-controller="InlineForumCtrl">
+        {% if question_form %}
+            <div class="page-header-double">
+                <h3><i class="fa fa-angle-double-right"></i> {% trans "Questions & Answers" %}</h3>
+            </div>
+            <!-- QUESTION FORM -->
+            <div class="forum-form">
+                <div class="alert alert-danger" role="alert" ng-show="question_title_validation || question_text_validation">
+                    <ul>
+                        <li ng-show="question_title_validation"><a href="#id-title">Preencha o título da questão.</a></li>
+                        <li ng-show="question_text_validation"><a href="#wmd-input">Preencha o conteúdo da questão.</a></li>
+                    </ul>
+                </div>
+                <div class="form-group" ng-class="question_title_validation">
+                    <input id="id-title" ng-model="new_question_title" name="title" type="text" class="form-control" placeholder="{% trans 'What is your question?' %}">
+                </div>
+                <div class="form-group text-editor">
+                    <div class="wmd-panel" markdowneditor="true">
+                        <div id="wmd-button-bar" class="js-button-bar"></div>
+                        <div class="form-group" ng-class="question_text_validation">
+                            <textarea id="wmd-input" ng-model="new_text" name="text" class="form-control" rows="4" placeholder="{% trans 'Description of your question' %}"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
+                </div>
+                <div class="form-group bottom">
+                    <div class="row">
+                        <div class="col-lg-8 col-sm-8">
+                            <!-- <small><a href="">{% trans "Questions & Answers policy" %}</a></small> -->
+                        </div>
+                        <div class="col-lg-4 col-sm-4 textright">
+                            <input type="submit" class="btn btn-success" value="Enviar" ng-click="new_question()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END QUESTION FORM -->
+        {% endif %}
+
+            <!-- FILTERS -->
+            <div class="filters">
+                <!--  FORM INLINE -->
+                <form class="form-inline">
+                    <!-- ROW -->
+                    <div class="row" ng-if="current_user_role == 'coordinator' || current_user_role == 'assitant'">
+                        <div class="col-sm-12">
+                            <label for="filter-class"> {% trans "Filter classes" %}:
+                                <select class="form-control" id="filter-class" ng-model="filters.selected_class" ng-change="filter()">
+                                    <optgroup label="Liste por:">
+                                        <option ng-if="my_classes.length" value="my_classes">Minhas turmas</option>
+                                        <option value="all" ng-if="current_user_role == 'coordinator'">Todas as turmas deste curso</option>
+                                        <option value="others_classes" ng-if="current_user_role == 'coordinator' && others_classes.length">Turmas dos outros professores</option>
+                                    </optgroup>
+                                    <optgroup ng-if="others_classes.length || my_classes.length " label="Ou escolha uma turma:">
+                                        {% verbatim %}
+                                        <option ng-repeat="klass in my_classes" id="{{klass.id}}" value="{{klass.id}}">{{ klass.name }}</option>
+                                        <option ng-repeat="klass in others_classes" id="{{klass.id}}" value="{{klass.id}}">{{ klass.name }}</option>
+                                        {% endverbatim %}
+                                    </optgroup>
+                                </select>
+                            </label>
+                        </div>
+                    </div><!-- END ROW -->
+                </form>
+            </div>
+
+            <!-- QUESTIONS LIST-->
+            <section class="questions clearfix" ng-show="totalItems==0">
+            {% trans "There is no question in this forum yet" %}
+            </section>
+
+            <section class="questions clearfix" ng-show="totalItems>0">
+                <div class="search-filter">
+                    <div class="row">
+                        <div class="col-lg-7 col-sm-7">
+                            <div class="btn-group">
+                                {% verbatim angularjs %}
+                                <button type="button" class="btn btn-info">{{ sort_label }}</button>
+                                {% endverbatim angularjs %}
+                                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-chevron-down"></i>
+                                </button>
+                                <ul class="dropdown-menu top">
+                                    <li><a href="" ng-click="sortBy('votes')">{% trans 'Most voted'%}</a></li>
+                                    <li><a href="" ng-click="sortBy('date')">{% trans 'Most recent'%}</a></li>
+                                    <li><a href="" ng-click="sortBy('answers')">{% trans 'Most answerd'%}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-sm-5 textright">
+                            <!--
+                            <pagination ng-if="totalItems>itemsPerPage" ng-change="changePageHandler(page)"
+                                        max-size="5" items-per-page="itemsPerPage" boundary-links="true"
+                                        total-items="totalItems" page="currentPage" class="pagination-sm top pointer"
+                                        previous-text="&lsaquo;" next-text="&rsaquo;"
+                                        first-text="&laquo;" last-text="&raquo;">
+                            </pagination>
+                            -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12" ng-hide="questions.$resolved">
+                    <p>{% trans 'Loading questions' %}...   <i class="loading fa fa-refresh fa-spin"></i></p>
+                </div>
+                <div ng-repeat="question in questions">
+                    <div class="question" ng-class="{'is-hidden': question.hidden}">
+                        <table>
+                            <tr>
+                                <td class="stats">
+                                    <div class="votes">
+                                        <p><span class="numbers-votes">{% verbatim %}{{question.votes}}{% endverbatim %}</span>{% trans 'votes' %}</p>
+                                        <p><span class="numbers-answers">{% verbatim %}{{ question.answers.length }}{% endverbatim %}</span>{% trans 'answers' %}</p>
+                                    </div>
+
+                                    <div ng-if="!question.hidden && is_current_user_forum_moderator" ng-click="justification_modal(question)" class="hide-question btn btn-danger btn-sm">{% trans 'Hide' %}</div>
+                                </td>
+                                <td class="content">
+                                    {% verbatim %}
+                                    <h1 class="title"><a href="/forum/question/{{ question.slug }}">{{ question.title }}</a></h1>
+                                    <div class="text" ng-bind-html="question.text|markdown|words:50"></div>
+                                    <div class="author">Pergunta feita feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ question.username }}">{{ question.username }}</a></div>
+                                    {% endverbatim %}
+                                </td>
+                            </tr>
+                        </table>
+                        <div ng-if="question.hidden" class="why-hidden">
+                            <h1>{% trans 'Know why your question was hidden' %}</h1>
+                            {% verbatim %}
+                            <p>{{ question.hidden_justification }}</p>
+                            {% endverbatim %}
+                        </div>
+                    </div>
+                </div>
+
+                <script type="text/ng-template" id="justificationModal.html">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">{% trans "Why my question was hidden?" %}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <textarea class="form-control" rows="10" placeholder="Message" required="true" ng-model="question.hidden_justification"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="col-lg-12">
+                                <button type="button" class="btn btn-danger" ng-click="cancel()">{% trans "Close" %}</button>
+                                <button type="button" class="btn btn-success" ng-click="ok()" data-dismiss="modal">{% trans "Send" %}</button>
+                            </div>
+                        </div>
+                    </div>
+                </script>
+            </section>
+            <!-- QUESTIONS LIST-->
+    </section>
+</section>

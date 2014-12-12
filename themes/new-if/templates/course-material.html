@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% load timtec_markdown %}
+{% load compressed %}
+
+{% block js %}
+    {{ block.super }}
+    {% compressed_js 'course_material' %}
+{% endblock %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
+{% block content %}
+
+{% if not in_admin %}
+    <script>
+        window.course_id = {{ course.pk }};
+    </script>
+{% endif %}
+
+<!-- CONTAINER -->
+<div id="course" class="course-material" ng-app="courseMaterial">
+    {% if in_admin %}
+        {% include "_admin_header_inline.html" with course=course %}
+    {% else %}
+        {% include "_course-header-inline.html"  with course=course %}
+    {% endif %}
+
+    <!-- MAIN CONTENT -->
+    <section id="course-content" class="container">
+        <header class="secondary-header">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>{% trans "Course Material" %}</h1>
+                </div>
+            </div>
+        </header>
+
+        <div class="row">
+            {% if in_admin %}
+                <div class="col-sm-9 col-lg-9" ng-controller="CourseMaterialEditorCtrl">
+                    <p class="description">
+                        <span class="description" ng-bind-html="course_material.text|markdown"></span>
+                    </p>
+                    <a data-toggle="modal" href="#course-material-modal">{% trans 'Edit text' %}</a>
+                    <div class="modal fade" id="course-material-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                        &times;
+                                    </button>
+                                    <h4 class="modal-title">{% trans 'Edit course material' %}</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="text-editor" markdowneditor="true">
+                                        <div class="row">
+                                            <div class="col-lg-12 js-button-bar"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12 form-group">
+                                                <textarea id="wmd-input" ng-model="course_material.text" class="col-lg-12 form-control" rows="15"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="js-preview"></div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" ng-click="reset()" class="btn btn-default" data-dismiss="modal">
+                                            {% trans 'Cancel' %}
+                                        </button>
+                                        <button type="button" ng-click="save()" class="btn btn-primary" data-dismiss="modal">
+                                            {% trans 'Save' %}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-sm-9 col-lg-9">
+                    <p class="description">{{ course_material.text|timtec_markdown }}</p>
+                </div>
+            {% endif %}
+
+            <!-- ASIDE -->
+            <aside class="col-sm-3 col-lg-3">
+                {% if in_admin %}
+                    <form action="{% url 'file_upload' course.slug %}" class="dropzone textcenter" drop-zone id="file-dropzone">
+                        <p><strong>{% trans 'Drop' %}</strong> {% trans 'files to upload' %}<br>{% trans '(or click)' %}</p>
+                        {% csrf_token %}
+                        <input type="hidden" name="course_material" value="{{ course_material.id }}" id="id_course_material">
+                    </form>
+                {% endif %}
+                <ul class="uploaded-files-list">
+                    <li><h5>{% trans "Files" %}</h5></li>
+                    {% for file in course_material.files.all %}
+                    <li><a href="{{ file.file.url }}">{{ file.file.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </aside>
+            <!-- END ASIDE -->
+        </div>
+    </section>
+    <!-- END MAIN CONTENT-->
+</div>
+<!-- END CONTAINER -->
+{% endblock %}

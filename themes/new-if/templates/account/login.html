@@ -1,0 +1,111 @@
+{% extends 'account/base.html' %}
+{% load i18n %}
+
+<!-- TABLET AND DESKTOP -->
+{% block account_content %}
+    <h1>
+        <i class="fa fa-sign-in"></i><br/>
+        {% trans "Sign In" %}
+    </h1>
+
+    <form method="post" action="{% url 'account_login' %}" class="form-horizontal">{% csrf_token %}
+        <div class="form-group{% if form.errors %} has-error{% endif %}">
+            <label class="col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label">{% trans "Username" %}</label>
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                <input name="login" type="text" class="form-control"
+                       value="{{form.login.value|default_if_none:""}}" placeholder='{% trans "E-mail or username" %}'/>
+                {% for error in form.login.errors %}
+                <small>{{error}}</small>
+                {% endfor error in %}
+            </div>
+        </div>
+        <div class="form-group{% if form.errors %} has-error{% endif %}">
+            <label class="col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label">{% trans "Password" %}</label>
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                <input name="password" type="password" class="form-control" placeholder='{% trans "Password" %}'>
+                {% for error in form.password.errors %}
+                <small>{{error}}</small>
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                <small>{{error}}</small>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="submit">
+            <div class="row">
+                <div class="col-lg-7 col-lg-offset-4 col-md-7 col-md-offset-4 col-sm-7 col-sm-offset-4 clearfix">
+                    <a href="{% url 'account_reset_password' %}" class="alignleft">{% trans "Forgot my password" %}</a>
+                    <button class="btn btn-success alignright">{% trans "Sign In" %}</button>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="next" value="{{ next }}" />
+        <hr/>
+        <!-- <div class="row">
+            <div class="col-lg-7 col-lg-offset-4 col-md-7 col-md-offset-4 col-sm-7 col-sm-offset-4 textleft clearfix">
+                {% load socialaccount %}<a href="{% provider_login_url 'facebook' method='oauth2' %}">Facebook Connect</a>
+            </div>
+        </div>
+        -->
+    </form>
+{% endblock %}
+<!-- END TABLET AND DESKTOP -->
+
+
+<!-- MOBILE -->
+{% block account_content_mobile %}
+    <div class="row">
+        <div class="col-xs-12">
+          <h1 class="textcenter">
+              <i class="fa fa-sign-in"></i><br/>
+              {% trans "Sign In" %}
+          </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <form method="post" action="{% url 'account_login' %}" class="form-horizontal">{% csrf_token %}
+                <div class="form-group{% if form.errors %} has-error{% endif %}">
+                    <label class="col-xs-12 control-label">{% trans "Username" %}</label>
+                    <div class="col-xs-12">
+                        <input name="login" type="text" class="form-control"
+                               value="{{form.login.value|default_if_none:""}}" placeholder='{% trans "E-mail or username" %}'/>
+                        {% for error in form.login.errors %}
+                        <small>{{error}}</small>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="form-group{% if form.errors %} has-error{% endif %}">
+                    <label class="col-xs-12 control-label">{% trans "Password" %}</label>
+                    <div class="col-xs-12">
+                        <input name="password" type="password" class="form-control" placeholder='{% trans "Password" %}'>
+                        {% for error in form.password.errors %}
+                        <small>{{error}}</small>
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                        <small>{{error}}</small>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="submit">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p><button class="btn btn-success btn-lg col-xs-12">{% trans "Sign In" %}</button></p>
+                        </div>
+                        <div class="col-xs-12 textcenter">
+                            <p><a href="{% url 'account_reset_password' %}">{% trans "Forgot my password" %}</a></p>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="next" value="{{ next }}" />
+                <!--
+                <hr/>
+                <div class="textcenter">
+                    {% load socialaccount %}<a href="{% provider_login_url 'facebook' method='oauth2' %}">Facebook Connect</a>
+                </div>
+                -->
+            </form>
+        </div>
+    </div>
+{% endblock %}
+<!-- END MOBILE -->

@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% load compressed %}
+{% load static %}
+{% load i18n %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
+{% block js %}
+    {{block.super}}
+    <script>
+        window.course_id = {{ course.pk }};
+        window.course_slug = '{{ course.slug }}';
+    </script>
+    {% compressed_js 'messages' %}
+{% endblock %}
+
+
+
+{% block content %}
+
+<!--  COURSE CONTENT  -->
+<div id="messages" class="course-messages" ng-app="messages">
+
+    {% if in_admin %}
+        {% include "_admin_header_inline.html" with course=course %}
+    {% else %}
+        {% include "_course-header-inline.html"  with course=course %}
+    {% endif %}
+
+    <!-- COURSE-CONTENT -->
+    <section id="messages-content" class="container">
+        <header class="secondary-header" ng-controller="NewMessageController">
+            <div class="row">
+                <div class="col-lg-9">
+                    <h1>{% trans "Messages" %}</h1>
+                </div>
+                <div class="col-lg-3">
+                    <a class="new-message btn btn-lg btn-danger uppercase" ng-click="new_message()">{% trans "New Message" %}</a>
+                </div>
+                    <script type="text/ng-template" id="newMessageModal.html">
+                        <div class="modal-header">
+                            <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">{% trans "New Message" %}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-danger" role="alert" ng-show="empty_msg_subject_error || empty_msg_body_error ">
+                                <ul>
+                                    <li ng-show="empty_msg_subject_error"><a href="#id-title">{% trans 'Fill the message subject' %}</a></li>
+                                    <li ng-show="empty_msg_body_error"><a href="#wmd-input">{% trans 'Fill the message body' %}</a></li>
+                                </ul>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" ng-model="new_message.subject" placeholder="{% trans 'Subject' %}"/>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" rows="10" ng-model="new_message.message" placeholder="{% trans 'Message' %}"></textarea>
+                            </div>
+                            <div class="form-group row">
+                                <div class="students col-lg-12">
+                                    <p><label><input type="checkbox" ng-model="modal.all_checked"> {% trans 'Send to all classes' %}</label></p>
+                                    {% verbatim %}
+                                    <div ng-repeat="klass in classes">
+                                        <label ng-show="!modal.all_checked"><input type="checkbox" checklist-model="classes.checked" checklist-value="klass.students"> {{ klass.name }}</label>
+                                    </div>
+                                    {% endverbatim %}
+                                    <div class="autocomplete" ng-show="!modal.all_checked">
+                                        <input type="text" id="search-user" class="form-control" ng-model="asyncSelected"
+                                                        placeholder="{% trans 'Type the name, email or user name of the professor to search...' %}"
+                                                        typeahead="user as user.formated_name for user in getUsers($viewValue)"
+                                                        typeahead-loading="loadingLocations"
+                                                        typeahead-on-select="on_select_student($model); asyncSelected = '';"
+                                                        typeahead-min-length="2"
+                                                        typeahead-wait-ms="500">
+                                        <i ng-show="loadingLocations" class="loading fa fa-refresh fa-spin"></i>
+                                    </div>
+                                    <table class="table table-list" ng-show="!modal.all_checked && recipient_list.length">
+                                        <tr>
+                                            <th class="fullname">{% trans "Full name" %}</th>
+                                            <th class="email">{% trans "Email" %}</th>
+                                            <th class="username">{% trans "Username" %}</th>
+                                            <th class="actions">{% trans "Actions" %}</th>
+                                        </tr>
+                                        <tr ng-repeat="student in recipient_list">
+                                            {% verbatim %}
+                                            <td>{{student.name}}</td>
+                                            <td>{{student.email}}</td>
+                                            <td>{{student.username}}</td>
+                                            {% endverbatim %}
+                                            <td class="textcenter"><button class="btn btn-warning" ng-click="remove_student($index)"><i class="fa fa-trash-o"></i></button></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" ng-click="cancel()">{% trans "Close" %}</button>
+                                <button type="button" class="btn btn-success" ng-click="send()">{% trans "Send" %}</button>
+                            </div>
+                        </div>
+                    </script>
+            </div>
+        </header>
+        {% block messages_content %}
+        <div class="messages" ng-controller="MessagesListController">
+            <div class="message" ng-repeat="message in messages">
+                <div class="row">
+                    <div class="col-lg-1 textright">
+                        {% verbatim %}
+                        <span class="date">{{ message.date|date:"dd/MM/yy" }}</span>
+                        {% endverbatim %}
+                    </div>
+                    <div class="col-lg-11">
+                        {% verbatim %}
+                        <div class="subject">{{ message.subject }}</div>
+                        {% endverbatim %}
+                        <div class="body">
+                        <span ng-bind-html="message.message|markdown|words:50"></span>
+                            {% if in_admin %}
+                                {% verbatim %}<a ng-href="/admin/course/{{course_id}}/message/{{message.id}}">{% endverbatim %} {% trans 'More...' %}</a>
+                            {% else %}
+                                {% verbatim %}<a ng-href="/course/{{course_slug}}/message/{{message.id}}">{% endverbatim %} {% trans 'More...' %}</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+    </section>
+    <!--  END COURSE CONTENT  -->
+
+
+
+
+
+
+</div>
+<!--  END COURSE CONTENT  -->
+
+{% endblock %}

@@ -1,0 +1,29 @@
+// COURSE SECTIONS (NAVGATION)
+.course-sections {
+    a.fa {
+        border-right: 1px solid fade(@brand-primary, 20%);
+        &.active, &:hover, &:focus {
+            color: @brand-primary;
+        }
+    }
+}
+
+// LESSON HEADER AND NAVIGATION
+#course.course-lesson {
+    #course-content {
+        nav.course-lessons {
+            h1 {
+                color: darken(@brand-primary, 10%);
+                font-size: 24px;
+            }
+            .editable-title {
+                font-size: 24px;
+                input {
+                    color: darken(@brand-primary, 10%);
+                    font-family: @font-family-sans-serif;
+                    font-weight: normal;
+                }
+            }
+        }
+    }
+}

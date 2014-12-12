@@ -1,0 +1,92 @@
+// COURSE CONTENT
+#course-content {
+
+    // COURSE SUMMARY - Course intro
+    // ********************************************************************* //
+    .summary {
+        margin-top: 20px;
+    }
+
+    // COURSE LESSONS - Course intro
+    // ********************************************************************* //
+    .lessons {
+        .lesson {
+            background-color: #fff;
+            border-radius: @border-radius-base;
+            padding: 15px 0;
+            margin-bottom: 20px;
+        }
+        // END LESSON
+    }
+      // END LESSONS
+
+    // COURSE INSTRUCTORS - Course intro
+    // ********************************************************************* //
+    .instructors {
+        h1.fullname {
+            margin-bottom: 10px;
+        }
+    }
+    // END INSTRUCTORS
+
+    // NEXT LESSON
+    // ********************************************************************* //
+    .next-lesson {
+        border: 1px solid #eeeeee;
+        padding: 40px 20px;
+        position: relative;
+        text-align: center;
+        @media (min-width: @screen-lg-min) {
+            height: 424px;
+        }
+        @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+            height: 349px;
+        }
+        @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+            height: 372px;
+        }
+        &:before {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+        .btn {
+            span {
+                float: left;
+            }
+            .fa {
+                float: right;
+                font-size: 18px;
+                margin: 1px 0 0 10px;
+            }
+        }
+    }
+
+    // COURSE NOTES - General
+    // ********************************************************************* //
+    #student-notes {
+        @media (max-width: @screen-sm-max) { margin-top: 20px; }
+    }
+    .notes {
+        textarea {
+            @media (min-width: @screen-lg-min) { height: 310px; }
+            @media (max-width: @screen-sm-max) { width: 100%; }
+        }
+    }
+
+    // COURSE UNITS - General
+    // ********************************************************************* //
+    .units {
+        a.unit {
+            cursor: pointer;
+        }
+    }
+}
+
+// UPLOADED FILES LIST
+ul.uploaded-files-list {
+    li {
+        border-bottom: 1px solid fade(@brand-primary, 20%);
+    }
+}

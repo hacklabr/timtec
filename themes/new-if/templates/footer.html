@@ -1,0 +1,52 @@
+<!-- FOOTER -->
+<div id="main-footer" class="footer">
+    <div class="container">
+        <div class="row">
+            <ul class="textcenter col-lg-12">
+                <li><a href="#" data-toggle="modal" data-target="#modal-contact">Contato</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- END FOOTER -->
+
+<div class="modal fade" id="modal-about">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            {% include '_modal_about.html' %}
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div class="modal fade" id="modal-contact">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Contato</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-1">
+                        <form class="form-horizontal" method="post" action="{% url 'contact' %}">
+                            {% csrf_token %}
+                            {% include '_contact_form.html' %}
+                            <div class="submit textright">
+                                <button type="reset" class="btn btn-danger">Limpar</button>
+                                <button type="submit" class="btn btn-success">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

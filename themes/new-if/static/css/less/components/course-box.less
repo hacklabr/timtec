@@ -1,0 +1,35 @@
+// COURSES BOXES FROM HOME AND COURSES PAGE
+// ********************************************************************* //
+#courses {
+    .course {
+    min-height: 195px;
+        .course-link { // link wrapper
+            &:hover {
+                .info {
+                    background-color: lighten(@brand-primary, 40%);
+                }
+                .enroll {
+                    background-color: darken(@brand-primary, 5%);
+                }
+            }
+        } // .course-link
+        .thumb-wrapper { // course thumbnail
+            .mouseover {
+                background-color: @brand-hover;
+            }
+            .thumb {
+                background-color: lighten(@brand-primary, 45%)
+            }
+        } // .thumb-wrapper
+
+        .info { // course info
+            background-color: lighten(@brand-primary, 50%);
+            padding: 15px;
+        } // .info
+        .enroll { // go to course link
+            background-color: @brand-primary;
+            font-family: @font-family-base;
+            min-height: 42px;
+        } // .enroll
+    } // .course
+}

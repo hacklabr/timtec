@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load compressed %}
+{% load staticfiles %}
+{% load timtec_markdown %}
+
+{% block js %}
+{{ block.super }}
+{% compressed_js 'lesson' %}
+
+<script type="text/javascript" src="{% static 'js/introjs/lesson.js' %}"></script>
+
+{% endblock %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
+{% block content %}
+
+<script type="text/javascript">
+window.lessonId = {{ lesson.pk }};
+// Content type id for object type core.Unit used by django generic relations.
+window.unit_content_type_id = {{ unit_content_type_id }};
+
+$(document).ready(function() {
+    $(".nav-tabs a").click(function(e) {
+        e.preventDefault();
+        $(this).tab('show');
+    });
+    $('a.unit').tooltip();
+
+    // startIntro();
+});
+</script>
+
+<!-- COURSE -->
+<div id="course" class="course-lesson" ng-app="lesson">
+
+    <!-- HEADER -->
+    {% include "_course-header-inline.html"  with course=lesson.course %}
+    <!-- END HEADER -->
+
+    <!-- COURSE CONTENT -->
+    <section id="course-content" class="container">
+
+        {% include '_lesson_header.html' %}
+
+        <!-- ROW -->
+        <div ng-controller="MainCtrl">
+        <div class="row" >
+
+            {% verbatim %}
+            <!-- UNITS NAVIGATION FOR TABLET AND DESKTOP -->
+            <div class="col-md-1 col-sm-2 hidden-xs" id="lesson-units-nav">
+                <!-- UNITS -->
+                <div class="units">
+                    <a style="display:block;" data-placement="right"
+                       title="{{unit.video.name}}"
+                       href="#/{{$index+1}}"
+                       class="has-tooltip unit track" data-toggle="tooltip"
+                       ng-repeat="unit in lesson.units"
+                       ng-class="{watching: unit==currentUnit, done: unit.progress.complete}">
+                           <span class="position" ng-bind="unit.position+1"></span>
+                           <i class="fa fa-list" ng-show="unit.activities"></i>
+                    </a>
+                    <!-- <label ng-hide="false" style="font-family: monospace">
+                        video <input type="radio" ng-model="section" value="video"/>
+                    </label>
+                    <label ng-hide="false" style="font-family: monospace">
+                        ativi <input type="radio" ng-model="section" value="activity"/>
+                    </label> -->
+                </div>
+                <!-- END UNITS -->
+            </div>
+            <!-- END UNITS NAVIGATION FOR TABLET AND DESKTOP -->
+
+            <!-- UNITS NAVIGATION FOR PHONES -->
+            <div class="col-xs-12 visible-xs">
+                <p>
+                    <select ng-model="selectedIndex" ng-change="locationChange(selectedIndex)" class="form-control">
+                        <option ng-repeat="unit in lesson.units"
+                                ng-value="$index+1"
+                                ng-selected="unit==currentUnit"
+                                value="{{$index+1}}">{% endverbatim %}{% trans 'Unit' %}{% verbatim %} {{ unit.position + 1 }}</option>
+                    </select>
+                </p>
+            </div>
+            <!-- END UNITS NAVIGATION FOR PHONES -->
+            {% endverbatim %}
+
+            <div class="col-lg-8 col-md-8 col-sm-10 col-xs-12">
+                <!--
+                this class exists to circunvent a flash + youtube api error
+                in which if the video div is really hidden the api breaks
+                -->
+                <div ng-class="{hidder: section!='video'}" class="video embed-responsive embed-responsive-16by9">
+                    <div class="embed-responsive-item" id="youtube-player" youtube-player></div>
+                </div>
+                <div ng-show="section=='activity'" class="course-activity">
+                    <ng:include src="activityTemplateUrl"></ng:include>
+                </div>
+                <div ng-show="section=='comment'" class="comment">
+                    <div class="panel panel-default" style="min-height: 368px;">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">{% trans 'Professor comment' %}</h2>
+                        </div>
+                        <div class="panel-body" ng-bind-html="currentActivity.comment|markdown"></div>
+                    </div>
+                    <div class="row" ng-if="answer.correct">
+                        <div class="col-lg-12 col-md-12 col-sm-12 textright">
+                            <button class="btn btn-success" ng-click="nextStep()">{% trans 'Continue' %}</button>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="section=='end'" class="next-lesson">
+                    {% if next_url %}
+                        <a class="btn btn-info" href="{{ next_url }}"><span>Vá para a próxima aula</span><i class="fa fa-caret-right"></i></a>
+                    {% else %}
+                        <a class="btn btn-info" href="{% url 'course_intro' lesson.course.slug %}"><span>Voltar para home do curso</span><i class="fa fa-caret-right"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- div ng-view></div -->
+
+            <!-- NOTES -->
+            <div class="col-lg-3 col-md-3 col-sm-10 col-xs-12 col-md-offset-0 col-sm-offset-1" id="student-notes">
+                <h3 class="top"><i class="fa fa-angle-double-right"></i> {% trans 'Annotations' %}</h3>
+                <div class="tab-content">
+                    {% include "_notes_inline.html" %}
+                </div>
+            </div>
+            <!-- END NOTES -->
+        </div>
+        <!-- END ROW -->
+
+        <div class="row">
+            <div class="col-lg-8 col-sm-10 col-lg-offset-1 col-sm-offset-1">
+                <!-- SIDENOTES -->
+                <div class="side-notes" id="materials">
+                    <div class="page-header-double">
+                        <h3><i class="fa fa-angle-double-right"></i> {% trans 'Addicional materials' %}</h3>
+                    </div>
+                    <span ng-bind-html="currentUnit.side_notes|markdown"></span>
+                    <p ng-if="!currentUnit.side_notes">{% trans 'This unit has no addicional materials' %}</p>
+                </div>
+                <!-- END SIDENOTES -->
+
+                <!-- FORUM -->
+                {% include "_forum_inline.html"  with course=lesson.course question_form=1 %}
+                <!-- END FORUM -->
+            </div>
+        </div>
+        </div>
+    </section>
+    <!-- END COURSE CONTENT -->
+</div>
+<!-- END COURSE -->
+
+{% endblock %}

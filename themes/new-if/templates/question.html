@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load compressed %}
+{% load staticfiles %}
+{% load timtec_markdown %}
+
+{% block js %}
+    {{block.super}}
+    {% compressed_js 'forum' %}
+{% endblock %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
+{% block content %}
+<script>
+ window.question_id = {{ question_django.pk }};
+ window.user_id = {{ user.pk }};
+</script>
+
+<!-- CONTAINER -->
+<div id="forum" class="course-forum">
+    <!-- HEADER -->
+    {% include "_course-header-inline.html"  with course=question_django.course %}
+    <!-- END HEADER -->
+
+    <!-- MAIN CONTENT -->
+    <section id="forum-content" class="container" ng-app="forum" ng-controller="QuestionCtrl">
+        <header class="secondary-header">
+            <div class="row">
+                <div class="col-lg-9">
+                    <h1>{% trans "Questions & Answers" %}</h1>
+                </div>
+                <div class="col-lg-3">
+                    <a href="{% url 'forum_question_create' question_django.course.slug %}" class="ask-a-question btn btn-lg btn-danger uppercase">{% trans "Ask a question" %}</a>
+                </div>
+            </div>
+        </header>
+        {% verbatim angularjs %}
+        <div class="question">
+            <table>
+                <tr>
+                    <td class="rating">
+                        <div ng-app="vote" ng-controller="QuestionVoteCtrl">
+                            <div class="arrow-up" ng-class="{active: question_vote.value==1}" ng-click=vote_question('up')></div>
+                            <div class="votes" >{{ question.votes }}</div>
+                            <div class="arrow-down" ng-class="{active: question_vote.value==-1}" ng-click=vote_question('down')></div>
+                        </div>
+                    </td>
+                    <td class="content">
+                        <h1 class="title">{{ question.title }}</h1>
+                        <div class="text" ng-bind-html="question.text|markdown"></div>
+                        <div class="author">Pergunta feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{question.username}}">{{ question.username }}</a></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        {% endverbatim angularjs %}
+
+        <!-- ANSWERS -->
+        <section class="answers">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <header class="no-bottom-border">
+                        <h2><span ng-init="num_answers={{ question_django.answers.count }}">{% verbatim angularjs %} {{ num_answers }} {% endverbatim angularjs %}</span> Resposta<span ng-if="num_answers>1">s</span></h2>
+                    </header>
+                    {% verbatim angularjs %}
+                    <div class="answer" ng-repeat="answer in answers">
+                        <table>
+                            <tr>
+                                <td class="rating">
+                                    <div>
+                                        <div class="arrow-up" ng-class="{active: answer.current_user_vote.value==1}" ng-click=vote(answer,'up')></div>
+                                        <div class="votes">{{ answer.votes }}</div>
+                                        <div class="arrow-down" ng-class="{active: answer.current_user_vote.value==-1}" ng-click=vote(answer,'down')></div>
+                                    </div>
+                                </td>
+                                <td class="content">
+                                    <div ng-bind-html="answer.text|markdown"></div>
+                                    <div class="author">Resposta feita em <strong>{{ answer.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ answer.username }}">{{ answer.username }}</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    {% endverbatim angularjs %}
+
+                    <section class="your-answer" ng-show="editor_enabled" id="editor">
+                        <header>
+                            <h2>Sua Resposta</h2>
+                        </header>
+                        <div class="forum-form">
+                            <div class="alert alert-danger" role="alert" ng-if="new_answer_validation_error">
+                                <ul>
+                                    <li><a href="#wmd-input">Preencha o conteúdo da resposta.</a></li>
+                                </ul>
+                            </div>
+                            <div class="form-group text-editor">
+                                <div class="wmd-panel" markdowneditor="true">
+                                    <div id="wmd-button-bar" class="js-button-bar"></div>
+                                    <textarea ng-model="new_answer_text" class="form-control" id="wmd-input" rows="10"></textarea>
+                                    <input type="hidden" ng-model="question_id" value="{{ question.pk }}" mp-value-copy/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
+                            </div>
+                            <div class="form-group textright bottom">
+                                <button ng-click="new_answer()" class="btn btn-success">Enviar</button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </section>
+        <!-- END MAIN CONTENT-->
+    </section>
+</div>
+<!-- END CONTAINER -->
+{% endblock %}
