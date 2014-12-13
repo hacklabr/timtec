@@ -113,10 +113,10 @@ home
             <!-- twitter sidebar -->
         </div><!-- .container -->
 
-        <aside class="next-videos hidden-sm hidden-xs" role="complementary">
+        <aside class="next-videos hidden-sm hidden-xs" role="complementary" ng-if="upcoming_courses.length>0">
             <div class="container">
                 <h3>Próximos <span>lançamentos</span></h3>
-                <div class="slider">
+                <div class="slider" ng-if="upcoming_courses.length>3">
                     {% verbatim %}
                     <carousel>
                         <slide ng-repeat="row in upcoming_courses_rows_3">
@@ -132,6 +132,20 @@ home
                             </div>
                         </slide>
                     </carousel>
+                    {% endverbatim %}
+                </div>
+                <div class="slider" ng-if="upcoming_courses.length<4">
+                    {% verbatim %}
+                    <div class="col-lg-4 col-md-4" ng-repeat="course in upcoming_courses">
+                        <a ng-href="/course/{{ course.slug }}/intro">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="thumb">
+                                    <img ng-src="{{ course.home_thumbnail_url }}">
+                                </div>
+                            </div>
+                            <h4 class="col-lg-6 col-md-6">{{ course.name }}</h4>
+                        </a>
+                    </div>
                     {% endverbatim %}
                 </div>
             </div><!-- .container -->
