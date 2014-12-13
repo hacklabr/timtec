@@ -62,7 +62,7 @@ home
                 <div class="row">
                     <div ng-repeat="course in home_courses" class="block course col-sm-6 col-xs-12">
                         {% verbatim %}
-                        <a ng-href="/course/{{ course.slug }}" class="course-link">
+                        <a ng-href="/course/{{ course.slug }}/intro/" class="course-link">
                             <div class="thumb-wrapper">
                                 <span class="mouseover"></span>
                                 <span class="thumb" ng-style="{'background-image': 'url(' + course.home_thumbnail_url + ')'}"></span>
@@ -121,7 +121,7 @@ home
                     <carousel>
                         <slide ng-repeat="row in upcoming_courses_rows_3">
                             <div class="col-lg-4 col-md-4" ng-repeat="course in row">
-                                <a ng-href="/course/{{ course.slug }}">
+                                <a ng-href="/course/{{ course.slug }}/intro">
                                     <div class="col-lg-6 col-md-6">
                                         <div class="thumb">
                                             <img ng-src="{{ course.home_thumbnail_url }}">
