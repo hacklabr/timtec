@@ -35,7 +35,7 @@ from .models import (Course, CourseProfessor, Lesson, StudentProgress,
 from .forms import (ContactForm, AcceptTermsForm, RemoveStudentForm,
                     AddStudentsForm, )
 
-from .permissions import IsProfessorCoordinatorOrAdminPermissionOrReadOnly
+from .permissions import IsProfessorCoordinatorOrAdminPermissionOrReadOnly, IsAdminOrReadOnly
 
 
 class HomeView(ListView):
@@ -515,12 +515,12 @@ class ClassViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
         return queryset
 
 
-class FlatpageViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
+class FlatpageViewSet(viewsets.ModelViewSet):
 
     model = FlatPage
     serializer_class = FlatpageSerializer
     filter_fields = ('url',)
-    permission_classes = (IsAdminUser,)
+    permission_classes = (IsAdminOrReadOnly,)
 
     def get_queryset(self):
         queryset = super(FlatpageViewSet, self).get_queryset()
