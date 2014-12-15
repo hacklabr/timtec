@@ -19,9 +19,9 @@ wrapper-course-lesson
                 {% csrf_token %}
                 <input type="hidden" name="course" value="{{course.id}}">
                 <div class="modal-body">
-                        <div class"form-group">
+                        <div class="form-group">
                             <label for="class-name" class="sr-only">{% trans 'New class name' %}</label>
-                            <input id="class-name" name="name" class="form-control" placeholder="{% trans 'New class name' %}"></input>
+                            <input id="class-name" name="name" class="form-control" placeholder="{% trans 'New class name' %}">
                         </div>
                 </div>
                 <div class="modal-footer">
