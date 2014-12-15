@@ -8,8 +8,8 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager, Group
 from django.utils import timezone
 
+from core.utils import hash_name
 import re
-from core.models import path_and_rename
 
 
 class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
@@ -28,7 +28,7 @@ class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(_('Active'), default=True)
     date_joined = models.DateTimeField(_('Date joined'), default=timezone.now)
 
-    picture = models.ImageField(_("Picture"), upload_to=path_and_rename('user-pictures'), blank=True)
+    picture = models.ImageField(_("Picture"), upload_to=hash_name('user-pictures', 'username'), blank=True)
     occupation = models.CharField(_('Occupation'), max_length=30, blank=True)
     city = models.CharField(_('City'), max_length=30, blank=True)
     site = models.URLField(_('Site'), blank=True)
