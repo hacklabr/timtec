@@ -209,7 +209,10 @@
                     color: #fff;
                     font-family: @teuton-24;
                     padding: 7px 15px;
-                    text-align: right;
+                    text-align: center;
+                    @media screen and (min-width: @screen-sm-min) {
+                        text-align: right;
+                    }
                     text-transform: uppercase;
                     &:hover {
                         background-color: #b7e5f7;
