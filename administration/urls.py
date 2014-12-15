@@ -11,7 +11,7 @@ urlpatterns = patterns(
     url(r'^home/$', lr(AdminView.as_view(template_name="home.html")), name="administration.home"),
 
     # list all courses
-    url(r'^$', lr(RedirectView.as_view(url="courses/")), name="administration.home"),
+    url(r'^$', lr(RedirectView.as_view(url="courses/"))),
     url(r'^courses/$', AdminView.as_view(template_name="courses.html"), name='administration.courses'),
 
     # users
