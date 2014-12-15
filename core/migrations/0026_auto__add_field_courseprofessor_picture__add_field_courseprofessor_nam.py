@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import SchemaMigration
-from django.db import models
+from django.contrib.auth import get_user_model
 
 
 class Migration(SchemaMigration):
@@ -18,9 +17,8 @@ class Migration(SchemaMigration):
                       self.gf('django.db.models.fields.TextField')(max_length=30, null=True, blank=True),
                       keep_default=False)
 
-
         # Changing field 'CourseProfessor.user'
-        db.alter_column(u'core_courseprofessor', 'user_id', self.gf('django.db.models.fields.related.ForeignKey')(null=True, to=orm['accounts.TimtecUser']))
+        db.alter_column(u'core_courseprofessor', 'user_id', self.gf('django.db.models.fields.related.ForeignKey')(null=True, to=get_user_model()))
 
     def backwards(self, orm):
         # Deleting field 'CourseProfessor.picture'
@@ -29,9 +27,8 @@ class Migration(SchemaMigration):
         # Deleting field 'CourseProfessor.name'
         db.delete_column(u'core_courseprofessor', 'name')
 
-
         # Changing field 'CourseProfessor.user'
-        db.alter_column(u'core_courseprofessor', 'user_id', self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['accounts.TimtecUser']))
+        db.alter_column(u'core_courseprofessor', 'user_id', self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=get_user_model()))
 
     models = {
         u'accounts.timtecuser': {
