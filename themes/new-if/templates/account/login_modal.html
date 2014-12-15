@@ -12,7 +12,7 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-12">
             <div class="panel left-xs right-xs top-xs">
               <div class="panel-heading left-xs right-xs">
                 <h3 class="bottom-xs top-xs"><i class="fa fa-angle-double-right"></i> {% trans 'Sign In' %}</h3>
@@ -40,14 +40,12 @@
                       {% for error in form.non_field_errors %}
                       <small>{{error}}</small>
                       {% endfor %}
+                    <a href="{% url 'account_reset_password' %}">{% trans 'Forgot my password' %}</a>
                     </div>
                   </div>
                   <div class="submit">
                     <div class="row">
-                      <div class="col-lg-5 col-lg-offset-3 col-md-5 col-md-offset-3 col-sm-8 col-xs-12">
-                        <a href="{% url 'account_reset_password' %}">{% trans 'Forgot my password' %}</a>
-                      </div>
-                      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 textright">
+                      <div class="col-lg-4 col-lg-offset-8 col-md-4 col-sm-4 col-xs-12 textright">
                         <button class="btn btn-success col-xs-12">{% trans 'Sign In' %}</button>
                       </div>
                     </div>
@@ -57,51 +55,9 @@
               </div>
             </div>
           </div>
-
-          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <div class="panel bottom-xs left-xs right-xs top-xs">
-              <div class="panel-heading left-xs right-xs">
-                <h3 class="bottom-xs"><i class="fa fa-angle-double-right"></i> {% trans 'Sign Up' %}</h3>
-              </div>
-
-              <div class="panel-body bottom-xs left-xs right-xs top-xs">
-                <form onclick="event.stopPropagation()" method="post" action="{% url 'account_login' %}" class="form-horizontal">{% csrf_token %}
-                  <div class="form-group">
-                    <label class="col-lg-3 col-md-3 col-sm-12 col-xs-12">{% trans "Username" %}</label>
-                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-                      <input name="username" type="text" class="form-control" placeholder="{% trans 'Choose an username' %}">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-lg-3 col-md-3 col-sm-12 col-xs-12">{% trans 'E-mail' %}</label>
-                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-                      <input name="email" type="email" class="form-control" placeholder="{% trans 'Insert your e-mail' %}">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-lg-3 col-md-3 col-sm-12 col-xs-12">{% trans 'Password' %}</label>
-                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-                      <p><input name="password1" type="password" class="form-control" placeholder="{% trans 'A really strong password' %}"></p>
-                      <input name="password2" type="password" class="form-control" placeholder="{% trans 'Confirm your password' %}">
-                    </div>
-                  </div>
-                  <div class="submit textright">
-                    <div class="row">
-                      <div class="col-lg-4 col-lg-offset-8 col-md-5 col-md-offset-7 col-sm-6 col-sm-offset-6 col-xs-12 textright">
-                        <button class="btn btn-success col-xs-12">{% trans 'Sign Up' %}</button>
-                      </div>
-                    </div>
-                  </div>
-                  <input type="hidden" name="next" />
-                </form>
-              </div>
-            </div>
-          </div>
         </div>
-        <!--
         <div class="divider bottom-xs top-xs"></div>
-        <p class="bottom textcenter">{% load socialaccount %}<a href="{% provider_login_url 'facebook' method='oauth2' %}">{% trans 'Facebook connect' %}</a></p>
-        -->
+        <p class="bottom textcenter"><a href="{% url 'account_signup' %}">{% trans 'Signup' %}</a></p>
       </div>
     </div>
   </div>

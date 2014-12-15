@@ -1,9 +1,0 @@
-{% load compressed %}
-{% compressed_js 'notes' %}
-<div id="notes" class="tab-pane notes active" ng-controller="NoteCtrl">
-    <form class="textright">
-        <textarea ng-model="note_text" rows="5" class="col-lg-12"></textarea>
-        <p class="message text-success">Alterações salvas com sucesso!</p>
-        <input type="submit" class="btn btn-success" value="Salvar" ng-click="save_note()">
-    </form>
-</div>

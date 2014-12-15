@@ -1,115 +1,127 @@
-{% extends 'account/base.html' %}
+{% extends 'base.html' %}
 {% load i18n %}
 
-<!-- TABLET AND DESKTOP -->
-{% block account_content %}
-    <h1>
-        <i class="fa fa-smile-o"></i><br/>
-        {% trans "Sign Up" %}!
-    </h1>
-    <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}" class="form-horizontal">{% csrf_token %}
-        {% with errors=form.username.errors %}
-        <div class="form-group{{ errors|yesno:' has-error,' }}">
-            <label class="col-lg-4 col-sm-4 control-label">{% trans "Username" %}</label>
-            <div class="col-lg-8 col-sm-8">
-                <input name="username" type="text" value="{{form.username.value|default_if_none:""}}" class="form-control" placeholder="{% trans 'Username' %}">
-                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+{% block content %}
+
+<div id="signup-wrapper" class="container">
+    <div class="centered" ng-app="">
+        <h1>
+            <i class="fa fa-smile-o"></i><br/>
+            {% trans "Sign Up" %}!
+        </h1>
+        <form method="post" action="{% url 'account_signup' %}" class="form-horizontal">{% csrf_token %}
+            <div class="form-group">
+                <label class="col-sm-4 control-label">{% trans "Full Name" %}</label>
+
+                <div class="col-sm-8">
+                    <div class="row">
+                    {% with errors=form.first_name.errors %}
+                    <div class="col-sm-6{{ errors|yesno:" has-error,"}}">
+                        <input name="first_name" type="text" class="form-control first-name" placeholder="Primeiro nome" value="{{form.first_name.value|default_if_none:""}}">
+                        {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                    </div>
+                    {% endwith %}
+
+                    {% with errors=form.last_name.errors %}
+                    <div class="col-sm-6{{ errors|yesno:" has-error,"}}">
+                        <input name="last_name" type="text" class="form-control" placeholder="Último nome" value="{{form.last_name.value|default_if_none:""}}">
+                        {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                    </div>
+                    {% endwith %}
+                    </div>
+                </div>
             </div>
-        </div>
-        {% endwith %}
 
-        {% with errors=form.email.errors %}
-        <div class="form-group{{ errors|yesno:' has-error,' }}">
-            <label class="col-lg-4 col-sm-4 control-label">{% trans "E-mail" %}</label>
-            <div class="col-lg-8 col-sm-8">
-                <input name="email" type="email" value="{{form.email.value|default_if_none:""}}" class="form-control" placeholder="Your e-mail">
-                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+            {% with errors=form.username.errors %}
+            <div class="form-group{{ errors|yesno:' has-error,' }}">
+                <label ng-show="!ifstudent" class="col-sm-4 control-label">{% trans "Username" %}</label>
+                <label ng-show="ifstudent" class="col-sm-4 control-label">{% trans "Academic Identifier" %}</label>
+                <div class="col-sm-8">
+                    <input name="username" type="text" value="{{form.username.value|default_if_none:""}}" placeholder="Número de matrícula no Q-Acadêmico" class="form-control">
+                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                </div>
             </div>
-        </div>
-        {% endwith %}
+            {% endwith %}
 
-        {% with errors=form.password1.errors %}
-          <div class="form-group{% if errors or form.non_field_errors %} has-error{% endif %}">
-            <label class="col-lg-4 col-sm-4 control-label">{% trans "Password" %}</label>
-            <div class="col-lg-8 col-sm-8">
-                <p><input name="password1" type="password" class="form-control" placeholder="{% trans 'Really strong password' %}"></p>
-                <input name="password2" type="password" class="form-control" placeholder="{% trans 'Password confirmation' %}">
-                {% for error in errors %}<small>{{error}}</small>{% endfor %}
-                {% for error in form.non_field_errors %}<small>{{error}}</small>{% endfor %}
+            {% with errors=form.email.errors %}
+            <div class="form-group{{ errors|yesno:' has-error,' }}">
+                <label class="col-sm-4 control-label">{% trans "E-mail" %}</label>
+                <div class="col-sm-8">
+                    <input name="email" type="email" value="{{form.email.value|default_if_none:""}}" class="form-control" placeholder="Seu e-mail">
+                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                </div>
             </div>
-        </div>
-        {% endwith %}
+            {% endwith %}
 
-        <div class="submit textright">
-            <button class="btn btn-success">{% trans "Sign Up" %}</button>
-        </div>
+            {% with errors=form.password1.errors %}
+              <div class="form-group{% if errors or form.non_field_errors %} has-error{% endif %}">
+                <label class="col-sm-4 control-label">{% trans "Password" %}</label>
+                <div class="col-sm-8">
+                    <p><input name="password1" type="password" class="form-control" placeholder="{% trans 'Really strong password' %}"></p>
+                    <input name="password2" type="password" class="form-control" placeholder="{% trans 'Password confirmation' %}">
+                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                    {% for error in form.non_field_errors %}<small>{{error}}</small>{% endfor %}
+                </div>
+            </div>
+            {% endwith %}
 
-        <div class="row">
-            <hr/>
-            <p class="bottom textcenter">
-                {% load socialaccount %}
-                <a href="{% provider_login_url 'facebook' method='oauth2' %}">Facebook Connect</a>
-            </p>
-        </div>
-    </form>
-{% endblock %}
-<!-- END TABLET AND DESKTOP -->
+            {% with errors=form.city.errors %}
+            <div class="form-group{{ errors|yesno:" has-error,"}}">
+                <label class="col-sm-4 control-label">{% trans "City" %}</label>
+                <div class="col-sm-8">
+                    <input name="city" type="text" class="form-control" placeholder="Qual cidade você vive?" value="{{form.city.value|default_if_none:""}}">
+                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                </div>
+            </div>
+            {% endwith %}
 
+            {% with errors=form.if_student.errors %}
+            <div class="form-group{{ errors|yesno:' has-error,' }}">
+                <label class="if-student col-sm-8 col-sm-offset-4">
+                    <input name="if_student" type="checkbox" value="1" ng-model="ifstudent" ng-checked="ifstudent" ng-init="ifstudent='1'">Sou estudante do Instituto Federal Sul-Rio-Grandense</label>
+                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
+            </div>
+            {% endwith %}
 
-<!-- MOBILE -->
-{% block account_content_mobile %}
-    <div class="row">
-        <div class="col-xs-12 textcenter">
-            <h1>
-                <i class="fa fa-smile-o"></i><br/>
-                {% trans "Sign Up" %}!
-            </h1>
-        </div>
+            {% with errors=form.campus.errors %}
+            <div ng-show="ifstudent" class="form-group{{ errors|yesno:' has-error,' }}">
+                <label class="col-sm-4 control-label">{% trans "Campus" %}</label>
+                <div class="col-sm-8">
+                    <select id="id_campus" class="form-control" name="campus">
+                    {% for x,y in form.fields.campus.choices %}
+                        <option value="{{ x }}">{{ y }}</option>
+                    {% endfor %}
+                    </select>
+                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                </div>
+            </div>
+            {% endwith %}
+
+            {% with errors=form.course.errors %}
+            <div ng-show="ifstudent" class="form-group{{ errors|yesno:' has-error,' }}">
+                <label class="col-sm-4 control-label">{% trans "Course" %}</label>
+                <div class="col-sm-8">
+                    <input name="course" type="text" value="{{form.course.value|default_if_none:""}}" class="form-control" placeholder="{% trans 'Course' %}">
+                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                </div>
+            </div>
+            {% endwith %}
+
+            {% with errors=form.klass.errors %}
+            <div ng-show="ifstudent" class="form-group{{ errors|yesno:' has-error,' }}">
+                <label class="col-sm-4 control-label">{% trans "Class" %}</label>
+                <div class="col-sm-8">
+                    <input name="klass" type="text" value="{{form.klass.value|default_if_none:""}}" class="form-control" placeholder="{% trans 'Class' %}">
+                    {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                </div>
+            </div>
+            {% endwith %}
+
+            <div class="submit textright">
+                <button class="btn btn-success">{% trans "Sign Up" %}</button>
+            </div>
+        </form>
     </div>
-    <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}" class="form-horizontal">{% csrf_token %}
-        {% with errors=form.username.errors %}
-        <div class="form-group{{ errors|yesno:' has-error,' }}">
-            <label class="col-xs-12 control-label">{% trans "Username" %}</label>
-            <div class="col-xs-12">
-                <input name="username" type="text" value="{{form.username.value}}" class="form-control" placeholder="{% trans 'Username' %}">
-                {% for error in errors %}<small>{{error}}</small>{% endfor %}
-            </div>
-        </div>
-        {% endwith %}
-
-        {% with errors=form.email.errors %}
-        <div class="form-group{{ errors|yesno:' has-error,' }}">
-            <label class="col-xs-12 control-label">{% trans "E-mail" %}</label>
-            <div class="col-xs-12">
-                <input name="email" type="email" value="{{form.email.value}}" class="form-control" placeholder="Your e-mail">
-                {% for error in errors %}<small>{{error}}</small>{% endfor %}
-            </div>
-        </div>
-        {% endwith %}
-
-        {% with errors=form.password1.errors %}
-        <div class="form-group{{ errors|yesno:' has-error,' }}">
-            <label class="col-xs-12 control-label">{% trans "Password" %}</label>
-            <div class="col-xs-12">
-                <p><input name="password1" type="password" class="form-control" placeholder="{% trans 'Really strong password' %}"></p>
-                <input name="password2" type="password" class="form-control" placeholder="{% trans 'Password confirmation' %}">
-                {% for error in errors %}<small>{{error}}</small>{% endfor %}
-            </div>
-        </div>
-        {% endwith %}
-
-        <div class="submit">
-            <button class="btn btn-success btn-lg col-xs-12">{% trans "Sign Up" %}</button>
-        </div>
-
-        <div class="row">
-            <hr/>
-            <p class="bottom textcenter">
-                {% load socialaccount %}
-                <a href="{% provider_login_url 'facebook' method='oauth2' %}">{% trans 'Facebook connect' %}</a>
-            </p>
-        </div>
-
-    </form>
+</div>
+<!-- END TABLET, DESKTOP AND MOBILE -->
 {% endblock %}
-<!-- END MOBILE -->

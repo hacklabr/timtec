@@ -19,6 +19,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="main-navbar-collapse">
             <ul class="nav navbar-nav" id="site-nav">
+                <!--<li><span id="start-intro" class="btn btn-primary btn-sm">Começar tour <i class="fa fa-caret-right"></i></span></li>-->
                 <li><a href="http://ead.ifsul.edu.br/">Portal EAD</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#modal-about">{% trans 'About' %}</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#modal-contact">{% trans 'Contact' %}</a></li>
@@ -98,7 +99,15 @@
                                     <button class="btn btn-success">{% trans 'Sign In' %} <i class="fa fa-sign-in"></i></button>
                                 </div>
                             </div>
-                            <input type="hidden" name="next" value="{{ current_path }}" />
+                            <!--<div class="divider"></div>
+                            <div class="row">
+                                <p class="bottom textcenter">
+                                    {% load socialaccount %}
+                                    <a href="{% provider_login_url 'facebook' method='oauth2' %}">{% trans 'Connect with Facebook' %}</a>
+                                </p>
+                            </div>
+                            -->
+                        <input type="hidden" name="next" value="{{ current_path }}" />
                         </form>
                     </div>
                 </li>
