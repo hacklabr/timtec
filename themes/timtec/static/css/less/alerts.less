@@ -1,9 +1,12 @@
 // POPUP NOTIFICATIONS
 .tt-popup {
+  float: left;
+  margin-top: 10px;
   position: static;
-  width: initial;
   text-align: left;
-  .alert {
+  width: initial;
+  @media screen and (min-width: @screen-md-min) {
+    margin-top: 0;
     margin-left: 10px;
   }
 }
