@@ -98,9 +98,17 @@
       @media (min-width: 380px) and (max-width: @screen-xs-max) {
         float: none;
         margin: 0 auto 40px;
-        width: 360px;
+        max-width: 360px;
       }
     } // .block
+
+    // see all courses button
+    .see-all-courses {
+      @media (min-width: 380px) and (max-width: @screen-xs-max) {
+        margin: 0 auto;
+        max-width: 360px;
+      }
+    }
 
     // courses section
     #courses {
@@ -145,20 +153,31 @@
           .info {
             background-color: #fff;
             padding: 15px;
+            border-radius: @border-radius-base;
             @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
               height: 315px;
             }
             @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max), (min-width: @screen-lg-min) {
-              height: 265px;
+              height: 342px;
+            }
+            .icon {
+              text-align: center;
+              .fa {
+                color: darken(@brand-light, 10%);
+                font-size: 100px;
+              }
             }
             h3 {
               font-size: 22px;
-              margin-top: 0;
+              font-family: 'Questrial';
+              // color: @brand-accent;
+              margin-top: 10px;
+              text-align: center;
               @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
                 font-size: 24px;
               }
               @media (min-width: @screen-lg-min) {
-                font-size: 28px;
+                font-size: 32px;
               }
             }
             p {

@@ -7,22 +7,23 @@
 {% block js %}
     {{ block.super }}
     {% compressed_js 'forum' %}
-    {% compressed_js 'admin_course_header' %}
+{% endblock %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
 {% endblock %}
 
 {% block content %}
 
 <div id="forum" class="course-forum" ng-app="forum">
     {% if in_admin %}
-        <div ng-controller="HeaderController">
-            {% include "_admin_header_inline.html"%}
-        </div>
+        {% include "_admin_header_inline.html" with course=course %}
     {% else %}
         {% include "_course-header-inline.html"  with course=course question_form=false %}
     {% endif %}
 
     <section id="forum-content" class="container">
-        <header>
+        <header class="secondary-header">
             <div class="row">
                 <div class="col-lg-9">
                     <h1>{% trans "Questions & Answers" %}</h1>

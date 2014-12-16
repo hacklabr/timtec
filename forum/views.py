@@ -1,17 +1,23 @@
 # -*- coding: utf-8 -*-
 from braces.views import LoginRequiredMixin
 from django.core.urlresolvers import reverse_lazy
+from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
-from core.models import Course
+from core.models import Course, Class
 from forum.models import Question, Answer, QuestionVote, AnswerVote
 from forum.forms import QuestionForm
 from forum.serializers import QuestionSerializer, AnswerSerializer, QuestionVoteSerializer, AnswerVoteSerializer
 from forum.permissions import HideQuestionPermission
 from rest_framework import viewsets
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from administration.views import AdminMixin
+import operator
 
 
 class CourseForumView(LoginRequiredMixin, ListView):
@@ -91,51 +97,38 @@ class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
             obj.user = self.request.user
         return super(QuestionViewSet, self).pre_save(obj)
 
-    def list(self, request, *args, **kwargs):
-        import warnings
-        from django.http import Http404
-        from rest_framework.response import Response
-        self.object_list = self.filter_queryset(self.get_queryset())
+    def get_queryset(self):
+        # filter by course
+        queryset = super(QuestionViewSet, self).get_queryset()
 
-        # Default is to allow empty querysets.  This can be altered by setting
-        # `.allow_empty = False`, to raise 404 errors on empty querysets.
-        if not self.allow_empty and not self.object_list:
-            warnings.warn(
-                'The `allow_empty` parameter is due to be deprecated. '
-                'To use `allow_empty=False` style behavior, You should override '
-                '`get_queryset()` and explicitly raise a 404 on empty querysets.',
-                PendingDeprecationWarning
-            )
-            class_name = self.__class__.__name__
-            error_msg = self.empty_error % {'class_name': class_name}
-            raise Http404(error_msg)
+        classes_id = self.request.QUERY_PARAMS.getlist('classes')
+        if classes_id:
+            classes = Class.objects.filter(id__in=classes_id)
+            queries_list = [Q(user__in=klass.students.all()) for klass in classes.all()]
+            queryset = queryset.filter(reduce(operator.or_, queries_list))
 
-        if request.user.groups.filter(name="professors"):
-            user_moderator = True
-        else:
-            user_moderator = False
+        course_id = self.request.QUERY_PARAMS.get('course')
 
-        for question in self.object_list:
-            # if request.user in question.course.professors.all():
-            #     question.moderator = True
+        if not (classes_id or course_id):
+            return queryset
 
-            # if request.user.groups.filter(name="professors"):
-            question.moderator = user_moderator
-            if question.user == request.user or user_moderator:
-                # FIXME remove this after implement tutor professor
-                question.hidden_to_user = False
-            else:
-                if question.hidden:
-                    self.object_list = self.object_list.exclude(id=question.id)
+        try:
+            role = self.request.user.teaching_courses.get(course__id=course_id).role
+        except ObjectDoesNotExist:
+            role = None
 
-        # Switch between paginated or standard style responses
-        page = self.paginate_queryset(self.object_list)
-        if page is not None:
-            serializer = self.get_pagination_serializer(page)
-        else:
-            serializer = self.get_serializer(self.object_list, many=True)
-
-        return Response(serializer.data)
+        if role and role == 'assistant':
+            classes = Class.objects.filter(assistant=self.request.user)
+            queries_list = [Q(user__in=klass.students.all()) for klass in classes.all()]
+            return queryset.filter(reduce(operator.or_, queries_list))
+        elif role and role == 'coordinator':
+            return queryset
+        # it's not professor in this course
+        try:
+            klass = self.request.user.classes.get(course=course_id)
+            return queryset.filter(Q(hidden=False) | Q(user=self.request.user)).filter(user__in=klass.students.all())
+        except ObjectDoesNotExist:
+            return queryset.none()
 
 
 class AnswerViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
@@ -184,3 +177,15 @@ class AnswerVoteViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         return AnswerVote.objects.filter(user=user)
+
+
+class ForumModeratorView(LoginRequiredMixin, APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, format=None, *args, **kwargs):
+        if request.user.groups.filter(name="professors"):
+            user_moderator = True
+        else:
+            user_moderator = False
+        return Response(user_moderator)

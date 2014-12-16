@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load compressed %}
+{% load static %}
+{% load i18n %}
+
+{% block js %}
+    {{ block.super }}
+    {% compressed_js 'course_permissions' %}
+
+{% endblock %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
+{% block content %}
+
+<section id="users" ng-app="course-permissions" ng-controller="PermissionsController">
+
+    {% include "_admin_header_inline.html" with course=course %}
+
+    <section id="users-content" class="container">
+        <header class="secondary-header">
+            <div class="row">
+                <div class="col-lg-9">
+                    <h1>{% trans 'Permissions' %}</h1>
+                </div>
+                <div class="col-lg-3">
+                    <a class="btn btn-lg btn-danger uppercase" ng-click="new_professors()">{% trans 'Add user' %}</a>
+                </div>
+            </div>
+        </header>
+        <table class="table table-list">
+            <tr>
+                <th class="fullname">{% trans "Full name" %}</th>
+                <th class="email">{% trans "Email" %}</th>
+                <th class="username">{% trans "Username" %}</th>
+                <th class="role">{% trans "Role" %}</th>
+                <th class="actions">{% trans "Actions" %}</th>
+            </tr>
+            <tr ng-repeat="professor in professors">
+                {% verbatim %}
+                <td>{{professor.user_info.name}}</td>
+                <td>{{professor.user_info.email}}</td>
+                <td>{{professor.user_info.username}}</td>
+                {% endverbatim %}
+                <td>
+                    <select class="form-control" ng-model="professor.role" ng-change="update_professor_role(professor)">
+                        <option value="assistant">{% trans "Assistant Professor" %}</option>
+                        <option value="coordinator">{% trans "Coordinator Professor" %}</option>
+                    </select>
+                    {{ professor.role }}
+                </td>
+                {% verbatim %}
+                <td class="textcenter">
+                    <button class="btn btn-warning" ng-click="remove_professor(professor.id, $index)"><i class="fa fa-trash-o"></i></button>
+                </td>
+                {% endverbatim %}
+            </tr>
+        </table>
+    </section>
+    <!-- modal add user -->
+    <script type="text/ng-template" id="newProfessorModal.html">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="add-users-modal-label">{% trans 'Add user' %}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                            <label for="search-user" class="control-label">{% trans 'Search user' %}</label>
+                            <div class="autocomplete">
+                                <input type="text" id="search-user" class="form-control" ng-model="asyncSelected"
+                                        placeholder="{% trans 'Type the name, email or user name of the professor to search...' %}"
+                                        typeahead="user as user.formated_name for user in getUsers($viewValue)"
+                                        typeahead-loading="loadingLocations"
+                                        typeahead-on-select="on_select_professor($model); asyncSelected = '';"
+                                        typeahead-min-length="2"
+                                        typeahead-wait-ms="500">
+                                <i ng-show="loadingLocations" class="loading fa fa-refresh fa-spin"></i>
+                            </div>
+                            <table class="table table-list" ng-show="new_professors.length">
+                                <tr>
+                                    <th class="fullname">{% trans "Full name" %}</th>
+                                    <th class="email">{% trans "Email" %}</th>
+                                    <th class="username">{% trans "Username" %}</th>
+                                    <th class="actions">{% trans "Actions" %}</th>
+                                </tr>
+                                <tr ng-repeat="new_professor in new_professors">
+                                    {% verbatim %}
+                                    <td>{{new_professor.name}}</td>
+                                    <td>{{new_professor.email}}</td>
+                                    <td>{{new_professor.username}}</td>
+                                    {% endverbatim %}
+                                    <td class="textcenter"><button class="btn btn-warning" ng-click="remove_new_professor($index)"><i class="fa fa-trash-o"></i></button></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
+                        <button type="button" class="btn btn-primary" ng-click="add_professors()">{% trans 'Add users' %}</button>
+                    </div>
+                </div>
+    </script>
+
+</section>
+
+{% endblock %}

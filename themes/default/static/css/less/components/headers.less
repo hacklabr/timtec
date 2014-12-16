@@ -15,79 +15,78 @@
 }
 
 // SHARED HEADER STYLES
-#course,
-#forum,
-#messages,
-#my-notes,
-#stats {
-  header {
-    .page-header {
-      border-bottom: 1px solid @gray-lighter;
-      margin-bottom: 20px;
-      h1 {
-        .bottom(0,0);
-        .top(0,0);
-        span {
-          display: block;
-        }
-        a {
-          color: @gray-darker;
-          &:hover {
-            color: @brand-info;
-          }
-        }
-      }
-    }
-    .course-slug {
-      margin-bottom: 5px;
-      label {
-        color: @gray-light;
-        font-weight: normal;
-      }
-    }
-    ul.instructors {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      li {
+.main-header {
+  .page-header {
+    border-bottom: 1px solid @gray-lighter;
+    margin-bottom: 20px;
+    h1 {
+      .bottom(0,0);
+      .top(0,0);
+      font-size: 18px;
+      text-transform: uppercase;
+      span {
         display: inline-block;
-        text-transform: uppercase;
-        a {
-          color:@brand-success;
-          &:hover {
-            color:darken(@brand-success, 10%);
-          }
-          &:after {
-            content: " // ";
-            color: black;
-            margin-right: 3px;
-          }
+      }
+      a {
+        color: @gray-darker;
+        &:hover {
+          color: @brand-info;
         }
-        &:last-child a:after {
-            content: "";
-        }
+      }
+    }
+  }
+  .course-slug {
+    margin-bottom: 5px;
+    label {
+      color: @gray-light;
+      font-weight: normal;
+    }
+  }
+  .course-details {
+    text-transform: uppercase;
+    font-size: 11px;
+    .label {
+      color: @gray-light;
+      font-weight: normal;
+      padding: 0;
+      font-size: inherit;
+    }
+    a {
+      color:@brand-success;
+      &:hover {
+        color:darken(@brand-success, 10%);
+      }
+      &.course-instructor:after {
+        content: " // ";
+        color: black;
+        margin-right: 3px;
+      }
+      &:last-child:after {
+        content: "";
       }
     }
   }
 }
 
-// HEADER STYLES FOR THE INTERNAL PAGES (Lesson, Forum, Notes, Material)
-#course.course-lesson,
-#course.course-material,
-#forum.course-forum,
-#messages.course-messages,
-#my-notes.course-notes,
-#stats.course-stats {
-  header {
-    .page-header {
-      margin-bottom: 0;
-      h1 {
-        font-size: 16px;
-        text-transform: uppercase;
-      }
-      ul.instructors {
-        font-size: 12px;
-      }
+.secondary-header {
+  border-bottom: 1px solid @gray-lighter;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  h1 {
+    margin-top: 25px;
+  }
+  .btn {
+    display:block;
+    margin-top: 18px;
+  }
+}
+
+.add-content {
+  .secondary-header {
+    padding-bottom: 10px;
+    h2 {
+      font-size: 20px;
+      margin: 0;
     }
   }
 }

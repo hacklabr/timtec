@@ -18,16 +18,19 @@ class ModelAdmin(admin.ModelAdmin):
 class QuestionVoteInline(SortableTabularInline):
     model = QuestionVote
     sortable = 'id'
+    extra = 1
 
 
 class AnswerVoteInline(SortableTabularInline):
     model = AnswerVote
     sortable = 'id'
+    extra = 1
 
 
 class AnswerInline(SortableTabularInline):
     model = Answer
     sortable = 'id'
+    extra = 1
 
 
 class QuestionAdmin(ModelAdmin):

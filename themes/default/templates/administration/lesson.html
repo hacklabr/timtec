@@ -21,47 +21,31 @@
 ng-app="edit-lesson"
 {% endblock %}
 
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
 
 {% block content %}
 <!-- COURSE-CONTENT -->
 <div id="course" class="course-lesson" ng-controller="EditLessonController">
 
     <!-- ACTIONS -->
-    <div class="actions" fixed-bar>
+    <div class="actions-menu" fixed-bar>
         <div class="container">
-            <div class="row">
-                <div class="col-xs-5">
-                    <button class="btn btn-danger" ng-click="deleteLesson()"><i class="fa fa-trash-o"></i> | {% trans 'Delete this lesson' %}</button>
-                </div>
-                <div class="col-xs-7 textright">
-                    <div id="save-publish-buttons">
-                        <button class="btn btn-success" ng-click="saveLesson()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
-                        <button class="btn btn-warning" ng-click="publishLesson();">{% trans 'Publish lesson' %} | <i class="fa fa-star-o"></i></button>
-                    </div>
-                </div>
+            <div class="actions-buttons">
+                <button class="btn btn-danger" ng-click="deleteLesson()">{% trans 'Delete' %} | <i class="fa fa-trash-o"></i></button>
+                <button class="btn btn-success" ng-click="saveLesson()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
+                <button class="btn btn-warning" ng-click="publishLesson();">{% trans 'Publish' %} | <i class="fa fa-star-o"></i></button>
             </div>
+            {% include 'administration/_alert.html' %}
         </div>
     </div>
     <!-- END ACTIONS -->
 
-    {% include "_admin_header_inline.html" %}
+    {% include "_admin_header_inline.html" with course=course %}
 
     <!-- COURSE-CONTENT -->
     <section id="course-content" class="container">
-
-        <nav class="course-lessons">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="top editable"></h1>
-                    <h1><span ng-class="{'blink-text-danger':errors.name}" ng-model="lesson.name"
-                              placeholder="{% trans 'Lesson name' %}" contenteditable="true"></span></h1>
-
-                    <p class="description editable">
-                        <span ng-model="lesson.desc" placeholder="{% trans 'Lesson description' %}"
-                              contenteditable="true"></span></p>
-                </div>
-            </div>
-        </nav>
 
         <nav class="lesson-units">
             <div class="btn-group">
@@ -77,11 +61,33 @@ ng-app="edit-lesson"
             </div>
         </nav>
 
+        <nav class="course-lessons">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="editable-title"><input type="text" ng-model="lesson.name" placeholder="{% trans 'Lesson name' %}"></div>
+                    <div class="editable-text">
+                        <input type="text" ng-model="lesson.desc" placeholder="{% trans 'Lesson description' %}">
+                    </div>
+                </div>
+            </div>
+        </nav>
+
         <!-- ROW -->
         <div class="row">
 
             <div class="add-content" ng-init="section='video'">
-                <div class="col-xs-6 col-xs-6">
+                <div class="col-xs-12">
+                    <div class="secondary-header">
+                        <div class="unit">{% trans 'Unit' %}:</div>
+                        <div class="editable-text">
+                            <input type="text" ng-model="currentUnit.title" placeholder="{% trans 'Lesson description' %}">
+                        </div>
+                        <button class="btn btn-sm btn-danger delete" ng-click="removeCurrentUnit()" title="{% trans 'Delete this unit' %}">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-xs-12">
                     <div id="video-activity-buttons">
                         <button class="btn btn-default uppercase"
                                 ng-class="{'btn-info': section === 'video'}"
@@ -91,12 +97,6 @@ ng-app="edit-lesson"
                                 ng-class="{'btn-info': section === 'activity'}"
                                 ng-click="section ='activity'">{% trans 'Activity' %}</button>
                     </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 textright">
-                    <button class="btn btn-danger delete" ng-click="removeCurrentUnit()"
-                            title="Apagar unidade">
-                        <i class="fa fa-trash-o"></i> | {% trans 'Delete this unit' %}
-                    </button>
                 </div>
             </div>
 
@@ -114,7 +114,7 @@ ng-app="edit-lesson"
             </div>
 
             <!-- VIDEO SECTION -->
-            <div class="video col-sm-8" ng-show="section === 'video'">
+            <div class="video col-sm-8" ng-class="{'hidder': section !== 'video'}">
 
                 <div class="waiting textcenter jumbotron"
                      style="height: 419px"
@@ -145,14 +145,14 @@ ng-app="edit-lesson"
                     <!-- END CENTERED -->
                 </div>
 
-                <div class="current-video" style="overflow:hidden;" ng-style="{'display': currentUnit.video && playerReady ?'':'none'}">
+                <div class="current-video" ng-class="{'hidder': currentUnit.video == null}">
 
-                    <div id="player-outter">
-                        <div id="youtube-player" player-height="419px" player-width="100%" youtube-player></div>
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <div class="embed-responsive-item" id="youtube-player" youtube-player></div>
                     </div>
                     <div class="row">
                         <div class="col-xs-6">
-                            <p class="video-title" ng-model="currentUnit.video.name" placeholder="Nome do vídeo" contenteditable><p>
+                            <p ng-bind="currentUnit.video.name"></p>
                         </div>
                         <div class="col-xs-6 textright">
                             <button class="btn-edit-video btn btn-success btn-sm uppercase"
@@ -185,12 +185,8 @@ ng-app="edit-lesson"
                         <div class="panel-body">
                             <ng-include src="loadActivityTemplateUrl()"></ng-include>
                             <hr/>
+                            <p>{% trans 'The text bellow will be shown to students when they correctly finish this activity.' %}</p>
                             <markdowneditor title="{% trans 'Comment' %}" content="currentActivity.comment"></markdowneditor>
-                        </div>
-
-                        <div class="panel-footer text-right">
-                            <button class="btn btn-success" ng-click="saveLesson()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
-                            <button class="btn btn-danger" ng-click="removeCurrentActivity()">{% trans 'Delete this activity' %}</button>
                         </div>
                     </div>
 
@@ -199,20 +195,14 @@ ng-app="edit-lesson"
                         <div class="centered">
                             <i class="fa fa-pencil fa-4x"></i>
                             <h1 class="top">{% trans 'Unit activity' %}</h1>
-                                {% verbatim %}
-                                <p class="col-md-4 col-sm-12" ng-repeat="type in activityTypes">
-                                    <label class="btn btn-default"
-                                           ng-class="{'btn-info':$parent.newActivityType===type.name}"
-                                           for="new-activity-type-{{type.name}}">{{type.label}}</label>
-                                    <input class="hidden" id="new-activity-type-{{type.name}}" type="radio"
-                                           ng-model="$parent.newActivityType" value="{{type.name}}"/>
-                                </p>
-                                {% endverbatim %}
-                            <div>
-                                <button class="btn btn-success btn-lg uppercase"
-                                        ng-disabled="!newActivityType"
-                                        ng-click="addNewActivity()">{% trans 'Add' %}</button>
+                            {% verbatim %}
+                            <div class="col-md-4 col-sm-12" ng-repeat="type in activityTypes">
+                                <button class="activity-btn btn btn-default"
+                                        ng-click="addNewActivity(type.name)">
+                                    {{type.label}}
+                                </button>
                             </div>
+                            {% endverbatim %}
                         </div>
                         <!-- END CENTERED -->
                     </div>
@@ -220,25 +210,18 @@ ng-app="edit-lesson"
             </div>
             <!-- END ACTIVITIES SECTION -->
 
-            <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
-                <!--<div class="add-side-notes">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="#side-notes" data-toggle="tab">{% trans 'Annotations' %}</a></li>
-                    </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="side-notes">
-                            <form class="textright ng-pristine ng-valid">
-                                <textarea ng-model="note_text" rows="5" class="col-lg-12 ng-pristine ng-valid" disabled="disabled"></textarea>
-                            </form>
-                        </div>
-                    </div>
-                </div>-->
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-sm-10 col-lg-offset-1 col-sm-offset-1">
+                <div id="side-notes">
+                    <h2>{% trans 'Addicional materials' %}</h2>
+                    <modalmarkdowneditor title="{% trans 'Addicional materials' %}" content="currentUnit.side_notes"></modalmarkdowneditor>
+                </div>
             </div>
         </div>
         <!-- END ROW -->
     </section>
     <!-- END COURSE-CONTENT -->
-    {% include 'administration/_alert.html' %}
 </div>
 <!-- END COURSE-CONTENT -->
 <div waiting-screen class="waiting waiting-screen">

@@ -1,0 +1,68 @@
+// COURSE SECTIONS (NAVGATION)
+.course-sections {
+  margin-top: 16px;
+  a.fa {
+    display: inline-block;
+    height: 28px;
+    border-right: 1px solid fade(@brand-primary, 20%);
+    color: @gray-light;
+    font-size: 22px;
+    overflow: hidden;
+    padding: 3px 9px;
+    position: relative;
+    text-align: center;
+    &.active, &:hover, &:focus {
+      color: @brand-primary;
+      cursor: pointer;
+      text-decoration: none;
+      .transition(all 0.1s ease-out);
+    }
+  }
+  .dropdown {
+    display: inline-block;
+    &.open {
+      a.fa {
+        color: @brand-info;
+      }
+    }
+  }
+}
+
+// LESSON HEADER AND NAVIGATION
+#course.course-lesson {
+  #course-content {
+    nav.course-lessons {
+      margin-bottom: 20px;
+      h1 {
+        .bottom(0,0);
+        color: darken(@brand-primary, 10%);
+        font-size: 24px;
+      }
+      .editable-title {
+        font-size: 24px;
+        input {
+          font-weight: normal;
+          color: darken(@brand-primary, 10%);
+          font-family: @font-family-sans-serif;
+        }
+      }
+      p.description {
+        color: @gray-light;
+      }
+    }
+    nav.lesson-units {
+      ul.dropdown-menu {
+        li {
+          a {
+            color: @gray-light;
+            font-size: 12px;
+            &:hover {
+              background-color: transparent;
+              color: @gray;
+            }
+          }
+        }
+      }
+    }
+  }
+}

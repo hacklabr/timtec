@@ -61,4 +61,13 @@
         }
     ]);
 
+    app.controller('RelationshipCtrl', ['$scope',
+        function ($scope) {
+            $scope.possibleAnswers = $scope.currentActivity.expected.slice(0);
+            function compareNumbers(a, b) {
+              return a - b;
+            }
+            $scope.possibleAnswers.sort(compareNumbers);
+        }
+    ]);
 })(angular);

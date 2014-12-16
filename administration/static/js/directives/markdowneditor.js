@@ -26,7 +26,8 @@
         var templates = {
             // directive name -> template path
             'markdowneditor': '/static/templates/directive.markdowneditor.html',
-            'modalmarkdowneditor': '/static/templates/directive.modalmarkdowneditor.html'
+            'modalmarkdowneditor': '/static/templates/directive.modalmarkdowneditor.html',
+            'modalmarkdowneditorwithtitle': '/static/templates/directive.modalmarkdowneditorwithtitle.html'
         };
 
         function controller ($scope, $element, MarkdownDirective) {
@@ -126,6 +127,7 @@
                     'controller': controller,
                     'link': link,
                     'scope': {
+                        'title_model': '=titleModel',
                         'content': '=content',
                         'onSave': '&onSave'
                     }

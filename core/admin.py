@@ -15,7 +15,7 @@ class LessonInline(admin.TabularInline):
 
 class UnitInline(admin.TabularInline):
     model = Unit
-    fields = ('title', 'video', 'activity', 'position',)
+    fields = ('title', 'video', 'position',)
 
 
 class LessonAdmin(ModelAdmin):
@@ -25,8 +25,9 @@ class LessonAdmin(ModelAdmin):
 
 
 class UnitAdmin(ModelAdmin):
-    search_fields = ('title',)
-    list_display = ('title', 'position', 'lesson', 'video', 'activity',)
+    search_fields = ('title', 'lesson__name')
+    list_display = ('title', 'position', 'lesson', 'video',)
+    list_select_related = ('lesson', 'video')
 
 
 class CourseAdmin(ModelAdmin):
@@ -42,11 +43,27 @@ class VideoAdmin(ModelAdmin):
     list_display = ('name', 'youtube_id',)
 
 
+class ClassAdmin(ModelAdmin):
+    search_fields = ('name', 'course', 'assistant')
+    list_display = ('name', 'assistant', 'course')
+    filter_horizontal = ('students', )
+
+
+class StudentProgressAdmin(ModelAdmin):
+    search_fields = ('user__username',)
+    list_display = ('user', 'unit', 'complete', 'last_access')
+
+
+class CourseStudentAdmin(ModelAdmin):
+    search_fields = ('user__username',)
+    list_display = ('user', 'course')
+
 admin.site.register(Video, VideoAdmin)
 admin.site.register(CourseProfessor, CourseProfessorAdmin)
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Unit, UnitAdmin)
-admin.site.register(StudentProgress)
-admin.site.register(CourseStudent)
+admin.site.register(StudentProgress, StudentProgressAdmin)
+admin.site.register(CourseStudent, CourseStudentAdmin)
 admin.site.register(ProfessorMessage)
+admin.site.register(Class, ClassAdmin)

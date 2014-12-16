@@ -1,0 +1,90 @@
+// body.registration
+body.registration {
+
+    .wrapper {
+        background-image:url("../img/illustrations/instituto-l.png");
+        background-position: top center;
+        background-repeat: no-repeat;
+        background-size: 100%;
+    }
+
+    h1 {
+        color: #007dc3;
+        font-family: 'teuton_26';
+        font-size: 30px;
+    }
+
+    form {
+        label {
+            color: black !important;
+            text-align: left !important;
+        }
+        small {
+            color: black !important;
+        }
+    }
+
+    #main-footer {
+        margin-top: 0;
+    }
+
+    // body.registration--email-confirm
+    &--email-confirm,
+    &--password-reset-done {
+        .centered {
+            text-align: center;
+            width: 99% !important;
+            > * {
+                margin-left: auto;
+                margin-right: auto;
+                width: 80% !important;
+            }
+            p {
+                color: rgb(13,76,143);
+                font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                font-size: 30px;
+                line-height: 42px;
+            }
+        }
+    }
+
+    &--password-reset {
+        #activation-wrapper {
+            .centered {
+                text-align: center;
+                width: 99% !important;
+                > * {
+                    margin-left: auto;
+                    margin-right: auto;
+                    width: 40% !important;
+                }
+                    form {
+                    margin-top: 0 !important;
+                    padding-top: 0 !important;
+                }
+            }
+        }
+    }
+
+    &--password-reset-key {
+        h1 {
+            text-align: left;
+        }
+        form {
+            width: 500px;
+        }
+        div.submit {
+            text-align: right;
+        }
+    }
+
+    &--password-reset-key-done {
+        form {
+            width: 400px;
+        }
+        div.submit {
+            text-align: right;
+        }
+    }
+
+}

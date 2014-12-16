@@ -11,6 +11,8 @@
         'directive.sortable',
         'filters.text',
         'ngResource',
-        'youtube'
+        'youtube',
+        'markdown',
+        'ui.bootstrap'
     ]);
 })(window.angular);

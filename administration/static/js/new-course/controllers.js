@@ -28,18 +28,13 @@
                         }
                         document.title = 'Curso: {0}'.format(course.name);
                         $scope.addThumb = !course.thumbnail_url;
-                        // course_material and forum urls
-                        $scope.course_material_url = 'admin/course/' + course.id  + '/material/';
-                        $scope.forum_url = 'admin/course/' + course.id +  '/forum/';
-                        $scope.messages_url = 'admin/course/' + course.id   + '/messages/';
-                        $scope.reports_url = 'admin/course/' + course.id   + '/stats/';
                     })
                     .then(function(){
                         $scope.lessons = Lesson.query({'course__id': match[1]});
                         return $scope.lessons.promise;
                     })
                     .then(function(){
-                        $scope.courseProfessors = CourseProfessor.query({ course: match[1] });
+                        $scope.courseProfessors = CourseProfessor.query({course: match[1], role: 'instructor'});
                         return $scope.courseProfessors.promise;
                     })['catch'](function(resp){
                         $scope.alert.error(httpErrors[resp.status.toString()]);
@@ -99,6 +94,10 @@
                 }
                 if(!$scope.course.slug){
                     $scope.course.slug = $filter('slugify')($scope.course.name);
+                }
+
+                if ($scope.course.start_date) {
+                    $scope.course.start_date = $filter('date')($scope.course.start_date, 'yyyy-MM-dd');
                 }
 
                 $scope.course.save()

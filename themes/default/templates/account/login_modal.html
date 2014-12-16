@@ -19,25 +19,25 @@
               </div>
 
               <div class="panel-body bottom-xs left-xs right-xs top-xs">
-                <form class="form-horizontal" method="post" action="{% url 'timtec_login' %}">{% csrf_token %}
-                  <div class="form-group{% if login_form.errors %} has-error{% endif %}">
+                <form class="form-horizontal" method="post" action="{% url 'account_login' %}">{% csrf_token %}
+                  <div class="form-group{% if form.errors %} has-error{% endif %}">
                     <label class="col-lg-3 col-md-3 col-sm-12 col-xs-12">{% trans 'Login' %}</label>
                     <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-                      <input name="username" type="text" class="form-control"
-                      value="{{login_form.username.value}}" placeholder="{% trans 'E-mail or username' %}"/>
-                      {% for error in login_form.username.errors %}
+                      <input name="login" type="text" class="form-control"
+                      value="{{form.login.value}}" placeholder="{% trans 'E-mail or username' %}"/>
+                      {% for error in form.login.errors %}
                       <small>{{error}}</small>
                       {% endfor error in %}
                     </div>
                   </div>
-                  <div class="form-group{% if login_form.errors %} has-error{% endif %}">
+                  <div class="form-group{% if form.errors %} has-error{% endif %}">
                     <label class="col-lg-3 col-md-3 col-sm-12 col-xs-12">{% trans 'Password' %}</label>
                     <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                       <input name="password" type="password" class="form-control" placeholder="{% trans 'Password' %}">
-                      {% for error in login_form.password.errors %}
+                      {% for error in form.password.errors %}
                       <small>{{error}}</small>
                       {% endfor %}
-                      {% for error in login_form.non_field_errors %}
+                      {% for error in form.non_field_errors %}
                       <small>{{error}}</small>
                       {% endfor %}
                     </div>
@@ -65,7 +65,7 @@
               </div>
 
               <div class="panel-body bottom-xs left-xs right-xs top-xs">
-                <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}" class="form-horizontal">{% csrf_token %}
+                <form onclick="event.stopPropagation()" method="post" action="{% url 'account_login' %}" class="form-horizontal">{% csrf_token %}
                   <div class="form-group">
                     <label class="col-lg-3 col-md-3 col-sm-12 col-xs-12">{% trans "Username" %}</label>
                     <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
@@ -98,8 +98,10 @@
             </div>
           </div>
         </div>
+        <!--
         <div class="divider bottom-xs top-xs"></div>
         <p class="bottom textcenter">{% load socialaccount %}<a href="{% provider_login_url 'facebook' method='oauth2' %}">{% trans 'Facebook connect' %}</a></p>
+        -->
       </div>
     </div>
   </div>

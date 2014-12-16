@@ -1,23 +1,13 @@
 // COURSE CONTENT
 #course-content {
 
-  header {
-    border-bottom: 1px solid @gray-lighter;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    h1 {
-      margin-top: 25px;
-    }
-    a.goto-course {
-      display:block;
-      margin-top: 18px;
-    }
-  }
-
   // COURSE SUMMARY - Course intro
   // ********************************************************************* //
   .summary {
     margin-top: 20px;
+    .btn-info .text-info { // data selecionada dentro do datepicker
+      color: #fff;
+    }
   }
 
   // COURSE LESSONS - Course intro
@@ -157,8 +147,18 @@
       border: 2px solid @gray-lighter;
       height: 235px;
       @media (min-width: @screen-lg-min) { height: 310px; }
-      margin: 20px 0;
-      padding: 10px;
+      margin: 20px 0 10px;
+    }
+    .message {
+      font-size: 12px;
+      display: none;
+      float: left;
+      text-align: left;
+      width: 140px;
+      @media (min-width: @screen-lg-min) { width: 175px; }
+    }
+    .btn {
+      float: right;
     }
   }
   .add-side-notes {
@@ -179,6 +179,11 @@
 
   // COURSE UNITS - General
   // ********************************************************************* //
+  #lesson-units-nav {
+    @media (max-width: @screen-sm-max) {
+      width: 13% !important;
+    }
+  }
   .units {
     //margin-top: 20px;
     .unit {

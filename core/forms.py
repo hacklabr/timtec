@@ -2,8 +2,13 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.core.mail import send_mail
-
+from django.contrib.auth import get_user_model
 from django.conf import settings
+
+from .models import Class
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class AcceptTermsForm(forms.Form):
@@ -37,3 +42,41 @@ class SignupForm(forms.Form):
     def save(self, user):
         user.accepted_terms = True
         user.save()
+
+
+class RemoveStudentForm(forms.ModelForm):
+    class Meta:
+        model = Class
+        fields = []
+
+    user_id = forms.IntegerField()
+
+    def save(self, commit=True):
+        uid = self.cleaned_data['user_id']
+        self.instance.remove_students(get_user_model().objects.get(id=uid))
+        return super(RemoveStudentForm, self).save(commit=commit)
+
+
+class AddStudentsForm(forms.ModelForm):
+    class Meta:
+        model = Class
+        fields = []
+
+    students_text = forms.CharField()
+
+    def clean_students_text(self):
+        data = self.cleaned_data['students_text'].strip().split()
+        data = [u.strip() for u in data]
+        return data
+
+    def save(self, commit=True):
+        User = get_user_model()
+        students = self.cleaned_data['students_text']
+
+        for student_name in students:
+            try:
+                student = User.objects.get(username=student_name)
+                self.instance.add_students(student)
+            except User.DoesNotExist:
+                logger.info(u'student with username: %s does not exist' % student_name)
+        return super(AddStudentsForm, self).save(commit=commit)

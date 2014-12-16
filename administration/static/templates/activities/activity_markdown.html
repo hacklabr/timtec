@@ -1,6 +1,6 @@
 <div class="question textleft">
-    <h1 class="top" ng-model="currentActivity.data.question"
-        contenteditable placeholder="Título da atividade"></h1>
+    <div class="editable-title"><input type="text" ng-model="currentActivity.data.question" placeholder="Título da atividade"></div>
+    <button class="btn btn-danger" ng-click="removeCurrentActivity()"><i class="fa fa-trash-o"></i></button>
 </div>
 <div>
     <p class="alert alert-info">Um editor de texto aparecerá para o estudante escrever livremente uma resposta.</p>

@@ -10,52 +10,6 @@
     > header {
       border-bottom: 1px solid @gray-lighter;
     }
-    .filters {
-      background-color: @gray-lighter;
-      padding: 5px 10px;
-      margin: 20px 0 50px;
-
-      .checkbox {
-        line-height: 2.5;
-        label {
-          font-size: 14px;
-          margin-right: 10px;
-        }
-        input[type="checkbox"] {
-          display: inline-block;
-        }
-      }
-      .checkbox, .radio {
-        input {
-          display: inline-block;
-        }
-      }
-      .filter-checkbox {
-        @media (max-width: @screen-sm-max) {
-          margin-bottom: 20px;
-        }
-      }
-      @media (max-width: @screen-xs-max) {
-        .filter-keyword, .filter-ordering, .filter-reverse {
-          margin-bottom: 10px;
-        }
-        .filter-checkbox {
-          .checkbox {
-            padding-left: 23px;
-            label {
-              display: block;
-              margin-bottom: 10px;
-            }
-          }
-        }
-      }
-
-      .filter-ordering {
-        select {
-          width: 100%;
-        }
-      }
-    }
     #all-courses {
       &.courses-list {
         > header {
@@ -115,41 +69,6 @@
         }
         .not-edited {
           color: @gray-light;
-        }
-        .editable {
-          cursor: pointer;
-          word-break: break-word;
-          &:hover {
-            background-color: lighten(@brand-warning, 40%);
-          }
-        }
-        .markdown-required {
-          background-color: lighten(@brand-danger, 40%);
-          position: relative;
-          > div.editable {
-            min-height: 120px;
-          }
-          .markdown-required-label {
-            bottom: 10px;
-            color: @brand-danger;
-            font-size: 11px;
-            position: absolute;
-            right: 15px;
-          }
-        }
-        .icon-editable {
-          color: @brand-info;
-          cursor: pointer;
-          font-size: 18px;
-          margin: 0 10px;
-          vertical-align: bottom !important;
-        }
-        .icon-addable {
-          color:@brand-success;
-          cursor:pointer;
-          font-size:18px;
-          margin:0 10px;
-          vertical-align:bottom !important;
         }
         .edit-video-intro {
           cursor:pointer;
@@ -365,6 +284,20 @@
         }
       }
 
+      .activity {
+        .editable-title {
+          margin-bottom: 10px;
+          float: left;
+          width: 93%;
+        }
+        .question .btn-danger {
+          float: right;
+        }
+        .alert-info {
+          clear: both;
+        }
+      }
+
       .add-side-notes {
         margin-top: 20px;
       }
@@ -374,22 +307,36 @@
     // ********************************************************************* //
     .add-content {
       margin-bottom: 0px;
-      margin-top: 20px;
-      button {
-        font-size: 11px;
-        margin-bottom: 10px;
-        padding: 10px 20px;
-        &.delete {
-          font-size: 14px;
-          padding: 8px 20px;
+      #video-activity-buttons {
+        button {
+          font-size: 11px;
+          margin-bottom: 10px;
+          padding: 10px 20px;
+        }
+        @media (max-width: 560px) {
+          .col-xs-6 {
+            width: 100%;
+            &.textright {
+              text-align: left;
+            }
+          }
         }
       }
-      @media (max-width: 560px) {
-        .col-xs-6 {
-          width: 100%;
-          &.textright {
-            text-align: left;
+      .secondary-header {
+        .unit {
+          float: left;
+          font-size: 18px;
+          margin-top: 3px;
+        }
+        .editable-text {
+          margin: 0 40px 0 80px;
+          input {
+            font-size: 18px;
           }
+        }
+        .btn {
+          float: right;
+          margin: -28px 0 0 0;
         }
       }
     }
@@ -479,84 +426,103 @@
     }
   }
 
-  // ACTIONS - Admin
-  .actions {
-    background-color: @gray-lighter;
-    margin-bottom: 20px;
-    margin-top: -20px;
-    padding: 10px 0;
-    position: relative;
-    .status {
-      margin-left: 40px;
-      margin-right: 10px;
-    }
-    .label {
-      background-color: darken(@gray-lighter, 10%);
-      color: @gray-darker;
-      font-size: 11px;
-      font-weight: normal;
-      margin-right: -5px;
-      padding: 10px 12px;
-      text-transform: uppercase;
-    }
-    @media screen and (max-width: @screen-xs-max) {
-      margin-top: 0;
-    }
-    @media screen and (max-width: 450px) {
-      .col-xs-5, .col-xs-7 {
-        width: 100%;
-      }
-      .col-xs-7 {
-        text-align: left;
-        margin-top: 10px;
-      }
-    }
-  }
-  // END ACTIONS
 
-  // CONTENT EDITABLE
-  [contenteditable] {
-    font-weight: thin;
-    padding: 3px 0 0 0;
-    &:empty {
-      background-color: lighten(@brand-danger, 40%);
-      color: @gray-light;
-      &:before {
-        background-color: none;
+  #home {
+    #courses {
+      margin-top: 40px;
+    }
+    .drag {
+      .btn-drag {
+        display: block;
       }
     }
-    &:hover {
-      background-color: lighten(@brand-warning, 40%);
+    .btn-drag {
+      cursor: move;
+      display: none;
+      position: absolute;
+      z-index: 700;
+      top: 50%;
+      left: 50%;
+      margin-top: -16px;
+      margin-left: -17px;
     }
-  }
-
-  // POPUP NOTIFICATIONS
-  .tt-popup {
-    margin-left: 25%;
-    position: fixed;
-    top: 60px;
-    width: 50%;;
-    z-index: 9999;
-    // -moz-transition: top 500ms;
-    // -webkit-transition: top 500ms;
-    // -o-transition: top 500ms;
-    // transition: top 500ms;
-    &.hideTop {
-      top: -5000px;
+    .edit-videos {
+      float: right;
     }
-    .alert-success {
-      h4 {
-        font-family: @font-family-sans-serif;
-        font-size: 12px;
-        font-weight: bold;
-        margin-bottom: 0;
+    .modal {
+      .modal-dialog {
+        @media (min-width: 768px) { width: 768px; }
+      }
+      .modal-title {
+        font-size: 26px;
+      }
+      .modal-body {
+        .select-course {
+          @media (max-width: 650px) { width: 100%; }
+          cursor: pointer;
+          margin-bottom: 15px;
+          .course-thumb {
+            @media (min-width: 400px) and (max-width: 519px) { width: 40%; }
+            @media (min-width: 520px) and (max-width: 650px) { width: 33%; }
+            position: relative;
+            float: left;
+            width: 50%;
+            height: 95px;
+            background: #000;
+            border: 4px solid @gray-lighter;
+            overflow: hidden;
+            cursor: pointer;
+            transition : all 0.3s;
+            background-size: cover;
+            .selected {
+              opacity: 0;
+              position: absolute;
+              right: -3px;
+              bottom: -3px;
+              background: url(../img/selected.png) no-repeat center center;
+              width: 24px;
+              height: 24px;
+              transition : all 0.3s;
+            }
+          }
+          &.active {
+            .course-thumb {
+              border-color: @brand-info;
+              .selected {
+                opacity: 1;
+                background-color: @brand-info;
+              }
+            }
+          }
+          &:hover {
+            .course-thumb {
+              border-color: @gray-light;
+              .selected {
+                opacity: 1;
+                background-color: @gray-light;
+              }
+            }
+          }
+          .course-info {
+            position: relative;
+            float: left;
+            height: 95px;
+            width: 50%;
+            overflow: hidden;
+            padding: 0 0 0 15px;
+            h3 {
+              margin: 0;
+              font-size: 15px;
+            }
+          }
+        }
+      }
+      .modal-footer {
+        padding-right: 20px;
+        padding-left: 20px;
       }
     }
-    .close {
-      margin-top: -5px;
-    }
-  }
-}
+  }}
 
 @keyframes blink-text-red
 {
@@ -613,10 +579,11 @@
     -webkit-transition: background-color 1s;
 }
 
-.activity label.btn {
+.activity-btn {
   white-space: normal;
   min-height: 4em;
   width: 100%;
+  margin-bottom: 10px;
 }
 
 .activity .panel-body {

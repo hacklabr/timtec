@@ -1,5 +1,5 @@
-from .models import TimtecUser
 from rest_framework import serializers
+from django.contrib.auth import get_user_model
 
 
 class TimtecUserSerializer(serializers.ModelSerializer):
@@ -7,5 +7,5 @@ class TimtecUserSerializer(serializers.ModelSerializer):
     picture = serializers.Field(source='get_picture_url')
 
     class Meta:
-        model = TimtecUser
-        fields = ('id', 'username', 'name', 'first_name', 'last_name', 'biography', 'picture',)
+        model = get_user_model()
+        fields = ('id', 'username', 'name', 'email', 'first_name', 'last_name', 'biography', 'picture',)

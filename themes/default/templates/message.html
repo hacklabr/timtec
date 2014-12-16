@@ -12,14 +12,21 @@
             </div>
             <div class="row">
                 <div class="students col-lg-12">
-                    <h2>{% trans 'Students' %}</h2>
-                    <div class="row" ng-repeat="row in message.users_rows">
-                        <div class="col-lg-2" ng-repeat="user in row">
+                    <h2>{% trans 'Recipients' %}</h2>
+                    <table class="table table-list">
+                        <tr>
+                            <th class="fullname">{% trans "Full name" %}</th>
+                            <th class="email">{% trans "Email" %}</th>
+                            <th class="username">{% trans "Username" %}</th>
+                        </tr>
+                        <tr ng-repeat="student in message.users_details">
                             {% verbatim %}
-                            <div class="student">{{ user.name || user.username }}</div>
+                            <td>{{student.name}}</td>
+                            <td>{{student.email}}</td>
+                            <td>{{student.username}}</td>
                             {% endverbatim %}
-                        </div>
-                    </div>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>

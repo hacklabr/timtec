@@ -31,14 +31,21 @@
                 $scope.selectActivity(0);
             };
 
+            $scope.locationChange = function(unitIndex) {
+                $location.path('/' + unitIndex);
+            };
+
             $scope.nextUnit = function() {
                 var index = $scope.lesson.units.indexOf($scope.currentUnit);
                 index++;
 
                 if(index < $scope.lesson.units.length) {
                     $location.path('/{0}'.format(index+1));
+                } else {
+                    // no next unit, so mark it as the end,
+                    // and the template will show a next lesson
+                    $scope.section = 'end';
                 }
-                // e se não tiver nextUnit, faz o que?
             };
 
             $scope.play = function() {
@@ -110,16 +117,14 @@
             };
 
             $scope.nextStep = function(skipComment) {
+                var progress;
                 if($scope.section === 'video') {
                     if(angular.isArray($scope.currentUnit.activities) &&
                         $scope.currentUnit.activities.length > 0) {
                         $scope.section = 'activity';
                     } else {
-                        var progress = new Progress();
-                        progress.complete = new Date();
-                        progress.unit = $scope.currentUnit.id;
+                        progress = Progress.complete($scope.currentUnit.id);
                         $scope.currentUnit.progress = progress;
-                        progress.$save();
                         $scope.nextUnit();
                     }
                 } else {
@@ -128,6 +133,8 @@
                     } else {
                         var index = $scope.currentUnit.activities.indexOf($scope.currentActivity);
                         if(index+1 === $scope.currentUnit.activities.length) {
+                            progress = Progress.complete($scope.currentUnit.id);
+                            $scope.currentUnit.progress = progress;
                             $scope.nextUnit();
                         } else {
                             $scope.selectActivity(index + 1);

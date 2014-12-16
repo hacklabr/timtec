@@ -1,4 +1,5 @@
-from core.models import Course, CourseProfessor, CourseStudent, Lesson, Video, StudentProgress, Unit, ProfessorMessage
+from django.contrib.flatpages.models import FlatPage
+from core.models import Course, CourseProfessor, CourseStudent, Lesson, Video, StudentProgress, Unit, ProfessorMessage, Class
 from accounts.serializers import TimtecUserSerializer
 from activities.serializers import ActivitySerializer
 from rest_framework.reverse import reverse_lazy
@@ -60,12 +61,12 @@ class CourseSerializer(serializers.ModelSerializer):
 
     @staticmethod
     def get_professors_names(obj):
-        professors = obj.professors.all()
+        professors = obj.get_video_professors()
         if professors:
             if len(professors) > 1:
-                return '{0} e {1}'.format(professors[0], professors[1])
+                return '{0} e {1}'.format(professors[0].user, professors[1].user)
             else:
-                return professors[0]
+                return professors[0].user
         return ''
 
     @staticmethod
@@ -155,3 +156,15 @@ class CourseNoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = ('id', 'slug', 'name', 'lessons_notes', 'course_notes_number',)
+
+
+class ClassSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Class
+
+
+class FlatpageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FlatPage

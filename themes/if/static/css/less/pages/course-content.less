@@ -1,0 +1,329 @@
+// COURSE CONTENT
+#course-content {
+
+  // COURSE SUMMARY - Course intro
+  // ********************************************************************* //
+  .summary {
+    margin-top: 20px;
+  }
+
+  // COURSE LESSONS - Course intro
+  // ********************************************************************* //
+  .lessons {
+    margin-top: 20px;
+    .lesson {
+      background: #fff;
+      padding: 15px 0;
+      margin-bottom: 20px;
+      border-radius: @border-radius-base;
+      .title {
+        display:block;
+        font-size: 16px;
+        font-weight:regular;
+      }
+      .description {
+        font-size:13px;
+      }
+      .editable {
+        ul {
+          margin: 0 0 15px 0;
+          padding: 0 0 0 29px;
+          li {
+            margin: 0;
+          }
+        }
+      }
+      li {
+        margin:36px 0;
+      }
+    }
+    // END LESSON
+    .table {
+      margin-bottom:7px;
+      tr {
+        td {
+          border:none;
+          margin:0;
+          padding:0;
+          a {
+            color: #fff;
+          }
+        }
+      }
+    }
+    // END TABLE
+    i.fa-youtube-play {
+      color:@brand-danger;
+    }
+    i.fa-list {
+      color:@brand-info;
+    }
+  }
+  // END LESSONS
+
+  // COURSE INSTRUCTORS - Course intro
+  // ********************************************************************* //
+  .instructors {
+    margin-top: 20px;
+    .instructor {
+      margin-bottom: 10px;
+      margin-top: 10px;
+
+    }
+    h1.fullname {
+      margin-bottom: 10px;
+      font-size:21px;
+      text-transform:none;
+    }
+    h2.job-title {
+      border-bottom:1px solid @gray-lighter;
+      .bottom(9px,9px);
+      font-size:14px;
+    }
+    .instructor-photo {
+      margin-bottom: 20px;
+      max-width: 260px;
+    }
+    .missing-avatar {
+      border:1px solid #ddd;
+      text-align:center;
+      &:before {
+        content:'';
+        .vertical-align(middle);
+      }
+      .centered {
+        margin:-16px 4px 4px 4px;
+        .vertical-align(middle);
+        .calculate-width(8px);
+        i {
+          background:#ddd;
+          color:#c0c0c0;
+          display:block;
+          font-size:72px;
+          padding:27px 0;
+        }
+      }
+    }
+    // END INSTRUCTOR
+  }
+  // END INSTRUCTORS
+
+
+  // COURSE THUMBNAIL - General
+  // ********************************************************************* //
+  .thumbnail {
+    border: 1px solid @gray-lighter;
+    padding: 0;
+    #admin & {
+      .top(20px);
+    }
+    .thumbnail-title {
+      margin: 2px 10px 0;
+    }
+    .btn-edit-thumbnail {
+      margin: 5px;
+    }
+  }
+  // END COURSE VIDEO
+
+  // COURSE VIDEO - General
+  // ********************************************************************* //
+  .video {
+    border: 1px solid @gray-lighter;
+    .video-title {
+      margin: 2px 10px 0;
+    }
+    .btn-edit-video {
+      margin: 1px 5px 0 0;
+    }
+  }
+  // END COURSE VIDEO
+
+  // NEXT LESSON
+  // ********************************************************************* //
+  .next-lesson {
+    border: 1px solid #eeeeee;
+    padding: 40px 20px;
+    position: relative;
+    text-align: center;
+    @media (min-width: @screen-lg-min) {
+      height: 424px;
+    }
+    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+      height: 349px;
+    }
+    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+      height: 372px;
+    }
+    &:before {
+      content: '';
+      height: 100%;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .btn {
+      span {
+        float: left;
+      }
+      .fa {
+        margin: 1px 0 0 10px;
+        font-size: 18px;
+        float: right;
+      }
+    }
+  }
+  // END COURSE VIDEO
+
+  // COURSE NOTES - General
+  // ********************************************************************* //
+  #student-notes {
+    @media (max-width: @screen-sm-max) { margin-top: 20px; }
+  }
+  .notes {
+    textarea {
+      border: 2px solid @gray-lighter;
+      height: 235px;
+      @media (min-width: @screen-lg-min) { height: 310px; }
+      @media (max-width: @screen-sm-max) { width: 100%; }
+      margin: 20px 0 10px;
+    }
+    .message {
+      font-size: 12px;
+      display: none;
+      float: left;
+      text-align: left;
+      width: 140px;
+      @media (min-width: @screen-lg-min) { width: 175px; }
+    }
+    .btn {
+      float: right;
+    }
+  }
+  .add-side-notes {
+    margin-top: 68px;
+    #side-notes {
+      [contenteditable] {
+        cursor: pointer;
+        height: 300px;
+        margin-top: 20px;
+      }
+    }
+    textarea {
+      border: 2px solid #eeeeee;
+      height: 310px;
+      margin: 20px 0;
+    }
+  }
+
+  // COURSE UNITS - General
+  // ********************************************************************* //
+  #lesson-units-nav {
+    @media (max-width: @screen-sm-max) {
+      width: 13% !important;
+    }
+  }
+  .units {
+    //margin-top: 20px;
+    a.unit {
+      cursor:pointer;
+    }
+    .unit {
+      background:@gray-lighter - 20%;
+      .box-shadow(inset -1px 0 0 #fff);
+      color:#fff;
+      display:block;
+      font-size:12px;
+      height:20px;
+      line-height:1.75;
+      margin:0 0 1px 0;
+      padding:0 0 0 3px;
+      position:relative;
+      text-align:left;
+      z-index:10;
+      &:hover {
+        background:@gray-light;
+        color:#fff;
+        .transition(all .25s ease-out);
+      }
+      &.current {
+        background-color: @brand-info;
+      }
+      &.done, &.done:hover {
+        background:@brand-warning;
+        .transition(all .25s ease-out);
+        &:hover {
+          background:darken(@brand-warning, 10%);
+        }
+      }
+      &.watching, &.watching:hover {
+        background:@brand-info;
+        .transition(all .25s ease-out);
+        &:hover {
+          background:darken(@brand-info, 10%);
+        }
+      }
+      i {
+        color:#fff !important;
+        font-size:14px;
+        margin:3px 0 0 0;
+      }
+      i.fa-caret-right {
+        color:@brand-info;
+        font-size:18px;
+        left:-10px;
+        line-height:1;
+        top:-2px;
+      }
+      i {
+        position:absolute;
+        right:6px;
+      }
+    }
+    // END UNIT
+
+    // ADD UNIT
+    .add-unit {
+      background-color: @brand-success;
+      line-height: 2;
+      padding: 0;
+      text-align: center;
+      &:hover {
+        background-color: darken(@brand-success, 10%);
+      }
+      i {
+        position: static;
+      }
+    }
+    // END ADD UNIT
+  }
+  // END COURSE UNITS
+}
+
+// COURSE INTRO
+#course.course-intro {
+  .video {
+    .top(25px);
+  }
+}
+
+#course.course-stats {
+  .students, .lessons {
+    margin: 20px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .students li {
+    margin-bottom: 20px;
+  }
+}
+
+// UPLOADED FILES LIST
+ul.uploaded-files-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  li {
+    border-bottom: 1px solid fade(@brand-primary, 20%);
+    padding: 5px 0;
+  }
+}

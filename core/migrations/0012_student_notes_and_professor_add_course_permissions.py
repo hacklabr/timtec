@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
-import datetime
-from south.db import db
 from south.v2 import DataMigration
-from django.db import models
 from django.contrib.contenttypes.management import update_contenttypes
 from django.contrib.auth.management import create_permissions
 from django.db.models import get_app, get_models
 
 
 class Migration(DataMigration):
+    depends_on = (
+        ('activities', '0007_expected_empty'),
+        ('course_material', '0001_initial'),
+        ('forum', '0005_auto__add_field_question_hidden_justification'),
+        ('notes', '0001_initial'),
+    )
 
     def forwards(self, orm):
         "Write your forwards methods here."
@@ -18,15 +21,92 @@ class Migration(DataMigration):
         update_contenttypes(get_app('notes'), get_models())
         create_permissions(get_app('notes'), get_models(), 0)
 
-        students = orm['auth.Group'].objects.get(name="students")
-        students.permissions.add(orm['auth.Permission'].objects.get(content_type__app_label="notes", codename="add_note"))
-        students.permissions.add(orm['auth.Permission'].objects.get(content_type__app_label="notes", codename="change_note"))
-        students.permissions.add(orm['auth.Permission'].objects.get(content_type__app_label="notes", codename="delete_note"))
-        students.save()
+        # permissions are app, codename tuples
+        group_permissions = {
+            'students': [
+                ('notes', 'add_note'),
+                ('notes', 'change_note'),
+                ('notes', 'delete_note'),
+                ('activities', 'add_answer'),
+                ('core', 'add_coursestudent'),
+                ('activities', 'change_answer'),
+                ('core', 'change_coursestudent'),
+                ('core', 'delete_coursestudent'),
+                ('core', 'add_studentprogress'),
+                ('core', 'change_studentprogress'),
+                ('core', 'delete_studentprogress'),
+                ('forum', 'add_answer'),
+                ('forum', 'change_answer'),
+                ('forum', 'add_answervote'),
+                ('forum', 'change_answervote'),
+                ('forum', 'delete_answervote'),
+                ('forum', 'add_question'),
+                ('forum', 'change_question'),
+                ('forum', 'add_questionvote'),
+                ('forum', 'change_questionvote'),
+                ('forum', 'delete_questionvote'),
+                ],
+            'professors': [
+                ('activities', 'add_activity'),
+                ('activities', 'change_activity'),
+                ('activities', 'delete_activity'),
+                ('activities', 'add_answer'),
+                ('activities', 'change_answer'),
+                ('activities', 'delete_answer'),
+                ('core', 'add_course'),
+                ('core', 'change_course'),
+                ('core', 'delete_course'),
+                ('core', 'add_courseprofessor'),
+                ('core', 'change_courseprofessor'),
+                ('core', 'delete_courseprofessor'),
+                ('core', 'add_coursestudent'),
+                ('core', 'change_coursestudent'),
+                ('core', 'delete_coursestudent'),
+                ('core', 'add_lesson'),
+                ('core', 'change_lesson'),
+                ('core', 'delete_lesson'),
+                ('core', 'add_studentprogress'),
+                ('core', 'change_studentprogress'),
+                ('core', 'delete_studentprogress'),
+                ('core', 'add_unit'),
+                ('core', 'change_unit'),
+                ('core', 'delete_unit'),
+                ('core', 'add_video'),
+                ('core', 'change_video'),
+                ('core', 'delete_video'),
+                ('course_material', 'add_coursematerial'),
+                ('course_material', 'change_coursematerial'),
+                ('course_material', 'delete_coursematerial'),
+                ('course_material', 'add_file'),
+                ('course_material', 'change_file'),
+                ('course_material', 'delete_file'),
+                ('forum', 'add_answer'),
+                ('forum', 'change_answer'),
+                ('forum', 'delete_answer'),
+                ('forum', 'add_answervote'),
+                ('forum', 'change_answervote'),
+                ('forum', 'delete_answervote'),
+                ('forum', 'add_question'),
+                ('forum', 'change_question'),
+                ('forum', 'delete_question'),
+                ('forum', 'add_questionvote'),
+                ('forum', 'change_questionvote'),
+                ('forum', 'delete_questionvote'),
+                ],
+        }
 
-        professors = orm['auth.Group'].objects.get(name="professors")
-        professors.permissions.add(orm['auth.Permission'].objects.get(content_type__app_label="core", codename="add_course"))
-        professors.save()
+        # this will create groups, and add all permissions.
+        for group_name, permissions in group_permissions.iteritems():
+            group, created = orm['auth.Group'].objects.get_or_create(name=group_name)
+            gp = group.permissions
+            Permission = orm['auth.Permission']
+            for app, codename in permissions:
+                try:
+                    p = Permission.objects.get(content_type__app_label=app, codename=codename)
+                except:
+                    print app, codename
+                gp.add(p)
+            group.save()
 
     def backwards(self, orm):
         "Write your backwards methods here."

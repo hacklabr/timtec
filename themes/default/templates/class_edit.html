@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+{% load is_course_coordinator %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
+{% block content %}
+
+<!-- class-modal -->
+<div class="modal fade" id="class-modal" tabindex="-1" role="dialog" aria-labelledby="class-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form role="form" method="post" action="{% url 'class-add-users' pk=class.id %}">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="class-modal-label">{{ object.name }}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="class-users-list">{% trans 'Users' %}</label>
+                        <textarea id="class-users-list" class="form-control" rows="10" placeholder="Paste users list here, one user per line." name="students_text"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">{% trans 'Add users' %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="classes" class="course-classes">
+    <!-- ACTIONS -->
+    <div class="actions-menu" fixed-bar>
+        <div class="container">
+            <div class="actions-buttons">
+                <form method="post" action="{% url 'class-delete' pk=class.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" title="{% trans 'Delete course' %}">{% trans 'Delete' %} | <i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-success" onclick="document.getElementById('mainForm').submit();return false;">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
+                </form>
+            </div>
+
+            {# {% include 'administration/_alert.html' %} #}
+
+        </div>
+    </div>
+    <!-- END ACTIONS -->
+
+    {% include "_course-header-inline.html"  with course=object.course %}
+    <section id="classes-content" class="container">
+    	<header class="secondary-header">
+            <form id="mainForm" method="post" action="{% url 'class' pk=class.id %}">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-9">
+                            <div class="editable-title"><input type="text" name="name" value="{{ object.name }}"></div>
+                    </div>
+                    <div class="col-lg-3">
+                        <a class="btn btn-lg btn-danger uppercase" data-toggle="modal" data-target="#class-modal">{% trans 'Add users' %}</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-9">
+                        <label>{% trans 'Assistant' %}:</label>
+                        {% if user|is_course_coordinator:object.course %}
+                            <select name="assistant" class="form-control">
+                                {% if not object.assistant.id %}
+                                    <option value="-1">{% trans 'Select a professor' %}</option>
+                                {% endif %}
+                                {% for professor in object.course.professors.all %}
+                                    <option value="{{ professor.id }}" {% if professor.id == object.assistant.id %}selected{% endif %}>{{ professor }}</option>
+                                {% endfor %}
+                            </select>
+                        {% else %}
+                            <label>{{ object.assistant }}</label>
+                        {% endif %}
+                    </div>
+                 </div>
+            </form>
+        </header>
+        <table class="table table-list">
+            <tr>
+                <th class="classname">{% trans "Username" %}</th>
+                <th class="email">{% trans "Email" %}</th>
+                <th class="fullname">{% trans "Full name" %}</th>
+                <th class="actions">{% trans "Actions" %}</th>
+            </tr>
+            {% for student in object.students.all %}
+            <tr>
+                <td>{{ student.username }}</td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.get_full_name }}</td>
+                <td class="actions">
+                    <form method="post" action="{% url 'class-remove-user' pk=class.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="user_id" value="{{ student.id }}"></input>
+                        <button type="submit" class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">{% trans 'No students found' %}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </section>
+</div>
+
+{% endblock %}

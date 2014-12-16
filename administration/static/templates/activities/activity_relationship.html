@@ -1,6 +1,6 @@
 <div class="question textleft">
-    <h1 class="top" ng-model="currentActivity.data.question"
-        contenteditable placeholder="Título da atividade"></h1>
+    <div class="editable-title"><input type="text" ng-model="currentActivity.data.question" placeholder="Título da atividade"></div>
+    <button class="btn btn-danger" ng-click="removeCurrentActivity()"><i class="fa fa-trash-o"></i></button>
 </div>
 <div class="answers relationship-answers">
     <div class="row">
@@ -12,8 +12,9 @@
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <span ng-bind="($index+1)+'.'"></span>
-                <span ng-model="currentActivity.data.column1[$index]"
-                      contenteditable placeholder="Texto para coluna 1"></span>
+                <span class="editable-text">
+                  <input type="text" ng-model="currentActivity.data.column1[$index]" placeholder="Texto para coluna 1"/>
+                </span>
             </div>
             <div class="col-lg-5 col-md-5 col-sm-5">
                 <div class="row">
@@ -24,8 +25,9 @@
                                id="numberbox-{{$index}}" />
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-9">
-                        <label ng-model="currentActivity.data.column2[$index]"
-                               contenteditable placeholder="Texto para coluna 2"></label>
+                        <span class="editable-text">
+                          <input type="text" ng-model="currentActivity.data.column2[$index]" placeholder="Texto para coluna 2"/>
+                        </span>
                     </div>
                 </div>
             </div>
