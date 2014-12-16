@@ -86,6 +86,13 @@
       &.current {
         background-color: @brand-info;
       }
+      &.watching, &.watching:hover {
+        background: @brand-danger;
+        .transition(all .25s ease-out);
+        &:hover {
+          background:darken(@brand-danger, 10%);
+        }
+      }
     }
     // END UNIT
   }
