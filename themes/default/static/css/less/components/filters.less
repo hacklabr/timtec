@@ -58,6 +58,12 @@
   }
 
   #filter-class {
-    margin-left: 10px;
+    display: inline-block;
+    width: 100%;
+    vertical-align: middle;
+    @media screen and (min-width: @screen-xs-min) {
+      margin-left: 10px;
+      width: auto;
+    }
   }
 }
