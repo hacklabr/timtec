@@ -68,25 +68,25 @@ wrapper-course-intro
         <div class="page-header">
             <!-- ROW -->
             <div class="row">
-                <div class="col-md-9 col-xs-12">
+                <div class="col-sm-8 col-md-9 col-xs-12">
                     <h1><i class="fa fa-angle-double-right"></i> {{course.name}}</h1>
                     {% include "_course-details-inline.html" with course=course %}
                 </div>
                 {% if course.first_lesson.slug %}
-                    <div class="col-md-3 col-xs-12 textright">
+                    <div class="col-sm-4 col-md-3 col-xs-12 textright">
                         {% if user_is_enrolled %}
-                            <a href="{% url "lesson" course.slug course.first_lesson.slug %}" id="go-to-course" class="btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Resume" %}</a>
+                            <a href="{% url "lesson" course.slug course.first_lesson.slug %}" id="go-to-course" class="btn btn-lg btn-info col-xs-12 uppercase">{% trans "Resume" %}</a>
                             {% if course.has_started %}
-                                    <a href="{% url "lesson" course.slug course.first_lesson.slug %}" class="btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase js-login-required">{% trans "Resume" %}</a>
+                                    <a href="{% url "lesson" course.slug course.first_lesson.slug %}" class="btn btn-lg btn-info col-xs-12 uppercase js-login-required">{% trans "Resume" %}</a>
                                 {% else %}
-                                    <span href="#" class="btn btn-lg btn-danger col-lg-12 col-md-12 col-sm-12 col-xs-12 has-tooltip js-login-required uppercase" data-toggle="tooltip" data-placement="bottom" data-original-title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}" title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}">{% trans "Take the Class" %}</span>
+                                    <span href="#" class="btn btn-lg btn-danger col-xs-12 has-tooltip js-login-required uppercase" data-toggle="tooltip" data-placement="bottom" data-original-title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}" title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}">{% trans "Take the Class" %}</span>
                                 {% endif %}
-                            <a href="{% url "lesson" course.slug course.first_lesson.slug %}" id="go-to-course" class="btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Resume" %}</a>
+                            <a href="{% url "lesson" course.slug course.first_lesson.slug %}" id="go-to-course" class="btn btn-lg btn-info col-xs-12 uppercase">{% trans "Resume" %}</a>
                         {% else %}
                             {% if course.has_started %}
-                                <a href="{% url "enroll_course" course.slug %}" class="btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 js-login-required uppercase">{% trans "Take the Class" %}</a>
+                                <a href="{% url "enroll_course" course.slug %}" class="btn btn-lg btn-info col-xs-12 js-login-required uppercase">{% trans "Take the Class" %}</a>
                             {% else %}
-                                <span href="#" class="btn btn-lg btn-danger col-lg-12 col-md-12 col-sm-12 col-xs-12 has-tooltip js-login-required uppercase" data-toggle="tooltip" data-placement="bottom" data-original-title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}" title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}">{% trans "Resume" %}</span>
+                                <span href="#" class="btn btn-lg btn-danger col-xs-12 has-tooltip js-login-required uppercase" data-toggle="tooltip" data-placement="bottom" data-original-title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}" title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}">{% trans "Resume" %}</span>
                             {% endif %}
                         {% endif %}
                     </div>
