@@ -41,4 +41,27 @@
             });
         }
     ]);
+
+
+    app.controller('CourseListByUserRoleController', [
+        '$scope', '$window', 'Lesson', 'CourseProfessor',
+        function ($scope, $window, Lesson, CourseProfessor) {
+            var current_user_id = parseInt($window.user_id, 10);
+
+            $scope.loadLessons = function(course) {
+                if(!course.lessons) {
+                    Lesson.query({'course__id': course.id}).$promise
+                        .then(function(lessons){
+                            course.lessons = lessons;
+                        });
+                }
+            };
+
+            $scope.courses_user_assist = CourseProfessor.query({'user': current_user_id,
+                          'role': 'assistant'});
+
+            $scope.courses_user_coordinate = CourseProfessor.query({'user': current_user_id,
+                          'role': 'coordinator'});
+        }
+    ]);
 })(window.angular);

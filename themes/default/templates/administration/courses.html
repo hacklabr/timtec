@@ -176,7 +176,8 @@ wrapper-course-lesson
                                 <div class="lesson" ng-repeat="lesson in course.lessons">
                                     <div class="row">
                                         <div class="col-lg-1">
-                                            <span class="label label-success" ng-bind="lesson.status"></span>
+                                            <span class="label label-success" ng-if="lesson.status=='published'">{% trans 'Published' %}</span>
+                                            <span class="label label-warning" ng-if="lesson.status!='published'">{% trans 'Draft' %}</span>
                                         </div>
                                         <div class="col-lg-9">
                                             {% verbatim %}
