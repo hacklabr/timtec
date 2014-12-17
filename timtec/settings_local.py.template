@@ -1,0 +1,91 @@
+# -*- coding: utf-8 -*-
+# https://docs.djangoproject.com/en/dev/ref/settings/
+
+###### TODO: you NEED to change this to your domain name ######
+DOMAIN_NAME = 'yourhostnamehere.com'
+
+DEBUG = False
+TEMPLATE_DEBUG = DEBUG
+SITE_ID = 1
+
+###### TODO: change this to the theme you want to use ######
+TIMTEC_THEME = 'if'
+
+###### TODO: Remove this block if you don't want to use ifs app ######
+INSTALLED_APPS = list(INSTALLED_APPS)
+INSTALLED_APPS.insert(INSTALLED_APPS.index('accounts') + 1, 'ifs')
+ACCOUNT_SIGNUP_FORM_CLASS = 'ifs.forms.IfSignupForm'
+AUTH_USER_MODEL = 'ifs.IfUser'
+ACCOUNT_FORMS = {'login': 'ifs.forms.IfLoginForm'}
+TERMS_ACCEPTANCE_REQUIRED = False
+########################################################################
+
+###### TODO: add any subdomains you need here ######
+ALLOWED_HOSTS = [
+    DOMAIN_NAME,
+    'wwww.' + DOMAIN_NAME
+]
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'timtec-production',
+        'USER': 'timtec-production',
+    }
+}
+
+MEDIA_ROOT = "/home/timtec-production/webfiles/media/"
+STATIC_ROOT = "/home/timtec-production/webfiles/static/"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+###### TODO: change this to suit your organization ######
+ADMINS = list(ADMINS) + [('Admin', 'root@' + DOMAIN_NAME), ]
+DEFAULT_FROM_EMAIL = 'donotreply@' + DOMAIN_NAME
+CONTACT_RECIPIENT_LIST = ['contato@' + DOMAIN_NAME, ]
+
+SITE_NAME = 'IF'
+EMAIL_SUBJECT_PREFIX = '[if]'
+######################################################
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'logfile': {
+            'level': 'WARN',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': '/home/timtec-production/django.log',
+            'maxBytes': 50000,
+            'backupCount': 2,
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['logfile'],
+            'propagate': True,
+            'level': 'WARN',
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    }
+}
