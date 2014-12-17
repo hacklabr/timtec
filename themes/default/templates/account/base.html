@@ -1,19 +1,23 @@
 {% extends 'base.html' %}
 
-{% block body_attrs %}class="registration"{% endblock %}
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
 
 {% block content %}
 
-    <div id="activation-wrapper" class="container visible-lg visible-md visible-sm">
-        <div class="centered">
-            {% block account_content %}
+    <div class="registration">
+        <div id="activation-wrapper" class="container visible-lg visible-md visible-sm">
+            <div class="centered">
+                {% block account_content %}
+                {% endblock %}
+            </div>
+        </div>
+
+        <div class="container visible-xs textcenter">
+            {% block account_content_mobile %}
             {% endblock %}
         </div>
-    </div>
-
-    <div class="container visible-xs textcenter">
-        {% block account_content_mobile %}
-        {% endblock %}
     </div>
 
 {% endblock %}
