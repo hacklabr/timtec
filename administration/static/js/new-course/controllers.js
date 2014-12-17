@@ -3,8 +3,8 @@
     var app = angular.module('new-course');
 
     app.controller('CourseEditController',
-        ['$scope', 'Course',  'CourseProfessor', 'Lesson', '$filter', 'youtubePlayerApi', 'VideoData', 'FormUpload',
-        function($scope, Course,  CourseProfessor, Lesson, $filter, youtubePlayerApi, VideoData, FormUpload) {
+        ['$scope', '$window', '$modal', 'Course',  'CourseProfessor', 'Lesson', '$filter', 'youtubePlayerApi', 'VideoData', 'FormUpload',
+        function($scope, $window, $modal, Course,  CourseProfessor, Lesson, $filter, youtubePlayerApi, VideoData, FormUpload) {
 
             $scope.errors = {};
             var httpErrors = {
@@ -13,6 +13,8 @@
                 '404': 'Este curso não existe!'
             };
 
+
+            $scope.course_id = parseInt($window.course_id, 10);
             // vv como faz isso de uma formula angular ?
             var match = document.location.href.match(/courses\/([0-9]+)/);
             $scope.course = new Course();
@@ -150,30 +152,44 @@
                 });
             };
 
-            $scope.addProfessor = function(professor) {
-                if(!professor) return;
-                var copy = angular.copy(professor);
+            $scope.open_professor_modal = function() {
+                var modalInstance = $modal.open({
+                       templateUrl: 'course_professor_modal.html',
+                       controller: ['$scope', '$modalInstance', 'course_id', CourseProfessorModalInstanceCtrl],
+                       resolve: {
+                           course_id: function () {
+                               return $scope.course_id;
+                           }
+                       }
+                   });
+                   modalInstance.result.then(function (course_professor) {
 
-                var reduce = function(a,b){ return a || b.user === copy.id; };
+                   });
 
-                if($scope.courseProfessors.reduce(reduce, false)) {
-                    $scope.alert.error('"{0}" já está na lista de professores deste curso.'.format(copy.name));
-                    return;
-                }
-
-                var professorToAdd = new CourseProfessor({
-                    'user': copy.id,
-                    'course': $scope.course.id,
-                    'biography': copy.biography,
-                    'role': 'instructor',
-                    'user_info': copy
-                });
-
-                $scope.saveProfessor(professorToAdd).then(function(){
-                    $scope.alert.success('"{0}" foi adicionado a lista de professores.'.format(copy.name));
-                    $scope.courseProfessors.push(professorToAdd);
-                })['catch'](showFieldErrors);
+                //if(!professor) return;
+                //var copy = angular.copy(professor);
+                //
+                //var reduce = function(a,b){ return a || b.user === copy.id; };
+                //
+                //if($scope.courseProfessors.reduce(reduce, false)) {
+                //    $scope.alert.error('"{0}" já está na lista de professores deste curso.'.format(copy.name));
+                //    return;
+                //}
+                //
+                //
+                //
+                //$scope.saveProfessor(professorToAdd).then(function(){
+                //    $scope.alert.success('"{0}" foi adicionado a lista de professores.'.format(copy.name));
+                //    $scope.courseProfessors.push(professorToAdd);
+                //})['catch'](showFieldErrors);
             };
+
+            var CourseProfessorModalInstanceCtrl = function($scope, $modalInstance, course_id) {
+                //$scope.professorToAdd = new CourseProfessor();
+                $scope.cancel = function () {
+                    $modalInstance.dismiss();
+                };
+            }
 
             $scope.saveLesson = function(lesson) {
                 return lesson.saveOrUpdate()
@@ -246,6 +262,8 @@
                         $scope.alert.error('Algum problema impediu a atualização dos dados dos professores.');
                     });
             };
+
+
         }
     ]);
 
