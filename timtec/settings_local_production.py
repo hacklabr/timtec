@@ -4,10 +4,9 @@
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-# current themes are defaut, timtec and ifsul
-TIMTEC_THEME = 'default'
+TIMTEC_THEME = 'timtec'
 
-# SITE_ID = 1
+SITE_ID = 2
 
 ALLOWED_HOSTS = [
     'timtec.com.br',
@@ -25,12 +24,12 @@ DATABASES = {
 MEDIA_ROOT = "/home/timtec-production/webfiles/media/"
 STATIC_ROOT = "/home/timtec-production/webfiles/static/"
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_SUBJECT_PREFIX = '[timtec]'
-# DEFAULT_FROM_EMAIL = 'donotreply@m.timtec.com.br'
-# CONTACT_RECIPIENT_LIST = ['timtec-dev@listas.hacklab.com.br', ]
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_SUBJECT_PREFIX = '[timtec]'
+DEFAULT_FROM_EMAIL = 'donotreply@m.timtec.com.br'
+CONTACT_RECIPIENT_LIST = ['timtec-dev@listas.hacklab.com.br', ]
 
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
 
 LOGGING = {
     'version': 1,
