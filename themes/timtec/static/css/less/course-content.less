@@ -33,7 +33,7 @@
   .summary {
     background-color: rgba(40,112,187,0.5);
     margin: 0 -15px;
-    padding: 260px 15px 0;
+    padding: 160px 15px 0;
     > .page-header-double {
       margin-top: 0;
     }
@@ -132,13 +132,17 @@
 // COURSE INTRO
 #course {
   &.course-intro {
+    .main-header {
+      position: absolute;
+      width: 100%;
+    }
     #course-content {
       background-color: transparent;
-      margin-top: -280px;
+      margin-top: 0;
       padding-top: 0;
       > div.row > div:first-child {
         background-color: rgba(255,255,255,0.5);
-        padding-top: 260px;
+        padding-top: 160px;
       }
     }
     #go-to-course {
@@ -169,17 +173,17 @@
   #course {
     &.course-intro, &.course-lesson {
       .main-header {
-        padding-top: 50px;
+        padding-top: 90px;
       }
     }
     &.course-intro {
       #course-content {
-        margin-top: -290px;
+        //margin-top: -290px;
         > div.row > div:first-child {
-          padding-top: 260px;
+          padding-top: 240px;
         }
         .summary {
-          padding-top: 260px;
+          padding-top: 240px;
         }
       }
     }

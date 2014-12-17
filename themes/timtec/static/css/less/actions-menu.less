@@ -3,8 +3,13 @@
     background-color: transparent;
     height: auto;
     margin: 0;
-    top: 60px;
+    top: 90px;
+    position: absolute;
+    width: 100%;
     z-index: 800;
+     @media screen and (min-width: @screen-sm-min) {
+        top: 140px;
+    }
     .actions-buttons {
         position: static;
         float: left;
@@ -13,16 +18,7 @@
         text-align: left;
     }
 }
-#admin #home {
-    .actions-menu {
-        position: absolute;
-        width: 100%;
-        top: 90px;
-        @media screen and (min-width: @screen-sm-min) {
-            top: 140px;
-        }
-    }
-}
+
 .actions-menu-scroll {
     background-color: darken(@brand-info, 20%);
     padding-top: 10px;
