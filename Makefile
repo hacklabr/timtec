@@ -74,7 +74,7 @@ clean:
 	find . -type f -name '*.py[co]' -exec rm {} \;
 
 python_tests: clean
-	py.test --pep8 --flakes --splinter-webdriver=phantomjs --reuse-db --cov . . $*
+	py.test --pep8 --flakes --splinter-webdriver=phantomjs --cov . . $*
 
 js_tests:
 	find . -path ./bower_components -prune -o -path bower_components/ -prune -o -path ./node_modules -prune -o -regex ".*/vendor/.*" -prune -o -name '*.js' -exec jshint {} \;
