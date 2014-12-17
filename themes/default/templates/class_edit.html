@@ -56,31 +56,33 @@ wrapper-course-lesson
     {% include "_course-header-inline.html"  with course=object.course %}
     <section id="classes-content" class="container">
     	<header class="secondary-header">
-            <form id="mainForm" method="post" action="{% url 'class' pk=class.id %}">
+            <form id="mainForm" class="form-inline" method="post" action="{% url 'class' pk=class.id %}">
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-lg-9">
-                            <div class="editable-title"><input type="text" name="name" value="{{ object.name }}"></div>
+                        <div class="editable-title"><input type="text" name="name" value="{{ object.name }}"></div>
                     </div>
                     <div class="col-lg-3">
                         <a class="btn btn-lg btn-danger uppercase" data-toggle="modal" data-target="#class-modal">{% trans 'Add users' %}</a>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-9">
-                        <label>{% trans 'Assistant' %}:</label>
-                        {% if user|is_course_coordinator:object.course %}
-                            <select name="assistant" class="form-control">
-                                {% if not object.assistant.id %}
-                                    <option value="-1">{% trans 'Select a professor' %}</option>
-                                {% endif %}
-                                {% for professor in object.course.professors.all %}
-                                    <option value="{{ professor.id }}" {% if professor.id == object.assistant.id %}selected{% endif %}>{{ professor }}</option>
-                                {% endfor %}
-                            </select>
-                        {% else %}
-                            <label>{{ object.assistant }}</label>
-                        {% endif %}
+                    <div class="col-xs-12">
+                        <div class="professor-assistant">
+                            <label for="select-assistant">{% trans 'Assistant Professor' %}:</label>
+                            {% if user|is_course_coordinator:object.course %}
+                                <select id="select-assistant" name="assistant" class="form-control">
+                                    {% if not object.assistant.id %}
+                                        <option value="-1">{% trans 'Select a professor' %}</option>
+                                    {% endif %}
+                                    {% for professor in object.course.professors.all %}
+                                        <option value="{{ professor.id }}" {% if professor.id == object.assistant.id %}selected{% endif %}>{{ professor }}</option>
+                                    {% endfor %}
+                                </select>
+                            {% else %}
+                                <label>{{ object.assistant }}</label>
+                            {% endif %}
+                        </div>
                     </div>
                  </div>
             </form>
