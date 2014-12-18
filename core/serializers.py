@@ -7,14 +7,6 @@ from notes.models import Note
 from rest_framework import serializers
 
 
-class CourseProfessorSerializer(serializers.ModelSerializer):
-    user_info = TimtecUserSerializer(source='user', read_only=True)
-
-    class Meta:
-        fields = ('id', 'course', 'user', 'user_info', 'biography', 'role',)
-        model = CourseProfessor
-
-
 class ProfessorMessageSerializer(serializers.ModelSerializer):
 
     professor = TimtecUserSerializer(source='professor', read_only=True)
@@ -76,11 +68,20 @@ class CourseSerializer(serializers.ModelSerializer):
         return ''
 
 
+class CourseProfessorSerializer(serializers.ModelSerializer):
+    user_info = TimtecUserSerializer(source='user', read_only=True)
+    course_info = CourseSerializer(source='course', read_only=True)
+
+    class Meta:
+        fields = ('id', 'course', 'course_info', 'user', 'user_info', 'biography', 'role',)
+        model = CourseProfessor
+
+
 class CourseThumbSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ("id", "thumbnail",)
+        fields = ("id", "thumbnail", "home_thumbnail")
 
 
 class StudentProgressSerializer(serializers.ModelSerializer):

@@ -13,24 +13,6 @@
         var Progress = $resource('/api/student_progress/:unit', null,
                                  {'update': { method:'PUT' }});
 
-        Progress.getProgressByUnitId = function(unit) {
-            var deferred = $q.defer();
-
-            if(!unit) {
-                deferred.reject('Invalid unit');
-            } else {
-                Progress.query({unit: unit}, function(progress){
-                    if(progress.length === 1) {
-                        deferred.resolve(progress[0]);
-                    } else {
-                        deferred.reject('No progress found');
-                    }
-                });
-            }
-
-            return deferred.promise;
-        };
-
         Progress.complete = function (unit) {
             var progress = new Progress();
             progress.complete = new Date();

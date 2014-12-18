@@ -63,30 +63,31 @@ wrapper-course-intro
         {% include "_course-header-inline.html"  with course=course %}
     {% else %}
     <!-- HEADER -->
-    <header class="main-header container">
+    <header class="main-header">
         <!-- PAGE-HEADER -->
-        <div class="page-header">
+        <div class="page-header container">
             <!-- ROW -->
             <div class="row">
-                <div class="col-md-9 col-xs-12">
+                <div class="col-sm-8 col-md-9 col-xs-12">
                     <h1><i class="fa fa-angle-double-right"></i> {{course.name}}</h1>
                     {% include "_course-details-inline.html" with course=course %}
                 </div>
                 {% if course.first_lesson.slug %}
-                    <div class="col-md-3 col-xs-12 textright">
-                        {% if user_is_enrolled %}
-                            <a href="{% url "lesson" course.slug course.first_lesson.slug %}" id="go-to-course" class="btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Resume" %}</a>
-                            {% if course.has_started %}
-                                    <a href="{% url "lesson" course.slug course.first_lesson.slug %}" class="btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase js-login-required">{% trans "Resume" %}</a>
-                                {% else %}
-                                    <span href="#" class="btn btn-lg btn-danger col-lg-12 col-md-12 col-sm-12 col-xs-12 has-tooltip js-login-required uppercase" data-toggle="tooltip" data-placement="bottom" data-original-title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}" title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}">{% trans "Take the Class" %}</span>
-                                {% endif %}
-                            <a href="{% url "lesson" course.slug course.first_lesson.slug %}" id="go-to-course" class="btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 uppercase">{% trans "Resume" %}</a>
+                    <div class="col-sm-4 col-md-3 col-xs-12 textright">
+                        {% if user_is_enrolled and not course.has_started %}
+                            <span class="btn btn-lg btn-danger col-xs-12 has-tooltip js-login-required uppercase"
+                                  href="#"
+                                  data-toggle="tooltip"
+                                  data-placement="bottom"
+                                  data-original-title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}"
+                                  title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}">
+                                {% trans "Go to course" %}
+                            </span>
                         {% else %}
                             {% if course.has_started %}
-                                <a href="{% url "enroll_course" course.slug %}" class="btn btn-lg btn-info col-lg-12 col-md-12 col-sm-12 col-xs-12 js-login-required uppercase">{% trans "Take the Class" %}</a>
+                                <a href="{% url "enroll_course" course.slug %}" class="btn btn-lg btn-info col-xs-12 js-login-required uppercase">{% trans "Go to course" %}</a>
                             {% else %}
-                                <span href="#" class="btn btn-lg btn-danger col-lg-12 col-md-12 col-sm-12 col-xs-12 has-tooltip js-login-required uppercase" data-toggle="tooltip" data-placement="bottom" data-original-title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}" title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}">{% trans "Resume" %}</span>
+                                <span href="#" class="btn btn-lg btn-danger col-xs-12 has-tooltip js-login-required uppercase" data-toggle="tooltip" data-placement="bottom" data-original-title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}" title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}">{% trans "Resume" %}</span>
                             {% endif %}
                         {% endif %}
                     </div>
@@ -117,6 +118,10 @@ wrapper-course-intro
                             <button class="btn btn-default uppercase"
                                     ng-class="{'btn-success':mediaSection=='thumbnail'}"
                                     ng-click="mediaSection='thumbnail'">{% trans 'Thumbnail' %}</button>
+
+                            <button class="btn btn-default uppercase"
+                                    ng-class="{'btn-success':mediaSection=='homethumbnail'}"
+                                    ng-click="mediaSection='homethumbnail'">{% trans 'Home thumbnail' %}</button>
                         </div>
                     </div>
                     <!-- END ADD CONTENT -->
@@ -162,6 +167,52 @@ wrapper-course-intro
                             </div>
                         </div>
                     </section>
+
+
+                    <!-- Home thumbnail -->
+                    <section class="thumbnail" ng-show="mediaSection=='homethumbnail'" ng-init="home_thumbfile=null">
+
+                        <div class="row" ng-show="addHomeThumb" ng-init="addHomeThumb=(home_thumbfile===null)">
+
+                            <div class="add-thumbnail col-sm-12 col-lg-12 textcenter">
+                                <div class="centered">
+                                    <div class="form-group">
+                                        <i class="fa fa-picture-o fa-4x"></i>
+                                        <h1 class="bottom top">{% trans 'Home thumbnail' %}</h1>
+                                        <p></p>
+
+                                        <file ng-model="home_thumbfile" name="home_thumbnail" class="form-control"></file>
+                                    </div>
+
+                                    <p>
+                                        <br>
+                                        <button class="btn btn-danger btn-lg uppercase"
+                                                ng-click="home_thumbfile=null; addHomeThumb=!course.home_thumbnail_url">{% trans 'Cancel' %}</button>
+
+                                        <button class="btn btn-success btn-lg uppercase"
+                                                ng-click="addHomeThumb=(home_thumbfile===null); saveHomeThumb()">{% trans 'Add' %}</button>
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" ng-show="!addHomeThumb">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <img local-image ng-model="home_thumbfile" class="img-responsive"/>
+                                {% verbatim %}
+                                <img ng-src="{{course.home_thumbnail_url}}" class="img-responsive" ng-show="!home_thumbfile"/>
+                                {% endverbatim %}
+                            </div>
+
+                            <div class="col-lg-12 textright">
+                                <button class="btn-edit-thumbnail btn btn-success btn-sm uppercase"
+                                        ng-click="addHomeThumb=true">{% trans 'Change thumbnail' %}</button>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- End home thumbnail -->
+
 
                     <!--  COURSE-VIDEO  -->
                     <section class="video" ng-show="mediaSection=='video'">

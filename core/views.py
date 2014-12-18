@@ -140,9 +140,9 @@ class UserCoursesView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(UserCoursesView, self).get_context_data(**kwargs)
 
-        context['courses_user_assist'] = CourseProfessor.objects.filter(user=self.request.user, role='assistant')
+        context['courses_user_assist'] = CourseProfessor.objects.filter(user=self.request.user, role='assistant').exists()
 
-        context['courses_user_coordinate'] = CourseProfessor.objects.filter(user=self.request.user, role='coordinator')
+        context['courses_user_coordinate'] = CourseProfessor.objects.filter(user=self.request.user, role='coordinator').exists()
 
         return context
 

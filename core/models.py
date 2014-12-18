@@ -121,6 +121,11 @@ class Course(models.Model):
             return self.thumbnail.url
         return ''
 
+    def get_home_thumbnail_url(self):
+        if self.home_thumbnail:
+            return self.home_thumbnail.url
+        return ''
+
     @property
     def has_started(self):
         if self.start_date <= datetime.date.today():

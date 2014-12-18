@@ -1,0 +1,39 @@
+// MY COURSES
+// ********************************************************************* //
+#my-courses {
+  padding-top: 60px;
+  background-color: rgba(255,255,255,0.5);
+
+  .courses {
+    .course {
+      border-bottom: 0px;
+      h1 {
+        color: @brand-primary;
+        font-size:24px;
+        font-family: @font-family-sans-serif;
+      }
+
+      .lessons {
+        .lesson {
+          border-top: 1px solid @gray-lighter;
+          padding: 10px 0 12px 0;
+          &:hover {
+            background-color: @gray-lighter;
+          }
+          h1 {
+            font-family: @font-family-sans-serif;
+            font-size: 12px;
+            margin-bottom: 0;
+            margin-top: 5px;
+            padding-bottom: 0;
+            padding-top: 0;
+          }
+          .students {
+            color: @gray-light;
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+  }
+}

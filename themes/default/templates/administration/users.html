@@ -4,6 +4,10 @@
 {% load in_group %}
 {% load append_to_get %}
 
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
 {% block content %}
 <!-- COURSES -->
 <script type="text/javascript">
@@ -75,28 +79,21 @@ $(function () {
 
         <div class="filters">
             <form role="form" class="form-inline" method="GET">
-                <div class="form-group">
-                    <p class="form-control-static">Filters:</p>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" class="form-control" name="professors"{% if request.GET.professors %}checked{% endif %}> {% trans 'Professors' %}
-                        </label>
+                    <div class="filter-checkbox form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="professors"{% if request.GET.professors %}checked{% endif %}> {% trans 'Professors' %}
+                            </label>
+                            <label>
+                                <input type="checkbox" name="admin" {% if request.GET.admin %}checked{% endif %}> {% trans 'Administrators' %}
+                            </label>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" class="form-control" name="admin" {% if request.GET.admin %}checked{% endif %}> {% trans 'Administrators' %}
-                        </label> 
+                    <div class="form-group">
+                        <label class="sr-only" for="keyword">{% trans 'Keyword' %}</label>
+                        <input type="text" placeholder="{% trans 'Keyword' %}" class="form-control" id="keyword" name="keyword" {% if request.GET.keyword %}value="{{ request.GET.keyword }}"{% endif %}>
+                        <button type="submit" class="btn btn-info">{% trans 'Filter' %}</button>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="sr-only" for="keyword">{% trans 'Keyword' %}</label>
-                    <input type="text" placeholder="{% trans 'Keyword' %}" class="form-control" id="keyword" name="keyword" {% if request.GET.keyword %}value="{{ request.GET.keyword }}"{% endif %}>
-                </div>
-                <button type="submit" class="btn btn-info">{% trans 'filter' %}</button>
             </form>
             <!-- END FORM INLINE -->
         </div>
