@@ -44,8 +44,8 @@
 
 
     app.controller('CourseListByUserRoleController', [
-        '$scope', '$window', 'Lesson', 'CourseProfessor',
-        function ($scope, $window, Lesson, CourseProfessor) {
+        '$scope', '$window', 'Lesson', 'CourseProfessor', 'Class',
+        function ($scope, $window, Lesson, CourseProfessor, Class) {
             var current_user_id = parseInt($window.user_id, 10);
 
             $scope.loadLessons = function(course) {
@@ -54,6 +54,14 @@
                         .then(function(lessons){
                             course.lessons = lessons;
                         });
+                }
+            };
+
+            $scope.load_classes = function(course) {
+                if(!course.classes) {
+                    Class.query({'course': course.id}, function(classes){
+                        course.classes = classes;
+                    });
                 }
             };
 
