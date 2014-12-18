@@ -3,7 +3,7 @@ import pytest
 from model_mommy import mommy
 
 from conftest import create_user
-from core.models import Class, Course, CourseProfessor
+from core.models import Class, Course
 
 
 @pytest.mark.django_db
@@ -125,15 +125,11 @@ def test_get_courses_user_has_role(client):
 
     courses_user_assist = response.context[-1]['courses_user_assist']
 
-    assert CourseProfessor.objects.filter(course=course, user=professor1)[0] in courses_user_assist
-
-    assert CourseProfessor.objects.filter(course=another_course, user=professor1)[0] in courses_user_assist
+    assert courses_user_assist
 
     courses_user_coordinate = response.context[-1]['courses_user_coordinate']
 
-    assert CourseProfessor.objects.filter(course=course_whose_professor_coordinate, user=professor1)[0] in courses_user_coordinate
-
-    assert CourseProfessor.objects.filter(course=another_course_whose_professor_coordinate, user=professor1)[0] in courses_user_coordinate
+    assert courses_user_coordinate
 
 
 @pytest.mark.django_db
