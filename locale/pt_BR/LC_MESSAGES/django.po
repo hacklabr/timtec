@@ -2,19 +2,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-18 17:43-0200\n"
-"PO-Revision-Date: 2014-12-17 19:38-0200\n"
+"POT-Creation-Date: 2014-12-18 19:31-0200\n"
+"PO-Revision-Date: 2014-12-18 19:37-0200\n"
 "Last-Translator: Administrador TIMTec <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
@@ -124,7 +124,7 @@ msgstr "Ativo"
 msgid "Date joined"
 msgstr "Data de inscrição"
 
-#: accounts/models.py:31 core/models.py:294
+#: accounts/models.py:31 core/models.py:299
 msgid "Picture"
 msgstr "Estrutura"
 
@@ -147,9 +147,9 @@ msgstr "Cidade"
 msgid "Site"
 msgstr "Página"
 
-#: accounts/models.py:35 core/models.py:292
-#: themes/default/templates/course.html:380
-#: themes/default/templates/course.html:672
+#: accounts/models.py:35 core/models.py:297
+#: themes/default/templates/course.html:384
+#: themes/default/templates/course.html:676
 msgid "Biography"
 msgstr "Biografia"
 
@@ -181,7 +181,7 @@ msgstr "Dado"
 msgid "Expected answer"
 msgstr "Resposta esperada"
 
-#: activities/models.py:29 core/models.py:411 core/models.py:421
+#: activities/models.py:29 core/models.py:416 core/models.py:426
 #: themes/default/templates/lesson.html:87
 #: themes/default/templates/administration/lesson.html:81
 msgid "Unit"
@@ -201,7 +201,7 @@ msgstr "Atividade"
 msgid "Activities"
 msgstr "Atividades"
 
-#: activities/models.py:49 core/models.py:212 core/models.py:420
+#: activities/models.py:49 core/models.py:217 core/models.py:425
 msgid "Student"
 msgstr "Estudante"
 
@@ -221,16 +221,16 @@ msgstr "Respostas"
 msgid "Accept "
 msgstr "Aceitar"
 
-#: core/forms.py:20 core/models.py:316
+#: core/forms.py:20 core/models.py:321
 #: themes/default/templates/messages.html:55
 msgid "Subject"
 msgstr "Assunto"
 
-#: core/forms.py:21 core/models.py:71 core/models.py:295 core/models.py:361
-#: ifs/models.py:8 themes/default/templates/course.html:353
-#: themes/default/templates/course.html:378
-#: themes/default/templates/course.html:645
-#: themes/default/templates/course.html:671
+#: core/forms.py:21 core/models.py:71 core/models.py:300 core/models.py:366
+#: ifs/models.py:8 themes/default/templates/course.html:357
+#: themes/default/templates/course.html:382
+#: themes/default/templates/course.html:649
+#: themes/default/templates/course.html:675
 msgid "Name"
 msgstr "Nome"
 
@@ -243,12 +243,12 @@ msgstr "Nome"
 msgid "Email"
 msgstr "Email"
 
-#: core/forms.py:23 core/models.py:317
+#: core/forms.py:23 core/models.py:322
 #: themes/default/templates/messages.html:58
 msgid "Message"
 msgstr "Mensagem"
 
-#: core/models.py:27 core/models.py:402
+#: core/models.py:27 core/models.py:407
 #: themes/default/templates/course.html:116
 #: themes/default/templates/administration/lesson.html:94
 msgid "Video"
@@ -258,12 +258,12 @@ msgstr "Video"
 msgid "Videos"
 msgstr "Videos"
 
-#: core/models.py:36 core/models.py:286
+#: core/models.py:36 core/models.py:291
 msgid "Assistant"
 msgstr "Assistente"
 
-#: core/models.py:38 core/models.py:91 core/models.py:213 core/models.py:291
-#: core/models.py:319 core/models.py:359 forum/models.py:17 ifs/models.py:22
+#: core/models.py:38 core/models.py:91 core/models.py:218 core/models.py:296
+#: core/models.py:324 core/models.py:364 forum/models.py:17 ifs/models.py:22
 #: themes/default/templates/_admin_header_inline.html:34
 #: themes/if/templates/account/signup.html:102
 #: themes/if/templates/account/signup.html:104
@@ -276,9 +276,9 @@ msgstr "Curso"
 msgid "New"
 msgstr "Novo"
 
-#: core/models.py:65 core/models.py:354
-#: themes/default/templates/course.html:441
-#: themes/default/templates/course.html:452
+#: core/models.py:65 core/models.py:359
+#: themes/default/templates/course.html:445
+#: themes/default/templates/course.html:456
 #: themes/default/templates/user-courses.html:72
 #: themes/default/templates/user-courses.html:142
 #: themes/default/templates/user-courses.html:188
@@ -287,16 +287,16 @@ msgstr "Novo"
 msgid "Draft"
 msgstr "Rascunho"
 
-#: core/models.py:66 core/models.py:355
-#: themes/default/templates/course.html:442
-#: themes/default/templates/course.html:456
+#: core/models.py:66 core/models.py:360
+#: themes/default/templates/course.html:446
+#: themes/default/templates/course.html:460
 #: themes/default/templates/administration/courses.html:83
 msgid "Listed"
 msgstr "Listado"
 
-#: core/models.py:67 core/models.py:356
-#: themes/default/templates/course.html:443
-#: themes/default/templates/course.html:460
+#: core/models.py:67 core/models.py:361
+#: themes/default/templates/course.html:447
+#: themes/default/templates/course.html:464
 #: themes/default/templates/user-courses.html:73
 #: themes/default/templates/user-courses.html:88
 #: themes/default/templates/user-courses.html:143
@@ -308,7 +308,7 @@ msgstr "Listado"
 msgid "Published"
 msgstr "Público"
 
-#: core/models.py:70 core/models.py:364 forum/models.py:13
+#: core/models.py:70 core/models.py:369 forum/models.py:13
 msgid "Slug"
 msgstr "Slug"
 
@@ -316,7 +316,7 @@ msgstr "Slug"
 msgid "Intro video"
 msgstr "Vídeo introdutório"
 
-#: core/models.py:73 themes/default/templates/course.html:289
+#: core/models.py:73 themes/default/templates/course.html:293
 msgid "Application"
 msgstr "Aplicação"
 
@@ -324,10 +324,10 @@ msgstr "Aplicação"
 msgid "Requirement"
 msgstr "Requisitos"
 
-#: core/models.py:75 themes/default/templates/course.html:326
-#: themes/default/templates/course.html:330
-#: themes/default/templates/course.html:622
+#: core/models.py:75 themes/default/templates/course.html:330
+#: themes/default/templates/course.html:334
 #: themes/default/templates/course.html:626
+#: themes/default/templates/course.html:630
 msgid "Abstract"
 msgstr "Resumo"
 
@@ -343,7 +343,7 @@ msgstr "Carga horária"
 msgid "Pronatec"
 msgstr "Pronatec"
 
-#: core/models.py:79 core/models.py:365
+#: core/models.py:79 core/models.py:370
 #: themes/default/templates/administration/courses.html:97
 msgid "Status"
 msgstr "Situação"
@@ -358,12 +358,12 @@ msgid "Thumbnail"
 msgstr "Thumbnail"
 
 #: core/models.py:84 themes/default/templates/course.html:124
-#: themes/default/templates/course.html:179
+#: themes/default/templates/course.html:181
 msgid "Home thumbnail"
 msgstr "Home thumbnail"
 
-#: core/models.py:86 themes/default/templates/course.html:608
-#: themes/default/templates/course.html:615
+#: core/models.py:86 themes/default/templates/course.html:612
+#: themes/default/templates/course.html:619
 msgid "Start date"
 msgstr "Data de início"
 
@@ -381,68 +381,68 @@ msgstr "Turma padrão"
 msgid "Courses"
 msgstr "Cursos"
 
-#: core/models.py:285
+#: core/models.py:290
 msgid "Instructor"
 msgstr "Instrutor"
 
-#: core/models.py:287
+#: core/models.py:292
 msgid "Professor Coordinator"
 msgstr "Professor Coordenador"
 
-#: core/models.py:290 core/models.py:314
+#: core/models.py:295 core/models.py:319
 #: themes/default/templates/administration/users.html:108
 msgid "Professor"
 msgstr "Professor"
 
-#: core/models.py:293
+#: core/models.py:298
 #: themes/default/templates/administration/permissions.html:38
 msgid "Role"
 msgstr "Papel"
 
-#: core/models.py:299
+#: core/models.py:304
 msgid "Course Professor"
 msgstr "Professor do curso"
 
-#: core/models.py:300
+#: core/models.py:305
 msgid "Course Professors"
 msgstr "Professores do curso"
 
-#: core/models.py:318
+#: core/models.py:323
 msgid "Date"
 msgstr "Data"
 
-#: core/models.py:360
+#: core/models.py:365
 msgid "Description"
 msgstr "Descrição"
 
-#: core/models.py:362 themes/default/templates/notes.html:41
+#: core/models.py:367 themes/default/templates/notes.html:41
 msgid "Notes"
 msgstr "Anotações"
 
-#: core/models.py:370 core/models.py:401 forum/models.py:18
+#: core/models.py:375 core/models.py:406 forum/models.py:18
 msgid "Lesson"
 msgstr "Aula"
 
-#: core/models.py:371 themes/default/templates/_course-header-inline.html:17
-#: themes/default/templates/course.html:419
-#: themes/default/templates/course.html:529
+#: core/models.py:376 themes/default/templates/_course-header-inline.html:17
+#: themes/default/templates/course.html:423
+#: themes/default/templates/course.html:533
 #: themes/default/templates/administration/stats.html:77
 msgid "Lessons"
 msgstr "Aulas"
 
-#: core/models.py:400 forum/models.py:11
+#: core/models.py:405 forum/models.py:11
 msgid "Title"
 msgstr "Título"
 
-#: core/models.py:404
+#: core/models.py:409
 msgid "Side notes"
 msgstr "Anotações"
 
-#: core/models.py:412
+#: core/models.py:417
 msgid "Units"
 msgstr "Unidades"
 
-#: core/models.py:427
+#: core/models.py:432
 msgid "Student Progress"
 msgstr "Progresso do Estudante"
 
@@ -526,7 +526,7 @@ msgstr "Material"
 #: themes/default/templates/_admin_header_inline.html:49
 #: themes/default/templates/_course-header-inline.html:23
 msgid "Tools"
-msgstr ""
+msgstr "Ferramentas"
 
 #: themes/default/templates/_admin_header_inline.html:54
 #: themes/default/templates/_course-header-inline.html:25
@@ -546,7 +546,7 @@ msgstr "Permissões"
 
 #: themes/default/templates/_course-details-inline.html:4
 msgid "By"
-msgstr ""
+msgstr "Por"
 
 #: themes/default/templates/_course-details-inline.html:10
 #: themes/default/templates/class_edit.html:74
@@ -594,7 +594,7 @@ msgstr "Policias de Perguntas e Respostas"
 #: themes/default/templates/_forum_inline.html:65
 #: themes/default/templates/administration/stats.html:50
 msgid "Filter classes"
-msgstr ""
+msgstr "Filtrar por turma"
 
 #: themes/default/templates/_forum_inline.html:87
 msgid "There is no question in this forum yet"
@@ -626,7 +626,7 @@ msgstr "respostas"
 
 #: themes/default/templates/_forum_inline.html:134
 msgid "Hide"
-msgstr ""
+msgstr "Ocultar"
 
 #: themes/default/templates/_forum_inline.html:146
 msgid "Know why your question was hidden"
@@ -637,8 +637,8 @@ msgid "Why my question was hidden?"
 msgstr "Porque minha pergunta foi ocultada?"
 
 #: themes/default/templates/_forum_inline.html:167
-#: themes/default/templates/course.html:364
-#: themes/default/templates/course.html:656
+#: themes/default/templates/course.html:368
+#: themes/default/templates/course.html:660
 #: themes/default/templates/messages.html:97
 msgid "Close"
 msgstr "Fechar"
@@ -681,9 +681,9 @@ msgstr "Apagar"
 #: themes/default/templates/class_edit.html:48
 #: themes/default/templates/course-material.html:75
 #: themes/default/templates/course.html:48
-#: themes/default/templates/course.html:365
-#: themes/default/templates/course.html:474
-#: themes/default/templates/course.html:657
+#: themes/default/templates/course.html:369
+#: themes/default/templates/course.html:478
+#: themes/default/templates/course.html:661
 #: themes/default/templates/home.html:30
 #: themes/default/templates/profile-edit.html:162
 #: themes/default/templates/account/password_reset_from_key.html:32
@@ -754,9 +754,9 @@ msgstr "Editar material didático"
 
 #: themes/default/templates/course-material.html:72
 #: themes/default/templates/course.html:146
-#: themes/default/templates/course.html:188
-#: themes/default/templates/course.html:250
-#: themes/default/templates/course.html:473
+#: themes/default/templates/course.html:190
+#: themes/default/templates/course.html:254
+#: themes/default/templates/course.html:477
 #: themes/default/templates/home.html:29
 #: themes/default/templates/home.html:253
 #: themes/default/templates/administration/courses.html:38
@@ -809,94 +809,92 @@ msgid "Resume"
 msgstr "Ir para o curso"
 
 #: themes/default/templates/course.html:138
-#: themes/default/templates/course.html:180
 msgid "min-width"
 msgstr "tam. mínimo"
 
 #: themes/default/templates/course.html:149
-#: themes/default/templates/course.html:191
-#: themes/default/templates/course.html:254
+#: themes/default/templates/course.html:193
+#: themes/default/templates/course.html:258
 #: themes/default/templates/administration/lesson.html:142
 msgid "Add"
 msgstr "Adicionar"
 
 #: themes/default/templates/course.html:166
-#: themes/default/templates/course.html:208
+#: themes/default/templates/course.html:210
 msgid "Change thumbnail"
 msgstr "Trocar thumbnail"
 
-#: themes/default/templates/course.html:234
+#: themes/default/templates/course.html:238
 #: themes/default/templates/administration/lesson.html:159
 msgid "Change video"
 msgstr "Trocar vídeo"
 
-#: themes/default/templates/course.html:244
+#: themes/default/templates/course.html:248
 msgid "Introduction video"
 msgstr "Vídeo introdutório"
 
-#: themes/default/templates/course.html:285
+#: themes/default/templates/course.html:289
 msgid "Why do this course?"
 msgstr "Por que fazer esse curso?"
 
-#: themes/default/templates/course.html:297
+#: themes/default/templates/course.html:301
 msgid "What do I have to know?"
 msgstr "O que eu preciso saber?"
 
-#: themes/default/templates/course.html:300
+#: themes/default/templates/course.html:304
 msgid "Requirements"
 msgstr "Requisitos"
 
-#: themes/default/templates/course.html:307
-#: themes/default/templates/course.html:310
+#: themes/default/templates/course.html:311
+#: themes/default/templates/course.html:314
 msgid "Estrutura do Curso"
 msgstr "Estrutura do Curso"
 
-#: themes/default/templates/course.html:342
-#: themes/default/templates/course.html:392
-#: themes/default/templates/course.html:685
+#: themes/default/templates/course.html:346
+#: themes/default/templates/course.html:396
+#: themes/default/templates/course.html:689
 msgid "Instructors"
 msgstr "Instrutores"
 
-#: themes/default/templates/course.html:345
-#: themes/default/templates/course.html:637
+#: themes/default/templates/course.html:349
+#: themes/default/templates/course.html:641
 msgid "Organize Instructors"
 msgstr "Organizar instrutores"
 
-#: themes/default/templates/course.html:386
-#: themes/default/templates/course.html:679
+#: themes/default/templates/course.html:390
+#: themes/default/templates/course.html:683
 msgid "Add instructor"
 msgstr "Adicionar instrutor"
 
-#: themes/default/templates/course.html:423
+#: themes/default/templates/course.html:427
 msgid "Organize lesson"
 msgstr "Organizar aulas"
 
-#: themes/default/templates/course.html:435
-#: themes/default/templates/course.html:491
+#: themes/default/templates/course.html:439
+#: themes/default/templates/course.html:495
 #: themes/default/templates/administration/lesson.html:67
 msgid "Lesson name"
 msgstr "Nome da aula"
 
-#: themes/default/templates/course.html:512
+#: themes/default/templates/course.html:516
 msgid "videos"
 msgstr "videos"
 
-#: themes/default/templates/course.html:512
+#: themes/default/templates/course.html:516
 msgid "activities"
 msgstr "atividades"
 
-#: themes/default/templates/course.html:522
+#: themes/default/templates/course.html:526
 msgid "Add lesson"
 msgstr "Adicionar aula"
 
 #: themes/default/templates/courses.html:43
 msgid "Soon"
-msgstr ""
+msgstr "Em breve"
 
 #: themes/default/templates/courses.html:67
-#, fuzzy
 msgid "More information"
-msgstr "Confirmação de senha"
+msgstr "Mais informações"
 
 #: themes/default/templates/forum.html:32
 #: themes/default/templates/question.html:36
@@ -929,7 +927,7 @@ msgstr "Administração"
 #: themes/default/templates/header.html:37 themes/if/templates/header.html:37
 #: themes/timtec/templates/header.html:42
 msgid "Home edit"
-msgstr ""
+msgstr "Editar home"
 
 #: themes/default/templates/header.html:51 themes/if/templates/header.html:53
 #: themes/timtec/templates/header.html:58
@@ -1069,19 +1067,16 @@ msgstr "Confirme sua senha"
 
 #: themes/default/templates/home.html:26 themes/default/templates/home.html:52
 #: themes/timtec/templates/home.html:25
-#, fuzzy
 msgid "Organize courses"
 msgstr "Organizar instrutores"
 
 #: themes/default/templates/home.html:28 themes/timtec/templates/home.html:27
-#, fuzzy
 msgid "Choose home courses"
-msgstr "Ir para curso"
+msgstr "Escolher cursos da home"
 
 #: themes/default/templates/home.html:47
-#, fuzzy
 msgid "Featured courses"
-msgstr "Apagar curso"
+msgstr "Cursos em destaque"
 
 #: themes/default/templates/home.html:114
 msgid "All courses"
@@ -1089,9 +1084,8 @@ msgstr "Todos os cursos"
 
 #: themes/default/templates/home.html:234
 #: themes/timtec/templates/home.html:159
-#, fuzzy
 msgid "Edit home courses"
-msgstr "Ir para curso"
+msgstr "Editar cursos da home"
 
 #: themes/default/templates/lesson.html:108
 msgid "Professor comment"
@@ -1188,11 +1182,11 @@ msgstr "Confirmar nova senha"
 
 #: themes/default/templates/question-create.html:49
 msgid "Fill the question title."
-msgstr ""
+msgstr "Preencha o título da questão."
 
 #: themes/default/templates/question-create.html:52
 msgid "Fill the question text."
-msgstr ""
+msgstr "Preencha o texto da questão."
 
 #: themes/default/templates/user-courses.html:24
 msgid "Courses I follow"
@@ -1211,12 +1205,10 @@ msgid "Resume Class"
 msgstr "Continuar aula"
 
 #: themes/default/templates/user-courses.html:76
-#, fuzzy
 msgid "Show classes"
-msgstr "Mostrar aulas"
+msgstr "Mostrar turmas"
 
 #: themes/default/templates/user-courses.html:77
-#, fuzzy
 msgid "Hide classes"
 msgstr "Adicionar turma"
 
@@ -1233,9 +1225,8 @@ msgid "No publication date"
 msgstr "Sem data de publicação"
 
 #: themes/default/templates/user-courses.html:108
-#, fuzzy
 msgid "Loading classes list"
-msgstr "Carregando lista de aulas"
+msgstr "Carregando lista de turmas"
 
 #: themes/default/templates/user-courses.html:146
 #: themes/default/templates/administration/courses.html:138
@@ -1245,9 +1236,8 @@ msgstr "Mostrar aulas"
 
 #: themes/default/templates/user-courses.html:147
 #: themes/default/templates/administration/courses.html:139
-#, fuzzy
 msgid "Hide lessons"
-msgstr "Adicionar aula"
+msgstr "Ocultar aulas"
 
 #: themes/default/templates/user-courses.html:177
 #: themes/default/templates/user-courses.html:180
@@ -1278,8 +1268,8 @@ msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
 "address for user %(user_display)s."
 msgstr ""
-"Por favor confirme que o endereço <a href=\"mailto:%(email)s\">%(email)s</a> "
-"é o email do usuário %(user_display)s."
+"Por favor confirme que o endereço <a href=\"mailto:%(email)s\">%(email)s</a>"
+" é o email do usuário %(user_display)s."
 
 #: themes/default/templates/account/email_confirm.html:16
 #: themes/default/templates/account/email_confirm.html:34
@@ -1288,13 +1278,13 @@ msgstr "Confirmar"
 
 #: themes/default/templates/account/email_confirm.html:20
 #: themes/default/templates/account/email_confirm.html:38
-#, fuzzy, python-format
+#, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid.<br/>Please <a href="
-"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid.<br/>Please <a "
+"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
-"Este email de confirmação expirou ou é inválido. Por favor <a href="
-"\"%(email_url)s\">solicite uma nova confirmação de e-mail</a>."
+"Este email de confirmação expirou ou é inválido. Por favor <a "
+"href=\"%(email_url)s\">solicite uma nova confirmação de e-mail</a>."
 
 #: themes/default/templates/account/email_confirmed.html:7
 msgid "Mission accomplished"
@@ -1357,12 +1347,12 @@ msgstr "Mudar sua senha"
 #, python-format
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
-"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
-"a>."
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password "
+"reset</a>."
 msgstr ""
 "O link de solicitação de redefinição de senha é inválido, possivelmente "
-"porque já foi usado. Por favor solicite uma <a href=\"%(passwd_reset_url)s"
-"\">nova redefinição de senha</a>."
+"porque já foi usado. Por favor solicite uma <a "
+"href=\"%(passwd_reset_url)s\">nova redefinição de senha</a>."
 
 #: themes/default/templates/account/password_reset_from_key.html:36
 #: themes/default/templates/account/password_reset_from_key.html:74
@@ -1396,10 +1386,8 @@ msgstr "Email de validação enviado"
 #: themes/default/templates/account/email/password_reset_key_message.txt:1
 #, python-format
 msgid ""
-"You're receiving this e-mail because you or someone else has requested a "
-"password for your user account at %(site_domain)s.\n"
-"It can be safely ignored if you did not request a password reset. Click the "
-"link below to reset your password.\n"
+"You're receiving this e-mail because you or someone else has requested a password for your user account at %(site_domain)s.\n"
+"It can be safely ignored if you did not request a password reset. Click the link below to reset your password.\n"
 "\n"
 "%(password_reset_url)s\n"
 "\n"
@@ -1407,10 +1395,8 @@ msgid ""
 "\n"
 "Thanks for using our site!\n"
 msgstr ""
-"Você está recebendo este e-mail porque você ou alguém solicitou uma "
-"redefinição de senha para sua conta no site %(site_domain)s.\n"
-"Você pode seguramente ignorar esta mensagem se você não solicitou esta "
-"redefinição de senha. Clique no link abaixo para redefinir sua senha.\n"
+"Você está recebendo este e-mail porque você ou alguém solicitou uma redefinição de senha para sua conta no site %(site_domain)s.\n"
+"Você pode seguramente ignorar esta mensagem se você não solicitou esta redefinição de senha. Clique no link abaixo para redefinir sua senha.\n"
 "\n"
 "%(password_reset_url)s\n"
 "\n"
@@ -1425,14 +1411,12 @@ msgstr "Email de redefinição de senha"
 #: themes/default/templates/administration/courses.html:27
 #: themes/default/templates/administration/courses.html:33
 #: themes/default/templates/administration/courses.html:34
-#, fuzzy
 msgid "New course name"
-msgstr "Novo curso"
+msgstr "Nome do novo curso"
 
 #: themes/default/templates/administration/courses.html:39
-#, fuzzy
 msgid "Create course"
-msgstr "Apagar curso"
+msgstr "Criar curso"
 
 #: themes/default/templates/administration/courses.html:53
 #: themes/default/templates/administration/courses.html:99
@@ -1466,9 +1450,8 @@ msgid "No courses found"
 msgstr "Nenhum curso encontrado"
 
 #: themes/default/templates/administration/courses.html:202
-#, fuzzy
 msgid "Loading courses..."
-msgstr "Carregando perguntas"
+msgstr "Carregando cursos..."
 
 #: themes/default/templates/administration/lesson.html:69
 #: themes/default/templates/administration/lesson.html:83
@@ -1522,7 +1505,7 @@ msgstr "Progresso do estudante"
 
 #: themes/default/templates/administration/stats.html:88
 msgid "Total number of students"
-msgstr ""
+msgstr "Número total de estudantes"
 
 #: themes/default/templates/administration/stats.html:92
 msgid "Search student"
@@ -1530,33 +1513,31 @@ msgstr "Estudante"
 
 #: themes/default/templates/administration/stats.html:116
 msgid "Loading student report"
-msgstr ""
+msgstr "Carregando relatório de estudantes"
 
 #: themes/default/templates/administration/stats.html:144
 msgid "Average student progress per class"
-msgstr ""
+msgstr "Progresso médio dos estudantes por turma"
 
 #: themes/default/templates/administration/stats.html:146
 msgid "Loading lessons report"
 msgstr "Carregando relatórios de aulas"
 
 #: themes/default/templates/administration/users.html:85
-#, fuzzy
 msgid "Professors"
-msgstr "Professor"
+msgstr "Professores"
 
 #: themes/default/templates/administration/users.html:88
-#, fuzzy
 msgid "Administrators"
-msgstr "Instrutores"
+msgstr "Administradores"
 
 #: themes/default/templates/administration/users.html:95
 msgid "Filter"
-msgstr ""
+msgstr "Filtro"
 
 #: themes/default/templates/administration/users.html:109
 msgid "Administrator"
-msgstr ""
+msgstr "Administrador"
 
 #: themes/default/templates/socialaccount/authentication_error.html:5
 #: themes/default/templates/socialaccount/authentication_error.html:13
@@ -1577,8 +1558,8 @@ msgstr "Autenticação cancelada"
 #, python-format
 msgid ""
 "You decided to cancel logging in to our site using one of your existing "
-"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
-"\">sign in</a>."
+"accounts. If this was a mistake, please proceed to <a "
+"href=\"%(login_url)s\">sign in</a>."
 msgstr ""
 "Você decidiu cancelar o login no nosso site usando uma conta sua existente. "
 "Se isso foi um engano volte para <a href=\"%(login_url)s\">entrar</a>."
@@ -1598,9 +1579,8 @@ msgid "Please verify and complete you account information"
 msgstr "Por favor verifique e complete seus dados"
 
 #: themes/timtec/templates/header.html:27
-#, fuzzy
 msgid "Instituto TIM"
-msgstr "Instrutor"
+msgstr "Instituto TIM"
 
 #: timtec/settings.py:83
 msgid "Brazilian Portuguese"
@@ -1637,29 +1617,26 @@ msgstr "Inglês"
 #~ msgstr "Marcar todas"
 
 #~ msgid ""
-#~ "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a><br>is an e-"
-#~ "mail address for user %(user_display)s."
+#~ "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a><br>is an "
+#~ "e-mail address for user %(user_display)s."
 #~ msgstr ""
-#~ "Por favor confirme que o endereço <a href=\"mailto:%(email)s\">%(email)s</"
-#~ "a> é o email do usuário %(user_display)s."
+#~ "Por favor confirme que o endereço <a href=\"mailto:%(email)s\">%(email)s</a>"
+#~ " é o email do usuário %(user_display)s."
 
 #~ msgid ""
 #~ "This e-mail confirmation link expired or is invalid.</p>\n"
-#~ "                <p>Please <a href=\"%(email_url)s\">issue a new e-mail "
-#~ "confirmation request</a>."
+#~ "                <p>Please <a href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 #~ msgstr ""
 #~ "Este email de confirmação expirou ou é inválido.</h2> <p>Por favor <a "
 #~ "href=\"%(email_url)s\">solicite uma nova confirmação de e-mail</a>."
 
 #~ msgid ""
-#~ "The password reset link was invalid,<br>possibly because it has already "
-#~ "been used.</p>\n"
-#~ "                <p>Please request a <a href=\"%(passwd_reset_url)s\">new "
-#~ "password reset</a>."
+#~ "The password reset link was invalid,<br>possibly because it has already been used.</p>\n"
+#~ "                <p>Please request a <a href=\"%(passwd_reset_url)s\">new password reset</a>."
 #~ msgstr ""
 #~ "O link de solicitação de redefinição de senha é inválido, possivelmente "
-#~ "porque já foi usado. Por favor solicite uma <a href=\"%(passwd_reset_url)s"
-#~ "\">nova redefinição de senha</a>."
+#~ "porque já foi usado. Por favor solicite uma <a "
+#~ "href=\"%(passwd_reset_url)s\">nova redefinição de senha</a>."
 
 #~ msgid "Delete this course"
 #~ msgstr "Apagar este curso"
