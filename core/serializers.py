@@ -81,7 +81,7 @@ class CourseThumbSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ("id", "thumbnail",)
+        fields = ("id", "thumbnail", "home_thumbnail")
 
 
 class StudentProgressSerializer(serializers.ModelSerializer):

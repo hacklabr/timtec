@@ -118,6 +118,10 @@ wrapper-course-intro
                             <button class="btn btn-default uppercase"
                                     ng-class="{'btn-success':mediaSection=='thumbnail'}"
                                     ng-click="mediaSection='thumbnail'">{% trans 'Thumbnail' %}</button>
+
+                            <button class="btn btn-default uppercase"
+                                    ng-class="{'btn-success':mediaSection=='homethumbnail'}"
+                                    ng-click="mediaSection='homethumbnail'">{% trans 'Home thumbnail' %}</button>
                         </div>
                     </div>
                     <!-- END ADD CONTENT -->
@@ -163,6 +167,52 @@ wrapper-course-intro
                             </div>
                         </div>
                     </section>
+
+
+                    <!-- Home thumbnail -->
+                    <section class="thumbnail" ng-show="mediaSection=='homethumbnail'" ng-init="home_thumbfile=null">
+
+                        <div class="row" ng-show="addHomeThumb" ng-init="addHomeThumb=(home_thumbfile===null)">
+
+                            <div class="add-thumbnail col-sm-12 col-lg-12 textcenter">
+                                <div class="centered">
+                                    <div class="form-group">
+                                        <i class="fa fa-picture-o fa-4x"></i>
+                                        <h1 class="bottom top">{% trans 'Home thumbnail' %}</h1>
+                                        <p></p>
+
+                                        <file ng-model="home_thumbfile" name="home_thumbnail" class="form-control"></file>
+                                    </div>
+
+                                    <p>
+                                        <br>
+                                        <button class="btn btn-danger btn-lg uppercase"
+                                                ng-click="home_thumbfile=null; addHomeThumb=!course.home_thumbnail_url">{% trans 'Cancel' %}</button>
+
+                                        <button class="btn btn-success btn-lg uppercase"
+                                                ng-click="addHomeThumb=(home_thumbfile===null); saveHomeThumb()">{% trans 'Add' %}</button>
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" ng-show="!addHomeThumb">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <img local-image ng-model="home_thumbfile" class="img-responsive"/>
+                                {% verbatim %}
+                                <img ng-src="{{course.home_thumbnail_url}}" class="img-responsive" ng-show="!home_thumbfile"/>
+                                {% endverbatim %}
+                            </div>
+
+                            <div class="col-lg-12 textright">
+                                <button class="btn-edit-thumbnail btn btn-success btn-sm uppercase"
+                                        ng-click="addHomeThumb=true">{% trans 'Change thumbnail' %}</button>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- End home thumbnail -->
+
 
                     <!--  COURSE-VIDEO  -->
                     <section class="video" ng-show="mediaSection=='video'">
