@@ -16,21 +16,7 @@ from autoslug import AutoSlugField
 
 from notes.models import Note
 from course_material.models import CourseMaterial
-
-import os
-import hashlib
-
-
-def path_and_rename(path):
-    def wrapper(instance, filename):
-        root, ext = os.path.splitext(filename)
-        m = hashlib.md5()
-        m.update(root.encode('utf-8'))
-        m.update(instance.username.encode('utf-8'))
-        filename = m.hexdigest() + ext
-        # return the whole path to the file
-        return os.path.join(path, filename)
-    return wrapper
+from .utils import hash_name
 
 
 class Video(models.Model):
@@ -92,10 +78,10 @@ class Course(models.Model):
     pronatec = models.TextField(_('Pronatec'), blank=True)
     status = models.CharField(_('Status'), choices=STATES, default=STATES[1][0], max_length=64)
     publication = models.DateField(_('Publication'), default=None, blank=True, null=True)
-    thumbnail = models.ImageField(_('Thumbnail'), upload_to='course_thumbnails', null=True, blank=True)
+    thumbnail = models.ImageField(_('Thumbnail'), upload_to=hash_name('course_thumbnails', 'name'), null=True, blank=True)
     professors = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='professorcourse_set', through='CourseProfessor')
     students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='studentcourse_set', through='CourseStudent')
-    home_thumbnail = models.ImageField(_('Home thumbnail'), upload_to='home_thumbnails', null=True, blank=True)
+    home_thumbnail = models.ImageField(_('Home thumbnail'), upload_to=hash_name('home_thumbnails', 'name'), null=True, blank=True)
     home_position = models.IntegerField(null=True, blank=True)
     start_date = models.DateField(_('Start date'), default=None, blank=True, null=True)
     home_published = models.BooleanField(default=False)
@@ -133,6 +119,11 @@ class Course(models.Model):
     def get_thumbnail_url(self):
         if self.thumbnail:
             return self.thumbnail.url
+        return ''
+
+    def get_home_thumbnail_url(self):
+        if self.home_thumbnail:
+            return self.home_thumbnail.url
         return ''
 
     @property
@@ -305,7 +296,7 @@ class CourseProfessor(models.Model):
     course = models.ForeignKey(Course, verbose_name=_('Course'))
     biography = models.TextField(_('Biography'), blank=True)
     role = models.CharField(_('Role'), choices=ROLES, default=ROLES[1][0], max_length=128)
-    picture = models.ImageField(_('Picture'), upload_to=path_and_rename('user-pictures'), blank=True, null=True)
+    picture = models.ImageField(_('Picture'), upload_to=hash_name('bio-pictures', 'name'), blank=True, null=True)
     name = models.TextField(_('Name'), max_length=30, blank=True, null=True)
 
     class Meta:

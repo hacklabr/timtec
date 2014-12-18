@@ -30,6 +30,7 @@
                         }
                         document.title = 'Curso: {0}'.format(course.name);
                         $scope.addThumb = !course.thumbnail_url;
+                        $scope.addHomeThumb = !course.home_thumbnail_url;
                     })
                     .then(function(){
                         $scope.lessons = Lesson.query({'course__id': match[1]});
@@ -82,6 +83,22 @@
                 if ($scope.course.id) {
                     var fu = new FormUpload();
                     fu.addField('thumbnail', $scope.thumbfile);
+                    // return a new promise that file will be uploaded
+                    return fu.sendTo('/api/coursethumbs/' + $scope.course.id)
+                        .then(function(){
+                            $scope.alert.success('A imagem atualizada.');
+                        });
+                }
+            };
+
+            $scope.saveHomeThumb = function() {
+                if(! $scope.home_thumbfile) {
+                    return;
+                }
+
+                if ($scope.course.id) {
+                    var fu = new FormUpload();
+                    fu.addField('home_thumbnail', $scope.home_thumbfile);
                     // return a new promise that file will be uploaded
                     return fu.sendTo('/api/coursethumbs/' + $scope.course.id)
                         .then(function(){

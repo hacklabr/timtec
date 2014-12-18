@@ -56,11 +56,11 @@
         {% endif %}
 
             <!-- FILTERS -->
-            <div class="filters">
+            <div class="filters" ng-if="current_user_role == 'coordinator' || current_user_role == 'assitant'">
                 <!--  FORM INLINE -->
                 <form class="form-inline">
                     <!-- ROW -->
-                    <div class="row" ng-if="current_user_role == 'coordinator' || current_user_role == 'assitant'">
+                    <div class="row">
                         <div class="col-sm-12">
                             <label for="filter-class"> {% trans "Filter classes" %}:
                                 <select class="form-control" id="filter-class" ng-model="filters.selected_class" ng-change="filter()">

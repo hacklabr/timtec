@@ -1,16 +1,29 @@
 # -*- coding: utf-8 -*-
-# configurations for the production server
 # https://docs.djangoproject.com/en/dev/ref/settings/
+
+###### TODO: you NEED to change this to your domain name ######
+DOMAIN_NAME = 'yourhostnamehere.com'
+
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
+SITE_ID = 1
 
-TIMTEC_THEME = 'timtec'
+###### TODO: change this to the theme you want to use ######
+TIMTEC_THEME = 'if'
 
-SITE_ID = 2
+###### TODO: Remove this block if you don't want to use ifs app ######
+INSTALLED_APPS = list(INSTALLED_APPS)
+INSTALLED_APPS.insert(INSTALLED_APPS.index('accounts') + 1, 'ifs')
+ACCOUNT_SIGNUP_FORM_CLASS = 'ifs.forms.IfSignupForm'
+AUTH_USER_MODEL = 'ifs.IfUser'
+ACCOUNT_FORMS = {'login': 'ifs.forms.IfLoginForm'}
+TERMS_ACCEPTANCE_REQUIRED = False
+########################################################################
 
+###### TODO: add any subdomains you need here ######
 ALLOWED_HOSTS = [
-    'timtec.com.br',
-    '.timtec.com.br',
+    DOMAIN_NAME,
+    'wwww.' + DOMAIN_NAME
 ]
 
 DATABASES = {
@@ -25,11 +38,15 @@ MEDIA_ROOT = "/home/timtec-production/webfiles/media/"
 STATIC_ROOT = "/home/timtec-production/webfiles/static/"
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_SUBJECT_PREFIX = '[timtec]'
-DEFAULT_FROM_EMAIL = 'donotreply@m.timtec.com.br'
-CONTACT_RECIPIENT_LIST = ['timtec-dev@listas.hacklab.com.br', ]
 
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
+###### TODO: change this to suit your organization ######
+ADMINS = list(ADMINS) + [('Admin', 'root@' + DOMAIN_NAME), ]
+DEFAULT_FROM_EMAIL = 'donotreply@' + DOMAIN_NAME
+CONTACT_RECIPIENT_LIST = ['contato@' + DOMAIN_NAME, ]
+
+SITE_NAME = 'IF'
+EMAIL_SUBJECT_PREFIX = '[if]'
+######################################################
 
 LOGGING = {
     'version': 1,
@@ -72,10 +89,3 @@ LOGGING = {
         },
     }
 }
-
-try:
-    # THIS FILE SETS PRODUCTION SPECIFIC
-    # SENSITIVY VALUES (SUCH AS GOOGLE ANALYTICS KEY)
-    from .settings_production import *
-except ImportError:
-    pass

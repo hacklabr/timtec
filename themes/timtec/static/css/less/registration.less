@@ -1,20 +1,52 @@
-// body.registration
-body.registration {
+// LAYOUT PARA AS PÁGINAS DE FALLBACK DO LOGIN E CADASTRO
+// /login/
 
-    .wrapper {
-        background-image:url("../img/illustrations/instituto-l.png");
-        background-position: top center;
-        background-repeat: no-repeat;
-        background-size: 100%;
+// background-image:url("../img/illustrations/instituto-l.png");
+// background-position: top center;
+// background-repeat: no-repeat;
+// background-size: 100%;
+
+#activation-wrapper {
+    background-color: rgba(255,255,255,0.5);
+    text-align: left;
+    padding-top: 70px;
+    &:before {
+        content: inherit;
+        height: auto;
+        vertical-align: top;
+    }
+    .centered {
+        vertical-align: top;
+    }
+}
+
+.registration {
+    background-color: rgba(255,255,255,0.5);
+    padding: 40px 0 60px;
+    @media screen and (min-width: @screen-xs-min) {
+        padding: 40px 15% 60px;
+    }
+    @media screen and (min-width: @screen-sm-min) {
+        background-color: transparent;
+        padding: 0;
     }
 
+    .fa-sign-in {
+        display: none
+    }
     h1 {
-        color: #007dc3;
-        font-family: 'teuton_26';
+        color: @brand-primary;
         font-size: 30px;
+        font-family: 'teuton_26', sans-serif;
+        // Escondendo ícone e quebra de linha que
+        // existe no tema padrão
+        i, br {
+            display: none;
+        }
     }
-
     form {
+        border: none !important;
+        margin-top: 0 !important;
         label {
             color: black !important;
             text-align: left !important;
@@ -22,69 +54,13 @@ body.registration {
         small {
             color: black !important;
         }
-    }
-
-    #main-footer {
-        margin-top: 0;
-    }
-
-    // body.registration--email-confirm
-    &--email-confirm,
-    &--password-reset-done {
-        .centered {
-            text-align: center;
-            width: 99% !important;
-            > * {
-                margin-left: auto;
-                margin-right: auto;
-                width: 80% !important;
-            }
-            p {
-                color: rgb(13,76,143);
-                font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-                font-size: 30px;
-                line-height: 42px;
-            }
+        .btn-success {
+            margin-bottom: 20px;
         }
     }
-
-    &--password-reset {
-        #activation-wrapper {
-            .centered {
-                text-align: center;
-                width: 99% !important;
-                > * {
-                    margin-left: auto;
-                    margin-right: auto;
-                    width: 40% !important;
-                }
-                    form {
-                    margin-top: 0 !important;
-                    padding-top: 0 !important;
-                }
-            }
-        }
+    hr {
+        border: none;
     }
-
-    &--password-reset-key {
-        h1 {
-            text-align: left;
-        }
-        form {
-            width: 500px;
-        }
-        div.submit {
-            text-align: right;
-        }
-    }
-
-    &--password-reset-key-done {
-        form {
-            width: 400px;
-        }
-        div.submit {
-            text-align: right;
-        }
-    }
-
 }
+
+

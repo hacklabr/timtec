@@ -6,6 +6,25 @@
     overflow: auto; // fix extra margin when you scroll and the actions-menu stick on the top of the page
   }
 
+  // HOME
+  // ********************************************************************* //
+  .home.wrapper-bg {
+      overflow: visible;
+  }
+
+  #home {
+    #courses {
+      margin-top: 140px;
+      @media screen and (min-width: @screen-xs-min) {
+        margin-top: 40px;
+      }
+    }
+    .btn-drag {
+      top: 0;
+      margin-top: 90px;
+    }
+  }
+
   // COURSES
   // ********************************************************************* //
   #courses {
@@ -36,13 +55,13 @@
       margin-top: -168px;
   }
 
-  // USERS (permissions)
+  // PERMISSIONS
   // ********************************************************************* //
-  #users {
+  #permissions {
     header {
       border: 0;
     }
-    #users-content {
+    #permissions-content {
       margin-top: -260px;
       padding-top: 220px;
       padding-bottom: 50px;

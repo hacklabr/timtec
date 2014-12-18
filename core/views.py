@@ -18,7 +18,7 @@ from django.utils import timezone
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import filters
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from braces.views import LoginRequiredMixin
 from notes.models import Note
 
@@ -35,7 +35,7 @@ from .models import (Course, CourseProfessor, Lesson, StudentProgress,
 from .forms import (ContactForm, AcceptTermsForm, RemoveStudentForm,
                     AddStudentsForm, )
 
-from .permissions import IsProfessorCoordinatorOrAdminPermissionOrReadOnly
+from .permissions import IsProfessorCoordinatorOrAdminPermissionOrReadOnly, IsAdminOrReadOnly
 
 
 class HomeView(ListView):
@@ -140,9 +140,9 @@ class UserCoursesView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(UserCoursesView, self).get_context_data(**kwargs)
 
-        context['courses_user_assist'] = CourseProfessor.objects.filter(user=self.request.user, role='assistant')
+        context['courses_user_assist'] = CourseProfessor.objects.filter(user=self.request.user, role='assistant').exists()
 
-        context['courses_user_coordinate'] = CourseProfessor.objects.filter(user=self.request.user, role='coordinator')
+        context['courses_user_coordinate'] = CourseProfessor.objects.filter(user=self.request.user, role='coordinator').exists()
 
         return context
 
@@ -515,12 +515,12 @@ class ClassViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
         return queryset
 
 
-class FlatpageViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
+class FlatpageViewSet(viewsets.ModelViewSet):
 
     model = FlatPage
     serializer_class = FlatpageSerializer
     filter_fields = ('url',)
-    permission_classes = (IsAdminUser,)
+    permission_classes = (IsAdminOrReadOnly,)
 
     def get_queryset(self):
         queryset = super(FlatpageViewSet, self).get_queryset()
