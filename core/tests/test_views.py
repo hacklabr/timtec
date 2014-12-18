@@ -237,3 +237,42 @@ def test_user_courses_must_show_assistant_and_coordinator_tabs_for_admin(admin_c
     assert 'href="#course-as-teacher"' in response.content
 
     assert 'href="#course-as-coordinator"' in response.content
+
+
+@pytest.mark.django_db
+def test_course_professor_get_bio_or_pic_should_be_user_bio__or_pic_when_not_defined(admin_client):
+    course = mommy.make('Course', slug='dbsql', name='A course')
+
+    professor = create_user('professor')
+
+    professor.biography = 'Professor Biography'
+
+    # professor.picture = 'Some valid image'
+
+    course_professor = mommy.make('CourseProfessor', user=professor, course=course, role='assistant')
+    # course_professor = mommy.make('CourseProfessor', user=professor, course=course, picture=?, role='assistant')
+
+    assert course_professor.get_biography() == 'Professor Biography'
+
+    # assert course_professor.get_picture() == 'Same image as above'
+
+
+@pytest.mark.django_db
+def test_course_professor_get_bio_or_pic_should_be_course_professor_bio_or_pic_when_defined(admin_client):
+    course = mommy.make('Course', slug='dbsql', name='A course')
+
+    professor = create_user('professor')
+
+    professor.biography = 'Professor Biography'
+
+    # professor.picture = 'Some valid image'
+
+    course_professor = mommy.make('CourseProfessor', user=professor, course=course, role='assistant')
+
+    course_professor.biography = 'Course professor Biography'
+
+    # course_professor.picture = 'Another valid image'
+
+    assert course_professor.get_biography() == 'Course professor Biography'
+
+    # assert course_professor.get_picture() == 'Course professor Picture'
