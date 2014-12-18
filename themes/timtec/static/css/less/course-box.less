@@ -46,7 +46,7 @@
           background-color: transparent;
           font-family: @font-family-base;
           line-height: @line-height-base;
-          > span:first-child {
+          .course-date {
             display: none;
           }
           .enroll-link {
@@ -91,9 +91,13 @@
         }
       }
       .fa-check {
-        background-color: @brand-info;
         top: 0;
         right: 0;
+      }
+      &.started {
+        .fa-check {
+          background-color: @brand-info;
+        }
       }
     }
   }
