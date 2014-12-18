@@ -42,7 +42,9 @@ wrapper-course-lesson
             <div class="actions-buttons">
                 <form method="post" action="{% url 'class-delete' pk=class.id %}">
                     {% csrf_token %}
+                    {% if object.course.default_class != object %}
                     <button type="submit" class="btn btn-danger" title="{% trans 'Delete course' %}">{% trans 'Delete' %} | <i class="fa fa-trash-o"></i></button>
+                    {% endif %}
                     <button class="btn btn-success" onclick="document.getElementById('mainForm').submit();return false;">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
                 </form>
             </div>
@@ -92,13 +94,16 @@ wrapper-course-lesson
                 <th class="classname">{% trans "Username" %}</th>
                 <th class="email">{% trans "Email" %}</th>
                 <th class="fullname">{% trans "Full name" %}</th>
+                {% if object.course.default_class != object %}
                 <th class="actions">{% trans "Actions" %}</th>
+                {% endif %}
             </tr>
             {% for student in object.students.all %}
             <tr>
                 <td>{{ student.username }}</td>
                 <td>{{ student.email }}</td>
                 <td>{{ student.get_full_name }}</td>
+                {% if object.course.default_class != object %}
                 <td class="actions">
                     <form method="post" action="{% url 'class-remove-user' pk=class.id %}">
                         {% csrf_token %}
@@ -106,6 +111,7 @@ wrapper-course-lesson
                         <button type="submit" class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
                     </form>
                 </td>
+                {% endif %}
             </tr>
             {% empty %}
             <tr>
