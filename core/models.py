@@ -18,6 +18,8 @@ from notes.models import Note
 from course_material.models import CourseMaterial
 from .utils import hash_name
 
+import re
+
 
 class Video(models.Model):
     name = models.CharField(max_length=255)
@@ -307,17 +309,24 @@ class CourseProfessor(models.Model):
     def __unicode__(self):
         return u'%s @ %s' % (self.user, self.course)
 
+    def get_name(self):
+        if self.name:
+            return self.name
+        elif self.user:
+            return self.user.get_full_name()
+
     def get_biography(self):
-        if (self.biography):
+        if self.biography:
             return self.biography
-        else:
+        elif self.user:
             return self.user.biography
 
-    def get_picture(self):
-        if (self.picture):
-            return self.picture
-        else:
-            return self.user.picture
+    def get_picture_url(self):
+        if self.picture:
+            location = "/%s/%s" % (settings.MEDIA_URL, self.picture)
+            return re.sub('/+', '/', location)
+        elif self.user:
+            return self.user.get_picture_url()
 
     def new_message(self, course, subject, message, to=[]):
         return ProfessorMessage.objects.create(subject=subject,
