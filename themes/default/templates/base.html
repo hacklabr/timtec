@@ -47,7 +47,10 @@
             }
 
             $(document).ready(function() {
-                $('.has-tooltip').tooltip();
+                if (!("ontouchstart" in window)) {
+                    $('.has-tooltip').tooltip();
+                }
+
 
                 resize_activation_wrapper();
                 wrapper_min_height();
