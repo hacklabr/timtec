@@ -307,6 +307,18 @@ class CourseProfessor(models.Model):
     def __unicode__(self):
         return u'%s @ %s' % (self.user, self.course)
 
+    def get_biography(self):
+        if (self.biography):
+            return self.biography
+        else:
+            return self.user.biography
+
+    def get_picture(self):
+        if (self.picture):
+            return self.picture
+        else:
+            return self.user.picture
+
     def new_message(self, course, subject, message, to=[]):
         return ProfessorMessage.objects.create(subject=subject,
                                                message=message,
