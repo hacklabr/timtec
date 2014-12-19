@@ -73,7 +73,7 @@ class CourseProfessorSerializer(serializers.ModelSerializer):
     course_info = CourseSerializer(source='course', read_only=True)
 
     class Meta:
-        fields = ('id', 'course', 'course_info', 'user', 'user_info', 'biography', 'role',)
+        fields = ('id', 'course', 'course_info', 'user', 'user_info', 'get_biography', 'get_picture', 'role',)
         model = CourseProfessor
 
 
