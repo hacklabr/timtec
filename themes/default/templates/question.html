@@ -7,7 +7,10 @@
 {% block js %}
     {{block.super}}
     {% compressed_js 'forum' %}
-    {% compressed_js 'admin_course_header' %}
+{% endblock %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
 {% endblock %}
 
 {% block content %}
@@ -24,15 +27,25 @@
 
     <!-- MAIN CONTENT -->
     <section id="forum-content" class="container" ng-app="forum" ng-controller="QuestionCtrl">
+        <header class="secondary-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-9">
+                    <h1>{% trans "Questions & Answers" %}</h1>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <a href="{% url 'forum_question_create' question_django.course.slug %}" class="ask-a-question btn btn-lg btn-danger uppercase">{% trans "Ask a question" %}</a>
+                </div>
+            </div>
+        </header>
         {% verbatim angularjs %}
         <div class="question">
             <table>
                 <tr>
                     <td class="rating">
                         <div ng-app="vote" ng-controller="QuestionVoteCtrl">
-                            <div class="arrow-up" ng-class="{active: question_vote.value==1}" ng-click=vote('up')></div>
+                            <div class="arrow-up" ng-class="{active: question_vote.value==1}" ng-click=vote_question('up')></div>
                             <div class="votes" >{{ question.votes }}</div>
-                            <div class="arrow-down" ng-class="{active: question_vote.value==-1}" ng-click=vote('down')></div>
+                            <div class="arrow-down" ng-class="{active: question_vote.value==-1}" ng-click=vote_question('down')></div>
                         </div>
                     </td>
                     <td class="content">
@@ -57,10 +70,10 @@
                         <table>
                             <tr>
                                 <td class="rating">
-                                    <div ng-app="vote" ng-controller="AnswerVoteCtrl">
-                                        <div class="arrow-up" ng-class="{active: answer_vote.value==1}" ng-click=vote(answer,'up')></div>
+                                    <div>
+                                        <div class="arrow-up" ng-class="{active: answer.current_user_vote.value==1}" ng-click=vote(answer,'up')></div>
                                         <div class="votes">{{ answer.votes }}</div>
-                                        <div class="arrow-down" ng-class="{active: answer_vote.value==-1}" ng-click=vote(answer,'down')></div>
+                                        <div class="arrow-down" ng-class="{active: answer.current_user_vote.value==-1}" ng-click=vote(answer,'down')></div>
                                     </div>
                                 </td>
                                 <td class="content">

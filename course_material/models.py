@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-from core.models import Course
 from django.utils.translation import ugettext_lazy as _
 
 
 class CourseMaterial(models.Model):
-    course = models.ForeignKey(Course, related_name='course_material', verbose_name=_('Course Materials'))
+    course = models.ForeignKey('core.Course', related_name='course_material', verbose_name=_('Course Materials'))
     text = models.TextField(_('Question'))
 
     def __unicode__(self):

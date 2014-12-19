@@ -47,7 +47,10 @@
             }
 
             $(document).ready(function() {
-                $('.has-tooltip').tooltip();
+                if (!("ontouchstart" in window)) {
+                    $('.has-tooltip').tooltip();
+                }
+
 
                 resize_activation_wrapper();
                 wrapper_min_height();
@@ -64,7 +67,7 @@
 
     {% include 'header.html' %}
 
-    <div class="wrapper">
+    <div class="wrapper wrapper-bg {% spaceless %}{% block wrapper_classes %}{% endblock %}{% endspaceless %}">
         {% block content %}
         <h1>missing content block</h1>
         {% endblock %}
@@ -87,6 +90,9 @@
                 $next.val($(this).attr('href'));
                 $modal.modal();
                 return false;
+            });
+            $('.dropdown-menu form').click(function(e) {
+                e.stopPropagation();
             });
         });
     </script>

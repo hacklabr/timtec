@@ -1,0 +1,75 @@
+// ADMIN STYLES
+// ********************************************************************* //
+#admin {
+
+  .wrapper-bg {
+    overflow: auto; // fix extra margin when you scroll and the actions-menu stick on the top of the page
+  }
+
+  // HOME
+  // ********************************************************************* //
+  .home.wrapper-bg {
+      overflow: visible;
+  }
+
+  #home {
+    #courses {
+      margin-top: 140px;
+      @media screen and (min-width: @screen-xs-min) {
+        margin-top: 40px;
+      }
+    }
+    .btn-drag {
+      top: 0;
+      margin-top: 90px;
+    }
+  }
+
+  // COURSES
+  // ********************************************************************* //
+  #courses {
+    > .container {
+      margin-top: 0;
+      padding-top: 120px;
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    header {
+      h1 {
+        color: #007dc3;
+        font-family: @teuton-26;
+      }
+    }
+    #all-courses {
+      .course {
+        background-color: transparent;
+        border-top: 0;
+        margin-bottom: 40px;
+      }
+    }
+  }
+
+  // COURSE
+  // ********************************************************************* //
+  #course-content {
+      margin-top: -168px;
+  }
+
+  // PERMISSIONS
+  // ********************************************************************* //
+  #permissions {
+    header {
+      border: 0;
+    }
+    #permissions-content {
+      margin-top: -260px;
+      padding-top: 220px;
+      padding-bottom: 50px;
+      background-color: rgba(255,255,255,0.5);
+    }
+  }
+}
+
+.lessons .lesson {
+    background-color: transparent;
+}

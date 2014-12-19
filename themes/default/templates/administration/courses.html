@@ -14,7 +14,34 @@
 ng-app="courses"
 {% endblock %}
 
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
 {% block content %}
+<div class="modal fade" id="new-course-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="class-modal-label">{% trans 'New course name' %}</h4>
+            </div>
+            <form role="form" novalidate method="post" action="{% url 'administration.new_course' %}">
+                {% csrf_token %}
+                <div class="modal-body">
+                        <div class="form-group">
+                            <label for="course-name" class="sr-only">{% trans 'New course name' %}</label>
+                            <input ng-model="new_course_name" id="course-name" name="name" class="form-control" placeholder="{% trans 'New course name' %}">
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Cancel' %}</button>
+                    <button type="submit" ng-disabled="!new_course_name" class="btn btn-primary">{% trans 'Create course' %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <!-- COURSES -->
 <section id="courses" ng-controller="CourseListController">
 
@@ -23,7 +50,8 @@ ng-app="courses"
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 textright">
-                    <a class="btn btn-success" href="/admin/courses/new">{% trans 'New course' %}</a>
+                    <a class="btn btn-success" data-toggle="modal" data-target="#new-course-modal">{% trans 'New course' %}</a>
+
                 </div>
             </div>
         </div>
@@ -48,7 +76,7 @@ ng-app="courses"
                 <!-- ROW -->
                 <div class="row">
                     <!-- COL-LG-6 -->
-                    <div class="filter-checkbox col-md-4 col-sm-12">
+                    <div class="filter-checkbox col-md-5 col-sm-12">
                         <div class="checkbox">
                             <label><input ng-model="filters.all" type="checkbox"> {% trans 'All' %}</label>
                             <label><input ng-model="filters.published" type="checkbox"> {% trans 'Published' %}</label>
@@ -59,11 +87,11 @@ ng-app="courses"
                     <!-- END COL-LG-6 -->
                     <!-- COL-LG-3 -->
                     <div class="filter-keyword col-md-3 col-sm-5 textright">
-                        <input type="text" ng-model="filters.textsearch" placeholder="{% trans 'Keyword' %}" class="form-control"/>
+                        <input type="text" ng-model="filters.textsearch" placeholder="{% trans 'Keyword' %}" class="form-control">
                     </div>
                     <!-- END COL-LG-3 -->
                     <!-- COL-LG-3 -->
-                    <div class="filter-ordering col-md-3 col-sm-5 textright">
+                    <div class="filter-ordering col-md-2 col-sm-5 textright">
                         <select ng-model="ordering" class="form-control">
                             <option value="id">{% trans 'Sort' %} ...</option>
                             <option value="status">{% trans 'Status' %}</option>
@@ -92,7 +120,7 @@ ng-app="courses"
                     <h1><a href="/admin/courses/{{ course.id }}" title="{{ course.name }}">{{ course.name }}</a></h1>
                     {% endverbatim %}
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-sm-6">
                             <p>
                                 {% verbatim %}
                                 <span class="label label-warning" ng-if="course.isDraft()">Rascunho</span>
@@ -107,7 +135,8 @@ ng-app="courses"
                                 {% endverbatim %}
 
                                 <span class="label label-default pointer" ng-click="loadLessons(course);showLessons=!showLessons">
-                                    {% trans 'Show lessons' %}
+                                    <span ng-if="!showLessons">{% trans 'Show lessons' %}</span>
+                                    <span ng-if="showLessons">{% trans 'Hide lessons' %}</span>
 
                                     {% verbatim %}
                                     <i class="fa" ng-class="{'fa fa-caret-down':!showLessons,'fa fa-caret-up':showLessons}"></i>
@@ -115,7 +144,7 @@ ng-app="courses"
                                 </span>
                             </p>
                         </div>
-                        <div class="col-lg-6 textright">
+                        <div class="col-sm-6 textright">
                             <p>
                                 <span ng-show="course.isPublished()">
                                     <span class="date-label">{% trans 'Published' %}</span>
@@ -148,7 +177,8 @@ ng-app="courses"
                                 <div class="lesson" ng-repeat="lesson in course.lessons">
                                     <div class="row">
                                         <div class="col-lg-1">
-                                            <span class="label label-success" ng-bind="lesson.status"></span>
+                                            <span class="label label-success" ng-if="lesson.status=='published'">{% trans 'Published' %}</span>
+                                            <span class="label label-warning" ng-if="lesson.status!='published'">{% trans 'Draft' %}</span>
                                         </div>
                                         <div class="col-lg-9">
                                             {% verbatim %}
@@ -165,8 +195,11 @@ ng-app="courses"
             </div>
             <!-- END COURSE -->
 
-            <div class="row" ng-show="filteredList.length === 0">
+            <div class="row" ng-show="courseList.$resolved && filteredList.length === 0">
                 <p class="textcenter">{% trans 'No courses found' %}</p>
+            </div>
+            <div class="row" ng-show="!courseList.$resolved">
+                <p class="textcenter">{% trans 'Loading courses...' %}<i class="loading fa fa-refresh fa-spin"></i></p>
             </div>
         </section>
         <!-- END ALL-COURSES -->

@@ -1,0 +1,47 @@
+// FORUM
+// ********************************************************************* //
+#forum {
+  #forum-content {
+    margin-top: -225px;
+    padding-top: 225px;
+    background-color: rgba(255,255,255,0.5);
+    #forum-content {
+      background: none;
+      margin-top: 0;
+      padding-top: 0;
+    }
+    .filters {
+      margin-top: 20px;
+    }
+    .rating {
+      padding-right: 20px;
+    }
+    .title {
+      font-weight: bold;
+      margin-top: 0;
+    }
+    .author {
+      border-top: 1px solid rgba(255,255,255,0.3);
+    }
+    .content {
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+    }
+    .question {
+      margin-top: 30px;
+      // IF IS HIDDEN
+      &.is-hidden {
+        background-color: #fff;
+        .author {
+          border-top: 1px solid @gray-lighter;
+        }
+        .why-hidden {
+          border-top: 1px solid @gray-lighter;
+          h1 {
+            color: #007dc3;
+            font-family: @teuton-26;
+          }
+        }
+      }
+    }
+  }
+}

@@ -31,6 +31,10 @@
                 $scope.selectActivity(0);
             };
 
+            $scope.locationChange = function(unitIndex) {
+                $location.path('/' + unitIndex);
+            };
+
             $scope.nextUnit = function() {
                 var index = $scope.lesson.units.indexOf($scope.currentUnit);
                 index++;
@@ -105,9 +109,7 @@
                 $scope.answer.$update({activityId: $scope.answer.activity}).then(function(d){
                     console.log(d, d.correct);
                     ga('send', 'event', 'activity', 'result', '', d.correct);
-                    return Progress.getProgressByUnitId($scope.currentUnit.id);
-                }).then(function(progress){
-                    $scope.currentUnit.progress = progress;
+                    $scope.currentUnit.progress = Progress.get({unit: $scope.currentUnit.id});
                 });
                 ga('send', 'event', 'activity', 'submit');
             };
@@ -129,8 +131,7 @@
                     } else {
                         var index = $scope.currentUnit.activities.indexOf($scope.currentActivity);
                         if(index+1 === $scope.currentUnit.activities.length) {
-                            progress = Progress.complete($scope.currentUnit.id);
-                            $scope.currentUnit.progress = progress;
+                            $scope.currentUnit.progress = Progress.get({unit: $scope.currentUnit.id});
                             $scope.nextUnit();
                         } else {
                             $scope.selectActivity(index + 1);

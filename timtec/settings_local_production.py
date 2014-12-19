@@ -29,6 +29,8 @@ EMAIL_SUBJECT_PREFIX = '[timtec]'
 DEFAULT_FROM_EMAIL = 'donotreply@m.timtec.com.br'
 CONTACT_RECIPIENT_LIST = ['timtec-dev@listas.hacklab.com.br', ]
 
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

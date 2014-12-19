@@ -23,18 +23,17 @@
         max-width: 100%;
       }
       .text {
-        color: #000;
-        font-family: 'amatic';
-        color: @brand-accent;
+        font-family: 'jelly';
+        color: @brand-primary;
         position: absolute;
         left: 100px;
         top: 15px;
-        border: 2px dashed @brand-accent;
+        border: 2px dashed @brand-primary;
         padding: 20px;
         width: 435px;
         p {
           margin: 0;
-          font-size: 3vw;
+          font-size: 30px;
         }
       }
       @media (max-width: @screen-sm-max) {
@@ -47,18 +46,12 @@
           left: 60px;
           top: 75px;
           width: 340px;
-          p {
-            font-size: 3vw;
-          }
         }
       }
       @media (min-width: @screen-lg-min) {
         .text {
           left: 170px;
           top: 100px;
-          p {
-            font-size: 41px;
-          }
         }
       }
     } // #hightlight
@@ -69,21 +62,12 @@
       margin-bottom: 36px;
       padding-bottom: 10px;
       h1 {
-        font-family: 'amatic';
-        color: @brand-accent;
-        font-size: 6.5vw;
+        font-family: 'jelly';
+        color: @brand-primary;
+        font-size: 30px;
         font-weight: normal;
         margin: 0;
         text-transform: uppercase;
-        @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
-          font-size: 5vw;
-        }
-        @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-          font-size: 4vw;
-        }
-        @media (min-width: @screen-lg-min) {
-          font-size: 3vw;
-        }
       }
     } //.page-title
 
@@ -93,9 +77,17 @@
       @media (min-width: 380px) and (max-width: @screen-xs-max) {
         float: none;
         margin: 0 auto 40px;
-        width: 360px;
+        max-width: 360px;
       }
     } // .block
+
+    // see all courses button
+    .see-all-courses {
+      @media (min-width: 380px) and (max-width: @screen-xs-max) {
+        margin: 0 auto;
+        max-width: 360px;
+      }
+    }
 
     // courses section
     #courses {
@@ -132,7 +124,7 @@
           border-bottom-color: lighten(@brand-light,10%);
         }
         .highlight {
-            border-bottom: 2px dashed @brand-accent;
+            border-bottom: 2px dashed @brand-primary;
             margin-bottom: 36px;
             padding-bottom: 18px;
         }
@@ -141,11 +133,8 @@
             background-color: #fff;
             padding: 15px;
             border-radius: @border-radius-base;
-            @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-              height: 315px;
-            }
-            @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max), (min-width: @screen-lg-min) {
-              height: 342px;
+            @media (min-width: @screen-sm-min) {
+              height: 340px;
             }
             .icon {
               text-align: center;
@@ -155,9 +144,9 @@
               }
             }
             h3 {
-              font-size: 22px;
-              font-family: 'amatic';
-              color: @brand-accent;
+              font-size: 20px;
+              font-family: 'jelly';
+              color: @brand-primary;
               margin-top: 10px;
               text-align: center;
               @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {

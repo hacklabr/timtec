@@ -38,26 +38,27 @@
       font-weight: normal;
     }
   }
-  ul.instructors {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    li {
-      display: inline-block;
-      text-transform: uppercase;
-      a {
-        color:@brand-success;
-        &:hover {
-          color:darken(@brand-success, 10%);
-        }
-        &:after {
-          content: " // ";
-          color: black;
-          margin-right: 3px;
-        }
+  .course-details {
+    text-transform: uppercase;
+    font-size: 11px;
+    .label {
+      color: @gray-light;
+      font-weight: normal;
+      padding: 0;
+      font-size: inherit;
+    }
+    a {
+      color:@brand-success;
+      &:hover {
+        color:darken(@brand-success, 10%);
       }
-      &:last-child a:after {
-          content: "";
+      &.course-instructor:after {
+        content: " // ";
+        color: black;
+        margin-right: 3px;
+      }
+      &:last-child:after {
+        content: "";
       }
     }
   }

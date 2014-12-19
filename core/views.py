@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 import json
 import time
+import datetime
 
 from django.core.urlresolvers import reverse_lazy
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.http import HttpResponse
 from django.views.generic import (DetailView, ListView, FormView, DeleteView,
                                   CreateView, UpdateView)
 from django.views.generic.base import RedirectView, View, TemplateView
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.flatpages.models import FlatPage
 from django.shortcuts import get_object_or_404
 from django.conf import settings
 from django.db.models import Q
@@ -24,7 +26,8 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           CourseThumbSerializer, LessonSerializer,
                           StudentProgressSerializer, CourseNoteSerializer,
                           LessonNoteSerializer, ProfessorMessageSerializer,
-                          CourseStudentSerializer, ClassSerializer)
+                          CourseStudentSerializer, ClassSerializer,
+                          FlatpageSerializer)
 
 from .models import (Course, CourseProfessor, Lesson, StudentProgress,
                      Unit, ProfessorMessage, CourseStudent, Class)
@@ -32,7 +35,7 @@ from .models import (Course, CourseProfessor, Lesson, StudentProgress,
 from .forms import (ContactForm, AcceptTermsForm, RemoveStudentForm,
                     AddStudentsForm, )
 
-from .permissions import IsProfessorCoordinatorOrAdminPermissionOrReadOnly
+from .permissions import IsProfessorCoordinatorOrAdminPermissionOrReadOnly, IsAdminOrReadOnly
 
 
 class HomeView(ListView):
@@ -81,7 +84,7 @@ class CoursesView(ListView):
     template_name = "courses.html"
 
     def get_queryset(self):
-        return Course.objects.filter(Q(status='published') | Q(status='listed')).prefetch_related('professors')
+        return Course.objects.filter(Q(status='published') | Q(status='listed')).prefetch_related('professors').order_by('start_date')
 
 
 class ContactView(View):
@@ -103,6 +106,12 @@ class ContactView(View):
         response.status_code = status_code
 
         return response
+
+
+class GenericCourseView(DetailView):
+    model = Course
+    context_object_name = 'course'
+    slug_url_kwarg = 'course_slug'
 
 
 class CourseView(DetailView):
@@ -128,6 +137,15 @@ class CourseView(DetailView):
 class UserCoursesView(LoginRequiredMixin, TemplateView):
     template_name = 'user-courses.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(UserCoursesView, self).get_context_data(**kwargs)
+
+        context['courses_user_assist'] = CourseProfessor.objects.filter(user=self.request.user, role='assistant').exists()
+
+        context['courses_user_coordinate'] = CourseProfessor.objects.filter(user=self.request.user, role='coordinator').exists()
+
+        return context
+
 
 class EnrollCourseView(LoginRequiredMixin, RedirectView):
     permanent = False
@@ -140,7 +158,7 @@ class EnrollCourseView(LoginRequiredMixin, RedirectView):
 
     def get_redirect_url(self, **kwargs):
         course = self.get_object()
-        if self.request.user.accepted_terms:
+        if self.request.user.accepted_terms or not settings.TERMS_ACCEPTANCE_REQUIRED:
             course.enroll_student(self.request.user)
             return reverse_lazy('lesson', args=[course.slug, course.first_lesson().slug])
         else:
@@ -207,6 +225,13 @@ class CourseViewSet(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
+    def get_queryset(self):
+        queryset = super(CourseViewSet, self).get_queryset()
+        public_courses = self.request.QUERY_PARAMS.get('public_courses', None)
+        if public_courses:
+            queryset = queryset.filter(Q(status='published') | Q(status='listed')).prefetch_related('professors')
+        return queryset
+
     def get(self, request, **kwargs):
         response = super(CourseViewSet, self).get(request, **kwargs)
         response['Cache-Control'] = 'no-cache'
@@ -249,7 +274,7 @@ class CarouselCourseView(viewsets.ReadOnlyModelViewSet):
     lookup_field = 'id'
     serializer_class = CourseSerializer
     filter_fields = ('slug', 'home_published',)
-    queryset = Course.objects.exclude(status=Course.STATES[0][0]).exclude(status=Course.STATES[1][0])
+    queryset = Course.objects.exclude(status=Course.STATES[0][0]).exclude(status=Course.STATES[1][0]).filter(start_date__gte=datetime.date.today())
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
@@ -267,7 +292,7 @@ class LessonDetailView(LoginRequiredMixin, DetailView):
         unit_content_type = ContentType.objects.get_for_model(Unit)
         course = self.object.course
         lessons = list(course.public_lessons)
-        if self.object != lessons[-1]:
+        if lessons and self.object != lessons[-1]:
             index = lessons.index(self.object)
             context['next_url'] = reverse_lazy('lesson',
                                                args=[course.slug,
@@ -308,27 +333,33 @@ class ClassCreateView(LoginRequiredMixin, CreateView):
 
 
 class CanEditClassMixin(object):
-    def check_permission(self, object):
+    def check_permission(self, klass):
         user = self.request.user
-        if not (user == object.assistant or
-                object.course.has_perm_own_all_classes(user)):
+        if not (user == klass.assistant or klass.course.has_perm_own_all_classes(user)):
             raise PermissionDenied
 
     def get_object(self, queryset=None):
-        object = super(CanEditClassMixin, self).get_object(queryset=queryset)
-        self.check_permission(object)
-        return object
+        klass = super(CanEditClassMixin, self).get_object(queryset=queryset)
+        self.check_permission(klass)
+        return klass
 
 
 class ClassUpdateView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
     model = Class
     template_name = 'class_edit.html'
-    fields = ('name', )
+    fields = ('name', 'assistant', )
 
     def get_context_data(self, **kwargs):
         context = super(ClassUpdateView, self).get_context_data(**kwargs)
 
         return context
+
+    def form_valid(self, form):
+        if form.changed_data:
+            if 'assistant' in form.changed_data and not self.object.course.is_course_coordinator(self.request.user):
+                raise PermissionDenied
+
+        return super(ClassUpdateView, self).form_valid(form)
 
 
 class ClassDeleteView(LoginRequiredMixin, CanEditClassMixin, DeleteView):
@@ -338,6 +369,14 @@ class ClassDeleteView(LoginRequiredMixin, CanEditClassMixin, DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('classes', kwargs={'course_slug': self.object.course.slug})
+
+    def get_object(self, queryset=None):
+        klass = super(ClassDeleteView, self).get_object(queryset=queryset)
+
+        if (klass == klass.course.default_class):
+            raise PermissionDenied
+
+        return klass
 
 
 class ClassRemoveUserView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
@@ -459,5 +498,33 @@ class ClassViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
     filter_fields = ('course',)
 
     def get_queryset(self):
-        user = self.request.user
-        return Class.objects.filter(assistant=user)
+        queryset = super(ClassViewSet, self).get_queryset()
+        if self.request.user.is_staff or self.request.user.is_superuser:
+            return queryset
+
+        course_id = self.request.QUERY_PARAMS.get('course')
+        if course_id:
+            try:
+                role = self.request.user.teaching_courses.get(course__id=course_id).role
+            except ObjectDoesNotExist:
+                role = ''
+            # if user is not coordinator or admin, only show his classes
+            if not role or role == 'assistant':
+                queryset = queryset.filter(assistant=self.request.user)
+
+        return queryset
+
+
+class FlatpageViewSet(viewsets.ModelViewSet):
+
+    model = FlatPage
+    serializer_class = FlatpageSerializer
+    filter_fields = ('url',)
+    permission_classes = (IsAdminOrReadOnly,)
+
+    def get_queryset(self):
+        queryset = super(FlatpageViewSet, self).get_queryset()
+        url_prefix = self.request.QUERY_PARAMS.get('url_prefix')
+        if url_prefix:
+            queryset = queryset.filter(url__startswith=url_prefix)
+        return queryset

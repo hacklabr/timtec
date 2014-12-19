@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load staticfiles %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
 {% block content %}
 <div id="profile" class="container">
     <div class="row">
@@ -43,7 +48,7 @@
                         <p><a href="{{profile_user.site}}" target="_blank">{{profile_user.site}}</a></p>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                         <strong>{% trans "Bio" %}</strong>

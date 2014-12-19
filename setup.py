@@ -19,8 +19,6 @@ class PyTest(TestCommand):
 
 
 here = os.path.abspath(os.path.dirname(__file__))
-README = open(os.path.join(here, 'README.rst')).read()
-CHANGES = ''
 
 requires = [
     'django',
@@ -29,7 +27,7 @@ requires = [
 setup(name='timtec',
       version='0.0',
       description='timtec',
-      long_description=README + '\n\n' + CHANGES,
+      long_description='',
       classifiers=[
           "Programming Language :: Python",
           "Framework :: Django",

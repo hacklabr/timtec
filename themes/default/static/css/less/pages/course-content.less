@@ -5,6 +5,9 @@
   // ********************************************************************* //
   .summary {
     margin-top: 20px;
+    .btn-info .text-info { // data selecionada dentro do datepicker
+      color: #fff;
+    }
   }
 
   // COURSE LESSONS - Course intro
@@ -176,7 +179,15 @@
 
   // COURSE UNITS - General
   // ********************************************************************* //
+  #lesson-units-nav {
+    @media (max-width: @screen-sm-max) {
+      width: 13% !important;
+    }
+  }
   .units {
+    h2 {
+      display: none;
+    }
     //margin-top: 20px;
     .unit {
       background:@gray-lighter - 20%;

@@ -23,13 +23,27 @@
                 <li><a href="http://ead.ifsul.edu.br/">Portal EAD</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#modal-about">{% trans 'About' %}</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#modal-contact">{% trans 'Contact' %}</a></li>
-                <li><a href="/courses">{% trans 'Courses' %}</a></li>
+                <li><a href="{% url 'courses' %}">{% trans 'Courses' %}</a></li>
             </ul>
             <ul class="nav navbar-nav" id="session-nav">
             {% if user.is_authenticated %}
-                {% ifusergroup professors %}
-                <li {% if in_admin %}class="active"{% endif %}><a href="{% url 'administration.home' %}" id="admin-link">{% trans "Admin" %}</a></li>
-                {% endifusergroup %}
+                {% if user.is_superuser %}
+                    <li>
+                        <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
+                            {% trans "Admin" %}
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu{% if in_admin %} active{% endif %}">
+                            <li><a href="{% url 'administration.home' %}">{% trans 'Home edit' %}</a></li>
+                            <li><a href="{% url 'administration.courses' %}" id="admin-link">{% trans "Courses" %}</a></li>
+                            <li><a href="#">{% trans 'Users' %}</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    {% ifusergroup professors %}
+                        <li {% if in_admin %}class="active"{% endif %}><a href="{% url 'administration.courses' %}" id="admin-link">{% trans "Admin" %}</a></li>
+                    {% endifusergroup %}
+                {% endif %}
                 <li>
                     <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
                         {{ user }}
@@ -40,11 +54,9 @@
                         <li><a href="{% url 'profile_edit' %}">{% trans "Edit Profile and Account Settings" %}</a></li>
                         <!-- <li><a href="">{% trans "Settings" %}</a></li> -->
                         <li class='divider'></li>
-                        {% if not in_admin %}
                         <li><a href="{% url 'user_courses' %}">{% trans "My Courses" %}</a></li>
                         <li><a href="{% url 'user_notes' %}">{% trans "My Notes" %}</a></li>
                         <li class='divider'></li>
-                        {% endif %}
                         <li><a href="{% url 'timtec_logout' %}">{% trans "Logout" %}</a></li>
                     </ul>
                 </li>
@@ -52,93 +64,55 @@
                 <li>
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans 'Sign In' %}</a>
                     <div class="dropdown-menu">
-                        <form onclick="event.stopPropagation()" method="post" action="{% url 'timtec_login' %}" class="navbar-form">{% csrf_token %}
+                        <form method="post" action="{% url 'account_login' %}" class="navbar-form form-horizontal">{% csrf_token %}
                             <div class="row">
-                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12{% if login_form.errors %} has-error{% endif %}">
-                                    <label class="col-lg-5 col-md-5 col-sm-12 col-xs-12 control-label">{% trans 'Username' %}</label>
-                                    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                                        <input name="username" type="text" class="form-control"
-                                               value="{{login_form.username.value}}" placeholder="{% trans 'E-mail or username' %}"/>
-                                        {% for error in login_form.username.errors %}
+                                <div class="form-group col-xs-12{% if form.errors %} has-error{% endif %}">
+                                    <label class="col-sm-5 col-xs-12 control-label">{% trans 'Username' %}</label>
+                                    <div class="col-sm-7 col-xs-12">
+                                        <input name="login" type="text" class="form-control"
+                                               value="{{form.login.value}}" placeholder="{% trans 'E-mail or username' %}"/>
+                                        {% for error in form.login.errors %}
                                         <small>{{error}}</small>
                                         {% endfor error in %}
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12{% if login_form.errors %} has-error{% endif %}">
-                                    <label class="col-lg-5 col-md-5 col-sm-12 col-xs-12 control-label">{% trans 'Password' %}</label>
-                                    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                <div class="form-group col-xs-12{% if form.errors %} has-error{% endif %}">
+                                    <label class="col-sm-5 col-xs-12 control-label">{% trans 'Password' %}</label>
+                                    <div class="col-sm-7 col-xs-12">
                                         <input name="password" type="password" class="form-control" placeholder="{% trans 'Password' %}">
-                                        {% for error in login_form.password.errors %}
+                                        {% for error in form.password.errors %}
                                         <small>{{error}}</small>
                                         {% endfor %}
-                                        {% for error in login_form.non_field_errors %}
+                                        {% for error in form.non_field_errors %}
                                         <small>{{error}}</small>
                                         {% endfor %}
                                     </div>
                                 </div>
                             </div>
                             <div class="submit clearfix">
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                <div class="col-xs-8">
                                     <a href="{% url 'account_reset_password' %}">{% trans 'Forgot my password' %}</a>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 textright">
+                                <div class="col-xs-4 textright">
                                     <button class="btn btn-success">{% trans 'Sign In' %} <i class="fa fa-sign-in"></i></button>
                                 </div>
                             </div>
-                            <div class="divider"></div>
+                            <!--<div class="divider"></div>
                             <div class="row">
                                 <p class="bottom textcenter">
                                     {% load socialaccount %}
                                     <a href="{% provider_login_url 'facebook' method='oauth2' %}">{% trans 'Connect with Facebook' %}</a>
                                 </p>
                             </div>
+                            -->
+                        <input type="hidden" name="next" value="{{ current_path }}" />
                         </form>
                     </div>
                 </li>
                 <li>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans 'Sign Up' %}</a>
-                    <div class="dropdown-menu">
-                        <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}" class="navbar-form">{% csrf_token %}
-                            <div class="row">
-                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <label class="col-lg-5 col-md-5 col-sm-12 col-xs-12 control-label">{% trans "Username" %}</label>
-                                    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                                        <input name="username" type="text" class="form-control" placeholder="{% trans 'Choose an username' %}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <label class="col-lg-5 col-md-5 col-sm-12 col-xs-12 control-label">{% trans 'E-mail' %}</label>
-                                    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                                        <input name="email" type="email" class="form-control" placeholder="{% trans 'Insert your e-mail' %}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <label class="col-lg-5 col-md-5 col-sm-12 col-xs-12 control-label">{% trans 'Password' %}</label>
-                                    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                                        <p><input name="password1" type="password" class="form-control" placeholder="{% trans 'A really strong password' %}"></p>
-                                        <input name="password2" type="password" class="form-control" placeholder="{% trans 'Confirm your password' %}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="submit textright clearfix">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <button class="btn btn-success">{% trans 'Sign Up' %}</button>
-                                </div>
-                            </div>
-                            <div class="divider"></div>
-                            <div class="row">
-                                <p class="bottom textcenter">
-                                    <a href="{% provider_login_url 'facebook' method='oauth2' %}">{% trans 'Connect with Facebook' %}</a>
-                                </p>
-                            </div>
-                        </form>
-                    </div>
+                    <a class="dropdown-toggle" href="{% url 'account_signup' %}">{% trans 'Sign Up' %}</a>
                 </li>
             {% endif %}
             </ul>

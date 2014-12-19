@@ -4,7 +4,7 @@ import json
 from django.db import models
 from jsonfield import JSONField
 from django.utils.translation import ugettext_lazy as _
-from accounts.models import TimtecUser
+from django.conf import settings
 from core.models import Unit, StudentProgress
 from django.utils import timezone
 
@@ -46,7 +46,7 @@ class Activity(models.Model):
 
 class Answer(models.Model):
     activity = models.ForeignKey(Activity, verbose_name=_('Activity'))
-    user = models.ForeignKey(TimtecUser, verbose_name=_('Student'))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Student'))
     timestamp = models.DateTimeField(auto_now_add=True, editable=False)
     given = JSONField(_('Given answer'))
 
@@ -100,7 +100,20 @@ class Answer(models.Model):
         answer = instance
         progress, _ = StudentProgress.objects.get_or_create(user=answer.user,
                                                             unit=answer.activity.unit)
-        if answer.is_correct():
+
+        correct = True
+        for activity in Activity.objects.filter(unit=answer.activity.unit):
+            try:
+                ans = Answer.objects.filter(activity=activity).order_by('-timestamp')[:1].get()
+            except Answer.DoesNotExist:
+                correct = False
+                break
+            print ans
+            correct = ans.is_correct()
+            if not correct:
+                break
+
+        if correct:
             progress.complete = timezone.now()
 
         progress.save()

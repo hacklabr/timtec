@@ -12,6 +12,8 @@ PROJECT_ROOT = os.path.dirname(SETTINGS_DIR)
 THEMES_DIR = os.path.join(PROJECT_ROOT, 'themes')
 TIMTEC_THEME = os.getenv('TIMTEC_THEME', 'default')  # don't forget to re run collectstatic if you change the theme
 
+SOUTH_AUTO_FREEZE_APP = True
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -32,18 +34,14 @@ EMAIL_HOST = 'localhost'
 DEFAULT_FROM_EMAIL = 'donotreply-dev@m.timtec.com.br'
 CONTACT_RECIPIENT_LIST = ['timtec-dev@listas.hacklab.com.br', ]
 
+TERMS_ACCEPTANCE_REQUIRED = True
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'timtec.sqlite',                # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'timtec',
     }
 }
-
 
 METRON_SETTINGS = {
     "google": {
@@ -52,7 +50,7 @@ METRON_SETTINGS = {
 }
 
 
-LOGIN_URL = '/login/'
+LOGIN_URL = '/accounts/login/'
 
 LOGIN_REDIRECT_URL = '/'
 
@@ -178,6 +176,7 @@ PIPELINE_JS = {
             'angular-sanitize/angular-sanitize.js',
             'angular-bootstrap/ui-bootstrap-tpls.js',
             'angular-gettext/dist/angular-gettext.js',
+            'angular-i18n/angular-locale_pt-br.js',
             'intro.js/intro.js',
             'js/consolelogfallback.js',
             'js/django.js',
@@ -207,6 +206,7 @@ PIPELINE_JS = {
             'checklist-model/checklist-model.js',
             'js/markdown/app.js',
             'js/markdown/filters.js',
+            'js/factories/timtec-models.js',
         ),
         'output_filename': 'js/messages.js',
     },
@@ -275,6 +275,7 @@ PIPELINE_JS = {
             'js/forum/filters.js',
             'js/forum/services.js',
             'js/truncate.js',
+            'js/factories/timtec-models.js',
         ),
         'output_filename': 'js/forum.js',
     },
@@ -286,19 +287,12 @@ PIPELINE_JS = {
         ),
         'output_filename': 'js/notes.js',
     },
-    'admin_course_header': {
-        'source_filenames': (
-            'js/admin-header/app.js',
-            'js/admin-header/controllers.js',
-            'js/factories/timtec-models.js',
-        ),
-        'output_filename': 'js/admin_course_header.js',
-    },
     'reports': {
         'source_filenames': (
             'js/reports/app.js',
             'js/reports/controllers.js',
             'js/reports/services.js',
+            'js/factories/timtec-models.js',
         ),
         'output_filename': 'js/reports.js',
     },
@@ -307,7 +301,12 @@ PIPELINE_JS = {
             'js/core/app.js',
             'js/core/controllers.js',
             'js/core/services.js',
+            'js/core/filters.js',
             'angular-tweet-filter/index.js',
+            'angular-sortable-view/src/angular-sortable-view.min.js',
+            'js/directives/fixedBar.js',
+            'js/directives/alertPopup.js',
+            'js/directives/markdowneditor.js',
         ),
         'output_filename': 'js/core.js',
     },
@@ -315,6 +314,7 @@ PIPELINE_JS = {
         'source_filenames': (
             'js/course-permissions/app.js',
             'js/course-permissions/controllers.js',
+            'js/factories/timtec-models.js',
         ),
         'output_filename': 'js/course_permissions.js',
     },
@@ -364,6 +364,7 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'allauth.socialaccount.context_processors.socialaccount',
     'core.context_processors.contact_form',
     'core.context_processors.site_settings',
+    'core.context_processors.get_current_path',
     'timtec.locale_context_processor.locale',
 )
 
@@ -460,8 +461,7 @@ INSTALLED_APPS = (
 
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
-        'SCOPE': ['email', 'publish_stream'],
-        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'SCOPE': ['email'],
         'METHOD': 'oauth2',
     }
 }
@@ -474,9 +474,9 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = True
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[timtec] "
-ACCOUNT_SIGNUP_FORM_CLASS = 'core.forms.SignupForm'
+# ACCOUNT_SIGNUP_FORM_CLASS = 'core.forms.SignupForm'
 SOCIALACCOUNT_EMAIL_VERIFICATION = False
 
 TWITTER_CONSUMER_KEY = ''
@@ -515,8 +515,8 @@ LOGGING = {
 }
 
 try:
-    from .settings_local import *
-except ImportError:
+    execfile(os.path.join(SETTINGS_DIR, 'settings_local.py'))
+except IOError:
     pass
 
 # Additional locations of static files

@@ -22,3 +22,16 @@ class IsProfessorCoordinatorOrAdminPermissionOrReadOnly(permissions.BasePermissi
             return True
         elif obj.course.get_professor_role(request.user) == 'coordinator':
             return True
+
+
+class IsAdminOrReadOnly(permissions.BasePermission):
+    """
+    Custom permission to only allow not safe methods to admin.
+    """
+    def has_permission(self, request, view):
+        # Read permissions are allowed to any request,
+        # so we'll always allow GET, HEAD or OPTIONS requests.
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        elif request.user and request.user.is_staff:
+            return True

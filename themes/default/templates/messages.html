@@ -3,10 +3,16 @@
 {% load static %}
 {% load i18n %}
 
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
 
 {% block js %}
     {{block.super}}
-    {% compressed_js 'admin_course_header' %}
+    <script>
+        window.course_id = {{ course.pk }};
+        window.course_slug = '{{ course.slug }}';
+    </script>
     {% compressed_js 'messages' %}
 {% endblock %}
 
@@ -17,18 +23,20 @@
 <!--  COURSE CONTENT  -->
 <div id="messages" class="course-messages" ng-app="messages">
 
-    <div ng-controller="HeaderController">
-        {% include "_admin_header_inline.html" %}
-    </div>
+    {% if in_admin %}
+        {% include "_admin_header_inline.html" with course=course %}
+    {% else %}
+        {% include "_course-header-inline.html"  with course=course %}
+    {% endif %}
 
     <!-- COURSE-CONTENT -->
     <section id="messages-content" class="container">
         <header class="secondary-header" ng-controller="NewMessageController">
             <div class="row">
-                <div class="col-lg-9">
+                <div class="col-md-9 col-sm-8 col-xs-6">
                     <h1>{% trans "Messages" %}</h1>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-md-3 col-sm-4 col-xs-6">
                     <a class="new-message btn btn-lg btn-danger uppercase" ng-click="new_message()">{% trans "New Message" %}</a>
                 </div>
                     <script type="text/ng-template" id="newMessageModal.html">
@@ -51,7 +59,7 @@
                             </div>
                             <div class="form-group row">
                                 <div class="students col-lg-12">
-                                    <p><label><input type="checkbox" ng-model="modal.all_checked"> {% trans 'Send to all students of this class' %}</label></p>
+                                    <p><label><input type="checkbox" ng-model="modal.all_checked"> {% trans 'Send to all classes' %}</label></p>
                                     {% verbatim %}
                                     <div ng-repeat="klass in classes">
                                         <label ng-show="!modal.all_checked"><input type="checkbox" checklist-model="classes.checked" checklist-value="klass.students"> {{ klass.name }}</label>
@@ -107,7 +115,12 @@
                         <div class="subject">{{ message.subject }}</div>
                         {% endverbatim %}
                         <div class="body">
-                        <span ng-bind-html="message.message|markdown|words:50"></span>{% verbatim %} <a ng-href="/admin/course/{{course_id}}/message/{{message.id}}">{% endverbatim %} {% trans 'More...' %}</a>
+                        <span ng-bind-html="message.message|markdown|words:50"></span>
+                            {% if in_admin %}
+                                {% verbatim %}<a ng-href="/admin/course/{{course_id}}/message/{{message.id}}">{% endverbatim %} {% trans 'More...' %}</a>
+                            {% else %}
+                                {% verbatim %}<a ng-href="/course/{{course_slug}}/message/{{message.id}}">{% endverbatim %} {% trans 'More...' %}</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

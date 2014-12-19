@@ -1,48 +1,30 @@
-// NAVBAR
-// Reset inverted navbar basics
-@navbar-inverse-color:                      #fff;
-@navbar-inverse-bg:                         #001e36;
-@navbar-inverse-border:                     darken(@navbar-inverse-bg, 10%);
-
-// Inverted navbar links
-@navbar-inverse-link-color:                 #fff;
-@navbar-inverse-link-hover-color:           #fff;
-@navbar-inverse-link-hover-bg:              lighten(@navbar-inverse-bg, 5%);
-@navbar-inverse-link-active-color:          #fff;
-@navbar-inverse-link-active-bg:             darken(@navbar-inverse-bg, 5%);
-@navbar-inverse-link-disabled-color:        #fff;
-@navbar-inverse-link-disabled-bg:           transparent;
-
-// Inverted navbar brand label
-@navbar-inverse-brand-color:                @navbar-inverse-link-color;
-@navbar-inverse-brand-hover-color:          #fff;
-@navbar-inverse-brand-hover-bg:             transparent;
-
-@dropdown-link-hover-bg:                    @brand-light;
-@dropdown-border:                           transparent;
-@dropdown-divider-bg:                       @brand-light;
-@dropdown-link-color:                       @brand-primary;
-@dropdown-link-hover-color:                 @brand-primary;
-
 // MAIN NAVBAR - DROPDOWN MENUS FOR SIGNIN AND SIGNUP
 // ********************************************************************* //
 #main-navbar {
   border-radius: 0;
-  font-family:'Questrial';
+  font-family: @main-navbar-font-family;
   .navbar-brand {
     font-weight: bold;
     font-size: 22px;
   }
-  .form-group {
-    margin-bottom: 15px;
+  .navbar-form {
+    margin: 5px 0;
+    padding: 0;
+    .form-group {
+      width: 100%;
+      margin: 10px 0;
+    }
+    .form-control {
+      width: 100%;
+    }
+    label {
+      font-weight: normal;
+    }
+    .submit {
+      line-height: 2.5;
+    }
   }
-  label {
-    font-weight: normal;
-    line-height: 2.5;
-  }
-  .submit {
-    line-height: 2.5;
-  }
+
   .navbar-toggle {
     &:hover,
     &:focus {
@@ -67,7 +49,7 @@
   .navbar-collapse {
     @media (min-width: @screen-sm-min) {
       float: right;
-    } 
+    }
     overflow: hidden;
     max-height: initial;
   }
@@ -77,6 +59,10 @@
       margin-left: 5px;
       vertical-align: middle;
     }
+  }
+  .dropdown-menu {
+    left: initial;
+    right: 0;
   }
 }
 

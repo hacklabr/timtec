@@ -7,7 +7,10 @@
 {% block js %}
     {{ block.super }}
     {% compressed_js 'course_material' %}
-    {% compressed_js 'admin_course_header' %}
+{% endblock %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
 {% endblock %}
 
 {% block content %}
@@ -21,11 +24,9 @@
 <!-- CONTAINER -->
 <div id="course" class="course-material" ng-app="courseMaterial">
     {% if in_admin %}
-        <div ng-controller="HeaderController">
-            {% include "_admin_header_inline.html"%}
-        </div>
+        {% include "_admin_header_inline.html" with course=course %}
     {% else %}
-        {% include "_course-header-inline.html"  with course=course question_form=false %}
+        {% include "_course-header-inline.html"  with course=course %}
     {% endif %}
 
     <!-- MAIN CONTENT -->

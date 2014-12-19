@@ -44,10 +44,11 @@ class AnswerSerializer(serializers.ModelSerializer):
     votes = serializers.SerializerMethodField('count_votes')
     username = serializers.SerializerMethodField('get_username')
     timestamp = serializers.DateTimeField(read_only=True)
+    current_user_vote = serializers.SerializerMethodField('get_current_user_vote')
 
     class Meta:
         model = Answer
-        fields = ('id', 'question', 'text', 'votes', 'timestamp', 'username')
+        fields = ('id', 'question', 'text', 'votes', 'timestamp', 'username', 'current_user_vote')
 
     def count_votes(self, obj):
         if obj:
@@ -60,6 +61,11 @@ class AnswerSerializer(serializers.ModelSerializer):
             return obj.user.username
         else:
             return u''
+
+    def get_current_user_vote(self, obj):
+        current_user_vote, _ = AnswerVote.objects.get_or_create(user=self.context.get('request').user, answer=obj)
+        serializer = AnswerVoteSerializer(instance=current_user_vote, many=False, context=self.context)
+        return serializer.data
 
 
 class QuestionVoteSerializer(serializers.ModelSerializer):

@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
-import datetime
 from south.db import db
 from south.v2 import SchemaMigration
-from django.db import models
 
 
 class Migration(SchemaMigration):
+    depends_on = (
+        ('core', '0008_auto__del_field_lesson_published'),
+    )
+
+    needed_by = (
+        ('accounts', '0002_create_timtecuser'),
+    )
 
     def forwards(self, orm):
         # Adding model 'Question'

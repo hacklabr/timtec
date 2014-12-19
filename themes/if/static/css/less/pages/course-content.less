@@ -13,7 +13,6 @@
     margin-top: 20px;
     .lesson {
       background: #fff;
-      overflow: hidden;
       padding: 15px 0;
       margin-bottom: 20px;
       border-radius: @border-radius-base;
@@ -177,11 +176,15 @@
 
   // COURSE NOTES - General
   // ********************************************************************* //
+  #student-notes {
+    @media (max-width: @screen-sm-max) { margin-top: 20px; }
+  }
   .notes {
     textarea {
       border: 2px solid @gray-lighter;
       height: 235px;
       @media (min-width: @screen-lg-min) { height: 310px; }
+      @media (max-width: @screen-sm-max) { width: 100%; }
       margin: 20px 0 10px;
     }
     .message {
@@ -214,13 +217,20 @@
 
   // COURSE UNITS - General
   // ********************************************************************* //
+  #lesson-units-nav {
+    @media (max-width: @screen-sm-max) {
+      width: 13% !important;
+    }
+  }
   .units {
     //margin-top: 20px;
+    a.unit {
+      cursor:pointer;
+    }
     .unit {
       background:@gray-lighter - 20%;
       .box-shadow(inset -1px 0 0 #fff);
       color:#fff;
-      cursor:pointer;
       display:block;
       font-size:12px;
       height:20px;

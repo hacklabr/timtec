@@ -2,6 +2,13 @@
 // ********************************************************************* //
 #messages {
   #messages-content {
+    .secondary-header {
+      @media screen and (max-width: 360px) {
+        .col-xs-6 {
+          width: 100%;
+        }
+      }
+    }
     .messages {
       margin-top: 20px;
       .message {
@@ -25,7 +32,6 @@
   }
   .students {
     font-size: 12px;
-    max-height: 300px;
     overflow: auto;
     position: relative;
     .student {
