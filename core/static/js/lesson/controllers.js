@@ -109,7 +109,7 @@
                 $scope.answer.$update({activityId: $scope.answer.activity}).then(function(d){
                     console.log(d, d.correct);
                     ga('send', 'event', 'activity', 'result', '', d.correct);
-                    $scope.currentUnit.progress = Progress.get({unit: $scope.currentUnit.id})
+                    $scope.currentUnit.progress = Progress.get({unit: $scope.currentUnit.id});
                 });
                 ga('send', 'event', 'activity', 'submit');
             };
@@ -131,7 +131,7 @@
                     } else {
                         var index = $scope.currentUnit.activities.indexOf($scope.currentActivity);
                         if(index+1 === $scope.currentUnit.activities.length) {
-                            $scope.currentUnit.progress = Progress.get({unit: $scope.currentUnit.id})
+                            $scope.currentUnit.progress = Progress.get({unit: $scope.currentUnit.id});
                             $scope.nextUnit();
                         } else {
                             $scope.selectActivity(index + 1);
