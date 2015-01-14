@@ -6,6 +6,9 @@ import django
 
 
 class Migration(DataMigration):
+    depends_on = (
+        ('accounts', '0004_auto__add_field_timtecuser_accepted_terms'),
+    )
 
     def forwards(self, orm):
         "Write your forwards methods here."
