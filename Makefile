@@ -115,6 +115,9 @@ setup_django: clean
 dumpdata: clean
 	python manage.py dumpdata --indent=2 -n -e south.migrationhistory -e admin.logentry -e socialaccount.socialaccount -e socialaccount.socialapp -e sessions.session -e contenttypes.contenttype -e auth.permission -e account.emailconfirmation -e socialaccount.socialtoken
 
+dumpcourses:
+	python manage.py dumpdata --indent=2 -n -e south -e admin -e socialaccount -e sessions -e contenttypes -e auth -e account -e flatpages -e sites -e accounts -e notes
+
 reset_db: clean
 	python manage.py reset_db --router=default --noinput -U $(USER)
 	python manage.py syncdb --noinput

@@ -23,7 +23,6 @@ class Command(BaseCommand):
             course_professor.save()
 
         User.objects.all() \
-                    .exclude(is_superuser=True) \
                     .delete()
         Question.objects.all().delete()
         QuestionVote.objects.all().delete()
