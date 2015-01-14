@@ -15,12 +15,13 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         for course_professor in CourseProfessor.objects.all():
-            course_professor.name = course_professor.user.get_full_name()
-            course_professor.picture = course_professor.user.picture
-            if not course_professor.biography:
-                course_professor.biography = course_professor.user.biography
-            course_professor.user = None
-            course_professor.save()
+            if course_professor.user:
+                course_professor.name = course_professor.user.get_full_name()
+                course_professor.picture = course_professor.user.picture
+                if not course_professor.biography:
+                    course_professor.biography = course_professor.user.biography
+                course_professor.user = None
+                course_professor.save()
 
         User.objects.all() \
                     .delete()
