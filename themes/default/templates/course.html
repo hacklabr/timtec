@@ -373,7 +373,7 @@ wrapper-course-intro
                             <div id="" class="instructor row" ng-repeat="professor in courseProfessors" ng-hide="organizingInstructors">
                                 <div class="instructor-photo col-sm-12">
                                     {% verbatim %}
-                                    <img ng-src="{{ professor.user_info.picture }}"
+                                    <img ng-src="{{ professor.get_picture_url }}"
                                          onerror="this.src='/static/img/avatar-default.png'"
                                          class="img-thumbnail">
                                     {% endverbatim %}
@@ -665,7 +665,7 @@ wrapper-course-intro
                             <div id="" class="instructor row" ng-repeat="professor in courseProfessors" ng-hide="organizingInstructors">
                                 <div class="instructor-photo col-sm-12">
                                     {% verbatim %}
-                                    <img ng-src="{{ professor.get_picture }}"
+                                    <img ng-src="{{ professor.get_picture_url }}"
                                          onerror="this.src='/static/img/avatar-default.png'"
                                          class="img-thumbnail">
                                     {% endverbatim %}
