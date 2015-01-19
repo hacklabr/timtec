@@ -7,7 +7,11 @@ class Migration(SchemaMigration):
     depends_on = (
         ('activities', '0007_expected_empty'),
         ('forum', '0005_auto__add_field_question_hidden_justification'),
+        ('core', '0025_empty.py'),
         ('notes', '0001_initial'),
+    )
+    needed_by = (
+        ("core", "0026_auto__add_field_courseprofessor_picture__add_field_courseprofessor_nam"),
     )
 
     def forwards(self, orm):

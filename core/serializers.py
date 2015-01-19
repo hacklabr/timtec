@@ -71,9 +71,11 @@ class CourseSerializer(serializers.ModelSerializer):
 class CourseProfessorSerializer(serializers.ModelSerializer):
     user_info = TimtecUserSerializer(source='user', read_only=True)
     course_info = CourseSerializer(source='course', read_only=True)
+    get_biography = serializers.Field()
+    get_picture_url = serializers.Field()
 
     class Meta:
-        fields = ('id', 'course', 'course_info', 'user', 'user_info', 'get_biography', 'get_picture', 'role',)
+        fields = ('id', 'course', 'course_info', 'user', 'user_info', 'get_biography', 'get_picture_url', 'role',)
         model = CourseProfessor
 
 
