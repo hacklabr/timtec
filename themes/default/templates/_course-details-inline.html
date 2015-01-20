@@ -3,7 +3,7 @@
 <div class="course-details">
     <div><span class="label">{% trans 'By' %}:</span>
         {% for course_professor in course.get_video_professors %}
-            <a class="course-instructor" href="{% url 'profile' course_professor.user.username %}">{{ course_professor.user }}</a>
+            <a class="course-instructor" {% if course_professor.user %}href="{% url 'profile' course_professor.user.username %}"{% endif %}>{{ course_professor.get_name }}</a>
         {% endfor %}
     </div>
     {% get_current_class course as current_class %}

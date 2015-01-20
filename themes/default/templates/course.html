@@ -377,7 +377,7 @@ wrapper-course-intro
                             <div id="" class="instructor row" ng-repeat="professor in courseProfessors" ng-hide="organizingInstructors">
                                 <div class="instructor-photo col-sm-12">
                                     {% verbatim %}
-                                    <img ng-src="{{ professor.user_info.picture }}"
+                                    <img ng-src="{{ professor.get_picture_url }}"
                                          onerror="this.src='/static/img/avatar-default.png'"
                                          class="img-thumbnail">
                                     {% endverbatim %}
@@ -400,14 +400,13 @@ wrapper-course-intro
                                 <h3><i class="fa fa-angle-double-right"></i> {% trans "Instructors" %}</h3>
                             </div>
                                 {% for course_professor in course.get_video_professors %}
-                                    <div id="{{ course_professor.user.username }}" class="instructor row">
+                                    <div {% if course_professor.user %}id="{{ course_professor.user.username }}"{% endif %} class="instructor row">
                                         <div class="instructor-photo col-xs-12">
-                                            <img src="{{ course_professor.user.get_picture_url }}" class="img-thumbnail">
+                                            <img src="{{ course_professor.get_picture_url }}" class="img-thumbnail">
                                         </div>
                                         <div class="col-xs-12">
-                                            <h1 class="fullname bottom top">{{ course_professor.user.first_name }} {{ course_professor.user.last_name }}</h1>
-                                            <h2 class="job-title top">{{ course_professor.get_job_display }}</h2>
-                                            <p>{{ course_professor.biography|timtec_markdown }}</p>
+                                            <h1 class="fullname bottom top">{{ course_professor.get_name }}</h1>
+                                            <p>{{ course_professor.get_biography|timtec_markdown }}</p>
                                         </div>
                                     </div>
                                 {% endfor %}
@@ -670,7 +669,7 @@ wrapper-course-intro
                             <div id="" class="instructor row" ng-repeat="professor in courseProfessors" ng-hide="organizingInstructors">
                                 <div class="instructor-photo col-sm-12">
                                     {% verbatim %}
-                                    <img ng-src="{{ professor.user_info.picture }}"
+                                    <img ng-src="{{ professor.get_picture_url }}"
                                          onerror="this.src='/static/img/avatar-default.png'"
                                          class="img-thumbnail">
                                     {% endverbatim %}
@@ -694,14 +693,13 @@ wrapper-course-intro
                             </div>
 
                             {% for course_professor in course.get_video_professors %}
-                                <div id="{{ course_professor.user.username }}" class="instructor row">
+                                <div {% if course_professor.user %}id="{{ course_professor.user.username }}"{% endif %} class="instructor row">
                                     <div class="instructor-photo col-sm-12">
-                                        <img src="{{ course_professor.user.get_picture_url }}" class="img-thumbnail">
+                                        <img src="{{ course_professor.get_picture_url }}" class="img-thumbnail">
                                     </div>
                                     <div class="col-sm-12">
-                                        <h1 class="fullname bottom top">{{ course_professor.user.first_name }} {{ course_professor.user.last_name }}</h1>
-                                        <h2 class="job-title top">{{ course_professor.get_job_display }}</h2>
-                                        <p>{{ course_professor.biography|timtec_markdown }}</p>
+                                        <h1 class="fullname bottom top">{{ course_professor.get_name }}</h1>
+                                        <p>{{ course_professor.get_biography|timtec_markdown }}</p>
                                     </div>
                                 </div>
                             {% endfor %}

@@ -12,6 +12,10 @@
 
 {% endblock %}
 
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
 {% block content %}
         <!-- CONTAINER -->
         <div id="my-courses" class="container">
@@ -58,7 +62,7 @@
                         {% endfor %}
                     </div>
                     <div role="tabpanel" class="tab-pane" id="course-as-teacher">
-                        <section id="all-courses" class="courses-list">
+                        <section class="courses">
                             <!-- COURSE -->
                             <div class="course clearfix" ng-repeat="courseprofessor in courses_user_assist">
                                 <div class="col-lg-12">
@@ -68,19 +72,17 @@
 
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <p>
-                                                <span class="label label-warning" ng-if="courseprofessor.course_info.isDraft()">{% trans 'Draft' %}</span>
-                                                <span class="label label-success" ng-if="courseprofessor.course_info.isPublished()">{% trans 'Published' %}</span>
+                                            <span class="label label-warning" ng-if="courseprofessor.course_info.isDraft()">{% trans 'Draft' %}</span>
+                                            <span class="label label-success" ng-if="courseprofessor.course_info.isPublished()">{% trans 'Published' %}</span>
 
-                                                <span class="label label-default pointer" ng-click="load_classes(courseprofessor.course_info);show_classes=!show_classes">
-                                                    <span ng-if="!show_classes">{% trans 'Show classes' %}</span>
-                                                    <span ng-if="show_classes">{% trans 'Hide classes' %}</span>
+                                            <span class="label label-default pointer" ng-click="load_classes(courseprofessor.course_info);show_classes=!show_classes">
+                                                <span ng-if="!show_classes">{% trans 'Show classes' %}</span>
+                                                <span ng-if="show_classes">{% trans 'Hide classes' %}</span>
 
-                                                    {% verbatim %}
-                                                    <i class="fa" ng-class="{'fa fa-caret-down':!show_classes,'fa fa-caret-up':show_classes}"></i>
-                                                    {% endverbatim %}
-                                                </span>
-                                            </p>
+                                                {% verbatim %}
+                                                <i class="fa" ng-class="{'fa fa-caret-down':!show_classes,'fa fa-caret-up':show_classes}"></i>
+                                                {% endverbatim %}
+                                            </span>
                                         </div>
                                         <div class="col-sm-6 textright">
                                             <p>
@@ -113,7 +115,7 @@
                                                     <div class="row">
                                                         <div class="col-lg-9">
                                                             {% verbatim %}
-                                                            <h1><a ng-href="/class/{{class.id}}" ng-bind="class.name"></a> Estudantes: 10</h1>
+                                                            <h1><a ng-href="/class/{{class.id}}" ng-bind="class.name"></a> <span class="students">Estudantes: 10</span></h1>
                                                             {% endverbatim %}
                                                         </div>
                                                     </div>
@@ -128,7 +130,7 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="course-as-coordinator">
                         <!-- ALL COURSES -->
-                        <section id="all-courses" class="courses-list" ng-app="courses">
+                        <section class="courses" ng-app="courses">
                             <!-- COURSE -->
                             <div class="course clearfix" ng-repeat="courseprofessor in courses_user_coordinate">
                                 <div class="col-lg-12">
@@ -138,18 +140,16 @@
 
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <p>
-                                                <span class="label label-warning" ng-if="courseprofessor.course_info.isDraft()">{% trans 'Draft' %}</span>
-                                                <span class="label label-success" ng-if="courseprofessor.course_info.isPublished()">{% trans 'Published' %}</span>
+                                            <span class="label label-warning" ng-if="courseprofessor.course_info.isDraft()">{% trans 'Draft' %}</span>
+                                            <span class="label label-success" ng-if="courseprofessor.course_info.isPublished()">{% trans 'Published' %}</span>
 
-                                                <span class="label label-default pointer" ng-click="loadLessons(courseprofessor.course_info);showLessons=!showLessons">
-                                                    <span ng-if="!showLessons">{% trans 'Show lessons' %}</span>
-                                                    <span ng-if="showLessons">{% trans 'Hide lessons' %}</span>
-                                                    {% verbatim %}
-                                                    <i class="fa" ng-class="{'fa fa-caret-down':!showLessons,'fa fa-caret-up':showLessons}"></i>
-                                                    {% endverbatim %}
-                                                </span>
-                                            </p>
+                                            <span class="label label-default pointer" ng-click="loadLessons(courseprofessor.course_info);showLessons=!showLessons">
+                                                <span ng-if="!showLessons">{% trans 'Show lessons' %}</span>
+                                                <span ng-if="showLessons">{% trans 'Hide lessons' %}</span>
+                                                {% verbatim %}
+                                                <i class="fa" ng-class="{'fa fa-caret-down':!showLessons,'fa fa-caret-up':showLessons}"></i>
+                                                {% endverbatim %}
+                                            </span>
                                         </div>
                                         <div class="col-sm-6 textright">
                                             <p>
