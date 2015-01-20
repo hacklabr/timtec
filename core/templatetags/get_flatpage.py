@@ -1,8 +1,6 @@
 from django import template
 from django.core.exceptions import ObjectDoesNotExist
-from django.conf import settings
 from django.contrib.flatpages.models import FlatPage
-from django.contrib.sites.models import get_current_site
 
 
 register = template.Library()
@@ -14,12 +12,13 @@ class FlatpageNode(template.Node):
         self.url = template.Variable(url)
 
     def render(self, context):
-        if 'request' in context:
-            site_pk = get_current_site(context['request']).pk
-        else:
-            site_pk = settings.SITE_ID
+        # if 'request' in context:
+        #     site_pk = get_current_site(context['request']).pk
+        # else:
+        #     site_pk = settings.SITE_ID
         try:
-            flatpage = FlatPage.objects.get(sites__id=site_pk, url=self.url.resolve(context))
+            # flatpage = FlatPage.objects.get(sites__id=site_pk, url=self.url.resolve(context))
+            flatpage = FlatPage.objects.get(url=self.url.resolve(context))
         except ObjectDoesNotExist:
             flatpage = FlatPage(url=self.url.resolve(context))
 
