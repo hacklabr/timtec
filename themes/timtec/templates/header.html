@@ -15,12 +15,8 @@
             </button>
             <h1 class="text-hide"><a href="{% url 'home_view' %}">Instituto TIM</a></h1>
             <h2 class="text-hide"><a href="{% url 'home_view' %}">TIMTec</a></h2>
-            <ul class="social">
-                <li class="contato"><a href="#" data-toggle="modal" data-target="#modal-contact"><span>Contato</span></a></li>
-                <li class="facebook"><a href="https://www.facebook.com/TIMTecoficial" target="_blank"><i class="fa fa-facebook"></i><span class="sr-only">Facebook</span></a></li>
-                <li class="twitter"><a href="https://twitter.com/TIMTec_oficial" target="_blank"><i class="fa fa-twitter"></i><span class="sr-only">Twitter</span></a></li>
-            </ul><!-- .social -->
         </div>
+
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="main-navbar-collapse">
             <ul class="nav navbar-nav" id="site-nav">
@@ -28,7 +24,7 @@
                 <li><a href="/pages/about">{% trans 'About' %} <span class="tim">TIM</span><span class="tec">Tec</span></a></li>
                 <li class="contact-link"><a href="#" data-toggle="modal" data-target="#modal-contact">{% trans 'Contact' %}</a></li>
                 <li><a href="{% url 'courses' %}">{% trans 'Courses' %}</a></li>
-                <!--<li class="navbar-divider"></li>-->
+                <li class="navbar-divider"></li>
             </ul>
             <ul class="nav navbar-nav" id="session-nav">
             {% if user.is_authenticated %}
