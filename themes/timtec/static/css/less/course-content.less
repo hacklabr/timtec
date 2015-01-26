@@ -169,7 +169,10 @@
       padding-top: 0;
       > div.row > div:first-child {
         background-color: rgba(255,255,255,0.5);
-        padding-top: 100px;
+        padding-top: 120px;
+        @media (min-width: @screen-sm-min) {
+          padding-top: 100px;
+        }
       }
     }
     #go-to-course {
