@@ -7,7 +7,10 @@
   .lessons {
     background-color: rgba(255,255,255,0.5);
     padding: 15px;
-    margin: 20px -15px 0;
+    margin: 0 -15px 0;
+    @media (min-width: @screen-sm-min) {
+      margin-top: 20px;
+    }
     a {
       text-decoration: none;
     }
@@ -33,7 +36,10 @@
   .summary {
     background-color: rgba(40,112,187,0.5);
     margin: 0 -15px;
-    padding: 100px 15px 15px;
+    padding: 15px 0;
+    @media (min-width: @screen-sm-min) {
+      padding: 100px 15px 15px;
+    }
     > .page-header-double {
       margin-top: 0;
     }
@@ -213,7 +219,9 @@
           padding-top: 200px;
         }
         .summary {
-          padding-top: 200px;
+          @media (min-width: @screen-sm-min) {
+            padding-top: 200px;
+          }
         }
       }
     }
