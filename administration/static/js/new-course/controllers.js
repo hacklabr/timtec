@@ -3,8 +3,8 @@
     var app = angular.module('new-course');
 
     app.controller('CourseEditController',
-        ['$scope', '$window', '$modal', 'Course',  'CourseProfessor', 'Lesson', '$filter', 'youtubePlayerApi', 'VideoData', 'FormUpload',
-        function($scope, $window, $modal, Course,  CourseProfessor, Lesson, $filter, youtubePlayerApi, VideoData, FormUpload) {
+        ['$scope', '$window', '$modal', '$http', 'Course',  'CourseProfessor', 'Lesson', '$filter', 'youtubePlayerApi', 'VideoData', 'FormUpload',
+        function($scope, $window, $modal, $http , Course,  CourseProfessor, Lesson, $filter, youtubePlayerApi, VideoData, FormUpload) {
 
             $scope.errors = {};
             var httpErrors = {
@@ -169,13 +169,14 @@
                 });
             };
 
-            $scope.open_professor_modal = function() {
+            $scope.open_professor_modal = function(course_professor) {
+                //$scope.course_professor = course_professor;
                 var modalInstance = $modal.open({
                        templateUrl: 'course_professor_modal.html',
-                       controller: ['$scope', '$modalInstance', 'course_id', CourseProfessorModalInstanceCtrl],
+                       controller: CourseProfessorModalInstanceCtrl,
                        resolve: {
-                           course_id: function () {
-                               return $scope.course_id;
+                           course_professor: function () {
+                               return course_professor;
                            }
                        }
                    });
@@ -201,12 +202,53 @@
                 //})['catch'](showFieldErrors);
             };
 
-            var CourseProfessorModalInstanceCtrl = function($scope, $modalInstance, course_id) {
-                //$scope.professorToAdd = new CourseProfessor();
+            var CourseProfessorModalInstanceCtrl = function($scope, $modalInstance, course_professor) {
+                if (course_professor === undefined)
+                    course_professor = new CourseProfessor();
+                $scope.course_professor = course_professor;
+
                 $scope.cancel = function () {
                     $modalInstance.dismiss();
                 };
-            }
+
+                $scope.on_select_professor = function(model) {
+                    $scope.course_professor.user = model.id;
+                    $scope.course_professor.user_info = model;
+                    //$scope.new_professors.unshift(model);
+                    //$scope.asyncSelected = '';
+                };
+
+                $scope.remove_professor = function() {
+                    delete $scope.course_professor.user;
+                    delete $scope.course_professor.user_info;
+                };
+
+                $scope.getUsers = function(val) {
+                    return $http.get('/api/user_search', {
+                        params: {
+                          name: val,
+                          sensor: false
+                        }
+                    }).then(function(res){
+                        var professors_found = [];
+                        angular.forEach(res.data, function(item){
+                            var formated_name = '';
+                            if (item.first_name)
+                                formated_name += item.first_name;
+                            if (item.last_name)
+                                formated_name = formated_name + ' ' + item.last_name;
+                            if (formated_name)
+                                formated_name = formated_name + ' - ';
+                            formated_name += item.username;
+                            if (item.email)
+                                formated_name = formated_name + ' - ' + item.email;
+                            item.formated_name = formated_name;
+                            professors_found.push(item);
+                        });
+                        return professors_found;
+                    });
+                };
+            };
 
             $scope.saveLesson = function(lesson) {
                 return lesson.saveOrUpdate()

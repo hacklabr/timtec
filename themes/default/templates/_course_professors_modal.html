@@ -1,4 +1,30 @@
 {% load i18n %}
+{% load static %}
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        function onFileSelected(event) {
+            var selectedFile = event.target.files[0];
+            var reader = new FileReader();
+            var imgtag = document.getElementById("profile-avatar");
+            imgtag.title = selectedFile.name;
+
+            reader.onload = function(event) {
+                imgtag.src = event.target.result;
+            };
+
+            reader.readAsDataURL(selectedFile);;
+        }
+
+        function onImgNotFound(event) {
+            $(this).attr('src', '{% static "img/avatar-default.png" %}')
+        }
+
+        $("#upload-avatar").change(onFileSelected);
+
+        $("#profile-avatar").error(onImgNotFound);
+    });
+</script>
 
 <script type="text/ng-template" id="course_professor_modal.html">
     <div class="modal-header">
@@ -8,20 +34,56 @@
     <div class="modal-body">
         <div class="row">
             <div class="col-lg-4">
-                <p class="form-group"><input type="search" class="form-control col-lg-12" placeholder="Procurar professor"></p>
-                <ul class="contacts">
-                <!-- li class="title">A</li -->
-                    <li ng-repeat="professor in professors">
-                        <a href="" ng-bind="professor.getName()"
-                            ng-click="selectProfessor(professor)"></a>
-                    </li>
-                </ul>
+                <p class="form-group">
+                    <div>
+                        <label>
+                            Busque e selecione um usuário abaixo para defini-lo como professor do curso.
+                        </label>
+                        <input type="text" id="search-user" class="form-control col-lg-12" ng-model="asyncSelected"
+                                placeholder="{% trans 'Type the name, email or user name of the professor to search...' %}"
+                                typeahead="user as user.formated_name for user in getUsers($viewValue)"
+                                typeahead-loading="loading_users"
+                                typeahead-on-select="on_select_professor($model); asyncSelected = '';"
+                                typeahead-min-length="2"
+                                typeahead-wait-ms="500">
+                        <i ng-show="loading_users" class="loading fa fa-refresh fa-spin"></i>
+                    </div>
+                </p>
+
+                {% verbatim %}
+                <p ng-if="course_professor && course_professor.user">{{ course_professor.user_info.name }}<button class="btn btn-warning" ng-click="remove_professor()"><i class="fa fa-trash-o"></i></button></p>
+                {% endverbatim %}
+
             </div>
             <div class="col-lg-8">
                 <form>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <fieldset>
+                                <label for="upload-avatar" class="upload-avatar">
+                                    <span><i class="fa fa-picture-o"></i> {% trans "Upload avatar" %}</span>
+                                    <div class="thumbnail">
+                                        <img ng-if=""
+                                             ng-src="{{ professor.get_picture_url }}"
+                                             onerror="this.src='/static/img/avatar-default.png'"
+                                             class="img-thumbnail">
+                                    </div>
+                                </label>
+
+                                <input type="file" name="picture" id="upload-avatar" class="hidden" ng-disabled="picture_from_user_profile"/>
+                            </fieldset>
+                            <label>{% trans 'Use picture from user profile' %}</label>
+                            <input type="checkbox" ng-model="picture_from_user_profile" ng-disabled="!course_professor.user">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>{% trans 'Use name from  user profile' %}</label>
+                        <input type="checkbox" ng-model="name_from_user_profile" ng-disabled="!course_professor.user">
+                    </div>
                     <div class="form-group">
                         <label>{% trans 'Name' %}</label>
-                        <input class="form-control col-lg-12" tipe="text">
+                        <input class="form-control col-lg-12" ng-if="name_from_user_profile" ng-model="course_professor.user_info.name" ng-disabled="true" type="text">
+                        <input class="form-control col-lg-12" ng-if="!name_from_user_profile" ng-model="course_professor.name" type="text">
                     </div>
 
                     <!-- div class="row">
@@ -43,14 +105,21 @@
                     </div>
                     </div -->
 
-                    <br/>
-                        <markdowneditor title="{% trans 'Biography' %}" content="selectedProfessor.biography"></markdowneditor>
+                    <br>
+                    <div class="form-group">
+                        <label>{% trans 'Use biography from user profile' %}</label>
+                        <input type="checkbox" ng-model="bio_from_user_profile" ng-disabled="!course_professor.user">
+                    </div>
+                    <div class="form-group">
+                        <markdowneditor title="{% trans 'Biography' %}" ng-if="bio_from_user_profile" ng-disabled="true" content="course_professor.user_info.biography"></markdowneditor>
+                        <markdowneditor title="{% trans 'Biography' %}" ng-if="!bio_from_user_profile" content="course_professor.biography">
+                    </div>
                 </form>
             </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" ng-click="cancel()">{% trans 'Cancel' %}</button>
-            <button type="button" class="btn btn-primary" ng-click="triggerSelect()">Selecionar</button>
+            <button type="button" class="btn btn-primary" ng-click="triggerSelect()">{% trans 'Save' %}</button>
         </div>
     </div>
 </script>
