@@ -667,16 +667,19 @@ wrapper-course-intro
 
                             <!-- INSTRUCTOR -->
                             <div id="" class="instructor row" ng-repeat="professor in courseProfessors" ng-hide="organizingInstructors">
-                                <div class="instructor-photo col-sm-12">
-                                    {% verbatim %}
-                                    <img ng-src="{{ professor.get_picture_url }}"
-                                         onerror="this.src='/static/img/avatar-default.png'"
-                                         class="img-thumbnail">
-                                    {% endverbatim %}
-                                </div>
-                                <div class="col-sm-12">
-                                    <h1 class="fullname top" ng-bind="professor.user_info.name">{% trans 'Name' %}</h1>
-                                    <modalmarkdowneditor title="{% trans 'Biography' %}" on-save="saveProfessor(professor)" content="professor.biography"></modalmarkdowneditor>
+                                <div ng-click="open_professor_modal(professor)">
+                                    <div class="instructor-photo col-sm-12">
+                                        {% verbatim %}
+                                        <img ng-src="{{ professor.get_picture_url || professor.user_info.picture || '/static/img/avatar-default.png'}}"
+                                             class="img-thumbnail">
+                                        {% endverbatim %}
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <h1 class="fullname bottom top" ng-bind="professor.name || professor.user_info.name">{% trans 'Name' %}</h1>
+                                        {% verbatim %}
+                                        <p  class="editable editable-text-box" ng-bind-html="(professor.biography || professor.user_info.biography)|markdown"></p>
+                                        {% endverbatim %}
+                                    </div>
                                 </div>
                             </div>
                             <!-- END INSTRUCTOR -->

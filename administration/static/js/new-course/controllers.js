@@ -170,7 +170,7 @@
             };
 
             $scope.open_professor_modal = function(course_professor) {
-                //$scope.course_professor = course_professor;
+
                 var modalInstance = $modal.open({
                        templateUrl: 'course_professor_modal.html',
                        controller: CourseProfessorModalInstanceCtrl,
@@ -179,33 +179,47 @@
                                return course_professor;
                            }
                        }
-                   });
-                   modalInstance.result.then(function (course_professor) {
+                });
 
-                   });
-
-                //if(!professor) return;
-                //var copy = angular.copy(professor);
-                //
-                //var reduce = function(a,b){ return a || b.user === copy.id; };
-                //
-                //if($scope.courseProfessors.reduce(reduce, false)) {
-                //    $scope.alert.error('"{0}" já está na lista de professores deste curso.'.format(copy.name));
-                //    return;
-                //}
-                //
-                //
-                //
-                //$scope.saveProfessor(professorToAdd).then(function(){
-                //    $scope.alert.success('"{0}" foi adicionado a lista de professores.'.format(copy.name));
-                //    $scope.courseProfessors.push(professorToAdd);
-                //})['catch'](showFieldErrors);
+                modalInstance.result.then(function (course_professor) {
+                    if (course_professor.id === undefined){
+                        course_professor.course = $scope.course_id;
+                        course_professor.role = 'instructor';
+                         course_professor.$save({}, function (course_professor){
+                            $scope.courseProfessors.push(course_professor);
+                            $scope.alert.success('Professor do curso atualizado com sucesso!');
+                        }, function (){
+                            $scope.alert.error('Não foi possível atualizar o professor do curso!');
+                        });
+                    } else {
+                        course_professor.$update({id: course_professor.id}, function (){
+                            $scope.alert.success('Professor do curso atualizado com sucesso!');
+                        }, function (){
+                            $scope.alert.error('Não foi possível atualizar o professor do curso!');
+                        });
+                    }
+                });
             };
 
             var CourseProfessorModalInstanceCtrl = function($scope, $modalInstance, course_professor) {
                 if (course_professor === undefined)
                     course_professor = new CourseProfessor();
+
                 $scope.course_professor = course_professor;
+
+                if (course_professor.user_info){
+                    if (!course_professor.name && course_professor.user_info.name) {
+                        $scope.name_from_user_profile = true;
+                    }
+
+                    if (!course_professor.biography && course_professor.user_info.biography) {
+                        $scope.biography_from_user_profile = true;
+                    }
+
+                    if (!course_professor.picture && course_professor.user_info.picture) {
+                        $scope.picture_from_user_profile = true;
+                    }
+                }
 
                 $scope.cancel = function () {
                     $modalInstance.dismiss();
@@ -214,13 +228,24 @@
                 $scope.on_select_professor = function(model) {
                     $scope.course_professor.user = model.id;
                     $scope.course_professor.user_info = model;
-                    //$scope.new_professors.unshift(model);
-                    //$scope.asyncSelected = '';
                 };
 
                 $scope.remove_professor = function() {
                     delete $scope.course_professor.user;
                     delete $scope.course_professor.user_info;
+                };
+
+                $scope.save_course_professors = function() {
+                    if ($scope.name_from_user_profile) {
+                        $scope.course_professor.name = null;
+                    }
+                    if ($scope.biography_from_user_profile) {
+                        $scope.course_professor.biography = null;
+                    }
+                    if ($scope.picture_from_user_profile) {
+                        $scope.course_professor.picture = null;
+                    }
+                    $modalInstance.close($scope.course_professor);
                 };
 
                 $scope.getUsers = function(val) {
