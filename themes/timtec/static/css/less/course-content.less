@@ -7,7 +7,10 @@
   .lessons {
     background-color: rgba(255,255,255,0.5);
     padding: 15px;
-    margin: 20px -15px 0;
+    margin: 0 -15px 0;
+    @media (min-width: @screen-sm-min) {
+      margin-top: 20px;
+    }
     a {
       text-decoration: none;
     }
@@ -33,7 +36,10 @@
   .summary {
     background-color: rgba(40,112,187,0.5);
     margin: 0 -15px;
-    padding: 160px 15px 0;
+    padding: 15px 0;
+    @media (min-width: @screen-sm-min) {
+      padding: 100px 15px 15px;
+    }
     > .page-header-double {
       margin-top: 0;
     }
@@ -169,7 +175,10 @@
       padding-top: 0;
       > div.row > div:first-child {
         background-color: rgba(255,255,255,0.5);
-        padding-top: 160px;
+        padding-top: 120px;
+        @media (min-width: @screen-sm-min) {
+          padding-top: 100px;
+        }
       }
     }
     #go-to-course {
@@ -207,10 +216,12 @@
       #course-content {
         //margin-top: -290px;
         > div.row > div:first-child {
-          padding-top: 240px;
+          padding-top: 200px;
         }
         .summary {
-          padding-top: 240px;
+          @media (min-width: @screen-sm-min) {
+            padding-top: 200px;
+          }
         }
       }
     }
