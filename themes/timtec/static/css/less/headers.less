@@ -21,12 +21,8 @@ header, .main-header, .secondary-header, .page-header-double {
 
 // SHARED HEADER STYLES
 .main-header {
-  @media (min-width: @screen-sm-min) {
-    padding-top: 40px;
-  }
   .page-header {
     border-bottom: none;
-    margin-top: 40px;
     h1 {
       a {
         color: #007dc3;
@@ -58,10 +54,12 @@ header, .main-header, .secondary-header, .page-header-double {
 
 // HEADER STYLES FOR THE INTERNAL PAGES (Lesson, Forum, Notes, Material, Classes)
 .main-header {
+  padding: 40px 0 20px;
   position: relative;
   z-index: 500;
   .page-header {
-    margin-bottom: 20px;
+    margin-top: 0;
+    margin-bottom: 0;
     h1 {
       font-size: 32px;
       text-transform: none;

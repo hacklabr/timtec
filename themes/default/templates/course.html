@@ -202,16 +202,16 @@ wrapper-course-intro
                         </div>
 
                         <div class="row" ng-show="!addHomeThumb">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <img local-image ng-model="home_thumbfile" class="img-responsive"/>
-                                {% verbatim %}
-                                <img ng-src="{{course.home_thumbnail_url}}" class="img-responsive" ng-show="!home_thumbfile"/>
-                                {% endverbatim %}
-                            </div>
-
-                            <div class="col-lg-12 textright">
-                                <button class="btn-edit-thumbnail btn btn-success btn-sm uppercase"
+                            <div class="add-thumbnail col-sm-12 col-lg-12 textcenter">
+                                <div class="centered">
+                                    <img local-image ng-model="home_thumbfile" class="img-thumbnail" />
+                                    {% verbatim %}
+                                    <img ng-src="{{course.home_thumbnail_url}}" class="img-thumbnail" ng-show="!home_thumbfile"/>
+                                    {% endverbatim %}
+                                    <p><button class="btn btn-success btn-edit-thumbnail uppercase"
                                         ng-click="addHomeThumb=true">{% trans 'Change thumbnail' %}</button>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </section>
