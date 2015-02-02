@@ -667,7 +667,7 @@ wrapper-course-intro
 
                             <!-- INSTRUCTOR -->
                             <div id="" class="instructor row" ng-repeat="professor in courseProfessors" ng-hide="organizingInstructors">
-                                <div ng-click="open_professor_modal(professor)">
+                                <a class="instructor-wrapper" href="" ng-click="open_professor_modal(professor)">
                                     <div class="instructor-photo col-sm-12">
                                         {% verbatim %}
                                         <img ng-src="{{ professor.get_picture_url || professor.user_info.picture || '/static/img/avatar-default.png'}}"
@@ -680,7 +680,7 @@ wrapper-course-intro
                                         <p  class="editable editable-text-box" ng-bind-html="(professor.biography || professor.user_info.biography)|markdown"></p>
                                         {% endverbatim %}
                                     </div>
-                                </div>
+                                </a>
                             </div>
                             <!-- END INSTRUCTOR -->
 

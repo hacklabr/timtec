@@ -81,9 +81,28 @@
       .bottom(9px,9px);
       font-size:14px;
     }
+    .editable {
+      &:hover {
+        background-color: lighten(@brand-warning, 45%);
+      }
+    }
     .instructor-photo {
       margin-bottom: 20px;
       max-width: 260px;
+    }
+    .instructor-wrapper {
+      display: block;
+      overflow: hidden;
+      &:hover {
+        .editable {
+          background-color: lighten(@brand-warning, 40%);
+        }
+        .instructor-photo {
+          img {
+            opacity: 0.8;
+          }
+        }
+      }
     }
     .missing-avatar {
       border:1px solid #ddd;
