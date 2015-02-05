@@ -80,6 +80,13 @@ class CourseProfessorSerializer(serializers.ModelSerializer):
         model = CourseProfessor
 
 
+class CourseProfessorPictureSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        fields = ('id', 'picture',)
+        model = CourseProfessor
+
+
 class CourseThumbSerializer(serializers.ModelSerializer):
 
     class Meta:

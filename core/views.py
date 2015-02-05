@@ -27,7 +27,7 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           StudentProgressSerializer, CourseNoteSerializer,
                           LessonNoteSerializer, ProfessorMessageSerializer,
                           CourseStudentSerializer, ClassSerializer,
-                          FlatpageSerializer)
+                          FlatpageSerializer, CourseProfessorPictureSerializer)
 
 from .models import (Course, CourseProfessor, Lesson, StudentProgress,
                      Unit, ProfessorMessage, CourseStudent, Class)
@@ -191,6 +191,22 @@ class CourseProfessorViewSet(viewsets.ModelViewSet):
         # so we call it explicitly here. See: https://github.com/tomchristie/django-rest-framework/issues/1103
         self.check_object_permissions(self.request, obj)
         return super(CourseProfessorViewSet, self).pre_save(obj)
+
+
+class CoursePictureUploadViewSet(viewsets.ModelViewSet):
+    model = CourseProfessor
+    lookup_field = 'id'
+    serializer_class = CourseProfessorPictureSerializer
+
+    def post(self, request, **kwargs):
+        course = self.get_object()
+        serializer = self.get_serializer(course, request.FILES)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=200)
+        else:
+            return Response(serializer.errors, status=400)
 
 
 class CourseStudentViewSet(viewsets.ModelViewSet):
