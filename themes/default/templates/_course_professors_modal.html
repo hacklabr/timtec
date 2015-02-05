@@ -31,7 +31,7 @@
                         <i ng-show="loading_users" class="loading fa fa-refresh fa-spin"></i>
                     </div>
                     <div class="col-sm-12 col-md-4">
-                        <div class="selected-user" ng-if="course_professor && course_professor.user">
+                        <div class="selected-user" ng-if="linked_with_user && course_professor && course_professor.user">
                             <p>{% trans 'Selected user' %}</p>
                             {% verbatim %}
                             <span>{{ course_professor.user_info.name || course_professor.user_info.username }}</span><button class="btn btn-warning" ng-click="remove_professor()"><i class="fa fa-trash-o"></i></button>
