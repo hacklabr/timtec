@@ -12,6 +12,7 @@
                 <textarea id="wmd-input-{{id}}" class="col-lg-12 form-control"
                           style="overflow-y:scroll;height:22em"
                           ng-show="!preview"
+                          ng-disabled="textarea_disabled"
                           ng-model="content" rows="15"></textarea>
 
                 <div class="col-lg-12" ng-show="preview" id="wmd-preview-{{id}}"
