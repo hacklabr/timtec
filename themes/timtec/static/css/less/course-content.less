@@ -175,7 +175,7 @@
       padding-top: 0;
       > div.row > div:first-child {
         background-color: rgba(255,255,255,0.5);
-        padding-top: 120px;
+        padding-top: 150px;
         @media (min-width: @screen-sm-min) {
           padding-top: 100px;
         }
@@ -197,6 +197,19 @@
       margin-top: -230px;
       padding-top: 230px;
     }
+    @media (max-width: @screen-xs-min) {
+      blockquote {
+        p {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          font-size: 14px;
+        }
+      }
+    }
+    aside {
+      margin-bottom: 30px;
+    }
   }
   &.course-lesson {
     #course-content {
@@ -213,10 +226,14 @@
       }
     }
     &.course-intro {
+      margin-top: 0 !important;
       #course-content {
         //margin-top: -290px;
         > div.row > div:first-child {
-          padding-top: 200px;
+          padding-top: 230px;
+          @media (min-width: @screen-xs-min) {
+            padding-top: 200px;
+          }
         }
         .summary {
           @media (min-width: @screen-sm-min) {

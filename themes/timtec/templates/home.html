@@ -22,11 +22,11 @@ home
             <div class="container">
                 <div class="actions-buttons">
                     <button class="btn btn-default" ng-click="organizingCourses=!organizingCourses">
-                        {% trans 'Organize courses' %} | <i class="fa fa-th-large"></i></button>
+                        {% trans 'Organize courses' %} <span>|</span> <i class="fa fa-th-large"></i></button>
                     <button class="btn btn-default" data-toggle="modal" data-target="#modalSelectCourses" ng-click="start_changing_home_cousers()">
-                        {% trans 'Choose home courses' %} | <i class="fa fa-pencil-square-o"></i></button>
-                    <button class="btn btn-danger" ng-click="cancel_home_changes()">{% trans 'Cancel' %} | <i class="fa fa-times"></i></button>
-                    <button class="btn btn-success" ng-click="save_home()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
+                        {% trans 'Choose home courses' %} <span>|</span> <i class="fa fa-pencil-square-o"></i></button>
+                    <button class="btn btn-danger" ng-click="cancel_home_changes()">{% trans 'Cancel' %} <span>|</span> <i class="fa fa-times"></i></button>
+                    <button class="btn btn-success" ng-click="save_home()">{% trans 'Save' %} <span>|</span> <i class="fa fa-save"></i></button>
                 </div>
                 {% include 'administration/_alert.html' %}
             </div>
