@@ -1,0 +1,90 @@
+{% load i18n %}
+{% load static %}
+
+<script type="text/ng-template" id="course_professor_modal.html">
+<div class="modal-professor">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <h4 class="modal-title">{% trans 'Professor' %}</h4>
+    </div>
+    <div class="modal-body">
+
+        <div class="step1">
+            <p>Deseja vincular o instrutor a um usuário existente?</p>
+            <button class="btn btn-success" ng-class="{active: linked_with_user === true}" ng-click="link_user_on()">{% trans 'Yes' %}</button>
+            <button class="btn btn-warning" ng-class="{active: linked_with_user === false}" ng-click="remove_user_link()">{% trans 'No' %}</button>
+        </div>
+        <div class="step2" ng-show="course_professor.id || linked_with_user !== null">
+            <div class="step2-1" ng-show="linked_with_user || course_professor.user">
+                <div class="row">
+                    <div class="col-sm-12 col-md-8" ng-show="!course_professor.user">
+                        <label for="search-user">
+                            {% trans 'Search and select a user to set as course professor' %}
+                        </label>
+                        <input type="text" class="form-control col-lg-12" ng-model="asyncSelected"
+                                placeholder="{% trans 'Type the name, email or user name of the professor to search...' %}"
+                                typeahead="user as user.formated_name for user in getUsers($viewValue)"
+                                typeahead-loading="loading_users"
+                                typeahead-on-select="on_select_professor($model); asyncSelected = '';"
+                                typeahead-min-length="2"
+                                typeahead-wait-ms="500">
+                        <i ng-show="loading_users" class="loading fa fa-refresh fa-spin"></i>
+                    </div>
+                    <div class="col-sm-12 col-md-4">
+                        <div class="selected-user" ng-if="linked_with_user && course_professor && course_professor.user">
+                            <p>{% trans 'Selected user' %}</p>
+                            {% verbatim %}
+                            <span>{{ course_professor.user_info.name || course_professor.user_info.username }}</span><button class="btn btn-warning" ng-click="remove_professor()"><i class="fa fa-trash-o"></i></button>
+                            {% endverbatim %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step2-2" ng-show="show_form || course_professor.id">
+                <form>
+                    <div class="row">
+                        <div class="user-photo-wrapper col-md-3">
+                            <label for="upload-author-picture" class="upload-avatar">
+                                <span><i class="fa fa-picture-o"></i> {% trans "Upload avatar" %}</span>
+                                <div class="thumbnail">
+                                    {% verbatim %}
+                                    <img preview-image ng-model="course_professor_picture_file" id="author-picture" ng-show="!picture_from_user_profile"
+                                         ng-src="{{ course_professor.get_picture_url || '/static/img/avatar-default.png'}}">
+                                    <img id="author-picture" ng-show="picture_from_user_profile"
+                                         ng-src="{{ course_professor.user_info.picture || '/static/img/avatar-default.png'}}">
+                                     {% endverbatim %}
+                                </div>
+                            </label>
+                            <input file
+                                   id="upload-author-picture"
+                                   ng-model="course_professor_picture_file"
+                                   name="course-professor-picture-file"
+                                   class="form-control"
+                                   ng-hide="true"
+                                   ng-change="picture_from_user_profile = false">
+                            <label for="use-profile-picture" ng-show="linked_with_user"><input id="use-profile-picture" type="checkbox" ng-model="picture_from_user_profile" ng-disabled="!course_professor.user"> {% trans 'Use picture from user profile' %}</label>
+                        </div>
+                        <div class="col-md-9">
+                            <label>{% trans 'Name' %}
+                                <input class="form-control" ng-if="name_from_user_profile" ng-model="course_professor.user_info.name" ng-disabled="true" type="text">
+                                <input class="form-control" ng-if="!name_from_user_profile" ng-model="course_professor.name" type="text">
+                            </label>
+                            <label ng-show="linked_with_user"><input type="checkbox" ng-model="name_from_user_profile" ng-disabled="!course_professor.user"> {% trans 'Use name from  user profile' %}</label>
+                        </div>
+                    </div>
+                    <div class="user-bio-wrapper">
+                        <markdowneditor title="{% trans 'Biography' %}" ng-if="bio_from_user_profile" ng-disabled="true" content="course_professor.user_info.biography"></markdowneditor>
+                        <markdowneditor title="{% trans 'Biography' %}" ng-if="!bio_from_user_profile" content="course_professor.biography"></markdowneditor>
+                        <label for="use-profile-bio" ng-show="linked_with_user"><input id="use-profile-bio" type="checkbox" ng-model="bio_from_user_profile" ng-disabled="!course_professor.user">{% trans 'Use biography from user profile' %}</label>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" ng-click="cancel()">{% trans 'Cancel' %}</button>
+            <button type="button" class="btn btn-primary" ng-click="save_course_professors()">{% trans 'Save' %}</button>
+        </div>
+    </div>
+</div>
+</script>
