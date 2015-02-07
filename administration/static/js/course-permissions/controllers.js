@@ -5,7 +5,7 @@
         function($scope, $modal, $http, Course, CourseProfessor) {
 
             $scope.courseId = /course\/([^\/]+)\/permissions/.extract(location.pathname, 1);
-            $scope.professors = CourseProfessor.query({course: $scope.courseId});
+            $scope.professors = CourseProfessor.query({course: $scope.courseId, has_user: true});
             $scope.remove_professor = function(course_professor_id, index) {
                 if(!confirm('Tem certeza que deseja remover este professor deste curso?')) return;
                 CourseProfessor.remove({id: course_professor_id}, function (){

@@ -192,6 +192,13 @@ class CourseProfessorViewSet(viewsets.ModelViewSet):
         self.check_object_permissions(self.request, obj)
         return super(CourseProfessorViewSet, self).pre_save(obj)
 
+    def get_queryset(self):
+        queryset = super(CourseProfessorViewSet, self).get_queryset()
+        has_user = self.request.QUERY_PARAMS.get('has_user', None)
+        if has_user:
+            queryset = queryset.exclude(user=None)
+        return queryset
+
 
 class CoursePictureUploadViewSet(viewsets.ModelViewSet):
     model = CourseProfessor
