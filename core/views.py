@@ -184,7 +184,7 @@ class CourseProfessorViewSet(viewsets.ModelViewSet):
     filter_fields = ('course', 'user', 'role',)
     filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = CourseProfessorSerializer
-    permission_classes = [IsProfessorCoordinatorOrAdminPermissionOrReadOnly, ]
+    permission_classes = (IsProfessorCoordinatorOrAdminPermissionOrReadOnly, )
 
     def pre_save(self, obj):
         # Verify if current user is coordinator. The has_object_permission method is not called when creating objects,
@@ -239,7 +239,7 @@ class CourseViewSet(viewsets.ModelViewSet):
     filter_fields = ('slug', 'home_published',)
     filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = CourseSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsProfessorCoordinatorOrAdminPermissionOrReadOnly,)
 
     def get_queryset(self):
         queryset = super(CourseViewSet, self).get_queryset()
@@ -274,6 +274,7 @@ class CourseThumbViewSet(viewsets.ModelViewSet):
     model = Course
     lookup_field = 'id'
     serializer_class = CourseThumbSerializer
+    permission_classes = (IsProfessorCoordinatorOrAdminPermissionOrReadOnly, )
 
     def post(self, request, **kwargs):
         course = self.get_object()
@@ -389,7 +390,7 @@ class ClassDeleteView(LoginRequiredMixin, CanEditClassMixin, DeleteView):
     def get_object(self, queryset=None):
         klass = super(ClassDeleteView, self).get_object(queryset=queryset)
 
-        if (klass == klass.course.default_class):
+        if klass == klass.course.default_class:
             raise PermissionDenied
 
         return klass
