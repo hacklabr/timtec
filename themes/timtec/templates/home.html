@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load compressed %}
+{% load is_enrolled %}
 
 {% block js %}
     {{ block.super }}
@@ -60,20 +61,24 @@ home
                 {% else %}
 
                 <div class="row">
-                    <div ng-repeat="course in home_courses" class="block course col-sm-6 col-xs-12">
-                        {% verbatim %}
-                        <a ng-href="/course/{{ course.slug }}/intro/" class="course-link">
+                {% for course in home_courses %}
+                    <div class="block course col-sm-6 col-xs-12">
+                    {% if user|is_enrolled:course %}
+                        <a href="{% url "resume_course" course.slug %}" class="course-link">
+                    {% else %}
+                        <a href="{% url "course_intro" course.slug %}" class="course-link">
+                    {% endif %}
                             <div class="thumb-wrapper">
                                 <span class="mouseover"></span>
-                                <span class="thumb" ng-style="{'background-image': 'url(' + course.home_thumbnail_url + ')'}"></span>
+                                <span class="thumb" {% if course.home_thumbnail %}style="background-image: url({{ course.home_thumbnail.url }})"{% endif %}></span>
                             </div>
                             <div class="info">
                                 <h3>{{ course.name }}</h3>
-                                <p class="instructors">{{ course.professors_names }}</p>
+                                <p class="instructors">{% for professor in course.get_video_professors %}{{ professor.get_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
                             </div>
                         </a>
-                        {% endverbatim %}
                     </div>
+                {% endfor %}
                 </div><!-- .row -->
 
                 {% endif %}

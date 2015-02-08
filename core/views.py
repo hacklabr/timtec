@@ -39,11 +39,11 @@ from .permissions import IsProfessorCoordinatorOrAdminPermissionOrReadOnly, IsAd
 
 
 class HomeView(ListView):
-    context_object_name = 'courses'
+    context_object_name = 'home_courses'
     template_name = "home.html"
 
     def get_queryset(self):
-        return Course.objects.all()
+        return Course.objects.filter(home_published=True).order_by('home_position')
 
 if settings.TWITTER_USER != '':
     from twitter import Twitter, OAuth
