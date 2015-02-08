@@ -165,6 +165,26 @@ class EnrollCourseView(LoginRequiredMixin, RedirectView):
             return reverse_lazy('accept_terms')
 
 
+class ResumeCourseView(LoginRequiredMixin, RedirectView):
+    permanent = False
+
+    def get_object(self):
+        if hasattr(self, 'object'):
+            return self.object
+        self.object = Course.objects.get(**self.kwargs)
+        return self.object
+
+    def get_redirect_url(self, **kwargs):
+        course = self.get_object()
+        if self.request.user.accepted_terms or not settings.TERMS_ACCEPTANCE_REQUIRED:
+            course_student = CourseStudent.objects.get(user=self.request.user, course=course)
+            last_unit = course_student.resume_last_unit()
+            url = reverse_lazy('lesson', args=[course.slug, last_unit.lesson.slug])
+            return url + '#' + str(last_unit.position + 1)
+        else:
+            return reverse_lazy('accept_terms')
+
+
 class AcceptTermsView(FormView):
     template_name = 'accept-terms.html'
     form_class = AcceptTermsForm

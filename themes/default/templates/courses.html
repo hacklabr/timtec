@@ -39,7 +39,11 @@ wrapper-courses
                     {% for course in courses %}
                     <!-- COURSE -->
                     <div class="course{% if user|is_enrolled:course %} started{% endif %}">
+                    {% if user|is_enrolled:course %}
+                        <a href="{% url "resume_course" course.slug %}" class="course-link">
+                    {% else %}
                         <a href="{% url "course_intro" course.slug %}" class="course-link">
+                    {% endif %}
                             {% if not course.has_started %}<span class="coming-soon-label">{% trans 'Soon' %}</span>{% endif %}
                             <div class="thumb-wrapper">
                                 <div class="mouseover"></div>
