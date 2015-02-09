@@ -1,14 +1,14 @@
 #main-navbar {
+    min-height: 80px;
+    margin-bottom: 0;
+    .gradient (@startColor: #007dc3, @endColor: #1451a2);
     border-color: #1451a2;
     .box-shadow(0px 5px 5px 0px rgba(0, 0, 0, 0.3));
-    .gradient (@startColor: #007dc3, @endColor: #1451a2);
-    height: 80px;
-    margin-bottom: 0;
-    position: relative;
     z-index: 900;
     a {
         text-decoration: none;
     }
+
     h1, h2 {
         background-size: 100% 100%;
         background-repeat: no-repeat;
@@ -19,189 +19,89 @@
             height: 100%;
         }
     }
-    h1 { // instituto tim logo
-        background-image: url('../img/logo-instituto-tim.png');
-        margin-top: 32px;
+    h1 {
+        margin: 30px 0 0 15px;
         width: 236px/1.8;
         height: 36px/1.8;
-        @media (min-width: @screen-xs-min) {
-            margin-top: 26px;
+        @media (min-width: @screen-sm-min) {
+            margin-top: 27px;
             width: 236px/1.5;
             height: 36px/1.5;
         }
-        @media (min-width: @screen-sm-min) {
-            margin-top: 20px;
+        @media (min-width: @screen-lg-min) {
+            margin: 20px 0 0 0;
             width: 236px;
             height: 36px;
         }
-    } // h1
-    h2 { // timtec logo
-        background-image: url('../img/logo-timtec.png');
+        background-image: url('../img/logo-instituto-tim.png');
+    }
+    h2 {
         margin: 30px 0 0 20px;
         width: 106px/1.8;
         height: 36px/1.8;
-        @media (min-width: @screen-xs-min) {
-            margin: 26px 0 0 50px;
+        @media (min-width: @screen-sm-min) {
+            margin: 27px 0 0 30px;
             width: 106px/1.5;
             height: 36px/1.5;
         }
-        @media (min-width: @screen-sm-min) {
+        @media (min-width: @screen-lg-min) {
             margin: 20px 0 0 70px;
             width: 106px;
             height: 36px;
         }
-    } // h2
-    .social { // contact and social buttons
-        display: none;
-        @media screen and (min-width: 520px) {
-            display: block;
-            float: right;
-            margin: 22px 20px 0 0;
-        }
-        @media screen and (min-width: @screen-sm-min) {
-            margin: 16px 0 0 0;
-        }
+        background-image: url('../img/logo-timtec.png');
+    }
+    .tim {
+        font-family: @teuton-26;
+    }
+    .tec {
+        text-transform: initial;
+    }
+    .navbar-nav {
+        float: none;
         li {
-            display: block;
-            float: left;
-            margin-left: 10px;
-            width: 35px;
-            height: 35px;
-            font-size: 24px;
-            text-align: center;
-            line-height: 1px;
-            &:after {
-                content: none;
-            }
-            a {
-                display: block;
-                width: 33px;
-                height: 33px;
-                color: #fff;
-            }
-            .s-buttons(@bg-color, @h-color) {
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                a {
-                    padding-top: 6px;
-                    background-color: @bg-color;
-                    transition: all 0.3s;
-
-                    &:hover {
-                        background-color: @h-color;
-                    }
-                }
-            }
-            &.contato {
-                background: url(../img/icon-contact.png) no-repeat 0px 4px;
-                display: none;
-                @media screen and (min-width: @screen-sm-min) {
-                    display: inline-block;
-                }
-                a {
-                    span {
-                        display: block;
-                        margin: 0 0 0 -5px;
-                        padding: 44px 0 0 0;
-                        font-family: @font-family-sans-serif;
-                        font-size: 9px;
-                        text-transform: uppercase;
-                    }
-                }
-            }
-            &.facebook {
-                .s-buttons(#3b65c0,#4c76d1);
-            }
-            &.twitter {
-                .s-buttons(#27b7ec,#3fc9fc);
-            }
-            &.youtube {
-                .s-buttons(#ed5a47,#f97362);
-            }
-        } // .social li
-    } // .social
-    .container { // adjustments for responsive
-        > .navbar-header {
-            height: 79px;
-            margin: 0;
-            width: 100%;
-        }
-        > .navbar-collapse {
-            padding: 0;
-        }
-    }
-    .navbar-toggle { // fix toggle button position
-        margin-right: 0;
-        margin-top: 22px;
-    }
-    #main-navbar-collapse { // navbar wrapper
-        @media (min-width: @screen-sm-min) {
-            position: absolute;
-            top: 79px;
             float: none;
-        }
-        // styles for about timtec link on navbar
-        .tim {
-            font-family: @teuton-26;
-        }
-        .tec {
-            text-transform: initial;
-        }
-        // ul.navbar-nav // navbar list links
-        .navbar-nav {
-            margin: 0;
-            @media (min-width: @screen-sm-min) {
-                float: left;
-            }
-            > li {
-                @media (min-width: @screen-sm-min) {
-                    margin-right: 5px;
-                    &.contact-link {
-                        display: none;
-                    }
+            a {
+                padding: 10px 15px;
+                text-transform: uppercase;
+                &:hover {
+                    background-color: #0d4c8f;
                 }
-                @media (min-width: @screen-md-min) {
+                &.username span {
+                    display: block;
                     float: left;
-                    margin-right: 15px;
-                }
-                > a {
-                    background-color: #b7e5f7;
-                    .box-shadow(0 5px 15px 0 rgba(0,0,0,0.3));
-                    color: #0d4c8f;
-                    font-family: @teuton-24;
-                    font-size: 16px;
-                    text-align: center;
-                    text-transform: uppercase;
-                    .transition(all .3s);
-                    @media (min-width: @screen-sm-min) {
-                        min-width: 120px;
-                        padding: 12px 10px;
-                    }
-                    @media (min-width: @screen-md-min) {
-                        padding: 12px 15px;
-                    }
+                    max-width: 105px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                     white-space: nowrap;
-                    &:hover {
-                        background-color: #fff;
-                        text-decoration: none;
-                    }
                 }
             }
-        } // .navbar-nav
-    } // #main-navbar-collapse
-
+        }
+         @media (min-width: @screen-md-min) {
+            float: left;
+            li {
+                float: left;
+                a {
+                    padding: 30px 10px 29px;
+                }
+            }
+        }
+    }
     .dropdown-menu {
         background-color: rgba(193, 224, 244, 0.7);
         border-radius: 0;
         font-family: @font-family-sans-serif;
         label {
-            color: #333;
             font-weight: bold;
+        }
+        li {
+            float: none;
         }
         &.user-menu {
             background-color: rgba(0, 116, 190, 0.7);
             width: initial;
             li {
-                border-bottom: 2px solid #fff;
+                border-bottom: 1px solid rgba(255,255,255,0.2);
                 &:last-child {
                     border-bottom: 0;
                 }
@@ -209,10 +109,6 @@
                     color: #fff;
                     font-family: @teuton-24;
                     padding: 7px 15px;
-                    text-align: center;
-                    @media screen and (min-width: @screen-sm-min) {
-                        text-align: right;
-                    }
                     text-transform: uppercase;
                     &:hover {
                         background-color: #b7e5f7;
@@ -220,17 +116,125 @@
                     }
                 }
             }
+            @media (min-width: @screen-md-min) {
+                li {
+                    border-bottom: 2px solid #fff;
+                    a {
+                        text-align: right;
+                    }
+                }
+            }
         }
-    } // .dropdown-menu
-}
+    }
 
-@media (max-width: @screen-xs-max) {
-    .navbar-inverse {
-        .navbar-nav .open .dropdown-menu .divider {
-            background-color: @gray-lighter;
+    // overwrite bootstrap styles for the navbar
+    /* we need the navbar-toggle to work on screens smallers
+    than @screen-md-min instead of @screen-sm-min */
+    .navbar-divider {
+        border-right: 0;
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+        height: 2px;
+        width: auto;
+        @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+            margin-bottom: 7px;
+        }
+        @media (min-width: @screen-md-min) {
+            border-right: 1px solid #000203;
+            border-top: 0;
+            height: 79px;
+            width: 2px;
+            border-right: 1px solid #0d4c8f;
+        }
+    }
+    .navbar-header {
+        float: none;
+        min-height: 80px;
+        @media (min-width: @screen-md-min) {
+            float: left;
+        }
+
+    }
+    .navbar-toggle {
+        display: block;
+        margin-top: 22px;
+        @media (min-width: @screen-md-min) {
+            display: none;
+        }
+    }
+    .container > .navbar-collapse {
+        margin-right: -15px;
+        margin-left: -15px;
+        @media (min-width: @screen-md-min) {
+            margin-right: 0px;
+            margin-left: 0px;
+        }
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+        float: none;
+        &.collapse {
+            display: none !important;
+            &.in {
+                display: block !important;
+            }
+        }
+        @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+        @media (min-width: @screen-md-min) {
+            border-top: 0;
+            box-shadow: none;
+            float: right;
+            width: auto;
+            &.collapse {
+                display: block !important;
+                height: auto !important;
+                padding-bottom: 0; // Override default setting
+                overflow: visible !important;
+            }
+            &.in {
+                overflow-y: visible;
+            }
+        }
+    }
+    @media (max-width: @screen-sm-max) {
+        // Dropdowns get custom display when collapsed
+        .open .dropdown-menu {
+            position: static;
+            float: none;
+            width: auto;
+            margin-top: 0;
+            background-color: transparent;
+            border: 0;
+            box-shadow: none;
+            > li > a,
+            .dropdown-header {
+                padding: 5px 15px 5px 25px;
+            }
+            > li > a {
+                line-height: @line-height-computed;
+                &:hover,
+                &:focus {
+                    background-image: none;
+                }
+            }
         }
         .navbar-form {
             border: 0;
+            box-shadow: none;
+            label, a {
+                color: #fff;
+            }
+            .divider {
+                background-color: rgba(255,255,255,0.2)
+            }
         }
     }
 }
+
+
+
+

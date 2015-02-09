@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 # Django settings for timtec project.
 from django.utils.translation import ugettext_lazy as _
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
+
 import os
+
 
 SETTINGS_DIR = os.path.dirname(os.path.realpath(__file__))
 PROJECT_ROOT = os.path.dirname(SETTINGS_DIR)
@@ -355,8 +358,6 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
     # 'django.template.loaders.eggs.Loader',
 )
-
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',

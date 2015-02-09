@@ -1,0 +1,165 @@
+// HOMEPAGE
+// ********************************************************************* //
+
+#home {
+    @media screen and (min-width: @screen-sm-min) { margin-top: -50px; }
+    margin-bottom: -60px;
+
+    // banner
+    #highlight {
+      max-height: 400px;
+      overflow: hidden;
+      background-color: #eafaba;
+      .container {
+        position: relative;
+        background-image: url(../img/ilustra-home-bg.png);
+        background-position: left;
+        background-repeat: no-repeat;
+        .clearfix;
+        @media screen and (max-width: 640px) { background-size: 77%; }
+      }
+      img {
+        float: right;
+        max-width: 100%;
+      }
+      .text {
+        font-family: 'jelly';
+        color: @brand-primary;
+        position: absolute;
+        left: 100px;
+        top: 15px;
+        border: 2px dashed @brand-primary;
+        padding: 20px;
+        width: 435px;
+        p {
+          margin: 0;
+          font-size: 30px;
+        }
+      }
+      @media (max-width: @screen-sm-max) {
+        .text {
+          display: none;
+        }
+      }
+      @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+        .text {
+          left: 60px;
+          top: 75px;
+          width: 340px;
+        }
+      }
+      @media (min-width: @screen-lg-min) {
+        .text {
+          left: 170px;
+          top: 100px;
+        }
+      }
+    } // #hightlight
+
+    // page title
+    header {
+      //border-bottom: 1px solid fade(@brand-primary, 20%);
+      margin-bottom: 36px;
+      padding-bottom: 10px;
+      h1 {
+        font-family: 'jelly';
+        color: @brand-primary;
+        font-size: 30px;
+        font-weight: normal;
+        margin: 0;
+        text-transform: uppercase;
+      }
+    } //.page-title
+
+    // repeatable blocks from home
+    .block {
+      margin-bottom: 40px;
+      @media (min-width: 380px) and (max-width: @screen-xs-max) {
+        float: none;
+        margin: 0 auto 40px;
+        max-width: 360px;
+      }
+    } // .block
+
+    // see all courses button
+    .see-all-courses {
+      @media (min-width: 380px) and (max-width: @screen-xs-max) {
+        margin: 0 auto;
+        max-width: 360px;
+      }
+    }
+
+    // courses section
+    #courses {
+      .course {
+        .img {
+          width: 100%;
+          span {
+            height: 145px;
+          }
+        }
+        .info {
+          padding: 10px;
+          height: 145px;
+          h3 {
+            margin-bottom: 10px;
+          }
+          .instructors {
+            margin-bottom: 10px;
+          }
+          .abstract {
+            max-height: 51px;
+          }
+        }
+      }
+    } // #courses
+
+    // how it works
+    #how-it-works {
+        background-color: @brand-light;
+        color: @gray;
+        padding-bottom: 40px;
+        padding-top: 40px;
+        header {
+          border-bottom-color: lighten(@brand-light,10%);
+        }
+        .highlight {
+            border-bottom: 2px dashed @brand-primary;
+            margin-bottom: 36px;
+            padding-bottom: 18px;
+        }
+        .block {
+          .info {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: @border-radius-base;
+            @media (min-width: @screen-sm-min) {
+              height: 340px;
+            }
+            .icon {
+              text-align: center;
+              .fa {
+                color: darken(@brand-light, 10%);
+                font-size: 100px;
+              }
+            }
+            h3 {
+              font-size: 20px;
+              font-family: 'jelly';
+              color: @brand-primary;
+              margin-top: 10px;
+              text-align: center;
+              @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+                font-size: 24px;
+              }
+              @media (min-width: @screen-lg-min) {
+                font-size: 36px;
+              }
+            }
+            p {
+              margin-bottom: 0;
+            }
+          }
+        }
+    } // #how-it-works
+}
