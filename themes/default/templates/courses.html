@@ -39,7 +39,11 @@ wrapper-courses
                     {% for course in courses %}
                     <!-- COURSE -->
                     <div class="course{% if user|is_enrolled:course %} started{% endif %}">
+                    {% if user|is_enrolled:course %}
+                        <a href="{% url "resume_course" course.slug %}" class="course-link">
+                    {% else %}
                         <a href="{% url "course_intro" course.slug %}" class="course-link">
+                    {% endif %}
                             {% if not course.has_started %}<span class="coming-soon-label">{% trans 'Soon' %}</span>{% endif %}
                             <div class="thumb-wrapper">
                                 <div class="mouseover"></div>
@@ -51,7 +55,7 @@ wrapper-courses
                                 <div class="info">
 
                                     <h3>{{ course.name }}</h3>
-                                    <p class="instructors">{% for professor in course.get_video_professors %}{{ professor.user.get_full_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                                    <p class="instructors">{% for professor in course.get_video_professors %}{{ professor..get_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
                                     <p class="abstract">{{ course.abstract }}</p>
                                 </div>
                                 <div class="enroll">

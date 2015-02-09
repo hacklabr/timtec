@@ -81,9 +81,28 @@
       .bottom(9px,9px);
       font-size:14px;
     }
+    .editable {
+      &:hover {
+        background-color: lighten(@brand-warning, 45%);
+      }
+    }
     .instructor-photo {
       margin-bottom: 20px;
       max-width: 260px;
+    }
+    .instructor-wrapper {
+      display: block;
+      overflow: hidden;
+      &:hover {
+        .editable {
+          background-color: lighten(@brand-warning, 40%);
+        }
+        .instructor-photo {
+          img {
+            opacity: 0.8;
+          }
+        }
+      }
     }
     .missing-avatar {
       border:1px solid #ddd;
@@ -288,5 +307,69 @@ ul.uploaded-files-list {
   li {
     border-bottom: 1px solid @gray-lighter;
     padding: 5px 0;
+  }
+}
+
+.modal-professor {
+  .step1 {
+    margin-bottom: 30px;
+    p {
+      float: left;
+      font-weight: bold;
+      margin: 7px 10px 0 0;
+      text-transform: initial;
+    }
+  }
+  .step2-1 {
+    margin-bottom: 30px;
+  }
+  .selected-user{
+    p {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    span {
+      display: inline-block;
+      margin-right: 10px;
+    }
+  }
+  .upload-avatar {
+    margin-bottom: 0;
+    @media (min-width: @screen-md-min) {
+      width: 100%;
+    }
+    img {
+      width: 100%;
+    }
+    .thumbnail {
+      margin: 0px;
+      @media (min-width: @screen-md-min) {
+        margin: 0px auto 0px;
+        max-width: 100%;
+      }
+    }
+
+  }
+  label {
+    input[type="checkbox"] {
+      float: left;
+      margin-right: 5px;
+    }
+  }
+  .user-photo-wrapper {
+    @media (max-width: @screen-xs-max) {
+      margin-bottom: 30px;
+    }
+  }
+  .user-name-wrapper {
+    #user-name {
+      margin-bottom: 5px;
+    }
+  }
+  .user-bio-wrapper {
+    margin: 15px 0;
+    .form-group {
+      margin-bottom: 5px;
+    }
   }
 }

@@ -23,8 +23,8 @@
             <div class="forum-form">
                 <div class="alert alert-danger" role="alert" ng-show="question_title_validation || question_text_validation">
                     <ul>
-                        <li ng-show="question_title_validation"><a href="#id-title">Preencha o título da questão.</a></li>
-                        <li ng-show="question_text_validation"><a href="#wmd-input">Preencha o conteúdo da questão.</a></li>
+                        <li ng-show="question_title_validation"><a href="#id-title">{% trans 'Fill the question title.' %}</a></li>
+                        <li ng-show="question_text_validation"><a href="#wmd-input">{% trans 'Fill the question content.' %}</a></li>
                     </ul>
                 </div>
                 <div class="form-group" ng-class="question_title_validation">
@@ -47,7 +47,7 @@
                             <!-- <small><a href="">{% trans "Questions & Answers policy" %}</a></small> -->
                         </div>
                         <div class="col-lg-4 col-sm-4 textright">
-                            <input type="submit" class="btn btn-success" value="Enviar" ng-click="new_question()">
+                            <input type="submit" class="btn btn-success" value="{% trans 'Send' %}" ng-click="new_question()">
                         </div>
                     </div>
                 </div>

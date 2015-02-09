@@ -13,8 +13,18 @@
   }
 
   #home {
+    margin-top: 0px !important;
+    .actions-menu {
+        .btn {
+            font-size: 10px;
+            margin-bottom: 5px;
+            span, i {
+                display: none;
+            }
+        }
+    }
     #courses {
-      margin-top: 140px;
+      margin-top: 120px;
       @media screen and (min-width: @screen-xs-min) {
         margin-top: 40px;
       }
@@ -23,6 +33,7 @@
       top: 0;
       margin-top: 90px;
     }
+
   }
 
   // COURSES
@@ -30,7 +41,7 @@
   #courses {
     > .container {
       margin-top: 0;
-      padding-top: 120px;
+      padding-top: 80px;
       background-color: rgba(255, 255, 255, 0.5);
     }
 
@@ -62,8 +73,8 @@
       border: 0;
     }
     #permissions-content {
-      margin-top: -260px;
-      padding-top: 220px;
+      margin-top: -225px;
+      padding-top: 225px;
       padding-bottom: 50px;
       background-color: rgba(255,255,255,0.5);
     }

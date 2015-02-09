@@ -1,0 +1,76 @@
+{% load i18n %}
+{% load timtec_markdown %}
+
+<section class="instructors" id="instructors-info">
+
+    {% if in_admin %}
+        <div class="page-header-double">
+            <h3><i class="fa fa-angle-double-right"></i> {% trans 'Instructors'%}</h3>
+        </div>
+
+        <p><a href="" ng-click="organizingInstructors=true" ng-hide="organizingInstructors">{% trans 'Organize Instructors'%}</a></p>
+
+        <div class="instructors organizing-instructors" ng-show="organizingInstructors" sortable="courseProfessors" on-update="repositionInstructors()">
+
+            <div class="instructor" ng-repeat="professor in courseProfessors">
+                <div class="row">
+                    <div class="col-lg-11">
+                        <span class="handle"><span class="btn btn-warning"><i class="fa fa-bars"></i></span></span>
+                        <span class="title" ng-bind="professor.name || professor.user_info.name">{% trans 'Name' %}</span>
+                    </div>
+                    <div class="col-lg-1 textright">
+                        <button class="btn btn-danger" ng-click="deleteProfessor(professor)"> <i class="fa fa-trash-o"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="submit textright">
+                <button class="btn btn-danger" ng-click="organizingInstructors=false">{% trans 'Close' %}</button>
+                <button class="btn btn-success" ng-click="saveAllInstructors()">{% trans 'Save' %}</button>
+            </div>
+        </div>
+
+        <!-- INSTRUCTOR -->
+        <div id="" class="instructor row" ng-repeat="professor in courseProfessors" ng-hide="organizingInstructors">
+            <a class="instructor-wrapper" href="" ng-click="open_professor_modal(professor)">
+                <div class="instructor-photo col-sm-12">
+                    {% verbatim %}
+                    <img ng-src="{{ professor.get_picture_url || professor.user_info.picture || '/static/img/avatar-default.png'}}"
+                         class="img-thumbnail">
+                    {% endverbatim %}
+                </div>
+                <div class="col-sm-12">
+                    <h1 class="fullname bottom top" ng-bind="professor.name || professor.user_info.name">{% trans 'Name' %}</h1>
+                    {% verbatim %}
+                    <p  class="editable editable-text-box" ng-bind-html="(professor.biography || professor.user_info.biography)|markdown"></p>
+                    {% endverbatim %}
+                </div>
+            </a>
+        </div>
+        <!-- END INSTRUCTOR -->
+
+        <div class="row textcenter">
+            <div class="col-lg-12">
+                <a ng-click="open_professor_modal()" class="col-lg-12 btn btn-lg btn-default uppercase">{% trans 'Add instructor' %}</a>
+            </div>
+        </div>
+    {% else %}
+        {% if course.get_video_professors %}
+        <div class="page-header-double top">
+            <h3><i class="fa fa-angle-double-right"></i> {% trans "Instructors" %}</h3>
+        </div>
+
+        {% for course_professor in course.get_video_professors %}
+            <div {% if course_professor.user %}id="{{ course_professor.user.username }}"{% endif %} class="instructor row">
+                <div class="instructor-photo col-sm-12">
+                    <img src="{{ course_professor.get_picture_url }}" class="img-thumbnail">
+                </div>
+                <div class="col-sm-12">
+                    <h1 class="fullname bottom top">{{ course_professor.get_name }}</h1>
+                    <p>{{ course_professor.get_biography|timtec_markdown }}</p>
+                </div>
+            </div>
+        {% endfor %}
+        {% endif %}
+    {% endif %}
+
+</section>

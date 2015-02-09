@@ -3,10 +3,6 @@ from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 
-# Uncomment the next two lines to enable the admin:
-from django.contrib import admin as django_admin
-django_admin.autodiscover()
-
 from django.views.generic import TemplateView
 from accounts.views import (ProfileEditView, ProfileView, UserSearchView,
                             TimtecUserViewSet, StudentSearchView)
@@ -21,7 +17,8 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         AcceptTermsView, CarouselCourseView, ClassListView,
                         ClassCreateView, ClassUpdateView, ClassDeleteView,
                         ClassRemoveUserView, ClassAddUsersView, ClassViewSet,
-                        FlatpageViewSet,)
+                        FlatpageViewSet, CoursePictureUploadViewSet,
+                        ResumeCourseView, )
 
 from activities.views import AnswerViewSet
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, QuestionVoteViewSet, AnswerVoteViewSet
@@ -31,6 +28,10 @@ from reports.views import UserCourseStats, CourseStatsByLessonViewSet, UserCours
 from rest_framework import routers
 from django_markdown import flatpages
 
+# Uncomment the next two lines to enable the admin:
+from django.contrib import admin as django_admin
+django_admin.autodiscover()
+
 flatpages.register()
 
 router = routers.DefaultRouter(trailing_slash=False)
@@ -38,6 +39,7 @@ router.register(r'user', TimtecUserViewSet)
 router.register(r'course', CourseViewSet)
 router.register(r'course_carousel', CarouselCourseView)
 router.register(r'course_professor', CourseProfessorViewSet)
+router.register(r'course_professor_picture', CoursePictureUploadViewSet)
 router.register(r'course_student', CourseStudentViewSet)
 router.register(r'professor_message', ProfessorMessageViewSet)
 router.register(r'coursethumbs', CourseThumbViewSet)
@@ -74,6 +76,7 @@ urlpatterns = patterns(
     url(r'^accept_terms/$', AcceptTermsView.as_view(), name='accept_terms'),
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/intro/$', CourseView.as_view(), name='course_intro'),
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/enroll/$', EnrollCourseView.as_view(), name='enroll_course'),
+    url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/resume/$', ResumeCourseView.as_view(), name='resume_course'),
     url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/lesson/(?P<slug>[-a-zA-Z0-9_]+)/$', LessonDetailView.as_view(), name='lesson'),
     url(r'^html5/', TemplateView.as_view(template_name="html5.html")),
     url(r'^empty/', TemplateView.as_view(template_name="empty.html")),

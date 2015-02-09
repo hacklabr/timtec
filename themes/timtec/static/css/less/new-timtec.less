@@ -115,7 +115,9 @@ body {
 
 // fix modal position
 .modal-dialog {
-  margin-top: 170px;
+    @media (min-width: @screen-sm-min) {
+        margin-top: 170px;
+    }
 }
 
 .nav-tabs {

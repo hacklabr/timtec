@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 # configurations for the continous integration server
 # https://docs.djangoproject.com/en/dev/ref/settings/
+import tempfile
+
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-import tempfile
 STATIC_ROOT = tempfile.mkdtemp('static')
 
 ALLOWED_HOSTS = [

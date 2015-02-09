@@ -27,7 +27,7 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           StudentProgressSerializer, CourseNoteSerializer,
                           LessonNoteSerializer, ProfessorMessageSerializer,
                           CourseStudentSerializer, ClassSerializer,
-                          FlatpageSerializer)
+                          FlatpageSerializer, CourseProfessorPictureSerializer)
 
 from .models import (Course, CourseProfessor, Lesson, StudentProgress,
                      Unit, ProfessorMessage, CourseStudent, Class)
@@ -39,11 +39,11 @@ from .permissions import IsProfessorCoordinatorOrAdminPermissionOrReadOnly, IsAd
 
 
 class HomeView(ListView):
-    context_object_name = 'courses'
+    context_object_name = 'home_courses'
     template_name = "home.html"
 
     def get_queryset(self):
-        return Course.objects.all()
+        return Course.objects.filter(home_published=True).order_by('home_position')
 
 if settings.TWITTER_USER != '':
     from twitter import Twitter, OAuth
@@ -165,6 +165,26 @@ class EnrollCourseView(LoginRequiredMixin, RedirectView):
             return reverse_lazy('accept_terms')
 
 
+class ResumeCourseView(LoginRequiredMixin, RedirectView):
+    permanent = False
+
+    def get_object(self):
+        if hasattr(self, 'object'):
+            return self.object
+        self.object = Course.objects.get(**self.kwargs)
+        return self.object
+
+    def get_redirect_url(self, **kwargs):
+        course = self.get_object()
+        if self.request.user.accepted_terms or not settings.TERMS_ACCEPTANCE_REQUIRED:
+            course_student = CourseStudent.objects.get(user=self.request.user, course=course)
+            last_unit = course_student.resume_last_unit()
+            url = reverse_lazy('lesson', args=[course.slug, last_unit.lesson.slug])
+            return url + '#' + str(last_unit.position + 1)
+        else:
+            return reverse_lazy('accept_terms')
+
+
 class AcceptTermsView(FormView):
     template_name = 'accept-terms.html'
     form_class = AcceptTermsForm
@@ -184,13 +204,36 @@ class CourseProfessorViewSet(viewsets.ModelViewSet):
     filter_fields = ('course', 'user', 'role',)
     filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = CourseProfessorSerializer
-    permission_classes = [IsProfessorCoordinatorOrAdminPermissionOrReadOnly, ]
+    permission_classes = (IsProfessorCoordinatorOrAdminPermissionOrReadOnly, )
 
     def pre_save(self, obj):
         # Verify if current user is coordinator. The has_object_permission method is not called when creating objects,
         # so we call it explicitly here. See: https://github.com/tomchristie/django-rest-framework/issues/1103
         self.check_object_permissions(self.request, obj)
         return super(CourseProfessorViewSet, self).pre_save(obj)
+
+    def get_queryset(self):
+        queryset = super(CourseProfessorViewSet, self).get_queryset()
+        has_user = self.request.QUERY_PARAMS.get('has_user', None)
+        if has_user:
+            queryset = queryset.exclude(user=None)
+        return queryset
+
+
+class CoursePictureUploadViewSet(viewsets.ModelViewSet):
+    model = CourseProfessor
+    lookup_field = 'id'
+    serializer_class = CourseProfessorPictureSerializer
+
+    def post(self, request, **kwargs):
+        course = self.get_object()
+        serializer = self.get_serializer(course, request.FILES)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=200)
+        else:
+            return Response(serializer.errors, status=400)
 
 
 class CourseStudentViewSet(viewsets.ModelViewSet):
@@ -223,7 +266,7 @@ class CourseViewSet(viewsets.ModelViewSet):
     filter_fields = ('slug', 'home_published',)
     filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = CourseSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsProfessorCoordinatorOrAdminPermissionOrReadOnly,)
 
     def get_queryset(self):
         queryset = super(CourseViewSet, self).get_queryset()
@@ -258,6 +301,7 @@ class CourseThumbViewSet(viewsets.ModelViewSet):
     model = Course
     lookup_field = 'id'
     serializer_class = CourseThumbSerializer
+    permission_classes = (IsProfessorCoordinatorOrAdminPermissionOrReadOnly, )
 
     def post(self, request, **kwargs):
         course = self.get_object()
@@ -373,7 +417,7 @@ class ClassDeleteView(LoginRequiredMixin, CanEditClassMixin, DeleteView):
     def get_object(self, queryset=None):
         klass = super(ClassDeleteView, self).get_object(queryset=queryset)
 
-        if (klass == klass.course.default_class):
+        if klass == klass.course.default_class:
             raise PermissionDenied
 
         return klass

@@ -129,7 +129,9 @@
                     'scope': {
                         'title_model': '=titleModel',
                         'content': '=content',
+                        'textarea_disabled': '=ngDisabled',
                         'onSave': '&onSave'
+
                     }
                 };
             };

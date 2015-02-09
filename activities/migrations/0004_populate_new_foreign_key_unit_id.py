@@ -2,9 +2,12 @@
 from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import DataMigration
-from django.db import models
+
 
 class Migration(DataMigration):
+    depends_on = (
+        ('core', '0011_auto__add_field_unit_side_notes'),
+    )
 
     def forwards(self, orm):
         Unit = orm['core.Unit']

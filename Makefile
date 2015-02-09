@@ -103,7 +103,7 @@ setup_coveralls:
 	pip install -q coveralls
 
 setup_js:
-	sudo `which npm` install -g less yuglify uglify-js cssmin karma karma-cli karma-phantomjs-launcher karma-jasmine jshint ngmin grunt-cli --loglevel silent
+	sudo `which npm` install -g less@2.2 yuglify uglify-js cssmin karma karma-cli karma-phantomjs-launcher karma-jasmine jshint ngmin grunt-cli --loglevel silent
 	sudo npm install grunt grunt-angular-gettext
 
 setup_django: clean
@@ -113,7 +113,10 @@ setup_django: clean
 	python manage.py compilemessages
 
 dumpdata: clean
-	python manage.py dumpdata --indent=2 -n -e south.migrationhistory -e admin.logentry -e socialaccount.socialaccount -e socialaccount.socialapp -e sessions.session -e contenttypes.contenttype -e auth.permission -e account.emailconfirmation -e socialaccount.socialtoken
+	@python manage.py dumpdata --indent=2 -n -e south.migrationhistory -e admin.logentry -e socialaccount.socialaccount -e socialaccount.socialapp -e sessions.session -e contenttypes.contenttype -e auth.permission -e account.emailconfirmation -e socialaccount.socialtoken
+
+dumpcourses:
+	python manage.py dumpdata --indent=2 -n -e south -e admin -e socialaccount -e sessions -e contenttypes -e auth -e account -e accounts -e notes| gzip -9 > courses.json.gz
 
 reset_db: clean
 	python manage.py reset_db --router=default --noinput -U $(USER)
