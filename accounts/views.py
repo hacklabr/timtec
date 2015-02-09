@@ -7,7 +7,6 @@ from django.utils.http import is_safe_url
 from django.views.generic import UpdateView
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
-from django.db.models import Q
 
 from accounts.forms import ProfileEditForm
 from accounts.serializers import TimtecUserSerializer
@@ -44,17 +43,6 @@ class CustomLoginView(TemplateView):
         return self.render_to_response(context)
 
     def post(self, *argz, **kwargs):
-        # check if the email was verified first
-        from allauth.account.models import EmailAddress
-        try:
-            ea = EmailAddress.objects.get(Q(user__username=self.request.POST['username']) | Q(user__email=self.request.POST['username']))
-        except EmailAddress.DoesNotExist:
-            # if it doens't exist in the EmailAddress database, it's an old
-            # registration, let's authorize
-            pass
-        else:
-            if not ea.verified:
-                return redirect('account_email_verification_sent')
         ret = login(self.request, template_name=CustomLoginView.template_name)
         if type(ret) is TemplateResponse:
             ret.context_data['login_form'] = ret.context_data.pop('form')
