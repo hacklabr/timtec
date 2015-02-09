@@ -116,11 +116,13 @@ $(document).ready(function() {
                     </div>
                 </div>
                 <div ng-show="section=='end'" class="next-lesson">
-                    {% if next_url %}
-                        <a class="btn btn-info" href="{{ next_url }}"><span>Vá para a próxima aula</span><i class="fa fa-caret-right"></i></a>
-                    {% else %}
-                        <a class="btn btn-info" href="{% url 'course_intro' lesson.course.slug %}"><span>Voltar para home do curso</span><i class="fa fa-caret-right"></i></a>
-                    {% endif %}
+                    <div class="centered">
+                        {% if next_url %}
+                            <a class="btn btn-info btn-lg" href="{{ next_url }}"><span>Vá para a próxima aula</span><i class="fa fa-caret-right"></i></a>
+                        {% else %}
+                            <a class="btn btn-info btn-lg" href="{% url 'course_intro' lesson.course.slug %}"><span>Voltar para home do curso</span><i class="fa fa-caret-right"></i></a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
 

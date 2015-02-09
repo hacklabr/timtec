@@ -62,6 +62,29 @@
   }
   // END LESSONS
 
+  .next-lesson {
+    background-color: #fff;
+    height: 347px;
+    text-align:center;
+    @media (min-width: @screen-lg-min) {
+      height: 423px;
+    }
+    &:before {
+      content:'';
+      height:100%;
+      .vertical-align(middle);
+    }
+    .centered {
+      .vertical-align(middle);
+      width:98%;
+    }
+    .btn {
+      span {
+        margin-right: 10px;
+      }
+    }
+  }
+
   // COURSE INSTRUCTORS - Course intro
   // ********************************************************************* //
   .instructors {
