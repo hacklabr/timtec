@@ -2,7 +2,13 @@
 
 {% load staticfiles %}
 {% load i18n %}
+{% load compressed %}
 {% load is_course_coordinator %}
+
+{% block js %}
+    {{ block.super }}
+    {% compressed_js 'core' %}
+{% endblock %}
 
 {% block wrapper_classes %}
 wrapper-course-lesson
@@ -37,7 +43,7 @@ wrapper-course-lesson
 
 <div id="classes" class="course-classes">
     <!-- ACTIONS -->
-    <div class="actions-menu" fixed-bar>
+    <div class="actions-menu" ng-app="core" fixed-bar>
         <div class="container">
             <div class="actions-buttons">
                 <form method="post" action="{% url 'class-delete' pk=class.id %}">
