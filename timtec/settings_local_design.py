@@ -11,7 +11,7 @@ ALLOWED_HOSTS = [
     '.timtec.com.br',
 ]
 
-TIMTEC_THEME = 'new-timtec'
+TIMTEC_THEME = 'if'
 
 DATABASES = {
     'default': {
