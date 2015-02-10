@@ -184,12 +184,24 @@
 
   // COURSE NOTES - General
   // ********************************************************************* //
+  #student-notes {
+    @media (max-width: @screen-xs-max) {
+      margin-top: 30px;
+    }
+  }
+  #student-notes, #materials {
+    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+      margin-top: 30px;
+      margin-left: 13%;
+    }
+  }
   .notes {
     textarea {
       border: 2px solid @gray-lighter;
       height: 235px;
-      @media (min-width: @screen-lg-min) { height: 310px; }
       margin: 20px 0 10px;
+      @media (min-width: @screen-lg-min) { height: 310px; }
+      @media (max-width: @screen-sm-max) { width: 100%; }
     }
     .message {
       font-size: 12px;
