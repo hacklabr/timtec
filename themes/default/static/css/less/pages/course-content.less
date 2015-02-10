@@ -408,3 +408,24 @@ ul.uploaded-files-list {
     }
   }
 }
+
+.course-material {
+  @media (max-width: @screen-xs-min) {
+    blockquote {
+      p {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-size: 14px;
+      }
+    }
+  }
+  .uploaded-files-list {
+    li {
+      overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    }
+
+  }
+}
