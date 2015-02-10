@@ -159,7 +159,7 @@ wrapper-course-intro
 
                         <div class="row" ng-show="!addThumb">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <img preview-image ng-model="thumbfile" class="img-responsive ng-show="thumbfile"/>
+                                <img preview-image ng-model="thumbfile" class="img-responsive" ng-show="thumbfile"/>
                                 {% verbatim %}
                                 <img ng-src="{{course.thumbnail_url}}" class="img-responsive" ng-show="!thumbfile"/>
                                 {% endverbatim %}
