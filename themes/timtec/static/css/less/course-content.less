@@ -116,11 +116,19 @@
 
   // COURSE NOTES - General
   // ********************************************************************* //
+  #student-notes {
+    @media (max-width: @screen-xs-max) {
+      margin: 30px 0 0 15px;
+      width: calc(~"100% - 30px");
+    }
+    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+      margin-left: 15%;
+      width: 79.5%;
+    }
+  }
   .notes {
     textarea {
       margin-top: 0;
-      @media (max-width: @screen-sm-max) { width: 100%; }
-      @media (min-width: @screen-lg-min) { height: 330px; }
     }
     .message {
       color: @state-success-bg;
