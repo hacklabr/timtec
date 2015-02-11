@@ -4,6 +4,10 @@
   a.fa {
     color: #000;
     font-size: 21px;
+    @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+      font-size: 19px;
+      padding: 3px 7px;
+    }
     &:hover {
       color: @brand-info;
 

@@ -57,8 +57,6 @@ update-demo:
 	$(call base_update,demo)
 
 update-staging:
-	$(call resetdb_to_backup,timtec-staging)
-	$(call reset_media)
 	$(call base_update,staging)
 
 update-ifsul:

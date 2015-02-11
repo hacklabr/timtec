@@ -87,6 +87,12 @@ body {
 	padding: 20px;
 	background-color: #1E9DD9;
 	color: #fff;
+    a {
+        color: lighten(@brand-info, 40%);
+        &:hover {
+            color: lighten(@brand-info, 50%);
+        }
+    }
 	.page-header-double {
 		margin-top: 0;
 		h3, i {
@@ -115,7 +121,7 @@ body {
 
 // fix modal position
 .modal-dialog {
-    @media (min-width: @screen-sm-min) {
+    @media (min-width: @screen-md-min) {
         margin-top: 170px;
     }
 }
@@ -125,3 +131,8 @@ body {
     font-family: @font-family-sans-serif;
 }
 
+.accept-terms {
+    form {
+        padding: 0px 0 450px;
+    }
+}
