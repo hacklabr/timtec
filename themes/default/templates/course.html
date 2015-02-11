@@ -91,7 +91,7 @@ wrapper-course-intro
                             {% if course.has_started %}
                                 <a href="{% url "enroll_course" course.slug %}" class="btn btn-lg btn-info col-xs-12 js-login-required uppercase">{% trans "Go to course" %}</a>
                             {% else %}
-                                <span href="#" class="btn btn-lg btn-danger col-xs-12 has-tooltip js-login-required uppercase" data-toggle="tooltip" data-placement="bottom" data-original-title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}" title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}">{% trans "Resume" %}</span>
+                                <span href="#" class="btn btn-lg btn-danger col-xs-12 has-tooltip js-login-required uppercase" data-toggle="tooltip" data-placement="bottom" data-original-title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}" title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}">{% trans "Go to course" %}</span>
                             {% endif %}
                         {% endif %}
                     </div>
@@ -553,7 +553,7 @@ wrapper-course-intro
                     <div class="page-header-double">
                         <h3 class="top"><i class="fa fa-angle-double-right"></i> {% trans 'Start date' %}</h3>
                     </div>
-                    <div class="content">{{ course.start_date }}</div>
+                    <p>{{ course.start_date }}</p>
                     {% endif %}
 
                     <!-- ABSTRACT -->
