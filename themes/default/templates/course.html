@@ -288,6 +288,21 @@ wrapper-course-intro
                 <section class="course-info">
                     <!-- ROW -->
                     <div class="row">
+                        <!-- COURSE-ABSTRACT - VISIBLE ONLY FOR PHONES -->
+                        <div class="hidden-lg hidden-md hidden-sm visible-xs col-xs-12">
+                            <!-- ABSTRACT -->
+                            <div class="page-header-double">
+                                <h3 class="top"><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Abstract' %}</h3>
+                            </div>
+
+                            {% if in_admin %}
+                                <modalmarkdowneditor tabindex="2" on-save="saveCourse()" title="{% trans 'Abstract' %}" content="course.abstract"></modalmarkdowneditor>
+                            {% else %}
+                                {{ course.abstract|timtec_markdown }}
+                            {% endif %}
+                            <!-- END ABSTRACT -->
+                        </div>
+                        <!-- END COURSE-ABSTRACT - VISIBLE ONLY FOR PHONES -->
                         <div class="application col-sm-6 col-xs-12">
                             <div class="page-header-double">
                                 <h3 class="top"><i ng-class="{'blink-text-danger':errors.application}" class="fa fa-angle-double-right"></i> {% trans "Why do this course?" %}</h3>
@@ -329,20 +344,6 @@ wrapper-course-intro
                 <!-- COURSE-SUMMARY - VISIBLE ONLY FOR PHONES -->
                 <section class="summary hidden-lg hidden-md hidden-sm visible-xs row">
                     <div class="col-xs-12">
-                        <!-- ABSTRACT -->
-                        <div class="page-header-double top">
-                            <h3 class="top"><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Abstract' %}</h3>
-                        </div>
-
-                        {% if in_admin %}
-                            <modalmarkdowneditor tabindex="2" on-save="saveCourse()" title="{% trans 'Abstract' %}" content="course.abstract"></modalmarkdowneditor>
-                        {% else %}
-                            {{ course.abstract|timtec_markdown }}
-                        {% endif %}
-
-                        <hr/>
-                        <!-- END ABSTRACT -->
-
                         <!-- COURSE-INSTRUCTORS -->
                         {%  include '_course_authors_inline.html' %}
                     </div>
