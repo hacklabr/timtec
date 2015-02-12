@@ -52,3 +52,10 @@ LOGGING = {
         },
     }
 }
+
+try:
+    # THIS FILE SETS STAGING SPECIFIC
+    # SENSITIVY VALUES (SUCH AS GOOGLE ANALYTICS KEY)
+    from .settings_staging import *
+except ImportError:
+    pass
