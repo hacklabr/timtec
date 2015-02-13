@@ -130,7 +130,7 @@ class Course(models.Model):
 
     @property
     def has_started(self):
-        if self.start_date <= datetime.date.today():
+        if self.start_date and self.start_date <= datetime.date.today():
             return True
         else:
             return False

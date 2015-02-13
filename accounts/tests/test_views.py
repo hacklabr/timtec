@@ -6,8 +6,9 @@ from model_mommy import mommy
 def test_enroll_user_view(rf, user):
     from core.models import Course
     from core.views import EnrollCourseView
+    import datetime
 
-    course = mommy.make('Course', slug='acceptance_enroll_user')
+    course = mommy.make('Course', slug='acceptance_enroll_user', start_date=datetime.date.today())
     lesson = mommy.make('Lesson', course=course, slug='lesson')
 
     request = rf.get('/courses/' + course.slug + '/enroll/')
