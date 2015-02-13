@@ -42,7 +42,7 @@ wrapper-course-lesson
                                 <header>
                                     <div class="row">
                                         <div class="col-sm-8">
-                                            <h1>{{ cs.course.name }}</h1>
+                                            <h1><a href="{% url 'resume_course' cs.course.slug %}">{{ cs.course.name }}</a></h1>
                                         </div>
                                         <div class="col-sm-4 textright">
                                             <div class="btn-group">
@@ -67,7 +67,7 @@ wrapper-course-lesson
                             <div class="course clearfix" ng-repeat="courseprofessor in courses_user_assist">
                                 <div class="col-lg-12">
                                     {% verbatim %}
-                                    <h1><a href="/courses/{{ courseprofessor.course_info.slug }}/intro/" title="{{ courseprofessor.course_info.name }}">{{ courseprofessor.course_info.name }}</a></h1>
+                                    <h1><a ng-href="/course/{{ courseprofessor.course_info.slug }}/intro/" title="{{ courseprofessor.course_info.name }}">{{ courseprofessor.course_info.name }}</a></h1>
                                     {% endverbatim %}
 
                                     <div class="row">
@@ -135,7 +135,7 @@ wrapper-course-lesson
                             <div class="course clearfix" ng-repeat="courseprofessor in courses_user_coordinate">
                                 <div class="col-lg-12">
                                     {% verbatim %}
-                                    <h1><a href="/admin/courses/{{ courseprofessor.course_info.id }}" title="{{ courseprofessor.course_info.name }}">{{ courseprofessor.course_info.name }}</a></h1>
+                                    <h1><a ng-href="/admin/courses/{{ courseprofessor.course_info.id }}" title="{{ courseprofessor.course_info.name }}">{{ courseprofessor.course_info.name }}</a></h1>
                                     {% endverbatim %}
 
                                     <div class="row">
