@@ -76,26 +76,25 @@ wrapper-course-intro
                     <h1><i class="fa fa-angle-double-right"></i> {{course.name}}</h1>
                     {% include "_course-details-inline.html" with course=course %}
                 </div>
-                {% if course.first_lesson.slug %}
                     <div class="col-sm-4 col-md-3 col-xs-12 textright">
                         {% if user_is_enrolled and not course.has_started %}
-                            <span class="btn btn-lg btn-danger col-xs-12 has-tooltip js-login-required uppercase"
+                            <span class="col-xs-12 has-tooltip js-login-required uppercase"
                                   href="#"
                                   data-toggle="tooltip"
                                   data-placement="bottom"
-                                  data-original-title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}"
-                                  title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}">
-                                {% trans "Go to course" %}
+                                  data-original-title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }} e vocẽ já está inscrito.{% endblocktrans %}"
+                                  title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }} e vocẽ já está inscrito.{% endblocktrans %}">
+                                <button class="btn btn-lg btn-danger col-xs-12" ng-disabled="true">{% trans "Go to course" %}</button>
                             </span>
-                        {% else %}
+                        {% else %} {# user is not enrolled #}
                             {% if course.has_started %}
                                 <a href="{% url "enroll_course" course.slug %}" class="btn btn-lg btn-info col-xs-12 js-login-required uppercase">{% trans "Go to course" %}</a>
                             {% else %}
-                                <span href="#" class="btn btn-lg btn-danger col-xs-12 has-tooltip js-login-required uppercase" data-toggle="tooltip" data-placement="bottom" data-original-title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}" title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }}{% endblocktrans %}">{% trans "Go to course" %}</span>
+                                <a href="{% url "enroll_course" course.slug %}" class="btn btn-lg btn-info col-xs-12 js-login-required uppercase">{% trans "Subscribe" %}</a>
                             {% endif %}
                         {% endif %}
                     </div>
-                {% endif %}
+
             </div>
             <!-- END ROW -->
         </div>
@@ -288,6 +287,21 @@ wrapper-course-intro
                 <section class="course-info">
                     <!-- ROW -->
                     <div class="row">
+                        <!-- COURSE-ABSTRACT - VISIBLE ONLY FOR PHONES -->
+                        <div class="hidden-lg hidden-md hidden-sm visible-xs col-xs-12">
+                            <!-- ABSTRACT -->
+                            <div class="page-header-double">
+                                <h3 class="top"><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Abstract' %}</h3>
+                            </div>
+
+                            {% if in_admin %}
+                                <modalmarkdowneditor tabindex="2" on-save="saveCourse()" title="{% trans 'Abstract' %}" content="course.abstract"></modalmarkdowneditor>
+                            {% else %}
+                                {{ course.abstract|timtec_markdown }}
+                            {% endif %}
+                            <!-- END ABSTRACT -->
+                        </div>
+                        <!-- END COURSE-ABSTRACT - VISIBLE ONLY FOR PHONES -->
                         <div class="application col-sm-6 col-xs-12">
                             <div class="page-header-double">
                                 <h3 class="top"><i ng-class="{'blink-text-danger':errors.application}" class="fa fa-angle-double-right"></i> {% trans "Why do this course?" %}</h3>
@@ -329,20 +343,6 @@ wrapper-course-intro
                 <!-- COURSE-SUMMARY - VISIBLE ONLY FOR PHONES -->
                 <section class="summary hidden-lg hidden-md hidden-sm visible-xs row">
                     <div class="col-xs-12">
-                        <!-- ABSTRACT -->
-                        <div class="page-header-double top">
-                            <h3 class="top"><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Abstract' %}</h3>
-                        </div>
-
-                        {% if in_admin %}
-                            <modalmarkdowneditor tabindex="2" on-save="saveCourse()" title="{% trans 'Abstract' %}" content="course.abstract"></modalmarkdowneditor>
-                        {% else %}
-                            {{ course.abstract|timtec_markdown }}
-                        {% endif %}
-
-                        <hr/>
-                        <!-- END ABSTRACT -->
-
                         <!-- COURSE-INSTRUCTORS -->
                         {%  include '_course_authors_inline.html' %}
                     </div>
@@ -350,9 +350,8 @@ wrapper-course-intro
                 <!-- END COURSE-SUMMARY - VISIBLE ONLY FOR PHONES -->
 
                 <!-- COURSE-LESSONS -->
-                <section class="lessons" id="lesson-list">
                     {% if in_admin %}
-
+                    <section class="lessons" id="lesson-list">
                         <!-- PAGE-HEADER-DOUBLE -->
                         <div class="page-header-double">
                             <h3><i class="fa fa-angle-double-right"></i> {% trans "Lessons" %}</h3>
@@ -461,80 +460,82 @@ wrapper-course-intro
                                 <a href="/admin/courses/{{course.id}}/lessons/new" class="col-lg-12 btn btn-lg btn-default uppercase">{% endverbatim %}{% trans 'Add lesson' %}</a>
                             </div>
                         </div>
+                    </section>
                     {% else %}
                         {% if user.is_authenticated and course.has_started %}
-                        <!-- PAGE-HEADER-DOUBLE -->
-                        <div class="page-header-double">
-                            <h3><i class="fa fa-angle-double-right"></i> {% trans "Lessons" %}</h3>
-                        </div>
-                        <!-- END PAGE-HEADER-DOUBLE -->
-                        <!-- FOR LESSON IN COURSE.PUBLIC_LESSONS -->
-                        {% for lesson in course.public_lessons %}
-                            <!-- LESSON -->
-                            <div class="lesson row">
-                                <!-- COL-LG-3 -->
-                                <div class="col-lg-3 col-sm-3 col-sm-3 hidden-xs">
-                                    <img src="{{ lesson.thumbnail }}" class="img-thumbnail img-responsive">
-                                </div>
-                                <!-- END COL-LG-3 -->
+                        <section class="lessons" id="lesson-list">
+                            <!-- PAGE-HEADER-DOUBLE -->
+                            <div class="page-header-double">
+                                <h3><i class="fa fa-angle-double-right"></i> {% trans "Lessons" %}</h3>
+                            </div>
+                            <!-- END PAGE-HEADER-DOUBLE -->
+                            <!-- FOR LESSON IN COURSE.PUBLIC_LESSONS -->
+                            {% for lesson in course.public_lessons %}
+                                <!-- LESSON -->
+                                <div class="lesson row">
+                                    <!-- COL-LG-3 -->
+                                    <div class="col-lg-3 col-sm-3 col-sm-3 hidden-xs">
+                                        <img src="{{ lesson.thumbnail }}" class="img-thumbnail img-responsive">
+                                    </div>
+                                    <!-- END COL-LG-3 -->
 
-                                <!-- COL-LG-9 -->
-                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                    <!-- COL-LG-9 -->
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 
-                                    <p>
-                                        {% if lesson.is_ready and user_is_enrolled %}
-                                            <a href="{% url 'lesson' course.slug lesson.slug %}" class="title">{{ lesson.name }}</a>
-                                        {% else %}
-                                            <span class="title">{{ lesson.name }}</span>
-                                        {% endif %}
-                                        <div class="description">{{ lesson.desc|timtec_markdown }}</div>
-                                    </p>
+                                        <p>
+                                            {% if lesson.is_ready and user_is_enrolled %}
+                                                <a href="{% url 'lesson' course.slug lesson.slug %}" class="title">{{ lesson.name }}</a>
+                                            {% else %}
+                                                <span class="title">{{ lesson.name }}</span>
+                                            {% endif %}
+                                            <div class="description">{{ lesson.desc|timtec_markdown }}</div>
+                                        </p>
 
-                                    <!-- HIDDEN-XS -->
-                                    <div class="hidden-xs">
-                                        <!-- TABLE -->
-                                        <table class="units table ">
-                                            <!-- TR -->
-                                            <tr>
-                                                <!-- FOR UNIT IN UNITS -->
-                                                {% for unit in lesson.units.all %}
-                                                    <!-- TD -->
-                                                    <td>
-                                                        {% if lesson.is_ready and user_is_enrolled %}
-                                                            <a class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
-                                                               data-toggle="tooltip" data-placement="bottom"
-                                                               data-original-title="Unidade {{ forloop.counter }}"
-                                                               href="{% url 'lesson' course.slug lesson.slug %}#/{{ forloop.counter }}">
-                                                               {% if unit.activities.exists %}
-                                                                   <i class="fa fa-list"></i>
-                                                               {% endif %}
-                                                            </a>
-                                                        {% else %}
-                                                            <span class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
-                                                                  data-toggle="tooltip" data-placement="bottom"
-                                                                  data-original-title="Unidade {{ forloop.counter }}">
-                                                                  {% if unit.activities.exists %}
-                                                                      <i class="fa fa-list"></i>
-                                                                  {% endif %}
-                                                            </span>
-                                                        {% endif %}
-                                                    </td>
-                                                    <!-- END TD -->
-                                                {% endfor %}
-                                                <!-- END FOR -->
-                                            </tr>
-                                            <!-- END TR -->
-                                        </table>
-                                        <!-- END TABLE -->
+                                        <!-- HIDDEN-XS -->
+                                        <div class="hidden-xs">
+                                            <!-- TABLE -->
+                                            <table class="units table ">
+                                                <!-- TR -->
+                                                <tr>
+                                                    <!-- FOR UNIT IN UNITS -->
+                                                    {% for unit in lesson.units.all %}
+                                                        <!-- TD -->
+                                                        <td>
+                                                            {% if lesson.is_ready and user_is_enrolled %}
+                                                                <a class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
+                                                                   data-toggle="tooltip" data-placement="bottom"
+                                                                   data-original-title="Unidade {{ forloop.counter }}"
+                                                                   href="{% url 'lesson' course.slug lesson.slug %}#/{{ forloop.counter }}">
+                                                                   {% if unit.activities.exists %}
+                                                                       <i class="fa fa-list"></i>
+                                                                   {% endif %}
+                                                                </a>
+                                                            {% else %}
+                                                                <span class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
+                                                                      data-toggle="tooltip" data-placement="bottom"
+                                                                      data-original-title="Unidade {{ forloop.counter }}">
+                                                                      {% if unit.activities.exists %}
+                                                                          <i class="fa fa-list"></i>
+                                                                      {% endif %}
+                                                                </span>
+                                                            {% endif %}
+                                                        </td>
+                                                        <!-- END TD -->
+                                                    {% endfor %}
+                                                    <!-- END FOR -->
+                                                </tr>
+                                                <!-- END TR -->
+                                            </table>
+                                            <!-- END TABLE -->
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- END LESSON -->
-                        {% endfor %}
-                        <!-- END FOR LESSON IN COURSE.PUBLIC_LESSONS -->
+                                <!-- END LESSON -->
+                            {% endfor %}
+                            <!-- END FOR LESSON IN COURSE.PUBLIC_LESSONS -->
+                        </section>
                         {% endif %}
                     {% endif %}
-                </section>
                 <!-- END COURSE-LESSONS -->
             </div>
 
