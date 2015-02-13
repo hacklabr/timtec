@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-11 01:33-0200\n"
-"PO-Revision-Date: 2015-02-11 01:39-0200\n"
+"POT-Creation-Date: 2015-02-13 18:03-0200\n"
+"PO-Revision-Date: 2015-02-13 18:07-0200\n"
 "Last-Translator: Administrador TIMTec <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -248,7 +248,7 @@ msgid "Message"
 msgstr "Mensagem"
 
 #: core/models.py:29 core/models.py:428
-#: themes/default/templates/course.html:120
+#: themes/default/templates/course.html:119
 #: themes/default/templates/administration/lesson.html:94
 msgid "Video"
 msgstr "Video"
@@ -276,8 +276,8 @@ msgid "New"
 msgstr "Novo"
 
 #: core/models.py:67 core/models.py:380
-#: themes/default/templates/course.html:380
-#: themes/default/templates/course.html:391
+#: themes/default/templates/course.html:379
+#: themes/default/templates/course.html:390
 #: themes/default/templates/user-courses.html:75
 #: themes/default/templates/user-courses.html:143
 #: themes/default/templates/user-courses.html:188
@@ -287,15 +287,15 @@ msgid "Draft"
 msgstr "Rascunho"
 
 #: core/models.py:68 core/models.py:381
-#: themes/default/templates/course.html:381
-#: themes/default/templates/course.html:395
+#: themes/default/templates/course.html:380
+#: themes/default/templates/course.html:394
 #: themes/default/templates/administration/courses.html:83
 msgid "Listed"
 msgstr "Listado"
 
 #: core/models.py:69 core/models.py:382
-#: themes/default/templates/course.html:382
-#: themes/default/templates/course.html:399
+#: themes/default/templates/course.html:381
+#: themes/default/templates/course.html:398
 #: themes/default/templates/user-courses.html:76
 #: themes/default/templates/user-courses.html:90
 #: themes/default/templates/user-courses.html:144
@@ -315,7 +315,7 @@ msgstr "Slug"
 msgid "Intro video"
 msgstr "Vídeo introdutório"
 
-#: core/models.py:75 themes/default/templates/course.html:297
+#: core/models.py:75 themes/default/templates/course.html:311
 msgid "Application"
 msgstr "Aplicação"
 
@@ -323,10 +323,10 @@ msgstr "Aplicação"
 msgid "Requirement"
 msgstr "Requisitos"
 
-#: core/models.py:77 themes/default/templates/course.html:334
-#: themes/default/templates/course.html:338
-#: themes/default/templates/course.html:561
-#: themes/default/templates/course.html:565
+#: core/models.py:77 themes/default/templates/course.html:294
+#: themes/default/templates/course.html:298
+#: themes/default/templates/course.html:562
+#: themes/default/templates/course.html:566
 msgid "Abstract"
 msgstr "Resumo"
 
@@ -351,18 +351,18 @@ msgstr "Situação"
 msgid "Publication"
 msgstr "Publicação"
 
-#: core/models.py:83 themes/default/templates/course.html:124
-#: themes/default/templates/course.html:141
+#: core/models.py:83 themes/default/templates/course.html:123
+#: themes/default/templates/course.html:140
 msgid "Thumbnail"
 msgstr "Thumbnail"
 
-#: core/models.py:86 themes/default/templates/course.html:128
-#: themes/default/templates/course.html:185
+#: core/models.py:86 themes/default/templates/course.html:127
+#: themes/default/templates/course.html:184
 msgid "Home thumbnail"
 msgstr "Home thumbnail"
 
-#: core/models.py:88 themes/default/templates/course.html:547
-#: themes/default/templates/course.html:554
+#: core/models.py:88 themes/default/templates/course.html:548
+#: themes/default/templates/course.html:555
 msgid "Start date"
 msgstr "Data de início"
 
@@ -423,8 +423,8 @@ msgstr "Anotações"
 msgid "Lesson"
 msgstr "Aula"
 
-#: core/models.py:397 themes/default/templates/course.html:358
-#: themes/default/templates/course.html:468
+#: core/models.py:397 themes/default/templates/course.html:357
+#: themes/default/templates/course.html:469
 #: themes/default/templates/administration/stats.html:77
 msgid "Lessons"
 msgstr "Aulas"
@@ -598,7 +598,7 @@ msgstr "Fechar"
 #: themes/default/templates/class_edit.html:54
 #: themes/default/templates/course-material.html:75
 #: themes/default/templates/course.html:52
-#: themes/default/templates/course.html:413
+#: themes/default/templates/course.html:412
 #: themes/default/templates/home.html:30
 #: themes/default/templates/profile-edit.html:162
 #: themes/default/templates/account/password_reset_from_key.html:32
@@ -655,10 +655,10 @@ msgstr "Usar biografia do perfil do usuário"
 
 #: themes/default/templates/_course_professors_modal.html:85
 #: themes/default/templates/course-material.html:72
-#: themes/default/templates/course.html:150
-#: themes/default/templates/course.html:194
-#: themes/default/templates/course.html:258
-#: themes/default/templates/course.html:412
+#: themes/default/templates/course.html:149
+#: themes/default/templates/course.html:193
+#: themes/default/templates/course.html:257
+#: themes/default/templates/course.html:411
 #: themes/default/templates/home.html:29
 #: themes/default/templates/home.html:253
 #: themes/default/templates/administration/courses.html:38
@@ -861,84 +861,83 @@ msgstr "Você não fez nenhuma anotação ainda."
 msgid "Publish"
 msgstr "Publicar"
 
+#: themes/default/templates/course.html:85
 #: themes/default/templates/course.html:86
-#: themes/default/templates/course.html:87
-#: themes/default/templates/course.html:94
-#, python-format
-msgid "Este curso começa dia %(start_date)s"
-msgstr "Este curso começa dia %(start_date)s"
+#, fuzzy, python-format
+msgid "Este curso começa dia %(start_date)s e vocẽ já está inscrito."
+msgstr "Este curso começa dia %(start_date)s e você já está inscrito"
 
-#: themes/default/templates/course.html:88
-#: themes/default/templates/course.html:92
+#: themes/default/templates/course.html:87
+#: themes/default/templates/course.html:91
 #: themes/default/templates/courses.html:67
 msgid "Go to course"
 msgstr "Ir para curso"
 
-#: themes/default/templates/course.html:94
-msgid "Resume"
-msgstr "Ir para o curso"
+#: themes/default/templates/course.html:93
+msgid "Subscribe"
+msgstr "Inscrever-se"
 
-#: themes/default/templates/course.html:142
+#: themes/default/templates/course.html:141
 msgid "min-width"
 msgstr "tam. mínimo"
 
-#: themes/default/templates/course.html:153
-#: themes/default/templates/course.html:197
-#: themes/default/templates/course.html:262
+#: themes/default/templates/course.html:152
+#: themes/default/templates/course.html:196
+#: themes/default/templates/course.html:261
 #: themes/default/templates/administration/lesson.html:142
 msgid "Add"
 msgstr "Adicionar"
 
-#: themes/default/templates/course.html:170
-#: themes/default/templates/course.html:212
+#: themes/default/templates/course.html:169
+#: themes/default/templates/course.html:211
 msgid "Change thumbnail"
 msgstr "Trocar thumbnail"
 
-#: themes/default/templates/course.html:242
+#: themes/default/templates/course.html:241
 #: themes/default/templates/administration/lesson.html:159
 msgid "Change video"
 msgstr "Trocar vídeo"
 
-#: themes/default/templates/course.html:252
+#: themes/default/templates/course.html:251
 msgid "Introduction video"
 msgstr "Vídeo introdutório"
 
-#: themes/default/templates/course.html:293
+#: themes/default/templates/course.html:307
 msgid "Why do this course?"
 msgstr "Por que fazer esse curso?"
 
-#: themes/default/templates/course.html:305
+#: themes/default/templates/course.html:319
 msgid "What do I have to know?"
 msgstr "O que eu preciso saber?"
 
-#: themes/default/templates/course.html:308
+#: themes/default/templates/course.html:322
 msgid "Requirements"
 msgstr "Requisitos"
 
-#: themes/default/templates/course.html:315
-#: themes/default/templates/course.html:318
+#: themes/default/templates/course.html:329
+#: themes/default/templates/course.html:332
 msgid "Estrutura do Curso"
 msgstr "Estrutura do Curso"
 
-#: themes/default/templates/course.html:362
+#: themes/default/templates/course.html:361
 msgid "Organize lesson"
 msgstr "Organizar aulas"
 
-#: themes/default/templates/course.html:374
-#: themes/default/templates/course.html:430
+#: themes/default/templates/course.html:373
+#: themes/default/templates/course.html:429
 #: themes/default/templates/administration/lesson.html:67
 msgid "Lesson name"
 msgstr "Nome da aula"
 
-#: themes/default/templates/course.html:451
+#: themes/default/templates/course.html:450
 msgid "videos"
 msgstr "videos"
 
-#: themes/default/templates/course.html:451
+#: themes/default/templates/course.html:450
 msgid "activities"
 msgstr "atividades"
 
-#: themes/default/templates/course.html:461
+#: themes/default/templates/course.html:460
 msgid "Add lesson"
 msgstr "Adicionar aula"
 
@@ -1124,7 +1123,7 @@ msgstr "Confirme sua senha"
 #: themes/default/templates/home.html:26 themes/default/templates/home.html:52
 #: themes/timtec/templates/home.html:26
 msgid "Organize courses"
-msgstr "Organizar instrutores"
+msgstr "Organizar cursos"
 
 #: themes/default/templates/home.html:28 themes/timtec/templates/home.html:28
 msgid "Choose home courses"
@@ -1644,6 +1643,12 @@ msgstr "Espanhol"
 msgid "English"
 msgstr "Inglês"
 
+#~ msgid "Este curso começa dia %(start_date)s"
+#~ msgstr "Este curso começa dia %(start_date)s"
+
+#~ msgid "Resume"
+#~ msgstr "Ir para o curso"
+
 #~ msgid "Annotations"
 #~ msgstr "Anotações"
 
@@ -1652,9 +1657,6 @@ msgstr "Inglês"
 
 #~ msgid "Take the Class"
 #~ msgstr "Fazer o curso"
-
-#~ msgid "Este curso começa dia %(start_date)s e você já está inscrito"
-#~ msgstr "Este curso começa dia %(start_date)s e você já está inscrito"
 
 #~ msgid "My notes"
 #~ msgstr "Minhas Anotações"
