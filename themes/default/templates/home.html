@@ -137,11 +137,11 @@ home
                     </modalmarkdowneditorwithtitle>
                 </div>
                 {% else %}
+                {% get_flatpage '/home/bottom/intro/' as home_bottom_intro %}
                 <header>
-                    <h1>Saiba mais sobre o MOOC IFSul</h1>
+                    <h1>{{ home_bottom_intro.title }}</h1>
                 </header>
                 <div class="highlight textcenter">
-                        {% get_flatpage '/home/bottom/intro/' as home_bottom_intro %}
                         <p>{{ home_bottom_intro.content }}</p>
                 </div>
                 {% endif %}
