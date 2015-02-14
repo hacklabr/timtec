@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-02-13 18:03-0200\n"
-"PO-Revision-Date: 2015-02-13 18:07-0200\n"
+"PO-Revision-Date: 2015-02-14 03:11-0200\n"
 "Last-Translator: Administrador TIMTec <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -871,7 +871,7 @@ msgstr "Este curso começa dia %(start_date)s e você já está inscrito"
 #: themes/default/templates/course.html:91
 #: themes/default/templates/courses.html:67
 msgid "Go to course"
-msgstr "Ir para curso"
+msgstr "Ir para o curso"
 
 #: themes/default/templates/course.html:93
 msgid "Subscribe"
