@@ -177,6 +177,7 @@
 
             $scope.open_professor_modal = function(course_professor) {
 
+                $scope.courseProfessors_original = angular.copy($scope.courseProfessors);
                 var modalInstance = $modal.open({
                        templateUrl: 'course_professor_modal.html',
                        controller: CourseProfessorModalInstanceCtrl,
@@ -231,6 +232,9 @@
                             $scope.alert.error('Não foi possível atualizar o professor do curso!');
                         });
                     }
+                },
+                function() {
+                    $scope.courseProfessors = angular.copy($scope.courseProfessors_original);
                 });
             };
 
@@ -287,8 +291,8 @@
                 };
 
                 $scope.remove_professor = function() {
-                    delete $scope.course_professor.user;
-                    delete $scope.course_professor.user_info;
+                    $scope.course_professor.user = null;
+                    $scope.course_professor.user_info = null;
                     $scope.name_from_user_profile = false;
                     $scope.biography_from_user_profile = false;
                     $scope.picture_from_user_profile = false;
