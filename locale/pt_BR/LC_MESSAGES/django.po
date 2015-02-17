@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-02-13 18:03-0200\n"
-"PO-Revision-Date: 2015-02-14 03:11-0200\n"
+"PO-Revision-Date: 2015-02-17 03:06-0200\n"
 "Last-Translator: Administrador TIMTec <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -672,7 +672,7 @@ msgstr "Cancelar"
 #: themes/default/templates/question-create.html:33
 #: themes/default/templates/question.html:33
 msgid "Questions & Answers"
-msgstr "Perguntas & Respostas"
+msgstr "Perguntas e Respostas"
 
 #: themes/default/templates/_forum_inline.html:26
 #: themes/default/templates/question-create.html:49
@@ -693,7 +693,7 @@ msgstr "Descrição da sua pergunta"
 
 #: themes/default/templates/_forum_inline.html:47
 msgid "Questions & Answers policy"
-msgstr "Policias de Perguntas e Respostas"
+msgstr "Política de Perguntas e Respostas"
 
 #: themes/default/templates/_forum_inline.html:50
 #: themes/default/templates/_forum_inline.html:168
