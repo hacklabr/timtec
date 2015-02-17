@@ -2,6 +2,7 @@
 from django.contrib.auth import get_user_model
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 
 User = get_user_model()
 
@@ -32,3 +33,21 @@ class ProfileEditForm(forms.ModelForm):
         if self.cleaned_data['password1']:
             self.instance.set_password(self.cleaned_data['password1'])
         return super(ProfileEditForm, self).save(commit=commit)
+
+
+class AcceptTermsForm(forms.Form):
+    accept_terms = forms.BooleanField(label=_('Accept '), initial=False, required=False)
+
+    def clean_accept_terms(self):
+        data = self.cleaned_data['accept_terms']
+        if settings.TERMS_ACCEPTANCE_REQUIRED and not data:
+                raise forms.ValidationError(_('You must agree to the Terms of Use to use %(site_name)s.'),
+                                            params={'site_name': settings.SITE_NAME},)
+        return self.cleaned_data['accept_terms']
+
+
+class SignupForm(AcceptTermsForm):
+
+    def signup(self, request, user):
+        user.accepted_terms = self.cleaned_data['accept_terms']
+        user.save()

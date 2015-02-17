@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 from django.views.generic import TemplateView
 from accounts.views import (ProfileEditView, ProfileView, UserSearchView,
-                            TimtecUserViewSet, StudentSearchView)
+                            TimtecUserViewSet, StudentSearchView, AcceptTermsView)
 from forum.views import AnswerViewSet as ForumAnswerViewSet, ForumModeratorView
 
 from core.views import (CourseView, GenericCourseView, CourseViewSet,
@@ -14,7 +14,7 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         LessonViewSet, StudentProgressViewSet,
                         UserNotesViewSet, CoursesView, CourseThumbViewSet,
                         ProfessorMessageViewSet, CourseStudentViewSet,
-                        AcceptTermsView, CarouselCourseView, ClassListView,
+                        CarouselCourseView, ClassListView,
                         ClassCreateView, ClassUpdateView, ClassDeleteView,
                         ClassRemoveUserView, ClassAddUsersView, ClassViewSet,
                         FlatpageViewSet, CoursePictureUploadViewSet,

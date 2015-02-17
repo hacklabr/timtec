@@ -1,11 +1,11 @@
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import get_object_or_404
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, FormView
 from django.views.generic.detail import DetailView
 from django.db.models import Q
 
-from accounts.forms import ProfileEditForm
+from accounts.forms import ProfileEditForm, AcceptTermsForm
 from accounts.serializers import TimtecUserSerializer
 from braces.views import LoginRequiredMixin
 
@@ -89,3 +89,16 @@ class StudentSearchView(LoginRequiredMixin, generics.ListAPIView):
                                        Q(username__icontains=query) |
                                        Q(email__icontains=query))
         return queryset
+
+
+class AcceptTermsView(FormView):
+    template_name = 'accept-terms.html'
+    form_class = AcceptTermsForm
+    success_url = reverse_lazy('courses')
+
+    def form_valid(self, form):
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+        self.request.user.accepted_terms = True
+        self.request.user.save()
+        return super(AcceptTermsView, self).form_valid(form)
