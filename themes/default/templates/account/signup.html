@@ -40,6 +40,19 @@
         </div>
         {% endwith %}
 
+    	{% if terms_required %}
+		{% with errors=form.accept_terms.errors %}
+		<div class="form-group{{ errors|yesno:' has-error,' }}">
+			<div class="col-lg-4 col-sm-4 control-label">
+				<span class="checkbox-wrapper"><input name="accept_terms" type="checkbox" {% if form.accept_terms.value %}checked=""{% endif %}></span>
+				{% url 'django.contrib.flatpages.views.flatpage' url='terms/' as terms_url %}
+				<label>{% blocktrans %}I agree to the <a href="terms_url" target="_blank">Terms of Use{% endblocktrans %}</a></label>
+				{% for error in errors %}<small>{{error}}</small>{% endfor %}
+			</div>
+		</div>
+		{% endwith %}
+    	{% endif %}
+
         <div class="submit textright">
             <button class="btn btn-success">{% trans "Sign Up" %}</button>
         </div>
@@ -97,6 +110,19 @@
             </div>
         </div>
         {% endwith %}
+
+    	{% if terms_required %}
+		{% with errors=form.accept_terms.errors %}
+		<div class="form-group{{ errors|yesno:' has-error,' }}">
+			<div class="col-lg-4 col-sm-4 control-label">
+				<span class="checkbox-wrapper"><input name="accept_terms" type="checkbox" {% if form.accept_terms.value %}checked=""{% endif %}></span>
+				{% url 'django.contrib.flatpages.views.flatpage' url='terms/' as terms_url %}
+				<label>{% blocktrans %}I agree to the <a href="terms_url" target="_blank">Terms of Use{% endblocktrans %}</a></label>
+				{% for error in errors %}<small>{{error}}</small>{% endfor %}
+			</div>
+		</div>
+		{% endwith %}
+    	{% endif %}
 
         <div class="submit">
             <button class="btn btn-success btn-lg col-xs-12">{% trans "Sign Up" %}</button>
