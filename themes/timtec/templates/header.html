@@ -134,7 +134,7 @@
 
                         	{% if terms_required %}
 							<div class="col-sm-5 col-xs-12 control-label">
-								<span class="checkbox-wrapper"><input name="accept_terms" type="checkbox" checked></span>
+								<span class="checkbox-wrapper"><input name="accept_terms" type="checkbox"></span>
                 				{% url 'django.contrib.flatpages.views.flatpage' url='terms/' as terms_url %}
 								<label>{% blocktrans %}I agree to the <a href="terms_url" target="_blank">Terms of Use{% endblocktrans %}</a></label>
 							</div>
