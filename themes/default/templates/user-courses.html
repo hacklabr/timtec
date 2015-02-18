@@ -25,7 +25,7 @@ wrapper-course-lesson
 
             <section class="courses" role="tabpanel">
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#course-as-student" aria-controls="course-as-student" role="tab" data-toggle="tab">{% trans "Courses I follow" %}</a></li>
+                    <li role="presentation" class="active"><a href="#course-as-student" aria-controls="course-as-student" role="tab" data-toggle="tab">{% trans "Courses I'm enrolled" %}</a></li>
                     {% if courses_user_assist %}
                     <li role="presentation"><a href="#course-as-teacher" aria-controls="course-as-teacher" role="tab" data-toggle="tab">{% trans "Courses I assist" %}</a></li>
                     {% endif %}
@@ -37,6 +37,18 @@ wrapper-course-lesson
                 <!-- Tab panes -->
                 <div class="tab-content" ng-app="courses" ng-controller="CourseListByUserRoleController">
                     <div role="tabpanel" class="tab-pane active" id="course-as-student">
+                    	{% with courses_user_enrolled=request.user.coursestudent_set.all %}
+                    	{% if not courses_user_enrolled %}
+                        	<div class="course">
+                                <header>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <p>{% trans 'You are not enrolled in any course yet.' %}</p>
+									    </div>
+									</div>
+                        		</header>
+                        	</div>
+                    	{% endif %}
                         {% for cs in request.user.coursestudent_set.all %}
                             <div class="course">
                                 <header>
@@ -60,6 +72,7 @@ wrapper-course-lesson
             {#                    <span class="info">0 min of lecture and 0 quizzes remaining in 1.1a Equivalent Fractions.</span>#}
                             </div>
                         {% endfor %}
+                    	{% endwith %}
                     </div>
                     <div role="tabpanel" class="tab-pane" id="course-as-teacher">
                         <section class="courses">
