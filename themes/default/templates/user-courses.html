@@ -26,10 +26,10 @@ wrapper-course-lesson
             <section class="courses" role="tabpanel">
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#course-as-student" aria-controls="course-as-student" role="tab" data-toggle="tab">{% trans "Courses I follow" %}</a></li>
-                    {% if courses_user_assist or request.user.is_superuser %}
+                    {% if courses_user_assist %}
                     <li role="presentation"><a href="#course-as-teacher" aria-controls="course-as-teacher" role="tab" data-toggle="tab">{% trans "Courses I assist" %}</a></li>
                     {% endif %}
-                    {% if courses_user_coordinate or request.user.is_superuser %}
+                    {% if courses_user_coordinate %}
                     <li role="presentation"><a href="#course-as-coordinator" aria-controls="course-as-coordinator" role="tab" data-toggle="tab">{% trans "Courses I coordinate" %}</a></li>
                     {% endif %}
                 </ul>
