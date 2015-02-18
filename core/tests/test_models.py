@@ -73,19 +73,27 @@ def test_resume(user):
 
     course = mommy.make('Course')
     course_student = mommy.make('CourseStudent', user=user, course=course)
-    assert course_student.resume_last_unit() is None
+    assert course_student.resume_next_unit() is None
 
-    lesson = mommy.make('Lesson', slug='lesson', desc='', name='l1', notes='', course=course)
-    assert course_student.resume_last_unit() is None
+    lesson1 = mommy.make('Lesson', slug='lesson1', desc='', name='l1', notes='', course=course, position=1)
+    lesson2 = mommy.make('Lesson', slug='lesson2', desc='', name='l1', notes='', course=course, position=2)
+    mommy.make('Lesson', slug='lesson3', desc='', name='l1', notes='', course=course, position=3)
+    assert course_student.resume_next_unit() is None
 
-    unit1 = mommy.make('Unit', title='unit1', lesson=lesson)
-    assert course_student.resume_last_unit() == unit1
+    unit1 = mommy.make('Unit', title='unit1', lesson=lesson1)
+    assert course_student.resume_next_unit() == unit1
 
-    unit2 = mommy.make('Unit', title='unit2', lesson=lesson)
-    assert course_student.resume_last_unit() == unit1
+    unit2 = mommy.make('Unit', title='unit2', lesson=lesson1)
+    assert course_student.resume_next_unit() == unit1
 
-    mommy.make('StudentProgress', user=user, unit=unit2, complete=datetime.now())
-    assert course_student.resume_last_unit() == unit2
+    unit3 = mommy.make('Unit', title='unit2', lesson=lesson2)
+    assert course_student.resume_next_unit() == unit1
 
     mommy.make('StudentProgress', user=user, unit=unit1, complete=datetime.now())
-    assert course_student.resume_last_unit() == unit1
+    assert course_student.resume_next_unit() == unit2
+
+    mommy.make('StudentProgress', user=user, unit=unit2, complete=datetime.now())
+    assert course_student.resume_next_unit() == unit3
+
+    mommy.make('StudentProgress', user=user, unit=unit3, complete=datetime.now())
+    assert course_student.resume_next_unit() == unit1

@@ -230,15 +230,28 @@ class CourseStudent(models.Model):
         return StudentProgress.objects.exclude(complete=None)\
                                       .filter(user=self.user, unit__lesson__course=self.course)
 
-    def resume_last_unit(self):
-        units_done = self.units_done.order_by('complete')
-        if units_done.count() > 0:
-            return units_done.reverse().first().unit
-        else:
-            try:
-                return self.course.first_lesson().units.order_by('position').first()
-            except AttributeError:
-                return None
+    def resume_next_unit(self):
+        try:
+            last_unit_done = self.units_done.latest('complete')
+            # try to get the next unit in same lesson
+            next_unit = Unit.objects.filter(lesson=last_unit_done.unit.lesson,
+                                            position__gt=last_unit_done.unit.position).order_by('position').first()
+
+            if next_unit:
+                return next_unit
+            else:
+                next_lesson = self.course.lessons.filter(position__gt=last_unit_done.unit.lesson.position).order_by('position').first()
+                if next_lesson and next_lesson.first_unit():
+                    return next_lesson.units.order_by('position').first()
+                else:
+                    return self.course.first_lesson().first_unit()
+        except StudentProgress.DoesNotExist:
+            first_lesson = self.course.first_lesson()
+            if first_lesson:
+                return first_lesson.first_unit()
+        except AttributeError:
+            pass
+        return None
 
     def percent_progress(self):
         units_len = self.course.unit_set.count()
@@ -420,6 +433,13 @@ class Lesson(PositionedModel):
 
     def is_ready(self):
         return self.status == 'published' and self.units.exists()
+
+    def first_unit(self):
+        if self.units.exists():
+            try:
+                return self.units.order_by('position').first()
+            except AttributeError:
+                return None
 
 
 class Unit(PositionedModel):
