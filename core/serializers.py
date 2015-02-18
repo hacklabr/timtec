@@ -37,13 +37,14 @@ class CourseSerializer(serializers.ModelSerializer):
     professor_name = serializers.SerializerMethodField('get_professor_name')
     home_thumbnail_url = serializers.SerializerMethodField('get_home_thumbnail_url')
     professors_names = serializers.SerializerMethodField('get_professors_names')
+    has_started = serializers.Field()
 
     class Meta:
         model = Course
         fields = ("id", "slug", "name", "intro_video", "application", "requirement",
                   "abstract", "structure", "workload", "pronatec", "status",
                   "thumbnail_url", "publication", "home_thumbnail_url", "home_position",
-                  "start_date", "professor_name", "home_published", "professors_names")
+                  "start_date", "professor_name", "home_published", "professors_names", "has_started")
 
     @staticmethod
     def get_professor_name(obj):

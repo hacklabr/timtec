@@ -99,20 +99,20 @@ wrapper-course-lesson
                                         </div>
                                         <div class="col-sm-6 textright">
                                             <p>
-                                                <span ng-show="courseprofessor.course_info.status === 'published'">
-                                                    <span class="date-label">{% trans 'Published' %}</span>
+                                                <span ng-show="courseprofessor.course_info.has_started">
+                                                    <span class="date-label">{% trans 'Started in' %}</span>
                                                     {% verbatim %}
-                                                    <span class="date label label-success">{{ courseprofessor.course_info.publication | date:'d/M/yyyy' }}</span>
+                                                    <span class="date label label-success">{{ courseprofessor.course_info.start_date | date:'d/M/yyyy' }}</span>
                                                     {% endverbatim %}
                                                 </span>
-                                                <span ng-show="courseprofessor.course_info.publication && courseprofessor.course_info.status != 'published'">
-                                                    <span class="date-label">{% trans 'Publish in' %}</span>
+                                                <span ng-show="!courseprofessor.course_info.has_started && courseprofessor.course_info.start_date">
+                                                    <span class="date-label">{% trans 'Starts in' %}</span>
                                                     {% verbatim %}
-                                                    <span class="date label label-info">{{ courseprofessor.course_info.publication | date:'d/M/yyyy' }}</span>
+                                                    <span class="date label label-info">{{ courseprofessor.course_info.start_date | date:'d/M/yyyy' }}</span>
                                                     {% endverbatim %}
                                                 </span>
-                                                <span ng-show="!courseprofessor.course_info.publication">
-                                                    <span class="date label label-danger">{% trans 'No publication date' %}</span>
+                                                <span ng-show="!courseprofessor.course_info.start_date">
+                                                    <span class="date label label-danger">{% trans 'No start date' %}</span>
                                                 </span>
                                             </p>
                                         </div>
@@ -128,7 +128,7 @@ wrapper-course-lesson
                                                     <div class="row">
                                                         <div class="col-lg-9">
                                                             {% verbatim %}
-                                                            <h1><a ng-href="/class/{{class.id}}" ng-bind="class.name"></a> <span class="students">Estudantes: 10</span></h1>
+                                                            <h1><a ng-href="/class/{{class.id}}" ng-bind="class.name"></a></h1>
                                                             {% endverbatim %}
                                                         </div>
                                                     </div>
@@ -166,20 +166,20 @@ wrapper-course-lesson
                                         </div>
                                         <div class="col-sm-6 textright">
                                             <p>
-                                                <span ng-show="courseprofessor.course_info.status === 'published'">
-                                                    <span class="date-label">{% trans 'Published' %}</span>
+                                                <span ng-show="courseprofessor.course_info.has_started">
+                                                    <span class="date-label">{% trans 'Started in' %}</span>
                                                     {% verbatim %}
-                                                    <span class="date label label-success">{{ courseprofessor.course_info.publication | date:'d/M/yyyy' }}</span>
+                                                    <span class="date label label-success">{{ courseprofessor.course_info.start_date | date:'d/M/yyyy' }}</span>
                                                     {% endverbatim %}
                                                 </span>
-                                                <span ng-show="courseprofessor.course_info.publication && courseprofessor.course_info.status != 'published'">
-                                                    <span class="date-label">{% trans 'Publish in' %}</span>
+                                                <span ng-show="!courseprofessor.course_info.has_started && courseprofessor.course_info.start_date">
+                                                    <span class="date-label">{% trans 'Starts in' %}</span>
                                                     {% verbatim %}
-                                                    <span class="date label label-info">{{ courseprofessor.course_info.publication | date:'d/M/yyyy' }}</span>
+                                                    <span class="date label label-info">{{ courseprofessor.course_info.start_date | date:'d/M/yyyy' }}</span>
                                                     {% endverbatim %}
                                                 </span>
-                                                <span ng-show="!courseprofessor.course_info.publication">
-                                                    <span class="date label label-danger">{% trans 'No publication date' %}</span>
+                                                <span ng-show="!courseprofessor.course_info.start_date">
+                                                    <span class="date label label-danger">{% trans 'No start date' %}</span>
                                                 </span>
                                             </p>
                                         </div>
