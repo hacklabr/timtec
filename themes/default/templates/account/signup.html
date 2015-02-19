@@ -40,16 +40,31 @@
         </div>
         {% endwith %}
 
+    	{% if terms_required %}
+		{% with errors=form.accept_terms.errors %}
+		<div class="form-group{{ errors|yesno:' has-error,' }}">
+			<div class="col-lg-offset-4 col-sm-offset-4 col-lg-8 col-sm-8 textleft">
+				<span class="checkbox-wrapper"><input name="accept_terms" id="accept_terms" type="checkbox" {% if form.accept_terms.value %}checked=""{% endif %}></span>
+				{% url 'django.contrib.flatpages.views.flatpage' url='terms/' as terms_url %}
+				<label for="accept_terms" class="terms">{% blocktrans %}I agree to the <a href="terms_url" target="_blank">Terms of Use</a>{% endblocktrans %}</label>
+				{% for error in errors %}<small>{{error}}</small>{% endfor %}
+			</div>
+		</div>
+		{% endwith %}
+    	{% endif %}
+
         <div class="submit textright">
             <button class="btn btn-success">{% trans "Sign Up" %}</button>
         </div>
 
         <div class="row">
-            <hr/>
-            <p class="bottom textcenter">
-                {% load socialaccount %}
-                <a href="{% provider_login_url 'facebook' method='oauth2' %}">Facebook Connect</a>
-            </p>
+            <div class="col-xs-12">
+                <hr/>
+                <p class="bottom textcenter">
+                    {% load socialaccount %}
+                    <a href="{% provider_login_url 'facebook' method='oauth2' %}">Facebook Connect</a>
+                </p>
+            </div>
         </div>
     </form>
 {% endblock %}
@@ -97,6 +112,19 @@
             </div>
         </div>
         {% endwith %}
+
+    	{% if terms_required %}
+		{% with errors=form.accept_terms.errors %}
+		<div class="form-group{{ errors|yesno:' has-error,' }}">
+			<div class="col-lg-offset-4 col-sm-offset-4 col-lg-8 col-sm-8 textleft">
+                <span class="checkbox-wrapper"><input name="accept_terms" id="accept_terms" type="checkbox" {% if form.accept_terms.value %}checked=""{% endif %}></span>
+                {% url 'django.contrib.flatpages.views.flatpage' url='terms/' as terms_url %}
+                <label for="accept_terms" class="terms">{% blocktrans %}I agree to the <a href="terms_url" target="_blank">Terms of Use</a>{% endblocktrans %}</label>
+                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+            </div>
+		</div>
+		{% endwith %}
+    	{% endif %}
 
         <div class="submit">
             <button class="btn btn-success btn-lg col-xs-12">{% trans "Sign Up" %}</button>

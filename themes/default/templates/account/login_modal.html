@@ -65,7 +65,7 @@
               </div>
 
               <div class="panel-body bottom-xs left-xs right-xs top-xs">
-                <form onclick="event.stopPropagation()" method="post" action="{% url 'account_login' %}" class="form-horizontal">{% csrf_token %}
+                <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}" class="form-horizontal">{% csrf_token %}
                   <div class="form-group">
                     <label class="col-lg-3 col-md-3 col-sm-12 col-xs-12">{% trans "Username" %}</label>
                     <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
@@ -85,6 +85,17 @@
                       <input name="password2" type="password" class="form-control" placeholder="{% trans 'Confirm your password' %}">
                     </div>
                   </div>
+
+                  {% if terms_required %}
+                  <div class="form-group">
+                    <div class="col-xs-12">
+                      <span class="checkbox-wrapper"><input name="accept_terms" id="accept_terms" type="checkbox"></span>
+                              {% url 'django.contrib.flatpages.views.flatpage' url='terms/' as terms_url %}
+                      <label for="accept_terms" class="terms">{% blocktrans %}I agree to the <a href="terms_url" target="_blank">Terms of Use</a>{% endblocktrans %}</label>
+                    </div>
+                  </div>
+        				  {% endif %}
+
                   <div class="submit textright">
                     <div class="row">
                       <div class="col-lg-4 col-lg-offset-8 col-md-5 col-md-offset-7 col-sm-7 col-sm-offset-5 col-xs-12 textright">

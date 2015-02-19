@@ -26,13 +26,13 @@
 <div class="form-group">
     <label class="col-lg-4 control-label">Nome</label>
     <div class="col-lg-8">
-        <input required type="text" class="form-control" name="{{contact_form.name.name}}"/>
+        <input required type="text" class="form-control" name="{{contact_form.name.name}}">
     </div>
 </div>
 <div class="form-group">
     <label class="col-lg-4 control-label">Email</label>
     <div class="col-lg-8">
-        <input required type="email" class="form-control" name="{{contact_form.email.name}}"/>
+        <input required type="email" class="form-control" name="{{contact_form.email.name}}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
     </div>
 </div>
 <div class="form-group">

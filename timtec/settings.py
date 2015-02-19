@@ -366,6 +366,7 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'core.context_processors.contact_form',
     'core.context_processors.site_settings',
     'core.context_processors.get_current_path',
+    'core.context_processors.terms_acceptance_required',
     'timtec.locale_context_processor.locale',
 )
 
@@ -477,7 +478,7 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[timtec] "
-# ACCOUNT_SIGNUP_FORM_CLASS = 'core.forms.SignupForm'
+ACCOUNT_SIGNUP_FORM_CLASS = 'accounts.forms.SignupForm'
 SOCIALACCOUNT_EMAIL_VERIFICATION = False
 
 TWITTER_CONSUMER_KEY = ''

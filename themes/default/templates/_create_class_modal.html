@@ -1,0 +1,22 @@
+{% load i18n %}
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" class="btn btn-default" data-dismiss="modal" ng-click="cancel()"><span aria-hidden="true">&times;</span><span class="sr-only">{% trans 'Close' %}</span></button>
+        <h4 class="modal-title" id="class-modal-label">{% trans 'New class name' %}</h4>
+    </div>
+    <form role="form" method="post" action="{% url 'class-create' %}">
+        {% csrf_token %}
+        <!-- if tricky to get course set by angular or by django context variable -->
+        <input type="hidden" name="course" {% if not course %} ng-value="course" {% endif %} value="{{ course.id }}">
+        <div class="modal-body">
+                <div class="form-group">
+                    <label for="class-name" class="sr-only">{% trans 'New class name' %}</label>
+                    <input ng-model="new_class_name" id="class-name" name="name" class="form-control" placeholder="{% trans 'New class name' %}">
+                </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">{% trans 'Cancel' %}</button>
+            <button type="submit" ng-disabled="!new_class_name" class="btn btn-primary">{% trans 'Add class' %}</button>
+        </div>
+    </form>
+</div>

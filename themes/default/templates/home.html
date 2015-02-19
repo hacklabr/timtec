@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load compressed %}
+{% load is_enrolled %}
 {% load get_flatpage %}
 
 {% block js %}
@@ -83,29 +84,39 @@ home
             {% else %}
 
             <div class="row">
-                <div ng-repeat="course in home_courses" class="block course col-md-4 col-sm-6">
-                    {% verbatim %}
-                    <a ng-href="/course/{{ course.slug }}/intro/" class="course-link">
-                        <div class="thumb-wrapper">
-                            <span class="mouseover"></span>
-                            <span class="thumb" ng-style="{'background-image': 'url(' + course.home_thumbnail_url + ')'}"></span>
-                        </div>
-                        <div class="info">
-                            <h3>{{ course.name }}</h3>
-                            <p class="instructors">{{ course.professors_names }}</p>
-                            <p class="abstract">{{ course.abstract }}</p>
-                        </div>
-                        <div class="enroll">
-                            <span>
-                                <i class="fa fa-calendar"></i> {{ course.start_date | date : 'MMM, yyyy' | capitalize}}
-                            </span>
-                            <span class="enroll-link textright uppercase">
-                                Começar curso <i class="fa fa-angle-right"></i>
-                            </span>
-                        </div>
-                    </a>
-                    {% endverbatim %}
-                </div
+
+                {% for course in home_courses %}
+                    <div class="block course col-md-4 col-sm-6">
+                    {% if user|is_enrolled:course %}
+                        <a href="{% url "resume_course" course.slug %}" class="course-link">
+                    {% else %}
+                        <a href="{% url "course_intro" course.slug %}" class="course-link">
+                    {% endif %}
+                            {% if not course.has_started %}<span class="coming-soon-label">{% trans 'Soon' %}</span>{% endif %}
+                            <div class="thumb-wrapper">
+                                <span class="mouseover"></span>
+                                <span class="thumb" {% if course.home_thumbnail %}style="background-image: url({{ course.home_thumbnail.url }})"{% endif %}></span>
+                            </div>
+                            <div class="info">
+                                <h3>{{ course.name }}</h3>
+                                <p class="instructors">{% for professor in course.get_video_professors %}{{ professor.get_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                                <p class="abstract">{{ course.abstract }}</p>
+                            </div>
+                             <div class="enroll">
+                                <span>
+                                    <i class="fa fa-calendar"></i> {{ course.start_date|date:'M, Y'}}
+                                </span>
+                                <span class="enroll-link textright uppercase">
+                                    {% if user|is_enrolled:course %}
+                                    {% trans 'Go to course' %} <i class="fa fa-angle-right"></i>
+                                    {% else %}
+                                    {% trans 'Resume course' %} <i class="fa fa-angle-right"></i>
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
             </div><!-- .row -->
             {% endif %}
 
@@ -137,11 +148,11 @@ home
                     </modalmarkdowneditorwithtitle>
                 </div>
                 {% else %}
+                {% get_flatpage '/home/bottom/intro/' as home_bottom_intro %}
                 <header>
-                    <h1>Saiba mais sobre o MOOC IFSul</h1>
+                    <h1>{{ home_bottom_intro.title }}</h1>
                 </header>
                 <div class="highlight textcenter">
-                        {% get_flatpage '/home/bottom/intro/' as home_bottom_intro %}
                         <p>{{ home_bottom_intro.content }}</p>
                 </div>
                 {% endif %}

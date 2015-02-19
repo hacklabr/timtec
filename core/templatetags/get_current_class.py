@@ -18,12 +18,4 @@ def get_current_class(context, course):
     except ObjectDoesNotExist:
         pass
 
-    # If user is not student in any class in this course, verify if it is professor
-    # import ipdb;ipdb.set_trace()
-    if not current_class:
-        try:
-            current_class = current_user.professor_classes.get(course=course)
-        except ObjectDoesNotExist:
-            pass
-
     return current_class

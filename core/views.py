@@ -6,7 +6,7 @@ import datetime
 from django.core.urlresolvers import reverse_lazy
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.http import HttpResponse
-from django.views.generic import (DetailView, ListView, FormView, DeleteView,
+from django.views.generic import (DetailView, ListView, DeleteView,
                                   CreateView, UpdateView)
 from django.views.generic.base import RedirectView, View, TemplateView
 from django.contrib.contenttypes.models import ContentType
@@ -32,7 +32,7 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
 from .models import (Course, CourseProfessor, Lesson, StudentProgress,
                      Unit, ProfessorMessage, CourseStudent, Class)
 
-from .forms import (ContactForm, AcceptTermsForm, RemoveStudentForm,
+from .forms import (ContactForm, RemoveStudentForm,
                     AddStudentsForm, )
 
 from .permissions import IsProfessorCoordinatorOrAdminPermissionOrReadOnly, IsAdminOrReadOnly
@@ -181,24 +181,11 @@ class ResumeCourseView(LoginRequiredMixin, RedirectView):
         course = self.get_object()
         if self.request.user.accepted_terms or not settings.TERMS_ACCEPTANCE_REQUIRED:
             course_student = CourseStudent.objects.get(user=self.request.user, course=course)
-            last_unit = course_student.resume_last_unit()
+            last_unit = course_student.resume_next_unit()
             url = reverse_lazy('lesson', args=[course.slug, last_unit.lesson.slug])
             return url + '#' + str(last_unit.position + 1)
         else:
             return reverse_lazy('accept_terms')
-
-
-class AcceptTermsView(FormView):
-    template_name = 'accept-terms.html'
-    form_class = AcceptTermsForm
-    success_url = reverse_lazy('courses')
-
-    def form_valid(self, form):
-        # This method is called when valid form data has been POSTed.
-        # It should return an HttpResponse.
-        self.request.user.accepted_terms = True
-        self.request.user.save()
-        return super(AcceptTermsView, self).form_valid(form)
 
 
 class CourseProfessorViewSet(viewsets.ModelViewSet):

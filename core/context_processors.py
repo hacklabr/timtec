@@ -14,4 +14,9 @@ def site_settings(request):
 
 
 def get_current_path(request):
+
     return {'current_path': request.get_full_path()}
+
+
+def terms_acceptance_required(request):
+    return {'terms_required': settings.TERMS_ACCEPTANCE_REQUIRED}

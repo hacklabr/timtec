@@ -240,15 +240,6 @@ def test_user_courses_must_show_assistant_and_coordinator_tabs_for_assistant_and
 
 
 @pytest.mark.django_db
-def test_user_courses_must_show_assistant_and_coordinator_tabs_for_admin(admin_client):
-    response = admin_client.get('/my-courses/')
-
-    assert 'href="#course-as-teacher"' in response.content
-
-    assert 'href="#course-as-coordinator"' in response.content
-
-
-@pytest.mark.django_db
 def test_course_professor_get_bio_or_pic_should_be_user_bio__or_pic_when_not_defined(admin_client):
     course = mommy.make('Course', slug='dbsql', name='A course')
 

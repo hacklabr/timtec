@@ -25,11 +25,11 @@ wrapper-course-lesson
 
             <section class="courses" role="tabpanel">
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#course-as-student" aria-controls="course-as-student" role="tab" data-toggle="tab">{% trans "Courses I follow" %}</a></li>
-                    {% if courses_user_assist or request.user.is_superuser %}
+                    <li role="presentation" class="active"><a href="#course-as-student" aria-controls="course-as-student" role="tab" data-toggle="tab">{% trans "Courses I'm enrolled" %}</a></li>
+                    {% if courses_user_assist %}
                     <li role="presentation"><a href="#course-as-teacher" aria-controls="course-as-teacher" role="tab" data-toggle="tab">{% trans "Courses I assist" %}</a></li>
                     {% endif %}
-                    {% if courses_user_coordinate or request.user.is_superuser %}
+                    {% if courses_user_coordinate %}
                     <li role="presentation"><a href="#course-as-coordinator" aria-controls="course-as-coordinator" role="tab" data-toggle="tab">{% trans "Courses I coordinate" %}</a></li>
                     {% endif %}
                 </ul>
@@ -37,12 +37,24 @@ wrapper-course-lesson
                 <!-- Tab panes -->
                 <div class="tab-content" ng-app="courses" ng-controller="CourseListByUserRoleController">
                     <div role="tabpanel" class="tab-pane active" id="course-as-student">
+                    	{% with courses_user_enrolled=request.user.coursestudent_set.all %}
+                    	{% if not courses_user_enrolled %}
+                        	<div class="course">
+                                <header>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <p>{% trans 'You are not enrolled in any course yet.' %}</p>
+									    </div>
+									</div>
+                        		</header>
+                        	</div>
+                    	{% endif %}
                         {% for cs in request.user.coursestudent_set.all %}
                             <div class="course">
                                 <header>
                                     <div class="row">
                                         <div class="col-sm-8">
-                                            <h1>{{ cs.course.name }}</h1>
+                                            <h1><a href="{% url 'resume_course' cs.course.slug %}">{{ cs.course.name }}</a></h1>
                                         </div>
                                         <div class="col-sm-4 textright">
                                             <div class="btn-group">
@@ -60,6 +72,7 @@ wrapper-course-lesson
             {#                    <span class="info">0 min of lecture and 0 quizzes remaining in 1.1a Equivalent Fractions.</span>#}
                             </div>
                         {% endfor %}
+                    	{% endwith %}
                     </div>
                     <div role="tabpanel" class="tab-pane" id="course-as-teacher">
                         <section class="courses">
@@ -67,7 +80,7 @@ wrapper-course-lesson
                             <div class="course clearfix" ng-repeat="courseprofessor in courses_user_assist">
                                 <div class="col-lg-12">
                                     {% verbatim %}
-                                    <h1><a href="/courses/{{ courseprofessor.course_info.slug }}/intro/" title="{{ courseprofessor.course_info.name }}">{{ courseprofessor.course_info.name }}</a></h1>
+                                    <h1><a ng-href="/course/{{ courseprofessor.course_info.slug }}/intro/" title="{{ courseprofessor.course_info.name }}">{{ courseprofessor.course_info.name }}</a></h1>
                                     {% endverbatim %}
 
                                     <div class="row">
@@ -75,47 +88,55 @@ wrapper-course-lesson
                                             <span class="label label-warning" ng-if="courseprofessor.course_info.isDraft()">{% trans 'Draft' %}</span>
                                             <span class="label label-success" ng-if="courseprofessor.course_info.isPublished()">{% trans 'Published' %}</span>
 
-                                            <span class="label label-default pointer" ng-click="load_classes(courseprofessor.course_info);show_classes=!show_classes">
+                                            <span ng-show="courseprofessor.current_user_classes" class="label label-default pointer" ng-click="show_classes=!show_classes">
                                                 <span ng-if="!show_classes">{% trans 'Show classes' %}</span>
                                                 <span ng-if="show_classes">{% trans 'Hide classes' %}</span>
-
                                                 {% verbatim %}
                                                 <i class="fa" ng-class="{'fa fa-caret-down':!show_classes,'fa fa-caret-up':show_classes}"></i>
                                                 {% endverbatim %}
                                             </span>
+                                            <div ng-hide="courseprofessor.current_user_classes">
+                                                <span class="label label-default pointer">
+                                                    <span ng-click="open_professor_modal(courseprofessor)">{% trans 'Create class' %}</span>
+                                                </span>
+                                                <p>{% trans "You don't have any class in this course". %}</p>
+                                            </div>
                                         </div>
                                         <div class="col-sm-6 textright">
                                             <p>
-                                                <span ng-show="courseprofessor.course_info.status === 'published'">
-                                                    <span class="date-label">{% trans 'Published' %}</span>
+                                                <span ng-show="courseprofessor.course_info.has_started">
+                                                    <span class="date-label">{% trans 'Started in' %}</span>
                                                     {% verbatim %}
-                                                    <span class="date label label-success">{{ courseprofessor.course_info.publication | date:'d/M/yyyy' }}</span>
+                                                    <span class="date label label-success">{{ courseprofessor.course_info.start_date | date:'d/M/yyyy' }}</span>
                                                     {% endverbatim %}
                                                 </span>
-                                                <span ng-show="courseprofessor.course_info.publication && courseprofessor.course_info.status != 'published'">
-                                                    <span class="date-label">{% trans 'Publish in' %}</span>
+                                                <span ng-show="!courseprofessor.course_info.has_started && courseprofessor.course_info.start_date">
+                                                    <span class="date-label">{% trans 'Starts in' %}</span>
                                                     {% verbatim %}
-                                                    <span class="date label label-info">{{ courseprofessor.course_info.publication | date:'d/M/yyyy' }}</span>
+                                                    <span class="date label label-info">{{ courseprofessor.course_info.start_date | date:'d/M/yyyy' }}</span>
                                                     {% endverbatim %}
                                                 </span>
-                                                <span ng-show="!courseprofessor.course_info.publication">
-                                                    <span class="date label label-danger">{% trans 'No publication date' %}</span>
+                                                <span ng-show="!courseprofessor.course_info.start_date">
+                                                    <span class="date label label-danger">{% trans 'No start date' %}</span>
                                                 </span>
                                             </p>
                                         </div>
                                     </div>
 
-                                    <div class="row" ng-show="show_classes">
-                                        <div class="col-lg-12" ng-hide="courseprofessor.course_info.classes.$resolved">
+                                    <div class="row" ng-show="show_classes && courseprofessor.current_user_classes">
+                                        <div class="col-lg-12" ng-hide="courses_user_assist.$resolved">
                                             <span>{% trans 'Loading classes list' %}...</span>
                                         </div>
-                                        <div class="col-lg-12" ng-show="courseprofessor.course_info.classes">
+                                        <div class="col-lg-12" ng-hide="courseprofessor.current_user_classes">
+                                            <span>{% trans "You don't have any class in this course". %}</span>
+                                        </div>
+                                        <div class="col-lg-12" ng-show="courseprofessor.current_user_classes">
                                             <div class="lessons">
-                                                <div class="lesson" ng-repeat="class in courseprofessor.course_info.classes">
+                                                <div class="lesson" ng-repeat="class in courseprofessor.current_user_classes">
                                                     <div class="row">
                                                         <div class="col-lg-9">
                                                             {% verbatim %}
-                                                            <h1><a ng-href="/class/{{class.id}}" ng-bind="class.name"></a> <span class="students">Estudantes: 10</span></h1>
+                                                            <h1><a ng-href="/class/{{class.id}}" ng-bind="class.name"></a></h1>
                                                             {% endverbatim %}
                                                         </div>
                                                     </div>
@@ -128,6 +149,11 @@ wrapper-course-lesson
                             <!-- END COURSE -->
                         </section>
                     </div>
+                    <!-- NEW CLASS MODAL -->
+                    <script type="text/ng-template" id="create_class_modal.html">
+                        {% include '_create_class_modal.html' %}
+                    </script>
+                    <!-- END NEW CLASS MODAL -->
                     <div role="tabpanel" class="tab-pane" id="course-as-coordinator">
                         <!-- ALL COURSES -->
                         <section class="courses" ng-app="courses">
@@ -135,7 +161,7 @@ wrapper-course-lesson
                             <div class="course clearfix" ng-repeat="courseprofessor in courses_user_coordinate">
                                 <div class="col-lg-12">
                                     {% verbatim %}
-                                    <h1><a href="/admin/courses/{{ courseprofessor.course_info.id }}" title="{{ courseprofessor.course_info.name }}">{{ courseprofessor.course_info.name }}</a></h1>
+                                    <h1><a ng-href="/admin/courses/{{ courseprofessor.course_info.id }}" title="{{ courseprofessor.course_info.name }}">{{ courseprofessor.course_info.name }}</a></h1>
                                     {% endverbatim %}
 
                                     <div class="row">
@@ -153,20 +179,20 @@ wrapper-course-lesson
                                         </div>
                                         <div class="col-sm-6 textright">
                                             <p>
-                                                <span ng-show="courseprofessor.course_info.status === 'published'">
-                                                    <span class="date-label">{% trans 'Published' %}</span>
+                                                <span ng-show="courseprofessor.course_info.has_started">
+                                                    <span class="date-label">{% trans 'Started in' %}</span>
                                                     {% verbatim %}
-                                                    <span class="date label label-success">{{ courseprofessor.course_info.publication | date:'d/M/yyyy' }}</span>
+                                                    <span class="date label label-success">{{ courseprofessor.course_info.start_date | date:'d/M/yyyy' }}</span>
                                                     {% endverbatim %}
                                                 </span>
-                                                <span ng-show="courseprofessor.course_info.publication && courseprofessor.course_info.status != 'published'">
-                                                    <span class="date-label">{% trans 'Publish in' %}</span>
+                                                <span ng-show="!courseprofessor.course_info.has_started && courseprofessor.course_info.start_date">
+                                                    <span class="date-label">{% trans 'Starts in' %}</span>
                                                     {% verbatim %}
-                                                    <span class="date label label-info">{{ courseprofessor.course_info.publication | date:'d/M/yyyy' }}</span>
+                                                    <span class="date label label-info">{{ courseprofessor.course_info.start_date | date:'d/M/yyyy' }}</span>
                                                     {% endverbatim %}
                                                 </span>
-                                                <span ng-show="!courseprofessor.course_info.publication">
-                                                    <span class="date label label-danger">{% trans 'No publication date' %}</span>
+                                                <span ng-show="!courseprofessor.course_info.start_date">
+                                                    <span class="date label label-danger">{% trans 'No start date' %}</span>
                                                 </span>
                                             </p>
                                         </div>
