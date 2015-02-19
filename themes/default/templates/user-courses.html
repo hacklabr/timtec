@@ -99,7 +99,7 @@ wrapper-course-lesson
                                                 <span class="label label-default pointer">
                                                     <span ng-click="open_professor_modal(courseprofessor)">{% trans 'Create class' %}</span>
                                                 </span>
-                                                <p>{% trans "You don't have any class in this course" %}</p>
+                                                <p>{% trans "You don't have any class in this course". %}</p>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 textright">
@@ -128,7 +128,7 @@ wrapper-course-lesson
                                             <span>{% trans 'Loading classes list' %}...</span>
                                         </div>
                                         <div class="col-lg-12" ng-hide="courseprofessor.current_user_classes">
-                                            <span>{% trans "You don't have any class in this course." %}</span>
+                                            <span>{% trans "You don't have any class in this course". %}</span>
                                         </div>
                                         <div class="col-lg-12" ng-show="courseprofessor.current_user_classes">
                                             <div class="lessons">
