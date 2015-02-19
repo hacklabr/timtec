@@ -10,25 +10,8 @@ wrapper-course-lesson
 {% block content %}
 <div class="modal fade" id="class-modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="class-modal-label">{% trans 'New class name' %}</h4>
-            </div>
-            <form ng-app role="form" method="post" action="{% url 'class-create' %}">
-                {% csrf_token %}
-                <input type="hidden" name="course" value="{{course.id}}">
-                <div class="modal-body">
-                        <div class="form-group">
-                            <label for="class-name" class="sr-only">{% trans 'New class name' %}</label>
-                            <input ng-model="new_class_name" id="class-name" name="name" class="form-control" placeholder="{% trans 'New class name' %}">
-                        </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" ng-disabled="!new_class_name" class="btn btn-primary">{% trans 'Add class' %}</button>
-                </div>
-            </form>
+        <div class="modal-content" ng-app>
+            {% include '_create_class_modal.html' %}
         </div>
     </div>
 </div>

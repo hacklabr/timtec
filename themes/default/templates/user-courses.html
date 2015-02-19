@@ -95,11 +95,12 @@ wrapper-course-lesson
                                                 <i class="fa" ng-class="{'fa fa-caret-down':!show_classes,'fa fa-caret-up':show_classes}"></i>
                                                 {% endverbatim %}
                                             </span>
-                                            <span ng-hide="courseprofessor.current_user_classes"  class="label label-default pointer">
-
-                                            	<span data-toggle="modal" data-target="#class-modal">{% trans 'Create class' %}</span>
-
-                                            </span>
+                                            <div ng-hide="courseprofessor.current_user_classes">
+                                                <span class="label label-default pointer">
+                                                    <span ng-click="open_professor_modal(courseprofessor)">{% trans 'Create class' %}</span>
+                                                </span>
+                                                <p>{% trans "You don't have any class in this course" %}</p>
+                                            </div>
                                         </div>
                                         <div class="col-sm-6 textright">
                                             <p>
@@ -148,6 +149,11 @@ wrapper-course-lesson
                             <!-- END COURSE -->
                         </section>
                     </div>
+                    <!-- NEW CLASS MODAL -->
+                    <script type="text/ng-template" id="create_class_modal.html">
+                        {% include '_create_class_modal.html' %}
+                    </script>
+                    <!-- END NEW CLASS MODAL -->
                     <div role="tabpanel" class="tab-pane" id="course-as-coordinator">
                         <!-- ALL COURSES -->
                         <section class="courses" ng-app="courses">
@@ -226,5 +232,4 @@ wrapper-course-lesson
             </section>
         </div>
         <!-- CONTAINER -->
-    {% include '_class_create_modal.html' %}
 {% endblock %}
