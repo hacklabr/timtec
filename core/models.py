@@ -348,6 +348,9 @@ class CourseProfessor(models.Model):
                                                users=to,
                                                professor=self)
 
+    def get_current_user_classes(self):
+        return Class.objects.filter(course=self.course, assistant=self.user)
+
 
 class ProfessorMessage(models.Model):
     professor = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Professor'))

@@ -69,18 +69,6 @@ class CourseSerializer(serializers.ModelSerializer):
         return ''
 
 
-class CourseProfessorSerializer(serializers.ModelSerializer):
-    user_info = TimtecUserSerializer(source='user', read_only=True)
-    course_info = CourseSerializer(source='course', read_only=True)
-    get_name = serializers.Field()
-    get_biography = serializers.Field()
-    get_picture_url = serializers.Field()
-
-    class Meta:
-        fields = ('id', 'course', 'course_info', 'user', 'name', 'biography', 'picture', 'user_info', 'get_name', 'get_biography', 'get_picture_url', 'role',)
-        model = CourseProfessor
-
-
 class CourseProfessorPictureSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -174,6 +162,21 @@ class ClassSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Class
+
+
+class CourseProfessorSerializer(serializers.ModelSerializer):
+    user_info = TimtecUserSerializer(source='user', read_only=True)
+    course_info = CourseSerializer(source='course', read_only=True)
+    get_name = serializers.Field()
+    get_biography = serializers.Field()
+    get_picture_url = serializers.Field()
+    current_user_classes = serializers.SerializerMethodField('get_current_user_classes')
+    current_user_classes = ClassSerializer(source='get_current_user_classes', read_only=True)
+
+    class Meta:
+        fields = ('id', 'course', 'course_info', 'user', 'name', 'biography', 'picture', 'user_info',
+                  'get_name', 'get_biography', 'get_picture_url', 'role', 'current_user_classes',)
+        model = CourseProfessor
 
 
 class FlatpageSerializer(serializers.ModelSerializer):

@@ -97,3 +97,12 @@ def test_resume(user):
 
     mommy.make('StudentProgress', user=user, unit=unit3, complete=datetime.now())
     assert course_student.resume_next_unit() == unit1
+
+
+@pytest.mark.django_db
+def test_get_current_user_classes(user):
+    course = mommy.make('Course')
+    course_professor = mommy.make('CourseProfessor', user=user, course=course)
+    klass = mommy.make('Class', assistant=user, course=course)
+
+    assert klass == course_professor.get_current_user_classes()[0]
