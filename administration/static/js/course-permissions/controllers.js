@@ -1,20 +1,68 @@
 (function(angular){
 
     angular.module('course-permissions.controllers', []).
-        controller('PermissionsController', ['$scope', '$modal', '$http', 'Course',  'CourseProfessor',
-        function($scope, $modal, $http, Course, CourseProfessor) {
+        controller('PermissionsController', ['$scope', '$window', '$modal', '$http', '$q', 'Course',  'CourseProfessor',
+        function($scope, $window, $modal, $http, $q, Course, CourseProfessor) {
 
-            $scope.courseId = /course\/([^\/]+)\/permissions/.extract(location.pathname, 1);
-            $scope.professors = CourseProfessor.query({course: $scope.courseId, has_user: true});
-            $scope.remove_professor = function(course_professor_id, index) {
-                if(!confirm('Tem certeza que deseja remover este professor deste curso?')) return;
-                CourseProfessor.remove({id: course_professor_id}, function (){
-                    $scope.professors.splice(index, 1);
-                });
+            var success_save_msg = 'Alterações salvas com sucesso.';
+            var error_save_msg = 'Não foi possível salvar todas as alterações.';
+            var cancel_changes_msg = 'Alterações canceladas.';
+
+            $scope.permissions_changed = false;
+
+            $window.onbeforeunload = function (e) {
+                if ($scope.permissions_changed) {
+                    if (!confirm('Você ainda não salvou suas alterações, tem certeza que deseja sair desta página?')) {
+                        event.preventDefault();
+                    }
+                }
             };
 
-            $scope.update_professor_role = function(professor){
-                professor.$update({id: professor.id});
+            $scope.courseId = /course\/([^\/]+)\/permissions/.extract(location.pathname, 1);
+            $scope.professors = CourseProfessor.query({course: $scope.courseId, has_user: true}, function(professors){
+                $scope.professors_before_changes = angular.copy(professors);
+            });
+
+            $scope.save_permissions = function() {
+                var promises_list = [];
+                var new_course_professor;
+                $scope.professors.forEach(function(course_professor) {
+                    if (course_professor.id){
+                        course_professor.$update({id: course_professor.id});
+                        promises_list.push(course_professor.$promise);
+                    } else {
+                        new_course_professor = CourseProfessor.save({
+                            course: course_professor.course,
+                            user: course_professor.user
+                        });
+                        promises_list.push(new_course_professor.$promise);
+                    }
+                });
+                $q.all([promises_list]).then(function(results) {
+                        $scope.alert.success(success_save_msg);
+                        $scope.permissions_changed = false;
+                    }, function(errorMsg) {
+                        $scope.alert.error(error_save_msg);
+                    }
+                );
+            };
+
+            $scope.cancel_permissions_changes = function() {
+                $scope.professors = $scope.professors_before_changes;
+                $scope.permissions_changed = false;
+                $scope.alert.success(cancel_changes_msg);
+            };
+
+            $scope.remove_professor = function(course_professor_id, index) {
+                if(!confirm('Tem certeza que deseja remover este professor deste curso?')) return;
+                if (course_professor_id)
+                    CourseProfessor.remove({id: course_professor_id});
+                $scope.professors.splice(index, 1);
+                $scope.permissions_changed = true;
+            };
+
+            $scope.update_professor_role = function(professor) {
+                $scope.permissions_changed = true;
             };
 
             $scope.new_professors = function () {
@@ -29,8 +77,12 @@
                 });
                 modalInstance.result.then(function (new_professors) {
                     angular.forEach(new_professors, function(professor){
-                        var new_professor = CourseProfessor.save({course: $scope.courseId, user: professor.id});
+                        var new_professor = new CourseProfessor();
+                        new_professor.course =  $scope.courseId;
+                        new_professor.user = professor.id;
+                        new_professor.user_info = professor;
                         $scope.professors.unshift(new_professor);
+                        $scope.permissions_changed = true;
                     });
                 });
             };

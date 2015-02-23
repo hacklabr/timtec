@@ -17,6 +17,18 @@ wrapper-course-lesson
 
 <section id="permissions" ng-app="course-permissions" ng-controller="PermissionsController">
 
+		<!-- ACTIONS -->
+        <div class="actions-menu" fixed-bar>
+            <div class="container">
+                <div class="actions-buttons">
+                    <button class="btn btn-danger" ng-click="cancel_permissions_changes()">{% trans 'Cancel' %} | <i class="fa fa-times"></i></button>
+                    <button class="btn btn-success" ng-click="save_permissions()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
+                </div>
+                {% include 'administration/_alert.html' %}
+            </div>
+        </div>
+        <!-- END ACTIONS -->
+
     {% include "_admin_header_inline.html" with course=course %}
 
     <section id="permissions-content" class="container">

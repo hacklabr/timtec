@@ -318,6 +318,8 @@ PIPELINE_JS = {
             'js/course-permissions/app.js',
             'js/course-permissions/controllers.js',
             'js/factories/timtec-models.js',
+            'js/directives/fixedBar.js',
+            'js/directives/alertPopup.js',
         ),
         'output_filename': 'js/course_permissions.js',
     },
