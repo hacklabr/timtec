@@ -221,6 +221,7 @@ class CourseStudent(models.Model):
 
     class Meta:
         unique_together = (('user', 'course'),)
+        ordering = ['course__start_date']
 
     def __unicode__(self):
         return u'{0} - {1}'.format(self.course, self.user)

@@ -82,8 +82,8 @@ wrapper-course-intro
                                   href="#"
                                   data-toggle="tooltip"
                                   data-placement="bottom"
-                                  data-original-title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }} e vocẽ já está inscrito.{% endblocktrans %}"
-                                  title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %}Este curso começa dia {{ start_date }} e vocẽ já está inscrito.{% endblocktrans %}">
+                                  data-original-title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %} This course starts on {{ start_date }} and you are already subscribed{% endblocktrans %}."
+                                  title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %} This course starts on {{ start_date }} and you are already subscribed{% endblocktrans %}.">
                                 <button class="btn btn-lg btn-block btn-default" ng-disabled="true">{% trans "Go to course" %}</button>
                             </div>
                         {% else %} {# user is not enrolled #}
