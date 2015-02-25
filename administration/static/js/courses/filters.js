@@ -11,4 +11,20 @@
         };
     });
 
+    app.filter("nullToEnd", function () {
+        return function (array, key, invert) {
+            if (!angular.isArray(array)) return;
+            var present = array.filter(function (item) {
+                return item[key];
+            });
+            var empty = array.filter(function (item) {
+                return !item[key];
+            });
+            if (invert)
+                return empty.concat(present);
+            else
+                return present.concat(empty);
+        };
+    });
+
 })(window.angular);

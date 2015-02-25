@@ -93,10 +93,9 @@ wrapper-course-lesson
                     <!-- COL-LG-3 -->
                     <div class="filter-ordering col-md-2 col-sm-5 textright">
                         <select ng-model="ordering" class="form-control">
-                            <option value="id">{% trans 'Sort' %} ...</option>
+                            <option value="start_date">{% trans 'Start date' %}</option>
                             <option value="status">{% trans 'Status' %}</option>
-                            <option value="publication">{% trans 'Publication date' %}</option>
-                            <option value="name">{% trans 'New course' %}</option>
+                            <option value="name">{% trans 'Nome' %}</option>
                         </select>
                     </div>
                     <!-- END COL-LG-3 -->
@@ -114,7 +113,7 @@ wrapper-course-lesson
         <section id="all-courses" class="courses-list">
 
             <!-- COURSE -->
-            <div class="course clearfix" ng-repeat="course in (filteredList = (courseList | orderBy:ordering:reverse | filter:filters.check))">
+            <div class="course clearfix" ng-repeat="course in (filteredList = (courseList | orderBy:ordering:reverse | nullToEnd:ordering:reverse | filter:filters.check))">
                 <div class="col-lg-12">
                     {% verbatim %}
                     <h1><a href="/admin/courses/{{ course.id }}" title="{{ course.name }}">{{ course.name }}</a></h1>
@@ -146,21 +145,21 @@ wrapper-course-lesson
                         </div>
                         <div class="col-sm-6 textright">
                             <p>
-                                <span ng-show="course.isPublished()">
-                                    <span class="date-label">{% trans 'Published' %}</span>
-                                    {% verbatim %}
-                                    <span class="date label label-success">{{ course.publication | date:'d/M/yyyy' }}</span>
-                                    {% endverbatim %}
-                                </span>
-                                <span ng-show="course.publication && !course.isPublished()">
-                                    <span class="date-label">{% trans 'Publish in' %}</span>
-                                    {% verbatim %}
-                                    <span class="date label label-info">{{ course.publication | date:'d/M/yyyy' }}</span>
-                                    {% endverbatim %}
-                                </span>
-                                <span ng-show="!course.publication">
-                                    <span class="date label label-danger">{% trans 'No publication date' %}</span>
-                                </span>
+                                <span ng-show="course.has_started">
+									<span class="date-label">{% trans 'Started in' %}</span>
+									{% verbatim %}
+									<span class="date label label-success">{{ course.start_date | date:'d/M/yyyy' }}</span>
+									{% endverbatim %}
+								</span>
+								<span ng-show="!course.has_started && course.start_date">
+									<span class="date-label">{% trans 'Starts in' %}</span>
+									{% verbatim %}
+									<span class="date label label-info">{{ course.start_date | date:'d/M/yyyy' }}</span>
+									{% endverbatim %}
+								</span>
+								<span ng-show="!course.start_date">
+									<span class="date label label-danger">{% trans 'No start date' %}</span>
+								</span>
                             </p>
                         </div>
                     </div>

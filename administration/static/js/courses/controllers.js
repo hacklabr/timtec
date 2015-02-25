@@ -6,7 +6,7 @@
         '$scope', 'Course', 'Lesson',
         function ($scope, Course, Lesson) {
             $scope.courseList = [];
-            $scope.ordering = 'id';
+            $scope.ordering = 'start_date';
             $scope.reverse = false;
             $scope.filters = {
                 all: false,
