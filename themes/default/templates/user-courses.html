@@ -24,8 +24,11 @@ wrapper-course-lesson
             </header>
 
             <section class="courses" role="tabpanel">
+            	{% with courses_user_enrolled=request.user.coursestudent_set.all %}
                 <ul class="nav nav-tabs" role="tablist">
+                	{% if courses_user_enrolled %}
                     <li role="presentation" class="active"><a href="#course-as-student" aria-controls="course-as-student" role="tab" data-toggle="tab">{% trans "Courses I'm enrolled" %}</a></li>
+                    {% endif %}
                     {% if courses_user_assist %}
                     <li role="presentation"><a href="#course-as-teacher" aria-controls="course-as-teacher" role="tab" data-toggle="tab">{% trans "Courses I assist" %}</a></li>
                     {% endif %}
@@ -37,7 +40,6 @@ wrapper-course-lesson
                 <!-- Tab panes -->
                 <div class="tab-content" ng-app="courses" ng-controller="CourseListByUserRoleController">
                     <div role="tabpanel" class="tab-pane active" id="course-as-student">
-                    	{% with courses_user_enrolled=request.user.coursestudent_set.all %}
                     	{% if not courses_user_enrolled %}
                         	<div class="course">
                                 <header>
@@ -89,8 +91,9 @@ wrapper-course-lesson
                             {% endif %}
                             </div>
                         {% endfor %}
-                    	{% endwith %}
+
                     </div>
+                	{% endwith %}
                     <div role="tabpanel" class="tab-pane" id="course-as-teacher">
                         <section class="courses">
                             <!-- COURSE -->
