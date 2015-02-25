@@ -120,8 +120,9 @@ class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
         if role and role == 'assistant':
             classes = Class.objects.filter(assistant=self.request.user)
             queries_list = [Q(user__in=klass.students.all()) for klass in classes.all()]
-            return queryset.filter(reduce(operator.or_, queries_list))
-        elif role and role == 'coordinator':
+            if queries_list:
+                return queryset.filter(reduce(operator.or_, queries_list))
+        elif (role and role == 'coordinator') or self.request.user.is_superuser:
             return queryset
         # it's not professor in this course
         try:
