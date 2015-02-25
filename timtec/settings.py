@@ -467,6 +467,7 @@ SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'SCOPE': ['email'],
         'METHOD': 'oauth2',
+        'VERSION': 'v2.2',
     }
 }
 
