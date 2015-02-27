@@ -107,6 +107,10 @@
                 }
             };
 
+            $scope.export_course = function() {
+                $window.open('/admin/course/' + $scope.course_id + '/export/', '_blank', '');
+            };
+
             $scope.saveCourse = function() {
                 if(!$scope.course.hasVideo()){
                     delete $scope.course.intro_video;

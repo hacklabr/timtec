@@ -6,9 +6,15 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
+from django.conf import settings
 from braces import views
 from core.models import Course
 from .forms import UserUpdateForm
+from .serializer import CourseImportExportSerializer
+
+import tarfile
+import StringIO
+import os
 
 
 User = get_user_model()
@@ -120,3 +126,39 @@ class CourseCreateView(views.SuperuserRequiredMixin, View, ModelFormMixin):
 
     def get_success_url(self):
         return reverse_lazy('administration.edit_course', kwargs={'course_id': self.object.id})
+
+
+class ExportCourseView(View):
+
+    def get(self, request, *args, **kwargs):
+
+        course_id = kwargs.get('course_id')
+        course = Course.objects.get(id=course_id)
+
+        course_serializer = CourseImportExportSerializer(course)
+
+        from rest_framework.renderers import JSONRenderer
+        json_file = StringIO.StringIO(JSONRenderer().render(course_serializer.data))
+
+        tar_info = tarfile.TarInfo('course.json')
+        tar_info.size = json_file.len
+
+        filename = course.slug + '.tar.gz'
+
+        response = HttpResponse(content_type='application/octet-stream')
+        response['Content-Disposition'] = 'attachment; filename={}'.format(filename)
+
+        course_tar_file = tarfile.open(fileobj=response, mode='w:gz')
+        course_tar_file.addfile(tar_info, json_file)
+
+        course_professors = course_serializer.data.get('course_professors')
+        for course_professor in course_professors:
+            picture_path = course_professor.get('picture')
+            if picture_path:
+                splited_path = picture_path.split('/')[-2:]
+                picture_path = os.path.join(settings.MEDIA_ROOT, splited_path[0], splited_path[1])
+                if os.path.isfile(picture_path):
+                    course_tar_file.add(picture_path,
+                                        arcname=os.path.split(picture_path)[-1])
+
+        return response
