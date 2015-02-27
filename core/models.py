@@ -166,18 +166,18 @@ class Course(models.Model):
         return self.user.forum_answers.values('question__lesson').annotate(Count('question__lesson'))
 
     def get_video_professors(self):
-        return self.courseprofessor_set.filter(role="instructor")
+        return self.course_professors.filter(role="instructor")
 
     def get_professor_role(self, user):
         try:
-            cp = self.courseprofessor_set.get(user=user)
+            cp = self.course_professors.get(user=user)
             return cp.role
         except CourseProfessor.DoesNotExist:
             return False
 
     def get_role_professors(self, role):
         try:
-            cp_set = self.courseprofessor_set.filter(role=role)
+            cp_set = self.course_professors.filter(role=role)
         except CourseProfessor.DoesNotExist:
             return False
 
@@ -308,7 +308,7 @@ class CourseProfessor(models.Model):
     )
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Professor'), related_name='teaching_courses', blank=True, null=True)
-    course = models.ForeignKey(Course, verbose_name=_('Course'))
+    course = models.ForeignKey(Course, verbose_name=_('Course'), related_name='course_professors')
     biography = models.TextField(_('Biography'), blank=True)
     role = models.CharField(_('Role'), choices=ROLES, default=ROLES[1][0], max_length=128)
     picture = models.ImageField(_('Picture'), upload_to=hash_name('bio-pictures', 'name'), blank=True, null=True)
