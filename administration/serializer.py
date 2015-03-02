@@ -1,6 +1,7 @@
 from core.models import Course, CourseProfessor, Lesson, Unit
 from core.serializers import VideoSerializer
 from activities.serializers import ActivityImportExportSerializer
+from course_material.serializers import CourseMaterialImportExportSerializer
 from rest_framework import serializers
 
 
@@ -32,10 +33,12 @@ class LessonImportExportSerializer(serializers.ModelSerializer):
 class CourseImportExportSerializer(serializers.ModelSerializer):
     lessons = LessonImportExportSerializer(many=True, allow_add_remove=True)
     course_professors = CourseProfessorImportExportSerializer(many=True, allow_add_remove=True)
+    intro_video = VideoSerializer()
+    course_material = CourseMaterialImportExportSerializer()
 
     class Meta:
         model = Course
         # exclude = ('students', 'default_class')
-        fields = ('id', 'slug', 'name', 'intro_video', 'application', 'requirement', 'abstract', 'structure',
+        fields = ('slug', 'name', 'intro_video', 'application', 'requirement', 'abstract', 'structure',
                   'workload', 'pronatec', 'status', 'thumbnail', 'home_thumbnail', 'home_position',
-                  'start_date', 'home_published', 'course_professors', 'lessons',)
+                  'start_date', 'home_published', 'course_professors', 'lessons', 'course_material',)

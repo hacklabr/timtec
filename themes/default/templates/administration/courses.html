@@ -43,15 +43,35 @@ wrapper-course-lesson
     </div>
 </div>
 <!-- COURSES -->
-<section id="courses" ng-controller="CourseListController">
-
+<section id="courses" ng-controller="CoursesAdminController">
+    <script type="text/ng-template" id="import_course_modal.html">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="class-modal-label">{% trans 'Choose the course file to import' %}</h4>
+            </div>
+            <form role="form" method="post" action="{% url 'administration.import_course' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+                        <div class="form-group">
+                            <label for="course-name" class="sr-only">{% trans 'Select the course file to import' %}</label>
+                            <input type="file" id="course-import-file" name="course-import-file" class="form-control" placeholder="{% trans 'Course file to import...' %}">
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="cancel()">{% trans 'Cancel' %}</button>
+                    <input type="submit" class="btn btn-primary" value="{% trans 'Import course' %}"></input>
+                </div>
+            </form>
+        </div>
+    </script>
     <!-- ACTIONS -->
     <div class="actions-menu" fixed-bar>
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 textright">
-                    <a class="btn btn-success" data-toggle="modal" data-target="#new-course-modal">{% trans 'New course' %}</a>
-
+                    <a class="btn btn-success" data-toggle="modal" data-target="#new-course-modal">{% trans 'Create course' %}</a>
+                    <a class="btn btn-success" ng-click="import_course_modal()">{% trans 'Import course' %}</a>
                 </div>
             </div>
         </div>
@@ -116,7 +136,7 @@ wrapper-course-lesson
             <div class="course clearfix" ng-repeat="course in (filteredList = (courseList | orderBy:ordering:reverse | nullToEnd:ordering:reverse | filter:filters.check))">
                 <div class="col-lg-12">
                     {% verbatim %}
-                    <h1><a href="/admin/courses/{{ course.id }}" title="{{ course.name }}">{{ course.name }}</a></h1>
+                    <h1><a ng-href="/admin/courses/{{ course.id }}" title="{{ course.name }}">{{ course.name }}</a></h1>
                     {% endverbatim %}
                     <div class="row">
                         <div class="col-sm-6">

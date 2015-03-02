@@ -2,9 +2,10 @@
     'use strict';
     var app = angular.module('courses');
 
-    app.controller('CourseListController', [
-        '$scope', 'Course', 'Lesson',
-        function ($scope, Course, Lesson) {
+    app.controller('CoursesAdminController', [
+        '$scope', '$modal', 'Course', 'Lesson',
+        function ($scope, $modal, Course, Lesson) {
+
             $scope.courseList = [];
             $scope.ordering = 'start_date';
             $scope.reverse = false;
@@ -39,6 +40,30 @@
             Course.query(function(list){
                 $scope.courseList = list;
             });
+
+            $scope.import_course_modal = function () {
+                var modalInstance = $modal.open({
+                    templateUrl: 'import_course_modal.html',
+                    controller: ['$scope', '$modalInstance', ImportCourseModalInstanceCtrl],
+                    //resolve: {
+                    //    course_id: function () {
+                    //        return $scope.course_id;
+                    //    }
+                    //}
+                });
+                modalInstance.result.then(function (new_message) {
+                    //new_message.$save({}, function(new_message){
+                    //    messages_list.messages.unshift(new_message);
+                    //    $rootScope.$broadcast('newMessage');
+                    //});
+
+                });
+            };
+            var ImportCourseModalInstanceCtrl = function ($scope, $modalInstance) {
+                $scope.cancel = function () {
+                    $modalInstance.dismiss();
+                };
+            };
         }
     ]);
 

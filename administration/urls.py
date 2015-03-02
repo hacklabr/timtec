@@ -3,7 +3,8 @@ from django.views.generic.base import RedirectView
 from django.contrib.auth.decorators import login_required as lr
 from forum.views import AdminCourseForumView
 from course_material.views import CourseMaterialAdminView
-from .views import AdminView, CourseAdminView, CourseCreateView, UserListView, UserUpdateView, UserDeleteView, ExportCourseView
+from .views import (AdminView, CourseAdminView, CourseCreateView, UserListView, UserUpdateView, UserDeleteView,
+                    ExportCourseView, ImportCourseView,)
 
 urlpatterns = patterns(
     '',
@@ -23,6 +24,7 @@ urlpatterns = patterns(
     url(r'^courses/new/$', CourseCreateView.as_view(), name="administration.new_course"),
     url(r'^courses/(?P<course_id>[1-9][0-9]*)/$', CourseAdminView.as_view(template_name="course.html"), name="administration.edit_course"),
     url(r'^course/(?P<course_id>[1-9][0-9]*)/export/$', ExportCourseView.as_view(), name="administration.export_course"),
+    url(r'^course/import/$', ImportCourseView.as_view(), name="administration.import_course"),
 
     # create and edit lesson
     url(r'^courses/(?P<course_id>[1-9][0-9]*)/lessons/new/$', CourseAdminView.as_view(template_name="lesson.html")),

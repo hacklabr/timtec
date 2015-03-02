@@ -7,7 +7,10 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 from django.conf import settings
+from django.utils.six import BytesIO
 from braces import views
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
 from core.models import Course
 from .forms import UserUpdateForm
 from .serializer import CourseImportExportSerializer
@@ -128,7 +131,14 @@ class CourseCreateView(views.SuperuserRequiredMixin, View, ModelFormMixin):
         return reverse_lazy('administration.edit_course', kwargs={'course_id': self.object.id})
 
 
-class ExportCourseView(View):
+class ExportCourseView(views.SuperuserRequiredMixin, View):
+
+    @staticmethod
+    def add_files_to_export(tar_file, short_file_path):
+        full_file_path = settings.MEDIA_ROOT + '/' + short_file_path
+        if os.path.isfile(full_file_path):
+                tar_file.add(full_file_path,
+                             arcname=short_file_path)
 
     def get(self, request, *args, **kwargs):
 
@@ -137,7 +147,6 @@ class ExportCourseView(View):
 
         course_serializer = CourseImportExportSerializer(course)
 
-        from rest_framework.renderers import JSONRenderer
         json_file = StringIO.StringIO(JSONRenderer().render(course_serializer.data))
 
         tar_info = tarfile.TarInfo('course.json')
@@ -155,10 +164,54 @@ class ExportCourseView(View):
         for course_professor in course_professors:
             picture_path = course_professor.get('picture')
             if picture_path:
-                splited_path = picture_path.split('/')[-2:]
-                picture_path = os.path.join(settings.MEDIA_ROOT, splited_path[0], splited_path[1])
-                if os.path.isfile(picture_path):
-                    course_tar_file.add(picture_path,
-                                        arcname=os.path.split(picture_path)[-1])
+                picture_path = picture_path.split('/', 2)[-1]
+                self.add_files_to_export(course_tar_file, picture_path)
+
+        course_thumbnail_path = course_serializer.data.get('thumbnail')
+        if course_thumbnail_path:
+            self.add_files_to_export(course_tar_file, course_thumbnail_path)
+
+        course_home_thumbnail_path = course_serializer.data.get('home_thumbnail')
+        if course_home_thumbnail_path:
+            self.add_files_to_export(course_tar_file, course_home_thumbnail_path)
+
+        course_material = course_serializer.data.get('course_material')
+        if course_material:
+            course_material = course_material[0]
+        for course_material_file in course_material['files']:
+            course_material_file_path = course_material_file['file']
+            self.add_files_to_export(course_tar_file, course_material_file_path)
 
         return response
+
+
+class ImportCourseView(views.SuperuserRequiredMixin, View):
+
+    def post(self, request, *args, **kwargs):
+
+        import_file = tarfile.open(fileobj=request.FILES.get('course-import-file'))
+        file_names = import_file.getnames()
+        json_file_name = [s for s in file_names if '.json' in s][0]
+
+        json_file = import_file.extractfile(json_file_name)
+        # course_data = json_file.read()
+
+        stream = BytesIO(json_file.read())
+        course_data = JSONParser().parse(stream)
+        course_slug = course_data.get('slug')
+        try:
+            course = Course.objects.get(slug=course_slug)
+            if course.has_started:
+                pass
+                # abort importing.
+        except Course.DoesNotExist:
+            pass
+
+        # home_thumbnail = slug = course_data.pop('home_thumbnail')
+        # thumbnail = slug = course_data.pop('thumbnail')
+
+        course_serializer = CourseImportExportSerializer(data=course_data)
+
+        if course_serializer.is_valid():
+            course_serializer.save()
+            return reverse_lazy('administration.edit_course', kwargs={'course_id': course_serializer.object.id})
