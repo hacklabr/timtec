@@ -8,12 +8,7 @@
   },
   "dependencies": {
     "grunt": "^0.4.5",
-    "grunt-cli": "^0.1.13",
     "grunt-angular-gettext": "^2.0.1"
-  },
-  "devDependencies": {
-    "grunt-contrib-less": "~0.8.0",
-    "grunt-contrib-watch": "~0.5.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
