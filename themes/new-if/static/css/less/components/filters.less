@@ -1,0 +1,22 @@
+.checkbox {
+    margin-top: 5px;
+}
+
+
+.filter-keyword {
+    @media (max-width: @screen-sm-max) {
+        input {
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: @screen-xs-max) {
+    .filter-checkbox {
+        .checkbox {
+            label {
+                display: block;
+            }
+        }
+    }
+}

@@ -1,0 +1,92 @@
+// HOMEPAGE
+// ********************************************************************* //
+
+#home {
+    @media screen and (min-width: @screen-sm-min) { margin-top: -50px; }
+
+    // banner
+    #highlight {
+        background-color: #eafaba;
+        max-height: 400px;
+        .container {
+            background-image: url(../img/ilustra-home-bg.png);
+            background-position: left;
+            background-repeat: no-repeat;
+            position: relative;
+            .clearfix;
+            @media screen and (max-width: 640px) { background-size: 77%; }
+        }
+        img {
+            float: right;
+            max-width: 100%;
+            width: auto;
+        }
+        .text {
+            border: 2px dashed @brand-primary;
+            color: @brand-primary;
+            font-family: 'jelly';
+            left: 100px;
+            padding: 20px;
+            position: absolute;
+            width: 435px;
+            p {
+                font-size: 30px;
+            }
+        }
+        @media (max-width: @screen-sm-max) {
+            .text {
+                display: none;
+            }
+        }
+        @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+            .text {
+                left: 60px;
+                top: 75px;
+                width: 340px;
+            }
+        }
+        @media (min-width: @screen-lg-min) {
+            .text {
+                left: 170px;
+                top: 100px;
+            }
+        }
+    } // #hightlight
+
+    // page title
+    header {
+        padding-bottom: 10px;
+        h1 {
+            color: @brand-primary;
+            font-family: "jelly";
+            font-size: 30px;
+        }
+    } //.page-title
+
+
+    // how it works
+    #how-it-works {
+        background-color: @brand-light;
+        header {
+          border-bottom: none;
+        }
+        .highlight {
+            border-bottom: 2px dashed @brand-primary;
+        }
+        .block {
+            .info {
+                @media (min-width: @screen-sm-min) {
+                    height: 340px;
+                }
+                h3 {
+                    color: @brand-primary;
+                    font-size: 20px;
+                    font-family: 'jelly';
+                    @media (min-width: @screen-lg-min) {
+                        font-size: 36px;
+                    }
+                }
+            }
+        }
+    } // #how-it-works
+}
