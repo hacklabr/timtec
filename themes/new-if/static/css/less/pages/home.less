@@ -6,21 +6,10 @@
 
     // banner
     #highlight {
-        background-color: #eafaba;
-        max-height: 400px;
-        .container {
-            background-image: url(../img/ilustra-home-bg.png);
-            background-position: left;
-            background-repeat: no-repeat;
-            position: relative;
-            .clearfix;
-            @media screen and (max-width: 640px) { background-size: 77%; }
-        }
-        img {
-            float: right;
-            max-width: 100%;
-            width: auto;
-        }
+        background-image: url(../img/banner-home.jpg);
+        background-position: bottom center;
+        background-size: cover;
+        max-height: 630px;
         .text {
             border: 2px dashed @brand-primary;
             color: @brand-primary;
@@ -63,6 +52,21 @@
         }
     } //.page-title
 
+    // courses section
+    #courses {
+        .course {
+            .info {
+                height: 120px;
+                padding: 10px 0 0;
+                h3 {
+                    margin-bottom: 5px;
+                }
+                .abstract {
+                    display: none;
+                }
+            }
+        }
+    } // #courses
 
     // how it works
     #how-it-works {

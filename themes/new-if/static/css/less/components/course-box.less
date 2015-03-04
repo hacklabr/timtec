@@ -12,7 +12,7 @@
             }
         }
         .fa-check {
-            background-color: darken(@gray-lighter, 10%);
+            background-color: darken(@gray-lighter, 5%);
         }
         &.started {
             .fa-check {
@@ -22,29 +22,51 @@
         .course-link { // link wrapper
             &:hover {
                 .info {
-                    background-color: lighten(@brand-primary, 40%);
+                    background-color: lighten(@gray-lighter, 5%);
                 }
                 .enroll {
-                    background-color: darken(@brand-primary, 5%);
+                    background-color: lighten(@gray-lighter, 5%);
+                    border-top: 2px solid darken(@gray-lighter, 5%);
                 }
             }
         } // .course-link
         .thumb-wrapper { // course thumbnail
             .mouseover {
-                background-color: @brand-hover;
+                background-color: lighten(@gray-lighter, 5%);
             }
             .thumb {
-                background-color: lighten(@brand-primary, 45%)
+                background-color: lighten(@gray-lighter, 5%);
             }
         } // .thumb-wrapper
 
         .info { // course info
-            background-color: lighten(@brand-primary, 50%);
+            background: transparent;
+            h3 {
+                color: #000;
+                font-family: @font-family-base;
+                font-size: 20px;
+            }
+            .instructors {
+                font-size: 20px;
+                font-style: normal;
+                line-height: 110%;
+                max-height: 42px;
+            }
         } // .info
         .enroll { // go to course link
-            background-color: @brand-primary;
-            font-family: @font-family-base;
-            min-height: 42px;
+            background-color: transparent;
+            border-top: 2px solid @gray-lighter;
+            color: #000;
+            font-family: 'ek_muktaextralight', @font-family-base;
+            font-size: 20px;
+            line-height: 110%;
+            padding-top: 5px;
+            .fa {
+                display: none;
+            }
+            .enroll-link {
+                color: @brand-primary;
+            }
         } // .enroll
     } // .course
 }
