@@ -10,34 +10,29 @@
         background-position: bottom center;
         background-size: cover;
         max-height: 630px;
+        text-align: center;
         .text {
-            border: 2px dashed @brand-primary;
-            color: @brand-primary;
-            font-family: 'jelly';
-            left: 100px;
-            padding: 20px;
-            position: absolute;
-            width: 435px;
-            p {
-                font-size: 30px;
+            color: #000000;
+            height: 630px;
+            left: initial;
+            position: relative;
+            right: initial !important;
+            top: initial;
+            h1 {
+                font-family: ek-mukta-extralight;
+                font-size: 66px;
+                margin-bottom: 0;
+            }
+            h3 {
+                font-family: ek-mukta-extralight;
+                font-size: 42px;
+                color: #817D7B;
+                margin-top: 0;
             }
         }
         @media (max-width: @screen-sm-max) {
             .text {
                 display: none;
-            }
-        }
-        @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-            .text {
-                left: 60px;
-                top: 75px;
-                width: 340px;
-            }
-        }
-        @media (min-width: @screen-lg-min) {
-            .text {
-                left: 170px;
-                top: 100px;
             }
         }
     } // #hightlight
