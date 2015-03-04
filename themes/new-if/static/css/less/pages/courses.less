@@ -2,6 +2,21 @@
 // ********************************************************************* //
 
 #courses-page {
+    .course {
+        .thumb-wrapper {
+            @media (min-width: 540px) and (max-width: @screen-xs-max) {
+                float: none;
+                width: initial;
+            }
+            @media (min-width: @screen-sm-min) {
+                float: none;
+                width: initial;
+            }
+        }
+    }
+    .mouseover, .thumb {
+        border-radius: 4px;
+    }
     .filters {
         background: darken(@brand-light, 10%);
         border-radius: @border-radius-base;
