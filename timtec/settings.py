@@ -13,7 +13,7 @@ PROJECT_ROOT = os.path.dirname(SETTINGS_DIR)
 # Theme related options
 #
 THEMES_DIR = os.path.join(PROJECT_ROOT, 'themes')
-TIMTEC_THEME = os.getenv('TIMTEC_THEME', 'new-if')  # don't forget to re run collectstatic if you change the theme
+TIMTEC_THEME = os.getenv('TIMTEC_THEME', 'default')  # don't forget to re run collectstatic if you change the theme
 
 SOUTH_AUTO_FREEZE_APP = True
 
