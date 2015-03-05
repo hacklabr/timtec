@@ -41,8 +41,8 @@
     header {
         padding-bottom: 10px;
         h1 {
-            color: @brand-primary;
-            font-family: "jelly";
+            color: #1F1F1F;
+            font-family: "ek-mukta-extralight";
             font-size: 30px;
         }
     } //.page-title
@@ -78,24 +78,90 @@
 
     // how it works
     #how-it-works {
-        background-color: @brand-light;
+        background-color: #F5F5F7;
+        box-shadow: inset 0 1px 46px #AAA, inset 0 -1px 46px #AAA;
         header {
-          border-bottom: none;
+            border-bottom: none;
+            color: #1F1F1F;
+            margin: 0;
+            h1 {
+                font-transform: initial;
+                font-size: 32px;
+            }
         }
         .highlight {
-            border-bottom: 2px dashed @brand-primary;
+            border: none;
+            font-family: "ek-mukta-extralight";
+            p {
+                font-size: 20px;
+                text-align: left;
+            }
         }
         .block {
             .info {
+                background-color: transparent;
+                padding: 0;
                 @media (min-width: @screen-sm-min) {
-                    height: 340px;
+                    height: 210px;
                 }
                 h3 {
                     color: @brand-primary;
-                    font-size: 20px;
-                    font-family: 'jelly';
+                    display: inline-block;
+                    height: initial;
+                    font-family: 'ek-mukta-extralight';
+                    font-size: 36px;
+                    margin: 0 0 0 12px;
+                    vertical-align: middle;
                     @media (min-width: @screen-lg-min) {
-                        font-size: 36px;
+                        font-size: 54px;
+                    }
+                }
+                .icon {
+                    line-height: initial;
+                    font-size: initial;
+                    display: inline-block;
+                    vertical-align: middle;
+                    i {
+                        &:before {
+                            content: '';
+                        }
+                    }
+                }
+            }
+            &:nth-child(1) {
+                .info {
+                    .icon {
+                        i {
+                            width: 60px;
+                            height: 59px;
+                            background: url("http://192.168.0.71:8000/static/img/ico-home-01.png");
+                        }
+                    }
+                }
+            }
+            &:nth-child(2) {
+                h3 {
+                    color: #000000;
+                    font-size: 32px;
+                }
+                .info {
+                    .icon {
+                        i {
+                            width: 68px;
+                            height: 70px;
+                            background: url("http://192.168.0.71:8000/static/img/ico-home-02.png");
+                        }
+                    }
+                }
+            }
+            &:nth-child(3) {
+                .info {
+                    .icon {
+                        i {
+                            width: 68px;
+                            height: 53px;
+                            background: url("http://192.168.0.71:8000/static/img/ico-home-03.png");
+                        }
                     }
                 }
             }
