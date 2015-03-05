@@ -136,6 +136,9 @@ PIPELINE_COMPILERS = (
     'pipeline.compilers.less.LessCompiler',
 )
 
+# Source Map Less
+PIPELINE_LESS_ARGUMENTS = '--source-map=main.css.map'
+
 PIPELINE_CSS = {
     'common': {
         'source_filenames': (
