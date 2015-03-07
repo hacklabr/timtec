@@ -4,6 +4,7 @@ from django.views.generic.base import TemplateResponseMixin, ContextMixin, View
 from django.views.generic.edit import ModelFormMixin
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
+from django.core.files import File as DjangoFile
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 from django.conf import settings
@@ -12,6 +13,7 @@ from braces import views
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from core.models import Course
+from course_material.models import File as TimtecFile
 from .forms import UserUpdateForm
 from .serializer import CourseImportExportSerializer
 
@@ -177,10 +179,9 @@ class ExportCourseView(views.SuperuserRequiredMixin, View):
 
         course_material = course_serializer.data.get('course_material')
         if course_material:
-            course_material = course_material[0]
-        for course_material_file in course_material['files']:
-            course_material_file_path = course_material_file['file']
-            self.add_files_to_export(course_tar_file, course_material_file_path)
+            for course_material_file in course_material['files']:
+                course_material_file_path = course_material_file['file']
+                self.add_files_to_export(course_tar_file, course_material_file_path)
 
         return response
 
@@ -191,6 +192,7 @@ class ImportCourseView(views.SuperuserRequiredMixin, View):
 
         import_file = tarfile.open(fileobj=request.FILES.get('course-import-file'))
         file_names = import_file.getnames()
+        # import ipdb;ipdb.set_trace()
         json_file_name = [s for s in file_names if '.json' in s][0]
 
         json_file = import_file.extractfile(json_file_name)
@@ -210,8 +212,47 @@ class ImportCourseView(views.SuperuserRequiredMixin, View):
         # home_thumbnail = slug = course_data.pop('home_thumbnail')
         # thumbnail = slug = course_data.pop('thumbnail')
 
-        course_serializer = CourseImportExportSerializer(data=course_data)
+        course_thumbnail_path = course_data.pop('thumbnail')
+        course_home_thumbnail_path = course_data.pop('home_thumbnail')
 
+        # Save course professor images
+        # import ipdb;ipdb.set_trace()
+        for course_professor in course_data.get('course_professors'):
+            picture_path = course_professor.pop('picture')
+            if picture_path:
+                picture_path = picture_path.split('/', 2)[-1]
+
+        # save course material images
+        course_material = course_data.get('course_material')
+        course_material_files = []
+        if course_material:
+            course_material_files = course_data['course_material'].pop('files')
+            # course_material_files = course_material.pop('files')
+
+        course_serializer = CourseImportExportSerializer(data=course_data)
         if course_serializer.is_valid():
+
             course_serializer.save()
-            return reverse_lazy('administration.edit_course', kwargs={'course_id': course_serializer.object.id})
+            course_obj = course_serializer.object
+            # save thumbnail and home thumbnail
+
+            if course_thumbnail_path and course_thumbnail_path in file_names:
+                course_thumbnail_file = import_file.extractfile(course_thumbnail_path)
+                course_obj.thumbnail = DjangoFile(course_thumbnail_file)
+
+            if course_home_thumbnail_path and course_home_thumbnail_path in file_names:
+                course_home_thumbnail_file = import_file.extractfile(course_home_thumbnail_path)
+                course_obj.home_thumbnail = DjangoFile(course_home_thumbnail_file)
+
+            course_material_files_list = []
+            for course_material_file in course_material_files:
+                course_material_file_path = course_material_file.get('file')
+                course_material_file_obj = import_file.extractfile(course_material_file_path)
+                course_material_files_list.append(TimtecFile(file=DjangoFile(course_material_file_obj)))
+            course_obj.course_material.files = course_material_files_list
+
+            course_obj.save()
+
+            return HttpResponseRedirect(reverse_lazy('administration.edit_course', kwargs={'course_id': course_serializer.object.id}))
+        else:
+            import ipdb;ipdb.set_trace()
