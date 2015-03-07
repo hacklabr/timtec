@@ -95,7 +95,7 @@
                     $scope.remove_student = function(index) {
                         $scope.new_message.users.splice(index, 1);
                         $scope.recipient_list.splice(index, 1);
-                };
+                    };
 
                 };
             }
