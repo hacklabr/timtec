@@ -170,7 +170,6 @@ class CourseProfessorSerializer(serializers.ModelSerializer):
     get_name = serializers.Field()
     get_biography = serializers.Field()
     get_picture_url = serializers.Field()
-    current_user_classes = serializers.SerializerMethodField('get_current_user_classes')
     current_user_classes = ClassSerializer(source='get_current_user_classes', read_only=True)
 
     class Meta:
