@@ -16,7 +16,7 @@ class FilesSerializer(serializers.ModelSerializer):
 
 
 class CourseMaterialImportExportSerializer(serializers.ModelSerializer):
-    files = FilesSerializer()
+    files = FilesSerializer(many=True, required=False)
 
     class Meta:
         model = CourseMaterial
