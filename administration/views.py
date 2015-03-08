@@ -12,10 +12,13 @@ from django.utils.six import BytesIO
 from braces import views
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import permissions
 from core.models import Course
 from course_material.models import File as TimtecFile
 from .forms import UserUpdateForm
-from .serializer import CourseImportExportSerializer
+from .serializer import CourseExportSerializer, CourseImportSerializer
 
 import tarfile
 import StringIO
@@ -147,7 +150,7 @@ class ExportCourseView(views.SuperuserRequiredMixin, View):
         course_id = kwargs.get('course_id')
         course = Course.objects.get(id=course_id)
 
-        course_serializer = CourseImportExportSerializer(course)
+        course_serializer = CourseExportSerializer(course)
 
         json_file = StringIO.StringIO(JSONRenderer().render(course_serializer.data))
 
@@ -186,13 +189,14 @@ class ExportCourseView(views.SuperuserRequiredMixin, View):
         return response
 
 
-class ImportCourseView(views.SuperuserRequiredMixin, View):
+class ImportCourseView(APIView):
+
+    permission_classes = (permissions.IsAdminUser,)
 
     def post(self, request, *args, **kwargs):
 
         import_file = tarfile.open(fileobj=request.FILES.get('course-import-file'))
         file_names = import_file.getnames()
-        # import ipdb;ipdb.set_trace()
         json_file_name = [s for s in file_names if '.json' in s][0]
 
         json_file = import_file.extractfile(json_file_name)
@@ -204,23 +208,24 @@ class ImportCourseView(views.SuperuserRequiredMixin, View):
         try:
             course = Course.objects.get(slug=course_slug)
             if course.has_started:
-                pass
-                # abort importing.
-        except Course.DoesNotExist:
-            pass
+                return Response({'error': 'course_started'})
+            elif not request.DATA.get('force'):
+                return Response({'error': 'course_exists'})
 
-        # home_thumbnail = slug = course_data.pop('home_thumbnail')
-        # thumbnail = slug = course_data.pop('thumbnail')
+        except Course.DoesNotExist:
+            course = None
 
         course_thumbnail_path = course_data.pop('thumbnail')
         course_home_thumbnail_path = course_data.pop('home_thumbnail')
 
         # Save course professor images
-        # import ipdb;ipdb.set_trace()
+        course_professors_pictures = {}
         for course_professor in course_data.get('course_professors'):
+            professor_name = course_professor.get('name')
             picture_path = course_professor.pop('picture')
-            if picture_path:
+            if picture_path and professor_name:
                 picture_path = picture_path.split('/', 2)[-1]
+                course_professors_pictures[professor_name] = picture_path
 
         # save course material images
         course_material = course_data.get('course_material')
@@ -229,17 +234,18 @@ class ImportCourseView(views.SuperuserRequiredMixin, View):
             course_material_files = course_data['course_material'].pop('files')
             # course_material_files = course_material.pop('files')
 
-        course_serializer = CourseImportExportSerializer(data=course_data)
+        if course:
+            course_serializer = CourseImportSerializer(course, data=course_data)
+        else:
+            course_serializer = CourseImportSerializer(data=course_data)
         if course_serializer.is_valid():
 
-            course_serializer.save()
-            course_obj = course_serializer.object
-            # save thumbnail and home thumbnail
+            course_obj = course_serializer.save()
 
+            # save thumbnail and home thumbnail
             if course_thumbnail_path and course_thumbnail_path in file_names:
                 course_thumbnail_file = import_file.extractfile(course_thumbnail_path)
                 course_obj.thumbnail = DjangoFile(course_thumbnail_file)
-
             if course_home_thumbnail_path and course_home_thumbnail_path in file_names:
                 course_home_thumbnail_file = import_file.extractfile(course_home_thumbnail_path)
                 course_obj.home_thumbnail = DjangoFile(course_home_thumbnail_file)
@@ -251,8 +257,16 @@ class ImportCourseView(views.SuperuserRequiredMixin, View):
                 course_material_files_list.append(TimtecFile(file=DjangoFile(course_material_file_obj)))
             course_obj.course_material.files = course_material_files_list
 
+            for course_professor in course_obj.course_professors.all():
+                picture_path = course_professors_pictures.get(course_professor.name)
+                if picture_path and picture_path in file_names:
+                    picture_file_obj = import_file.extractfile(picture_path)
+                    course_professor.picture = DjangoFile(picture_file_obj)
+                    course_professor.save()
+
             course_obj.save()
 
-            return HttpResponseRedirect(reverse_lazy('administration.edit_course', kwargs={'course_id': course_serializer.object.id}))
+            return Response({'new_course_url': reverse_lazy('administration.edit_course',
+                             kwargs={'course_id': course_serializer.object.id})})
         else:
-            import ipdb;ipdb.set_trace()
+            return Response({'error': 'invalid_file'})

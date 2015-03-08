@@ -3,8 +3,8 @@
     var app = angular.module('courses');
 
     app.controller('CoursesAdminController', [
-        '$scope', '$modal', 'Course', 'Lesson',
-        function ($scope, $modal, Course, Lesson) {
+        '$scope', '$modal', '$window', 'Course', 'Lesson', 'FormUpload',
+        function ($scope, $modal, $window, Course, Lesson, FormUpload) {
 
             $scope.courseList = [];
             $scope.ordering = 'start_date';
@@ -41,27 +41,61 @@
                 $scope.courseList = list;
             });
 
+            function send_course_file(course_import_file, force) {
+                var msg = '';
+
+                $scope.fu = new FormUpload();
+                $scope.fu.addField('course-import-file', course_import_file);
+
+                if (force)
+                    $scope.fu.addField('force', true);
+
+                $scope.fu.sendTo('/admin/course/import/')
+                    .then(function(response) {
+                        if (response.data.error) {
+                            if (response.data.error == 'course_started') {
+                                msg = 'O curso que você está tentando importar já começou. Só é possivel importar um curso já existente quando ele ainda não começou.';
+                                alert(msg);
+                                return;
+                            }
+                            else if (response.data.error == 'invalid_file') {
+                                msg = 'Arquivo de importação inválido.';
+                                alert(msg);
+                                return;
+                            }
+                            else if (response.data.error == 'course_exists') {
+                                msg = 'O curso que você está tentando importar já existe. Você pode importar o curso mesmo assim, mas TODAS AS INFORMAÇÕES RELATIVAS ÀS UNIDADES COMPLETAS PELOS USUÁRIOS SERÃO PERDIDAS. Importar curso mesmo assim?';
+                                if (confirm(msg)){
+                                    send_course_file(course_import_file, true);
+                                }
+                            }
+                        } else {
+                            $window.location.href = response.data.new_course_url;
+                        }
+                    }, function(response){
+                        msg = 'Erro ao importar arquivo de curso!';
+                        alert(msg);
+                        return;
+                    });
+            }
+
             $scope.import_course_modal = function () {
                 var modalInstance = $modal.open({
                     templateUrl: 'import_course_modal.html',
                     controller: ['$scope', '$modalInstance', ImportCourseModalInstanceCtrl],
-                    //resolve: {
-                    //    course_id: function () {
-                    //        return $scope.course_id;
-                    //    }
-                    //}
                 });
-                modalInstance.result.then(function (new_message) {
-                    //new_message.$save({}, function(new_message){
-                    //    messages_list.messages.unshift(new_message);
-                    //    $rootScope.$broadcast('newMessage');
-                    //});
-
+                modalInstance.result.then(function (course_import_file) {
+                    send_course_file(course_import_file);
                 });
             };
             var ImportCourseModalInstanceCtrl = function ($scope, $modalInstance) {
                 $scope.cancel = function () {
                     $modalInstance.dismiss();
+                };
+
+                $scope.import_course = function () {
+                    $modalInstance.close($scope.course_import_file);
+
                 };
             };
         }

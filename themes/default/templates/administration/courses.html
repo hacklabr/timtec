@@ -8,6 +8,7 @@
 <script type="text/javascript" src="{% static 'js/courses/controllers.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/file.js' %}"></script>
 {% endblock %}
 
 {% block body_attrs %}
@@ -50,17 +51,22 @@ wrapper-course-lesson
                 <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title" id="class-modal-label">{% trans 'Choose the course file to import' %}</h4>
             </div>
-            <form role="form" method="post" action="{% url 'administration.import_course' %}" enctype="multipart/form-data">
+            <form role="form" method="post">
                 {% csrf_token %}
                 <div class="modal-body">
                         <div class="form-group">
-                            <label for="course-name" class="sr-only">{% trans 'Select the course file to import' %}</label>
-                            <input type="file" id="course-import-file" name="course-import-file" class="form-control" placeholder="{% trans 'Course file to import...' %}">
+                            <label for="course-import-file" class="sr-only">{% trans 'Select the course file to import' %}</label>
+                            <input file
+                                   ng-model="course_import_file"
+                                   id="course-import-file"
+                                   name="course-import-file"
+                                   class="form-control"
+                                   placeholder="{% trans 'Course file to import...' %}">
                         </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" ng-click="cancel()">{% trans 'Cancel' %}</button>
-                    <input type="submit" class="btn btn-primary" value="{% trans 'Import course' %}"></input>
+                    <button type="button" class="btn btn-primary" ng-click="import_course()">{% trans 'Import course' %}</button>
                 </div>
             </form>
         </div>
