@@ -43,6 +43,8 @@
                 var questionId = parseInt($window.question_id, 10);
                 var userId = parseInt($window.user_id, 10);
 
+                $scope.num_answers = 0;
+
                 $scope.answers = ForumAnswer.query({question: questionId}, function(answers){
                     answers.sort(compare_by_dates);
                     answers.sort(compare_by_votes);
@@ -64,6 +66,7 @@
                     } else {
                         var new_answer = ForumAnswer.save({question: questionId, text: $scope.new_text}, function(new_answer){
                             new_answer.votes = 0;
+                            $scope.num_answers += 1;
                         });
                         $scope.answers.push(new_answer);
                         $scope.editor_enabled = false;
