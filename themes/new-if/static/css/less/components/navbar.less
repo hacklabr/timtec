@@ -4,8 +4,10 @@
     border: none;
     border-radius: 0;
     font-family: 'ek-mukta-extralight';
-    font-size: 21px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
+    @media (min-width: @screen-md-min) {
+        margin-bottom: 50px;
+    }
     z-index: 20;
     .navbar-brand {
         .text-hide();
@@ -27,8 +29,8 @@
             border-radius: 0;
             border-top: none;
             box-shadow: none;
-            height: 50px;
-            width: 120px;
+            height: 70px;
+            width: 200px;
         }
     }
 
@@ -42,6 +44,22 @@
         }
         @media (max-width: @screen-xs-max) {
             border-top: 1px solid @brand-light;
+        }
+    }
+
+    .navbar-nav {
+        > li > a {
+            line-height: @line-height-computed;
+            padding-top: 0px;
+            padding-bottom: 10px;
+            @media (min-width: @grid-float-breakpoint) {
+                margin: 90px 5px 10px 5px;
+                padding: 0 5px;
+            }
+            @media (max-width: @screen-sm-max) {
+                margin: 40px 5px 10px 5px;
+                padding: 0;
+            }
         }
     }
 
@@ -71,20 +89,5 @@
     }
     .dropdown-menu .divider {
         background-color:  @brand-light;
-    }
-}
-
-.navbar-nav {
-    > li > a {
-        line-height: @line-height-computed;
-        padding-top: 0px;
-        padding-bottom: 10px;
-        @media (min-width: @grid-float-breakpoint) {
-            margin: 90px 5px 10px 5px;
-            padding: 0 5px;
-        }
-        @media (max-width: @screen-sm-max) {
-            margin: 5px;
-        }
     }
 }
