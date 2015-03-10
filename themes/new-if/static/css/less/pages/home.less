@@ -52,7 +52,9 @@
 
     // courses section
     #courses {
-        margin-top: 80px;
+        @media (min-width: @screen-md-min) {
+            margin-top: 80px;
+        }
         .course {
             .info {
                 height: 120px;
