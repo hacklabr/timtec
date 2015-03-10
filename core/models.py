@@ -309,7 +309,7 @@ class CourseProfessor(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Professor'), related_name='teaching_courses', blank=True, null=True)
     course = models.ForeignKey(Course, verbose_name=_('Course'), related_name='course_professors')
-    biography = models.TextField(_('Biography'), blank=True)
+    biography = models.TextField(_('Biography'), blank=True, null=True)
     role = models.CharField(_('Role'), choices=ROLES, default=ROLES[1][0], max_length=128)
     picture = models.ImageField(_('Picture'), upload_to=hash_name('bio-pictures', 'name'), blank=True, null=True)
     name = models.TextField(_('Name'), max_length=30, blank=True, null=True)
