@@ -133,12 +133,12 @@
                     color: @brand-primary;
                     display: inline-block;
                     height: initial;
-                    font-family: 'ek-mukta-extralight';
+                    font-family: "ek-mukta-extralight";
                     font-size: 36px;
                     margin: 0 0 0 12px;
                     vertical-align: middle;
                     @media (min-width: @screen-lg-min) {
-                        font-size: 54px;
+                        font-size: 44px;
                     }
                 }
                 .icon {
@@ -169,7 +169,11 @@
             &:nth-child(2) {
                 h3 {
                     color: #000000;
-                    font-size: 32px;
+                    font-size: 31px;
+                    @media (max-width: @screen-md-max) {
+                        font-size: 25px;
+                        margin: 0;
+                    }
                 }
                 .info {
                     .icon {
