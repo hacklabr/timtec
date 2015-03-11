@@ -4,10 +4,6 @@
     border: none;
     border-radius: 0;
     font-family: 'ek-mukta-extralight';
-    margin-bottom: 30px;
-    @media (min-width: @screen-md-min) {
-        margin-bottom: 50px;
-    }
     z-index: 20;
     .navbar-brand {
         .text-hide();
@@ -50,6 +46,9 @@
     .navbar-nav {
         @media (max-width: @screen-sm-max) {
             font-size: 18px;
+        }
+        @media (min-width: @screen-md-min) {
+            font-size: 26px;
         }
         > li > a {
             line-height: @line-height-computed;

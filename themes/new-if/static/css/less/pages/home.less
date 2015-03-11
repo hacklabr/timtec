@@ -2,7 +2,6 @@
 // ********************************************************************* //
 
 #home {
-    @media screen and (min-width: @screen-sm-min) { margin-top: -50px; }
 
     // banner
     #highlight {
@@ -32,8 +31,16 @@
                 color: #817D7B;
                 margin-top: 0;
             }
+            @media (max-width: @screen-sm-max) {
+                h1 {
+                    font-size: 38px;
+                }
+                h3 {
+                    font-size: 26px;
+                }
+            }
         }
-        @media (max-width: @screen-sm-max) {
+        @media (max-width: @screen-xs-max) {
             .text {
                 display: none;
             }
@@ -108,10 +115,16 @@
             }
         }
         .block {
+            @media (max-width: @screen-sm-max) {
+                margin-bottom: 20px;
+            }
             .info {
                 background-color: transparent;
                 padding: 0;
                 @media (min-width: @screen-sm-min) {
+                    height: auto;
+                }
+                @media (min-width: @screen-md-min) {
                     height: 210px;
                 }
                 h3 {
