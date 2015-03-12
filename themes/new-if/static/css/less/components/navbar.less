@@ -5,33 +5,49 @@
     border-radius: 0;
     font-family: 'ek-mukta-extralight';
     z-index: 20;
+    .navbar {
+        min-height: 60px;
+    }
+
     .navbar-brand {
         .text-hide();
         background-image: url(../img/logo.png);
         background-position: center;
         background-repeat: no-repeat;
-        background-size: 285px;
-        height: 120px;
-        margin-left: 0;
+        background-size: 90%;
+        border-radius: 0;
+        border-top: none;
+        box-shadow: none;
+        height: 60px;
+        margin-left: 15px;
         padding: 0;
         position: absolute;
-        width: 285px;
+        width: 160px;
         z-index: 900;
-        @media (max-width: @screen-xs-max) {
-            margin-left: 15px;
-        }
-        @media (max-width: @screen-sm-max) {
-            background-size: 90%;
-            border-radius: 0;
-            border-top: none;
-            box-shadow: none;
+        @media (min-width: @screen-sm-min) {
             height: 70px;
+            margin-left: 0;
             width: 200px;
+        }
+        @media (min-width: @screen-md-min) {
+            background-size: 285px;
+            height: 120px;
+            width: 285px;
         }
     }
 
     .navbar-toggle {
-        border-color: #fff;
+        border: none;
+        margin-top: 12px;
+        .icon-bar {
+            background-color: #000000;
+            border-radius: 22px;
+            height: 4px;
+            width: 30px;
+        }
+        &:hover, &:focus {
+            background: transparent;
+        }
     }
 
     .navbar-divider {
@@ -48,19 +64,19 @@
             font-size: 18px;
         }
         @media (min-width: @screen-md-min) {
-            font-size: 26px;
+            font-size: 20px;
         }
         > li > a {
             line-height: @line-height-computed;
             padding-top: 0px;
-            padding-bottom: 10px;
-            @media (min-width: @grid-float-breakpoint) {
-                margin: 90px 5px 10px 5px;
-                padding: 0 5px;
-            }
-            @media (max-width: @screen-sm-max) {
+            padding: 10px 15px;
+            @media (min-width: @screen-sm-min) {
                 margin: 40px 5px 10px 5px;
                 padding: 0;
+            }
+            @media (min-width: @screen-md-min) {
+                margin: 90px 5px 10px 5px;
+                padding: 0 5px;
             }
         }
     }
@@ -74,7 +90,8 @@
     }
     #main-navbar-collapse {
         a {
-            &:hover {
+            &:hover, &:active,
+            &:visited, &:link {
                 background: transparent;
                 color: initial;
             }
