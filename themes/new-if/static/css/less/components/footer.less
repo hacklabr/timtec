@@ -2,6 +2,16 @@
 // ********************************************************************* //
 #main-footer {
     background-color: #FFFFFF;
+    @media (max-width: @screen-xs-max) {
+        padding-bottom: 16px;
+        padding-top: 16px;
+    }
+    .container {
+        .row {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
     ul {
         text-align: right;
         li {
