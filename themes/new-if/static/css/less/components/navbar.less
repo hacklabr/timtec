@@ -1,112 +1,123 @@
 // MAIN NAVBAR - DROPDOWN MENUS FOR SIGNIN AND SIGNUP
 // ********************************************************************* //
 #main-navbar {
-    border: none;
-    border-radius: 0;
-    font-family: 'ek-mukta-extralight';
-    z-index: 20;
-    .navbar {
-        min-height: 60px;
-    }
 
-    .navbar-brand {
-        .text-hide();
-        background-image: url(../img/logo.png);
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: 90%;
-        border-radius: 0;
-        border-top: none;
-        box-shadow: none;
-        height: 60px;
-        margin-left: 15px;
-        padding: 0;
-        position: absolute;
-        width: 160px;
-        z-index: 900;
-        @media (min-width: @screen-sm-min) {
-            height: 70px;
-            margin-left: 0;
-            width: 200px;
-        }
-        @media (min-width: @screen-md-min) {
-            background-size: 285px;
-            height: 120px;
-            width: 285px;
-        }
-    }
-
-    .navbar-toggle {
+    &.navbar-inverse {
         border: none;
-        margin-top: 12px;
-        .icon-bar {
-            background-color: #000000;
-            border-radius: 22px;
-            height: 4px;
-            width: 30px;
+        border-radius: 0;
+        font-family: 'ek-mukta-extralight';
+        z-index: 20;
+        &.navbar {
+            min-height: 77px;
         }
-        &:hover, &:focus {
-            background: transparent;
-        }
-    }
 
-    .navbar-divider {
-        @media (min-width: @screen-sm-min) {
-            border-right: 1px solid @brand-light;
-        }
-        @media (max-width: @screen-xs-max) {
-            border-top: 1px solid @brand-light;
-        }
-    }
-
-    .navbar-nav {
-        @media (max-width: @screen-sm-max) {
-            font-size: 18px;
-        }
-        @media (min-width: @screen-md-min) {
-            font-size: 20px;
-        }
-        > li > a {
-            line-height: @line-height-computed;
-            padding-top: 0px;
-            padding: 10px 15px;
+        .navbar-brand {
+            .text-hide();
+            background-image: url(../img/logo.png);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 90%;
+            border-radius: 0;
+            border-top: none;
+            box-shadow: none;
+            height: 77px;
+            margin-left: 15px;
+            padding: 0;
+            position: absolute;
+            width: 180px;
+            z-index: 900;
             @media (min-width: @screen-sm-min) {
-                margin: 40px 5px 10px 5px;
-                padding: 0;
+                margin-left: 0;
             }
             @media (min-width: @screen-md-min) {
-                margin: 90px 5px 10px 5px;
-                padding: 0 5px;
+                background-size: 285px;
+                height: 120px;
+                width: 285px;
             }
         }
-    }
 
-    #session-nav {
-        background-color: transparent;
-        padding: 0 5px;
-        @media (min-width: @screen-sm-min) {
-            margin-right: -15px;
-        }
-    }
-    #main-navbar-collapse {
-        a {
-            &:hover, &:active,
-            &:visited, &:link {
+        .navbar-toggle {
+            border: none;
+            margin-top: 22px;
+            .icon-bar {
+                background-color: #000000;
+                border-radius: 22px;
+                height: 4px;
+                width: 30px;
+            }
+            &:hover, &:focus {
                 background: transparent;
-                color: initial;
+            }
+        }
+
+        .navbar-divider {
+            @media (min-width: @screen-sm-min) {
+                border-right: 1px solid @brand-light;
+            }
+            @media (max-width: @screen-xs-max) {
+                border-top: 1px solid @brand-light;
+            }
+        }
+
+        .navbar-nav {
+            @media (max-width: @screen-sm-max) {
+                font-size: 18px;
+            }
+            @media (min-width: @screen-md-min) {
+                font-size: 20px;
+            }
+            > li > a {
+                line-height: @line-height-computed;
+                padding-top: 0px;
+                padding: 10px 15px;
+                @media (min-width: @screen-sm-min) {
+                    margin: 40px 5px 10px 5px;
+                    padding: 0;
+                }
+                @media (min-width: @screen-md-min) {
+                    margin: 90px 5px 10px 5px;
+                    padding: 0 5px;
+                }
+            }
+            .open {
+                .dropdown-menu {
+                    @media screen and (max-width: @screen-xs-max) {
+                        font-size: @font-size-base + 2px;
+                        .divider {
+                            background-color:  #bbbbbb;
+                        }
+                    }
+                }
+            }
+        }
+
+        #session-nav {
+            background-color: transparent;
+            padding: 0 5px;
+            @media (min-width: @screen-sm-min) {
+                margin-right: -15px;
+            }
+        }
+        #main-navbar-collapse {
+            @media screen and (max-width: @screen-xs-max) {
+                margin-top: 10px;
+            }
+            a {
+                &:hover, &:active,
+                &:visited, &:link {
+                    background: transparent;
+                    color: initial;
+                }
+            }
+        }
+        @media screen and (max-width: @screen-xs-max) {
+            #session-nav {
+                padding: 8px 0 0 0;
+            }
+            #site-nav {
+                float: none !important;
             }
         }
     }
 }
 
-@media screen and (max-width: @screen-xs-max) {
-    #session-nav {
-        padding: 8px 0 0 0;
-    }
-    #site-nav {
-        float: none !important;
-    }
-    .dropdown-menu .divider {
-        background-color:  @brand-light;
-    }
-}
