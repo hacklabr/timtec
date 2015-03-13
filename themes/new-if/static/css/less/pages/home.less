@@ -1,5 +1,6 @@
 // HOMEPAGE
 // ********************************************************************* //
+@font-base-box: @font-size-large + 12px;
 
 #home {
 
@@ -12,26 +13,26 @@
         text-align: center;
         .text {
             color: #000000;
-            height: 630px;
+            height: 280px;
             left: initial;
             position: relative;
-            right: initial !important;
+            right: initial;
             top: initial;
             h1, h3 {
+                font-family: "ek-mukta-extralight";
                 line-height: 1;
             }
             h1 {
-                font-family: ek-mukta-extralight;
-                font-size: 66px;
+                font-size: 29px;
                 margin-bottom: 0;
             }
             h3 {
-                font-family: ek-mukta-extralight;
-                font-size: 42px;
-                color: #817D7B;
+                color: #424242;
+                font-size: 23px;
                 margin-top: 0;
             }
-            @media (max-width: @screen-sm-max) {
+            @media (min-width: @screen-sm-min) {
+                height: 630px;
                 h1 {
                     font-size: 38px;
                 }
@@ -39,10 +40,14 @@
                     font-size: 26px;
                 }
             }
-        }
-        @media (max-width: @screen-xs-max) {
-            .text {
-                display: none;
+            @media (min-width: @screen-md-min) {
+                height: 630px;
+                h1 {
+                    font-size: 66px;
+                }
+                h3 {
+                    font-size: 42px;
+                }
             }
         }
     } // #hightlight
@@ -54,6 +59,7 @@
             color: #1F1F1F;
             font-family: "ek-mukta-extralight";
             font-size: 30px;
+            text-transform: none;
         }
     } //.page-title
 
@@ -64,7 +70,10 @@
         }
         .course {
             .info {
-                height: 120px;
+                height: auto;
+                @media (min-width: @screen-sm-min) {
+                    height: 120px;
+                }
                 padding-left: 0;
                 padding-right: 0;
                 h3 {
@@ -94,7 +103,7 @@
     // how it works
     #how-it-works {
         background-color: #F5F5F7;
-        box-shadow: inset 0 1px 46px #AAA, inset 0 -1px 46px #AAA;
+        box-shadow: inset  0  8px 26px -8px #AAAAAA, inset  0  -8px 26px -8px #AAAAAA;
         padding-bottom: 0;
         padding-top: 30px;
         header {
@@ -113,33 +122,21 @@
             padding-bottom: 0;
             p {
                 font-size: 20px;
+                line-height: 1.2;
                 text-align: left;
             }
         }
         .block {
-            @media (max-width: @screen-sm-max) {
-                margin-bottom: 20px;
-            }
+            padding: 0;
             .info {
-                background-color: transparent;
-                padding: 0;
-                @media (min-width: @screen-sm-min) {
-                    height: auto;
+                background: transparent;
+                border-radius: 0;
+                height: auto;
+                @media (max-width: @screen-xs-max) {
+                    padding: 0;
                 }
                 @media (min-width: @screen-md-min) {
-                    height: 210px;
-                }
-                h3 {
-                    color: @brand-primary;
-                    display: inline-block;
-                    height: initial;
-                    font-family: "ek-mukta-extralight";
-                    font-size: 36px;
-                    margin: 0 0 0 12px;
-                    vertical-align: middle;
-                    @media (min-width: @screen-lg-min) {
-                        font-size: 44px;
-                    }
+                    height: 230px;
                 }
                 .icon {
                     line-height: initial;
@@ -147,8 +144,9 @@
                     display: inline-block;
                     vertical-align: middle;
                     i {
-                        background-size: 100% !important;
+                        background-size: 90% !important;
                         background-repeat: no-repeat !important;
+                        font-size: 0;
                         height: 60px;
                         width: 60px;
                         &:before {
@@ -156,30 +154,34 @@
                         }
                     }
                 }
+                h3 {
+                    color: @brand-primary;
+                    display: inline-block;
+                    height: initial;
+                    font-family: "ek-mukta-extralight";
+                    font-size: @font-base-box;
+                    text-transform: uppercase;
+                    vertical-align: middle;
+                }
             }
             &:nth-child(1) {
                 .info {
                     .icon {
                         i {
-                            background: url("http://192.168.0.71:8000/static/img/ico-home-01.png");
+                            background: url("/static/img/ico-home-01.png");
                         }
                     }
                 }
             }
             &:nth-child(2) {
-                h3 {
-                    color: #000000;
-                    font-size: 31px;
-                    @media (max-width: @screen-md-max) {
-                        font-size: 25px;
-                        margin: 0;
-                    }
-                }
                 .info {
                     .icon {
                         i {
-                            background: url("http://192.168.0.71:8000/static/img/ico-home-02.png");
+                            background: url("/static/img/ico-home-02.png");
                         }
+                    }
+                    h3 {
+                        font-size: @font-base-box - 10px;
                     }
                 }
             }
@@ -187,12 +189,54 @@
                 .info {
                     .icon {
                         i {
-                            background: url("http://192.168.0.71:8000/static/img/ico-home-03.png");
-                            width: 68px;
+                            background: url("/static/img/ico-home-03.png");
                         }
                     }
                 }
             }
+            @media (min-width: @screen-sm-min) {
+                .info {
+                    h3 {
+                        font-size: @font-base-box + 7px;
+                    }
+                }
+                &:nth-child(2) {
+                    .info {
+                        h3 {
+                            font-size: @font-base-box - 6px;
+                        }
+                    }
+                }
+            }
+            @media (min-width: @screen-md-min) {
+                .info {
+                    h3 {
+                        font-size: @font-base-box + 3px;
+                    }
+                }
+                &:nth-child(2) {
+                    .info {
+                        h3 {
+                            font-size: @font-base-box - 9px;
+                        }
+                    }
+                }
+            }
+            @media (min-width: @screen-lg-min) {
+                .info {
+                    h3 {
+                        font-size: @font-base-box + 14px;
+                    }
+                }
+                &:nth-child(2) {
+                    .info {
+                        h3 {
+                            font-size: @font-base-box - 2px;
+                        }
+                    }
+                }
+            }
+
         }
     } // #how-it-works
 }
