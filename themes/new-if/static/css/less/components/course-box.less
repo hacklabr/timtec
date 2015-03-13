@@ -39,6 +39,9 @@
             }
             .thumb {
                 background-color: lighten(@gray-lighter, 5%);
+                @media (max-width: @screen-xs-max) {
+                    height: 75px;
+                }
             }
         } // .thumb-wrapper
         .info-box { // info wrapper for courses page
