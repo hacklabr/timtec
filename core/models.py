@@ -277,7 +277,7 @@ class CourseStudent(models.Model):
         """
         # TODO refator to make one query to count unts done for all lessons
         progress_list = []
-        for lesson in self.course.lessons.all():
+        for lesson in self.course.lessons.filter(status='published'):
             lesson_progress = {}
             lesson_progress['name'] = lesson.name
             lesson_progress['slug'] = lesson.slug
