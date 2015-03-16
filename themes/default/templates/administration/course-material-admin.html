@@ -7,6 +7,7 @@
 {% block js %}
     {{ block.super }}
     {% compressed_js 'course_material' %}
+    <script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
 {% endblock %}
 
 {% block wrapper_classes %}
@@ -21,11 +22,15 @@ wrapper-course-lesson
 
 <!-- CONTAINER -->
 <div id="course" class="course-material" ng-app="courseMaterial">
-		<div class="actions-menu" fixed-bar>
-            <div class="container">
-			{% include 'administration/_alert.html' %}
-			</div>
+    <!-- ACTIONS -->
+    <div class="actions-menu actions-menu-message" ng-hide="alert.hidden" fixed-bar>
+        <div class="container">
+            <div class="actions-buttons">
+            </div>
+            {% include 'administration/_alert.html' %}
         </div>
+    </div>
+    <!-- END ACTIONS -->
 
 	{% include "_admin_header_inline.html" with course=course %}
 
