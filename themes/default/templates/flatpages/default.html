@@ -28,9 +28,8 @@ class="static-page-body"
 								</div>
                                 {% include 'administration/_alert.html' %}
 								{% verbatim %}
-								<h3 class="editable-title" ng-hide="!flatpage.$resolved" ng-click="flatpage.active = true">{{ flatpage.title }}</h3>
+								<div class="editable-title"><input type="text" ng-model="flatpage.title" ng-hide="!flatpage.$resolved" ng-click="flatpage.active = true"></div>
 								{% endverbatim %}
-                                <a href="" ng-click="flatpage.active = true">editar</a>
 								<modalmarkdowneditorwithtitle tabindex="2"
 												  on-save="save_flatpage(flatpage)"
 												  title-model="flatpage.title"
