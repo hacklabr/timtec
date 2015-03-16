@@ -8,6 +8,7 @@
         'courseMaterial.filters',
         'django',
         'directive.markdowneditor',
+        'directive.alertPopup'
     ]);
 
 })(angular);
