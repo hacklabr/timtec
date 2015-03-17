@@ -9,7 +9,7 @@ class FilesSerializer(serializers.ModelSerializer):
 
 
 class CourseMaterialSerializer(serializers.ModelSerializer):
-    files = FilesSerializer(many=True, required=False)
+    files = FilesSerializer(many=True, required=False, read_only=True)
 
     class Meta:
         model = CourseMaterial

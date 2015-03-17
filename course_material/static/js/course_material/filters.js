@@ -1,11 +1,14 @@
-
-(function (angular, Markdown) {
+(function (angular) {
     'use strict';
 
-    angular.module('courseMaterial.filters', ["ngSanitize"]).
-        filter('markdown', ['$window', function($window) {
-            return function(text) {
-                return text ? Markdown.getSanitizingConverter().makeHtml(text) : "";
-            };
-        }]);
-})(angular, Markdown);
+    var app = angular.module('courseMaterial.filters', []);
+
+    app.filter('filename', function() {
+        return function(input) {
+            // do some bounds checking here to ensure it has that index
+            var path_array = input.split('/');
+            return path_array[path_array.length - 1];
+        };
+    });
+
+})(angular);
