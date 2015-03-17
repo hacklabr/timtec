@@ -159,6 +159,8 @@ class EnrollCourseView(LoginRequiredMixin, RedirectView):
         course = self.get_object()
         if course.is_enrolled(self.request.user):
             return reverse_lazy('resume_course', args=[course.slug])
+        if course.status == 'draft':
+            return reverse_lazy('courses')
         if self.request.user.accepted_terms or not settings.TERMS_ACCEPTANCE_REQUIRED:
             course.enroll_student(self.request.user)
             if course.has_started and course.first_lesson():

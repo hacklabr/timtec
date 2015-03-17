@@ -48,10 +48,18 @@ wrapper-course-intro
         <div class="actions-menu" fixed-bar>
             <div class="container">
                 <div class="actions-buttons">
-                    <button class="btn btn-success" title="{% trans 'Export course and download' %}" ng-click="export_course()">{% trans 'Export' %} | <i class="fa fa-download"></i></button>
-                    <button class="btn btn-danger" title="{% trans 'Delete course' %}" ng-click="deleteCourse()">{% trans 'Delete' %} | <i class="fa fa-trash-o"></i></button>
+                    <!-- LEFT BUTTON GROUP -->
                     <button class="btn btn-success" ng-click="saveCourse()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
-                    <button class="btn btn-warning" ng-click="publishCourse()">{% trans 'Publish' %} | <i class="fa fa-star-o"></i></button>
+                    <button class="btn btn-success" title="{% trans 'Export course and download' %}" ng-click="export_course()">{% trans 'Export' %} | <i class="fa fa-download"></i></button>
+                    <button class="btn btn-warning" ng-if="course.isDraft()" ng-click="publishCourse()">{% trans 'Publish' %} | <i class="fa fa-star-o"></i></button>
+                    <!-- END LEFT BUTTON GROUP -->
+                    <span>{% trans 'This course is' %}</span>
+                    <span class="label label-warning" ng-if="course.isDraft()">{% trans 'a Draft' %}</span>
+					<span class="label label-success" ng-if="course.isPublished()">{% trans 'Published' %}</span>
+                    <!-- RIGHT BUTTON GROUP -->
+                    <button class="btn btn-danger" ng-if="course.isPublished()" title="{% trans 'Set this course as a draft' %}" ng-click="set_course_as_draft()">{% trans 'Draft' %} | <i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-danger" title="{% trans 'Delete course' %}" ng-click="deleteCourse()">{% trans 'Delete' %} | <i class="fa fa-trash-o"></i></button>
+                    <!-- RIGHT BUTTON GROUP -->
                 </div>
                 {% include 'administration/_alert.html' %}
             </div>

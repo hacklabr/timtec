@@ -137,6 +137,13 @@
                 $scope.saveCourse();
             };
 
+            $scope.set_course_as_draft = function() {
+                if (confirm('Ao tornar o curso um racunho, ele não será mais visível para os usuários! Tem certeza que deseja tornar este curso um rascunho?')){
+                    $scope.course.status = 'draft';
+                    $scope.saveCourse();
+                }
+            };
+
             $scope.deleteCourse = function() {
                 if(!confirm('Tem certeza que deseja remover este curso?')) return;
 
