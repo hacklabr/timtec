@@ -12,7 +12,6 @@
             $scope.filters = {
                 all: false,
                 published : true,
-                listed : true,
                 draft : true,
                 textsearch: '',
                 check : function(course){

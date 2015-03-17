@@ -106,7 +106,6 @@ wrapper-course-lesson
                         <div class="checkbox">
                             <label><input ng-model="filters.all" type="checkbox"> {% trans 'All' %}</label>
                             <label><input ng-model="filters.published" type="checkbox"> {% trans 'Published' %}</label>
-                            <label><input ng-model="filters.listed" type="checkbox"> {% trans 'Listed' %}</label>
                             <label><input ng-model="filters.draft" type="checkbox"> {% trans 'Draft' %}</label>
                         </div>
                     </div>
@@ -147,22 +146,12 @@ wrapper-course-lesson
                     <div class="row">
                         <div class="col-sm-6">
                             <p>
-                                {% verbatim %}
-                                <span class="label label-warning" ng-if="course.isDraft()">Rascunho</span>
-                                <span class="label label-info" ng-if="course.isListed()">Listado</span>
-                                <span class="label label-success" ng-if="course.isPublished()">Publicado</span>
-
-                                <!--<span class="label" ng-class="{
-                                                                'label-default' : !(course.isDraft() || course.isListed() || course.isPublished()),
-                                                                'label-warning': course.isDraft(),
-                                                                'label-info': course.isListed(),
-                                                                'label-success': course.isPublished()}">{{ course.status | capfirst }}</span>-->
-                                {% endverbatim %}
+                                <span class="label label-warning" ng-if="course.isDraft()">{% trans 'Draft' %}</span>
+                                <span class="label label-success" ng-if="course.isPublished()">{% trans 'Published' %}</span>
 
                                 <span class="label label-default pointer" ng-click="loadLessons(course);showLessons=!showLessons">
                                     <span ng-if="!showLessons">{% trans 'Show lessons' %}</span>
                                     <span ng-if="showLessons">{% trans 'Hide lessons' %}</span>
-
                                     {% verbatim %}
                                     <i class="fa" ng-class="{'fa fa-caret-down':!showLessons,'fa fa-caret-up':showLessons}"></i>
                                     {% endverbatim %}

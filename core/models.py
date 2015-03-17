@@ -63,9 +63,7 @@ class Class(models.Model):
 
 class Course(models.Model):
     STATES = (
-        ('new', _('New')),
         ('draft', _('Draft')),
-        ('listed', _('Listed')),
         ('published', _('Published')),
     )
 
@@ -394,7 +392,6 @@ class PositionedModel(models.Model):
 class Lesson(PositionedModel):
     STATES = (
         ('draft', _('Draft')),
-        ('listed', _('Listed')),
         ('published', _('Published')),
     )
 

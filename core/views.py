@@ -13,7 +13,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.flatpages.models import FlatPage
 from django.shortcuts import get_object_or_404
 from django.conf import settings
-from django.db.models import Q
 from django.utils import timezone
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -84,7 +83,7 @@ class CoursesView(ListView):
     template_name = "courses.html"
 
     def get_queryset(self):
-        return Course.objects.filter(Q(status='published') | Q(status='listed')).prefetch_related('professors').order_by('start_date')
+        return Course.objects.filter(status='published').prefetch_related('professors').order_by('start_date')
 
 
 class ContactView(View):
@@ -264,7 +263,7 @@ class CourseViewSet(viewsets.ModelViewSet):
         queryset = super(CourseViewSet, self).get_queryset()
         public_courses = self.request.QUERY_PARAMS.get('public_courses', None)
         if public_courses:
-            queryset = queryset.filter(Q(status='published') | Q(status='listed')).prefetch_related('professors')
+            queryset = queryset.filter(status='published').prefetch_related('professors')
         return queryset
 
     def get(self, request, **kwargs):
