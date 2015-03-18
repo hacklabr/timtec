@@ -22,7 +22,7 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
 
 from activities.views import AnswerViewSet
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, QuestionVoteViewSet, AnswerVoteViewSet
-from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialViewSet
+from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialViewSet, CourseMaterialFileViewSet
 from notes.views import NotesViewSet, CourseNotesView, UserNotesView
 from reports.views import UserCourseStats, CourseStatsByLessonViewSet, UserCourseLessonsStats
 from rest_framework import routers
@@ -51,6 +51,7 @@ router.register(r'forum_answer', ForumAnswerViewSet)
 router.register(r'question_vote', QuestionVoteViewSet)
 router.register(r'answer_vote', AnswerVoteViewSet)
 router.register(r'course_material', CourseMaterialViewSet)
+router.register(r'course_material_file', CourseMaterialFileViewSet)
 router.register(r'note', NotesViewSet)
 router.register(r'user_notes', UserNotesViewSet)
 router.register(r'reports', UserCourseStats)

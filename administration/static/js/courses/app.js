@@ -6,7 +6,8 @@
         'timtec-models',
         'directive.fixedBar',
         'django',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'directive.file'
     ]);
 
 })(window.angular);

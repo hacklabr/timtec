@@ -1,6 +1,5 @@
 {% load i18n %}
-{% load socialaccount %}
-{% load usergroup %}
+{% load is_coordinator %}
 
 <nav id="main-navbar" class="navbar navbar-inverse" role="navigation">
     <div class="container">
@@ -29,21 +28,19 @@
             <ul class="nav navbar-nav" id="session-nav">
             {% if user.is_authenticated %}
                 {% if user.is_superuser %}
-                    <li>
+                    <li {% if in_admin %}class="active"{% endif %}>
                         <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
                             {% trans "Admin" %}
                             <i class="fa fa-caret-down"></i>
                         </a>
-                        <ul class="dropdown-menu{% if in_admin %} active{% endif %} user-menu">
+                        <ul class="dropdown-menu user-menu">
                             <li><a href="{% url 'administration.home' %}">{% trans 'Home edit' %}</a></li>
                             <li><a href="{% url 'administration.courses' %}" id="admin-link">{% trans "Courses" %}</a></li>
                             <li><a href="{% url 'administration.users' %}">{% trans 'Users' %}</a></li>
                         </ul>
                     </li>
-                {% else %}
-                    {% ifusergroup professors %}
-                        <li {% if in_admin %}class="active"{% endif %}><a href="{% url 'administration.courses' %}" id="admin-link">{% trans "Admin" %}</a></li>
-                    {% endifusergroup %}
+                {% elif user|is_coordinator %}
+                    <li {% if in_admin %}class="active"{% endif %}><a href="{% url 'administration.courses' %}" id="admin-link">{% trans "Admin" %}</a></li>
                 {% endif %}
                 <li>
                     <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
@@ -61,100 +58,11 @@
             {% else %}
                 <li>
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans 'Sign In' %}</a>
-                    <div class="dropdown-menu">
-                        <form onclick="event.stopPropagation()" method="post" action="{% url 'account_login' %}" class="navbar-form form-horizontal">{% csrf_token %}
-
-                            <div class="form-group {% if form.errors %}has-error{% endif %}">
-                                <label class="col-sm-5 col-xs-12 control-label">{% trans 'Username' %}</label>
-                                <div class="col-sm-7 col-xs-12">
-                                    <input name="login" type="text" class="form-control"
-                                           value="{{form.login.value}}" placeholder="{% trans 'E-mail or username' %}"/>
-                                    {% for error in form.login.errors %}
-                                    <small>{{error}}</small>
-                                    {% endfor %}
-                                </div>
-                            </div>
-
-                            <div class="form-group {% if form.errors %}has-error{% endif %}">
-                                <label class="col-sm-5 col-xs-12 control-label">{% trans 'Password' %}</label>
-                                <div class="col-sm-7 col-xs-12">
-                                    <input name="password" type="password" class="form-control" placeholder="{% trans 'Password' %}">
-                                    {% for error in form.password.errors %}
-                                    <small>{{error}}</small>
-                                    {% endfor %}
-                                    {% for error in form.non_field_errors %}
-                                    <small>{{error}}</small>
-                                    {% endfor %}
-                                </div>
-                            </div>
-
-                            <div class="submit clearfix">
-                                <div class="col-xs-8">
-                                    <a href="{% url 'account_reset_password' %}">{% trans 'Forgot my password' %}</a>
-                                </div>
-                                <div class="col-xs-4 textright">
-                                    <button class="btn btn-success">{% trans 'Sign In' %} <i class="fa fa-sign-in"></i></button>
-                                </div>
-                            </div>
-                            <div class="divider"></div>
-                            <div class="row">
-                                <p class="bottom textcenter">
-                                    {% load socialaccount %}
-                                    <a href="{% provider_login_url 'facebook' method='oauth2' %}">{% trans 'Connect with Facebook' %}</a>
-                                </p>
-                            </div>
-                        </form>
-                    </div>
+                    {% include '_login_modal.html' %}
                 </li>
                 <li>
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans 'Sign Up' %}</a>
-                    <div class="dropdown-menu">
-                        <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}" class="navbar-form form-horizontal">{% csrf_token %}
-                            <div class="form-group">
-                                <label class="col-sm-5 col-xs-12 control-label">{% trans "Username" %}</label>
-                                <div class="col-sm-7 col-xs-12">
-                                    <input name="username" type="text" class="form-control" placeholder="{% trans 'Choose an username' %}">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-5 col-xs-12 control-label">{% trans 'E-mail' %}</label>
-                                <div class="col-sm-7 col-xs-12">
-                                    <input name="email" type="email" class="form-control" placeholder="{% trans 'Insert your e-mail' %}">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-5 col-xs-12 control-label">{% trans 'Password' %}</label>
-                                <div class="col-sm-7 col-xs-12">
-                                    <p><input name="password1" type="password" class="form-control" placeholder="{% trans 'A really strong password' %}"></p>
-                                    <input name="password2" type="password" class="form-control" placeholder="{% trans 'Confirm your password' %}">
-                                </div>
-                            </div>
-
-                        	{% if terms_required %}
-							<div class="col-lg-offset-5 col-sm-offset-5 col-lg-8 col-sm-8 textleft">
-                                <span class="checkbox-wrapper"><input name="accept_terms" id="accept_terms" type="checkbox" {% if form.accept_terms.value %}checked=""{% endif %}></span>
-                                {% url 'django.contrib.flatpages.views.flatpage' url='terms/' as terms_url %}
-                                <label for="accept_terms" class="terms">{% blocktrans %}I agree to the <a href="terms_url" target="_blank">Terms of Use</a>{% endblocktrans %}</label>
-                                {% for error in errors %}<small>{{error}}</small>{% endfor %}
-                            </div>
-							{% endif %}
-
-                            <div class="submit textright clearfix">
-                                <div class="col-xs-12">
-                                    <button class="btn btn-success">{% trans 'Sign Up' %}</button>
-                                </div>
-                            </div>
-                            <div class="divider"></div>
-                            <div class="row">
-                                <p class="bottom textcenter">
-                                    <a href="{% provider_login_url 'facebook' method='oauth2' %}">{% trans 'Connect with Facebook' %}</a>
-                                </p>
-                            </div>
-
-                        </form>
-                    </div>
+                    {% include '_signup_modal.html' %}
                 </li>
             {% endif %}
             </ul>

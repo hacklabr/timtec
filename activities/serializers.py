@@ -25,3 +25,11 @@ class AnswerSerializer(serializers.ModelSerializer):
         model = Answer
         allow_add_remove = True
         fields = ('id', 'activity', 'correct', 'user', 'user_id', 'timestamp', 'given',)
+
+
+class ActivityImportExportSerializer(serializers.ModelSerializer):
+    data = JSONSerializerField('data')
+    expected = JSONSerializerField('expected', required=False)
+
+    class Meta:
+        model = Activity

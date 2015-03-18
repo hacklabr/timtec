@@ -25,17 +25,17 @@
 
             $scope.save_permissions = function() {
                 var promises_list = [];
-                var new_course_professor;
+                //var new_course_professor;
                 $scope.professors.forEach(function(course_professor) {
                     if (course_professor.id){
                         course_professor.$update({id: course_professor.id});
                         promises_list.push(course_professor.$promise);
                     } else {
-                        new_course_professor = CourseProfessor.save({
+                        course_professor = course_professor.$save({
                             course: course_professor.course,
                             user: course_professor.user
                         });
-                        promises_list.push(new_course_professor.$promise);
+                        promises_list.push(course_professor.$promise);
                     }
                 });
                 $q.all([promises_list]).then(function(results) {

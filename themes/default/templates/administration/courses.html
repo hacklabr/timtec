@@ -8,6 +8,7 @@
 <script type="text/javascript" src="{% static 'js/courses/controllers.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/file.js' %}"></script>
 {% endblock %}
 
 {% block body_attrs %}
@@ -43,15 +44,40 @@ wrapper-course-lesson
     </div>
 </div>
 <!-- COURSES -->
-<section id="courses" ng-controller="CourseListController">
-
+<section id="courses" ng-controller="CoursesAdminController">
+    <script type="text/ng-template" id="import_course_modal.html">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="class-modal-label">{% trans 'Choose the course file to import' %}</h4>
+            </div>
+            <form role="form" method="post">
+                {% csrf_token %}
+                <div class="modal-body">
+                        <div class="form-group">
+                            <label for="course-import-file" class="sr-only">{% trans 'Select the course file to import' %}</label>
+                            <input file
+                                   ng-model="course_import_file"
+                                   id="course-import-file"
+                                   name="course-import-file"
+                                   class="form-control"
+                                   placeholder="{% trans 'Course file to import...' %}">
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="cancel()">{% trans 'Cancel' %}</button>
+                    <button type="button" class="btn btn-primary" ng-click="import_course()">{% trans 'Import course' %}</button>
+                </div>
+            </form>
+        </div>
+    </script>
     <!-- ACTIONS -->
     <div class="actions-menu" fixed-bar>
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 textright">
-                    <a class="btn btn-success" data-toggle="modal" data-target="#new-course-modal">{% trans 'New course' %}</a>
-
+                    <a class="btn btn-success" data-toggle="modal" data-target="#new-course-modal">{% trans 'Create course' %}</a>
+                    <a class="btn btn-success" ng-click="import_course_modal()">{% trans 'Import course' %}</a>
                 </div>
             </div>
         </div>
@@ -80,7 +106,6 @@ wrapper-course-lesson
                         <div class="checkbox">
                             <label><input ng-model="filters.all" type="checkbox"> {% trans 'All' %}</label>
                             <label><input ng-model="filters.published" type="checkbox"> {% trans 'Published' %}</label>
-                            <label><input ng-model="filters.listed" type="checkbox"> {% trans 'Listed' %}</label>
                             <label><input ng-model="filters.draft" type="checkbox"> {% trans 'Draft' %}</label>
                         </div>
                     </div>
@@ -116,27 +141,17 @@ wrapper-course-lesson
             <div class="course clearfix" ng-repeat="course in (filteredList = (courseList | orderBy:ordering:reverse | nullToEnd:ordering:reverse | filter:filters.check))">
                 <div class="col-lg-12">
                     {% verbatim %}
-                    <h1><a href="/admin/courses/{{ course.id }}" title="{{ course.name }}">{{ course.name }}</a></h1>
+                    <h1><a ng-href="/admin/courses/{{ course.id }}" title="{{ course.name }}">{{ course.name }}</a></h1>
                     {% endverbatim %}
                     <div class="row">
                         <div class="col-sm-6">
                             <p>
-                                {% verbatim %}
-                                <span class="label label-warning" ng-if="course.isDraft()">Rascunho</span>
-                                <span class="label label-info" ng-if="course.isListed()">Listado</span>
-                                <span class="label label-success" ng-if="course.isPublished()">Publicado</span>
-
-                                <!--<span class="label" ng-class="{
-                                                                'label-default' : !(course.isDraft() || course.isListed() || course.isPublished()),
-                                                                'label-warning': course.isDraft(),
-                                                                'label-info': course.isListed(),
-                                                                'label-success': course.isPublished()}">{{ course.status | capfirst }}</span>-->
-                                {% endverbatim %}
+                                <span class="label label-warning" ng-if="course.isDraft()">{% trans 'Draft' %}</span>
+                                <span class="label label-success" ng-if="course.isPublished()">{% trans 'Published' %}</span>
 
                                 <span class="label label-default pointer" ng-click="loadLessons(course);showLessons=!showLessons">
                                     <span ng-if="!showLessons">{% trans 'Show lessons' %}</span>
                                     <span ng-if="showLessons">{% trans 'Hide lessons' %}</span>
-
                                     {% verbatim %}
                                     <i class="fa" ng-class="{'fa fa-caret-down':!showLessons,'fa fa-caret-up':showLessons}"></i>
                                     {% endverbatim %}

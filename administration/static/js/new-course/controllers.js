@@ -107,6 +107,10 @@
                 }
             };
 
+            $scope.export_course = function() {
+                $window.open('/admin/course/' + $scope.course_id + '/export/', '_blank', '');
+            };
+
             $scope.saveCourse = function() {
                 if(!$scope.course.hasVideo()){
                     delete $scope.course.intro_video;
@@ -131,6 +135,13 @@
             $scope.publishCourse = function() {
                 $scope.course.status = 'published';
                 $scope.saveCourse();
+            };
+
+            $scope.set_course_as_draft = function() {
+                if (confirm('Ao tornar o curso um racunho, ele não será mais visível para os usuários! Tem certeza que deseja tornar este curso um rascunho?')){
+                    $scope.course.status = 'draft';
+                    $scope.saveCourse();
+                }
             };
 
             $scope.deleteCourse = function() {
