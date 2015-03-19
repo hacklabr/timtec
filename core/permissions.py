@@ -14,9 +14,9 @@ class IsProfessorCoordinatorOrAdminPermissionOrReadOnly(permissions.BasePermissi
             return True
         elif request.user and request.user.is_superuser:
             return True
-        elif isinstance(obj, CourseProfessor) and obj.course.get_professor_role(request.user) == 'coordinator':
+        elif request.user.is_authenticated() and isinstance(obj, CourseProfessor) and obj.course.get_professor_role(request.user) == 'coordinator':
             return True
-        elif isinstance(obj, Course) and obj.get_professor_role(request.user) == 'coordinator':
+        elif request.user.is_authenticated() and isinstance(obj, Course) and obj.get_professor_role(request.user) == 'coordinator':
             return True
 
 

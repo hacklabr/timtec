@@ -10,7 +10,8 @@ from core.models import CourseStudent
 def test_percent_progress_by_lesson(user):
     from datetime import datetime
     course = mommy.make('Course')
-    lesson = mommy.make('Lesson', name='Test Course', slug='test-course', course=course)
+    lesson = mommy.make('Lesson', name='Test Course', slug='test-lesson', status='published', course=course)
+    mommy.make('Lesson', name='Test Course', slug='test-lesson-draft', status='draft', course=course)
     video = mommy.make('Video')
     unit1 = mommy.make('Unit', lesson=lesson, video=video)
     mommy.make('Activity', unit=unit1)
@@ -25,9 +26,12 @@ def test_percent_progress_by_lesson(user):
     mommy.make('StudentProgress', user=user, unit=unit4)
 
     progress = course_student.percent_progress_by_lesson()
-    assert progress[0]['name'] == 'Test Course'
-    assert progress[0]['slug'] == 'test-course'
+    assert progress[0]['name'] == lesson.name
+    assert progress[0]['slug'] == lesson.slug
     assert progress[0]['progress'] == 75
+
+    # Ensure lesson-draft is not in result
+    assert len(progress) == 1
 
 
 @pytest.mark.django_db

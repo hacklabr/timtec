@@ -164,5 +164,26 @@
         $scope.twits = Twitter.query({});
     }]);
 
+    app.controller('FlatPageCtrl', ['$scope', 'FlatPage',
+        function ($scope, FlatPage) {
+            var success_save_msg = 'Alterações salvas com sucesso.';
+
+            $scope.flatpages = FlatPage.query({url: '/about/'}, function(flatpages){
+                if (flatpages) {
+                    $scope.flatpage = flatpages[0];
+                    $scope.flatpage.$resolved = flatpages.$resolved;
+                }
+            });
+
+            $scope.save_flatpage = function(flatpage) {
+                if (flatpage.id) {
+                    flatpage.$update({flatpageId: flatpage.id});
+                } else {
+                    flatpage.$save();
+                }
+                $scope.alert.success(success_save_msg);
+            };
+    }]);
+
 })(angular);
 

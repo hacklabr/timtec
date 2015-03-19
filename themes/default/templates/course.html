@@ -48,11 +48,18 @@ wrapper-course-intro
         <div class="actions-menu" fixed-bar>
             <div class="container">
                 <div class="actions-buttons">
-                    <button class="btn btn-danger" title="{% trans 'Delete course' %}" ng-click="deleteCourse()">{% trans 'Delete' %} | <i class="fa fa-trash-o"></i></button>
+                    <!-- LEFT BUTTON GROUP -->
                     <button class="btn btn-success" ng-click="saveCourse()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
-                    <button class="btn btn-warning" ng-click="publishCourse()">{% trans 'Publish' %} | <i class="fa fa-star-o"></i></button>
+                    <button class="btn btn-success" title="{% trans 'Export course and download' %}" ng-click="export_course()">{% trans 'Export' %} | <i class="fa fa-download"></i></button>
+                    <!-- END LEFT BUTTON GROUP -->
                 </div>
                 {% include 'administration/_alert.html' %}
+                <div class="actions-buttons pull-right">
+                    <!-- RIGHT BUTTON GROUP -->
+                    <button class="btn btn-danger" title="{% trans 'Delete course' %}" ng-click="deleteCourse()">{% trans 'Delete' %} | <i class="fa fa-trash-o"></i></button>
+                    <!-- RIGHT BUTTON GROUP -->
+                </div>
+
             </div>
         </div>
         <!-- END ACTIONS -->
@@ -343,6 +350,22 @@ wrapper-course-intro
                 <!-- COURSE-SUMMARY - VISIBLE ONLY FOR PHONES -->
                 <section class="summary hidden-lg hidden-md hidden-sm visible-xs row">
                     <div class="col-xs-12">
+                        <div class="page-header-double">
+                            <h3 class="top">{% trans 'This course is' %}</h3>
+                        </div>
+
+                        <div class="course-status btn-group">
+                            <button class="btn btn-success dropdown-toggle" data-toggle="dropdown"
+                            ng-if="course.isPublished()">{% trans 'Published' %} <span class="caret"></span></button>
+
+                            <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
+                            ng-if="course.isDraft()">{% trans 'Draft' %} <span class="caret"></span></button>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li ng-if="course.isDraft()"><button class="btn btn-success" ng-click="publishCourse()">{% trans 'Published' %}</button></li>
+                                <li ng-if="course.isPublished()"><button class="btn btn-danger" ng-click="set_course_as_draft()">{% trans 'Draft' %}</button></li>
+                            </ul>
+                        </div>
                         <!-- COURSE-INSTRUCTORS -->
                         {%  include '_course_authors_inline.html' %}
                     </div>
@@ -377,7 +400,6 @@ wrapper-course-intro
                                                 <div class="btn-group" ng-init="openDropdown=false;">
                                                     <button type="button" class="btn btn-default">
                                                         <span ng-show="lesson.status=='draft'"> {% trans 'Draft' %}</span>
-                                                        <span ng-show="lesson.status=='listed'"> {% trans 'Listed' %}</span>
                                                         <span ng-show="lesson.status=='published'"> {% trans 'Published' %}</span>
                                                     </button>
                                                     <button type="button" class="btn btn-default dropdown-toggle"
@@ -544,8 +566,26 @@ wrapper-course-intro
                 <section class="summary">
                     <!-- START DATE -->
                     {% if in_admin %}
+
                     <div class="page-header-double">
-                        <h3 class="top"><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Start date' %}</h3>
+                        <h3 class="top">{% trans 'This course is' %}</h3>
+                    </div>
+
+                    <div class="course-status btn-group">
+                        <button class="btn btn-success dropdown-toggle" data-toggle="dropdown"
+                        ng-if="course.isPublished()">{% trans 'Published' %} <span class="caret"></span></button>
+
+                        <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
+                        ng-if="course.isDraft()">{% trans 'Draft' %} <span class="caret"></span></button>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li ng-if="course.isDraft()"><button class="btn btn-success" ng-click="publishCourse()">{% trans 'Published' %}</button></li>
+                            <li ng-if="course.isPublished()"><button class="btn btn-danger" ng-click="set_course_as_draft()">{% trans 'Draft' %}</button></li>
+                        </ul>
+                    </div>
+
+                    <div class="page-header-double">
+                        <h3><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Start date' %}</h3>
                     </div>
                     <div class="editable editable-text">
                         <input type="text" ng-model="course.start_date" datepicker-popup="dd/MM/yyyy" is-open="opened" show-button-bar="false" ng-click="opened = true" />

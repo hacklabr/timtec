@@ -13,6 +13,9 @@
             <!-- CONTAINER -->
             <div class="container js-fullheight c1">
               <form action="{% url 'accept_terms' %}" method="post">{% csrf_token %}
+              	{% if next_url %}
+                    <input type="hidden" name="next" value="{{ next_url }}">
+              	{% endif %}
                 {% with errors=form.accept_terms.errors %}
                 <div class="form-group{{ errors|yesno:' has-error,' }}">
                     <span class="checkbox-wrapper"><input name="accept_terms" id="accept_terms" type="checkbox" {% if form.accept_terms.value %}checked=""{% endif %} class=""></span>

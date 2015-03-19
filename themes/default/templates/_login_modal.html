@@ -1,0 +1,46 @@
+{% load i18n %}
+{% load socialaccount %}
+
+<div class="dropdown-menu">
+    <form method="post" action="{% url 'account_login' %}" class="navbar-form form-horizontal">{% csrf_token %}
+
+        <div class="form-group {% if form.errors %}has-error{% endif %}">
+            <label class="col-sm-5 col-xs-12 control-label">{% trans 'Username' %}</label>
+            <div class="col-sm-7 col-xs-12">
+                <input name="login" type="text" class="form-control"
+                       value="{{form.login.value}}" placeholder="{% trans 'E-mail or username' %}"/>
+                {% for error in form.login.errors %}
+                <small>{{error}}</small>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-group {% if form.errors %}has-error{% endif %}">
+            <label class="col-sm-5 col-xs-12 control-label">{% trans 'Password' %}</label>
+            <div class="col-sm-7 col-xs-12">
+                <input name="password" type="password" class="form-control" placeholder="{% trans 'Password' %}">
+                {% for error in form.password.errors %}
+                <small>{{error}}</small>
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                <small>{{error}}</small>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="submit clearfix">
+            <div class="col-xs-8">
+                <a href="{% url 'account_reset_password' %}">{% trans 'Forgot my password' %}</a>
+            </div>
+            <div class="col-xs-4 textright">
+                <button class="btn btn-success">{% trans 'Sign In' %} <i class="fa fa-sign-in"></i></button>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="row">
+            <p class="bottom textcenter">
+                <a href="{% provider_login_url 'facebook' method='oauth2' %}">{% trans 'Connect with Facebook' %}</a>
+            </p>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% load compressed %}
+
+{% block js %}
+    {{ block.super }}
+    {% compressed_js 'course_material' %}
+{% endblock %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
+{% block content %}
+
+<script>
+	window.course_id = {{ course.pk }};
+</script>
+
+<!-- CONTAINER -->
+<div id="course" class="course-material" ng-app="courseMaterial">
+    <!-- ACTIONS -->
+    <div class="actions-menu actions-menu-message" ng-hide="alert.hidden" fixed-bar>
+        <div class="container">
+            <div class="actions-buttons">
+            </div>
+            {% include 'administration/_alert.html' %}
+        </div>
+    </div>
+    <!-- END ACTIONS -->
+
+	{% include "_admin_header_inline.html" with course=course %}
+
+    <!-- MAIN CONTENT -->
+    <section id="course-content" class="container">
+
+        <header class="secondary-header">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>{% trans "Course Material" %}</h1>
+                </div>
+            </div>
+        </header>
+
+        <div class="row" ng-controller="CourseMaterialEditorCtrl">
+			<div class="col-sm-9 col-lg-9">
+                <div class="col-lg-12" ng-hide="course_materials.$resolved">
+					<i class="loading fa fa-refresh fa-spin"></i>
+				</div>
+                <modalmarkdowneditor
+					tabindex="2"
+					on-save="save_course_material()"
+                    title="{% trans "Course Material" %}"
+					content="course_material.text"
+                    ng-hide="!course_materials.$resolved">
+
+				</modalmarkdowneditor>
+			</div>
+
+            <!-- ASIDE -->
+            <aside class="col-sm-3 col-lg-3">
+				<form action="{% url 'file_upload' course.slug %}" class="dropzone textcenter" ng-dropzone id="file-dropzone">
+					<div>
+                        <p><strong>{% trans 'Drop' %}</strong> {% trans 'files to upload' %}<br>{% trans '(or click)' %}</p>
+					</div>
+					{% csrf_token %}
+					{% verbatim %}
+					<input type="hidden" name="course_material" value="{{ course_material.id }}" id="id_course_material">
+					{% endverbatim %}
+				</form>
+                <p ng-show="course_material.files.length==0">{% trans 'No files in course material' %}</p>
+                <ul class="uploaded-files-list" ng-show="course_material.files.length>0">
+                    <li><h5>{% trans "Files" %}</h5></li>
+                    <li ng-repeat="file_obj in course_material.files">
+                        {% verbatim %}
+                        <a ng-href="/media/{{ file_obj.file }}">{{file_obj.file|filename}}</a> <button type="submit" ng-click="delete_file(file_obj)" class="btn btn-xs btn-warning pull-right"><i class="fa fa-trash-o"></i></button>
+                        {% endverbatim %}
+                    </li>
+                </ul>
+            </aside>
+            <!-- END ASIDE -->
+        </div>
+    </section>
+    <!-- END MAIN CONTENT-->
+</div>
+<!-- END CONTAINER -->
+{% endblock %}
