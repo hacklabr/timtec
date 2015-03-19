@@ -1,38 +1,21 @@
 // FORUM
 // ********************************************************************* //
-#forum {
-    #forum-content {
-        .hide-question {
-            width: 100px;
-        }
-        .question {
-            // IF IS HIDDEN
-            &.is-hidden {
-                .why-hidden {
-                    border-top: 1px solid lighten(@brand-warning, 40%);
-                }
-            }
-        }
-        .rating {
-            width: 80px;
-            .votes {
-                font-family: @font-family-base;
-            }
-        }
-        .author {
-            padding-top: 10px;
-        }
+
+#forum-content {
+    .filters {
+        margin: 30px 0;
     }
 }
 
-.course-forum {
-    &#forum {
-        #forum-content {
-            .questions {
-                margin-top: 0;
-            }
-            .secondary-header {
-                margin-bottom: 0;
+// COURSE FORUM INLINE
+// ********************************************************************* //
+
+#course-content {
+    .forum-inline {
+        .page-header-double {
+            margin-top: 30px;
+            h3 {
+                color: @brand-primary;
             }
         }
     }
