@@ -1,18 +1,22 @@
 // Page Headers
 .page-header-double {
-    border-bottom: 1px solid @brand-light;
+    border-bottom: 0;
+    margin: 40px 0 10px;
     h1,h2,h3,h4,h5,h6 {
-        border: none;
-        color: #333;
-        font-family: inherit;
-        font-size: 24px;
-        margin-bottom: 10px;
+        border-bottom: 0;
+        font-size: 26px;
+        margin-bottom: 0;
+        padding-bottom: 0;
         i {
-            color: #333;
+            display: none;
         }
     }
     h2 {
-        font-family: 'pt_sansbold';
+        font-family: 'ek-mukta-extralight', @font-family-base;
+    }
+    h3 {
+        font-family: 'ek-mukta-extralight', @font-family-base;
+        text-transform: uppercase;
     }
 }
 
@@ -22,7 +26,7 @@
         border-bottom: 1px solid @brand-light;
         margin-bottom: 20px;
         h1 {
-            font-family: 'pt_sansbold';
+            font-family: 'ek-mukta-extralight', @font-family-base;
             font-size: 28px;
         }
         ul.instructors {

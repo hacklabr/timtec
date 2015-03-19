@@ -1,10 +1,58 @@
 // COURSE CONTENT
 #course-content {
 
+    > .row {
+        > div:first-child {
+            @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+                .make-md-column(8);
+            }
+            @media (min-width: @screen-lg-min) {
+                .make-lg-column(7);
+            }
+
+        }
+        > div:nth-child(2) {
+            @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+                .make-md-column(4);
+            }
+            @media (min-width: @screen-lg-min) {
+                .make-lg-column(5);
+            }
+        }
+    }
+
+    // COURSE INFO - Course intro
+    // ********************************************************************* //
+    .course-info {
+        margin-top: 40px;
+        .page-header-double {
+            margin-top: 0;
+        }
+        .application {
+            border-right: 2px solid @gray-light;
+        }
+        .requirement {
+            h3 {
+                color: @brand-primary;
+            }
+        }
+        .structure {
+            margin-top: 40px;
+        }
+    }
+
     // COURSE SUMMARY - Course intro
     // ********************************************************************* //
     .summary {
         margin-top: 20px;
+        .abstract {
+            .page-header-double {
+                margin-top: 0;
+            }
+            h3 {
+                color: @brand-primary;
+            }
+        }
     }
 
     // COURSE LESSONS - Course intro
@@ -25,6 +73,13 @@
     .instructors {
         h1.fullname {
             margin-bottom: 10px;
+        }
+        .thumbnail {
+            padding: 0px;
+            border: none;
+            border-radius: 0;
+            transition: none;
+            width: 100%;
         }
     }
     // END INSTRUCTORS
