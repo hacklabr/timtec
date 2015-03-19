@@ -7,6 +7,12 @@ wrapper-courses
 {% endblock %}
 
 {% block content %}
+        <div class="header-courses">
+            <div class="container">
+                <h1>Cursos</h1>
+            </div>
+        </div>
+
         <!-- CONTAINER -->
         <div id="courses-page" class="container">
             <header class="page-header-double">
@@ -17,7 +23,7 @@ wrapper-courses
                 <div class="col-sm-8 col-lg-9">
                     <div class="row">
                         {% for course in courses %}
-                        <div class="col-sm-12 col-md-6 col-lg-4">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                             <!-- COURSE -->
                             <div class="course{% if user|is_enrolled:course %} started{% endif %}">
                             {% if user|is_enrolled:course and course.has_started %}
@@ -34,9 +40,10 @@ wrapper-courses
                                     <div class="info-box">
                                         <div class="fa fa-check"></div>
                                         <div class="info">
-
-                                            <h3>{{ course.name }}</h3>
-                                            <p class="instructors">{% for professor in course.get_video_professors %}{{ professor.get_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                                            <div class="info-description-instructors">
+                                                <h3>{{ course.name }}</h3>
+                                                <p class="instructors">{% for professor in course.get_video_professors %}{{ professor.get_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                                            </div>
                                             <p class="abstract">{{ course.abstract }}</p>
                                         </div>
                                         <div class="enroll">
@@ -61,7 +68,7 @@ wrapper-courses
                         {% endfor %}
                     </div>
                 </div>
-                <div class="col-sm-4 col-lg-3">
+                <div class="col-sm-4 col-lg-3 aside_course">
                     {% include '_courses_aside.html' %}
                 </div>
             </section>
