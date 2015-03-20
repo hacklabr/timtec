@@ -42,8 +42,13 @@ wrapper-course-intro
 
 <div class="header-courses">
     <div class="container">
-        <h1>{{course.name}}</h1>
-        {% include "_course-details-inline.html" with course=course %}
+        <div class="row">
+            <div class="col-md-8">
+                <h1>{{course.name}}</h1>
+                {% include "_course-details-inline.html" with course=course %}
+            </div>
+            <a href="/course/timfazciencia/enroll/" class="btn btn-lg btn-info js-login-required">Ir para o curso</a>
+        </div>
     </div>
 </div>
 
