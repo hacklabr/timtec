@@ -7,6 +7,30 @@
     }
 }
 
+#forum {
+    #forum-content {
+        .filters {
+            margin-top: 0;
+        }
+        .secondary-header {
+            > .row {
+                > div:first-child {
+                    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                        .make-md-column(8);
+                    }
+                }
+                > div:nth-child(2) {
+                    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                        .make-md-column(4);
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
 // COURSE FORUM INLINE
 // ********************************************************************* //
 
@@ -20,4 +44,3 @@
         }
     }
 }
-
