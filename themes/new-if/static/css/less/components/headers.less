@@ -67,16 +67,13 @@
         margin-bottom: 0;
         padding-bottom: 0;
     }
-    h2 {
-        font-family: 'ek-mukta-extralight', @font-family-base;
-    }
     h3 {
-        font-family: 'ek-mukta-extralight', @font-family-base;
         text-transform: uppercase;
     }
 }
 
 h1,h2,h3,h4,h5,h6 {
+    font-family: 'ek-mukta-extralight', @font-family-base;
     i {
         display: none !important;
     }
@@ -88,7 +85,6 @@ h1,h2,h3,h4,h5,h6 {
         border-bottom: 1px solid @brand-light;
         margin-bottom: 20px;
         h1 {
-            font-family: 'ek-mukta-extralight', @font-family-base;
             font-size: 28px;
         }
         ul.instructors {
@@ -99,11 +95,30 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .secondary-header {
-    border-bottom: 1px solid fade(@brand-primary, 20%);
+    border-bottom: none;
     h1 {
-        color: darken(@brand-primary, 10%);
-        font-size: 24px;
+        border-bottom: 2px solid @brand-primary;
+        color: @gray-light;
+        font-size: 36px;
         margin-top: 35px;
+        padding-bottom: 5px;
+        text-transform: uppercase;
+        @media (min-width: @screen-md-min) {
+            font-size: 40px;
+        }
+    }
+    .btn {
+        background-color: @brand-primary;
+        border-radius: 0;
+        font-family: 'ek-mukta-extralight', @font-family-base;
+        font-size: 20px;
+        margin-top: 24px;
+        @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+            margin-top: 28px;
+        }
+        @media (min-width: @screen-md-min) {
+            font-size: 24px;
+        }
     }
 }
 
