@@ -164,24 +164,37 @@
         $scope.twits = Twitter.query({});
     }]);
 
-    app.controller('FlatPageCtrl', ['$scope', 'FlatPage',
-        function ($scope, FlatPage) {
+    app.controller('FlatPageCtrl', ['$scope', '$window', 'FlatPage',
+        function ($scope, $window, FlatPage) {
             var success_save_msg = 'Alterações salvas com sucesso.';
+            var success_created_msg = 'Página criada com sucesso.';
 
-            $scope.flatpages = FlatPage.query({url: '/about/'}, function(flatpages){
-                if (flatpages) {
+            // get page url from django. If the page down't exist, page_url will be an empty string.
+            $scope.page_url = $window.page_url;
+
+            $scope.flatpages = FlatPage.query({url: $scope.page_url}, function(flatpages){
+                if (flatpages.length>0) {
                     $scope.flatpage = flatpages[0];
                     $scope.flatpage.$resolved = flatpages.$resolved;
+                } else {
+                    $scope.flatpage = new FlatPage();
+                    $scope.flatpage.url = $scope.page_url;
+                    $scope.flatpage.$resolved = true;
                 }
+
             });
 
             $scope.save_flatpage = function(flatpage) {
                 if (flatpage.id) {
-                    flatpage.$update({flatpageId: flatpage.id});
+                    flatpage.$update({flatpageId: flatpage.id}, function(){
+                        $scope.alert.success(success_save_msg);
+                    });
                 } else {
-                    flatpage.$save();
+                    flatpage.$save({}, function(){
+                        $scope.alert.success(success_created_msg);
+                    });
                 }
-                $scope.alert.success(success_save_msg);
+
             };
     }]);
 
