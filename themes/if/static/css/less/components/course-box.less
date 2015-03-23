@@ -6,6 +6,19 @@
     }
     .course {
         min-height: 195px;
+        &:hover {
+            .fa-check {
+                background-color: @brand-success;
+            }
+        }
+        .fa-check {
+            background-color: darken(@gray-lighter, 10%);
+        }
+        &.started {
+            .fa-check {
+                background-color: @brand-success;
+            }
+        }
         .course-link { // link wrapper
             &:hover {
                 .info {
@@ -27,7 +40,6 @@
 
         .info { // course info
             background-color: lighten(@brand-primary, 50%);
-            padding: 15px;
         } // .info
         .enroll { // go to course link
             background-color: @brand-primary;

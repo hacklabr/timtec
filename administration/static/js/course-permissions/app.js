@@ -7,6 +7,8 @@
         'django',
         'timtec-models',
         'ngRoute',
-        'ngResource'
+        'ngResource',
+        'directive.fixedBar',
+        'directive.alertPopup'
     ]);
 })(angular);

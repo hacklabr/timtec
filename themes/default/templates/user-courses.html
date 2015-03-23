@@ -24,8 +24,11 @@ wrapper-course-lesson
             </header>
 
             <section class="courses" role="tabpanel">
+            	{% with courses_user_enrolled=request.user.coursestudent_set.all %}
                 <ul class="nav nav-tabs" role="tablist">
+                	{% if courses_user_enrolled %}
                     <li role="presentation" class="active"><a href="#course-as-student" aria-controls="course-as-student" role="tab" data-toggle="tab">{% trans "Courses I'm enrolled" %}</a></li>
+                    {% endif %}
                     {% if courses_user_assist %}
                     <li role="presentation"><a href="#course-as-teacher" aria-controls="course-as-teacher" role="tab" data-toggle="tab">{% trans "Courses I assist" %}</a></li>
                     {% endif %}
@@ -37,7 +40,6 @@ wrapper-course-lesson
                 <!-- Tab panes -->
                 <div class="tab-content" ng-app="courses" ng-controller="CourseListByUserRoleController">
                     <div role="tabpanel" class="tab-pane active" id="course-as-student">
-                    	{% with courses_user_enrolled=request.user.coursestudent_set.all %}
                     	{% if not courses_user_enrolled %}
                         	<div class="course">
                                 <header>
@@ -51,6 +53,7 @@ wrapper-course-lesson
                     	{% endif %}
                         {% for cs in request.user.coursestudent_set.all %}
                             <div class="course">
+                            {% if cs.course.has_started %}
                                 <header>
                                     <div class="row">
                                         <div class="col-sm-8">
@@ -70,10 +73,27 @@ wrapper-course-lesson
                                 <a href="{% url 'user_course_notes' cs.course.slug %}" class="btn btn-default btn-sm">{% trans "My Notes" %}</a>
             {#                    <a href="" class="btn btn-default btn-sm">{% trans "Details" %}</a>#}
             {#                    <span class="info">0 min of lecture and 0 quizzes remaining in 1.1a Equivalent Fractions.</span>#}
+                            {% else %}
+                                <header>
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <h1><a href="{% url 'course_intro' cs.course.slug %}">{{ cs.course.name }}</a></h1>
+                                        </div>
+                                        <div class="col-sm-4 textright">
+                                            <div class="btn-group">
+                                                <a href="{% url 'course_intro' cs.course.slug %}" class="btn btn-sm btn-success">{% trans "Go to Course" %}</a>
+                                                <a href="{% url 'course_intro' cs.course.slug %}" class="btn btn-sm btn-success"><i class="fa fa-angle-double-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p>{% blocktrans with start_date=cs.course.start_date|date:"d/m/Y" %} This course starts on {{ start_date }} and you are already subscribed{% endblocktrans %}.</p>
+                                </header>
+                            {% endif %}
                             </div>
                         {% endfor %}
-                    	{% endwith %}
+
                     </div>
+                	{% endwith %}
                     <div role="tabpanel" class="tab-pane" id="course-as-teacher">
                         <section class="courses">
                             <!-- COURSE -->

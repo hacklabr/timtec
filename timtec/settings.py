@@ -262,11 +262,14 @@ PIPELINE_JS = {
         'source_filenames': (
             'js/course_material/app.js',
             'js/course_material/controllers.js',
+            'js/course_material/services.js',
             'js/course_material/directives.js',
             'js/course_material/filters.js',
-            'js/course_material/services.js',
             'js/directives/markdowneditor.js',
             'dropzone/downloads/dropzone.js',
+            'angular-dropzone/lib/angular-dropzone.js',
+            'js/directives/alertPopup.js',
+            'js/directives/fixedBar.js',
         ),
         'output_filename': 'js/course_material.js',
     },
@@ -318,6 +321,8 @@ PIPELINE_JS = {
             'js/course-permissions/app.js',
             'js/course-permissions/controllers.js',
             'js/factories/timtec-models.js',
+            'js/directives/fixedBar.js',
+            'js/directives/alertPopup.js',
         ),
         'output_filename': 'js/course_permissions.js',
     },
@@ -465,6 +470,7 @@ SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'SCOPE': ['email'],
         'METHOD': 'oauth2',
+        'VERSION': 'v2.2',
     }
 }
 

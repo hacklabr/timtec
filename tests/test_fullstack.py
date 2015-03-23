@@ -1,9 +1,9 @@
 from model_mommy import mommy
 
 
-def test_simple(timbrowser):
-    timbrowser.visit(timbrowser.url)
-    assert timbrowser.is_text_present('Timtec')
+# def test_simple(timbrowser):
+#     timbrowser.visit(timbrowser.url)
+#     assert timbrowser.is_text_present('Timtec')
 
 
 def test_login(timbrowser, user):

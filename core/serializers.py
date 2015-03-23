@@ -43,7 +43,7 @@ class CourseSerializer(serializers.ModelSerializer):
         model = Course
         fields = ("id", "slug", "name", "intro_video", "application", "requirement",
                   "abstract", "structure", "workload", "pronatec", "status",
-                  "thumbnail_url", "publication", "home_thumbnail_url", "home_position",
+                  "thumbnail_url", "home_thumbnail_url", "home_position",
                   "start_date", "professor_name", "home_published", "professors_names", "has_started")
 
     @staticmethod
@@ -170,7 +170,6 @@ class CourseProfessorSerializer(serializers.ModelSerializer):
     get_name = serializers.Field()
     get_biography = serializers.Field()
     get_picture_url = serializers.Field()
-    current_user_classes = serializers.SerializerMethodField('get_current_user_classes')
     current_user_classes = ClassSerializer(source='get_current_user_classes', read_only=True)
 
     class Meta:

@@ -13,7 +13,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.flatpages.models import FlatPage
 from django.shortcuts import get_object_or_404
 from django.conf import settings
-from django.db.models import Q
 from django.utils import timezone
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -84,7 +83,7 @@ class CoursesView(ListView):
     template_name = "courses.html"
 
     def get_queryset(self):
-        return Course.objects.filter(Q(status='published') | Q(status='listed')).prefetch_related('professors').order_by('start_date')
+        return Course.objects.filter(status='published').prefetch_related('professors').order_by('start_date')
 
 
 class ContactView(View):
@@ -158,14 +157,18 @@ class EnrollCourseView(LoginRequiredMixin, RedirectView):
 
     def get_redirect_url(self, **kwargs):
         course = self.get_object()
+        if course.is_enrolled(self.request.user):
+            return reverse_lazy('resume_course', args=[course.slug])
+        if course.status == 'draft':
+            return reverse_lazy('courses')
         if self.request.user.accepted_terms or not settings.TERMS_ACCEPTANCE_REQUIRED:
             course.enroll_student(self.request.user)
-            if course.has_started:
+            if course.has_started and course.first_lesson():
                 return reverse_lazy('lesson', args=[course.slug, course.first_lesson().slug])
             else:
-                return reverse_lazy('course_intro', args=[course.slug, ])
+                return reverse_lazy('course_intro', args=[course.slug])
         else:
-            return reverse_lazy('accept_terms')
+            return '{}?next={}'.format(reverse_lazy('accept_terms'), self.request.path)
 
 
 class ResumeCourseView(LoginRequiredMixin, RedirectView):
@@ -262,7 +265,7 @@ class CourseViewSet(viewsets.ModelViewSet):
         queryset = super(CourseViewSet, self).get_queryset()
         public_courses = self.request.QUERY_PARAMS.get('public_courses', None)
         if public_courses:
-            queryset = queryset.filter(Q(status='published') | Q(status='listed')).prefetch_related('professors')
+            queryset = queryset.filter(status='published').prefetch_related('professors')
         return queryset
 
     def get(self, request, **kwargs):

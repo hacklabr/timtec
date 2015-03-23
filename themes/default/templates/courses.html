@@ -39,7 +39,7 @@ wrapper-courses
                     {% for course in courses %}
                     <!-- COURSE -->
                     <div class="course{% if user|is_enrolled:course %} started{% endif %}">
-                    {% if user|is_enrolled:course %}
+                    {% if user|is_enrolled:course and course.has_started %}
                         <a href="{% url "resume_course" course.slug %}" class="course-link">
                     {% else %}
                         <a href="{% url "course_intro" course.slug %}" class="course-link">
