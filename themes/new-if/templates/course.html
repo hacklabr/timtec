@@ -10,13 +10,49 @@
 
 <div class="header-courses">
     <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <h1>{{course.name}}</h1>
-                {% include "_course-details-inline.html" with course=course %}
-            </div>
-            <a href="/course/timfazciencia/enroll/" class="btn btn-lg btn-info js-login-required">Ir para o curso</a>
-        </div>
+            {% if in_admin %}
+            <!-- HEADER -->
+                {% include "_admin_header_inline.html" with course=course course_intro_admin=1 %}
+            <!-- END HEADER -->
+            {% elif user|is_assistant_or_coordinator:course or user_is_enrolled and course.has_started %}
+                {% include "_course-header-inline.html"  with course=course %}
+            {% else %}
+            <!-- HEADER -->
+            <header class="main-header">
+                <!-- PAGE-HEADER -->
+                <div class="page-header container">
+                    <!-- ROW -->
+                    <div class="row">
+                        <div class="col-sm-8 col-md-9 col-xs-12">
+                            <h1><i class="fa fa-angle-double-right"></i> {{course.name}}</h1>
+                            {% include "_course-details-inline.html" with course=course %}
+                        </div>
+                            <div class="col-sm-4 col-md-3 col-xs-12 textright">
+                                {% if user_is_enrolled and not course.has_started %}
+                                    <div class="has-tooltip js-login-required uppercase"
+                                          href="#"
+                                          data-toggle="tooltip"
+                                          data-placement="bottom"
+                                          data-original-title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %} This course starts on {{ start_date }} and you are already subscribed{% endblocktrans %}."
+                                          title="{% blocktrans with start_date=course.start_date|date:"d/m/Y" %} This course starts on {{ start_date }} and you are already subscribed{% endblocktrans %}.">
+                                        <button class="btn btn-lg btn-block btn-default" ng-disabled="true">{% trans "Go to course" %}</button>
+                                    </div>
+                                {% else %} {# user is not enrolled #}
+                                    {% if course.has_started %}
+                                        <a href="{% url "enroll_course" course.slug %}" class="btn btn-lg btn-info col-xs-12 js-login-required uppercase">{% trans "Go to course" %}</a>
+                                    {% else %}
+                                        <a href="{% url "enroll_course" course.slug %}" class="btn btn-lg btn-info col-xs-12 js-login-required uppercase">{% trans "Subscribe" %}</a>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+
+                    </div>
+                    <!-- END ROW -->
+                </div>
+                <!-- END PAGE-HEADER -->
+            </header>
+            <!-- END HEADER -->
+            {% endif %}
     </div>
 </div>
 {{block.super}}
