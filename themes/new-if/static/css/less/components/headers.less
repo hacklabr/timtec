@@ -3,14 +3,31 @@
 .header-courses, .header-static {
     box-shadow: inset 0 8px 20px -12px #000, inset 0 -8px 20px -12px #000;
     background-color: #EDEBEC;
-    margin-top: -20px;
+    @media ( min-width: @screen-sm-min ) {
+        margin-top: -20px;
+    }
     > .container {
-        background: url("/static/img/colors-header.png") no-repeat scroll 257px -90px transparent;
+        background-image: url("/static/img/colors-header.png");
+        background-repeat: no-repeat;
+
+        @media (max-width: @screen-xs-max) {
+            background-position: 0 -190px;
+        }
+        @media (min-width: @screen-sm-min) {
+            background-position: 0 -125px;
+        }
+        @media (min-width: @screen-lg-min) {
+            background-position: 257px -90px;
+        }
+        background-color: transparent;
     }
     .container {
         position: relative;
         h1 {
-            font-size: 50px;
+            font-size: 38px;
+            @media (min-width: @screen-sm-min) {
+                font-size: 42px;
+            }
             font-family: "ek-mukta-extralight";
             font-weight: normal;
             margin-bottom: 20px;
@@ -26,9 +43,6 @@
             border: none;
             h1 {
                 font-size: 26px;
-                @media (min-width: @screen-sm-min) {
-                    font-size: 32px;
-                }
             }
             .course-details {
                 span.label {
