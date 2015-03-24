@@ -1,0 +1,97 @@
+// ADMIN STYLES
+// ********************************************************************* //
+#admin {
+
+    // COURSES
+    // ********************************************************************* //
+    #courses {
+        margin-top: 0;
+        > header {
+            border-bottom: 1px solid fade(@brand-primary, 20%);
+        }
+        .course {
+            min-height: 20px;
+        }
+        #all-courses {
+            &.courses-list {
+                .course {
+                    border: none;
+                }
+            }
+            .course {
+                background-color: @brand-light;
+                border: none;
+            }
+        }
+    }
+
+    // COURSE, FORUM
+    // ********************************************************************* //
+    #course,
+    #forum {
+        .video, .activity {
+            .current-video {
+                .editable-text {
+                    margin-left: 8px;
+                }
+            }
+        }
+
+        .activity {
+            .editable-title {
+                width: 90%;
+            }
+            .answer {
+                margin-bottom: 10px;
+            }
+            .editable-text {
+                display: inline-block;
+                width: 96%;
+            }
+            .relationship-answers {
+                .editable-text {
+                    display: inline-block;
+                    width: 95%;
+                    input {
+                        width: 98%;
+                    }
+                }
+            }
+        }
+    }
+
+    // ADD CONTENT - Admin
+    // ********************************************************************* //
+    .add-content {
+        .secondary-header {
+            .editable-text {
+                margin: 0 40px 0 0;
+            }
+        }
+    }
+    // END CONTENT
+
+    // ORGANIZING LESSONS AND INSTRUCTORS
+    .lessons.organizing-lessons,
+    .instructors.organizing-instructors {
+        .lesson,
+        .instructor {
+            border: none;
+        }
+        .lesson {
+            padding: 15px;
+        }
+    }
+
+    // USERS
+    // ********************************************************************* //
+    #add-users-modal {
+        #search-user {
+            margin-bottom: 20px;
+        }
+    }
+}
+
+.lessons .lesson {
+    background-color: none;
+}

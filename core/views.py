@@ -552,12 +552,33 @@ class ClassViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
         return queryset
 
 
+class FlatpageView(View):
+
+    def get(self, request, url):
+        if not url.endswith('/') and settings.APPEND_SLASH:
+            url += '/'
+
+        from django.contrib.flatpages.views import flatpage, render_flatpage
+
+        if not request.user.is_superuser or FlatPage.objects.filter(url='url', sites=settings.SITE_ID).exists():
+            return flatpage(request, url)
+        else:
+            f = FlatPage(url=url)
+            return render_flatpage(request, f)
+
+
 class FlatpageViewSet(viewsets.ModelViewSet):
 
     model = FlatPage
     serializer_class = FlatpageSerializer
     filter_fields = ('url',)
     permission_classes = (IsAdminOrReadOnly,)
+
+    def post_save(self, obj, created=False):
+        if created:
+            from django.contrib.sites.models import Site
+            obj.sites.add(Site.objects.get(id=settings.SITE_ID))
+            obj.save()
 
     def get_queryset(self):
         queryset = super(FlatpageViewSet, self).get_queryset()

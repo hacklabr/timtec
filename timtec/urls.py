@@ -18,7 +18,7 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         ClassCreateView, ClassUpdateView, ClassDeleteView,
                         ClassRemoveUserView, ClassAddUsersView, ClassViewSet,
                         FlatpageViewSet, CoursePictureUploadViewSet,
-                        ResumeCourseView, )
+                        ResumeCourseView, FlatpageView,)
 
 from activities.views import AnswerViewSet
 from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, QuestionVoteViewSet, AnswerVoteViewSet
@@ -126,10 +126,10 @@ urlpatterns = patterns(
     url(r'^api/user_search/?$', UserSearchView.as_view(), name='user_search'),
     url(r'^api/student_search/?$', StudentSearchView.as_view(), name='student_search'),
 
+    url(r'^pages(?P<url>.*)$', FlatpageView.as_view(), name='flatpage'),
+
     # The django-rosetta
     url(r'^rosetta/', include('rosetta.urls')),
-
-    url(r'^pages/', include('django.contrib.flatpages.urls')),
 
     url(r'^markdown/', include('django_markdown.urls')),
 

@@ -1,0 +1,26 @@
+{
+  "name": "timtec",
+  "version": "0.0.1",
+  "description": "Dependencies",
+  "main": "Gruntfile.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "grunt": "^0.4.5",
+    "grunt-angular-gettext": "^2.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hacklabr/timtec.git"
+  },
+  "author": "hacklab/",
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/hacklabr/timtec/issues"
+  },
+  "homepage": "https://github.com/hacklabr/timtec"
+}

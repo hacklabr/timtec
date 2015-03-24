@@ -136,6 +136,9 @@ PIPELINE_COMPILERS = (
     'pipeline.compilers.less.LessCompiler',
 )
 
+# Source Map Less
+PIPELINE_LESS_ARGUMENTS = '--source-map=main.css.map'
+
 PIPELINE_CSS = {
     'common': {
         'source_filenames': (
@@ -361,7 +364,7 @@ SECRET_KEY = 'e%6a01vfbue28$xxssu!9r_)usqjh817((mr+7vv3ek&@#p0!$'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-    # 'django.template.loaders.eggs.Loader',
+    'core.loaders.TimtecThemeLoader',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (

@@ -598,8 +598,10 @@ wrapper-course-intro
                     {% endif %}
 
                     <!-- ABSTRACT -->
-                    <div class="page-header-double">
-                        <h3><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Abstract' %}</h3>
+                    <div class="abstract">
+                        <div class="page-header-double">
+                            <h3><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Abstract' %}</h3>
+                        </div>
                     </div>
 
                     {% if in_admin %}

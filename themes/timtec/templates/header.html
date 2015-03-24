@@ -1,71 +1,29 @@
+{% extends 'default:header.html' %}
 {% load i18n %}
-{% load is_coordinator %}
 
-<nav id="main-navbar" class="navbar navbar-inverse" role="navigation">
-    <div class="container">
+{% block header_navbar %}
+    <h1 class="text-hide"><a href="http://institutotim.org.br/">Instituto TIM</a></h1>
+    <h2 class="text-hide"><a href="{% url 'home_view' %}">TIMTec</a></h2>
+{% endblock %}
 
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-collapse">
-                <span class="sr-only">{% trans 'Toggle navigation' %}</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <h1 class="text-hide"><a href="{% url 'home_view' %}">Instituto TIM</a></h1>
-            <h2 class="text-hide"><a href="{% url 'home_view' %}">TIMTec</a></h2>
-        </div>
+{% block header_site_nav %}
+    <li><a href="/pages/institute">{% trans 'Instituto TIM' %}</a></li>
+	<li><a href="/pages/about">{% trans 'About' %} <span class="tim">TIM</span><span class="tec">Tec</span></a></li>
+	<li class="contact-link"><a href="#" data-toggle="modal" data-target="#modal-contact">{% trans 'Contact' %}</a></li>
+	<li><a href="{% url 'courses' %}">{% trans 'Courses' %}</a></li>
+	<li class="navbar-divider"></li>
+{% endblock %}
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="main-navbar-collapse">
-            <ul class="nav navbar-nav" id="site-nav">
-                <li><a href="/pages/institute">{% trans 'Instituto TIM' %}</a></li>
-                <li><a href="/pages/about">{% trans 'About' %} <span class="tim">TIM</span><span class="tec">Tec</span></a></li>
-                <li class="contact-link"><a href="#" data-toggle="modal" data-target="#modal-contact">{% trans 'Contact' %}</a></li>
-                <li><a href="{% url 'courses' %}">{% trans 'Courses' %}</a></li>
-                <li class="navbar-divider"></li>
-            </ul>
-            <ul class="nav navbar-nav" id="session-nav">
-            {% if user.is_authenticated %}
-                {% if user.is_superuser %}
-                    <li {% if in_admin %}class="active"{% endif %}>
-                        <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
-                            {% trans "Admin" %}
-                            <i class="fa fa-caret-down"></i>
-                        </a>
-                        <ul class="dropdown-menu user-menu">
-                            <li><a href="{% url 'administration.home' %}">{% trans 'Home edit' %}</a></li>
-                            <li><a href="{% url 'administration.courses' %}" id="admin-link">{% trans "Courses" %}</a></li>
-                            <li><a href="{% url 'administration.users' %}">{% trans 'Users' %}</a></li>
-                        </ul>
-                    </li>
-                {% elif user|is_coordinator %}
-                    <li {% if in_admin %}class="active"{% endif %}><a href="{% url 'administration.courses' %}" id="admin-link">{% trans "Admin" %}</a></li>
-                {% endif %}
-                <li>
-                    <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span>{{ user }}</span>
-                        <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu user-menu">
-                        <li><a href="{% url 'profile' %}">{% trans "Profile" %}</a></li>
-                        <li><a href="{% url 'profile_edit' %}">{% trans "Edit Profile and Account Settings" %}</a></li>
-                        <li><a href="{% url 'user_courses' %}">{% trans "My Courses" %}</a></li>
-                        <li><a href="{% url 'user_notes' %}">{% trans "My Notes" %}</a></li>
-                        <li><a href="{% url 'timtec_logout' %}">{% trans "Logout" %}</a></li>
-                    </ul>
-                </li>
-            {% else %}
-                <li>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans 'Sign In' %}</a>
-                    {% include '_login_modal.html' %}
-                </li>
-                <li>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans 'Sign Up' %}</a>
-                    {% include '_signup_modal.html' %}
-                </li>
-            {% endif %}
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </div>
-</nav>
+{% block header_user_menu %}
+	<a class="username dropdown-toggle" data-toggle="dropdown" href="#">
+		<span>{{ user }}</span>
+		<i class="fa fa-caret-down"></i>
+	</a>
+	<ul class="dropdown-menu user-menu">
+		<li><a href="{% url 'profile' %}">{% trans "Profile" %}</a></li>
+		<li><a href="{% url 'profile_edit' %}">{% trans "Edit Profile and Account Settings" %}</a></li>
+		<li><a href="{% url 'user_courses' %}">{% trans "My Courses" %}</a></li>
+		<li><a href="{% url 'user_notes' %}">{% trans "My Notes" %}</a></li>
+		<li><a href="{% url 'timtec_logout' %}">{% trans "Logout" %}</a></li>
+	</ul>
+{% endblock %}
