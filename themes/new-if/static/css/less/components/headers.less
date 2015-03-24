@@ -37,34 +37,59 @@
 }
 .header-courses {
     .container {
-        .page-header {
-            border: none;
-            margin-top: 35px;
-            h1 {
-                font-family: "ek-mukta-extralight";
-                font-size: 38px !important;
-                @media (min-width: @screen-sm-min) {
-                    font-size: 42px !important;
+        .main-header {
+            .clearfix;
+            .page-header {
+                border: none;
+                margin-top: 35px;
+                margin-bottom: 0;
+                padding-bottom: 0;
+                h1 {
+                    font-family: "ek-mukta-extralight";
+                    font-size: 38px !important;
+                    line-height: 0.9;
+                    @media (min-width: @screen-sm-min) {
+                        font-size: 42px !important;
+                    }
                 }
-            }
-            .course-details {
-                text-transform: initial;
-                span.label {
-                    display: none;
+                .course-details {
+                    text-transform: initial;
+                    margin-bottom: 29px;
+                    span.label {
+                        display: none;
+                    }
+                    a.course-instructor {
+                        color: #999999;
+                        display: inline-block;
+                        font-size: 24px;
+                        line-height: 1.1;
+                        margin-top: 0;
+                    }
                 }
-                a.course-instructor {
-                    color: #999999;
-                    display: inline-block;
-                    font-size: 24px;
-                    margin-top: 0;
+                .row {
+                    > div:nth-child(2) {
+                        bottom: -65px;
+                        position: absolute;
+                        right: 0;
+                        @media (max-width: @screen-xs-max) {
+                            left: 0;
+                        }
+                        @media (min-width: @screen-sm-min) {
+                            bottom: 10px;
+                        }
+                        a.btn {
+                            border-radius: 0;
+                        }
+                    }
                 }
-            }
-            #course-nav {
-                @media (max-width: @screen-xs-max) {
-                    text-align: center;
-                }
-                a {
-                    color: #446E02;
+                #course-nav {
+                    @media (max-width: @screen-xs-max) {
+                        margin-bottom: 15px;
+                        text-align: center;
+                    }
+                    a {
+                        color: #446E02;
+                    }
                 }
             }
         }
