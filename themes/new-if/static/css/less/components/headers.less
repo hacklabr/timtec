@@ -39,9 +39,13 @@
     .container {
         .page-header {
             border: none;
+            margin-top: 35px;
             h1 {
                 font-family: "ek-mukta-extralight";
-                font-size: 38px;
+                font-size: 38px !important;
+                @media (min-width: @screen-sm-min) {
+                    font-size: 42px !important;
+                }
             }
             .course-details {
                 text-transform: initial;
@@ -51,7 +55,7 @@
                 a.course-instructor {
                     color: #999999;
                     display: inline-block;
-                    font-size: 22px;
+                    font-size: 24px;
                     margin-top: 0;
                 }
             }
