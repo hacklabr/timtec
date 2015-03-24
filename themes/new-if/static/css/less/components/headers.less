@@ -23,7 +23,7 @@
         position: relative;
         h1 {
             font-size: 38px;
-            font-transform: upplower;
+            text-transform: initial;
             @media (min-width: @screen-sm-min) {
                 font-size: 42px;
             }
@@ -44,6 +44,7 @@
                 font-size: 38px;
             }
             .course-details {
+                text-transform: initial;
                 span.label {
                     display: none;
                 }
@@ -130,8 +131,8 @@ h1,h2,h3,h4,h5,h6 {
         }
     }
 }
-
 #course.course-intro,
+#course.course-lesson,
 #my-notes {
     .main-header {
         display: none;
