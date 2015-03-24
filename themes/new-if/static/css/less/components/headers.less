@@ -3,22 +3,20 @@
 .header-courses, .header-static {
     box-shadow: inset 0 8px 20px -12px #000, inset 0 -8px 20px -12px #000;
     background-color: #EDEBEC;
-    > .container {
-        background-image: url("/static/img/colors-header.png");
-        background-repeat: no-repeat;
-        min-height: 100px;
+    background-image: url("/static/img/colors-header.png");
+    background-repeat: no-repeat;
+    min-height: 100px;
 
-        @media (max-width: @screen-xs-max) {
-            background-position: 0 -190px;
-        }
-        @media (min-width: @screen-sm-min) {
-            background-position: 0 -125px;
-        }
-        @media (min-width: @screen-lg-min) {
-            background-position: 257px -90px;
-        }
-        background-color: transparent;
+    @media (max-width: @screen-xs-max) {
+        background-position: right -190px;
     }
+    @media (min-width: @screen-sm-min) {
+        background-position: right -125px;
+    }
+    @media (min-width: @screen-lg-min) {
+        background-position: right -127px;
+    }
+    background-color: transparent;
     .container {
         position: relative;
         h1 {
