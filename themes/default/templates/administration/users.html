@@ -82,9 +82,6 @@ $(function () {
                     <div class="filter-checkbox form-group">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="professors"{% if request.GET.professors %}checked{% endif %}> {% trans 'Professors' %}
-                            </label>
-                            <label>
                                 <input type="checkbox" name="admin" {% if request.GET.admin %}checked{% endif %}> {% trans 'Administrators' %}
                             </label>
                         </div>
@@ -105,7 +102,6 @@ $(function () {
                     <th class="username">{% trans "Username" %}</th>
                     <th class="email">{% trans "Email" %}</th>
                     <th class="fullname">{% trans "Full name" %}</th>
-                    <th class="role text-center">{% trans 'Professor' %}</th>
                     <th class="role text-center">{% trans 'Administrator' %}</th>
                     <th class="role text-center">{% trans 'Active' %}</th>
                     <th class="actions">{% trans "Actions" %}</th>
@@ -115,9 +111,6 @@ $(function () {
                         <td>{{ user.username }}</td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.get_full_name }}</td>
-                        <td class="text-center">
-                            <input class="js-update" data-action="professors" data-id="{{ user.id }}" type="checkbox" {% if user|in_group:'professors' %}checked{% endif %}>
-                        </td>
                         <td class="text-center">
                             <input class="js-update" data-action="is_superuser" data-id="{{ user.id }}" type="checkbox" {% if user.is_superuser %}checked{% endif %}>
                         </td>
@@ -135,13 +128,13 @@ $(function () {
             <div class="pagination">
                 <span class="page-links">
                     {% if page_obj.has_previous %}
-                        <a href="{% append_to_get page=page_obj.previous_page_number %}">previous</a>
+                        <a href="{% append_to_get page=page_obj.previous_page_number %}">{% trans 'previous' %}</a>
                     {% endif %}
                     <span class="page-current">
-                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                        {% trans 'Page' %} {{ page_obj.number }} {% trans 'of' %} {{ page_obj.paginator.num_pages }}.
                     </span>
                     {% if page_obj.has_next %}
-                        <a href="{% append_to_get page=page_obj.next_page_number %}">next</a>
+                        <a href="{% append_to_get page=page_obj.next_page_number %}">{% trans 'next' %}</a>
                     {% endif %}
                 </span>
             </div>
