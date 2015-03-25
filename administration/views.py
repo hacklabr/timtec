@@ -42,8 +42,7 @@ class AdminMixin(TemplateResponseMixin, ContextMixin,):
         return ['administration/' + self.template_name, self.template_name]
 
 
-class AdminView(views.GroupRequiredMixin, AdminMixin, TemplateView):
-    group_required = u'professors'
+class AdminView(views.SuperuserRequiredMixin, AdminMixin, TemplateView):
     raise_exception = True
 
 
@@ -93,11 +92,10 @@ class UserDeleteView(views.SuperuserRequiredMixin, DeleteView):
         return HttpResponse('ok')
 
 
-class CourseAdminView(views.GroupRequiredMixin, AdminMixin, DetailView):
+class CourseAdminView(AdminMixin, DetailView):
     model = Course
     context_object_name = 'course'
     pk_url_kwarg = 'course_id'
-    group_required = u'professors'
     raise_exception = True
 
 
