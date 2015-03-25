@@ -1,4 +1,4 @@
-{% extends 'default:account/base.html' %}
+{% extends 'default:administration/lesson.html' %}
 {% load i18n %}
 
 {% block wrapper_classes %}
@@ -7,7 +7,9 @@ wrapper-course-lesson
 
 {% block content %}
     <div class="header-courses">
-        <div class="container"></div>
+        <div class="container">
+            <h1>{% trans 'Lesson' %}</h1>
+        </div>
     </div>
     {{block.super}}
 {% endblock %}
