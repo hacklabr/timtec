@@ -7,11 +7,11 @@ TEMPLATE_DEBUG = DEBUG
 SITE_ID = 1
 SITE_NAME = 'Marca da instituição'
 ALLOWED_HOSTS = [
-    'timtec-design.hacklab.com.br',
+    'design.hacklab.com.br',
     '.timtec.com.br',
 ]
 
-TIMTEC_THEME = 'if'
+TIMTEC_THEME = 'new-if'
 
 DATABASES = {
     'default': {
