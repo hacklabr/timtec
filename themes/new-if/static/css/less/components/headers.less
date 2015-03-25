@@ -3,28 +3,25 @@
 .header-courses, .header-static {
     box-shadow: inset 0 8px 20px -12px #000, inset 0 -8px 20px -12px #000;
     background-color: #EDEBEC;
-    @media ( min-width: @screen-sm-min ) {
-        margin-top: -20px;
-    }
-    > .container {
-        background-image: url("/static/img/colors-header.png");
-        background-repeat: no-repeat;
+    background-image: url("/static/img/colors-header.png");
+    background-repeat: no-repeat;
+    min-height: 100px;
 
-        @media (max-width: @screen-xs-max) {
-            background-position: 0 -190px;
-        }
-        @media (min-width: @screen-sm-min) {
-            background-position: 0 -125px;
-        }
-        @media (min-width: @screen-lg-min) {
-            background-position: 257px -90px;
-        }
-        background-color: transparent;
+    @media (max-width: @screen-xs-max) {
+        background-position: right -190px;
     }
+    @media (min-width: @screen-sm-min) {
+        background-position: right -125px;
+    }
+    @media (min-width: @screen-lg-min) {
+        background-position: right -127px;
+    }
+    background-color: transparent;
     .container {
         position: relative;
         h1 {
             font-size: 38px;
+            text-transform: initial;
             @media (min-width: @screen-sm-min) {
                 font-size: 42px;
             }
@@ -36,31 +33,61 @@
         }
     }
 }
-
-.wrapper-course-intro {
-    .main-header {
-        .page-header {
-            border: none;
-            h1 {
-                font-size: 26px;
-            }
-            .course-details {
-                span.label {
-                    display: none;
+.header-courses {
+    .container {
+        .main-header {
+            .clearfix;
+            .page-header {
+                border: none;
+                margin-top: 35px;
+                margin-bottom: 0;
+                padding-bottom: 0;
+                h1 {
+                    font-family: "ek-mukta-extralight";
+                    font-size: 38px !important;
+                    line-height: 0.9;
+                    @media (min-width: @screen-sm-min) {
+                        font-size: 42px !important;
+                    }
                 }
-                a.course-instructor {
-                    color: #444444;
-                    display: inline-block;
-                    font-size: 22px;
-                    margin-top: 8px;
+                .course-details {
+                    text-transform: initial;
+                    margin-bottom: 29px;
+                    span.label {
+                        display: none;
+                    }
+                    a.course-instructor {
+                        color: #999999;
+                        display: inline-block;
+                        font-size: 24px;
+                        line-height: 1.1;
+                        margin-top: 0;
+                    }
                 }
-            }
-            #course-nav {
-                @media (max-width: @screen-xs-max) {
-                    text-align: center;
+                .row {
+                    > div:nth-child(2) {
+                        bottom: -65px;
+                        position: absolute;
+                        right: 0;
+                        @media (max-width: @screen-xs-max) {
+                            left: 0;
+                        }
+                        @media (min-width: @screen-sm-min) {
+                            bottom: 10px;
+                        }
+                        a.btn {
+                            border-radius: 0;
+                        }
+                    }
                 }
-                a {
-                    color: #446E02;
+                #course-nav {
+                    @media (max-width: @screen-xs-max) {
+                        margin-bottom: 15px;
+                        text-align: center;
+                    }
+                    a {
+                        color: #446E02;
+                    }
                 }
             }
         }
@@ -131,8 +158,12 @@ h1,h2,h3,h4,h5,h6 {
         }
     }
 }
-
 #course.course-intro,
+#course.course-material,
+#course.course-lesson,
+#forum.course-forum,
+#stats.course-stats,
+#classes.course-classes,
 #my-notes {
     .main-header {
         display: none;

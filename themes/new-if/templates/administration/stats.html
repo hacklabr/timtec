@@ -1,0 +1,19 @@
+{% extends 'default:administration/stats.html' %}
+{% load i18n %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
+{% block content %}
+    <div class="header-courses">
+        <div class="container">
+            {% if in_admin %}
+                {% include "_admin_header_inline.html" with course=course %}
+            {% else %}
+                {% include "_course-header-inline.html"  with course=course %}
+            {% endif %}
+        </div>
+    </div>
+    {{block.super}}
+{% endblock %}
