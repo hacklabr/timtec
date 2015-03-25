@@ -311,7 +311,7 @@ class CarouselCourseView(viewsets.ReadOnlyModelViewSet):
     lookup_field = 'id'
     serializer_class = CourseSerializer
     filter_fields = ('slug', 'home_published',)
-    queryset = Course.objects.exclude(status=Course.STATES[0][0]).exclude(status=Course.STATES[1][0]).filter(start_date__gte=datetime.date.today())
+    queryset = Course.objects.exclude(status=Course.STATES[0][0]).filter(start_date__gte=datetime.date.today())
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
