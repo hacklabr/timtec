@@ -356,9 +356,10 @@ wrapper-course-intro
 
                         <div class="course-status btn-group">
                             <button class="btn btn-success dropdown-toggle" data-toggle="dropdown"
-                            ng-if="course.isPublished()">{% trans 'Published' %} <span class="caret"></span></button>
+                            ng-if="course.isPublished()"><span class="status-label">{% trans 'Published' %}</span> <span class="caret"></span></button>
+
                             <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
-                            ng-if="course.isDraft()">{% trans 'Draft' %} <span class="caret"></span></button>
+                            ng-if="course.isDraft()"><span class="status-label">{% trans 'Draft' %}</span> <span class="caret"></span></button>
                             </button>
                             <ul class="dropdown-menu" role="menu">
                                 <li ng-if="course.isDraft()"><button class="btn btn-success" ng-click="publishCourse()">{% trans 'Published' %}</button></li>
