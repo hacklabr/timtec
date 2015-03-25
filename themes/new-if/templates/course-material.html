@@ -1,0 +1,15 @@
+{% extends 'default:course-material.html' %}
+{% load i18n %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
+{% block content %}
+    <div class="header-courses">
+        <div class="container">
+            {% include "_course-header-inline.html"  with course=course %}
+        </div>
+    </div>
+    {{block.super}}
+{% endblock %}
