@@ -136,9 +136,6 @@ PIPELINE_COMPILERS = (
     'pipeline.compilers.less.LessCompiler',
 )
 
-# May be overwrited for linux distro
-PIPELINE_LESS_BINARY = '/usr/local/bin/lessc'
-
 # Source Map Less
 PIPELINE_LESS_ARGUMENTS = '--source-map=main.css.map'
 

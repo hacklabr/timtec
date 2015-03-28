@@ -21,6 +21,9 @@ DATABASES = {
     }
 }
 
+# Needed in ubuntu 14.04 instalations
+PIPELINE_LESS_BINARY = '/usr/local/bin/lessc'
+
 MEDIA_ROOT = "/home/timtec-dev/webfiles/media/"
 STATIC_ROOT = "/home/timtec-dev/webfiles/static/"
 
