@@ -4,10 +4,10 @@ from django import forms
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
-from allauth.account.forms import LoginForm
+from allauth.account.forms import LoginForm, AcceptTermsForm
 
 
-class BaseUserChangeForm(forms.ModelForm):
+class BaseUserChangeForm(forms.ModelForm, AcceptTermsForm):
 
     def __init__(self, *args, **kwargs):
         super(BaseUserChangeForm, self).__init__(*args, **kwargs)
