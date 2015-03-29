@@ -3,11 +3,12 @@ from django.contrib.auth import get_user_model
 from django import forms
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse_lazy
+from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from allauth.account.forms import LoginForm, AcceptTermsForm
+from allauth.account.forms import LoginForm
 
 
-class BaseUserChangeForm(forms.ModelForm, AcceptTermsForm):
+class BaseUserChangeForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(BaseUserChangeForm, self).__init__(*args, **kwargs)
@@ -19,6 +20,8 @@ class BaseUserChangeForm(forms.ModelForm, AcceptTermsForm):
     password1 = forms.CharField(widget=forms.PasswordInput, label=_("Password"), required=False)
     password2 = forms.CharField(widget=forms.PasswordInput, label=_("Password (again)"), required=False)
 
+    accept_terms = forms.BooleanField(label=_('Accept '), initial=False, required=False)
+
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
         password2 = self.cleaned_data.get('password2')
@@ -26,6 +29,13 @@ class BaseUserChangeForm(forms.ModelForm, AcceptTermsForm):
             if password1 != password2:
                 raise forms.ValidationError(_("The two password fields didn't match."))
         return password2
+
+    def clean_accept_terms(self):
+        data = self.cleaned_data['accept_terms']
+        if settings.TERMS_ACCEPTANCE_REQUIRED and not data:
+                raise forms.ValidationError(_('You must agree to the Terms of Use to use %(site_name)s.'),
+                                            params={'site_name': settings.SITE_NAME},)
+        return self.cleaned_data['accept_terms']
 
 
 class SignupStudentCompletion(BaseUserChangeForm):
