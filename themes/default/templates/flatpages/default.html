@@ -56,8 +56,11 @@ class="static-page-body"
 								</modalmarkdowneditorwithtitle>
 							</div>
 						{% else %}
+						{% block content-header %}
                         <h2>{{ flatpage.title }}</h2>
+						{% endblock %}
                     	{{ flatpage.content|markdown }}
+
                         {% endif %}
                     </div>
                 </div>
