@@ -31,11 +31,11 @@ class BaseUserChangeForm(forms.ModelForm):
         return password2
 
     def clean_accept_terms(self):
-        data = self.cleaned_data['accept_terms']
+        data = self.cleaned_data.get('accept_terms')
         if settings.TERMS_ACCEPTANCE_REQUIRED and not data:
                 raise forms.ValidationError(_('You must agree to the Terms of Use to use %(site_name)s.'),
                                             params={'site_name': settings.SITE_NAME},)
-        return self.cleaned_data['accept_terms']
+        return data
 
 
 class SignupStudentCompletion(BaseUserChangeForm):
@@ -111,7 +111,7 @@ class IfSignupForm(BaseUserChangeForm):
         data = self.cleaned_data['username']
         if not data:
             if 'if_student' in self.data:
-                raise forms.ValidationError('O campo código de matrícula é obrigatório para alunos do IFSUL.')
+                raise forms.ValidationError(u'O campo código de matrícula é obrigatório para alunos do IFSUL.')
             else:
                 super(IfSignupForm, self).clean_username(self)
         return data
@@ -119,19 +119,19 @@ class IfSignupForm(BaseUserChangeForm):
     def clean_course(self):
         data = self.cleaned_data['course']
         if 'if_student' in self.data and not data:
-            raise forms.ValidationError('O campo curso é obrigatório para alunos do IFSUL.')
+            raise forms.ValidationError(u'O campo curso é obrigatório para alunos do IFSUL.')
         return data
 
     def clean_klass(self):
         data = self.cleaned_data['klass']
         if 'if_student' in self.data and not data:
-            raise forms.ValidationError('O campo turma é obrigatório para alunos do IFSUL.')
+            raise forms.ValidationError(u'O campo turma é obrigatório para alunos do IFSUL.')
         return data
 
     def clean_campus(self):
         data = self.cleaned_data['campus']
         if 'if_student' in self.data and not data:
-            raise forms.ValidationError('O campo campus é obrigatório para alunos do IFSUL.')
+            raise forms.ValidationError(u'O campo campus é obrigatório para alunos do IFSUL.')
         return data
 
     def signup(self, request, user):
