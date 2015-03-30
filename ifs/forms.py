@@ -63,6 +63,7 @@ class SignupStudentCompletion(BaseUserChangeForm):
         user.city = self.cleaned_data['city']
         if self.cleaned_data['password1']:
             user.set_password(self.cleaned_data['password1'])
+        user.accepted_terms = self.cleaned_data['accept_terms']
         user.save()
 
 
@@ -89,6 +90,7 @@ class SignupProfessorCompletion(BaseUserChangeForm):
         user.city = self.cleaned_data['city']
         if self.cleaned_data['password2']:
             user.set_password(self.cleaned_data['password2'])
+        user.accepted_terms = self.cleaned_data['accept_terms']
         user.save()
 
 
@@ -111,7 +113,7 @@ class IfSignupForm(BaseUserChangeForm):
         data = self.cleaned_data['username']
         if not data:
             if 'if_student' in self.data:
-                raise forms.ValidationError(u'O campo código de matrícula é obrigatório para alunos do IFSUL.')
+                raise forms.ValidationError('O campo código de matrícula é obrigatório para alunos do IFSUL.')
             else:
                 super(IfSignupForm, self).clean_username(self)
         return data
@@ -119,19 +121,19 @@ class IfSignupForm(BaseUserChangeForm):
     def clean_course(self):
         data = self.cleaned_data['course']
         if 'if_student' in self.data and not data:
-            raise forms.ValidationError(u'O campo curso é obrigatório para alunos do IFSUL.')
+            raise forms.ValidationError('O campo curso é obrigatório para alunos do IFSUL.')
         return data
 
     def clean_klass(self):
         data = self.cleaned_data['klass']
         if 'if_student' in self.data and not data:
-            raise forms.ValidationError(u'O campo turma é obrigatório para alunos do IFSUL.')
+            raise forms.ValidationError('O campo turma é obrigatório para alunos do IFSUL.')
         return data
 
     def clean_campus(self):
         data = self.cleaned_data['campus']
         if 'if_student' in self.data and not data:
-            raise forms.ValidationError(u'O campo campus é obrigatório para alunos do IFSUL.')
+            raise forms.ValidationError('O campo campus é obrigatório para alunos do IFSUL.')
         return data
 
     def signup(self, request, user):
@@ -142,6 +144,7 @@ class IfSignupForm(BaseUserChangeForm):
             user.campus = self.cleaned_data['campus']
             user.city = self.cleaned_data['city']
             user.is_if_staff = True
+            user.accepted_terms = self.cleaned_data['accept_terms']
             user.save()
 
 
