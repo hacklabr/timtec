@@ -90,15 +90,19 @@
                         a.btn {
                             border-radius: 0;
                         }
-                    }
-                }
-                #course-nav {
-                    @media (max-width: @screen-xs-max) {
-                        margin-bottom: 15px;
-                        text-align: center;
-                    }
-                    a {
-                        color: #446E02;
+                        #course-nav,
+                        .course-sections {
+                            &.textright {
+                                text-align: center;
+                            }
+                            @media (max-width: @screen-xs-max) {
+                                margin-bottom: 15px;
+                                text-align: center;
+                            }
+                            a {
+                                color: #446E02;
+                            }
+                        }
                     }
                 }
             }
