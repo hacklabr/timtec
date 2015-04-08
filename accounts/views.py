@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.views.generic import UpdateView, FormView
@@ -60,6 +61,22 @@ class TimtecUserAdminViewSet(viewsets.ModelViewSet):
     serializer_class = TimtecUserAdminSerializer
     ordering = ('first_name', 'username',)
     # search_fields = ('first_name', 'last_name', 'username', 'email')
+
+    def get_queryset(self):
+        page = self.request.QUERY_PARAMS.get('page')
+        queryset = super(TimtecUserAdminViewSet, self).get_queryset()
+        if page:
+            paginator = Paginator(queryset, 50)
+            try:
+                queryset = paginator.page(page)
+            except PageNotAnInteger:
+                # If page is not an integer, deliver first page.
+                queryset = paginator.page(1)
+            except EmptyPage:
+                # If page is out of range (e.g. 9999),
+                # deliver last page of results.
+                queryset = paginator.page(paginator.num_pages)
+        return queryset
 
 
 class UserSearchView(LoginRequiredMixin, generics.ListAPIView):

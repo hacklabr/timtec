@@ -329,6 +329,17 @@ PIPELINE_JS = {
         ),
         'output_filename': 'js/course_permissions.js',
     },
+    'users_admin': {
+        'source_filenames': (
+            'js/users-admin/app.js',
+            'js/users-admin/controllers.js',
+            'js/users-admin/services.js',
+            'js/factories/timtec-models.js',
+            'js/directives/fixedBar.js',
+            'js/directives/alertPopup.js',
+        ),
+        'output_filename': 'js/users_admin.js',
+    },
 }
 
 MOMMY_CUSTOM_FIELDS_GEN = {

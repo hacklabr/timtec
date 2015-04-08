@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required as lr
 from forum.views import AdminCourseForumView
 from course_material.views import CourseMaterialAdminView
 from .views import (AdminView, CourseAdminView, CourseCreateView,
-                    ExportCourseView, ImportCourseView,)
+                    ExportCourseView, ImportCourseView, UserAdminView,)
 
 urlpatterns = patterns(
     '',
@@ -16,7 +16,7 @@ urlpatterns = patterns(
     url(r'^courses/$', AdminView.as_view(template_name="courses.html"), name='administration.courses'),
 
     # users
-    url(r'^users/$', AdminView.as_view(template_name="users.html"), name='administration.users'),
+    url(r'^users/$', UserAdminView.as_view(template_name="users.html"), name='administration.users'),
     # url(r'^users/(?P<pk>[0-9]+)/$', UserUpdateView.as_view(), name='administration.user-update'),
     # url(r'^users/(?P<pk>[0-9]+)/delete/$', UserDeleteView.as_view(), name='administration.user-delete'),
 

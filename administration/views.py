@@ -17,7 +17,6 @@ from rest_framework.views import APIView
 from rest_framework import permissions
 from core.models import Course
 from course_material.models import File as TimtecFile
-from .forms import UserUpdateForm
 from .serializer import CourseExportSerializer, CourseImportSerializer
 
 import tarfile
@@ -45,6 +44,12 @@ class AdminMixin(TemplateResponseMixin, ContextMixin,):
 class AdminView(views.SuperuserRequiredMixin, AdminMixin, TemplateView):
     raise_exception = True
 
+
+class UserAdminView(AdminView):
+    def get_context_data(self, **kwargs):
+        context = super(UserAdminView, self).get_context_data(**kwargs)
+        context['total_users_number'] = User.objects.count()
+        return context
 
 # class UserListView(views.SuperuserRequiredMixin, AdminMixin, ListView):
 #     model = User
