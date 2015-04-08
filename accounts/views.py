@@ -56,7 +56,7 @@ class TimtecUserViewSet(viewsets.ReadOnlyModelViewSet):
 class TimtecUserAdminViewSet(viewsets.ModelViewSet):
     model = get_user_model()
     # lookup_field = 'id'
-    # filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter,)
+    # filter_backends = (filters.OrderingFilter,)
     permission_classes = (IsAdmin, )
     serializer_class = TimtecUserAdminSerializer
     ordering = ('first_name', 'username',)
@@ -64,7 +64,23 @@ class TimtecUserAdminViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         page = self.request.QUERY_PARAMS.get('page')
+        keyword = self.request.QUERY_PARAMS.get('keyword')
+        admin = self.request.QUERY_PARAMS.get('admin')
+        blocked = self.request.QUERY_PARAMS.get('keyword')
         queryset = super(TimtecUserAdminViewSet, self).get_queryset()
+
+        if keyword:
+            queryset = queryset.filter(Q(first_name__icontains=keyword) |
+                                       Q(last_name__icontains=keyword) |
+                                       Q(username__icontains=keyword) |
+                                       Q(email__icontains=keyword))
+
+        if admin:
+            queryset = queryset.filter(is_superuser=True)
+
+        if blocked:
+            queryset = queryset.filter(is_active=False)
+
         if page:
             paginator = Paginator(queryset, 50)
             try:
@@ -76,6 +92,7 @@ class TimtecUserAdminViewSet(viewsets.ModelViewSet):
                 # If page is out of range (e.g. 9999),
                 # deliver last page of results.
                 queryset = paginator.page(paginator.num_pages)
+
         return queryset
 
 

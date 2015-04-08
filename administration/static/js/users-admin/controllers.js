@@ -5,31 +5,52 @@
         function($scope, $window, $modal, $http, $q, UserAdmin) {
 
             var success_save_msg = 'Alterações salvas com sucesso.';
-            var error_save_msg = 'Não foi possível salvar todas as alterações.';
+            var error_save_msg = 'Não foi possível salvar as alterações.';
             var cancel_changes_msg = 'Alterações canceladas.';
+
+            var confirm_delete_user_msg = 'Tem certeza que deseja apagar este usuário? Esta operação não poderá ser desfeita!';
+            var success_delete_user_msg = 'Usuário apagado com sucesso.';
+            var error_delete_user_msg = 'Erro ao apagar usuário.';
 
             //$scope.courseId = /course\/([^\/]+)\/permissions/.extract(location.pathname, 1);
 
             $scope.users_page = UserAdmin.query({page: 1});
 
-            $scope.filter_users = function() {
+            $scope.filter = {};
 
+            $scope.filter_users = function() {
+                $scope.users_page = UserAdmin.query($scope.filter);
             };
 
             $scope.page_changed = function() {
                 $scope.users_page = UserAdmin.query({page: $scope.current_page});
             };
 
-            $scope.change_superuser_status = function(user) {
-
+            $scope.update_user = function(user) {
+                user.$update({user_id: user.id}, function() {
+                    $scope.alert.success(success_save_msg);
+                }, function() {
+                    $scope.alert.error(error_save_msg);
+                });
             };
 
             $scope.change_blocked_user_status = function(user) {
-
+                user.$update({user_id: user.id}, function() {
+                    $scope.alert.success(success_save_msg);
+                }, function() {
+                    $scope.alert.error(error_save_msg);
+                });
             };
 
-            $scope.delete_user = function(user) {
-
+            $scope.delete_user = function(user, index) {
+                if (confirm(confirm_delete_user_msg)) {
+                    user.$remove({user_id: user.id}, function() {
+                        $scope.users_page.splice(index, 1);
+                        $scope.alert.success(success_delete_user_msg);
+                    }, function() {
+                        $scope.alert.error(error_delete_user_msg);
+                    });
+                }
             };
 
             //

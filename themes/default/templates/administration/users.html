@@ -17,7 +17,17 @@ wrapper-course-lesson
 <!-- COURSES -->
 <section id="users" ng-app="users-admin" ng-controller="UsersAdminController">
 
+
+    <!-- ACTIONS -->
+    <div class="actions-menu actions-menu-message" ng-hide="alert.hidden" fixed-bar>
+        <div class="container">
+            {% include 'administration/_alert.html' %}
+        </div>
+    </div>
+    <!-- END ACTIONS -->
     <div class="container">
+
+
         <!--  HEADER -->
         <header>
             <div class="row">
@@ -31,18 +41,25 @@ wrapper-course-lesson
         <h3>{% trans 'Total users number:' %} {{ total_users_number }}</h3>
         <div class="filters">
             <form role="form" class="form-inline" method="GET">
-                    <div class="filter-checkbox form-group">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="admin" {% if request.GET.admin %}checked{% endif %}> {% trans 'Administrators' %}
-                            </label>
-                        </div>
+                <div class="filter-checkbox form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="admin" ng-model="filters.admin"> {% trans 'Administrators' %}
+                        </label>
+                        <label>
+                            <input type="checkbox" name="admin" ng-model="filters.blocked"> {% trans 'Blocked' %}
+                        </label>
                     </div>
-                    <div class="form-group">
-                        <label class="sr-only" for="keyword">{% trans 'Keyword' %}</label>
-                        <input type="text" placeholder="{% trans 'Keyword' %}" class="form-control" id="keyword" name="keyword" {% if request.GET.keyword %}value="{{ request.GET.keyword }}"{% endif %}>
-                        <button class="btn btn-info" ng-click="filter_users()">{% trans 'Filter' %}</button>
-                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="keyword">{% trans 'Keyword' %}</label>
+                    <input type="text"
+                           placeholder="{% trans 'Keyword' %}"
+                           class="form-control" id="keyword"
+                           name="keyword"
+                           ng-model="filter.keyword">
+                    <button class="btn btn-info" ng-click="filter_users()">{% trans 'Filter' %}</button>
+                </div>
             </form>
             <!-- END FORM INLINE -->
         </div>
@@ -64,13 +81,13 @@ wrapper-course-lesson
                     <td>{{ user.email }}</td>
                     <td>{{ user.get_full_name }}</td>
                     <td class="text-center">
-                        <input type="checkbox" ng-model="user.is_superuser" ng-click="change_superuser_status(user)">
+                        <input type="checkbox" ng-model="user.is_superuser" ng-click="update_user(user)">
                     </td>
                     <td class="text-center">
-                        <input class="js-update" type="checkbox" ng-model="user.is_active" ng-click="change_blocked_user_status(user)">
+                        <input class="js-update" type="checkbox" ng-model="user.is_active" ng-click="update_user(user)">
                     </td>
                     <td class="textcenter">
-                        <button class="btn btn-warning js-delete" ng-click="delete_user(user)"><i class="fa fa-trash-o"></i></button>
+                        <button class="btn btn-warning js-delete" ng-click="delete_user(user, $index)"><i class="fa fa-trash-o"></i></button>
                     </td>
                 {% endverbatim %}
                 </tr>
