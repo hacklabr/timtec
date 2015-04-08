@@ -6,12 +6,14 @@ from django.views.generic.detail import DetailView
 from django.db.models import Q
 
 from accounts.forms import ProfileEditForm, AcceptTermsForm
-from accounts.serializers import TimtecUserSerializer
+from accounts.serializers import TimtecUserSerializer, TimtecUserAdminSerializer
 from braces.views import LoginRequiredMixin
 
 from rest_framework import viewsets
 from rest_framework import filters
 from rest_framework import generics
+
+from core.permissions import IsAdmin
 
 
 class ProfileEditView(LoginRequiredMixin, UpdateView):
@@ -41,13 +43,23 @@ class ProfileView(LoginRequiredMixin, DetailView):
             return self.request.user
 
 
-class TimtecUserViewSet(viewsets.ModelViewSet):
+class TimtecUserViewSet(viewsets.ReadOnlyModelViewSet):
     model = get_user_model()
     lookup_field = 'id'
     filter_fields = ('groups__name',)
     filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter,)
     serializer_class = TimtecUserSerializer
     ordering = ('first_name', 'username',)
+
+
+class TimtecUserAdminViewSet(viewsets.ModelViewSet):
+    model = get_user_model()
+    # lookup_field = 'id'
+    # filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter,)
+    permission_classes = (IsAdmin, )
+    serializer_class = TimtecUserAdminSerializer
+    ordering = ('first_name', 'username',)
+    # search_fields = ('first_name', 'last_name', 'username', 'email')
 
 
 class UserSearchView(LoginRequiredMixin, generics.ListAPIView):

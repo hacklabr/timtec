@@ -5,7 +5,8 @@ from django.conf.urls.static import static
 
 from django.views.generic import TemplateView
 from accounts.views import (ProfileEditView, ProfileView, UserSearchView,
-                            TimtecUserViewSet, StudentSearchView, AcceptTermsView)
+                            TimtecUserViewSet, TimtecUserAdminViewSet, StudentSearchView,
+                            AcceptTermsView)
 from forum.views import AnswerViewSet as ForumAnswerViewSet, ForumModeratorView
 
 from core.views import (CourseView, GenericCourseView, CourseViewSet,
@@ -36,6 +37,7 @@ flatpages.register()
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'user', TimtecUserViewSet)
+router.register(r'user_admin', TimtecUserAdminViewSet)
 router.register(r'course', CourseViewSet)
 router.register(r'course_carousel', CarouselCourseView)
 router.register(r'course_professor', CourseProfessorViewSet)
