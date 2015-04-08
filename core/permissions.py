@@ -40,4 +40,4 @@ class IsAdminOrReadOnly(IsAdmin):
         # so we'll always allow GET, HEAD or OPTIONS requests.
         if request.method in permissions.SAFE_METHODS:
             return True
-        super(IsAdminOrReadOnly, self).has_permission(request, view)
+        return super(IsAdminOrReadOnly, self).has_permission(request, view)
