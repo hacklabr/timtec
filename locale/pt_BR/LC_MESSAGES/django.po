@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-09 02:55-0300\n"
-"PO-Revision-Date: 2015-04-09 02:57-0300\n"
+"POT-Creation-Date: 2015-04-09 03:51-0300\n"
+"PO-Revision-Date: 2015-04-09 03:52-0300\n"
 "Last-Translator: Administrador TIMTec <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -518,7 +518,7 @@ msgid "Course name"
 msgstr "Nome do curso"
 
 #: themes/default/templates/_admin_header_inline.html:39
-#: themes/default/templates/_course-header-inline.html:18
+#: themes/default/templates/_course-header-inline.html:19
 msgid "Forum"
 msgstr "Fórum"
 
@@ -527,18 +527,18 @@ msgid "Material"
 msgstr "Material"
 
 #: themes/default/templates/_admin_header_inline.html:49
-#: themes/default/templates/_course-header-inline.html:23
+#: themes/default/templates/_course-header-inline.html:24
 msgid "Tools"
 msgstr "Ferramentas"
 
 #: themes/default/templates/_admin_header_inline.html:54
-#: themes/default/templates/_course-header-inline.html:25
+#: themes/default/templates/_course-header-inline.html:26
 #: themes/default/templates/messages.html:37
 msgid "Messages"
 msgstr "Mensagens"
 
 #: themes/default/templates/_admin_header_inline.html:57
-#: themes/default/templates/_course-header-inline.html:26
+#: themes/default/templates/_course-header-inline.html:27
 msgid "Reports"
 msgstr "Relatórios"
 
@@ -558,28 +558,32 @@ msgstr "Por"
 msgid "Assistant Professor"
 msgstr "Professor Assistente"
 
-#: themes/default/templates/_course-header-inline.html:16
+#: themes/default/templates/_course-header-inline.html:17
 msgid "Intro"
 msgstr "Vídeo introdutório"
 
-#: themes/default/templates/_course-header-inline.html:17
+#: themes/default/templates/_course-header-inline.html:18
 #: themes/default/templates/home.html:113
 #: themes/default/templates/notes.html:45
 msgid "Resume course"
 msgstr "Continuar curso"
 
-#: themes/default/templates/_course-header-inline.html:19
+#: themes/default/templates/_course-header-inline.html:20
 msgid "Course material"
 msgstr "Material didático"
 
-#: themes/default/templates/_course-header-inline.html:20
+#: themes/default/templates/_course-header-inline.html:21
 msgid "Course notes"
 msgstr "Anotações do Curso"
 
-#: themes/default/templates/_course-header-inline.html:27
+#: themes/default/templates/_course-header-inline.html:28
 #: themes/default/templates/classes.html:25
 msgid "Classes"
 msgstr "Turmas"
+
+#: themes/default/templates/_course-header-inline.html:30
+msgid "Edit course"
+msgstr "Editar curso"
 
 #: themes/default/templates/_course_authors_inline.html:8
 #: themes/default/templates/_course_authors_inline.html:59
