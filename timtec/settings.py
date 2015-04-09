@@ -22,7 +22,7 @@ TEMPLATE_DEBUG = DEBUG
 
 SITE_ID = 1
 SITE_HOME = ''
-SITE_NAME = 'Timtec'
+SITE_NAME = u'Timtec'
 SITE_DOMAIN = 'timtec.com.br'
 
 ADMINS = (
@@ -328,6 +328,17 @@ PIPELINE_JS = {
             'js/directives/alertPopup.js',
         ),
         'output_filename': 'js/course_permissions.js',
+    },
+    'users_admin': {
+        'source_filenames': (
+            'js/users-admin/app.js',
+            'js/users-admin/controllers.js',
+            'js/users-admin/services.js',
+            'js/factories/timtec-models.js',
+            'js/directives/fixedBar.js',
+            'js/directives/alertPopup.js',
+        ),
+        'output_filename': 'js/users_admin.js',
     },
 }
 

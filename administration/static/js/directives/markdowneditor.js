@@ -91,7 +91,7 @@
             });
 
             $scope.$watch($scope.active, function(value){
-                var modal_element = angular.element('#modal-markdown-editor');
+                var modal_element = angular.element('#modal-markdown-editor-' + $scope.id);
                 if (value)
                     modal_element.modal('show');
                 else
@@ -126,7 +126,7 @@
             scope.title = attr.title;
 
             scope.$watch('active', function(value){
-                var modal_element = angular.element('#modal-markdown-editor');
+                var modal_element = angular.element('#modal-markdown-editor-' + scope.id);
                 if (value)
                     modal_element.modal('show');
                 else

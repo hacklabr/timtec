@@ -34,6 +34,9 @@
     }
 }
 .header-courses {
+    @media (max-width: @screen-xs-max) {
+        margin-bottom: 20px;
+    }
     .container {
         .main-header {
             .clearfix;
@@ -44,9 +47,12 @@
                 padding-bottom: 0;
                 h1 {
                     font-family: "ek-mukta-extralight";
-                    font-size: 38px !important;
+                    font-size: 26px !important;
                     line-height: 0.9;
                     @media (min-width: @screen-sm-min) {
+                        font-size: 36px
+                    }
+                    @media (min-width: @screen-md-min) {
                         font-size: 42px !important;
                     }
                 }
@@ -59,7 +65,13 @@
                     a.course-instructor {
                         color: #999999;
                         display: inline-block;
-                        font-size: 24px;
+                        font-size: 22px;
+                        @media (min-width: @screen-sm-min) {
+                            font-size: 22px;
+                        }
+                        @media (min-width: @screen-md-min) {
+                            font-size: 24px;
+                        }
                         line-height: 1.1;
                         margin-top: 0;
                     }
@@ -78,15 +90,19 @@
                         a.btn {
                             border-radius: 0;
                         }
-                    }
-                }
-                #course-nav {
-                    @media (max-width: @screen-xs-max) {
-                        margin-bottom: 15px;
-                        text-align: center;
-                    }
-                    a {
-                        color: #446E02;
+                        #course-nav,
+                        .course-sections {
+                            @media (max-width: @screen-xs-max) {
+                                margin-bottom: 15px;
+                                &.textright {
+                                    text-align: center;
+                                }
+                                text-align: center;
+                            }
+                            a {
+                                color: #446E02;
+                            }
+                        }
                     }
                 }
             }
@@ -164,8 +180,18 @@ h1,h2,h3,h4,h5,h6 {
 #forum.course-forum,
 #stats.course-stats,
 #classes.course-classes,
+#messages,
+#permissions,
 #my-notes {
     .main-header {
         display: none;
     }
 }
+#my-courses {
+    header.page-header-double {
+        h2 {
+            display: none;
+        }
+    }
+}
+

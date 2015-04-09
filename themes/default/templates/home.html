@@ -131,22 +131,26 @@ home
             <div class="container">
 
                 {% if in_admin %}
-                <header>
-                    {% verbatim %}
-                    <h1 ng-hide="!bottom_home_flatpages.$resolved">{{ home_bottom_intro.title }}</h1>
-                    {% endverbatim %}
-                </header>
-                <div class="highlight textcenter">
-                    <div class="col-lg-12" ng-hide="bottom_home_flatpages.$resolved">
-                        <i class="loading fa fa-refresh fa-spin"></i>
-                    </div>
-                    <modalmarkdowneditorwithtitle tabindex="2"
-                                                  on-save="save_home_text(home_bottom_intro)"
-                                                  title-model="home_bottom_intro.title"
-                                                  content="home_bottom_intro.content"
-                                                  ng-hide="!bottom_home_flatpages.$resolved">
-                    </modalmarkdowneditorwithtitle>
-                </div>
+				<div class="editable">
+					<header>
+						{% verbatim %}
+						<h1 ng-hide="!bottom_home_flatpages.$resolved"
+							ng-click="home_bottom_intro.active = true">{{ home_bottom_intro.title }}</h1>
+						{% endverbatim %}
+					</header>
+					<div class="highlight textcenter">
+						<div class="col-lg-12" ng-hide="bottom_home_flatpages.$resolved">
+							<i class="loading fa fa-refresh fa-spin"></i>
+						</div>
+						<modalmarkdowneditorwithtitle tabindex="2"
+													  on-save="save_home_text(home_bottom_intro)"
+													  title-model="home_bottom_intro.title"
+													  content="home_bottom_intro.content"
+													  ng-hide="!bottom_home_flatpages.$resolved"
+													  active="home_bottom_intro.active">
+						</modalmarkdowneditorwithtitle>
+					</div>
+				</div>
                 {% else %}
                 {% get_flatpage '/home/bottom/intro/' as home_bottom_intro %}
                 <header>
@@ -161,18 +165,20 @@ home
                         <div class="info">
                             <div class="icon"><i class="fa fa-video-camera"></i></div>
                             {% if in_admin %}
-                            <div>
+                            <div class="editable">
                                 <div class="col-lg-12" ng-hide="bottom_home_flatpages.$resolved">
                                     <i class="loading fa fa-refresh fa-spin"></i>
                                 </div>
                                 {% verbatim %}
-                                <h3 ng-hide="!bottom_home_flatpages.$resolved">{{ home_bottom_left.title }}</h3>
+                                <h3 ng-hide="!bottom_home_flatpages.$resolved"
+									ng-click="home_bottom_left.active = true">{{ home_bottom_left.title }}</h3>
                                 {% endverbatim %}
                                 <modalmarkdowneditorwithtitle tabindex="2"
                                                   on-save="save_home_text(home_bottom_left)"
                                                   title-model="home_bottom_left.title"
                                                   content="home_bottom_left.content"
-                                                  ng-hide="!bottom_home_flatpages.$resolved">
+                                                  ng-hide="!bottom_home_flatpages.$resolved"
+                                                  active="home_bottom_left.active">
                                 </modalmarkdowneditorwithtitle>
                             </div>
                             {% else %}
@@ -186,18 +192,20 @@ home
                         <div class="info">
                             <div class="icon"><i class="fa fa-check-square-o"></i></div>
                             {% if in_admin %}
-                            <div>
+                            <div class="editable">
                                 <div class="col-lg-12" ng-hide="bottom_home_flatpages.$resolved">
                                     <i class="loading fa fa-refresh fa-spin"></i>
                                 </div>
                                 {% verbatim %}
-                                <h3 ng-hide="!bottom_home_flatpages.$resolved">{{ home_bottom_center.title }}</h3>
+                                <h3 ng-hide="!bottom_home_flatpages.$resolved"
+                                    ng-click="home_bottom_center.active = true">{{ home_bottom_center.title }}</h3>
                                 {% endverbatim %}
                                 <modalmarkdowneditorwithtitle tabindex="2"
                                                   on-save="save_home_text(home_bottom_center)"
                                                   title-model="home_bottom_center.title"
                                                   content="home_bottom_center.content"
-                                                  ng-hide="!bottom_home_flatpages.$resolved">
+                                                  ng-hide="!bottom_home_flatpages.$resolved"
+                                                  active="home_bottom_center.active">
                                 </modalmarkdowneditorwithtitle>
                             </div>
                             {% else %}
@@ -211,18 +219,20 @@ home
                         <div class="info">
                             <div class="icon"><i class="fa fa-comments-o"></i></div>
                             {% if in_admin %}
-                            <div>
+                            <div class="editable">
                                 <div class="col-lg-12" ng-hide="bottom_home_flatpages.$resolved">
                                     <i class="loading fa fa-refresh fa-spin"></i>
                                 </div>
                                 {% verbatim %}
-                                <h3 ng-hide="!bottom_home_flatpages.$resolved">{{ home_bottom_right.title }}</h3>
+                                <h3 class="ng-hide=!bottom_home_flatpages.$resolved"
+                                	ng-click="home_bottom_right.active = true">{{ home_bottom_right.title }}</h3>
                                 {% endverbatim %}
                                 <modalmarkdowneditorwithtitle tabindex="2"
                                                   on-save="save_home_text(home_bottom_right)"
                                                   title-model="home_bottom_right.title"
                                                   content="home_bottom_right.content"
-                                                  ng-hide="!bottom_home_flatpages.$resolved">
+                                                  ng-hide="!bottom_home_flatpages.$resolved"
+                                                  active="home_bottom_right.active">
                                 </modalmarkdowneditorwithtitle>
                             </div>
                             {% else %}

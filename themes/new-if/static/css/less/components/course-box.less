@@ -3,9 +3,10 @@
 #courses {
     header {
         border: none;
+        display: none;
     }
     .course {
-        min-height: 195px;
+        //min-height: 195px;
         &:hover {
             .fa-check {
                 background-color: @brand-success;
@@ -31,6 +32,9 @@
                     background-color: lighten(@gray-lighter, 5%);
                     border-top: 2px solid darken(@gray-lighter, 5%);
                 }
+            }
+            &:focus {
+                text-decoration: none;
             }
         } // .course-link
         .thumb-wrapper { // course thumbnail
