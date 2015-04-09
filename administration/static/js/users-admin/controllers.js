@@ -6,20 +6,22 @@
 
             var success_save_msg = 'Alterações salvas com sucesso.';
             var error_save_msg = 'Não foi possível salvar as alterações.';
-            var cancel_changes_msg = 'Alterações canceladas.';
 
             var confirm_delete_user_msg = 'Tem certeza que deseja apagar este usuário? Esta operação não poderá ser desfeita!';
             var success_delete_user_msg = 'Usuário apagado com sucesso.';
             var error_delete_user_msg = 'Erro ao apagar usuário.';
 
-            //$scope.courseId = /course\/([^\/]+)\/permissions/.extract(location.pathname, 1);
+            $scope.total_users_found = parseInt($window.total_users_found, 10);
 
             $scope.users_page = UserAdmin.query({page: 1});
 
-            $scope.filter = {};
+            $scope.filters = {};
 
             $scope.filter_users = function() {
-                $scope.users_page = UserAdmin.query($scope.filter);
+                $scope.users_page = UserAdmin.query($scope.filters, function(users_page) {
+                    $scope.filtered = true;
+                    $scope.total_users_found = users_page.length;
+                });
             };
 
             $scope.page_changed = function() {
@@ -34,13 +36,13 @@
                 });
             };
 
-            $scope.change_blocked_user_status = function(user) {
-                user.$update({user_id: user.id}, function() {
-                    $scope.alert.success(success_save_msg);
-                }, function() {
-                    $scope.alert.error(error_save_msg);
-                });
-            };
+            //$scope.change_blocked_user_status = function(user) {
+            //    user.$update({user_id: user.id}, function() {
+            //        $scope.alert.success(success_save_msg);
+            //    }, function() {
+            //        $scope.alert.error(error_save_msg);
+            //    });
+            //};
 
             $scope.delete_user = function(user, index) {
                 if (confirm(confirm_delete_user_msg)) {

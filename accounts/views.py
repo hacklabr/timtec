@@ -66,8 +66,8 @@ class TimtecUserAdminViewSet(viewsets.ModelViewSet):
         page = self.request.QUERY_PARAMS.get('page')
         keyword = self.request.QUERY_PARAMS.get('keyword')
         admin = self.request.QUERY_PARAMS.get('admin')
-        blocked = self.request.QUERY_PARAMS.get('keyword')
-        queryset = super(TimtecUserAdminViewSet, self).get_queryset()
+        blocked = self.request.QUERY_PARAMS.get('blocked')
+        queryset = super(TimtecUserAdminViewSet, self).get_queryset().order_by('username')
 
         if keyword:
             queryset = queryset.filter(Q(first_name__icontains=keyword) |
@@ -75,10 +75,10 @@ class TimtecUserAdminViewSet(viewsets.ModelViewSet):
                                        Q(username__icontains=keyword) |
                                        Q(email__icontains=keyword))
 
-        if admin:
+        if admin == 'true':
             queryset = queryset.filter(is_superuser=True)
 
-        if blocked:
+        if blocked == 'true':
             queryset = queryset.filter(is_active=False)
 
         if page:

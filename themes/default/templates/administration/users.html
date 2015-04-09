@@ -7,6 +7,9 @@
 {% block js %}
 {{ block.super }}
     {% compressed_js 'users_admin' %}
+    <script>
+        window.total_users_found = {{ total_users_number }};
+    </script>
 {% endblock %}
 
 {% block wrapper_classes %}
@@ -37,8 +40,7 @@ wrapper-course-lesson
             </div>
         </header>
         <!-- END HEADER -->
-
-        <h3>{% trans 'Total users number:' %} {{ total_users_number }}</h3>
+        <h3>{% trans 'Users found:' %} {% verbatim %}{{ total_users_found }}{% endverbatim %}</h3>
         <div class="filters">
             <form role="form" class="form-inline" method="GET">
                 <div class="filter-checkbox form-group">
@@ -57,15 +59,20 @@ wrapper-course-lesson
                            placeholder="{% trans 'Keyword' %}"
                            class="form-control" id="keyword"
                            name="keyword"
-                           ng-model="filter.keyword">
+                           ng-model="filters.keyword">
                     <button class="btn btn-info" ng-click="filter_users()">{% trans 'Filter' %}</button>
                 </div>
             </form>
             <!-- END FORM INLINE -->
         </div>
         <!-- END FILTERS -->
-
-        <section id="all-courses" class="user-list">
+		<div class="col-lg-12" ng-hide="users_page.$resolved">
+			<p>{% trans 'Loading users list' %}...   <i class="loading fa fa-refresh fa-spin"></i></p>
+		</div>
+        <div class="col-lg-12" ng-if="users_page.$resolved && users_page.length==0">
+			<p>{% trans 'No users found' %}.</p>
+		</div>
+        <section id="all-courses" class="user-list" ng-show="users_page.$resolved">
             <table class="table table-list">
                 <tr>
                     <th class="username">{% trans "Username" %}</th>
@@ -81,10 +88,10 @@ wrapper-course-lesson
                     <td>{{ user.email }}</td>
                     <td>{{ user.get_full_name }}</td>
                     <td class="text-center">
-                        <input type="checkbox" ng-model="user.is_superuser" ng-click="update_user(user)">
+                        <input type="checkbox" ng-model="user.is_superuser" ng-change="update_user(user)">
                     </td>
                     <td class="text-center">
-                        <input class="js-update" type="checkbox" ng-model="user.is_active" ng-click="update_user(user)">
+                        <input type="checkbox" ng-model="user.is_active" ng-change="update_user(user)">
                     </td>
                     <td class="textcenter">
                         <button class="btn btn-warning js-delete" ng-click="delete_user(user, $index)"><i class="fa fa-trash-o"></i></button>
@@ -93,7 +100,7 @@ wrapper-course-lesson
                 </tr>
             </table>
         </section>
-        <pagination total-items="{{ total_users_number }}"
+        <pagination total-items="total_users_found"
                     items-per-page="50"
                     ng-model="current_page"
                     ng-change="page_changed()"
@@ -102,7 +109,8 @@ wrapper-course-lesson
                     previous-text="{% trans 'Previous' %}"
                     next-text="{% trans 'Next' %}"
                     first-text="{% trans 'First' %}"
-                    last-text="{% trans 'Last' %}">
+                    last-text="{% trans 'Last' %}"
+                	ng-hide="filtered">
         </pagination>
     </div>
 
