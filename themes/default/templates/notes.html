@@ -17,6 +17,7 @@ wrapper-course-lesson
 <!-- CONTAINER -->
 <div id="my-notes" ng-app="notes" ng-controller="UserNotesCtrl">
 
+    {% block notes_header %}
     <header class="main-header container">
         <div class="page-header">
             <h1 class="bottom top">
@@ -24,6 +25,7 @@ wrapper-course-lesson
             </h1>
         </div>
     </header>
+    {% endblock %}
 
     <section id="notes-content" class="container">
         <p ng-if="courses.length == 0">
