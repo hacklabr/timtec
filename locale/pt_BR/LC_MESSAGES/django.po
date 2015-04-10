@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-09 03:51-0300\n"
-"PO-Revision-Date: 2015-04-09 03:52-0300\n"
+"POT-Creation-Date: 2015-04-10 18:19-0300\n"
+"PO-Revision-Date: 2015-04-10 18:21-0300\n"
 "Last-Translator: Administrador TIMTec <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -735,6 +735,26 @@ msgstr "Enviar"
 msgid "Filter classes"
 msgstr "Filtrar por turma"
 
+#: themes/default/templates/_forum_inline.html:67
+msgid "List by"
+msgstr "Listar por"
+
+#: themes/default/templates/_forum_inline.html:68
+msgid "My classes"
+msgstr "Minhas turmas"
+
+#: themes/default/templates/_forum_inline.html:69
+msgid "All classes"
+msgstr "Todas as turmas"
+
+#: themes/default/templates/_forum_inline.html:70
+msgid "Classes of others professors"
+msgstr "Turmas dos outros professores"
+
+#: themes/default/templates/_forum_inline.html:72
+msgid "Or choose a class"
+msgstr "Ou escolha uma turma"
+
 #: themes/default/templates/_forum_inline.html:87
 msgid "There is no question in this forum yet"
 msgstr "Não existem perguntas nesse forum ainda"
@@ -766,6 +786,14 @@ msgstr "respostas"
 #: themes/default/templates/_forum_inline.html:134
 msgid "Hide"
 msgstr "Ocultar"
+
+#: themes/default/templates/_forum_inline.html:141
+msgid "Asked"
+msgstr "Pergunta feita em"
+
+#: themes/default/templates/_forum_inline.html:141
+msgid "by"
+msgstr "por"
 
 #: themes/default/templates/_forum_inline.html:146
 msgid "Know why your question was hidden"

@@ -177,19 +177,6 @@
 
             get_questions({course: course_id});
 
-            $http({method: 'GET', url: '/api/is_forum_moderator/' + course_id + '/'}).
-                success(function(data, status, headers, config) {
-                    if (data === "true"){
-                        $scope.is_current_user_forum_moderator = true;
-                    } else {
-                        $scope.is_current_user_forum_moderator = false;
-                    }
-
-                }).
-                error(function(data, status, headers, config) {
-                    $scope.is_current_user_forum_moderator = false;
-            });
-
             $scope.changePageHandler = function (page) {
                 page = page-1;
                 var offset = $scope.itemsPerPage * page;
