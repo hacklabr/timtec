@@ -1,8 +1,16 @@
 {% extends "base.html" %}
-{% load static %}
+{% load compressed %}
 {% load i18n %}
 {% load in_group %}
 {% load append_to_get %}
+
+{% block js %}
+{{ block.super }}
+    {% compressed_js 'users_admin' %}
+    <script>
+        window.total_users_found = {{ total_users_number }};
+    </script>
+{% endblock %}
 
 {% block wrapper_classes %}
 wrapper-course-lesson
@@ -10,62 +18,14 @@ wrapper-course-lesson
 
 {% block content %}
 <!-- COURSES -->
-<script type="text/javascript">
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie != '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-var csrftoken = getCookie('csrftoken');
-
-function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
-
-$.ajaxSetup({
-    beforeSend: function(xhr, settings) {
-        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-        }
-    }
-});
-
-$(function () {
-    $('.js-update').on('click', function () {
-        var $this = $(this);
-        var id = $this.data('id');
-        var data = {
-            action: $this.data('action'),
-            value: $this.is(':checked'),
-        }
-        $.post('{% url "administration.user-update" pk="000" %}'.replace('000', id), data, function (result) {
-            console.log(result);
-        });
-    });
-    $('.js-delete').on('click', function () {
-        var $this = $(this);
-        var id = $this.data('id');
-        $.post('{% url "administration.user-delete" pk="000" %}'.replace('000', id), undefined, function (result) {
-            console.log(result);
-        });
-    });
-
-});
-
-</script>
-<section id="users">
-
+<section id="users" ng-app="users-admin" ng-controller="UsersAdminController">
+    <!-- ACTIONS -->
+    <div class="actions-menu actions-menu-message" ng-hide="alert.hidden" fixed-bar>
+        <div class="container">
+            {% include 'administration/_alert.html' %}
+        </div>
+    </div>
+    <!-- END ACTIONS -->
     <div class="container">
         <!--  HEADER -->
         <header>
@@ -76,27 +36,39 @@ $(function () {
             </div>
         </header>
         <!-- END HEADER -->
-
+        <h3>{% trans 'Users found:' %} {% verbatim %}{{ total_users_found }}{% endverbatim %}</h3>
         <div class="filters">
             <form role="form" class="form-inline" method="GET">
-                    <div class="filter-checkbox form-group">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="admin" {% if request.GET.admin %}checked{% endif %}> {% trans 'Administrators' %}
-                            </label>
-                        </div>
+                <div class="filter-checkbox form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="admin" ng-model="filters.admin"> {% trans 'Administrators' %}
+                        </label>
+                        <label>
+                            <input type="checkbox" name="admin" ng-model="filters.blocked"> {% trans 'Blockeds' %}
+                        </label>
                     </div>
-                    <div class="form-group">
-                        <label class="sr-only" for="keyword">{% trans 'Keyword' %}</label>
-                        <input type="text" placeholder="{% trans 'Keyword' %}" class="form-control" id="keyword" name="keyword" {% if request.GET.keyword %}value="{{ request.GET.keyword }}"{% endif %}>
-                        <button type="submit" class="btn btn-info">{% trans 'Filter' %}</button>
-                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="keyword">{% trans 'Keyword' %}</label>
+                    <input type="text"
+                           placeholder="{% trans 'Keyword' %}"
+                           class="form-control" id="keyword"
+                           name="keyword"
+                           ng-model="filters.keyword">
+                    <button class="btn btn-info" ng-click="filter_users()">{% trans 'Filter' %}</button>
+                </div>
             </form>
             <!-- END FORM INLINE -->
         </div>
         <!-- END FILTERS -->
-
-        <section id="all-courses" class="user-list">
+		<div class="col-lg-12" ng-hide="users_page.$resolved">
+			<p>{% trans 'Loading users list' %}...   <i class="loading fa fa-refresh fa-spin"></i></p>
+		</div>
+        <div class="col-lg-12" ng-if="users_page.$resolved && users_page.length==0">
+			<p>{% trans 'No users found' %}.</p>
+		</div>
+        <section id="all-courses" class="user-list" ng-show="users_page.$resolved">
             <table class="table table-list">
                 <tr>
                     <th class="username">{% trans "Username" %}</th>
@@ -106,43 +78,38 @@ $(function () {
                     <th class="role text-center">{% trans 'Active' %}</th>
                     <th class="actions">{% trans "Actions" %}</th>
                 </tr>
-                {% for user in user_list %}
-                    <tr>
-                        <td>{{ user.username }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>{{ user.get_full_name }}</td>
-                        <td class="text-center">
-                            <input class="js-update" data-action="is_superuser" data-id="{{ user.id }}" type="checkbox" {% if user.is_superuser %}checked{% endif %}>
-                        </td>
-                        <td class="text-center">
-                            <input class="js-update" data-action="is_active" data-id="{{ user.id }}" type="checkbox" {% if user.is_active %}checked{% endif %}>
-                        </td>
-                        <td class="textcenter">
-                            <button class="btn btn-warning js-delete" data-id="{{ user.id }}"><i class="fa fa-trash-o"></i></button>
-                        </td>
-                    </tr>
-                {% endfor %}
+                <tr ng-repeat="user in users_page">
+                {% verbatim %}
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.get_full_name }}</td>
+                    <td class="text-center">
+                        <input type="checkbox" ng-model="user.is_superuser" ng-change="update_user(user)">
+                    </td>
+                    <td class="text-center">
+                        <input type="checkbox" ng-model="user.is_active" ng-change="update_user(user)">
+                    </td>
+                    <td class="textcenter">
+                        <button class="btn btn-warning js-delete" ng-click="delete_user(user, $index)"><i class="fa fa-trash-o"></i></button>
+                    </td>
+                {% endverbatim %}
+                </tr>
             </table>
         </section>
-        {% if is_paginated %}
-            <div class="pagination">
-                <span class="page-links">
-                    {% if page_obj.has_previous %}
-                        <a href="{% append_to_get page=page_obj.previous_page_number %}">{% trans 'previous' %}</a>
-                    {% endif %}
-                    <span class="page-current">
-                        {% trans 'Page' %} {{ page_obj.number }} {% trans 'of' %} {{ page_obj.paginator.num_pages }}.
-                    </span>
-                    {% if page_obj.has_next %}
-                        <a href="{% append_to_get page=page_obj.next_page_number %}">{% trans 'next' %}</a>
-                    {% endif %}
-                </span>
-            </div>
-        {% endif %}
+        <pagination total-items="total_users_found"
+                    items-per-page="50"
+                    ng-model="current_page"
+                    ng-change="page_changed()"
+                    max-size="5"
+                    boundary-links="true"
+                    previous-text="{% trans 'Previous' %}"
+                    next-text="{% trans 'Next' %}"
+                    first-text="{% trans 'First' %}"
+                    last-text="{% trans 'Last' %}"
+                	ng-hide="filtered">
+        </pagination>
     </div>
 
 </section>
 <!-- END COURSES -->
-
-
 {% endblock %}

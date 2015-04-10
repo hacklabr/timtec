@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load is_assistant_or_coordinator %}
+{% load is_course_coordinator %}
 <header class="main-header">
     <div class="page-header container">
         <div class="row">
@@ -25,6 +26,9 @@
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'messages' course.slug %}">{% trans 'Messages' %}</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'reports' course.slug %}">{% trans 'Reports' %}</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'classes' course.slug %}">{%  trans 'Classes' %}</a></li>
+                                {% if user.is_superuser or user|is_course_coordinator:course %}
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'administration.edit_course' course.id %}">{%  trans 'Edit course' %}</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                     {% endif %}

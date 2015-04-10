@@ -20,7 +20,18 @@ class IsProfessorCoordinatorOrAdminPermissionOrReadOnly(permissions.BasePermissi
             return True
 
 
-class IsAdminOrReadOnly(permissions.BasePermission):
+class IsAdmin(permissions.BasePermission):
+    """
+    Custom permission to only allow not safe methods to admin.
+    """
+    def has_permission(self, request, view):
+        if request.user and request.user.is_staff:
+            return True
+        elif request.user and request.user.is_superuser:
+            return True
+
+
+class IsAdminOrReadOnly(IsAdmin):
     """
     Custom permission to only allow not safe methods to admin.
     """
@@ -29,5 +40,4 @@ class IsAdminOrReadOnly(permissions.BasePermission):
         # so we'll always allow GET, HEAD or OPTIONS requests.
         if request.method in permissions.SAFE_METHODS:
             return True
-        elif request.user and request.user.is_staff:
-            return True
+        return super(IsAdminOrReadOnly, self).has_permission(request, view)
