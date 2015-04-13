@@ -68,6 +68,11 @@
                 @media (min-width: @screen-md-min) {
                     font-size: 42px !important;
                 }
+                a {
+                    background: rgba(255, 255, 255, 0.8);
+                    box-shadow: 0px 0px 11px 7px rgba(255, 255, 255, 0.8);
+                    display: inline-block;
+                }
             }
             .course-details {
                 text-transform: initial;
@@ -76,6 +81,8 @@
                     display: none;
                 }
                 a.course-instructor {
+                    background: rgba(255, 255, 255, 0.8);
+                    box-shadow: 0px 0px 11px 7px rgba(255, 255, 255, 0.8);
                     color: #999999;
                     display: inline-block;
                     font-size: 22px;
@@ -103,17 +110,23 @@
                     a.btn {
                         border-radius: 0;
                     }
-                    #course-nav,
-                    .course-sections {
-                        @media (max-width: @screen-xs-max) {
-                            margin-bottom: 15px;
-                            &.textright {
-                                text-align: center;
-                            }
-                            text-align: center;
+                    #course-nav {
+                        @media (min-width: @screen-md-min) {
+                            float: right;
+                            box-shadow: 0px 0px 11px 7px rgba(255, 255, 255, 0.8);
+                            background: rgba(255, 255, 255, 0.8);
                         }
-                        a {
-                            color: #446E02;
+                        &.course-sections {
+                            @media (max-width: @screen-xs-max) {
+                                margin-bottom: 15px;
+                                &.textright {
+                                    text-align: center;
+                                }
+                            }
+                            .fa {
+                                overflow: initial;
+                                color: #446E02;
+                            }
                         }
                     }
                 }
