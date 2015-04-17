@@ -5,7 +5,13 @@
 {% block js %} {{block.super}}
 
     <script>
-
+    (function(){
+        $(document).ready(function() {
+            var content_height = $('#courses-page').outerHeight(true);
+            var footer_margin_top = parseInt($('#main-footer').css('marginTop'), 10);
+            $('.aside_course').css('height', content_height + footer_margin_top)
+        });
+    })();
     </script>
 {% endblock %}
 
@@ -26,7 +32,7 @@ wrapper-courses
                 <h2><i class="fa fa-angle-double-right"></i> {% trans 'Courses' %}</h2>
             </header>
 
-            <section id="courses" class="row">
+            <section id="courses" class="row clearfix">
                 <div class="col-sm-8 col-lg-9">
                     <div class="row">
                         {% for course in courses %}
