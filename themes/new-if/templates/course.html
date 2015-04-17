@@ -4,7 +4,29 @@
     {% block js %} {{block.super}}
 
     <script>
+        $(document).ready(function() {
 
+
+            function full_height(init) {
+                var elementCourseContent = $("#course-content");
+                var marginFooterDefault = parseInt($("#main-footer").css("margin-top").replace('px', ''))
+
+                $(".summary").each(function() {
+                    if ( !$(this).hasClass("hidden-md") ) {
+                        $(this).css({
+                            "height": (elementCourseContent.outerHeight() + marginFooterDefault),
+                            "margin-bottom": -1 * marginFooterDefault
+                        });
+                    }
+                });
+                return;
+            } full_height();
+
+            $(window).resize(function() {
+                if ( $(window).height() >= 768 )
+                    full_height();
+            });
+        });
     </script>
     {% endblock %}
 {% endif %}
