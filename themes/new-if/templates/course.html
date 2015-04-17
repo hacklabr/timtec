@@ -1,0 +1,10 @@
+{% extends "default:course.html" %}
+
+{% if not in_admin %}
+    {% block js %} {{block.super}}
+
+    <script>
+
+    </script>
+    {% endblock %}
+{% endif %}
