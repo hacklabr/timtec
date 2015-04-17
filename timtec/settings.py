@@ -258,6 +258,7 @@ PIPELINE_JS = {
             'js/lesson/services.js',
             'js/directives/markdowneditor.js',
             'js/directives/codemirror.js',
+            'js/directives/layout.js',
         ),
         'output_filename': 'js/lesson.js',
     },
