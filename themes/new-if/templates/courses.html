@@ -3,15 +3,22 @@
 {% load is_enrolled %}
 
 {% block js %} {{block.super}}
-
     <script>
-    (function(){
         $(document).ready(function() {
-            var content_height = $('#courses-page').outerHeight(true);
-            var footer_margin_top = parseInt($('#main-footer').css('marginTop'), 10);
-            $('.aside_course').css('height', content_height + footer_margin_top)
+            function full_height() {
+                var content_height = $('#courses-page').height();
+                var footer_margin_top = parseInt($('#main-footer').css('marginTop'), 10);
+                $('.aside_course').css({
+                    "height": (content_height + footer_margin_top),
+                    "margin-bottom": -1 * (footer_margin_top + 40)
+                });
+            } full_height();
+
+            $(window).resize(function() {
+                if ( $(window).height() >= 768 )
+                    full_height();
+            });
         });
-    })();
     </script>
 {% endblock %}
 
