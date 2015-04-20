@@ -28,7 +28,7 @@
                 });
 
                 angular.element($window).bind('resize', function() {
-                    if (angular.element('body').width() < 980) {
+                    if (angular.element('body').width() <= 980) {
                         el.css('margin-top', '');
                         el.css('padding-top', '');
                         el.css('height', '');
