@@ -12,11 +12,22 @@
                     "height": (content_height + footer_margin_top),
                     "margin-bottom": -1 * (footer_margin_top + 40)
                 });
-            } full_height();
+            }
+
+            function reset_all() {
+                $('.aside_course').css({
+                    'height': '',
+                    'margin-bottom': ''
+                });
+            }
+
+            full_height();
 
             $(window).resize(function() {
-                if ( $(window).height() >= 768 )
+                if ( $(window).width() >= 768 )
                     full_height();
+                else
+                    reset_all();
             });
         });
     </script>
