@@ -13,39 +13,40 @@
                 '404': 'Este curso não existe!'
             };
 
-
             $scope.course_id = parseInt($window.course_id, 10);
-            // vv como faz isso de uma formula angular ?
-            var match = document.location.href.match(/courses\/([0-9]+)/);
+
             $scope.course = new Course();
             $scope.courseProfessors = [];
             $scope.lessons = [];
             window.s = $scope;
 
-            if( match ) {
-                $scope.course.$get({id: match[1]})
-                    .then(function(course){
-                        if(course.intro_video) {
-                            youtubePlayerApi.videoId = course.intro_video.youtube_id;
-                        }
-                        document.title = 'Curso: {0}'.format(course.name);
-                        $scope.addThumb = !course.thumbnail_url;
-                        $scope.addHomeThumb = !course.home_thumbnail_url;
-                    })
-                    .then(function(){
-                        $scope.lessons = Lesson.query({'course__id': match[1]});
-                        return $scope.lessons.promise;
-                    })
-                    .then(function(){
-                        $scope.courseProfessors = CourseProfessor.query({course: match[1], role: 'instructor'});
-                        return $scope.courseProfessors.promise;
-                    })['catch'](function(resp){
-                        $scope.alert.error(httpErrors[resp.status.toString()]);
-                    })['finally'](function(){
-                        $scope.statusList = Course.fields.status.choices;
+            $scope.course.$get({id: $scope.course_id})
+                .then(function(course){
+                    if(course.intro_video) {
+                        youtubePlayerApi.videoId = course.intro_video.youtube_id;
+                    }
+                    document.title = 'Curso: {0}'.format(course.name);
+                    $scope.addThumb = !course.thumbnail_url;
+                    $scope.addHomeThumb = !course.home_thumbnail_url;
+                })
+                .then(function(){
+                    $scope.lessons = Lesson.query({'course__id': $scope.course_id});
+                    return $scope.lessons.promise;
+                })
+                .then(function(){
+                    $scope.courseProfessors = CourseProfessor.query({
+                        'course': $scope.course_id,
+                        'is_course_author': true
                     });
-            }
-            // ^^ como faz isso de uma formula angular ?
+
+                    // TODO here comes classes professors
+
+                    return $scope.courseProfessors.promise;
+                })['catch'](function(resp){
+                    $scope.alert.error(httpErrors[resp.status.toString()]);
+                })['finally'](function(){
+                    $scope.statusList = Course.fields.status.choices;
+                });
 
             var player;
             $scope.playerReady = false;
@@ -168,22 +169,9 @@
                     var index = $scope.courseProfessors.indexOf(courseProfessor);
                     $scope.courseProfessors.splice(index, 1);
                     $scope.alert.success('"{0}" foi removido da lista.'.format(professor_name));
-                });
-            };
 
-            $scope.saveProfessor = function(courseProfessor) {
-                function __saveProfessor(){
-                    if (!$scope.course.id) {
-                        return $scope.course.save().then(function(course){
-                            courseProfessor.course = course.id;
-                            return courseProfessor.saveOrUpdate();
-                        });
-                    }
-                    return courseProfessor.saveOrUpdate();
-                }
-                return __saveProfessor().then(function(){
-                    $scope.alert.success('{0} foi atualizado'.format(courseProfessor.user_info.name));
-                });
+
+              });
             };
 
             $scope.open_professor_modal = function(course_professor) {
@@ -207,9 +195,10 @@
                     if (course_professor.picture !== null)
                         delete course_professor.picture;
 
+                    // FIXME test if user is already a course professor.
                     if (course_professor.id === undefined){
                         course_professor.course = $scope.course_id;
-                        course_professor.role = 'instructor';
+                        course_professor.is_course_author = true;
 
                         course_professor.$save({}, function (course_professor){
 

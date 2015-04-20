@@ -164,7 +164,7 @@ class Course(models.Model):
         return self.user.forum_answers.values('question__lesson').annotate(Count('question__lesson'))
 
     def get_video_professors(self):
-        return self.course_professors.filter(role="instructor")
+        return self.course_professors.filter(is_course_author=True)
 
     def get_professor_role(self, user):
         try:
@@ -311,6 +311,7 @@ class CourseProfessor(models.Model):
     role = models.CharField(_('Role'), choices=ROLES, default=ROLES[1][0], max_length=128)
     picture = models.ImageField(_('Picture'), upload_to=hash_name('bio-pictures', 'name'), blank=True, null=True)
     name = models.TextField(_('Name'), max_length=30, blank=True, null=True)
+    is_course_author = models.BooleanField(default=False)
 
     class Meta:
         unique_together = (('user', 'course'),)

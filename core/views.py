@@ -194,7 +194,7 @@ class ResumeCourseView(LoginRequiredMixin, RedirectView):
 class CourseProfessorViewSet(viewsets.ModelViewSet):
     model = CourseProfessor
     lookup_field = 'id'
-    filter_fields = ('course', 'user', 'role',)
+    filter_fields = ('course', 'user', 'role', 'is_course_author',)
     filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = CourseProfessorSerializer
     permission_classes = (IsProfessorCoordinatorOrAdminPermissionOrReadOnly, )
@@ -207,6 +207,12 @@ class CourseProfessorViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = super(CourseProfessorViewSet, self).get_queryset()
+        is_course_author = self.request.QUERY_PARAMS.get('is_course_author', None)
+        if is_course_author == 'true':
+            queryset = queryset.filter(is_course_author=True)
+        if is_course_author == 'false':
+            queryset = queryset.filter(is_course_author=False)
+
         has_user = self.request.QUERY_PARAMS.get('has_user', None)
         if has_user:
             queryset = queryset.exclude(user=None)

@@ -174,7 +174,8 @@ class CourseProfessorSerializer(serializers.ModelSerializer):
 
     class Meta:
         fields = ('id', 'course', 'course_info', 'user', 'name', 'biography', 'picture', 'user_info',
-                  'get_name', 'get_biography', 'get_picture_url', 'role', 'current_user_classes',)
+                  'get_name', 'get_biography', 'get_picture_url', 'role', 'current_user_classes',
+                  'is_course_author',)
         model = CourseProfessor
 
 
