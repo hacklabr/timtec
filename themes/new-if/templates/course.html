@@ -11,6 +11,11 @@
 
                 $(".summary").each(function() {
                     if ( !$(this).hasClass("hidden-md") ) {
+                        /* Clean CSS Element*/
+                        $(this).css({
+                            "height": '',
+                            "margin-bottom": ''
+                        });
                         $(this).css({
                             "height": (elementCourseContent.outerHeight() + marginFooterDefault),
                             "margin-bottom": -1 * marginFooterDefault
@@ -18,10 +23,11 @@
                     }
                 });
                 return;
-            } full_height();
+            }
+            full_height();
 
             $(window).resize(function() {
-                if ( $(window).height() >= 768 )
+                if ( $(window).width() >= 768 )
                     full_height();
             });
         });
