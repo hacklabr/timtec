@@ -167,6 +167,21 @@
                 }
             };
 
+            $scope.save_all_instructors = function() {
+                var promises_list = [];
+                $scope.courseProfessors.forEach(function(course_author) {
+                    delete course_author.picture;
+                    course_author.$update();
+                    promises_list.push(course_author.$promise);
+                });
+                $q.all([promises_list]).then(function() {
+                        $scope.alert.success('Posição dos instrutores salva com sucesso.');
+                    }, function() {
+                        $scope.alert.error('Não foi possível salvar a posição dos instrutores!');
+                    }
+                );
+            };
+
             $scope.open_professor_modal = function(course_professor) {
 
                 $scope.courseProfessors_original = angular.copy($scope.courseProfessors);
@@ -396,20 +411,6 @@
                     });
             };
 
-            $scope.save_all_instructors = function() {
-                var promises_list = [];
-                $scope.courseProfessors.forEach(function(course_author) {
-                    delete course_author.picture;
-                    course_author.$update();
-                    promises_list.push(course_author.$promise);
-                });
-                $q.all([promises_list]).then(function() {
-                        $scope.alert.success('Posição dos instrutores salva com sucesso.')
-                    }, function() {
-                        $scope.alert.error('Não foi possível salvar a posição dos instrutores!')
-                    }
-                );
-            };
         }
     ]);
 
