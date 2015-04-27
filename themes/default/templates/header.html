@@ -31,7 +31,7 @@
             <ul class="nav navbar-nav" id="session-nav">
             {% if user.is_authenticated %}
                 {% if user.is_superuser %}
-                <li {% if in_admin %}class="active"{% endif %}>
+                <li>
                     <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
                         {% trans 'Admin' %}
                         <i class="fa fa-caret-down"></i>
@@ -43,7 +43,7 @@
                     </ul>
                 </li>
                 {% elif user|is_coordinator %}
-                    <li {% if in_admin %}class="active"{% endif %}><a href="{% url 'administration.courses' %}" id="admin-link">{% trans "Admin" %}</a></li>
+                    <li><a href="{% url 'administration.courses' %}" id="admin-link">{% trans "Admin" %}</a></li>
                 {% endif %}
                 <li>
                     {% block header_user_menu %}
