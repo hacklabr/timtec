@@ -1,5 +1,7 @@
 from django.contrib.flatpages.models import FlatPage
-from core.models import Course, CourseProfessor, CourseStudent, Lesson, Video, StudentProgress, Unit, ProfessorMessage, Class
+from core.models import (Course, CourseProfessor, CourseStudent, Lesson,
+                         Video, StudentProgress, Unit, ProfessorMessage,
+                         Class, CourseAuthor,)
 from accounts.serializers import TimtecUserSerializer
 from activities.serializers import ActivitySerializer
 from rest_framework.reverse import reverse_lazy
@@ -67,13 +69,6 @@ class CourseSerializer(serializers.ModelSerializer):
         if obj.home_thumbnail:
             return obj.home_thumbnail.url
         return ''
-
-
-class CourseProfessorPictureSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        fields = ('id', 'picture',)
-        model = CourseProfessor
 
 
 class CourseThumbSerializer(serializers.ModelSerializer):
@@ -177,6 +172,26 @@ class CourseProfessorSerializer(serializers.ModelSerializer):
                   'get_name', 'get_biography', 'get_picture_url', 'role', 'current_user_classes',
                   'is_course_author',)
         model = CourseProfessor
+
+
+class CourseAuthorSerializer(serializers.ModelSerializer):
+    user_info = TimtecUserSerializer(source='user', read_only=True)
+    course_info = CourseSerializer(source='course', read_only=True)
+    get_name = serializers.Field()
+    get_biography = serializers.Field()
+    get_picture_url = serializers.Field()
+
+    class Meta:
+        fields = ('id', 'course', 'course_info', 'user', 'name', 'biography', 'picture', 'user_info',
+                  'get_name', 'get_biography', 'get_picture_url', 'position')
+        model = CourseAuthor
+
+
+class CourseAuthorPictureSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        fields = ('id', 'picture',)
+        model = CourseAuthor
 
 
 class FlatpageSerializer(serializers.ModelSerializer):

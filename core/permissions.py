@@ -1,5 +1,5 @@
 from rest_framework import permissions
-from core.models import Course, CourseProfessor
+from core.models import Course, CourseProfessor, CourseAuthor
 
 
 class IsProfessorCoordinatorOrAdminPermissionOrReadOnly(permissions.BasePermission):
@@ -17,6 +17,8 @@ class IsProfessorCoordinatorOrAdminPermissionOrReadOnly(permissions.BasePermissi
         elif request.user.is_authenticated() and isinstance(obj, CourseProfessor) and obj.course.get_professor_role(request.user) == 'coordinator':
             return True
         elif request.user.is_authenticated() and isinstance(obj, Course) and obj.get_professor_role(request.user) == 'coordinator':
+            return True
+        elif request.user.is_authenticated() and isinstance(obj, CourseAuthor) and obj.course.get_professor_role(request.user) == 'coordinator':
             return True
 
 

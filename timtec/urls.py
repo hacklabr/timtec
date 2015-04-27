@@ -18,7 +18,7 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         ClassCreateView, ClassUpdateView, ClassDeleteView,
                         ClassRemoveUserView, ClassAddUsersView, ClassViewSet,
                         FlatpageViewSet, CoursePictureUploadViewSet,
-                        ResumeCourseView, FlatpageView,)
+                        ResumeCourseView, FlatpageView, CourseAuthorViewSet,)
 
 from activities.views import AnswerViewSet
 from forum.views import (CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet,
@@ -42,6 +42,7 @@ router.register(r'course', CourseViewSet)
 router.register(r'course_carousel', CarouselCourseView)
 router.register(r'course_professor', CourseProfessorViewSet)
 router.register(r'course_professor_picture', CoursePictureUploadViewSet)
+router.register(r'course_author', CourseAuthorViewSet)
 router.register(r'course_student', CourseStudentViewSet)
 router.register(r'professor_message', ProfessorMessageViewSet)
 router.register(r'coursethumbs', CourseThumbViewSet)

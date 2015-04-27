@@ -79,6 +79,7 @@ class Course(models.Model):
     status = models.CharField(_('Status'), choices=STATES, default=STATES[1][0], max_length=64)
     thumbnail = models.ImageField(_('Thumbnail'), upload_to=hash_name('course_thumbnails', 'name'), null=True, blank=True)
     professors = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='professorcourse_set', through='CourseProfessor')
+    authors = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='authorcourses', through='CourseAuthor')
     students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='studentcourse_set', through='CourseStudent')
     home_thumbnail = models.ImageField(_('Home thumbnail'), upload_to=hash_name('home_thumbnails', 'name'), null=True, blank=True)
     home_position = models.IntegerField(null=True, blank=True)
@@ -164,7 +165,7 @@ class Course(models.Model):
         return self.user.forum_answers.values('question__lesson').annotate(Count('question__lesson'))
 
     def get_video_professors(self):
-        return self.course_professors.filter(is_course_author=True)
+        return self.course_authors.all()
 
     def get_professor_role(self, user):
         try:
@@ -349,6 +350,50 @@ class CourseProfessor(models.Model):
 
     def get_current_user_classes(self):
         return Class.objects.filter(course=self.course, assistant=self.user)
+
+
+class CourseAuthor(models.Model):
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_('Professor'),
+        related_name='authoring_courses',
+        blank=True,
+        null=True
+    )
+    course = models.ForeignKey(Course, verbose_name=_('Course'), related_name='course_authors')
+    biography = models.TextField(_('Biography'), blank=True, null=True)
+    picture = models.ImageField(_('Picture'), upload_to=hash_name('bio-pictures', 'name'), blank=True, null=True)
+    name = models.TextField(_('Name'), max_length=30, blank=True, null=True)
+    position = models.IntegerField(default=100, null=True, blank=True)
+
+    class Meta:
+        unique_together = (('user', 'course'),)
+        verbose_name = _('Course Author')
+        verbose_name_plural = _('Course Authors')
+        ordering = ['position']
+
+    def __unicode__(self):
+        return u'%s @ %s' % (self.user, self.course)
+
+    def get_name(self):
+        if self.name:
+            return self.name
+        elif self.user:
+            return self.user.get_full_name()
+
+    def get_biography(self):
+        if self.biography:
+            return self.biography
+        elif self.user:
+            return self.user.biography
+
+    def get_picture_url(self):
+        if self.picture:
+            location = "/%s/%s" % (settings.MEDIA_URL, self.picture)
+            return re.sub('/+', '/', location)
+        elif self.user:
+            return self.user.get_picture_url()
 
 
 class ProfessorMessage(models.Model):

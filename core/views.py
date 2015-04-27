@@ -26,10 +26,11 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           StudentProgressSerializer, CourseNoteSerializer,
                           LessonNoteSerializer, ProfessorMessageSerializer,
                           CourseStudentSerializer, ClassSerializer,
-                          FlatpageSerializer, CourseProfessorPictureSerializer)
+                          FlatpageSerializer, CourseAuthorPictureSerializer,
+                          CourseAuthorSerializer,)
 
 from .models import (Course, CourseProfessor, Lesson, StudentProgress,
-                     Unit, ProfessorMessage, CourseStudent, Class)
+                     Unit, ProfessorMessage, CourseStudent, Class, CourseAuthor,)
 
 from .forms import (ContactForm, RemoveStudentForm,
                     AddStudentsForm, )
@@ -219,10 +220,38 @@ class CourseProfessorViewSet(viewsets.ModelViewSet):
         return queryset
 
 
-class CoursePictureUploadViewSet(viewsets.ModelViewSet):
-    model = CourseProfessor
+class CourseAuthorViewSet(viewsets.ModelViewSet):
+    model = CourseAuthor
     lookup_field = 'id'
-    serializer_class = CourseProfessorPictureSerializer
+    filter_fields = ('course', 'user',)
+    filter_backends = (filters.DjangoFilterBackend,)
+    serializer_class = CourseAuthorSerializer
+    permission_classes = (IsProfessorCoordinatorOrAdminPermissionOrReadOnly, )
+
+    def pre_save(self, obj):
+        # Verify if current user is coordinator. The has_object_permission method is not called when creating objects,
+        # so we call it explicitly here. See: https://github.com/tomchristie/django-rest-framework/issues/1103
+        self.check_object_permissions(self.request, obj)
+        return super(CourseAuthorViewSet, self).pre_save(obj)
+
+    def get_queryset(self):
+        queryset = super(CourseAuthorViewSet, self).get_queryset()
+        # is_course_author = self.request.QUERY_PARAMS.get('is_course_author', None)
+        # if is_course_author == 'true':
+        #     queryset = queryset.filter(is_course_author=True)
+        # if is_course_author == 'false':
+        #     queryset = queryset.filter(is_course_author=False)
+
+        has_user = self.request.QUERY_PARAMS.get('has_user', None)
+        if has_user:
+            queryset = queryset.exclude(user=None)
+        return queryset
+
+
+class CoursePictureUploadViewSet(viewsets.ModelViewSet):
+    model = CourseAuthor
+    lookup_field = 'id'
+    serializer_class = CourseAuthorPictureSerializer
 
     def post(self, request, **kwargs):
         course = self.get_object()

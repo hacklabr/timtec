@@ -3,8 +3,8 @@
     var app = angular.module('new-course');
 
     app.controller('CourseEditController',
-        ['$scope', '$window', '$modal', '$http', 'Course',  'CourseProfessor', 'Lesson', '$filter', 'youtubePlayerApi', 'VideoData', 'FormUpload',
-        function($scope, $window, $modal, $http , Course,  CourseProfessor, Lesson, $filter, youtubePlayerApi, VideoData, FormUpload) {
+        ['$scope', '$window', '$modal', '$http', '$q', 'Course',  'CourseAuthor', 'Lesson', '$filter', 'youtubePlayerApi', 'VideoData', 'FormUpload',
+        function($scope, $window, $modal, $http , $q, Course,  CourseProfessor, Lesson, $filter, youtubePlayerApi, VideoData, FormUpload) {
 
             $scope.errors = {};
             var httpErrors = {
@@ -35,8 +35,7 @@
                 })
                 .then(function(){
                     $scope.courseProfessors = CourseProfessor.query({
-                        'course': $scope.course_id,
-                        'is_course_author': true
+                        course: $scope.course_id
                     });
 
                     // TODO here comes classes professors
@@ -154,24 +153,18 @@
                     });
             };
 
-            $scope.deleteProfessor = function(courseProfessor) {
-                var professor_name = '';
-                if (courseProfessor.user) {
-                    professor_name = courseProfessor.user_info.name || courseProfessor.user_info.username;
-                } else {
-                    professor_name = courseProfessor.name;
+            $scope.delete_instructor = function(course_author) {
+
+                var confirm_exclude_instructor_msg = 'Tem certeza que deseja remover "{0}" da lista de instrutores deste curso?'.format(course_author.get_name);
+                if (window.confirm(confirm_exclude_instructor_msg)){
+                    course_author.$delete().then(function(){
+                        var index = $scope.courseProfessors.indexOf(course_author);
+                        $scope.courseProfessors.splice(index, 1);
+                        $scope.alert.success('"{0}" foi removido da lista de instrutores.'.format(course_author.get_name));
+                    }, function(){
+                        $scope.alert.error('Erro ao remover "{0}" da lista de instrutores.'.format(course_author.get_name));
+                    });
                 }
-
-                var msg = 'Tem certeza que deseja remover "{0}" da lista de professores deste curso?'.format(professor_name);
-                if(!window.confirm(msg)) return;
-
-                courseProfessor.$delete().then(function(){
-                    var index = $scope.courseProfessors.indexOf(courseProfessor);
-                    $scope.courseProfessors.splice(index, 1);
-                    $scope.alert.success('"{0}" foi removido da lista.'.format(professor_name));
-
-
-              });
             };
 
             $scope.open_professor_modal = function(course_professor) {
@@ -195,10 +188,9 @@
                     if (course_professor.picture !== null)
                         delete course_professor.picture;
 
-                    // FIXME test if user is already a course professor.
                     if (course_professor.id === undefined){
                         course_professor.course = $scope.course_id;
-                        course_professor.is_course_author = true;
+                        course_professor.position = $scope.courseProfessors.length;
 
                         course_professor.$save({}, function (course_professor){
 
@@ -322,6 +314,7 @@
                         $scope.course_professor.course_professor_picture_file = $scope.course_professor_picture_file;
                     }
                     $modalInstance.close($scope.course_professor);
+                    $scope.course_professor = undefined;
                 };
 
                 $scope.getUsers = function(val) {
@@ -403,27 +396,20 @@
                     });
             };
 
-            $scope.saveAllInstructors = function() {
-                var i = 0;
-                function __saveInstructors() {
-                    if(i < $scope.courseProfessors.length) {
-                        return $scope.courseProfessors[i++]
-                                     .saveOrUpdate()
-                                     .then(__saveInstructors);
+            $scope.save_all_instructors = function() {
+                var promises_list = [];
+                $scope.courseProfessors.forEach(function(course_author) {
+                    delete course_author.picture;
+                    course_author.$update();
+                    promises_list.push(course_author.$promise);
+                });
+                $q.all([promises_list]).then(function() {
+                        $scope.alert.success('Posição dos instrutores salva com sucesso.')
+                    }, function() {
+                        $scope.alert.error('Não foi possível salvar a posição dos instrutores!')
                     }
-                }
-
-                $scope.alert.warn('Atualizando dados dos professores');
-
-                __saveInstructors()
-                    .then(function(){
-                        $scope.alert.success('Os dados dos professores foram atualizados.');
-                    })['catch'](function(){
-                        $scope.alert.error('Algum problema impediu a atualização dos dados dos professores.');
-                    });
+                );
             };
-
-
         }
     ]);
 
