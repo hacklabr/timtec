@@ -4,7 +4,7 @@
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-TIMTEC_THEME = 'if'
+TIMTEC_THEME = 'ifs-colors'
 
 SITE_ID = 2
 SITE_NAME = 'IFSUL'
