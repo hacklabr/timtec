@@ -12,6 +12,10 @@ class Migration(DataMigration):
         """
         for course_professor in orm.CourseProfessor.objects.all():
             if course_professor.role == 'instructor':
+                try:
+                    user = course_professor.user
+                except models.FieldDoesNotExist:
+                    user = None
                 orm.CourseAuthor.objects.create(
                     user=course_professor.user,
                     course=course_professor.course,
