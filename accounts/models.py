@@ -8,21 +8,8 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager, Group
 from django.utils import timezone
 
+from core.utils import hash_name
 import re
-import os
-import hashlib
-
-
-def path_and_rename(path):
-    def wrapper(instance, filename):
-        root, ext = os.path.splitext(filename)
-        m = hashlib.md5()
-        m.update(root.encode('utf-8'))
-        m.update(instance.username.encode('utf-8'))
-        filename = m.hexdigest() + ext
-        # return the whole path to the file
-        return os.path.join(path, filename)
-    return wrapper
 
 
 class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
@@ -41,7 +28,7 @@ class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(_('Active'), default=True)
     date_joined = models.DateTimeField(_('Date joined'), default=timezone.now)
 
-    picture = models.ImageField(_("Picture"), upload_to=path_and_rename('user-pictures'), blank=True)
+    picture = models.ImageField(_("Picture"), upload_to=hash_name('user-pictures', 'username'), blank=True)
     occupation = models.CharField(_('Occupation'), max_length=30, blank=True)
     city = models.CharField(_('City'), max_length=30, blank=True)
     site = models.URLField(_('Site'), blank=True)

@@ -1,0 +1,247 @@
+// COURSE CONTENT
+#course-content {
+  background-color: rgba(255,255,255,0.5);
+
+  // COURSE LESSONS - Course intro
+  // ********************************************************************* //
+  .lessons {
+    background-color: rgba(255,255,255,0.5);
+    padding: 15px;
+    margin: 0 -15px 0;
+    @media (min-width: @screen-sm-min) {
+      margin-top: 20px;
+    }
+    a {
+      text-decoration: none;
+    }
+    .page-header-double {
+      margin-top: 0;
+      h3 {
+        color: #000;
+        font-weight: bold;
+        margin-top: 0;
+        i {
+          display: none;
+        }
+      }
+    }
+    .lesson {
+      background-color: transparent;
+    }
+  }
+  // END LESSONS
+  .next-lesson {
+    background-color: rgba(255,255,255,0.6);
+  }
+
+  // COURSE SUMMARY - Course intro
+  // ********************************************************************* //
+  .summary {
+    background-color: rgba(40,112,187,0.8);
+    margin: 0 -15px;
+    padding: 15px 0;
+    @media (min-width: @screen-sm-min) {
+      padding: 100px 15px 15px;
+    }
+    > .page-header-double {
+      margin-top: 0;
+    }
+    .page-header-double {
+      margin-bottom: 0;
+      h3 {
+        font-weight: bold;
+        color: #fff;
+        i {
+          display: none;
+        }
+      }
+    }
+    p, a {
+      color: #fff;
+    }
+  }
+  .instructors {
+    h1.fullname {
+      border-bottom: 0;
+      color: #fff;
+    }
+    h2.job-title {
+      border-bottom: 0;
+    }
+  }
+  // END INSTRUCTORS
+
+  // COURSE INFO - Course intro
+  // ********************************************************************* //
+  .course-info {
+    .page-header-double {
+      margin: 10px 0 0;
+      h3 {
+        color: #333;
+        font-weight: bold;
+      }
+    }
+  }
+  // END INFO
+
+  // COURSE UNITS - General
+  // ********************************************************************* //
+  .units {
+    h2 {
+      display: block;
+      margin: 0 0 5px 0;
+      font-size: 14px;
+      font-weight: bold;
+      color: #007dc3;
+    }
+    .unit {
+      background: #f0ad4e;
+      &:hover {
+        background: darken(#f0ad4e, 10%);
+      }
+      &.current {
+        background-color: @brand-info;
+      }
+      &.watching, &.watching:hover {
+        background: @brand-danger;
+        .transition(all .25s ease-out);
+        &:hover {
+          background:darken(@brand-danger, 10%);
+        }
+      }
+    }
+    // END UNIT
+  }
+  // END COURSE UNITS
+
+  // COURSE NOTES - General
+  // ********************************************************************* //
+  #student-notes {
+    @media (max-width: @screen-xs-max) {
+      margin: 30px 0 0 15px;
+      width: calc(~"100% - 30px");
+    }
+    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+      margin-left: 15%;
+      width: 79.5%;
+    }
+  }
+  .notes {
+    textarea {
+      margin-top: 0;
+    }
+    .message {
+      color: @state-success-bg;
+    }
+  }
+
+  // COURSE ACTIVITY - General
+  // ********************************************************************* //
+  .course-activity {
+    background-color: #fff;
+        .nav-tabs {
+      border-bottom: 1px solid @gray-lighter;
+    }
+  }
+  .activity {
+    .add-activity {
+      border: none !important;
+      background-color: rgba(255,255,255,0.5);
+    }
+    .editable-text input {
+      width: 94%;
+    }
+  }
+
+  // COURSE FORUM
+  // ********************************************************************* //
+  #forum #forum-content {
+    background-color: transparent;
+    padding: 0;
+    margin-top: 0;
+    .page-header-double {
+      margin-bottom: 0;
+      overflow: hidden;
+      h3 {
+        margin: 0;
+        padding: 10px;
+        float: left;
+        background: #959595;
+        color: #fff;
+      }
+    }
+  }
+}
+
+// COURSE INTRO
+#course {
+  &.course-intro {
+    .main-header {
+      position: absolute;
+      width: 100%;
+    }
+    #course-content {
+      background-color: transparent;
+      margin-top: 0;
+      padding-top: 0;
+      > div.row > div:first-child {
+        background-color: rgba(255,255,255,0.5);
+        padding-top: 150px;
+        @media (min-width: @screen-sm-min) {
+          padding-top: 100px;
+        }
+      }
+    }
+    #go-to-course {
+      background-color: @brand-success;
+      text-decoration: none;
+      &:hover {
+        background-color: darken(@brand-success, 10%);
+      }
+    }
+    .video {
+      .top(15px);
+    }
+  }
+  &.course-lesson, &.course-material {
+    #course-content {
+      margin-top: -230px;
+      padding-top: 230px;
+    }
+    aside {
+      margin-bottom: 30px;
+    }
+  }
+  &.course-lesson {
+    #course-content {
+      padding-bottom: 50px;
+    }
+  }
+}
+
+#admin {
+  #course {
+    &.course-intro, &.course-lesson {
+      .main-header {
+        padding-top: 90px;
+      }
+    }
+    &.course-intro {
+      margin-top: 0 !important;
+      #course-content {
+        //margin-top: -290px;
+        > div.row > div:first-child {
+          padding-top: 230px;
+          @media (min-width: @screen-xs-min) {
+            padding-top: 200px;
+          }
+        }
+        .summary {
+          @media (min-width: @screen-sm-min) {
+            padding-top: 200px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+// LAYOUT DAS FLATPAGES
+// /about/
+// /institute/
+// /terms/
+.static-page-body {
+    .main-content {
+        background-image:url("../img/illustrations/instituto-l.png");
+        background-position: top center;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        .container {
+            background-color: rgba(255,255,255,0.5);
+            padding-top: 60px;
+            @media (min-width: @screen-md-min) {
+                background-image: url("../img/illustrations/instituto-container-m.png");
+                background-position: bottom right;
+                background-repeat: no-repeat;
+            }
+            h1, h2, h3, h4, h5, h6 {
+                color: @brand-primary;
+                font-family: 'teuton_26';
+            }
+        }
+    }
+    #main-footer {
+        margin-top: 0;
+    }
+}

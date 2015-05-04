@@ -1,0 +1,138 @@
+//
+// Styles specific to this theme
+// --------------------------------------------------
+
+body {
+    position: relative;
+    min-height: 100%;
+    background-image: url('../img/bg.jpg');
+    background-position: top center;
+}
+
+.btn {
+    text-transform: uppercase;
+}
+
+//== Body background
+//
+//##
+
+body {
+    background-image: url('../img/bg.jpg');
+    background-position: top center;
+}
+
+//== Background images
+//
+//## Pages background illustrations.
+
+
+.wrapper-bg {
+	background-repeat: no-repeat;
+	background-position: top center;
+}
+
+.wrapper-courses {
+	background-image: url('../img/illustrations/courses-list-l.png');
+        @media (max-width: 1366px) {
+        background-image: url('../img/illustrations/courses-list-m.png');
+    }
+}
+
+.wrapper-course-intro {
+	background-image: url('../img/illustrations/course-intro-l.png');
+        @media (max-width: 1366px) {
+        background-image: url('../img/illustrations/course-intro-m.png');
+    }
+}
+
+.wrapper-course-lesson {
+	background-image: url('../img/illustrations/course-lesson-l.png');
+        @media (max-width: 1366px) {
+        background-image: url('../img/illustrations/course-lesson-m.png');
+    }
+}
+
+//== Buttons
+//
+//## All buttons should be uppercase
+
+.btn {
+    text-transform: uppercase;
+}
+
+//== Course
+//
+//## Styles for courses internal pages.
+
+#student-notes {
+	padding-top: 15px;
+	background-color: rgba(255,255,255,0.6);
+	h3 {
+		color: #0074be;
+        i {
+            display: none;
+        }
+	}
+    textarea {
+        margin-top: 0;
+    }
+    .btn-success {
+        margin-right: -15px;
+    }
+}
+
+.side-notes {
+	margin-top: 20px;
+	padding: 20px;
+	background-color: #1E9DD9;
+	color: #fff;
+    a {
+        color: lighten(@brand-info, 40%);
+        &:hover {
+            color: lighten(@brand-info, 50%);
+        }
+    }
+	.page-header-double {
+		margin-top: 0;
+		h3, i {
+			color: #fff
+		}
+        h3 {
+            margin: 0;
+            padding: 0;
+        }
+	}
+}
+
+#classes-content {
+  margin-top: -195px;
+  padding-top: 195px;
+  background-color: rgba(255,255,255,0.5);
+}
+
+// dropzone button (course materials page)
+.dropzone > p {
+    .btn;
+    .btn-success;
+    width: 100%;
+    white-space: normal;
+}
+
+// fix modal position
+.modal-dialog {
+    @media (min-width: @screen-md-min) {
+        margin-top: 170px;
+    }
+}
+
+.nav-tabs {
+    border-bottom: 1px solid #fff;
+    font-family: @font-family-sans-serif;
+}
+
+.accept-terms {
+    form {
+        padding: 0px 0 450px;
+    }
+}

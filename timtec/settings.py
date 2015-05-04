@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 # Django settings for timtec project.
 from django.utils.translation import ugettext_lazy as _
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
+
 import os
+
 
 SETTINGS_DIR = os.path.dirname(os.path.realpath(__file__))
 PROJECT_ROOT = os.path.dirname(SETTINGS_DIR)
@@ -12,12 +15,14 @@ PROJECT_ROOT = os.path.dirname(SETTINGS_DIR)
 THEMES_DIR = os.path.join(PROJECT_ROOT, 'themes')
 TIMTEC_THEME = os.getenv('TIMTEC_THEME', 'default')  # don't forget to re run collectstatic if you change the theme
 
+SOUTH_AUTO_FREEZE_APP = True
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 SITE_ID = 1
 SITE_HOME = ''
-SITE_NAME = 'Timtec'
+SITE_NAME = u'Timtec'
 SITE_DOMAIN = 'timtec.com.br'
 
 ADMINS = (
@@ -36,16 +41,10 @@ TERMS_ACCEPTANCE_REQUIRED = True
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'timtec.sqlite',                # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'timtec',
     }
 }
-
 
 METRON_SETTINGS = {
     "google": {
@@ -137,6 +136,9 @@ PIPELINE_COMPILERS = (
     'pipeline.compilers.less.LessCompiler',
 )
 
+# Source Map Less
+PIPELINE_LESS_ARGUMENTS = '--source-map=main.css.map'
+
 PIPELINE_CSS = {
     'common': {
         'source_filenames': (
@@ -210,6 +212,7 @@ PIPELINE_JS = {
             'checklist-model/checklist-model.js',
             'js/markdown/app.js',
             'js/markdown/filters.js',
+            'js/factories/timtec-models.js',
         ),
         'output_filename': 'js/messages.js',
     },
@@ -255,6 +258,7 @@ PIPELINE_JS = {
             'js/lesson/services.js',
             'js/directives/markdowneditor.js',
             'js/directives/codemirror.js',
+            'js/directives/layout.js',
         ),
         'output_filename': 'js/lesson.js',
     },
@@ -262,11 +266,14 @@ PIPELINE_JS = {
         'source_filenames': (
             'js/course_material/app.js',
             'js/course_material/controllers.js',
+            'js/course_material/services.js',
             'js/course_material/directives.js',
             'js/course_material/filters.js',
-            'js/course_material/services.js',
             'js/directives/markdowneditor.js',
             'dropzone/downloads/dropzone.js',
+            'angular-dropzone/lib/angular-dropzone.js',
+            'js/directives/alertPopup.js',
+            'js/directives/fixedBar.js',
         ),
         'output_filename': 'js/course_material.js',
     },
@@ -278,6 +285,7 @@ PIPELINE_JS = {
             'js/forum/filters.js',
             'js/forum/services.js',
             'js/truncate.js',
+            'js/factories/timtec-models.js',
         ),
         'output_filename': 'js/forum.js',
     },
@@ -289,19 +297,12 @@ PIPELINE_JS = {
         ),
         'output_filename': 'js/notes.js',
     },
-    'admin_course_header': {
-        'source_filenames': (
-            'js/admin-header/app.js',
-            'js/admin-header/controllers.js',
-            'js/factories/timtec-models.js',
-        ),
-        'output_filename': 'js/admin_course_header.js',
-    },
     'reports': {
         'source_filenames': (
             'js/reports/app.js',
             'js/reports/controllers.js',
             'js/reports/services.js',
+            'js/factories/timtec-models.js',
         ),
         'output_filename': 'js/reports.js',
     },
@@ -312,6 +313,10 @@ PIPELINE_JS = {
             'js/core/services.js',
             'js/core/filters.js',
             'angular-tweet-filter/index.js',
+            'angular-sortable-view/src/angular-sortable-view.min.js',
+            'js/directives/fixedBar.js',
+            'js/directives/alertPopup.js',
+            'js/directives/markdowneditor.js',
         ),
         'output_filename': 'js/core.js',
     },
@@ -319,8 +324,22 @@ PIPELINE_JS = {
         'source_filenames': (
             'js/course-permissions/app.js',
             'js/course-permissions/controllers.js',
+            'js/factories/timtec-models.js',
+            'js/directives/fixedBar.js',
+            'js/directives/alertPopup.js',
         ),
         'output_filename': 'js/course_permissions.js',
+    },
+    'users_admin': {
+        'source_filenames': (
+            'js/users-admin/app.js',
+            'js/users-admin/controllers.js',
+            'js/users-admin/services.js',
+            'js/factories/timtec-models.js',
+            'js/directives/fixedBar.js',
+            'js/directives/alertPopup.js',
+        ),
+        'output_filename': 'js/users_admin.js',
     },
 }
 
@@ -357,10 +376,8 @@ SECRET_KEY = 'e%6a01vfbue28$xxssu!9r_)usqjh817((mr+7vv3ek&@#p0!$'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-    # 'django.template.loaders.eggs.Loader',
+    'core.loaders.TimtecThemeLoader',
 )
-
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
@@ -369,6 +386,7 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'core.context_processors.contact_form',
     'core.context_processors.site_settings',
     'core.context_processors.get_current_path',
+    'core.context_processors.terms_acceptance_required',
     'timtec.locale_context_processor.locale',
 )
 
@@ -467,6 +485,7 @@ SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'SCOPE': ['email'],
         'METHOD': 'oauth2',
+        'VERSION': 'v2.2',
     }
 }
 
@@ -480,7 +499,7 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[timtec] "
-# ACCOUNT_SIGNUP_FORM_CLASS = 'core.forms.SignupForm'
+ACCOUNT_SIGNUP_FORM_CLASS = 'accounts.forms.SignupForm'
 SOCIALACCOUNT_EMAIL_VERIFICATION = False
 
 TWITTER_CONSUMER_KEY = ''

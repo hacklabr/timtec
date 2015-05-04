@@ -3,11 +3,12 @@
 
     angular.module('course-permissions', [
         'course-permissions.controllers',
-        'adminHeader',
         'ui.bootstrap',
         'django',
         'timtec-models',
         'ngRoute',
-        'ngResource'
+        'ngResource',
+        'directive.fixedBar',
+        'directive.alertPopup'
     ]);
 })(angular);

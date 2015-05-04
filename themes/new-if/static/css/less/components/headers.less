@@ -1,0 +1,209 @@
+// HEADER COURSE
+// ********************************************************************* //
+.header-static,
+#course .main-header,
+#forum .main-header,
+#messages .main-header,
+#stats .main-header,
+#classes .main-header,
+#permissions .main-header,
+#my-notes .main-header {
+    box-shadow: inset 0 8px 20px -12px #000, inset 0 -8px 20px -12px #000;
+    background-color: #EDEBEC;
+    background-image: url("/static/img/colors-header.png");
+    background-repeat: no-repeat;
+    min-height: 100px;
+
+    @media (max-width: @screen-xs-max) {
+        background-position: right -190px;
+    }
+    @media (min-width: @screen-sm-min) {
+        background-position: right -125px;
+    }
+    @media (min-width: @screen-lg-min) {
+        background-position: right -127px;
+    }
+    background-color: transparent;
+    .container {
+        position: relative;
+        h1 {
+            font-size: 38px;
+            text-transform: initial;
+            @media (min-width: @screen-sm-min) {
+                font-size: 42px;
+            }
+            font-family: "ek-mukta-extralight";
+            font-weight: normal;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            padding: 8px 0px;
+        }
+    }
+}
+
+#course,
+#forum,
+#messages,
+#stats,
+#classes,
+#permissions,
+#my-notes {
+    .main-header {
+        @media (max-width: @screen-xs-max) {
+            margin-bottom: 20px;
+        }
+        .clearfix;
+        .page-header.container {
+            border: none;
+            margin-top: 35px;
+            margin-bottom: 0;
+            padding-bottom: 0;
+            h1 {
+                font-family: "ek-mukta-extralight";
+                font-size: 26px !important;
+                line-height: 0.9;
+                @media (min-width: @screen-sm-min) {
+                    font-size: 36px
+                }
+                @media (min-width: @screen-md-min) {
+                    font-size: 42px !important;
+                }
+                a {
+                    background: rgba(255, 255, 255, 0.8);
+                    box-shadow: 0px 0px 11px 7px rgba(255, 255, 255, 0.8);
+                    display: inline-block;
+                }
+            }
+            .course-details {
+                text-transform: initial;
+                margin-bottom: 29px;
+                span.label {
+                    display: none;
+                }
+                a.course-instructor {
+                    background: rgba(255, 255, 255, 0.8);
+                    box-shadow: 0px 0px 11px 7px rgba(255, 255, 255, 0.8);
+                    color: #999999;
+                    display: inline-block;
+                    font-size: 22px;
+                    @media (min-width: @screen-sm-min) {
+                        font-size: 22px;
+                    }
+                    @media (min-width: @screen-md-min) {
+                        font-size: 24px;
+                    }
+                    line-height: 1.1;
+                    margin-top: 0;
+                }
+            }
+            .row {
+                > div:nth-child(2) {
+                    bottom: -65px;
+                    position: absolute;
+                    right: 0;
+                    @media (max-width: @screen-xs-max) {
+                        left: 0;
+                    }
+                    @media (min-width: @screen-sm-min) {
+                        bottom: 10px;
+                    }
+                    a.btn {
+                        border-radius: 0;
+                    }
+                    .course-sections {
+                        @media (min-width: @screen-sm-min) {
+                            float: right;
+                            box-shadow: 0px 0px 11px 7px rgba(255, 255, 255, 0.8);
+                            background: rgba(255, 255, 255, 0.8);
+                            padding-top: 3px;
+                        }
+                            @media (max-width: @screen-xs-max) {
+                                margin-bottom: 15px;
+                                &.textright {
+                                    text-align: center;
+                                }
+                            }
+                            .fa {
+                                overflow: initial;
+                                color: #446E02;
+                            }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Page Headers
+.page-header-double {
+    border-bottom: 0;
+    margin: 40px 0 10px;
+    h1,h2,h3,h4,h5,h6 {
+        border-bottom: 0;
+        font-size: 26px;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    h3 {
+        text-transform: uppercase;
+    }
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'ek-mukta-extralight', @font-family-base;
+    i {
+        display: none !important;
+    }
+}
+
+// SHARED HEADER STYLES
+.main-header {
+    .page-header {
+        border-bottom: 1px solid @brand-light;
+        margin-bottom: 20px;
+        h1 {
+            font-size: 28px;
+        }
+        ul.instructors {
+            font-size: 12px;
+            margin-top: 10px;
+        }
+    }
+}
+
+.secondary-header {
+    border-bottom: none;
+    h1 {
+        border-bottom: 2px solid @brand-primary;
+        color: @gray-light;
+        font-size: 36px;
+        margin-top: 35px;
+        padding-bottom: 5px;
+        text-transform: uppercase;
+        @media (min-width: @screen-md-min) {
+            font-size: 40px;
+        }
+    }
+    .btn {
+        background-color: @brand-primary;
+        border-radius: 0;
+        font-family: 'ek-mukta-extralight', @font-family-base;
+        font-size: 20px;
+        margin-top: 24px;
+        @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+            margin-top: 28px;
+        }
+        @media (min-width: @screen-md-min) {
+            font-size: 24px;
+        }
+    }
+}
+
+#my-courses {
+    header.page-header-double {
+        h2 {
+            display: none;
+        }
+    }
+}
+

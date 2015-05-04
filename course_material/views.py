@@ -2,14 +2,13 @@
 from braces.views import LoginRequiredMixin
 from core.models import Course
 from course_material.forms import FileForm
-from course_material.serializers import CourseMaterialSerializer
-from course_material.models import CourseMaterial
+from course_material.serializers import CourseMaterialSerializer, FilesSerializer
+from course_material.models import CourseMaterial, File as CourseMaterialFile
 from django.shortcuts import get_object_or_404
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.http import HttpResponse
-from rest_framework import viewsets
-from rest_framework import filters
+from rest_framework import viewsets, filters, mixins
 from administration.views import AdminMixin
 
 
@@ -66,3 +65,8 @@ class CourseMaterialViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
             obj.course = Course.objects.get(id=int(self.kwargs['course']))
             self.kwargs['course'] = obj.course
         return super(CourseMaterialViewSet, self).pre_save(obj)
+
+
+class CourseMaterialFileViewSet(LoginRequiredMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
+    model = CourseMaterialFile
+    serializer_class = FilesSerializer

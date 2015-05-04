@@ -2,112 +2,194 @@
 
 {% load i18n %}
 {% load compressed %}
+{% load is_enrolled %}
 
-{% block head %}
+{% block js %}
     {{ block.super }}
     {% compressed_js 'core' %}
+    <script type="text/javascript" src="/static/js/introjs/home.js"></script>
+{% endblock %}
+
+{% block wrapper_classes %}
+home
 {% endblock %}
 
 {% block content %}
 
-        <div id="home" ng-app="core" ng-controller="HomeCtrl">
+    <div id="home" ng-app="core" ng-controller="HomeCtrl">
+        {% if in_admin %}
+        <!-- ACTIONS -->
+        <div class="actions-menu" fixed-bar>
+            <div class="container">
+                <div class="actions-buttons">
+                    <button class="btn btn-default" ng-click="organizingCourses=!organizingCourses">
+                        {% trans 'Organize courses' %} <span>|</span> <i class="fa fa-th-large"></i></button>
+                    <button class="btn btn-default" data-toggle="modal" data-target="#modalSelectCourses" ng-click="start_changing_home_cousers()">
+                        {% trans 'Choose home courses' %} <span>|</span> <i class="fa fa-pencil-square-o"></i></button>
+                    <button class="btn btn-danger" ng-click="cancel_home_changes()">{% trans 'Cancel' %} <span>|</span> <i class="fa fa-times"></i></button>
+                    <button class="btn btn-success" ng-click="save_home()">{% trans 'Save' %} <span>|</span> <i class="fa fa-save"></i></button>
+                </div>
+                {% include 'administration/_alert.html' %}
+            </div>
+        </div>
+        <!-- END ACTIONS -->
+        {% endif %}
 
-            <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
+        <div id="highlight">
+            {% include '_highlight.html' %}
+        </div>
 
-            <section class="main-content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                            <div class="row">
-                                <section class="videos col-lg-12 col-md-12 col-sm-12 col-xs-12" role="main">
-                                    <div class="row" ng-repeat="courses_row in courses_rows">
-                                        <div ng-repeat="course in courses_row" class="video-wrapper col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                            {% verbatim %}
-                                            <article class="video">
-                                                <a ng-href="/course/{{ course.slug }}">
-                                                    <div class="video-thumb">
-                                                        <img ng-src="{{ course.home_thumbnail_url }}">
-                                                    </div>
-                                                </a>
-                                                <div class="video-info">
-                                                    <h3><a ng-href="/course/{{ course.slug }}">{{ course.name }}</a></h3>
-                                                    <p>{{ course.professors_names }}</p>
-                                                </div>
-                                            </article>
-                                            {% endverbatim %}
-                                        </div>
-                                    </div>
-                                </section><!-- .videos -->
-                            </div><!-- .row -->
-                        </div><!-- .col-md-8 -->
-
-                        <div class="col-lg-4 col-md-4 hidden-sm hidden-xs">
-
-                            <div class="row">
-
-                                <section class="twitter col-lg-10 col-lg-offset-2 col-md-11 col-md-offset-1" role="complementary">
-
-                                    <div class="row">
-                                        <div class="col-lg-10 col-lg-offset-2 col-md-10 col-md-offset-2">
-                                            <h3>
-                                                <i class="fa fa-twitter"></i>
-                                                Veja as últimas<br>informações<br><span>@TIMTec_oficial</span>
-                                            </h3>
-                                            <div class="tweet" ng-repeat="twit in twits">
-                                                {% verbatim %}
-                                                <div class="info">
-                                                    <span class="avatar">
-                                                        <img ng-src="{{ twit.profile_image_url }}">
-                                                    </span>
-                                                    <a class="name" ng-href="https://twitter.com/{{ twit.screen_name }}" target="_blank">{{ twit.user_name }}</a>
-                                                    <span class="date">{{ twit.date }}</span>
-                                                    <span class="hour">{{ twit.hour }}</span>
-                                                </div>
-                                                <div class="text" ng-bind-html="twit.text|tweet">
-                                                </div>
-                                                {% endverbatim %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section><!-- .twitter -->
-                            </div>
-
-                        </div><!-- .col-md-3 -->
-
-                    </div><!-- .row -->
-                </div><!-- .container -->
-
-                <aside class="next-videos hidden-sm hidden-xs" role="complementary">
-
-                    <div class="container">
-                        <h3>Próximos <span>lançamentos</span></h3>
-
-
-                        <div class="slider">
-                            {% verbatim %}
-                            <carousel>
-                                <slide ng-repeat="row in upcoming_courses_rows_3">
-                                    <div class="col-lg-4 col-md-4" ng-repeat="course in row">
-                                        <a ng-href="/course/{{ course.slug }}">
-                                            <div class="col-lg-6 col-md-6">
-                                                <div class="thumb">
-                                                    <img ng-src="{{ course.home_thumbnail_url }}">
-                                                </div>
-                                            </div>
-                                            <h4 class="col-lg-6 col-md-6">{{ course.name }}</h4>
-                                        </a>
-                                    </div>
-                                </slide>
-                            </carousel>
-                            {% endverbatim %}
+        <div class="container">
+            <section id="courses" class="col-md-8 col-xs-12">
+                {% if in_admin %}
+                <div class="row" class="sortable-container grid" sv-root sv-part="home_courses" sv-on-sort="set_order_changed()">
+                    <div ng-repeat="course in home_courses" sv-element="opts" class="grid block course col-sm-6 col-xs-12" ng-class="{drag:organizingCourses}">
+                        {% verbatim %}
+                        <span class="btn btn-warning btn-drag" sv-handle ng-show="organizingCourses"><i class="fa fa-bars"></i></span>
+                        <div class="thumb-wrapper">
+                            <span class="mouseover"></span>
+                            <span class="thumb" ng-style="{'background-image': 'url(' + course.home_thumbnail_url + ')'}"></span>
                         </div>
+                        <div class="info">
+                            <h3>{{ course.name }}</h3>
+                            <p class="instructors">{{ course.professors_names }}</p>
+                        </div>
+                        {% endverbatim %}
+                    </div>
+                </div><!-- .row -->
 
-                    </div><!-- .container -->
+                {% else %}
 
-                </aside><!-- .slider-proximos -->
+                <div class="row">
+                {% for course in home_courses %}
+                    <div class="block course col-sm-6 col-xs-12">
+                    {% if user|is_enrolled:course %}
+                        <a href="{% url "resume_course" course.slug %}" class="course-link">
+                    {% else %}
+                        <a href="{% url "course_intro" course.slug %}" class="course-link">
+                    {% endif %}
+                            {% if not course.has_started %}<span class="coming-soon-label">{% trans 'Soon' %}</span>{% endif %}
+                            <div class="thumb-wrapper">
+                                <span class="mouseover"></span>
+                                <span class="thumb" {% if course.home_thumbnail %}style="background-image: url({{ course.home_thumbnail.url }})"{% endif %}></span>
+                            </div>
+                            <div class="info">
+                                <h3>{{ course.name }}</h3>
+                                <p class="instructors">{% for professor in course.get_video_professors %}{{ professor.get_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+                </div><!-- .row -->
 
-            </section><!-- .content -->
+                {% endif %}
 
-        </div><!-- #home -->
+            </section><!-- #courses -->
+
+            <!-- twitter sidebar -->
+            <div class="col-md-4 hidden-sm hidden-xs">
+                <div class="row">
+                    <section class="twitter col-lg-10 col-lg-offset-2 col-md-11 col-md-offset-1" role="complementary">
+
+                        <div class="row">
+                            <div class="col-lg-10 col-lg-offset-2 col-md-10 col-md-offset-2">
+                                <h3>
+                                    <i class="fa fa-twitter"></i>
+                                    Veja as últimas<br>informações<br><span><a class="name" href="https://twitter.com/timtec_oficial" target="_blank">@TIMTec_oficial</a></span>
+                                </h3>
+                                <div class="tweet" ng-repeat="twit in twits">
+                                    {% verbatim %}
+                                    <div class="info">
+                                        <span class="avatar">
+                                            <img ng-src="{{ twit.profile_image_url }}">
+                                        </span>
+                                        <a class="name" ng-href="https://twitter.com/{{ twit.screen_name }}" target="_blank">{{ twit.user_name }}</a>
+                                        <span class="date">{{ twit.date }}</span>
+                                        <span class="hour">{{ twit.hour }}</span>
+                                    </div>
+                                    <div class="text" ng-bind-html="twit.text|tweet">
+                                    </div>
+                                    {% endverbatim %}
+                                </div>
+                            </div>
+                        </div>
+                    </section><!-- .twitter -->
+                </div>
+            </div><!-- .col-md-4 -->
+            <!-- twitter sidebar -->
+        </div><!-- .container -->
+
+        <aside class="next-videos hidden-sm hidden-xs" role="complementary" ng-if="upcoming_courses.length>0">
+            <div class="container">
+                <h3>Próximos <span>lançamentos</span></h3>
+                <div class="slider" ng-if="upcoming_courses.length>3">
+                    {% verbatim %}
+                    <carousel>
+                        <slide ng-repeat="row in upcoming_courses_rows_3">
+                            <div class="col-lg-4 col-md-4" ng-repeat="course in row">
+                                <a ng-href="/course/{{ course.slug }}/intro">
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="thumb">
+                                            <img ng-src="{{ course.home_thumbnail_url }}">
+                                        </div>
+                                    </div>
+                                    <h4 class="col-lg-6 col-md-6">{{ course.name }}</h4>
+                                </a>
+                            </div>
+                        </slide>
+                    </carousel>
+                    {% endverbatim %}
+                </div>
+                <div class="slider" ng-if="upcoming_courses.length<4">
+                    {% verbatim %}
+                    <div class="col-lg-4 col-md-4" ng-repeat="course in upcoming_courses">
+                        <a ng-href="/course/{{ course.slug }}/intro">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="thumb">
+                                    <img ng-src="{{ course.home_thumbnail_url }}">
+                                </div>
+                            </div>
+                            <h4 class="col-lg-6 col-md-6">{{ course.name }}</h4>
+                        </a>
+                    </div>
+                    {% endverbatim %}
+                </div>
+            </div><!-- .container -->
+        </aside><!-- .next-videos -->
+        {% if in_admin %}
+            <div class="modal fade" id="modalSelectCourses">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel_courses_selection()">&times;</button>
+                    <h4 class="modal-title">{% trans 'Edit home courses' %}</h4>
+                  </div>
+                  <div class="modal-body">
+                      <div class="row">
+                        {% verbatim %}
+                        <div ng-repeat="course in all_courses">
+                            <div class="select-course col-xs-6" ng-click="selectCourse(course)" ng-class="{active: course.home_published}">
+                                <div class="course-thumb" style="background-image: url({{ course.home_thumbnail_url }});">
+                                    <span class="selected"></span>
+                                </div>
+                                <div class="course-info">
+                                    <h3>{{ course.name }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        {% endverbatim %}
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel_courses_selection()">{% trans 'Cancel' %}</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="apply_courses_selection()">Ok</button>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+        {% endif %}
+    </div><!-- #home -->
+
+</div>
 
 {% endblock %}

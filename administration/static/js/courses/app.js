@@ -5,7 +5,9 @@
         'ngResource',
         'timtec-models',
         'directive.fixedBar',
-        'django'
+        'django',
+        'ui.bootstrap',
+        'directive.file'
     ]);
 
 })(window.angular);

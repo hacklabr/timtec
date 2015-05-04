@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load staticfiles %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
 {% block content %}
 <div id="profile" class="container">
     <form class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
@@ -38,7 +43,7 @@
                             <img id="profile-avatar" width="256" src="{{ form.instance.get_picture_url }}">
                         </div>
                     </label>
-                    
+
                     <input type="file" name="picture" id="upload-avatar" class="hidden"/>
                 </fieldset>
             </div>

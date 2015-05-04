@@ -1,0 +1,40 @@
+// ACTIONS
+.actions-menu {
+  margin: 0;
+  padding: 10px 0;
+  position: relative;
+  .container {
+    position: relative;
+  }
+  .status {
+    margin-left: 40px;
+    margin-right: 10px;
+  }
+  .label {
+    background-color: darken(@gray-lighter, 10%);
+    color: @gray-darker;
+    font-size: 11px;
+    font-weight: normal;
+    margin-right: -5px;
+    padding: 10px 12px;
+    text-transform: uppercase;
+  }
+  @media screen and (max-width: @screen-xs-max) {
+    margin-top: 0;
+  }
+  .actions-buttons {
+    display: inline-block;
+    position: absolute;
+    right: 15px;
+  }
+}
+
+.actions-menu-scroll {
+    margin-top: 0;
+    padding-top: 10px;
+    top: 0 !important;
+    position: fixed !important;
+    width: 100%;
+    z-index: 9999;
+}
+// END ACTIONS

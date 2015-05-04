@@ -3,6 +3,9 @@
 {% load static %}
 {% load i18n %}
 
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
 
 {% block js %}
     {{block.super}}
@@ -10,7 +13,6 @@
         window.course_id = {{ course.pk }};
         window.course_slug = '{{ course.slug }}';
     </script>
-    {% compressed_js 'admin_course_header' %}
     {% compressed_js 'messages' %}
 {% endblock %}
 
@@ -22,9 +24,7 @@
 <div id="messages" class="course-messages" ng-app="messages">
 
     {% if in_admin %}
-    <div ng-controller="HeaderController">
-        {% include "_admin_header_inline.html" %}
-    </div>
+        {% include "_admin_header_inline.html" with course=course %}
     {% else %}
         {% include "_course-header-inline.html"  with course=course %}
     {% endif %}
@@ -33,10 +33,10 @@
     <section id="messages-content" class="container">
         <header class="secondary-header" ng-controller="NewMessageController">
             <div class="row">
-                <div class="col-lg-9">
+                <div class="col-md-9 col-sm-8 col-xs-6">
                     <h1>{% trans "Messages" %}</h1>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-md-3 col-sm-4 col-xs-6">
                     <a class="new-message btn btn-lg btn-danger uppercase" ng-click="new_message()">{% trans "New Message" %}</a>
                 </div>
                     <script type="text/ng-template" id="newMessageModal.html">

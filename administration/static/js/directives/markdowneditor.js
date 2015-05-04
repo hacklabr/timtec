@@ -26,7 +26,8 @@
         var templates = {
             // directive name -> template path
             'markdowneditor': '/static/templates/directive.markdowneditor.html',
-            'modalmarkdowneditor': '/static/templates/directive.modalmarkdowneditor.html'
+            'modalmarkdowneditor': '/static/templates/directive.modalmarkdowneditor.html',
+            'modalmarkdowneditorwithtitle': '/static/templates/directive.modalmarkdowneditorwithtitle.html'
         };
 
         function controller ($scope, $element, MarkdownDirective) {
@@ -88,6 +89,14 @@
                     $scope.refreshPreview();
                 }
             });
+
+            $scope.$watch($scope.active, function(value){
+                var modal_element = angular.element('#modal-markdown-editor-' + $scope.id);
+                if (value)
+                    modal_element.modal('show');
+                else
+                    modal_element.modal('hide');
+            });
         }
 
         function link (scope, element, attr) {
@@ -115,8 +124,15 @@
                 scope.focusEditor();
             });
             scope.title = attr.title;
-        }
 
+            scope.$watch('active', function(value){
+                var modal_element = angular.element('#modal-markdown-editor-' + scope.id);
+                if (value)
+                    modal_element.modal('show');
+                else
+                    modal_element.modal('hide');
+            });
+        }
 
         function getConfigFunction(templateUrl) {
             return function(){
@@ -126,8 +142,12 @@
                     'controller': controller,
                     'link': link,
                     'scope': {
+                        'title_model': '=titleModel',
                         'content': '=content',
+                        'textarea_disabled': '=ngDisabled',
+                        'active': '=?active',
                         'onSave': '&onSave'
+
                     }
                 };
             };

@@ -62,6 +62,8 @@ settings_local.py
 # Vagrant
 .vagrant
 
+# Source Map Less
+*.css.map
 
 *.psqlc
 *.log

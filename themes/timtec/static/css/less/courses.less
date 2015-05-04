@@ -1,0 +1,60 @@
+// COURSES PAGE
+// ********************************************************************* //
+
+#courses-page {
+  .page-header-double {
+    margin: 30px 0 15px;
+    @media screen and (min-width: @screen-sm-min) {
+      margin: 45px 0 25px;
+    }
+  }
+  #courses {
+    position: relative;
+    margin-top: -110px;
+    > div:first-child {
+      overflow: hidden;
+      padding-top: 110px;
+      background-color: rgba(255,255,255,0.5);
+    }
+  }
+  .more-info {
+    margin: 0 -15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: rgba(40,112,187,0.5);
+    @media (min-width: @screen-md-min) {
+      padding-top: 110px;
+    }
+    .box {
+      border-bottom: none;
+      padding: 15px;
+      margin: 0 15px 15px;
+      color: #fff;
+      &:first-child {
+        background-color: #00bfda;
+        color: #000;
+        h3 {
+          font-size: 27px;
+          font-weight: bold;
+          color: #1254a5;
+        }
+        a {
+          color: lighten(@brand-info, 60%);
+        }
+      }
+      &:nth-child(2) {
+        background-color: @brand-success;
+        h3 {
+          font-size: 55px;
+          font-weight: bold;
+        }
+      }
+      &:nth-child(3) {
+        background-color: #0d4c8f;
+      }
+      &:nth-child(4) {
+        background-color: #1e9dd9;
+      }
+    }
+  }
+}

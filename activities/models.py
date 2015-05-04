@@ -100,7 +100,20 @@ class Answer(models.Model):
         answer = instance
         progress, _ = StudentProgress.objects.get_or_create(user=answer.user,
                                                             unit=answer.activity.unit)
-        if answer.is_correct():
+
+        correct = True
+        for activity in Activity.objects.filter(unit=answer.activity.unit):
+            try:
+                ans = Answer.objects.filter(activity=activity).order_by('-timestamp')[:1].get()
+            except Answer.DoesNotExist:
+                correct = False
+                break
+            print ans
+            correct = ans.is_correct()
+            if not correct:
+                break
+
+        if correct:
             progress.complete = timezone.now()
 
         progress.save()

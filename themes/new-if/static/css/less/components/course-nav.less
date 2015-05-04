@@ -1,0 +1,84 @@
+// COURSE SECTIONS (NAVGATION)
+.course-sections {
+    a.fa {
+        border-right: 1px solid fade(@brand-primary, 20%);
+        &.active, &:hover, &:focus {
+            color: @brand-primary;
+        }
+    }
+}
+
+// LESSON HEADER AND NAVIGATION
+#course.course-lesson {
+    #course-content {
+        nav.course-lessons {
+            > .row {
+                > div:first-child {
+                    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                        .make-md-column(8);
+                        .make-md-column-offset(1);
+                    }
+                    @media (min-width: @screen-lg-min) {
+                        .make-lg-column(8);
+                        .make-lg-column-offset(1);
+                    }
+                }
+            }
+            h1 {
+                display: none;
+            }
+            .description {
+                font-family: 'ek-mukta-extralight', @font-family-base;
+                font-size: 17px;
+                margin-bottom: 10px;
+                margin-top: 45px;
+                p {
+                    margin: 0;
+                }
+            }
+            .editable-title {
+                font-size: 24px;
+                input {
+                    color: darken(@brand-primary, 10%);
+                    font-family: @font-family-sans-serif;
+                    font-weight: normal;
+                }
+            }
+        }
+        nav.lesson-units {
+            .btn-group {
+                background-color: @brand-primary;
+            }
+            .btn-default {
+                background-color: @brand-primary;
+                border-radius: 0;
+                color: #fff;
+                font-family: 'ek-mukta-extralight', @font-family-base;
+                font-size: 16px;
+                line-height: 1.8;
+                text-transform: uppercase;
+            }
+            .btn-default:first-child {
+                text-align: left;
+                min-width: 290px;
+            }
+            .dropdown-toggle {
+                background-color: #fff;
+                border-radius: 20px;
+                color: @brand-primary;
+                height: 28px;
+                margin: 5px 5px 0 5px;
+                width: 28px;
+                i {
+                    font-size: 26px;
+                    line-height: 0px;
+                    margin-left: -1px;
+                    margin-top: 10px;
+                    &:before {
+                        content: '\f0d7';
+                    }
+                }
+            }
+        }
+    }
+}

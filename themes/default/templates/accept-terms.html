@@ -6,21 +6,25 @@
 {% endblock %}
 
 {% block content %}
-    <div class="page static-page">
+    <div class="page static-page-body accept-terms">
         <div class="illust hidden-xs"></div><!-- .illust // top ilustration -->
         <div class="main-content">
 
             <!-- CONTAINER -->
             <div class="container js-fullheight c1">
-              <form action="/accept_terms/" method="post" style="padding-top: 80px;">{% csrf_token %}
+              <form action="{% url 'accept_terms' %}" method="post">{% csrf_token %}
+              	{% if next_url %}
+                    <input type="hidden" name="next" value="{{ next_url }}">
+              	{% endif %}
                 {% with errors=form.accept_terms.errors %}
                 <div class="form-group{{ errors|yesno:' has-error,' }}">
-                    <span class="checkbox-wrapper"><input name="accept_terms" type="checkbox" {% if form.accept_terms.value %}checked=""{% endif %} class=""></span>
-                    <label>Aceito os <a href="{% url 'django.contrib.flatpages.views.flatpage' url='terms/' %}" target="_blank">termos de uso</a></label>
+                    <span class="checkbox-wrapper"><input name="accept_terms" id="accept_terms" type="checkbox" {% if form.accept_terms.value %}checked=""{% endif %} class=""></span>
+                	{% url 'django.contrib.flatpages.views.flatpage' url='terms/' as terms_url %}
+					<label for="accept_terms" class="terms">{% blocktrans %}I agree to the <a href="terms_url" target="_blank">Terms of Use</a>{% endblocktrans %}</label>
                     {% for error in errors %}<small>{{error}}</small>{% endfor %}
                 </div>
                 {% endwith %}
-                <input class="btn btn-success" type="submit" value="Enviar" />
+                <input class="btn btn-success" type="submit" value="{% trans 'Send' %}" />
               </form>
             </div>
         </div>

@@ -12,7 +12,6 @@
     {% endif %}
 </script>
 {% compressed_js 'forum' %}
-{% compressed_js 'admin_course_header' %}
 <section id="forum" class="forum-inline">
 
     <section id="forum-content" ng-controller="InlineForumCtrl">
@@ -24,8 +23,8 @@
             <div class="forum-form">
                 <div class="alert alert-danger" role="alert" ng-show="question_title_validation || question_text_validation">
                     <ul>
-                        <li ng-show="question_title_validation"><a href="#id-title">Preencha o título da questão.</a></li>
-                        <li ng-show="question_text_validation"><a href="#wmd-input">Preencha o conteúdo da questão.</a></li>
+                        <li ng-show="question_title_validation"><a href="#id-title">{% trans 'Fill the question title.' %}</a></li>
+                        <li ng-show="question_text_validation"><a href="#wmd-input">{% trans 'Fill the question content.' %}</a></li>
                     </ul>
                 </div>
                 <div class="form-group" ng-class="question_title_validation">
@@ -48,7 +47,7 @@
                             <!-- <small><a href="">{% trans "Questions & Answers policy" %}</a></small> -->
                         </div>
                         <div class="col-lg-4 col-sm-4 textright">
-                            <input type="submit" class="btn btn-success" value="Enviar" ng-click="new_question()">
+                            <input type="submit" class="btn btn-success" value="{% trans 'Send' %}" ng-click="new_question()">
                         </div>
                     </div>
                 </div>
@@ -57,20 +56,20 @@
         {% endif %}
 
             <!-- FILTERS -->
-            <div class="filters">
+            <div class="filters" ng-if="current_user_role == 'coordinator' || current_user_role == 'assistant'">
                 <!--  FORM INLINE -->
                 <form class="form-inline">
                     <!-- ROW -->
-                    <div class="row" ng-if="current_user_role == 'coordinator' || current_user_role == 'assitant'">
+                    <div class="row">
                         <div class="col-sm-12">
                             <label for="filter-class"> {% trans "Filter classes" %}:
                                 <select class="form-control" id="filter-class" ng-model="filters.selected_class" ng-change="filter()">
-                                    <optgroup label="Liste por:">
-                                        <option ng-if="my_classes.length" value="my_classes">Minhas turmas</option>
-                                        <option value="all" ng-if="current_user_role == 'coordinator'">Todas as turmas deste curso</option>
-                                        <option value="others_classes" ng-if="current_user_role == 'coordinator' && others_classes.length">Turmas dos outros professores</option>
+                                    <optgroup label="{% trans 'List by' %}:">
+                                        <option ng-if="my_classes.length" value="my_classes">{% trans 'My classes' %}</option>
+                                        <option value="all" ng-if="current_user_role == 'coordinator'">{% trans 'All classes' %}</option>
+                                        <option value="others_classes" ng-if="current_user_role == 'coordinator' && others_classes.length">{% trans 'Classes of others professors' %}</option>
                                     </optgroup>
-                                    <optgroup ng-if="others_classes.length || my_classes.length " label="Ou escolha uma turma:">
+                                    <optgroup ng-if="others_classes.length || my_classes.length " label="{% trans 'Or choose a class' %}:">
                                         {% verbatim %}
                                         <option ng-repeat="klass in my_classes" id="{{klass.id}}" value="{{klass.id}}">{{ klass.name }}</option>
                                         <option ng-repeat="klass in others_classes" id="{{klass.id}}" value="{{klass.id}}">{{ klass.name }}</option>
@@ -132,14 +131,14 @@
                                         <p><span class="numbers-answers">{% verbatim %}{{ question.answers.length }}{% endverbatim %}</span>{% trans 'answers' %}</p>
                                     </div>
 
-                                    <div ng-if="!question.hidden && is_current_user_forum_moderator" ng-click="justification_modal(question)" class="hide-question btn btn-danger btn-sm">{% trans 'Hide' %}</div>
+                                    <div ng-if="!question.hidden && (current_user_role == 'coordinator' || current_user_role == 'assistant')" ng-click="justification_modal(question)" class="hide-question btn btn-danger btn-sm">{% trans 'Hide' %}</div>
                                 </td>
                                 <td class="content">
                                     {% verbatim %}
                                     <h1 class="title"><a href="/forum/question/{{ question.slug }}">{{ question.title }}</a></h1>
                                     <div class="text" ng-bind-html="question.text|markdown|words:50"></div>
-                                    <div class="author">Pergunta feita feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ question.username }}">{{ question.username }}</a></div>
                                     {% endverbatim %}
+                                    <div class="author"> {% trans 'Asked' %} <strong>{% verbatim %}{{ question.timestamp|date:"dd/MM/yy" }}{% endverbatim %}</strong> {% trans 'by' %} {% verbatim %}<a href="/profile/{{ question.username }}">{{ question.username }}</a>{% endverbatim %}</div>
                                 </td>
                             </tr>
                         </table>

@@ -41,13 +41,6 @@
             &:hover {
               color: @brand-info;
             }
-            &:hover:after {
-              content: "(Editar)";
-              font-family: @font-family-sans-serif;
-              font-size: 11px;
-              margin-left: 5px;
-              text-transform: lowercase;
-            }
           }
         }
         .lessons {
@@ -425,7 +418,104 @@
       }
     }
   }
-}
+
+
+  #home {
+    #courses {
+      margin-top: 40px;
+    }
+    .drag {
+      .btn-drag {
+        display: block;
+      }
+    }
+    .btn-drag {
+      cursor: move;
+      display: none;
+      position: absolute;
+      z-index: 700;
+      top: 50%;
+      left: 50%;
+      margin-top: -16px;
+      margin-left: -17px;
+    }
+    .edit-videos {
+      float: right;
+    }
+    .modal {
+      .modal-dialog {
+        @media (min-width: 768px) { width: 768px; }
+      }
+      .modal-title {
+        font-size: 26px;
+      }
+      .modal-body {
+        .select-course {
+          @media (max-width: 650px) { width: 100%; }
+          cursor: pointer;
+          margin-bottom: 15px;
+          .course-thumb {
+            @media (min-width: 400px) and (max-width: 519px) { width: 40%; }
+            @media (min-width: 520px) and (max-width: 650px) { width: 33%; }
+            position: relative;
+            float: left;
+            width: 50%;
+            height: 95px;
+            background: #000;
+            border: 4px solid @gray-lighter;
+            overflow: hidden;
+            cursor: pointer;
+            transition : all 0.3s;
+            background-size: cover;
+            .selected {
+              opacity: 0;
+              position: absolute;
+              right: -3px;
+              bottom: -3px;
+              background: url(../img/selected.png) no-repeat center center;
+              width: 24px;
+              height: 24px;
+              transition : all 0.3s;
+            }
+          }
+          &.active {
+            .course-thumb {
+              border-color: @brand-info;
+              .selected {
+                opacity: 1;
+                background-color: @brand-info;
+              }
+            }
+          }
+          &:hover {
+            .course-thumb {
+              border-color: @gray-light;
+              .selected {
+                opacity: 1;
+                background-color: @gray-light;
+              }
+            }
+          }
+          .course-info {
+            position: relative;
+            float: left;
+            height: 95px;
+            width: 50%;
+            overflow: hidden;
+            padding: 0 0 0 15px;
+            h3 {
+              margin: 0;
+              font-size: 15px;
+            }
+          }
+        }
+      }
+      .modal-footer {
+        padding-right: 20px;
+        padding-left: 20px;
+      }
+    }
+  }}
 
 @keyframes blink-text-red
 {

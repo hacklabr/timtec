@@ -1,0 +1,252 @@
+// COURSE CONTENT
+#course-content {
+    @media (max-width: @screen-xs-max) {
+        margin-top: 60px;
+    }
+
+    // COURSE INFO - Course intro
+    // ********************************************************************* //
+    .course-info {
+        margin-top: 40px;
+        .page-header-double {
+            margin-top: 0;
+        }
+        .application {
+            border-right: 2px solid @gray-light;
+        }
+        .requirement {
+            h3 {
+                color: @brand-primary;
+            }
+        }
+        .structure {
+            margin-top: 40px;
+        }
+    }
+
+    // COURSE SUMMARY - Course intro
+    // ********************************************************************* //
+    .summary {
+        .clearfix;
+        .row;
+        background: #EFEFEF;
+        padding: 20px 15px;
+        margin-top: 0;
+        .abstract {
+            .page-header-double {
+                margin-top: 0;
+            }
+            h3 {
+                color: @brand-primary;
+            }
+        }
+    }
+
+    // COURSE LESSONS - Course intro
+    // ********************************************************************* //
+    .lessons {
+        .lesson {
+            background-color: #fff;
+            border-radius: @border-radius-base;
+            padding: 15px 0;
+            margin-bottom: 20px;
+        }
+        // END LESSON
+    }
+      // END LESSONS
+
+    // COURSE INSTRUCTORS - Course intro
+    // ********************************************************************* //
+    .instructors {
+        h1.fullname {
+            margin-bottom: 10px;
+        }
+        .thumbnail,
+        .instructor-photo .img-thumbnail {
+            padding: 0px;
+            border: none;
+            border-radius: 0;
+            transition: none;
+            width: 100%;
+        }
+    }
+    // END INSTRUCTORS
+
+    // COURSE NOTES - General
+    // ********************************************************************* //
+    #student-notes {
+        background-color: #EFEFEF;
+        padding-bottom: 10px;
+        padding-top: 10px;
+        @media (min-width: @screen-md-min) {
+            margin-top: -162px;
+            padding-top: 158px;
+        }
+        @media (min-width: @screen-lg-min) {
+            margin-top: -138px;
+        }
+        h3 {
+            font-family: 'ek-mukta-extralight', @font-family-base;
+            font-size: 24px;
+            line-height: 24px;
+            text-transform: uppercase;
+        }
+    }
+    .notes {
+        textarea {
+            height: 185px;
+            margin: 0;
+            width: 100%;
+            @media (min-width: @screen-sm-min) { height: 285px !important; }
+            @media (min-width: @screen-lg-min) { height: 365px !important; }
+        }
+        .btn-success {
+            border-radius: 0;
+            padding: 2px 12px;
+            position: relative;
+            text-transform: uppercase;
+        }
+    }
+
+    // COURSE NOTES - General
+    // ********************************************************************* //
+    #materials {
+        .side-notes {
+            .page-header-double {
+                margin-top: 30px;
+            }
+            p {
+                color: @gray-light;
+                font-size: 12px;
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    // NEXT LESSON
+    // ********************************************************************* //
+    .next-lesson {
+        border: 1px solid #eeeeee;
+        padding: 40px 20px;
+        position: relative;
+        text-align: center;
+        @media (min-width: @screen-lg-min) {
+            height: 424px;
+        }
+        @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+            height: 349px;
+        }
+        @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+            height: 372px;
+        }
+        &:before {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+        .btn {
+            span {
+                float: left;
+            }
+            .fa {
+                float: right;
+                font-size: 18px;
+                margin: 1px 0 0 10px;
+            }
+        }
+    }
+
+    // COURSE NOTES - General
+    // ********************************************************************* //
+    #student-notes {
+        @media (max-width: @screen-sm-max) { margin-top: 20px; }
+    }
+    .notes {
+        textarea {
+            @media (min-width: @screen-lg-min) { height: 310px; }
+            @media (max-width: @screen-sm-max) { width: 100%; }
+        }
+    }
+
+    // COURSE UNITS - General
+    // ********************************************************************* //
+    .units {
+        a.unit {
+            cursor: pointer;
+        }
+    }
+
+    // COURSE VIDEO
+    // ********************************************************************* //
+
+    .video {
+        > div {
+            div:nth-child(2) {
+                div:nth-child(2) {
+                    margin-left: 0;
+                    margin-right: 0;
+                    div:first-child {
+                        padding-left: 0;
+                    }
+                    div:nth-child(2) {
+                        padding: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+#course {
+    &.course-intro {
+        #course-content {
+            > .row {
+                > div:first-child {
+                    @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+                        .make-md-column(8);
+                    }
+                    @media (min-width: @screen-lg-min) {
+                        .make-lg-column(7);
+                    }
+                }
+                > div:nth-child(2) {
+                    img {
+                        border: none;
+                        border-radius: 0;
+                        padding: 0;
+                    }
+                    p {
+                        color: #888888;
+                    }
+                    @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+                        .make-md-column(4);
+                    }
+                    @media (min-width: @screen-lg-min) {
+                        .make-lg-column(5);
+                    }
+                }
+            }
+        }
+    }
+    &.course-lesson {
+        #course-content {
+            > div {
+                > .row:nth-child(2) {
+                    > div {
+                        @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+                            .make-md-column(8);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// UPLOADED FILES LIST
+ul.uploaded-files-list {
+    li {
+        border-bottom: 1px solid fade(@brand-primary, 20%);
+    }
+}

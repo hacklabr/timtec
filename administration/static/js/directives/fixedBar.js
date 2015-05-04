@@ -20,16 +20,12 @@
                 window.onscroll = function() {
                     if (window.scrollY >= barOffsetTop) {
                         parent.css('margin-top', preparedHeight);
-                        el.css('left', '0');
-                        el.css('position', 'fixed');
-                        el.css('right', '0');
                         el.css('top', preparedTop);
-                        el.css('z-index', 1000);
+                        el.addClass('actions-menu-scroll');
                     } else {
                         parent.css('margin-top', '');
-                        el.css('position', '');
                         el.css('top', '');
-                        el.css('z-index', '');
+                        el.removeClass('actions-menu-scroll');
                     }
                 };
             }

@@ -1,0 +1,95 @@
+// Common styles
+header, .main-header, .secondary-header, .page-header-double {
+  h1,h2,h3,h4,h5,h6 {
+    border-bottom: none;
+    color: #007dc3;
+    i {
+      display: none;
+    }
+  }
+  h1, h2 {
+    font-family: @teuton-26;
+  }
+}
+
+// Page Headers
+.page-header-double {
+  position: relative;
+  z-index: 10;
+  border-bottom: none;
+}
+
+// SHARED HEADER STYLES
+.main-header {
+  .page-header {
+    border-bottom: none;
+    h1 {
+      a {
+        color: #007dc3;
+        &:hover {
+          color: #007dc3;
+        }
+      }
+    }
+  }
+  .course-slug {
+    margin-bottom: 5px;
+    label {
+      color: @gray-light;
+      font-weight: normal;
+    }
+  }
+  ul.instructors {
+    li {
+      text-transform: none;
+      a {
+        color: #000;
+        &:hover {
+          color: #000;
+        }
+      }
+    }
+  }
+}
+
+// HEADER STYLES FOR THE INTERNAL PAGES (Lesson, Forum, Notes, Material, Classes)
+.main-header {
+  padding: 50px 0 20px;
+  position: relative;
+  z-index: 500;
+  .page-header {
+    margin-top: 0;
+    margin-bottom: 0;
+    h1 {
+      font-size: 32px;
+      text-transform: none;
+    }
+    ul.instructors {
+      font-family: @teuton-24;
+      font-size: 18px;
+    }
+  }
+}
+
+.secondary-header {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  h1 {
+    margin-top: 25px;
+  }
+  .btn {
+    display:block;
+    margin-top: 18px;
+  }
+}
+
+.add-content {
+  .secondary-header {
+    padding-bottom: 10px;
+    h2 {
+      font-size: 20px;
+      margin: 0;
+    }
+  }
+}

@@ -9,6 +9,27 @@
       color: #fff;
     }
   }
+  .course-status {
+    button {
+      text-align: left;
+      width: 115px;
+    }
+    .status-label {
+      float: left;
+    }
+    .caret {
+      float: right;
+      margin-top: 8px;
+    }
+    .dropdown-menu {
+      margin: 0;
+      min-width: initial;
+      padding: 0;
+      li {
+        margin: 0 !important;
+      }
+    }
+  }
 
   // COURSE LESSONS - Course intro
   // ********************************************************************* //
@@ -62,6 +83,29 @@
   }
   // END LESSONS
 
+  .next-lesson {
+    background-color: #fff;
+    height: 347px;
+    text-align:center;
+    @media (min-width: @screen-lg-min) {
+      height: 423px;
+    }
+    &:before {
+      content:'';
+      height:100%;
+      .vertical-align(middle);
+    }
+    .centered {
+      .vertical-align(middle);
+      width:98%;
+    }
+    .btn {
+      span {
+        margin-right: 10px;
+      }
+    }
+  }
+
   // COURSE INSTRUCTORS - Course intro
   // ********************************************************************* //
   .instructors {
@@ -81,9 +125,28 @@
       .bottom(9px,9px);
       font-size:14px;
     }
+    .editable {
+      &:hover {
+        background-color: lighten(@brand-warning, 45%);
+      }
+    }
     .instructor-photo {
       margin-bottom: 20px;
       max-width: 260px;
+    }
+    .instructor-wrapper {
+      display: block;
+      overflow: hidden;
+      &:hover {
+        .editable {
+          background-color: lighten(@brand-warning, 40%);
+        }
+        .instructor-photo {
+          img {
+            opacity: 0.8;
+          }
+        }
+      }
     }
     .missing-avatar {
       border:1px solid #ddd;
@@ -142,12 +205,24 @@
 
   // COURSE NOTES - General
   // ********************************************************************* //
+  #student-notes {
+    @media (max-width: @screen-xs-max) {
+      margin-top: 30px;
+    }
+  }
+  #student-notes, #materials {
+    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+      margin-top: 30px;
+      margin-left: 13%;
+    }
+  }
   .notes {
     textarea {
       border: 2px solid @gray-lighter;
       height: 235px;
-      @media (min-width: @screen-lg-min) { height: 310px; }
       margin: 20px 0 10px;
+      @media (min-width: @screen-lg-min) { height: 310px; }
+      @media (max-width: @screen-sm-max) { width: 100%; }
     }
     .message {
       font-size: 12px;
@@ -185,6 +260,9 @@
     }
   }
   .units {
+    h2 {
+      display: none;
+    }
     //margin-top: 20px;
     .unit {
       background:@gray-lighter - 20%;
@@ -285,5 +363,90 @@ ul.uploaded-files-list {
   li {
     border-bottom: 1px solid @gray-lighter;
     padding: 5px 0;
+  }
+}
+
+.modal-professor {
+  .step1 {
+    margin-bottom: 30px;
+    p {
+      float: left;
+      font-weight: bold;
+      margin: 7px 10px 0 0;
+      text-transform: initial;
+    }
+  }
+  .step2-1 {
+    margin-bottom: 30px;
+  }
+  .selected-user{
+    p {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    span {
+      display: inline-block;
+      margin-right: 10px;
+    }
+  }
+  .upload-avatar {
+    margin-bottom: 0;
+    @media (min-width: @screen-md-min) {
+      width: 100%;
+    }
+    img {
+      width: 100%;
+    }
+    .thumbnail {
+      margin: 0px;
+      @media (min-width: @screen-md-min) {
+        margin: 0px auto 0px;
+        max-width: 100%;
+      }
+    }
+
+  }
+  label {
+    input[type="checkbox"] {
+      float: left;
+      margin-right: 5px;
+    }
+  }
+  .user-photo-wrapper {
+    @media (max-width: @screen-xs-max) {
+      margin-bottom: 30px;
+    }
+  }
+  .user-name-wrapper {
+    #user-name {
+      margin-bottom: 5px;
+    }
+  }
+  .user-bio-wrapper {
+    margin: 15px 0;
+    .form-group {
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.course-material {
+  @media (max-width: @screen-xs-min) {
+    blockquote {
+      p {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-size: 14px;
+      }
+    }
+  }
+  .uploaded-files-list {
+    li {
+      overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    }
+
   }
 }

@@ -7,11 +7,7 @@
         var $httpBackend, $rootScope, createController, $window;
 
         beforeEach(module('forum'));
-        // beforeEach(module(function ($provide) {
-            // $provide.value('adminHeader', {});
-        // }));
-        
-        // beforeEach(module('adminHeader'));
+
         // beforeEach(module('forum.controllers'));
 
         beforeEach(inject(function ($injector) {
@@ -104,8 +100,6 @@
                 $httpBackend.expectGET('/api/course_professor?course=1&user=1').
                     respond([]);
                 $httpBackend.expectGET('/api/forum_question?course=1').
-                    respond(response_data);
-                $httpBackend.expectGET('/api/is_forum_moderator/1/').
                     respond(response_data);
                 $httpBackend.expectGET('/api/course_classes?course=1').
                     respond([]);

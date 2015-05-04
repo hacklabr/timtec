@@ -24,155 +24,94 @@
 @dropdown-link-color:                       @brand-primary;
 @dropdown-link-hover-color:                 @brand-primary;
 
+
 // MAIN NAVBAR - DROPDOWN MENUS FOR SIGNIN AND SIGNUP
 // ********************************************************************* //
 #main-navbar {
-  border-radius: 0;
-  border: none;
-  font-family: @font-family-base;
-  box-shadow: 0 1px 2px 0 rgba(0,0,0, .2);
-  margin-bottom: 50px;
-  z-index: 20;
-  .navbar-brand {
-    .text-hide();
-    height: 70px;
-    width: 150px;
-    background-image: url(../img/logo.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-color: white;
-    background-size: 130px;
-    border-top: 3px solid @brand-primary;
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
-    position: absolute;
-    z-index: 900;
-    margin-left: 0;
-    @media (max-width: @screen-xs-max) {
-      margin-left: 15px;
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.2);
+    font-family: @font-family-base;
+    margin-bottom: 50px;
+    z-index: 20;
+    .navbar-brand {
+        .text-hide();
+        background-color: white;
+        background-image: url(../img/logo.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 130px;
+        border-top: 3px solid @brand-primary;
+        box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+        height: 70px;
+        margin-left: 0;
+        position: absolute;
+        width: 150px;
+        z-index: 900;
+        @media (max-width: @screen-xs-max) {
+            margin-left: 15px;
+        }
+        @media (max-width: @screen-sm-max) {
+            background-size: 90%;
+            border-radius: 0;
+            border-top: none;
+            box-shadow: none;
+            height: 50px;
+            width: 120px;
+        }
     }
-    @media (max-width: @screen-sm-max) {
-      height: 50px;
-      width: 120px;
-      background-size: 90%;
-      border-radius: 0;
-      border-top: none;
-      box-shadow: none;
-    }
-  }
-  .navbar-form {
-    margin: 5px 0;
-    padding: 0;
-    .form-group {
-      width: 100%;
-      margin: 10px 0;
-    }
-    .form-control {
-      width: 100%;
-    }
-    label {
-      font-weight: normal;
-    }
-    .submit {
-      line-height: 2.5;
-    }
-  }
-  .navbar-toggle {
-    border-color: #fff;
-    &:hover,
-    &:focus {
-      background-color: @brand-hover;
-    }
-  }
-  .navbar-divider {
-    @media (min-width: @screen-sm-min) {
-      border-right: 1px solid @brand-light;
-      height: 50px;
-      width: 2px;
-      margin: 0 5px;
-    }
-    @media (max-width: @screen-xs-max) {
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
-      border-top: 1px solid @brand-light;
-      height: 2px;
-      margin: 0 5px;
-    }
-  }
-  .navbar-collapse {
-    @media (min-width: @screen-sm-min) {
-      float: right;
-    }
-    overflow: hidden;
-    max-height: initial;
-  }
-  #start-intro {
-    margin: 11px 10px 0 0;
-    .fa {
-      margin-left: 5px;
-      vertical-align: middle;
-    }
-  }
-  #session-nav {
-    background-color: darken(@brand-light, 10%);
-    padding: 0 5px;
-    @media (min-width: @screen-sm-min) {
-      margin-right: -15px;
-    }
-  }
-  .dropdown-menu {
-    left: initial;
-    right: 0;
-  }
-}
 
-@media screen and (min-width: @screen-tablet) {
-  #main-navbar {
-    .dropdown-menu {
-      width: 400px;
+    .navbar-toggle {
+        border-color: #fff;
+        &:hover,
+        &:focus {
+            background-color: @brand-hover;
+        }
     }
-    &.navbar-authenticated {
-      .dropdown-menu {
-        width: 300px;
-      }
+
+    .navbar-divider {
+        @media (min-width: @screen-sm-min) {
+            border-right: 1px solid @brand-light;
+        }
+        @media (max-width: @screen-xs-max) {
+            border-top: 1px solid @brand-light;
+        }
     }
-  }
+
+    #session-nav {
+        background-color: darken(@brand-light, 10%);
+        padding: 0 5px;
+        @media (min-width: @screen-sm-min) {
+        margin-right: -15px;
+        }
+    }
 }
 
 @media screen and (max-width: @screen-xs-max) {
-  #main-navbar {
-    margin-bottom: 0;
-    label {
-      line-height: 1;
-    }
-    .navbar-nav {
-      > li > a {
-        padding-top: 10px;
-      }
-    }
     #session-nav {
-      padding: 8px 0 0 0;
+        padding: 8px 0 0 0;
     }
     #site-nav {
-      float: none !important;
+        float: none !important;
     }
     .dropdown-menu .divider {
-      background-color:  @brand-light;
+        background-color:  @brand-light;
     }
-  }
 }
 
 .navbar-nav {
-  > li > a {
-    border-radius: @border-radius-base;
-    padding-top:    0px;
-    padding-bottom: 10px;
-    line-height: @line-height-computed;
-    @media (min-width: @grid-float-breakpoint) {
-      padding-top:    10px;
-      padding-bottom: 10px;
-      margin: 15px 5px;
+    > li > a {
+        border-radius: @border-radius-base;
+        line-height: @line-height-computed;
+        padding-top: 0px;
+        padding-bottom: 10px;
+        @media (min-width: @grid-float-breakpoint) {
+            margin: 15px 5px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        @media (max-width: @screen-sm-max) {
+            margin: 5px;
+        }
     }
-    @media (max-width: @screen-sm-max) {
-      margin: 5px;
-    }
-  }
 }

@@ -1,0 +1,11 @@
+{% extends 'default:profile-edit.html' %}
+{% load i18n %}
+
+{% block content %}
+    <div class="header-static">
+        <div class="container">
+            <h1>{% trans 'Profile' %}</h1>
+        </div>
+    </div>
+    {{block.super}}
+{% endblock %}

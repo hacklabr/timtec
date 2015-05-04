@@ -1,0 +1,13 @@
+{% extends 'default:header.html' %}
+{% load i18n %}
+
+{% block header_site_nav %}
+	<li><a href="/pages/about">{% trans 'About' %}</a></li>
+	<li><a href="#" data-toggle="modal" data-target="#modal-contact">{% trans 'Contact' %}</a></li>
+	<li><a href="{% url 'courses' %}">{% trans 'Courses' %}</a></li>
+{% endblock %}
+
+{% block header_signup_link %}
+    <a class="dropdown-toggle" href="{% url 'account_signup' %}">{% trans 'Sign Up' %}</a>
+{% endblock %}
+

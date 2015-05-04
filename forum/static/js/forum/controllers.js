@@ -43,6 +43,8 @@
                 var questionId = parseInt($window.question_id, 10);
                 var userId = parseInt($window.user_id, 10);
 
+                $scope.num_answers = 0;
+
                 $scope.answers = ForumAnswer.query({question: questionId}, function(answers){
                     answers.sort(compare_by_dates);
                     answers.sort(compare_by_votes);
@@ -64,6 +66,7 @@
                     } else {
                         var new_answer = ForumAnswer.save({question: questionId, text: $scope.new_text}, function(new_answer){
                             new_answer.votes = 0;
+                            $scope.num_answers += 1;
                         });
                         $scope.answers.push(new_answer);
                         $scope.editor_enabled = false;
@@ -173,19 +176,6 @@
                 };
 
             get_questions({course: course_id});
-
-            $http({method: 'GET', url: '/api/is_forum_moderator/' + course_id + '/'}).
-                success(function(data, status, headers, config) {
-                    if (data === "true"){
-                        $scope.is_current_user_forum_moderator = true;
-                    } else {
-                        $scope.is_current_user_forum_moderator = false;
-                    }
-
-                }).
-                error(function(data, status, headers, config) {
-                    $scope.is_current_user_forum_moderator = false;
-            });
 
             $scope.changePageHandler = function (page) {
                 page = page-1;

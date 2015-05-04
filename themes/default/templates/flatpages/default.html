@@ -1,6 +1,17 @@
 {% extends "base.html" %}
-
+{% load i18n %}
 {% load django_markdown %}
+{% load compressed %}
+
+{% if user.is_superuser %}
+    {% block js %}
+		{{block.super}}
+        {% compressed_js 'core' %}
+    <script>
+        window.page_url = '{{ flatpage.url }}';
+    </script>
+	{% endblock %}
+{% endif %}
 
 {% block title %}
 {{ flatpage.title }}
@@ -11,17 +22,47 @@ class="static-page-body"
 {% endblock %}
 
 {% block content %}
-        <div class="page static-page">
-
+        <div class="page static-page" ng-app="core" ng-controller="FlatPageCtrl">
+        	{% if user.is_superuser %}
+            <!-- ACTIONS -->
+            <div class="actions-menu actions-menu-message" ng-hide="alert.hidden" fixed-bar>
+                <div class="container">
+                    {% include 'administration/_alert.html' %}
+                </div>
+            </div>
+            <!-- END ACTIONS -->
+        	{% endif %}
             <div class="main-content">
-
                 <!-- CONTAINER -->
                 <div class="container">
-
                     <div class="content col-lg-8 col-md-7">
+                        {% if user.is_superuser %}
+							<div>
+								<div class="col-lg-12" ng-hide="flatpage.$resolved">
+									<i class="loading fa fa-refresh fa-spin"></i>
+								</div>
+								<div class="editable-title" ng-click="flatpage.active = true">
+                                    <input type="text"
+                                           ng-model="flatpage.title"
+                                           ng-hide="!flatpage.$resolved"
+                                           placeholder="{% trans 'Page not found. Click here to create it.' %}">
+                                </div>
+								<modalmarkdowneditorwithtitle tabindex="2"
+												  on-save="save_flatpage(flatpage)"
+												  title-model="flatpage.title"
+												  content="flatpage.content"
+												  ng-hide="!flatpage.$resolved"
+                                        		  active="flatpage.active">
+								</modalmarkdowneditorwithtitle>
+							</div>
+						{% else %}
+						{% block content-header %}
+                        <h2>{{ flatpage.title }}</h2>
+						{% endblock %}
                     	{{ flatpage.content|markdown }}
-                    </div>
 
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

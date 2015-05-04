@@ -3,14 +3,10 @@ from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 
-# Uncomment the next two lines to enable the admin:
-from django.contrib import admin as django_admin
-django_admin.autodiscover()
-
 from django.views.generic import TemplateView
 from accounts.views import (ProfileEditView, ProfileView, UserSearchView,
-                            TimtecUserViewSet, StudentSearchView)
-from forum.views import AnswerViewSet as ForumAnswerViewSet, ForumModeratorView
+                            TimtecUserViewSet, TimtecUserAdminViewSet, StudentSearchView,
+                            AcceptTermsView)
 
 from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         CourseProfessorViewSet, EnrollCourseView, HomeView,
@@ -18,25 +14,35 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         LessonViewSet, StudentProgressViewSet,
                         UserNotesViewSet, CoursesView, CourseThumbViewSet,
                         ProfessorMessageViewSet, CourseStudentViewSet,
-                        AcceptTermsView, CarouselCourseView, ClassListView,
+                        CarouselCourseView, ClassListView,
                         ClassCreateView, ClassUpdateView, ClassDeleteView,
-                        ClassRemoveUserView, ClassAddUsersView, ClassViewSet)
+                        ClassRemoveUserView, ClassAddUsersView, ClassViewSet,
+                        FlatpageViewSet, CoursePictureUploadViewSet,
+                        ResumeCourseView, FlatpageView, CourseAuthorViewSet,)
 
 from activities.views import AnswerViewSet
-from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, QuestionVoteViewSet, AnswerVoteViewSet
-from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialViewSet
+from forum.views import (CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet,
+                         QuestionVoteViewSet, AnswerVoteViewSet, AnswerViewSet as ForumAnswerViewSet)
+from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialViewSet, CourseMaterialFileViewSet
 from notes.views import NotesViewSet, CourseNotesView, UserNotesView
 from reports.views import UserCourseStats, CourseStatsByLessonViewSet, UserCourseLessonsStats
 from rest_framework import routers
 from django_markdown import flatpages
 
+# Uncomment the next two lines to enable the admin:
+from django.contrib import admin as django_admin
+django_admin.autodiscover()
+
 flatpages.register()
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'user', TimtecUserViewSet)
+router.register(r'user_admin', TimtecUserAdminViewSet)
 router.register(r'course', CourseViewSet)
 router.register(r'course_carousel', CarouselCourseView)
 router.register(r'course_professor', CourseProfessorViewSet)
+router.register(r'course_professor_picture', CoursePictureUploadViewSet)
+router.register(r'course_author', CourseAuthorViewSet)
 router.register(r'course_student', CourseStudentViewSet)
 router.register(r'professor_message', ProfessorMessageViewSet)
 router.register(r'coursethumbs', CourseThumbViewSet)
@@ -48,13 +54,14 @@ router.register(r'forum_answer', ForumAnswerViewSet)
 router.register(r'question_vote', QuestionVoteViewSet)
 router.register(r'answer_vote', AnswerVoteViewSet)
 router.register(r'course_material', CourseMaterialViewSet)
+router.register(r'course_material_file', CourseMaterialFileViewSet)
 router.register(r'note', NotesViewSet)
 router.register(r'user_notes', UserNotesViewSet)
 router.register(r'reports', UserCourseStats)
 router.register(r'lessons_user_progress', UserCourseLessonsStats)
 router.register(r'course_stats', CourseStatsByLessonViewSet)
 router.register(r'course_classes', ClassViewSet)
-
+router.register(r'flatpage', FlatpageViewSet)
 
 urlpatterns = patterns(
     '',
@@ -71,8 +78,9 @@ urlpatterns = patterns(
     # Public browsing
     url(r'^my-courses/$', UserCoursesView.as_view(), name='user_courses'),
     url(r'^accept_terms/$', AcceptTermsView.as_view(), name='accept_terms'),
-    url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/$', CourseView.as_view(), name='course_intro'),
+    url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/intro/$', CourseView.as_view(), name='course_intro'),
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/enroll/$', EnrollCourseView.as_view(), name='enroll_course'),
+    url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/resume/$', ResumeCourseView.as_view(), name='resume_course'),
     url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/lesson/(?P<slug>[-a-zA-Z0-9_]+)/$', LessonDetailView.as_view(), name='lesson'),
     url(r'^html5/', TemplateView.as_view(template_name="html5.html")),
     url(r'^empty/', TemplateView.as_view(template_name="empty.html")),
@@ -93,7 +101,6 @@ urlpatterns = patterns(
     url(r'^forum/(?P<course_slug>[-a-zA-Z0-9_]+)/$', CourseForumView.as_view(), name='forum'),
     url(r'^forum/question/(?P<slug>[-a-zA-Z0-9_]+)/$', QuestionView.as_view(), name='forum_question'),
     url(r'^forum/question/add/(?P<course_slug>[-a-zA-Z0-9_]+)/$', QuestionCreateView.as_view(), name='forum_question_create'),
-    url(r'^api/is_forum_moderator/(?P<course_id>[1-9][0-9]*)/$', ForumModeratorView.as_view(), name='is_forum_moderator'),
 
     # Course Material
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/material/file_upload/$', FileUploadView.as_view(), name='file_upload'),
@@ -121,10 +128,10 @@ urlpatterns = patterns(
     url(r'^api/user_search/?$', UserSearchView.as_view(), name='user_search'),
     url(r'^api/student_search/?$', StudentSearchView.as_view(), name='student_search'),
 
+    url(r'^pages(?P<url>.*)$', FlatpageView.as_view(), name='flatpage'),
+
     # The django-rosetta
     url(r'^rosetta/', include('rosetta.urls')),
-
-    url(r'^pages/', include('django.contrib.flatpages.urls')),
 
     url(r'^markdown/', include('django_markdown.urls')),
 

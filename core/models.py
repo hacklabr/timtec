@@ -16,6 +16,9 @@ from autoslug import AutoSlugField
 
 from notes.models import Note
 from course_material.models import CourseMaterial
+from .utils import hash_name
+
+import re
 
 
 class Video(models.Model):
@@ -60,9 +63,7 @@ class Class(models.Model):
 
 class Course(models.Model):
     STATES = (
-        ('new', _('New')),
         ('draft', _('Draft')),
-        ('listed', _('Listed')),
         ('published', _('Published')),
     )
 
@@ -75,12 +76,12 @@ class Course(models.Model):
     structure = models.TextField(_('Structure'), blank=True)
     workload = models.TextField(_('Workload'), blank=True)
     pronatec = models.TextField(_('Pronatec'), blank=True)
-    status = models.CharField(_('Status'), choices=STATES, default=STATES[0][0], max_length=64)
-    publication = models.DateField(_('Publication'), default=None, blank=True, null=True)
-    thumbnail = models.ImageField(_('Thumbnail'), upload_to='course_thumbnails', null=True, blank=True)
+    status = models.CharField(_('Status'), choices=STATES, default=STATES[1][0], max_length=64)
+    thumbnail = models.ImageField(_('Thumbnail'), upload_to=hash_name('course_thumbnails', 'name'), null=True, blank=True)
     professors = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='professorcourse_set', through='CourseProfessor')
+    authors = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='authorcourses', through='CourseAuthor')
     students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='studentcourse_set', through='CourseStudent')
-    home_thumbnail = models.ImageField(_('Home thumbnail'), upload_to='home_thumbnails', null=True, blank=True)
+    home_thumbnail = models.ImageField(_('Home thumbnail'), upload_to=hash_name('home_thumbnails', 'name'), null=True, blank=True)
     home_position = models.IntegerField(null=True, blank=True)
     start_date = models.DateField(_('Start date'), default=None, blank=True, null=True)
     home_published = models.BooleanField(default=False)
@@ -112,14 +113,22 @@ class Course(models.Model):
         if not CourseStudent.objects.filter(course=self, user=student).exists():
             CourseStudent.objects.create(course=self, user=student)
 
+    def is_enrolled(self, user):
+        return CourseStudent.objects.filter(course=self, user=user).exists()
+
     def get_thumbnail_url(self):
         if self.thumbnail:
             return self.thumbnail.url
         return ''
 
+    def get_home_thumbnail_url(self):
+        if self.home_thumbnail:
+            return self.home_thumbnail.url
+        return ''
+
     @property
     def has_started(self):
-        if self.start_date <= datetime.date.today():
+        if self.start_date and self.start_date <= datetime.date.today():
             return True
         else:
             return False
@@ -136,16 +145,13 @@ class Course(models.Model):
             lesson_progress['slug'] = lesson.slug
             lesson_progress['position'] = lesson.position
             units_len = lesson.unit_count()
-            if units_len:
+            # avoid zero divisfion
+            if units_len and student_enrolled:
                 units_done = StudentProgress.objects.exclude(complete=None).filter(unit__lesson=lesson)
                 if classes:
                     units_done = units_done.filter(user__classes__in=classes)
                 units_done_len = units_done.count()
-                if units_len and student_enrolled:
-                    # avoid zero divizion
-                    lesson_progress['progress'] = 100 * units_done_len / (units_len * student_enrolled)
-                else:
-                    lesson_progress['progress'] = 0
+                lesson_progress['progress'] = 100 * units_done_len / (units_len * student_enrolled)
                 # lesson_progress['forum_questions'] = lesson.forum_questions.count()
                 # lesson_progress['progress'] =
                 # lesson_progress['finish'] = self.get_lesson_finish_time(lesson)
@@ -159,20 +165,37 @@ class Course(models.Model):
         return self.user.forum_answers.values('question__lesson').annotate(Count('question__lesson'))
 
     def get_video_professors(self):
-        return self.courseprofessor_set.filter(role="instructor")
+        return self.course_authors.all()
 
     def get_professor_role(self, user):
         try:
-            cp = self.courseprofessor_set.get(user=user)
+            cp = self.course_professors.get(user=user)
             return cp.role
         except CourseProfessor.DoesNotExist:
             return False
+
+    def get_role_professors(self, role):
+        try:
+            cp_set = self.course_professors.filter(role=role)
+        except CourseProfessor.DoesNotExist:
+            return False
+
+        professors = []
+        for cp in cp_set:
+            professors.append(cp.user)
+
+        return iter(professors)
 
     def is_assistant_or_coordinator(self, user):
         if user.is_staff or user.is_superuser:
             return True
         role = self.get_professor_role(user)
         return role in ['assistant', 'coordinator'] or user.is_superuser
+
+    def is_course_coordinator(self, user):
+        course_coordinators = self.get_role_professors('coordinator')
+
+        return user.is_superuser or user.is_staff or user in course_coordinators
 
     def has_perm_own_all_classes(self, user):
         role = self.get_professor_role(user)
@@ -196,6 +219,7 @@ class CourseStudent(models.Model):
 
     class Meta:
         unique_together = (('user', 'course'),)
+        ordering = ['course__start_date']
 
     def __unicode__(self):
         return u'{0} - {1}'.format(self.course, self.user)
@@ -205,15 +229,28 @@ class CourseStudent(models.Model):
         return StudentProgress.objects.exclude(complete=None)\
                                       .filter(user=self.user, unit__lesson__course=self.course)
 
-    def resume_last_unit(self):
-        units_done = self.units_done.order_by('complete')
-        if units_done.count() > 0:
-            return units_done.reverse().first().unit
-        else:
-            try:
-                return self.course.first_lesson().units.order_by('position').first()
-            except AttributeError:
-                return None
+    def resume_next_unit(self):
+        try:
+            last_unit_done = self.units_done.latest('complete')
+            # try to get the next unit in same lesson
+            next_unit = Unit.objects.filter(lesson=last_unit_done.unit.lesson,
+                                            position__gt=last_unit_done.unit.position).order_by('position').first()
+
+            if next_unit:
+                return next_unit
+            else:
+                next_lesson = self.course.lessons.filter(position__gt=last_unit_done.unit.lesson.position).order_by('position').first()
+                if next_lesson and next_lesson.first_unit():
+                    return next_lesson.units.order_by('position').first()
+                else:
+                    return self.course.first_lesson().first_unit()
+        except StudentProgress.DoesNotExist:
+            first_lesson = self.course.first_lesson()
+            if first_lesson:
+                return first_lesson.first_unit()
+        except AttributeError:
+            pass
+        return None
 
     def percent_progress(self):
         units_len = self.course.unit_set.count()
@@ -239,7 +276,7 @@ class CourseStudent(models.Model):
         """
         # TODO refator to make one query to count unts done for all lessons
         progress_list = []
-        for lesson in self.course.lessons.all():
+        for lesson in self.course.lessons.filter(status='published'):
             lesson_progress = {}
             lesson_progress['name'] = lesson.name
             lesson_progress['slug'] = lesson.slug
@@ -269,10 +306,13 @@ class CourseProfessor(models.Model):
         ('coordinator', _('Professor Coordinator')),
     )
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Professor'), related_name='teaching_courses')
-    course = models.ForeignKey(Course, verbose_name=_('Course'))
-    biography = models.TextField(_('Biography'), blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Professor'), related_name='teaching_courses', blank=True, null=True)
+    course = models.ForeignKey(Course, verbose_name=_('Course'), related_name='course_professors')
+    biography = models.TextField(_('Biography'), blank=True, null=True)
     role = models.CharField(_('Role'), choices=ROLES, default=ROLES[1][0], max_length=128)
+    picture = models.ImageField(_('Picture'), upload_to=hash_name('bio-pictures', 'name'), blank=True, null=True)
+    name = models.TextField(_('Name'), max_length=30, blank=True, null=True)
+    is_course_author = models.BooleanField(default=False)
 
     class Meta:
         unique_together = (('user', 'course'),)
@@ -282,12 +322,78 @@ class CourseProfessor(models.Model):
     def __unicode__(self):
         return u'%s @ %s' % (self.user, self.course)
 
+    def get_name(self):
+        if self.name:
+            return self.name
+        elif self.user:
+            return self.user.get_full_name()
+
+    def get_biography(self):
+        if self.biography:
+            return self.biography
+        elif self.user:
+            return self.user.biography
+
+    def get_picture_url(self):
+        if self.picture:
+            location = "/%s/%s" % (settings.MEDIA_URL, self.picture)
+            return re.sub('/+', '/', location)
+        elif self.user:
+            return self.user.get_picture_url()
+
     def new_message(self, course, subject, message, to=[]):
         return ProfessorMessage.objects.create(subject=subject,
                                                message=message,
                                                course=course,
                                                users=to,
                                                professor=self)
+
+    def get_current_user_classes(self):
+        return Class.objects.filter(course=self.course, assistant=self.user)
+
+
+class CourseAuthor(models.Model):
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_('Professor'),
+        related_name='authoring_courses',
+        blank=True,
+        null=True
+    )
+    course = models.ForeignKey(Course, verbose_name=_('Course'), related_name='course_authors')
+    biography = models.TextField(_('Biography'), blank=True, null=True)
+    picture = models.ImageField(_('Picture'), upload_to=hash_name('bio-pictures', 'name'), blank=True, null=True)
+    name = models.TextField(_('Name'), max_length=30, blank=True, null=True)
+    position = models.IntegerField(default=100, null=True, blank=True)
+
+    class Meta:
+        unique_together = (('user', 'course'),)
+        verbose_name = _('Course Author')
+        verbose_name_plural = _('Course Authors')
+        ordering = ['position']
+
+    def __unicode__(self):
+        return u'%s @ %s' % (self.user, self.course)
+
+    def get_name(self):
+        if self.name:
+            return self.name
+        elif self.user:
+            return self.user.get_full_name()
+
+    def get_biography(self):
+        if self.biography:
+            return self.biography
+        elif self.user:
+            return self.user.biography
+
+    def get_picture_url(self):
+        if self.picture:
+            location = "/%s/%s" % (settings.MEDIA_URL, self.picture)
+            return re.sub('/+', '/', location)
+        elif self.user:
+            return self.user.get_picture_url()
 
 
 class ProfessorMessage(models.Model):
@@ -332,7 +438,6 @@ class PositionedModel(models.Model):
 class Lesson(PositionedModel):
     STATES = (
         ('draft', _('Draft')),
-        ('listed', _('Listed')),
         ('published', _('Published')),
     )
 
@@ -375,12 +480,18 @@ class Lesson(PositionedModel):
     def is_ready(self):
         return self.status == 'published' and self.units.exists()
 
+    def first_unit(self):
+        if self.units.exists():
+            try:
+                return self.units.order_by('position').first()
+            except AttributeError:
+                return None
+
 
 class Unit(PositionedModel):
     title = models.CharField(_('Title'), max_length=128, blank=True)
     lesson = models.ForeignKey(Lesson, verbose_name=_('Lesson'), related_name='units')
     video = models.ForeignKey(Video, verbose_name=_('Video'), null=True, blank=True)
-    # activity = models.ForeignKey('activities.Activity', verbose_name=_('Activity'), null=True, blank=True, related_name='units')
     side_notes = models.TextField(_('Side notes'), blank=True)
     position = models.IntegerField(default=0)
     notes = generic.GenericRelation(Note)

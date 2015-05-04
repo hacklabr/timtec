@@ -13,9 +13,6 @@ from forum.forms import QuestionForm
 from forum.serializers import QuestionSerializer, AnswerSerializer, QuestionVoteSerializer, AnswerVoteSerializer
 from forum.permissions import HideQuestionPermission
 from rest_framework import viewsets
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
 from administration.views import AdminMixin
 import operator
 
@@ -120,8 +117,9 @@ class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
         if role and role == 'assistant':
             classes = Class.objects.filter(assistant=self.request.user)
             queries_list = [Q(user__in=klass.students.all()) for klass in classes.all()]
-            return queryset.filter(reduce(operator.or_, queries_list))
-        elif role and role == 'coordinator':
+            if queries_list:
+                return queryset.filter(reduce(operator.or_, queries_list))
+        elif (role and role == 'coordinator') or self.request.user.is_superuser:
             return queryset
         # it's not professor in this course
         try:
@@ -177,15 +175,3 @@ class AnswerVoteViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         return AnswerVote.objects.filter(user=user)
-
-
-class ForumModeratorView(LoginRequiredMixin, APIView):
-
-    permission_classes = (IsAuthenticated,)
-
-    def get(self, request, format=None, *args, **kwargs):
-        if request.user.groups.filter(name="professors"):
-            user_moderator = True
-        else:
-            user_moderator = False
-        return Response(user_moderator)

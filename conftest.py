@@ -1,13 +1,11 @@
 import pytest
 from django.conf import settings
+from pytest_django.lazy_django import django_settings_is_configured
 
 
 def pytest_addoption(parser):
     parser.addoption("--collectstatic", action="store_true",
                      help="run slow collectstatic test")
-
-
-from pytest_django.lazy_django import django_settings_is_configured
 
 
 @pytest.fixture(autouse=True, scope='session')

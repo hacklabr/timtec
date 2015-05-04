@@ -8,4 +8,11 @@ class TimtecUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('id', 'username', 'name', 'email', 'first_name', 'last_name', 'biography', 'picture',)
+        fields = ('id', 'username', 'name', 'first_name', 'last_name', 'biography', 'picture',)
+
+
+class TimtecUserAdminSerializer(TimtecUserSerializer):
+
+    class Meta:
+        model = get_user_model()
+        fields = ('id', 'username', 'name', 'email', 'is_active', 'is_superuser', 'first_name', 'last_name',)

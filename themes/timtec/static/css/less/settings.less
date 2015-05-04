@@ -1,0 +1,110 @@
+// OVERWRITE DEFAULT THEME VARIABLES AND STYLES
+// ********************************************************************* //
+
+// COLORS
+
+@brand-primary:         #428bca;
+@brand-success:         #f26522;
+@brand-warning:         #0074be;
+@brand-danger:          #ec2028;
+@brand-info:            #0074be;
+
+// TYPOGRAPHY
+
+// Headings
+h1, h2, h3, h4, h5, h6 {
+  font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 500;
+}
+h1 { font-size: @font-size-h1; }
+h2 { font-size: @font-size-h2; }
+h3 { font-size: @font-size-h3; }
+h4 { font-size: @font-size-h4; }
+h5 { text-transform: none; }
+h6 {
+  font-size: @font-size-h6;
+  margin-bottom: 10px;
+  text-transform:none;
+}
+
+// Fonts
+@font-face {
+    font-family: 'teuton_24';
+    src: url('../fonts/teuton/teuton24pro-webfont.eot');
+    src: url('../fonts/teuton/teuton24pro-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/teuton/teuton24pro-webfont.woff') format('woff'),
+         url('../fonts/teuton/teuton24pro-webfont.ttf') format('truetype'),
+         url('../fonts/teuton/teuton24pro-webfont.svg#teuton_24_proregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'teuton_25';
+    src: url('../fonts/teuton/teuton25pro-webfont.eot');
+    src: url('../fonts/teuton/teuton25pro-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/teuton/teuton25pro-webfont.woff') format('woff'),
+         url('../fonts/teuton/teuton25pro-webfont.ttf') format('truetype'),
+         url('../fonts/teuton/teuton25pro-webfont.svg#teuton_25_proregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'teuton_26';
+    src: url('../fonts/teuton/teuton26pro-webfont.eot');
+    src: url('../fonts/teuton/teuton26pro-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/teuton/teuton26pro-webfont.woff') format('woff'),
+         url('../fonts/teuton/teuton26pro-webfont.ttf') format('truetype'),
+         url('../fonts/teuton/teuton26pro-webfont.svg#teuton_26_proregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@teuton-24: 'teuton_24', sans-serif;
+@teuton-25: 'teuton_25', sans-serif;
+@teuton-26: 'teuton_26', sans-serif;
+
+@main-navbar-font-family: @teuton-24;
+
+// Links
+@link-color: @brand-primary;
+a:hover, a:active {
+  text-decoration: underline;
+}
+
+// Components
+@border-radius-base: 0px;
+@border-radius-large: 0px;
+@border-radius-small: 0px;
+@padding-large-vertical: 14px;
+
+
+@btn-default-bg: @brand-info;
+@btn-default-border: darken(@btn-default-bg, 5%);
+@btn-default-color: #fff;
+
+.btn-default[disabled] {
+    background-color: #ccc;
+    color: #999;
+}
+
+//== Form states and alerts
+//
+//## Define colors for form feedback states and, by default, alerts.
+
+@state-success-text:             #dff0d8;
+@state-success-bg:               #3c763d;
+@state-success-border:           darken(spin(@state-success-bg, -10), 5%);
+
+@state-info-text:                #d9edf7;
+@state-info-bg:                  #31708f;
+@state-info-border:              darken(spin(@state-info-bg, -10), 7%);
+
+@state-warning-text:             #fcf8e3;
+@state-warning-bg:               #8a6d3b;
+@state-warning-border:           darken(spin(@state-warning-bg, -10), 5%);
+
+@state-danger-text:              #f2dede;
+@state-danger-bg:                #a94442;
+@state-danger-border:            darken(spin(@state-danger-bg, -10), 5%);
