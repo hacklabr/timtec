@@ -30,7 +30,11 @@ class Video(models.Model):
         verbose_name_plural = _('Videos')
 
     def __unicode__(self):
-        return self.name
+        if self.unit.first():
+            unit = self.unit.first()
+            if unit.lesson:
+                return u'Aula: {0} | Unidade: {1} | id youtube: {2}'.format(unit.lesson, unit, self.youtube_id)
+        return self.youtube_id
 
 
 class Class(models.Model):
@@ -491,7 +495,7 @@ class Lesson(PositionedModel):
 class Unit(PositionedModel):
     title = models.CharField(_('Title'), max_length=128, blank=True)
     lesson = models.ForeignKey(Lesson, verbose_name=_('Lesson'), related_name='units')
-    video = models.ForeignKey(Video, verbose_name=_('Video'), null=True, blank=True)
+    video = models.ForeignKey(Video, verbose_name=_('Video'), related_name='unit', null=True, blank=True)
     side_notes = models.TextField(_('Side notes'), blank=True)
     position = models.IntegerField(default=0)
     notes = generic.GenericRelation(Note)

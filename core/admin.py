@@ -40,7 +40,8 @@ class CourseProfessorAdmin(ModelAdmin):
 
 
 class VideoAdmin(ModelAdmin):
-    list_display = ('name', 'youtube_id',)
+    pass
+    # list_display = ('name', 'youtube_id',)
 
 
 class ClassAdmin(ModelAdmin):
