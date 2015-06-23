@@ -92,20 +92,30 @@
 
 
     /**
-     *  Provide a Course class. The property Class.fields contains the
+     *  Provide a Course Professor class. The property Class.fields contains the
      *  list of fields that reflects Course model in Django
      */
     app.factory('CourseProfessor', ['$resource', function($resource) {
-        var resourceConfig = {
+
+        return $resource('/api/course_professor/:id', {'id':'@id'}, {
             'update': {
                 'method': 'PUT'
             }
-        };
-        var CourseProfessor = $resource('/api/course_professor/:id', {'id':'@id'}, resourceConfig);
-        CourseProfessor.prototype.saveOrUpdate = function() {
-            return this.id > 0 ? this.$update() : this.$save();
-        };
-        return CourseProfessor;
+        });
+    }]);
+
+
+    /**
+     *  Provide a Course Author class. The property Class.fields contains the
+     *  list of fields that reflects Course model in Django
+     */
+    app.factory('CourseAuthor', ['$resource', function($resource) {
+
+        return $resource('/api/course_author/:id', {'id':'@id'}, {
+            'update': {
+                'method': 'PUT'
+            }
+        });
     }]);
 
 

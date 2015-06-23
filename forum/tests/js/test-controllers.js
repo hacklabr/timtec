@@ -101,8 +101,6 @@
                     respond([]);
                 $httpBackend.expectGET('/api/forum_question?course=1').
                     respond(response_data);
-                $httpBackend.expectGET('/api/is_forum_moderator/1/').
-                    respond(response_data);
                 $httpBackend.expectGET('/api/course_classes?course=1').
                     respond([]);
 

@@ -7,7 +7,6 @@ from django.views.generic import TemplateView
 from accounts.views import (ProfileEditView, ProfileView, UserSearchView,
                             TimtecUserViewSet, TimtecUserAdminViewSet, StudentSearchView,
                             AcceptTermsView)
-from forum.views import AnswerViewSet as ForumAnswerViewSet, ForumModeratorView
 
 from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         CourseProfessorViewSet, EnrollCourseView, HomeView,
@@ -19,10 +18,11 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         ClassCreateView, ClassUpdateView, ClassDeleteView,
                         ClassRemoveUserView, ClassAddUsersView, ClassViewSet,
                         FlatpageViewSet, CoursePictureUploadViewSet,
-                        ResumeCourseView, FlatpageView,)
+                        ResumeCourseView, FlatpageView, CourseAuthorViewSet,)
 
 from activities.views import AnswerViewSet
-from forum.views import CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet, QuestionVoteViewSet, AnswerVoteViewSet
+from forum.views import (CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet,
+                         QuestionVoteViewSet, AnswerVoteViewSet, AnswerViewSet as ForumAnswerViewSet)
 from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialViewSet, CourseMaterialFileViewSet
 from notes.views import NotesViewSet, CourseNotesView, UserNotesView
 from reports.views import UserCourseStats, CourseStatsByLessonViewSet, UserCourseLessonsStats
@@ -42,6 +42,7 @@ router.register(r'course', CourseViewSet)
 router.register(r'course_carousel', CarouselCourseView)
 router.register(r'course_professor', CourseProfessorViewSet)
 router.register(r'course_professor_picture', CoursePictureUploadViewSet)
+router.register(r'course_author', CourseAuthorViewSet)
 router.register(r'course_student', CourseStudentViewSet)
 router.register(r'professor_message', ProfessorMessageViewSet)
 router.register(r'coursethumbs', CourseThumbViewSet)
@@ -100,7 +101,6 @@ urlpatterns = patterns(
     url(r'^forum/(?P<course_slug>[-a-zA-Z0-9_]+)/$', CourseForumView.as_view(), name='forum'),
     url(r'^forum/question/(?P<slug>[-a-zA-Z0-9_]+)/$', QuestionView.as_view(), name='forum_question'),
     url(r'^forum/question/add/(?P<course_slug>[-a-zA-Z0-9_]+)/$', QuestionCreateView.as_view(), name='forum_question_create'),
-    url(r'^api/is_forum_moderator/(?P<course_id>[1-9][0-9]*)/$', ForumModeratorView.as_view(), name='is_forum_moderator'),
 
     # Course Material
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/material/file_upload/$', FileUploadView.as_view(), name='file_upload'),

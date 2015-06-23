@@ -1,0 +1,25 @@
+{% load i18n %}
+{% load timtec_markdown %}
+{% load get_current_class %}
+
+<section class="instructors" id="instructors-info">
+    {% get_current_class course as current_class %}
+
+    {% if current_class.assistant %}
+    <div class="page-header-double top">
+        <h3><i class="fa fa-angle-double-right"></i> {% trans "Assistant Professor" %}</h3>
+    </div>
+    {% with course_assistant_professor=current_class.assistant %}
+        <div {% if course_assistant_professor.user %}id="{{ course_assistant_professor.username }}"{% endif %} class="instructor row">
+            <div class="instructor-photo col-sm-12">
+                <img src="{{ course_assistant_professor.get_picture_url }}" class="img-thumbnail">
+            </div>
+            <div class="col-sm-12">
+                <h1 class="fullname bottom top">{{ course_assistant_professor.get_full_name }}</h1>
+                <p>{{ course_assistant_professor.biography|timtec_markdown }}</p>
+            </div>
+        </div>
+    {% endwith %}
+    {% endif %}
+
+</section>

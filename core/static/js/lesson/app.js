@@ -12,7 +12,8 @@
         'youtube',
         'django',
         'forum',
-        'notes'
+        'notes',
+        'directives.layout',
     ]);
 
 })(angular);

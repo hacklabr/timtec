@@ -1,0 +1,15 @@
+{% extends 'default:administration/users.html' %}
+{% load i18n %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
+{% block content %}
+    <div class="header-static">
+        <div class="container">
+            <h1>{% trans 'Users' %}</h1>
+        </div>
+    </div>
+    {{block.super}}
+{% endblock %}

@@ -13,9 +13,6 @@ from forum.forms import QuestionForm
 from forum.serializers import QuestionSerializer, AnswerSerializer, QuestionVoteSerializer, AnswerVoteSerializer
 from forum.permissions import HideQuestionPermission
 from rest_framework import viewsets
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
 from administration.views import AdminMixin
 import operator
 
@@ -178,15 +175,3 @@ class AnswerVoteViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         return AnswerVote.objects.filter(user=user)
-
-
-class ForumModeratorView(LoginRequiredMixin, APIView):
-
-    permission_classes = (IsAuthenticated,)
-
-    def get(self, request, format=None, *args, **kwargs):
-        if request.user.groups.filter(name="professors"):
-            user_moderator = True
-        else:
-            user_moderator = False
-        return Response(user_moderator)

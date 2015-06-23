@@ -19,13 +19,13 @@
                         <span class="title" ng-bind="professor.name || professor.user_info.name">{% trans 'Name' %}</span>
                     </div>
                     <div class="col-lg-1 textright">
-                        <button class="btn btn-danger" ng-click="deleteProfessor(professor)"> <i class="fa fa-trash-o"></i></button>
+                        <button class="btn btn-danger" ng-click="delete_instructor(professor)"> <i class="fa fa-trash-o"></i></button>
                     </div>
                 </div>
             </div>
             <div class="submit textright">
                 <button class="btn btn-danger" ng-click="organizingInstructors=false">{% trans 'Close' %}</button>
-                <button class="btn btn-success" ng-click="saveAllInstructors()">{% trans 'Save' %}</button>
+                <button class="btn btn-success" ng-click="save_all_instructors()">{% trans 'Save' %}</button>
             </div>
         </div>
 

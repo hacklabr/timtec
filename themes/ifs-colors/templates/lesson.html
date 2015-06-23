@@ -1,0 +1,76 @@
+{% extends "default:lesson.html" %}
+
+
+{% block content %}
+<!-- COURSE -->
+<div id="course" class="course-lesson" ng-app="lesson">
+
+    <!-- HEADER -->
+    {% include "_course-header-inline.html"  with course=lesson.course %}
+    <!-- END HEADER -->
+
+    <!-- COURSE CONTENT -->
+    <section id="course-content" class="container">
+
+        <div id="lesson-header" class="clearfix">
+        {% block lesson_headder %}
+            {% include '_lesson_header.html' %}
+        {% endblock %}
+        </div>
+
+        <!-- ROW -->
+        <div ng-controller="MainCtrl">
+            <div class="row">
+                <!-- UNITS NAVIGATION FOR TABLET AND DESKTOP -->
+                <div class="col-md-1 col-sm-2 hidden-xs" id="lesson-units-nav">
+                    {% block units_nav %}
+                    {{ block.super }}
+                    {% endblock %}
+                </div>
+                <!-- END UNITS NAVIGATION FOR TABLET AND DESKTOP -->
+
+                <!-- UNITS NAVIGATION FOR PHONES -->
+                <div class="col-xs-12 visible-xs">
+                    {% block units_nav_mobile %}
+                    {{ block.super }}
+                    {% endblock %}
+                </div>
+                <!-- END UNITS NAVIGATION FOR PHONES -->
+
+                <div class="col-lg-8 col-md-8 col-sm-10 col-xs-12">
+                    {% block lesson_video %}
+                    {{ block.super }}
+                    {% endblock %}
+                </div>
+
+                <!-- div ng-view></div -->
+
+                <!-- NOTES -->
+                <div class="col-lg-3 col-md-3 col-sm-10 col-xs-12 col-md-offset-0 col-sm-offset-1"
+                     id="student-notes"
+                     ng-lesson-fullheight>
+                    {% block lesson_annotation %}
+                    {{ block.super }}
+                    {% endblock %}
+                </div>
+                <!-- END NOTES -->
+            </div>
+            <!-- END ROW -->
+
+            <div class="row">
+                <div class="col-lg-8 col-sm-10 col-lg-offset-1 col-sm-offset-1" id="materials">
+                    {% block lesson_adicional_material %}
+                    {{ block.super }}
+                    {% endblock %}
+
+                    <!-- FORUM -->
+                    {% include "_forum_inline.html"  with course=lesson.course question_form=1 %}
+                    <!-- END FORUM -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END COURSE CONTENT -->
+</div>
+<!-- END COURSE -->
+{% endblock %}

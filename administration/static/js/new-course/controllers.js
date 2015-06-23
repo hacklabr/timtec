@@ -3,8 +3,8 @@
     var app = angular.module('new-course');
 
     app.controller('CourseEditController',
-        ['$scope', '$window', '$modal', '$http', 'Course',  'CourseProfessor', 'Lesson', '$filter', 'youtubePlayerApi', 'VideoData', 'FormUpload',
-        function($scope, $window, $modal, $http , Course,  CourseProfessor, Lesson, $filter, youtubePlayerApi, VideoData, FormUpload) {
+        ['$scope', '$window', '$modal', '$http', '$q', 'Course',  'CourseAuthor', 'Lesson', '$filter', 'youtubePlayerApi', 'VideoData', 'FormUpload',
+        function($scope, $window, $modal, $http , $q, Course,  CourseProfessor, Lesson, $filter, youtubePlayerApi, VideoData, FormUpload) {
 
             $scope.errors = {};
             var httpErrors = {
@@ -13,39 +13,39 @@
                 '404': 'Este curso não existe!'
             };
 
-
             $scope.course_id = parseInt($window.course_id, 10);
-            // vv como faz isso de uma formula angular ?
-            var match = document.location.href.match(/courses\/([0-9]+)/);
+
             $scope.course = new Course();
             $scope.courseProfessors = [];
             $scope.lessons = [];
             window.s = $scope;
 
-            if( match ) {
-                $scope.course.$get({id: match[1]})
-                    .then(function(course){
-                        if(course.intro_video) {
-                            youtubePlayerApi.videoId = course.intro_video.youtube_id;
-                        }
-                        document.title = 'Curso: {0}'.format(course.name);
-                        $scope.addThumb = !course.thumbnail_url;
-                        $scope.addHomeThumb = !course.home_thumbnail_url;
-                    })
-                    .then(function(){
-                        $scope.lessons = Lesson.query({'course__id': match[1]});
-                        return $scope.lessons.promise;
-                    })
-                    .then(function(){
-                        $scope.courseProfessors = CourseProfessor.query({course: match[1], role: 'instructor'});
-                        return $scope.courseProfessors.promise;
-                    })['catch'](function(resp){
-                        $scope.alert.error(httpErrors[resp.status.toString()]);
-                    })['finally'](function(){
-                        $scope.statusList = Course.fields.status.choices;
+            $scope.course.$get({id: $scope.course_id})
+                .then(function(course){
+                    if(course.intro_video) {
+                        youtubePlayerApi.videoId = course.intro_video.youtube_id;
+                    }
+                    document.title = 'Curso: {0}'.format(course.name);
+                    $scope.addThumb = !course.thumbnail_url;
+                    $scope.addHomeThumb = !course.home_thumbnail_url;
+                })
+                .then(function(){
+                    $scope.lessons = Lesson.query({'course__id': $scope.course_id});
+                    return $scope.lessons.promise;
+                })
+                .then(function(){
+                    $scope.courseProfessors = CourseProfessor.query({
+                        course: $scope.course_id
                     });
-            }
-            // ^^ como faz isso de uma formula angular ?
+
+                    // TODO here comes classes professors
+
+                    return $scope.courseProfessors.promise;
+                })['catch'](function(resp){
+                    $scope.alert.error(httpErrors[resp.status.toString()]);
+                })['finally'](function(){
+                    $scope.statusList = Course.fields.status.choices;
+                });
 
             var player;
             $scope.playerReady = false;
@@ -153,37 +153,33 @@
                     });
             };
 
-            $scope.deleteProfessor = function(courseProfessor) {
-                var professor_name = '';
-                if (courseProfessor.user) {
-                    professor_name = courseProfessor.user_info.name || courseProfessor.user_info.username;
-                } else {
-                    professor_name = courseProfessor.name;
+            $scope.delete_instructor = function(course_author) {
+
+                var confirm_exclude_instructor_msg = 'Tem certeza que deseja remover "{0}" da lista de instrutores deste curso?'.format(course_author.get_name);
+                if (window.confirm(confirm_exclude_instructor_msg)){
+                    course_author.$delete().then(function(){
+                        var index = $scope.courseProfessors.indexOf(course_author);
+                        $scope.courseProfessors.splice(index, 1);
+                        $scope.alert.success('"{0}" foi removido da lista de instrutores.'.format(course_author.get_name));
+                    }, function(){
+                        $scope.alert.error('Erro ao remover "{0}" da lista de instrutores.'.format(course_author.get_name));
+                    });
                 }
-
-                var msg = 'Tem certeza que deseja remover "{0}" da lista de professores deste curso?'.format(professor_name);
-                if(!window.confirm(msg)) return;
-
-                courseProfessor.$delete().then(function(){
-                    var index = $scope.courseProfessors.indexOf(courseProfessor);
-                    $scope.courseProfessors.splice(index, 1);
-                    $scope.alert.success('"{0}" foi removido da lista.'.format(professor_name));
-                });
             };
 
-            $scope.saveProfessor = function(courseProfessor) {
-                function __saveProfessor(){
-                    if (!$scope.course.id) {
-                        return $scope.course.save().then(function(course){
-                            courseProfessor.course = course.id;
-                            return courseProfessor.saveOrUpdate();
-                        });
-                    }
-                    return courseProfessor.saveOrUpdate();
-                }
-                return __saveProfessor().then(function(){
-                    $scope.alert.success('{0} foi atualizado'.format(courseProfessor.user_info.name));
+            $scope.save_all_instructors = function() {
+                var promises_list = [];
+                $scope.courseProfessors.forEach(function(course_author) {
+                    delete course_author.picture;
+                    course_author.$update();
+                    promises_list.push(course_author.$promise);
                 });
+                $q.all([promises_list]).then(function() {
+                        $scope.alert.success('Posição dos instrutores salva com sucesso.');
+                    }, function() {
+                        $scope.alert.error('Não foi possível salvar a posição dos instrutores!');
+                    }
+                );
             };
 
             $scope.open_professor_modal = function(course_professor) {
@@ -209,7 +205,7 @@
 
                     if (course_professor.id === undefined){
                         course_professor.course = $scope.course_id;
-                        course_professor.role = 'instructor';
+                        course_professor.position = $scope.courseProfessors.length;
 
                         course_professor.$save({}, function (course_professor){
 
@@ -333,6 +329,7 @@
                         $scope.course_professor.course_professor_picture_file = $scope.course_professor_picture_file;
                     }
                     $modalInstance.close($scope.course_professor);
+                    $scope.course_professor = undefined;
                 };
 
                 $scope.getUsers = function(val) {
@@ -413,27 +410,6 @@
                         $scope.alert.error('Algum problema impediu a atualização das aulas');
                     });
             };
-
-            $scope.saveAllInstructors = function() {
-                var i = 0;
-                function __saveInstructors() {
-                    if(i < $scope.courseProfessors.length) {
-                        return $scope.courseProfessors[i++]
-                                     .saveOrUpdate()
-                                     .then(__saveInstructors);
-                    }
-                }
-
-                $scope.alert.warn('Atualizando dados dos professores');
-
-                __saveInstructors()
-                    .then(function(){
-                        $scope.alert.success('Os dados dos professores foram atualizados.');
-                    })['catch'](function(){
-                        $scope.alert.error('Algum problema impediu a atualização dos dados dos professores.');
-                    });
-            };
-
 
         }
     ]);
