@@ -100,8 +100,7 @@ setup_coveralls:
 
 setup_js:
 	sudo `which npm` install -g less@2.2 yuglify uglify-js cssmin karma-cli jshint ngmin grunt-cli # --loglevel silent
-	sudo npm install grunt grunt-angular-gettext
-	npm install karma karma-jasmine karma-phantomjs-launcher
+	sudo npm install grunt grunt-angular-gettext karma karma-jasmine karma-phantomjs-launcher
 
 setup_django: clean
 	python manage.py syncdb --all --noinput
