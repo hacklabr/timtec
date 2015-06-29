@@ -117,7 +117,7 @@ class ExportCourseView(views.SuperuserRequiredMixin, View):
 
         filename = course.slug + '.tar.gz'
 
-        response = HttpResponse(content_type='application/octet-stream')
+        response = HttpResponse(content_type='application/x-compressed-tar')
         response['Content-Disposition'] = 'attachment; filename={}'.format(filename)
 
         course_tar_file = tarfile.open(fileobj=response, mode='w:gz')
@@ -144,21 +144,22 @@ class ExportCourseView(views.SuperuserRequiredMixin, View):
                 course_material_file_path = course_material_file['file']
                 self.add_files_to_export(course_tar_file, course_material_file_path)
 
+        course_tar_file.close()
         return response
 
 
 class ImportCourseView(APIView):
 
+    renderer_classes = (JSONRenderer,)
     permission_classes = (permissions.IsAdminUser,)
 
     def post(self, request, *args, **kwargs):
 
-        import_file = tarfile.open(fileobj=request.FILES.get('course-import-file'))
+        import_file = tarfile.open(fileobj=request.FILES.get('course-import-file'), mode='r:gz')
         file_names = import_file.getnames()
         json_file_name = [s for s in file_names if '.json' in s][0]
 
         json_file = import_file.extractfile(json_file_name)
-        # course_data = json_file.read()
 
         stream = BytesIO(json_file.read())
         course_data = JSONParser().parse(stream)
@@ -225,6 +226,7 @@ class ImportCourseView(APIView):
             course_obj.save()
 
             return Response({'new_course_url': reverse_lazy('administration.edit_course',
-                             kwargs={'course_id': course_serializer.object.id})})
+                                                            kwargs={'course_id': course_serializer.object.id}),
+                             })
         else:
             return Response({'error': 'invalid_file'})
