@@ -155,8 +155,11 @@
                 }
                 $scope.currentUnit.video.youtube_id = youtube_id;
                 VideoData.load(youtube_id).then(function(data){
-                    $scope.currentUnit.video.name = data.entry.title.$t;
-                    $scope.currentUnit.title = data.entry.title.$t;
+                    if (data.items.length > 0) {
+                        $scope.currentUnit.video.name = data.items[0].snippet.title;
+                        if (!$scope.currentUnit.title)
+                            $scope.currentUnit.title = data.items[0].snippet.title;
+                    }
                 });
                 $scope.play(youtube_id);
             };

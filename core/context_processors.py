@@ -10,7 +10,8 @@ def contact_form(request):
 def site_settings(request):
     return {'site': {'domain': settings.SITE_DOMAIN,
                      'home': settings.SITE_HOME,
-                     'name': settings.SITE_NAME}}
+                     'name': settings.SITE_NAME,
+                     'YOUTUBE_API_KEY': settings.YOUTUBE_API_KEY}}
 
 
 def get_current_path(request):
