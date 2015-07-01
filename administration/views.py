@@ -123,9 +123,9 @@ class ExportCourseView(views.SuperuserRequiredMixin, View):
         course_tar_file = tarfile.open(fileobj=response, mode='w:gz')
         course_tar_file.addfile(tar_info, json_file)
 
-        course_professors = course_serializer.data.get('course_professors')
-        for course_professor in course_professors:
-            picture_path = course_professor.get('picture')
+        course_authors = course_serializer.data.get('course_authors')
+        for course_author in course_authors:
+            picture_path = course_author.get('picture')
             if picture_path:
                 picture_path = picture_path.split('/', 2)[-1]
                 self.add_files_to_export(course_tar_file, picture_path)
@@ -178,13 +178,13 @@ class ImportCourseView(APIView):
         course_home_thumbnail_path = course_data.pop('home_thumbnail')
 
         # Save course professor images
-        course_professors_pictures = {}
-        for course_professor in course_data.get('course_professors'):
-            professor_name = course_professor.get('name')
-            picture_path = course_professor.pop('picture')
-            if picture_path and professor_name:
+        course_author_pictures = {}
+        for course_author in course_data.get('course_authors'):
+            author_name = course_author.get('name')
+            picture_path = course_author.pop('picture')
+            if picture_path and author_name:
                 picture_path = picture_path.split('/', 2)[-1]
-                course_professors_pictures[professor_name] = picture_path
+                course_author_pictures[author_name] = picture_path
 
         # save course material images
         course_material = course_data.get('course_material')
@@ -216,12 +216,12 @@ class ImportCourseView(APIView):
                 course_material_files_list.append(TimtecFile(file=DjangoFile(course_material_file_obj)))
             course_obj.course_material.files = course_material_files_list
 
-            for course_professor in course_obj.course_professors.all():
-                picture_path = course_professors_pictures.get(course_professor.name)
+            for course_author in course_obj.course_authors.all():
+                picture_path = course_author_pictures.get(course_author.name)
                 if picture_path and picture_path in file_names:
                     picture_file_obj = import_file.extractfile(picture_path)
-                    course_professor.picture = DjangoFile(picture_file_obj)
-                    course_professor.save()
+                    course_author.picture = DjangoFile(picture_file_obj)
+                    course_author.save()
 
             course_obj.save()
 
