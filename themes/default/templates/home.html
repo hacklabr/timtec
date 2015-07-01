@@ -73,8 +73,7 @@ home
                         <span class="course-date">
                             <i class="fa fa-calendar"></i> {{ course.start_date | date : 'MMM, yyyy' | capitalize}}
                         </span>
-                        <span class="enroll-link textright uppercase">
-                            Começar curso <i class="fa fa-angle-right"></i>
+                        <span class="enroll-link textright uppercase">Começar curso <i class="fa fa-angle-right"></i>
                         </span>
                     </div>
                     {% endverbatim %}
@@ -108,9 +107,9 @@ home
                                 </span>
                                 <span class="enroll-link textright uppercase">
                                     {% if user|is_enrolled:course %}
-                                    {% trans 'Go to course' %} <i class="fa fa-angle-right"></i>
+                                        {% trans 'Resume course' %}<i class="fa fa-angle-right"></i>
                                     {% else %}
-                                    {% trans 'Resume course' %} <i class="fa fa-angle-right"></i>
+                                        {% trans 'Go to course' %}<i class="fa fa-angle-right"></i>
                                     {% endif %}
                                 </span>
                             </div>

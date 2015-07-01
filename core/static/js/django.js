@@ -7,6 +7,7 @@
     app.constant('MEDIA_URL', window.MEDIA_URL);
     app.constant('DEBUG', window.DEBUG);
     app.constant('LANGUAGE', window.LANGUAGE_CODE);
+    app.constant('YOUTUBE_API_KEY', window.YOUTUBE_API_KEY);
     app.config(
         function ($httpProvider, $logProvider, DEBUG, $sceDelegateProvider, STATIC_URL) {
             $httpProvider.defaults.xsrfCookieName = 'csrftoken';
