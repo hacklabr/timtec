@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 from django.forms import Textarea
-from django.db import models
 from activities.admin import ModelAdmin
 from .models import *
 
@@ -40,7 +39,8 @@ class CourseProfessorAdmin(ModelAdmin):
 
 
 class VideoAdmin(ModelAdmin):
-    list_display = ('name', 'youtube_id',)
+    pass
+    # list_display = ('name', 'youtube_id',)
 
 
 class ClassAdmin(ModelAdmin):

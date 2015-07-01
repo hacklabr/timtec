@@ -58,7 +58,8 @@
                 if(!vid || vid === oldVid) return;
                 if(player) player.cueVideoById(vid);
                 VideoData.load(vid).then(function(data){
-                    $scope.course.intro_video.name = data.entry.title.$t;
+                    if (data.items.length > 0)
+                        $scope.course.intro_video.name = data.items[0].snippet.title;
                 });
             });
 
