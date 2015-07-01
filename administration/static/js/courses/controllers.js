@@ -81,7 +81,7 @@
             $scope.import_course_modal = function () {
                 var modalInstance = $modal.open({
                     templateUrl: 'import_course_modal.html',
-                    controller: ['$scope', '$modalInstance', ImportCourseModalInstanceCtrl],
+                    controller: ['$scope', '$modalInstance', ImportCourseModalInstanceCtrl]
                 });
                 modalInstance.result.then(function (course_import_file) {
                     send_course_file(course_import_file);
