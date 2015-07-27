@@ -12,7 +12,7 @@ class CourseAtuhorsExportSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CourseAuthor
-        exclude = ('user',)
+        exclude = ('pk', 'user',)
 
 
 class UnitImportExportSerializer(serializers.ModelSerializer):
@@ -21,6 +21,7 @@ class UnitImportExportSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Unit
+        exclude = ('pk',)
 
 
 class LessonImportExportSerializer(serializers.ModelSerializer):
@@ -28,6 +29,7 @@ class LessonImportExportSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Lesson
+        exclude = ('pk',)
 
 
 class CourseExportSerializer(serializers.ModelSerializer):
