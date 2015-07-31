@@ -46,7 +46,9 @@ class CourseSerializer(serializers.ModelSerializer):
         fields = ("id", "slug", "name", "intro_video", "application", "requirement",
                   "abstract", "structure", "workload", "pronatec", "status",
                   "thumbnail_url", "home_thumbnail_url", "home_position",
-                  "start_date", "professor_name", "home_published", "professors_names", "has_started")
+                  "start_date", "professor_name", "home_published",
+                  "professors_names", "has_started",
+                  "min_percent_to_complete")
 
     @staticmethod
     def get_professor_name(obj):

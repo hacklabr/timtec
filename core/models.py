@@ -33,14 +33,19 @@ class Video(models.Model):
         if self.unit.first():
             unit = self.unit.first()
             if unit.lesson:
-                return u'Aula: {0} | Unidade: {1} | id youtube: {2}'.format(unit.lesson, unit, self.youtube_id)
+                return u'Aula: {0} | Unidade: {1} | id youtube: {2}'.format(
+                    unit.lesson, unit, self.youtube_id)
         return self.youtube_id
 
 
 class Class(models.Model):
     name = models.CharField(max_length=200)
-    assistant = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Assistant'), related_name='professor_classes', null=True, blank=True)
-    students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='classes', blank=True)
+    assistant = models.ForeignKey(settings.AUTH_USER_MODEL,
+                                  verbose_name=_('Assistant'),
+                                  related_name='professor_classes', null=True,
+                                  blank=True)
+    students = models.ManyToManyField(settings.AUTH_USER_MODEL,
+                                      related_name='classes', blank=True)
     course = models.ForeignKey('Course', verbose_name=_('Course'))
 
     def __unicode__(self):
@@ -61,7 +66,8 @@ class Class(models.Model):
     def remove_students(self, *objs):
         for obj in objs:
             self.students.remove(obj)
-            if CourseStudent.objects.filter(course=self.course, user=obj).exists():
+            if CourseStudent.objects.filter(course=self.course,
+                                            user=obj).exists():
                 self.course.default_class.students.add(obj)
 
 
@@ -73,7 +79,8 @@ class Course(models.Model):
 
     slug = models.SlugField(_('Slug'), max_length=255, unique=True)
     name = models.CharField(_('Name'), max_length=255, blank=True)
-    intro_video = models.ForeignKey(Video, verbose_name=_('Intro video'), null=True, blank=True)
+    intro_video = models.ForeignKey(Video, verbose_name=_('Intro video'),
+                                    null=True, blank=True)
     application = models.TextField(_('Application'), blank=True)
     requirement = models.TextField(_('Requirement'), blank=True)
     abstract = models.TextField(_('Abstract'), blank=True)
@@ -87,9 +94,15 @@ class Course(models.Model):
     students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='studentcourse_set', through='CourseStudent')
     home_thumbnail = models.ImageField(_('Home thumbnail'), upload_to=hash_name('home_thumbnails', 'name'), null=True, blank=True)
     home_position = models.IntegerField(null=True, blank=True)
-    start_date = models.DateField(_('Start date'), default=None, blank=True, null=True)
+    start_date = models.DateField(_('Start date'), default=None, blank=True,
+                                  null=True)
     home_published = models.BooleanField(default=False)
-    default_class = models.OneToOneField(Class, verbose_name=_('Default Class'), related_name='default_course', null=True, blank=True)
+    default_class = models.OneToOneField(Class, verbose_name=_('Default Class'),
+                                         related_name='default_course',
+                                         null=True, blank=True)
+    min_percent_to_complete = models.IntegerField(default=100,
+                                                        null=True,
+                                                        blank=True)
 
     class Meta:
         verbose_name = _('Course')
@@ -139,7 +152,8 @@ class Course(models.Model):
 
     def avg_lessons_users_progress(self, classes=None):
         if classes:
-            student_enrolled = self.coursestudent_set.filter(user__classes__in=classes).count()
+            student_enrolled = self.coursestudent_set.filter(
+                user__classes__in=classes).count()
         else:
             student_enrolled = self.coursestudent_set.all().count()
         progress_list = []
@@ -151,11 +165,13 @@ class Course(models.Model):
             units_len = lesson.unit_count()
             # avoid zero divisfion
             if units_len and student_enrolled:
-                units_done = StudentProgress.objects.exclude(complete=None).filter(unit__lesson=lesson)
+                units_done = StudentProgress.objects.exclude(
+                    complete=None).filter(unit__lesson=lesson)
                 if classes:
                     units_done = units_done.filter(user__classes__in=classes)
                 units_done_len = units_done.count()
-                lesson_progress['progress'] = 100 * units_done_len / (units_len * student_enrolled)
+                lesson_progress['progress'] = 100 * units_done_len / (
+                    units_len * student_enrolled)
                 # lesson_progress['forum_questions'] = lesson.forum_questions.count()
                 # lesson_progress['progress'] =
                 # lesson_progress['finish'] = self.get_lesson_finish_time(lesson)
@@ -166,7 +182,8 @@ class Course(models.Model):
         return progress_list
 
     def forum_answers_by_lesson(self):
-        return self.user.forum_answers.values('question__lesson').annotate(Count('question__lesson'))
+        return self.user.forum_answers.values('question__lesson').annotate(
+            Count('question__lesson'))
 
     def get_video_professors(self):
         return self.course_authors.all()
