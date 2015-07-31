@@ -76,6 +76,6 @@ LOGGING = {
 try:
     # THIS FILE SETS PRODUCTION SPECIFIC
     # SENSITIVY VALUES (SUCH AS GOOGLE ANALYTICS KEY)
-    from .settings_production import *
-except ImportError:
+    execfile(os.path.join(SETTINGS_DIR, 'settings_production.py'))
+except IOError:
     pass

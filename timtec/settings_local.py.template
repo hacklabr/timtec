@@ -9,7 +9,7 @@ TEMPLATE_DEBUG = DEBUG
 SITE_ID = 1
 
 ###### TODO: change this to the theme you want to use ######
-TIMTEC_THEME = 'if'
+TIMTEC_THEME = 'ifs-colors'
 
 ###### TODO: Remove this block if you don't want to use ifs app ######
 INSTALLED_APPS = list(INSTALLED_APPS)
