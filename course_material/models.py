@@ -7,6 +7,9 @@ class CourseMaterial(models.Model):
     course = models.OneToOneField('core.Course', related_name='course_material', verbose_name=_('Course Materials'))
     text = models.TextField(_('Question'))
 
+    class Meta:
+        unique_together = ("id", "course")
+
     def __unicode__(self):
         return self.course.name
 
