@@ -33,3 +33,4 @@ class ActivityImportExportSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Activity
+        exclude = ('id', 'unit',)

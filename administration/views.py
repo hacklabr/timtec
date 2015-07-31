@@ -197,6 +197,7 @@ class ImportCourseView(APIView):
             course_serializer = CourseImportSerializer(course, data=course_data)
         else:
             course_serializer = CourseImportSerializer(data=course_data)
+
         if course_serializer.is_valid():
 
             course_obj = course_serializer.save()
@@ -215,6 +216,8 @@ class ImportCourseView(APIView):
                 course_material_file_obj = import_file.extractfile(course_material_file_path)
                 course_material_files_list.append(TimtecFile(file=DjangoFile(course_material_file_obj)))
             course_obj.course_material.files = course_material_files_list
+            course_obj.course_material.text = course_material['text']
+            course_obj.course_material.save()
 
             for course_author in course_obj.course_authors.all():
                 picture_path = course_author_pictures.get(course_author.name)

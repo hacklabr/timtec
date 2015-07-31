@@ -6,7 +6,7 @@
 
 server {
     listen 80;
-    client_max_body_size 4m;
+    client_max_body_size 50m;
     # server_name timtec.com.br;
 
     access_log /var/log/nginx/production.timtec.com.br.access.log;
