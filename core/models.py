@@ -80,7 +80,7 @@ class Course(models.Model):
     structure = models.TextField(_('Structure'), blank=True)
     workload = models.TextField(_('Workload'), blank=True)
     pronatec = models.TextField(_('Pronatec'), blank=True)
-    status = models.CharField(_('Status'), choices=STATES, default=STATES[1][0], max_length=64)
+    status = models.CharField(_('Status'), choices=STATES, default=STATES[0][0], max_length=64)
     thumbnail = models.ImageField(_('Thumbnail'), upload_to=hash_name('course_thumbnails', 'name'), null=True, blank=True)
     professors = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='professorcourse_set', through='CourseProfessor')
     authors = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='authorcourses', through='CourseAuthor')

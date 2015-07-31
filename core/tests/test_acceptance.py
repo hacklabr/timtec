@@ -20,7 +20,7 @@ def test_mainview(client):
 @pytest.mark.django_db
 def test_enroll_user(client, user):
     import datetime
-    course = mommy.make('Course', slug='acceptance_enroll_user', start_date=datetime.date.today())
+    course = mommy.make('Course', slug='acceptance_enroll_user', start_date=datetime.date.today(), status='published')
     lesson = mommy.make('Lesson', course=course, slug='lesson')
     from core.models import CourseStudent
 
