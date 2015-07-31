@@ -63,10 +63,17 @@
 
     app.controller('RelationshipCtrl', ['$scope',
         function ($scope) {
-            $scope.possibleAnswers = $scope.currentActivity.expected.slice(0);
+
             function compareNumbers(a, b) {
               return a - b;
             }
+
+            $scope.$watch('currentActivity', function(currentActivity) {
+                $scope.possibleAnswers = currentActivity.expected.slice(0);
+                $scope.possibleAnswers.sort(compareNumbers);
+            });
+
+            $scope.possibleAnswers = $scope.currentActivity.expected.slice(0);
             $scope.possibleAnswers.sort(compareNumbers);
         }
     ]);
