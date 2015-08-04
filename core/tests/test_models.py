@@ -110,3 +110,23 @@ def test_get_current_user_classes(user):
     klass = mommy.make('Class', assistant=user, course=course)
 
     assert klass == course_professor.get_current_user_classes()[0]
+
+
+@pytest.mark.django_db
+def test_min_percent_range():
+    course = mommy.make('Course')
+
+    assert course.min_percent_to_complete <= 100
+
+
+@pytest.mark.django_db
+def test_course_serializer():
+    from core.serializers import CourseSerializer
+    course = mommy.make('Course')
+
+    course_serializer = CourseSerializer(course)
+
+    assert course.min_percent_to_complete == \
+           course_serializer.field_mapping.get("min_percent_to_complete",
+                                               99)
+
