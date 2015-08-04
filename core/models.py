@@ -247,20 +247,57 @@ class CourseStudent(models.Model):
 
     @property
     def units_done(self):
-        return StudentProgress.objects.exclude(complete=None)\
-                                      .filter(user=self.user, unit__lesson__course=self.course)
+        return StudentProgress.objects.exclude(complete=None) \
+            .filter(user=self.user, unit__lesson__course=self.course)
+
+    @property
+    def course_finished(self):
+        return self.percent_progress() >= \
+                self.course.min_percent_to_complete
+
+    def can_emmit_receipt(self):
+        return self.course_finished and self.user.is_profile_filled
+
+    def reached_last_unit(self):
+        try:
+            last_unit_done = self.units_done.latest('complete')
+            # try to get the next unit in same lesson
+            next_unit = Unit.objects \
+                .filter(lesson=last_unit_done.unit.lesson,
+                        position__gt=last_unit_done.unit.position) \
+                .order_by('position').first()
+
+            if next_unit:
+                return False
+            else:
+                next_lesson = self.course.lessons \
+                    .filter(position__gt=last_unit_done.unit.lesson.position) \
+                    .order_by('position').first()
+
+                if next_lesson and next_lesson.first_unit():
+                    return False
+                else:
+                    return True
+        except StudentProgress.DoesNotExist:
+            return False
+        except AttributeError:
+            pass
+        return None
 
     def resume_next_unit(self):
         try:
             last_unit_done = self.units_done.latest('complete')
             # try to get the next unit in same lesson
             next_unit = Unit.objects.filter(lesson=last_unit_done.unit.lesson,
-                                            position__gt=last_unit_done.unit.position).order_by('position').first()
+                                            position__gt=last_unit_done.unit.position).order_by(
+                'position').first()
 
             if next_unit:
                 return next_unit
             else:
-                next_lesson = self.course.lessons.filter(position__gt=last_unit_done.unit.lesson.position).order_by('position').first()
+                next_lesson = self.course.lessons.filter(
+                    position__gt=last_unit_done.unit.lesson.position).order_by(
+                    'position').first()
                 if next_lesson and next_lesson.first_unit():
                     return next_lesson.units.order_by('position').first()
                 else:
@@ -529,17 +566,67 @@ class Unit(PositionedModel):
 
 
 class StudentProgress(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Student'))
-    unit = models.ForeignKey(Unit, verbose_name=_('Unit'), related_name='progress')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             verbose_name=_('Student'))
+    unit = models.ForeignKey(Unit, verbose_name=_('Unit'),
+                             related_name='progress')
     complete = models.DateTimeField(editable=True, null=True, blank=True)
     last_access = models.DateTimeField(auto_now=True, editable=False)
+
+    def save(self, *args, **kwargs):
+        super(StudentProgress, self).save(*args, **kwargs)
+
+        course_student = CourseStudent.objects.get(
+            course=self.unit.lesson.course,
+            user=self.user)
+
+        from django.core.exceptions import ObjectDoesNotExist
+        try:
+            receipt = CourseCertification.objects.get(
+                course_student=course_student)
+        except ObjectDoesNotExist:
+            if course_student.can_emmit_receipt():
+                receipt = CourseCertification(course_student=course_student,
+                                          is_valid=True, link="")
+                receipt.save()
 
     class Meta:
         unique_together = (('user', 'unit'),)
         verbose_name = _('Student Progress')
 
     def __unicode__(self):
-        return u'%s @ %s c: %s la: %s' % (self.user, self.unit, self.complete, self.last_access)
+        return u'%s @ %s c: %s la: %s' % (
+            self.user, self.unit, self.complete, self.last_access)
+
+
+class CourseCertification(models.Model):
+    TYPES = (
+        ('receipt', _('Receipt')),
+        ('certificate', _('Certificate')),
+    )
+
+    type = models.CharField(choices=TYPES, max_length=127)
+    course_student = models.ForeignKey(CourseStudent, unique=True,
+                                       verbose_name=_('Enrollment'))
+    created_date = models.DateTimeField(auto_now=True)
+    modified_date = models.DateTimeField(auto_now_add=True)
+    is_valid = models.BooleanField(default=False)
+
+    course_workload = models.TextField(_('Workload'), blank=True)
+    course_total_units = models.IntegerField(blank=True)
+
+    link = models.CharField(max_length=255)
+
+    def save(self, *args, **kwargs):
+        self.course_workload = self.course_student.course.workload
+        self.course_total_units = self.course_student.units_done.count()
+        super(CourseCertification, self).save(*args, **kwargs)
+
+    class Meta:
+        pass
+
+    def __unicode__(self):
+        return u'({0}): {1}'.format(self.course_student, self.status)
 
 
 class EmailTemplate(models.Model):
