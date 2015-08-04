@@ -130,3 +130,59 @@ def test_course_serializer():
            course_serializer.field_mapping.get("min_percent_to_complete",
                                                99)
 
+@pytest.mark.django_db
+def test_studentprogress_emmit_receipt(user):
+    from datetime import datetime
+
+    course = mommy.make('Course')
+    course_student = mommy.make('CourseStudent', user=user, course=course)
+    assert course_student.reached_last_unit() is False
+
+    lesson1 = mommy.make('Lesson', slug='lesson1', desc='', name='l1',
+                         notes='', course=course, position=1)
+    lesson2 = mommy.make('Lesson', slug='lesson2', desc='', name='l1',
+                         notes='', course=course, position=2)
+    mommy.make('Lesson', slug='lesson3', desc='', name='l1', notes='',
+               course=course, position=3)
+    assert course_student.reached_last_unit() is False
+
+    unit1 = mommy.make('Unit', title='unit1', lesson=lesson1)
+    unit2 = mommy.make('Unit', title='unit2', lesson=lesson1)
+    unit3 = mommy.make('Unit', title='unit3', lesson=lesson2)
+    assert course_student.resume_next_unit() == unit1
+    assert course_student.reached_last_unit() is False
+
+    mommy.make('StudentProgress', user=user, unit=unit1,
+               complete=datetime.now())
+
+    mommy.make('StudentProgress', user=user, unit=unit2,
+               complete=datetime.now())
+    assert course_student.resume_next_unit() == unit3
+    assert course_student.reached_last_unit() is False
+    assert course_student.course_finished is False
+    assert course_student.can_emmit_receipt() is False
+
+    mommy.make('StudentProgress', user=user, unit=unit3,
+               complete=datetime.now())
+    assert course_student.resume_next_unit() == unit1
+    assert course_student.reached_last_unit() is True
+    assert course_student.course_finished is True
+    assert course_student.can_emmit_receipt() is False
+
+    user.last_name = "Cool Lastname"
+    user.save()
+    unit4 = mommy.make('Unit', title='unit4', lesson=lesson2)
+    mommy.make('StudentProgress', user=user, unit=unit4,
+               complete=datetime.now())
+
+    assert course_student.resume_next_unit() == unit1
+    assert course_student.reached_last_unit() is True
+    assert course_student.course_finished is True
+    assert course_student.can_emmit_receipt() is True
+
+    try:
+        certificate = mommy.make('CourseCertification',
+                                 course_student=course_student)
+    except Exception as e:
+        assert type(e).__name__ == "IntegrityError"
+
