@@ -44,3 +44,18 @@ def test_user_picture_url():
 
     # teardown
     user.picture.delete()
+
+
+@pytest.mark.django_db
+def test_user_profile_property():
+    from django.contrib.auth import get_user_model
+    TimtecUser = get_user_model()
+    user = mommy.make(TimtecUser)
+
+    assert not user.is_profile_filled
+
+    user.last_name = u'Cool Lastname'
+    user.save()
+
+    assert user.is_profile_filled is True
+

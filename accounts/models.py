@@ -79,6 +79,12 @@ class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
     def is_pilot(self):
         return self.groups.filter(name='pilot_course').count() > 0
 
+    @property
+    def is_profile_filled(self):
+        # TODO Colocar campos que precisam ser preenchidos para o profile
+        # ser considerado preenchido
+        return self.last_name != ""
+
     def save(self, *args, **kwargs):
 
         is_new = self.pk is None

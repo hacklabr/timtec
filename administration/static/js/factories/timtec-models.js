@@ -139,6 +139,8 @@
             if(!this.name) this.name = 'Sem título';
             if(!this.slug) this.slug = 'sem-titulo-{0}'.format(new Date().getTime().toString(16));
             if(!this.status) this.status = 'draft';
+            if(!this.min_percent_to_complete)
+                this.min_percent_to_complete = 100;
             return this.$save();
         };
 
