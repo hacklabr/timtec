@@ -101,8 +101,8 @@ class Course(models.Model):
                                          related_name='default_course',
                                          null=True, blank=True)
     min_percent_to_complete = models.IntegerField(default=100,
-                                                        null=True,
-                                                        blank=True)
+                                                  null=True,
+                                                  blank=True)
 
     class Meta:
         verbose_name = _('Course')
@@ -253,7 +253,7 @@ class CourseStudent(models.Model):
     @property
     def course_finished(self):
         return self.percent_progress() >= \
-                self.course.min_percent_to_complete
+            self.course.min_percent_to_complete
 
     def can_emmit_receipt(self):
         return self.course_finished and self.user.is_profile_filled
@@ -587,7 +587,7 @@ class StudentProgress(models.Model):
         except ObjectDoesNotExist:
             if course_student.can_emmit_receipt():
                 receipt = CourseCertification(course_student=course_student,
-                                          is_valid=True, link="")
+                                              is_valid=True, link="")
                 receipt.save()
 
     class Meta:
