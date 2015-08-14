@@ -4,7 +4,7 @@
 [![Coverage](https://coveralls.io/repos/hacklabr/timtec/badge.png)](https://coveralls.io/r/hacklabr/timtec)
 
 ## Deploy Requirements
-* Operational systema: Debian (>= 7.7) or Ubuntu (14.04);
+* Operating system: Debian (>= 7.7) or Ubuntu (14.04);
 * Proxy server: uwsgi (>= 2.0.7);
 * Web Server: nginx (>= 1.6.2);
 * javascript server-side interpreter: node.js (>= 0.10.40);
