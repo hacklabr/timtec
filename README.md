@@ -3,6 +3,14 @@
 [![Build Status](https://drone.io/github.com/hacklabr/timtec/status.png)](https://drone.io/github.com/hacklabr/timtec/latest)
 [![Coverage](https://coveralls.io/repos/hacklabr/timtec/badge.png)](https://coveralls.io/r/hacklabr/timtec)
 
+## Deploy Requirements
+* Operational systema: Debian (>= 7.7) or Ubuntu (14.04);
+* Proxy server: uwsgi (>= 2.0.7);
+* Web Server: nginx (>= 1.6.2);
+* javascript server-side interpreter: node.js (>= 0.10.40);
+* Data base server: postgresql (>= 9.2);
+* Python language package: python (= 2.7 ou < 3);
+
 
 ## Getting Started
 
