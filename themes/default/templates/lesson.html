@@ -171,7 +171,44 @@ wrapper-course-lesson
         </div>
     </section>
     <!-- END COURSE CONTENT -->
+    <script type="text/ng-template" id="courseCompleteModal.html">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">
+                {% trans "Course Complete" %}</h4>
+        </div>
+        <div class="modal-body">
+            {% verbatim %}
+            <div class="row">
+                <div class="col-lg-6">
+
+                </div>
+                <div class="col-lg-6">
+                    <dl>
+                        <dt>Profile preenchido: </dt>
+                        <dd>{{ cs.user.is_profile_filled }}</dd>
+                        <dt>Comprovante emitido?</dt>
+                        <dd>{{ cs.can_emmit_receipt }}</dd>
+                        <dt ng-show="cs.can_emmit_receipt">Link:</dt>
+                        <dd ng-show="cs.can_emmit_receipt">
+                            <a href="/certificate/{{ receipt.link }}">Comprovante</a>
+                        </dd>
+                        <dt>Curso</dt>
+                        <dd>Concluiu {{ cs.percent_progress }}% de {{
+                            cs.min_percent_to_complete }}% necessários</dd>
+
+                    </dl>
+                </div>
+            </div>
+            {% endverbatim %}
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" ng-click="cancel()">{% trans "Close" %}</button>
+            </div>
+        </div>
+    </script>
 </div>
 <!-- END COURSE -->
+
+
 
 {% endblock %}
