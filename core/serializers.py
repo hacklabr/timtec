@@ -97,10 +97,11 @@ class CourseThumbSerializer(serializers.ModelSerializer):
 
 class StudentProgressSerializer(serializers.ModelSerializer):
     complete = serializers.DateTimeField(required=False)
+    user = TimtecUserSerializer(read_only=True, source='user')
 
     class Meta:
         model = StudentProgress
-        fields = ('unit', 'complete', 'user')
+        fields = ('unit', 'complete', 'user',)
 
 
 class UnitSerializer(serializers.ModelSerializer):

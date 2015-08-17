@@ -511,9 +511,10 @@ class LessonViewSet(viewsets.ModelViewSet):
 
 class StudentProgressViewSet(viewsets.ModelViewSet):
     model = StudentProgress
-    serializer_class = StudentProgressSerializer
-    filter_fields = ('unit', 'unit__lesson',)
     lookup_field = 'unit'
+    filter_fields = ('unit', 'unit__lesson',)
+    filter_backends = (filters.DjangoFilterBackend,)
+    serializer_class = StudentProgressSerializer
 
     def update(self, request, *args, **kwargs):
         self.object = self.get_object_or_none()
