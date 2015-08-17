@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
+{% block content %}
+<div id="certificate" class="container">
+    <pre>
+        {{ object | escapejs }}
+        {{ object.course_student }}
+        {{ object.type }}
+        {{ object.course_workload }}
+    </pre>
+</div>
+{% endblock %}

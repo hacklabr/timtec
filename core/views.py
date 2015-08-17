@@ -27,10 +27,12 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           LessonNoteSerializer, ProfessorMessageSerializer,
                           CourseStudentSerializer, ClassSerializer,
                           FlatpageSerializer, CourseAuthorPictureSerializer,
-                          CourseAuthorSerializer,)
+                          CourseAuthorSerializer,
+                          CourseCertificationSerializer,)
 
 from .models import (Course, CourseProfessor, Lesson, StudentProgress,
-                     Unit, ProfessorMessage, CourseStudent, Class, CourseAuthor,)
+                     Unit, ProfessorMessage, CourseStudent, Class,
+                     CourseAuthor, CourseCertification,)
 
 from .forms import (ContactForm, RemoveStudentForm,
                     AddStudentsForm, )
@@ -267,9 +269,33 @@ class CoursePictureUploadViewSet(viewsets.ModelViewSet):
 class CourseStudentViewSet(viewsets.ModelViewSet):
     model = CourseStudent
     lookup_field = 'id'
-    filter_fields = ('course', 'user',)
-#     filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('course__slug', 'course__id', 'user',)
+    #     filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = CourseStudentSerializer
+
+    def get_queryset(self):
+        queryset = super(CourseStudentViewSet, self).get_queryset()
+        if self.request.GET.get('user', False):
+            return queryset
+        return queryset.filter(user=self.request.user)
+
+
+class CourseCertificationViewSet(viewsets.ModelViewSet):
+    model = CourseCertification
+    lookup_field = 'link'
+    filter_fields = ('course_student',)
+    serializer_class = CourseCertificationSerializer
+
+
+class CourseCertificationDetailView(DetailView):
+    model = CourseCertification
+    template_name = 'certificate.html'
+    slug_field = "link"
+    serializer_class = CourseCertificationSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        return super(CourseCertificationDetailView, self).get_queryset(*args,
+                                                                       **kwargs)
 
 
 class ProfessorMessageViewSet(viewsets.ModelViewSet):

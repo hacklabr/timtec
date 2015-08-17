@@ -258,6 +258,9 @@ class CourseStudent(models.Model):
     def can_emmit_receipt(self):
         return self.course_finished and self.user.is_profile_filled
 
+    def min_percent_to_complete(self):
+        return self.course.min_percent_to_complete
+
     def reached_last_unit(self):
         try:
             last_unit_done = self.units_done.latest('complete')
@@ -508,6 +511,11 @@ class Lesson(PositionedModel):
     status = models.CharField(_('Status'), choices=STATES, default=STATES[0][0], max_length=64)
 
     collection_name = 'course'
+
+    @property
+    def is_course_last_lesson(self):
+        lessons = list(self.course.public_lessons)
+        return lessons and self == lessons[-1]
 
     class Meta:
         verbose_name = _('Lesson')
