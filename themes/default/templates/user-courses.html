@@ -30,6 +30,11 @@ wrapper-course-lesson
                 	{% if courses_user_enrolled %}
                     <li role="presentation" class="active"><a href="#course-as-student" aria-controls="course-as-student" role="tab" data-toggle="tab">{% trans "Courses I'm enrolled" %}</a></li>
                     {% endif %}
+
+                    <!-- TODO Exibir aba apenas se tiver certificados e comprovantes -->
+                    <li role="presentation" ><a href="#my-certificates" aria-controls="my-certificates" role="tab" data-toggle="tab">{% trans "My certificates" %}</a></li>
+                    <!-- Fim do if -->
+
                     {% if courses_user_assist %}
                     <li role="presentation"><a href="#course-as-teacher" aria-controls="course-as-teacher" role="tab" data-toggle="tab">{% trans "Courses I assist" %}</a></li>
                     {% endif %}
@@ -72,6 +77,18 @@ wrapper-course-lesson
                                     <div class="progress-bar" style="width:{{cs.percent_progress}}%;"></div>
                                 </div>
                                 <a href="{% url 'user_course_notes' cs.course.slug %}" class="btn btn-default btn-sm">{% trans "My Notes" %}</a>
+
+                                <!-- TODO SE COMPROVANTE ESTIVER DISPONÍVEL, APARECE A CLASSE BTN-SUCCESS, SENÃO COLOCAR BTN-DEFAULT E ATRIBUTO disabled="disabled" -->
+                                <!-- TODO Mudar URL do certificado -->
+                                <a href="#" class="btn btn-default btn-sm" disabled="disabled">{% trans "Check certificate" %}</a>
+                                <!-- FIM DO IF -->
+
+                                <!-- TODO SE USUÁRIO TIVER FINALIZADO O CURSO, APARECE A CLASSE BTN-SUCCESS, SENÃO COLOCAR BTN-DEFAULT E ATRIBUTO disabled="disabled" -->
+                                <!-- TODO Mudar URL do certificado -->
+                                <a href="#" class="btn btn-default btn-sm" disabled="disabled">{% trans "Request certificate" %}</a>
+                                <!-- FIM DO IF -->
+
+
             {#                    <a href="" class="btn btn-default btn-sm">{% trans "Details" %}</a>#}
             {#                    <span class="info">0 min of lecture and 0 quizzes remaining in 1.1a Equivalent Fractions.</span>#}
                             {% else %}
@@ -95,6 +112,30 @@ wrapper-course-lesson
 
                     </div>
                 	{% endwith %}
+
+
+                    <!-- TODO Exibir aba apenas se tiver certificados e comprovantes -->
+                    <div role="tabpanel" class="tab-pane" id="my-certificates">
+
+                    <!-- TODO Trocar o FOR para cursos com certificados disponíveis -->
+                        {% for cs in request.user.coursestudent_set.all %}
+                        <div class="col-sm-3">
+                            <section class="thumbnail course">
+                                <h1>{{ cs.course.name }}</h1>
+                                <div class="textright">
+                                    <div class="btn-group">
+                                        <!-- TODO Mudar URL do certificado -->
+                                        <a href="#" class="btn btn-sm btn-success">{% trans "Check certificate" %}
+                                        <i class="fa fa-angle-double-right"></i></a>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        {% endfor %}
+
+
+                    </div>
+
                     <div role="tabpanel" class="tab-pane" id="course-as-teacher">
                         <section class="courses">
                             <!-- COURSE -->
