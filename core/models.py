@@ -594,8 +594,12 @@ class StudentProgress(models.Model):
                 course_student=course_student)
         except ObjectDoesNotExist:
             if course_student.can_emmit_receipt():
+                from base64 import urlsafe_b64encode as ub64
+                from hashlib import sha1
+                from time import time
+                h = ub64(sha1(str(time()) + self.user.last_name).digest()[0:6])
                 receipt = CourseCertification(course_student=course_student,
-                                              is_valid=True, link="")
+                                              is_valid=True, link=h)
                 receipt.save()
 
     class Meta:
@@ -634,7 +638,7 @@ class CourseCertification(models.Model):
         pass
 
     def __unicode__(self):
-        return u'({0}): {1}'.format(self.course_student, self.status)
+        return u'({0}): {1}'.format(self.course_student, self.is_valid)
 
 
 class EmailTemplate(models.Model):
