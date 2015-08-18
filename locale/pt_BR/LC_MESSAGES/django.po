@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-17 15:14-0300\n"
+"POT-Creation-Date: 2015-08-17 20:02-0300\n"
 "PO-Revision-Date: 2015-04-10 18:21-0300\n"
 "Last-Translator: Administrador TIMTec <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -287,9 +287,9 @@ msgstr "Curso"
 #: themes/default/templates/course.html:412
 #: themes/default/templates/course.html:579
 #: themes/default/templates/course.html:583
-#: themes/default/templates/user-courses.html:128
-#: themes/default/templates/user-courses.html:209
-#: themes/default/templates/user-courses.html:254
+#: themes/default/templates/user-courses.html:150
+#: themes/default/templates/user-courses.html:231
+#: themes/default/templates/user-courses.html:276
 #: themes/default/templates/administration/courses.html:109
 #: themes/default/templates/administration/courses.html:149
 #: themes/default/templates/administration/courses.html:195
@@ -303,9 +303,9 @@ msgstr "Rascunho"
 #: themes/default/templates/course.html:420
 #: themes/default/templates/course.html:576
 #: themes/default/templates/course.html:582
-#: themes/default/templates/user-courses.html:129
-#: themes/default/templates/user-courses.html:210
-#: themes/default/templates/user-courses.html:253
+#: themes/default/templates/user-courses.html:151
+#: themes/default/templates/user-courses.html:232
+#: themes/default/templates/user-courses.html:275
 #: themes/default/templates/administration/courses.html:108
 #: themes/default/templates/administration/courses.html:150
 #: themes/default/templates/administration/courses.html:194
@@ -411,12 +411,10 @@ msgid "Course Professors"
 msgstr "Professores do curso"
 
 #: core/models.py:433
-#, fuzzy
 msgid "Course Author"
 msgstr "Estrutura"
 
 #: core/models.py:434
-#, fuzzy
 msgid "Course Authors"
 msgstr "Relatórios de curso"
 
@@ -625,6 +623,7 @@ msgstr "Organizar instrutores"
 #: themes/default/templates/_forum_inline.html:167
 #: themes/default/templates/footer.html:23
 #: themes/default/templates/footer.html:51
+#: themes/default/templates/lesson.html:209
 #: themes/default/templates/messages.html:97
 msgid "Close"
 msgstr "Fechar"
@@ -1033,7 +1032,7 @@ msgstr "Exportar"
 
 #: themes/default/templates/course.html:92
 #: themes/default/templates/course.html:93
-#: themes/default/templates/user-courses.html:105
+#: themes/default/templates/user-courses.html:107
 #, python-format
 msgid " This course starts on %(start_date)s and you are already subscribed"
 msgstr "Este curso começa em %(start_date)s e você já está inscrito"
@@ -1255,6 +1254,10 @@ msgstr "Materiais adicionais"
 msgid "This unit has no addicional materials"
 msgstr "Esta unidade não possui material adicional"
 
+#: themes/default/templates/lesson.html:178
+msgid "Course Complete"
+msgstr "Curso concluído!"
+
 #: themes/default/templates/message.html:15
 msgid "Recipients"
 msgstr "Destinatários"
@@ -1341,69 +1344,70 @@ msgid "Resume Course"
 msgstr "Continuar curso"
 
 #: themes/default/templates/user-courses.html:83
+#: themes/default/templates/user-courses.html:128
 msgid "Check certificate"
 msgstr "Ver comprovante"
 
-#: themes/default/templates/user-courses.html:87
+#: themes/default/templates/user-courses.html:88
 msgid "Request certificate"
 msgstr "Pedir certificado"
 
-#: themes/default/templates/user-courses.html:100
+#: themes/default/templates/user-courses.html:102
 msgid "Go to Course"
 msgstr "Ir para o curso"
 
-#: themes/default/templates/user-courses.html:132
+#: themes/default/templates/user-courses.html:154
 msgid "Show classes"
 msgstr "Mostrar turmas"
 
-#: themes/default/templates/user-courses.html:133
+#: themes/default/templates/user-courses.html:155
 msgid "Hide classes"
 msgstr "Adicionar turma"
 
-#: themes/default/templates/user-courses.html:140
+#: themes/default/templates/user-courses.html:162
 msgid "Create class"
 msgstr "Criar turma"
 
-#: themes/default/templates/user-courses.html:142
-#: themes/default/templates/user-courses.html:171
+#: themes/default/templates/user-courses.html:164
+#: themes/default/templates/user-courses.html:193
 msgid "You don't have any class in this course"
 msgstr "Você não tem nenhuma turma neste curso"
 
-#: themes/default/templates/user-courses.html:148
-#: themes/default/templates/user-courses.html:223
+#: themes/default/templates/user-courses.html:170
+#: themes/default/templates/user-courses.html:245
 #: themes/default/templates/administration/courses.html:164
 msgid "Started in"
 msgstr "Começou em"
 
-#: themes/default/templates/user-courses.html:154
-#: themes/default/templates/user-courses.html:229
+#: themes/default/templates/user-courses.html:176
+#: themes/default/templates/user-courses.html:251
 #: themes/default/templates/administration/courses.html:170
 msgid "Starts in"
 msgstr "Começa em"
 
-#: themes/default/templates/user-courses.html:160
-#: themes/default/templates/user-courses.html:235
+#: themes/default/templates/user-courses.html:182
+#: themes/default/templates/user-courses.html:257
 #: themes/default/templates/administration/courses.html:176
 msgid "No start date"
 msgstr "Sem data de início"
 
-#: themes/default/templates/user-courses.html:168
+#: themes/default/templates/user-courses.html:190
 msgid "Loading classes list"
 msgstr "Carregando lista de turmas"
 
-#: themes/default/templates/user-courses.html:213
+#: themes/default/templates/user-courses.html:235
 #: themes/default/templates/administration/courses.html:153
 #: themes/default/templates/administration/stats.html:110
 msgid "Show lessons"
 msgstr "Mostrar aulas"
 
-#: themes/default/templates/user-courses.html:214
+#: themes/default/templates/user-courses.html:236
 #: themes/default/templates/administration/courses.html:154
 msgid "Hide lessons"
 msgstr "Ocultar aulas"
 
-#: themes/default/templates/user-courses.html:243
-#: themes/default/templates/user-courses.html:246
+#: themes/default/templates/user-courses.html:265
+#: themes/default/templates/user-courses.html:268
 #: themes/default/templates/administration/courses.html:184
 #: themes/default/templates/administration/courses.html:187
 msgid "Loading lessons list"

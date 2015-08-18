@@ -181,29 +181,41 @@ wrapper-course-lesson
             {% verbatim %}
             <div class="row">
                 <div class="col-lg-6">
-
+                    <!-- TODO fix nome do curso -->
+                    <h2>Parabéns por concluir o curso {{ cs.name }}!</h2>
+                    <p>
+                        Você concluiu {{ cs.percent_progress }}% do curso.
+                        <span ng-show="cs.user.is_profile_filled">
+                            Clique abaixo para obter seu comprovante, ele pode ser visualizado por qualquer pessoa que tiver acesso ao link.
+                        </span>
+                        <span ng-hide="cs.user.is_profile_filled">
+                        {% endverbatim %}
+                            Para emitir o comprovante, você precisa preencher o seu nome completo em seu perfil. <a href="{% url 'profile_edit' %}">Clique aqui para editá-lo</a>.
+                        {% verbatim %}
+                        </span>
+                        <dd ng-show="cs.can_emmit_receipt">
+                            <a href="/certificate/{{ receipt.link }}" class="btn btn-success">Ver comprovante</a>
+                        </dd>
+                    </p>
                 </div>
                 <div class="col-lg-6">
-                    <dl>
-                        <dt>Profile preenchido: </dt>
-                        <dd>{{ cs.user.is_profile_filled }}</dd>
-                        <dt>Comprovante emitido?</dt>
-                        <dd>{{ cs.can_emmit_receipt }}</dd>
-                        <dt ng-show="cs.can_emmit_receipt">Link:</dt>
-                        <dd ng-show="cs.can_emmit_receipt">
-                            <a href="/certificate/{{ receipt.link }}">Comprovante</a>
-                        </dd>
-                        <dt>Curso</dt>
-                        <dd>Concluiu {{ cs.percent_progress }}% de {{
-                            cs.min_percent_to_complete }}% necessários</dd>
-
-                    </dl>
+                    <span class="text-danger"><i class="glyphicon glyphicon-exclamation-sign"></i> Importante</span>
+                    <p>
+                        O <strong>comprovante</strong> é a prova de que você concluiu a carga mínima necessária do curso, designada pelos instrutores. Porém, ele <strong>não</strong> possui a validade de um <strong>certificado</strong>.
+                    </p>
+                    <p>
+                        Para obter um certificado, é necessário ser aprovado na avaliação do curso. Peça a emissão do certificado clicando abaixo e veja as datas disponíveis de avaliação.
+                    </p>
+                    <!-- TODO trocar o link pra emissão de certificado -->
+                    <div class="text-right">
+                        <a href="#" class="btn btn-success">Pedir certificado</a>
+                    </div>
                 </div>
             </div>
             {% endverbatim %}
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" ng-click="cancel()">{% trans "Close" %}</button>
-            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" ng-click="cancel()">{% trans "Close" %}</button>
         </div>
     </script>
 </div>
