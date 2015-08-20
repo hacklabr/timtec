@@ -1,5 +1,7 @@
 #TIMTec Mooc
-  
+
+## LICENSE - AGPLV3 
+
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as
     published by the Free Software Foundation, either version 3 of the
@@ -12,7 +14,7 @@
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see LICENSE file here or 
-    http://www.gnu.org/licenses).
+    [AGPLv3](http://www.gnu.org/licenses).
 
 [![Build Status](https://drone.io/github.com/hacklabr/timtec/status.png)](https://drone.io/github.com/hacklabr/timtec/latest)
 [![Coverage](https://coveralls.io/repos/hacklabr/timtec/badge.png)](https://coveralls.io/r/hacklabr/timtec)
