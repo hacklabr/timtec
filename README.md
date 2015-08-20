@@ -11,7 +11,8 @@
     GNU Affero General Public License for more details.
 
     You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see license.md here or [GPL Licenses] (http://www.gnu.org/licenses).
+    along with this program.  If not, see LICENSE file here or 
+    http://www.gnu.org/licenses).
 
 [![Build Status](https://drone.io/github.com/hacklabr/timtec/status.png)](https://drone.io/github.com/hacklabr/timtec/latest)
 [![Coverage](https://coveralls.io/repos/hacklabr/timtec/badge.png)](https://coveralls.io/r/hacklabr/timtec)
