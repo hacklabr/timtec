@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # Django settings for timtec project.
 from django.utils.translation import ugettext_lazy as _
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 import os
 
@@ -123,12 +122,14 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     # 'pipeline.finders.FileSystemFinder',
     # 'pipeline.finders.AppDirectoriesFinder',
-    'pipeline.finders.PipelineFinder',
     'pipeline.finders.CachedFileFinder',
+    'pipeline.finders.PipelineFinder',
     # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+
+# PIPELINE_ENABLED = True
 
 PIPELINE_JS_COMPRESSOR = 'timtec.ngmincombo.NgminComboCompressor'
 
@@ -372,23 +373,40 @@ APPEND_SLASH = True
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'e%6a01vfbue28$xxssu!9r_)usqjh817((mr+7vv3ek&@#p0!$'
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    'core.loaders.TimtecThemeLoader',
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(THEMES_DIR, TIMTEC_THEME, 'templates'),
+            os.path.join(THEMES_DIR, 'default', 'templates'),
+        ],
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
 
-TEMPLATE_CONTEXT_PROCESSORS = TCP + (
-    'django.core.context_processors.request',
-    'allauth.account.context_processors.account',
-    'allauth.socialaccount.context_processors.socialaccount',
-    'core.context_processors.contact_form',
-    'core.context_processors.site_settings',
-    'core.context_processors.get_current_path',
-    'core.context_processors.terms_acceptance_required',
-    'timtec.locale_context_processor.locale',
-)
+                # TIMTec context_processors
+                'core.context_processors.contact_form',
+                'core.context_processors.site_settings',
+                'core.context_processors.get_current_path',
+                'core.context_processors.terms_acceptance_required',
+                'timtec.locale_context_processor.locale',
+            ],
+            'loaders': [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+                'core.loaders.TimtecThemeLoader',
+            ]
+        },
+    },
+]
 
 # Django Suit configuration example
 SUIT_CONFIG = {
@@ -552,22 +570,14 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'bower_components'),
 )
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    os.path.join(THEMES_DIR, TIMTEC_THEME, 'templates'),
-    os.path.join(THEMES_DIR, 'default', 'templates'),
-)
-
-if DEBUG:
-    MIDDLEWARE_CLASSES += (
-        'debug_toolbar.middleware.DebugToolbarMiddleware',
-    )
-    INSTALLED_APPS += (
-        'debug_toolbar',
-    )
-    INTERNAL_IPS = ('127.0.0.1', )
+# if DEBUG:
+#     MIDDLEWARE_CLASSES += (
+#         'debug_toolbar.middleware.DebugToolbarMiddleware',
+#     )
+#     INSTALLED_APPS += (
+#         'debug_toolbar',
+#     )
+#     INTERNAL_IPS = ('127.0.0.1', )
 
 # Fix debug toolbar issue: https://github.com/django-debug-toolbar/django-debug-toolbar/issues/521
 # DEBUG_TOOLBAR_PATCH_SETTINGS = False
