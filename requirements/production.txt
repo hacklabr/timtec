@@ -1,0 +1,9 @@
+# Pro-tip: Try not to put anything here. There should be no dependency in
+#	production that isn't in development.
+-r base.txt
+
+gunicorn==19.3.0
+# django-storages-redux==1.2.3
+# Collectfast==0.2.1
+# gevent==1.0.1
+# boto==2.38.0

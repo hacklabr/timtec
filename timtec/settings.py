@@ -441,7 +441,6 @@ WSGI_APPLICATION = 'timtec.wsgi.application'
 
 INSTALLED_APPS = (
     'django_extensions',
-    'south',
     'pipeline',
     'suit',
     'django.contrib.auth',
