@@ -7,7 +7,7 @@
             <ul class="col-lg-12">
                 <li><a href="#" data-toggle="modal" data-target="#modal-contact">{% trans 'Contact' %}</a></li>
                 {% if terms_required %}
-                	<li><a href="/pages/terms">{% trans 'Terms of Use' %}</a></li>
+                	<li><a href="{% url 'flatpage' url='/terms' %}">{% trans 'Terms of Use' %}</a></li>
                 {% endif %}
             </ul>
         </div>
