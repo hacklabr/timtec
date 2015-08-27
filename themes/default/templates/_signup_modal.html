@@ -29,8 +29,8 @@
         <div class="form-group">
             <label class="col-sm-offset-5 col-sm-7 col-xs-12">
                 <span class="checkbox-wrapper"><input name="accept_terms" id="accept_terms" type="checkbox"></span>
-                {% url 'django.contrib.flatpages.views.flatpage' url='terms/' as terms_url %}
-                <label for="accept_terms" class="terms">{% blocktrans %}I agree to the <a href="terms_url" target="_blank">Terms of Use</a>{% endblocktrans %}</label>
+                {% url 'flatpage' url='/terms' as terms_url %}
+                <label for="accept_terms" class="terms">{% blocktrans %}I agree to the <a href="{{ terms_url }}" target="_blank">Terms of Use</a>{% endblocktrans %}</label>
             </label>
         </div>
         {% endif %}
