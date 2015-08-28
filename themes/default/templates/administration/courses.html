@@ -45,6 +45,7 @@ wrapper-course-lesson
 </div>
 <!-- COURSES -->
 <section id="courses" ng-controller="CoursesAdminController">
+    {% if user.is_superuser %}
     <script type="text/ng-template" id="import_course_modal.html">
         <div class="modal-content">
             <div class="modal-header">
@@ -71,6 +72,7 @@ wrapper-course-lesson
             </form>
         </div>
     </script>
+
     <!-- ACTIONS -->
     <div class="actions-menu" fixed-bar>
         <div class="container">
@@ -83,6 +85,7 @@ wrapper-course-lesson
         </div>
     </div>
     <!-- END ACTIONS -->
+    {% endif %}
 
     <div class="container">
         <!--  HEADER -->
@@ -146,8 +149,8 @@ wrapper-course-lesson
                     <div class="row">
                         <div class="col-sm-6">
                             <p>
-                                <span class="label label-warning" ng-if="course.isDraft()">{% trans 'Draft' %}</span>
-                                <span class="label label-success" ng-if="course.isPublished()">{% trans 'Published' %}</span>
+                                <span class="label label-warning" ng-if="course.status =='draft'">{% trans 'Draft' %}</span>
+                                <span class="label label-success" ng-if="course.status == 'published'">{% trans 'Published' %}</span>
 
                                 <span class="label label-default pointer" ng-click="loadLessons(course);showLessons=!showLessons">
                                     <span ng-if="!showLessons">{% trans 'Show lessons' %}</span>
