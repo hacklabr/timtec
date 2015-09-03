@@ -599,7 +599,7 @@ class StudentProgress(models.Model):
                 from time import time
                 h = ub64(sha1(str(time()) + self.user.last_name).digest()[0:6])
                 receipt = CourseCertification(course_student=course_student,
-                                              is_valid=True, link=h)
+                                              is_valid=True, link_hash=h)
                 receipt.save()
 
     class Meta:
@@ -617,17 +617,20 @@ class CourseCertification(models.Model):
         ('certificate', _('Certificate')),
     )
 
-    type = models.CharField(choices=TYPES, max_length=127)
+    type = models.CharField(_('Certificate Type'), choices=TYPES,
+                            max_length=127)
     course_student = models.ForeignKey(CourseStudent, unique=True,
                                        verbose_name=_('Enrollment'))
-    created_date = models.DateTimeField(auto_now=True)
-    modified_date = models.DateTimeField(auto_now_add=True)
-    is_valid = models.BooleanField(default=False)
+
+    created_date = models.DateTimeField(_('Created'), auto_now_add=True)
+    modified_date = models.DateTimeField(_('Last modified'), auto_now=True)
+
+    is_valid = models.BooleanField(_('Certificate is valid'), default=False)
 
     course_workload = models.TextField(_('Workload'), blank=True)
-    course_total_units = models.IntegerField(blank=True)
+    course_total_units = models.IntegerField(_('Total units'), blank=True)
 
-    link = models.CharField(max_length=255)
+    link_hash = models.CharField(_('Hash'), max_length=255)
 
     def save(self, *args, **kwargs):
         self.course_workload = self.course_student.course.workload
@@ -635,10 +638,62 @@ class CourseCertification(models.Model):
         super(CourseCertification, self).save(*args, **kwargs)
 
     class Meta:
-        pass
+        verbose_name = _("Certificate")
 
     def __unicode__(self):
         return u'({0}): {1}'.format(self.course_student, self.is_valid)
+
+    def __str__(self):
+        return '({0}): {1}'.format(self.course_student, self.is_valid)
+
+
+class Evaluation(models.Model):
+    min_grade = models.IntegerField(_('Evaluation grade needed'), blank=True)
+    date = models.DateTimeField(_('Evaluation date'), blank=True)
+    results_date = models.DateTimeField(_('Evaluation results date'),
+                                        blank=True)
+    instructions = models.CharField(_('Comments'), max_length=255)
+    klass = models.ForeignKey(Class, verbose_name=_('Class'))
+
+    class Meta:
+        verbose_name = _('Evaluation')
+
+    def __unicode__(self):
+        return u'({0}): {1}'.format(self.klass, self.instructions)
+
+    def __str__(self):
+        return '({0}): {1}'.format(self.klass, self.instructions)
+
+
+class CertificationProcess(models.Model):
+    course_certification = models.ForeignKey(CourseCertification,
+                                             verbose_name=_('Certificate'))
+    comments = models.CharField(_('Comments'), max_length=255)
+    created_date = models.DateTimeField(_('Created'), auto_now_add=True)
+
+    evaluation_grade = models.IntegerField(_('Evaluation grade'), blank=True)
+    approved = models.BooleanField(_('Approved'), default=False)
+    no_show = models.BooleanField(_('No show'), default=False)
+    evaluation = models.ForeignKey(Evaluation, verbose_name=_('Evaluation'))
+
+    @property
+    def certification_progress(self):
+        return {
+            'receipt': self.course_certification is not None,
+            'grade': self.evaluation_grade is not None,
+            'approved': self.approved
+        }
+
+    class Meta:
+        verbose_name = _("Certification Process")
+
+    def __unicode__(self):
+        return u'({0}): {1}'.format(
+            self.course_certification.course_student.user, self.evaluation)
+
+    def __str__(self):
+        return '({0}): {1}'.format(
+            self.course_certification.course_student.user, self.evaluation)
 
 
 class EmailTemplate(models.Model):

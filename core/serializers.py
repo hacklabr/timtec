@@ -1,7 +1,8 @@
 from django.contrib.flatpages.models import FlatPage
 from core.models import (Course, CourseProfessor, CourseStudent, Lesson,
                          Video, StudentProgress, Unit, ProfessorMessage,
-                         Class, CourseAuthor, CourseCertification)
+                         Class, CourseAuthor, CourseCertification,
+                         CertificationProcess,)
 from accounts.serializers import TimtecUserSerializer
 from activities.serializers import ActivitySerializer
 from rest_framework.reverse import reverse_lazy
@@ -23,7 +24,13 @@ class CourseCertificationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CourseCertification
-        fields = ('link', 'created_date', 'is_valid')
+        fields = ('link_hash', 'created_date', 'is_valid')
+
+
+class CertificationProcessSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CertificationProcess
 
 
 class CourseStudentSerializer(serializers.ModelSerializer):
