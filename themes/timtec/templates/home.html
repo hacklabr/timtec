@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
 {% load i18n %}
-{% load pipeline %}
+{% load compressed %}
 {% load is_enrolled %}
 
 {% block js %}
     {{ block.super }}
-    {% javascript 'core' %}
+    {% compressed_js 'core' %}
     <script type="text/javascript" src="/static/js/introjs/home.js"></script>
 {% endblock %}
 

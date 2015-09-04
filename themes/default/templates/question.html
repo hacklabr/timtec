@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% load i18n %}
-{% load pipeline %}
+{% load compressed %}
 {% load staticfiles %}
 {% load timtec_markdown %}
 
 {% block js %}
     {{block.super}}
-    {% javascript 'forum' %}
+    {% compressed_js 'forum' %}
 {% endblock %}
 
 {% block wrapper_classes %}

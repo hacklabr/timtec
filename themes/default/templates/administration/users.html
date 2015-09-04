@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% load pipeline %}
+{% load compressed %}
 {% load i18n %}
 {% load in_group %}
 {% load append_to_get %}
 
 {% block js %}
 {{ block.super }}
-    {% javascript 'users_admin' %}
+    {% compressed_js 'users_admin' %}
     <script>
         window.total_users_found = {{ total_users_number }};
     </script>

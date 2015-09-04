@@ -2,7 +2,7 @@
 <html>
 {% load i18n %}
 {% load static %}
-{% load pipeline %}
+{% load compressed %}
 {% load metron_tags %}
 <head>
     <meta charset="UTF-8">
@@ -11,8 +11,8 @@
 
     <title>{% block title %}{{ site.name }}{% endblock %}</title>
 
-    {% stylesheet 'common' %}
-    {% stylesheet 'public' %}
+    {% compressed_css 'common' %}
+    {% compressed_css 'public' %}
 
     <script>
         window.STATIC_URL = '{{ STATIC_URL }}';
@@ -21,8 +21,8 @@
         window.YOUTUBE_API_KEY = '{{ site.YOUTUBE_API_KEY }}';
     </script>
 
-    {% javascript 'all' %}
-    {% javascript 'codemirror' %}
+    {% compressed_js 'all' %}
+    {% compressed_js 'codemirror' %}
 
     <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Converter.js' %}" charset="utf-8"></script>
     <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Editor.js' %}" charset="utf-8"></script>

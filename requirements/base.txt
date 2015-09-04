@@ -1,4 +1,4 @@
-Django==1.8.3
+Django==1.8.4
 
 # Configuration
 django-environ==0.3.0
@@ -21,19 +21,17 @@ djangorestframework==2.4.6
 django-filter==0.10.0
 
 # static mgt
-# django-pipeline==1.3.25
-django-pipeline==1.5.2
+django-pipeline==1.3.27
+# django-pipeline==1.4.7
+# django-pipeline==1.5.2
 
 # internacionalization admin interface
 django-rosetta==0.7.6
 
-
 jsonfield==1.0.3
 django-suit==0.2.13
 
-
 docutils==0.12
-
 
 # Pygments==1.6
 Pygments==2.0.2
@@ -46,7 +44,6 @@ metron==1.3.5
 
 # django-braces==1.3.1
 django-braces==1.8.0
-
 
 # unicodecsv==0.9.4
 unicodecsv==0.13.0

@@ -2,11 +2,11 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load timtec_markdown %}
-{% load pipeline %}
+{% load compressed %}
 
 {% block js %}
     {{ block.super }}
-    {% javascript 'forum' %}
+    {% compressed_js 'forum' %}
 {% endblock %}
 
 {% block wrapper_classes %}
