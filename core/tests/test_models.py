@@ -127,8 +127,9 @@ def test_course_serializer():
     course_serializer = CourseSerializer(course)
 
     assert course.min_percent_to_complete == \
-           course_serializer.field_mapping.get("min_percent_to_complete",
-                                               99)
+        course_serializer.field_mapping.get("min_percent_to_complete",
+                                            100)
+
 
 @pytest.mark.django_db
 def test_studentprogress_emmit_receipt(user):
@@ -181,8 +182,7 @@ def test_studentprogress_emmit_receipt(user):
     assert course_student.can_emmit_receipt() is True
 
     try:
-        certificate = mommy.make('CourseCertification',
-                                 course_student=course_student)
+        mommy.make('CourseCertification',
+                   course_student=course_student)
     except Exception as e:
         assert type(e).__name__ == "IntegrityError"
-

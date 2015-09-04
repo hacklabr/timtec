@@ -1,7 +1,8 @@
 from django.contrib.flatpages.models import FlatPage
 from core.models import (Course, CourseProfessor, CourseStudent, Lesson,
                          Video, StudentProgress, Unit, ProfessorMessage,
-                         Class, CourseAuthor,)
+                         Class, CourseAuthor, CourseCertification,
+                         CertificationProcess,)
 from accounts.serializers import TimtecUserSerializer
 from activities.serializers import ActivitySerializer
 from rest_framework.reverse import reverse_lazy
@@ -19,11 +20,32 @@ class ProfessorMessageSerializer(serializers.ModelSerializer):
         fields = ('id', 'course', 'users', 'subject', 'message', 'date', 'users_details',)
 
 
+class CourseCertificationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CourseCertification
+        fields = ('link_hash', 'created_date', 'is_valid')
+
+
+class CertificationProcessSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CertificationProcess
+
+
 class CourseStudentSerializer(serializers.ModelSerializer):
     user = TimtecUserSerializer()
+    course_finished = serializers.BooleanField(source='course_finished')
+    can_emmit_receipt = serializers.BooleanField(source='can_emmit_receipt')
+    percent_progress = serializers.IntegerField(source='percent_progress')
+    min_percent_to_complete = serializers.IntegerField(
+        source='min_percent_to_complete')
 
     class Meta:
         model = CourseStudent
+        fields = ('id', 'user', 'course', 'course_finished',
+                  'can_emmit_receipt', 'percent_progress',
+                  'min_percent_to_complete',)
 
 
 class VideoSerializer(serializers.ModelSerializer):
@@ -82,10 +104,11 @@ class CourseThumbSerializer(serializers.ModelSerializer):
 
 class StudentProgressSerializer(serializers.ModelSerializer):
     complete = serializers.DateTimeField(required=False)
+    user = TimtecUserSerializer(read_only=True, source='user')
 
     class Meta:
         model = StudentProgress
-        fields = ('unit', 'complete',)
+        fields = ('unit', 'complete', 'user',)
 
 
 class UnitSerializer(serializers.ModelSerializer):
@@ -113,10 +136,14 @@ class LessonSerializer(serializers.HyperlinkedModelSerializer):
         view_name='lesson',
         lookup_field='slug'
     )
+    is_course_last_lesson = serializers.BooleanField(
+        source='is_course_last_lesson')
 
     class Meta:
         model = Lesson
-        fields = ('id', 'course', 'desc', 'name', 'notes', 'position', 'slug', 'status', 'units', 'url', 'thumbnail')
+        fields = ('id', 'course', 'is_course_last_lesson', 'desc',
+                  'name', 'notes', 'position', 'slug', 'status', 'units', 'url',
+                  'thumbnail')
 
 
 class NoteSerializer(serializers.ModelSerializer):

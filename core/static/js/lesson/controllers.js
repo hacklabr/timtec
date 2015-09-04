@@ -3,8 +3,8 @@
 
     var app = angular.module('lesson.controllers', []);
 
-    app.controller('MainCtrl', ['$scope', 'LessonData', 'Answer', 'Progress', '$location', 'youtubePlayerApi', 'resolveActivityTemplate',
-        function ($scope, LessonData, Answer, Progress, $location, youtubePlayerApi, resolveActivityTemplate) {
+    app.controller('MainCtrl', ['$scope', 'LessonData', 'Answer', 'Progress', '$location', 'youtubePlayerApi', 'resolveActivityTemplate', '$modal', 'Student',
+        function ($scope, LessonData, Answer, Progress, $location, youtubePlayerApi, resolveActivityTemplate, $modal, Student) {
 
             window.ga = window.ga || function(){};
 
@@ -47,6 +47,7 @@
                     $scope.section = 'end';
                 }
             };
+
 
             $scope.play = function() {
                 if($scope.currentUnit.video){
@@ -168,7 +169,55 @@
                    index = parseInt(index, 10) - 1 || 0;
                    $scope.selectUnit(lesson.units[index]);
                 });
+
             });
+
+            $scope.$watch("section", function(currentSection, lastSection){
+                if($scope.lesson && $scope.lesson.is_course_last_lesson && currentSection === 'end'){
+                    $scope.courseComplete();
+                }
+            });
+
+            $scope.courseComplete = function () {
+                var modalInstance = $modal.open({
+                    templateUrl: 'courseCompleteModal.html',
+                    controller: ['$scope', '$modalInstance', 'course_slug', 'Student', 'CourseCertification', CourseCompleteModalInstanceCtrl],
+                    resolve: {
+                        course_slug: function () {
+                            return $scope.lesson.course;
+                        }
+                    }
+                });
+                modalInstance.result.then(function (new_message) {
+
+                });
+            };
+
+            var CourseCompleteModalInstanceCtrl = function ($scope, $modalInstance, course_slug, Student, CourseCertification) {
+                // Dude just finished the last unit =)
+                // Verify if he has the profile complete
+                // Verify if he has the course min percent to complete
+                // Show him a message that:
+                // 1 - What he needs to complete
+                // 2 - A link to the receipt if everything is complete =D
+
+                // Show spinner while checking: 1 & 2
+                // Show spinner while creating the receipt
+
+                Student.query({'course__slug' : course_slug}, function(cs){
+                    $scope.cs = cs.pop();
+                    console.log($scope.cs);
+                    if($scope.cs.can_emmit_receipt){
+                        CourseCertification.query({'course_student' : $scope.cs.id}, function(receipt){
+                            $scope.receipt = receipt.pop();
+                        });
+                    }
+                });
+
+                $scope.cancel = function () {
+                        $modalInstance.dismiss();
+                };
+            }
         }
     ]);
 

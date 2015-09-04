@@ -58,4 +58,3 @@ def test_user_profile_property():
     user.save()
 
     assert user.is_profile_filled is True
-

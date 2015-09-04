@@ -9,56 +9,64 @@ wrapper-course-lesson
 {% block content %}
 <div id="profile" class="container">
     <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="col-sm-2 col-xs-12">
             <div class="thumbnail">
-                <img id="profile-avatar" width="256" src="{{ profile_user.get_picture_url }}">
+                <img class="img-responsive" src="{{ profile_user.get_picture_url }}">
             </div>
         </div>
-        <hr class="visible-xs"/>
-
-        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
-            <fieldset>
-                <div class="page-header-double textleft top">
-                    <h3 class="top"><i class="fa fa-angle-double-right"></i> {{profile_user.first_name}} {{profile_user.last_name}}</h3>
+        <div class="col-sm-10 col-xs-12">
+            <div class="textleft top">
+                <!-- TODO only display user info if they are not null -->
+                <h3 class="top">{{profile_user.first_name}} {{profile_user.last_name}}</h3>
+                <div>
+                    <p>
+                        <span><i class="fa fa-briefcase"></i> {{profile_user.occupation}}</span>
+                        <span><i class="fa fa-map-marker"></i> {{profile_user.city}}</span>
+                    </p>
+                    <p><a href="{{profile_user.site}}" target="_blank">{{profile_user.site}}</a></p>
                 </div>
-
-                <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <strong>{% trans "Occupation" %}</strong>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                        <p>{{profile_user.occupation}}</p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <strong>{% trans "City" %}</strong>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                        <p>{{profile_user.city}}</p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <strong>{% trans "Site" %}</strong>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                        <p><a href="{{profile_user.site}}" target="_blank">{{profile_user.site}}</a></p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <strong>{% trans "Bio" %}</strong>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                        <p>{{profile_user.biography}}</p>
-                    </div>
-                </div>
-            </fieldset>
+                <!-- TODO check with Bruno if it is interesting to show this data -->
+                <span>2 cursos finalizados</span> | <span>1 certificado de conclusão</span>
+            </div>
+            <div class="row">
+                <p>{{profile_user.biography}}</p>
+            </div>
         </div>
     </div>
+    <hr />
+    <div class="row">
+
+        <!-- TODO only display tittle if not null -->
+        <h2><i class="fa fa-check-square-o"></i> Cursos finalizados</h3>
+
+        <!-- TODO add for to display finished courses -->
+        <div class="col-sm-4">
+            <div class="thumb-wrapper">
+                <!-- TODO change img src for course thumbnail -->
+                <img class="img-responsive" src="/media/home_thumbnails/dfe231678b8ae44c0a6836ddc9ef3d85.jpg" />
+            </div>
+            <div class="info">
+                <!-- TODO change href to course url -->
+                <a href="#">
+                    <!-- TODO change course name -->
+                    <h3>Introdução à Linguagem de Programação PHP</h3>
+                </a>
+                <!-- TODO add instructor loop -->
+                <p class="instructors">por Capi Etheriel</p>
+            </div>
+            <div>
+                <!-- TODO add certificate link and conclusion date -->
+                <p>
+                    Conluído em 15/08/2015
+                    <a href="#" title="Ver comprovante"><i class="fa fa-file-text-o"></i></a>
+                </p>
+                <!-- TODO only display if user has verified certificate -->
+                <a class="btn btn-default">
+                    Possui certificado <i class="fa fa-check"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
 </div>
 {% endblock %}
