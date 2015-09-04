@@ -28,7 +28,7 @@ endef
 create-staging:
 	virtualenv ~/env
 	~/env/bin/pip install -r requirements.txt
-	sudo `which npm` install -g less yuglify uglify-js cssmin ngmin --loglevel silent
+	sudo `which npm` install -g less yuglify uglify-js cssmin ng-annotate --loglevel silent
 	mkdir -p ~/webfiles/static
 	mkdir -p ~/webfiles/media
 
@@ -99,7 +99,7 @@ setup_coveralls:
 	pip install -q coveralls
 
 setup_js:
-	sudo `which npm` install -g less@2.2 yuglify uglify-js cssmin karma-cli jshint ngmin grunt-cli # --loglevel silent
+	sudo `which npm` install -g less@2.2 yuglify uglify-js cssmin karma-cli jshint ng-annotate grunt-cli # --loglevel silent
 	sudo npm install grunt grunt-angular-gettext karma karma-jasmine karma-phantomjs-launcher
 
 setup_django: clean

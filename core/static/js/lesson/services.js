@@ -55,6 +55,14 @@
         }
     ]);
 
+    app.factory('Student', function($resource) {
+        return $resource('/api/course_student/', {}, {});
+    });
+
+    app.factory('CourseCertification', function($resource) {
+        return $resource('/api/course_certification/', {}, {});
+    });
+
     app.factory('resolveActivityTemplate', ['STATIC_URL', function(STATIC_URL) {
         return function (typeName) {
             return STATIC_URL + '/templates/activity_'+ typeName + '.html';

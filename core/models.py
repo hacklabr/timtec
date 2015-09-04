@@ -33,14 +33,19 @@ class Video(models.Model):
         if self.unit.first():
             unit = self.unit.first()
             if unit.lesson:
-                return u'Aula: {0} | Unidade: {1} | id youtube: {2}'.format(unit.lesson, unit, self.youtube_id)
+                return u'Aula: {0} | Unidade: {1} | id youtube: {2}'.format(
+                    unit.lesson, unit, self.youtube_id)
         return self.youtube_id
 
 
 class Class(models.Model):
     name = models.CharField(max_length=200)
-    assistant = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Assistant'), related_name='professor_classes', null=True, blank=True)
-    students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='classes', blank=True)
+    assistant = models.ForeignKey(settings.AUTH_USER_MODEL,
+                                  verbose_name=_('Assistant'),
+                                  related_name='professor_classes', null=True,
+                                  blank=True)
+    students = models.ManyToManyField(settings.AUTH_USER_MODEL,
+                                      related_name='classes', blank=True)
     course = models.ForeignKey('Course', verbose_name=_('Course'))
 
     def __unicode__(self):
@@ -61,7 +66,8 @@ class Class(models.Model):
     def remove_students(self, *objs):
         for obj in objs:
             self.students.remove(obj)
-            if CourseStudent.objects.filter(course=self.course, user=obj).exists():
+            if CourseStudent.objects.filter(course=self.course,
+                                            user=obj).exists():
                 self.course.default_class.students.add(obj)
 
 
@@ -73,7 +79,8 @@ class Course(models.Model):
 
     slug = models.SlugField(_('Slug'), max_length=255, unique=True)
     name = models.CharField(_('Name'), max_length=255, blank=True)
-    intro_video = models.ForeignKey(Video, verbose_name=_('Intro video'), null=True, blank=True)
+    intro_video = models.ForeignKey(Video, verbose_name=_('Intro video'),
+                                    null=True, blank=True)
     application = models.TextField(_('Application'), blank=True)
     requirement = models.TextField(_('Requirement'), blank=True)
     abstract = models.TextField(_('Abstract'), blank=True)
@@ -87,9 +94,15 @@ class Course(models.Model):
     students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='studentcourse_set', through='CourseStudent')
     home_thumbnail = models.ImageField(_('Home thumbnail'), upload_to=hash_name('home_thumbnails', 'name'), null=True, blank=True)
     home_position = models.IntegerField(null=True, blank=True)
-    start_date = models.DateField(_('Start date'), default=None, blank=True, null=True)
+    start_date = models.DateField(_('Start date'), default=None, blank=True,
+                                  null=True)
     home_published = models.BooleanField(default=False)
-    default_class = models.OneToOneField(Class, verbose_name=_('Default Class'), related_name='default_course', null=True, blank=True)
+    default_class = models.OneToOneField(Class, verbose_name=_('Default Class'),
+                                         related_name='default_course',
+                                         null=True, blank=True)
+    min_percent_to_complete = models.IntegerField(default=100,
+                                                  null=True,
+                                                  blank=True)
 
     class Meta:
         verbose_name = _('Course')
@@ -139,7 +152,8 @@ class Course(models.Model):
 
     def avg_lessons_users_progress(self, classes=None):
         if classes:
-            student_enrolled = self.coursestudent_set.filter(user__classes__in=classes).count()
+            student_enrolled = self.coursestudent_set.filter(
+                user__classes__in=classes).count()
         else:
             student_enrolled = self.coursestudent_set.all().count()
         progress_list = []
@@ -151,11 +165,13 @@ class Course(models.Model):
             units_len = lesson.unit_count()
             # avoid zero divisfion
             if units_len and student_enrolled:
-                units_done = StudentProgress.objects.exclude(complete=None).filter(unit__lesson=lesson)
+                units_done = StudentProgress.objects.exclude(
+                    complete=None).filter(unit__lesson=lesson)
                 if classes:
                     units_done = units_done.filter(user__classes__in=classes)
                 units_done_len = units_done.count()
-                lesson_progress['progress'] = 100 * units_done_len / (units_len * student_enrolled)
+                lesson_progress['progress'] = 100 * units_done_len / (
+                    units_len * student_enrolled)
                 # lesson_progress['forum_questions'] = lesson.forum_questions.count()
                 # lesson_progress['progress'] =
                 # lesson_progress['finish'] = self.get_lesson_finish_time(lesson)
@@ -166,7 +182,8 @@ class Course(models.Model):
         return progress_list
 
     def forum_answers_by_lesson(self):
-        return self.user.forum_answers.values('question__lesson').annotate(Count('question__lesson'))
+        return self.user.forum_answers.values('question__lesson').annotate(
+            Count('question__lesson'))
 
     def get_video_professors(self):
         return self.course_authors.all()
@@ -230,20 +247,60 @@ class CourseStudent(models.Model):
 
     @property
     def units_done(self):
-        return StudentProgress.objects.exclude(complete=None)\
-                                      .filter(user=self.user, unit__lesson__course=self.course)
+        return StudentProgress.objects.exclude(complete=None) \
+            .filter(user=self.user, unit__lesson__course=self.course)
+
+    @property
+    def course_finished(self):
+        return self.percent_progress() >= \
+            self.course.min_percent_to_complete
+
+    def can_emmit_receipt(self):
+        return self.course_finished and self.user.is_profile_filled
+
+    def min_percent_to_complete(self):
+        return self.course.min_percent_to_complete
+
+    def reached_last_unit(self):
+        try:
+            last_unit_done = self.units_done.latest('complete')
+            # try to get the next unit in same lesson
+            next_unit = Unit.objects \
+                .filter(lesson=last_unit_done.unit.lesson,
+                        position__gt=last_unit_done.unit.position) \
+                .order_by('position').first()
+
+            if next_unit:
+                return False
+            else:
+                next_lesson = self.course.lessons \
+                    .filter(position__gt=last_unit_done.unit.lesson.position) \
+                    .order_by('position').first()
+
+                if next_lesson and next_lesson.first_unit():
+                    return False
+                else:
+                    return True
+        except StudentProgress.DoesNotExist:
+            return False
+        except AttributeError:
+            pass
+        return None
 
     def resume_next_unit(self):
         try:
             last_unit_done = self.units_done.latest('complete')
             # try to get the next unit in same lesson
             next_unit = Unit.objects.filter(lesson=last_unit_done.unit.lesson,
-                                            position__gt=last_unit_done.unit.position).order_by('position').first()
+                                            position__gt=last_unit_done.unit.position).order_by(
+                'position').first()
 
             if next_unit:
                 return next_unit
             else:
-                next_lesson = self.course.lessons.filter(position__gt=last_unit_done.unit.lesson.position).order_by('position').first()
+                next_lesson = self.course.lessons.filter(
+                    position__gt=last_unit_done.unit.lesson.position).order_by(
+                    'position').first()
                 if next_lesson and next_lesson.first_unit():
                     return next_lesson.units.order_by('position').first()
                 else:
@@ -455,6 +512,11 @@ class Lesson(PositionedModel):
 
     collection_name = 'course'
 
+    @property
+    def is_course_last_lesson(self):
+        lessons = list(self.course.public_lessons)
+        return lessons and self == lessons[-1]
+
     class Meta:
         verbose_name = _('Lesson')
         verbose_name_plural = _('Lessons')
@@ -512,17 +574,126 @@ class Unit(PositionedModel):
 
 
 class StudentProgress(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Student'))
-    unit = models.ForeignKey(Unit, verbose_name=_('Unit'), related_name='progress')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             verbose_name=_('Student'))
+    unit = models.ForeignKey(Unit, verbose_name=_('Unit'),
+                             related_name='progress')
     complete = models.DateTimeField(editable=True, null=True, blank=True)
     last_access = models.DateTimeField(auto_now=True, editable=False)
+
+    def save(self, *args, **kwargs):
+        super(StudentProgress, self).save(*args, **kwargs)
+
+        course_student = CourseStudent.objects.get(
+            course=self.unit.lesson.course,
+            user=self.user)
+
+        from django.core.exceptions import ObjectDoesNotExist
+        try:
+            receipt = CourseCertification.objects.get(
+                course_student=course_student)
+        except ObjectDoesNotExist:
+            if course_student.can_emmit_receipt():
+                from base64 import urlsafe_b64encode as ub64
+                from hashlib import sha1
+                from time import time
+                h = ub64(sha1(str(time()) + self.user.last_name).digest()[0:6])
+                receipt = CourseCertification(course_student=course_student,
+                                              is_valid=True, link_hash=h)
+                receipt.save()
 
     class Meta:
         unique_together = (('user', 'unit'),)
         verbose_name = _('Student Progress')
 
     def __unicode__(self):
-        return u'%s @ %s c: %s la: %s' % (self.user, self.unit, self.complete, self.last_access)
+        return u'%s @ %s c: %s la: %s' % (
+            self.user, self.unit, self.complete, self.last_access)
+
+
+class CourseCertification(models.Model):
+    TYPES = (
+        ('receipt', _('Receipt')),
+        ('certificate', _('Certificate')),
+    )
+
+    type = models.CharField(_('Certificate Type'), choices=TYPES,
+                            max_length=127)
+    course_student = models.ForeignKey(CourseStudent, unique=True,
+                                       verbose_name=_('Enrollment'))
+
+    created_date = models.DateTimeField(_('Created'), auto_now_add=True)
+    modified_date = models.DateTimeField(_('Last modified'), auto_now=True)
+
+    is_valid = models.BooleanField(_('Certificate is valid'), default=False)
+
+    course_workload = models.TextField(_('Workload'), blank=True)
+    course_total_units = models.IntegerField(_('Total units'), blank=True)
+
+    link_hash = models.CharField(_('Hash'), max_length=255)
+
+    def save(self, *args, **kwargs):
+        self.course_workload = self.course_student.course.workload
+        self.course_total_units = self.course_student.units_done.count()
+        super(CourseCertification, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = _("Certificate")
+
+    def __unicode__(self):
+        return u'({0}): {1}'.format(self.course_student, self.is_valid)
+
+    def __str__(self):
+        return '({0}): {1}'.format(self.course_student, self.is_valid)
+
+
+class Evaluation(models.Model):
+    min_grade = models.IntegerField(_('Evaluation grade needed'), blank=True)
+    date = models.DateTimeField(_('Evaluation date'), blank=True)
+    results_date = models.DateTimeField(_('Evaluation results date'),
+                                        blank=True)
+    instructions = models.CharField(_('Comments'), max_length=255)
+    klass = models.ForeignKey(Class, verbose_name=_('Class'))
+
+    class Meta:
+        verbose_name = _('Evaluation')
+
+    def __unicode__(self):
+        return u'({0}): {1}'.format(self.klass, self.instructions)
+
+    def __str__(self):
+        return '({0}): {1}'.format(self.klass, self.instructions)
+
+
+class CertificationProcess(models.Model):
+    course_certification = models.ForeignKey(CourseCertification,
+                                             verbose_name=_('Certificate'))
+    comments = models.CharField(_('Comments'), max_length=255)
+    created_date = models.DateTimeField(_('Created'), auto_now_add=True)
+
+    evaluation_grade = models.IntegerField(_('Evaluation grade'), blank=True)
+    approved = models.BooleanField(_('Approved'), default=False)
+    no_show = models.BooleanField(_('No show'), default=False)
+    evaluation = models.ForeignKey(Evaluation, verbose_name=_('Evaluation'))
+
+    @property
+    def certification_progress(self):
+        return {
+            'receipt': self.course_certification is not None,
+            'grade': self.evaluation_grade is not None,
+            'approved': self.approved
+        }
+
+    class Meta:
+        verbose_name = _("Certification Process")
+
+    def __unicode__(self):
+        return u'({0}): {1}'.format(
+            self.course_certification.course_student.user, self.evaluation)
+
+    def __str__(self):
+        return '({0}): {1}'.format(
+            self.course_certification.course_student.user, self.evaluation)
 
 
 class EmailTemplate(models.Model):
