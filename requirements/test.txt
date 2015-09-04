@@ -1,5 +1,5 @@
 # Test dependencies go here.
--r base.txt
+-r local.txt
 coverage==3.7.1
 flake8==2.4.0
 pytest>=2.5.2

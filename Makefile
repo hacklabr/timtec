@@ -17,7 +17,7 @@ endef
 
 define base_update
 	cp timtec/settings_local_$1.py timtec/settings_local.py
-	~/env/bin/pip install -U -r requirements.txt
+	~/env/bin/pip install -U -r requirements/test.txt
 	~/env/bin/python manage.py syncdb --noinput
 	~/env/bin/python manage.py migrate --noinput
 	~/env/bin/python manage.py collectstatic --noinput
@@ -27,7 +27,7 @@ endef
 
 create-staging:
 	virtualenv ~/env
-	~/env/bin/pip install -r requirements.txt
+	~/env/bin/pip install -r requirements/production.txt
 	sudo `which npm` install -g less yuglify uglify-js cssmin ng-annotate --loglevel silent
 	mkdir -p ~/webfiles/static
 	mkdir -p ~/webfiles/media
@@ -92,8 +92,8 @@ setup_ci:
 	cp timtec/settings_local_ci.py timtec/settings_local.py
 
 setup_py:
-	pip install -q -r requirements.txt
-	pip install -q -r dev-requirements.txt
+	pip install -q -r requirements/local.txt
+	# pip install -q -r dev-requirements.txt
 	python setup.py -q develop
 
 setup_coveralls:
