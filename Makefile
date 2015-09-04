@@ -104,7 +104,7 @@ setup_js:
 	sudo npm install grunt grunt-angular-gettext karma karma-jasmine karma-phantomjs-launcher
 
 setup_django: clean
-	python manage.py syncdb --all --noinput
+	python manage.py syncdb --noinput
 	python manage.py migrate --fake --noinput
 	python manage.py loaddata minimal
 	python manage.py compilemessages
