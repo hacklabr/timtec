@@ -48,7 +48,7 @@ django-braces==1.8.0
 # unicodecsv==0.9.4
 unicodecsv==0.13.0
 
-raven===5.5.0
+raven==5.5.0
 
 # Markdown==2.4.1
 Markdown==2.6.2
