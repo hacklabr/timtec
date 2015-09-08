@@ -18,7 +18,6 @@ endef
 define base_update
 	cp timtec/settings_local_$1.py timtec/settings_local.py
 	~/env/bin/pip install -U -r requirements/test.txt
-	~/env/bin/python manage.py syncdb --noinput
 	~/env/bin/python manage.py migrate --noinput
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
