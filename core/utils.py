@@ -2,6 +2,7 @@ import os
 import hashlib
 from django.utils.deconstruct import deconstructible
 
+
 @deconstructible
 class HashName(object):
     def __init__(self, path, attr):

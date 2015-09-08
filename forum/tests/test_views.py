@@ -18,7 +18,7 @@ def test_question(admin_client, user):
 
     course = mommy.make('Course')
     mommy.make('Lesson', course=course, slug='lesson')
-    question = mommy.make('Question', slug='df', course=course)
+    question = mommy.make('Question', title='Test Question', slug='df', course=course)
 
     response = admin_client.get('/forum/question/' + question.slug + '/')
 
@@ -77,13 +77,13 @@ def test_question_view_set(user):
     class3 = mommy.make('Class', course=course1, assistant=professor, students=[student3])
     mommy.make('Class', course=course1, assistant=professor, students=[student4])
 
-    question1 = mommy.make('Question', slug='df', course=course1, user=student1)
-    question2 = mommy.make('Question', slug='df1', course=course1, user=user)
-    question3 = mommy.make('Question', slug='df2', course=course1, user=student2)
-    question4 = mommy.make('Question', slug='df3', course=course2, user=student2)
+    question1 = mommy.make('Question', title='Test Question', slug='df', course=course1, user=student1)
+    question2 = mommy.make('Question', title='Test Question', slug='df1', course=course1, user=user)
+    question3 = mommy.make('Question', title='Test Question', slug='df2', course=course1, user=student2)
+    question4 = mommy.make('Question', title='Test Question', slug='df3', course=course2, user=student2)
 
-    question5 = mommy.make('Question', slug='df4', course=course1, user=student3)
-    mommy.make('Question', slug='df5', course=course1, user=student4)
+    question5 = mommy.make('Question', title='Test Question', slug='df4', course=course1, user=student3)
+    mommy.make('Question', title='Test Question', slug='df5', course=course1, user=student4)
 
     student_client = Client()
     student_client.login(username=user.username, password='password')

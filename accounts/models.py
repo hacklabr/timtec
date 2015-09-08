@@ -95,7 +95,7 @@ class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
             try:
                 self.groups.add(Group.objects.get(name=settings.REGISTRATION_DEFAULT_GROUP_NAME))
                 self.save()
-            except models.exceptions.ObjectDoesNotExist:
+            except Group.DoesNotExist:
                 pass
 
 

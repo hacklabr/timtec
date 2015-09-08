@@ -8,4 +8,4 @@ pytest-flakes
 pytest-pep8
 pytest-django==2.6.2
 pytest-splinter==1.1.0
-model_mommy==1.2.2
+model_mommy==1.2.5
