@@ -4,6 +4,8 @@
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
+TIMTEC_THEME = 'ifs-colors'
+
 SITE_ID = 2
 SITE_NAME = 'Marca da instituição'
 ALLOWED_HOSTS = [
