@@ -89,6 +89,7 @@ all_tests: clean python_tests karma_tests js_tests test_collectstatic
 
 setup_ci:
 	psql -c 'create database timtec_ci;' -U postgres
+	pip install --upgrade pip
 	cp timtec/settings_local_ci.py timtec/settings_local.py
 
 setup_py:
