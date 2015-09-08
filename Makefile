@@ -92,8 +92,7 @@ setup_ci:
 	cp timtec/settings_local_ci.py timtec/settings_local.py
 
 setup_py:
-	pip install -q -r requirements/local.txt
-	# pip install -q -r dev-requirements.txt
+	pip install -q -r requirements/test.txt
 	python setup.py -q develop
 
 setup_coveralls:
