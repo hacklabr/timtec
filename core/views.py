@@ -47,13 +47,13 @@ class HomeView(ListView):
     def get_queryset(self):
         return Course.objects.filter(home_published=True).order_by('home_position')
 
+
 if settings.TWITTER_USER != '':
     from twitter import Twitter, OAuth
 
     class TwitterApi(View):
 
         def get(self, request, *args, **kwargs):
-
             consumer_key = settings.TWITTER_CONSUMER_KEY
             consumer_secret = settings.TWITTER_CONSUMER_SECRET
             twitter_name = settings.TWITTER_USER
@@ -445,12 +445,7 @@ class CanEditClassMixin(object):
 class ClassUpdateView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
     model = Class
     template_name = 'class_edit.html'
-    fields = ('name', 'assistant', )
-
-    def get_context_data(self, **kwargs):
-        context = super(ClassUpdateView, self).get_context_data(**kwargs)
-
-        return context
+    fields = ('name', 'assistant', 'user_can_certificate',)
 
     def form_valid(self, form):
         if form.changed_data:
