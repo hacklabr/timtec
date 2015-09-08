@@ -8,6 +8,7 @@
 {% block js %}
     {{ block.super }}
     {% compressed_js 'core' %}
+    {% compressed_js 'certificate' %}
 {% endblock %}
 
 {% block wrapper_classes %}
@@ -41,18 +42,19 @@ wrapper-course-lesson
     </div>
 </div>
 
-<div id="classes" class="course-classes">
+<div id="classes" class="course-classes" ng-app="certification" >
     <!-- ACTIONS -->
-    <div class="actions-menu" ng-app="core" fixed-bar>
+    <div class="actions-menu" fixed-bar>
         <div class="container">
             <div class="actions-buttons">
                 <form method="post" action="{% url 'class-delete' pk=class.id %}">
                     {% csrf_token %}
                     {% if object.course.default_class != object %}
-                    <button type="submit" class="btn btn-danger" title="{% trans 'Delete course' %}">{% trans 'Delete' %} | <i class="fa fa-trash-o"></i></button>
+                        <button type="submit" class="btn btn-danger" title="{% trans 'Delete course' %}">{% trans 'Delete' %} | <i class="fa fa-trash-o"></i></button>
+                        <button class="btn btn-success" onclick="document.getElementById('mainForm').submit();return false;">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
                     {% endif %}
-                    <button class="btn btn-success" onclick="document.getElementById('mainForm').submit();return false;">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
                 </form>
+
             </div>
 
             {# {% include 'administration/_alert.html' %} #}
@@ -62,26 +64,30 @@ wrapper-course-lesson
     <!-- END ACTIONS -->
 
     {% include "_course-header-inline.html"  with course=object.course %}
-    <section id="classes-content" class="container">
+    <section id="classes-content" class="container" ng-controller="EvaluationCtrl">
     	<header class="secondary-header">
-            <form id="mainForm" class="form-inline" method="post" action="{% url 'class' pk=class.id %}">
-                {% csrf_token %}
-                <div class="row">
+            <form id="mainForm" class="form-inline" method="post" action="">
+               {% csrf_token %}
+
+               <div class="row">
                     <div class="col-lg-9">
-                        <div class="editable-title"><input type="text" name="name" value="{{ object.name }}"></div>
+                        <div class="editable-title">
+                            {{ form.name }}
+                        </div>
                     </div>
                     <div class="col-lg-3">
                         <a class="btn btn-lg btn-danger uppercase" data-toggle="modal" data-target="#class-modal">{% trans 'Add users' %}</a>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-12">
+                    <div class="col-xs-4">
                         <div class="professor-assistant">
-                            <label for="select-assistant">{% trans 'Assistant Professor' %}:</label>
+                            <label for="{{ form.assistant.id_for_label }}">{% trans 'Assistant Professor' %}:</label>
                             {% if user|is_course_coordinator:object.course %}
-                                <select id="select-assistant" name="assistant" class="form-control">
+                                <select id="id_assistant"
+                                        name="assistant" class="form-control">
                                     {% if not object.assistant.id %}
-                                        <option value="-1">{% trans 'Select a professor' %}</option>
+                                        <option value>{% trans 'Select a professor' %}</option>
                                     {% endif %}
                                     {% for professor in object.course.professors.all %}
                                         <option value="{{ professor.id }}" {% if professor.id == object.assistant.id %}selected{% endif %}>{{ professor }}</option>
@@ -92,6 +98,53 @@ wrapper-course-lesson
                             {% endif %}
                         </div>
                     </div>
+                    <div class="col-xs-2">
+                        <div class="professor-assistant user-can-certificate">
+                            <label for="{{ form.user_can_certificate.id_for_label }}">
+                                {% trans 'Can Certificate' %}
+                            </label>
+                            {% if user|is_course_coordinator:object.course %}
+                                <div class="form-control">
+                                    <input  {% if form.user_can_certificate.value %}checked{% endif %}
+                                            id="id_user_can_certificate"
+                                            name="user_can_certificate"
+                                            ng-model="switches.can_certificate"
+                                            type="checkbox" />
+                                </div>
+                            {% else %}
+                                <label>
+                                    {{ object.user_can_certificate }}</label>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <nav ng-show="switches.can_certificate" class="col-xs-3
+                                        course-sections textright">
+                        <a ng-show="switches.can_certificate"
+                           class="has-tooltip fa fa-plus-circle"
+                           data-toggle="modal"
+                           ng-click="createEvaluation()"
+                           data-original-title="{% trans 'Schedule Evaluation' %}"
+                           aria-expanded="true">&nbsp;</a>
+                        <div class="dropdown">
+                                <a class="has-tooltip fa fa-cog dropdown-toggle"
+                                   data-placement="top"
+                                   data-original-title="{%  trans 'Manage evaluations' %}"
+                                   id="course-tools" data-toggle="dropdown"
+                                   aria-expanded="true">
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="course-tools">
+                                    <li ng-repeat="e in  class_evaluations">
+                                        {% verbatim %}
+                                        <a role="menuitem" tabindex="-1"
+                                           ng-click="createEvaluation(e.id)"
+                                           href="#">
+                                            {{ e.date | date : "dd 'de' MMM H:mm" }}
+                                        </a>
+                                        {% endverbatim %}
+                                    </li>
+                                </ul>
+                        </div>
+                    </nav>
                  </div>
             </form>
         </header>
@@ -125,7 +178,90 @@ wrapper-course-lesson
             </tr>
             {% endfor %}
         </table>
+        <script type="text/ng-template" id="createEvaluationModal.html">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">
+                    {% trans "Schedule Evaluation" %}</h4>
+            </div>
+            <div class="modal-body row">
+                <div class="alert alert-danger" role="alert" ng-show="empty_error || empty_error ">
+                </div>
+                <div class="form-group col-xs-5">
+                    <label>{% trans 'Evaluation Date' %}</label>
+                    <p class="input-group">
+                        <input datetime-picker="dd MMM yyyy HH:mm"
+                               class="form-control"
+                               type="text"
+                               ng-model="evaluation.date"
+                               is-open="calendar.eval_date" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default"
+                                ng-click="openCalendar($event, 'eval_date')">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </span>
+                    </p>
+                </div>
+                <div class="form-group col-xs-5">
+                    <label>{% trans 'Results Date' %}</label>
+                    <p class="input-group">
+                        <input datetime-picker="dd MMM yyyy HH:mm"
+                               class="form-control"
+                               type="text"
+                               ng-model="evaluation.results_date"
+                               is-open="calendar.eval_results_date" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default"
+                                ng-click="openCalendar($event, 'eval_results_date')">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </span>
+                    </p>
+                </div>
+                <div class="col-xs-2">
+                    <label>{% trans 'Mininum grade' %}</label>
+                    <input class="form-control" ng-model="evaluation.min_grade"
+                           type="number" />
+                </div>
+                <div class="col-xs-12">
+                    <textarea class="form-control" rows="5"
+                              ng-model="evaluation.instructions"
+                              placeholder="{% trans 'Instructions' %}">
+
+                    </textarea>
+                </div>
+                <!--<div class="form-group row">
+                    <div class="students col-lg-12">
+                        <nav>
+                            <ul>
+                                <li>Select all</li>
+                                <li>De-select all</li>
+                            </ul>
+                        </nav>
+                        <table class="table table-list" ng-show="!modal.all_checked && recipient_list.length">
+                            <tr>
+                                <th class="fullname">{% trans "Full name" %}</th>
+                                <th class="actions">{% trans " - " %}</th>
+                            </tr>
+                            <tr ng-repeat="student in recipient_list">
+                                {% verbatim %}
+                                <td>{{student.name}}</td>
+                                {% endverbatim %}
+                                <td><input type="checkbox"
+                                           ng-model="student.selected"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger"
+                        ng-click="cancel()">{% trans "Close" %}</button>
+                <button type="button" class="btn btn-success"
+                        ng-click="save()">{% trans "Send" %}</button>
+            </div>
+        </script>
     </section>
 </div>
-
 {% endblock %}
