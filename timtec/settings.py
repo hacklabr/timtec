@@ -372,42 +372,6 @@ APPEND_SLASH = True
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'e%6a01vfbue28$xxssu!9r_)usqjh817((mr+7vv3ek&@#p0!$'
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(THEMES_DIR, TIMTEC_THEME, 'templates'),
-            os.path.join(THEMES_DIR, 'default', 'templates'),
-        ],
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.template.context_processors.debug',
-                'django.template.context_processors.i18n',
-                'django.template.context_processors.media',
-                'django.template.context_processors.static',
-                'django.template.context_processors.tz',
-                'django.contrib.messages.context_processors.messages',
-
-                # TIMTec context_processors
-                'core.context_processors.contact_form',
-                'core.context_processors.site_settings',
-                'core.context_processors.get_current_path',
-                'core.context_processors.terms_acceptance_required',
-                'timtec.locale_context_processor.locale',
-            ],
-            'loaders': [
-                'django.template.loaders.filesystem.Loader',
-                'django.template.loaders.app_directories.Loader',
-                'core.loaders.TimtecThemeLoader',
-            ],
-            'debug': DEBUG,
-        },
-    },
-]
-
 # Django Suit configuration example
 SUIT_CONFIG = {
     # header
@@ -559,6 +523,42 @@ try:
     execfile(os.path.join(SETTINGS_DIR, 'settings_local.py'))
 except IOError:
     pass
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(THEMES_DIR, TIMTEC_THEME, 'templates'),
+            os.path.join(THEMES_DIR, 'default', 'templates'),
+        ],
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+
+                # TIMTec context_processors
+                'core.context_processors.contact_form',
+                'core.context_processors.site_settings',
+                'core.context_processors.get_current_path',
+                'core.context_processors.terms_acceptance_required',
+                'timtec.locale_context_processor.locale',
+            ],
+            'loaders': [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+                'core.loaders.TimtecThemeLoader',
+            ],
+            'debug': DEBUG,
+        },
+    },
+]
 
 # Additional locations of static files
 STATICFILES_DIRS = (
