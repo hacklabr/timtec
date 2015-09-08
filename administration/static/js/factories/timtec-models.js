@@ -207,6 +207,27 @@
     }]);
 
 
+    app.factory('CertificationProcess', function($resource){
+        return $resource('/api/certification_process/:certificateId',
+            {'certificateId' : '@id'},
+            {'update': {'method': 'PUT'} });
+    });
+
+    app.factory('CourseCertification', function($resource){
+        return $resource('/api/course_certification/:certificationLink', {}, {
+            update: {method: 'PUT'}
+        });
+    });
+
+    /**
+     * Basic model class to Evaluation
+     */
+    app.factory('Evaluation', function($resource){
+        return $resource('/api/evaluation/:id', {'id' : '@id'}, {
+            'update': {'method': 'PUT'}
+        });
+    });
+
     /**
      * StudentSearch model. Used in typeahead input with ui.bootstrap.typeahead.
      * It uses http instead resource cause it has to be synchronous.
