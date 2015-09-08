@@ -181,6 +181,7 @@ PIPELINE_JS = {
             'angular-route/angular-route.js',
             'angular-sanitize/angular-sanitize.js',
             'angular-bootstrap/ui-bootstrap-tpls.js',
+            'bootstrap-ui-datetime-picker/dist/datetime-picker.min.js',
             'angular-gettext/dist/angular-gettext.js',
             'angular-i18n/angular-locale_pt-br.js',
             'intro.js/intro.js',
@@ -215,6 +216,16 @@ PIPELINE_JS = {
             'js/factories/timtec-models.js',
         ),
         'output_filename': 'js/messages.js',
+    },
+    'certificate': {
+        'source_filenames': (
+            'js/certificate/app.js',
+            'js/certificate/controllers.js',
+            'js/certificate/services.js',
+            'checklist-model/checklist-model.js',
+            'js/factories/timtec-models.js',
+        ),
+        'output_filename': 'js/certificate.js',
     },
     'codemirror': {
         'source_filenames': (

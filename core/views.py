@@ -28,11 +28,14 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           CourseStudentSerializer, ClassSerializer,
                           FlatpageSerializer, CourseAuthorPictureSerializer,
                           CourseAuthorSerializer,
-                          CourseCertificationSerializer,)
+                          CourseCertificationSerializer,
+                          CertificationProcessSerializer,
+                          EvaluationSerializer,)
 
 from .models import (Course, CourseProfessor, Lesson, StudentProgress,
                      Unit, ProfessorMessage, CourseStudent, Class,
-                     CourseAuthor, CourseCertification,)
+                     CourseAuthor, CourseCertification, CertificationProcess,
+                     Evaluation, )
 
 from .forms import (ContactForm, RemoveStudentForm,
                     AddStudentsForm, )
@@ -282,7 +285,7 @@ class CourseStudentViewSet(viewsets.ModelViewSet):
 
 class CourseCertificationViewSet(viewsets.ModelViewSet):
     model = CourseCertification
-    lookup_field = 'link'
+    lookup_field = 'link_hash'
     filter_fields = ('course_student',)
     serializer_class = CourseCertificationSerializer
 
@@ -290,12 +293,36 @@ class CourseCertificationViewSet(viewsets.ModelViewSet):
 class CourseCertificationDetailView(DetailView):
     model = CourseCertification
     template_name = 'certificate.html'
-    slug_field = "link"
+    slug_field = "link_hash"
     serializer_class = CourseCertificationSerializer
 
     def get_queryset(self, *args, **kwargs):
         return super(CourseCertificationDetailView, self).get_queryset(*args,
                                                                        **kwargs)
+
+
+class CertificationProcessViewSet(viewsets.ModelViewSet):
+    model = CertificationProcess
+    serializer_class = CertificationProcessSerializer
+    ordering = ('created_date',)
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = super(CertificationProcessViewSet, self).get_queryset()
+
+        from django.db.models import Q
+        return queryset.filter(Q(evaluation__klass__assistant=user) |
+                               Q(evaluation__klass__course__professors=user))
+
+
+class EvaluationViewSet(viewsets.ModelViewSet):
+    model = Evaluation
+    ordering = ('date',)
+
+    filter_fields = ('klass',)
+    filter_backends = (filters.DjangoFilterBackend,)
+
+    serializer_class = EvaluationSerializer
 
 
 class ProfessorMessageViewSet(viewsets.ModelViewSet):
