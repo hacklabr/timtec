@@ -4,7 +4,7 @@ from model_mommy import mommy
 
 @pytest.mark.django_db
 def test_is_admin_working(client):
-    response = client.get('/django/admin/')
+    response = client.get('/django/admin/login/')
     assert response.status_code == 200
     assert 'Timtec Admin' in response.content
 
