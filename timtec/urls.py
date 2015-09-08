@@ -20,7 +20,9 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         FlatpageViewSet, CoursePictureUploadViewSet,
                         ResumeCourseView, FlatpageView, CourseAuthorViewSet,
                         CourseCertificationViewSet,
-                        CourseCertificationDetailView,)
+                        CourseCertificationDetailView,
+                        CertificationProcessViewSet,
+                        EvaluationViewSet,)
 
 from activities.views import AnswerViewSet
 from forum.views import (CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet,
@@ -65,6 +67,8 @@ router.register(r'course_stats', CourseStatsByLessonViewSet)
 router.register(r'course_classes', ClassViewSet)
 router.register(r'flatpage', FlatpageViewSet)
 router.register(r'course_certification', CourseCertificationViewSet)
+router.register(r'certification_process', CertificationProcessViewSet)
+router.register(r'evaluation', EvaluationViewSet)
 
 urlpatterns = patterns(
     '',
@@ -80,10 +84,8 @@ urlpatterns = patterns(
 
     # Public browsing
     url(r'^my-courses/$', UserCoursesView.as_view(), name='user_courses'),
-    url(r'^certificate/(?P<slug>[-a-zA-Z0-9_]+)$',
-        CourseCertificationDetailView.as_view(), name='certificate'),
-    url(r'^certificate/(?P<slug>[-a-zA-Z0-9_]+)/print/$',
-        CourseCertificationDetailView.as_view(template_name="certificate_print.html"), name='certificate'),
+    url(r'^certificate/(?P<slug>[-a-zA-Z0-9_]+)$', CourseCertificationDetailView.as_view(), name='certificate'),
+    url(r'^certificate/(?P<slug>[-a-zA-Z0-9_]+)/print$', CourseCertificationDetailView.as_view(template_name="certificate_print.html"), name='certificate'),
     url(r'^accept_terms/$', AcceptTermsView.as_view(), name='accept_terms'),
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/intro/$', CourseView.as_view(), name='course_intro'),
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/enroll/$', EnrollCourseView.as_view(), name='enroll_course'),

@@ -48,6 +48,9 @@ class Class(models.Model):
                                       related_name='classes', blank=True)
     course = models.ForeignKey('Course', verbose_name=_('Course'))
 
+    user_can_certificate = models.BooleanField(_('Certification Allowed'),
+                                               default=False)
+
     def __unicode__(self):
         return u'%s @ %s' % (self.name, self.course)
 
