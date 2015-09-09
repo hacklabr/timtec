@@ -263,7 +263,9 @@
 
 
     app.factory('Class', function($resource){
-            return $resource('/api/course_classes/', {}, {});
+        return $resource('/api/course_classes/:id', {'id' : '@id'}, {
+            'update': {'method': 'PUT'}
+        });
     });
 
 
