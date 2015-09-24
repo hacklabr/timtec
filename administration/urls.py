@@ -43,6 +43,8 @@ urlpatterns = patterns(
 
     url(r'^course/(?P<course_id>[1-9][0-9]*)/permissions/$', CourseAdminView.as_view(template_name="permissions.html"), name="course.permissions"),
 
+    url(r'^course/(?P<course_id>[1-9][0-9]*)/certificatesettings/$', CourseAdminView.as_view(template_name="certificate-settings.html"), name="course.certificate-settings"),
+
     url(r'^course/(?P<course_id>[1-9][0-9]*)/reports/$', CourseAdminView.as_view(template_name="stats.html"), name="administration.reports"),
 
 )
