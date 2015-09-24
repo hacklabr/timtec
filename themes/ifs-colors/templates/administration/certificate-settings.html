@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load compressed %}
+{% load static %}
+{% load i18n %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
+{% block content %}
+
+<!-- TODO add controller, ng-app and id -->
+<section>
+    <!-- ACTIONS -->
+    <div class="actions-menu" fixed-bar>
+        <div class="container">
+            <div class="actions-buttons">
+                <button class="btn btn-danger">{% trans 'Cancel' %} | <i class="fa fa-times"></i></button>
+                <button class="btn btn-success">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
+            </div>
+            {% include 'administration/_alert.html' %}
+        </div>
+    </div>
+    <!-- END ACTIONS -->
+    {% include "_admin_header_inline.html" with course=course %}
+
+    <!-- TODO add form -->
+
+    <section class="container">
+        <header class="secondary-header">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% trans 'Edit certificate' %}</h1>
+                </div>
+            </div>
+        </header>
+        <div class="alert alert-info" role="alert">
+            Edite os elementos numerados de <strong>1 a 6</strong> com as informações que serão exibidas no certificado final do curso.
+        </div>
+        <div class="certificate-container certificate-admin">
+            <div class="pronatec-logo">
+
+                <!-- TODO link checkbox with img, so when checked it's opacity is 1, when it's not = 0.4-->
+
+                <img alt="Logo Instituto" src="{% static 'img/logopronatec.svg' %}">
+                <p>
+                    <label class="cursor-pointer">
+                        <input type="checkbox" checked> Exibir logo PRONATEC
+                    </label>
+                </p>
+            </div>
+            <div class="brasil-logo">
+
+                <!-- TODO link checkbox with img, so when checked it's opacity is 1, when it's not = 0.4-->
+
+                <img alt="Logo Instituto" src="{% static 'img/logobrasil.svg' %}">
+                <p>
+                    <label class="cursor-pointer">
+                        <input type="checkbox" checked> Exibir logo MEC
+                    </label>
+                </p>
+            </div>
+            <div class="institute-logo">
+                <!-- TODO add file preview -->
+                <img alt="Logo Instituto" src="">
+                <input type="file" id="">
+            </div>
+            <div class="text-center certificate-info">
+                <p>
+                    O <span class="institute editable editable-text">
+                        <input type="text"
+                           ng-model=""
+                           placeholder="Digite o nome do Instituto" />
+                       </span> certifica que
+                </p>
+                <!-- TODO add course info -->
+                <p class="student">Nome do(a) concluinte</p>
+                <p class="text-muted">
+                    concluiu o curso <strong>{{ course.name }}</strong>, com <strong>___</strong> horas, no período de _______________________, no âmbito PRONATEC - Programa Nacional de Acesso ao Ensino Técnico e Emprego.
+                </p>
+                <p class="text-muted">
+                    <strong>_____________</strong>, <strong>__</strong> de <strong>__________</strong> de 20<strong>__</strong>.
+                </p>
+            </div>
+            <footer class="certificate-signature">
+                <p>
+                    <a href="#" class="has-tooltip" data-toggle="tooltip" data-placement="top" title="Clique abaixo para carregar a imagem da assinatura. Ela deve possuir fundo transparente e ser no formato .png">Adicione a assinatura</a> que aparecerá no Certificado.
+                </p>
+
+                <!-- TODO add file preview -->
+                <input type="file" id="">
+                <div class="editable editable-text role-signature">
+                    <input type="text"
+                           ng-model=""
+                           placeholder="Digite o cargo, ex.: Diretora da Unidade" />
+                </div>
+            </footer>
+        </div>
+    </section>
+</section>
+{% endblock %}
