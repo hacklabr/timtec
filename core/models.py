@@ -243,7 +243,10 @@ class CourseStudent(models.Model):
             if next_unit:
                 return next_unit
             else:
-                next_lesson = self.course.lessons.filter(position__gt=last_unit_done.unit.lesson.position).order_by('position').first()
+                next_lesson = self.course.lessons.filter(
+                    position__gt=last_unit_done.unit.lesson.position,
+                    status='published').order_by(
+                    'position').first()
                 if next_lesson and next_lesson.first_unit():
                     return next_lesson.units.order_by('position').first()
                 else:
