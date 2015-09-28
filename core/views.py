@@ -500,6 +500,7 @@ class StudentProgressViewSet(viewsets.ModelViewSet):
         self.object = self.get_object_or_none()
         if self.object:
             self.object.save()
+            # TODO: verificar se a resposta deveria ser esta mesmo.
             return HttpResponse('')
         else:
             return super(StudentProgressViewSet, self).update(request, *args, **kwargs)
