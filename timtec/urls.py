@@ -105,6 +105,9 @@ urlpatterns = patterns(
     url(r'^class/(?P<pk>[0-9]+)/add_users/$', ClassAddUsersView.as_view(), name='class-add-users'),
     url(r'^class/(?P<pk>[0-9]+)/evaluations/$', ClassEvaluationsView.as_view(), name='class-evaluations'),
 
+    #Evaluations
+    url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/course_evaluations/$', GenericCourseView.as_view(template_name="course-evaluations.html"), name='course-evaluations'),
+
     # Services
     url(r'^api/', include(router.urls)),
     # Forum
