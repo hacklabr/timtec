@@ -19,160 +19,264 @@
     <div id="classes" class="course-classes" ng-app="certification"
          ng-controller="EvaluationCtrl">
 
-        <!-- ACTIONS -->
-        <div class="actions-menu" fixed-bar>
-            <div class="container">
-                <div class="actions-buttons">
-                    <a class="btn btn-success"
-                       data-toggle="modal"
-                       ng-click="createEvaluation()"
-                       data-original-title="{% trans 'Schedule Evaluation' %}"
-                       aria-expanded="true">
-                        {% trans 'Schedule Evaluation' %}
-                        |  <i class="fa fa-save"></i>
-                    </a>
-
-                </div>
-            </div>
-        </div>
-        <!-- END ACTIONS -->
-
         {% include "_course-header-inline.html"  with course=object.course %}
         <section id="classes-content" class="container">
             <header class="secondary-header row">
+                <div class="col-sm-8">
+                    <h1>{% trans "Evaluations for class" %} {class}</h1>
+                </div>
                 {% verbatim %}
-                <h3 class="col-xs-8">
+                <h3 class="col-sm-4">
                     {{ evaluation.date | date : "dd 'de' MMM H:mm" }}
                     <a role="menuitem" tabindex="-1"
                        ng-click="createEvaluation(true)"
-                       href="#">
-                        | <i class="fa fa-edit"></i>
+                       href="#" class="btn btn-success">
+                       Schedule evaluation
                     </a>
                 </h3>
                 {% endverbatim %}
-                <div class="col-xs-4 dropdown textright">
-                    <a class="has-tooltip dropdown-toggle"
-                       data-placement="top"
-                       data-original-title="{%  trans 'Manage evaluations' %}"
-                       id="course-tools" data-toggle="dropdown"
-                       aria-expanded="true">
-                        {% trans 'Manage Evaluations' %}
-                        |  <i class="fa fa-cog"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="course-tools">
-                        <li ng-repeat="e in class_evaluations">
-                            {% verbatim %}
-                            <a role="menuitem" tabindex="-1"
-                               ng-click="changeEvaluation($index)"
-                               href="#">
-                                {{ e.date | date : "dd 'de' MMM H:mm" }}
-                            </a>
-                            {% endverbatim %}
+            </header>
+
+            <div class="well row">
+                <div class="col-sm-6">
+                    <h2>Evaluation status</h2>
+                    <ul class="list-unstyled">
+                        <li>
+                            Students that can certificate: <strong>12</strong>
+                        </li>
+                        <li>
+                            Students that requested certificate: <strong>40</strong>
+                        </li>
+                        <li>
+                            Already have certificate: <strong>24</strong>
+                        </li>
+                        <li>
+                            Scheduled evaluations: <strong>3</strong>
+                        </li>
+                        <li>
+                            Upcoming evaluations: <strong>4</strong>
                         </li>
                     </ul>
                 </div>
-            </header>
-            <tabset>
-                <tab heading="{% trans 'Attending Students' %}" >
-                    <table class="table table-list">
-                        <tr>
-                            <th class="classname">{% trans "Username" %}</th>
-                            <th class="email">{% trans "Email" %}</th>
-                            <th class="fullname">{% trans "Full name" %}</th>
-                            {% if object.course.default_class != object %}
-                                <th class="actions">{% trans "Actions" %}</th>
-                            {% endif %}
-                        </tr>
-                        <tr ng-show="!evaluation.processes.length">
-                            {{ evaluation.process.length }}
-                            <td colspan="4">{% trans 'No students found' %}</td>
-                        </tr>
+                <div class="col-sm-6">
+                    <h2>Class progress</h2>
+                    <ul class="list-unstyled">
+                        <li>
+                            Number of enroled students: <strong>100</strong></strong>
+                        </li>
+                        <li>
+                            Number of students able to attend evaluation: <strong>10</strong> out of 100
+                        </li>
+                    </ul>
+                    <div class="progress">
+                      <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%;">
+                        <span class="sr-only">10% Completed the course and filled profile</span>
+                      </div>
+                    </div>
+                </div>
 
-                        <tr ng-repeat="process in certification_processes | attending:evaluation.id">
-                            {% verbatim %}
-                            <td>{{ process.student.username }}</td>
-                            <td>{{ process.student.email }}</td>
-                            <td>{{ process.student.get_full_name }}</td>
-                            <td class="actions">
-                                {{ process.evaluation }}
-                            <!--        <form method="post" action="{% url
-                            'class-remove-user' pk=class.id %}">
-                                    <input type="hidden" name="user_id" value="{{ student.id }}"></input>
-                                    <button type="submit" class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
-                                </form>
-                                -->
-                            </td>
-                            {% endverbatim %}
-                        </tr>
-                    </table>
-                </tab>
-                <tab heading="{% trans 'Not attending' %}">
-                    <table class="table table-list">
-                        <tr>
-                            <th class="classname">{% trans "Username" %}</th>
-                            <th class="email">{% trans "Email" %}</th>
-                            <th class="fullname">{% trans "Full name" %}</th>
-                            {% if object.course.default_class != object %}
-                                <th class="actions">{% trans "Actions" %}</th>
-                            {% endif %}
-                        </tr>
-                        <tr ng-show="!certification_processes.length">
-                            <td colspan="4">{% trans 'No students found' %}</td>
-                        </tr>
+            </div>
 
-                        <tr ng-repeat="process in certification_processes"
-                            ng-if="!process.evaluation">
-                            {% verbatim %}
-                            <td>{{ process.student.username }}</td>
-                            <td>{{ process.student.email }}</td>
-                            <td>{{ process.student.name }}</td>
-                            <td class="actions">
-                                {{ process.evaluation }}
-                            <!--        <form method="post" action="{% url
-                            'class-remove-user' pk=class.id %}">
-                                    <input type="hidden" name="user_id" value="{{ student.id }}"></input>
-                                    <button type="submit" class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
-                                </form>
-                                -->
-                            </td>
-                            {% endverbatim %}
-                        </tr>
-                    </table>
-                </tab>
-                <tab heading="{% trans 'Attending others' %}">
-                    <table class="table table-list">
-                        <tr>
-                            <th class="classname">{% trans "Username" %}</th>
-                            <th class="email">{% trans "Email" %}</th>
-                            <th class="fullname">{% trans "Full name" %}</th>
-                            {% if object.course.default_class != object %}
-                                <th class="actions">{% trans "Actions" %}</th>
-                            {% endif %}
-                        </tr>
-                        <tr ng-show="!certification_processes.length">
-                            <td colspan="4">{% trans 'No students found' %}</td>
-                        </tr>
+            <div class="row">
+                <div class="col-sm-3 well">
+                    <p>
+                        <a role="menuitem" tabindex="-1"
+                           ng-click="createEvaluation(true)"
+                           href="#" class="fa fa-plus-square">
+                            Schedule evaluation
+                        </a>
+                    </p>
+                    <p>Escolha uma avaliação da lista abaixo:</p>
+                    <ul class="nav nav-pills nav-stacked">
+                      <li role="presentation" class="active"><a href="#" class="fa fa-calendar"> Prova 1 - 16/10</a></li>
+                      <li role="presentation"><a href="#" class="fa fa-calendar"> Prova 2 - 25/11</a></li>
+                      <li role="presentation"><a href="#" class="fa fa-calendar"> Prova 3 - 15/12</a></li>
+                    </ul>
+                </div>
 
-                        <tr ng-repeat="process in certification_processes"
-                            ng-if="process.evaluation && process.evaluation != evaluation.id">
-                            {% verbatim %}
-                            <td>{{ process.student.username }}</td>
-                            <td>{{ process.student.email }}</td>
-                            <td>{{ process.student.name }}</td>
-                            <td class="actions">
-                                {{ process.evaluation }}
-                            <!--        <form method="post" action="{% url
-                            'class-remove-user' pk=class.id %}">
-                                    <input type="hidden" name="user_id" value="{{ student.id }}"></input>
-                                    <button type="submit" class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
-                                </form>
-                                -->
-                            </td>
-                            {% endverbatim %}
-                        </tr>
+                <div class="col-sm-9">
+                    <header class="row">
+                        <div class="col-sm-4">
+                            <h3>Título Evaluation - 16/10</h3>
+                        </div>
+                        <div class="col-sm-8">
+                            <button class="btn btn-success"><span class="fa fa-pencil" aria-hidden="true"></span> {% trans 'Edit evaluation' %}</button>
+                            <button class="btn btn-success"><span class="fa fa-plus-square" aria-hidden="true"></span> {% trans 'Add student' %}</button>
+                        </div>
+                    </header>
+
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>{% trans "Full name" %}</th>
+                                <th>{% trans "Username" %}</th>
+                                <th>{% trans "Email" %}</th>
+                                <th>{% trans "Actions" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-show="!evaluation.processes.length">
+                                {{ evaluation.process.length }}
+                                <td colspan="8">{% trans 'No students found' %}</td>
+                            </tr>
+
+                            <tr ng-repeat="process in certification_processes | attending:evaluation.id">
+                                {% verbatim %}
+                                <td>{{ process.student.get_full_name }}</td>
+                                <td>{{ process.student.username }}</td>
+                                <td>{{ process.student.email }}</td>
+                                <td class="actions">
+                                    <button class="btn btn-xs btn-success">{% trans 'Edit student' %}</button>
+                                </td>
+                                {% endverbatim %}
+                            </tr>
+                            <tr>
+                                <td>Maria do Rosario</td>
+                                <td>maria</td>
+                                <td>maria@gmail.com</td>
+                                <td class="actions">
+                                    <button class="btn btn-xs btn-success">{% trans 'Edit student' %}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Maria do Rosario</td>
+                                <td>maria</td>
+                                <td>maria@gmail.com</td>
+                                <td class="actions">
+                                    <button class="btn btn-xs btn-success">{% trans 'Edit student' %}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Maria do Rosario</td>
+                                <td>maria</td>
+                                <td>maria@gmail.com</td>
+                                <td class="actions">
+                                    <button class="btn btn-xs btn-success">{% trans 'Edit student' %}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Maria do Rosario</td>
+                                <td>maria</td>
+                                <td>maria@gmail.com</td>
+                                <td class="actions">
+                                    <button class="btn btn-xs btn-success">{% trans 'Edit student' %}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Maria do Rosario</td>
+                                <td>maria</td>
+                                <td>maria@gmail.com</td>
+                                <td class="actions">
+                                    <button class="btn btn-xs btn-success">{% trans 'Edit student' %}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Maria do Rosario</td>
+                                <td>maria</td>
+                                <td>maria@gmail.com</td>
+                                <td class="actions">
+                                    <button class="btn btn-xs btn-success">{% trans 'Edit student' %}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Maria do Rosario</td>
+                                <td>maria</td>
+                                <td>maria@gmail.com</td>
+                                <td class="actions">
+                                    <button class="btn btn-xs btn-success">{% trans 'Edit student' %}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Maria do Rosario</td>
+                                <td>maria</td>
+                                <td>maria@gmail.com</td>
+                                <td class="actions">
+                                    <button class="btn btn-xs btn-success">{% trans 'Edit student' %}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Maria do Rosario</td>
+                                <td>maria</td>
+                                <td>maria@gmail.com</td>
+                                <td class="actions">
+                                    <button class="btn btn-xs btn-success">{% trans 'Edit student' %}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Maria do Rosario</td>
+                                <td>maria</td>
+                                <td>maria@gmail.com</td>
+                                <td class="actions">
+                                    <button class="btn btn-xs btn-success">{% trans 'Edit student' %}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Maria do Rosario</td>
+                                <td>maria</td>
+                                <td>maria@gmail.com</td>
+                                <td class="actions">
+                                    <button class="btn btn-xs btn-success">{% trans 'Edit student' %}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Maria do Rosario</td>
+                                <td>maria</td>
+                                <td>maria@gmail.com</td>
+                                <td class="actions">
+                                    <button class="btn btn-xs btn-success">{% trans 'Edit student' %}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Maria do Rosario</td>
+                                <td>maria</td>
+                                <td>maria@gmail.com</td>
+                                <td class="actions">
+                                    <button class="btn btn-xs btn-success">{% trans 'Edit student' %}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Maria do Rosario</td>
+                                <td>maria</td>
+                                <td>maria@gmail.com</td>
+                                <td class="actions">
+                                    <button class="btn btn-xs btn-success">{% trans 'Edit student' %}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Maria do Rosario</td>
+                                <td>maria</td>
+                                <td>maria@gmail.com</td>
+                                <td class="actions">
+                                    <button class="btn btn-xs btn-success">{% trans 'Edit student' %}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Maria do Rosario</td>
+                                <td>maria</td>
+                                <td>maria@gmail.com</td>
+                                <td class="actions">
+                                    <button class="btn btn-xs btn-success">{% trans 'Edit student' %}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Maria do Rosario</td>
+                                <td>maria</td>
+                                <td>maria@gmail.com</td>
+                                <td class="actions">
+                                    <button class="btn btn-xs btn-success">{% trans 'Edit student' %}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Maria do Rosario</td>
+                                <td>maria</td>
+                                <td>maria@gmail.com</td>
+                                <td class="actions">
+                                    <button class="btn btn-xs btn-success">{% trans 'Edit student' %}</button>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
-                </tab>
-            </tabset>
+                </div>
 
             <!-- Templates -->
             <script type="text/ng-template" id="createEvaluationModal.html">
