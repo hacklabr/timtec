@@ -45,7 +45,7 @@
                 formData.append(name, value);
             };
 
-            this.sendTo = function(url) {
+            this.sendTo = function(url, method) {
                 var deferred = $q.defer();
 
                 formData.append('csrfmiddlewaretoken',
@@ -67,7 +67,12 @@
                     }
                 };
 
-                oReq.open('POST', url, true);
+                if(method){
+                    oReq.open(method, url, true);
+                } else {
+                    oReq.open('POST', url, true);
+                }
+                oReq.setRequestHeader("X-CSRFToken", /csrftoken=(\w+)/.extract(document.cookie, 1));
                 oReq.send(formData);
 
                 return deferred.promise;
