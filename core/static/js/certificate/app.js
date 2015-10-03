@@ -9,6 +9,7 @@
         'ui.bootstrap',
         'ui.bootstrap.datetimepicker',
         'truncate',
+        'checklist-model',
         'ngRoute',
     ]);
 })(angular);

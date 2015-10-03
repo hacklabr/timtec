@@ -1,0 +1,366 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+{% load compressed %}
+{% load is_course_coordinator %}
+
+{% block js %}
+    {{ block.super }}
+    {% compressed_js 'certificate' %}
+{% endblock %}
+
+{% block wrapper_classes %}
+    wrapper-course-lesson
+{% endblock %}
+
+{% block content %}
+
+    <div id="classes" class="course-classes" ng-app="certification"
+         ng-controller="EvaluationCtrl">
+
+        <!-- ACTIONS -->
+        <div class="actions-menu" fixed-bar>
+            <div class="container">
+                <div class="actions-buttons">
+                    <a class="btn btn-success"
+                       data-toggle="modal"
+                       ng-click="createEvaluation()"
+                       data-original-title="{% trans 'Schedule Evaluation' %}"
+                       aria-expanded="true">
+                        {% trans 'Schedule Evaluation' %}
+                        |  <i class="fa fa-save"></i>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <!-- END ACTIONS -->
+
+        {% include "_course-header-inline.html"  with course=object.course %}
+        <section id="classes-content" class="container">
+            <header class="secondary-header row">
+                {% verbatim %}
+                <h3 class="col-xs-8">
+                    {{ evaluation.date | date : "dd 'de' MMM H:mm" }}
+                    <a role="menuitem" tabindex="-1"
+                       ng-click="createEvaluation(true)"
+                       href="#">
+                        | <i class="fa fa-edit"></i>
+                    </a>
+                </h3>
+                {% endverbatim %}
+                <div class="col-xs-4 dropdown textright">
+                    <a class="has-tooltip dropdown-toggle"
+                       data-placement="top"
+                       data-original-title="{%  trans 'Manage evaluations' %}"
+                       id="course-tools" data-toggle="dropdown"
+                       aria-expanded="true">
+                        {% trans 'Manage Evaluations' %}
+                        |  <i class="fa fa-cog"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="course-tools">
+                        <li ng-repeat="e in class_evaluations">
+                            {% verbatim %}
+                            <a role="menuitem" tabindex="-1"
+                               ng-click="changeEvaluation($index)"
+                               href="#">
+                                {{ e.date | date : "dd 'de' MMM H:mm" }}
+                            </a>
+                            {% endverbatim %}
+                        </li>
+                    </ul>
+                </div>
+            </header>
+            <tabset>
+                <tab heading="{% trans 'Attending Students' %}" >
+                    <table class="table table-list">
+                        <tr>
+                            <th class="classname">{% trans "Username" %}</th>
+                            <th class="email">{% trans "Email" %}</th>
+                            <th class="fullname">{% trans "Full name" %}</th>
+                            {% if object.course.default_class != object %}
+                                <th class="actions">{% trans "Actions" %}</th>
+                            {% endif %}
+                        </tr>
+                        <tr ng-show="!evaluation.processes.length">
+                            {{ evaluation.process.length }}
+                            <td colspan="4">{% trans 'No students found' %}</td>
+                        </tr>
+
+                        <tr ng-repeat="process in certification_processes | attending:evaluation.id">
+                            {% verbatim %}
+                            <td>{{ process.student.username }}</td>
+                            <td>{{ process.student.email }}</td>
+                            <td>{{ process.student.get_full_name }}</td>
+                            <td class="actions">
+                                {{ process.evaluation }}
+                            <!--        <form method="post" action="{% url
+                            'class-remove-user' pk=class.id %}">
+                                    <input type="hidden" name="user_id" value="{{ student.id }}"></input>
+                                    <button type="submit" class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
+                                </form>
+                                -->
+                            </td>
+                            {% endverbatim %}
+                        </tr>
+                    </table>
+                </tab>
+                <tab heading="{% trans 'Not attending' %}">
+                    <table class="table table-list">
+                        <tr>
+                            <th class="classname">{% trans "Username" %}</th>
+                            <th class="email">{% trans "Email" %}</th>
+                            <th class="fullname">{% trans "Full name" %}</th>
+                            {% if object.course.default_class != object %}
+                                <th class="actions">{% trans "Actions" %}</th>
+                            {% endif %}
+                        </tr>
+                        <tr ng-show="!certification_processes.length">
+                            <td colspan="4">{% trans 'No students found' %}</td>
+                        </tr>
+
+                        <tr ng-repeat="process in certification_processes"
+                            ng-if="!process.evaluation">
+                            {% verbatim %}
+                            <td>{{ process.student.username }}</td>
+                            <td>{{ process.student.email }}</td>
+                            <td>{{ process.student.name }}</td>
+                            <td class="actions">
+                                {{ process.evaluation }}
+                            <!--        <form method="post" action="{% url
+                            'class-remove-user' pk=class.id %}">
+                                    <input type="hidden" name="user_id" value="{{ student.id }}"></input>
+                                    <button type="submit" class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
+                                </form>
+                                -->
+                            </td>
+                            {% endverbatim %}
+                        </tr>
+                    </table>
+                </tab>
+                <tab heading="{% trans 'Attending others' %}">
+                    <table class="table table-list">
+                        <tr>
+                            <th class="classname">{% trans "Username" %}</th>
+                            <th class="email">{% trans "Email" %}</th>
+                            <th class="fullname">{% trans "Full name" %}</th>
+                            {% if object.course.default_class != object %}
+                                <th class="actions">{% trans "Actions" %}</th>
+                            {% endif %}
+                        </tr>
+                        <tr ng-show="!certification_processes.length">
+                            <td colspan="4">{% trans 'No students found' %}</td>
+                        </tr>
+
+                        <tr ng-repeat="process in certification_processes"
+                            ng-if="process.evaluation && process.evaluation != evaluation.id">
+                            {% verbatim %}
+                            <td>{{ process.student.username }}</td>
+                            <td>{{ process.student.email }}</td>
+                            <td>{{ process.student.name }}</td>
+                            <td class="actions">
+                                {{ process.evaluation }}
+                            <!--        <form method="post" action="{% url
+                            'class-remove-user' pk=class.id %}">
+                                    <input type="hidden" name="user_id" value="{{ student.id }}"></input>
+                                    <button type="submit" class="btn btn-warning"><i class="fa fa-trash-o"></i></button>
+                                </form>
+                                -->
+                            </td>
+                            {% endverbatim %}
+                        </tr>
+                    </table>
+                </tab>
+            </tabset>
+
+            <!-- Templates -->
+            <script type="text/ng-template" id="createEvaluationModal.html">
+                <div class="modal-header">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-danger"  ng-click="cancel()">{% trans "Close" %}</button>
+                        <button type="button" class="btn btn-success" ng-click="save()">{% trans "Send" %}</button>
+                    </div>
+                    <h4 class="modal-title" id="myModalLabel">
+                        {% trans "Schedule Evaluation" %}</h4>
+                </div>
+                <div class="modal-body row">
+                    <div class="alert alert-danger" role="alert" ng-show="empty_error || empty_error ">
+                    </div>
+                    <div class="form-group col-xs-5">
+                        <label>{% trans 'Evaluation Date' %}</label>
+                        <p class="input-group">
+                            <input datetime-picker="dd MMM yyyy HH:mm"
+                                   class="form-control"
+                                   type="text"
+                                   ng-model="evaluation.date"
+                                   is-open="calendar.eval_date" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default"
+                                        ng-click="openCalendar($event, 'eval_date')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="form-group col-xs-5">
+                        <label>{% trans 'Results Date' %}</label>
+                        <p class="input-group">
+                            <input datetime-picker="dd MMM yyyy HH:mm"
+                                   class="form-control"
+                                   type="text"
+                                   ng-model="evaluation.results_date"
+                                   is-open="calendar.eval_results_date" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default"
+                                        ng-click="openCalendar($event, 'eval_results_date')">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="col-xs-2">
+                        <label>{% trans 'Mininum grade' %}</label>
+                        <input class="form-control" ng-model="evaluation.min_grade"
+                               type="number" />
+                    </div>
+                    <div class="col-xs-12">
+                        <textarea class="form-control" rows="5"
+                                  ng-model="evaluation.instructions"
+                                  placeholder="{% trans 'Instructions' %}">
+
+                        </textarea>
+                    </div>
+                </div>
+                <div class="modal-header">
+                    <h4 class="modal-title"> {% trans 'Students attending list' %}</h4>
+                </div>
+                <div class="modal-body row">
+                    <div class="students col-lg-12">
+
+                        <table class="table table-list">
+                            <tr>
+                                <th class="fullname">{% trans "Full name" %}</th>
+                                <th class="actions course-sections textright">
+                                    <a class="has-tooltip fa fa-cog dropdown-toggle"
+                                       data-placement="top"
+                                       data-original-title="{%  trans 'Manage evaluations' %}"
+                                       id="course-tools" data-toggle="dropdown"
+                                       aria-expanded="true">
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="course-tools">
+                                        <li>
+                                            <a ng-click="selectAll(true)">
+                                                Select all
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a ng-click="selectAll(false)">
+                                                De-select all
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </th>
+                            </tr>
+                            <tr ng-repeat="student in class_students">
+                                {% verbatim %}
+                                <td>{{student.name}} {{ student.email }}</td>
+                                {% endverbatim %}
+                                <td class="text-center">
+                                    <input class="text-center" type="checkbox"
+                                           ng-click=""
+                                           ng-model="student.selected"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger"
+                            ng-click="cancel()">{% trans "Close" %}</button>
+                    <button type="button" class="btn btn-success"
+                            ng-click="save()">{% trans "Send" %}</button>
+                </div>
+            </script>
+
+            <script type="text/ng-template" id="certificationProcess.html">
+                <div class="container">
+                    <table class="table table-list">
+                        <tr>
+                            <th class="studentname">{% trans "User name" %}</th>
+                            <th class="progress">{% trans "Assistant Professor" %}</th>
+                            <th class="student">{% trans "Class" %}</th>
+                        </tr>
+                        {% for proc in object_list %}
+                            {% with proc.course_certification.course_student.user as proc_user %}
+                                <tr>
+                                    <td><a href="{% url 'certificate_process' pk=proc.id %}"
+                                            >
+                                        {{ proc_user }}</a></td>
+                                    <td>{{ proc.klass.assistant | default:'' }}</td>
+                                    <td>{{ proc.klass.name }}</td>
+                                </tr>
+                            {% endwith %}
+                        {% endfor %}
+                    </table>
+                </div>
+            </script>
+
+            <script type="text/ng-template" id="certificationProcessEdit.html">
+                <div class="certificate" ng-app="certification">
+                    <div ng-controller="CertificationProcessEditController"
+                         class="container">
+                        <form class="form-horizontal" role="form" ng-submit="update()">
+                            <div class="form-group">
+                                <label for="exam_grade">
+                                    {% trans 'Student exam grade' %}
+                                </label>
+                                <input ng-model="cp.exam_grade" class="form-control"
+                                       type="number" />
+                            </div>
+                            <div class="form-group">
+                                <label for="exam_grade_needed">
+                                    {% trans 'Exam needed grade' %}
+                                </label>
+                                <input class="form-control" type="number"
+                                       ng-model="cp.exam_grade_needed" />
+                            </div>
+                            <div class="form-group">
+                                <label for="exam_date">
+                                    {% trans 'Exam date' %}</label>
+                                <p class="input-group">
+                                    <input datetime-picker="dd MMM yyyy HH:mm"
+                                           class="form-control"
+                                           type="text"
+                                           ng-model="cp.exam_date"
+                                           is-open="calendar.exam_date" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default"
+                                                ng-click="openCalendar($event, 'exam_date')">
+                                            <i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label for="exam_results_date">
+                                    {% trans 'Exam results date' %}</label>
+                                <p class="input-group">
+                                    <input datetime-picker="dd MMM yyyy HH:mm"
+                                           class="form-control"
+                                           type="text"
+                                           ng-model="cp.exam_results_date"
+                                           is-open="calendar.exam_results_date" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default"
+                                                ng-click="openCalendar($event, 'exam_results_date')">
+                                            <i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </div>
+                            <input type="submit" class="btn btn-success" value="update" />
+                        </form>
+                    </div>
+                </div>
+            </script>
+        </section>
+    </div>
+{% endblock %}
