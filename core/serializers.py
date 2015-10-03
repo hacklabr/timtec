@@ -2,7 +2,7 @@ from django.contrib.flatpages.models import FlatPage
 from core.models import (Course, CourseProfessor, CourseStudent, Lesson,
                          Video, StudentProgress, Unit, ProfessorMessage,
                          Class, CourseAuthor, CourseCertification,
-                         CertificationProcess, Evaluation)
+                         CertificationProcess, Evaluation, IfCertificateTemplate)
 from accounts.serializers import TimtecUserSerializer, \
     TimtecUserAdminCertificateSerializer
 from activities.serializers import ActivitySerializer
@@ -41,6 +41,27 @@ class EvaluationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Evaluation
+
+
+class IfCertificateTemplateSerializer(serializers.ModelSerializer):
+    logo_url = serializers.Field(source='get_logo_url')
+    signature_url = serializers.Field(source='get_signature_url')
+
+    class Meta:
+        model = IfCertificateTemplate
+        fields = ('id', 'course', 'pronatec_logo', 'mec_logo', 'if_name',
+                  'signature_name', 'logo_url', 'signature_url',)
+
+    def update(self, instance, validated_data):
+        return super(IfCertificateTemplateSerializer, self)\
+            .update(instance, validated_data)
+
+
+class IfCertificateTemplateImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = IfCertificateTemplate
+        fields = ("logo", "signature")
 
 
 class CourseStudentSerializer(serializers.ModelSerializer):

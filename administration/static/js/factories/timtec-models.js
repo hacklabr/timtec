@@ -233,6 +233,12 @@
         });
     });
 
+    app.factory('CertificateTemplate', function($resource){
+       return $resource('/api/certificate_template/:course', {}, {
+           'update' : {'method' : 'PUT'},
+       });
+    });
+
     /**
      * StudentSearch model. Used in typeahead input with ui.bootstrap.typeahead.
      * It uses http instead resource cause it has to be synchronous.

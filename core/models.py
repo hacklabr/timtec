@@ -711,6 +711,52 @@ class CertificationProcess(models.Model):
             self.course_certification.course_student.user, self.evaluation)
 
 
+class CertificateTemplate(models.Model):
+    course = models.OneToOneField(Course, verbose_name=_('Course'))
+
+    class Meta:
+        verbose_name = _('Certificate Template')
+
+    def __unicode__(self):
+        return u'({0})'.format(self.course)
+
+    def __str__(self):
+        return '({0})'.format(self.course)
+
+
+class IfCertificateTemplate(CertificateTemplate):
+    pronatec_logo = models.BooleanField(_('Pronatec'), default=False)
+    mec_logo = models.BooleanField(_('MEC'), default=True)
+    logo = models.ImageField(_('Logo'), null=True, blank=True,
+                             upload_to=hash_name('if_logo', 'if_name'))
+    if_name = models.CharField(_('Name'), max_length=30, blank=True,  null=True)
+    signature = models.ImageField(_('Signature'), null=True, blank=True,
+                                  upload_to=hash_name('if_signature',
+                                                      'if_name'))
+    signature_name = models.CharField(_('Signature Name'),
+                                      blank=True, max_length=255,
+                                      null=True)
+
+    def get_logo_url(self):
+        if self.logo:
+            return self.logo.name
+        return ''
+
+    def get_signature_url(self):
+        if self.signature:
+            return self.signature.name
+        return ''
+
+    class Meta:
+        verbose_name = _('IF Certificate Template')
+
+    def __unicode__(self):
+        return u'Certificate Template of {0}'.format(self.if_name)
+
+    def __str__(self):
+        return 'Certificate Template of {0}'.format(self.if_name)
+
+
 class EmailTemplate(models.Model):
     name = models.CharField(max_length=50)
     subject = models.CharField(max_length=255)

@@ -30,12 +30,13 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           CourseAuthorSerializer,
                           CourseCertificationSerializer,
                           CertificationProcessSerializer,
-                          EvaluationSerializer,)
+                          EvaluationSerializer,
+                          IfCertificateTemplateSerializer, IfCertificateTemplateImageSerializer)
 
 from .models import (Course, CourseProfessor, Lesson, StudentProgress,
                      Unit, ProfessorMessage, CourseStudent, Class,
                      CourseAuthor, CourseCertification, CertificationProcess,
-                     Evaluation, )
+                     Evaluation, IfCertificateTemplate)
 
 from .forms import (ContactForm, RemoveStudentForm,
                     AddStudentsForm, )
@@ -314,6 +315,38 @@ class CertificationProcessViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(klass=klass)
 
         return queryset
+
+
+class IfCertificateTemplateViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
+    model = IfCertificateTemplate
+    lookup_field = 'course'
+
+    serializer_class = IfCertificateTemplateSerializer
+
+    def update(self, request, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data)
+
+
+class IfCertificateTemplateImageViewSet(viewsets.ModelViewSet):
+    model = IfCertificateTemplate
+    lookup_field = 'course'
+    serializer_class = IfCertificateTemplateImageSerializer
+    permission_classes = (IsProfessorCoordinatorOrAdminPermissionOrReadOnly, )
+
+    def post(self, request, **kwargs):
+        certificate_template = self.get_object()
+        serializer = IfCertificateTemplateImageSerializer(
+            certificate_template, request.FILES)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=200)
+        else:
+            return Response(serializer.errors, status=400)
 
 
 class ProfessorMessageViewSet(viewsets.ModelViewSet):

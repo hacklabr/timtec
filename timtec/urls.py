@@ -23,7 +23,8 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         CourseCertificationViewSet,
                         CourseCertificationDetailView,
                         CertificationProcessViewSet,
-                        EvaluationViewSet,)
+                        EvaluationViewSet, IfCertificateTemplateViewSet,
+                        IfCertificateTemplateImageViewSet)
 
 from activities.views import AnswerViewSet
 from forum.views import (CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet,
@@ -70,6 +71,8 @@ router.register(r'flatpage', FlatpageViewSet)
 router.register(r'course_certification', CourseCertificationViewSet)
 router.register(r'certification_process', CertificationProcessViewSet)
 router.register(r'evaluation', EvaluationViewSet)
+router.register(r'certificate_template', IfCertificateTemplateViewSet)
+router.register(r'certificate_template_images', IfCertificateTemplateImageViewSet)
 
 urlpatterns = patterns(
     '',
