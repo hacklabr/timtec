@@ -9,6 +9,10 @@
                 var match = document.location.href.match(/class\/(\d+)/);
                 return match[1];
             },
+            'courseSettings' : function(){
+                var match = document.location.href.match(/admin\/course\/(\d+)\/certificatesettings/)
+                return match[1];
+            }
 
         }
     }]);
@@ -18,14 +22,14 @@
             if(!items || !evaluation_id) return;
             var filtered = [];
             for (var i = 0; i < items.length; i++) {
-                console.log(items[i].klass);
+                // console.log(items[i].klass);
                 if (evaluation_id == items[i].evaluation) filtered.push(items[i]);
             }
             return filtered;
         }
     });
 
-    module.controller('ClassEvaluationsCtrl', ['$scope', '$modal', '$window', 'CertificationProcess', 'Evaluation', 'Class',
+    module.controller('ClassEvaluationsCtrl', ['$scope', 'Evaluation', 'Class',
         function($scope, Evaluation, Class) {
             // Handle Certification:
             // If class has certification, show the evaluation link
@@ -36,6 +40,67 @@
             $scope.switches = {
                 'can_certificate' : cert
             };
+
+        }
+    ]);
+
+    module.controller('CertificateTemplateCtrl', ['$scope', 'FormUpload', 'ClassIdGetter', 'Course', 'CertificateTemplate',
+        function($scope, FormUpload, ClassIdGetter, Course, CertificateTemplate){
+
+            $scope.course_id = ClassIdGetter.courseSettings();
+
+            Course.get({'id' : $scope.course_id}, function(data) {
+                $scope.course = data;
+            });
+
+            CertificateTemplate.get({'course' : $scope.course_id}, function(data) {
+                $scope.ct = data;
+            }, function(error){
+                if(error.status == 404){
+                    var ct = new CertificateTemplate();
+                    ct.course = $scope.course_id;
+                    ct.$save({}, function(template){
+                        $scope.ct = template;
+                    }, function(error){
+                        console.log(error);
+                    });
+                }
+            });
+
+            $scope.saveTemplate = function () {
+                $scope.ct.$update({'course' : $scope.course_id}, function(updated){
+                    $scope.alert.success('Template atualizado.');
+                })
+            }
+
+            $scope.images = {};
+
+            $scope.saveLogo = function() {
+                if(!$scope.images.logo) return;
+                if ($scope.course_id) saveImageData();
+            };
+
+            $scope.saveSignature = function() {
+                if(!$scope.images.signature) return;
+                if ($scope.course_id) saveImageData();
+            };
+
+            var saveImageData = function(){
+                var fu = new FormUpload();
+                if($scope.images.logo){
+                    fu.addField('logo', $scope.images.logo);
+                }
+                if($scope.images.signature){
+                    fu.addField('signature', $scope.images.signature);
+                }
+                fu.addField('course', $scope.course_id);
+                // return a new promise that file will be uploaded
+
+                return fu.sendTo('/api/certificate_template_images/' + $scope.course_id)
+                    .then(function(){
+                        $scope.alert.success('A imagem foi atualizada.');
+                    });
+            }
 
         }
     ]);
@@ -77,8 +142,7 @@
                 modalInstance.result.then(function (evaluation) {
                     if(evaluation.id){
                         evaluation.$update({}, function(updated_eval){
-                            // $scope.class_evaluations.push(updated_eval);
-                            console.log(updated_eval);
+                            // console.log(updated_eval);
                         });
                     } else {
                         evaluation.$save({}, function (new_eval) {
