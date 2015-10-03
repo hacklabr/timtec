@@ -672,7 +672,11 @@ class Evaluation(models.Model):
 
 
 class CertificationProcess(models.Model):
-    course_certification = models.ForeignKey(CourseCertification,
+
+    student = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             verbose_name=_('Student'),
+                             related_name='processes')
+    course_certification = models.ForeignKey(CourseCertification, null=True,
                                              verbose_name=_('Certificate'))
     comments = models.CharField(_('Comments'), max_length=255)
     created_date = models.DateTimeField(_('Created'), auto_now_add=True)
@@ -680,7 +684,12 @@ class CertificationProcess(models.Model):
     evaluation_grade = models.IntegerField(_('Evaluation grade'), blank=True)
     approved = models.BooleanField(_('Approved'), default=False)
     no_show = models.BooleanField(_('No show'), default=False)
-    evaluation = models.ForeignKey(Evaluation, verbose_name=_('Evaluation'))
+
+    evaluation = models.ForeignKey(Evaluation, verbose_name=_('Evaluation'),
+                                   related_name='processes', null=True)
+
+    klass = models.ForeignKey(Class, verbose_name=_('Class'),
+                              related_name='processes')
 
     @property
     def certification_progress(self):

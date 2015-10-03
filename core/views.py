@@ -304,25 +304,16 @@ class CourseCertificationDetailView(DetailView):
 class CertificationProcessViewSet(viewsets.ModelViewSet):
     model = CertificationProcess
     serializer_class = CertificationProcessSerializer
-    ordering = ('created_date',)
 
     def get_queryset(self):
         user = self.request.user
         queryset = super(CertificationProcessViewSet, self).get_queryset()
 
-        from django.db.models import Q
-        return queryset.filter(Q(evaluation__klass__assistant=user) |
-                               Q(evaluation__klass__course__professors=user))
+        klass = self.request.QUERY_PARAMS.get('klass')
+        if klass:
+            queryset = queryset.filter(klass=klass)
 
-
-class EvaluationViewSet(viewsets.ModelViewSet):
-    model = Evaluation
-    ordering = ('date',)
-
-    filter_fields = ('klass',)
-    filter_backends = (filters.DjangoFilterBackend,)
-
-    serializer_class = EvaluationSerializer
+        return queryset
 
 
 class ProfessorMessageViewSet(viewsets.ModelViewSet):
@@ -515,6 +506,28 @@ class ClassAddUsersView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('class', kwargs={'pk': self.object.id})
+
+
+class ClassEvaluationsView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
+    model = Class
+    template_name = 'evaluations.html'
+
+
+class EvaluationViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
+    model = Evaluation
+    ordering = ('date',)
+
+    filter_fields = ('klass',)
+    filter_backends = (filters.DjangoFilterBackend,)
+
+    serializer_class = EvaluationSerializer
+
+    #def get_queryset(self):
+    #    queryset = super(EvaluationViewSet, self.get_queryset())
+
+    #    klass_id = self.request.QUERY_PARAMS.get('klass_id')
+    #    if klass_id:
+
 
 
 class LessonViewSet(viewsets.ModelViewSet):

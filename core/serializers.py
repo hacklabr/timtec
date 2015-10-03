@@ -3,7 +3,8 @@ from core.models import (Course, CourseProfessor, CourseStudent, Lesson,
                          Video, StudentProgress, Unit, ProfessorMessage,
                          Class, CourseAuthor, CourseCertification,
                          CertificationProcess, Evaluation)
-from accounts.serializers import TimtecUserSerializer
+from accounts.serializers import TimtecUserSerializer, \
+    TimtecUserAdminCertificateSerializer
 from activities.serializers import ActivitySerializer
 from rest_framework.reverse import reverse_lazy
 from notes.models import Note
@@ -27,16 +28,19 @@ class CourseCertificationSerializer(serializers.ModelSerializer):
         fields = ('link_hash', 'created_date', 'is_valid')
 
 
-class EvaluationSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Evaluation
-
-
 class CertificationProcessSerializer(serializers.ModelSerializer):
+    course_certification = CourseCertificationSerializer()
+    student = TimtecUserAdminCertificateSerializer()
 
     class Meta:
         model = CertificationProcess
+
+
+class EvaluationSerializer(serializers.ModelSerializer):
+    processes = CertificationProcessSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Evaluation
 
 
 class CourseStudentSerializer(serializers.ModelSerializer):
@@ -189,6 +193,8 @@ class CourseNoteSerializer(serializers.ModelSerializer):
 
 
 class ClassSerializer(serializers.ModelSerializer):
+    students = TimtecUserAdminCertificateSerializer(read_only=True)
+    processes = CertificationProcessSerializer(read_only=True)
 
     class Meta:
         model = Class

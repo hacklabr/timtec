@@ -17,6 +17,7 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         CarouselCourseView, ClassListView,
                         ClassCreateView, ClassUpdateView, ClassDeleteView,
                         ClassRemoveUserView, ClassAddUsersView, ClassViewSet,
+                        ClassEvaluationsView,
                         FlatpageViewSet, CoursePictureUploadViewSet,
                         ResumeCourseView, FlatpageView, CourseAuthorViewSet,
                         CourseCertificationViewSet,
@@ -102,7 +103,7 @@ urlpatterns = patterns(
     url(r'^class/(?P<pk>[0-9]+)/delete/$', ClassDeleteView.as_view(), name='class-delete'),
     url(r'^class/(?P<pk>[0-9]+)/remove_user/$', ClassRemoveUserView.as_view(), name='class-remove-user'),
     url(r'^class/(?P<pk>[0-9]+)/add_users/$', ClassAddUsersView.as_view(), name='class-add-users'),
-
+    url(r'^class/(?P<pk>[0-9]+)/evaluations/$', ClassEvaluationsView.as_view(), name='class-evaluations'),
 
     # Services
     url(r'^api/', include(router.urls)),
