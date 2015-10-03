@@ -634,6 +634,10 @@ class CourseCertification(models.Model):
 
     link_hash = models.CharField(_('Hash'), max_length=255)
 
+    @property
+    def student(self):
+        return self.course_student.user
+
     def save(self, *args, **kwargs):
         self.course_workload = self.course_student.course.workload
         self.course_total_units = self.course_student.units_done.count()
