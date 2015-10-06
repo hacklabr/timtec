@@ -634,6 +634,10 @@ class CourseCertification(models.Model):
 
     link_hash = models.CharField(_('Hash'), max_length=255)
 
+    @property
+    def student(self):
+        return self.course_student.user
+
     def save(self, *args, **kwargs):
         self.course_workload = self.course_student.course.workload
         self.course_total_units = self.course_student.units_done.count()
@@ -668,7 +672,11 @@ class Evaluation(models.Model):
 
 
 class CertificationProcess(models.Model):
-    course_certification = models.ForeignKey(CourseCertification,
+
+    student = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             verbose_name=_('Student'),
+                             related_name='processes')
+    course_certification = models.ForeignKey(CourseCertification, null=True,
                                              verbose_name=_('Certificate'))
     comments = models.CharField(_('Comments'), max_length=255)
     created_date = models.DateTimeField(_('Created'), auto_now_add=True)
@@ -676,7 +684,12 @@ class CertificationProcess(models.Model):
     evaluation_grade = models.IntegerField(_('Evaluation grade'), blank=True)
     approved = models.BooleanField(_('Approved'), default=False)
     no_show = models.BooleanField(_('No show'), default=False)
-    evaluation = models.ForeignKey(Evaluation, verbose_name=_('Evaluation'))
+
+    evaluation = models.ForeignKey(Evaluation, verbose_name=_('Evaluation'),
+                                   related_name='processes', null=True)
+
+    klass = models.ForeignKey(Class, verbose_name=_('Class'),
+                              related_name='processes')
 
     @property
     def certification_progress(self):
@@ -696,6 +709,52 @@ class CertificationProcess(models.Model):
     def __str__(self):
         return '({0}): {1}'.format(
             self.course_certification.course_student.user, self.evaluation)
+
+
+class CertificateTemplate(models.Model):
+    course = models.OneToOneField(Course, verbose_name=_('Course'))
+
+    class Meta:
+        verbose_name = _('Certificate Template')
+
+    def __unicode__(self):
+        return u'({0})'.format(self.course)
+
+    def __str__(self):
+        return '({0})'.format(self.course)
+
+
+class IfCertificateTemplate(CertificateTemplate):
+    pronatec_logo = models.BooleanField(_('Pronatec'), default=False)
+    mec_logo = models.BooleanField(_('MEC'), default=True)
+    logo = models.ImageField(_('Logo'), null=True, blank=True,
+                             upload_to=hash_name('if_logo', 'if_name'))
+    if_name = models.CharField(_('Name'), max_length=30, blank=True,  null=True)
+    signature = models.ImageField(_('Signature'), null=True, blank=True,
+                                  upload_to=hash_name('if_signature',
+                                                      'if_name'))
+    signature_name = models.CharField(_('Signature Name'),
+                                      blank=True, max_length=255,
+                                      null=True)
+
+    def get_logo_url(self):
+        if self.logo:
+            return self.logo.name
+        return ''
+
+    def get_signature_url(self):
+        if self.signature:
+            return self.signature.name
+        return ''
+
+    class Meta:
+        verbose_name = _('IF Certificate Template')
+
+    def __unicode__(self):
+        return u'Certificate Template of {0}'.format(self.if_name)
+
+    def __str__(self):
+        return 'Certificate Template of {0}'.format(self.if_name)
 
 
 class EmailTemplate(models.Model):

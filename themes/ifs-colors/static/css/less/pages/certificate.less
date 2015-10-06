@@ -1,0 +1,109 @@
+@font-face { font-family: Copperplate; src: url('../fonts/coprgtl.ttf'); }
+
+.certificate-container{
+    &.certificate-admin:before{
+        opacity: 0.4;
+    }
+    &:before{
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background-image: url('../img/certificatebg-light.png');
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-position: 50% 0;
+    }
+    border: none;
+    width: 842px;
+    height: 595px;
+    position: relative;
+}
+.certificate-admin{
+    counter-reset: steps-counter;
+    .text-muted, .student{
+        cursor: not-allowed;
+    }
+    .pronatec-logo:before, .brasil-logo:before, .institute:before,
+    .institute-logo:before, .certificate-signature:before, .role-signature:before{
+        background-color: #FB4E4E;
+        border-radius: 50%;
+        color: #FFF;
+        content: counter(steps-counter);
+        display: inline-block;
+        height: 2em;
+        left: -30px;
+        padding-top: 0.25em;
+        position: absolute;
+        text-align: center;
+        width: 2em;
+    }
+}
+.pronatec-logo{
+    counter-increment: steps-counter;
+    position: absolute;
+    top: 76px;
+    left: 70px;
+}
+.brasil-logo{
+    counter-increment: steps-counter;
+    position: absolute;
+    left: 300px;
+    top: 76px;
+}
+.certificate-admin{
+    .student{
+        opacity: 0.3;
+    }
+    .certificate-info{
+        top: 35%;
+    }
+}
+.institute-logo {
+    counter-increment: steps-counter;
+    position: absolute;
+    right: 10%;
+    top: 12%;
+}
+.certificate-info{
+    position: absolute;
+    top: 40%;
+    max-width: 80%;
+    left: 10%;
+}
+.institute{
+    counter-increment: steps-counter;
+    display: inline-block;
+    min-width: 300px;
+    input{
+        min-width: 280px;
+    }
+}
+.cursor-pointer{
+    cursor: pointer;
+}
+.student{
+    font-size: 1.5em;
+}
+.institute, .student{
+    text-transform: uppercase;
+    font-family: Copperplate;
+    opacity: 1;
+ }
+ .certificate-signature{
+    counter-increment: steps-counter;
+    position: absolute;
+    bottom: 25%;
+    right: 15%;
+    width: 200px
+ }
+ .role-signature{
+    counter-increment: steps-counter;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}

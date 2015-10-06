@@ -17,12 +17,14 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         CarouselCourseView, ClassListView,
                         ClassCreateView, ClassUpdateView, ClassDeleteView,
                         ClassRemoveUserView, ClassAddUsersView, ClassViewSet,
+                        ClassEvaluationsView,
                         FlatpageViewSet, CoursePictureUploadViewSet,
                         ResumeCourseView, FlatpageView, CourseAuthorViewSet,
                         CourseCertificationViewSet,
                         CourseCertificationDetailView,
                         CertificationProcessViewSet,
-                        EvaluationViewSet,)
+                        EvaluationViewSet, IfCertificateTemplateViewSet,
+                        IfCertificateTemplateImageViewSet)
 
 from activities.views import AnswerViewSet
 from forum.views import (CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet,
@@ -69,6 +71,8 @@ router.register(r'flatpage', FlatpageViewSet)
 router.register(r'course_certification', CourseCertificationViewSet)
 router.register(r'certification_process', CertificationProcessViewSet)
 router.register(r'evaluation', EvaluationViewSet)
+router.register(r'certificate_template', IfCertificateTemplateViewSet)
+router.register(r'certificate_template_images', IfCertificateTemplateImageViewSet)
 
 urlpatterns = patterns(
     '',
@@ -102,7 +106,10 @@ urlpatterns = patterns(
     url(r'^class/(?P<pk>[0-9]+)/delete/$', ClassDeleteView.as_view(), name='class-delete'),
     url(r'^class/(?P<pk>[0-9]+)/remove_user/$', ClassRemoveUserView.as_view(), name='class-remove-user'),
     url(r'^class/(?P<pk>[0-9]+)/add_users/$', ClassAddUsersView.as_view(), name='class-add-users'),
+    url(r'^class/(?P<pk>[0-9]+)/evaluations/$', ClassEvaluationsView.as_view(), name='class-evaluations'),
 
+    #Evaluations
+    url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/course_evaluations/$', GenericCourseView.as_view(template_name="course-evaluations.html"), name='course-evaluations'),
 
     # Services
     url(r'^api/', include(router.urls)),

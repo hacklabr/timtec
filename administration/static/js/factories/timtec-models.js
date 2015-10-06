@@ -45,7 +45,7 @@
                 formData.append(name, value);
             };
 
-            this.sendTo = function(url) {
+            this.sendTo = function(url, method) {
                 var deferred = $q.defer();
 
                 formData.append('csrfmiddlewaretoken',
@@ -67,7 +67,12 @@
                     }
                 };
 
-                oReq.open('POST', url, true);
+                if(method){
+                    oReq.open(method, url, true);
+                } else {
+                    oReq.open('POST', url, true);
+                }
+                oReq.setRequestHeader("X-CSRFToken", /csrftoken=(\w+)/.extract(document.cookie, 1));
                 oReq.send(formData);
 
                 return deferred.promise;
@@ -228,6 +233,12 @@
         });
     });
 
+    app.factory('CertificateTemplate', function($resource){
+       return $resource('/api/certificate_template/:course', {}, {
+           'update' : {'method' : 'PUT'},
+       });
+    });
+
     /**
      * StudentSearch model. Used in typeahead input with ui.bootstrap.typeahead.
      * It uses http instead resource cause it has to be synchronous.
@@ -263,7 +274,9 @@
 
 
     app.factory('Class', function($resource){
-            return $resource('/api/course_classes/', {}, {});
+        return $resource('/api/course_classes/:id', {'id' : '@id'}, {
+            'update': {'method': 'PUT'}
+        });
     });
 
 

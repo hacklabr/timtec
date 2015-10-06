@@ -18,3 +18,10 @@ class TimtecUserAdminSerializer(TimtecUserSerializer):
     class Meta:
         model = get_user_model()
         fields = ('id', 'username', 'name', 'email', 'is_active', 'is_superuser', 'first_name', 'last_name',)
+
+
+class TimtecUserAdminCertificateSerializer(TimtecUserSerializer):
+
+    class Meta:
+        model = get_user_model()
+        fields = ('id', 'name', 'email', 'username')

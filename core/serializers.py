@@ -2,8 +2,9 @@ from django.contrib.flatpages.models import FlatPage
 from core.models import (Course, CourseProfessor, CourseStudent, Lesson,
                          Video, StudentProgress, Unit, ProfessorMessage,
                          Class, CourseAuthor, CourseCertification,
-                         CertificationProcess, Evaluation)
-from accounts.serializers import TimtecUserSerializer
+                         CertificationProcess, Evaluation, IfCertificateTemplate)
+from accounts.serializers import TimtecUserSerializer, \
+    TimtecUserAdminCertificateSerializer
 from activities.serializers import ActivitySerializer
 from rest_framework.reverse import reverse_lazy
 from notes.models import Note
@@ -27,16 +28,40 @@ class CourseCertificationSerializer(serializers.ModelSerializer):
         fields = ('link_hash', 'created_date', 'is_valid')
 
 
+class CertificationProcessSerializer(serializers.ModelSerializer):
+    course_certification = CourseCertificationSerializer()
+    student = TimtecUserAdminCertificateSerializer()
+
+    class Meta:
+        model = CertificationProcess
+
+
 class EvaluationSerializer(serializers.ModelSerializer):
+    processes = CertificationProcessSerializer(many=True, read_only=True)
 
     class Meta:
         model = Evaluation
 
 
-class CertificationProcessSerializer(serializers.ModelSerializer):
+class IfCertificateTemplateSerializer(serializers.ModelSerializer):
+    logo_url = serializers.Field(source='get_logo_url')
+    signature_url = serializers.Field(source='get_signature_url')
 
     class Meta:
-        model = CertificationProcess
+        model = IfCertificateTemplate
+        fields = ('id', 'course', 'pronatec_logo', 'mec_logo', 'if_name',
+                  'signature_name', 'logo_url', 'signature_url',)
+
+    def update(self, instance, validated_data):
+        return super(IfCertificateTemplateSerializer, self)\
+            .update(instance, validated_data)
+
+
+class IfCertificateTemplateImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = IfCertificateTemplate
+        fields = ("logo", "signature")
 
 
 class CourseStudentSerializer(serializers.ModelSerializer):
@@ -189,6 +214,8 @@ class CourseNoteSerializer(serializers.ModelSerializer):
 
 
 class ClassSerializer(serializers.ModelSerializer):
+    students = TimtecUserAdminCertificateSerializer(read_only=True)
+    processes = CertificationProcessSerializer(read_only=True)
 
     class Meta:
         model = Class
