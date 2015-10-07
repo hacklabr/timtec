@@ -3,32 +3,6 @@
 
     var module = angular.module('certification.controllers', []);
 
-    module.service('ClassIdGetter', ['$window', function($window){
-        return {
-            'classEditView' : function(){
-                var match = document.location.href.match(/class\/(\d+)/);
-                return match[1];
-            },
-            'courseSettings' : function(){
-                var match = document.location.href.match(/admin\/course\/(\d+)\/certificatesettings/)
-                return match[1];
-            }
-
-        }
-    }]);
-
-    module.filter('attending', function() {
-        return function (items, evaluation_id){
-            if(!items || !evaluation_id) return;
-            var filtered = [];
-            for (var i = 0; i < items.length; i++) {
-                // console.log(items[i].klass);
-                if (evaluation_id == items[i].evaluation) filtered.push(items[i]);
-            }
-            return filtered;
-        }
-    });
-
     module.controller('ClassEvaluationsCtrl', ['$scope', 'Evaluation', 'Class',
         function($scope, Evaluation, Class) {
             // Handle Certification:
@@ -110,6 +84,12 @@
             $scope.errors = {};
             $scope.evaluations = [];
 
+            $scope.stats = {
+                has_certificate : 0,
+                user_can_certificate : 0,
+                user_can_attend : 0,
+                upcoming : 0
+            };
 
             $scope.klass_id = ClassIdGetter.classEditView();
 
@@ -117,6 +97,95 @@
                 $scope.klass = klass;
                 $scope.class_students = klass.students;
             });
+
+            Evaluation.query({'klass' : $scope.klass_id}, function(data){
+                $scope.class_evaluations = data;
+
+                if($scope.class_evaluations.length > 0) {
+                    var now = new Date().getTime();
+                    var next_week = now + 7*24*60*60;
+
+                    for(var i = 0; i < $scope.class_evaluations.length; i++) {
+                        evaluation = $scope.class_evaluations[i];
+                        var e_date = new Date(evaluation.date).getTime();
+                        if ((e_date > now) && (e_date <= next_week)) {
+                            $scope.stats.upcoming++;
+                        }
+                    }
+                    $scope.evaluation = $scope.class_evaluations[0];
+                    window.evaluations = data;
+                }
+            });
+
+
+            CertificationProcess.query({'klass' : $scope.klass_id}, function(data){
+                $scope.certification_processes = data;
+                for(var i = 0; i < $scope.certification_processes.length; i++){
+                    var proc = $scope.certification_processes[i];
+                    if(proc.course_certification){
+                        $scope.stats.user_can_certificate++;
+                        if(!proc.evaluation){
+                            $scope.stats.user_can_attend++;
+                        }
+                    }
+                    if(proc.approved){
+                        $scope.stats.has_certificate++;
+                    }
+                }
+            });
+
+            $scope.addStudentEvaluation = function () {
+                var modalInstance = $modal.open(
+                    {
+                        animation: true,
+                        templateUrl: 'addStudentModal.html',
+                        controller: ['$scope', '$modalInstance', 'processes', 'evaluation', AddStudentModalCtrl],
+                        resolve: {
+                            processes: function () {
+                                return $scope.certification_processes;
+                            },
+                            evaluation: function() {
+                                return $scope.evaluation;
+                            }
+                        }
+                    }
+                );
+
+                modalInstance.result.then(function (class_students) {
+                    $scope.user_can_attend = class_students;
+
+                    for(var i = 0; i < $scope.user_can_attend.length; i++){
+                        var proc = $scope.user_can_attend[i];
+
+                        if(proc.selected){
+                            proc.evaluation = $scope.evaluation.id;
+                            proc.$update({}, function(process){
+
+                            });
+                        }
+                    }
+                });
+            };
+
+            var AddStudentModalCtrl = function ($scope, $modalInstance, processes, evaluation) {
+                $scope.class_students = processes;
+
+                $scope.evaluation = evaluation;
+
+                $scope.selectAll = function (select){
+                    for(var i = 0; i < $scope.class_students.length; i++){
+                        $scope.class_students[i].selected = select;
+                    }
+                }
+
+                $scope.cancel = function () {
+                    $modalInstance.dismiss();
+                };
+
+                $scope.save = function(){
+                    $modalInstance.close($scope.class_students);
+                }
+            }
 
             $scope.createEvaluation = function (isEdit) {
                 var modalInstance = $modal.open(
@@ -152,7 +221,8 @@
                 });
             };
 
-            $scope.changeEvaluation = function ($index) {
+            $scope.changeEvaluation = function ($event, $index) {
+                $event.preventDefault();
                 $scope.evaluation = $scope.class_evaluations[$index];
             };
 
@@ -185,36 +255,9 @@
                 }
             }
 
-            Evaluation.query({'klass' : $scope.klass_id}, function(data){
-                $scope.class_evaluations = data;
-                if($scope.class_evaluations.length > 0) {
-                    $scope.evaluation = $scope.class_evaluations[0];
-                }
-            });
 
-            CertificationProcess.query({'klass' : $scope.klass_id}, function(data){
-                $scope.certification_processes = data;
-            });
-
-            $scope.selectAll = function (select){
-                // if(select){
-                for(var i = 0; i < $scope.class_students.length; i++){
-                    $scope.class_students[i].selected = select;
-                }
-                //}
-            }
-
-            $scope.selectItem = function($event, item){
-                console.log($event);
-                console.log(item);
-            }
-
-
-            $scope.selected_students = [];
-            var showSelected = function(){
-                for(var i = 0; i > $scope.class_students; i++){
-                    $scope.selected_students[i] = false;
-                }
+            $scope.isCurrent = function(evaluation_id){
+                return evaluation_id == $scope.evaluation.id;
             }
 
             var evaluation = function($index){
