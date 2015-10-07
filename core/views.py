@@ -545,6 +545,7 @@ class ClassEvaluationsView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
     model = Class
     template_name = 'evaluations.html'
 
+    fields = []
 
 class EvaluationViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     model = Evaluation
