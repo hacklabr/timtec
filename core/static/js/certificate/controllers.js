@@ -3,32 +3,6 @@
 
     var module = angular.module('certification.controllers', []);
 
-    module.service('ClassIdGetter', ['$window', function($window){
-        return {
-            'classEditView' : function(){
-                var match = document.location.href.match(/class\/(\d+)/);
-                return match[1];
-            },
-            'courseSettings' : function(){
-                var match = document.location.href.match(/admin\/course\/(\d+)\/certificatesettings/)
-                return match[1];
-            }
-
-        }
-    }]);
-
-    module.filter('attending', function() {
-        return function (items, evaluation_id){
-            if(!items || !evaluation_id) return;
-            var filtered = [];
-            for (var i = 0; i < items.length; i++) {
-                // console.log(items[i].klass);
-                if (evaluation_id == items[i].evaluation) filtered.push(items[i]);
-            }
-            return filtered;
-        }
-    });
-
     module.controller('ClassEvaluationsCtrl', ['$scope', 'Evaluation', 'Class',
         function($scope, Evaluation, Class) {
             // Handle Certification:
