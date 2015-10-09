@@ -674,8 +674,8 @@ class Evaluation(models.Model):
 class CertificationProcess(models.Model):
 
     student = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             verbose_name=_('Student'),
-                             related_name='processes')
+                                verbose_name=_('Student'),
+                                related_name='processes')
     course_certification = models.ForeignKey(CourseCertification, null=True,
                                              verbose_name=_('Certificate'))
     comments = models.CharField(_('Comments'), max_length=255)
@@ -729,7 +729,7 @@ class IfCertificateTemplate(CertificateTemplate):
     mec_logo = models.BooleanField(_('MEC'), default=True)
     logo = models.ImageField(_('Logo'), null=True, blank=True,
                              upload_to=hash_name('if_logo', 'if_name'))
-    if_name = models.CharField(_('Name'), max_length=30, blank=True,  null=True)
+    if_name = models.CharField(_('Name'), max_length=30, blank=True, null=True)
     signature = models.ImageField(_('Signature'), null=True, blank=True,
                                   upload_to=hash_name('if_signature',
                                                       'if_name'))

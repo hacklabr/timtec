@@ -307,7 +307,6 @@ class CertificationProcessViewSet(viewsets.ModelViewSet):
     serializer_class = CertificationProcessSerializer
 
     def get_queryset(self):
-        user = self.request.user
         queryset = super(CertificationProcessViewSet, self).get_queryset()
 
         klass = self.request.QUERY_PARAMS.get('klass')
@@ -547,6 +546,7 @@ class ClassEvaluationsView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
 
     fields = []
 
+
 class EvaluationViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     model = Evaluation
     ordering = ('date',)
@@ -556,12 +556,11 @@ class EvaluationViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
 
     serializer_class = EvaluationSerializer
 
-    #def get_queryset(self):
+    # def get_queryset(self):
     #    queryset = super(EvaluationViewSet, self.get_queryset())
 
     #    klass_id = self.request.QUERY_PARAMS.get('klass_id')
     #    if klass_id:
-
 
 
 class LessonViewSet(viewsets.ModelViewSet):
