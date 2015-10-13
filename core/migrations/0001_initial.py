@@ -108,7 +108,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=255, verbose_name='Name')),
                 ('notes', models.TextField(default=b'', verbose_name='Notes', blank=True)),
                 ('position', models.IntegerField(default=0)),
-                ('slug', autoslug.fields.AutoSlugField(editable=False, populate_from=b'name', unique=True, verbose_name='Slug')),
+                ('slug', autoslug.fields.AutoSlugField(editable=False, populate_from=b'name', max_length=255, unique=True, verbose_name='Slug')),
                 ('status', models.CharField(default=b'draft', max_length=64, verbose_name='Status', choices=[(b'draft', 'Draft'), (b'published', 'Published')])),
                 ('course', models.ForeignKey(related_name='lessons', verbose_name='Course', to='core.Course')),
             ],
