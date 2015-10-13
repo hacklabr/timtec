@@ -36,7 +36,7 @@
                 }
             };
 
-            Course.query(function(list){
+            Course.query({'role': 'coordinator'}, function(list){
                 $scope.courseList = list;
             });
 

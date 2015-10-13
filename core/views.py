@@ -377,6 +377,13 @@ class CourseViewSet(viewsets.ModelViewSet):
         public_courses = self.request.QUERY_PARAMS.get('public_courses', None)
         if public_courses:
             queryset = queryset.filter(status='published').prefetch_related('professors')
+        role = self.request.QUERY_PARAMS.get('role', None)
+        if role and not self.request.user.is_superuser:
+            queryset = queryset.filter(
+                course_professors__role=role,
+                course_professors__user=self.request.user
+            ).prefetch_related('professors')
+
         return queryset
 
     def get(self, request, **kwargs):
@@ -588,6 +595,7 @@ class StudentProgressViewSet(viewsets.ModelViewSet):
         self.object = self.get_object_or_none()
         if self.object:
             self.object.save()
+            # TODO: verificar se a resposta deveria ser esta mesmo.
             return HttpResponse('')
         else:
             return super(StudentProgressViewSet, self).update(request, *args, **kwargs)

@@ -1,6 +1,7 @@
 {% load compressed %}
 {% load timtec_markdown %}
 {% load i18n %}
+{% load get_flatpage %}
 
 <script>
     window.course_id = {{ course.pk }};
@@ -17,10 +18,12 @@
     <section id="forum-content" ng-controller="InlineForumCtrl">
         {% if question_form %}
             <div class="page-header-double">
-                <h3><i class="fa fa-angle-double-right"></i> {% trans "Questions & Answers" %}</h3>
+                <h3><i class="fa fa-angle-double-right"></i> {% trans "Forum" %}</h3>
             </div>
             <!-- QUESTION FORM -->
             <div class="forum-form">
+                {% get_flatpage '/forum/policy/' as forum_policy %}
+                <p>{{ forum_policy.content|safe|escape }}</p>
                 <div class="alert alert-danger" role="alert" ng-show="question_title_validation || question_text_validation">
                     <ul>
                         <li ng-show="question_title_validation"><a href="#id-title">{% trans 'Fill the question title.' %}</a></li>

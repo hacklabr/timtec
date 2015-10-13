@@ -3,6 +3,7 @@ from django.views.generic import TemplateView, DetailView
 from django.views.generic.base import TemplateResponseMixin, ContextMixin, View
 from django.views.generic.edit import ModelFormMixin
 from django.http import HttpResponse, HttpResponseRedirect
+from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse_lazy
 from django.core.files import File as DjangoFile
 from django.contrib.auth import get_user_model
@@ -15,7 +16,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import permissions
-from core.models import Course
+from core.models import Course, CourseProfessor
 from course_material.models import File as TimtecFile
 from .serializer import CourseExportSerializer, CourseImportSerializer
 
@@ -41,8 +42,19 @@ class AdminMixin(TemplateResponseMixin, ContextMixin,):
         return ['administration/' + self.template_name, self.template_name]
 
 
-class AdminView(views.SuperuserRequiredMixin, AdminMixin, TemplateView):
+class AdminView(AdminMixin, TemplateView, views.AccessMixin):
     raise_exception = True
+
+    def dispatch(self, request, *args, **kwargs):
+
+        response = super(AdminView, self).dispatch(
+            request, *args, **kwargs)
+
+        if not (request.user.is_superuser or CourseProfessor.objects.filter(user=request.user, role='coordinator').exists()):
+            if self.raise_exception:  # *and* if an exception was desired
+                raise PermissionDenied  # return a forbidden response.
+
+        return response
 
 
 class UserAdminView(AdminView):
@@ -52,11 +64,22 @@ class UserAdminView(AdminView):
         return context
 
 
-class CourseAdminView(views.SuperuserRequiredMixin, AdminMixin, DetailView):
+class CourseAdminView(AdminMixin, DetailView, views.AccessMixin):
     model = Course
     context_object_name = 'course'
     pk_url_kwarg = 'course_id'
     raise_exception = True
+
+    def dispatch(self, request, *args, **kwargs):
+
+        response = super(CourseAdminView, self).dispatch(
+            request, *args, **kwargs)
+
+        if not (request.user.is_superuser or self.object.get_professor_role(request.user) == 'coordinator'):
+            if self.raise_exception:  # *and* if an exception was desired
+                raise PermissionDenied  # return a forbidden response.
+
+        return response
 
 
 class CourseCreateView(views.SuperuserRequiredMixin, View, ModelFormMixin):
