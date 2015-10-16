@@ -61,7 +61,6 @@
                 } else {
                     $scope.section = 'activity';
                 }
-
             };
 
             $scope.selectActivity = function(index) {
@@ -69,24 +68,30 @@
                 if($scope.currentUnit.activities && $scope.currentUnit.activities.length) {
                     $scope.currentActivity = $scope.currentUnit.activities[index];
                     $scope.activityTemplateUrl = resolveActivityTemplate($scope.currentActivity.type);
-
+                    console.log($scope.activityTemplateUrl);
                     ga("send", "event", "activity", "select", $scope.currentActivity.id);
 
                     $scope.answer = Answer.get({activityId: $scope.currentActivity.id}, function(answer) {
                         var exp = $scope.currentActivity.expected;
                         var giv = answer.given;
-                        // FIXME why this name?
-                        // TODO test if professor changes the activity (create a new alternative, the user lost his answer?
-                        var shouldUseLastAnswer = (exp !== null && exp !== undefined) &&
-                            (angular.isArray(exp) && angular.isArray(giv) && giv.length === exp.length);
 
-                        console.log(exp, giv, shouldUseLastAnswer);
-                        if (!shouldUseLastAnswer) {
-                            // Initialize empty given answer
-                            if(angular.isArray($scope.currentActivity.expected)) {
-                                answer.given = $scope.currentActivity.expected.map(function(){});
+                        // Test if the answer type is array.
+                        // See https://github.com/hacklabr/timtec/wiki/Atividades for details
+                        if ($scope.currentActivity === 'relationship' ||
+                            $scope.currentActivity === 'trueorfalse' ||
+                            $scope.currentActivity === 'multiplechoice') {
+                            // FIXME why this name?
+                            // TODO test if professor changes the activity (create a new alternative, the user lost his answer?
+                            var shouldUseLastAnswer = (exp !== null && exp !== undefined) &&
+                                (angular.isArray(exp) && angular.isArray(giv) && giv.length === exp.length);
+
+                            if (!shouldUseLastAnswer) {
+                                // Initialize empty given answer
+                                if(angular.isArray($scope.currentActivity.expected)) {
+                                    answer.given = $scope.currentActivity.expected.map(function(){});
+                                }
+                                delete answer.correct;
                             }
-                            delete answer.correct;
                         }
                     },
                     function (error) {
@@ -104,12 +109,13 @@
             };
 
             $scope.sendAnswer = function() {
-                console.log('mandando resposta');
                 $scope.answer.activity = $scope.currentActivity.id;
-                $scope.answer.$update({activityId: $scope.answer.activity}).then(function(d){
-                    console.log(d, d.correct);
-                    ga('send', 'event', 'activity', 'result', '', d.correct);
+                $scope.answer.$update({activityId: $scope.answer.activity}).then(function(answer){
+                    console.log(answer, answer.correct);
+                    ga('send', 'event', 'activity', 'result', '', answer.correct);
                     $scope.currentUnit.progress = Progress.get({unit: $scope.currentUnit.id});
+                    answer.updated = true;
+                    return answer;
                 });
                 ga('send', 'event', 'activity', 'submit');
             };
