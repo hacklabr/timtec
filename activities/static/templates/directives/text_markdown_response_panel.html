@@ -1,0 +1,19 @@
+<div>
+    <div ng-show="answer.updated" class="alert alert-success">
+        <i class="fa fa-smile-o"></i><span translate> Sua resposta foi salva, mas não será corrigida pois este é um exercício de resposta aberta e serve para guiar seus estudos.</span>
+    </div>
+
+    <div class="submit">
+        <!-- if no answer or incorrect (any answer here is correct) -->
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <button class="btn btn-default" ng-click="nextStep(true)" translate>Pular</button>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 textright">
+                <button class="btn btn-info" ng-click="play()" translate>Rever o vídeo</button>
+                <button class="btn btn-success" ng-click="sendAnswer()" translate>Salvar</button>
+                <button class="btn btn-success" ng-show="answer.correct" ng-click="nextStep()" translate>Continuar</button>
+            </div>
+        </div>
+    </div>
+</div>
