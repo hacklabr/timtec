@@ -57,6 +57,15 @@
         };
     });
 
+    app.directive('textMarkdownReponsePanel', function () {
+        return {
+            restrict: 'E',
+            templateUrl: '/static/templates/directives/text_markdown_response_panel.html',
+            transclude: true,
+            replace: true
+        };
+    });
+
     app.directive('phpresult', function(){
         return {
             'restrict': 'A',
