@@ -23,29 +23,28 @@
         <section id="classes-content" class="container">
             <header class="secondary-header row">
                 <div class="col-sm-8">
-                    <h1>{% trans "Evaluations for class" %}
-                    {% verbatim %}
-                        {{ klass.name }}
-                    {% endverbatim %}
+                    <h1>{% trans 'Evaluations for class' %}
+                        <em>{% verbatim %}
+                            {{ klass.name }}
+                        {% endverbatim %}
+                        </em>
                     </h1>
                 </div>
-                {% verbatim %}
                 <h3 class="col-sm-4">
                     <a role="menuitem" tabindex="-1"
                        ng-click="createEvaluation()"
                        href="#" class="btn btn-success">
-                       Schedule evaluation
+                       {% trans 'Schedule evaluation' %}
                     </a>
                 </h3>
-                {% endverbatim %}
             </header>
 
             <div class="well row">
                 <div class="col-sm-6">
-                    <h2>Evaluation status</h2>
+                    <h2>{% trans 'Evaluation status' %}</h2>
                     <ul class="list-unstyled">
                         <li>
-                            Students that can certificate:
+                            {% trans 'Students that can certificate' %}:
                             <strong>
                                 {% verbatim %}
                                 {{ stats.user_can_certificate }}
@@ -53,7 +52,7 @@
                             </strong>
                         </li>
                         <li>
-                            Students that requested certificate:
+                            {% trans 'Students that requested certificate' %}:
                             <strong>
                                 {% verbatim %}
                                 {{ certification_processes.length }}
@@ -61,7 +60,7 @@
                             </strong>
                         </li>
                         <li>
-                            Already have certificate:
+                            {% trans 'Already have certificate' %}:
                             <strong>
                                 {% verbatim %}
                                 {{ stats.has_certificate }}
@@ -69,7 +68,7 @@
                             </strong>
                         </li>
                         <li>
-                            Scheduled evaluations:
+                            {% trans 'Scheduled evaluations' %}:
                             <strong>
                                 {% verbatim %}
                                 {{ class_evaluations.length }}
@@ -77,7 +76,7 @@
                             </strong>
                         </li>
                         <li>
-                            Upcoming evaluations:
+                            {% trans 'Upcoming evaluations' %}:
                             <strong>
                                 {% verbatim %}
                                 {{ stats.upcoming }}
@@ -87,10 +86,10 @@
                     </ul>
                 </div>
                 <div class="col-sm-6">
-                    <h2>Class progress</h2>
+                    <h2>{% trans 'Class progress' %}</h2>
                     <ul class="list-unstyled">
                         <li>
-                            Number of enroled students:
+                            {% trans 'Number of enroled students' %}:
                             <strong>
                                 {% verbatim %}
                                 {{ class_students.length }}
@@ -98,7 +97,8 @@
                             </strong>
                         </li>
                         <li>
-                            Number of students able to attend evaluation: <strong>10</strong> out of 100
+                            {% trans 'Number of students able to attend evaluation:' %} <strong>10</strong>
+                            {% trans 'out of' %} 100
                         </li>
                     </ul>
                     <div class="progress">
@@ -111,20 +111,28 @@
             </div>
 
             <div class="row">
-                <div class="col-sm-3 well">
+                <div class="col-sm-3 well evaluations-list">
                     <p>
                         <a role="menuitem" tabindex="-1"
                            ng-click="createEvaluation()"
-                           href="#" class="fa fa-plus-square">
-                            Schedule evaluation
+                           href="#">
+                           <span class="fa fa-plus-square"></span>
+                            {% trans "Schedule evaluation" %}
                         </a>
                     </p>
-                    <p>Escolha uma avaliação da lista abaixo:</p>
+                    <p ng-show="!class_evaluations.length">{% trans 'No evaluation found.' %}
+                       {% trans 'Schedule one at' %}  <a role="menuitem" tabindex="-1"
+                                                   ng-click="createEvaluation()"
+                                                   href="#">
+                                                    {% trans 'Schedule evaluation' %}
+                                                </a>.
+                    </p>
+                    <p ng-show="class_evaluations.length">{% trans 'Escolha uma avaliação da lista abaixo:' %}</p>
                     <ul class="nav nav-pills nav-stacked">
                       <li role="presentation" ng-repeat="evaluation in class_evaluations"
                         ng-class="{ active : isCurrent(evaluation.id)}">
                         <a href="#" ng-click="changeEvaluation($event, $index)" class="fa fa-calendar">
-                            {% trans 'Prova' %} -
+                            {% trans 'Evaluation' %} -
                             {% verbatim %}
                             {{ evaluation.date | date : "dd 'de' MMM H:mm" }}
                             {% endverbatim %}
@@ -136,15 +144,19 @@
 
                 <div class="col-sm-9">
                     <header class="row">
-                        <div class="col-sm-4">
-                            <h3>
-                                {% trans 'Prova' %} -
+                        <div class="col-sm-6">
+                            <h3 ng-show="!evaluation.processes.length">
+                                {% trans 'Chose an evaluation throught the left aside menu or schedule a new one.' %}
+                            </h3>
+
+                            <h3 ng-show="evaluation.processes.length">
+                                {% trans 'Evaluation' %} -
                                 {% verbatim %}
                                 {{ evaluation.date | date : "dd 'de' MMM H:mm" }}
                                 {% endverbatim %}
                             </h3>
                         </div>
-                        <div class="col-sm-8">
+                        <div class="col-sm-6 text-right manage-buttons" ng-show="!evaluation.processes.length">
                             <button class="btn btn-success" ng-click="createEvaluation(true)">
                                 <span class="fa fa-pencil" aria-hidden="true"></span>
                                 {% trans 'Edit evaluation' %}
