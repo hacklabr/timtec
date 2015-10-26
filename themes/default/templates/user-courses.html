@@ -118,20 +118,34 @@ wrapper-course-lesson
                     <div role="tabpanel" class="tab-pane" id="my-certificates">
 
                     <!-- TODO Trocar o FOR para cursos com certificados disponíveis -->
-                        {% for cs in request.user.coursestudent_set.all %}
-                        <div class="col-sm-3">
-                            <section class="thumbnail course">
-                                <h1>{{ cs.course.name }}</h1>
-                                <div class="textright">
-                                    <div class="btn-group">
-                                        <!-- TODO Mudar URL do certificado -->
-                                        <a href="#" class="btn btn-sm btn-success">{% trans "Check certificate" %}
-                                        <i class="fa fa-angle-double-right"></i></a>
+                        <div class="row">
+                            {% for cs in request.user.coursestudent_set.all %}
+                                <div class="col-sm-3">
+                                    <div class="course-card">
+                                        <div class="thumb-wrapper">
+                                            <img class="img-responsive" src="{{ cs.course.home_thumbnail.url }}" />
+                                        </div>
+                                        <div class="info">
+                                            <a href="{% url "course_intro" cs.course.slug %}">
+                                                <h3>{{ cs.course.name }}</h3>
+                                            </a>
+                                            <p class="instructors">por {% for professor in cs.course.get_video_professors %}{{ professor.get_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                                        </div>
+                                        <div class="conclusion">
+                                            <!-- TODO add certificate link and conclusion date -->
+                                            <p>
+                                                Conluído em 15/08/2015.
+                                            </p>
+                                            <!-- TODO only display if user has verified certificate -->
+                                            <a class="enroll-link text-uppercase" href="#">
+                                                <i class="fa fa-file-text-o"></i> Ver certificado
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </section>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
+
 
 
                     </div>

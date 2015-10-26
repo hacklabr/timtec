@@ -37,7 +37,7 @@ wrapper-course-lesson
     <!-- TODO only display tittle if not null -->
     <h2><i class="fa fa-check-square-o"></i> Cursos finalizados</h3>
 
-    <!-- TODO add for to display finished courses. *Add a new row every 3 courses* -->
+    <!-- TODO add for to display finished courses -->
     <div class="row">
         <div class="col-sm-4">
             <div class="course-card">
@@ -54,13 +54,13 @@ wrapper-course-lesson
                     <!-- TODO add instructor loop -->
                     <p class="instructors">por Capi Etheriel</p>
                 </div>
-                <div>
+                <div class="conclusion">
                     <!-- TODO add certificate link and conclusion date -->
                     <p>
                         Conluído em 15/08/2015.
                     </p>
                     <!-- TODO only display if user has verified certificate -->
-                    <a class="btn btn-default">
+                    <a class="enroll-link text-uppercase" href="#">
                         <i class="fa fa-file-text-o"></i> Ver certificado
                     </a>
                 </div>
@@ -81,39 +81,13 @@ wrapper-course-lesson
                     <!-- TODO add instructor loop -->
                     <p class="instructors">por Capi Etheriel</p>
                 </div>
-                <div>
+                <div class="conclusion">
                     <!-- TODO add certificate link and conclusion date -->
                     <p>
                         Conluído em 15/08/2015.
                     </p>
                     <!-- TODO only display if user has verified certificate -->
-                    <a class="btn btn-default">
-                        <i class="fa fa-file-text-o"></i> Ver certificado
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="course-card">
-                <div class="thumb-wrapper">
-                    <!-- TODO change img src for course thumbnail -->
-                </div>
-                <div class="info">
-                    <!-- TODO change href to course url -->
-                    <a href="#">
-                        <!-- TODO change course name -->
-                        <h3>Introdução à Linguagem de Programação PHP</h3>
-                    </a>
-                    <!-- TODO add instructor loop -->
-                    <p class="instructors">por Capi Etheriel</p>
-                </div>
-                <div>
-                    <!-- TODO add certificate link and conclusion date -->
-                    <p>
-                        Conluído em 15/08/2015.
-                    </p>
-                    <!-- TODO only display if user has verified certificate -->
-                    <a class="btn btn-default">
+                    <a class="enroll-link text-uppercase" href="#">
                         <i class="fa fa-file-text-o"></i> Ver certificado
                     </a>
                 </div>
@@ -134,13 +108,13 @@ wrapper-course-lesson
                     <!-- TODO add instructor loop -->
                     <p class="instructors">por Capi Etheriel</p>
                 </div>
-                <div>
+                <div class="conclusion">
                     <!-- TODO add certificate link and conclusion date -->
                     <p>
                         Conluído em 15/08/2015.
                     </p>
                     <!-- TODO only display if user has verified certificate -->
-                    <a class="btn btn-default">
+                    <a class="enroll-link text-uppercase" href="#">
                         <i class="fa fa-file-text-o"></i> Ver certificado
                     </a>
                 </div>
@@ -161,13 +135,13 @@ wrapper-course-lesson
                     <!-- TODO add instructor loop -->
                     <p class="instructors">por Capi Etheriel</p>
                 </div>
-                <div>
+                <div class="conclusion">
                     <!-- TODO add certificate link and conclusion date -->
                     <p>
                         Conluído em 15/08/2015.
                     </p>
                     <!-- TODO only display if user has verified certificate -->
-                    <a class="btn btn-default">
+                    <a class="enroll-link text-uppercase" href="#">
                         <i class="fa fa-file-text-o"></i> Ver certificado
                     </a>
                 </div>
@@ -188,14 +162,41 @@ wrapper-course-lesson
                     <!-- TODO add instructor loop -->
                     <p class="instructors">por Capi Etheriel</p>
                 </div>
-                <div>
+                <div class="conclusion">
                     <!-- TODO add certificate link and conclusion date -->
                     <p>
                         Conluído em 15/08/2015.
                     </p>
                     <!-- TODO only display if user has verified certificate -->
-                    <a class="btn btn-default">
-                        <i class="fa fa-file-text-o"></i> Ver certificado
+                    <a class="enroll-link text-uppercase" href="#">
+                        <i class="fa fa-file-text-o"></i> Ver comprovante
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="course-card">
+                <div class="thumb-wrapper">
+                    <!-- TODO change img src for course thumbnail -->
+                    <img class="img-responsive" src="{{ profile_user.get_picture_url }}" />
+                </div>
+                <div class="info">
+                    <!-- TODO change href to course url -->
+                    <a href="#">
+                        <!-- TODO change course name -->
+                        <h3>Introdução à Linguagem de Programação PHP</h3>
+                    </a>
+                    <!-- TODO add instructor loop -->
+                    <p class="instructors">por Capi Etheriel</p>
+                </div>
+                <div class="conclusion">
+                    <!-- TODO add certificate link and conclusion date -->
+                    <p>
+                        Conluído em 15/08/2015.
+                    </p>
+                    <!-- TODO only display if user has verified certificate -->
+                    <a class="enroll-link text-uppercase" href="#">
+                        <i class="fa fa-file-text-o"></i> Ver comprovante
                     </a>
                 </div>
             </div>
