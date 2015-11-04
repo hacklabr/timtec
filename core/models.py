@@ -261,6 +261,9 @@ class CourseStudent(models.Model):
     def can_emmit_receipt(self):
         return self.course_finished and self.user.is_profile_filled
 
+    def get_current_class(self):
+        return self.user.classes.get(course=self.course)
+
     def min_percent_to_complete(self):
         return self.course.min_percent_to_complete
 

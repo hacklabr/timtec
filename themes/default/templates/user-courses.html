@@ -95,8 +95,8 @@ wrapper-course-lesson
 
                                 <!-- TODO SE USUÁRIO TIVER FINALIZADO O CURSO, APARECE A CLASSE BTN-SUCCESS, SENÃO COLOCAR BTN-DEFAULT E ATRIBUTO disabled="disabled" -->
                                 <!-- TODO Mudar URL do certificado -->
-                                {% if %}
-                                <a href="#" class="btn btn-default btn-sm" disabled="disabled">{% trans "Request certificate" %}</a>
+                                {% if cs.can_emmit_receipt and cs.get_current_class.user_can_certificate %}
+                                <a href="#" class="btn btn-default btn-sm">{% trans "Request certificate" %}</a>
                                 {% endif %}
                                 <!-- FIM DO IF -->
 
