@@ -32,12 +32,37 @@
                 </div>
                 <h3 class="col-sm-4">
                     <a role="menuitem" tabindex="-1"
+                       ng-disabled="!switches.can_certificate"
                        ng-click="createEvaluation()"
                        href="#" class="btn btn-success">
                        {% trans 'Schedule evaluation' %}
                     </a>
                 </h3>
             </header>
+            <div class="alert row" role="alert"
+                 ng-class="{'alert-info': switches.can_certificate, 'alert-danger': !switches.can_certificate}">
+                <div class="col-xs-8">
+                    Essa turma não está emitindo certificados. Clique no botão ao lado para permitir.
+                </div>
+                <div class="col-xs-4">
+                    <div class="professor-assistant user-can-certificate text-right">
+                        {% if user|is_course_coordinator:object.course %}
+                            <input  {% if form.user_can_certificate.value %}checked{% endif %}
+                                    id="id_user_can_certificate"
+                                    name="user_can_certificate"
+                                    ng-model="switches.can_certificate"
+                                    type="checkbox" />
+                        {% else %}
+                            <label>
+                                {{ object.user_can_certificate }}
+                            </label>
+                        {% endif %}
+                        <label for="{{ form.user_can_certificate.id_for_label }}">
+                            {% trans 'Allows Certification' %}
+                        </label>
+                    </div>
+                </div>
+            </div>
 
             <div class="well row">
                 <div class="col-sm-6">
@@ -112,20 +137,20 @@
 
             <div class="row">
                 <div class="col-sm-3 well evaluations-list">
-                    <p>
+                    <a role="menuitem" tabindex="-1"
+                       ng-disabled="!switches.can_certificate"
+                       ng-click="createEvaluation()"
+                       href="#" class="btn btn-success">
+                       {% trans 'Schedule evaluation' %}
+                    </a>
+                    <p ng-show="!class_evaluations.length">{% trans 'No evaluation found.' %}
+                       {% trans 'Schedule one at' %}
                         <a role="menuitem" tabindex="-1"
                            ng-click="createEvaluation()"
+                           ng-disabled="!switches.can_certificate"
                            href="#">
-                           <span class="fa fa-plus-square"></span>
-                            {% trans "Schedule evaluation" %}
-                        </a>
-                    </p>
-                    <p ng-show="!class_evaluations.length">{% trans 'No evaluation found.' %}
-                       {% trans 'Schedule one at' %}  <a role="menuitem" tabindex="-1"
-                                                   ng-click="createEvaluation()"
-                                                   href="#">
-                                                    {% trans 'Schedule evaluation' %}
-                                                </a>.
+                            {% trans 'Schedule evaluation' %}
+                        </a>.
                     </p>
                     <p ng-show="class_evaluations.length">{% trans 'Escolha uma avaliação da lista abaixo:' %}</p>
                     <ul class="nav nav-pills nav-stacked">
@@ -156,7 +181,7 @@
                                 {% endverbatim %}
                             </h3>
                         </div>
-                        <div class="col-sm-6 text-right manage-buttons" ng-show="!evaluation.processes.length">
+                        <div class="col-sm-6 text-right manage-buttons" ng-show="evaluation.processes.length">
                             <button class="btn btn-success" ng-click="createEvaluation(true)">
                                 <span class="fa fa-pencil" aria-hidden="true"></span>
                                 {% trans 'Edit evaluation' %}
