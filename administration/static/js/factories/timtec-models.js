@@ -219,8 +219,9 @@
     });
 
     app.factory('CourseCertification', function($resource){
-        return $resource('/api/course_certification/:certificationLink', {}, {
-            update: {method: 'PUT'}
+        return $resource('/api/course_certification/:link_hash',
+                    {'link_hash' : '@id' },
+                    {'update': {method: 'PUT'}
         });
     });
 
