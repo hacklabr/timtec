@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load compressed %}
 {% load i18n %}
 {% load staticfiles %}
 
@@ -6,13 +7,24 @@
 wrapper-course-lesson
 {% endblock %}
 
+{% block js %}
+    {{ block.super }}
+    {% compressed_js 'certificate' %}
+{% endblock %}
+
 {% block content %}
-<div class="container">
+<div class="container" ng-app="certification" ng-controller="CertificateCtrl">
     <div class="row">
         <!-- TODO arrumar o link de impressão com a hash -->
         <a href="print" class="btn btn-default pull-right hidden-print"><i class=" glyphicon glyphicon-print"></i> Imprimir</a>
     </div>
     <div class="certificate-container">
+        <div ng-show="ct.pronatec_logo" class="pronatec-logo">
+            <img alt="Logo Instituto" src="{% static 'img/logopronatec.svg' %}">
+        </div>
+        <div ng-show="ct.mec_logo" class="brasil-logo">
+            <img alt="Logo Instituto" src="{% static 'img/logobrasil.svg' %}">
+        </div>
         <div class="institute-logo">
             <img alt="Logo Instituto" src="">
         </div>

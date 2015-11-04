@@ -13,6 +13,10 @@
             'courseSettings' : function(){
                 var match = document.location.href.match(/admin\/course\/(\d+)\/certificatesettings/)
                 return match[1];
+            },
+            'certificateData' : function(){
+                var match = document.location.href.match(/certificate\/([a-zA-Z0-9 _-]+)/)
+                return match[1];
             }
 
         }
