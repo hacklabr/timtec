@@ -81,7 +81,7 @@ wrapper-course-lesson
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-6">
+                    <div class="col-xs-9">
                         <div class="professor-assistant">
                             <label for="{{ form.assistant.id_for_label }}">{% trans 'Assistant Professor' %}:</label>
                             {% if user|is_course_coordinator:object.course %}
@@ -99,27 +99,8 @@ wrapper-course-lesson
                             {% endif %}
                         </div>
                     </div>
+
                     <div class="col-xs-3">
-                        <div class="professor-assistant user-can-certificate">
-                            <label for="{{ form.user_can_certificate.id_for_label }}">
-                                {% trans 'Can Certificate' %}
-                            </label>
-                            {% if user|is_course_coordinator:object.course %}
-                                <div class="form-control">
-                                    <input  {% if form.user_can_certificate.value %}checked{% endif %}
-                                            id="id_user_can_certificate"
-                                            name="user_can_certificate"
-                                            ng-model="switches.can_certificate"
-                                            type="checkbox" />
-                                </div>
-                            {% else %}
-                                <label>
-                                    {{ object.user_can_certificate }}</label>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div ng-show="switches.can_certificate"
-                         class="col-xs-3">
                         <a class="btn btn-lg btn-default uppercase"
                            href="{% url 'class-evaluations' object.id %}"
                                 >{% trans 'Evaluations' %}</a>

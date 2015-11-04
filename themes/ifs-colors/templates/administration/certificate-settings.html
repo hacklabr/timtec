@@ -10,8 +10,8 @@ wrapper-course-lesson
 {% block js %}
     {{ block.super }}
     {% compressed_js 'certificate' %}
+    <script type="text/javascript" src="{% static 'js/certificate-form.js' %}"></script>
 {% endblock %}
-
 
 {% block content %}
 
