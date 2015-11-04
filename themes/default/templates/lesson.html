@@ -171,6 +171,7 @@ wrapper-course-lesson
         </div>
     </section>
     <!-- END COURSE CONTENT -->
+    {% block complete_modal_template %}
     <script type="text/ng-template" id="courseCompleteModal.html">
         <div class="modal-header">
             <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
@@ -194,7 +195,7 @@ wrapper-course-lesson
                         {% verbatim %}
                         </span>
                         <dd ng-show="cs.can_emmit_receipt">
-                            <a href="/certificate/{{ receipt.link }}" class="btn btn-success">Ver comprovante</a>
+                            <a href="/certificate/{{ receipt.link_hash }}" class="btn btn-success">Ver comprovante</a>
                         </dd>
                     </p>
                 </div>
@@ -218,6 +219,7 @@ wrapper-course-lesson
             <button type="button" class="btn btn-danger" ng-click="cancel()">{% trans "Close" %}</button>
         </div>
     </script>
+    {% endblock %}
 </div>
 <!-- END COURSE -->
 
