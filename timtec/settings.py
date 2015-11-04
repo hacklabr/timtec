@@ -23,7 +23,7 @@ TEMPLATE_DEBUG = DEBUG
 SITE_ID = 1
 SITE_HOME = ''
 SITE_NAME = u'Timtec'
-SITE_DOMAIN = 'timtec.com.br'
+SITE_DOMAIN = 'mooc.timtec.com.br'
 
 ADMINS = (
     ('Admin1', 'root@localhost'),
