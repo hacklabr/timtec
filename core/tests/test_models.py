@@ -147,11 +147,13 @@ def test_studentprogress_emmit_receipt(user):
     assert course_student.reached_last_unit() is False
 
     lesson1 = mommy.make('Lesson', slug='lesson1', desc='', name='l1',
-                         notes='', course=course, position=1)
+                         notes='', course=course, position=1, status='published')
     lesson2 = mommy.make('Lesson', slug='lesson2', desc='', name='l1',
-                         notes='', course=course, position=2)
+                         notes='', course=course, position=2, status='published')
     mommy.make('Lesson', slug='lesson3', desc='', name='l1', notes='',
-               course=course, position=3)
+               course=course, position=3, status='published')
+    mommy.make('Lesson', slug='lesson4', desc='', name='l1', notes='',
+               course=course, position=4, status='draft')
     assert course_student.reached_last_unit() is False
 
     unit1 = mommy.make('Unit', title='unit1', lesson=lesson1)

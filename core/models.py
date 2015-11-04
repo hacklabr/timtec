@@ -261,6 +261,9 @@ class CourseStudent(models.Model):
     def can_emmit_receipt(self):
         return self.course_finished and self.user.is_profile_filled
 
+    def get_current_class(self):
+        return self.user.classes.get(course=self.course)
+
     def min_percent_to_complete(self):
         return self.course.min_percent_to_complete
 
@@ -623,8 +626,8 @@ class CourseCertification(models.Model):
 
     type = models.CharField(_('Certificate Type'), choices=TYPES,
                             max_length=127)
-    course_student = models.OneToOneField(CourseStudent, verbose_name=_('Enrollment'))
-
+    course_student = models.OneToOneField(CourseStudent, verbose_name=_('Enrollment'), related_name='certificate')
+    course = models.ForeignKey(Course, verbose_name=_('Course'))
     created_date = models.DateTimeField(_('Created'), auto_now_add=True)
     modified_date = models.DateTimeField(_('Last modified'), auto_now=True)
 

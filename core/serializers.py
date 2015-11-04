@@ -25,7 +25,7 @@ class CourseCertificationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CourseCertification
-        fields = ('link_hash', 'created_date', 'is_valid')
+        fields = ('link_hash', 'created_date', 'is_valid', 'course')
 
 
 class CertificationProcessSerializer(serializers.ModelSerializer):
@@ -168,7 +168,8 @@ class LessonSerializer(serializers.HyperlinkedModelSerializer):
         lookup_field='slug'
     )
     is_course_last_lesson = serializers.BooleanField(
-        source='is_course_last_lesson')
+        source='is_course_last_lesson',
+        read_only=True)
 
     class Meta:
         model = Lesson

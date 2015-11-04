@@ -71,6 +71,9 @@
         </div>
     </section>
     <!-- END COURSE CONTENT -->
+    {% block complete_modal_template %}
+    {{ block.super }}
+    {% endblock %}
 </div>
 <!-- END COURSE -->
 {% endblock %}

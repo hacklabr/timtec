@@ -18,6 +18,24 @@
         }
     ]);
 
+    module.controller('CertificateCtrl', ['$scope', 'ClassIdGetter', 'Course', 'CourseCertification', 'CertificateTemplate',
+        function($scope, ClassIdGetter, Course, CourseCertification, CertificateTemplate){
+            console.log(ClassIdGetter.certificateData());
+            CourseCertification.get({'link_hash' : ClassIdGetter.certificateData()}, function(data) {
+                $scope.cc = data;
+
+                Course.get({'id' : $scope.cc.course}, function(data) {
+                    $scope.course = data;
+                    console.log(data);
+                });
+
+                CertificateTemplate.get({'course' : $scope.cc.course }, function(data) {
+                    $scope.ct = data;
+                });
+            });
+        }
+    ]);
+
     module.controller('CertificateTemplateCtrl', ['$scope', 'FormUpload', 'ClassIdGetter', 'Course', 'CertificateTemplate',
         function($scope, FormUpload, ClassIdGetter, Course, CertificateTemplate){
 
