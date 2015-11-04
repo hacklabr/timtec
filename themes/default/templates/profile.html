@@ -28,44 +28,180 @@ wrapper-course-lesson
                 <!-- TODO check with Bruno if it is interesting to show this data -->
                 <span>2 cursos finalizados</span> | <span>1 certificado de conclusão</span>
             </div>
-            <div class="row">
+            <div class="user-bio">
                 <p>{{profile_user.biography}}</p>
             </div>
         </div>
     </div>
     <hr />
+    <!-- TODO only display tittle if not null -->
+    <h2><i class="fa fa-check-square-o"></i> Cursos finalizados</h3>
+
+    <!-- TODO add for to display finished courses -->
     <div class="row">
-
-        <!-- TODO only display tittle if not null -->
-        <h2><i class="fa fa-check-square-o"></i> Cursos finalizados</h3>
-
-        <!-- TODO add for to display finished courses -->
         <div class="col-sm-4">
-            <div class="thumb-wrapper">
-                <!-- TODO change img src for course thumbnail -->
-                <img class="img-responsive" src="/media/home_thumbnails/dfe231678b8ae44c0a6836ddc9ef3d85.jpg" />
-            </div>
-            <div class="info">
-                <!-- TODO change href to course url -->
-                <a href="#">
-                    <!-- TODO change course name -->
-                    <h3>Introdução à Linguagem de Programação PHP</h3>
-                </a>
-                <!-- TODO add instructor loop -->
-                <p class="instructors">por Capi Etheriel</p>
-            </div>
-            <div>
-                <!-- TODO add certificate link and conclusion date -->
-                <p>
-                    Conluído em 15/08/2015
-                    <a href="#" title="Ver comprovante"><i class="fa fa-file-text-o"></i></a>
-                </p>
-                <!-- TODO only display if user has verified certificate -->
-                <a class="btn btn-default">
-                    Possui certificado <i class="fa fa-check"></i>
-                </a>
+            <div class="course-card">
+                <div class="thumb-wrapper">
+                    <!-- TODO change img src for course thumbnail -->
+                    <img class="img-responsive" src="{{ profile_user.get_picture_url }}" />
+                </div>
+                <div class="info">
+                    <!-- TODO change href to course url -->
+                    <a href="#">
+                        <!-- TODO change course name -->
+                        <h3>Introdução à Linguagem</h3>
+                    </a>
+                    <!-- TODO add instructor loop -->
+                    <p class="instructors">por Capi Etheriel</p>
+                </div>
+                <div class="conclusion">
+                    <!-- TODO add certificate link and conclusion date -->
+                    <p>
+                        Conluído em 15/08/2015.
+                    </p>
+                    <!-- TODO only display if user has verified certificate -->
+                    <a class="enroll-link text-uppercase" href="#">
+                        <i class="fa fa-file-text-o"></i> Ver certificado
+                    </a>
+                </div>
             </div>
         </div>
+        <div class="col-sm-4">
+            <div class="course-card">
+                <div class="thumb-wrapper">
+                    <!-- TODO change img src for course thumbnail -->
+                    <img class="img-responsive" src="{{ profile_user.get_picture_url }}" />
+                </div>
+                <div class="info">
+                    <!-- TODO change href to course url -->
+                    <a href="#">
+                        <!-- TODO change course name -->
+                        <h3>Introdução à Linguagem de Programação PHP</h3>
+                    </a>
+                    <!-- TODO add instructor loop -->
+                    <p class="instructors">por Capi Etheriel</p>
+                </div>
+                <div class="conclusion">
+                    <!-- TODO add certificate link and conclusion date -->
+                    <p>
+                        Conluído em 15/08/2015.
+                    </p>
+                    <!-- TODO only display if user has verified certificate -->
+                    <a class="enroll-link text-uppercase" href="#">
+                        <i class="fa fa-file-text-o"></i> Ver certificado
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="course-card">
+                <div class="thumb-wrapper">
+                    <!-- TODO change img src for course thumbnail -->
+                    <img class="img-responsive" src="{{ profile_user.get_picture_url }}" />
+                </div>
+                <div class="info">
+                    <!-- TODO change href to course url -->
+                    <a href="#">
+                        <!-- TODO change course name -->
+                        <h3>Introdução à Linguagem de Programação PHP</h3>
+                    </a>
+                    <!-- TODO add instructor loop -->
+                    <p class="instructors">por Capi Etheriel</p>
+                </div>
+                <div class="conclusion">
+                    <!-- TODO add certificate link and conclusion date -->
+                    <p>
+                        Conluído em 15/08/2015.
+                    </p>
+                    <!-- TODO only display if user has verified certificate -->
+                    <a class="enroll-link text-uppercase" href="#">
+                        <i class="fa fa-file-text-o"></i> Ver certificado
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="course-card">
+                <div class="thumb-wrapper">
+                    <!-- TODO change img src for course thumbnail -->
+                    <img class="img-responsive" src="{{ profile_user.get_picture_url }}" />
+                </div>
+                <div class="info">
+                    <!-- TODO change href to course url -->
+                    <a href="#">
+                        <!-- TODO change course name -->
+                        <h3>Introdução à Linguagem de Programação PHP</h3>
+                    </a>
+                    <!-- TODO add instructor loop -->
+                    <p class="instructors">por Capi Etheriel</p>
+                </div>
+                <div class="conclusion">
+                    <!-- TODO add certificate link and conclusion date -->
+                    <p>
+                        Conluído em 15/08/2015.
+                    </p>
+                    <!-- TODO only display if user has verified certificate -->
+                    <a class="enroll-link text-uppercase" href="#">
+                        <i class="fa fa-file-text-o"></i> Ver certificado
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="course-card">
+                <div class="thumb-wrapper">
+                    <!-- TODO change img src for course thumbnail -->
+                    <img class="img-responsive" src="{{ profile_user.get_picture_url }}" />
+                </div>
+                <div class="info">
+                    <!-- TODO change href to course url -->
+                    <a href="#">
+                        <!-- TODO change course name -->
+                        <h3>Introdução à Linguagem de Programação PHP</h3>
+                    </a>
+                    <!-- TODO add instructor loop -->
+                    <p class="instructors">por Capi Etheriel</p>
+                </div>
+                <div class="conclusion">
+                    <!-- TODO add certificate link and conclusion date -->
+                    <p>
+                        Conluído em 15/08/2015.
+                    </p>
+                    <!-- TODO only display if user has verified certificate -->
+                    <a class="enroll-link text-uppercase" href="#">
+                        <i class="fa fa-file-text-o"></i> Ver comprovante
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="course-card">
+                <div class="thumb-wrapper">
+                    <!-- TODO change img src for course thumbnail -->
+                    <img class="img-responsive" src="{{ profile_user.get_picture_url }}" />
+                </div>
+                <div class="info">
+                    <!-- TODO change href to course url -->
+                    <a href="#">
+                        <!-- TODO change course name -->
+                        <h3>Introdução à Linguagem de Programação PHP</h3>
+                    </a>
+                    <!-- TODO add instructor loop -->
+                    <p class="instructors">por Capi Etheriel</p>
+                </div>
+                <div class="conclusion">
+                    <!-- TODO add certificate link and conclusion date -->
+                    <p>
+                        Conluído em 15/08/2015.
+                    </p>
+                    <!-- TODO only display if user has verified certificate -->
+                    <a class="enroll-link text-uppercase" href="#">
+                        <i class="fa fa-file-text-o"></i> Ver comprovante
+                    </a>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </div>
