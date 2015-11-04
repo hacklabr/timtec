@@ -606,9 +606,7 @@ class StudentProgress(models.Model):
                 from time import time
                 h = ub64(sha1(str(time()) + self.user.last_name).digest()[0:6])
                 receipt = CourseCertification(course_student=course_student,
-                                              is_valid=True,
-                                              link_hash=h,
-                                              course=course_student.course)
+                                              is_valid=True, link_hash=h)
                 receipt.save()
 
     class Meta:
@@ -629,7 +627,7 @@ class CourseCertification(models.Model):
     type = models.CharField(_('Certificate Type'), choices=TYPES,
                             max_length=127)
     course_student = models.OneToOneField(CourseStudent, verbose_name=_('Enrollment'), related_name='certificate')
-    course = models.ForeignKey(Course, verbose_name=_('Course'))
+    # course = models.ForeignKey(Course, verbose_name=_('Course'))
     created_date = models.DateTimeField(_('Created'), auto_now_add=True)
     modified_date = models.DateTimeField(_('Last modified'), auto_now=True)
 
@@ -684,7 +682,7 @@ class CertificationProcess(models.Model):
                                 related_name='processes')
     course_certification = models.ForeignKey(CourseCertification, null=True,
                                              verbose_name=_('Certificate'))
-    comments = models.CharField(_('Comments'), max_length=255)
+    comments = models.CharField(_('Comments'), max_length=255, null=True, blank=True)
     created_date = models.DateTimeField(_('Created'), auto_now_add=True)
 
     evaluation_grade = models.IntegerField(_('Evaluation grade'), blank=True)

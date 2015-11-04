@@ -23,9 +23,17 @@ class ProfessorMessageSerializer(serializers.ModelSerializer):
 
 class CourseCertificationSerializer(serializers.ModelSerializer):
 
+    course = serializers.SerializerMethodField('get_course')
+
     class Meta:
         model = CourseCertification
         fields = ('link_hash', 'created_date', 'is_valid', 'course')
+
+    @staticmethod
+    def get_course(obj):
+        if obj.course_student:
+            return obj.course_student.course
+        return ''
 
 
 class CertificationProcessSerializer(serializers.ModelSerializer):
