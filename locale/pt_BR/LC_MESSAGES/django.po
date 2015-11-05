@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-04 23:45-0200\n"
-"PO-Revision-Date: 2015-11-04 23:59-0200\n"
+"POT-Creation-Date: 2015-11-05 11:41-0200\n"
+"PO-Revision-Date: 2015-11-05 11:47-0200\n"
 "Last-Translator: Administrador TIMTec <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -91,8 +91,8 @@ msgstr "Você deve concordar com os Termos de Uso para usar o %(site_name)s."
 #: themes/default/templates/administration/permissions.html:49
 #: themes/default/templates/administration/permissions.html:98
 #: themes/default/templates/administration/users.html:74
-#: themes/default/templates/class_edit.html:132
-#: themes/default/templates/evaluations.html:164
+#: themes/default/templates/class_edit.html:113
+#: themes/default/templates/evaluations.html:200
 #: themes/default/templates/message.html:20
 #: themes/default/templates/messages.html:82
 #: themes/default/templates/profile-edit.html:126
@@ -240,8 +240,8 @@ msgstr "Nome"
 #: themes/default/templates/administration/permissions.html:48
 #: themes/default/templates/administration/permissions.html:97
 #: themes/default/templates/administration/users.html:75
-#: themes/default/templates/class_edit.html:133
-#: themes/default/templates/evaluations.html:165
+#: themes/default/templates/class_edit.html:114
+#: themes/default/templates/evaluations.html:201
 #: themes/default/templates/message.html:19
 #: themes/default/templates/messages.html:81
 msgid "Email"
@@ -280,7 +280,6 @@ msgid "Course"
 msgstr "Curso"
 
 #: core/models.py:51
-#| msgid "Certificate"
 msgid "Certification Allowed"
 msgstr "Certificação"
 
@@ -465,10 +464,9 @@ msgstr "Comprovante"
 
 #: core/models.py:624 core/models.py:651 core/models.py:684
 msgid "Certificate"
-msgstr "Ver comprovante"
+msgstr "Certificado"
 
 #: core/models.py:627
-#| msgid "Certificate"
 msgid "Certificate Type"
 msgstr "Tipo de Certificação"
 
@@ -477,17 +475,14 @@ msgid "Enrollment"
 msgstr "Envolvimento"
 
 #: core/models.py:631 core/models.py:686
-#| msgid "Create class"
 msgid "Created"
 msgstr "Criado"
 
 #: core/models.py:632
-#| msgid "Last name"
 msgid "Last modified"
 msgstr "Última alteração"
 
 #: core/models.py:634
-#| msgid "Certificate"
 msgid "Certificate is valid"
 msgstr "Certificado é valido"
 
@@ -504,7 +499,6 @@ msgid "Evaluation grade needed"
 msgstr "Nota mínima"
 
 #: core/models.py:662
-#| msgid "Publication date"
 msgid "Evaluation date"
 msgstr "Data da avaliação"
 
@@ -513,14 +507,13 @@ msgid "Evaluation results date"
 msgstr "Data da divulgação do resultado da avaliação"
 
 #: core/models.py:665 core/models.py:685
-#| msgid "Comment"
 msgid "Comments"
 msgstr "Comentários"
 
 #: core/models.py:666 core/models.py:695 ifs/models.py:23
 #: themes/default/templates/_course-details-inline.html:10
 #: themes/default/templates/course-evaluations.html:41
-#: themes/default/templates/evaluations.html:315
+#: themes/default/templates/evaluations.html:351
 #: themes/default/templates/ifs/signup-completion.html:127
 #: themes/default/templates/ifs/signup-completion.html:129
 #: themes/if/templates/account/signup.html:112
@@ -531,7 +524,8 @@ msgid "Class"
 msgstr "Turma"
 
 #: core/models.py:669 core/models.py:692
-#| msgid "Occupation"
+#: themes/default/templates/evaluations.html:160
+#: themes/default/templates/evaluations.html:178
 msgid "Evaluation"
 msgstr "Avaliação"
 
@@ -548,12 +542,10 @@ msgid "No show"
 msgstr "Não compareceu"
 
 #: core/models.py:707
-#| msgid "Certificate"
 msgid "Certification Process"
 msgstr "Processo de Certificação"
 
 #: core/models.py:722
-#| msgid "Certificate"
 msgid "Certificate Template"
 msgstr "Model de Certificado"
 
@@ -562,12 +554,10 @@ msgid "MEC"
 msgstr "MEC"
 
 #: core/models.py:734
-#| msgid "Logout"
 msgid "Logo"
 msgstr "Logo"
 
 #: core/models.py:737
-#| msgid "Signup"
 msgid "Signature"
 msgstr "Assinatura"
 
@@ -576,7 +566,6 @@ msgid "Signature Name"
 msgstr "Nome de Assinatura"
 
 #: core/models.py:755
-#| msgid "Certificate"
 msgid "IF Certificate Template"
 msgstr "Modelo de certificação dos IFs"
 
@@ -677,7 +666,6 @@ msgid "Permissions"
 msgstr "Permissões"
 
 #: themes/default/templates/_admin_header_inline.html:63
-#| msgid "Certificate"
 msgid "Certificate settings"
 msgstr "Opções do certificado"
 
@@ -686,7 +674,7 @@ msgstr "Opções do certificado"
 #: themes/default/templates/administration/permissions.html:61
 #: themes/default/templates/class_edit.html:86
 #: themes/default/templates/classes.html:35
-#: themes/default/templates/evaluations.html:314
+#: themes/default/templates/evaluations.html:350
 msgid "Assistant Professor"
 msgstr "Professor Assistente"
 
@@ -722,7 +710,7 @@ msgid "Edit course"
 msgstr "Editar curso"
 
 #: themes/default/templates/_course-header-inline.html:31
-#: themes/default/templates/class_edit.html:125
+#: themes/default/templates/class_edit.html:106
 #: themes/default/templates/course-evaluations.html:30
 msgid "Evaluations"
 msgstr "Avaliações"
@@ -739,10 +727,10 @@ msgstr "Organizar instrutores"
 #: themes/default/templates/_course_authors_inline.html:27
 #: themes/default/templates/_create_class_modal.html:4
 #: themes/default/templates/_forum_inline.html:170
-#: themes/default/templates/evaluations.html:193
-#: themes/default/templates/evaluations.html:249
-#: themes/default/templates/evaluations.html:259
-#: themes/default/templates/evaluations.html:303
+#: themes/default/templates/evaluations.html:229
+#: themes/default/templates/evaluations.html:285
+#: themes/default/templates/evaluations.html:295
+#: themes/default/templates/evaluations.html:339
 #: themes/default/templates/footer.html:23
 #: themes/default/templates/footer.html:51
 #: themes/default/templates/lesson.html:219
@@ -763,9 +751,7 @@ msgstr "Fechar"
 #: themes/default/templates/home.html:31
 #: themes/default/templates/ifs/signup-completion.html:139
 #: themes/default/templates/profile-edit.html:162
-#: themes/ifs-colors/templates/administration/certificate-settings.html:26
-#: themes/ifs-colors/templates/administration/certificate-settings.html:84
-#: themes/ifs-colors/templates/administration/certificate-settings.html:117
+#: themes/ifs-colors/templates/administration/certificate-settings.html:30
 #: themes/ifs-colors/templates/ifs/signup-completion.html:139
 #: themes/timtec/templates/home.html:30
 msgid "Save"
@@ -777,7 +763,7 @@ msgstr "Adicionar instrutor"
 
 #: themes/default/templates/_course_professors_modal.html:8
 msgid "Adicionar novo Instrutor"
-msgstr ""
+msgstr "Adicionar novo Instrutor"
 
 #: themes/default/templates/_course_professors_modal.html:14
 msgid "Yes"
@@ -832,7 +818,7 @@ msgstr "Usar biografia do perfil do usuário"
 #: themes/default/templates/course.html:433
 #: themes/default/templates/home.html:30
 #: themes/default/templates/home.html:273
-#: themes/ifs-colors/templates/administration/certificate-settings.html:24
+#: themes/ifs-colors/templates/administration/certificate-settings.html:28
 #: themes/timtec/templates/home.html:29 themes/timtec/templates/home.html:184
 msgid "Cancel"
 msgstr "Cancelar"
@@ -874,10 +860,10 @@ msgstr "Política de Perguntas e Respostas"
 #: themes/default/templates/accept-terms.html:27
 #: themes/default/templates/account/password_reset.html:33
 #: themes/default/templates/account/password_reset.html:68
-#: themes/default/templates/evaluations.html:194
-#: themes/default/templates/evaluations.html:251
-#: themes/default/templates/evaluations.html:261
-#: themes/default/templates/evaluations.html:305
+#: themes/default/templates/evaluations.html:230
+#: themes/default/templates/evaluations.html:287
+#: themes/default/templates/evaluations.html:297
+#: themes/default/templates/evaluations.html:341
 #: themes/default/templates/footer.html:44
 #: themes/default/templates/messages.html:98
 #: themes/default/templates/question.html:113
@@ -1043,10 +1029,10 @@ msgstr "Confirme sua senha"
 #: themes/default/templates/account/signup.html:122
 #: themes/if/templates/account/signup.html:126
 #, python-format
-#| msgid ""
-#| "I agree to the <a href=\"terms_url\" target=\"_blank\">Terms of Use</a>"
 msgid "I agree to the <a href=\"%(terms_url)s\" target=\"_blank\">Terms of Use</a>"
-msgstr "Eu concordo com os <a href=\"%(terms_url)s\" target=\"_blank\">Termos de Uso</a>"
+msgstr ""
+"Eu concordo com os <a href=\"%(terms_url)s\" target=\"_blank\">Termos de "
+"Uso</a>"
 
 #: themes/default/templates/_signup_modal.html:40
 #: themes/default/templates/account/login_modal.html:64
@@ -1172,6 +1158,7 @@ msgstr ""
 
 #: themes/default/templates/account/password_reset.html:26
 #: themes/default/templates/account/password_reset.html:62
+#: themes/default/templates/account/signup.html:25
 msgid "Your e-mail"
 msgstr "Seu email"
 
@@ -1236,8 +1223,7 @@ msgid "Validation email sent"
 msgstr "Email de validação enviado"
 
 #: themes/default/templates/administration/certificate-settings.html:33
-#: themes/ifs-colors/templates/administration/certificate-settings.html:41
-#| msgid "My certificates"
+#: themes/ifs-colors/templates/administration/certificate-settings.html:45
 msgid "Edit certificate"
 msgstr "Editar certificado"
 
@@ -1416,9 +1402,9 @@ msgstr "Adicionar usuário"
 #: themes/default/templates/administration/permissions.html:47
 #: themes/default/templates/administration/permissions.html:96
 #: themes/default/templates/administration/users.html:76
-#: themes/default/templates/class_edit.html:134
-#: themes/default/templates/evaluations.html:163
-#: themes/default/templates/evaluations.html:267
+#: themes/default/templates/class_edit.html:115
+#: themes/default/templates/evaluations.html:199
+#: themes/default/templates/evaluations.html:303
 #: themes/default/templates/message.html:18
 #: themes/default/templates/messages.html:80
 msgid "Full name"
@@ -1427,9 +1413,9 @@ msgstr "Nome"
 #: themes/default/templates/administration/permissions.html:51
 #: themes/default/templates/administration/permissions.html:99
 #: themes/default/templates/administration/users.html:79
-#: themes/default/templates/class_edit.html:136
+#: themes/default/templates/class_edit.html:117
 #: themes/default/templates/classes.html:37
-#: themes/default/templates/evaluations.html:166
+#: themes/default/templates/evaluations.html:202
 #: themes/default/templates/messages.html:83
 msgid "Actions"
 msgstr "Ações"
@@ -1545,13 +1531,8 @@ msgstr "Apagar curso"
 msgid "Select a professor"
 msgstr "Selecione um professor"
 
-#: themes/default/templates/class_edit.html:105
-#| msgid "Certificate"
-msgid "Can Certificate"
-msgstr "Possui Certificação"
-
-#: themes/default/templates/class_edit.html:156
-#: themes/default/templates/evaluations.html:172
+#: themes/default/templates/class_edit.html:137
+#: themes/default/templates/evaluations.html:208
 msgid "No students found"
 msgstr "Nenhum aluno encontrado"
 
@@ -1560,35 +1541,38 @@ msgid "Class name"
 msgstr "Nome da turma"
 
 #: themes/default/templates/course-evaluations.html:42
-#| msgid "Certificate"
-msgid "Can certificate"
-msgstr "Possui certificação"
+#| msgid "View certificate"
+msgid "Allows certificate"
+msgstr "Permite certificação"
 
 #: themes/default/templates/course-evaluations.html:43
-#| msgid "Check certificate"
 msgid "Asked for certificate"
 msgstr "Solicitou certificado"
 
 #: themes/default/templates/course-evaluations.html:44
 msgid "Able to attend evaluation"
-msgstr ""
+msgstr "Habilitados para serem abaliados"
 
 #: themes/default/templates/course-evaluations.html:45
-#| msgid "Check certificate"
+#: themes/default/templates/evaluations.html:88
 msgid "Already have certificate"
 msgstr "Já possui certificado"
 
 #: themes/default/templates/course-evaluations.html:46
+#: themes/default/templates/evaluations.html:96
 msgid "Scheduled evaluations"
 msgstr "Avaliações agendadas"
 
 #: themes/default/templates/course-evaluations.html:47
+#: themes/default/templates/evaluations.html:104
 msgid "Upcoming evaluations"
 msgstr "Próximas avaliações"
 
 #: themes/default/templates/course-evaluations.html:48
 #: themes/default/templates/course-evaluations.html:61
-#: themes/default/templates/evaluations.html:271
+#: themes/default/templates/course-evaluations.html:71
+#: themes/default/templates/course-evaluations.html:81
+#: themes/default/templates/evaluations.html:307
 msgid "Manage evaluations"
 msgstr "Editar avaliações"
 
@@ -1703,71 +1687,123 @@ msgstr "Mais informações"
 msgid "Evaluations for class"
 msgstr "Avaliação para turma"
 
-#: themes/default/templates/evaluations.html:128
-#: themes/default/templates/evaluations.html:142
-msgid "Prova"
+#: themes/default/templates/evaluations.html:38
+#: themes/default/templates/evaluations.html:144
+#: themes/default/templates/evaluations.html:152
+#| msgid "Scheduled evaluations"
+msgid "Schedule evaluation"
+msgstr "Agendar avaliação"
+
+#: themes/default/templates/evaluations.html:61
+#| msgid "Justification"
+msgid "Allows Certification"
+msgstr "Permite certificação"
+
+#: themes/default/templates/evaluations.html:69
+#| msgid "Evaluation date"
+msgid "Evaluation status"
+msgstr "Situação da avaliação"
+
+#: themes/default/templates/evaluations.html:72
+#| msgid "Students that can attend"
+msgid "Students that can certificate"
+msgstr "Estudantes habilitados"
+
+#: themes/default/templates/evaluations.html:80
+#| msgid "Request certificate"
+msgid "Students that requested certificate"
+msgstr "Estudantes que solicitaram certificaçao"
+
+#: themes/default/templates/evaluations.html:114
+#| msgid "Classes"
+msgid "Class progress"
+msgstr "Progresso da turma"
+
+#: themes/default/templates/evaluations.html:117
+#| msgid "Total number of students"
+msgid "Number of enroled students"
+msgstr "Número de estudantes matriculados"
+
+#: themes/default/templates/evaluations.html:125
+msgid "Number of students able to attend evaluation:"
+msgstr "Número de estudantes habilitados para serem avaliados"
+
+#: themes/default/templates/evaluations.html:126
+msgid "out of"
+msgstr "de"
+
+#: themes/default/templates/evaluations.html:146
+#| msgid "Edit evaluation"
+msgid "No evaluation found."
+msgstr "Nenhuma avaliação encontrada"
+
+#: themes/default/templates/evaluations.html:147
+#| msgid "Scheduled evaluations"
+msgid "Schedule one at"
+msgstr "Agendar em"
+
+#: themes/default/templates/evaluations.html:155
+msgid "Escolha uma avaliação da lista abaixo:"
 msgstr ""
 
-#: themes/default/templates/evaluations.html:151
+#: themes/default/templates/evaluations.html:174
+msgid ""
+"Chose an evaluation throught the left aside menu or schedule a new one."
+msgstr "Escolha uma avaliação pelo menu à esquerda ou agende uma nova"
+
+#: themes/default/templates/evaluations.html:187
 msgid "Edit evaluation"
 msgstr "Editar avaliação"
 
-#: themes/default/templates/evaluations.html:155
-#| msgid "Student"
+#: themes/default/templates/evaluations.html:191
 msgid "Add student"
 msgstr "Adicionar estudante"
 
-#: themes/default/templates/evaluations.html:182
-#| msgid "Edit text"
+#: themes/default/templates/evaluations.html:218
 msgid "Edit student"
 msgstr "Editar estudante"
 
-#: themes/default/templates/evaluations.html:197
+#: themes/default/templates/evaluations.html:233
 msgid "Schedule Evaluation"
 msgstr "Agendar Avaliação"
 
-#: themes/default/templates/evaluations.html:203
-#| msgid "Publication date"
+#: themes/default/templates/evaluations.html:239
 msgid "Evaluation Date"
 msgstr "Data da avaliação"
 
-#: themes/default/templates/evaluations.html:219
+#: themes/default/templates/evaluations.html:255
 msgid "Results Date"
 msgstr "Data dos resultados"
 
-#: themes/default/templates/evaluations.html:235
+#: themes/default/templates/evaluations.html:271
 msgid "Mininum grade"
 msgstr "Nota mínima"
 
-#: themes/default/templates/evaluations.html:242
-#| msgid "Instructors"
+#: themes/default/templates/evaluations.html:278
 msgid "Instructions"
 msgstr "Instruções"
 
-#: themes/default/templates/evaluations.html:257
+#: themes/default/templates/evaluations.html:293
 msgid "Students that can attend"
 msgstr "Estudantes habilitados"
 
-#: themes/default/templates/evaluations.html:313
-#| msgid "Username"
+#: themes/default/templates/evaluations.html:349
 msgid "User name"
 msgstr "Nome de usuário"
 
-#: themes/default/templates/evaluations.html:339
-#| msgid "Student Progress"
+#: themes/default/templates/evaluations.html:375
 msgid "Student exam grade"
 msgstr "Nota do estudante"
 
-#: themes/default/templates/evaluations.html:346
+#: themes/default/templates/evaluations.html:382
 msgid "Exam needed grade"
 msgstr "Nota Mínima"
 
-#: themes/default/templates/evaluations.html:353
-#| msgid "Start date"
+#: themes/default/templates/evaluations.html:389
 msgid "Exam date"
 msgstr "Data da avaliação"
 
-#: themes/default/templates/evaluations.html:369
+#: themes/default/templates/evaluations.html:405
 msgid "Exam results date"
 msgstr "Data do resultado do exame"
 
@@ -2026,14 +2062,12 @@ msgid "View Receipt"
 msgstr "Ver Comprovante"
 
 #: themes/default/templates/user-courses.html:86
-#| msgid "Check certificate"
 msgid "View certificate"
 msgstr "Ver certificado"
 
 #: themes/default/templates/user-courses.html:89
-#| msgid "My certificates"
-msgid "Emit certificate"
-msgstr "Emitir certificado"
+msgid "Emit recipt"
+msgstr "Emitir comprovante"
 
 #: themes/default/templates/user-courses.html:99
 msgid "Request certificate"
@@ -2069,6 +2103,11 @@ msgstr "Carregando lista de turmas"
 msgid "Signup"
 msgstr "Cadastre-se"
 
+#: themes/ifs-colors/templates/administration/certificate-settings.html:88
+#: themes/ifs-colors/templates/administration/certificate-settings.html:125
+msgid "Save image"
+msgstr "Salvar imagem"
+
 #: themes/timtec/templates/header.html:10
 msgid "Instituto TIM"
 msgstr "Instituto TIM"
@@ -2088,6 +2127,15 @@ msgstr "Espanhol"
 #: timtec/settings.py:87
 msgid "English"
 msgstr "Inglês"
+
+#~ msgid "Can Certificate"
+#~ msgstr "Possui Certificação"
+
+#~ msgid "Can certificate"
+#~ msgstr "Possui certificação"
+
+#~ msgid "Emit certificate"
+#~ msgstr "Emitir certificado"
 
 #~ msgid "Questions & Answers"
 #~ msgstr "Perguntas e Respostas"
