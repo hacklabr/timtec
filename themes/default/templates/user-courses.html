@@ -86,7 +86,7 @@ wrapper-course-lesson
                                     <a href="{% url 'certificate' cs.certificate.link_hash %}" class="btn btn-default btn-sm">{% trans "View certificate" %}</a>
                                   {% endif %}
                                 {% elif cs.can_emmit_receipt %}
-                                  <a href="#" class="btn btn-default btn-sm">{% trans "Emit certificate" %}</a>
+                                  <a href="{% url 'emit_recipt' cs.course.id %}" class="btn btn-default btn-sm">{% trans "Emit recipt" %}</a>
                                 {% endif %}
                                 <!-- TODO SE COMPROVANTE ESTIVER DISPONÍVEL, APARECE A CLASSE BTN-SUCCESS, SENÃO COLOCAR BTN-DEFAULT E ATRIBUTO disabled="disabled" -->
                                 <!-- TODO Mudar URL do certificado -->
@@ -96,7 +96,7 @@ wrapper-course-lesson
                                 <!-- TODO SE USUÁRIO TIVER FINALIZADO O CURSO, APARECE A CLASSE BTN-SUCCESS, SENÃO COLOCAR BTN-DEFAULT E ATRIBUTO disabled="disabled" -->
                                 <!-- TODO Mudar URL do certificado -->
                                 {% if cs.can_emmit_receipt and cs.get_current_class.user_can_certificate %}
-                                  <a href="#" class="btn btn-default btn-sm">{% trans "Request certificate" %}</a>
+                                  <a href="{% url 'request_certificate' cs.course.id %}" class="btn btn-default btn-sm">{% trans "Request certificate" %}</a>
                                 {% endif %}
                                 <!-- FIM DO IF -->
 

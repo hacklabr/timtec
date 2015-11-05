@@ -316,6 +316,31 @@ class CertificationProcessViewSet(viewsets.ModelViewSet):
         return queryset
 
 
+class EmitReceiptView(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        course_id = kwargs.get('course_id')
+        if course_id:
+            course = CourseStudent.objects.get(course__id=course_id, user=self.request.user)
+            recipt = CourseCertification()
+            recipt.course_student = course
+            recipt.course_workload = course.course.workload
+            recipt.is_valid = True
+            recipt.type = 'recipt'
+
+            import hashlib
+            import time
+            hash = hashlib.sha1()
+            hash.update(str(time.time()))
+            recipt.link_hash = hash.hexdigest()[:10]
+            recipt.save()
+            return reverse_lazy('certificate', args=[recipt.link_hash])
+
+
+class RequestCertificateView(View):
+    # CertificationProcess
+    pass
+
+
 class IfCertificateTemplateViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     model = IfCertificateTemplate
     lookup_field = 'course'

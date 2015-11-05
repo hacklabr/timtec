@@ -58,6 +58,12 @@ class CourseStudentAdmin(ModelAdmin):
     search_fields = ('user__username',)
     list_display = ('user', 'course')
 
+
+class CertficateAdmin(ModelAdmin):
+    pass
+    # list_display = ('course_student__user__username', 'course_student__course__name',)
+
+
 admin.site.register(Video, VideoAdmin)
 admin.site.register(CourseProfessor, CourseProfessorAdmin)
 admin.site.register(Course, CourseAdmin)
@@ -67,3 +73,4 @@ admin.site.register(StudentProgress, StudentProgressAdmin)
 admin.site.register(CourseStudent, CourseStudentAdmin)
 admin.site.register(ProfessorMessage)
 admin.site.register(Class, ClassAdmin)
+admin.site.register(CourseCertification, CertficateAdmin)
