@@ -1046,7 +1046,7 @@ msgstr "Confirme sua senha"
 #| msgid ""
 #| "I agree to the <a href=\"terms_url\" target=\"_blank\">Terms of Use</a>"
 msgid "I agree to the <a href=\"%(terms_url)s\" target=\"_blank\">Terms of Use</a>"
-msgstr "Eu concordo com os <a href=\"terms_url\" target=\"_blank\">Termos de Uso</a>"
+msgstr "Eu concordo com os <a href=\"%(terms_url)s\" target=\"_blank\">Termos de Uso</a>"
 
 #: themes/default/templates/_signup_modal.html:40
 #: themes/default/templates/account/login_modal.html:64
