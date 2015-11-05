@@ -1,22 +1,26 @@
 {% extends "base.html" %}
-{% load compressed %}
-{% load static %}
+
+{% load staticfiles %}
 {% load i18n %}
+{% load compressed %}
+{% load is_course_coordinator %}
+
+{% block js %}
+    {{ block.super }}
+    {% compressed_js 'core' %}
+    {% compressed_js 'certificate' %}
+{% endblock %}
 
 {% block wrapper_classes %}
 wrapper-course-lesson
 {% endblock %}
 
-{% block js %}
-    {{ block.super }}
-    {% compressed_js 'certificate' %}
-{% endblock %}
-
-
 {% block content %}
 
 <!-- TODO add controller, ng-app and id -->
 <section ng-app="certification" ng-controller="CertificateTemplateCtrl">
+
+    <!-- TODO actions menu not fixing when scrolled -->
     <!-- ACTIONS -->
     <div class="actions-menu" fixed-bar>
         <div class="container">
@@ -74,15 +78,16 @@ wrapper-course-lesson
             <div class="institute-logo">
                 <!-- TODO add file preview -->
                 {% verbatim %}
-                <img alt="Logo Instituto" preview-image  ng-model="images.logo"
+                <img alt="Logo Instituto" preview-image ng-model="images.logo"
                      ng-src="/media/{{ ct.logo_url }}"
                      class="img-responsive"/>
                 {% endverbatim %}
-                <file ng-model="images.logo" name="logo" class="form-control"></file>
+                <file ng-model="images.logo" name="logo"></file>
+                <button class="btn btn-primary" ng-click="saveLogo()">
+                    <i class="fa fa-floppy-o"></i>
+                    {% trans 'Save image' %}
+                </button>
             </div>
-            <button class="btn btn-primary" ng-click="saveLogo()">
-                {% trans 'Save' %}
-            </button>
             <div class="text-center certificate-info">
                 <p>
                     O <span class="institute editable editable-text">
@@ -107,14 +112,17 @@ wrapper-course-lesson
                        data-placement="top" title="Clique abaixo para carregar a imagem da assinatura. Ela deve possuir fundo transparente e ser no formato .png">Adicione a assinatura</a> que aparecerá no Certificado.
                 </p>
                 {% verbatim %}
-                <img alt="Assinatura" preview-image ng-model="images.signature"
-                     ng-src="/media/{{ ct.signature_url }}"
-                     class="img-responsive"/>
+                <div class="thumb-signature">
+                    <img alt="Assinatura" preview-image ng-model="images.signature"
+                         ng-src="/media/{{ ct.signature_url }}"
+                         class="img-responsive"/>
+                </div>
                 {% endverbatim %}
                 <file ng-model="images.signature" name="signature"
-                      class="form-control"></file>
+                      ></file>
                 <button class="btn btn-primary" ng-click="saveSignature()">
-                    {% trans 'Save' %}
+                    <i class="fa fa-floppy-o"></i>
+                    {% trans 'Save image' %}
                 </button>
                 <!-- TODO add file preview -->
                 <div class="editable editable-text role-signature">
