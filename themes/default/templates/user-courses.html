@@ -125,39 +125,74 @@ wrapper-course-lesson
                     </div>
                 	{% endwith %}
 
+                    <!-- TODO Exibir aba apenas se tiver certificados e comprovantes -->
+                    <div role="tabpanel" class="tab-pane" id="my-certificates">
+                        <h2>Certificados em andamento</h2>
 
-{#                    <!-- TODO Exibir aba apenas se tiver certificados e comprovantes -->#}
-{#                    <div role="tabpanel" class="tab-pane" id="my-certificates">#}
-{##}
-{#                    <!-- TODO Trocar o FOR para cursos com certificados disponíveis -->#}
-{#                        <div class="row">#}
-{#                            {% for cs in request.user.coursestudent_set.all %}#}
-{#                                <div class="col-sm-3">#}
-{#                                    <div class="course-card">#}
-{#                                        <div class="thumb-wrapper">#}
-{#                                            <img class="img-responsive" src="{{ cs.course.home_thumbnail.url }}" />#}
-{#                                        </div>#}
-{#                                        <div class="info">#}
-{#                                            <a href="{% url "course_intro" cs.course.slug %}">#}
-{#                                                <h3>{{ cs.course.name }}</h3>#}
-{#                                            </a>#}
-{#                                            <p class="instructors">por {% for professor in cs.course.get_video_professors %}{{ professor.get_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>#}
-{#                                        </div>#}
-{#                                        <div class="conclusion">#}
-{#                                            <!-- TODO add certificate link and conclusion date -->#}
-{#                                            <p>#}
-{#                                                Conluído em 15/08/2015.#}
-{#                                            </p>#}
-{#                                            <!-- TODO only display if user has verified certificate -->#}
-{#                                            <a class="enroll-link text-uppercase" href="#">#}
-{#                                                <i class="fa fa-file-text-o"></i> Ver certificado#}
-{#                                            </a>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            {% endfor %}#}
-{#                        </div>#}
-{#                    </div>#}
+                        <div class="row certificate-process">
+                            {% for cs in request.user.coursestudent_set.all|slice:":4" %}
+                                <div class="col-sm-6">
+                                    <div class="course-card row">
+                                        <div class="col-sm-4">
+                                            <div class="thumb">
+                                                <img class="img-responsive" src="{{ cs.course.home_thumbnail.url }}" />
+                                            </div>
+                                            <a href="{% url "course_intro" cs.course.slug %}">
+                                                <h3>{{ cs.course.name }}</h3>
+                                            </a>
+                                            <p class="instructors">por {% for professor in cs.course.get_video_professors %}{{ professor.get_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                                        </div>
+                                        <div class="info col-sm-8">
+                                            <p class="lead">Situação: Avaliação marcada para 23/01/2016</p>
+                                            <p>
+                                                <a class="enroll-link text-uppercase" href="#">
+                                                    <i class="fa fa-file-text-o"></i> Ver detalhes da avaliação
+                                                </a>
+                                            </p>
+                                            <!-- TODO add certificate link and conclusion date -->
+                                            <p>
+                                                Conluído em 15/08/2015.
+                                            </p>
+                                            <p>
+                                                Processo de certificação pedido em 15/08/2015.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                    <!-- TODO Trocar o FOR para cursos com certificados disponíveis -->
+                        <div class="row">
+                            <h2>Certificados emitidos</h2>
+                            {% for cs in request.user.coursestudent_set.all|slice:":6" %}
+                                <div class="col-sm-3">
+                                    <div class="course-card">
+                                        <div class="thumb-wrapper">
+                                            <img class="img-responsive" src="{{ cs.course.home_thumbnail.url }}" />
+                                        </div>
+                                        <div class="info">
+                                            <a href="{% url "course_intro" cs.course.slug %}">
+                                                <h3>{{ cs.course.name }}</h3>
+                                            </a>
+                                            <p class="instructors">por {% for professor in cs.course.get_video_professors %}{{ professor.get_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                                        </div>
+                                        <div class="conclusion">
+                                            <!-- TODO add certificate link and conclusion date -->
+                                            <p>
+                                                Conluído em 15/08/2015.
+                                            </p>
+                                            <!-- TODO only display if user has verified certificate -->
+                                            <a class="enroll-link text-uppercase" href="#">
+                                                <i class="fa fa-file-text-o"></i> Ver certificado
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                    </div>
 
                     <div role="tabpanel" class="tab-pane" id="course-as-teacher">
                         <section class="courses">
