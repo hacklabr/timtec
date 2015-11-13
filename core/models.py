@@ -606,6 +606,7 @@ class StudentProgress(models.Model):
                 from time import time
                 h = ub64(sha1(str(time()) + self.user.last_name).digest()[0:6])
                 receipt = CourseCertification(course_student=course_student,
+                                                course=course_student.course,
                                               is_valid=True, link_hash=h)
                 receipt.save()
 
