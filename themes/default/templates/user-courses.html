@@ -32,7 +32,7 @@ wrapper-course-lesson
                     {% endif %}
 
                     <!-- TODO Exibir aba apenas se tiver certificados e comprovantes -->
-{#                    <li role="presentation" ><a href="#my-certificates" aria-controls="my-certificates" role="tab" data-toggle="tab">{% trans "My certificates" %}</a></li>#}
+                    <li role="presentation" ><a href="#my-certificates" aria-controls="my-certificates" role="tab" data-toggle="tab">{% trans "My certificates" %}</a></li>
                     <!-- Fim do if -->
 
                     {% if courses_user_assist %}
@@ -86,7 +86,7 @@ wrapper-course-lesson
                                     <a href="{% url 'certificate' cs.certificate.link_hash %}" class="btn btn-default btn-sm">{% trans "View certificate" %}</a>
                                   {% endif %}
                                 {% elif cs.can_emmit_receipt %}
-                                  <a href="{% url 'emit_recipt' cs.course.id %}" class="btn btn-default btn-sm">{% trans "Emit recipt" %}</a>
+                                  <a href="#" class="btn btn-default btn-sm">{% trans "Emit certificate" %}</a>
                                 {% endif %}
                                 <!-- TODO SE COMPROVANTE ESTIVER DISPONÍVEL, APARECE A CLASSE BTN-SUCCESS, SENÃO COLOCAR BTN-DEFAULT E ATRIBUTO disabled="disabled" -->
                                 <!-- TODO Mudar URL do certificado -->
@@ -96,7 +96,7 @@ wrapper-course-lesson
                                 <!-- TODO SE USUÁRIO TIVER FINALIZADO O CURSO, APARECE A CLASSE BTN-SUCCESS, SENÃO COLOCAR BTN-DEFAULT E ATRIBUTO disabled="disabled" -->
                                 <!-- TODO Mudar URL do certificado -->
                                 {% if cs.can_emmit_receipt and cs.get_current_class.user_can_certificate %}
-                                  <a href="{% url 'request_certificate' cs.course.id %}" class="btn btn-default btn-sm">{% trans "Request certificate" %}</a>
+                                <a href="#" class="btn btn-default btn-sm">{% trans "Request certificate" %}</a>
                                 {% endif %}
                                 <!-- FIM DO IF -->
 
@@ -125,12 +125,12 @@ wrapper-course-lesson
                     </div>
                 	{% endwith %}
 
+
                     <!-- TODO Exibir aba apenas se tiver certificados e comprovantes -->
                     <div role="tabpanel" class="tab-pane" id="my-certificates">
-                        <h2>Certificados em andamento</h2>
-
+                        <h2>{% trans "Certificate processes" %}</h2>
                         <div class="row certificate-process">
-                            {% for cs in request.user.coursestudent_set.all|slice:":4" %}
+                            {% for cs in request.user.coursestudent_set.all|slice:":2" %}
                                 <div class="col-sm-6">
                                     <div class="course-card row">
                                         <div class="col-sm-4">
@@ -145,7 +145,7 @@ wrapper-course-lesson
                                         <div class="info col-sm-8">
                                             <p class="lead">Situação: Avaliação marcada para 23/01/2016</p>
                                             <p>
-                                                <a class="enroll-link text-uppercase" href="#">
+                                                <a class="enroll-link text-uppercase" data-toggle="modal" data-target="#evaluation-details" href="#">
                                                     <i class="fa fa-file-text-o"></i> Ver detalhes da avaliação
                                                 </a>
                                             </p>
@@ -163,9 +163,9 @@ wrapper-course-lesson
                         </div>
 
                     <!-- TODO Trocar o FOR para cursos com certificados disponíveis -->
+                        <h2>{% trans "Issued certificates" %}</h2>
                         <div class="row">
-                            <h2>Certificados emitidos</h2>
-                            {% for cs in request.user.coursestudent_set.all|slice:":6" %}
+                            {% for cs in request.user.coursestudent_set.all|slice:":2" %}
                                 <div class="col-sm-3">
                                     <div class="course-card">
                                         <div class="thumb-wrapper">
@@ -180,11 +180,41 @@ wrapper-course-lesson
                                         <div class="conclusion">
                                             <!-- TODO add certificate link and conclusion date -->
                                             <p>
-                                                Conluído em 15/08/2015.
+                                                {% trans "Completed at" %} 15/08/2015.
                                             </p>
                                             <!-- TODO only display if user has verified certificate -->
                                             <a class="enroll-link text-uppercase" href="#">
-                                                <i class="fa fa-file-text-o"></i> Ver certificado
+                                                <i class="fa fa-file-text-o"></i> {% trans "View certificate" %}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- TODO Trocar o FOR para cursos com certificados disponíveis -->
+                        <h2>{% trans "Completed courses" %}</h2>
+                        <div class="row">
+                            {% for cs in request.user.coursestudent_set.all|slice:":4" %}
+                                <div class="col-sm-2">
+                                    <div class="course-card">
+                                        <div class="thumb-wrapper">
+                                            <img class="img-responsive" src="{{ cs.course.home_thumbnail.url }}" />
+                                        </div>
+                                        <div class="info">
+                                            <a href="{% url "course_intro" cs.course.slug %}">
+                                                <h3>{{ cs.course.name }}</h3>
+                                            </a>
+                                            <p class="instructors">por {% for professor in cs.course.get_video_professors %}{{ professor.get_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                                        </div>
+                                        <div class="conclusion">
+                                            <!-- TODO add certificate link and conclusion date -->
+                                            <p>
+                                                {% trans "Completed at" %} 15/08/2015.
+                                            </p>
+                                            <!-- TODO only display if user has verified certificate -->
+                                            <a class="enroll-link text-uppercase" href="#">
+                                                <i class="fa fa-file-text-o"></i> {% trans "Request certificate" %}
                                             </a>
                                         </div>
                                     </div>
@@ -351,5 +381,57 @@ wrapper-course-lesson
                 </div>
             </section>
         </div>
+
         <!-- CONTAINER -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="evaluation-details" tabindex="-1" role="dialog" aria-labelledby="evaluation-details">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Detalhes da avaliação 22/10/2015 - Turma</h4>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="exam_date">
+                            {% trans 'Exam date' %}</label>
+                        <span>12/01/2016</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="exam_results_date">
+                            {% trans 'Exam results date' %}
+                        </label>
+                        <span>12/02/2016</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="exam_grade">
+                            {% trans 'Your grade' %}
+                        </label>
+                        <span>-</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <label >
+                            {% trans 'Exam needed grade' %}
+                        </label>
+                        <span>80%</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>{% trans 'Instructions' %}</label>
+                        <p>
+                            Instruções sobre a prova
+                        </p>
+                    </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+        </div>
 {% endblock %}
