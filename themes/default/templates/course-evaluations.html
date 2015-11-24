@@ -50,7 +50,7 @@
                         </thead>
                         <tr>
                             <td><a href="#" title="Manage evaluations">Turma A</a></td>
-                            <td><input type="checkbox" checked> Yes</td>
+                            <td>Yes</td>
                             <td>50</td>
                             <td>14</td>
                             <td>0</td>
@@ -62,23 +62,27 @@
                         </tr>
                         <tr>
                             <td><a href="#" title="Manage evaluations">Turma B</a></td>
-                            <td><input type="checkbox"> No</td>
+                            <td>No</td>
                             <td>0</td>
                             <td>5</td>
                             <td>0</td>
                             <td>0</td>
                             <td>0</td>
-                            <td><button class="btn btn-xs btn-default" disabled>{% trans 'Manage evaluations' %}</button></td>
+                            <td><a class="btn btn-xs btn-success"
+                                   href="{% url 'class-evaluations' object.id %}"
+                                        >{% trans 'Manage evaluations' %}</a></td>
                         </tr>
                         <tr>
                             <td><a href="#" title="Manage evaluations">Turma C</a></td>
-                            <td><input type="checkbox"> No</td>
+                            <td>No</td>
                             <td>0</td>
                             <td>14</td>
                             <td>0</td>
                             <td>0</td>
                             <td>0</td>
-                            <td><button class="btn btn-xs btn-default" disabled >{% trans 'Manage evaluations' %}</button></td>
+                            <td><a class="btn btn-xs btn-success"
+                                   href="{% url 'class-evaluations' object.id %}"
+                                        >{% trans 'Manage evaluations' %}</a></td>
                         </tr>
                     </table>
 
