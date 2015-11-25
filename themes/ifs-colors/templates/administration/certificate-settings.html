@@ -36,101 +36,96 @@ wrapper-course-lesson
     <!-- END ACTIONS -->
     {% include "_admin_header_inline.html" with course=course %}
 
-    <!-- TODO add form -->
-
     <section class="container">
-        <header class="secondary-header">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h1>{% trans 'Edit certificate' %}</h1>
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#edit-certificate" aria-controls="edit-certificate" role="tab" data-toggle="tab">{% trans 'Edit certificate' %}</a></li>
+            <li role="presentation"><a href="#edit-receipt" aria-controls="edit-receipt" role="tab" data-toggle="tab">{% trans 'Edit receipt text' %}</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane edit-certificates active" id="edit-certificate">
+                <div class="alert alert-info" role="alert">
+                    Edite os elementos numerados de <strong>1 a 6</strong> com as informações que serão exibidas no certificado final do curso.
+                </div>
+                <div class="ifs-certificate-container certificate-admin">
+                    <div class="pronatec-logo">
+                        <!-- TODO link checkbox with img, so when checked it's opacity is 1, when it's not = 0.4-->
+                        <img alt="Logo Instituto" src="{% static 'img/logopronatec.svg' %}">
+                        <p>
+                            <label class="cursor-pointer">
+                                <input type="checkbox" ng-model="ct.pronatec_logo"> Exibir logo PRONATEC
+                            </label>
+                        </p>
+                    </div>
+                    <div class="brasil-logo">
+                        <!-- TODO link checkbox with img, so when checked it's opacity is 1, when it's not = 0.4-->
+                        <img alt="Logo Instituto" src="{% static 'img/logobrasil.svg' %}">
+                        <p>
+                            <label class="cursor-pointer">
+                                <input type="checkbox" ng-model="ct.mec_logo"> Exibir logo MEC
+                            </label>
+                        </p>
+                    </div>
+                    <div class="institute-logo">
+                        <!-- TODO add file preview -->
+                        {% verbatim %}
+                        <img alt="Logo Instituto" preview-image ng-model="images.logo" ng-src="/media/{{ ct.logo_url }}" class="img-responsive" /> {% endverbatim %}
+                        <file ng-model="images.logo" name="logo"></file>
+                        <button class="btn btn-primary" ng-click="saveLogo()">
+                            <i class="fa fa-floppy-o"></i> {% trans 'Save image' %}
+                        </button>
+                    </div>
+                    <div class="text-center certificate-info">
+                        <p>
+                            O <span class="institute editable editable-text">
+                                    <input type="text" ng-model="ct.if_name"
+                                       placeholder="Digite o nome do Instituto" />
+                                   </span> certifica que
+                        </p>
+                        <!-- TODO add course info -->
+                        <p class="student">Nome do(a) concluinte</p>
+                        <p class="text-muted">
+                            concluiu o curso <strong>{{ course.name }}</strong>, com
+                            <strong>___</strong> horas, no período de _______________________, no âmbito PRONATEC - Programa Nacional de Acesso ao Ensino Técnico e Emprego.
+                        </p>
+                        <p class="text-muted">
+                            <strong>_____________</strong>, <strong>__</strong> de <strong>__________</strong> de 20<strong>__</strong>.
+                        </p>
+                    </div>
+                    <footer class="certificate-signature">
+                        <p>
+                            <a href="#" class="has-tooltip" data-toggle="tooltip" data-placement="top" title="Clique abaixo para carregar a imagem da assinatura. Ela deve possuir fundo transparente e ser no formato .png">Adicione a assinatura</a> que aparecerá no Certificado.
+                        </p>
+                        {% verbatim %}
+                        <div class="thumb-signature">
+                            <img alt="Assinatura" preview-image ng-model="images.signature" ng-src="/media/{{ ct.signature_url }}" class="img-responsive" />
+                        </div>
+                        {% endverbatim %}
+                        <file ng-model="images.signature" name="signature"></file>
+                        <button class="btn btn-primary" ng-click="saveSignature()">
+                            <i class="fa fa-floppy-o"></i> {% trans 'Save image' %}
+                        </button>
+                        <!-- TODO add file preview -->
+                        <div class="editable editable-text role-signature">
+                            <input type="text" ng-model="ct.signature_name" placeholder="Digite o cargo, ex.: Diretora da Unidade" />
+                        </div>
+                    </footer>
                 </div>
             </div>
-        </header>
-        <div class="alert alert-info" role="alert">
-            Edite os elementos numerados de <strong>1 a 6</strong> com as informações que serão exibidas no certificado final do curso.
-        </div>
-        <div class="certificate-container certificate-admin">
-            <div class="pronatec-logo">
-
-                <!-- TODO link checkbox with img, so when checked it's opacity is 1, when it's not = 0.4-->
-
-                <img alt="Logo Instituto" src="{% static 'img/logopronatec.svg' %}">
-                <p>
-                    <label class="cursor-pointer">
-                        <input type="checkbox" ng-model="ct.pronatec_logo">
-                        Exibir logo
-                        PRONATEC
-                    </label>
-                </p>
-            </div>
-            <div class="brasil-logo">
-
-                <!-- TODO link checkbox with img, so when checked it's opacity is 1, when it's not = 0.4-->
-
-                <img alt="Logo Instituto" src="{% static 'img/logobrasil.svg' %}">
-                <p>
-                    <label class="cursor-pointer">
-                        <input type="checkbox" ng-model="ct.mec_logo"> Exibir
-                        logo MEC
-                    </label>
-                </p>
-            </div>
-            <div class="institute-logo">
-                <!-- TODO add file preview -->
-                {% verbatim %}
-                <img alt="Logo Instituto" preview-image ng-model="images.logo"
-                     ng-src="/media/{{ ct.logo_url }}"
-                     class="img-responsive"/>
-                {% endverbatim %}
-                <file ng-model="images.logo" name="logo"></file>
-                <button class="btn btn-primary" ng-click="saveLogo()">
-                    <i class="fa fa-floppy-o"></i>
-                    {% trans 'Save image' %}
-                </button>
-            </div>
-            <div class="text-center certificate-info">
-                <p>
-                    O <span class="institute editable editable-text">
-                        <input type="text" ng-model="ct.if_name"
-                           placeholder="Digite o nome do Instituto" />
-                       </span> certifica que
-                </p>
-                <!-- TODO add course info -->
-                <p class="student">Nome do(a) concluinte</p>
-                <p class="text-muted">
-                    concluiu o curso <strong>{{ course.name }}</strong>, com
-                    <strong>___</strong> horas, no período de
-                    _______________________, no âmbito PRONATEC - Programa Nacional de Acesso ao Ensino Técnico e Emprego.
-                </p>
-                <p class="text-muted">
-                    <strong>_____________</strong>, <strong>__</strong> de <strong>__________</strong> de 20<strong>__</strong>.
-                </p>
-            </div>
-            <footer class="certificate-signature">
-                <p>
-                    <a href="#" class="has-tooltip" data-toggle="tooltip"
-                       data-placement="top" title="Clique abaixo para carregar a imagem da assinatura. Ela deve possuir fundo transparente e ser no formato .png">Adicione a assinatura</a> que aparecerá no Certificado.
-                </p>
-                {% verbatim %}
-                <div class="thumb-signature">
-                    <img alt="Assinatura" preview-image ng-model="images.signature"
-                         ng-src="/media/{{ ct.signature_url }}"
-                         class="img-responsive"/>
+            <div role="tabpanel" class="tab-pane edit-certificates" id="edit-receipt">
+                <div class="alert alert-info" role="alert">
+                    Edite o texto que aparecerá no comprovante emitido automaticamente após a conclusão do curso. Este comprovante <strong>não possui</strong> a mesma validade do certificado.
                 </div>
-                {% endverbatim %}
-                <file ng-model="images.signature" name="signature"
-                      ></file>
-                <button class="btn btn-primary" ng-click="saveSignature()">
-                    <i class="fa fa-floppy-o"></i>
-                    {% trans 'Save image' %}
-                </button>
-                <!-- TODO add file preview -->
-                <div class="editable editable-text role-signature">
-                    <input type="text"
-                           ng-model="ct.signature_name"
-                           placeholder="Digite o cargo, ex.: Diretora da Unidade" />
+                <!-- TODO add real info and form -->
+                <div class="certificate-container">
+                    <p>MARIA JOSÉ DA SILVA assistiu a 97% do conteúdo do curso <em>TIM faz ciência</em> com duração de 9 horas.</p>
+                    <span class="institute editable editable-text">
+                            <input type="text"
+                                   ng-model=""
+                                   placeholder="Digite o texto que complementará as informações acima." />
+                        </span>
                 </div>
-            </footer>
+            </div>
         </div>
     </section>
 </section>
