@@ -458,7 +458,6 @@ INSTALLED_APPS = (
     'rosetta',
     'autoslug',
     # TIM Tec
-    'core',
     'accounts',
     'activities',
     'administration',
@@ -466,6 +465,7 @@ INSTALLED_APPS = (
     'course_material',
     'notes',
     'reports',
+    'core',
     # django-metron
     'metron',
     # allauth
