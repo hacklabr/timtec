@@ -42,22 +42,15 @@
             <div class="alert row" role="alert"
                  ng-class="{'alert-info': switches.can_certificate, 'alert-danger': !switches.can_certificate}">
                 <div class="col-xs-8">
-                    Selecione à direita se esta turma pode emitir ou não certificados.
+                    {% trans 'Selecione à direita se esta turma pode emitir ou não certificados.' %}
                 </div>
                 <div class="col-xs-4">
                     <div class="professor-assistant user-can-certificate text-right">
-                        {% if user|is_course_coordinator:object.course %}
-                            <input  {% if form.user_can_certificate.value %}checked{% endif %}
-                                    id="id_user_can_certificate"
-                                    name="user_can_certificate"
-                                    ng-model="switches.can_certificate"
+                            <input  {% if stats.can_certificate %}checked{% endif %}
+                                    ng-model="klass.user_can_certificate"
+                                    ng-change="toggleClassCertifiable()"
                                     type="checkbox" />
-                        {% else %}
-                            <label>
-                                {{ object.user_can_certificate }}
-                            </label>
-                        {% endif %}
-                        <label for="{{ form.user_can_certificate.id_for_label }}">
+                        <label>
                             {% trans 'Allows Certification' %}
                         </label>
                     </div>

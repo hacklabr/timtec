@@ -9,12 +9,6 @@
             // If class has certification, show the evaluation link
             $scope.errors = {};
             $scope.evaluations = [];
-
-            var cert = document.getElementById('id_user_can_certificate').checked;
-            $scope.switches = {
-                'can_certificate' : cert
-            };
-
         }
     ]);
 
@@ -109,11 +103,16 @@
                 upcoming : 0
             };
 
+            $scope.switches = {
+                can_certificate : false,
+            }
+
             $scope.klass_id = ClassIdGetter.classEditView();
 
-            $scope.class_students = Class.get({'id' : $scope.klass_id}, function(klass){
+            Class.get({'id' : $scope.klass_id}, function(klass){
                 $scope.klass = klass;
                 $scope.class_students = klass.students;
+                $scope.switches.can_certificate = klass.user_can_certificate;
             });
 
             Evaluation.query({'klass' : $scope.klass_id}, function(data){
@@ -151,6 +150,13 @@
                     }
                 }
             });
+
+            $scope.toggleClassCertifiable = function (){
+                $scope.switches.can_certificate = false;
+                $scope.klass.$update(function(klass){
+                    $scope.switches.can_certificate = klass.user_can_certificate;
+                })
+            }
 
             $scope.addStudentEvaluation = function () {
                 var modalInstance = $modal.open(
