@@ -691,7 +691,7 @@ class UserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
         return Response(results)
 
 
-class ClassViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
+class ClassViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
 
     model = Class
     serializer_class = ClassSerializer
