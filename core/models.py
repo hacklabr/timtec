@@ -628,7 +628,7 @@ class CourseCertification(models.Model):
     type = models.CharField(_('Certificate Type'), choices=TYPES,
                             max_length=127)
     course_student = models.OneToOneField(CourseStudent, verbose_name=_('Enrollment'), related_name='certificate')
-    # course = models.ForeignKey(Course, verbose_name=_('Course'))
+    course = models.ForeignKey(Course, verbose_name=_('Course'))
     created_date = models.DateTimeField(_('Created'), auto_now_add=True)
     modified_date = models.DateTimeField(_('Last modified'), auto_now=True)
 
