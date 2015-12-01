@@ -2,6 +2,26 @@
     'use strict';
     var app = angular.module('my-courses');
 
+    app.controller('UserCourseListController', ['$scope', '$window', '$modal', 'Lesson', 'CourseProfessor', 'Class',
+        function ($scope, $window, $modal, Lesson, CourseProfessor, Class) {
+            $scope.createCertificationProcess = function(cs){
+                console.log(cs);
+                // TODO: create certification process and change tab
+                /*
+                    Create a new certification process with or without
+                    a course certification (in this case, type receipt)
+
+                    We are going to use user and course certification
+
+                    After creation, We change the tab to the my certificates
+                    tab. In this tab, the use can see all data about certification
+                    such as evaluation date, grade and future approval (or not)
+
+                */
+            }
+        }
+    ]);
+
     app.controller('AssistantCourseListController', [
         '$scope', '$window', '$modal', 'Lesson', 'CourseProfessor', 'Class',
         function ($scope, $window, $modal, Lesson, CourseProfessor, Class) {

@@ -44,7 +44,8 @@ wrapper-course-lesson
 
         <!-- Tab panes -->
         <div class="tab-content" ng-app="my-courses">
-            <div role="tabpanel" class="tab-pane active" id="course-as-student">
+            <div role="tabpanel" class="tab-pane active" id="course-as-student"
+                 ng-controller="UserCourseListController" >
                 {% if not courses_user_enrolled %}
                 <div class="course">
                     <header>
@@ -122,7 +123,9 @@ wrapper-course-lesson
                     -->
                     <!-- TODO Mudar URL do certificado -->
                     {% if cs.can_emmit_receipt and cs.get_current_class.user_can_certificate %}
-                    <a href="#" class="btn btn-default btn-sm">
+                    <a href="#"
+                       ng-click="createCertificationProcess({{ cs.id }})"
+                       class="btn btn-default btn-sm">
                         {% trans "Request certificate" %}
                     </a>
                     {% endif %}
