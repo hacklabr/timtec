@@ -1,5 +1,6 @@
 (function(angular){
     'use strict';
+
     var app = angular.module('courses');
 
     app.controller('CoursesAdminController', [
@@ -100,7 +101,10 @@
         }
     ]);
 
-
+    /**
+     *  MOVED TO my-courses
+     *
+    **/
     app.controller('CourseListByUserRoleController', [
         '$scope', '$window', '$modal', 'Lesson', 'CourseProfessor', 'Class',
         function ($scope, $window, $modal, Lesson, CourseProfessor, Class) {

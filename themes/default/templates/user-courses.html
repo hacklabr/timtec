@@ -3,9 +3,8 @@
 {% load i18n %}
 
 {% block js %} {{block.super}}
-<script type="text/javascript" src="{% static 'js/courses/app.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/courses/filters.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/courses/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/my-courses/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/my-courses/controllers.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/file.js' %}"></script>
@@ -18,381 +17,411 @@ wrapper-course-lesson
 {% endblock %}
 
 {% block content %}
-        <!-- CONTAINER -->
-        <div id="my-courses" class="container">
-            <header class="page-header-double">
-                <h2><i class="fa fa-angle-double-right"></i> {% trans "My Courses" %}</h2>
-            </header>
+<!-- CONTAINER -->
+<div id="my-courses" class="container">
+    <header class="page-header-double">
+        <h2><i class="fa fa-angle-double-right"></i> {% trans "My Courses" %}</h2>
+    </header>
 
-            <section class="courses" role="tabpanel">
-            	{% with courses_user_enrolled=request.user.coursestudent_set.all %}
-                <ul class="nav nav-tabs" role="tablist">
-                	{% if courses_user_enrolled %}
-                    <li role="presentation" class="active"><a href="#course-as-student" aria-controls="course-as-student" role="tab" data-toggle="tab">{% trans "Courses I'm enrolled" %}</a></li>
-                    {% endif %}
+    <section class="courses" role="tabpanel">
+        {% with courses_user_enrolled=request.user.coursestudent_set.all %}
+        <ul class="nav nav-tabs" role="tablist">
+            {% if courses_user_enrolled %}
+            <li role="presentation" class="active"><a href="#course-as-student" aria-controls="course-as-student" role="tab" data-toggle="tab">{% trans "Courses I'm enrolled" %}</a></li>
+            {% endif %}
 
-                    <!-- TODO Exibir aba apenas se tiver certificados e comprovantes -->
-                    <li role="presentation" ><a href="#my-certificates" aria-controls="my-certificates" role="tab" data-toggle="tab">{% trans "My certificates" %}</a></li>
-                    <!-- Fim do if -->
+            <!-- TODO Exibir aba apenas se tiver certificados e comprovantes -->
+            <li role="presentation" ><a href="#my-certificates" aria-controls="my-certificates" role="tab" data-toggle="tab">{% trans "My certificates" %}</a></li>
+            <!-- Fim do if -->
 
-                    {% if courses_user_assist %}
-                    <li role="presentation"><a href="#course-as-teacher" aria-controls="course-as-teacher" role="tab" data-toggle="tab">{% trans "Courses I assist" %}</a></li>
-                    {% endif %}
-                    {% if courses_user_coordinate %}
-                    <li role="presentation"><a href="#course-as-coordinator" aria-controls="course-as-coordinator" role="tab" data-toggle="tab">{% trans "Courses I coordinate" %}</a></li>
-                    {% endif %}
-                </ul>
+            {% if courses_user_assist %}
+            <li role="presentation"><a href="#course-as-teacher" aria-controls="course-as-teacher" role="tab" data-toggle="tab">{% trans "Courses I assist" %}</a></li>
+            {% endif %}
+            {% if courses_user_coordinate %}
+            <li role="presentation"><a href="#course-as-coordinator" aria-controls="course-as-coordinator" role="tab" data-toggle="tab">{% trans "Courses I coordinate" %}</a></li>
+            {% endif %}
+        </ul>
 
-                <!-- Tab panes -->
-                <div class="tab-content" ng-app="courses" ng-controller="CourseListByUserRoleController">
-                    <div role="tabpanel" class="tab-pane active" id="course-as-student">
-                    	{% if not courses_user_enrolled %}
-                        	<div class="course">
-                                <header>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <p>{% trans 'You are not enrolled in any course yet.' %}</p>
-									    </div>
-									</div>
-                        		</header>
-                        	</div>
-                    	{% endif %}
-                        {% for cs in request.user.coursestudent_set.all %}
-                            <div class="course">
-                            {% if cs.course.has_started %}
-                                <header>
-                                    <div class="row">
-                                        <div class="col-sm-8">
-                                            <h1><a href="{% url 'resume_course' cs.course.slug %}">{{ cs.course.name }}</a></h1>
-                                        </div>
-                                        <div class="col-sm-4 textright">
-                                            <div class="btn-group">
-                                                <a href="{% url 'resume_course' cs.course.slug %}" class="btn btn-sm btn-success">{% trans "Resume Course" %}</a>
-                                                <a href="{% url 'resume_course' cs.course.slug %}" class="btn btn-sm btn-success"><i class="fa fa-angle-double-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </header>
-                                <div class="progress">
-                                    <div class="progress-bar" style="width:{{cs.percent_progress}}%;"></div>
-                                </div>
-                                <a href="{% url 'user_course_notes' cs.course.slug %}" class="btn btn-default btn-sm">{% trans "My Notes" %}</a>
-
-                                {% if cs.certificate %}
-                                  {% if cs.certificate.type == 'receipt' %}
-                                    <a href="{% url 'certificate' cs.certificate.link_hash %}" class="btn btn-default btn-sm">{% trans "View Receipt" %}</a>
-                                  {% endif %}
-                                  {% if cs.certificate.type == 'certificate' %}
-                                    <a href="{% url 'certificate' cs.certificate.link_hash %}" class="btn btn-default btn-sm">{% trans "View certificate" %}</a>
-                                  {% endif %}
-                                {% elif cs.can_emmit_receipt %}
-                                  <a href="#" class="btn btn-default btn-sm">{% trans "Emit certificate" %}</a>
-                                {% endif %}
-                                <!-- TODO SE COMPROVANTE ESTIVER DISPONÍVEL, APARECE A CLASSE BTN-SUCCESS, SENÃO COLOCAR BTN-DEFAULT E ATRIBUTO disabled="disabled" -->
-                                <!-- TODO Mudar URL do certificado -->
-{#                                <a href="#" class="btn btn-default btn-sm" disabled="disabled">{% trans "Check certificate" %}</a>#}
-                                <!-- FIM DO IF -->
-
-                                <!-- TODO SE USUÁRIO TIVER FINALIZADO O CURSO, APARECE A CLASSE BTN-SUCCESS, SENÃO COLOCAR BTN-DEFAULT E ATRIBUTO disabled="disabled" -->
-                                <!-- TODO Mudar URL do certificado -->
-                                {% if cs.can_emmit_receipt and cs.get_current_class.user_can_certificate %}
-                                <a href="#" class="btn btn-default btn-sm">{% trans "Request certificate" %}</a>
-                                {% endif %}
-                                <!-- FIM DO IF -->
-
-
-            {#                    <a href="" class="btn btn-default btn-sm">{% trans "Details" %}</a>#}
-            {#                    <span class="info">0 min of lecture and 0 quizzes remaining in 1.1a Equivalent Fractions.</span>#}
-                            {% else %}
-                                <header>
-                                    <div class="row">
-                                        <div class="col-sm-8">
-                                            <h1><a href="{% url 'course_intro' cs.course.slug %}">{{ cs.course.name }}</a></h1>
-                                        </div>
-                                        <div class="col-sm-4 textright">
-                                            <div class="btn-group">
-                                                <a href="{% url 'course_intro' cs.course.slug %}" class="btn btn-sm btn-success">{% trans "Go to Course" %}</a>
-                                                <a href="{% url 'course_intro' cs.course.slug %}" class="btn btn-sm btn-success"><i class="fa fa-angle-double-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p>{% blocktrans with start_date=cs.course.start_date|date:"d/m/Y" %} This course starts on {{ start_date }} and you are already subscribed{% endblocktrans %}.</p>
-                                </header>
-                            {% endif %}
-                            </div>
-                        {% endfor %}
-
-                    </div>
-                	{% endwith %}
-
-
-                    <!-- TODO Exibir aba apenas se tiver certificados e comprovantes -->
-                    <div role="tabpanel" class="tab-pane" id="my-certificates">
-                        <h2>{% trans "Certificate processes" %}</h2>
-                        <div class="row certificate-process">
-                            {% for cs in request.user.coursestudent_set.all|slice:":2" %}
-                                <div class="col-sm-6">
-                                    <div class="course-card row">
-                                        <div class="col-sm-4">
-                                            <div class="thumb">
-                                                <img class="img-responsive" src="{{ cs.course.home_thumbnail.url }}" />
-                                            </div>
-                                            <a href="{% url "course_intro" cs.course.slug %}">
-                                                <h3>{{ cs.course.name }}</h3>
-                                            </a>
-                                            <p class="instructors">por {% for professor in cs.course.get_video_professors %}{{ professor.get_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
-                                        </div>
-                                        <div class="info col-sm-8">
-                                            <p class="lead">Situação: Avaliação marcada para 23/01/2016</p>
-                                            <p>
-                                                <a class="enroll-link text-uppercase" data-toggle="modal" data-target="#evaluation-details" href="#">
-                                                    <i class="fa fa-file-text-o"></i> Ver detalhes da avaliação
-                                                </a>
-                                            </p>
-                                            <!-- TODO add certificate link and conclusion date -->
-                                            <p>
-                                                Conluído em 15/08/2015.
-                                            </p>
-                                            <p>
-                                                Processo de certificação pedido em 15/08/2015.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-
-                    <!-- TODO Trocar o FOR para cursos com certificados disponíveis -->
-                        <h2>{% trans "Issued certificates" %}</h2>
+        <!-- Tab panes -->
+        <div class="tab-content" ng-app="my-courses">
+            <div role="tabpanel" class="tab-pane active" id="course-as-student">
+                {% if not courses_user_enrolled %}
+                <div class="course">
+                    <header>
                         <div class="row">
-                            {% for cs in request.user.coursestudent_set.all|slice:":2" %}
-                                <div class="col-sm-3">
-                                    <div class="course-card">
-                                        <div class="thumb-wrapper">
-                                            <img class="img-responsive" src="{{ cs.course.home_thumbnail.url }}" />
-                                        </div>
-                                        <div class="info">
-                                            <a href="{% url "course_intro" cs.course.slug %}">
-                                                <h3>{{ cs.course.name }}</h3>
-                                            </a>
-                                            <p class="instructors">por {% for professor in cs.course.get_video_professors %}{{ professor.get_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
-                                        </div>
-                                        <div class="conclusion">
-                                            <!-- TODO add certificate link and conclusion date -->
-                                            <p>
-                                                {% trans "Completed at" %} 15/08/2015.
-                                            </p>
-                                            <!-- TODO only display if user has verified certificate -->
-                                            <a class="enroll-link text-uppercase" href="#">
-                                                <i class="fa fa-file-text-o"></i> {% trans "View certificate" %}
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-
-                        <!-- TODO Trocar o FOR para cursos com certificados disponíveis -->
-                        <h2>{% trans "Completed courses" %}</h2>
-                        <div class="row">
-                            {% for cs in request.user.coursestudent_set.all|slice:":4" %}
-                                <div class="col-sm-2">
-                                    <div class="course-card">
-                                        <div class="thumb-wrapper">
-                                            <img class="img-responsive" src="{{ cs.course.home_thumbnail.url }}" />
-                                        </div>
-                                        <div class="info">
-                                            <a href="{% url "course_intro" cs.course.slug %}">
-                                                <h3>{{ cs.course.name }}</h3>
-                                            </a>
-                                            <p class="instructors">por {% for professor in cs.course.get_video_professors %}{{ professor.get_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
-                                        </div>
-                                        <div class="conclusion">
-                                            <!-- TODO add certificate link and conclusion date -->
-                                            <p>
-                                                {% trans "Completed at" %} 15/08/2015.
-                                            </p>
-                                            <!-- TODO only display if user has verified certificate -->
-                                            <a class="enroll-link text-uppercase" href="#">
-                                                <i class="fa fa-file-text-o"></i> {% trans "Request certificate" %}
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-
-                    </div>
-
-                    <div role="tabpanel" class="tab-pane" id="course-as-teacher">
-                        <section class="courses">
-                            <!-- COURSE -->
-                            <div class="course clearfix" ng-repeat="courseprofessor in courses_user_assist">
-                                <div class="col-lg-12">
-                                    {% verbatim %}
-                                    <h1><a ng-href="/course/{{ courseprofessor.course_info.slug }}/intro/" title="{{ courseprofessor.course_info.name }}">{{ courseprofessor.course_info.name }}</a></h1>
-                                    {% endverbatim %}
-
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <span class="label label-warning" ng-if="courseprofessor.course_info.isDraft()">{% trans 'Draft' %}</span>
-                                            <span class="label label-success" ng-if="courseprofessor.course_info.isPublished()">{% trans 'Published' %}</span>
-
-                                            <span ng-show="courseprofessor.current_user_classes" class="label label-default pointer" ng-click="show_classes=!show_classes">
-                                                <span ng-if="!show_classes">{% trans 'Show classes' %}</span>
-                                                <span ng-if="show_classes">{% trans 'Hide classes' %}</span>
-                                                {% verbatim %}
-                                                <i class="fa" ng-class="{'fa fa-caret-down':!show_classes,'fa fa-caret-up':show_classes}"></i>
-                                                {% endverbatim %}
-                                            </span>
-                                            <div ng-hide="courseprofessor.current_user_classes">
-                                                <span class="label label-default pointer">
-                                                    <span ng-click="open_professor_modal(courseprofessor)">{% trans 'Create class' %}</span>
-                                                </span>
-                                                <p>{% trans "You don't have any class in this course" %}.</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 textright">
-                                            <p>
-                                                <span ng-show="courseprofessor.course_info.has_started">
-                                                    <span class="date-label">{% trans 'Started in' %}</span>
-                                                    {% verbatim %}
-                                                    <span class="date label label-success">{{ courseprofessor.course_info.start_date | date:'d/M/yyyy' }}</span>
-                                                    {% endverbatim %}
-                                                </span>
-                                                <span ng-show="!courseprofessor.course_info.has_started && courseprofessor.course_info.start_date">
-                                                    <span class="date-label">{% trans 'Starts in' %}</span>
-                                                    {% verbatim %}
-                                                    <span class="date label label-info">{{ courseprofessor.course_info.start_date | date:'d/M/yyyy' }}</span>
-                                                    {% endverbatim %}
-                                                </span>
-                                                <span ng-show="!courseprofessor.course_info.start_date">
-                                                    <span class="date label label-danger">{% trans 'No start date' %}</span>
-                                                </span>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div class="row" ng-show="show_classes && courseprofessor.current_user_classes">
-                                        <div class="col-lg-12" ng-hide="courses_user_assist.$resolved">
-                                            <span>{% trans 'Loading classes list' %}...</span>
-                                        </div>
-                                        <div class="col-lg-12" ng-hide="courseprofessor.current_user_classes">
-                                            <span>{% trans "You don't have any class in this course" %}.</span>
-                                        </div>
-                                        <div class="col-lg-12" ng-show="courseprofessor.current_user_classes">
-                                            <div class="lessons">
-                                                <div class="lesson" ng-repeat="class in courseprofessor.current_user_classes">
-                                                    <div class="row">
-                                                        <div class="col-lg-9">
-                                                            {% verbatim %}
-                                                            <h1><a ng-href="/class/{{class.id}}" ng-bind="class.name"></a></h1>
-                                                            {% endverbatim %}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="col-sm-12">
+                                <p>{% trans 'You are not enrolled in any course yet.' %}</p>
                             </div>
-                            <!-- END COURSE -->
-                        </section>
-                    </div>
-                    <!-- NEW CLASS MODAL -->
-                    <script type="text/ng-template" id="create_class_modal.html">
-                        {% include '_create_class_modal.html' %}
-                    </script>
-                    <!-- END NEW CLASS MODAL -->
-                    <div role="tabpanel" class="tab-pane" id="course-as-coordinator">
-                        <!-- ALL COURSES -->
-                        <section class="courses" ng-app="courses">
-                            <!-- COURSE -->
-                            <div class="course clearfix" ng-repeat="courseprofessor in courses_user_coordinate">
-                                <div class="col-lg-12">
-                                    {% verbatim %}
-                                    <h1><a ng-href="/admin/courses/{{ courseprofessor.course_info.id }}" title="{{ courseprofessor.course_info.name }}">{{ courseprofessor.course_info.name }}</a></h1>
-                                    {% endverbatim %}
-
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <span class="label label-warning" ng-if="courseprofessor.course_info.isDraft()">{% trans 'Draft' %}</span>
-                                            <span class="label label-success" ng-if="courseprofessor.course_info.isPublished()">{% trans 'Published' %}</span>
-
-                                            <span class="label label-default pointer" ng-click="loadLessons(courseprofessor.course_info);showLessons=!showLessons">
-                                                <span ng-if="!showLessons">{% trans 'Show lessons' %}</span>
-                                                <span ng-if="showLessons">{% trans 'Hide lessons' %}</span>
-                                                {% verbatim %}
-                                                <i class="fa" ng-class="{'fa fa-caret-down':!showLessons,'fa fa-caret-up':showLessons}"></i>
-                                                {% endverbatim %}
-                                            </span>
-                                        </div>
-                                        <div class="col-sm-6 textright">
-                                            <p>
-                                                <span ng-show="courseprofessor.course_info.has_started">
-                                                    <span class="date-label">{% trans 'Started in' %}</span>
-                                                    {% verbatim %}
-                                                    <span class="date label label-success">{{ courseprofessor.course_info.start_date | date:'d/M/yyyy' }}</span>
-                                                    {% endverbatim %}
-                                                </span>
-                                                <span ng-show="!courseprofessor.course_info.has_started && courseprofessor.course_info.start_date">
-                                                    <span class="date-label">{% trans 'Starts in' %}</span>
-                                                    {% verbatim %}
-                                                    <span class="date label label-info">{{ courseprofessor.course_info.start_date | date:'d/M/yyyy' }}</span>
-                                                    {% endverbatim %}
-                                                </span>
-                                                <span ng-show="!courseprofessor.course_info.start_date">
-                                                    <span class="date label label-danger">{% trans 'No start date' %}</span>
-                                                </span>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div class="row" ng-show="showLessons">
-                                        <div class="col-lg-12" ng-hide="courseprofessor.course_info.lessons.$resolved">
-                                            <span>{% trans 'Loading lessons list' %}...</span>
-                                        </div>
-                                        <div class="col-lg-12" ng-show="courseprofessor.course_info.lessons.length == 0">
-                                            <span>{% trans 'Loading lessons list' %}</span>
-                                        </div>
-                                        <div class="col-lg-12" ng-show="courseprofessor.course_info.lessons">
-                                            <div class="lessons">
-                                                <div class="lesson" ng-repeat="lesson in courseprofessor.course_info.lessons">
-                                                    <div class="row">
-                                                        <div class="col-lg-1">
-                                                            <span class="label label-success" ng-if="lesson.status=='published'">{% trans 'Published' %}</span>
-                                                            <span class="label label-warning" ng-if="lesson.status!='published'">{% trans 'Draft' %}</span>
-                                                        </div>
-                                                        <div class="col-lg-9">
-                                                            {% verbatim %}
-                                                            <h1><a ng-href="/admin/courses/{{ courseprofessor.course_info.id }}/lessons/{{lesson.id}}" ng-bind="lesson.name"></a></h1>
-                                                            {% endverbatim %}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- END COURSE -->
-                        </section>
-                    </div>
+                        </div>
+                    </header>
                 </div>
-            </section>
+                {% endif %}
+                {% for cs in request.user.coursestudent_set.all %}
+                <div class="course">
+                    {% if cs.course.has_started %}
+                    <header>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <h1><a href="{% url 'resume_course' cs.course.slug %}">{{ cs.course.name }}</a></h1>
+                            </div>
+                            <div class="col-sm-4 textright">
+                                <div class="btn-group">
+                                    <a href="{% url 'resume_course' cs.course.slug %}" class="btn btn-sm btn-success">{% trans "Resume Course" %}</a>
+                                    <a href="{% url 'resume_course' cs.course.slug %}" class="btn btn-sm btn-success"><i class="fa fa-angle-double-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                    <div class="progress">
+                        <div class="progress-bar" style="width:{{cs.percent_progress}}%;"></div>
+                    </div>
+                    <a href="{% url 'user_course_notes' cs.course.slug %}" class="btn btn-default btn-sm">{% trans "My Notes" %}</a>
+
+                    <!-- CERTIFICATE -->
+                    <!--
+                        Esse if se torna inutil se a lógica do certificado
+                        vs comprovante for resolvida no tempo de renderização
+                        do template de certificado.
+                        ** Ele deve virar apenas uma condição de label do
+                        botão. **
+                    -->
+                    {% if cs.certificate %}
+                    {% if cs.certificate.type == 'receipt' %}
+                    <a href="{% url 'certificate' cs.certificate.link_hash %}"
+                       class="btn btn-default btn-sm">{% trans "View Receipt" %}
+                    </a>
+                    {% endif %}
+                    {% if cs.certificate.type == 'certificate' %}
+                    <a href="{% url 'certificate' cs.certificate.link_hash %}"
+                       class="btn btn-default btn-sm">{% trans "View certificate" %}
+                    </a>
+                    {% endif %}
+                    {% endif %}
+
+                    <!--
+                        > TODO SE COMPROVANTE ESTIVER DISPONÍVEL, APARECE
+                        > A CLASSE BTN-SUCCESS, SENÃO COLOCAR BTN-DEFAULT
+                        > E ATRIBUTO disabled="disabled"
+                        Pela especificação, o comprovante sempre vai estar
+                        disponível, já que sempre que o usuário preencher
+                        o perfil o certificado será emitido... da mesma forma
+                        quando o student progress for alterado, poderá ser
+                        emitido um comprovante se o curso estiver finalizado!
+                    -->
+                    <!-- TODO Mudar URL do certificado -->
+                    {% comment %}
+                    <a href="#" class="btn btn-default btn-sm"
+                       disabled="disabled">{% trans "Check certificate" %}
+                    </a>
+                    {% endcomment %}
+
+                    <!--
+                        TODO SE USUÁRIO TIVER FINALIZADO O CURSO,
+                        APARECE A CLASSE BTN-SUCCESS, SENÃO COLOCAR
+                        BTN-DEFAULT E ATRIBUTO disabled="disabled"
+                    -->
+                    <!-- TODO Mudar URL do certificado -->
+                    {% if cs.can_emmit_receipt and cs.get_current_class.user_can_certificate %}
+                    {{ cs.get_current_class.user_can_certificate  }}
+                    <a href="#" class="btn btn-default btn-sm">
+                        {% trans "Request certificate" %}
+                    </a>
+                    {% endif %}
+                    <!-- END CERTIFICATE -->
+
+
+                    {# <a href="" class="btn btn-default btn-sm">{% trans "Details" %}</a>#}
+                    {# <span class="info">0 min of lecture and 0 quizzes remaining in 1.1a Equivalent Fractions.</span>#}
+                    {% else %}
+                    <header>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <h1><a href="{% url 'course_intro' cs.course.slug %}">{{ cs.course.name }}</a></h1>
+                            </div>
+                            <div class="col-sm-4 textright">
+                                <div class="btn-group">
+                                    <a href="{% url 'course_intro' cs.course.slug %}" class="btn btn-sm btn-success">{% trans "Go to Course" %}</a>
+                                    <a href="{% url 'course_intro' cs.course.slug %}" class="btn btn-sm btn-success"><i class="fa fa-angle-double-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <p>{% blocktrans with start_date=cs.course.start_date|date:"d/m/Y" %} This course starts on {{ start_date }} and you are already subscribed{% endblocktrans %}.</p>
+                    </header>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                {% endwith %}
+            </div>
+
+            <!-- TODO Exibir aba apenas se tiver certificados e comprovantes -->
+            <div role="tabpanel" class="tab-pane" id="my-certificates">
+                <h2>{% trans "Certificate processes" %}</h2>
+                <div class="row certificate-process">
+                    {% for cs in request.user.coursestudent_set.all|slice:":2" %}
+                    <div class="col-sm-6">
+                        <div class="course-card row">
+                            <div class="col-sm-4">
+                                <div class="thumb">
+                                    <img class="img-responsive" src="{{ cs.course.home_thumbnail.url }}" />
+                                </div>
+                                <a href='{% url "course_intro" cs.course.slug %}'>
+                                <h3>{{ cs.course.name }}</h3>
+                                </a>
+                                <p class="instructors">por {% for professor in cs.course.get_video_professors %}{{ professor.get_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                            </div>
+                            <div class="info col-sm-8">
+                                <p class="lead">Situação: Avaliação marcada para 23/01/2016</p>
+                                <p>
+                                    <a class="enroll-link text-uppercase" data-toggle="modal" data-target="#evaluation-details" href="#">
+                                        <i class="fa fa-file-text-o"></i> Ver detalhes da avaliação
+                                    </a>
+                                </p>
+                                <!-- TODO add certificate link and conclusion date -->
+                                <p>
+                                    Conluído em 15/08/2015.
+                                </p>
+                                <p>
+                                    Processo de certificação pedido em 15/08/2015.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- TODO Trocar o FOR para cursos com certificados disponíveis -->
+                <h2>{% trans "Issued certificates" %}</h2>
+                <div class="row">
+                    {% for cs in request.user.coursestudent_set.all|slice:":2" %}
+                    <div class="col-sm-3">
+                        <div class="course-card">
+                            <div class="thumb-wrapper">
+                                <img class="img-responsive" src="{{ cs.course.home_thumbnail.url }}" />
+                            </div>
+                            <div class="info">
+                                <a href='{% url "course_intro" cs.course.slug %}' />
+                                <h3>{{ cs.course.name }}</h3>
+                                </a>
+                                <p class="instructors">por {% for professor in cs.course.get_video_professors %}{{ professor.get_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                            </div>
+                            <div class="conclusion">
+                                <!-- TODO add certificate link and conclusion date -->
+                                <p>
+                                    {% trans "Completed at" %} 15/08/2015.
+                                </p>
+                                <!-- TODO only display if user has verified certificate -->
+                                <a class="enroll-link text-uppercase" href="#">
+                                    <i class="fa fa-file-text-o"></i> {% trans "View certificate" %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- TODO Trocar o FOR para cursos com certificados disponíveis -->
+                <h2>{% trans "Completed courses" %}</h2>
+                <div class="row">
+                    {% for cs in request.user.coursestudent_set.all|slice:":4" %}
+                    <div class="col-sm-2">
+                        <div class="course-card">
+                            <div class="thumb-wrapper">
+                                <img class="img-responsive" src="{{ cs.course.home_thumbnail.url }}" />
+                            </div>
+                            <div class="info">
+                                <a href='{% url "course_intro" cs.course.slug %}'>
+                                <h3>{{ cs.course.name }}</h3>
+                                </a>
+                                <p class="instructors">por {% for professor in cs.course.get_video_professors %}{{ professor.get_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                            </div>
+                            <div class="conclusion">
+                                <!-- TODO add certificate link and conclusion date -->
+                                <p>
+                                    {% trans "Completed at" %} 15/08/2015.
+                                </p>
+                                <!-- TODO only display if user has verified certificate -->
+                                <a class="enroll-link text-uppercase" href="#">
+                                    <i class="fa fa-file-text-o"></i> {% trans "Request certificate" %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            <div role="tabpanel" class="tab-pane" ng-controller="AssistantCourseListController" id="course-as-teacher">
+                <section class="courses">
+                    <!-- COURSE -->
+                    <div class="course clearfix" ng-repeat="courseprofessor in courses_user_assist">
+                        <div class="col-lg-12">
+                            {% verbatim %}
+                            <h1><a ng-href="/course/{{ courseprofessor.course_info.slug }}/intro/" title="{{ courseprofessor.course_info.name }}">{{ courseprofessor.course_info.name }}</a></h1>
+                            {% endverbatim %}
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <span class="label label-warning" ng-if="courseprofessor.course_info.isDraft()">{% trans 'Draft' %}</span>
+                                    <span class="label label-success" ng-if="courseprofessor.course_info.isPublished()">{% trans 'Published' %}</span>
+
+                                        <span ng-show="courseprofessor.current_user_classes" class="label label-default pointer" ng-click="show_classes=!show_classes">
+                                            <span ng-if="!show_classes">{% trans 'Show classes' %}</span>
+                                            <span ng-if="show_classes">{% trans 'Hide classes' %}</span>
+                                            {% verbatim %}
+                                            <i class="fa" ng-class="{'fa fa-caret-down':!show_classes,'fa fa-caret-up':show_classes}"></i>
+                                            {% endverbatim %}
+                                        </span>
+                                    <div ng-hide="courseprofessor.current_user_classes">
+                                            <span class="label label-default pointer">
+                                                <span ng-click="open_professor_modal(courseprofessor)">{% trans 'Create class' %}</span>
+                                            </span>
+                                        <p>{% trans "You don't have any class in this course" %}.</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 textright">
+                                    <p>
+                                            <span ng-show="courseprofessor.course_info.has_started">
+                                                <span class="date-label">{% trans 'Started in' %}</span>
+                                                {% verbatim %}
+                                                <span class="date label label-success">{{ courseprofessor.course_info.start_date | date:'d/M/yyyy' }}</span>
+                                                {% endverbatim %}
+                                            </span>
+                                            <span ng-show="!courseprofessor.course_info.has_started && courseprofessor.course_info.start_date">
+                                                <span class="date-label">{% trans 'Starts in' %}</span>
+                                                {% verbatim %}
+                                                <span class="date label label-info">{{ courseprofessor.course_info.start_date | date:'d/M/yyyy' }}</span>
+                                                {% endverbatim %}
+                                            </span>
+                                            <span ng-show="!courseprofessor.course_info.start_date">
+                                                <span class="date label label-danger">{% trans 'No start date' %}</span>
+                                            </span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row" ng-show="show_classes && courseprofessor.current_user_classes">
+                                <div class="col-lg-12" ng-hide="courses_user_assist.$resolved">
+                                    <span>{% trans 'Loading classes list' %}...</span>
+                                </div>
+                                <div class="col-lg-12" ng-hide="courseprofessor.current_user_classes">
+                                    <span>{% trans "You don't have any class in this course" %}.</span>
+                                </div>
+                                <div class="col-lg-12" ng-show="courseprofessor.current_user_classes">
+                                    <div class="lessons">
+                                        <div class="lesson" ng-repeat="class in courseprofessor.current_user_classes">
+                                            <div class="row">
+                                                <div class="col-lg-9">
+                                                    {% verbatim %}
+                                                    <h1><a ng-href="/class/{{class.id}}" ng-bind="class.name"></a></h1>
+                                                    {% endverbatim %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END COURSE -->
+                </section>
+            </div>
+
+            <!-- NEW CLASS MODAL -->
+            <script type="text/ng-template" id="create_class_modal.html">
+                {% include '_create_class_modal.html' %}
+            </script>
+            <!-- END NEW CLASS MODAL -->
+
+            <div role="tabpanel" class="tab-pane" ng-controller="CoordinatorCourseListController" id="course-as-coordinator">
+                <!-- ALL COURSES -->
+                <section class="courses">
+                    <!-- COURSE -->
+                    <div class="course clearfix" ng-repeat="courseprofessor in courses_user_coordinate">
+                        <div class="col-lg-12">
+                            {% verbatim %}
+                            <h1><a ng-href="/admin/courses/{{ courseprofessor.course_info.id }}" title="{{ courseprofessor.course_info.name }}">{{ courseprofessor.course_info.name }}</a></h1>
+                            {% endverbatim %}
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <span class="label label-warning" ng-if="courseprofessor.course_info.isDraft()">{% trans 'Draft' %}</span>
+                                    <span class="label label-success" ng-if="courseprofessor.course_info.isPublished()">{% trans 'Published' %}</span>
+
+                                        <span class="label label-default pointer" ng-click="loadLessons(courseprofessor.course_info);showLessons=!showLessons">
+                                            <span ng-if="!showLessons">{% trans 'Show lessons' %}</span>
+                                            <span ng-if="showLessons">{% trans 'Hide lessons' %}</span>
+                                            {% verbatim %}
+                                            <i class="fa" ng-class="{'fa fa-caret-down':!showLessons,'fa fa-caret-up':showLessons}"></i>
+                                            {% endverbatim %}
+                                        </span>
+                                </div>
+                                <div class="col-sm-6 textright">
+                                    <p>
+                                            <span ng-show="courseprofessor.course_info.has_started">
+                                                <span class="date-label">{% trans 'Started in' %}</span>
+                                                {% verbatim %}
+                                                <span class="date label label-success">{{ courseprofessor.course_info.start_date | date:'d/M/yyyy' }}</span>
+                                                {% endverbatim %}
+                                            </span>
+                                            <span ng-show="!courseprofessor.course_info.has_started && courseprofessor.course_info.start_date">
+                                                <span class="date-label">{% trans 'Starts in' %}</span>
+                                                {% verbatim %}
+                                                <span class="date label label-info">{{ courseprofessor.course_info.start_date | date:'d/M/yyyy' }}</span>
+                                                {% endverbatim %}
+                                            </span>
+                                            <span ng-show="!courseprofessor.course_info.start_date">
+                                                <span class="date label label-danger">{% trans 'No start date' %}</span>
+                                            </span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row" ng-show="showLessons">
+                                <div class="col-lg-12" ng-hide="courseprofessor.course_info.lessons.$resolved">
+                                    <span>{% trans 'Loading lessons list' %}...</span>
+                                </div>
+                                <div class="col-lg-12" ng-show="courseprofessor.course_info.lessons.length == 0">
+                                    <span>{% trans 'Loading lessons list' %}</span>
+                                </div>
+                                <div class="col-lg-12" ng-show="courseprofessor.course_info.lessons">
+                                    <div class="lessons">
+                                        <div class="lesson" ng-repeat="lesson in courseprofessor.course_info.lessons">
+                                            <div class="row">
+                                                <div class="col-lg-1">
+                                                    <span class="label label-success" ng-if="lesson.status=='published'">{% trans 'Published' %}</span>
+                                                    <span class="label label-warning" ng-if="lesson.status!='published'">{% trans 'Draft' %}</span>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    {% verbatim %}
+                                                    <h1><a ng-href="/admin/courses/{{ courseprofessor.course_info.id }}/lessons/{{lesson.id}}" ng-bind="lesson.name"></a></h1>
+                                                    {% endverbatim %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END COURSE -->
+                </section>
+            </div>
         </div>
+    </section>
+</div>
 
-        <!-- CONTAINER -->
+<!-- CONTAINER -->
 
-        <!-- Modal -->
-        <div class="modal fade" id="evaluation-details" tabindex="-1" role="dialog" aria-labelledby="evaluation-details">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
+<!-- Modal -->
+<div class="modal fade" id="evaluation-details" tabindex="-1" role="dialog" aria-labelledby="evaluation-details">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Detalhes da avaliação 22/10/2015 - Turma</h4>
-              </div>
-              <div class="modal-body">
+            </div>
+            <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-6">
                         <label for="exam_date">
@@ -428,10 +457,11 @@ wrapper-course-lesson
                         </p>
                     </div>
                 </div>
-              </div>
-              <div class="modal-footer">
+            </div>
+            <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-          </div>
+            </div>
         </div>
+    </div>
+</div>
 {% endblock %}
