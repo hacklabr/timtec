@@ -122,7 +122,6 @@ wrapper-course-lesson
                     -->
                     <!-- TODO Mudar URL do certificado -->
                     {% if cs.can_emmit_receipt and cs.get_current_class.user_can_certificate %}
-                    {{ cs.get_current_class.user_can_certificate  }}
                     <a href="#" class="btn btn-default btn-sm">
                         {% trans "Request certificate" %}
                     </a>
