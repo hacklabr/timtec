@@ -211,6 +211,12 @@
         return Lesson;
     }]);
 
+    app.factory('CourseStudent', function($resource){
+        return $resource('/api/course_student/:id',
+            {'id' : '@id'},
+            {'update': {'method': 'PUT'} });
+    });
+
 
     app.factory('CertificationProcess', function($resource){
         return $resource('/api/certification_process/:certificateId',
