@@ -25,7 +25,7 @@ wrapper-course-lesson
 
     <section class="courses" role="tabpanel">
         {% with courses_user_enrolled=request.user.coursestudent_set.all %}
-        <ul class="nav nav-tabs" role="tablist">
+        <ul class="nav nav-tabs" id="dashboard-tabs" role="tablist">
             {% if courses_user_enrolled %}
             <li role="presentation" class="active"><a href="#course-as-student" aria-controls="course-as-student" role="tab" data-toggle="tab">{% trans "Courses I'm enrolled" %}</a></li>
             {% endif %}
@@ -125,6 +125,7 @@ wrapper-course-lesson
                     {% if cs.can_emmit_receipt and cs.get_current_class.user_can_certificate %}
                     <a href="#"
                        ng-click="createCertificationProcess({{ cs.id }})"
+                       ng-show="!course_student_list.length"
                        class="btn btn-default btn-sm">
                         {% trans "Request certificate" %}
                     </a>

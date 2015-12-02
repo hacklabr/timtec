@@ -306,6 +306,8 @@ class CertificationProcessViewSet(viewsets.ModelViewSet):
     model = CertificationProcess
     serializer_class = CertificationProcessSerializer
 
+    permission_classes = []
+
     def get_queryset(self):
         queryset = super(CertificationProcessViewSet, self).get_queryset()
 

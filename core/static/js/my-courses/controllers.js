@@ -2,22 +2,38 @@
     'use strict';
     var app = angular.module('my-courses');
 
-    app.controller('UserCourseListController', ['$scope', '$window', '$modal', 'Lesson', 'CourseProfessor', 'Class',
-        function ($scope, $window, $modal, Lesson, CourseProfessor, Class) {
-            $scope.createCertificationProcess = function(cs){
-                console.log(cs);
-                // TODO: create certification process and change tab
-                /*
-                    Create a new certification process with or without
-                    a course certification (in this case, type receipt)
+    app.controller('UserCourseListController',
+        ['$scope', '$window', '$modal', 'CertificationProcess', 'CourseStudent', 'Class',
+        function ($scope, $window, $modal, CertificationProcess, CourseStudent, Class) {
+            CourseStudent.query(function (cs){
+               $scope.course_student_list = cs;
+               console.log(cs);
+            })
 
-                    We are going to use user and course certification
 
-                    After creation, We change the tab to the my certificates
-                    tab. In this tab, the use can see all data about certification
-                    such as evaluation date, grade and future approval (or not)
+            $scope.createCertificationProcess = function (cs){
+                var cp = new CertificationProcess();
+                cs = getResource(cs);
+                cp.student = cs.user.id;
+                cp.klass = cs.current_class.id;
+                if(!cs.certificate)
+                    cp.course_certification = null;
+                else {
+                    cp.course_certification = cs.certificate.link_hash;
+                }
+                cp.evaluation = null;
+                cp.$save(function(new_cp){
+                    $('#dashboard-tabs a[href=#my-certificates]').tab('show');
+                });
+            }
 
-                */
+
+            var getResource = function (cs) {
+                for(var i = 0; i < $scope.course_student_list.length; i++){
+                    if($scope.course_student_list[i].id == cs)
+                        return $scope.course_student_list[i];
+                }
+                return undefined;
             }
         }
     ]);
