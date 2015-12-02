@@ -687,11 +687,12 @@ class CertificationProcess(models.Model):
     comments = models.CharField(_('Comments'), max_length=255, null=True, blank=True)
     created_date = models.DateTimeField(_('Created'), auto_now_add=True)
 
-    evaluation_grade = models.IntegerField(_('Evaluation grade'), blank=True)
+    evaluation_grade = models.IntegerField(_('Evaluation grade'), blank=True, null=True)
     approved = models.BooleanField(_('Approved'), default=False)
     no_show = models.BooleanField(_('No show'), default=False)
 
     evaluation = models.ForeignKey(Evaluation, verbose_name=_('Evaluation'),
+                                   blank=True,
                                    related_name='processes', null=True)
 
     klass = models.ForeignKey(Class, verbose_name=_('Class'),
