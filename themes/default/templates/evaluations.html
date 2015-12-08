@@ -174,7 +174,7 @@
                                 {% endverbatim %}
                             </h3>
                         </div>
-                        <div class="col-sm-6 text-right manage-buttons" ng-show="evaluation.processes.length">
+                        <div class="col-sm-6 text-right manage-buttons">
                             <button class="btn btn-success" ng-click="createEvaluation(true)">
                                 <span class="fa fa-pencil" aria-hidden="true"></span>
                                 {% trans 'Edit evaluation' %}
@@ -200,7 +200,6 @@
                                 {{ evaluation.process.length }}
                                 <td colspan="8">{% trans 'No students found' %}</td>
                             </tr>
-
                             <tr ng-repeat="process in certification_processes | attending:evaluation.id">
                                 {% verbatim %}
                                 <td>{{ process.student.get_full_name }}</td>
