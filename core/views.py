@@ -304,6 +304,7 @@ class CourseCertificationDetailView(DetailView):
 
 class CertificationProcessViewSet(viewsets.ModelViewSet):
     model = CertificationProcess
+    filter_fields = ('student',)
     serializer_class = CertificationProcessSerializer
 
     permission_classes = []
