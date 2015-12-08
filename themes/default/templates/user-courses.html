@@ -5,6 +5,8 @@
 {% block js %} {{block.super}}
 <script type="text/javascript" src="{% static 'js/my-courses/app.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/my-courses/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/my-courses/services.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/my-courses/filters.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/file.js' %}"></script>
@@ -44,8 +46,7 @@ wrapper-course-lesson
 
         <!-- Tab panes -->
         <div class="tab-content" ng-app="my-courses">
-            <div role="tabpanel" class="tab-pane active" id="course-as-student"
-                 ng-controller="UserCourseListController" >
+            <div role="tabpanel" class="tab-pane active" ng-controller="UserCourseListController" id="course-as-student">
                 {% if not courses_user_enrolled %}
                 <div class="course">
                     <header>
@@ -125,7 +126,7 @@ wrapper-course-lesson
                     {% if cs.can_emmit_receipt and cs.get_current_class.user_can_certificate %}
                     <a href="#"
                        ng-click="createCertificationProcess({{ cs.id }})"
-                       ng-show="!course_student_list.length"
+                       ng-show="hasOpenProcess({{ cs.id }})"
                        class="btn btn-default btn-sm">
                         {% trans "Request certificate" %}
                     </a>
@@ -157,25 +158,37 @@ wrapper-course-lesson
             </div>
 
             <!-- TODO Exibir aba apenas se tiver certificados e comprovantes -->
-            <div role="tabpanel" class="tab-pane" id="my-certificates">
-                <h2>{% trans "Certificate processes" %}</h2>
+            <div role="tabpanel" class="tab-pane" id="my-certificates" ng-controller="UserCertificatesController">
+                <h2>{% trans "Open certificate processes" %}</h2>
+                {% verbatim %}
                 <div class="row certificate-process">
-                    {% for cs in request.user.coursestudent_set.all|slice:":2" %}
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" ng-repeat="cs in course_student_list | hasProcess">
                         <div class="course-card row">
                             <div class="col-sm-4">
                                 <div class="thumb">
-                                    <img class="img-responsive" src="{{ cs.course.home_thumbnail.url }}" />
+                                    <img class="img-responsive" src="{{ cs.course.home_thumbnail_url }}" />
                                 </div>
-                                <a href='{% url "course_intro" cs.course.slug %}'>
+                                <a ng-href='/courses/{{ cs.course.slug}}'>
                                 <h3>{{ cs.course.name }}</h3>
                                 </a>
-                                <p class="instructors">por {% for professor in cs.course.get_video_professors %}{{ professor.get_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                                <p class="instructors">por
+                                    <span ng-repeat="professor in cs.course.professors">
+                                        {{ professor }}
+                                    </span>
+                                </p>
                             </div>
-                            <div class="info col-sm-8">
-                                <p class="lead">Situação: Avaliação marcada para 23/01/2016</p>
-                                <p>
-                                    <a class="enroll-link text-uppercase" data-toggle="modal" data-target="#evaluation-details" href="#">
+                            <div class="info col-sm-8" ng-repeat="process in cs.certificate.processes | activeProcess">
+                                <p class="lead" ng-hide="process.evaluation">
+                                    Não inscrito em nenhuma avaliação
+                                </p>
+
+                                <p class="lead" ng-show="process.evaluation">
+                                    Avaliação marcada para <span>{{ process.evaluation.date | date : "dd 'de' MMM H:mm" }}</span>
+                                </p>
+                                <p ng-show="process.evaluation">
+                                    <a class="enroll-link text-uppercase"
+                                       ng-click="open_evaluation_modal(process)"
+                                       href="#">
                                         <i class="fa fa-file-text-o"></i> Ver detalhes da avaliação
                                     </a>
                                 </p>
@@ -184,28 +197,28 @@ wrapper-course-lesson
                                     Conluído em 15/08/2015.
                                 </p>
                                 <p>
-                                    Processo de certificação pedido em 15/08/2015.
+                                    Processo de certificação pedido em {{ process.created_date | date : "dd 'de' MMM H:mm" }}.
                                 </p>
                             </div>
                         </div>
                     </div>
-                    {% endfor %}
                 </div>
+                {% endverbatim %}
 
                 <!-- TODO Trocar o FOR para cursos com certificados disponíveis -->
                 <h2>{% trans "Issued certificates" %}</h2>
                 <div class="row">
-                    {% for cs in request.user.coursestudent_set.all|slice:":2" %}
-                    <div class="col-sm-3">
+                    {% verbatim %}
+                    <div class="col-sm-3" ng-repeat="cs in filtered = (course_student_list | certificateIssued)">
                         <div class="course-card">
                             <div class="thumb-wrapper">
-                                <img class="img-responsive" src="{{ cs.course.home_thumbnail.url }}" />
+                                <img class="img-responsive" ng-src="{{ cs.course.home_thumbnail.url }}" />
                             </div>
                             <div class="info">
-                                <a href='{% url "course_intro" cs.course.slug %}' />
+                                <a ng-href='/course/{{ cs.course.slug }}' />
                                 <h3>{{ cs.course.name }}</h3>
                                 </a>
-                                <p class="instructors">por {% for professor in cs.course.get_video_professors %}{{ professor.get_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                                <p class="instructors">por <></p>
                             </div>
                             <div class="conclusion">
                                 <!-- TODO add certificate link and conclusion date -->
@@ -219,23 +232,22 @@ wrapper-course-lesson
                             </div>
                         </div>
                     </div>
-                    {% endfor %}
+                    {% endverbatim %}
                 </div>
 
                 <!-- TODO Trocar o FOR para cursos com certificados disponíveis -->
                 <h2>{% trans "Completed courses" %}</h2>
                 <div class="row">
-                    {% for cs in request.user.coursestudent_set.all|slice:":4" %}
-                    <div class="col-sm-2">
+                    <div class="col-sm-2" ng-repeat="cs in course_student_list | completedCourses">
                         <div class="course-card">
                             <div class="thumb-wrapper">
                                 <img class="img-responsive" src="{{ cs.course.home_thumbnail.url }}" />
                             </div>
                             <div class="info">
-                                <a href='{% url "course_intro" cs.course.slug %}'>
+                                <a ng-href='/course/{{ cs.course.slug }}'>
                                 <h3>{{ cs.course.name }}</h3>
                                 </a>
-                                <p class="instructors">por {% for professor in cs.course.get_video_professors %}{{ professor.get_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                                <p class="instructors">por </p>
                             </div>
                             <div class="conclusion">
                                 <!-- TODO add certificate link and conclusion date -->
@@ -243,16 +255,20 @@ wrapper-course-lesson
                                     {% trans "Completed at" %} 15/08/2015.
                                 </p>
                                 <!-- TODO only display if user has verified certificate -->
-                                <a class="enroll-link text-uppercase" href="#">
+                                <a ng-show="!cs.certificate" class="enroll-link text-uppercase" href="#">
                                     <i class="fa fa-file-text-o"></i> {% trans "Request certificate" %}
                                 </a>
                             </div>
                         </div>
                     </div>
-                    {% endfor %}
                 </div>
-
             </div>
+
+            <!-- EVALUATION MODAL -->
+            <script id="evaluation_modal.html" type="text/ng-template">
+                {% include '_evaluation_details_modal.html' %}
+            </script>
+            <!-- END EVALUATION MODAL -->
 
             <div role="tabpanel" class="tab-pane" ng-controller="AssistantCourseListController" id="course-as-teacher">
                 <section class="courses">
@@ -416,55 +432,5 @@ wrapper-course-lesson
 
 <!-- CONTAINER -->
 
-<!-- Modal -->
-<div class="modal fade" id="evaluation-details" tabindex="-1" role="dialog" aria-labelledby="evaluation-details">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Detalhes da avaliação 22/10/2015 - Turma</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <label for="exam_date">
-                            {% trans 'Exam date' %}</label>
-                        <span>12/01/2016</span>
-                    </div>
-                    <div class="col-sm-6">
-                        <label for="exam_results_date">
-                            {% trans 'Exam results date' %}
-                        </label>
-                        <span>12/02/2016</span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <label for="exam_grade">
-                            {% trans 'Your grade' %}
-                        </label>
-                        <span>-</span>
-                    </div>
-                    <div class="col-sm-6">
-                        <label >
-                            {% trans 'Exam needed grade' %}
-                        </label>
-                        <span>80%</span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <label>{% trans 'Instructions' %}</label>
-                        <p>
-                            Instruções sobre a prova
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 {% endblock %}

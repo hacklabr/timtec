@@ -3,13 +3,11 @@
     var app = angular.module('my-courses');
 
     app.controller('UserCourseListController',
-        ['$scope', '$window', '$modal', 'CertificationProcess', 'CourseStudent', 'Class',
-        function ($scope, $window, $modal, CertificationProcess, CourseStudent, Class) {
-            CourseStudent.query(function (cs){
-               $scope.course_student_list = cs;
-               console.log(cs);
-            })
-
+        ['$scope', '$window', '$modal', 'CertificationProcess', 'CourseStudentService', 'Class',
+        function ($scope, $window, $modal, CertificationProcess, CourseStudentService, Class) {
+            $scope.course_student_list = CourseStudentService.get();
+            $window.csl = $scope.course_student_list;
+            $window.$scope = $scope;
 
             $scope.createCertificationProcess = function (cs){
                 var cp = new CertificationProcess();
@@ -24,10 +22,20 @@
                 cp.evaluation = null;
                 cp.$save(function(new_cp){
                     $('#dashboard-tabs a[href=#my-certificates]').tab('show');
+                    cs.certificate.processes = cs.certificate.processes || [];
+                    cs.certificate.processes.push(new_cp);
                 });
             }
 
+            $scope.hasOpenProcess = function (cs) {
+                cs = getResource(cs);
+                //        for(var i = 0; i < cs.certificate.processes; i++){
+                //            if(cs.certificate.processes[i].approved) return false;
+                //        }
+                return true;
+            }
 
+            // FIXME make all app angular
             var getResource = function (cs) {
                 for(var i = 0; i < $scope.course_student_list.length; i++){
                     if($scope.course_student_list[i].id == cs)
@@ -35,6 +43,36 @@
                 }
                 return undefined;
             }
+        }
+    ]);
+
+    app.controller('UserCertificatesController',
+        ['$scope', '$window', '$modal', 'CertificationProcess', 'CourseStudentService', 'Class',
+        function ($scope, $window, $modal, CertificationProcess, CourseStudentService, Class) {
+            $scope.course_student_list = CourseStudentService.get();
+            console.log($scope.course_student_list);
+            $scope.open_evaluation_modal = function(process) {
+                var modalInstance = $modal.open({
+                       templateUrl: 'evaluation_modal.html',
+                       controller: EvaluationModalInstanceCtrl,
+                       resolve: {
+                           process: function () {
+                               return process;
+                           }
+                       }
+                });
+                modalInstance.result.then(function (process) {
+                    console.log($scope.course_student_list);
+                });
+
+            };
+
+            var EvaluationModalInstanceCtrl = function($scope, $modalInstance, process) {
+                $scope.process = process;
+                $scope.cancel = function () {
+                    $modalInstance.dismiss();
+                };
+            };
         }
     ]);
 
