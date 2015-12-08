@@ -644,6 +644,11 @@ class CourseCertification(models.Model):
     def student(self):
         return self.course_student.user
 
+    @property
+    def get_approved_process(self):
+        return CertificationProcess.objects.get(course_certification=self.id,
+                                                approved=True)
+
     def save(self, *args, **kwargs):
         self.course_workload = self.course_student.course.workload
         self.course_total_units = self.course_student.units_done.count()
@@ -683,6 +688,7 @@ class CertificationProcess(models.Model):
                                 verbose_name=_('Student'),
                                 related_name='processes')
     course_certification = models.ForeignKey(CourseCertification, null=True,
+                                             related_name="processes",
                                              verbose_name=_('Certificate'))
     comments = models.CharField(_('Comments'), max_length=255, null=True, blank=True)
     created_date = models.DateTimeField(_('Created'), auto_now_add=True)
@@ -697,6 +703,8 @@ class CertificationProcess(models.Model):
 
     klass = models.ForeignKey(Class, verbose_name=_('Class'),
                               related_name='processes')
+
+    active = models.BooleanField(_('Active'), default=True)
 
     @property
     def certification_progress(self):

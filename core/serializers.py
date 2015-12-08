@@ -21,34 +21,75 @@ class ProfessorMessageSerializer(serializers.ModelSerializer):
         fields = ('id', 'course', 'users', 'subject', 'message', 'date', 'users_details',)
 
 
-class CourseCertificationSerializer(serializers.ModelSerializer):
-
-    course = serializers.SerializerMethodField('get_course')
+class ShortCourseSerializer(serializers.ModelSerializer):
+    thumbnail_url = serializers.Field(source='get_thumbnail_url')
+    has_started = serializers.Field()
+    professors = serializers.SerializerMethodField('get_professor_name')
+    home_thumbnail_url = serializers.SerializerMethodField('get_home_thumbnail_url')
 
     class Meta:
-        model = CourseCertification
-        fields = ('link_hash', 'created_date', 'is_valid', 'course')
+        model = Course
+        fields = ("id", "slug", "name", "status", "home_thumbnail_url",
+                  "start_date", "home_published", "has_started",
+                  "min_percent_to_complete", "professors")
 
     @staticmethod
-    def get_course(obj):
-        if obj.course_student:
-            return obj.course_student.course
+    def get_professor_name(obj):
+        if obj.professors.all():
+            return obj.professors.all()
+        return ''
+
+    @staticmethod
+    def get_home_thumbnail_url(obj):
+        if obj.home_thumbnail:
+            return obj.home_thumbnail.url
         return ''
 
 
-class ShortClassSerializer(serializers.ModelSerializer):
+class BaseClassSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Class
         fields = ("id", "name", "assistant", "user_can_certificate")
 
 
-class CertificationProcessSerializer(serializers.ModelSerializer):
-    course_certification = serializers.SlugRelatedField(slug_field="link_hash")
-    certificate = CourseCertificationSerializer(read_only=True, source="course_certification")
+class BaseEvaluationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Evaluation
+
+
+class BaseCertificationProcessSerializer(serializers.ModelSerializer):
+    evaluation = BaseEvaluationSerializer()
 
     class Meta:
         model = CertificationProcess
+
+
+class CertificationProcessSerializer(serializers.ModelSerializer):
+    course_certification = serializers.SlugRelatedField(slug_field="link_hash")
+    student = TimtecUserAdminCertificateSerializer()
+    evaluation = BaseEvaluationSerializer()
+
+    class Meta:
+        model = CertificationProcess
+
+
+class CourseCertificationSerializer(serializers.ModelSerializer):
+    course = serializers.SerializerMethodField('get_course')
+    processes = BaseCertificationProcessSerializer(many=True, read_only=True)
+    approved = BaseCertificationProcessSerializer(source='get_approved_process')
+
+    class Meta:
+        model = CourseCertification
+        fields = ('link_hash', 'created_date', 'is_valid', 'course',
+                  'processes', 'type', 'approved')
+
+    @staticmethod
+    def get_course(obj):
+        if obj.course_student:
+            return obj.course_student.course
+        return ''
 
 
 class EvaluationSerializer(serializers.ModelSerializer):
@@ -134,16 +175,6 @@ class CourseSerializer(serializers.ModelSerializer):
         return ''
 
 
-class ShortCourseSerializer(serializers.ModelSerializer):
-    thumbnail_url = serializers.Field(source='get_thumbnail_url')
-    has_started = serializers.Field()
-
-    class Meta:
-        model = Course
-        fields = ("id", "slug", "name", "status", "thumbnail_url", "start_date",
-                  "home_published", "has_started", "min_percent_to_complete",)
-
-
 class CourseStudentSerializer(serializers.ModelSerializer):
     user = TimtecUserSerializer(read_only=True)
 
@@ -153,7 +184,7 @@ class CourseStudentSerializer(serializers.ModelSerializer):
     min_percent_to_complete = serializers.IntegerField(
         source='min_percent_to_complete')
 
-    current_class = ShortClassSerializer(source='get_current_class')
+    current_class = BaseClassSerializer(source='get_current_class')
     course = ShortCourseSerializer()
     certificate = CourseCertificationSerializer()
 
