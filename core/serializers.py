@@ -21,7 +21,7 @@ class ProfessorMessageSerializer(serializers.ModelSerializer):
         fields = ('id', 'course', 'users', 'subject', 'message', 'date', 'users_details',)
 
 
-class ShortCourseSerializer(serializers.ModelSerializer):
+class BaseCourseSerializer(serializers.ModelSerializer):
     thumbnail_url = serializers.Field(source='get_thumbnail_url')
     has_started = serializers.Field()
     professors = serializers.SerializerMethodField('get_professor_name')
@@ -66,9 +66,14 @@ class BaseCertificationProcessSerializer(serializers.ModelSerializer):
         model = CertificationProcess
 
 
+class BaseCourseCertificationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CourseCertification
+
+
 class CertificationProcessSerializer(serializers.ModelSerializer):
     course_certification = serializers.SlugRelatedField(slug_field="link_hash")
-    student = TimtecUserAdminCertificateSerializer()
     evaluation = BaseEvaluationSerializer()
 
     class Meta:
@@ -76,20 +81,13 @@ class CertificationProcessSerializer(serializers.ModelSerializer):
 
 
 class CourseCertificationSerializer(serializers.ModelSerializer):
-    course = serializers.SerializerMethodField('get_course')
     processes = BaseCertificationProcessSerializer(many=True, read_only=True)
     approved = BaseCertificationProcessSerializer(source='get_approved_process')
 
     class Meta:
         model = CourseCertification
-        fields = ('link_hash', 'created_date', 'is_valid', 'course',
-                  'processes', 'type', 'approved')
-
-    @staticmethod
-    def get_course(obj):
-        if obj.course_student:
-            return obj.course_student.course
-        return ''
+        fields = ('link_hash', 'created_date', 'is_valid', 'processes', 'type',
+                  'approved')
 
 
 class EvaluationSerializer(serializers.ModelSerializer):
@@ -185,7 +183,7 @@ class CourseStudentSerializer(serializers.ModelSerializer):
         source='min_percent_to_complete')
 
     current_class = BaseClassSerializer(source='get_current_class')
-    course = ShortCourseSerializer()
+    course = BaseCourseSerializer()
     certificate = CourseCertificationSerializer()
 
     class Meta:
