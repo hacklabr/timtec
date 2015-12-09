@@ -165,8 +165,8 @@ wrapper-course-lesson
                     <div class="col-sm-6" ng-repeat="cs in course_student_list | hasProcess">
                         <div class="course-card row">
                             <div class="col-sm-4">
-                                <div class="thumb">
-                                    <img class="img-responsive" src="{{ cs.course.home_thumbnail_url }}" />
+                                <div class="thumb-wrapper">
+                                    <img class="img-responsive" ng-src="{{ cs.course.home_thumbnail_url }}" />
                                 </div>
                                 <a ng-href='/courses/{{ cs.course.slug}}'>
                                 <h3>{{ cs.course.name }}</h3>
@@ -212,22 +212,30 @@ wrapper-course-lesson
                     <div class="col-sm-3" ng-repeat="cs in filtered = (course_student_list | certificateIssued)">
                         <div class="course-card">
                             <div class="thumb-wrapper">
-                                <img class="img-responsive" ng-src="{{ cs.course.home_thumbnail.url }}" />
+                                <img class="img-responsive" ng-src="{{ cs.course.home_thumbnail_url }}" />
                             </div>
                             <div class="info">
-                                <a ng-href='/course/{{ cs.course.slug }}' />
+                                <a ng-href='/courses/{{ cs.course.slug }}' />
                                 <h3>{{ cs.course.name }}</h3>
                                 </a>
-                                <p class="instructors">por <></p>
+                                 <p class="instructors">por
+                                    <span ng-repeat="professor in cs.course.professors">
+                                        {{ professor }}
+                                    </span>
+                                </p>
                             </div>
                             <div class="conclusion">
                                 <!-- TODO add certificate link and conclusion date -->
                                 <p>
+                                    {% endverbatim %}
                                     {% trans "Completed at" %} 15/08/2015.
+                                    {% verbatim %}
                                 </p>
                                 <!-- TODO only display if user has verified certificate -->
-                                <a class="enroll-link text-uppercase" href="#">
+                                <a target="_blank" class="enroll-link text-uppercase" ng-href="/certificate/{{ cs.certificate.link_hash }}">
+                                    {% endverbatim %}
                                     <i class="fa fa-file-text-o"></i> {% trans "View certificate" %}
+                                    {% verbatim %}
                                 </a>
                             </div>
                         </div>
@@ -238,21 +246,30 @@ wrapper-course-lesson
                 <!-- TODO Trocar o FOR para cursos com certificados disponíveis -->
                 <h2>{% trans "Completed courses" %}</h2>
                 <div class="row">
+                    {% verbatim %}
                     <div class="col-sm-2" ng-repeat="cs in course_student_list | completedCourses">
                         <div class="course-card">
                             <div class="thumb-wrapper">
-                                <img class="img-responsive" src="{{ cs.course.home_thumbnail.url }}" />
+                                <img class="img-responsive" ng-src="{{ cs.course.home_thumbnail_url }}" />
                             </div>
                             <div class="info">
-                                <a ng-href='/course/{{ cs.course.slug }}'>
-                                <h3>{{ cs.course.name }}</h3>
+                                <a ng-href='/courses/{{ cs.course.slug }}'>
+                                    <h3>{{ cs.course.name }}</h3>
                                 </a>
-                                <p class="instructors">por </p>
+                                 <p class="instructors">por
+                                    <span ng-repeat="professor in cs.course.professors">
+                                        {{ professor }}
+                                    </span>
+                                </p>
                             </div>
                             <div class="conclusion">
                                 <!-- TODO add certificate link and conclusion date -->
                                 <p>
-                                    {% trans "Completed at" %} 15/08/2015.
+                                    {% endverbatim %}
+                                    {% trans "Completed at" %}
+                                    {% verbatim %}
+                                    {{ cs.course.start_date }}
+
                                 </p>
                                 <!-- TODO only display if user has verified certificate -->
                                 <a ng-show="!cs.certificate" class="enroll-link text-uppercase" href="#">
@@ -261,6 +278,7 @@ wrapper-course-lesson
                             </div>
                         </div>
                     </div>
+                    {% endverbatim %}
                 </div>
             </div>
 
