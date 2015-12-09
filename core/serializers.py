@@ -90,6 +90,16 @@ class CourseCertificationSerializer(serializers.ModelSerializer):
                   'approved')
 
 
+class ProfileCourseCertificationSerializer(serializers.ModelSerializer):
+    course = BaseCourseSerializer()
+    approved = BaseCertificationProcessSerializer(source='get_approved_process')
+
+    class Meta:
+        model = CourseCertification
+        fields = ('link_hash', 'created_date', 'is_valid', 'processes', 'type',
+                  'approved', 'course')
+
+
 class EvaluationSerializer(serializers.ModelSerializer):
     processes = CertificationProcessSerializer(many=True, read_only=True)
 
@@ -191,6 +201,16 @@ class CourseStudentSerializer(serializers.ModelSerializer):
         fields = ('id', 'user', 'course', 'course_finished', 'course',
                   'certificate', 'can_emmit_receipt', 'percent_progress',
                   'current_class', 'min_percent_to_complete',)
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    certificates = ProfileCourseCertificationSerializer(many=True,
+                                                        source="get_certificates")
+
+    class Meta:
+        from django.contrib.auth import get_user_model
+        model = get_user_model()
+        exclude = ('password', )
 
 
 class CourseThumbSerializer(serializers.ModelSerializer):

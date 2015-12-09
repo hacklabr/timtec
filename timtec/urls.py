@@ -25,7 +25,7 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         CertificationProcessViewSet,
                         EvaluationViewSet, IfCertificateTemplateViewSet,
                         IfCertificateTemplateImageViewSet, RequestCertificateView,
-                        EmitReceiptView)
+                        EmitReceiptView, ProfileViewSet)
 
 from activities.views import AnswerViewSet
 from forum.views import (CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet,
@@ -44,6 +44,7 @@ flatpages.register()
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'user', TimtecUserViewSet)
+router.register(r'profile', ProfileViewSet)
 router.register(r'user_admin', TimtecUserAdminViewSet)
 router.register(r'course', CourseViewSet)
 router.register(r'course_carousel', CarouselCourseView)

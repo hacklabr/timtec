@@ -4,10 +4,9 @@
 
 
     app.controller('UserCertificatesController',
-        ['$scope', '$modal', 'CourseCertificationService'
-        function ($scope, $modal, CourseCertification) {
-            $scope.student_certificate_list = CourseCertificationService.get();
-
+        ['$scope', '$modal', 'UserProfileService',
+        function ($scope, $modal, UserProfileService) {
+            $scope.user_profile = UserProfileService.get();
         }
     ]);
 

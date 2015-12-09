@@ -284,6 +284,22 @@ class CourseStudentViewSet(viewsets.ModelViewSet):
         return queryset.filter(user=self.request.user)
 
 
+class ProfileViewSet(viewsets.ModelViewSet):
+    from core.serializers import ProfileSerializer
+    from django.contrib.auth import get_user_model
+
+    model = get_user_model()
+    serializer_class = ProfileSerializer
+
+    def list(self, request, *args, **kwargs):
+        if self.request.user:
+            serializer = self.serializer_class(self.request.user)
+            return Response(serializer.data)
+        else:
+            return super(ProfileViewSet, self).list(self, request, *args,
+                                                    **kwargs)
+
+
 class CourseCertificationViewSet(viewsets.ModelViewSet):
     model = CourseCertification
     lookup_field = 'link_hash'

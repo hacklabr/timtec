@@ -3,14 +3,14 @@
 
     var module = angular.module('profile');
 
-    module.service('CourseCertificationService',
-    ['CourseCertification', function (CourseCertification){
-            var course_certification = CourseCertification.query(function (cc){
-                return cc;
+    module.service('UserProfileService',
+    ['UserProfile', function (UserProfile){
+            var profile = UserProfile.get(function (profile){
+                return profile;
             });
             return {
                 'get' : function(){
-                    return course_certification;
+                    return profile;
                 }
             };
         }
