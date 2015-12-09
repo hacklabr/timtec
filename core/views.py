@@ -290,6 +290,12 @@ class CourseCertificationViewSet(viewsets.ModelViewSet):
     filter_fields = ('course_student',)
     serializer_class = CourseCertificationSerializer
 
+    def get_queryset(self):
+        queryset = super(CourseStudentViewSet, self).get_queryset()
+        if self.request.GET.get('user', False):
+            return queryset
+        return queryset.filter(user=self.request.user)
+
 
 class CourseCertificationDetailView(DetailView):
     model = CourseCertification
