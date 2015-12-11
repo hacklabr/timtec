@@ -1,14 +1,15 @@
 (function(angular){
     'use strict';
 
-    var module = angular.module('certification.controllers', []);
+    var module = angular.module('certification');
 
-    module.controller('ClassEvaluationsCtrl', ['$scope', 'Evaluation', 'Class',
-        function($scope, Evaluation, Class) {
+    module.controller('CourseClassesController', ['$scope', '$window', 'Evaluation', 'CourseClassesService',
+        function($scope, $window, Evaluation, CourseClassesService) {
             // Handle Certification:
             // If class has certification, show the evaluation link
             $scope.errors = {};
-            $scope.evaluations = [];
+            $scope.course_klasses = CourseClassesService.getClasses();
+            console.log($scope.course_klasses);
         }
     ]);
 
@@ -91,8 +92,9 @@
         }
     ]);
 
-    module.controller('EvaluationCtrl', ['$scope', '$modal', '$window', 'CertificationProcess', 'Evaluation', 'Class', 'ClassIdGetter',
-        function($scope, $modal, $window, CertificationProcess, Evaluation, Class, ClassIdGetter) {
+    module.controller('ClassEvaluationsController',
+    ['$scope', '$modal', '$window', '$routeParams', 'CertificationProcess', 'Evaluation', 'Class', 'ClassIdGetter',
+    function($scope, $modal, $window, $routeParams, CertificationProcess, Evaluation, Class, ClassIdGetter) {
             $scope.errors = {};
             $scope.evaluations = [];
 
@@ -107,7 +109,13 @@
                 can_certificate : false,
             }
 
-            $scope.klass_id = ClassIdGetter.classEditView();
+            // FIXME this controller is being used in more than one view with different parameters
+            if($routeParams['klassId']) {
+                $scope.klass_id = $routeParams['klassId'];
+            } else {
+                $scope.klass_id = ClassIdGetter.classEditView();
+            }
+
 
             Class.get({'id' : $scope.klass_id}, function(klass){
                 $scope.klass = klass;

@@ -221,6 +221,7 @@ PIPELINE_JS = {
         'source_filenames': (
             'js/certificate/app.js',
             'js/certificate/controllers.js',
+            'js/certificate/filters.js',
             'js/certificate/services.js',
             'checklist-model/checklist-model.js',
             'js/directives/file.js',
