@@ -131,6 +131,7 @@ class IfCertificateTemplateImageSerializer(serializers.ModelSerializer):
 class ClassSerializer(serializers.ModelSerializer):
     students = TimtecUserAdminCertificateSerializer(read_only=True)
     processes = CertificationProcessSerializer(read_only=True)
+    evaluations = EvaluationSerializer(read_only=True)
 
     class Meta:
         model = Class

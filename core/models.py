@@ -673,7 +673,7 @@ class Evaluation(models.Model):
     results_date = models.DateTimeField(_('Evaluation results date'),
                                         blank=True)
     instructions = models.CharField(_('Comments'), max_length=255)
-    klass = models.ForeignKey(Class, verbose_name=_('Class'))
+    klass = models.ForeignKey(Class, verbose_name=_('Class'), related_name='evaluations')
 
     class Meta:
         verbose_name = _('Evaluation')
