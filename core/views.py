@@ -284,11 +284,34 @@ class CourseStudentViewSet(viewsets.ModelViewSet):
         return queryset.filter(user=self.request.user)
 
 
+class ProfileViewSet(viewsets.ModelViewSet):
+    from core.serializers import ProfileSerializer
+    from django.contrib.auth import get_user_model
+
+    model = get_user_model()
+    serializer_class = ProfileSerializer
+
+    def list(self, request, *args, **kwargs):
+        if self.request.user:
+            serializer = self.serializer_class(self.request.user)
+            return Response(serializer.data)
+        else:
+            return super(ProfileViewSet, self).list(self, request, *args,
+                                                    **kwargs)
+
+
 class CourseCertificationViewSet(viewsets.ModelViewSet):
     model = CourseCertification
     lookup_field = 'link_hash'
     filter_fields = ('course_student',)
     serializer_class = CourseCertificationSerializer
+
+    def get_queryset(self):
+        queryset = super(CourseCertificationViewSet, self).get_queryset()
+        if not self.request.GET.get('user', False):
+            queryset = queryset.filter(course_student__user=self.request.user)
+
+        return queryset
 
 
 class CourseCertificationDetailView(DetailView):
@@ -304,7 +327,10 @@ class CourseCertificationDetailView(DetailView):
 
 class CertificationProcessViewSet(viewsets.ModelViewSet):
     model = CertificationProcess
+    filter_fields = ('student',)
     serializer_class = CertificationProcessSerializer
+
+    permission_classes = []
 
     def get_queryset(self):
         queryset = super(CertificationProcessViewSet, self).get_queryset()
@@ -691,7 +717,7 @@ class UserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
         return Response(results)
 
 
-class ClassViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
+class ClassViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
 
     model = Class
     serializer_class = ClassSerializer

@@ -85,6 +85,10 @@ class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
         # ser considerado preenchido
         return self.last_name != ""
 
+    def get_certificates(self):
+        from core.models import CourseCertification
+        return CourseCertification.objects.filter(course_student__user=self)
+
     def save(self, *args, **kwargs):
 
         is_new = self.pk is None

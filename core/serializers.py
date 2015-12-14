@@ -21,27 +21,83 @@ class ProfessorMessageSerializer(serializers.ModelSerializer):
         fields = ('id', 'course', 'users', 'subject', 'message', 'date', 'users_details',)
 
 
-class CourseCertificationSerializer(serializers.ModelSerializer):
-
-    course = serializers.SerializerMethodField('get_course')
+class BaseCourseSerializer(serializers.ModelSerializer):
+    thumbnail_url = serializers.Field(source='get_thumbnail_url')
+    has_started = serializers.Field()
+    professors = serializers.SerializerMethodField('get_professor_name')
+    home_thumbnail_url = serializers.SerializerMethodField('get_home_thumbnail_url')
 
     class Meta:
-        model = CourseCertification
-        fields = ('link_hash', 'created_date', 'is_valid', 'course')
+        model = Course
+        fields = ("id", "slug", "name", "status", "home_thumbnail_url",
+                  "start_date", "home_published", "has_started",
+                  "min_percent_to_complete", "professors")
 
     @staticmethod
-    def get_course(obj):
-        if obj.course_student:
-            return obj.course_student.course
+    def get_professor_name(obj):
+        if obj.professors.all():
+            return obj.professors.all()
+        return ''
+
+    @staticmethod
+    def get_home_thumbnail_url(obj):
+        if obj.home_thumbnail:
+            return obj.home_thumbnail.url
         return ''
 
 
-class CertificationProcessSerializer(serializers.ModelSerializer):
-    course_certification = CourseCertificationSerializer()
-    student = TimtecUserAdminCertificateSerializer()
+class BaseClassSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Class
+        fields = ("id", "name", "assistant", "user_can_certificate")
+
+
+class BaseEvaluationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Evaluation
+
+
+class BaseCertificationProcessSerializer(serializers.ModelSerializer):
+    evaluation = BaseEvaluationSerializer()
 
     class Meta:
         model = CertificationProcess
+
+
+class BaseCourseCertificationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CourseCertification
+
+
+class CertificationProcessSerializer(serializers.ModelSerializer):
+    course_certification = serializers.SlugRelatedField(slug_field="link_hash")
+    evaluation = BaseEvaluationSerializer()
+
+    class Meta:
+        model = CertificationProcess
+
+
+class CourseCertificationSerializer(serializers.ModelSerializer):
+    processes = BaseCertificationProcessSerializer(many=True, read_only=True)
+    approved = BaseCertificationProcessSerializer(source='get_approved_process')
+
+    class Meta:
+        model = CourseCertification
+        fields = ('link_hash', 'created_date', 'is_valid', 'processes', 'type',
+                  'approved')
+
+
+class ProfileCourseCertificationSerializer(serializers.ModelSerializer):
+    course = BaseCourseSerializer()
+    approved = BaseCertificationProcessSerializer(source='get_approved_process')
+
+    class Meta:
+        model = CourseCertification
+        fields = ('link_hash', 'created_date', 'is_valid', 'processes', 'type',
+                  'approved', 'course')
 
 
 class EvaluationSerializer(serializers.ModelSerializer):
@@ -72,19 +128,13 @@ class IfCertificateTemplateImageSerializer(serializers.ModelSerializer):
         fields = ("logo", "signature")
 
 
-class CourseStudentSerializer(serializers.ModelSerializer):
-    user = TimtecUserSerializer()
-    course_finished = serializers.BooleanField(source='course_finished')
-    can_emmit_receipt = serializers.BooleanField(source='can_emmit_receipt')
-    percent_progress = serializers.IntegerField(source='percent_progress')
-    min_percent_to_complete = serializers.IntegerField(
-        source='min_percent_to_complete')
+class ClassSerializer(serializers.ModelSerializer):
+    students = TimtecUserAdminCertificateSerializer(read_only=True)
+    processes = CertificationProcessSerializer(read_only=True)
+    evaluations = EvaluationSerializer(read_only=True)
 
     class Meta:
-        model = CourseStudent
-        fields = ('id', 'user', 'course', 'course_finished',
-                  'can_emmit_receipt', 'percent_progress',
-                  'min_percent_to_complete',)
+        model = Class
 
 
 class VideoSerializer(serializers.ModelSerializer):
@@ -132,6 +182,36 @@ class CourseSerializer(serializers.ModelSerializer):
         if obj.home_thumbnail:
             return obj.home_thumbnail.url
         return ''
+
+
+class CourseStudentSerializer(serializers.ModelSerializer):
+    user = TimtecUserSerializer(read_only=True)
+
+    course_finished = serializers.BooleanField(source='course_finished')
+    can_emmit_receipt = serializers.BooleanField(source='can_emmit_receipt')
+    percent_progress = serializers.IntegerField(source='percent_progress')
+    min_percent_to_complete = serializers.IntegerField(
+        source='min_percent_to_complete')
+
+    current_class = BaseClassSerializer(source='get_current_class')
+    course = BaseCourseSerializer()
+    certificate = CourseCertificationSerializer()
+
+    class Meta:
+        model = CourseStudent
+        fields = ('id', 'user', 'course', 'course_finished', 'course',
+                  'certificate', 'can_emmit_receipt', 'percent_progress',
+                  'current_class', 'min_percent_to_complete',)
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    certificates = ProfileCourseCertificationSerializer(many=True,
+                                                        source="get_certificates")
+
+    class Meta:
+        from django.contrib.auth import get_user_model
+        model = get_user_model()
+        exclude = ('password', )
 
 
 class CourseThumbSerializer(serializers.ModelSerializer):
@@ -220,14 +300,6 @@ class CourseNoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = ('id', 'slug', 'name', 'lessons_notes', 'course_notes_number',)
-
-
-class ClassSerializer(serializers.ModelSerializer):
-    students = TimtecUserAdminCertificateSerializer(read_only=True)
-    processes = CertificationProcessSerializer(read_only=True)
-
-    class Meta:
-        model = Class
 
 
 class CourseProfessorSerializer(serializers.ModelSerializer):

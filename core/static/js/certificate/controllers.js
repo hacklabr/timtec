@@ -1,20 +1,15 @@
 (function(angular){
     'use strict';
 
-    var module = angular.module('certification.controllers', []);
+    var module = angular.module('certification');
 
-    module.controller('ClassEvaluationsCtrl', ['$scope', 'Evaluation', 'Class',
-        function($scope, Evaluation, Class) {
+    module.controller('CourseClassesController', ['$scope', '$window', 'Evaluation', 'CourseClassesService',
+        function($scope, $window, Evaluation, CourseClassesService) {
             // Handle Certification:
             // If class has certification, show the evaluation link
             $scope.errors = {};
-            $scope.evaluations = [];
-
-            var cert = document.getElementById('id_user_can_certificate').checked;
-            $scope.switches = {
-                'can_certificate' : cert
-            };
-
+            $scope.course_klasses = CourseClassesService.getClasses();
+            console.log($scope.course_klasses);
         }
     ]);
 
@@ -97,8 +92,9 @@
         }
     ]);
 
-    module.controller('EvaluationCtrl', ['$scope', '$modal', '$window', 'CertificationProcess', 'Evaluation', 'Class', 'ClassIdGetter',
-        function($scope, $modal, $window, CertificationProcess, Evaluation, Class, ClassIdGetter) {
+    module.controller('ClassEvaluationsController',
+    ['$scope', '$modal', '$window', '$routeParams', 'CertificationProcess', 'Evaluation', 'Class', 'ClassIdGetter',
+    function($scope, $modal, $window, $routeParams, CertificationProcess, Evaluation, Class, ClassIdGetter) {
             $scope.errors = {};
             $scope.evaluations = [];
 
@@ -109,11 +105,22 @@
                 upcoming : 0
             };
 
-            $scope.klass_id = ClassIdGetter.classEditView();
+            $scope.switches = {
+                can_certificate : false,
+            }
 
-            $scope.class_students = Class.get({'id' : $scope.klass_id}, function(klass){
+            // FIXME this controller is being used in more than one view with different parameters
+            if($routeParams['klassId']) {
+                $scope.klass_id = $routeParams['klassId'];
+            } else {
+                $scope.klass_id = ClassIdGetter.classEditView();
+            }
+
+
+            Class.get({'id' : $scope.klass_id}, function(klass){
                 $scope.klass = klass;
                 $scope.class_students = klass.students;
+                $scope.switches.can_certificate = klass.user_can_certificate;
             });
 
             Evaluation.query({'klass' : $scope.klass_id}, function(data){
@@ -151,6 +158,13 @@
                     }
                 }
             });
+
+            $scope.toggleClassCertifiable = function (){
+                $scope.switches.can_certificate = false;
+                $scope.klass.$update(function(klass){
+                    $scope.switches.can_certificate = klass.user_can_certificate;
+                })
+            }
 
             $scope.addStudentEvaluation = function () {
                 var modalInstance = $modal.open(

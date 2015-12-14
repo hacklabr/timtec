@@ -606,7 +606,8 @@ class StudentProgress(models.Model):
                 from time import time
                 h = ub64(sha1(str(time()) + self.user.last_name).digest()[0:6])
                 receipt = CourseCertification(course_student=course_student,
-                                                course=course_student.course,
+                                              course=course_student.course,
+                                              type=CourseCertification.TYPES[0][0],
                                               is_valid=True, link_hash=h)
                 receipt.save()
 
@@ -628,7 +629,6 @@ class CourseCertification(models.Model):
     type = models.CharField(_('Certificate Type'), choices=TYPES,
                             max_length=127)
     course_student = models.OneToOneField(CourseStudent, verbose_name=_('Enrollment'), related_name='certificate')
-    # course = models.ForeignKey(Course, verbose_name=_('Course'))
     created_date = models.DateTimeField(_('Created'), auto_now_add=True)
     modified_date = models.DateTimeField(_('Last modified'), auto_now=True)
 
@@ -642,6 +642,15 @@ class CourseCertification(models.Model):
     @property
     def student(self):
         return self.course_student.user
+
+    @property
+    def course(self):
+        return self.course_student.course
+
+    @property
+    def get_approved_process(self):
+        return CertificationProcess.objects.get(course_certification=self.id,
+                                                approved=True)
 
     def save(self, *args, **kwargs):
         self.course_workload = self.course_student.course.workload
@@ -664,7 +673,7 @@ class Evaluation(models.Model):
     results_date = models.DateTimeField(_('Evaluation results date'),
                                         blank=True)
     instructions = models.CharField(_('Comments'), max_length=255)
-    klass = models.ForeignKey(Class, verbose_name=_('Class'))
+    klass = models.ForeignKey(Class, verbose_name=_('Class'), related_name='evaluations')
 
     class Meta:
         verbose_name = _('Evaluation')
@@ -682,19 +691,23 @@ class CertificationProcess(models.Model):
                                 verbose_name=_('Student'),
                                 related_name='processes')
     course_certification = models.ForeignKey(CourseCertification, null=True,
+                                             related_name="processes",
                                              verbose_name=_('Certificate'))
     comments = models.CharField(_('Comments'), max_length=255, null=True, blank=True)
     created_date = models.DateTimeField(_('Created'), auto_now_add=True)
 
-    evaluation_grade = models.IntegerField(_('Evaluation grade'), blank=True)
+    evaluation_grade = models.IntegerField(_('Evaluation grade'), blank=True, null=True)
     approved = models.BooleanField(_('Approved'), default=False)
     no_show = models.BooleanField(_('No show'), default=False)
 
     evaluation = models.ForeignKey(Evaluation, verbose_name=_('Evaluation'),
+                                   blank=True,
                                    related_name='processes', null=True)
 
     klass = models.ForeignKey(Class, verbose_name=_('Class'),
                               related_name='processes')
+
+    active = models.BooleanField(_('Active'), default=True)
 
     @property
     def certification_progress(self):

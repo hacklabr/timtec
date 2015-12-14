@@ -42,7 +42,7 @@ wrapper-course-lesson
     </div>
 </div>
 
-<div id="classes" class="course-classes" ng-app="certification" >
+<div id="classes" class="course-classes">
     <!-- ACTIONS -->
     <div class="actions-menu" fixed-bar>
         <div class="container">
@@ -64,8 +64,7 @@ wrapper-course-lesson
     <!-- END ACTIONS -->
 
     {% include "_course-header-inline.html"  with course=object.course %}
-    <section id="classes-content" class="container"
-             ng-controller="ClassEvaluationsCtrl">
+    <section id="classes-content" class="container">
     	<header class="secondary-header">
             <form id="mainForm" class="form-inline" method="post" action="">
                {% csrf_token %}
@@ -100,11 +99,13 @@ wrapper-course-lesson
                         </div>
                     </div>
 
+                    {% if object.user_can_certificate %}
                     <div class="col-xs-3">
                         <a class="btn btn-lg btn-default uppercase"
                            href="{% url 'class-evaluations' object.id %}"
                                 >{% trans 'Evaluations' %}</a>
                     </div>
+                    {% endif %}
                 </div>
             </form>
         </header>
