@@ -10,7 +10,7 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.template import Template, Context
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.fields import GenericRelation
 from django.conf import settings
 from autoslug import AutoSlugField
 
@@ -567,7 +567,7 @@ class Unit(PositionedModel):
     video = models.ForeignKey(Video, verbose_name=_('Video'), related_name='unit', null=True, blank=True)
     side_notes = models.TextField(_('Side notes'), blank=True)
     position = models.IntegerField(default=0)
-    notes = generic.GenericRelation(Note)
+    notes = GenericRelation(Note)
 
     collection_name = 'lesson'
 
