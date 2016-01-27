@@ -146,9 +146,19 @@ class UserCoursesView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(UserCoursesView, self).get_context_data(**kwargs)
 
-        context['courses_user_assist'] = CourseProfessor.objects.filter(user=self.request.user, role='assistant').exists()
+        context['courses_user_assist'] = CourseProfessor.objects.filter(
+                user=self.request.user,
+                role='assistant'
+        ).exists()
 
-        context['courses_user_coordinate'] = CourseProfessor.objects.filter(user=self.request.user, role='coordinator').exists()
+        context['courses_user_coordinate'] = CourseProfessor.objects.filter(
+                user=self.request.user,
+                role='coordinator'
+        ).exists()
+
+        context['user_has_certificates'] = CourseCertification.objects.filter(
+                course_student__user=self.request.user
+        ).exists()
 
         return context
 

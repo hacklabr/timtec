@@ -31,11 +31,9 @@ wrapper-course-lesson
             {% if courses_user_enrolled %}
             <li role="presentation" class="active"><a href="#course-as-student" aria-controls="course-as-student" role="tab" data-toggle="tab">{% trans "Courses I'm enrolled" %}</a></li>
             {% endif %}
-
-            <!-- TODO Exibir aba apenas se tiver certificados e comprovantes -->
+            {% if user_has_certificates %}
             <li role="presentation" ><a href="#my-certificates" aria-controls="my-certificates" role="tab" data-toggle="tab">{% trans "My certificates" %}</a></li>
-            <!-- Fim do if -->
-
+            {% endif %}
             {% if courses_user_assist %}
             <li role="presentation"><a href="#course-as-teacher" aria-controls="course-as-teacher" role="tab" data-toggle="tab">{% trans "Courses I assist" %}</a></li>
             {% endif %}
@@ -87,17 +85,16 @@ wrapper-course-lesson
                         ** Ele deve virar apenas uma condição de label do
                         botão. **
                     -->
+                    <!-- TODO refatorar e simplificar -->
                     {% if cs.certificate %}
-                    {% if cs.certificate.type == 'receipt' %}
-                    <a href="{% url 'certificate' cs.certificate.link_hash %}"
-                       class="btn btn-default btn-sm">{% trans "View Receipt" %}
-                    </a>
-                    {% endif %}
-                    {% if cs.certificate.type == 'certificate' %}
-                    <a href="{% url 'certificate' cs.certificate.link_hash %}"
-                       class="btn btn-default btn-sm">{% trans "View certificate" %}
-                    </a>
-                    {% endif %}
+                        <a href="{% url 'certificate' cs.certificate.link_hash %}"
+                           class="btn btn-default btn-sm">
+                            {% if cs.certificate.type == 'receipt' %}
+                                {% trans "View Receipt" %}
+                            {% elif cs.certificate.type == 'certificate' %}
+                                {% trans "View certificate" %}
+                            {% endif %}
+                        </a>
                     {% endif %}
 
                     <!--
@@ -111,19 +108,20 @@ wrapper-course-lesson
                         emitido um comprovante se o curso estiver finalizado!
                     -->
                     <!-- TODO Mudar URL do certificado -->
-                    {% comment %}
-                    <a href="#" class="btn btn-default btn-sm"
-                       disabled="disabled">{% trans "Check certificate" %}
-                    </a>
-                    {% endcomment %}
-
+                    {% if cs.can_emmit_receipt and not cs.certificate %}
+                    <a href="#" class="btn btn-default btn-sm">{% trans "Get receipt" %}</a>
+                        <!-- COURSE COMPLETE MODAL -->
+                        {% block complete_modal_template %}
+                            {% include "_modal_course_complete.html" %}
+                        {% endblock %}
+                        <!-- END COURSE COMPLETE MODAL -->
                     <!--
                         TODO SE USUÁRIO TIVER FINALIZADO O CURSO,
                         APARECE A CLASSE BTN-SUCCESS, SENÃO COLOCAR
                         BTN-DEFAULT E ATRIBUTO disabled="disabled"
                     -->
                     <!-- TODO Mudar URL do certificado -->
-                    {% if cs.can_emmit_receipt and cs.get_current_class.user_can_certificate %}
+                    {% elif cs.can_emmit_receipt and cs.get_current_class.user_can_certificate %}
                     <a href="#"
                        ng-click="createCertificationProcess({{ cs.id }})"
                        ng-show="hasOpenProcess({{ cs.id }})"
