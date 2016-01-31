@@ -1,11 +1,10 @@
 (function(angular){
     'use strict';
 
-    var app = angular.module('profile', [
+    angular.module('profile', [
+        'profile.controllers',
+        'profile.services',
         'django',
-        'timtec-models',
-        'ui.bootstrap',
-        'truncate',
         'ngResource'
     ]);
-})(window.angular);
+})(angular);

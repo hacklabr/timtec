@@ -217,12 +217,6 @@
             {'update': {'method': 'PUT'} });
     });
 
-    app.factory('UserProfile', function($resource){
-        return $resource('/api/profile/:id',
-            {'id' : '@id'},
-            {'update': {'method': 'PUT'} });
-    });
-
     app.factory('CertificationProcess', function($resource){
         return $resource('/api/certification_process/:certificateId',
             {'certificateId' : '@id'},

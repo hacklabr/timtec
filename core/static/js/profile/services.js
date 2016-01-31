@@ -1,18 +1,10 @@
 (function (angular) {
     'use strict';
+    var module = angular.module('profile.services', []);
 
-    var module = angular.module('profile');
+    module.factory('UserProfile', function($resource){
+        return $resource('/api/profile/:userId', {}, {
+        });
+    });
 
-    module.service('UserProfileService',
-    ['UserProfile', function (UserProfile){
-            var profile = UserProfile.get(function (profile){
-                return profile;
-            });
-            return {
-                'get' : function(){
-                    return profile;
-                }
-            };
-        }
-    ]);
 })(angular);

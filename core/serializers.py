@@ -1,4 +1,5 @@
 from django.contrib.flatpages.models import FlatPage
+from django.contrib.auth import get_user_model
 from core.models import (Course, CourseProfessor, CourseStudent, Lesson,
                          Video, StudentProgress, Unit, ProfessorMessage,
                          Class, CourseAuthor, CourseCertification,
@@ -35,8 +36,8 @@ class BaseCourseSerializer(serializers.ModelSerializer):
 
     @staticmethod
     def get_professor_name(obj):
-        if obj.professors.all():
-            return obj.professors.all()
+        if obj.course_authors.all():
+            return [author.get_name() for author in obj.course_authors.all()]
         return ''
 
     @staticmethod
@@ -204,14 +205,15 @@ class CourseStudentSerializer(serializers.ModelSerializer):
                   'current_class', 'min_percent_to_complete',)
 
 
-class ProfileSerializer(serializers.ModelSerializer):
+class ProfileSerializer(TimtecUserSerializer):
     certificates = ProfileCourseCertificationSerializer(many=True,
                                                         source="get_certificates")
 
     class Meta:
-        from django.contrib.auth import get_user_model
         model = get_user_model()
-        exclude = ('password', )
+        fields = ('id', 'username', 'name', 'first_name', 'last_name',
+                  'biography', 'picture', 'is_profile_filled', 'occupation',
+                  'certificates', 'city', 'site', 'occupation', )
 
 
 class CourseThumbSerializer(serializers.ModelSerializer):

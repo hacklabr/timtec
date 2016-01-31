@@ -11,6 +11,7 @@ from django.views.generic import (DetailView, ListView, DeleteView,
 from django.views.generic.base import RedirectView, View, TemplateView
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.flatpages.models import FlatPage
+from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django.conf import settings
 from django.utils import timezone
@@ -30,7 +31,7 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           CourseAuthorSerializer,
                           CourseCertificationSerializer,
                           CertificationProcessSerializer,
-                          EvaluationSerializer,
+                          EvaluationSerializer, ProfileSerializer,
                           IfCertificateTemplateSerializer, IfCertificateTemplateImageSerializer)
 
 from .models import (Course, CourseProfessor, Lesson, StudentProgress,
@@ -147,18 +148,17 @@ class UserCoursesView(LoginRequiredMixin, TemplateView):
         context = super(UserCoursesView, self).get_context_data(**kwargs)
 
         context['courses_user_assist'] = CourseProfessor.objects.filter(
-                user=self.request.user,
-                role='assistant'
+            user=self.request.user,
+            role='assistant'
         ).exists()
 
         context['courses_user_coordinate'] = CourseProfessor.objects.filter(
-                user=self.request.user,
-                role='coordinator'
+            user=self.request.user,
+            role='coordinator'
         ).exists()
 
         context['user_has_certificates'] = CourseCertification.objects.filter(
-                course_student__user=self.request.user
-        ).exists()
+            course_student__user=self.request.user).exists()
 
         return context
 
@@ -294,15 +294,19 @@ class CourseStudentViewSet(viewsets.ModelViewSet):
         return queryset.filter(user=self.request.user)
 
 
-class ProfileViewSet(viewsets.ModelViewSet):
-    from core.serializers import ProfileSerializer
-    from django.contrib.auth import get_user_model
+class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
 
     model = get_user_model()
     serializer_class = ProfileSerializer
 
     def list(self, request, *args, **kwargs):
-        if self.request.user:
+
+        username = self.request.QUERY_PARAMS.get('username', False)
+        if username:
+            serializer = self.serializer_class(self.model.objects.get(username=username))
+            return Response(serializer.data)
+        # SECURITY NOTE: this condition ensures the list of all users won't be exposed!
+        elif self.request.user:
             serializer = self.serializer_class(self.request.user)
             return Response(serializer.data)
         else:

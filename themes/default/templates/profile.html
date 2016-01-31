@@ -6,7 +6,6 @@
 <script type="text/javascript" src="{% static 'js/profile/app.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/profile/controllers.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/profile/services.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
 {% endblock %}
 
 {% block wrapper_classes %}
@@ -14,82 +13,89 @@ wrapper-course-lesson
 {% endblock %}
 
 {% block content %}
-<div id="profile" ng-app="profile" class="container">
-    <div class="row">
+<div id="profile" class="container" ng-app="profile" ng-controller="UserProfileController">
+    <div class="col-lg-12" ng-hide="user_profile.$resolved">
+        <p><i class="loading fa fa-refresh fa-spin"></i></p>
+    </div>
+    <div class="row" ng-show="user_profile">
         <div class="col-sm-2 col-xs-12">
             <div class="thumbnail">
-                <img class="img-responsive" src="{{ profile_user.get_picture_url }}">
+                {% verbatim %}
+                <img class="img-responsive" ng-src="{{ user_profile.picture }}">
+                {% endverbatim %}
             </div>
         </div>
+
         <div class="col-sm-10 col-xs-12">
             <div class="textleft top">
-                <!-- TODO only display user info if they are not null -->
-                <h3 class="top">{{profile_user.first_name}} {{profile_user.last_name}}</h3>
+                {% verbatim %}
+                <h3 class="top">{{user_profile.first_name}} {{user_profile.last_name}}</h3>
                 <div>
-                    <p>
-                        <span><i class="fa fa-briefcase"></i> {{profile_user.occupation}}</span>
-                        <span><i class="fa fa-map-marker"></i> {{profile_user.city}}</span>
+                    <p ng-if="user_profile.occupation">
+                        <span>
+                            <i class="fa fa-briefcase"></i> {{user_profile.occupation}}
+                        </span>
                     </p>
-                    <p><a href="{{profile_user.site}}" target="_blank">{{profile_user.site}}</a></p>
+                    <p ng-if="user_profile.city">
+                        <span>
+                            <i class="fa fa-map-marker"></i> {{user_profile.city}}
+                        </span>
+                    </p>
+                    <p><a href="{{user_profile.site}}" target="_blank">{{user_profile.site}}</a></p>
                 </div>
-                <!-- TODO check with Bruno if it is interesting to show this data -->
-                <span>2 cursos finalizados</span> | <span>1 certificado de conclusão</span>
+                {% endverbatim %}
+                <!--<span>2 cursos finalizados</span> | <span>1 certificado de conclusão</span>-->
             </div>
             <div class="user-bio">
-                <p>{{profile_user.biography}}</p>
+                {% verbatim %}
+                <p>{{user_profile.biography}}</p>
+                {% endverbatim %}
             </div>
         </div>
     </div>
     <hr />
-    <!-- TODO only display tittle if not null -->
-    <h2><i class="fa fa-check-square-o"></i> Cursos finalizados</h3>
+    <h2 ng-if="user_profile.certificates.length>0"><i class="fa fa-check-square-o"></i> {% trans 'Finished courses' %}</h2>
+    <div class="row">
 
-    <!-- TODO add for to display finished courses -->
-    <div class="row" ng-controller="UserCertificatesController">
-        {% verbatim %}
         <div class="col-sm-4" ng-repeat="certificate in user_profile.certificates">
             <div class="course-card">
                 <div class="thumb-wrapper">
-                    <!-- TODO change img src for course thumbnail -->
+                    {% verbatim %}
                     <img class="img-responsive" ng-src="{{ certificate.course.home_thumbnail_url }}" />
+                    {% endverbatim %}
                 </div>
                 <div class="info">
-                    <!-- TODO change href to course url -->
-                    <a ng-href="/courses/{{ certificate.course.slug }}">
-                        <!-- TODO change course name -->
+                    {% verbatim %}
+                    <a ng-href="/course/{{ certificate.course.slug }}/intro/">
                         <h3>{{ certificate.course.name }}</h3>
                     </a>
-                    <!-- TODO add instructor loop -->
-                    <p class="instructors">por
+                    {% endverbatim %}
+                    <p class="instructors">{% trans 'by' %}
                         <span ng-repeat="professor in certificate.course.professors">
-                            {{ professor }}
+                            {% verbatim %}
+                            {{ professor }}<span ng-if="!$last">, </span>
+                            {% endverbatim %}
                         </span>
                     </p>
                 </div>
                 <div class="conclusion">
-                    <!-- TODO add certificate link and conclusion date -->
                     <p>
-                        Conluído em 15/08/2015.
+                        {% trans 'Finished at' %} {% verbatim %}{{ certificate.created_date|date:"dd/MM/yyyy" }}{% endverbatim %}.
                     </p>
-                    <!-- TODO only display if user has verified certificate -->
+                    {% verbatim %}
                     <a class="enroll-link text-uppercase" ng-href="/certificate/{{ certificate.link_hash }}">
+                    {% endverbatim %}
                         <i class="fa fa-file-text-o"></i>
                         <span ng-if="certificate.type == 'receipt'">
-                            {% endverbatim %}
                             {% trans 'View Receipt' %}
-                            {% verbatim %}
                         </span>
                         <span ng-if="certificate.type == 'certificate'">
-                            {% endverbatim %}
                             {% trans 'View Certificate' %}
-                            {% verbatim %}
                         </span>
                     </a>
                 </div>
             </div>
         </div>
-        {% endverbatim %}
     </div>
-
 </div>
 {% endblock %}
