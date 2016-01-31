@@ -155,128 +155,139 @@ wrapper-course-lesson
                 {% endwith %}
             </div>
 
-            <!-- TODO Exibir aba apenas se tiver certificados e comprovantes -->
             <div role="tabpanel" class="tab-pane" id="my-certificates" ng-controller="UserCertificatesController">
-                <h2>{% trans "Open certificate processes" %}</h2>
-                {% verbatim %}
-                <div class="row certificate-process">
-                    <div class="col-sm-6" ng-repeat="cs in course_student_list | hasProcess">
-                        <div class="course-card row">
-                            <div class="col-sm-4">
-                                <div class="thumb-wrapper">
-                                    <img class="img-responsive" ng-src="{{ cs.course.home_thumbnail_url }}" />
-                                </div>
-                                <a ng-href='/courses/{{ cs.course.slug}}'>
-                                <h3>{{ cs.course.name }}</h3>
-                                </a>
-                                <p class="instructors">por
-                                    <span ng-repeat="professor in cs.course.professors">
-                                        {{ professor }}
-                                    </span>
-                                </p>
-                            </div>
-                            <div class="info col-sm-8" ng-repeat="process in cs.certificate.processes | activeProcess">
-                                <p class="lead" ng-hide="process.evaluation">
-                                    Não inscrito em nenhuma avaliação
-                                </p>
-
-                                <p class="lead" ng-show="process.evaluation">
-                                    Avaliação marcada para <span>{{ process.evaluation.date | date : "dd 'de' MMM H:mm" }}</span>
-                                </p>
-                                <p ng-show="process.evaluation">
-                                    <a class="enroll-link text-uppercase"
-                                       ng-click="open_evaluation_modal(process)"
-                                       href="#">
-                                        <i class="fa fa-file-text-o"></i> Ver detalhes da avaliação
-                                    </a>
-                                </p>
-                                <!-- TODO add certificate link and conclusion date -->
-                                <p>
-                                    Conluído em 15/08/2015.
-                                </p>
-                                <p>
-                                    Processo de certificação pedido em {{ process.created_date | date : "dd 'de' MMM H:mm" }}.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endverbatim %}
-
-                <!-- TODO Trocar o FOR para cursos com certificados disponíveis -->
-                <h2>{% trans "Issued certificates" %}</h2>
-                <div class="row">
+                <div ng-if="course_student_cert_process">
+                    <h2>{% trans "Open certificate processes" %}</h2>
                     {% verbatim %}
-                    <div class="col-sm-3" ng-repeat="cs in filtered = (course_student_list | certificateIssued)">
-                        <div class="course-card">
-                            <div class="thumb-wrapper">
-                                <img class="img-responsive" ng-src="{{ cs.course.home_thumbnail_url }}" />
-                            </div>
-                            <div class="info">
-                                <a ng-href='/courses/{{ cs.course.slug }}' />
-                                <h3>{{ cs.course.name }}</h3>
-                                </a>
-                                 <p class="instructors">por
-                                    <span ng-repeat="professor in cs.course.professors">
-                                        {{ professor }}
-                                    </span>
-                                </p>
-                            </div>
-                            <div class="conclusion">
-                                <!-- TODO add certificate link and conclusion date -->
-                                <p>
-                                    {% endverbatim %}
-                                    {% trans "Completed at" %} 15/08/2015.
-                                    {% verbatim %}
-                                </p>
-                                <!-- TODO only display if user has verified certificate -->
-                                <a target="_blank" class="enroll-link text-uppercase" ng-href="/certificate/{{ cs.certificate.link_hash }}">
-                                    {% endverbatim %}
-                                    <i class="fa fa-file-text-o"></i> {% trans "View certificate" %}
-                                    {% verbatim %}
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    {% endverbatim %}
-                </div>
-
-                <!-- TODO Trocar o FOR para cursos com certificados disponíveis -->
-                <h2>{% trans "Completed courses" %}</h2>
-                <div class="row">
-                    {% verbatim %}
-                    <div class="col-sm-2" ng-repeat="cs in course_student_list | completedCourses">
-                        <div class="course-card">
-                            <div class="thumb-wrapper">
-                                <img class="img-responsive" ng-src="{{ cs.course.home_thumbnail_url }}" />
-                            </div>
-                            <div class="info">
-                                <a ng-href='/courses/{{ cs.course.slug }}'>
+                    <div class="row certificate-process">
+                        <div class="col-sm-6" ng-repeat="cs in course_student_cert_process">
+                            <div class="course-card row">
+                                <div class="col-sm-4">
+                                    <div class="thumb-wrapper">
+                                        <img class="img-responsive" ng-src="{{ cs.course.home_thumbnail_url }}" />
+                                    </div>
+                                    <a ng-href='/courses/{{ cs.course.slug}}'>
                                     <h3>{{ cs.course.name }}</h3>
-                                </a>
-                                 <p class="instructors">por
-                                    <span ng-repeat="professor in cs.course.professors">
-                                        {{ professor }}
-                                    </span>
-                                </p>
-                            </div>
-                            <div class="conclusion">
-                                <!-- TODO add certificate link and conclusion date -->
-                                <p>
-                                    {% endverbatim %}
-                                    {% trans "Completed at" %}
-                                    {% verbatim %}
-                                    {{ cs.course.start_date }}
+                                    </a>
+                                    <p class="instructors">por
+                                        <span ng-repeat="professor in cs.course.professors">
+                                            {{ professor }}
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="info col-sm-8" ng-repeat="process in cs.certificate.processes | activeProcess">
+                                    <p class="lead" ng-hide="process.evaluation">
+                                        Não inscrito em nenhuma avaliação
+                                    </p>
 
-                                </p>
-                                <!-- TODO only display if user has verified certificate -->
-                                <a ng-show="!cs.certificate" class="enroll-link text-uppercase" href="#">
-                                    <i class="fa fa-file-text-o"></i> {% trans "Request certificate" %}
-                                </a>
+                                    <p class="lead" ng-show="process.evaluation">
+                                        Avaliação marcada para <span>{{ process.evaluation.date | date : "dd 'de' MMM H:mm" }}</span>
+                                    </p>
+                                    <p ng-show="process.evaluation">
+                                        <a class="enroll-link text-uppercase"
+                                           ng-click="open_evaluation_modal(process)"
+                                           href="#">
+                                            <i class="fa fa-file-text-o"></i> Ver detalhes da avaliação
+                                        </a>
+                                    </p>
+                                    <!-- TODO add certificate link and conclusion date -->
+                                    <p>
+                                        Conluído em 15/08/2015.
+                                    </p>
+                                    <p>
+                                        Processo de certificação pedido em {{ process.created_date | date : "dd 'de' MMM H:mm" }}.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
                     {% endverbatim %}
+                </div>
+
+                <!--<div ng-if="course_student_certified">-->
+                    <!--<h2>{% trans "Issued certificates" %}</h2>-->
+                    <!--<div class="row">-->
+                        <!--{% verbatim %}-->
+                        <!--<div class="col-sm-3" ng-repeat="cs in filtered = (course_student_list | certificateIssued)">-->
+                            <!--<div class="course-card">-->
+                                <!--<div class="thumb-wrapper">-->
+                                    <!--<img class="img-responsive" ng-src="{{ cs.course.home_thumbnail_url }}" />-->
+                                <!--</div>-->
+                                <!--<div class="info">-->
+                                    <!--<a ng-href='/courses/{{ cs.course.slug }}' />-->
+                                    <!--<h3>{{ cs.course.name }}</h3>-->
+                                    <!--</a>-->
+                                     <!--<p class="instructors">por-->
+                                        <!--<span ng-repeat="professor in cs.course.professors">-->
+                                            <!--{{ professor }}-->
+                                        <!--</span>-->
+                                    <!--</p>-->
+                                <!--</div>-->
+                                <!--<div class="conclusion">-->
+                                    <!--&lt;!&ndash; TODO add certificate link and conclusion date &ndash;&gt;-->
+                                    <!--<p>-->
+                                        <!--{% endverbatim %}-->
+                                        <!--{% trans "Completed at" %} 15/08/2015.-->
+                                        <!--{% verbatim %}-->
+                                    <!--</p>-->
+                                    <!--&lt;!&ndash; TODO only display if user has verified certificate &ndash;&gt;-->
+                                    <!--<a target="_blank" class="enroll-link text-uppercase" ng-href="/certificate/{{ cs.certificate.link_hash }}">-->
+                                        <!--{% endverbatim %}-->
+                                        <!--<i class="fa fa-file-text-o"></i> {% trans "View certificate" %}-->
+                                        <!--{% verbatim %}-->
+                                    <!--</a>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--{% endverbatim %}-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <h2>{% trans "Finished courses" %}</h2>
+                <div class="row">
+                    <div class="col-sm-2" ng-repeat="certificate in completed_courses">
+                        <div class="course-card">
+                            <div class="thumb-wrapper">
+                                {% verbatim %}
+                                <img class="img-responsive" ng-src="{{ certificate.course.home_thumbnail_url }}" />
+                                {% endverbatim %}
+                            </div>
+                            <div class="info">
+                                {% verbatim %}
+                                <a ng-href="/course/{{ certificate.course.slug }}/intro/">
+                                    <h3>{{ certificate.course.name }}</h3>
+                                </a>
+                                {% endverbatim %}
+                                <p class="instructors">{% trans 'by' %}
+                                    <span ng-repeat="professor in certificate.course.professors">
+                                        {% verbatim %}
+                                        {{ professor }}<span ng-if="!$last">, </span>
+                                        {% endverbatim %}
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="conclusion">
+                                <p>
+                                    {% trans 'Finished at' %} {% verbatim %}{{ certificate.created_date|date:"dd/MM/yyyy" }}{% endverbatim %}.
+                                </p>
+                                {% verbatim %}
+                                <a class="enroll-link text-uppercase" ng-href="/certificate/{{ certificate.link_hash }}">
+                                {% endverbatim %}
+                                    <i class="fa fa-file-text-o"></i>
+                                    <span ng-if="certificate.type == 'receipt'">
+                                        {% trans 'View Receipt' %}
+                                    </span>
+                                    <span ng-if="certificate.type == 'certificate'">
+                                        {% trans 'View Certificate' %}
+                                    </span>
+                                </a>
+                                <!-- TODO only display if user has verified certificate -->
+                                <!--<a ng-show="!cs.certificate" class="enroll-link text-uppercase" href="#">-->
+                                    <!--<i class="fa fa-file-text-o"></i> {% trans "Request certificate" %}-->
+                                <!--</a>-->
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

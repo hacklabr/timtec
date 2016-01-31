@@ -11,13 +11,4 @@
         'ngRoute',
         'ngResource'
     ]);
-})(window.angular);
-/**
-    var app = angular.module('courses', [
-        'ngResource',
-        'directive.fixedBar',
-        'directive.previewImage',
-        'directive.alertPopup',
-        'checklist-model',
-    ]);
-**/
+})(angular);

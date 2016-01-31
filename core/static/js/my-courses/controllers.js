@@ -47,10 +47,21 @@
     ]);
 
     app.controller('UserCertificatesController',
-        ['$scope', '$window', '$modal', 'CertificationProcess', 'CourseStudentService', 'Class',
-        function ($scope, $window, $modal, CertificationProcess, CourseStudentService, Class) {
-            $scope.course_student_list = CourseStudentService.get();
-            console.log($scope.course_student_list);
+        ['$scope', '$modal', 'CurrentUser', 'CertificationProcess', 'CourseCertification',
+        function ($scope, $modal, CurrentUser, CertificationProcess, CourseCertification) {
+
+            $scope.completed_courses = CourseCertification.query({user: CurrentUser.id})
+
+
+
+//            $scope.course_student_list = CourseStudentService.get();
+
+//            $scope.course_student_complete = CompletedCoursesFilter($scope.course_student_list);
+
+//            $scope.course_student_cert_process = HasProcessFilter($scope.course_student_list);
+
+//            $scope.course_student_certified = CertificateIssuedFilter($scope.course_student_list);
+
             $scope.open_evaluation_modal = function(process) {
                 var modalInstance = $modal.open({
                        templateUrl: 'evaluation_modal.html',

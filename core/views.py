@@ -322,7 +322,10 @@ class CourseCertificationViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = super(CourseCertificationViewSet, self).get_queryset()
-        if not self.request.GET.get('user', False):
+        user = self.request.GET.get('user', False)
+        if user:
+            queryset = queryset.filter(course_student__user__id=user)
+        else:
             queryset = queryset.filter(course_student__user=self.request.user)
 
         return queryset
