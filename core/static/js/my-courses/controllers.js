@@ -50,17 +50,21 @@
         ['$scope', '$modal', 'CurrentUser', 'CertificationProcess', 'CourseCertification',
         function ($scope, $modal, CurrentUser, CertificationProcess, CourseCertification) {
 
-            $scope.completed_courses = CourseCertification.query({user: CurrentUser.id})
+            $scope.courses_receipts = [];
+            $scope.courses_certificates = [];
+            $scope.courses_cert_process = [];
 
-
-
-//            $scope.course_student_list = CourseStudentService.get();
-
-//            $scope.course_student_complete = CompletedCoursesFilter($scope.course_student_list);
-
-//            $scope.course_student_cert_process = HasProcessFilter($scope.course_student_list);
-
-//            $scope.course_student_certified = CertificateIssuedFilter($scope.course_student_list);
+            $scope.completed_courses = CourseCertification.query({user: CurrentUser.id}, function(courses_certifications) {
+                courses_certifications.forEach(function(course_certification) {
+                    if (course_certification.processes.length > 0) {
+                        $scope.courses_cert_process.unshift(course_certification);
+                    } else if (course_certification.type === 'certificate' && course_certification.is_valid) {
+                        $scope.courses_certificates.unshift(course_certification);
+                    } else if (course_certification.type === 'receipt' && course_certification.is_valid) {
+                        $scope.courses_receipts.unshift(course_certification);
+                    }
+                })
+            })
 
             $scope.open_evaluation_modal = function(process) {
                 var modalInstance = $modal.open({

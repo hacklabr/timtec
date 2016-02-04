@@ -319,6 +319,7 @@ class CourseCertificationViewSet(viewsets.ModelViewSet):
     lookup_field = 'link_hash'
     filter_fields = ('course_student',)
     serializer_class = CourseCertificationSerializer
+    ordering = ('type',)
 
     def get_queryset(self):
         queryset = super(CourseCertificationViewSet, self).get_queryset()
@@ -344,7 +345,7 @@ class CourseCertificationDetailView(DetailView):
 
 class CertificationProcessViewSet(viewsets.ModelViewSet):
     model = CertificationProcess
-    filter_fields = ('student',)
+    filter_fields = ('student', 'active',)
     serializer_class = CertificationProcessSerializer
 
     permission_classes = []
