@@ -9,7 +9,15 @@
                 var current_user_id = parseInt($window.user_id, 10);
 
                 $scope.course_stats = CourseStats.get({courseId: $scope.course_id});
-                $scope.users_reports = CourseUserReport.query({course: $scope.course_id});
+                $scope.users_reports = CourseUserReport.query({course: $scope.course_id}, function(data) {
+		    for (var i=0; i<data.length; i++) {
+			if (!data[i].name)
+			    data[i].name = data[i].username;
+		    }
+		    return data;
+		});
+		$scope.ordering = 'name'
+		$scope.reverse = false;
 
                 $scope.my_classes = [];
                 $scope.others_classes = [];
