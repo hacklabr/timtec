@@ -40,6 +40,11 @@
         <div class="row">
             <p class="bottom textcenter">
                 <a href="{% provider_login_url 'facebook' method='oauth2' %}">{% trans 'Connect with Facebook' %}</a>
+
+                {% for provider in openid_providers %}
+                <span> | </span>
+                <a href="{% provider_login_url "openid" openid=provider.openid_url  next=current_path %}">{{ provider.name }}</a>
+                {% endfor %}
             </p>
         </div>
     </form>

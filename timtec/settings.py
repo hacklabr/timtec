@@ -469,6 +469,7 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.openid',
 
     'django_markdown',
 
@@ -482,6 +483,15 @@ SOCIALACCOUNT_PROVIDERS = {
         'SCOPE': ['email'],
         'METHOD': 'oauth2',
         'VERSION': 'v2.2',
+    },
+    'openid': {
+        'SERVERS': [
+            {
+                'id': 'moodle',
+                'name': 'Moodle',
+                'openid_url': 'http://192.168.0.93/local/openid_idp/'
+            },
+        ]
     }
 }
 
@@ -563,7 +573,8 @@ TEMPLATES = [
                 'core.context_processors.site_settings',
                 'core.context_processors.get_current_path',
                 'core.context_processors.terms_acceptance_required',
-                'timtec.locale_context_processor.locale',
+                'timtec.context_processor.locale',
+                'timtec.context_processor.openid_providers',
             ],
             'loaders': [
                 'django.template.loaders.filesystem.Loader',
@@ -585,14 +596,14 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'bower_components'),
 )
 
-# if DEBUG:
-#     MIDDLEWARE_CLASSES += (
-#         'debug_toolbar.middleware.DebugToolbarMiddleware',
-#     )
-#     INSTALLED_APPS += (
-#         'debug_toolbar',
-#     )
-#     INTERNAL_IPS = ('127.0.0.1', )
+if DEBUG:
+    MIDDLEWARE_CLASSES += (
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    )
+    INSTALLED_APPS += (
+        'debug_toolbar',
+    )
+    INTERNAL_IPS = ('127.0.0.1', )
 
 # Fix debug toolbar issue: https://github.com/django-debug-toolbar/django-debug-toolbar/issues/521
 # DEBUG_TOOLBAR_PATCH_SETTINGS = False
