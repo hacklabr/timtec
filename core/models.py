@@ -39,7 +39,7 @@ class Video(models.Model):
 
 
 class Class(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=255)
     assistant = models.ForeignKey(settings.AUTH_USER_MODEL,
                                   verbose_name=_('Assistant'),
                                   related_name='professor_classes', null=True,
@@ -259,7 +259,7 @@ class CourseStudent(models.Model):
             self.course.min_percent_to_complete
 
     def can_emmit_receipt(self):
-        return self.course_finished and self.user.is_profile_filled
+        return self.course_finished
 
     def get_current_class(self):
         return self.user.classes.get(course=self.course)
@@ -514,7 +514,7 @@ class Lesson(PositionedModel):
     name = models.CharField(_('Name'), max_length=255)
     notes = models.TextField(_('Notes'), default="", blank=True)
     position = models.IntegerField(default=0)
-    slug = AutoSlugField(_('Slug'), populate_from='name', max_length=255, editable=False, unique=True)
+    slug = AutoSlugField(_('Slug'), populate_from='name', max_length=50, editable=False, unique=True)
     status = models.CharField(_('Status'), choices=STATES, default=STATES[0][0], max_length=64)
 
     collection_name = 'course'
@@ -776,6 +776,6 @@ class IfCertificateTemplate(CertificateTemplate):
 
 
 class EmailTemplate(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=255)
     subject = models.CharField(max_length=255)
     template = models.TextField()
