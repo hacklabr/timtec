@@ -1,5 +1,5 @@
 {% load i18n %}
-<script type="text/ng-template" id="courseCompleteModal.html">
+<script type="text/ng-template" id="courseCompleteModal.html" xmlns="http://www.w3.org/1999/html">
     <div class="modal-header">
         <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="myModalLabel">
@@ -9,21 +9,34 @@
         {% verbatim %}
         <div class="row">
             <div class="col-md-6">
-                <!-- TODO fix nome do curso -->
-                <h2>Parabéns por concluir o curso {{ cs.name }}!</h2>
-                <p>
+                <h2>Parabéns por chegar ao fim do curso {{ cs.name }}!</h2>
+                <p ng-show="cs.can_emmit_receipt && cs.user.is_profile_filled">
                     Você concluiu {{ cs.percent_progress }}% do curso.
-                        <span ng-show="cs.user.is_profile_filled">
-                            Clique abaixo para obter seu comprovante, ele pode ser visualizado por qualquer pessoa que tiver acesso ao link.
-                        </span>
-                        <span ng-hide="cs.user.is_profile_filled">
+                    <span ng-show="cs.can_emmit_receipt">
+                        Clique abaixo para acessar seu comprovante. Ele pode ser visualizado por qualquer pessoa
+                        através do link de acesso.
+                    </span >
+                    <dd ng-show="cs.can_emmit_receipt && cs.user.is_profile_filled">
+                        <a href="/certificate/{{ receipt.link_hash }}" class="btn btn-success">Ver comprovante</a>
+                    </dd>
+                </p>
+                <p ng-show="!cs.user.is_profile_filled && cs.can_emmit_receipt">
+                    Para validar seu comprovante, você precisa preencher seu perfil.
+                    <a href="/profile/edit?next=/certificate/{{ receipt.link_hash }}">
                         {% endverbatim %}
-                            Para emitir o comprovante, você precisa preencher o seu nome completo em seu perfil. <a href="{% url 'profile_edit' %}">Clique aqui para editá-lo</a>.
+                        {% trans 'Clique aqui para editá-lo' %}
                         {% verbatim %}
-                        </span>
-                <dd ng-show="cs.can_emmit_receipt">
-                    <a href="/certificate/{{ receipt.link_hash }}" class="btn btn-success">Ver comprovante</a>
-                </dd>
+                    </a>.
+                </p>
+                <p ng-hide="cs.can_emmit_receipt">
+                    <span>Infelizmente, seu comprovante não pode ser emitido:</span>
+                </p>
+                <p ng-hide="cs.course_finished">
+                    Para concluir o curso, você precisa finalizar {{ cs.min_percent_to_complete }}% das atividades e
+                    você concluiu {{ cs.percent_progress }}%
+                </p>
+                <p ng-hide="cs.course_finished">
+                    Finalize as atividades restantes para que seu comprovante possa ser emitido!
                 </p>
             </div>
             <div class="col-md-6">
@@ -31,12 +44,27 @@
                 <p>
                     O <strong>comprovante</strong> é a prova de que você concluiu a carga mínima necessária do curso, designada pelos instrutores. Porém, ele <strong>não</strong> possui a validade de um <strong>certificado</strong>.
                 </p>
-                <p>
-                    Para obter um certificado, é necessário ser aprovado na avaliação do curso. Peça a emissão do certificado clicando abaixo e veja as datas disponíveis de avaliação.
+                <p ng-show="cs.certificate.processes.length">
+                    Processo de certificação em andamento, para verificar o status do processo, clique
+                    {% endverbatim %}
+                    <a href="{% url 'user_courses' %}#my-certificates">aqui</a>
+                    {% verbatim %}
+                </p>
+                <p ng-show="cs.can_emmit_receipt && !cs.certificate.processes.length">
+                    Para obter um certificado, é necessário ser aprovado na avaliação do curso. Peça a emissão
+                    do certificado clicando abaixo.
+                </p>
+                <p ng-show="cs.can_emmit_receipt && !cs.user.is_profile_filled" class="alert alert-danger">
+                    Você precisa preencher seu perfil antes de entrar em um processo de certificação
                 </p>
                 <!-- TODO trocar o link pra emissão de certificado -->
-                <div class="text-right">
-                    <a href="#" class="btn btn-success">Pedir certificado</a>
+                <div ng-show="cs.can_emmit_receipt && cs.user.is_profile_filled" class="text-right">
+                    <a ng-hide="cs.certificate.processes.length"
+                       ng-click="createCertificationProcess()" class="btn btn-success">
+                        {% endverbatim %}
+                        Pedir certificado
+                        {% verbatim %}
+                    </a>
                 </div>
             </div>
         </div>
