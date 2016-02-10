@@ -48,6 +48,18 @@ SITE_NAME = 'IF'
 EMAIL_SUBJECT_PREFIX = '[if]'
 ######################################################
 
+
+###### TODO: uncomment and change to get openid working with your provider ######
+# SOCIALACCOUNT_PROVIDERS['openid'] = {
+#         'SERVERS': [
+#             {
+#                 'id': 'moodle',
+#                 'name': 'Moodle',
+#                 'openid_url': 'http://192.168.0.102/local/openid_idp/'
+#             },
+#         ]
+#     }
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
