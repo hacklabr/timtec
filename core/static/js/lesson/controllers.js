@@ -101,6 +101,7 @@
                         if(angular.isArray($scope.currentActivity.expected)) {
                             answer.given = $scope.currentActivity.expected.map(function(){});
                         }
+                        $scope.$root.changed = true;
                         $scope.answer = new Answer(answer);
                     });
                 } else {
@@ -112,6 +113,7 @@
             $scope.sendAnswer = function() {
                 $scope.answer.activity = $scope.currentActivity.id;
                 $scope.answer.$update({activityId: $scope.answer.activity}).then(function(answer){
+                    $scope.$root.changed = false;
                     console.log(answer, answer.correct);
                     ga('send', 'event', 'activity', 'result', '', answer.correct);
                     $scope.currentUnit.progress = Progress.get({unit: $scope.currentUnit.id});
