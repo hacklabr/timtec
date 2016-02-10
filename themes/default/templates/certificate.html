@@ -7,44 +7,66 @@ wrapper-course-lesson
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <!-- TODO arrumar o link de impressão com a hash -->
-        <a href="print" class="btn btn-default pull-right hidden-print"><i class=" glyphicon glyphicon-print"></i> Imprimir</a>
-    </div>
-    <div class="certificate-container">
 
-        <div class="institute-logo">
-            <img alt="Logo Instituto" src="">
+{% if object.type == 'receipt' %}
+    <div class="container">
+        {% include "_course-header-inline.html"  with course=object.course_student.course %}
+        <div class="container certificate-container">
+
+            <p>{{ object.course_student.user.get_full_name }} assistiu a 97% do conteúdo do curso <em>TIM faz ciência</em> com duração de X horas.</p>
+            <p>Texto editado pelo admin no template certificate-settings.</p>
+
+            <footer class="text-right">
+                <!-- TODO colocar a data de emissão e código do certificado -->
+                <p>Emitido automaticamente em <span>18/08/2015</span></p>
+                <p>Este comprovante não possui a validade de uma certificado.</p>
+            </footer>
+
         </div>
-        <div class="text-center">
-            <!-- TODO colocar os dados corretos da instituição-->
-            <p><strong>Nome da Instituição</strong> confere a</p>
-            <!-- TODO colocar os dados corretos do usuário -->
-            <h2 class="top">Nome concluinte</h2>
-            <p>o comprovante de conclusão do curso online</p>
-            <!-- TODO colocar o nome correto do curso e carga horária -->
-            <h1>Nome do curso</h1>
-            <p>que possui carga horária de <span>30 horas</span>.</p>
-        </div>
-        <div class="row">
-            <!-- TODO fazer um for de instrutores -->
-            <div class="col-xs-3">
-                <!-- TODO colocar a assinatura do instrutor -->
-                <img alt="Assinatura" src="" />
-                <hr />
-                <!-- TODO colocar o nome correto do instrutor e da instituição -->
-                <small>
-                Nome do instrutor <br/>
-                Nome da Instituição
-                </small>
-            </div>
-        </div>
-        <footer class="text-right">
-            <!-- TODO colocar a data de emissão e código do certificado -->
-            <p>Emitido em <span>18/08/2015</span></p>
-            <p>Código de validação: <span> -código- </span></p>
-        </footer>
     </div>
-</div>
+{% else %}
+    <div class="container">
+
+        <div class="row">
+            <!-- TODO arrumar o link de impressão com a hash -->
+            <a href="print" class="btn btn-default pull-right hidden-print"><i class=" glyphicon glyphicon-print"></i> Imprimir</a>
+        </div>
+        <div class="certificate-container">
+
+            <div class="institute-logo">
+                <img alt="Logo Instituto" src="">
+            </div>
+            <div class="text-center">
+                <!-- TODO colocar os dados corretos da instituição-->
+                <p><strong>Nome da Instituição</strong> confere a</p>
+                <!-- TODO colocar os dados corretos do usuário -->
+                <h2 class="top">Nome concluinte</h2>
+                <p>o comprovante de conclusão do curso online</p>
+                <!-- TODO colocar o nome correto do curso e carga horária -->
+                <h1>Nome do curso</h1>
+                <p>que possui carga horária de <span>30 horas</span>.</p>
+            </div>
+            <div class="row">
+                <!-- TODO fazer um for de instrutores -->
+                <div class="col-xs-3">
+                    <!-- TODO colocar a assinatura do instrutor -->
+                    <img alt="Assinatura" src="" />
+                    <hr />
+                    <!-- TODO colocar o nome correto do instrutor e da instituição -->
+                    <small>
+                    Nome do instrutor <br/>
+                    Nome da Instituição
+                    </small>
+                </div>
+            </div>
+            <footer class="text-right">
+                <!-- TODO colocar a data de emissão e código do certificado -->
+                <p>Emitido em <span>18/08/2015</span></p>
+                <p>Código de validação: <span> -código- </span></p>
+            </footer>
+        </div>
+    </div>
+{% endif %}
+
+
 {% endblock %}
