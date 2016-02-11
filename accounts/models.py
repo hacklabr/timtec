@@ -81,9 +81,17 @@ class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
 
     @property
     def is_profile_filled(self):
-        # TODO Colocar campos que precisam ser preenchidos para o profile
-        # ser considerado preenchido
-        return self.last_name != ""
+        from timtec.settings import ACCOUNT_REQUIRED_FIELDS as fields
+
+        for field in fields:
+            try:
+                f = getattr(self, field)
+                if not f:
+                    return False
+            except AttributeError:
+                raise AttributeError(_('Invalid attribute: %s' % field))
+                return False
+        return True
 
     def get_certificates(self):
         from core.models import CourseCertification

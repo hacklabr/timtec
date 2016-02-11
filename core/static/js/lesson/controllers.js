@@ -101,6 +101,7 @@
                         if(angular.isArray($scope.currentActivity.expected)) {
                             answer.given = $scope.currentActivity.expected.map(function(){});
                         }
+                        $scope.$root.changed = true;
                         $scope.answer = new Answer(answer);
                     });
                 } else {
@@ -112,6 +113,7 @@
             $scope.sendAnswer = function() {
                 $scope.answer.activity = $scope.currentActivity.id;
                 $scope.answer.$update({activityId: $scope.answer.activity}).then(function(answer){
+                    $scope.$root.changed = false;
                     console.log(answer, answer.correct);
                     ga('send', 'event', 'activity', 'result', '', answer.correct);
                     $scope.currentUnit.progress = Progress.get({unit: $scope.currentUnit.id});
@@ -187,7 +189,8 @@
             $scope.courseComplete = function () {
                 var modalInstance = $modal.open({
                     templateUrl: 'courseCompleteModal.html',
-                    controller: ['$scope', '$modalInstance', 'course_slug', 'Student', 'CourseCertification', CourseCompleteModalInstanceCtrl],
+                    controller: ['$scope', '$modalInstance', 'course_slug', 'Student', 'CourseCertification',
+                        'CertificationProcess', CourseCompleteModalInstanceCtrl],
                     resolve: {
                         course_slug: function () {
                             return $scope.lesson.course;
@@ -199,26 +202,39 @@
                 });
             };
 
-            var CourseCompleteModalInstanceCtrl = function ($scope, $modalInstance, course_slug, Student, CourseCertification) {
-                // Dude just finished the last unit =)
-                // Verify if he has the profile complete
-                // Verify if he has the course min percent to complete
-                // Show him a message that:
-                // 1 - What he needs to complete
-                // 2 - A link to the receipt if everything is complete =D
-
-                // Show spinner while checking: 1 & 2
+            var CourseCompleteModalInstanceCtrl = function ($scope, $modalInstance, course_slug, Student,
+                CourseCertification, CertificationProcess) {
                 // Show spinner while creating the receipt
+
+                $scope.cs = false;
 
                 Student.query({'course__slug' : course_slug}, function(cs){
                     $scope.cs = cs.pop();
-                    console.log($scope.cs);
                     if($scope.cs.can_emmit_receipt){
                         CourseCertification.query({'course_student' : $scope.cs.id}, function(receipt){
                             $scope.receipt = receipt.pop();
                         });
                     }
                 });
+
+                $scope.createCertificationProcess = function (){
+                    if(!$scope.cs) return;
+                    var cp = new CertificationProcess();
+                    var cs = $scope.cs;
+
+                    cp.student = cs.user.id;
+                    cp.klass = cs.current_class.id;
+                    if(!cs.certificate)
+                        cp.course_certification = null;
+                    else {
+                        cp.course_certification = cs.certificate.link_hash;
+                    }
+                    cp.evaluation = null;
+                    cp.$save(function(new_cp){
+                        cs.certificate.processes = cs.certificate.processes || [];
+                        cs.certificate.processes.push(new_cp);
+                    });
+                }
 
                 $scope.cancel = function () {
                         $modalInstance.dismiss();
