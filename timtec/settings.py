@@ -484,15 +484,6 @@ SOCIALACCOUNT_PROVIDERS = {
         'METHOD': 'oauth2',
         'VERSION': 'v2.2',
     },
-#    'openid': {
-#        'SERVERS': [
-#            {
-#                'id': 'moodle',
-#                'name': 'Moodle',
-#                'openid_url': 'http://192.168.0.93/local/openid_idp/'
-#            },
-#        ]
-#    }
 }
 
 # django-registration flag
