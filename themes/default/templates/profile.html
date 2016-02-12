@@ -57,7 +57,8 @@ wrapper-course-lesson
     <h2 ng-if="user_profile.certificates.length>0"><i class="fa fa-check-square-o"></i> {% trans 'Finished courses' %}</h2>
     <div class="row">
 
-        <div class="col-sm-4" ng-repeat="certificate in user_profile.certificates">
+        <div class="block course col-sm-4" ng-repeat="certificate in user_profile.certificates">
+
             <div class="course-card">
                 <div class="thumb-wrapper">
                     {% verbatim %}
@@ -66,9 +67,9 @@ wrapper-course-lesson
                 </div>
                 <div class="info">
                     {% verbatim %}
-                    <a ng-href="/course/{{ certificate.course.slug }}/intro/">
-                        <h3>{{ certificate.course.name }}</h3>
-                    </a>
+                        <a class="course-link" ng-href="/course/{{ certificate.course.slug }}/intro/">
+                            <h3>{{ certificate.course.name }}</h3>
+                        </a>
                     {% endverbatim %}
                     <p class="instructors">{% trans 'by' %}
                         <span ng-repeat="professor in certificate.course.professors">
