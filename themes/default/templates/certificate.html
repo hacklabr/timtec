@@ -12,14 +12,21 @@ wrapper-course-lesson
     <div class="container">
         {% include "_course-header-inline.html"  with course=object.course_student.course %}
         <div class="container certificate-container">
+            <h1><span class="fa fa-check-square-o text-success"></span> Comprovante de conclusão de curso</h1>
 
-            <p>{{ object.course_student.user.get_full_name }} assistiu a 97% do conteúdo do curso <em>{{ object.course.name }}</em> com duração de {{ object.course.workload }} horas.</p>
-            <p>Texto editado pelo admin no template certificate-settings.</p>
-
+            <div class="row">
+                <div class="col-sm-4">
+                    <img class="img-responsive" src="/media/{{ object.course.home_thumbnail }}" />
+                </div>
+                <div class="col-sm-8">
+                    <p><strong class="text-uppercase">{{ object.course_student.user.get_full_name }}</strong> assistiu ao curso <em>{{ object.course.name }}</em> com duração de 10 horas.</p>
+                </div>
+            </div>
             <footer class="text-right">
                 <!-- TODO colocar a data de emissão e código do certificado -->
-                <p>Emitido automaticamente em <span>18/08/2015</span></p>
-                <p>Este comprovante não possui a validade de uma certificado.</p>
+                <p class="text-muted">O comprovante não possui a mesma validade do certificado.</p>
+                <!-- <p>Emitido automaticamente em <span>18/08/2015</span></p>
+                <p>Este comprovante não possui a validade de uma certificado.</p> -->
             </footer>
 
         </div>
@@ -39,11 +46,9 @@ wrapper-course-lesson
             <div class="text-center">
                 <!-- TODO colocar os dados corretos da instituição-->
                 <p><strong>Nome da Instituição</strong> confere a</p>
-                <!-- TODO colocar os dados corretos do usuário -->
-                <h2 class="top">Nome concluinte</h2>
+                <h2 class="top">{{ object.course_student.user.get_full_name }}</h2>
                 <p>o comprovante de conclusão do curso online</p>
-                <!-- TODO colocar o nome correto do curso e carga horária -->
-                <h1>Nome do curso</h1>
+                <h1>{{ object.course.name }}</h1>
                 <p>que possui carga horária de <span>30 horas</span>.</p>
             </div>
             <div class="row">
@@ -59,12 +64,12 @@ wrapper-course-lesson
                     </small>
                 </div>
             </div>
-            <footer class="text-right">
-                <!-- TODO colocar a data de emissão e código do certificado -->
-                <p>Emitido em <span>18/08/2015</span></p>
-                <p>Código de validação: <span> -código- </span></p>
-            </footer>
         </div>
+        <footer class="text-right hide">
+            <!-- TODO colocar a data de emissão e código do certificado -->
+            <p>Emitido em <span>18/08/2015</span></p>
+            <p>Código de validação: <span> -código- </span></p>
+        </footer>
     </div>
 {% endif %}
 

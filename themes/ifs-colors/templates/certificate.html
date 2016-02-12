@@ -13,42 +13,68 @@ wrapper-course-lesson
 {% endblock %}
 
 {% block content %}
-<div class="container" ng-app="certification" ng-controller="CertificateCtrl">
-    <div class="row">
-        <!-- TODO arrumar o link de impressão com a hash -->
-        <a href="print" class="btn btn-default pull-right hidden-print"><i class=" glyphicon glyphicon-print"></i> Imprimir</a>
-    </div>
-    <div class="ifs-certificate-container">
-        <div ng-show="ct.pronatec_logo" class="pronatec-logo">
-            <img alt="Logo Instituto" src="{% static 'img/logopronatec.svg' %}">
-        </div>
-        <div ng-show="ct.mec_logo" class="brasil-logo">
-            <img alt="Logo Instituto" src="{% static 'img/logobrasil.svg' %}">
-        </div>
-        <div class="institute-logo">
-            <img alt="Logo Instituto" src="">
-        </div>
-        <div class="text-center certificate-info">
-            <!-- TODO colocar os dados corretos da instituição-->
-            <p>O <span class="institute">INSTITUTO FEDERAL DE SÃO PAULO</span> certifica que</p>
-            <!-- TODO colocar os dados corretos do usuário -->
-            <h2 class="student">Maria Fernanda da Silva Pereira</h2>
-            <p>
-                concluiu o curso de <strong>Nome do curso</strong>, com <strong>120</strong> horas,
-                no período de 01 de junho a 31 de agosto de 2015, no âmbito PRONATEC - Programa Nacional
-                de Acesso ao Ensino Técnico e Emprego.
-            </p>
-            <!-- TODO colocar o nome correto do curso e carga horária -->
-            <p>
-                <strong>Campinas/SP</strong>, <strong>12</strong> de <strong>setembro</strong> de 20<strong>15</strong>.
-            </p>
-        </div>
-    </div>
-    <footer class="text-right">
-        <!-- TODO colocar a data de emissão e código do certificado -->
-        <p>Emitido em <span>18/08/2015</span></p>
-        <p>Código de validação: <span> -código- </span></p>
-    </footer>
 
-</div>
+{% if object.type == 'receipt' %}
+    <div class="container">
+        {% include "_course-header-inline.html"  with course=object.course_student.course %}
+        <div class="container certificate-container">
+            <h1><span class="fa fa-check-square-o text-success"></span> Comprovante de conclusão de curso</h1>
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <img class="img-responsive" src="/media/{{ object.course.home_thumbnail }}" />
+                </div>
+                <div class="col-sm-8">
+                    <p><strong class="text-uppercase">{{ object.course_student.user.get_full_name }}</strong> assistiu ao curso <em>{{ object.course.name }}</em> com duração de 10 horas.</p>
+                </div>
+            </div>
+            <footer class="text-right">
+                <!-- TODO colocar a data de emissão e código do certificado -->
+                <p class="text-muted">O comprovante não possui a mesma validade do certificado.</p>
+                <!-- <p>Emitido automaticamente em <span>18/08/2015</span></p>
+                <p>Este comprovante não possui a validade de uma certificado.</p> -->
+            </footer>
+
+        </div>
+    </div>
+{% else %}
+    <div class="container" ng-app="certification" ng-controller="CertificateCtrl">
+        <div class="row">
+            <!-- TODO arrumar o link de impressão para gerar pdf -->
+            <a href="print" class="btn btn-default pull-right hidden-print"><i class=" glyphicon glyphicon-print"></i> Imprimir</a>
+        </div>
+        <div class="ifs-certificate-container">
+            <div ng-show="ct.pronatec_logo" class="pronatec-logo">
+                <img alt="Logo Instituto" src="{% static 'img/logopronatec.svg' %}">
+            </div>
+            <div ng-show="ct.mec_logo" class="brasil-logo">
+                <img alt="Logo Instituto" src="{% static 'img/logobrasil.svg' %}">
+            </div>
+            <div class="institute-logo">
+                <img alt="Logo Instituto" src="">
+            </div>
+            <div class="text-center certificate-info">
+                <!-- TODO colocar os dados corretos da instituição-->
+                <p>O <span class="institute">INSTITUTO FEDERAL DE SÃO PAULO</span> certifica que</p>
+                <h2 class="student">{{ object.course_student.user.get_full_name }}</h2>
+                <p>
+                    concluiu o curso de <strong>{{ object.course.name }}</strong>, com <strong>120</strong> horas,
+                    no período de 01 de junho a 31 de agosto de 2015, no âmbito PRONATEC - Programa Nacional
+                    de Acesso ao Ensino Técnico e Emprego.
+                </p>
+                <!-- TODO colocar a carga horária -->
+                <p>
+                    <strong>Campinas/SP</strong>, <strong>12</strong> de <strong>setembro</strong> de 20<strong>15</strong>.
+                </p>
+            </div>
+        </div>
+        <footer class="text-right hide">
+            <!-- TODO colocar a data de emissão e código do certificado -->
+            <p>Emitido em <span>18/08/2015</span></p>
+            <p>Código de validação: <span> -código- </span></p>
+        </footer>
+
+    </div>
+{% endif %}
+
 {% endblock %}
