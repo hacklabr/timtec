@@ -13,7 +13,7 @@ wrapper-course-lesson
         {% include "_course-header-inline.html"  with course=object.course_student.course %}
         <div class="container certificate-container">
 
-            <p>{{ object.course_student.user.get_full_name }} assistiu a 97% do conteúdo do curso <em>TIM faz ciência</em> com duração de X horas.</p>
+            <p>{{ object.course_student.user.get_full_name }} assistiu a 97% do conteúdo do curso <em>{{ object.course.name }}</em> com duração de {{ object.course.workload }} horas.</p>
             <p>Texto editado pelo admin no template certificate-settings.</p>
 
             <footer class="text-right">
