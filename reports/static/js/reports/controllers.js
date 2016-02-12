@@ -21,7 +21,26 @@
 
                 $scope.my_classes = [];
                 $scope.others_classes = [];
-                $scope.filters = {};
+                $scope.filters = {
+                    textsearch: '',
+                    check : function(student){
+			var f = $scope.filters;
+			var search = f.textsearch.toLowerCase();
+			var targets = [
+			    student.name,
+			    student.username,
+			    student.email,
+			]
+
+			for (var i=0; i<targets.length; i++) {
+			    if (targets[i].toLowerCase().match(search)) {
+				return true;
+			    }
+			}
+
+			return false;
+		    }
+		};
 
                 CourseProfessor.query({course: $scope.course_id, user: current_user_id}, function(course_professor){
                     var current_user = course_professor[0];

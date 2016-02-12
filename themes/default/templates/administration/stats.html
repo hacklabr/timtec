@@ -63,12 +63,9 @@ wrapper-course-lesson
                             </select>
                         </label>
                     </div>
-		    <div class="col-md-3 col-sm-5"></div>
-		    <!--
                     <div class="filter-keyword col-md-3 col-sm-5 textright">
                         <input type="text" ng-model="filters.textsearch" placeholder="{% trans 'Keyword' %}" class="form-control">
                     </div>
-		    -->
                     <!-- END COL-LG-3 -->
                     <!-- COL-LG-3 -->
                     <div class="filter-ordering col-md-2 col-sm-5 textright">
@@ -112,7 +109,7 @@ wrapper-course-lesson
                             -->
                         </div>
                         <ul class="students" ng-show="users_reports.$resolved">
-                            <li ng-repeat="user in (filteredList = (users_reports | orderBy:ordering:reverse))">
+                            <li ng-repeat="user in (filteredList = (users_reports | orderBy:ordering:reverse | filter:filters.check))">
                                 <div class="row">
                                 {% verbatim %}
                                     <div class="col-md-3 col-sm-4 col-xs-10"><strong>{{ user.name }}<br>({{ user.email }})</strong></div>
