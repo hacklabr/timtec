@@ -98,14 +98,12 @@ wrapper-course-lesson
                             {% endif %}
                         </div>
                     </div>
-
-                    {% if object.user_can_certificate %}
                     <div class="col-xs-3">
-                        <a class="btn btn-lg btn-default uppercase"
-                           href="{% url 'class-evaluations' object.id %}"
-                                >{% trans 'Evaluations' %}</a>
+                        <a class="btn btn-lg btn-danger uppercase"
+                           href="{% url 'course-evaluations' object.course.slug %}#/class-evaluations/{{ object.id }}">
+                            {% trans 'Certification' %}
+                        </a>
                     </div>
-                    {% endif %}
                 </div>
             </form>
         </header>
