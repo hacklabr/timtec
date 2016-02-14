@@ -17,7 +17,7 @@
     wrapper-course-lesson
 {% endblock %}
 {% block content %}
-<div ng-app="certification">
+<div ng-app="certification" id="classes" class="course-classes">
     <!-- TODO make header the same as lesson template -->
     {% include "_course-header-inline.html"  with course=course %}
     <!-- MAIN CONTENT -->
@@ -95,7 +95,7 @@
                     <a role="menuitem" tabindex="-1"
                        ng-disabled="!switches.can_certificate"
                        ng-click="createEvaluation()"
-                       href="#" class="btn btn-success">
+                       class="btn btn-success">
                         {% trans 'Schedule evaluation' %}
                     </a>
                 </h3>
@@ -176,15 +176,24 @@
                             </strong>
                         </li>
                         <li>
-                            {% trans 'Number of students able to attend evaluation:' %} <strong>10</strong>
-                            {% trans 'out of' %} 100
+                            {% trans 'Number of students able to attend evaluation:' %}
+                            <strong>
+                                {% verbatim %}
+                                {{ stats.user_can_attend }}
+                                {% endverbatim %}
+                            </strong>
+                            {% trans 'out of' %} {% verbatim %} {{ class_students.length }} {% endverbatim %}
                         </li>
                     </ul>
+                    {% verbatim %}
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%;">
-                            <span class="sr-only">10% Completed the course and filled profile</span>
+                        <div class="progress-bar" role="progressbar" aria-valuenow="{{ stats.user_can_attend }}"
+                             aria-valuemin="0" aria-valuemax="{{ class_students.length }}"
+                             style="width: {{ 100 * stats.user_can_attend / class_students.length}}%">
+                            <span class="sr-only">{{ stats.user_can_attend }} Completed the course and filled profile</span>
                         </div>
                     </div>
+                    {% endverbatim %}
                 </div>
 
             </div>
@@ -194,15 +203,14 @@
                     <a role="menuitem" tabindex="-1"
                        ng-disabled="!switches.can_certificate"
                        ng-click="createEvaluation()"
-                       href="#" class="btn btn-success">
+                       class="btn btn-success">
                         {% trans 'Schedule evaluation' %}
                     </a>
                     <p ng-show="!class_evaluations.length">{% trans 'No evaluation found.' %}
                         {% trans 'Schedule one at' %}
                         <a role="menuitem" tabindex="-1"
                            ng-click="createEvaluation()"
-                           ng-disabled="!switches.can_certificate"
-                           href="#">
+                           ng-disabled="!switches.can_certificate">
                             {% trans 'Schedule evaluation' %}
                         </a>.
                     </p>
@@ -210,7 +218,7 @@
                     <ul class="nav nav-pills nav-stacked">
                         <li role="presentation" ng-repeat="evaluation in class_evaluations"
                             ng-class="{ active : isCurrent(evaluation.id)}">
-                            <a href="#" ng-click="changeEvaluation($event, $index)" class="fa fa-calendar">
+                            <a ng-click="changeEvaluation($event, $index)" class="fa fa-calendar">
                                 {% trans 'Evaluation' %} -
                                 {% verbatim %}
                                 {{ evaluation.date | date : "dd 'de' MMM H:mm" }}
@@ -224,8 +232,8 @@
                 <div class="col-sm-9" ng-show="evaluation.id">
                     <header class="row">
                         <div class="col-sm-6">
-                            <h3 ng-show="!evaluation.processes.length">
-                                {% trans 'Chose an evaluation throught the left aside menu or schedule a new one.' %}
+                            <h3 ng-show="!class_evaluations.length">
+                                {% trans 'Chose an evaluation through the left aside menu or schedule a new one.' %}
                             </h3>
 
                             <h3 ng-show="evaluation.processes.length">
@@ -253,7 +261,7 @@
                             <th>{% trans "Full name" %}</th>
                             <th>{% trans "Username" %}</th>
                             <th>{% trans "Email" %}</th>
-                            <th>{% trans "Actions" %}</th>
+                           <!-- <th>{% trans "Actions" %}</th> -->
                         </tr>
                         </thead>
                         <tbody>
@@ -267,9 +275,9 @@
                             <td>{{ process.student.username }}</td>
                             <td>{{ process.student.email }}</td>
                             {% endverbatim %}
-                            <td class="actions">
-                                <button class="btn btn-xs btn-success">{% trans 'Edit student' %}</button>
-                            </td>
+<!---                            <td class="actions">
+                                <button class="btn btn-xs btn-success">{% trans 'remove student' %}</button>
+                            </td>-->
                         </tr>
                         </tbody>
                     </table>
@@ -380,7 +388,8 @@
                     </tr>
                     <tr ng-repeat="process in class_students | can_attend">
                         {% verbatim %}
-                        <td>{{process.student.name}} {{ process.student.email }}</td>
+                        <td>
+                            {{process.student.name}} {{ process.student.email }}</td>
                         {% endverbatim %}
                         <td class="text-center">
                             <input class="text-center" type="checkbox"
