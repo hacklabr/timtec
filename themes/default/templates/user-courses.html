@@ -273,7 +273,7 @@ wrapper-course-lesson
                                         <h3>{{ certificate.course.name }}</h3>
                                     </a>
                                     {% endverbatim %}
-                                    <p class="instructors">{% trans 'by' %}
+                                    <p class="instructors">
                                         <span ng-repeat="professor in certificate.course.professors">
                                             {% verbatim %}
                                             {{ professor }}<span ng-if="!$last">, </span>
