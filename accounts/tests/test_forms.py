@@ -10,6 +10,10 @@ def test_profile_edit_forms_works_with_valid_data(user):
         'password2': '123456',
     }
 
+    from timtec.settings import ACCOUNT_REQUIRED_FIELDS as fields
+    for field in fields:
+        data[field] = str(field)
+
     from accounts.forms import ProfileEditForm
     form = ProfileEditForm(instance=user, data=data)
     assert form.is_valid() is True, form.errors

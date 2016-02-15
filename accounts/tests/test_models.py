@@ -54,7 +54,10 @@ def test_user_profile_property():
 
     assert not user.is_profile_filled
 
-    user.last_name = u'Cool Lastname'
+    from timtec.settings import ACCOUNT_REQUIRED_FIELDS as fields
+    # TODO improve test to check field type and generate right values
+    for field in fields:
+        setattr(user, field, str(field))
     user.save()
 
     assert user.is_profile_filled is True

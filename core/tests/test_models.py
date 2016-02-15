@@ -177,7 +177,9 @@ def test_studentprogress_emmit_receipt(user):
     assert course_student.resume_next_unit() == unit1
     assert course_student.reached_last_unit() is True
     assert course_student.course_finished is True
-    assert course_student.can_emmit_receipt() is False
+    assert course_student.can_emmit_receipt() is True
+    # Once he/she reaches the end of the course, even with profile not filled
+    # it's allowed to emmit the receipt now
 
     user.last_name = "Cool Lastname"
     user.save()

@@ -101,7 +101,13 @@ def test_user_instance_for_profile_edit_form_is_the_same_of_request(client, user
 
 @pytest.mark.django_db
 def test_edit_profile(admin_client):
-    response = admin_client.post('/profile/edit', {'username': 'admin', 'email': 'admin@b.cd'})
+    from timtec.settings import ACCOUNT_REQUIRED_FIELDS as fields
+    options = {'username': 'admin', 'email': 'admin@b.cd'}
+    for field in fields:
+        options[field] = str(field)
+
+    response = admin_client.post('/profile/edit', options)
+    print options
 
     assert response.status_code == 302
     assert response['Location'] == 'http://testserver/profile/'
