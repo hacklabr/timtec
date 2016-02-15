@@ -19,6 +19,7 @@ class BaseProfileEditForm(forms.ModelForm):
             except KeyError:
                 pass
 
+
 class ProfileEditForm(BaseProfileEditForm):
 
     email = forms.RegexField(label=_("email"), max_length=75, regex=r"^[\w.@+-]+$")
