@@ -89,7 +89,7 @@ class CourseCertificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = CourseCertification
         fields = ('link_hash', 'created_date', 'is_valid', 'processes', 'type',
-                  'approved', 'course')
+                  'approved', 'course', 'course_student', )
 
 
 class ProfileCourseCertificationSerializer(serializers.ModelSerializer):

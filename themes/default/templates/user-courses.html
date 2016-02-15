@@ -78,14 +78,6 @@ wrapper-course-lesson
                     <a href="{% url 'user_course_notes' cs.course.slug %}" class="btn btn-default btn-sm">{% trans "My Notes" %}</a>
 
                     <!-- CERTIFICATE -->
-                    <!--
-                        Esse if se torna inutil se a lógica do certificado
-                        vs comprovante for resolvida no tempo de renderização
-                        do template de certificado.
-                        ** Ele deve virar apenas uma condição de label do
-                        botão. **
-                    -->
-                    <!-- TODO refatorar e simplificar -->
                     {% if cs.certificate %}
                         <a href="{% url 'certificate' cs.certificate.link_hash %}"
                            class="btn btn-default btn-sm">
@@ -97,40 +89,15 @@ wrapper-course-lesson
                         </a>
                     {% endif %}
 
-                    <!--
-                        > TODO SE COMPROVANTE ESTIVER DISPONÍVEL, APARECE
-                        > A CLASSE BTN-SUCCESS, SENÃO COLOCAR BTN-DEFAULT
-                        > E ATRIBUTO disabled="disabled"
-                        Pela especificação, o comprovante sempre vai estar
-                        disponível, já que sempre que o usuário preencher
-                        o perfil o certificado será emitido... da mesma forma
-                        quando o student progress for alterado, poderá ser
-                        emitido um comprovante se o curso estiver finalizado!
-                    -->
-                    <!-- TODO Mudar URL do certificado -->
-                    {% if cs.can_emmit_receipt and not cs.certificate %}
-                    <a href="#" class="btn btn-default btn-sm">{% trans "Get receipt" %}</a>
-                        <!-- COURSE COMPLETE MODAL -->
-                        {% block complete_modal_template %}
-                            {% include "_modal_course_complete.html" %}
-                        {% endblock %}
-                        <!-- END COURSE COMPLETE MODAL -->
-                    <!--
-                        TODO SE USUÁRIO TIVER FINALIZADO O CURSO,
-                        APARECE A CLASSE BTN-SUCCESS, SENÃO COLOCAR
-                        BTN-DEFAULT E ATRIBUTO disabled="disabled"
-                    -->
-                    <!-- TODO Mudar URL do certificado -->
-                    {% elif cs.can_emmit_receipt and cs.get_current_class.user_can_certificate %}
-                    <a href="#"
-                       ng-click="createCertificationProcess({{ cs.id }})"
-                       ng-show="hasOpenProcess({{ cs.id }})"
-                       class="btn btn-default btn-sm">
-                        {% trans "Request certificate" %}
-                    </a>
+                    {% if cs.can_emmit_receipt and cs.get_current_class.user_can_certificate %}
+                    <!--<a href="#"-->
+                       <!--ng-click="createCertificationProcess({{ cs.id }})"-->
+                       <!--ng-hide="hasOpenProcess({{ cs.id }})"-->
+                       <!--class="btn btn-default btn-sm">-->
+                        <!--{% trans "Request certificate" %}-->
+                    <!--</a>-->
                     {% endif %}
                     <!-- END CERTIFICATE -->
-
 
                     {# <a href="" class="btn btn-default btn-sm">{% trans "Details" %}</a>#}
                     {# <span class="info">0 min of lecture and 0 quizzes remaining in 1.1a Equivalent Fractions.</span>#}

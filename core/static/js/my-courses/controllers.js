@@ -3,11 +3,15 @@
     var app = angular.module('my-courses');
 
     app.controller('UserCourseListController',
-        ['$scope', '$window', '$modal', 'CertificationProcess', 'CourseStudentService', 'Class',
-        function ($scope, $window, $modal, CertificationProcess, CourseStudentService, Class) {
-            $scope.course_student_list = CourseStudentService.get();
-            $window.csl = $scope.course_student_list;
-            $window.$scope = $scope;
+        ['$scope', '$window', '$modal', 'CertificationProcess', 'CourseStudentService', 'Class', 'CompletedCoursesService',
+        function ($scope, $window, $modal, CertificationProcess, CourseStudentService, Class, CompletedCoursesService) {
+            $scope.course_students = CourseStudentService.get();
+
+            // FIXME delete two line above
+//            $window.csl = $scope.course_students;
+//            $window.$scope = $scope;
+
+//            $scope.courses_cert_process = CompletedCoursesService.courses_cert_process
 
             $scope.createCertificationProcess = function (cs){
                 var cp = new CertificationProcess();
@@ -24,22 +28,32 @@
                     $('#dashboard-tabs a[href=#my-certificates]').tab('show');
                     cs.certificate.processes = cs.certificate.processes || [];
                     cs.certificate.processes.push(new_cp);
+                    CompletedCoursesService.courses_cert_process.push(new_cp)
                 });
             }
 
             $scope.hasOpenProcess = function (cs) {
-                cs = getResource(cs);
-                //        for(var i = 0; i < cs.certificate.processes; i++){
-                //            if(cs.certificate.processes[i].approved) return false;
-                //        }
-                return true;
+                CompletedCoursesService.courses_cert_process.forEach(function(course_certificate){
+                    if (course_certificate.course_student == cs)
+                        return true;
+                })
+                return false;
+//                cs = getResource(cs);
+//                for(var i = 0; i < CompletedCoursesService.courses_cert_process; i++){
+//                    if(cs.certificate.processes[i].approved) return false;
+//                }
+//                return true;
+//                if (cs === undefined)
+//                    return false;
+//                else
+//                    return true;
             }
 
             // FIXME make all app angular
             var getResource = function (cs) {
-                for(var i = 0; i < $scope.course_student_list.length; i++){
-                    if($scope.course_student_list[i].id == cs)
-                        return $scope.course_student_list[i];
+                for(var i = 0; i < $scope.course_students.length; i++){
+                    if($scope.course_students[i].id == cs)
+                        return $scope.course_students[i];
                 }
                 return undefined;
             }
@@ -47,24 +61,24 @@
     ]);
 
     app.controller('UserCertificatesController',
-        ['$scope', '$modal', 'CurrentUser', 'CertificationProcess', 'CourseCertification',
-        function ($scope, $modal, CurrentUser, CertificationProcess, CourseCertification) {
+        ['$scope', '$modal', 'CurrentUser', 'CertificationProcess', 'CourseCertification', 'CompletedCoursesService',
+        function ($scope, $modal, CurrentUser, CertificationProcess, CourseCertification, CompletedCoursesService) {
 
-            $scope.courses_receipts = [];
-            $scope.courses_certificates = [];
-            $scope.courses_cert_process = [];
-
-            $scope.completed_courses = CourseCertification.query({user: CurrentUser.id}, function(courses_certifications) {
+            CompletedCoursesService.completed_courses = CourseCertification.query({user: CurrentUser.id}, function(courses_certifications) {
                 courses_certifications.forEach(function(course_certification) {
                     if (course_certification.processes.length > 0) {
-                        $scope.courses_cert_process.unshift(course_certification);
+                        CompletedCoursesService.courses_cert_process.unshift(course_certification);
                     } else if (course_certification.type === 'certificate' && course_certification.is_valid) {
-                        $scope.courses_certificates.unshift(course_certification);
+                        CompletedCoursesService.courses_certificates.unshift(course_certification);
                     } else if (course_certification.type === 'receipt' && course_certification.is_valid) {
-                        $scope.courses_receipts.unshift(course_certification);
+                        CompletedCoursesService.courses_receipts.unshift(course_certification);
                     }
                 })
             })
+
+            $scope.courses_receipts = CompletedCoursesService.courses_receipts;
+            $scope.courses_certificates = CompletedCoursesService.courses_certificates;
+            $scope.courses_cert_process = CompletedCoursesService.courses_cert_process;
 
             $scope.open_evaluation_modal = function(process) {
                 var modalInstance = $modal.open({
