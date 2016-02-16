@@ -75,7 +75,6 @@ class BaseCourseCertificationSerializer(serializers.ModelSerializer):
 
 class CertificationProcessSerializer(serializers.ModelSerializer):
     course_certification = serializers.SlugRelatedField(slug_field="link_hash")
-    evaluation = BaseEvaluationSerializer()
 
     class Meta:
         model = CertificationProcess
@@ -103,7 +102,7 @@ class ProfileCourseCertificationSerializer(serializers.ModelSerializer):
 
 
 class EvaluationSerializer(serializers.ModelSerializer):
-    processes = CertificationProcessSerializer(many=True, read_only=True)
+    processes = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Evaluation
