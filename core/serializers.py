@@ -81,14 +81,13 @@ class CertificationProcessSerializer(serializers.ModelSerializer):
 
 
 class CourseCertificationSerializer(serializers.ModelSerializer):
-    course = BaseCourseSerializer()
     processes = BaseCertificationProcessSerializer(many=True, read_only=True)
     approved = BaseCertificationProcessSerializer(source='get_approved_process')
 
     class Meta:
         model = CourseCertification
         fields = ('link_hash', 'created_date', 'is_valid', 'processes', 'type',
-                  'approved', 'course', 'course_student', )
+                  'approved')
 
 
 class ProfileCourseCertificationSerializer(serializers.ModelSerializer):
