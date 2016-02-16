@@ -269,9 +269,9 @@
                             {{ evaluation.process.length }}
                             <td colspan="8">{% trans 'No students found' %}</td>
                         </tr>
-                        <tr ng-repeat="process in certification_processes | attending:evaluation.id">
+                        <tr ng-repeat="process in certification_processes | attending:evaluation.id:class_students">
                             {% verbatim %}
-                            <td>{{ process.student.get_full_name }}</td>
+                            <td>{{ process.student.name }}</td>
                             <td>{{ process.student.username }}</td>
                             <td>{{ process.student.email }}</td>
                             {% endverbatim %}
@@ -386,7 +386,7 @@
                             </ul>
                         </th>
                     </tr>
-                    <tr ng-repeat="process in class_students | can_attend">
+                    <tr ng-repeat="process in certification_processes | can_attend:class_students">
                         {% verbatim %}
                         <td>
                             {{process.student.name}} {{ process.student.email }}</td>

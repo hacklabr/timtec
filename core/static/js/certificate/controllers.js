@@ -116,19 +116,15 @@
                 $scope.klass_id = ClassIdGetter.classEditView();
             }
 
-
             Class.get({'id' : $scope.klass_id}, function(klass){
                 $scope.klass = klass;
                 $scope.class_students = klass.students;
                 $scope.switches.can_certificate = klass.user_can_certificate;
-            });
-
-            Evaluation.query({'klass' : $scope.klass_id}, function(data){
-                $scope.class_evaluations = data;
+                $scope.class_evaluations = klass.evaluations;
 
                 if($scope.class_evaluations.length > 0) {
                     var now = new Date().getTime();
-                    var next_week = now + 7*24*60*60;
+                    var next_week = now + 7*24*60*60*1000;
 
                     for(var i = 0; i < $scope.class_evaluations.length; i++) {
                         evaluation = $scope.class_evaluations[i];
@@ -138,13 +134,9 @@
                         }
                     }
                     $scope.evaluation = $scope.class_evaluations[0];
-                    window.evaluations = data;
                 }
-            });
 
-
-            CertificationProcess.query({'klass' : $scope.klass_id}, function(data){
-                $scope.certification_processes = data;
+                $scope.certification_processes = klass.processes;
                 for(var i = 0; i < $scope.certification_processes.length; i++){
                     var proc = $scope.certification_processes[i];
                     if(proc.course_certification){
@@ -171,13 +163,16 @@
                     {
                         animation: true,
                         templateUrl: 'addStudentModal.html',
-                        controller: ['$scope', '$modalInstance', 'processes', 'evaluation', AddStudentModalCtrl],
+                        controller: ['$scope', '$modalInstance', 'processes', 'evaluation', 'students', AddStudentModalCtrl],
                         resolve: {
                             processes: function () {
                                 return $scope.certification_processes;
                             },
                             evaluation: function() {
                                 return $scope.evaluation;
+                            },
+                            students: function() {
+                                return $scope.class_students;
                             }
                         }
                     }
@@ -188,25 +183,35 @@
 
                     for(var i = 0; i < $scope.user_can_attend.length; i++){
                         var proc = $scope.user_can_attend[i];
-
                         if(proc.selected){
+                            proc.selected = false;
                             proc.evaluation = $scope.evaluation.id;
-                            proc.$update({}, function(process){
+                            if(proc.student.id){
+                                proc.student = proc.student.id;
+                            }
+                            proc = new CertificationProcess(proc);
 
+                            proc.$update({}, function(process, data){
+                                $scope.evaluation.processes.push(process.id);
+                                $scope.certification_processes.filter(function(s){return s.id == process.id;})[0] = process;
+                                $scope.stats.user_can_attend--;
                             });
                         }
                     }
                 });
+
             };
 
-            var AddStudentModalCtrl = function ($scope, $modalInstance, processes, evaluation) {
-                $scope.class_students = processes;
-
+            var AddStudentModalCtrl = function ($scope, $modalInstance, processes, evaluation, students) {
+                $scope.certification_processes = processes;
+                $scope.class_students = students;
                 $scope.evaluation = evaluation;
 
                 $scope.selectAll = function (select){
-                    for(var i = 0; i < $scope.class_students.length; i++){
-                        $scope.class_students[i].selected = select;
+                    for(var i = 0; i < $scope.certification_processes.length; i++){
+                        if(!$scope.certification_processes[i].evaluation
+                                && $scope.certification_processes[i].course_certification)
+                            $scope.certification_processes[i].selected = select;
                     }
                 }
 
@@ -215,7 +220,7 @@
                 };
 
                 $scope.save = function(){
-                    $modalInstance.close($scope.class_students);
+                    $modalInstance.close($scope.certification_processes);
                 }
             }
 
