@@ -23,15 +23,13 @@ wrapper-course-lesson
                 </div>
             </div>
             <footer class="text-right">
-                <!-- TODO colocar a data de emissão e código do certificado -->
                 <p class="text-muted">O comprovante não possui a mesma validade do certificado.</p>
-                <!-- <p>Emitido automaticamente em <span>18/08/2015</span></p>
-                <p>Este comprovante não possui a validade de uma certificado.</p> -->
+                <p>Emitido automaticamente em <span>{{ object.created_date | date:"d/m/Y" }}</span></p>
             </footer>
-
         </div>
     </div>
 {% else %}
+    {%  block certificate %}
     <div class="container">
 
         <div class="row">
@@ -67,11 +65,10 @@ wrapper-course-lesson
         </div>
         <footer class="text-right hide">
             <!-- TODO colocar a data de emissão e código do certificado -->
-            <p>Emitido em <span>18/08/2015</span></p>
+            <p>Emitido em <span>{{ object.modified_date | date:"d/m/Y" }}</span></p>
             <p>Código de validação: <span> -código- </span></p>
         </footer>
     </div>
+    {% endblock %}
 {% endif %}
-
-
 {% endblock %}

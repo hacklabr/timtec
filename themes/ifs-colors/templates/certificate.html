@@ -1,43 +1,8 @@
-{% extends 'base.html' %}
-{% load compressed %}
-{% load i18n %}
+{% extends 'default:certificate.html' %}
 {% load staticfiles %}
+{% load i18n %}
 
-{% block wrapper_classes %}
-wrapper-course-lesson
-{% endblock %}
-
-{% block js %}
-    {{ block.super }}
-    {% compressed_js 'certificate' %}
-{% endblock %}
-
-{% block content %}
-
-{% if object.type == 'receipt' %}
-    <div class="container">
-        {% include "_course-header-inline.html"  with course=object.course_student.course %}
-        <div class="container certificate-container">
-            <h1><span class="fa fa-check-square-o text-success"></span> Comprovante de conclusão de curso</h1>
-
-            <div class="row">
-                <div class="col-sm-4">
-                    <img class="img-responsive" src="/media/{{ object.course.home_thumbnail }}" />
-                </div>
-                <div class="col-sm-8">
-                    <p><strong class="text-uppercase">{{ object.course_student.user.get_full_name }}</strong> assistiu ao curso <em>{{ object.course.name }}</em> com duração de 10 horas.</p>
-                </div>
-            </div>
-            <footer class="text-right">
-                <!-- TODO colocar a data de emissão e código do certificado -->
-                <p class="text-muted">O comprovante não possui a mesma validade do certificado.</p>
-                <!-- <p>Emitido automaticamente em <span>18/08/2015</span></p>
-                <p>Este comprovante não possui a validade de uma certificado.</p> -->
-            </footer>
-
-        </div>
-    </div>
-{% else %}
+{%  block certificate %}
     <div class="container" ng-app="certification" ng-controller="CertificateCtrl">
         <div class="row">
             <!-- TODO arrumar o link de impressão para gerar pdf -->
@@ -70,11 +35,9 @@ wrapper-course-lesson
         </div>
         <footer class="text-right hide">
             <!-- TODO colocar a data de emissão e código do certificado -->
-            <p>Emitido em <span>18/08/2015</span></p>
+            <p>Emitido em <span>{{ object.modified_date | date:"d/m/Y" }}</span></p>
             <p>Código de validação: <span> -código- </span></p>
         </footer>
-
     </div>
-{% endif %}
-
 {% endblock %}
+
