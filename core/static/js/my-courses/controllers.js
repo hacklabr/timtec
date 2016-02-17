@@ -29,10 +29,7 @@
 
             $scope.hasOpenProcess = function (cs) {
                 cs = getResource(cs);
-                //        for(var i = 0; i < cs.certificate.processes; i++){
-                //            if(cs.certificate.processes[i].approved) return false;
-                //        }
-                return true;
+                return (cs.certificate.processes.length > 0);
             }
 
             // FIXME make all app angular

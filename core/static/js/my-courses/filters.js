@@ -47,7 +47,7 @@
             if(!items) return;
             var filtered = [];
             for(var i = 0; i < items.length; i++){
-                if(items[i].certificate != null && items[i].certificate.approved) {
+                if(items[i].certificate != null && items[i].certificate.type == 'certificate') {
                     filtered.push(items[i]);
                 }
             }
@@ -60,7 +60,7 @@
             if(!items) return;
             var filtered = [];
             for(var i = 0; i < items.length; i++){
-                if(items[i].course_finished) {
+                if(items[i].certificate != null && items[i].certificate.type == 'receipt') {
                     filtered.push(items[i]);
                 }
             }
