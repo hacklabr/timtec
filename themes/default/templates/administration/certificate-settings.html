@@ -3,14 +3,16 @@
 {% load static %}
 {% load i18n %}
 
-{% block wrapper_classes %}
-wrapper-course-lesson
+{% block js %}
+    {{ block.super }}
+    {% compressed_js 'core' %}
+    {% compressed_js 'certificate' %}
 {% endblock %}
 
 {% block content %}
 
 <!-- TODO add controller, ng-app and id -->
-<section>
+<section id="certificate" ng-app="certification" ng-controller="CertificateTemplateCtrl">
     <!-- ACTIONS -->
     <div class="actions-menu" fixed-bar>
         <div class="container">
@@ -26,13 +28,23 @@ wrapper-course-lesson
     <!-- TODO add form -->
 
     <div class="container">
+
+        <header class="secondary-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1>{% trans "Certificate Settings" %}</h1>
+                </div>
+            </div>
+        </header>
+
         <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#edit-certificate" aria-controls="edit-certificate" role="tab" data-toggle="tab">{% trans 'Edit certificate' %}</a></li>
-            <li role="presentation"><a href="#edit-receipt" aria-controls="edit-receipt" role="tab" data-toggle="tab">{% trans 'Edit receipt text' %}</a></li>
-        </ul>
+        <!--<ul class="nav nav-tabs" role="tablist">-->
+            <!--<li role="presentation" class="active"><a href="#edit-certificate" aria-controls="edit-certificate" role="tab" data-toggle="tab">{% trans 'Edit certificate' %}</a></li>-->
+            <!--<li role="presentation"><a href="#edit-receipt" aria-controls="edit-receipt" role="tab" data-toggle="tab">{% trans 'Edit receipt text' %}</a></li>-->
+        <!--</ul>-->
         <!-- Tab panes -->
         <div class="tab-content">
+            {% block certificate-options %}
             <div role="tabpanel" class="tab-pane edit-certificates active" id="edit-certificate">
                 <div class="alert alert-info" role="alert">
                     Edite os elementos numerados de <strong>1 a 4</strong> com as informações que serão exibidas no certificado final do curso.
@@ -72,21 +84,22 @@ wrapper-course-lesson
                     </footer>
                 </div>
             </div>
-            <div role="tabpanel" class="tab-pane edit-certificates" id="edit-receipt">
-                <div class="alert alert-info" role="alert">
-                    Edite o texto que aparecerá no comprovante emitido automaticamente após a conclusão do curso. Este comprovante <strong>não possui</strong> a mesma validade do certificado.
-                </div>
+            {% endblock %}
+            <!--<div role="tabpanel" class="tab-pane edit-certificates" id="edit-receipt">-->
+                <!--<div class="alert alert-info" role="alert">-->
+                    <!--Edite o texto que aparecerá no comprovante emitido automaticamente após a conclusão do curso. Este comprovante <strong>não possui</strong> a mesma validade do certificado.-->
+                <!--</div>-->
 
-                <!-- TODO add real info and form -->
-                <div class="certificate-container certificate-admin">
-                    <p>MARIA JOSÉ DA SILVA assistiu a 97% do conteúdo do curso <em>TIM faz ciência</em> com duração de 9 horas.</p>
-                    <span class="institute editable editable-text">
-                        <input type="text"
-                               ng-model=""
-                               placeholder="Digite o texto que complementará as informações acima." />
-                    </span>
-                </div>
-            </div>
+                <!--&lt;!&ndash; TODO add real info and form &ndash;&gt;-->
+                <!--<div class="certificate-container certificate-admin">-->
+                    <!--<p>MARIA JOSÉ DA SILVA assistiu a 97% do conteúdo do curso <em>TIM faz ciência</em> com duração de 9 horas.</p>-->
+                    <!--<span class="institute editable editable-text">-->
+                        <!--<input type="text"-->
+                               <!--ng-model=""-->
+                               <!--placeholder="Digite o texto que complementará as informações acima." />-->
+                    <!--</span>-->
+                <!--</div>-->
+            <!--</div>-->
         </div>
     </div>
 </section>
