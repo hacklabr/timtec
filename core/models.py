@@ -211,8 +211,12 @@ class Course(models.Model):
         return iter(professors)
 
     def is_assistant_or_coordinator(self, user):
+        if user.is_anonymous():
+            return False
+
         if user.is_staff or user.is_superuser:
             return True
+
         role = self.get_professor_role(user)
         return role in ['assistant', 'coordinator'] or user.is_superuser
 
