@@ -339,7 +339,7 @@ class CourseCertificationDetailView(DetailView):
                                                                        **kwargs)
 
     def render_to_response(self, context, **response_kwargs):
-        from django.core.urlresolvers import reverse, resolve
+        from django.core.urlresolvers import resolve
 
         url_name = resolve(self.request.path_info).url_name
 
