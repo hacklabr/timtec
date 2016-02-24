@@ -338,6 +338,51 @@ class CourseCertificationDetailView(DetailView):
         return super(CourseCertificationDetailView, self).get_queryset(*args,
                                                                        **kwargs)
 
+    def render_to_response(self, context, **response_kwargs):
+        from django.core.urlresolvers import reverse, resolve
+
+        url_name = resolve(self.request.path_info).url_name
+
+        if url_name == 'certificate-download':
+            from selenium import webdriver
+            from signal import SIGTERM
+            from time import gmtime, strftime
+            from timtec.settings import MEDIA_ROOT
+            from PIL import Image
+            import os
+
+            today = strftime("%d%b%Y", gmtime())
+            certificate = context['object']
+
+            width, height = 1684, 1190
+            url = self.request.build_absolute_uri().split('download')[0] + 'print/'
+            print url
+            png_path = os.path.join(MEDIA_ROOT, certificate.link_hash + '.png')
+            pdf_filename = certificate.link_hash + today + '.pdf'
+            pdf_path = os.path.join(MEDIA_ROOT, pdf_filename)
+
+            driver = webdriver.PhantomJS()
+            driver.set_window_size(width, height)
+            driver.get(url)
+            driver.save_screenshot(filename=png_path)
+
+            driver.service.process.send_signal(SIGTERM)
+            driver.quit()
+
+            Image.open(png_path).convert("RGB").save(pdf_path, format='PDF')
+
+            response = HttpResponse(content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename=%s' % pdf_filename
+
+            certi = open(pdf_path)
+            response.write(certi.read())
+            certi.close()
+
+            return response
+        else:
+            return super(CourseCertificationDetailView, self)\
+                .render_to_response(context, **response_kwargs)
+
 
 class CertificationProcessViewSet(viewsets.ModelViewSet):
     model = CertificationProcess
