@@ -1,0 +1,16 @@
+<div class="container certificate-container">
+    <h1><span class="fa fa-check-square-o text-success"></span> Comprovante de conclusão de curso</h1>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <img class="img-responsive" src="/media/{{ object.course.home_thumbnail }}" />
+        </div>
+        <div class="col-sm-8">
+            <p><strong class="text-uppercase">{{ object.course_student.user.get_full_name }}</strong> assistiu ao curso <em>{{ object.course.name }}</em> com duração de 10 horas.</p>
+        </div>
+    </div>
+    <footer class="text-right">
+        <p class="text-muted">O comprovante não possui a mesma validade do certificado.</p>
+        <p>Emitido automaticamente em <span>{{ object.created_date | date:"d/m/Y" }}</span></p>
+    </footer>
+</div>

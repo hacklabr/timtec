@@ -347,16 +347,15 @@ class CourseCertificationDetailView(DetailView):
             from selenium import webdriver
             from signal import SIGTERM
             from time import gmtime, strftime
-            from timtec.settings import MEDIA_ROOT
+            from timtec.settings import MEDIA_ROOT, CERTIFICATE_SIZE
             from PIL import Image
             import os
 
             today = strftime("%d%b%Y", gmtime())
             certificate = context['object']
 
-            width, height = 1684, 1190
+            width, height = CERTIFICATE_SIZE
             url = self.request.build_absolute_uri().split('download')[0] + 'print/'
-            print url
             png_path = os.path.join(MEDIA_ROOT, certificate.link_hash + '.png')
             pdf_filename = certificate.link_hash + today + '.pdf'
             pdf_path = os.path.join(MEDIA_ROOT, pdf_filename)
