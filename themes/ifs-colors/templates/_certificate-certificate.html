@@ -1,0 +1,32 @@
+{% load i18n %}
+{% load staticfiles %}
+<div class="ifs-certificate-container">
+    <div ng-show="ct.pronatec_logo" class="pronatec-logo">
+        <img alt="Logo Instituto" src="{% static 'img/logopronatec.svg' %}">
+    </div>
+    <div ng-show="ct.mec_logo" class="brasil-logo">
+        <img alt="Logo Instituto" src="{% static 'img/logobrasil.svg' %}">
+    </div>
+    <div class="institute-logo">
+        <img alt="Logo Instituto" src="">
+    </div>
+    <div class="text-center certificate-info">
+        <!-- TODO colocar os dados corretos da instituição-->
+        <p>O <span class="institute">INSTITUTO FEDERAL DE SÃO PAULO</span> certifica que</p>
+        <h2 class="student">{{ object.course_student.user.get_full_name }}</h2>
+        <p>
+            concluiu o curso de <strong>{{ object.course.name }}</strong>, com <strong>120</strong> horas,
+            no período de 01 de junho a 31 de agosto de 2015, no âmbito PRONATEC - Programa Nacional
+            de Acesso ao Ensino Técnico e Emprego.
+        </p>
+        <!-- TODO colocar a carga horária -->
+        <p>
+            <strong>Campinas/SP</strong>, <strong>12</strong> de <strong>setembro</strong> de 20<strong>15</strong>.
+        </p>
+    </div>
+</div>
+<footer class="text-right hide">
+    <!-- TODO colocar a data de emissão e código do certificado -->
+    <p>Emitido em <span>{{ object.modified_date | date:"d/m/Y" }}</span></p>
+    <p>Código de validação: <span> -código- </span></p>
+</footer>

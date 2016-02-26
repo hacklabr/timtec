@@ -4,12 +4,6 @@
 
 {%  block certificate %}
     <div class="container" ng-app="certification" ng-controller="CertificateCtrl">
-        <div class="row">
-            <!-- TODO arrumar o link de impressão para gerar pdf -->
-            <a href="{% url 'certificate-download' object.link_hash %}" class="btn btn-default pull-right hidden-print">
-                <i class=" glyphicon glyphicon-file"></i> {% trans 'Baixar Certificado' %}
-            </a>
-        </div>
         <div class="ifs-certificate-container">
             <div ng-show="ct.pronatec_logo" class="pronatec-logo">
                 <img alt="Logo Instituto" src="{% static 'img/logopronatec.svg' %}">

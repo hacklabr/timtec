@@ -1,38 +1,18 @@
-{% extends "base.html" %}
+{% extends "base_clean.html" %}
 
-{% load staticfiles %}
 {% load i18n %}
-{% load compressed %}
-{% load is_course_coordinator %}
-
-{% block js %}
-    {{ block.super }}
-    {% compressed_js 'certificate' %}
-{% endblock %}
+{% load staticfiles %}
 
 {% block wrapper_classes %}
-    wrapper-course-lesson
+wrapper-course-lesson
 {% endblock %}
-
-{% block content %}
-
-<!-- TODO colocar header do curso -->
-
-<!-- TODO if user is logged in and don't have the certificate for this course, display button Request Certificate -->
 
 <div class="container">
-
-    <div class="container certificate-container">
-
-        <p>{{ object.course_student }} assistiu a 97% do conteúdo do curso <em>TIM faz ciência</em> com duração de X horas.</p>
-        <p>Texto editado pelo admin no template certificate-settings.</p>
-
-        <footer class="text-right">
-            <!-- TODO colocar a data de emissão e código do certificado -->
-            <p>Emitido automaticamente em <span>18/08/2015</span></p>
-            <p>Este comprovante não possui a validade de uma certificado.</p>
-        </footer>
-
-    </div>
+    {% block content %}
+    {% if object.type == 'receipt' %}
+    {% include "_certificate-receipt.html" %}
+    {% else %}
+    {% include "_certificate-certificate.html" %}
+    {% endif %}
+    {% endblock %}
 </div>
-{% endblock %}
