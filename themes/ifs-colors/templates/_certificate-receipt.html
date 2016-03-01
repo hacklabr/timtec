@@ -1,0 +1,19 @@
+{% load i18n %}
+{% load staticfiles %}
+
+<div class="container certificate-container ifs-receipt">
+    <span>Cidade, {{ object.created_date | date:"d/m/Y" }}</span>
+    <p class="text-uppercase student-name">({{ object.course_student.user.get_full_name }}, RG)</p>
+    <p>Concluiu o curso online de <em>{{ object.course.name }}</em> com carga
+      horária estimada de (10) horas.</p>
+    <section class="coordinator-section">
+      <p class="coordinator-name">Fábio Flatschart</p>
+      <p class="course-coordinator">Coordenador pedagógico</p>
+    </section>
+    <footer>
+      <div class="pull-left">Realizado em: ({{ object.course.url }})</div>
+      <div class="pull-right logo">
+        <img class="img-responsive" src="{% static 'img/logo.png' %}" />
+      </div>
+    </footer>
+</div>
