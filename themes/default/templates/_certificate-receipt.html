@@ -1,16 +1,19 @@
-<div class="container certificate-container">
-    <h1><span class="fa fa-check-square-o text-success"></span> Comprovante de conclusão de curso</h1>
+{% load i18n %}
+{% load staticfiles %}
 
-    <div class="row">
-        <div class="col-sm-4">
-            <img class="img-responsive" src="/media/{{ object.course.home_thumbnail }}" />
-        </div>
-        <div class="col-sm-8">
-            <p><strong class="text-uppercase">{{ object.course_student.user.get_full_name }}</strong> assistiu ao curso <em>{{ object.course.name }}</em> com duração de 10 horas.</p>
-        </div>
-    </div>
-    <footer class="text-right">
-        <p class="text-muted">O comprovante não possui a mesma validade do certificado.</p>
-        <p>Emitido automaticamente em <span>{{ object.created_date | date:"d/m/Y" }}</span></p>
+<div class="certificate-container receipt">
+    <span>Cidade, {{ object.created_date | date:"d/m/Y" }}</span>
+    <p class="text-uppercase student-name">({{ object.course_student.user.get_full_name }}, RG)</p>
+    <p>Concluiu o curso online de <em>{{ object.course.name }}</em> com carga
+      horária estimada de (10) horas.</p>
+    <section class="coordinator-section">
+      <p class="coordinator-name">Fábio Flatschart</p>
+      <p class="course-coordinator">Coordenador pedagógico</p>
+    </section>
+    <footer>
+      <div class="pull-left">Realizado em: ({{ object.course.url }})</div>
+      <div class="pull-right logo">
+        <img class="img-responsive" src="{% static 'img/logo-instituto-tim.png' %}" />
+      </div>
     </footer>
 </div>
