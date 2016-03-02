@@ -24,6 +24,48 @@
     position: relative;
     margin: 10px auto;
 }
+.certificate-container{
+  border: none;
+  height: 566px;
+  text-align: center;
+  width: 800px;
+  padding: 180px 160px 60px 160px;
+  &.ifs-receipt{
+    background-image: url('../img/ifs-receipt-bg.png');
+    font-family: 'ek-mukta-extralight', "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1.4em;
+    font-weight: bold;
+    line-height: 1.5em;
+    .coordinator-section{
+      margin-top: 30px;
+    }
+    .student-name{
+      color: #78b73d;
+      font-size: 1.5em;
+    }
+    .coordinator-name{
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+    .course-coordinator{
+      border-top: 2px solid #78b73d;
+      width: 200px;
+      margin: 0 auto;
+      font-weight: normal;
+    }
+    .logo{
+      width: 150px;
+    }
+    footer{
+      margin-top: 45px;
+      padding-left: 40px;
+      width: 550px;
+      & :last-child{
+        margin-top: -15px;
+      }
+    }
+  }
+}
 .certificate-admin{
     counter-reset: steps-counter;
     .text-muted, .student{

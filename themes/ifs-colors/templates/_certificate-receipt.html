@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load staticfiles %}
 
-<div class="certificate-container receipt">
+<div class="container certificate-container ifs-receipt">
     <span>Cidade, {{ object.created_date | date:"d/m/Y" }}</span>
     <p class="text-uppercase student-name">({{ object.course_student.user.get_full_name }}, RG)</p>
     <p>Concluiu o curso online de <em>{{ object.course.name }}</em> com carga
@@ -13,7 +13,7 @@
     <footer>
       <div class="pull-left">Realizado em: ({{ object.course.url }})</div>
       <div class="pull-right logo">
-        <img class="img-responsive" src="{% static 'img/logo-instituto-tim.png' %}" />
+        <img class="img-responsive" src="{% static 'img/logo.png' %}" />
       </div>
     </footer>
 </div>
