@@ -599,16 +599,15 @@ class StudentProgress(models.Model):
             course=self.unit.lesson.course,
             user=self.user)
 
-        from django.core.exceptions import ObjectDoesNotExist
         try:
             receipt = CourseCertification.objects.get(
                 course_student=course_student)
-        except ObjectDoesNotExist:
+        except CourseCertification.DoesNotExist:
             if course_student.can_emmit_receipt():
                 from base64 import urlsafe_b64encode as ub64
                 from hashlib import sha1
                 from time import time
-                h = ub64(sha1(str(time()) + self.user.last_name).digest()[0:6])
+                h = ub64(sha1(str(time()) + self.user.last_name.encode('utf-8')).digest()[0:6])
                 receipt = CourseCertification(course_student=course_student,
                                               course=course_student.course,
                                               type=CourseCertification.TYPES[0][0],
