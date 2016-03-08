@@ -90,7 +90,6 @@ class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
                     return False
             except AttributeError:
                 raise AttributeError(_('Invalid attribute: %s' % field))
-                return False
         return True
 
     def get_certificates(self):
