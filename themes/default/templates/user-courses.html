@@ -140,7 +140,7 @@ wrapper-course-lesson
                                     </a>
                                     {% endverbatim %}
                                 </div>
-                                <div class="info col-sm-6" ng-repeat="process in course_student.certificate.processes | activeProcess">
+                                <div class="col-sm-6" ng-repeat="process in course_student.certificate.processes | activeProcess">
                                     <p class="lead" ng-hide="process.evaluation">
                                         Não inscrito em nenhuma avaliação
                                     </p>
@@ -159,7 +159,7 @@ wrapper-course-lesson
                                         {% trans 'Finished at' %} {% verbatim %}{{ course_student.certificate.created_date|date:"dd/MM/yyyy" }}{% endverbatim %}.
                                     </p>
                                     <p>
-                                        Processo de certificação pedido em {% verbatim %} {{ process.created_date | date : "dd 'de' MMM H:mm" }} {% endverbatim %}.
+                                        Processo de certificação pedido em {% verbatim %} {{ process.created_date | date : "dd 'de' MMM H:mm" }}{% endverbatim %}.
                                     </p>
                                 </div>
                             </div>
