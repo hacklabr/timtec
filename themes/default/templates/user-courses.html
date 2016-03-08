@@ -128,7 +128,7 @@ wrapper-course-lesson
                     <div class="row certificate-process">
                         <div class="col-sm-6" ng-repeat="course_student in course_student_list | hasProcess">
                             <div class="course-card row">
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
                                     <div class="thumb-wrapper">
                                         {% verbatim %}
                                         <img class="img-responsive" ng-src="{{ course_student.course.home_thumbnail_url }}">
@@ -139,21 +139,14 @@ wrapper-course-lesson
                                         <h3>{{ course_student.course.name }}</h3>
                                     </a>
                                     {% endverbatim %}
-                                    <p class="instructors">{% trans 'by' %}
-                                        <span ng-repeat="professor in course_student.course.professors">
-                                            {% verbatim %}
-                                            {{ professor }}<span ng-if="!$last">, </span>
-                                            {% endverbatim %}
-                                        </span>
-                                    </p>
                                 </div>
-                                <div class="info col-sm-8" ng-repeat="process in course_student.certificate.processes | activeProcess">
+                                <div class="col-sm-6" ng-repeat="process in course_student.certificate.processes | activeProcess">
                                     <p class="lead" ng-hide="process.evaluation">
                                         Não inscrito em nenhuma avaliação
                                     </p>
-
                                     <p class="lead" ng-show="process.evaluation">
-                                        Avaliação marcada para <span>{% verbatim %}{{ process.evaluation.date | date : "dd 'de' MMM H:mm" }}{% endverbatim %}</span>
+                                      Avaliação agendada <br/>
+                                        <i class="fa fa-calendar"></i> <span>{% verbatim %}{{ process.evaluation.date | date : "dd 'de' MMM H:mm" }}{% endverbatim %}</span>
                                     </p>
                                     <p ng-show="process.evaluation">
                                         <a class="enroll-link text-uppercase"
@@ -166,7 +159,7 @@ wrapper-course-lesson
                                         {% trans 'Finished at' %} {% verbatim %}{{ course_student.certificate.created_date|date:"dd/MM/yyyy" }}{% endverbatim %}.
                                     </p>
                                     <p>
-                                        Processo de certificação pedido em {% verbatim %} {{ process.created_date | date : "dd 'de' MMM H:mm" }} {% endverbatim %}.
+                                        Processo de certificação pedido em {% verbatim %} {{ process.created_date | date : "dd 'de' MMM H:mm" }}{% endverbatim %}.
                                     </p>
                                 </div>
                             </div>
