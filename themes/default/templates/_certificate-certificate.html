@@ -9,7 +9,7 @@
             <h2 class="top">{{ object.course_student.user.get_full_name }}</h2>
             <p>o comprovante de conclusão do curso online</p>
             <h1>{{ object.course.name }}</h1>
-            <p>que possui carga horária de <span>30 horas</span>.</p>
+            <p>que possui carga horária de <span>40 horas</span>.</p>
         </div>
         <div class="row">
             <!-- TODO fazer um for de instrutores -->
@@ -26,8 +26,8 @@
         </div>
     </div>
     <footer class="text-right hide">
-        <!-- TODO colocar a data de emissão e código do certificado -->
         <p>Emitido em <span>{{ object.modified_date | date:"d/m/Y" }}</span></p>
-        <p>Código de validação: <span> -código- </span></p>
+        <div class="pull-left">Realizado em: ({{ object.course.url }})</div>
+        <p>Código de validação: <span> {{ object.hash }} </span></p>
     </footer>
 </div>

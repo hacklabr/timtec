@@ -20,7 +20,7 @@ DEBUG = True
 
 SITE_ID = 1
 SITE_HOME = ''
-SITE_NAME = u'Timtec'
+SITE_NAME = u'TIM Tec'
 SITE_DOMAIN = 'timtec.com.br'
 
 ADMINS = (

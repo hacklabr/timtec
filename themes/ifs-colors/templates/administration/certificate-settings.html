@@ -6,9 +6,13 @@
 
 {% block certificate-options %}
 
-    <div role="tabpanel" class="tab-pane edit-certificates active" id="edit-certificate">
+    <div role="tabpanel" c
+         lass="tab-pane edit-certificates active"
+         id="edit-certificate"
+         ng-app="certification"
+         ng-controller="CertificateTemplateCtrl">
         <div class="alert alert-info" role="alert">
-            Edite os elementos numerados de <strong>1 a 6</strong> com as informações que serão exibidas no certificado final do curso.
+            Edite os elementos numerados de <strong>1 a 5</strong> com as informações que serão exibidas no certificado final do curso.
         </div>
         <div class="ifs-certificate-container certificate-admin">
             <div class="pronatec-logo">
@@ -49,26 +53,13 @@
                 <p class="student">Nome do(a) concluinte</p>
                 <p class="text-muted">
                     concluiu o curso <strong>{{ course.name }}</strong>, com
-                    <strong>___</strong> horas, no período de _______________________, no âmbito PRONATEC - Programa Nacional de Acesso ao Ensino Técnico e Emprego.
+                    <strong>___</strong> horas, no período de _______________________.
                 </p>
                 <p class="text-muted">
                     <strong>_____________</strong>, <strong>__</strong> de <strong>__________</strong> de 20<strong>__</strong>.
                 </p>
             </div>
             <footer class="certificate-signature">
-                <p>
-                    <a href="#" class="has-tooltip" data-toggle="tooltip" data-placement="top" title="Clique abaixo para carregar a imagem da assinatura. Ela deve possuir fundo transparente e ser no formato .png">Adicione a assinatura</a> que aparecerá no Certificado.
-                </p>
-                {% verbatim %}
-                <div class="thumb-signature">
-                    <img alt="Assinatura" preview-image ng-model="images.signature" ng-src="/media/{{ ct.signature_url }}" class="img-responsive" />
-                </div>
-                {% endverbatim %}
-                <file ng-model="images.signature" name="signature"></file>
-                <button class="btn btn-primary" ng-click="saveSignature()">
-                    <i class="fa fa-floppy-o"></i> {% trans 'Save image' %}
-                </button>
-                <!-- TODO add file preview -->
                 <div class="editable editable-text role-signature">
                     <input type="text" ng-model="ct.signature_name" placeholder="Digite o cargo, ex.: Diretora da Unidade" />
                 </div>
