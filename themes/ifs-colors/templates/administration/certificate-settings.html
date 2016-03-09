@@ -44,9 +44,9 @@
                                placeholder="Digite o nome do Instituto" />
                            </span> certifica que
                 </p>
-                <p class="student">Nome do(a) concluinte</p>
+                <p class="student">Nome do(a) aluno, RG _________</p>
                 <p class="text-muted">
-                    RG ___________________ concluiu o curso <strong>{{ course.name }}</strong>, com
+                    Concluiu o curso de <strong>{{ course.name }}</strong>, com
                     <strong>___</strong> horas, em _______________________.
                 </p>
                 <p class="text-muted">
@@ -54,11 +54,16 @@
                 </p>
             </div>
 
-            <footer class="certificate-signature">
-                <div class="editable editable-text role-signature">
-                    <input type="text" ng-model="ct.signature_name" placeholder="Digite o nome e o cargo, ex.: Diretora da Unidade" />
+            <footer>
+              <div class="coordinator-section">
+                <div class="editable editable-text name-coordinator">
+                    <input type="text" ng-model="ct.signature_name" placeholder="Digite o nome do responsável" />
                 </div>
-                <div class="pull-left">Realizado em: {{ site.domain }}</div>
+                <div class="editable editable-text role-coordinator">
+                    <input type="text" ng-model="" placeholder="Digite o cargo" />
+                </div>
+              </div>
+              <div class="credits">Realizado em: {{ site.domain }}</div>
             </footer>
         </div>
     </div>

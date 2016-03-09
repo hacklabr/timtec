@@ -62,6 +62,11 @@
       padding-left: 40px;
       width: 550px;
     }
+    &.receipt-admin{
+      footer{
+        margin-top: 0;
+      }
+    }
   }
 }
 .certificate-admin{
@@ -71,7 +76,7 @@
         opacity: 0.2;
     }
     .pronatec-logo:before, .brasil-logo:before, .institute:before,
-    .institute-logo:before, .certificate-signature:before, .role-signature:before{
+    .institute-logo:before, .name-coordinator:before, .role-coordinator:before{
         background-color: #FB4E4E;
         border-radius: 50%;
         color: #FFF;
@@ -83,6 +88,12 @@
         position: absolute;
         text-align: center;
         width: 2em;
+    }
+    .coordinator-section{
+      position: absolute;
+      bottom: 70px;
+      right: 15%;
+      width: 200px;
     }
 }
 .pronatec-logo{
@@ -100,9 +111,6 @@
 .certificate-admin{
     .student{
         opacity: 0.2;
-    }
-    .certificate-info{
-        top: 35%;
     }
 }
 .institute-logo {
@@ -136,16 +144,12 @@
     font-family: Copperplate;
     opacity: 1;
  }
- .certificate-signature{
-    counter-increment: steps-counter;
-    position: absolute;
-    bottom: 25%;
-    right: 15%;
-    width: 200px
+
+ .credits{
+  position: absolute;
+  bottom: 60px;
+  left: 60px;
  }
- .role-signature{
+ .name-coordinator, .role-coordinator{
     counter-increment: steps-counter;
-    position: absolute;
-    text-align: center;
-    width: 100%;
-}
+ }
