@@ -11,14 +11,13 @@
 
 {% block content %}
 
-<!-- TODO add controller, ng-app and id -->
 <section id="certificate" ng-app="certification" ng-controller="CertificateTemplateCtrl">
     <!-- ACTIONS -->
     <div class="actions-menu" fixed-bar>
         <div class="container">
             <div class="actions-buttons">
-                <button class="btn btn-danger">{% trans 'Cancel' %} | <i class="fa fa-times"></i></button>
-                <button class="btn btn-success">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
+                <!--<button class="btn btn-danger">{% trans 'Cancel' %} | <i class="fa fa-times"></i></button>-->
+                <button class="btn btn-success" ng-click="saveTemplate()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
             </div>
             {% include 'administration/_alert.html' %}
         </div>
@@ -45,7 +44,7 @@
         <!-- Tab panes -->
         <div class="tab-content">
             {% block certificate-options %}
-            <div role="tabpanel" class="tab-pane edit-certificates active" id="edit-certificate">
+            <div role="tabpanel" class="tab-pane edit-certificates" id="edit-certificate">
                 <div class="alert alert-info" role="alert">
                     Edite os elementos numerados de <strong>1 a 4</strong> com as informações que serão exibidas no certificado final do curso.
                 </div>
@@ -66,7 +65,7 @@
                         <!-- TODO add course info -->
                         <p class="student">Nome do(a) concluinte</p>
                         <p class="text-muted">
-                            concluiu o curso <strong>{{ course.name }}</strong>, com <strong>40</strong> horas, no período de _______________________.
+                            RG ___________________ concluiu o curso <strong>{{ course.name }}</strong>, com <strong>40</strong> horas, em _______________________.
                         </p>
                         <p class="text-muted">
                             <strong>_____________</strong>, <strong>__</strong> de <strong>__________</strong> de 20<strong>__</strong>.
@@ -74,28 +73,29 @@
                     </div>
                     <footer class="certificate-signature">
                         <div class="editable editable-text role-signature">
-                            <input type="text" ng-model="" placeholder="Digite o cargo, ex.: Diretora da Unidade" />
+                            <input type="text" ng-model="" placeholder="Digite o nome e  cargo, ex.:Fulana de Tal - Diretora da Unidade" />
                         </div>
+                        <div class="pull-left">Realizado em: {{ site.domain }}</div>
                     </footer>
                 </div>
             </div>
             {% endblock %}
             {% block statement_attendance %}
-            <div role="tabpanel" class="tab-pane edit-certificates" id="edit-receipt">
+            <div role="tabpanel" class="tab-pane edit-receipt" id="edit-receipt">
                 <div class="alert alert-info" role="alert">
                     Edite o texto que aparecerá no comprovante emitido automaticamente após a conclusão do curso. Este comprovante <strong>não possui</strong> a mesma validade do certificado.
                 </div>
                 <div class="certificate-container certificate-admi receipt">
                   <span>Cidade, data</span>
-                  <p class="text-uppercase student-name">({{ object.course_student.user.get_full_name }}, RG)</p>
-                  <p>Concluiu o curso online de <em>{{ object.course.name }}</em> com carga
+                  <p class="text-uppercase student-name">(Nome do(a) concluinte, RG __.___.___.__ ___/__)</p>
+                  <p>Concluiu o curso online de <em>{{ course.name }}</em> com carga
                     horária estimada de (40) horas.</p>
                   <section class="coordinator-section">
                     <p class="coordinator-name">Fábio Flatschart</p>
                     <p class="course-coordinator">Coordenador pedagógico</p>
                   </section>
                   <footer>
-                    <div class="pull-left">Realizado em: ({{ object.course.url }})</div>
+                    <div class="pull-left">Realizado em: {{ site.domain }}</div>
                     <div class="pull-right logo">
                       <file ng-model="images.logo" name="logo"></file>
                       <button class="btn btn-primary" ng-click="saveLogo()">

@@ -27,6 +27,6 @@
 <footer class="text-right hide">
     <!-- TODO colocar a data de emissão e código do certificado -->
     <p>Emitido em <span>{{ object.modified_date | date:"d/m/Y" }}</span></p>
-    <div class="pull-left">Realizado em: ({{ object.course.url }})</div>
+    <div class="pull-left">Realizado em: {{ site.domain }}</div>
     <p>Código de validação: <span> {{ object.hash }} </span></p>
 </footer>

@@ -6,11 +6,7 @@
 
 {% block certificate-options %}
 
-    <div role="tabpanel" c
-         lass="tab-pane edit-certificates active"
-         id="edit-certificate"
-         ng-app="certification"
-         ng-controller="CertificateTemplateCtrl">
+    <div role="tabpanel" class="tab-pane edit-certificates active" id="edit-certificate">
         <div class="alert alert-info" role="alert">
             Edite os elementos numerados de <strong>1 a 5</strong> com as informações que serão exibidas no certificado final do curso.
         </div>
@@ -34,7 +30,6 @@
                 </p>
             </div>
             <div class="institute-logo">
-                <!-- TODO add file preview -->
                 {% verbatim %}
                 <img alt="Logo Instituto" preview-image ng-model="images.logo" ng-src="/media/{{ ct.logo_url }}" class="img-responsive" /> {% endverbatim %}
                 <file ng-model="images.logo" name="logo"></file>
@@ -49,20 +44,21 @@
                                placeholder="Digite o nome do Instituto" />
                            </span> certifica que
                 </p>
-                <!-- TODO add course info -->
                 <p class="student">Nome do(a) concluinte</p>
                 <p class="text-muted">
-                    concluiu o curso <strong>{{ course.name }}</strong>, com
-                    <strong>___</strong> horas, no período de _______________________.
+                    RG ___________________ concluiu o curso <strong>{{ course.name }}</strong>, com
+                    <strong>___</strong> horas, em _______________________.
                 </p>
                 <p class="text-muted">
                     <strong>_____________</strong>, <strong>__</strong> de <strong>__________</strong> de 20<strong>__</strong>.
                 </p>
             </div>
+
             <footer class="certificate-signature">
                 <div class="editable editable-text role-signature">
-                    <input type="text" ng-model="ct.signature_name" placeholder="Digite o cargo, ex.: Diretora da Unidade" />
+                    <input type="text" ng-model="ct.signature_name" placeholder="Digite o nome e o cargo, ex.: Diretora da Unidade" />
                 </div>
+                <div class="pull-left">Realizado em: {{ site.domain }}</div>
             </footer>
         </div>
     </div>

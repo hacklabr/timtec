@@ -56,7 +56,7 @@
 
             $scope.saveTemplate = function () {
                 $scope.ct.$update({'course' : $scope.course_id}, function(updated){
-                    $scope.alert.success('Template atualizado.');
+                    $scope.alert.success('Opções salvas com sucesso!');
                 })
             }
 
@@ -65,12 +65,13 @@
             $scope.saveLogo = function() {
                 if(!$scope.images.logo) return;
                 if ($scope.course_id) saveImageData();
+                $scope.alert.success('Imagem salva com sucesso!');
             };
 
-            $scope.saveSignature = function() {
-                if(!$scope.images.signature) return;
-                if ($scope.course_id) saveImageData();
-            };
+//            $scope.saveSignature = function() {
+//                if(!$scope.images.signature) return;
+//                if ($scope.course_id) saveImageData();
+//            };
 
             var saveImageData = function(){
                 var fu = new FormUpload();
@@ -85,7 +86,7 @@
 
                 return fu.sendTo('/api/certificate_template_images/' + $scope.course_id)
                     .then(function(){
-                        $scope.alert.success('A imagem foi atualizada.');
+                        $scope.alert.success('Imagem salva com sucesso!');
                     });
             }
 
