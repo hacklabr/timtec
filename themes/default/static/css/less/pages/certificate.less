@@ -89,3 +89,35 @@
 .dropdown-menu {
     top: initial;
 }
+.certificate-admin{
+  counter-reset: steps-counter;
+  color: #444;
+  position: relative;
+  .text-muted, .student{
+      cursor: not-allowed;
+      opacity: 0.2;
+  }
+  .coordinator-section{
+    position: absolute;
+    bottom: 270px;
+    right: 15%;
+    width: 200px;
+  }
+  .institute:before, .institute-logo:before, .name-coordinator:before, .role-coordinator:before{
+      background-color: #FB4E4E;
+      border-radius: 50%;
+      color: #FFF;
+      content: counter(steps-counter);
+      display: inline-block;
+      height: 2em;
+      left: -30px;
+      padding-top: 0.25em;
+      position: absolute;
+      text-align: center;
+      width: 2em;
+  }
+  .institute-logo, .name-coordinator, .role-coordinator, .institute {
+      counter-increment: steps-counter;
+      position: relative;
+  }
+}
