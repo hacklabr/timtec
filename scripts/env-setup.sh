@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TIMTEC_VIRTUALENVFOLDER=~/timtec-env
+TIMTEC_VIRTUALENVFOLDER=~/env
 TIMTEC_FOLDER=~/timtec
 
 ## Create virtualenv

@@ -18,6 +18,7 @@ endef
 define base_update
 	cp timtec/settings_local_$1.py timtec/settings_local.py
 	~/env/bin/pip install -U -r requirements/test.txt
+	$(call setup_js)
 	~/env/bin/python manage.py migrate --noinput --fake-initial
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
@@ -27,7 +28,7 @@ endef
 create-staging:
 	virtualenv ~/env
 	~/env/bin/pip install -r requirements/production.txt
-	sudo `which npm` install -g less yuglify uglify-js cssmin ng-annotate --loglevel silent
+	$(call setup_js)
 	mkdir -p ~/webfiles/static
 	mkdir -p ~/webfiles/media
 
@@ -80,10 +81,7 @@ python_tests: clean
 js_tests:
 	find . -path ./bower_components -prune -o -path bower_components/ -prune -o -path ./node_modules -prune -o -regex ".*/vendor/.*" -prune -o -name '*.js' -exec ./node_modules/jshint/bin/jshint {} \;
 
-karma_tests:
-	./node_modules/karma-cli/bin/karma start confkarma.js $*
-
-all_tests: clean python_tests karma_tests js_tests test_collectstatic
+all_tests: clean python_tests js_tests test_collectstatic
 
 setup_ci:
 	psql -c 'create database timtec_ci;' -U postgres
@@ -98,7 +96,8 @@ setup_coveralls:
 	pip install -q coveralls
 
 setup_js:
-	npm install --loglevel silent
+	sudo npm install -g ng-annotate@1.2 less@2.6
+	npm install # --loglevel silent
 
 setup_django: clean
 	python manage.py syncdb --noinput
