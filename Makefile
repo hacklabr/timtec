@@ -96,8 +96,10 @@ setup_coveralls:
 	pip install -q coveralls
 
 setup_js:
-	sudo npm install -g ng-annotate@1.2 less@2.6
-	npm install # --loglevel silent
+	sudo npm install -g less@2.2 yuglify uglify-js cssmin karma-cli jshint ng-annotate grunt-cli grunt grunt-angular-gettext # --loglevel silent
+	# sudo npm install grunt grunt-angular-gettext
+	# sudo npm install -g ng-annotate@1.2 less@2.6
+	# npm install # --loglevel silent
 
 setup_django: clean
 	python manage.py syncdb --noinput
