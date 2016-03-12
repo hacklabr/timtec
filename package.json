@@ -9,6 +9,9 @@
     "grunt-angular-gettext": "~2.1.11"
   },
   "devDependencies": {
+    "jshint": "~2.9.1",
+    "less": "~2.6.1",
+    "ng-annotate": "~1.2"
   },
   "scripts": {
     "nggettext_compile": "grunt compile",

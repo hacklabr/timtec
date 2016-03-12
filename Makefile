@@ -18,7 +18,7 @@ endef
 define base_update
 	cp timtec/settings_local_$1.py timtec/settings_local.py
 	~/env/bin/pip install -U -r requirements/test.txt
-	$(call setup_js)
+	npm install
 	~/env/bin/python manage.py migrate --noinput --fake-initial
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
@@ -28,7 +28,7 @@ endef
 create-staging:
 	virtualenv ~/env
 	~/env/bin/pip install -r requirements/production.txt
-	$(call setup_js)
+	npm install
 	mkdir -p ~/webfiles/static
 	mkdir -p ~/webfiles/media
 
@@ -37,10 +37,8 @@ create-production: create-staging
 	cp ../settings_production.py timtec/settings_production.py
 	~/env/bin/python manage.py syncdb --noinput --no-initial-data
 	~/env/bin/python manage.py migrate --noinput --no-initial-data
-	~/env/bin/python manage.py loaddata production
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
-	~/env/bin/python manage.py create_student_and_professor
 	touch ~/wsgi-reload
 
 update-test:
@@ -96,10 +94,8 @@ setup_coveralls:
 	pip install -q coveralls
 
 setup_js:
-	sudo npm install -g less@2.2 yuglify uglify-js cssmin karma-cli jshint ng-annotate grunt-cli grunt grunt-angular-gettext # --loglevel silent
-	# sudo npm install grunt grunt-angular-gettext
-	# sudo npm install -g ng-annotate@1.2 less@2.6
-	# npm install # --loglevel silent
+
+	npm install # --loglevel silent
 
 setup_django: clean
 	python manage.py syncdb --noinput

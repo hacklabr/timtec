@@ -131,14 +131,14 @@ STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 # PIPELINE_ENABLED = True
 PIPELINE_YUGLIFY_BINARY = os.path.join(PROJECT_ROOT, 'node_modules', 'yuglify', 'bin', 'yuglify')
 PIPELINE_UGLIFYJS_BINARY = os.path.join(PROJECT_ROOT, 'node_modules', 'uglify-js', 'bin', 'uglifyjs')
-# PIPELINE_NGMIN_BINARY = os.path.join(PROJECT_ROOT, 'node_modules', 'ngmin', 'bin', 'ngmin')
+PIPELINE_NGANNOTATE_BINARY = os.path.join(PROJECT_ROOT, 'node_modules', 'ng-annotate', 'build', 'es5', 'ng-annotate')
 # PIPELINE_YUGLIFY_BINARY = 'yuglify'
 # PIPELINE_UGLIFYJS_BINARY = 'uglifyjs'
-PIPELINE_NGMIN_BINARY = 'ngmin'
+# PIPELINE_NGMIN_BINARY = 'ngmin'
 PIPELINE_JS_COMPRESSOR = 'timtec.ngmincombo.NgminComboCompressor'
 
-# PIPELINE_LESS_BINARY = os.path.join(PROJECT_ROOT, 'node_modules', 'less', 'bin', 'lessc')
-PIPELINE_LESS_BINARY = 'lessc'
+PIPELINE_LESS_BINARY = os.path.join(PROJECT_ROOT, 'node_modules', 'less', 'bin', 'lessc')
+# PIPELINE_LESS_BINARY = 'lessc'
 PIPELINE_COMPILERS = (
     'pipeline.compilers.less.LessCompiler',
 )
