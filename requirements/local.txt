@@ -10,6 +10,3 @@ django-debug-toolbar==1.3.0
 ipdb
 
 pip-tools
-
-# django-extensions==1.3.10
-django-extensions==1.5.5
