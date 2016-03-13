@@ -6,12 +6,12 @@
     "uglify-js": "~2.6.2",
     "grunt": "~0.4.5",
     "grunt-cli": "~0.1.13",
-    "grunt-angular-gettext": "~2.1.11"
-  },
-  "devDependencies": {
-    "jshint": "~2.9.1",
+    "grunt-angular-gettext": "~2.1.11",
     "less": "~2.6.1",
     "ng-annotate": "~1.2"
+  },
+  "devDependencies": {
+    "jshint": "~2.9.1"
   },
   "scripts": {
     "nggettext_compile": "grunt compile",
