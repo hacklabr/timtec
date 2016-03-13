@@ -2,16 +2,19 @@
 {% load staticfiles %}
 
 <div class="certificate-container receipt">
-    <span>{{ object.course_student.user.city }}, {{ object.created_date | date:"d/m/Y" }}</span>
     <p class="text-uppercase student-name">{{ object.course_student.user.get_full_name }}{% if object.course_student.user.rg %}, RG {{ object.course_student.user.rg }} {% endif %}</p>
-    <p>Concluiu o curso online de <em>{{ object.course.name }}</em> com carga
-      horária estimada de (40) horas.</p>
+    <p>Concluiu o curso online <em>{{ object.course.name }}</em> com carga
+      horária estimada de (40) horas em {{ object.created_date | date:"d/m/Y" }}.</p>
     <section class="coordinator-section">
       <p class="coordinator-name">Fábio Flatschart</p>
       <p class="course-coordinator">Coordenador pedagógico</p>
     </section>
     <footer>
       <div class="pull-left">Realizado em: {{ site.domain }}</div>
+      <br>
+      <div class="pull-left">
+          Código de validação: <a href="{% url 'certificate' object.link_hash %}">{{ object.link_hash }}</a>
+      </div>
       <div class="pull-right logo">
         <img class="img-responsive" src="{% static 'img/logo-instituto-tim.png' %}" />
       </div>
