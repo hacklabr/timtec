@@ -518,7 +518,7 @@ class Lesson(PositionedModel):
     name = models.CharField(_('Name'), max_length=255)
     notes = models.TextField(_('Notes'), default="", blank=True)
     position = models.IntegerField(default=0)
-    slug = AutoSlugField(_('Slug'), populate_from='name', max_length=50, editable=False, unique=True)
+    slug = AutoSlugField(_('Slug'), populate_from='name', max_length=128, editable=False, unique=True)
     status = models.CharField(_('Status'), choices=STATES, default=STATES[0][0], max_length=64)
 
     collection_name = 'course'
