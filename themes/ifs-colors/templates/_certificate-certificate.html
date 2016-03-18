@@ -1,32 +1,50 @@
 {% load i18n %}
 {% load staticfiles %}
-<div class="ifs-certificate-container">
-    <div ng-show="ct.pronatec_logo" class="pronatec-logo">
-        <img alt="Logo Instituto" src="{% static 'img/logopronatec.svg' %}">
+
+<div class="container">
+    <div class="ifs-certificate-container">
+        {% if cert_template.pronatec_logo %}
+        <div class="pronatec-logo">
+            <img alt="Logo Instituto" src="{% static 'img/logopronatec.svg' %}">
+        </div>
+        {% endif %}
+        {% if cert_template.mec_logo %}
+        <div class="brasil-logo">
+            <img alt="Logo Instituto" src="{% static 'img/logobrasil.svg' %}">
+        </div>
+        {% endif %}
+        {% if cert_template.cert_logo_url %}
+        <div class="institute-logo">
+            <img alt="Logo Instituto" src="{{ cert_template.cert_logo_url }}">
+        </div>
+        {% endif %}
+        <div class="text-center certificate-info">
+            <p>O <span class="institute">{{ cert_template.organization_name }}</span> certifica que</p>
+            <h2 class="student">{{ object.course_student.user.get_full_name }}</h2>
+            <p>
+                Concluiu o curso de <strong>{{ object.course_student.course.name }}</strong>, com <strong>40</strong> horas em {{ object.modified_date | date:"d/m/Y" }}
+            </p>
+
+            <!-- TODO inserir edição de cidade -->
+            <!--<p>-->
+                <!--<strong>Campinas/SP</strong>, <strong>12</strong> de <strong>setembro</strong> de 20<strong>15</strong>.-->
+            <!--</p>-->
+        </div>
+        <footer class="text-right">
+            <div class="coordinator-section">
+                <div class="name-coordinator">
+                    <span><strong>{{ cert_template.name }}</strong></span>
+                </div>
+                <div class="role-coordinator">
+                    <span>{{ cert_template.role }}</span>
+                </div>
+            </div>
+            <div class="credits">
+                <div class="pull-left">Realizado em: {{ site.domain }}</div>
+                <p>URL de validação: <a href="{% url 'certificate' object.link_hash %}">{{ object.link_hash }}</a></p>
+            </div>
+
+        </footer>
     </div>
-    <div ng-show="ct.mec_logo" class="brasil-logo">
-        <img alt="Logo Instituto" src="{% static 'img/logobrasil.svg' %}">
-    </div>
-    <div class="institute-logo">
-        <img alt="Logo Instituto" src="">
-    </div>
-    <div class="text-center certificate-info">
-        <!-- TODO colocar os dados corretos da instituição-->
-        <p>O <span class="institute">INSTITUTO FEDERAL DE SÃO PAULO</span> certifica que</p>
-        <h2 class="student">{{ object.course_student.user.get_full_name }}</h2>
-        <p>
-            Concluiu o curso de <strong>{{ object.course.name }}</strong>, com <strong>40</strong> horas,
-            no período de 01 de junho a 31 de agosto de 2015.
-        </p>
-        <!-- TODO colocar a carga horária -->
-        <p>
-            <strong>Campinas/SP</strong>, <strong>12</strong> de <strong>setembro</strong> de 20<strong>15</strong>.
-        </p>
-    </div>
+
 </div>
-<footer class="text-right hide">
-    <!-- TODO colocar a data de emissão e código do certificado -->
-    <p>Emitido em <span>{{ object.modified_date | date:"d/m/Y" }}</span></p>
-    <div class="pull-left">Realizado em: {{ site.domain }}</div>
-    <p>Código de validação: <span> {{ object.hash }} </span></p>
-</footer>

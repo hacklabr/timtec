@@ -16,17 +16,13 @@
     module.controller('CertificateCtrl', ['$scope', 'ClassIdGetter', 'Course', 'CourseCertification', 'CertificateTemplate',
         function($scope, ClassIdGetter, Course, CourseCertification, CertificateTemplate){
             console.log(ClassIdGetter.certificateData());
-            CourseCertification.get({'link_hash' : ClassIdGetter.certificateData()}, function(data) {
-                $scope.cc = data;
+            $scope.certificate = CourseCertification.get({'link_hash' : ClassIdGetter.certificateData()}, function(certificate) {
+//                $scope.certificate = data;
 
-                Course.get({'id' : $scope.cc.course}, function(data) {
-                    $scope.course = data;
-                    console.log(data);
-                });
+                $scope.course = Course.get({'id' : certificate.course});
 
-                CertificateTemplate.get({'course' : $scope.cc.course }, function(data) {
-                    $scope.ct = data;
-                });
+                $scope.cert_template = CertificateTemplate.get({'course' : certificate.course });
+                return certificate;
             });
         }
     ]);
@@ -63,23 +59,18 @@
             $scope.images = {};
 
             $scope.saveLogo = function() {
-                if(!$scope.images.logo) return;
+                if(!$scope.images.cert_logo && !$scope.images.base_logo) return;
                 if ($scope.course_id) saveImageData();
-                $scope.alert.success('Imagem salva com sucesso!');
+//                $scope.alert.success('Imagem salva com sucesso!');
             };
-
-//            $scope.saveSignature = function() {
-//                if(!$scope.images.signature) return;
-//                if ($scope.course_id) saveImageData();
-//            };
 
             var saveImageData = function(){
                 var fu = new FormUpload();
-                if($scope.images.logo){
-                    fu.addField('logo', $scope.images.logo);
+                if($scope.images.cert_logo){
+                    fu.addField('cert_logo', $scope.images.cert_logo);
                 }
-                if($scope.images.signature){
-                    fu.addField('signature', $scope.images.signature);
+                if($scope.images.base_logo){
+                    fu.addField('base_logo', $scope.images.base_logo);
                 }
                 fu.addField('course', $scope.course_id);
                 // return a new promise that file will be uploaded
