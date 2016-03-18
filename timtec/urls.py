@@ -23,8 +23,8 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         CourseCertificationViewSet,
                         CourseCertificationDetailView,
                         CertificationProcessViewSet,
-                        EvaluationViewSet, IfCertificateTemplateViewSet,
-                        IfCertificateTemplateImageViewSet, RequestCertificateView,
+                        EvaluationViewSet, CertificateTemplateViewSet,
+                        CertificateTemplateImageViewSet, RequestCertificateView,
                         EmitReceiptView, ProfileViewSet)
 
 from activities.views import AnswerViewSet
@@ -73,8 +73,8 @@ router.register(r'flatpage', FlatpageViewSet)
 router.register(r'course_certification', CourseCertificationViewSet)
 router.register(r'certification_process', CertificationProcessViewSet)
 router.register(r'evaluation', EvaluationViewSet)
-router.register(r'certificate_template', IfCertificateTemplateViewSet)
-router.register(r'certificate_template_images', IfCertificateTemplateImageViewSet)
+router.register(r'certificate_template', CertificateTemplateViewSet)
+router.register(r'certificate_template_images', CertificateTemplateImageViewSet)
 
 urlpatterns = patterns(
     '',

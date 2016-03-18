@@ -32,12 +32,12 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           CourseCertificationSerializer,
                           CertificationProcessSerializer,
                           EvaluationSerializer, ProfileSerializer,
-                          IfCertificateTemplateSerializer, IfCertificateTemplateImageSerializer)
+                          IfCertificateTemplateSerializer, CertificateTemplateImageSerializer)
 
 from .models import (Course, CourseProfessor, Lesson, StudentProgress,
                      Unit, ProfessorMessage, CourseStudent, Class,
                      CourseAuthor, CourseCertification, CertificationProcess,
-                     Evaluation, IfCertificateTemplate)
+                     Evaluation, CertificateTemplate, IfCertificateTemplate)
 
 from .forms import (ContactForm, RemoveStudentForm,
                     AddStudentsForm, )
@@ -341,6 +341,10 @@ class CourseCertificationDetailView(DetailView):
     def render_to_response(self, context, **response_kwargs):
         from django.core.urlresolvers import resolve
 
+        certificate = context.get('object')
+        if certificate:
+            context['cert_template'] = IfCertificateTemplate.objects.get(course=certificate.course_student.course)
+
         url_name = resolve(self.request.path_info).url_name
 
         if url_name == 'certificate-download':
@@ -352,7 +356,6 @@ class CourseCertificationDetailView(DetailView):
             import os
 
             today = strftime("%d%b%Y", gmtime())
-            certificate = context['object']
 
             width, height = CERTIFICATE_SIZE
             url = self.request.build_absolute_uri().split('download')[0] + 'print/'
@@ -404,10 +407,14 @@ class EmitReceiptView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         course_id = kwargs.get('course_id')
         if course_id:
-            course = CourseStudent.objects.get(course__id=course_id, user=self.request.user)
+            course_student = CourseStudent.objects.get(course__id=course_id, user=self.request.user)
+        else:
+            return reverse_lazy('courses')
+
+        if course_student and course_student.can_emmit_receipt():
             recipt = CourseCertification()
-            recipt.course_student = course
-            recipt.course_workload = course.course.workload
+            recipt.course_student = course_student
+            recipt.course_workload = course_student.course.workload
             recipt.is_valid = True
             recipt.type = 'recipt'
 
@@ -418,6 +425,8 @@ class EmitReceiptView(RedirectView):
             recipt.link_hash = hash.hexdigest()[:10]
             recipt.save()
             return reverse_lazy('certificate', args=[recipt.link_hash])
+        else:
+            return reverse_lazy('course_intro', args=[course_student.course.slug])
 
 
 class RequestCertificateView(View):
@@ -425,7 +434,7 @@ class RequestCertificateView(View):
     pass
 
 
-class IfCertificateTemplateViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
+class CertificateTemplateViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     model = IfCertificateTemplate
     lookup_field = 'course'
 
@@ -439,15 +448,15 @@ class IfCertificateTemplateViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-class IfCertificateTemplateImageViewSet(viewsets.ModelViewSet):
-    model = IfCertificateTemplate
+class CertificateTemplateImageViewSet(viewsets.ModelViewSet):
+    model = CertificateTemplate
     lookup_field = 'course'
-    serializer_class = IfCertificateTemplateImageSerializer
+    serializer_class = CertificateTemplateImageSerializer
     permission_classes = (IsProfessorCoordinatorOrAdminPermissionOrReadOnly, )
 
     def post(self, request, **kwargs):
         certificate_template = self.get_object()
-        serializer = IfCertificateTemplateImageSerializer(
+        serializer = CertificateTemplateImageSerializer(
             certificate_template, request.FILES)
 
         if serializer.is_valid():

@@ -734,39 +734,41 @@ class CertificationProcess(models.Model):
 
 class CertificateTemplate(models.Model):
     course = models.OneToOneField(Course, verbose_name=_('Course'))
+    role = models.CharField(_('Role'), max_length=128, blank=True, null=True)
+    name = models.CharField(_('Signature Name'),
+                            blank=True, max_length=255,
+                            null=True)
+    cert_logo = models.ImageField(_('Logo'), null=True, blank=True,
+                                  upload_to=hash_name('logo', 'organization_name'))
+    base_logo = models.ImageField(_('Logo'), null=True, blank=True,
+                                  upload_to=hash_name('base_logo', 'organization_name'))
+    organization_name = models.CharField(_('Name'), max_length=255, blank=True, null=True)
 
     class Meta:
         verbose_name = _('Certificate Template')
 
     def __unicode__(self):
-        return u'({0})'.format(self.course)
+        return '({0})'.format(self.course)
 
     def __str__(self):
         return '({0})'.format(self.course)
+
+    @property
+    def cert_logo_url(self):
+        if self.cert_logo:
+            return self.cert_logo.name
+        return ''
+
+    @property
+    def base_logo_url(self):
+        if self.base_logo:
+            return self.base_logo.name
+        return ''
 
 
 class IfCertificateTemplate(CertificateTemplate):
     pronatec_logo = models.BooleanField(_('Pronatec'), default=False)
     mec_logo = models.BooleanField(_('MEC'), default=True)
-    logo = models.ImageField(_('Logo'), null=True, blank=True,
-                             upload_to=hash_name('if_logo', 'if_name'))
-    if_name = models.CharField(_('Name'), max_length=30, blank=True, null=True)
-    signature = models.ImageField(_('Signature'), null=True, blank=True,
-                                  upload_to=hash_name('if_signature',
-                                                      'if_name'))
-    signature_name = models.CharField(_('Signature Name'),
-                                      blank=True, max_length=255,
-                                      null=True)
-
-    def get_logo_url(self):
-        if self.logo:
-            return self.logo.name
-        return ''
-
-    def get_signature_url(self):
-        if self.signature:
-            return self.signature.name
-        return ''
 
     class Meta:
         verbose_name = _('IF Certificate Template')

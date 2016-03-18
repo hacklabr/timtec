@@ -3,7 +3,8 @@ from django.contrib.auth import get_user_model
 from core.models import (Course, CourseProfessor, CourseStudent, Lesson,
                          Video, StudentProgress, Unit, ProfessorMessage,
                          Class, CourseAuthor, CourseCertification,
-                         CertificationProcess, Evaluation, IfCertificateTemplate)
+                         CertificationProcess, Evaluation, CertificateTemplate,
+                         IfCertificateTemplate)
 from accounts.serializers import TimtecUserSerializer, \
     TimtecUserAdminCertificateSerializer
 from activities.serializers import ActivitySerializer
@@ -83,11 +84,16 @@ class CertificationProcessSerializer(serializers.ModelSerializer):
 class CourseCertificationSerializer(serializers.ModelSerializer):
     processes = BaseCertificationProcessSerializer(many=True, read_only=True)
     approved = BaseCertificationProcessSerializer(source='get_approved_process')
+    course = serializers.SerializerMethodField('get_course')
 
     class Meta:
         model = CourseCertification
         fields = ('link_hash', 'created_date', 'is_valid', 'processes', 'type',
-                  'approved')
+                  'approved', 'course')
+
+    @staticmethod
+    def get_course(obj):
+        return obj.course.id
 
 
 class ProfileCourseCertificationSerializer(serializers.ModelSerializer):
@@ -107,25 +113,28 @@ class EvaluationSerializer(serializers.ModelSerializer):
         model = Evaluation
 
 
-class IfCertificateTemplateSerializer(serializers.ModelSerializer):
-    logo_url = serializers.Field(source='get_logo_url')
-    signature_url = serializers.Field(source='get_signature_url')
+class CertificateTemplateSerializer(serializers.ModelSerializer):
+    base_logo_url = serializers.Field(source='base_logo_url')
+    cert_logo_url = serializers.Field(source='cert_logo_url')
+
+    class Meta:
+        model = CertificateTemplate
+        fields = ('id', 'course', 'organization_name', 'base_logo_url', 'cert_logo_url', 'role', 'name',)
+
+
+class IfCertificateTemplateSerializer(CertificateTemplateSerializer):
 
     class Meta:
         model = IfCertificateTemplate
-        fields = ('id', 'course', 'pronatec_logo', 'mec_logo', 'if_name',
-                  'signature_name', 'logo_url', 'signature_url',)
-
-    def update(self, instance, validated_data):
-        return super(IfCertificateTemplateSerializer, self)\
-            .update(instance, validated_data)
+        fields = ('id', 'course', 'organization_name', 'base_logo_url', 'cert_logo_url',
+                  'pronatec_logo', 'mec_logo', 'role', 'name',)
 
 
-class IfCertificateTemplateImageSerializer(serializers.ModelSerializer):
+class CertificateTemplateImageSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = IfCertificateTemplate
-        fields = ("logo", "signature")
+        model = CertificateTemplate
+        fields = ("base_logo",)
 
 
 class ClassSerializer(serializers.ModelSerializer):
