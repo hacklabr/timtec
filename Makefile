@@ -16,7 +16,7 @@ define reset_media
 endef
 
 define base_update
-	cp timtec/settings_local_$1.py timtec/settings_local.py
+	# cp timtec/settings_local_$1.py timtec/settings_local.py
 	~/env/bin/pip install -U -r requirements/test.txt
 	npm install
 	~/env/bin/python manage.py migrate --noinput --fake-initial
@@ -24,6 +24,28 @@ define base_update
 	~/env/bin/python manage.py compilemessages
 	touch ~/wsgi-reload
 endef
+
+update:
+	~/env/bin/pip install -U -r requirements/test.txt
+	npm install
+	~/env/bin/python manage.py migrate --noinput --fake-initial
+	~/env/bin/python manage.py collectstatic --noinput
+	~/env/bin/python manage.py compilemessages
+	touch ~/wsgi-reload
+
+install:
+	virtualenv ~/env
+	~/env/bin/pip install -r requirements/production.txt
+	npm install
+	mkdir -p ~/webfiles/static
+	mkdir -p ~/webfiles/media
+	cp timtec/settings_local_production.py timtec/settings_local.py
+	# cp ../settings_production.py timtec/settings_production.py
+	~/env/bin/python manage.py syncdb --noinput --no-initial-data
+	~/env/bin/python manage.py migrate --noinput --no-initial-data
+	~/env/bin/python manage.py collectstatic --noinput
+	~/env/bin/python manage.py compilemessages
+	touch ~/wsgi-reload
 
 create-staging:
 	virtualenv ~/env
