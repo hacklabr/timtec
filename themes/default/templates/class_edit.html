@@ -8,6 +8,7 @@
 {% block js %}
     {{ block.super }}
     {% compressed_js 'core' %}
+    {% compressed_js 'certificate' %}
 {% endblock %}
 
 {% block wrapper_classes %}
@@ -43,16 +44,17 @@ wrapper-course-lesson
 
 <div id="classes" class="course-classes">
     <!-- ACTIONS -->
-    <div class="actions-menu" ng-app="core" fixed-bar>
+    <div class="actions-menu" fixed-bar>
         <div class="container">
             <div class="actions-buttons">
                 <form method="post" action="{% url 'class-delete' pk=class.id %}">
                     {% csrf_token %}
                     {% if object.course.default_class != object %}
-                    <button type="submit" class="btn btn-danger" title="{% trans 'Delete course' %}">{% trans 'Delete' %} | <i class="fa fa-trash-o"></i></button>
+                        <button type="submit" class="btn btn-danger" title="{% trans 'Delete course' %}">{% trans 'Delete' %} | <i class="fa fa-trash-o"></i></button>
                     {% endif %}
                     <button class="btn btn-success" onclick="document.getElementById('mainForm').submit();return false;">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
                 </form>
+
             </div>
 
             {# {% include 'administration/_alert.html' %} #}
@@ -64,24 +66,28 @@ wrapper-course-lesson
     {% include "_course-header-inline.html"  with course=object.course %}
     <section id="classes-content" class="container">
     	<header class="secondary-header">
-            <form id="mainForm" class="form-inline" method="post" action="{% url 'class' pk=class.id %}">
-                {% csrf_token %}
-                <div class="row">
+            <form id="mainForm" class="form-inline" method="post" action="">
+               {% csrf_token %}
+
+               <div class="row">
                     <div class="col-lg-9">
-                        <div class="editable-title"><input type="text" name="name" value="{{ object.name }}"></div>
+                        <div class="editable-title">
+                            {{ form.name }}
+                        </div>
                     </div>
                     <div class="col-lg-3">
                         <a class="btn btn-lg btn-danger uppercase" data-toggle="modal" data-target="#class-modal">{% trans 'Add users' %}</a>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-12">
+                    <div class="col-xs-9">
                         <div class="professor-assistant">
-                            <label for="select-assistant">{% trans 'Assistant Professor' %}:</label>
+                            <label for="{{ form.assistant.id_for_label }}">{% trans 'Assistant Professor' %}:</label>
                             {% if user|is_course_coordinator:object.course %}
-                                <select id="select-assistant" name="assistant" class="form-control">
+                                <select id="id_assistant"
+                                        name="assistant" class="form-control">
                                     {% if not object.assistant.id %}
-                                        <option value="-1">{% trans 'Select a professor' %}</option>
+                                        <option value>{% trans 'Select a professor' %}</option>
                                     {% endif %}
                                     {% for professor in object.course.professors.all %}
                                         <option value="{{ professor.id }}" {% if professor.id == object.assistant.id %}selected{% endif %}>{{ professor }}</option>
@@ -92,7 +98,13 @@ wrapper-course-lesson
                             {% endif %}
                         </div>
                     </div>
-                 </div>
+                    <div class="col-xs-3">
+                        <a class="btn btn-lg btn-danger uppercase"
+                           href="{% url 'course-evaluations' object.course.slug %}#/class-evaluations/{{ object.id }}">
+                            {% trans 'Certification' %}
+                        </a>
+                    </div>
+                </div>
             </form>
         </header>
         <table class="table table-list">
@@ -127,5 +139,4 @@ wrapper-course-lesson
         </table>
     </section>
 </div>
-
 {% endblock %}

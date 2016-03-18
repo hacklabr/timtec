@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="certificate-container">
+        <div class="institute-logo">
+            <img alt="Logo Instituto" src="">
+        </div>
+        <div class="text-center">
+            <!-- TODO colocar os dados corretos da instituição-->
+            <p><strong>Nome da Instituição</strong> confere a</p>
+            <h2 class="top">{{ object.course_student.user.get_full_name }}</h2>
+            <p>o comprovante de conclusão do curso online</p>
+            <h1>{{ object.course.name }}</h1>
+            <p>que possui carga horária de <span>40 horas</span>.</p>
+        </div>
+        <div class="row">
+            <!-- TODO fazer um for de instrutores -->
+            <div class="col-xs-3">
+                <!-- TODO colocar a assinatura do instrutor -->
+                <img alt="Assinatura" src="" />
+                <hr />
+                <!-- TODO colocar o nome correto do instrutor e da instituição -->
+                <small>
+                    Nome do instrutor <br/>
+                    Nome da Instituição
+                </small>
+            </div>
+        </div>
+    </div>
+    <footer class="text-right hide">
+        <p>Emitido em <span>{{ object.modified_date | date:"d/m/Y" }}</span></p>
+        <div class="pull-left">Realizado em: ({{ object.course.url }})</div>
+        <p>URL de validação: <a href="{% url 'certificate' object.link_hash %}">{{ object.link_hash }}</a></p>
+    </footer>
+</div>

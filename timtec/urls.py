@@ -17,8 +17,15 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         CarouselCourseView, ClassListView,
                         ClassCreateView, ClassUpdateView, ClassDeleteView,
                         ClassRemoveUserView, ClassAddUsersView, ClassViewSet,
+                        ClassEvaluationsView,
                         FlatpageViewSet, CoursePictureUploadViewSet,
-                        ResumeCourseView, FlatpageView, CourseAuthorViewSet,)
+                        ResumeCourseView, FlatpageView, CourseAuthorViewSet,
+                        CourseCertificationViewSet,
+                        CourseCertificationDetailView,
+                        CertificationProcessViewSet,
+                        EvaluationViewSet, CertificateTemplateViewSet,
+                        CertificateTemplateImageViewSet, RequestCertificateView,
+                        EmitReceiptView, ProfileViewSet)
 
 from activities.views import AnswerViewSet
 from forum.views import (CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet,
@@ -37,6 +44,7 @@ flatpages.register()
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'user', TimtecUserViewSet)
+router.register(r'profile', ProfileViewSet)
 router.register(r'user_admin', TimtecUserAdminViewSet)
 router.register(r'course', CourseViewSet)
 router.register(r'course_carousel', CarouselCourseView)
@@ -62,6 +70,11 @@ router.register(r'lessons_user_progress', UserCourseLessonsStats)
 router.register(r'course_stats', CourseStatsByLessonViewSet)
 router.register(r'course_classes', ClassViewSet)
 router.register(r'flatpage', FlatpageViewSet)
+router.register(r'course_certification', CourseCertificationViewSet)
+router.register(r'certification_process', CertificationProcessViewSet)
+router.register(r'evaluation', EvaluationViewSet)
+router.register(r'certificate_template', CertificateTemplateViewSet)
+router.register(r'certificate_template_images', CertificateTemplateImageViewSet)
 
 urlpatterns = patterns(
     '',
@@ -77,6 +90,18 @@ urlpatterns = patterns(
 
     # Public browsing
     url(r'^my-courses/$', UserCoursesView.as_view(), name='user_courses'),
+
+    url(r'^emit_recipt/(?P<course_id>[-a-zA-Z0-9_]+)$', EmitReceiptView.as_view(), name='emit_recipt'),
+    url(r'^request_certificate/(?P<course_id>[-a-zA-Z0-9_]+)$',
+        RequestCertificateView.as_view(),
+        name='request_certificate'),
+
+    url(r'^certificate/(?P<slug>[-a-zA-Z0-9_]+)/$', CourseCertificationDetailView.as_view(), name='certificate'),
+    url(r'^certificate/(?P<slug>[-a-zA-Z0-9_]+)/print/$',
+        CourseCertificationDetailView.as_view(template_name="certificate_print.html"),
+        name='certificate-print'),
+    url(r'^certificate/(?P<slug>[-a-zA-Z0-9_]+)/download/$', CourseCertificationDetailView.as_view(),
+        name='certificate-download'),
     url(r'^accept_terms/$', AcceptTermsView.as_view(), name='accept_terms'),
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/intro/$', CourseView.as_view(), name='course_intro'),
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/enroll/$', EnrollCourseView.as_view(), name='enroll_course'),
@@ -93,7 +118,10 @@ urlpatterns = patterns(
     url(r'^class/(?P<pk>[0-9]+)/delete/$', ClassDeleteView.as_view(), name='class-delete'),
     url(r'^class/(?P<pk>[0-9]+)/remove_user/$', ClassRemoveUserView.as_view(), name='class-remove-user'),
     url(r'^class/(?P<pk>[0-9]+)/add_users/$', ClassAddUsersView.as_view(), name='class-add-users'),
+    url(r'^class/(?P<pk>[0-9]+)/evaluations/$', ClassEvaluationsView.as_view(), name='class-evaluations'),
 
+    # Evaluations
+    url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/course_evaluations/$', GenericCourseView.as_view(template_name="course-evaluations.html"), name='course-evaluations'),
 
     # Services
     url(r'^api/', include(router.urls)),

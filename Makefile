@@ -16,19 +16,41 @@ define reset_media
 endef
 
 define base_update
-	cp timtec/settings_local_$1.py timtec/settings_local.py
-	~/env/bin/pip install -U -r requirements.txt
-	~/env/bin/python manage.py syncdb --noinput
-	~/env/bin/python manage.py migrate --noinput
+	# cp timtec/settings_local_$1.py timtec/settings_local.py
+	~/env/bin/pip install -U -r requirements/test.txt
+	npm install
+	~/env/bin/python manage.py migrate --noinput --fake-initial
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
 	touch ~/wsgi-reload
 endef
 
+update:
+	~/env/bin/pip install -U -r requirements/test.txt
+	npm install
+	~/env/bin/python manage.py migrate --noinput --fake-initial
+	~/env/bin/python manage.py collectstatic --noinput
+	~/env/bin/python manage.py compilemessages
+	touch ~/wsgi-reload
+
+install:
+	virtualenv ~/env
+	~/env/bin/pip install -r requirements/production.txt
+	npm install
+	mkdir -p ~/webfiles/static
+	mkdir -p ~/webfiles/media
+	cp timtec/settings_local_production.py timtec/settings_local.py
+	# cp ../settings_production.py timtec/settings_production.py
+	~/env/bin/python manage.py syncdb --noinput --no-initial-data
+	~/env/bin/python manage.py migrate --noinput --no-initial-data
+	~/env/bin/python manage.py collectstatic --noinput
+	~/env/bin/python manage.py compilemessages
+	touch ~/wsgi-reload
+
 create-staging:
 	virtualenv ~/env
-	~/env/bin/pip install -r requirements.txt
-	sudo `which npm` install -g less yuglify uglify-js cssmin ngmin --loglevel silent
+	~/env/bin/pip install -r requirements/production.txt
+	npm install
 	mkdir -p ~/webfiles/static
 	mkdir -p ~/webfiles/media
 
@@ -37,10 +59,8 @@ create-production: create-staging
 	cp ../settings_production.py timtec/settings_production.py
 	~/env/bin/python manage.py syncdb --noinput --no-initial-data
 	~/env/bin/python manage.py migrate --noinput --no-initial-data
-	~/env/bin/python manage.py loaddata production
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
-	~/env/bin/python manage.py create_student_and_professor
 	touch ~/wsgi-reload
 
 update-test:
@@ -79,31 +99,28 @@ python_tests: clean
 	py.test --pep8 --flakes --splinter-webdriver=phantomjs --cov . . $*
 
 js_tests:
-	find . -path ./bower_components -prune -o -path bower_components/ -prune -o -path ./node_modules -prune -o -regex ".*/vendor/.*" -prune -o -name '*.js' -exec jshint {} \;
+	find . -path ./bower_components -prune -o -path bower_components/ -prune -o -path ./node_modules -prune -o -regex ".*/vendor/.*" -prune -o -name '*.js' -exec ./node_modules/jshint/bin/jshint {} \;
 
-karma_tests:
-	karma start confkarma.js $*
-
-all_tests: clean python_tests karma_tests js_tests test_collectstatic
+all_tests: clean python_tests js_tests test_collectstatic
 
 setup_ci:
 	psql -c 'create database timtec_ci;' -U postgres
+	pip install --upgrade pip
 	cp timtec/settings_local_ci.py timtec/settings_local.py
 
 setup_py:
-	pip install -q -r requirements.txt
-	pip install -q -r dev-requirements.txt
+	pip install -r requirements/test.txt
 	python setup.py -q develop
 
 setup_coveralls:
 	pip install -q coveralls
 
 setup_js:
-	sudo `which npm` install -g less@2.2 yuglify uglify-js cssmin karma-cli jshint ngmin grunt-cli # --loglevel silent
-	sudo npm install grunt grunt-angular-gettext karma karma-jasmine karma-phantomjs-launcher
+
+	npm install # --loglevel silent
 
 setup_django: clean
-	python manage.py syncdb --all --noinput
+	python manage.py syncdb --noinput
 	python manage.py migrate --fake --noinput
 	python manage.py loaddata minimal
 	python manage.py compilemessages
@@ -121,6 +138,3 @@ reset_db: clean
 
 messages: clean
 	python manage.py makemessages -a -d django
-
-hipchat_report:
-	curl -d "room_id=timtec&from=ci&color=green" --data-urlencode "message=Build done $$DRONE_BUILD_URL" "https://api.hipchat.com/v1/rooms/message?auth_token=$$HIPCHAT_TOKEN&format=json"

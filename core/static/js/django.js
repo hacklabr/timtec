@@ -32,4 +32,11 @@
             setTimeout(window.timtec_res, 200);
         });
     });
+
+    app.service('CurrentUser', function () {
+       return {
+                  'id': window.USER_ID
+              }
+    });
+
 })(window.angular);

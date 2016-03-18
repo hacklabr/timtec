@@ -79,6 +79,23 @@ class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
     def is_pilot(self):
         return self.groups.filter(name='pilot_course').count() > 0
 
+    @property
+    def is_profile_filled(self):
+        from timtec.settings import ACCOUNT_REQUIRED_FIELDS as fields
+
+        for field in fields:
+            try:
+                f = getattr(self, field)
+                if not f:
+                    return False
+            except AttributeError:
+                raise AttributeError(_('Invalid attribute: %s' % field))
+        return True
+
+    def get_certificates(self):
+        from core.models import CourseCertification
+        return CourseCertification.objects.filter(course_student__user=self)
+
     def save(self, *args, **kwargs):
 
         is_new = self.pk is None
@@ -89,7 +106,7 @@ class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
             try:
                 self.groups.add(Group.objects.get(name=settings.REGISTRATION_DEFAULT_GROUP_NAME))
                 self.save()
-            except models.exceptions.ObjectDoesNotExist:
+            except Group.DoesNotExist:
                 pass
 
 

@@ -43,7 +43,14 @@
         <hr/>
         <!-- <div class="row">
             <div class="col-lg-7 col-lg-offset-4 col-md-7 col-md-offset-4 col-sm-7 col-sm-offset-4 textleft clearfix">
-                {% load socialaccount %}<a href="{% provider_login_url 'facebook' method='oauth2' %}">Facebook Connect</a>
+                {% load socialaccount %}
+                <a href="{% provider_login_url 'facebook' method='oauth2' %}">Facebook Connect</a>
+
+                {% for provider in openid_providers %}
+                <span> | </span>
+                <a href="{% provider_login_url "openid" openid=provider.openid_url  next=current_path %}">{{ provider.name }}</a>
+                {% endfor %}
+
             </div>
         </div>
         -->
@@ -101,7 +108,13 @@
                 <!--
                 <hr/>
                 <div class="textcenter">
-                    {% load socialaccount %}<a href="{% provider_login_url 'facebook' method='oauth2' %}">Facebook Connect</a>
+                    {% load socialaccount %}
+                    <a href="{% provider_login_url 'facebook' method='oauth2' %}">Facebook Connect</a>
+
+                    {% for provider in openid_providers %}
+                    <span> | </span>
+                    <a href="{% provider_login_url "openid" openid=provider.openid_url  next=current_path %}">{{ provider.name }}</a>
+                    {% endfor %}
                 </div>
                 -->
             </form>

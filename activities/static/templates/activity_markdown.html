@@ -1,12 +1,6 @@
 <div class="question textleft">
-    <h1 class="top">{{ currentActivity.data.question }}</h1>
+  <h1 class="top">{{ currentActivity.data.question }}</h1>
 </div>
-
 <markdowneditor content="answer.given"></markdowneditor>
-<div class="col-lg-6 col-md-6 col-sm-6">
-    <button onClick="ga('send', 'event', 'activity', 'skip activity');" class="btn btn-default" ng-click="nextStep(true)" translate>Skip</button>
-</div>
-<div class="col-lg-6 col-md-6 col-sm-6 textright">
-    <button onClick="ga('send', 'event', 'activity', 'rewatch video');" class="btn btn-info" ng-click="play()" translate>Review the video</button>
-    <button class="btn btn-success" ng-click="sendAnswer()" translate>Send</button>
-</div>
+
+<text-markdown-reponse-panel></text-markdown-reponse-panel>

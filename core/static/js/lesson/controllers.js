@@ -3,8 +3,8 @@
 
     var app = angular.module('lesson.controllers', []);
 
-    app.controller('MainCtrl', ['$scope', 'LessonData', 'Answer', 'Progress', '$location', 'youtubePlayerApi', 'resolveActivityTemplate',
-        function ($scope, LessonData, Answer, Progress, $location, youtubePlayerApi, resolveActivityTemplate) {
+    app.controller('MainCtrl', ['$scope', 'LessonData', 'Answer', 'Progress', '$location', 'youtubePlayerApi', 'resolveActivityTemplate', '$modal', 'Student',
+        function ($scope, LessonData, Answer, Progress, $location, youtubePlayerApi, resolveActivityTemplate, $modal, Student) {
 
             window.ga = window.ga || function(){};
 
@@ -48,6 +48,7 @@
                 }
             };
 
+
             $scope.play = function() {
                 if($scope.currentUnit.video){
                     var youtube_id = $scope.currentUnit.video.youtube_id;
@@ -61,7 +62,6 @@
                 } else {
                     $scope.section = 'activity';
                 }
-
             };
 
             $scope.selectActivity = function(index) {
@@ -69,24 +69,30 @@
                 if($scope.currentUnit.activities && $scope.currentUnit.activities.length) {
                     $scope.currentActivity = $scope.currentUnit.activities[index];
                     $scope.activityTemplateUrl = resolveActivityTemplate($scope.currentActivity.type);
-
+                    console.log($scope.activityTemplateUrl);
                     ga("send", "event", "activity", "select", $scope.currentActivity.id);
 
                     $scope.answer = Answer.get({activityId: $scope.currentActivity.id}, function(answer) {
                         var exp = $scope.currentActivity.expected;
                         var giv = answer.given;
-                        // FIXME why this name?
-                        // TODO test if professor changes the activity (create a new alternative, the user lost his answer?
-                        var shouldUseLastAnswer = (exp !== null && exp !== undefined) &&
-                            (angular.isArray(exp) && angular.isArray(giv) && giv.length === exp.length);
 
-                        console.log(exp, giv, shouldUseLastAnswer);
-                        if (!shouldUseLastAnswer) {
-                            // Initialize empty given answer
-                            if(angular.isArray($scope.currentActivity.expected)) {
-                                answer.given = $scope.currentActivity.expected.map(function(){});
+                        // Test if the answer type is array.
+                        // See https://github.com/hacklabr/timtec/wiki/Atividades for details
+                        if ($scope.currentActivity === 'relationship' ||
+                            $scope.currentActivity === 'trueorfalse' ||
+                            $scope.currentActivity === 'multiplechoice') {
+                            // FIXME why this name?
+                            // TODO test if professor changes the activity (create a new alternative, the user lost his answer?
+                            var shouldUseLastAnswer = (exp !== null && exp !== undefined) &&
+                                (angular.isArray(exp) && angular.isArray(giv) && giv.length === exp.length);
+
+                            if (!shouldUseLastAnswer) {
+                                // Initialize empty given answer
+                                if(angular.isArray($scope.currentActivity.expected)) {
+                                    answer.given = $scope.currentActivity.expected.map(function(){});
+                                }
+                                delete answer.correct;
                             }
-                            delete answer.correct;
                         }
                     },
                     function (error) {
@@ -95,6 +101,7 @@
                         if(angular.isArray($scope.currentActivity.expected)) {
                             answer.given = $scope.currentActivity.expected.map(function(){});
                         }
+                        $scope.$root.changed = true;
                         $scope.answer = new Answer(answer);
                     });
                 } else {
@@ -104,12 +111,14 @@
             };
 
             $scope.sendAnswer = function() {
-                console.log('mandando resposta');
                 $scope.answer.activity = $scope.currentActivity.id;
-                $scope.answer.$update({activityId: $scope.answer.activity}).then(function(d){
-                    console.log(d, d.correct);
-                    ga('send', 'event', 'activity', 'result', '', d.correct);
+                $scope.answer.$update({activityId: $scope.answer.activity}).then(function(answer){
+                    $scope.$root.changed = false;
+                    console.log(answer, answer.correct);
+                    ga('send', 'event', 'activity', 'result', '', answer.correct);
                     $scope.currentUnit.progress = Progress.get({unit: $scope.currentUnit.id});
+                    answer.updated = true;
+                    return answer;
                 });
                 ga('send', 'event', 'activity', 'submit');
             };
@@ -168,7 +177,69 @@
                    index = parseInt(index, 10) - 1 || 0;
                    $scope.selectUnit(lesson.units[index]);
                 });
+
             });
+
+            $scope.$watch("section", function(currentSection, lastSection){
+                if($scope.lesson && $scope.lesson.is_course_last_lesson && currentSection === 'end'){
+                    $scope.courseComplete();
+                }
+            });
+
+            $scope.courseComplete = function () {
+                var modalInstance = $modal.open({
+                    templateUrl: 'courseCompleteModal.html',
+                    controller: ['$scope', '$modalInstance', 'course_slug', 'Student', 'CourseCertification',
+                        'CertificationProcess', CourseCompleteModalInstanceCtrl],
+                    resolve: {
+                        course_slug: function () {
+                            return $scope.lesson.course;
+                        }
+                    }
+                });
+                modalInstance.result.then(function (new_message) {
+
+                });
+            };
+
+            var CourseCompleteModalInstanceCtrl = function ($scope, $modalInstance, course_slug, Student,
+                CourseCertification, CertificationProcess) {
+                // Show spinner while creating the receipt
+
+                $scope.cs = false;
+
+                Student.query({'course__slug' : course_slug}, function(cs){
+                    $scope.cs = cs.pop();
+                    if($scope.cs.can_emmit_receipt){
+                        CourseCertification.query({'course_student' : $scope.cs.id}, function(receipt){
+                            $scope.receipt = receipt.pop();
+                        });
+                    }
+                });
+
+                $scope.createCertificationProcess = function (){
+                    if(!$scope.cs) return;
+                    var cp = new CertificationProcess();
+                    var cs = $scope.cs;
+
+                    cp.student = cs.user.id;
+                    cp.klass = cs.current_class.id;
+                    if(!cs.certificate)
+                        cp.course_certification = null;
+                    else {
+                        cp.course_certification = cs.certificate.link_hash;
+                    }
+                    cp.evaluation = null;
+                    cp.$save(function(new_cp){
+                        cs.certificate.processes = cs.certificate.processes || [];
+                        cs.certificate.processes.push(new_cp);
+                    });
+                }
+
+                $scope.cancel = function () {
+                        $modalInstance.dismiss();
+                };
+            }
         }
     ]);
 

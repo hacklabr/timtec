@@ -11,6 +11,7 @@ from django.views.generic import (DetailView, ListView, DeleteView,
 from django.views.generic.base import RedirectView, View, TemplateView
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.flatpages.models import FlatPage
+from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django.conf import settings
 from django.utils import timezone
@@ -27,10 +28,16 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           LessonNoteSerializer, ProfessorMessageSerializer,
                           CourseStudentSerializer, ClassSerializer,
                           FlatpageSerializer, CourseAuthorPictureSerializer,
-                          CourseAuthorSerializer,)
+                          CourseAuthorSerializer,
+                          CourseCertificationSerializer,
+                          CertificationProcessSerializer,
+                          EvaluationSerializer, ProfileSerializer,
+                          IfCertificateTemplateSerializer, CertificateTemplateImageSerializer)
 
 from .models import (Course, CourseProfessor, Lesson, StudentProgress,
-                     Unit, ProfessorMessage, CourseStudent, Class, CourseAuthor,)
+                     Unit, ProfessorMessage, CourseStudent, Class,
+                     CourseAuthor, CourseCertification, CertificationProcess,
+                     Evaluation, CertificateTemplate, IfCertificateTemplate)
 
 from .forms import (ContactForm, RemoveStudentForm,
                     AddStudentsForm, )
@@ -45,13 +52,13 @@ class HomeView(ListView):
     def get_queryset(self):
         return Course.objects.filter(home_published=True).order_by('home_position')
 
+
 if settings.TWITTER_USER != '':
     from twitter import Twitter, OAuth
 
     class TwitterApi(View):
 
         def get(self, request, *args, **kwargs):
-
             consumer_key = settings.TWITTER_CONSUMER_KEY
             consumer_secret = settings.TWITTER_CONSUMER_SECRET
             twitter_name = settings.TWITTER_USER
@@ -140,9 +147,18 @@ class UserCoursesView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(UserCoursesView, self).get_context_data(**kwargs)
 
-        context['courses_user_assist'] = CourseProfessor.objects.filter(user=self.request.user, role='assistant').exists()
+        context['courses_user_assist'] = CourseProfessor.objects.filter(
+            user=self.request.user,
+            role='assistant'
+        ).exists()
 
-        context['courses_user_coordinate'] = CourseProfessor.objects.filter(user=self.request.user, role='coordinator').exists()
+        context['courses_user_coordinate'] = CourseProfessor.objects.filter(
+            user=self.request.user,
+            role='coordinator'
+        ).exists()
+
+        context['user_has_certificates'] = CourseCertification.objects.filter(
+            course_student__user=self.request.user).exists()
 
         return context
 
@@ -267,9 +283,187 @@ class CoursePictureUploadViewSet(viewsets.ModelViewSet):
 class CourseStudentViewSet(viewsets.ModelViewSet):
     model = CourseStudent
     lookup_field = 'id'
-    filter_fields = ('course', 'user',)
-#     filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('course__slug', 'course__id', 'user',)
+    #     filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = CourseStudentSerializer
+
+    def get_queryset(self):
+        queryset = super(CourseStudentViewSet, self).get_queryset()
+        if self.request.GET.get('user', False):
+            return queryset
+        return queryset.filter(user=self.request.user)
+
+
+class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
+
+    model = get_user_model()
+    serializer_class = ProfileSerializer
+
+    def list(self, request, *args, **kwargs):
+
+        username = self.request.QUERY_PARAMS.get('username', False)
+        if username:
+            serializer = self.serializer_class(self.model.objects.get(username=username))
+            return Response(serializer.data)
+        # SECURITY NOTE: this condition ensures the list of all users won't be exposed!
+        elif self.request.user:
+            serializer = self.serializer_class(self.request.user)
+            return Response(serializer.data)
+        else:
+            return super(ProfileViewSet, self).list(self, request, *args,
+                                                    **kwargs)
+
+
+class CourseCertificationViewSet(viewsets.ModelViewSet):
+    model = CourseCertification
+    lookup_field = 'link_hash'
+    filter_fields = ('course_student',)
+    serializer_class = CourseCertificationSerializer
+
+    def get_queryset(self):
+        queryset = super(CourseCertificationViewSet, self).get_queryset()
+        if not self.request.GET.get('user', False):
+            queryset = queryset.filter(course_student__user=self.request.user)
+
+        return queryset
+
+
+class CourseCertificationDetailView(DetailView):
+    model = CourseCertification
+    template_name = 'certificate.html'
+    slug_field = "link_hash"
+    serializer_class = CourseCertificationSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        return super(CourseCertificationDetailView, self).get_queryset(*args,
+                                                                       **kwargs)
+
+    def render_to_response(self, context, **response_kwargs):
+        from django.core.urlresolvers import resolve
+
+        certificate = context.get('object')
+        if certificate:
+            context['cert_template'] = IfCertificateTemplate.objects.get(course=certificate.course_student.course)
+
+        url_name = resolve(self.request.path_info).url_name
+
+        if url_name == 'certificate-download':
+            from selenium import webdriver
+            from signal import SIGTERM
+            from time import gmtime, strftime
+            from timtec.settings import MEDIA_ROOT, CERTIFICATE_SIZE
+            from PIL import Image
+            import os
+
+            today = strftime("%d%b%Y", gmtime())
+
+            width, height = CERTIFICATE_SIZE
+            url = self.request.build_absolute_uri().split('download')[0] + 'print/'
+            png_path = os.path.join(MEDIA_ROOT, certificate.link_hash + '.png')
+            pdf_filename = certificate.link_hash + today + '.pdf'
+            pdf_path = os.path.join(MEDIA_ROOT, pdf_filename)
+
+            driver = webdriver.PhantomJS()
+            driver.set_window_size(width, height)
+            driver.get(url)
+            driver.save_screenshot(filename=png_path)
+
+            driver.service.process.send_signal(SIGTERM)
+            driver.quit()
+
+            Image.open(png_path).convert("RGB").save(pdf_path, format='PDF')
+
+            response = HttpResponse(content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename=%s' % pdf_filename
+
+            certi = open(pdf_path)
+            response.write(certi.read())
+            certi.close()
+
+            return response
+        else:
+            return super(CourseCertificationDetailView, self)\
+                .render_to_response(context, **response_kwargs)
+
+
+class CertificationProcessViewSet(viewsets.ModelViewSet):
+    model = CertificationProcess
+    filter_fields = ('student',)
+    serializer_class = CertificationProcessSerializer
+
+    permission_classes = []
+
+    def get_queryset(self):
+        queryset = super(CertificationProcessViewSet, self).get_queryset()
+
+        klass = self.request.QUERY_PARAMS.get('klass')
+        if klass:
+            queryset = queryset.filter(klass=klass)
+
+        return queryset
+
+
+class EmitReceiptView(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        course_id = kwargs.get('course_id')
+        if course_id:
+            course_student = CourseStudent.objects.get(course__id=course_id, user=self.request.user)
+        else:
+            return reverse_lazy('courses')
+
+        if course_student and course_student.can_emmit_receipt():
+            recipt = CourseCertification()
+            recipt.course_student = course_student
+            recipt.course_workload = course_student.course.workload
+            recipt.is_valid = True
+            recipt.type = 'recipt'
+
+            import hashlib
+            import time
+            hash = hashlib.sha1()
+            hash.update(str(time.time()))
+            recipt.link_hash = hash.hexdigest()[:10]
+            recipt.save()
+            return reverse_lazy('certificate', args=[recipt.link_hash])
+        else:
+            return reverse_lazy('course_intro', args=[course_student.course.slug])
+
+
+class RequestCertificateView(View):
+    # CertificationProcess
+    pass
+
+
+class CertificateTemplateViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
+    model = IfCertificateTemplate
+    lookup_field = 'course'
+
+    serializer_class = IfCertificateTemplateSerializer
+
+    def update(self, request, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data)
+
+
+class CertificateTemplateImageViewSet(viewsets.ModelViewSet):
+    model = CertificateTemplate
+    lookup_field = 'course'
+    serializer_class = CertificateTemplateImageSerializer
+    permission_classes = (IsProfessorCoordinatorOrAdminPermissionOrReadOnly, )
+
+    def post(self, request, **kwargs):
+        certificate_template = self.get_object()
+        serializer = CertificateTemplateImageSerializer(
+            certificate_template, request.FILES)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=200)
+        else:
+            return Response(serializer.errors, status=400)
 
 
 class ProfessorMessageViewSet(viewsets.ModelViewSet):
@@ -426,12 +620,7 @@ class CanEditClassMixin(object):
 class ClassUpdateView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
     model = Class
     template_name = 'class_edit.html'
-    fields = ('name', 'assistant', )
-
-    def get_context_data(self, **kwargs):
-        context = super(ClassUpdateView, self).get_context_data(**kwargs)
-
-        return context
+    fields = ('name', 'assistant', 'user_can_certificate',)
 
     def form_valid(self, form):
         if form.changed_data:
@@ -476,6 +665,29 @@ class ClassAddUsersView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
         return reverse_lazy('class', kwargs={'pk': self.object.id})
 
 
+class ClassEvaluationsView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
+    model = Class
+    template_name = 'evaluations.html'
+
+    fields = []
+
+
+class EvaluationViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
+    model = Evaluation
+    ordering = ('date',)
+
+    filter_fields = ('klass',)
+    filter_backends = (filters.DjangoFilterBackend,)
+
+    serializer_class = EvaluationSerializer
+
+    # def get_queryset(self):
+    #    queryset = super(EvaluationViewSet, self.get_queryset())
+
+    #    klass_id = self.request.QUERY_PARAMS.get('klass_id')
+    #    if klass_id:
+
+
 class LessonViewSet(viewsets.ModelViewSet):
     model = Lesson
     serializer_class = LessonSerializer
@@ -492,9 +704,10 @@ class LessonViewSet(viewsets.ModelViewSet):
 
 class StudentProgressViewSet(viewsets.ModelViewSet):
     model = StudentProgress
-    serializer_class = StudentProgressSerializer
-    filter_fields = ('unit', 'unit__lesson',)
     lookup_field = 'unit'
+    filter_fields = ('unit', 'unit__lesson',)
+    filter_backends = (filters.DjangoFilterBackend,)
+    serializer_class = StudentProgressSerializer
 
     def update(self, request, *args, **kwargs):
         self.object = self.get_object_or_none()
@@ -571,7 +784,7 @@ class UserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
         return Response(results)
 
 
-class ClassViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
+class ClassViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
 
     model = Class
     serializer_class = ClassSerializer

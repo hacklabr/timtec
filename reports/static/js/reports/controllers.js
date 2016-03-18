@@ -9,11 +9,38 @@
                 var current_user_id = parseInt($window.user_id, 10);
 
                 $scope.course_stats = CourseStats.get({courseId: $scope.course_id});
-                $scope.users_reports = CourseUserReport.query({course: $scope.course_id});
+                $scope.users_reports = CourseUserReport.query({course: $scope.course_id}, function(data) {
+		    for (var i=0; i<data.length; i++) {
+			if (!data[i].name)
+			    data[i].name = data[i].username;
+		    }
+		    return data;
+		});
+		$scope.ordering = 'name'
+		$scope.reverse = false;
 
                 $scope.my_classes = [];
                 $scope.others_classes = [];
-                $scope.filters = {};
+                $scope.filters = {
+                    textsearch: '',
+                    check : function(student){
+			var f = $scope.filters;
+			var search = f.textsearch.toLowerCase();
+			var targets = [
+			    student.name,
+			    student.username,
+			    student.email,
+			]
+
+			for (var i=0; i<targets.length; i++) {
+			    if (targets[i].toLowerCase().match(search)) {
+				return true;
+			    }
+			}
+
+			return false;
+		    }
+		};
 
                 CourseProfessor.query({course: $scope.course_id, user: current_user_id}, function(course_professor){
                     var current_user = course_professor[0];

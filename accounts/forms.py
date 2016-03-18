@@ -3,18 +3,32 @@ from django.contrib.auth import get_user_model
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from timtec.settings import ACCOUNT_REQUIRED_FIELDS as fields
 
 User = get_user_model()
 
 
-class ProfileEditForm(forms.ModelForm):
+class BaseProfileEditForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(BaseProfileEditForm, self).__init__(*args, **kwargs)
+
+        for field in fields:
+            try:
+                self.fields[field].required = True
+                self.fields[field].blank = False
+            except KeyError:
+                pass
+
+
+class ProfileEditForm(BaseProfileEditForm):
+
     email = forms.RegexField(label=_("email"), max_length=75, regex=r"^[\w.@+-]+$")
 
     password1 = forms.CharField(widget=forms.PasswordInput, label=_("Password"), required=False)
     password2 = forms.CharField(widget=forms.PasswordInput, label=_("Password (again)"), required=False)
 
     class Meta:
-        model = User
+        model = get_user_model()
         fields = ('username', 'email', 'first_name', 'last_name', 'picture',
                   'occupation', 'city', 'site', 'biography',)
 

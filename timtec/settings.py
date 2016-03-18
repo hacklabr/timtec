@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # Django settings for timtec project.
 from django.utils.translation import ugettext_lazy as _
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 import os
 
@@ -18,11 +17,10 @@ TIMTEC_THEME = os.getenv('TIMTEC_THEME', 'default')  # don't forget to re run co
 SOUTH_AUTO_FREEZE_APP = True
 
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 
 SITE_ID = 1
 SITE_HOME = ''
-SITE_NAME = u'Timtec'
+SITE_NAME = u'TIM Tec'
 SITE_DOMAIN = 'timtec.com.br'
 
 ADMINS = (
@@ -123,14 +121,21 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     # 'pipeline.finders.FileSystemFinder',
     # 'pipeline.finders.AppDirectoriesFinder',
-    'pipeline.finders.PipelineFinder',
     'pipeline.finders.CachedFileFinder',
+    'pipeline.finders.PipelineFinder',
     # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
+# PIPELINE_ENABLED = True
+PIPELINE_YUGLIFY_BINARY = os.path.join(PROJECT_ROOT, 'node_modules', 'yuglify', 'bin', 'yuglify')
+PIPELINE_UGLIFYJS_BINARY = os.path.join(PROJECT_ROOT, 'node_modules', 'uglify-js', 'bin', 'uglifyjs')
+PIPELINE_NGANNOTATE_BINARY = os.path.join(PROJECT_ROOT, 'node_modules', 'ng-annotate', 'build', 'es5', 'ng-annotate')
+
 PIPELINE_JS_COMPRESSOR = 'timtec.ngmincombo.NgminComboCompressor'
+
+PIPELINE_LESS_BINARY = os.path.join(PROJECT_ROOT, 'node_modules', 'less', 'bin', 'lessc')
 
 PIPELINE_COMPILERS = (
     'pipeline.compilers.less.LessCompiler',
@@ -181,6 +186,7 @@ PIPELINE_JS = {
             'angular-route/angular-route.js',
             'angular-sanitize/angular-sanitize.js',
             'angular-bootstrap/ui-bootstrap-tpls.js',
+            'bootstrap-ui-datetime-picker/dist/datetime-picker.min.js',
             'angular-gettext/dist/angular-gettext.js',
             'angular-i18n/angular-locale_pt-br.js',
             'intro.js/intro.js',
@@ -215,6 +221,21 @@ PIPELINE_JS = {
             'js/factories/timtec-models.js',
         ),
         'output_filename': 'js/messages.js',
+    },
+    'certificate': {
+        'source_filenames': (
+            'js/certificate/app.js',
+            'js/certificate/controllers.js',
+            'js/certificate/filters.js',
+            'js/certificate/services.js',
+            'checklist-model/checklist-model.js',
+            'js/directives/file.js',
+            'js/directives/previewImage.js',
+            'js/directives/alertPopup.js',
+            'js/directives/fixedBar.js',
+            'js/factories/timtec-models.js',
+        ),
+        'output_filename': 'js/certificate.js',
     },
     'codemirror': {
         'source_filenames': (
@@ -372,24 +393,6 @@ APPEND_SLASH = True
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'e%6a01vfbue28$xxssu!9r_)usqjh817((mr+7vv3ek&@#p0!$'
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    'core.loaders.TimtecThemeLoader',
-)
-
-TEMPLATE_CONTEXT_PROCESSORS = TCP + (
-    'django.core.context_processors.request',
-    'allauth.account.context_processors.account',
-    'allauth.socialaccount.context_processors.socialaccount',
-    'core.context_processors.contact_form',
-    'core.context_processors.site_settings',
-    'core.context_processors.get_current_path',
-    'core.context_processors.terms_acceptance_required',
-    'timtec.locale_context_processor.locale',
-)
-
 # Django Suit configuration example
 SUIT_CONFIG = {
     # header
@@ -441,7 +444,6 @@ WSGI_APPLICATION = 'timtec.wsgi.application'
 
 INSTALLED_APPS = (
     'django_extensions',
-    'south',
     'pipeline',
     'suit',
     'django.contrib.auth',
@@ -473,6 +475,7 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.openid',
 
     'django_markdown',
 
@@ -486,7 +489,7 @@ SOCIALACCOUNT_PROVIDERS = {
         'SCOPE': ['email'],
         'METHOD': 'oauth2',
         'VERSION': 'v2.2',
-    }
+    },
 }
 
 # django-registration flag
@@ -500,7 +503,10 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[timtec] "
 ACCOUNT_SIGNUP_FORM_CLASS = 'accounts.forms.SignupForm'
+ACCOUNT_REQUIRED_FIELDS = ('first_name', 'last_name', )
 SOCIALACCOUNT_EMAIL_VERIFICATION = False
+
+CERTIFICATE_SIZE = (862, 596)
 
 TWITTER_CONSUMER_KEY = ''
 TWITTER_CONSUMER_SECRET = ''
@@ -543,6 +549,43 @@ try:
 except IOError:
     pass
 
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(THEMES_DIR, TIMTEC_THEME, 'templates'),
+            os.path.join(THEMES_DIR, 'default', 'templates'),
+        ],
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+
+                # TIMTec context_processors
+                'core.context_processors.contact_form',
+                'core.context_processors.site_settings',
+                'core.context_processors.get_current_path',
+                'core.context_processors.terms_acceptance_required',
+                'timtec.context_processor.locale',
+                'timtec.context_processor.openid_providers',
+            ],
+            'loaders': [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+                'core.loaders.TimtecThemeLoader',
+            ],
+            'debug': DEBUG,
+        },
+    },
+]
+
 # Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
@@ -551,14 +594,6 @@ STATICFILES_DIRS = (
     os.path.join(THEMES_DIR, TIMTEC_THEME, 'static'),
     os.path.join(THEMES_DIR, 'default', 'static'),
     os.path.join(PROJECT_ROOT, 'bower_components'),
-)
-
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    os.path.join(THEMES_DIR, TIMTEC_THEME, 'templates'),
-    os.path.join(THEMES_DIR, 'default', 'templates'),
 )
 
 if DEBUG:

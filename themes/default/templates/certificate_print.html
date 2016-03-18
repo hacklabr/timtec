@@ -1,0 +1,18 @@
+{% extends "base_clean.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
+<div class="container">
+    {% block content %}
+    {% if object.type == 'receipt' %}
+    {% include "_certificate-receipt.html" %}
+    {% else %}
+    {% include "_certificate-certificate.html" %}
+    {% endif %}
+    {% endblock %}
+</div>

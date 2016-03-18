@@ -56,7 +56,7 @@ wrapper-course-lesson
                     {% block units_nav %}
                     <!-- UNITS -->
                     <div class="units">
-                        <h2>Capítulos</h2>
+                        <h2>{% trans 'Chapters' %}</h2>
                         {% verbatim %}
                         <a style="display:block;" data-placement="right"
                            title="{{unit.video.name}}"
@@ -171,7 +171,12 @@ wrapper-course-lesson
         </div>
     </section>
     <!-- END COURSE CONTENT -->
+
+    <!-- COURSE COMPLETE MODAL -->
+    {% block complete_modal_template %}
+        {% include "_modal_course_complete.html" %}
+    {% endblock %}
+    <!-- END COURSE COMPLETE MODAL -->
 </div>
 <!-- END COURSE -->
-
 {% endblock %}

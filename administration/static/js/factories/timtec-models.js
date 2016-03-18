@@ -45,7 +45,7 @@
                 formData.append(name, value);
             };
 
-            this.sendTo = function(url) {
+            this.sendTo = function(url, method) {
                 var deferred = $q.defer();
 
                 formData.append('csrfmiddlewaretoken',
@@ -67,7 +67,12 @@
                     }
                 };
 
-                oReq.open('POST', url, true);
+                if(method){
+                    oReq.open(method, url, true);
+                } else {
+                    oReq.open('POST', url, true);
+                }
+                oReq.setRequestHeader("X-CSRFToken", /csrftoken=(\w+)/.extract(document.cookie, 1));
                 oReq.send(formData);
 
                 return deferred.promise;
@@ -139,6 +144,8 @@
             if(!this.name) this.name = 'Sem título';
             if(!this.slug) this.slug = 'sem-titulo-{0}'.format(new Date().getTime().toString(16));
             if(!this.status) this.status = 'draft';
+            if(!this.min_percent_to_complete)
+                this.min_percent_to_complete = 100;
             return this.$save();
         };
 
@@ -204,6 +211,39 @@
         return Lesson;
     }]);
 
+    app.factory('CourseStudent', function($resource){
+        return $resource('/api/course_student/:id',
+            {'id' : '@id'},
+            {'update': {'method': 'PUT'} });
+    });
+
+    app.factory('CertificationProcess', function($resource){
+        return $resource('/api/certification_process/:certificateId',
+            {'certificateId' : '@id'},
+            {'update': {'method': 'PUT'} });
+    });
+
+    app.factory('CourseCertification', function($resource){
+        return $resource('/api/course_certification/:link_hash',
+                    {'link_hash' : '@id' },
+                    {'update': {method: 'PUT'}
+        });
+    });
+
+    /**
+     * Basic model class to Evaluation
+     */
+    app.factory('Evaluation', function($resource){
+        return $resource('/api/evaluation/:id', {'id' : '@id'}, {
+            'update': {'method': 'PUT'}
+        });
+    });
+
+    app.factory('CertificateTemplate', function($resource){
+       return $resource('/api/certificate_template/:course', {}, {
+           'update' : {'method' : 'PUT'},
+       });
+    });
 
     /**
      * StudentSearch model. Used in typeahead input with ui.bootstrap.typeahead.
@@ -240,7 +280,9 @@
 
 
     app.factory('Class', function($resource){
-            return $resource('/api/course_classes/', {}, {});
+        return $resource('/api/course_classes/:id', {'id' : '@id'}, {
+            'update': {'method': 'PUT'}
+        });
     });
 
 

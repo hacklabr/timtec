@@ -22,7 +22,12 @@
                             <input type="radio" ng-model="checked" ng-value="ngValue"/> \
                             <span ng-transclude></span> \
                         </label>',
-            replace: true
+            replace: true,
+            link: function(scope, element, attrs) {
+                element.on('click', function() {
+                    scope.$root.changed = true;
+                })
+            }
         };
     });
 
@@ -44,7 +49,34 @@
                             <input type="checkbox" ng-model="checked"/> \
                             <span ng-transclude></span> \
                         </label>',
-            replace: true
+            replace: true,
+            link: function(scope, element, attrs) {
+		element.on('click', function() {
+		    scope.$root.changed = true;
+		})
+	    }
+        };
+    });
+
+    app.directive('select', function () {
+        return {
+            restrict: 'E',
+            link: function(scope, element, attrs) {
+                element.on('change', function() {
+                    scope.$root.changed = true;
+                })
+            }
+        };
+    });
+
+    app.directive('textarea', function () {
+        return {
+            restrict: 'E',
+            link: function(scope, element, attrs) {
+                element.on('keydown', function() {
+                    scope.$root.changed = true;
+                })
+            }
         };
     });
 
@@ -52,6 +84,15 @@
         return {
             restrict: 'E',
             templateUrl: '/static/templates/directives/basic_response_panel.html',
+            transclude: true,
+            replace: true
+        };
+    });
+
+    app.directive('textMarkdownReponsePanel', function () {
+        return {
+            restrict: 'E',
+            templateUrl: '/static/templates/directives/text_markdown_response_panel.html',
             transclude: true,
             replace: true
         };
