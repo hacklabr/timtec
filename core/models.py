@@ -756,13 +756,13 @@ class CertificateTemplate(models.Model):
     @property
     def cert_logo_url(self):
         if self.cert_logo:
-            return self.cert_logo.name
+            return self.cert_logo.url
         return ''
 
     @property
     def base_logo_url(self):
         if self.base_logo:
-            return self.base_logo.name
+            return self.base_logo.url
         return ''
 
 

@@ -134,7 +134,7 @@ class CertificateTemplateImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CertificateTemplate
-        fields = ("base_logo",)
+        fields = ('base_logo', 'cert_logo', )
 
 
 class ClassSerializer(serializers.ModelSerializer):
