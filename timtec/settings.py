@@ -232,6 +232,7 @@ PIPELINE_JS = {
             'js/directives/file.js',
             'js/directives/previewImage.js',
             'js/directives/alertPopup.js',
+            'js/directives/fixedBar.js',
             'js/factories/timtec-models.js',
         ),
         'output_filename': 'js/certificate.js',

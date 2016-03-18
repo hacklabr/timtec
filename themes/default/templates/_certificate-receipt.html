@@ -6,8 +6,8 @@
     <p>Concluiu o curso online <em>{{ object.course.name }}</em> com carga
       horária estimada de (40) horas em {{ object.created_date | date:"d/m/Y" }}.</p>
     <section class="coordinator-section">
-      <p class="coordinator-name">Fábio Flatschart</p>
-      <p class="course-coordinator">Coordenador pedagógico</p>
+      <p class="coordinator-name">{{ cert_template.name }}</p>
+      <p class="course-coordinator">{{ cert_template.role }}</p>
     </section>
     <footer>
       <div class="pull-left">Realizado em: {{ site.domain }}</div>
@@ -16,7 +16,11 @@
           Código de validação: <a href="{% url 'certificate' object.link_hash %}">{{ object.link_hash }}</a>
       </div>
       <div class="pull-right logo">
-        <img class="img-responsive" src="{% static 'img/logo-instituto-tim.png' %}" />
+        {% if cert_template.cert_logo_url %}
+        <img class="img-responsive" src="{{ cert_template.cert_logo_url }}">
+        {% else %}
+        <img class="img-responsive" src="{% static 'img/logo.png' %}">
+        {% endif %}
       </div>
     </footer>
 </div>

@@ -89,7 +89,7 @@ wrapper-course-lesson
                         </a>
                     {% endif %}
 
-                    {% if cs.can_emmit_receipt and cs.get_current_class.user_can_certificate %}
+                    {% if cs.certificate.type == 'receipt' and cs.get_current_class.user_can_certificate %}
                     <a href="#"
                        ng-click="createCertificationProcess({{ cs.id }})"
                        ng-hide="hasOpenProcess({{ cs.id }})"

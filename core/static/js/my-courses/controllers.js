@@ -28,8 +28,11 @@
             }
 
             $scope.hasOpenProcess = function (cs) {
-                cs = getResource(cs);
-                return (cs.certificate.processes.length > 0);
+                var course_students = getResource(cs);
+                if (course_students && course_students.certificate)
+                    return (course_students.certificate.processes.length > 0);
+                else
+                    return false;
             }
 
             // FIXME make all app angular

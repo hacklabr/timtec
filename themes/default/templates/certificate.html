@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
+{% load compressed %}
 {% load i18n %}
 {% load staticfiles %}
+
+{% block js %}
+    {{ block.super }}
+    {% compressed_js 'core' %}
+    {% compressed_js 'certificate' %}
+{% endblock %}
 
 {% block wrapper_classes %}
 wrapper-course-lesson
