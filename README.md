@@ -36,6 +36,23 @@
     * libpq-dev, libjpeg-dev, libpng12-dev, build-essential, python-dev, gettext
 * nodejs (0.10+) (you will need a ppa for ubuntu < 14.04)
 
+### Production Environment Requirements
+#### UP to 6000 users
+* Processor: Dual Core
+* RAM: 2 to 4 GB
+* Disk Space: 10 GB
+* Network Total Transfer/mo: ~12GB
+* Incoming: 1GB
+* Outgoing: 11 GB
+
+#### UP to 10k/12k users
+* Processor: Quad Core
+* RAM: 4 to 6 GB
+* Disk Space: 25 GB
+* Network Total Transfer/mo: ~25GB
+* Incoming: 2GB
+* Outgoing: 23 GB
+
 ### Python env
 * create a Python 2.X virtualenv
 
@@ -98,4 +115,8 @@ Activate virtual env, then:
 In the root of repository:
 
     make karma_tests
+    
+    
+### Suporte
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/hacklabr/timtec?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 

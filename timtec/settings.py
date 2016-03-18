@@ -21,7 +21,7 @@ DEBUG = True
 SITE_ID = 1
 SITE_HOME = ''
 SITE_NAME = u'TIM Tec'
-SITE_DOMAIN = 'timtec.com.br'
+SITE_DOMAIN = 'mooc.timtec.com.br'
 
 ADMINS = (
     ('Admin1', 'root@localhost'),
@@ -460,7 +460,6 @@ INSTALLED_APPS = (
     'rosetta',
     'autoslug',
     # TIM Tec
-    'core',
     'accounts',
     'activities',
     'administration',
@@ -468,6 +467,7 @@ INSTALLED_APPS = (
     'course_material',
     'notes',
     'reports',
+    'core',
     # django-metron
     'metron',
     # allauth

@@ -9,7 +9,7 @@ TIMTEC_THEME = 'timtec'
 SITE_ID = 2
 
 ALLOWED_HOSTS = [
-    'timtec.com.br',
+    'mooc.timtec.com.br',
     '.timtec.com.br',
 ]
 
