@@ -16,7 +16,7 @@ define reset_media
 endef
 
 define base_update
-	# cp timtec/settings_local_$1.py timtec/settings_local.py
+	cp timtec/settings_local_$1.py timtec/settings_local.py
 	~/env/bin/pip install -U -r requirements/test.txt
 	npm install
 	~/env/bin/python manage.py migrate --noinput --fake-initial
