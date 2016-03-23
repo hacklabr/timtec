@@ -17,9 +17,6 @@ endef
 
 define base_update
 	cp timtec/settings_local_$1.py timtec/settings_local.py
-	# FIXME
-	~/env/bin/pip install --upgrade setuptools
-	~/env/bin/pip install --upgrade distribute
 	~/env/bin/pip install --upgrade pip
 	~/env/bin/pip install -U -r requirements/test.txt
 	npm install
