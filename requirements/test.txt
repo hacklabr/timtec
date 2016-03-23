@@ -9,3 +9,5 @@ pytest-pep8
 pytest-django==2.6.2
 pytest-splinter==1.1.0
 model_mommy==1.2.5
+# fix setuptools 17.1+ dependencie: https://github.com/testing-cabal/mock/issues/261
+mock==1.0.1

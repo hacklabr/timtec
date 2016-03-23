@@ -15,8 +15,8 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import permissions
 from core.models import Course, CourseProfessor
+from core.permissions import IsAdmin
 from course_material.models import File as TimtecFile
 from .serializer import CourseExportSerializer, CourseImportSerializer
 
@@ -174,7 +174,7 @@ class ExportCourseView(views.SuperuserRequiredMixin, View):
 class ImportCourseView(APIView):
 
     renderer_classes = (JSONRenderer,)
-    permission_classes = (permissions.IsAdminUser,)
+    permission_classes = (IsAdmin,)
 
     def post(self, request, *args, **kwargs):
 
