@@ -19,7 +19,8 @@
         </div>
         {% endif %}
         <div class="text-center certificate-info">
-            <p>O <span class="institute">{{ cert_template.organization_name }}</span> certifica que</p>
+            <p>O <span class="institute">{{ cert_template.organization_name }}</span></p>
+            <p>certifica que</p>
             <h2 class="student">{{ object.course_student.user.get_full_name }}</h2>
             <p>
                 Concluiu o curso de <strong>{{ object.course_student.course.name }}</strong>, com <strong>40</strong> horas em {{ object.modified_date | date:"d/m/Y" }}
@@ -40,8 +41,8 @@
                 </div>
             </div>
             <div class="credits">
-                <div class="pull-left">Realizado em: {{ site.domain }}</div>
-                <p>URL de validação: <a href="{% url 'certificate' object.link_hash %}">{{ object.link_hash }}</a></p>
+                <p>Realizado em: {{ site.domain }}</p>
+                <p>URL de validação: <a href="{% url 'certificate' object.link_hash %}">{{ site.domain }}{% url 'certificate' object.link_hash %}</a></p>
             </div>
 
         </footer>
