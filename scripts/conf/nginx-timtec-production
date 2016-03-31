@@ -6,8 +6,8 @@
 
 server {
     listen 80;
-    client_max_body_size 50m;
-    # server_name timtec.com.br;
+    client_max_body_size 200m;
+    # server_name mooc.timtec.com.br;
 
     access_log /var/log/nginx/production.timtec.com.br.access.log;
     error_log /var/log/nginx/production.timtec.com.br.error.log;
