@@ -37,7 +37,8 @@ DATABASES = {
 MEDIA_ROOT = "/home/timtec-production/webfiles/media/"
 STATIC_ROOT = "/home/timtec-production/webfiles/static/"
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+###### TODO: change this to configure sending mail ######
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 ###### TODO: change this to suit your organization ######
 ADMINS = list(ADMINS) + [('Admin', 'root@' + DOMAIN_NAME), ]
@@ -45,7 +46,7 @@ DEFAULT_FROM_EMAIL = 'donotreply@' + DOMAIN_NAME
 CONTACT_RECIPIENT_LIST = ['contato@' + DOMAIN_NAME, ]
 
 SITE_NAME = 'IF'
-EMAIL_SUBJECT_PREFIX = '[if]'
+EMAIL_SUBJECT_PREFIX = '[if-sysadmin]'
 ######################################################
 
 
