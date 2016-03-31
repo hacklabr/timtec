@@ -10,7 +10,113 @@
     {
         "fields": {
             "name": "students",
-            "permissions": []
+            "permissions": [
+                [
+                    "add_answer",
+                    "activities",
+                    "answer"
+                ],
+                [
+                    "change_answer",
+                    "activities",
+                    "answer"
+                ],
+                [
+                    "add_coursestudent",
+                    "core",
+                    "coursestudent"
+                ],
+                [
+                    "change_coursestudent",
+                    "core",
+                    "coursestudent"
+                ],
+                [
+                    "delete_coursestudent",
+                    "core",
+                    "coursestudent"
+                ],
+                [
+                    "add_studentprogress",
+                    "core",
+                    "studentprogress"
+                ],
+                [
+                    "change_studentprogress",
+                    "core",
+                    "studentprogress"
+                ],
+                [
+                    "delete_studentprogress",
+                    "core",
+                    "studentprogress"
+                ],
+                [
+                    "add_answer",
+                    "forum",
+                    "answer"
+                ],
+                [
+                    "change_answer",
+                    "forum",
+                    "answer"
+                ],
+                [
+                    "add_answervote",
+                    "forum",
+                    "answervote"
+                ],
+                [
+                    "change_answervote",
+                    "forum",
+                    "answervote"
+                ],
+                [
+                    "delete_answervote",
+                    "forum",
+                    "answervote"
+                ],
+                [
+                    "add_question",
+                    "forum",
+                    "question"
+                ],
+                [
+                    "change_question",
+                    "forum",
+                    "question"
+                ],
+                [
+                    "add_questionvote",
+                    "forum",
+                    "questionvote"
+                ],
+                [
+                    "change_questionvote",
+                    "forum",
+                    "questionvote"
+                ],
+                [
+                    "delete_questionvote",
+                    "forum",
+                    "questionvote"
+                ],
+                [
+                    "add_note",
+                    "notes",
+                    "note"
+                ],
+                [
+                    "change_note",
+                    "notes",
+                    "note"
+                ],
+                [
+                    "delete_note",
+                    "notes",
+                    "note"
+                ]
+            ]
         },
         "model": "auth.group",
         "pk": 1
@@ -18,90 +124,235 @@
     {
         "fields": {
             "name": "professors",
-            "permissions": []
+            "permissions": [
+                [
+                    "add_activity",
+                    "activities",
+                    "activity"
+                ],
+                [
+                    "change_activity",
+                    "activities",
+                    "activity"
+                ],
+                [
+                    "delete_activity",
+                    "activities",
+                    "activity"
+                ],
+                [
+                    "add_course",
+                    "core",
+                    "course"
+                ],
+                [
+                    "add_answer",
+                    "activities",
+                    "answer"
+                ],
+                [
+                    "change_answer",
+                    "activities",
+                    "answer"
+                ],
+                [
+                    "delete_answer",
+                    "activities",
+                    "answer"
+                ],
+                [
+                    "change_course",
+                    "core",
+                    "course"
+                ],
+                [
+                    "delete_course",
+                    "core",
+                    "course"
+                ],
+                [
+                    "add_courseprofessor",
+                    "core",
+                    "courseprofessor"
+                ],
+                [
+                    "change_courseprofessor",
+                    "core",
+                    "courseprofessor"
+                ],
+                [
+                    "delete_courseprofessor",
+                    "core",
+                    "courseprofessor"
+                ],
+                [
+                    "add_coursestudent",
+                    "core",
+                    "coursestudent"
+                ],
+                [
+                    "change_coursestudent",
+                    "core",
+                    "coursestudent"
+                ],
+                [
+                    "delete_coursestudent",
+                    "core",
+                    "coursestudent"
+                ],
+                [
+                    "add_lesson",
+                    "core",
+                    "lesson"
+                ],
+                [
+                    "change_lesson",
+                    "core",
+                    "lesson"
+                ],
+                [
+                    "delete_lesson",
+                    "core",
+                    "lesson"
+                ],
+                [
+                    "add_studentprogress",
+                    "core",
+                    "studentprogress"
+                ],
+                [
+                    "change_studentprogress",
+                    "core",
+                    "studentprogress"
+                ],
+                [
+                    "delete_studentprogress",
+                    "core",
+                    "studentprogress"
+                ],
+                [
+                    "add_unit",
+                    "core",
+                    "unit"
+                ],
+                [
+                    "change_unit",
+                    "core",
+                    "unit"
+                ],
+                [
+                    "delete_unit",
+                    "core",
+                    "unit"
+                ],
+                [
+                    "add_video",
+                    "core",
+                    "video"
+                ],
+                [
+                    "change_video",
+                    "core",
+                    "video"
+                ],
+                [
+                    "delete_video",
+                    "core",
+                    "video"
+                ],
+                [
+                    "add_coursematerial",
+                    "course_material",
+                    "coursematerial"
+                ],
+                [
+                    "change_coursematerial",
+                    "course_material",
+                    "coursematerial"
+                ],
+                [
+                    "delete_coursematerial",
+                    "course_material",
+                    "coursematerial"
+                ],
+                [
+                    "add_file",
+                    "course_material",
+                    "file"
+                ],
+                [
+                    "change_file",
+                    "course_material",
+                    "file"
+                ],
+                [
+                    "delete_file",
+                    "course_material",
+                    "file"
+                ],
+                [
+                    "add_answer",
+                    "forum",
+                    "answer"
+                ],
+                [
+                    "change_answer",
+                    "forum",
+                    "answer"
+                ],
+                [
+                    "delete_answer",
+                    "forum",
+                    "answer"
+                ],
+                [
+                    "add_answervote",
+                    "forum",
+                    "answervote"
+                ],
+                [
+                    "change_answervote",
+                    "forum",
+                    "answervote"
+                ],
+                [
+                    "delete_answervote",
+                    "forum",
+                    "answervote"
+                ],
+                [
+                    "add_question",
+                    "forum",
+                    "question"
+                ],
+                [
+                    "change_question",
+                    "forum",
+                    "question"
+                ],
+                [
+                    "delete_question",
+                    "forum",
+                    "question"
+                ],
+                [
+                    "add_questionvote",
+                    "forum",
+                    "questionvote"
+                ],
+                [
+                    "change_questionvote",
+                    "forum",
+                    "questionvote"
+                ],
+                [
+                    "delete_questionvote",
+                    "forum",
+                    "questionvote"
+                ]
+            ]
         },
         "model": "auth.group",
         "pk": 2
-    },
-    {
-        "fields": {
-            "biography": "",
-            "city": "",
-            "date_joined": "2013-10-28T20:42:19Z",
-            "email": "admin@localhost",
-            "first_name": "",
-            "groups": [
-                [
-                    "professors"
-                ]
-            ],
-            "is_active": true,
-            "is_staff": true,
-            "is_superuser": true,
-            "last_login": "2013-11-27T15:51:25Z",
-            "last_name": "",
-            "occupation": "",
-            "password": "pbkdf2_sha256$12000$lV232BOaZxqd$DLRhDcxwPzDJnVDomrg5nPwrzkr7gFl64KhrijrgVAA=",
-            "picture": "",
-            "site": "",
-            "user_permissions": [],
-            "username": "admin"
-        },
-        "model": "accounts.timtecuser",
-        "pk": 1
-    },
-    {
-        "fields": {
-            "biography": "",
-            "city": "",
-            "date_joined": "2013-10-28T20:42:19Z",
-            "email": "student@localhost",
-            "first_name": "",
-            "groups": [
-                [
-                    "students"
-                ]
-            ],
-            "is_active": true,
-            "is_staff": false,
-            "is_superuser": false,
-            "last_login": "2013-11-27T15:51:25Z",
-            "last_name": "",
-            "occupation": "",
-            "password": "pbkdf2_sha256$12000$QRO6HtP9F1Em$VZST+J9CZGWfBxII0Rv5Ed4+VkodzfVff2n8pZPPD9Y=",
-            "picture": "",
-            "site": "",
-            "user_permissions": [],
-            "username": "student"
-        },
-        "model": "accounts.timtecuser",
-        "pk": 2
-    },
-    {
-        "fields": {
-            "biography": "",
-            "city": "",
-            "date_joined": "2013-10-28T20:42:19Z",
-            "email": "professor@localhost",
-            "first_name": "",
-            "groups": [
-                [
-                    "professors"
-                ]
-            ],
-            "is_active": true,
-            "is_staff": false,
-            "is_superuser": false,
-            "last_login": "2013-11-27T15:51:25Z",
-            "last_name": "",
-            "occupation": "",
-            "password": "pbkdf2_sha256$12000$Yim96SEHccMa$HCW2IYXtfwONi1WJ+qu9Jw04VYHlS5K8El7ct/iY+3E=",
-            "picture": "",
-            "site": "",
-            "user_permissions": [],
-            "username": "professor"
-        },
-        "model": "accounts.timtecuser",
-        "pk": 3
     }
 ]
