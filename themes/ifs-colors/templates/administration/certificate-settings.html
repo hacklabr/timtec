@@ -31,7 +31,10 @@
             </div>
             <div class="institute-logo">
                 {% verbatim %}
-                <img alt="Logo Instituto" preview-image ng-model="images.cert_logo" ng-src="{ ct.cert_logo_url }}" class="img-responsive">
+                <img alt="Logo Instituto"
+                     preview-image ng-model="images.cert_logo"
+                     ng-src="{{ ct.cert_logo_url }}"
+                     class="img-responsive">
                 {% endverbatim %}
                 <file ng-model="images.cert_logo" name="cert_logo"></file>
                 <button class="btn btn-primary" ng-click="saveLogo()">
