@@ -20,11 +20,14 @@ ACCOUNT_FORMS = {'login': 'ifs.forms.IfLoginForm'}
 TERMS_ACCEPTANCE_REQUIRED = False
 ########################################################################
 
-###### TODO: add any subdomains you need here ######
-ALLOWED_HOSTS = [
-    DOMAIN_NAME,
-    'wwww.' + DOMAIN_NAME
-]
+###### TODO: add any subdomains you need here. ######
+###### FIXME: Security warning: accepting from all domains is dangerous
+###### FIXME: Security warning: Delete the above line and uncomment the next one after configure DOMAIN_NAME variable
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = [
+#    DOMAIN_NAME,
+#    'wwww.' + DOMAIN_NAME
+# ]
 
 DATABASES = {
     'default': {
