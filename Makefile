@@ -27,7 +27,8 @@ define base_update
 endef
 
 update:
-	~/env/bin/pip install -U -r requirements/test.txt
+	~/env/bin/pip install --upgrade pip
+	~/env/bin/pip install -U -r requirements/production.txt
 	npm install
 	~/env/bin/python manage.py migrate --noinput --fake-initial
 	~/env/bin/python manage.py collectstatic --noinput
@@ -36,14 +37,14 @@ update:
 
 install:
 	virtualenv ~/env
+	~/env/bin/pip install --upgrade pip
 	~/env/bin/pip install -r requirements/production.txt
 	npm install
 	mkdir -p ~/webfiles/static
 	mkdir -p ~/webfiles/media
-	cp timtec/settings_local_production.py timtec/settings_local.py
-	# cp ../settings_production.py timtec/settings_production.py
-	~/env/bin/python manage.py syncdb --noinput --no-initial-data
-	~/env/bin/python manage.py migrate --noinput --no-initial-data
+	cp timtec/settings_local.py.template timtec/settings_local.py
+	~/env/bin/python manage.py migrate --noinput
+	~/env/bin/python manage.py loaddata initial
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
 	touch ~/wsgi-reload
