@@ -12,13 +12,13 @@ SITE_ID = 1
 TIMTEC_THEME = 'ifs-colors'
 
 ###### TODO: Remove this block if you don't want to use ifs app ######
-INSTALLED_APPS = list(INSTALLED_APPS)
-INSTALLED_APPS.insert(INSTALLED_APPS.index('accounts') + 1, 'ifs')
-ACCOUNT_SIGNUP_FORM_CLASS = 'ifs.forms.IfSignupForm'
-AUTH_USER_MODEL = 'ifs.IfUser'
-ACCOUNT_FORMS = {'login': 'ifs.forms.IfLoginForm'}
+# INSTALLED_APPS = list(INSTALLED_APPS)
+# INSTALLED_APPS.insert(INSTALLED_APPS.index('accounts') + 1, 'ifs')
+# ACCOUNT_SIGNUP_FORM_CLASS = 'ifs.forms.IfSignupForm'
+# AUTH_USER_MODEL = 'ifs.IfUser'
+# ACCOUNT_FORMS = {'login': 'ifs.forms.IfLoginForm'}
+
 TERMS_ACCEPTANCE_REQUIRED = False
-########################################################################
 
 ###### TODO: add any subdomains you need here. ######
 ###### FIXME: Security warning: accepting from all domains is dangerous
