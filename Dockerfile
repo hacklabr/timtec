@@ -35,6 +35,8 @@ RUN npm install \
    && node bower install \
    && node node_modules/grunt-cli/bin/grunt \
    && python manage.py compilemessages \
+   && python manage.py collectstatic --noinput \
+   && python manage.py compile_pyc --path /app/timtec \
    && python manage.py collectstatic --noinput
 
 USER root
