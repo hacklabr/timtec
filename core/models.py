@@ -239,6 +239,7 @@ class Course(models.Model):
             self.default_class = c
             self.save()
             CourseMaterial.objects.create(course=self)
+            IfCertificateTemplate.objects.create(course=self)
 
 
 class CourseStudent(models.Model):
