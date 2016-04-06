@@ -41,7 +41,7 @@ DEFAULT_FROM_EMAIL = env('DJANGO_EMAIL_HOST', default='root@localhost')
 TERMS_ACCEPTANCE_REQUIRED = True
 
 DATABASES = {
-    'default': env.db("DJANGO_DATABASE_URL", default='postgres://postgres/timtec' ),
+    'default': env.db("DJANGO_DATABASE_URL", default='postgres://postgres/timtec'),
 }
 
 METRON_SETTINGS = {
