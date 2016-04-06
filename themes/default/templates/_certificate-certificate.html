@@ -1,26 +1,22 @@
 <div class="container">
     <div class="certificate-container">
         <div class="institute-logo">
-            <img alt="Logo Instituto" src="">
+            <img alt="Logo Instituto" src="{{ cert_template.cert_logo_url }}>
         </div>
         <div class="text-center">
-            <!-- TODO colocar os dados corretos da instituição-->
-            <p><strong>Nome da Instituição</strong> confere a</p>
+            <p><strong>cert_template.organization_name</strong></p>
+            <p>confere a</p>
             <h2 class="top">{{ object.course_student.user.get_full_name }}</h2>
             <p>o comprovante de conclusão do curso online</p>
-            <h1>{{ object.course.name }}</h1>
+            <h1>{{ object.course_student.course.name }}</h1>
             <p>que possui carga horária de <span>40 horas</span>.</p>
         </div>
         <div class="row">
-            <!-- TODO fazer um for de instrutores -->
             <div class="col-xs-3">
-                <!-- TODO colocar a assinatura do instrutor -->
-                <img alt="Assinatura" src="" />
                 <hr />
-                <!-- TODO colocar o nome correto do instrutor e da instituição -->
                 <small>
-                    Nome do instrutor <br/>
-                    Nome da Instituição
+                    {{ cert_template.name }} <br/>
+                    {{ cert_template.role }}
                 </small>
             </div>
         </div>

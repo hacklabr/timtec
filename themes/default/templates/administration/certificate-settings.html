@@ -77,13 +77,11 @@
                       </div>
                       <div class="institute-logo">
                         {% verbatim %}
-                        <img alt="Logo Instituto" preview-image ng-model="images.logo" ng-src="/media/{{ ct.logo_url }}" class="img-responsive" />
+                        <img id="cert-logo" alt="Logo Instituto" preview-image ng-model="images.cert_logo" ng-src="{{ ct.cert_logo_url }}" class="img-responsive" />
                         {% endverbatim %}
-                        <file ng-model="images.logo" name="logo"></file>
-                        <button class="btn btn-primary" ng-click="saveLogo()">
-                            <i class="fa fa-floppy-o"></i> {% trans 'Save image' %}
-                        </button>
+                        <file ng-model="images.cert_logo" name="logo"></file>
                       </div>
+
                       <div class="pull-left">Realizado em: {{ site.domain }}</div>
                     </footer>
                 </div>
@@ -107,19 +105,15 @@
                     </p>
                   </section>
                   <footer>
-                    <div class="pull-left">Realizado em: {{ site.domain }}</div>
-                    <br>
-                    <div class="pull-left">
-                        URL de validação: <a href="">{{ site.domain }}/(código)</a>
+                    <div class="pull-left credits-receipt">
+                      <p>Realizado em: {{ site.domain }}</p>
+                      <p>URL de validação: <a href="">{{ site.domain }}/(código)</a></p>
                     </div>
                     <div class="pull-right logo">
                       {% verbatim %}
-                        <img alt="Logo Instituto" preview-image ng-model="images.logo" ng-src="/media/{{ ct.logo_url }}" class="img-responsive" />
+                        <img id="base-logo" alt="Logo Instituto" preview-image ng-model="images.base_logo" ng-src="{{ ct.base_logo_url }}" class="img-responsive" />
                       {% endverbatim %}
-                      <file ng-model="images.logo" name="logo"></file>
-                      <button class="btn btn-primary" ng-click="saveLogo()">
-                          <i class="fa fa-floppy-o"></i> {% trans 'Save image' %}
-                      </button>
+                      <file ng-model="images.base_logo" name="logo"></file>
                     </div>
                   </footer>
                 </div>
