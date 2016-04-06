@@ -68,7 +68,7 @@ if not db_exists:
         dbname=database.get('NAME'),
         user='postgres',
         host='postgis',
-        password=env('POSTGIS_ENV_POSTGRES_PASSWORD')
+        password=env('POSTGRES_ENV_POSTGRES_PASSWORD')
     )
     conn.set_isolation_level(0)
     cur = conn.cursor()
