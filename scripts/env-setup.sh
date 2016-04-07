@@ -11,4 +11,4 @@ source ${TIMTEC_VIRTUALENVFOLDER}/bin/activate
 ## Install depencencies and basic django setup
 
 cd ${TIMTEC_FOLDER}
-make
+

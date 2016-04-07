@@ -2,23 +2,26 @@
 
 TIMTEC_USER=vagrant
 
-# useradd -U -m ${TIMTEC_USER}
-
 ## Install OS dependencies
 
+# useradd --groups sudo --create-home ${TIMTEC_USER}
+
 sudo apt-get update
-sudo apt-get install -y libpq-dev libjpeg-dev libpng12-dev build-essential python-dev gettext python-virtualenv nodejs npm git
+sudo apt-get install -y libpq-dev libjpeg-dev libpng12-dev build-essential python-dev gettext python-virtualenv nodejs npm git phantomjs
+
+# sudo useradd -U -m ${TIMTEC_USER}
 
 # Ubuntu name the node binary nodejs
-sudo ln -s /usr/bin/nodejs /usr/local/bin/node
+sudo update-alternatives --install /usr/bin/node node /usr/bin/nodejs 10
 
+echo 'Installing database...'
 ## Database setup
 
 sudo apt-get install -y postgresql
 sudo su - postgres -c "createuser -d ${TIMTEC_USER}"
-createdb timtec
+createdb ${TIMTEC_USER}
 
-./timtec/scripts/env-setup.sh
+echo 'Done installing database!'
 
 echo "source timtec-env/bin/activate" >> ~/.bashrc
 echo "cd timtec" >> ~/.bashrc

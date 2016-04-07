@@ -19,9 +19,9 @@ Vagrant.configure('2') do |config|
   config.vm.provision :shell, path: "scripts/bootstrap-ubuntu.sh", privileged: false, keep_color: true
   # config.vm.provision :shell, path: "scripts/production-ubuntu.sh", privileged: false, keep_color: true
   config.vm.provision "shell",
-            inline: $runserver,
-            privileged: false,
-            run: "always"
+           inline: $runserver,
+           privileged: false,
+           run: "always"
   config.vm.network "forwarded_port", guest: 8000, host: 8000
   config.ssh.username = TIMTEC_USER
   config.vm.synced_folder "./", "/home/" + TIMTEC_USER  + "/timtec/", create: true
