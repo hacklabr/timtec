@@ -1,0 +1,97 @@
+// COURSES BOXES FROM HOME AND COURSES PAGE
+// ********************************************************************* //
+#courses {
+    header {
+        border: none;
+        display: none;
+    }
+    .course {
+        //min-height: 195px;
+        &:hover {
+            .fa-check {
+                background-color: @brand-success;
+            }
+        }
+        .fa-check {
+            background-color: darken(@gray-lighter, 5%);
+            box-shadow: 0px 0px 1px rgba(0,0,0,0.3);
+            top: -200px;
+            right: 5px;
+        }
+        &.started {
+            .fa-check {
+                background-color: @brand-success;
+            }
+        }
+        .course-link { // link wrapper
+            &:hover {
+                .info {
+                    background-color: lighten(@gray-lighter, 5%);
+                }
+                .enroll {
+                    background-color: lighten(@gray-lighter, 5%);
+                    border-top: 2px solid darken(@gray-lighter, 5%);
+                }
+            }
+            &:focus {
+                text-decoration: none;
+            }
+        } // .course-link
+        .thumb-wrapper { // course thumbnail
+            .mouseover {
+                background-color: lighten(@gray-lighter, 5%);
+            }
+            .thumb {
+                background-color: lighten(@gray-lighter, 5%);
+                @media (max-width: @screen-xs-max) {
+                    height: 75px;
+                }
+            }
+        } // .thumb-wrapper
+        .info-box { // info wrapper for courses page
+            position: relative;
+            width: 100%;
+            @media (min-width: 540px) and (max-width: @screen-xs-max) {
+                float: none;
+                width: initial!;
+            }
+            @media (min-width: @screen-sm-min) {
+                float: none;
+                width: initial!;
+            }
+        } // .info-box
+        .info { // course info
+            background: transparent;
+            padding: 10px 0 0;
+            h3 {
+                color: #000;
+                font-family: @font-family-base;
+                font-size: 20px;
+            }
+            .instructors {
+                font-size: 20px;
+                font-style: normal;
+                line-height: 110%;
+                max-height: 42px;
+            }
+        } // .info
+        .enroll { // go to course link
+            background-color: transparent;
+            border-top: 2px solid @gray-lighter;
+            color: #000;
+            font-family: 'ek-mukta-extralight', @font-family-base;
+            font-size: 20px;
+            line-height: 110%;
+            padding-top: 5px;
+            .fa {
+                display: none;
+            }
+            .enroll-link {
+                color: @brand-primary;
+            }
+            span {
+                padding-left: 5px;
+            }
+        } // .enroll
+    } // .course
+}

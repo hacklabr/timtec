@@ -1,0 +1,243 @@
+// HOMEPAGE
+// ********************************************************************* //
+@font-base-box: @font-size-large + 12px;
+
+#home {
+    margin-top: 0;
+    // banner
+    #highlight {
+        background-image: url(../img/banner-home.jpg);
+        background-position: bottom center;
+        background-size: cover;
+        max-height: 630px;
+        text-align: center;
+        .text {
+            color: #000000;
+            height: 280px;
+            left: initial;
+            position: relative;
+            right: initial;
+            top: initial;
+            h1, h3 {
+                font-family: "ek-mukta-extralight";
+                line-height: 1;
+            }
+            h1 {
+                font-size: 29px;
+                margin-bottom: 0;
+            }
+            h3 {
+                color: #424242;
+                font-size: 23px;
+                margin-top: 0;
+            }
+            @media (min-width: @screen-sm-min) {
+                height: 630px;
+                h1 {
+                    font-size: 38px;
+                }
+                h3 {
+                    font-size: 26px;
+                }
+            }
+            @media (min-width: @screen-md-min) {
+                height: 630px;
+                h1 {
+                    font-size: 66px;
+                }
+                h3 {
+                    font-size: 42px;
+                }
+            }
+        }
+    } // #hightlight
+
+    // page title
+    header {
+        padding-bottom: 10px;
+        h1 {
+            color: #1F1F1F;
+            font-family: "ek-mukta-extralight";
+            font-size: 30px;
+            text-transform: none;
+        }
+    } //.page-title
+
+    // courses section
+    #courses {
+        @media (min-width: @screen-md-min) {
+            margin-top: 80px;
+        }
+        .course {
+            .info {
+                height: auto;
+                @media (min-width: @screen-sm-min) {
+                    height: 120px;
+                }
+                padding-left: 0;
+                padding-right: 0;
+                h3 {
+                    margin-bottom: 5px;
+                }
+                .abstract {
+                    display: none;
+                }
+            }
+            .enroll {
+                font-family: "ek-mukta-extralight";
+            }
+        }
+        header {
+            margin: 0;
+            .row {
+                h1 {
+                    display: none;
+                }
+            }
+        }
+        .see-all-courses {
+            display: none;
+        }
+    } // #courses
+
+    // how it works
+    #how-it-works {
+        background-color: #F5F5F7;
+        box-shadow: inset  0  8px 26px -8px @gray-light;
+        padding-bottom: 0;
+        padding-top: 30px;
+        header {
+            border-bottom: none;
+            color: #1F1F1F;
+            margin: 0;
+            h1 {
+                font-transform: initial;
+                font-size: 32px;
+            }
+        }
+        .highlight {
+            border: none;
+            font-family: "ek-mukta-extralight";
+            margin-bottom: 0;
+            padding-bottom: 0;
+            p {
+                font-size: 20px;
+                line-height: 1.2;
+                text-align: left;
+            }
+        }
+        .block {
+            padding: 0;
+            .info {
+                background: transparent;
+                border-radius: 0;
+                height: auto;
+                @media (max-width: @screen-xs-max) {
+                    padding: 0;
+                }
+                @media (min-width: @screen-md-min) {
+                    height: 230px;
+                }
+                .icon {
+                    line-height: initial;
+                    font-size: initial;
+                    display: inline-block;
+                    vertical-align: middle;
+                    i {
+                        background-size: 90% !important;
+                        background-repeat: no-repeat !important;
+                        font-size: 0;
+                        height: 60px;
+                        width: 60px;
+                        &:before {
+                            content: '';
+                        }
+                    }
+                }
+                h3 {
+                    color: @brand-primary;
+                    display: inline-block;
+                    height: initial;
+                    font-family: "ek-mukta-extralight";
+                    font-size: @font-base-box;
+                    text-transform: uppercase;
+                    vertical-align: middle;
+                }
+            }
+            &:nth-child(1) {
+                .info {
+                    .icon {
+                        i {
+                            background: url("/static/img/ico-home-01.png");
+                        }
+                    }
+                }
+            }
+            &:nth-child(2) {
+                .info {
+                    .icon {
+                        i {
+                            background: url("/static/img/ico-home-02.png");
+                        }
+                    }
+                    h3 {
+                        color: #000000;
+                        font-size: @font-base-box - 10px;
+                    }
+                }
+            }
+            &:nth-child(3) {
+                .info {
+                    .icon {
+                        i {
+                            background: url("/static/img/ico-home-03.png");
+                        }
+                    }
+                }
+            }
+            @media (min-width: @screen-sm-min) {
+                .info {
+                    h3 {
+                        font-size: @font-base-box + 7px;
+                    }
+                }
+                &:nth-child(2) {
+                    .info {
+                        h3 {
+                            font-size: @font-base-box - 6px;
+                        }
+                    }
+                }
+            }
+            @media (min-width: @screen-md-min) {
+                .info {
+                    h3 {
+                        font-size: @font-base-box + 3px;
+                    }
+                }
+                &:nth-child(2) {
+                    .info {
+                        h3 {
+                            font-size: @font-base-box - 9px;
+                        }
+                    }
+                }
+            }
+            @media (min-width: @screen-lg-min) {
+                .info {
+                    h3 {
+                        font-size: @font-base-box + 14px;
+                    }
+                }
+                &:nth-child(2) {
+                    .info {
+                        h3 {
+                            font-size: @font-base-box - 2px;
+                        }
+                    }
+                }
+            }
+
+        }
+    } // #how-it-works
+}
