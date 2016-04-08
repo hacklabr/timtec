@@ -1,6 +1,6 @@
 # Documentação TIM Tec
 
-Repositório do manual da aplicação TIM Tec. Para maiores informações, veja o portal do projeto: http://timtec.com.br/
+Repositório do manual da aplicação TIM Tec. Para maiores informações, veja o portal do projeto: http://docs.timtec.com.br
 
 
 ## Como compilar essa documentação
