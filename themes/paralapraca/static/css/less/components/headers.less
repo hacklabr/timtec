@@ -9,35 +9,24 @@
 #permissions .main-header,
 #certificate .main-header,
 #my-notes .main-header {
-    box-shadow: inset 0 8px 20px -12px #000, inset 0 -8px 20px -12px #000;
-    background-color: #EDEBEC;
-    background-image: url("/static/img/colors-header.png");
-    background-repeat: no-repeat;
+    background-color: @brand-primary;
+    background-image: url("/static/img/header-background.png");
+    background-size: cover;
     min-height: 100px;
-
-    @media (max-width: @screen-xs-max) {
-        background-position: right -190px;
-    }
-    @media (min-width: @screen-sm-min) {
-        background-position: right -125px;
-    }
-    @media (min-width: @screen-lg-min) {
-        background-position: right -127px;
-    }
-    background-color: transparent;
     .container {
         position: relative;
         h1 {
+            color: #fff;
+            font-family: @headings-font-family;
             font-size: 38px;
             text-transform: initial;
-            @media (min-width: @screen-sm-min) {
-                font-size: 42px;
-            }
-            font-family: "ek-mukta-extralight";
             font-weight: normal;
             margin-bottom: 20px;
             margin-top: 20px;
             padding: 8px 0px;
+            @media (min-width: @screen-sm-min) {
+                font-size: 42px;
+            }
         }
     }
 }
@@ -61,7 +50,7 @@
             margin-bottom: 0;
             padding-bottom: 0;
             h1 {
-                font-family: "ek-mukta-extralight";
+                font-family: @headings-font-family;
                 font-size: 26px !important;
                 line-height: 0.9;
                 @media (min-width: @screen-sm-min) {
@@ -77,25 +66,24 @@
                 }
             }
             .course-details {
+                color: #fff;
+                font-size: 16px;
+                line-height: 1.1;
                 text-transform: initial;
                 margin-bottom: 29px;
+                &:after {
+                    color: #fff;
+                }
                 span.label {
                     display: none;
                 }
                 a.course-instructor {
-                    background: rgba(255, 255, 255, 0.8);
-                    box-shadow: 0px 0px 11px 7px rgba(255, 255, 255, 0.8);
-                    color: #999999;
+                    color: #fff;
                     display: inline-block;
-                    font-size: 22px;
-                    @media (min-width: @screen-sm-min) {
-                        font-size: 22px;
-                    }
-                    @media (min-width: @screen-md-min) {
-                        font-size: 24px;
-                    }
-                    line-height: 1.1;
                     margin-top: 0;
+                    &:after {
+                        color: #fff;
+                    }
                 }
             }
             .row {
@@ -142,17 +130,16 @@
     margin: 40px 0 10px;
     h1,h2,h3,h4,h5,h6 {
         border-bottom: 0;
-        font-size: 26px;
+        color: #000;
+        font-size: 16px;
+        font-weight: bold;
         margin-bottom: 0;
         padding-bottom: 0;
-    }
-    h3 {
-        text-transform: uppercase;
     }
 }
 
 h1,h2,h3,h4,h5,h6 {
-    font-family: 'ek-mukta-extralight', @font-family-base;
+    font-family: @font-family-base;
     i {
         display: none !important;
     }
@@ -189,7 +176,7 @@ h1,h2,h3,h4,h5,h6 {
     .btn {
         background-color: @brand-primary;
         border-radius: 0;
-        font-family: 'ek-mukta-extralight', @font-family-base;
+        font-family: @font-family-base;
         font-size: 20px;
         margin-top: 24px;
         @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
