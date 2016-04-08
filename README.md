@@ -1,11 +1,9 @@
 #TIMTec Mooc
 
-
-
 ## Instalação e configurações
 Para acessar a documentação completa, veja a pasta /docs na raiz da aplicação. 
 
-* Instalação v3.2 ou superior
+* [Instalação release v3.2 ou superior](docs/source/instalacao_e_configuracao/Instalação.md)
 * Atualização a partir v3.2 ou superior
 * Atualizando a partir da versão 3.0.10 ou inferior
 * Configurações v3.2 ou superior
