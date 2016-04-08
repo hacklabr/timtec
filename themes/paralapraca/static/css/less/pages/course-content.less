@@ -10,14 +10,12 @@
         margin-top: 40px;
         .page-header-double {
             margin-top: 0;
-        }
-        .application {
-            border-right: 2px solid @gray-light;
-        }
-        .requirement {
             h3 {
                 color: @brand-primary;
             }
+        }
+        .application {
+            border-right: 2px solid @gray-light;
         }
         .structure {
             margin-top: 40px;
@@ -29,15 +27,18 @@
     .summary {
         .clearfix;
         .row;
-        background: #EFEFEF;
+        background: #ebc4af;
         padding: 20px 15px;
         margin-top: 0;
+        h3 {
+            font-size: 18px;
+        }
         .abstract {
             .page-header-double {
                 margin-top: 0;
-            }
-            h3 {
-                color: @brand-primary;
+                h3 {
+                    margin-top: 0;
+                }
             }
         }
     }
@@ -58,7 +59,12 @@
     // COURSE INSTRUCTORS - Course intro
     // ********************************************************************* //
     .instructors {
+        h3 {
+            text-transform: uppercase;
+        }
         h1.fullname {
+            color: @brand-primary;
+            font-size: 16px;
             margin-bottom: 10px;
         }
         .thumbnail,
@@ -86,7 +92,7 @@
             margin-top: -138px;
         }
         h3 {
-            font-family: 'ek-mukta-extralight', @font-family-base;
+            font-family: @font-family-base;
             font-size: 24px;
             line-height: 24px;
             text-transform: uppercase;
@@ -215,9 +221,6 @@
                         border: none;
                         border-radius: 0;
                         padding: 0;
-                    }
-                    p {
-                        color: #888888;
                     }
                     @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
                         .make-md-column(4);
