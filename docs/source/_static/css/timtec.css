@@ -1,0 +1,148 @@
+@import url("theme.css");
+
+@font-face{
+    font-family:'FontAwesome';
+    font-weight:normal;
+    font-style:normal;
+    src:url('http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.eot?v=4.3.0');
+    src:url('http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.eot?#iefix&v=4.3.0') format('embedded-opentype'),
+        url('http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.woff2?v=4.3.0') format('woff2'),
+        url('http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.woff?v=4.3.0') format('woff'),
+        url('http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.ttf?v=4.3.0') format('truetype'),
+        url('http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.svg?v=4.3.0#fontawesomeregular') format('svg');
+}
+
+h1,
+h2,
+.rst-content .toctree-wrapper p.caption,
+h3,
+h4,
+h5,
+h6,
+legend {
+    margin-top: 0;
+    font-weight: 700;
+    font-family: FontAwesome;
+}
+p {
+    line-height: 24px;
+    margin: 0;
+    font-size: 16px;
+    margin-bottom: 24px;
+    font-family: FontAwesome;
+
+}
+h1 {
+    font-size: 175%;
+    font-family: FontAwesome;
+    color: #243670;
+}
+h2,
+.rst-content .toctree-wrapper p.caption {
+    font-size: 150%;
+    font-family: FontAwesome;
+    color: #243670;
+}
+h3 {
+    font-size: 125%;
+    font-family: FontAwesome;
+}
+h4 {
+    font-size: 115%;
+    font-family: FontAwesome;
+}
+h5 {
+    font-size: 110%;
+    font-family: FontAwesome;
+}
+h6 {
+    font-size: 100%;
+    font-family: FontAwesome;
+}
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #e1e4e5;
+    margin: 24px 0;
+    padding: 0
+}
+
+.wy-nav-content {
+    padding: 1.618em 3.236em;
+    height: 100%;
+    max-width: 1900px; 
+    margin: auto;
+    font-family: FontAwesome;
+}
+
+.wy-nav-side {
+    background: #304594;
+    font-weight: bold;
+    background-image: url("../img/instituto-tim-white.png");
+    background-position: 50% 95%; 
+    background-repeat: no-repeat;
+}
+
+.wy-menu-vertical {
+    background-color: #04c3ff;
+}
+
+.wy-menu-vertical a {
+    font-family: FontAwesome;
+    color: #ffffff;
+    font-size: 15px; 
+    background-color: #04c3ff;
+}
+
+.wy-menu-vertical a:hover {
+    color: #ffffff;
+    background-color: #04c3ff;
+}
+
+.wy-menu-vertical li.current a:hover {
+    background: #04c3ff;
+    background-color: #04c3ff;
+}
+.wy-menu-vertical li.current a {
+    color: #ffffff;
+    background: #04c3ff;
+    background-color: #04c3ff;
+}
+
+.wy-menu-vertical li span.toctree-expand {
+    background-color: #04c3ff;
+
+}
+
+.wy-menu-vertical li.on a,
+.wy-menu-vertical li.current>a {
+    background-color: #04c3ff;
+}
+.wy-menu-vertical li.on a:hover span.toctree-expand,
+.wy-menu-vertical li.current>a:hover span.toctree-expand {
+    color: #04c3ff;
+}
+.wy-side-nav-search {
+    background: #ic71b9;
+}
+.rst-content .sidebar {
+    float: right;
+    width: 40%;
+    display: block;
+    margin: 0 0 24px 24px;
+    padding: 24px;
+    background: #304594;
+    border: solid 1px #e1e4e5
+}
+.wy-nav-top {
+    background: #304594;
+}
+.fa-home:before,
+.icon-home:before {
+    content: url("../img/logo-timtec.png");
+}
+.fa-github:before,
+.icon-github:before {
+    content: url("../img/Octocat.png");
+}

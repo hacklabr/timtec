@@ -1,6 +1,25 @@
 #TIMTec Mooc
 
-## LICENSE - AGPLV3 
+
+
+## Instalação e configurações
+Para acessar a documentação completa, veja a pasta /docs na raiz da aplicação. 
+
+* Instalação v3.2 ou superior
+* Atualização a partir v3.2 ou superior
+* Atualizando a partir da versão 3.0.10 ou inferior
+* Configurações v3.2 ou superior
+* Configurações (Versão 3.0.10 e inferiores)
+
+
+## Desenvolvimento
+
+* Criando ambiente de dev
+* Temas
+* Tutorial para criação de tema
+
+
+## Licença - AGPLV3 
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as
@@ -19,9 +38,8 @@
 [![Build Status](https://drone.io/github.com/hacklabr/timtec/status.png)](https://drone.io/github.com/hacklabr/timtec/latest)
 [![Coverage](https://coveralls.io/repos/hacklabr/timtec/badge.png)](https://coveralls.io/r/hacklabr/timtec)
 
-## US-EN
+## Requisitos de instalação
 
-### Deploy Requirements
 * Operating system: Debian (>= 7.7) or Ubuntu (14.04);
 * Proxy server: uwsgi (>= 2.0.7);
 * Web Server: nginx (>= 1.6.2);
@@ -30,7 +48,7 @@
 * Python language package: python (= 2.7 ou < 3);
 * Virtual Enviroment Python: virtualenv (>=1.11.6);
 
-### Develop Requirements
+## Requisitos de Desenvolvimento
 * all the above requirements
 * build essentials and many dev packages if on apt/rpm based systems
     * libpq-dev, libjpeg-dev, libpng12-dev, build-essential, python-dev, gettext
