@@ -11,10 +11,9 @@ Para acessar a documentação completa, veja a pasta /docs na raiz da aplicaçã
 
 
 ## Desenvolvimento
-
-* Criando ambiente de dev
-* Temas
-* Tutorial para criação de tema
+* [Criando ambiente de dev](docs/source/instalacao_e_configuracao/%5BDev%5D-Instalação-no-Archlinux.rst)
+* [Temas](docs/source/instalacao_e_configuracao/Temas.md)
+* [Tutorial para criação de tema](docs/source/instalacao_e_configuracao/Tutorial-para-criação-de-tema.md)
 
 
 ## Licença - AGPLV3 
