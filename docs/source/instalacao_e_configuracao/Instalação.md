@@ -85,7 +85,7 @@ Recomendamos o postgreSQL, mas o django suporta outros bancos de dados relaciona
     $ sudo su - postgres -c "createuser -d timtec-production"
     $ createdb --encoding "UTF-8" --locale "pt_BR.UTF-8" timtec-production
 
-obs: caso ocorra algum problema relacionado a locale faltante no sistema, [veja como alterar o locale para pt_BR](docs/source/instalacao_e_configuracao/Alterando-locale-para-pt_BR.md). 
+obs: caso ocorra algum problema relacionado a locale faltante no sistema, [veja como alterar o locale para pt_BR](Alterando-locale-para-pt_BR.md). 
 
 ### Ambiente virtual python e dependências de javascript
 
