@@ -10,13 +10,16 @@
             font-family: @font-family-base;
             margin-bottom: 0;
             min-height: 77px;
+            @media (min-width: @screen-md-min) {
+                min-height: 170px;
+            }
         }
         .navbar-brand {
             .text-hide();
             background-image: url(../img/logo.svg);
             background-position: center;
             background-repeat: no-repeat;
-            background-size: 90%;
+            background-size: 100%;
             border-radius: 0;
             border-top: none;
             box-shadow: none;
@@ -30,9 +33,9 @@
                 margin-left: 0;
             }
             @media (min-width: @screen-md-min) {
-                background-size: 285px;
-                height: 120px;
-                width: 285px;
+                height: 80px;
+                margin-top: 60px;
+                width: 320px;
             }
         }
 
@@ -75,7 +78,7 @@
                     padding: 0;
                 }
                 @media (min-width: @screen-md-min) {
-                    margin: 90px 5px 10px 5px;
+                    margin: 120px 5px 10px 5px;
                     padding: 0 5px;
                 }
             }
@@ -96,6 +99,9 @@
         #main-navbar-collapse {
             @media screen and (max-width: @screen-xs-max) {
                 margin-top: 10px;
+            }
+            @media screen and (min-width: @screen-md-min) {
+                padding: 0px;
             }
             a {
                 &:hover, &:active,
