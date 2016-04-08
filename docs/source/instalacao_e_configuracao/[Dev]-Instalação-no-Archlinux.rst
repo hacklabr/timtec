@@ -1,3 +1,6 @@
+ATENÇÃO: Documentação desatualizada. 
+
+
 Ambiente de desenvolvimento
 ===========================
 
