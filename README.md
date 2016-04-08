@@ -6,8 +6,8 @@ Para acessar a documentação completa, veja a pasta /docs na raiz da aplicaçã
 * [INSTALAÇÃO release v3.2 ou superior](docs/source/instalacao_e_configuracao/Instalação.md)
 * [ATUALIZAÇÃO a partir v3.2 ou superior](docs/source/instalacao_e_configuracao/Atualização.md)
 * [ATUALIZAÇÃO a partir da versão 3.0.10 ou inferior](docs/source/instalacao_e_configuracao/Atualizando-a-partir-da-versão-3.0.10-ou-inferior.md)
-* [Configurações v3.2 ou superior](docs/source/instalacao_e_configuracao/Configurações.md)
-* [Configurações (Versão 3.0.10 e inferiores)](docs/source/instalacao_e_configuracao/Configurações-(Versão-3.0.10-e-inferiores).md)
+* [CONFIGURAÇÕES v3.2 ou superior](docs/source/instalacao_e_configuracao/Configurações.md)
+* [CONFIGURAÇÕES (Versão 3.0.10 e inferiores)](docs/source/instalacao_e_configuracao/Configurações-(Versão-3.0.10-e-inferiores).md)
 
 
 ## Desenvolvimento
