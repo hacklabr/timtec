@@ -42,7 +42,38 @@
 
                 <div class="col-lg-8 col-md-8 col-sm-10 col-xs-12">
                     {% block lesson_video %}
-                    {{ block.super }}
+                    <!--
+                    this class exists to circunvent a flash + youtube api error
+                    in which if the video div is really hidden the api breaks
+                    -->
+                    <div ng-class="{hidder: section!='video'}" class="video embed-responsive embed-responsive-16by9">
+                        <div class="embed-responsive-item" id="youtube-player" youtube-player></div>
+                    </div>
+                    <div ng-show="section=='activity'" class="course-activity">
+                        <ng:include src="activityTemplateUrl"></ng:include>
+                    </div>
+                    <div ng-show="section=='comment'" class="comment">
+                        <div class="panel panel-default" style="min-height: 368px;">
+                            <div class="panel-heading">
+                                <h2 class="panel-title">{% trans 'Professor comment' %}</h2>
+                            </div>
+                            <div class="panel-body" ng-bind-html="currentActivity.comment|markdown"></div>
+                        </div>
+                        <div class="row" ng-if="answer.correct">
+                            <div class="col-lg-12 col-md-12 col-sm-12 textright">
+                                <button class="btn btn-success" ng-click="nextStep()">{% trans 'Continue' %}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="section=='end'" class="next-lesson">
+                        <div class="centered">
+                            {% if next_url %}
+                                <a class="btn btn-info btn-lg" href="{{ next_url }}"><span>Vá para a próxima aula</span><i class="fa fa-caret-right"></i></a>
+                            {% else %}
+                                <a class="btn btn-info btn-lg" href="{% url 'course_intro' lesson.course.slug %}"><span>Voltar para home do curso</span><i class="fa fa-caret-right"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
                     {% endblock %}
                 </div>
 
