@@ -78,6 +78,7 @@
 
                         // Test if the answer type is array.
                         // See https://github.com/hacklabr/timtec/wiki/Atividades for details
+                        // FIXME should compare $scope.currentActivity.type
                         if ($scope.currentActivity === 'relationship' ||
                             $scope.currentActivity === 'trueorfalse' ||
                             $scope.currentActivity === 'multiplechoice') {
@@ -112,6 +113,8 @@
 
             $scope.sendAnswer = function() {
                 $scope.answer.activity = $scope.currentActivity.id;
+                if ($scope.currentActivity.type === 'image')
+                    $scope.answer.given = 'image'
                 $scope.answer.$update({activityId: $scope.answer.activity}).then(function(answer){
                     $scope.$root.changed = false;
                     console.log(answer, answer.correct);
@@ -148,6 +151,16 @@
                         }
                     }
                 }
+            };
+
+            $scope.next_activity_from_image = function() {
+                $scope.sendAnswer();
+                $scope.nextStep(true);
+            };
+
+            $scope.previous_activity_from_image = function() {
+//                $scope.sendAnswer();
+//                $scope.nextStep(true);
             };
 
             var start;

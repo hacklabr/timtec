@@ -98,6 +98,15 @@
         };
     });
 
+    app.directive('slidePanel', function () {
+        return {
+            restrict: 'E',
+            templateUrl: '/static/templates/directives/slide_panel.html',
+            transclude: true,
+            replace: true
+        };
+    });
+
     app.directive('phpresult', function(){
         return {
             'restrict': 'A',
