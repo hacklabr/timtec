@@ -2,6 +2,7 @@
     'use strict';
 
     angular.module('edit-lesson', [
+        'new-course.directives',
         'django',
         'directive.waiting-screen',
         'directive.alertPopup',
