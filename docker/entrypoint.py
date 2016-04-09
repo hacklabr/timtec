@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 
-import os
 import sys
 import subprocess
 import time
-import django
 import environ
 import psycopg2
 
