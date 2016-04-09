@@ -290,16 +290,18 @@ class UnitNoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Unit
         fields = ('id', 'title', 'video', 'position', 'user_note')
+        # fields = ('id', 'title', 'video', 'position')
 
 
 class LessonNoteSerializer(serializers.ModelSerializer):
 
-    units_notes = UnitNoteSerializer()
+    units_notes = UnitNoteSerializer(many=True)
     course = serializers.SlugRelatedField(slug_field='slug')
 
     class Meta:
         model = Lesson
         fields = ('id', 'name', 'position', 'slug', 'course', 'units_notes',)
+        # fields = ('id', 'name', 'position', 'slug', 'course',)
 
 
 class CourseNoteSerializer(serializers.ModelSerializer):

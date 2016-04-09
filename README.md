@@ -1,6 +1,22 @@
 #TIMTec Mooc
 
-## LICENSE - AGPLV3 
+## Instalação e configurações
+Para acessar a documentação completa, veja a pasta [docs](docs) na raiz da aplicação. 
+
+* [INSTALAÇÃO release v3.2 ou superior](docs/source/instalacao_e_configuracao/Instalação.md)
+* [ATUALIZAÇÃO a partir v3.2 ou superior](docs/source/instalacao_e_configuracao/Atualização.md)
+* [ATUALIZAÇÃO a partir da versão 3.0.10 ou inferior](docs/source/instalacao_e_configuracao/Atualizando-a-partir-da-versão-3.0.10-ou-inferior.md)
+* [CONFIGURAÇÕES v3.2 ou superior](docs/source/instalacao_e_configuracao/Configurações.md)
+* [CONFIGURAÇÕES (Versão 3.0.10 e inferiores)](docs/source/instalacao_e_configuracao/Configurações-(Versão-3.0.10-e-inferiores).md)
+
+
+## Desenvolvimento
+* [Criando ambiente de dev](docs/source/instalacao_e_configuracao/%5BDev%5D-Instalação-no-Archlinux.rst)
+* [Temas](docs/source/instalacao_e_configuracao/Temas.md)
+* [Tutorial para criação de tema](docs/source/instalacao_e_configuracao/Tutorial-para-criação-de-tema.md)
+
+
+## Licença - AGPLV3 
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as
@@ -19,9 +35,8 @@
 [![Build Status](https://drone.io/github.com/hacklabr/timtec/status.png)](https://drone.io/github.com/hacklabr/timtec/latest)
 [![Coverage](https://coveralls.io/repos/hacklabr/timtec/badge.png)](https://coveralls.io/r/hacklabr/timtec)
 
-## US-EN
+## Requisitos de instalação
 
-### Deploy Requirements
 * Operating system: Debian (>= 7.7) or Ubuntu (14.04);
 * Proxy server: uwsgi (>= 2.0.7);
 * Web Server: nginx (>= 1.6.2);
@@ -30,7 +45,7 @@
 * Python language package: python (= 2.7 ou < 3);
 * Virtual Enviroment Python: virtualenv (>=1.11.6);
 
-### Develop Requirements
+## Requisitos de Desenvolvimento
 * all the above requirements
 * build essentials and many dev packages if on apt/rpm based systems
     * libpq-dev, libjpeg-dev, libpng12-dev, build-essential, python-dev, gettext

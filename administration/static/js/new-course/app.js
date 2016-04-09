@@ -2,6 +2,7 @@
     'use strict';
 
     angular.module('new-course', [
+        'new-course.directives',
         'django',
         'timtec-models',
         'directive.alertPopup',
