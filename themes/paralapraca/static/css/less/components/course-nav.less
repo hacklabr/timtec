@@ -47,35 +47,40 @@
         }
         nav.lesson-units {
             .btn-group {
-                background-color: @brand-primary;
+                background-color: @brand-success;
+                border-bottom-left-radius: @border-radius-large;
+                border-bottom-right-radius: @border-radius-large;
             }
             .btn-default {
-                background-color: @brand-primary;
-                border-radius: 0;
-                color: #fff;
-                font-family: @font-family-base;
-                font-size: 16px;
-                line-height: 1.8;
-                text-transform: uppercase;
+                background-color: @brand-success;
+                border-radius: @border-radius-large;
+                color: @gray-darker;
+                font-size: @font-size-large;
+                padding: 10px 15px;
             }
             .btn-default:first-child {
                 text-align: left;
                 min-width: 290px;
             }
             .dropdown-toggle {
-                background-color: #fff;
-                border-radius: 20px;
-                color: @brand-primary;
-                height: 28px;
-                margin: 5px 5px 0 5px;
-                width: 28px;
+                color: @gray-darker;
+                padding-left: 0;
                 i {
-                    font-size: 26px;
-                    line-height: 0px;
-                    margin-left: -1px;
-                    margin-top: 10px;
                     &:before {
                         content: '\f0d7';
+                    }
+                }
+            }
+            .dropdown-menu {
+                background-color: @brand-success;
+                box-shadow: none;
+                font-size: @font-size-base;
+                margin: 0;
+                top: 50px;
+                a {
+                    color: @gray-darker !important;
+                    &:hover {
+                        color: #000;
                     }
                 }
             }
