@@ -9,10 +9,17 @@ class JSONSerializerField(serializers.WritableField):
 class ActivitySerializer(serializers.ModelSerializer):
     data = JSONSerializerField('data')
     expected = JSONSerializerField('expected', required=False)
+    image_url = serializers.SerializerMethodField('get_image_url')
 
     class Meta:
         model = Activity
-        fields = ('id', 'comment', 'data', 'expected', 'type', 'unit', )
+        fields = ('id', 'comment', 'data', 'expected', 'type', 'unit', 'image_url')
+
+    @staticmethod
+    def get_image_url(obj):
+        if obj.image:
+            return obj.image.url
+        return ''
 
 
 class AnswerSerializer(serializers.ModelSerializer):
