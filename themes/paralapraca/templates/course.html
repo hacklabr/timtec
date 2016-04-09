@@ -1,5 +1,9 @@
 {% extends "default:course.html" %}
 
+{% block header %}
+    {% include 'header_plpc.html' %}
+{% endblock %}
+
 {% if not in_admin %}
     {% block js %} {{block.super}}
 
