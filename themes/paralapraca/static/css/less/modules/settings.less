@@ -2,7 +2,7 @@
 // ********************************************************************* //
 
 // COLORS
-@body-bg: white;
+@body-bg: #fff3d2;
 //#eafaba;
 
 @gray-darker: lighten(#000, 13.5%); // #222
@@ -12,14 +12,12 @@
 @gray-lighter: lighten(#000, 93.5%); // #eee
 
 @brand-primary: #9d0621;
-@brand-success: @brand-primary;
-@brand-warning: #DC241F;
-@brand-danger: @gray-light;
+@brand-success: #f9a51a;
+@brand-warning: @brand-success;
+@brand-danger: @brand-success;
 @brand-info: @brand-primary;
-@brand-accent: #DC241F;
-@brand-dark: #4D5A12;
-@brand-light: #D7E9A1;
-@brand-hover: lighten(@brand-primary, 5%);
+@brand-light: @brand-success;
+@brand-hover: lighten(@brand-primary, 10%);
 
 //== Typography
 //
@@ -90,7 +88,6 @@
 }
 
 body {
-  background-color: #fff3d2;
   color: #000;
   font-family: @font-family-serif;
 }
@@ -119,7 +116,7 @@ a, a:hover, a:active {
 }
 
 // Components
-@border-radius-base: 4px;
-@border-radius-large: 6px;
+@border-radius-base: 6px;
+@border-radius-large: 10px;
 @border-radius-small: 3px;
 @padding-large-vertical: 14px;
