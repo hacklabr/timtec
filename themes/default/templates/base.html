@@ -98,7 +98,9 @@
 </head>
 <body {% if in_admin %}id="admin"{% else %}id="notadmin"{% endif %} {% spaceless %}{% block body_attrs %}{% endblock %}{% endspaceless %}>
 
+    {% block header %}
     {% include 'header.html' %}
+    {% endblock %}
 
     <div class="wrapper wrapper-bg {% spaceless %}{% block wrapper_classes %}{% endblock %}{% endspaceless %}">
         {% block content %}
