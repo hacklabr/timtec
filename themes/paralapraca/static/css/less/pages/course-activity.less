@@ -1,16 +1,5 @@
 // Activities
 .course-activity {
-    background-image: url(../img/lesson-frame.png);
-    background-repeat: no-repeat;
-    background-size: contain;
-    border: 0;
-    padding: 20px 45px 16px 55px;
-    @media screen and (min-width: @screen-lg-min) {
-        padding: 25px 55px 0px 70px;
-    }
-    .submit {
-        margin-top: 14px;
-    }
     .question {
         h1 {
             border-bottom: 0;
@@ -43,5 +32,18 @@
         .answer {
             border-bottom: 1px solid fade(@brand-primary, 20%);
         }
+    }
+}
+.image-activity {
+    background-image: url(../img/lesson-frame.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: 0;
+    padding: 20px 45px 16px 55px;
+    @media screen and (min-width: @screen-lg-min) {
+        padding: 25px 55px 0px 70px;
+    }
+    .submit {
+        margin-top: 14px;
     }
 }
