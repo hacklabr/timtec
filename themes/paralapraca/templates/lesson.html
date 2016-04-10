@@ -51,7 +51,7 @@
                     <div ng-class="{hidder: section!='video'}" class="video embed-responsive embed-responsive-16by9">
                         <div class="embed-responsive-item" id="youtube-player" youtube-player></div>
                     </div>
-                    <div ng-show="section=='activity'" class="course-activity">
+                    <div ng-show="section=='activity'" class="course-activity image-activity">
                         <ng:include src="activityTemplateUrl"></ng:include>
                     </div>
                     <div ng-show="section=='comment'" class="comment">
@@ -96,7 +96,12 @@
             <div class="row">
                 <div class="col-lg-8 col-sm-10 col-lg-offset-1 col-sm-offset-1" id="materials">
                     {% block lesson_adicional_material %}
-                    {{ block.super }}
+                    <div class="side-notes" ng-if="currentUnit.side_notes">
+                        <div class="page-header-double">
+                            <h3><i class="fa fa-angle-double-right"></i> Aprenda Facendo</h3>
+                        </div>
+                        <span ng-bind-html="currentUnit.side_notes|markdown"></span>
+                    </div>
                     {% endblock %}
 
                     <!-- FORUM -->
