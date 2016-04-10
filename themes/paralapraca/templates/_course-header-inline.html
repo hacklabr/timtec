@@ -14,7 +14,7 @@
             <div class="col-lg-4 col-sm-5">
                 <!-- COURSE-SECTION-NAV -->
                 <nav class="course-sections textright" id="course-nav">
-                    <a href="{% url 'course_intro' course.slug %}" class="has-tooltip fa fa-home {% if '/intro/' in request.path %}active{% endif %}" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Intro' %}"></a>
+                    <a href="{% url 'course_intro' course.slug %}" class="has-tooltip fa fa-home {% if '/intro/' in request.path %}active{% endif %}" data-toggle="tooltip" data-placement="top" data-original-title="Página principal"></a>
                     <a href="{% url 'resume_course' course.slug %}" class="has-tooltip fa fa-film {% if '/lesson/' in request.path %}active{% endif %}" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Resume course' %}"></a>
                     <a href="{% url 'forum' course.slug %}" class="has-tooltip fa fa-comments {% if '/forum/' in request.path %}active{% endif %}" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Forum' %}"></a>
                     <!--<a href="{% url 'course_material' course.slug %}" class="has-tooltip fa fa-file {% if '/material/' in request.path %}active{% endif %}" data-toggle="tooltip" data-placement="top" data-original-title="{%  trans 'Course material' %}"></a>-->
