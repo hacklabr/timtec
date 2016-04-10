@@ -256,6 +256,7 @@ wrapper-course-intro
                     <!-- END COURSE-VIDEO -->
                 {% endif %}
 
+                {% block course_info %}
                 <!-- COURSE-INFO -->
                 <section class="course-info">
                     <!-- ROW -->
@@ -312,6 +313,7 @@ wrapper-course-intro
                     <!-- END ROW -->
                 </section>
                 <!-- END COURSE-INFO -->
+                {% endblock %}
 
                 <!-- COURSE-SUMMARY - VISIBLE ONLY FOR PHONES -->
                 <section class="summary hidden-lg hidden-md hidden-sm visible-xs row">
@@ -339,6 +341,7 @@ wrapper-course-intro
                 <!-- END COURSE-SUMMARY - VISIBLE ONLY FOR PHONES -->
 
                 <!-- COURSE-LESSONS -->
+                {% block course_lessons %}
                     {% if in_admin %}
                     <section class="lessons" id="lesson-list">
                         <!-- PAGE-HEADER-DOUBLE -->
@@ -525,6 +528,7 @@ wrapper-course-intro
                         {% endif %}
                     {% endif %}
                 <!-- END COURSE-LESSONS -->
+                {% endblock %}
             </div>
 
             <div class="col-md-3 col-sm-4 hidden-xs">
