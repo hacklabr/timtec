@@ -8,7 +8,8 @@
     "grunt-cli": "~0.1.13",
     "grunt-angular-gettext": "~2.1.11",
     "less": "~2.6.1",
-    "ng-annotate": "~1.2"
+    "ng-annotate": "~1.2",
+    "phantomjs-prebuilt": "~2.1.7"
   },
   "devDependencies": {
     "jshint": "~2.9.1"

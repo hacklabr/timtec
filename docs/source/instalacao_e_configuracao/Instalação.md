@@ -58,7 +58,7 @@ Primeiro, vamos instalar as dependências:
 
 ```
 $ sudo apt-get update
-$ sudo apt-get install -y libpq-dev libjpeg-dev libpng12-dev build-essential python-dev gettext python-virtualenv phantomjs
+$ sudo apt-get install -y libpq-dev libjpeg-dev libpng12-dev build-essential python-dev gettext python-virtualenv
 ```
 
 ### Instalando o nodejs

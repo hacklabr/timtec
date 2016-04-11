@@ -507,6 +507,7 @@ ACCOUNT_REQUIRED_FIELDS = ('first_name', 'last_name', )
 SOCIALACCOUNT_EMAIL_VERIFICATION = False
 
 CERTIFICATE_SIZE = (862, 596)
+PHANTOMJS_PATH = os.path.join(PROJECT_ROOT, 'node_modules/phantomjs-prebuilt/bin/phantomjs')
 
 TWITTER_CONSUMER_KEY = ''
 TWITTER_CONSUMER_SECRET = ''

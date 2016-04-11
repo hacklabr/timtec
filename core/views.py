@@ -354,7 +354,7 @@ class CourseCertificationDetailView(DetailView):
             from selenium import webdriver
             from signal import SIGTERM
             from time import gmtime, strftime
-            from timtec.settings import MEDIA_ROOT, CERTIFICATE_SIZE
+            from timtec.settings import MEDIA_ROOT, CERTIFICATE_SIZE, PHANTOMJS_PATH
             from PIL import Image
             import os
 
@@ -366,7 +366,7 @@ class CourseCertificationDetailView(DetailView):
             pdf_filename = certificate.link_hash + today + '.pdf'
             pdf_path = os.path.join(MEDIA_ROOT, pdf_filename)
 
-            driver = webdriver.PhantomJS()
+            driver = webdriver.PhantomJS(executable_path=PHANTOMJS_PATH)
             driver.set_window_size(width, height)
             driver.get(url)
             driver.save_screenshot(filename=png_path)
