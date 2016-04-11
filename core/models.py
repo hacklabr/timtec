@@ -775,10 +775,10 @@ class IfCertificateTemplate(CertificateTemplate):
         verbose_name = _('IF Certificate Template')
 
     def __unicode__(self):
-        return u'Certificate Template of {0}'.format(self.if_name)
+        return u'Certificate Template of {0}'.format(self.organization_name)
 
     def __str__(self):
-        return 'Certificate Template of {0}'.format(self.if_name)
+        return 'Certificate Template of {0}'.format(self.organization_name)
 
 
 class EmailTemplate(models.Model):
