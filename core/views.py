@@ -200,7 +200,10 @@ class ResumeCourseView(LoginRequiredMixin, RedirectView):
     def get_redirect_url(self, **kwargs):
         course = self.get_object()
         if self.request.user.accepted_terms or not settings.TERMS_ACCEPTANCE_REQUIRED:
-            course_student, _ = CourseStudent.objects.get_or_create(user=self.request.user, course=course)
+            if not course.is_enrolled(self.request.user):
+                course.enroll_student(self.request.user)
+                return reverse_lazy('lesson', args=[course.slug, course.first_lesson().slug])
+            course_student = self.request.user.coursestudent_set.get(course=course)
             last_unit = course_student.resume_next_unit()
             url = reverse_lazy('lesson', args=[course.slug, last_unit.lesson.slug])
             return url + '#' + str(last_unit.position + 1)
