@@ -146,4 +146,4 @@ pendente
 
 2. Acesse o repositório de curso e faça o download dos cursos que deseja importar: https://github.com/institutotim/timtec-cursos
 
-3. Baixe os pacotes com extensão .tar.gz. Todos estes compõe a primeira série de cursos do Projeto TIMTec. Depois de baixados estes arquivos podem ser importados através do caminho "Administração" > "Cursos" > "Importar Cursos", ou diretamente pelo endereço: http://sua-url/admin/courses
+3. Depois de baixar os pacotes com extensão .tar.gz, vá para o painel de administração da plataforma. Todos estes cursos compõe a primeira série de cursos do Projeto TIMTec. Depois de baixados estes arquivos podem ser importados através do caminho "Administração" > "Cursos" > "Importar Cursos", ou diretamente pelo endereço: http://sua-url/admin/courses
