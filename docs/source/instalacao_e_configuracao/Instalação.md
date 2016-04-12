@@ -159,4 +159,4 @@ Em seguida, edite o arquivo de configuração do nginx para colocar seu domínio
 
 A instalação não terminou ainda! Precisamos criar o usuário inicial, configurar o domínio do django, o envio de email e a API do youtube.
 
-Proceda a página de [[Configurações]] para continuar.
+Proceda a página de [Configurações](Configurações.md) para continuar.
