@@ -139,3 +139,11 @@ $ sudo nano /var/log/uwsgi/app/timtec-production.log
 ## Configurando integração com Facebook
 
 pendente
+
+
+#### Instruções de importação dos cursos
+1. Considerando que você possui uma instalação da aplicação mais atual (ver Releases: https://github.com/hacklabr/timtec/releases) e quer utilizar os cursos disponíveis no projeto TIM Tec, logue no painel com permissão  no papel de administrador;
+
+2. Acesse o repositório de curso e faça o download dos cursos que deseja importar: https://github.com/institutotim/timtec-cursos
+
+3. Baixe os pacotes com extensão .tar.gz. Todos estes compõe a primeira série de cursos do Projeto TIMTec. Depois de baixados estes arquivos podem ser importados através do caminho "Administração" > "Cursos" > "Importar Cursos", ou diretamente pelo endereço: http://sua-url/admin/courses
