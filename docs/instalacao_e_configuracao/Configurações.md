@@ -1,3 +1,9 @@
+## Configurações importantes pós instalação: 
+
+1 - Verifique seu arquivo `/timtec/timtec/settings_local.py`. A maioria das configurações de ambiente estará lá;
+2 - Configure uma chave de API do Youtube e de serviços de autenticação (ex.: facebook)
+3 - Configure seu serviço de envio de email. Veja sessão [Configurando Envio de E-mails(SMTP).md](Configurando Envio de E-mails(SMTP).md);
+
 ## Settings Local
 Dentro da aplicação há um importante arquivo chamado settings_local.py que contém os principais parâmetros da ferramenta. Nele você deve: inserir a url que estará ativa em seu domínio, inserir sua chave de API do Youtube, conectar integração com Moodle, entre outros detalhes importantes. 
 
