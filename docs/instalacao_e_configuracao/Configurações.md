@@ -121,7 +121,7 @@ A chave da api do youtube serve para acessar informações sobre o Vídeo durant
 SEM ESTA CHAVE, A ADMINISTRAÇÃO DO CURSO NÃO IRÁ FUNCIONAR CORRETAMENTE!!!
 Veja como obter a chave da api do youtube neste link: https://developers.google.com/youtube/v3/getting-started?hl=pt-br
 
-Após obter a chave, defina a configuração:
+Após obter a chave, defina a configuração no arquivo settings_local.py:
 
 `YOUTUBE_API_KEY = 'sua_chave_api_youtube'`
 
