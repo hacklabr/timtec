@@ -38,9 +38,7 @@ wrapper-course-lesson
             {% if object.type == 'receipt' %}
                 {% include "_certificate-receipt.html" %}
             {% else %}
-            {%  block certificate %}
-            {% include "_certificate-certificate.html" %}
-            {% endblock %}
+                {% include "_certificate-certificate.html" %}
             {% endif %}
         {% else %}
         <div class="certificate-container receipt">
