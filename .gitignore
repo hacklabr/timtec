@@ -67,3 +67,4 @@ settings_local.py
 
 *.psqlc
 *.log
+site/
