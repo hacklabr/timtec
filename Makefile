@@ -140,3 +140,19 @@ reset_db: clean
 
 messages: clean
 	python manage.py makemessages -a -d django
+
+doc_install:
+	virtualenv docs/env
+	make doc_update
+
+doc_update:
+	docs/env/bin/pip install --upgrade pip
+	docs/env/bin/pip install -U -r docs/requirements.txt
+
+doc_build:
+	make doc_update
+	docs/env/bin/mkdocs build
+
+doc_run:
+	make doc_update
+	docs/env/bin/mkdocs serve
