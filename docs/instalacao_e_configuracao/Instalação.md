@@ -43,7 +43,7 @@ Dentro da home do usuário, primeiro vamos instalar o git e clonar o repositóri
 ```
 $ sudo apt-get update
 $ sudo apt-get install git
-$ git clone https://github.com/hacklabr/timtec.git
+$ git clone ~/https://github.com/hacklabr/timtec.git
 ```
 
 Em seguida, escolha a versão desejada e atualize o código para ela com o comando abaixo. Aqui você encontra uma lista de versões do TIMTec: https://github.com/hacklabr/timtec/releases
