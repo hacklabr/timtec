@@ -2270,6 +2270,12 @@ msgstr "Espanhol"
 msgid "English"
 msgstr "Inglês"
 
+msgid "My Receipts"
+msgstr "Meus Comprovantes"
+
+msgid "Receipt Settings"
+msgstr "Opções de Comprovante"
+
 #~ msgid "Get receipt"
 #~ msgstr "Emitir comprovante"
 
