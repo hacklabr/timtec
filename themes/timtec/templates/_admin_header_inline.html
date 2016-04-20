@@ -1,0 +1,8 @@
+{% extends 'default:_admin_header_inline.html' %}
+{% load i18n %}
+
+{% block settings-certificate %}
+    <li role="presentation">
+        <a role="menuitem" tabindex="-1" ng-href="{% url 'course.certificate-settings' course.id %}">{% trans 'Receipt Settings' %}</a>
+    </li>
+{% endblock %}

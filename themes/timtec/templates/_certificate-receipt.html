@@ -1,0 +1,12 @@
+{% extends 'default:_certificate-receipt.html' %}
+{% load staticfiles %}
+
+{% block certificate-logo %}
+    <div class="pull-right logo">
+        {% if cert_template.base_logo_url %}
+            <img class="img-responsive" src="{{ cert_template.base_logo_url }}">
+        {% else %}
+            <img class="img-responsive" src="{% static 'img/logo-instituto-tim.png' %}">
+        {% endif %}
+    </div>
+{% endblock %}

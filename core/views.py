@@ -373,7 +373,6 @@ class CourseCertificationDetailView(DetailView):
 
             driver.service.process.send_signal(SIGTERM)
             driver.quit()
-
             Image.open(png_path).convert("RGB").save(pdf_path, format='PDF')
 
             response = HttpResponse(content_type='application/pdf')
