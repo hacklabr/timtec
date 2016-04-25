@@ -1,0 +1,11 @@
+{% extends 'default:_certificate-receipt.html' %}
+
+
+{% block  footer %}
+    <div class="credits-receipt">
+        <p>&nbsp;</p>
+        <p class="text-center">Realizado em: <a href="{% url 'certificate' object.link_hash %}">{{ site.domain }}{% url 'certificate' object.link_hash %}</a></p>
+    </div>
+    {% block footer-credits %}{% endblock %}
+    {{ block.super }}
+{% endblock %}
