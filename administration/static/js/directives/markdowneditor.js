@@ -31,6 +31,7 @@
         };
 
         function controller ($scope, $element, MarkdownDirective) {
+
             var original = angular.copy($scope.content);
             var editor = {};
 
@@ -38,7 +39,6 @@
             editor.id = Math.random().toString(16).slice(2);
 
             editor.reset = function() {
-                console.log('resetado');
                 original = $scope.content;
                 $scope.active = false;
             };
