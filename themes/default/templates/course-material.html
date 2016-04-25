@@ -24,7 +24,7 @@ wrapper-course-lesson
         </header>
 
         <div class="row">
-			<div class="col-sm-9 col-lg-9">
+			<div id="course-material-text" class="col-sm-9 col-lg-9">
 				<p class="description">{{ course_material.text|timtec_markdown }}</p>
 			</div>
 
@@ -33,7 +33,7 @@ wrapper-course-lesson
                 <ul class="uploaded-files-list">
                     <li><h5>{% trans "Files" %}</h5></li>
                     {% for file in course_material.files.all %}
-                    <li><a href="{{ file.file.url }}">{{ file.file.name }}</a></li>
+                    <li><a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a></li>
                     {% endfor %}
                 </ul>
             </aside>
@@ -43,4 +43,12 @@ wrapper-course-lesson
     <!-- END MAIN CONTENT-->
 </div>
 <!-- END CONTAINER -->
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $(document).ready( function(){
+            $('#course-material-text p a').attr('target', '_blank');
+        });
+    </script>
 {% endblock %}
