@@ -25,7 +25,8 @@ class Command(BaseCommand):
             ifuser.__class__ = ActiveUser
             try:
                 ifuser.save()
-            except IntegrityError:  # Relation IfUser doesn't exist.
+            except IntegrityError:  # Duplicated e-mail, created by import_users
                 pass
+            
         c = connection.cursor()
         c.execute('drop table ifs_ifuser cascade')
