@@ -29,6 +29,3 @@ class IfUser(AbstractTimtecUser):
     # common fields
     campus = models.ForeignKey(Campus, verbose_name=_('Campus'), related_name='users', null=True, blank=True)
     is_if_staff = models.BooleanField(default=False)
-
-    class Meta(AbstractTimtecUser.Meta):
-        swappable = 'AUTH_USER_MODEL'
