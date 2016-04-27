@@ -30,6 +30,7 @@ update:
 	~/env/bin/pip install --upgrade pip
 	~/env/bin/pip install -U -r requirements/production.txt
 	npm install
+	~/env/bin/python manage.py ifuser2modeluser
 	~/env/bin/python manage.py migrate --noinput --fake-initial
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages

@@ -1,6 +1,6 @@
+from django.core.management import call_command
 from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model
-
 from django.db import connection
 from django.db.utils import IntegrityError, ProgrammingError
 from ifs.models import IfUser
@@ -27,6 +27,7 @@ class Command(BaseCommand):
                 ifuser.save()
             except IntegrityError:  # Duplicated e-mail, created by import_users
                 pass
-            
+
+        call_command('migrate', 'accounts', '0001_initial')
         c = connection.cursor()
         c.execute('drop table ifs_ifuser cascade')
