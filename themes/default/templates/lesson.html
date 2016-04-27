@@ -64,7 +64,7 @@ wrapper-course-lesson
                            class="has-tooltip unit track" data-toggle="tooltip"
                            ng-repeat="unit in lesson.units"
                            ng-class="{watching: unit==currentUnit, done: unit.progress.complete}">
-                               <span class="position" ng-bind="unit.position+1"></span>
+                               <span class="position" ng-bind="$index+1"></span>
                                <i class="fa fa-list" ng-show="unit.activities"></i>
                         </a>
                         <!-- <label ng-hide="false" style="font-family: monospace">
