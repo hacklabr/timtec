@@ -9,8 +9,8 @@ Obtendo o timtec
 
 ::
 
-    mkdir -p ~/devel
-    cd devel
+    mkdir -p ~/dev
+    cd dev
     git clone git clone git@github.com:hacklabr/timtec.git
     cd timtec
 
@@ -29,7 +29,7 @@ Dependências do SO
 
     sudo su - postgres -c "initdb --locale pt_BR.UTF-8 -D '/var/lib/postgres/data'"
     sudo su - postgres -c "createuser -d $USER"
-    sudo su - postgres -c "createdb --owner=$USER timtec"
+    createdb timtec
 
 Obtendo bibliotecas
 -------------------
