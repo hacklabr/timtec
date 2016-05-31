@@ -29,6 +29,8 @@ Dependências do SO
 Obtendo bibliotecas
 -------------------
 
+Aqui estamos prssupondo que você está usando o Virtualenvwrapper (https://wiki.archlinux.org/index.php/Python/Virtualenv)
+
 ::
 
     mkvirtualenv -p /usr/bin/python2 timtec
