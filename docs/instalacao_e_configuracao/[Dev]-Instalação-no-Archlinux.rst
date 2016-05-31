@@ -18,6 +18,7 @@ Dependências do SO
 ------------------
 
 ::
+
     # Pacote do archlinux
     sudo pacman -Sy python2 python-virtualenvwrapper postgresql nodejs
 
@@ -51,4 +52,5 @@ Rodar o servidor de teste
 -------------------------
 
 ::
+
     ./manage.py runserver
