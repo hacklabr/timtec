@@ -18,11 +18,8 @@ Dependências do SO
 ------------------
 
 ::
-
-    sudo pacman -S python2 
-    sudo pacman -S python-virtualenvwrapper
-    sudo pacman -S postgresql
-    sudo pacman -S nodejs
+    # Pacote do archlinux
+    sudo pacman -Sy python2 python-virtualenvwrapper postgresql nodejs
 
     sudo systemctl enable postgresql
     sudo systemctl start postgresql
@@ -38,17 +35,20 @@ Obtendo bibliotecas
 
     mkvirtualenv -p /usr/bin/python2 timtec
     workon timtec
-    pip install -r requirements.txt
-    pip install -r dev-requirements.txt
-    sudo npm install -g less
+    
 
 Configuração da aplicação
 -------------------------
 
 ::
 
-    cp timtec/settings_local_dev.py timtec/settings_local.py
-    ./manage.py syncdb --all --noinput
-    ./manage.py loaddata -i prod
+    cp timtec/settings_local.py.template timtec/settings_local.py
+    # Altere o arquivo settings_local.py para entrar no banco.
+    make
     ./manage.py changepassword admin
 
+Rodar o servidor de teste
+-------------------------
+
+::
+    ./manage.py runserver
