@@ -122,9 +122,8 @@ setup_js:
 	npm install # --loglevel silent
 
 setup_django: clean
-	python manage.py syncdb --noinput
-	python manage.py migrate --fake --noinput
-	python manage.py loaddata minimal
+	python manage.py migrate --noinput
+	python manage.py loaddata initial
 	python manage.py compilemessages
 
 dumpdata: clean
