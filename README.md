@@ -3,17 +3,17 @@
 ## Instalação e configurações
 Para acessar a documentação completa, veja a pasta [docs](docs) na raiz da aplicação. 
 
-* [INSTALAÇÃO release v3.2 ou superior](docs/source/instalacao_e_configuracao/Instalação.md)
-* [ATUALIZAÇÃO a partir v3.2 ou superior](docs/source/instalacao_e_configuracao/Atualização.md)
-* [ATUALIZAÇÃO a partir da versão 3.0.10 ou inferior](docs/source/instalacao_e_configuracao/Atualizando-a-partir-da-versão-3.0.10-ou-inferior.md)
-* [CONFIGURAÇÕES v3.2 ou superior](docs/source/instalacao_e_configuracao/Configurações.md)
-* [CONFIGURAÇÕES (Versão 3.0.10 e inferiores)](docs/source/instalacao_e_configuracao/Configurações-(Versão-3.0.10-e-inferiores).md)
+* [INSTALAÇÃO release v3.2 ou superior](docs/instalacao_e_configuracao/Instalação.md)
+* [ATUALIZAÇÃO a partir v3.2 ou superior](docs/instalacao_e_configuracao/Atualização.md)
+* [ATUALIZAÇÃO a partir da versão 3.0.10 ou inferior](docs/instalacao_e_configuracao/Atualizando-a-partir-da-versão-3.0.10-ou-inferior.md)
+* [CONFIGURAÇÕES v3.2 ou superior](docs/instalacao_e_configuracao/Configurações.md)
+* [CONFIGURAÇÕES (Versão 3.0.10 e inferiores)](docs/instalacao_e_configuracao/Configurações-(Versão-3.0.10-e-inferiores).md)
 
 
 ## Desenvolvimento
-* [Criando ambiente de dev](docs/source/instalacao_e_configuracao/%5BDev%5D-Instalação-no-Archlinux.rst)
-* [Temas](docs/source/instalacao_e_configuracao/Temas.md)
-* [Tutorial para criação de tema](docs/source/instalacao_e_configuracao/Tutorial-para-criação-de-tema.md)
+* [Criando ambiente de dev](docs/instalacao_e_configuracao/%5BDev%5D-Instalação-no-Archlinux.rst)
+* [Temas](docs/instalacao_e_configuracao/Temas.md)
+* [Tutorial para criação de tema](docs/instalacao_e_configuracao/Tutorial-para-criação-de-tema.md)
 
 
 ## Licença - AGPLV3 

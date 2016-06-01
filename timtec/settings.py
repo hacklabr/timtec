@@ -7,6 +7,7 @@ import os
 
 SETTINGS_DIR = os.path.dirname(os.path.realpath(__file__))
 PROJECT_ROOT = os.path.dirname(SETTINGS_DIR)
+APPS_DIR = PROJECT_ROOT
 
 #
 # Theme related options
@@ -507,6 +508,7 @@ ACCOUNT_REQUIRED_FIELDS = ('first_name', 'last_name', )
 SOCIALACCOUNT_EMAIL_VERIFICATION = False
 
 CERTIFICATE_SIZE = (862, 596)
+PHANTOMJS_PATH = os.path.join(PROJECT_ROOT, 'node_modules/phantomjs-prebuilt/bin/phantomjs')
 
 TWITTER_CONSUMER_KEY = ''
 TWITTER_CONSUMER_SECRET = ''
@@ -549,11 +551,15 @@ try:
 except IOError:
     pass
 
+CURRENT_THEME_DIR = os.path.join(PROJECT_ROOT, TIMTEC_THEME)
+if not os.path.exists(CURRENT_THEME_DIR):
+    CURRENT_THEME_DIR = os.path.join(PROJECT_ROOT, 'themes', TIMTEC_THEME)
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(THEMES_DIR, TIMTEC_THEME, 'templates'),
+            os.path.join(CURRENT_THEME_DIR, 'templates'),
             os.path.join(THEMES_DIR, 'default', 'templates'),
         ],
         'OPTIONS': {
@@ -591,11 +597,10 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(THEMES_DIR, TIMTEC_THEME, 'static'),
+    os.path.join(CURRENT_THEME_DIR, 'static'),
     os.path.join(THEMES_DIR, 'default', 'static'),
     os.path.join(PROJECT_ROOT, 'bower_components'),
 )
-
 if DEBUG:
     MIDDLEWARE_CLASSES += (
         'debug_toolbar.middleware.DebugToolbarMiddleware',

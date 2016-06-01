@@ -354,7 +354,7 @@ class CourseCertificationDetailView(DetailView):
             from selenium import webdriver
             from signal import SIGTERM
             from time import gmtime, strftime
-            from timtec.settings import MEDIA_ROOT, CERTIFICATE_SIZE
+            from timtec.settings import MEDIA_ROOT, CERTIFICATE_SIZE, PHANTOMJS_PATH
             from PIL import Image
             import os
 
@@ -366,15 +366,14 @@ class CourseCertificationDetailView(DetailView):
             pdf_filename = certificate.link_hash + today + '.pdf'
             pdf_path = os.path.join(MEDIA_ROOT, pdf_filename)
 
-            driver = webdriver.PhantomJS()
+            driver = webdriver.PhantomJS(executable_path=PHANTOMJS_PATH)
             driver.set_window_size(width, height)
             driver.get(url)
             driver.save_screenshot(filename=png_path)
 
             driver.service.process.send_signal(SIGTERM)
             driver.quit()
-
-            Image.open(png_path).convert("RGB").save(pdf_path, format='PDF')
+            Image.open(png_path).convert("RGB").save(pdf_path, format='PDF', quality=100, dpi=(300, 300))
 
             response = HttpResponse(content_type='application/pdf')
             response['Content-Disposition'] = 'attachment; filename=%s' % pdf_filename

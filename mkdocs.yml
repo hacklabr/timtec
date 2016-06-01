@@ -1,0 +1,15 @@
+site_name: MOOC TIM Tec
+site_description: Ferramenta MOOC TIM Tec
+pages:
+  - Sobre a plataforma:
+    - Introdução: 'index.md'
+
+  - Instalação e Configuração:
+    - 'Instalação': instalacao_e_configuracao/Instalação.md
+
+copyright: Copyright TIM Tec 2016 - Todos direitos reservados. Licenciado através da <a href="https://www.gnu.org/licenses/gpl-2.0.html" target="_blank">GPL v2</a>.
+site_favicon: images/favicon.ico
+extra_css:
+  - css/main.css
+extra_javascript:
+  - javascript/main.js
