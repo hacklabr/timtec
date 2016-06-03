@@ -91,7 +91,7 @@ urlpatterns = patterns(
     # Public browsing
     url(r'^my-courses/$', UserCoursesView.as_view(), name='user_courses'),
 
-    url(r'^emit_recipt/(?P<course_id>[-a-zA-Z0-9_]+)$', EmitReceiptView.as_view(), name='emit_recipt'),
+    url(r'^emit_recipt/(?P<course_id>[-a-zA-Z0-9_]+)$', EmitReceiptView.as_view(permanent=False), name='emit_recipt'),
     url(r'^request_certificate/(?P<course_id>[-a-zA-Z0-9_]+)$',
         RequestCertificateView.as_view(),
         name='request_certificate'),
