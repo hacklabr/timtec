@@ -58,6 +58,7 @@ settings_local.py
 /themes/*/static/css/main-admin.css
 /.cache
 /node_modules
+bower_components/
 
 # Vagrant
 .vagrant
