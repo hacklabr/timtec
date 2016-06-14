@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load staticfiles %}
-{% load compressed %}
+{% load pipeline %}
 
 {% block js %}
     {{ block.super }}
-    {% compressed_js 'course_material' %}
+    {% javascript 'course_material' %}
 {% endblock %}
 
 {% block wrapper_classes %}
