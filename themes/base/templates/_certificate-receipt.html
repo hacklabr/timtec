@@ -1,0 +1,27 @@
+{% load i18n %}
+{% load staticfiles %}
+
+<div class="certificate-container receipt">
+    <p class="text-uppercase student-name">{{ object.course_student.user.get_full_name }}{% if object.course_student.user.rg %}, RG {{ object.course_student.user.rg }} {% endif %}</p>
+    <p>Concluiu o curso online <em>{{ object.course.name }}</em> com carga
+      horária estimada de (40) horas em {{ object.created_date | date:"d/m/Y" }}.</p>
+    <section class="coordinator-section">
+      <p class="coordinator-name">{{ cert_template.name }}</p>
+      <p class="course-coordinator">{{ cert_template.role }}</p>
+    </section>
+    <footer>
+      <div class="pull-left credits-receipt">
+        <p>Realizado em: {{ site.domain }}</p>
+        <p>URL de validação: <a href="{% url 'certificate' object.link_hash %}">{{ site.domain }}{% url 'certificate' object.link_hash %}</a></p>
+      </div>
+      {% block certificate-logo %}
+          <div class="pull-right logo">
+            {% if cert_template.base_logo_url %}
+                <img class="img-responsive" src="{{ cert_template.base_logo_url }}">
+            {% else %}
+                <img class="img-responsive" src="{% static 'img/logo.png' %}">
+            {% endif %}
+          </div>
+      {% endblock %}
+    </footer>
+</div>

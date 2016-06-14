@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+{% load i18n %}
+{% load static %}
+{% load compressed %}
+{% load metron_tags %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}{{ site.name }}{% endblock %}</title>
+
+    {% compressed_css 'common' %}
+    {% compressed_css 'public' %}
+
+    <script>
+        window.STATIC_URL = '{{ STATIC_URL }}';
+        window.MEDIA_URL = '{{ MEDIA_URL }}';
+        window.DEBUG = '{{ DEBUG }}';
+        window.YOUTUBE_API_KEY = '{{ site.YOUTUBE_API_KEY }}';
+        window.USER_ID = '{{ user.id }}';
+    </script>
+
+    {% compressed_js 'all' %}
+    {% compressed_js 'codemirror' %}
+
+    <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Converter.js' %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Editor.js' %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Sanitizer.js' %}" charset="utf-8"></script>
+
+    {% block js %}{% endblock %}
+
+    {% analytics %}
+    <script type="text/javascript" charset="utf-8">
+        (function(){
+            function resize_activation_wrapper() {
+                windowHeight = window.innerHeight;
+                navbarHeight = $('#main-navbar').innerHeight();
+                footerHeight = $('#main-footer').innerHeight();
+                $('#activation-wrapper').innerHeight(windowHeight - (navbarHeight + footerHeight + 58));
+            }
+
+            function wrapper_min_height() {
+                windowHeight = window.innerHeight;
+                navbarHeight = $('#main-navbar').outerHeight(true);
+                footerHeight = $('#main-footer').outerHeight(true);
+                $('.wrapper').css('min-height', windowHeight - navbarHeight - footerHeight);
+            }
+
+            $(document).ready(function() {
+                if (!("ontouchstart" in window)) {
+                    $('.has-tooltip').tooltip();
+                }
+
+
+                resize_activation_wrapper();
+                wrapper_min_height();
+
+                $('#start-intro').click(function(){
+                    startIntro();
+                });
+
+				{# workaround to contatc modal work with safari on ipad due to safari bug: http://getbootstrap.com/getting-started/#support-fixed-position-keyboards #}
+				if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+					$('.modal').on('show.bs.modal', function () {
+						// Position modal absolute and bump it down to the scrollPosition
+						$(this).css({
+								  position: 'absolute',
+								  marginTop: $(window).scrollTop() + 'px',
+								  bottom: 'auto'
+						});
+
+						// Position backdrop absolute and make it span the entire page
+						//
+						// Also dirty, but we need to tap into the backdrop after Boostrap
+						// positions it but before transitions finish.
+						//
+						setTimeout(function () {
+							$('.modal-backdrop').css({
+								position: 'absolute',
+								top: 0,
+								left: 0,
+								width: '100%',
+								height: Math.max(
+										document.body.scrollHeight, document.documentElement.scrollHeight,
+										document.body.offsetHeight, document.documentElement.offsetHeight,
+										document.body.clientHeight, document.documentElement.clientHeight
+								) + 'px'
+							});
+						}, 0);
+					});
+				}
+            });
+            $(window).resize(resize_activation_wrapper);
+        })();
+    </script>
+</head>
+<body {% if in_admin %}id="admin"{% else %}id="notadmin"{% endif %} {% spaceless %}{% block body_attrs %}{% endblock %}{% endspaceless %}>
+
+    {% block header %}
+    {% include 'header.html' %}
+    {% endblock %}
+
+    <div class="wrapper wrapper-bg {% spaceless %}{% block wrapper_classes %}{% endblock %}{% endspaceless %}">
+        {% block content %}
+        <h1>missing content block</h1>
+        {% endblock %}
+    </div>
+    {% include 'footer.html' %}
+
+{% if user.is_authenticated %}
+    <script type="text/javascript">
+    ga('set', 'dimension1', '{{ user.id }}');
+    ga('set', 'dimension2', '{{ user.get_user_type }}');
+    ga('set', 'dimension3', '{{ user.is_pilot }}');
+    </script>
+{% else %}
+    {% include 'account/login_modal.html' %}
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            var $modal = $("#login-modal");
+            var $next = $modal.find('input[name=next]');
+            $('a.js-login-required').click(function(e){
+                $next.val($(this).attr('href'));
+                $modal.modal();
+                return false;
+            });
+            $('.dropdown-menu form').click(function(e) {
+                e.stopPropagation();
+            });
+        });
+    </script>
+{% endif %}
+
+</body>
+</html>

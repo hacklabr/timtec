@@ -1,0 +1,23 @@
+{% extends 'account/base.html' %}
+{% load i18n %}
+
+<!-- TABLET AND DESKTOP -->
+{% block account_content %}
+    <h1 class="textcenter">
+        <i class="fa fa-inbox"></i><br/>
+        {% trans "Validation email sent" %}.<br/>
+        {% trans "Check your inbox" %}!
+    </h1>
+{% endblock %}
+<!-- END TABLET AND DESKTOP -->
+
+
+<!-- MOBILE -->
+{% block account_content_mobile %}
+    <h1 class="textcenter">
+        <i class="fa fa-inbox"></i><br/>
+        {% trans "Validation email sent" %}.<br/>
+        {% trans "Check your inbox" %}!
+    </h1>
+{% endblock %}
+<!-- END MOBILE -->
