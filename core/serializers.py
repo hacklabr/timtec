@@ -75,7 +75,8 @@ class BaseCourseCertificationSerializer(serializers.ModelSerializer):
 
 
 class CertificationProcessSerializer(serializers.ModelSerializer):
-    course_certification = serializers.SlugRelatedField(slug_field="link_hash")
+    # TODO: Verificar se de fato e read_only=True
+    course_certification = serializers.SlugRelatedField(slug_field="link_hash", read_only=True)
 
     class Meta:
         model = CertificationProcess
@@ -138,9 +139,9 @@ class CertificateTemplateImageSerializer(serializers.ModelSerializer):
 
 
 class ClassSerializer(serializers.ModelSerializer):
-    students = TimtecUserAdminCertificateSerializer(read_only=True)
-    processes = CertificationProcessSerializer(read_only=True)
-    evaluations = EvaluationSerializer(read_only=True)
+    students = TimtecUserAdminCertificateSerializer(read_only=True, many=True)
+    processes = CertificationProcessSerializer(read_only=True, many=True)
+    evaluations = EvaluationSerializer(read_only=True, many=True)
 
     class Meta:
         model = Class
@@ -155,11 +156,9 @@ class VideoSerializer(serializers.ModelSerializer):
 
 class CourseSerializer(serializers.ModelSerializer):
     intro_video = VideoSerializer(required=False)
-    thumbnail_url = serializers.Field(source='get_thumbnail_url')
-    professor_name = serializers.SerializerMethodField('get_professor_name')
-    home_thumbnail_url = serializers.SerializerMethodField('get_home_thumbnail_url')
-    professors_names = serializers.SerializerMethodField('get_professors_names')
-    has_started = serializers.Field()
+    professor_name = serializers.SerializerMethodField()
+    home_thumbnail_url = serializers.SerializerMethodField()
+    professors_names = serializers.SerializerMethodField()
 
     class Meta:
         model = Course
@@ -242,7 +241,7 @@ class StudentProgressSerializer(serializers.ModelSerializer):
 
 class UnitSerializer(serializers.ModelSerializer):
     video = VideoSerializer(required=False)
-    activities = ActivitySerializer(many=True, allow_add_remove=True)
+    activities = ActivitySerializer(many=True)
 
     class Meta:
         model = Unit
@@ -258,8 +257,9 @@ class LessonHyperlinkedIdentityField(serializers.HyperlinkedIdentityField):
 
 
 class LessonSerializer(serializers.HyperlinkedModelSerializer):
-    course = serializers.SlugRelatedField(slug_field='slug')
-    units = UnitSerializer(many=True, allow_add_remove=True)
+    # TODO: Verificar se de fato e read_only=True
+    course = serializers.SlugRelatedField(slug_field='slug', read_only=True)
+    units = UnitSerializer(many=True)
     thumbnail = serializers.Field(source='thumbnail')
     url = LessonHyperlinkedIdentityField(
         view_name='lesson',
@@ -296,7 +296,7 @@ class UnitNoteSerializer(serializers.ModelSerializer):
 class LessonNoteSerializer(serializers.ModelSerializer):
 
     units_notes = UnitNoteSerializer(many=True)
-    course = serializers.SlugRelatedField(slug_field='slug')
+    course = serializers.SlugRelatedField(slug_field='slug', read_only=True)
 
     class Meta:
         model = Lesson
@@ -317,10 +317,10 @@ class CourseNoteSerializer(serializers.ModelSerializer):
 class CourseProfessorSerializer(serializers.ModelSerializer):
     user_info = TimtecUserSerializer(source='user', read_only=True)
     course_info = CourseSerializer(source='course', read_only=True)
-    get_name = serializers.Field()
-    get_biography = serializers.Field()
-    get_picture_url = serializers.Field()
-    current_user_classes = ClassSerializer(source='get_current_user_classes', read_only=True)
+    get_name = serializers.CharField(read_only=True)
+    get_biography = serializers.CharField(read_only=True)
+    get_picture_url = serializers.CharField(read_only=True)
+    current_user_classes = ClassSerializer(source='get_current_user_classes', read_only=True, many=True)
 
     class Meta:
         fields = ('id', 'course', 'course_info', 'user', 'name', 'biography', 'picture', 'user_info',

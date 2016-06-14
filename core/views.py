@@ -212,7 +212,9 @@ class ResumeCourseView(LoginRequiredMixin, RedirectView):
 
 
 class CourseProfessorViewSet(viewsets.ModelViewSet):
+
     model = CourseProfessor
+    queryset = CourseProfessor.objects.all()
     lookup_field = 'id'
     filter_fields = ('course', 'user', 'role', 'is_course_author',)
     filter_backends = (filters.DjangoFilterBackend,)
@@ -227,13 +229,13 @@ class CourseProfessorViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = super(CourseProfessorViewSet, self).get_queryset()
-        is_course_author = self.request.QUERY_PARAMS.get('is_course_author', None)
+        is_course_author = self.request.query_params.get('is_course_author', None)
         if is_course_author == 'true':
             queryset = queryset.filter(is_course_author=True)
         if is_course_author == 'false':
             queryset = queryset.filter(is_course_author=False)
 
-        has_user = self.request.QUERY_PARAMS.get('has_user', None)
+        has_user = self.request.query_params.get('has_user', None)
         if has_user:
             queryset = queryset.exclude(user=None)
         return queryset
@@ -406,6 +408,9 @@ class CertificationProcessViewSet(viewsets.ModelViewSet):
 
 
 class EmitReceiptView(RedirectView):
+
+    permanent = False
+
     def get_redirect_url(self, *args, **kwargs):
         course_id = kwargs.get('course_id')
         if course_id:
@@ -485,7 +490,9 @@ class ProfessorMessageViewSet(viewsets.ModelViewSet):
 
 
 class CourseViewSet(viewsets.ModelViewSet):
+
     model = Course
+    queryset = Course.objects.all()
     lookup_field = 'id'
     filter_fields = ('slug', 'home_published',)
     filter_backends = (filters.DjangoFilterBackend,)
@@ -494,10 +501,10 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = super(CourseViewSet, self).get_queryset()
-        public_courses = self.request.QUERY_PARAMS.get('public_courses', None)
+        public_courses = self.request.query_params.get('public_courses', None)
         if public_courses:
             queryset = queryset.filter(status='published').prefetch_related('professors')
-        role = self.request.QUERY_PARAMS.get('role', None)
+        role = self.request.query_params.get('role', None)
         if role and not self.request.user.is_superuser:
             queryset = queryset.filter(
                 course_professors__role=role,
@@ -513,7 +520,7 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     def post(self, request, **kwargs):
         course = self.get_object()
-        serializer = CourseSerializer(course, request.DATA)
+        serializer = CourseSerializer(course, request.data)
 
         if serializer.is_valid():
             serializer.save()

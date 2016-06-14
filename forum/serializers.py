@@ -5,7 +5,7 @@ from rest_framework import serializers
 class QuestionSerializer(serializers.ModelSerializer):
 
     votes = serializers.SerializerMethodField('count_votes')
-    username = serializers.SerializerMethodField('get_username')
+    username = serializers.SerializerMethodField()
     timestamp = serializers.DateTimeField(read_only=True)
     hidden_to_user = serializers.SerializerMethodField('is_hidden')
     moderator = serializers.SerializerMethodField('is_moderator')

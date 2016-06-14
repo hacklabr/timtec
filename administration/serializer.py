@@ -24,7 +24,7 @@ class CourseAuthorsImportSerializer(serializers.ModelSerializer):
 
 class UnitImportExportSerializer(serializers.ModelSerializer):
     video = VideoSerializer()
-    activities = ActivityImportExportSerializer(many=True, allow_add_remove=True)
+    activities = ActivityImportExportSerializer(many=True)
 
     class Meta:
         model = Unit
@@ -32,7 +32,7 @@ class UnitImportExportSerializer(serializers.ModelSerializer):
 
 
 class LessonImportExportSerializer(serializers.ModelSerializer):
-    units = UnitImportExportSerializer(many=True, allow_add_remove=True)
+    units = UnitImportExportSerializer(many=True)
 
     class Meta:
         model = Lesson
@@ -40,9 +40,8 @@ class LessonImportExportSerializer(serializers.ModelSerializer):
 
 
 class CourseExportSerializer(serializers.ModelSerializer):
-    lessons = LessonImportExportSerializer(many=True, allow_add_remove=True)
-    course_authors = CourseAuthorsExportSerializer(many=True,
-                                                   allow_add_remove=True,)
+    lessons = LessonImportExportSerializer(many=True)
+    course_authors = CourseAuthorsExportSerializer(many=True)
     intro_video = VideoSerializer()
     course_material = CourseMaterialImportExportSerializer()
 
@@ -54,8 +53,8 @@ class CourseExportSerializer(serializers.ModelSerializer):
 
 
 class CourseImportSerializer(serializers.ModelSerializer):
-    lessons = LessonImportExportSerializer(many=True, allow_add_remove=True)
-    course_authors = CourseAuthorsImportSerializer(many=True, allow_add_remove=True)
+    lessons = LessonImportExportSerializer(many=True)
+    course_authors = CourseAuthorsImportSerializer(many=True)
     intro_video = VideoSerializer()
     # course_material = CourseMaterialImportExportSerializer()
 

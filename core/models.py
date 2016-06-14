@@ -136,6 +136,10 @@ class Course(models.Model):
     def is_enrolled(self, user):
         return CourseStudent.objects.filter(course=self, user=user).exists()
 
+    @property
+    def thumbnail_url(self):
+        return self.get_thumbnail_url()
+
     def get_thumbnail_url(self):
         if self.thumbnail:
             return self.thumbnail.url
