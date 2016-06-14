@@ -308,7 +308,7 @@ def test_only_admin_or_coordinator_can_edit_course(client, admin_client):
     assert changed_course.abstract == 'Another abstract'
 
 
-###### FIXME: Bad Request (400) and Regration case after upgrade to Rest Framework 3.3.0: http://stackoverflow.com/questions/33441197/django-rest-framework-browsable-api-form-always-returns-400-bad-request
+#  FIXME: Bad Request (400) and Regration case after upgrade to Rest Framework 3.3.0: http://stackoverflow.com/questions/33441197/django-rest-framework-browsable-api-form-always-returns-400-bad-request
 @pytest.mark.django_db
 def test_only_admin_or_coordinator_can_edit_courseprofessors(client, admin_client):
     from core.models import CourseProfessor
