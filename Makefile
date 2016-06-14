@@ -112,7 +112,7 @@ setup_ci:
 
 setup_py:
 	pip install -r requirements/test.txt
-	python setup.py -q develop
+	-m
 
 setup_coveralls:
 	pip install -q coveralls

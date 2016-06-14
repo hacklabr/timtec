@@ -2,13 +2,9 @@ from .models import Activity, Answer
 from rest_framework import serializers
 
 
-class JSONSerializerField(serializers.WritableField):
-    pass
-
-
 class ActivitySerializer(serializers.ModelSerializer):
-    data = JSONSerializerField('data')
-    expected = JSONSerializerField('expected', required=False)
+    data = serializers.JSONField('data')
+    expected = serializers.JSONField('expected', required=False)
 
     class Meta:
         model = Activity
@@ -19,7 +15,7 @@ class AnswerSerializer(serializers.ModelSerializer):
     user = serializers.Field(source='user')
     user_id = serializers.Field(source='user.id')
     correct = serializers.Field(source='is_correct')
-    given = JSONSerializerField('given')
+    given = serializers.JSONField('given')
 
     class Meta:
         model = Answer
@@ -28,8 +24,8 @@ class AnswerSerializer(serializers.ModelSerializer):
 
 
 class ActivityImportExportSerializer(serializers.ModelSerializer):
-    data = JSONSerializerField('data')
-    expected = JSONSerializerField('expected', required=False)
+    data = serializers.JSONField('data')
+    expected = serializers.JSONField('expected', required=False)
 
     class Meta:
         model = Activity
