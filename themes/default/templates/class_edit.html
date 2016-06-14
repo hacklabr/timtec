@@ -2,13 +2,13 @@
 
 {% load staticfiles %}
 {% load i18n %}
-{% load compressed %}
+{% load pipeline %}
 {% load is_course_coordinator %}
 
 {% block js %}
     {{ block.super }}
-    {% compressed_js 'core' %}
-    {% compressed_js 'certificate' %}
+    {% javascript 'core' %}
+    {% javascript 'certificate' %}
 {% endblock %}
 
 {% block wrapper_classes %}
