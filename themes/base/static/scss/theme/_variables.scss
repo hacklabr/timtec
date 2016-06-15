@@ -1,0 +1,34 @@
+// Override base theme variables 
+// --------------------------------------------------
+
+//== Typography
+//
+$headings-font-family: "Alegreya", $font-family-sans-serif !default;
+
+
+// Theme variables 
+// --------------------------------------------------
+
+//== Colors
+//
+//## Parapraca brand colors
+
+$blue:          rgb(0,110,177);
+$light-blue:    rgb(135,194,228);
+$green:         rgb(135,183,38);
+$yellow:        rgb(234,188,0);
+$orange:        rgb(222,111,116);
+$red:           rgb(213,19,0);
+$pink:          rgb(207,8,106);
+$purple:        rgb(153,54,113);
+
+
+//== Typography
+//
+//## Font weight variables
+
+$lighter:           300;
+$normal:            400;
+$semi-bold:         600;
+$bold:              700;
+$extra-bold:        800;
