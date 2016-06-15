@@ -145,29 +145,31 @@ PIPELINE_COMPILERS = (
 # Source Map Less
 PIPELINE_LESS_ARGUMENTS = '--source-map=main.css.map'
 
-PIPELINE_CSS = {
-    'common': {
-        'source_filenames': (
-            'font-awesome/css/font-awesome.css',
-            'codemirror/lib/codemirror.css',
-            'codemirror/addon/hint/show-hint.css',
-            'codemirror/theme/monokai.css',
-            'css/codemirrorconf.css',
-            'intro.js/introjs.css',
-            'intro.js/themes/introjs-nassim.css',
-        ),
-        'output_filename': 'css/common.css',
-        'extra_context': {
-            'media': 'screen,projection,print',
+PIPELINE = {
+    'STYLESHEETS': {
+        'common': {
+            'source_filenames': (
+                'font-awesome/css/font-awesome.css',
+                'codemirror/lib/codemirror.css',
+                'codemirror/addon/hint/show-hint.css',
+                'codemirror/theme/monokai.css',
+                'css/codemirrorconf.css',
+                'intro.js/introjs.css',
+                'intro.js/themes/introjs-nassim.css',
+            ),
+            'output_filename': 'css/common.css',
+            'extra_context': {
+                'media': 'screen,projection,print',
+            },
         },
-    },
-    'public': {
-        'source_filenames': (
-            'css/main.less',
-        ),
-        'output_filename': 'css/public.css',
-        'extra_context': {
-            'media': 'screen,projection,print',
+        'public': {
+            'source_filenames': (
+                'css/main.less',
+            ),
+            'output_filename': 'css/public.css',
+            'extra_context': {
+                'media': 'screen,projection,print',
+            },
         },
     },
 }

@@ -127,18 +127,6 @@ def test_min_percent_range():
 
 
 @pytest.mark.django_db
-def test_course_serializer():
-    from core.serializers import CourseSerializer
-    course = mommy.make('Course')
-
-    course_serializer = CourseSerializer(course)
-
-    assert course.min_percent_to_complete == \
-        course_serializer.field_mapping.get("min_percent_to_complete",
-                                            100)
-
-
-@pytest.mark.django_db
 def test_studentprogress_emmit_receipt(user):
     from datetime import datetime
 

@@ -82,7 +82,9 @@ class QuestionCreateView(LoginRequiredMixin, FormView):
 
 
 class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
+
     model = Question
+    queryset = Question.objects.all()
     serializer_class = QuestionSerializer
     filter_fields = ('course', 'user', 'hidden')
     permission_classes = (HideQuestionPermission,)
@@ -98,13 +100,13 @@ class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
         # filter by course
         queryset = super(QuestionViewSet, self).get_queryset()
 
-        classes_id = self.request.QUERY_PARAMS.getlist('classes')
+        classes_id = self.request.query_params.getlist('classes')
         if classes_id:
             classes = Class.objects.filter(id__in=classes_id)
             queries_list = [Q(user__in=klass.students.all()) for klass in classes.all()]
             queryset = queryset.filter(reduce(operator.or_, queries_list))
 
-        course_id = self.request.QUERY_PARAMS.get('course')
+        course_id = self.request.query_params.get('course')
 
         if not (classes_id or course_id):
             return queryset

@@ -308,6 +308,7 @@ def test_only_admin_or_coordinator_can_edit_course(client, admin_client):
     assert changed_course.abstract == 'Another abstract'
 
 
+#  FIXME: Bad Request (400) and Regration case after upgrade to Rest Framework 3.3.0: http://stackoverflow.com/questions/33441197/django-rest-framework-browsable-api-form-always-returns-400-bad-request
 @pytest.mark.django_db
 def test_only_admin_or_coordinator_can_edit_courseprofessors(client, admin_client):
     from core.models import CourseProfessor
@@ -331,9 +332,11 @@ def test_only_admin_or_coordinator_can_edit_courseprofessors(client, admin_clien
     response = client.put('/api/course_professor/' + str(course_professor.id),
                           json.dumps({'id': str(course_professor.id),
                                       'course': course.id,
+                                      'professor': professor.id,
                                       'biography': 'A biography'}),
                           content_type='application/json;charset=UTF-8')
     changed_course_professor = CourseProfessor.objects.get(id=course_professor.id)
+
     assert response.status_code == 200
     assert changed_course_professor.biography == 'A biography'
 
