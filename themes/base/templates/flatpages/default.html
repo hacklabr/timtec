@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load django_markdown %}
-{% load compressed %}
+{% load pipeline %}
 
 {% if user.is_superuser %}
     {% block js %}
 		{{block.super}}
-        {% compressed_js 'core' %}
+        {% javascript 'core' %}
     <script>
         window.page_url = '{{ flatpage.url }}';
     </script>
