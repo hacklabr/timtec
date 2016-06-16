@@ -1,13 +1,20 @@
 #!/bin/bash
 
 TIMTEC_USER=vagrant
+TIMTEC_VIRTUALENVFOLDER=~/env
+TIMTEC_FOLDER=~/timtec
 
 ## Install OS dependencies
 
 # useradd --groups sudo --create-home ${TIMTEC_USER}
 
 sudo apt-get update
-sudo apt-get install -y libpq-dev libjpeg-dev libpng12-dev build-essential python-dev gettext python-virtualenv nodejs npm git
+sudo apt-get install -y libpq-dev libjpeg-dev libpng12-dev build-essential python-dev gettext python-virtualenv git
+
+
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+sudo apt-get update
+sudo apt-get install -y nodejs
 
 # sudo useradd -U -m ${TIMTEC_USER}
 
@@ -23,5 +30,16 @@ createdb ${TIMTEC_USER}
 
 echo 'Done installing database!'
 
-echo "source timtec-env/bin/activate" >> ~/.bashrc
-echo "cd timtec" >> ~/.bashrc
+## Create virtualenv
+
+virtualenv ${TIMTEC_VIRTUALENVFOLDER}
+source ${TIMTEC_VIRTUALENVFOLDER}/bin/activate
+
+## Install depencencies and basic django setup
+
+cd ${TIMTEC_FOLDER}
+
+make
+
+#echo "source timtec-env/bin/activate" >> ~/.bashrc
+#echo "cd timtec" >> ~/.bashrc
