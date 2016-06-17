@@ -1,0 +1,52 @@
+// Site header styles
+// --------------------------------------------------
+
+.site-header {
+    background-color: #fff;
+    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.2); 
+    height: 70px;
+    overflow: hidden;
+    position: relative;
+}
+
+.site-logo {
+    height: 70px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    h1 {
+        margin: 0;
+        text-align: center;
+        width: 100%;
+    }
+    a {
+        display: block;
+    }
+    img {
+        max-height: 30px;
+    }
+
+}
+
+.user-tools {
+    @extend .list-inline;
+    position: absolute;
+    right: 0;
+
+    a {
+        font-size: $font-size-small;
+        font-weight: 700;
+        text-align: center; 
+        text-transform: lowercase;
+        &:before {
+            display: block;
+            font-size: $font-size-large;
+        }
+    }
+    .notifications {
+        @include icon(before, notifications);
+    }
+    .chat {
+        @include icon(before, chat);
+    }
+}

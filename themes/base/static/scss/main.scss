@@ -20,13 +20,16 @@
 
 //== Base styles
 @import "base/fonts";
+@import "base/helpers";
+@import "base/mixins";
 
 
 //== Components styles
 
 
 //== Layout styles
-@import "base/variables";
+@import "layout/site-header";
+@import "layout/main-nav";
 
 
 //== Vendor styles

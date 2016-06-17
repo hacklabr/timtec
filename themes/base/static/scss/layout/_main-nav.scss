@@ -1,0 +1,21 @@
+// Main navigation styles
+// --------------------------------------------------
+
+.main-nav {
+    background-color: $yellow; 
+    bottom: 0;
+    left: -280px;
+    top: 0;
+    position: fixed;
+    width: 280px;
+    transition: left 0.5s ease;
+    z-index: 1000;
+    &.opened {
+        left: 0;
+    }
+}
+
+.user-info {
+    background-color: $green;
+    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.2); 
+}

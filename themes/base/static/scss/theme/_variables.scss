@@ -1,11 +1,3 @@
-// Override base theme variables 
-// --------------------------------------------------
-
-//== Typography
-//
-$headings-font-family: "Alegreya", $font-family-sans-serif;
-
-
 // Declare specifc theme variables 
 // --------------------------------------------------
 
@@ -17,7 +9,7 @@ $blue:          rgb(0,110,177);
 $light-blue:    rgb(135,194,228);
 $green:         rgb(135,183,38);
 $yellow:        rgb(234,188,0);
-$orange:        rgb(222,111,116);
+$orange:        rgb(222,111,16);
 $red:           rgb(213,19,0);
 $pink:          rgb(207,8,106);
 $purple:        rgb(153,54,113);
@@ -32,3 +24,18 @@ $normal:            400;
 $semi-bold:         600;
 $bold:              700;
 $extra-bold:        800;
+
+
+// Override base theme variables 
+// --------------------------------------------------
+
+//== Scaffolding
+//
+//## Settings for some of the most global styles.
+
+//** Global textual link color.
+$link-color:            $orange !default;
+
+//== Typography
+//
+$headings-font-family: "Alegreya", $font-family-sans-serif;
