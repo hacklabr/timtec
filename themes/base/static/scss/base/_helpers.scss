@@ -1,0 +1,6 @@
+// this class exists to circunvent a flash + youtube api error
+// in which if the video div is really hidden the api breaks
+.hidder {
+    position: absolute;
+    left: -3000px;
+}

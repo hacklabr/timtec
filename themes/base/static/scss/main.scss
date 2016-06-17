@@ -1,16 +1,28 @@
-$icon-font-path: '../bootstrap-sass/assets/fonts/bootstrap/';
 @import '../bootstrap-sass/assets/stylesheets/bootstrap';
 
-@import 'flatui/checkbox-and-radio.scss';
+// Import project's files
+// --------------------------------------------------
 
-// this class exists to circunvent a flash + youtube api error
-// in which if the video div is really hidden the api breaks
-.hidder {
-    position: absolute;
-    left: -3000px;
-}
+// base styles
+@import 'base/fonts';
+@import 'base/variables';
 
-// MODULES
+// components styles
+
+// layout styles
+@import 'base/variables';
+
+// vendor styles
+@import 'vendor/flatui/checkbox-and-radio.scss';
+
+// Import theme's files
+// --------------------------------------------------
+
+@import 'theme/fonts';
+@import 'theme/variables';
+
+
+/* // MODULES
 @import 'modules/settings.scss';
 @import 'modules/mixins.scss';
 @import 'modules/helpers.scss';
@@ -53,3 +65,4 @@ $icon-font-path: '../bootstrap-sass/assets/fonts/bootstrap/';
 // ADMIN
 // should be the last import
 @import 'pages/admin.scss';
+ */
