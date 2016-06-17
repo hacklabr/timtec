@@ -1,0 +1,18 @@
+.table-list {
+  > tbody > tr {
+    > th {
+      border-top: 0;
+      &.actions {
+        text-align: center;
+        width: 92px;
+      }
+    }
+    > td {
+      vertical-align: middle;
+      &.actions {
+        text-align: left;
+        width: 92px;
+      }
+    }
+  }
+}

@@ -1,0 +1,181 @@
+// COURSES BOXES FROM HOME AND COURSES PAGE
+// ********************************************************************* //
+#courses {
+    margin-bottom: 40px;
+    margin-top: 40px;
+    .course {
+      margin-bottom: 40px;
+      position: relative;
+      &:hover {
+        .fa-check {
+          background-color: lighten($brand-info, 20%);
+        }
+      }
+      .fa-check {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        z-index: 2;
+        color: #fff;
+        background-color: darken($gray-lighter, 10%);
+        border-radius: 14px;
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+        text-align: center;
+      }
+      &.started {
+        .fa-check {
+          background-color: $brand-success;
+        }
+      }
+        .coming-soon-label {
+          background-color: $brand-warning;
+          border-radius: 0px 2px 2px 0px;
+          box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.3);
+          color: #fff;
+          font-size: 12px;
+          left: -5px;
+          padding: 6px 10px;
+          position: absolute;
+          text-transform: uppercase;
+          top: 10px;
+          z-index: 999;
+        }
+        .course-link { // link wrapper
+          display: block;
+          position: relative;
+          cursor: pointer;
+          &:hover {
+            .mouseover {
+              @include opacity(0.4);
+            }
+            .info {
+              background-color: rgba(52,152,219,0.3);
+              h3, .abstract {
+                color: #000;
+              }
+              .instructors {
+                color: $gray;
+              }
+            }
+            .enroll {
+              background-color: darken($brand-info, 10%);
+            }
+          }
+        } // .course-link
+        .thumb-wrapper { // course thumbnail
+          position: relative;
+          width: 100%;
+          .mouseover {
+            background-color: $brand-info;
+            display: block;
+            height: 206px;
+            @include opacity(0);
+            position: absolute;
+            @include transition(all 0.25s ease);
+            width: 100%;
+            z-index: 1;
+          }
+          .thumb {
+            background-size: cover;
+            background-position: top center;
+            display: block;
+            height: 206px;
+            width: 100%;
+          }
+        } // .thumb-wrapper
+        .info-box { // info wrapper for courses page
+          position: relative;
+          width: 100%;
+          @media (min-width: 540px) and (max-width: $screen-xs-max) {
+            float: left;
+            width: 50%;
+          }
+          @media (min-width: $screen-sm-min) {
+            float: left;
+            width: 60%;
+          }
+        } // .info-box
+        .info { // course info
+            background-color: $gray-lighter;
+            height: 164px;
+            overflow: hidden;
+            padding: 15px 44px 15px 15px;
+            @include transition(all 0.25s ease);
+            h3 {
+                color: $gray;
+                font-size: 20px;
+                margin: 0 0 5px 0;
+                max-height: 45px;
+                overflow: hidden;
+                position:relative;
+                a {
+                  color: $gray;
+                  &:hover {
+                    color: $gray-darker;
+                  }
+                }
+            }
+            .instructors {
+                color: $gray-light;
+                font-size: 13px;
+                font-style: italic;
+                margin-bottom: 5px;
+                max-height: 34px;
+                overflow: hidden;
+                position:relative;
+            }
+            .abstract {
+                color: $gray-dark;
+                font-size: 12px;
+                max-height: 51px;
+                position: relative;
+                overflow: hidden;
+            }
+        } // .info
+        .enroll { // go to course link
+            width: 100%;
+            background-color: $brand-info;
+            color: #fff;
+            font-family: 'Questrial';
+            line-height: 3;
+            @include transition(all 0.25s ease);
+            overflow: hidden;
+            a {
+              color: #fff;
+              display: block;
+              line-height: 3;
+            }
+            .enroll-link {
+              float: right;
+            }
+            .fa {
+                margin: 0 9px;
+            }
+        } // .enroll
+    } // .course
+}
+
+#home{
+    .mouseover, .thumb {
+        @include border-top-radius($border-radius-base);
+    }
+    .enroll {
+        @include border-bottom-radius($border-radius-base);
+    }
+}
+#courses-page{
+    .course {
+      min-height: 195px;
+    }
+    .mouseover, .thumb {
+        @include border-left-radius($border-radius-base);
+    }
+    .info {
+        border-radius: 0 $border-radius-base 0 0;
+    }
+    .enroll {
+        border-radius: 0 0 $border-radius-base 0;
+    }
+}

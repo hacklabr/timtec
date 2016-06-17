@@ -1,0 +1,93 @@
+// Activities
+.course-activity {
+    border: 1px solid $gray-lighter;
+    padding: 40px 20px;
+    position:relative;
+
+    .question {
+        h1 {
+            border-bottom: 1px solid $gray-lighter;
+            // color: rgb(44,61,147);
+            color: $brand-info;
+            font-family: "Questrial";
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            text-align: center;
+        }
+    }
+
+    .answers {
+        margin: 20px 0;
+    }
+
+    .simplechoice-answers {
+        .answer {
+            border-bottom: 1px solid $gray-lighter;
+            font-size: 16px;
+            label {
+                vertical-align: top;
+                .icons {
+                    display: inline !important;
+                    margin-top: 10px;
+                    position: static !important;
+                }
+            }
+        }
+    }
+
+    .multiplechoice-answers {
+        .answer {
+            border-bottom: 1px solid $gray-lighter;
+            font-size: 16px;
+            label {
+                vertical-align: top;
+                .icons {
+                    display: inline !important;
+                    margin-top: 10px;
+                    position: static !important;
+                }
+            }
+        }
+    }
+
+    .trueorfalse-answers {
+        .answer {
+            border-bottom: 1px solid $gray-lighter;
+            font-size: 16px;
+            margin: 10px 0;
+            padding: 10px 0;
+        }
+    }
+
+    .relationship-answers {
+        .answer {
+            border-bottom: 1px solid $gray-lighter;
+            font-size: 16px;
+            margin: 10px 0;
+            padding: 10px 0;
+            > * {
+                line-height: 2;
+            }
+        }
+    }
+
+    .submit {
+        margin-top: 40px;
+    }
+
+    label {
+        font-weight:normal;
+    }
+
+    .wrong {
+        color:$brand-danger;
+    }
+
+    .correct {
+        color:$brand-success;
+    }
+
+    table tr, table tr td {
+        border:none;
+    }
+}
