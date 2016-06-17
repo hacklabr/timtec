@@ -41,5 +41,3 @@ cd ${TIMTEC_FOLDER}
 
 make
 
-#echo "source timtec-env/bin/activate" >> ~/.bashrc
-#echo "cd timtec" >> ~/.bashrc
