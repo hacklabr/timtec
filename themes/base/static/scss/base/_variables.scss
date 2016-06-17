@@ -1,9 +1,9 @@
 // Variables
 // --------------------------------------------------
+// Override Boostrap's variables
+
 
 //== Typography
-//
-//## Font, line-height, and color for body text, headings, and more.
 
 $font-family-sans-serif:  "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 
@@ -13,7 +13,7 @@ $headings-font-family:    "Questrial", $font-family-sans-serif !default;
 
 //== Iconography
 //
-//## Specify custom location and filename of the included Glyphicons icon font. Useful for those including Bootstrap via Bower.
+//## Specify custom location and filename of the included FontAwesome icon font. Useful for those including Bootstrap via Bower.
 
 //** Load fonts from this directory.
 $icon-font-path:        "../bower_components/font-awesome/fonts/" !default;
@@ -22,3 +22,22 @@ $icon-font-path:        "../bower_components/font-awesome/fonts/" !default;
 $icon-font-name:        "fontawesome-webfont" !default;
 //** Element ID within SVG icon file.
 $icon-font-svg-id:      "fontawesomeregular" !default;
+
+
+// Declare specifc project variables 
+// --------------------------------------------------
+
+//== Icons
+
+//** Set icon's font family
+$icon-font-family:      "FontAwesome";
+
+//** Map icon names to font unicode characters
+$icons: (
+    chat: "\f27a",
+    forum: "\f10d",
+    help: "\f059",
+    notifications: "\f06a",
+    repositories: "\f07b",
+    search: "\f002"
+);
