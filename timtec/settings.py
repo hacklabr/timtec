@@ -124,27 +124,24 @@ STATICFILES_FINDERS = (
     # 'pipeline.finders.AppDirectoriesFinder',
     'pipeline.finders.CachedFileFinder',
     'pipeline.finders.PipelineFinder',
-    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
-# PIPELINE_ENABLED = True
-
-# Source Map Less
-# PIPELINE_LESS_ARGUMENTS = '--source-map=main.css.map'
-
 PIPELINE = {
     'COMPILERS': (
-        'pipeline.compilers.less.LessCompiler',
         'pipeline.compilers.sass.SASSCompiler',
     ),
     'YUGLIFY_BINARY': os.path.join(PROJECT_ROOT, 'node_modules', 'yuglify', 'bin', 'yuglify'),
     'UGLIFYJS_BINARY': os.path.join(PROJECT_ROOT, 'node_modules', 'uglify-js', 'bin', 'uglifyjs'),
-    'NGANNOTATE_BINARY': os.path.join(PROJECT_ROOT, 'node_modules', 'ng-annotate', 'build', 'es5', 'ng-annotate'),
 
-    'LESS_BINARY': os.path.join(PROJECT_ROOT, 'node_modules', 'less', 'bin', 'lessc'),
+    'NGANNOTATE_BINARY': os.path.join(PROJECT_ROOT, 'node_modules', 'ng-annotate', 'build', 'es5', 'ng-annotate'),
+    'NGANNOTATE_ARGUMENTS': ' -a - ',
+
     'SASS_BINARY': os.path.join(PROJECT_ROOT, 'node_modules', 'node-sass', 'bin', 'node-sass'),
+    'SASS_ARGUMENTS': '--source-map true',
+    #  '--source-map-contents sass --include-path'
+
     'JS_COMPRESSOR': 'timtec.ngmincombo.NgminComboCompressor',
 
     'STYLESHEETS': {
@@ -155,8 +152,6 @@ PIPELINE = {
                 'codemirror/addon/hint/show-hint.css',
                 'codemirror/theme/monokai.css',
                 'css/codemirrorconf.css',
-                'intro.js/introjs.css',
-                'intro.js/themes/introjs-nassim.css',
             ),
             'output_filename': 'css/common.css',
             'extra_context': {
@@ -165,7 +160,6 @@ PIPELINE = {
         },
         'public': {
             'source_filenames': (
-                'css/main.less',
                 'scss/main.scss',
             ),
             'output_filename': 'css/public.css',
