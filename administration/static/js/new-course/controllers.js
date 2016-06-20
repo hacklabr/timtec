@@ -3,8 +3,8 @@
     var app = angular.module('new-course');
 
     app.controller('CourseEditController',
-        ['$scope', '$window', '$modal', '$http', '$q', 'Course',  'CourseAuthor', 'Lesson', '$filter', 'youtubePlayerApi', 'VideoData', 'FormUpload',
-        function($scope, $window, $modal, $http , $q, Course,  CourseProfessor, Lesson, $filter, youtubePlayerApi, VideoData, FormUpload) {
+        ['$scope', '$window', '$uibModal', '$http', '$q', 'Course',  'CourseAuthor', 'Lesson', '$filter', 'youtubePlayerApi', 'VideoData', 'FormUpload',
+        function($scope, $window, $uibModal, $http , $q, Course,  CourseProfessor, Lesson, $filter, youtubePlayerApi, VideoData, FormUpload) {
 
             $scope.errors = {};
             var httpErrors = {
@@ -186,7 +186,7 @@
             $scope.open_professor_modal = function(course_professor) {
 
                 $scope.courseProfessors_original = angular.copy($scope.courseProfessors);
-                var modalInstance = $modal.open({
+                var modalInstance = $uibModal.open({
                        templateUrl: 'course_professor_modal.html',
                        controller: CourseProfessorModalInstanceCtrl,
                        resolve: {
@@ -246,7 +246,7 @@
                 });
             };
 
-            var CourseProfessorModalInstanceCtrl = function($scope, $modalInstance, course_professor) {
+            var CourseProfessorModalInstanceCtrl = function($scope, $uibModalInstance, course_professor) {
                 if (course_professor === undefined) {
                     course_professor = new CourseProfessor();
                     $scope.linked_with_user = null;
@@ -288,7 +288,7 @@
                 };
 
                 $scope.cancel = function () {
-                    $modalInstance.dismiss();
+                    $uibModalInstance.dismiss();
                 };
 
                 $scope.on_select_professor = function(model) {
@@ -329,7 +329,7 @@
                     if ($scope.course_professor_picture_file && !$scope.picture_from_user_profile) {
                         $scope.course_professor.course_professor_picture_file = $scope.course_professor_picture_file;
                     }
-                    $modalInstance.close($scope.course_professor);
+                    $uibModalInstance.close($scope.course_professor);
                     $scope.course_professor = undefined;
                 };
 
