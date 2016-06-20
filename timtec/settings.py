@@ -177,16 +177,6 @@ PIPELINE = {
                 'jquery-ui/ui/jquery-ui.js',
                 'jquery-ui/ui/jquery.ui.sortable.js',
                 'bootstrap/dist/js/bootstrap.js',
-                'angular/angular.js',
-                'angular-animate/angular-animate.js',
-                'angular-cookies/angular-cookies.js',
-                'angular-resource/angular-resource.js',
-                'angular-route/angular-route.js',
-                'angular-sanitize/angular-sanitize.js',
-                'angular-bootstrap/ui-bootstrap-tpls.js',
-                'bootstrap-ui-datetime-picker/dist/datetime-picker.min.js',
-                'angular-gettext/dist/angular-gettext.js',
-                'angular-i18n/angular-locale_pt-br.js',
                 'intro.js/intro.js',
                 'js/consolelogfallback.js',
                 'js/django.js',
@@ -197,6 +187,20 @@ PIPELINE = {
                 'js/layout.js',
             ),
             'output_filename': 'js/all.js',
+        },
+        'angular-commons': {
+            'source_filenames': (
+                'angular/angular.js',
+                'angular-animate/angular-animate.js',
+                'angular-cookies/angular-cookies.js',
+                'angular-resource/angular-resource.js',
+                'angular-route/angular-route.js',
+                'angular-sanitize/angular-sanitize.js',
+                'angular-bootstrap/ui-bootstrap-tpls.js',
+                'angular-gettext/dist/angular-gettext.js',
+                'angular-i18n/angular-locale_pt-br.js'
+            ),
+            'output_filename': 'js/angular-commons.js',
         },
         'markdown': {
             'source_filenames': (
