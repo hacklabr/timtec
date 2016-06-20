@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 # https://docs.djangoproject.com/en/dev/ref/settings/
 
-###### TODO: you NEED to change this to your domain name ######
+# TODO: you NEED to change this to your domain name ######
 DOMAIN_NAME = 'yourhostnamehere.com'
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 SITE_ID = 1
 
-###### TODO: change this to the theme you want to use ######
+# TODO: change this to the theme you want to use ######
 TIMTEC_THEME = 'ifs-colors'
 
-###### TODO: Remove this block if you don't want to use ifs app ######
+# TODO: Remove this block if you don't want to use ifs app ######
 # INSTALLED_APPS = list(INSTALLED_APPS)
 # INSTALLED_APPS.insert(INSTALLED_APPS.index('accounts') + 1, 'ifs')
 # ACCOUNT_SIGNUP_FORM_CLASS = 'ifs.forms.IfSignupForm'
@@ -20,9 +20,9 @@ TIMTEC_THEME = 'ifs-colors'
 
 TERMS_ACCEPTANCE_REQUIRED = False
 
-###### TODO: add any subdomains you need here. ######
-###### FIXME: Security warning: accepting from all domains is dangerous
-###### FIXME: Security warning: Delete the above line and uncomment the next one after configure DOMAIN_NAME variable
+# TODO: add any subdomains you need here. ######
+# FIXME: Security warning: accepting from all domains is dangerous
+# FIXME: Security warning: Delete the above line and uncomment the next one after configure DOMAIN_NAME variable
 ALLOWED_HOSTS = ['*']
 # ALLOWED_HOSTS = [
 #    DOMAIN_NAME,
@@ -40,20 +40,18 @@ DATABASES = {
 MEDIA_ROOT = "/home/timtec-production/webfiles/media/"
 STATIC_ROOT = "/home/timtec-production/webfiles/static/"
 
-###### TODO: change this to configure sending mail ######
+# TODO: change this to configure sending mail ######
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-###### TODO: change this to suit your organization ######
+# TODO: change this to suit your organization ######
 ADMINS = list(ADMINS) + [('Admin', 'root@' + DOMAIN_NAME), ]
 DEFAULT_FROM_EMAIL = 'donotreply@' + DOMAIN_NAME
 CONTACT_RECIPIENT_LIST = ['contato@' + DOMAIN_NAME, ]
 
 SITE_NAME = 'IF'
 EMAIL_SUBJECT_PREFIX = '[if-sysadmin]'
-######################################################
 
-
-###### TODO: uncomment and change to get openid working with your provider ######
+# TODO: uncomment and change to get openid working with your provider ######
 # SOCIALACCOUNT_PROVIDERS['openid'] = {
 #         'SERVERS': [
 #             {
