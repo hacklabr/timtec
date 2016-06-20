@@ -1,8 +1,8 @@
 (function(angular){
 
     angular.module('users-admin.controllers', []).
-        controller('UsersAdminController', ['$scope', '$window', '$modal', '$http', '$q',  'UserAdmin',
-        function($scope, $window, $modal, $http, $q, UserAdmin) {
+        controller('UsersAdminController', ['$scope', '$window', '$uibModal', '$http', '$q',  'UserAdmin',
+        function($scope, $window,$uibModal, $http, $q, UserAdmin) {
 
             var success_save_msg = 'Alterações salvas com sucesso.';
             var error_save_msg = 'Não foi possível salvar as alterações.';
