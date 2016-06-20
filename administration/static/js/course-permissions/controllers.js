@@ -1,8 +1,8 @@
 (function(angular){
 
     angular.module('course-permissions.controllers', []).
-        controller('PermissionsController', ['$scope', '$window', '$modal', '$http', '$q', 'Course',  'CourseProfessor',
-        function($scope, $window, $modal, $http, $q, Course, CourseProfessor) {
+        controller('PermissionsController', ['$scope', '$window', '$uibModal', '$http', '$q', 'Course',  'CourseProfessor',
+        function($scope, $window, $uibModal, $http, $q, Course, CourseProfessor) {
 
             var success_save_msg = 'Alterações salvas com sucesso.';
             var error_save_msg = 'Não foi possível salvar todas as alterações.';
@@ -66,7 +66,7 @@
             };
 
             $scope.new_professors = function () {
-                var modalInstance = $modal.open({
+                var modalInstance = $uibModal.open({
                     templateUrl: 'newProfessorModal.html',
                     controller: ['$scope', '$uibmodalInstance', 'course_id', addProfessorsModalInstanceCtrl],
                     resolve: {
