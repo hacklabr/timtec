@@ -6,23 +6,33 @@
     box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.2); 
     height: 80px;
     overflow: hidden;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 90px;
+    right: 0;
+    z-index: 900;
 }
 
 .site-logo {
     height: 80px;
     position: absolute;
-    left: 0;
-    right: 0;
+    left: 15px;
+    @media screen and (min-width: $screen-sm-min) {
+        left: 150px;
+        right: 150px;
+    }
     h1 {
         margin: 0;
-        text-align: center;
         width: 100%;
+        @media screen and (min-width: $screen-sm-min) {
+            text-align: center;
+        }
     }
     a {
         display: block;
     }
     img {
+        margin: 25px 0; 
         max-height: 30px;
     }
 
@@ -31,22 +41,26 @@
 .user-tools {
     @extend .list-inline;
     position: absolute;
-    right: 0;
-
+    right: 15px;
+    top: 25px;
+    li {
+        margin-left: 15px;
+    }
     a {
+        color: #000;
         font-size: $font-size-small;
         font-weight: 700;
+        line-height: 120%;
         text-align: center; 
+        text-decoration: none; 
         text-transform: lowercase;
+        @include transition(color 0.25s ease);
+        &:hover {
+            color: $brand-primary;
+        }
         &:before {
             display: block;
             font-size: $font-size-large;
         }
-    }
-    .notifications {
-        @include icon(before, notifications);
-    }
-    .chat {
-        @include icon(before, chat);
     }
 }

@@ -33,21 +33,23 @@
         <li><a href="{% url 'profile_edit' %}">{% trans "Edit Profile and Account Settings" %}</a></li>
         <li><a href="{% url 'user_courses' %}">{% trans "My Courses" %}</a></li>
         <li><a href="{% url 'user_notes' %}">{% trans "My Notes" %}</a></li>
-        <li><a href="#" class="repositories">{% trans "Repositories" %}</a></li>
-        <li><a href="#" class="forum">{% trans "Forum" %}</a></li>
-        <li><a href="#" class="help">{% trans "Help" %}</a></li>
-        <li><a href="{% url 'timtec_logout' %}" class="logout">{% trans "Logout" %}</a></li>
-    {% endif %}
+        <li><a href="#" class="icon-repositories">{% trans "Repositories" %}</a></li>
+        <li><a href="#" class="icon-forum">{% trans "Forum" %}</a></li>
+        <li><a href="#" class="icon-help">{% trans "Help" %}</a></li>
+        <li><a href="{% url 'timtec_logout' %}" class="icon-logout">{% trans "Logout" %}</a></li>
+    {% else %}
+        <li><a href="{% url 'courses' %}" class="icon-courses">{% trans 'Courses' %}</a></li>
         <li>
-            <a class="dropdown-toggle login" data-toggle="dropdown" href="#">{% trans 'Sign In' %}</a>
+            <a href="#" class="dropdown-toggle icon-login" data-toggle="dropdown">{% trans 'Sign In' %}</a>
             {% include '_login_modal.html' %}
         </li>
         <li>
         {% block header_signup_link %}
-            <a class="dropdown-toggle register" data-toggle="dropdown" href="#">{% trans 'Sign Up' %}</a>
+            <a href="#" class="dropdown-toggle icon-register" data-toggle="dropdown">{% trans 'Sign Up' %}</a>
             {% include '_signup_modal.html' %}
         {% endblock %}
         </li>
+    {% endif %}
     </ul>
 
     <div class="site-info">

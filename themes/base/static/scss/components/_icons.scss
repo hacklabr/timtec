@@ -1,21 +1,32 @@
 // Icon's class
 // --------------------------------------------------
 
-.forum {
-    @include icon(before, forum);
-}
-.help {
-    @include icon(before, help);
-}
-.login {
-    @include icon(before, logout);
-}
-.logout {
-    @include icon(before, logout);
-}
-.register {
-    @include icon(before, register);
-}
-.repositories {
-    @include icon(before, repositories);
+.icon {
+    &-chat {
+        @include icon(before, chat);
+    }
+    &-courses {
+        @include icon(before, courses);
+    }
+    &-forum {
+        @include icon(before, forum);
+    }
+    &-help {
+        @include icon(before, help);
+    }
+    &-login {
+        @include icon(before, login);
+    }
+    &-logout {
+        @include icon(before, logout);
+    }
+    &-notifications {
+        @include icon(before, notifications);
+    }
+    &-register {
+        @include icon(before, register);
+    }
+    &-repositories {
+        @include icon(before, repositories);
+    }
 }
