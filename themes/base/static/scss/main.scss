@@ -23,9 +23,9 @@
 @import "base/helpers";
 @import "base/mixins";
 
-
 //== Components styles
-//@import "components/courses"
+@import "components/courses";
+@import "components/icons";
 
 //== Layout styles
 @import "layout/globals";
@@ -43,49 +43,3 @@
 
 //== Base styles
 @import "theme/fonts";
-
-
-/* // MODULES
-@import 'modules/settings.scss';
-@import 'modules/mixins.scss';
-@import 'modules/helpers.scss';
-
-// COMPONENTS
-@import 'components/actions-menu.scss';
-@import 'components/alerts.scss';
-@import 'components/autocomplete.scss';
-@import 'components/buttons.scss';
-@import 'components/course-box.scss';
-@import 'components/course-nav.scss';
-@import 'components/dropzone.scss';
-@import 'components/filters.scss';
-@import 'components/footer.scss';
-@import 'components/headers.scss';
-@import 'components/loading.scss';
-@import 'components/modal.scss';
-@import 'components/navs.scss';
-@import 'components/navbar.scss';
-@import 'components/tables.scss';
-// @import 'components/contenteditable.scss';
-
-// PAGE STYLES
-@import 'pages/certificate.scss';
-@import 'pages/course-activity.scss';
-@import 'pages/course-content.scss';
-@import 'pages/courses.scss';
-@import 'pages/forum.scss';
-@import 'pages/classes.scss';
-@import 'pages/evaluations.scss';
-@import 'pages/home.scss';
-@import 'pages/messages.scss';
-@import 'pages/my-courses.scss';
-@import 'pages/my-notes.scss';
-@import 'pages/profile.scss';
-@import 'pages/registration.scss';
-@import 'pages/stats.scss';
-@import 'pages/users.scss';
-
-// ADMIN
-// should be the last import
-@import 'pages/admin.scss';
- */

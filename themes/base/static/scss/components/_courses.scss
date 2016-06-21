@@ -1,3 +1,6 @@
+// Course list from home and course's page
+// --------------------------------------------------
+
 .courses {
     margin-bottom: 40px;
     margin-top: 40px;
@@ -6,7 +9,7 @@
         position: relative;
         &:hover {
             .fa-check {
-                background-color: $brand-info;
+                background-color: lighten($brand-info, 20%);
             }
         }
         .fa-check {
@@ -15,7 +18,7 @@
             right: 15px;
             z-index: 2;
             color: #fff;
-            background-color: $gray-lighter;
+            background-color: darken($gray-lighter, 10%);
             border-radius: 14px;
             width: 24px;
             height: 24px;
@@ -30,7 +33,7 @@
         .coming-soon-label {
             background-color: $brand-warning;
             border-radius: 0px 2px 2px 0px;
-            box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.3);
+            box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
             color: #fff;
             font-size: 12px;
             left: -5px;
@@ -40,16 +43,17 @@
             top: 10px;
             z-index: 999;
         }
-        .course-link { // link wrapper
+        .course-link {
+            // link wrapper
             display: block;
             position: relative;
             cursor: pointer;
             &:hover {
                 .mouseover {
-                    opacity: 0.4;
+                    @include opacity(0.4);
                 }
                 .info {
-                    background-color: rgba(52,152,219,0.3);
+                    background-color: rgba(52, 152, 219, 0.3);
                     h3, .abstract {
                         color: #000;
                     }
@@ -58,20 +62,21 @@
                     }
                 }
                 .enroll {
-                    background-color: $brand-info, 10%;
+                    background-color: darken($brand-info, 10%);
                 }
             }
         } // .course-link
-        .thumb-wrapper { // course thumbnail
+        .thumb-wrapper {
+            // course thumbnail
             position: relative;
             width: 100%;
             .mouseover {
                 background-color: $brand-info;
                 display: block;
                 height: 206px;
-                opacity: 0;
+                @include opacity(0);
                 position: absolute;
-                transition: all 0.25s ease;
+                @include transition(all 0.25s ease);
                 width: 100%;
                 z-index: 1;
             }
@@ -83,23 +88,33 @@
                 width: 100%;
             }
         } // .thumb-wrapper
-        .info-box { // info wrapper for courses page
+        .info-box {
+            // info wrapper for courses page
             position: relative;
             width: 100%;
+            @media (min-width: 540px) and (max-width: $screen-xs-max) {
+                float: left;
+                width: 50%;
+            }
+            @media (min-width: $screen-sm-min) {
+                float: left;
+                width: 60%;
+            }
         } // .info-box
-        .info { // course info
+        .info {
+            // course info
             background-color: $gray-lighter;
             height: 164px;
             overflow: hidden;
             padding: 15px 44px 15px 15px;
-            transition: all 0.25s ease;
+            @include transition(all 0.25s ease);
             h3 {
                 color: $gray;
                 font-size: 20px;
                 margin: 0 0 5px 0;
                 max-height: 45px;
                 overflow: hidden;
-                position:relative;
+                position: relative;
                 a {
                     color: $gray;
                     &:hover {
@@ -114,7 +129,7 @@
                 margin-bottom: 5px;
                 max-height: 34px;
                 overflow: hidden;
-                position:relative;
+                position: relative;
             }
             .abstract {
                 color: $gray-dark;
@@ -124,13 +139,14 @@
                 overflow: hidden;
             }
         } // .info
-        .enroll { // go to course link
+        .enroll {
+            // go to course link
             width: 100%;
             background-color: $brand-info;
             color: #fff;
             font-family: 'Questrial';
             line-height: 3;
-            transition: all 0.25s ease;
+            @include transition(all 0.25s ease);
             overflow: hidden;
             a {
                 color: #fff;
@@ -145,4 +161,27 @@
             }
         } // .enroll
     } // .course
+}
+.home {
+    .mouseover, .thumb {
+        @include border-top-radius($border-radius-base);
+    }
+    .enroll {
+        @include border-bottom-radius($border-radius-base);
+    }
+}
+#courses-page {
+    .course {
+        min-height: 195px;
+    }
+    .mouseover,
+    .thumb {
+        @include border-left-radius($border-radius-base);
+    }
+    .info {
+        border-radius: 0 $border-radius-base 0 0;
+    }
+    .enroll {
+        border-radius: 0 0 $border-radius-base 0;
+    }
 }
