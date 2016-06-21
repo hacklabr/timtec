@@ -17,18 +17,5 @@
                 <a class="chat" href="#">{% trans 'Chat' %}</a>
             </li>
         </ul>
-    {% else %}
-        <ul class="login">
-            <li>
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans 'Sign In' %}</a>
-                {% include '_login_modal.html' %}
-            </li>
-            <li>
-            {% block header_signup_link %}
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans 'Sign Up' %}</a>
-                {% include '_signup_modal.html' %}
-            {% endblock %}
-            </li>
-        </ul>
     {% endif %}
 </header>

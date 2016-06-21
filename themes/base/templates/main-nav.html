@@ -8,13 +8,11 @@
                 <div class="user-icon"><img src="http://placehold.it/40" alt="{{ user }}" class="img-circle"></div>
                 <div class="user-name">{{ user }}</div>
             {% endblock %}
-        {% else %}
-            <div>não logado</div>
         {% endif %}
     </div>
 
-    {% if user.is_authenticated %}
     <ul class="user-nav">
+    {% if user.is_authenticated %}
         {% if user.is_superuser %}
             <li class="submenu">
                 {% trans 'Admin' %}
@@ -40,6 +38,16 @@
         <li><a href="#" class="help">{% trans "Help" %}</a></li>
         <li><a href="{% url 'timtec_logout' %}" class="logout">{% trans "Logout" %}</a></li>
     {% endif %}
+        <li>
+            <a class="dropdown-toggle login" data-toggle="dropdown" href="#">{% trans 'Sign In' %}</a>
+            {% include '_login_modal.html' %}
+        </li>
+        <li>
+        {% block header_signup_link %}
+            <a class="dropdown-toggle register" data-toggle="dropdown" href="#">{% trans 'Sign Up' %}</a>
+            {% include '_signup_modal.html' %}
+        {% endblock %}
+        </li>
     </ul>
 
     <div class="site-info">
