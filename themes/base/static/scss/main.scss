@@ -26,12 +26,15 @@
 //== Components styles
 @import "components/courses";
 @import "components/icons";
+@import "components/page-headers";
 
 //== Layout styles
 @import "layout/globals";
 @import "layout/site-header";
 @import "layout/main-nav";
 
+//== Pages styles
+@import "pages/page-courses";
 
 //== Vendor styles
 @import "vendor/flatui/checkbox-and-radio.scss";
@@ -43,3 +46,4 @@
 
 //== Base styles
 @import "theme/fonts";
+@import "theme/page-headers";
