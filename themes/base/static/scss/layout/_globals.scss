@@ -1,13 +1,19 @@
 body {
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .wrapper {
     position: relative;
     bottom: 0;
-    left: 0;
+    left: 80px;
     right: 0;
     top: 0;
+    padding-right: 80px;
+}
+
+.container-fluid {
+    max-width: 1170px;
 }
 
 // When the main navbar is opened
@@ -17,8 +23,5 @@ body {
     .wrapper {
         left: 300px;
         padding-right: 300px;
-        .container {
-            margin: 0; 
-        }
     }
 }
