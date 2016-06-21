@@ -1,0 +1,21 @@
+// Icon's class
+// --------------------------------------------------
+
+.forum {
+    @include icon(before, forum);
+}
+.help {
+    @include icon(before, help);
+}
+.login {
+    @include icon(before, logout);
+}
+.logout {
+    @include icon(before, logout);
+}
+.register {
+    @include icon(before, register);
+}
+.repositories {
+    @include icon(before, repositories);
+}
