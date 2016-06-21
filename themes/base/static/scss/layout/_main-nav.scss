@@ -65,6 +65,27 @@
             font-size: $font-size-large;
         }
     }
+    .courses {
+        @extend %icon-courses;
+    }
+    .forum {
+        @extend %icon-forum;
+    }
+    .help {
+        @extend %icon-help;
+    }
+    .login {
+        @extend %icon-login;
+    }
+    .logout {
+        @extend %icon-logout;
+    }
+    .register {
+        @extend %icon-register;
+    }
+    .repositories {
+        @extend %icon-repositories;
+    }
 }
 
 .site-info {

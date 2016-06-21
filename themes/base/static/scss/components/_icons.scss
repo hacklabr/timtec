@@ -1,32 +1,30 @@
-// Icon's class
+// Icon's placeholders
 // --------------------------------------------------
 
-.icon {
-    &-chat {
-        @include icon(before, chat);
-    }
-    &-courses {
-        @include icon(before, courses);
-    }
-    &-forum {
-        @include icon(before, forum);
-    }
-    &-help {
-        @include icon(before, help);
-    }
-    &-login {
-        @include icon(before, login);
-    }
-    &-logout {
-        @include icon(before, logout);
-    }
-    &-notifications {
-        @include icon(before, notifications);
-    }
-    &-register {
-        @include icon(before, register);
-    }
-    &-repositories {
-        @include icon(before, repositories);
-    }
+%icon-chat {
+    @include icon(before, chat);
+}
+%icon-courses {
+    @include icon(before, courses);
+}
+%icon-forum {
+    @include icon(before, forum);
+}
+%icon-help {
+    @include icon(before, help);
+}
+%icon-login {
+    @include icon(before, login);
+}
+%icon-logout {
+    @include icon(before, logout);
+}
+%icon-notifications {
+    @include icon(before, notifications);
+}
+%icon-register {
+    @include icon(before, register);
+}
+%icon-repositories {
+    @include icon(before, repositories);
 }
