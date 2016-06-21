@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load is_enrolled %}
+
+{% block wrapper_classes %}
+wrapper-courses
+{% endblock %}
+
+{% block content %}
+        <!-- CONTAINER -->
+        <div class="courses-page container">
+            <header class="page-header-double">
+                <h2><i class="fa fa-angle-double-right"></i> {% trans 'Courses' %}</h2>
+            </header>
+
+            <section class="courses" class="row">
+                <div class="col-md-8">
+{#                    <div class="filters">#}
+{#                        <!--  FORM INLINE -->#}
+{#                        <div class="form-inline">#}
+{#                            <!-- ROW -->#}
+{#                            <div class="row">#}
+{#                                <div class="status col-sm-7">#}
+{#                                    <button class="btn btn-info">Todos</button>#}
+{#                                    <button class="btn btn-default">Em andamento</button>#}
+{#                                    <button class="btn btn-default">Próximos</button>                                #}
+{#                                </div>#}
+
+{#                                <div class="col-sm-5 textright">#}
+{#                                    <div class="search input-group">#}
+{#                                        <input type="text" ng-model="filters.textsearch" placeholder="Pesquisar" class="form-control ng-pristine ng-valid">#}
+{#                                        <span class="input-group-btn"><button class="btn btn-info"><i class="fa fa-search"></i></button></span>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <!-- END FORM INLINE -->#}
+{#                    </div>#}
+                    {% for course in courses %}
+                    <!-- COURSE -->
+                    <div class="course{% if user|is_enrolled:course %} started{% endif %}">
+                    {% if user|is_enrolled:course and course.has_started %}
+                        <a href="{% url "resume_course" course.slug %}" class="course-link">
+                    {% else %}
+                        <a href="{% url "course_intro" course.slug %}" class="course-link">
+                    {% endif %}
+                            {% if not course.has_started %}<span class="coming-soon-label">{% trans 'Soon' %}</span>{% endif %}
+                            <div class="thumb-wrapper">
+                                <div class="mouseover"></div>
+                                <div class="thumb" {% if course.home_thumbnail %}style="background-image: url({{ course.home_thumbnail.url }})"{% endif %}></div>
+
+                            </div>
+                            <div class="info-box">
+                                <div class="fa fa-check"></div>
+                                <div class="info">
+
+                                    <h3>{{ course.name }}</h3>
+                                    <p class="instructors"></p>
+                                    <p class="abstract">{{ course.abstract }}</p>
+                                </div>
+                                <div class="enroll">
+                                    {% if course.start_date %}
+                                    <span class="course-date">
+                                        <i class="fa fa-calendar"></i> {{ course.start_date |date:"M, Y" }}
+                                    </span>
+                                    <span class="enroll-link textright uppercase">
+                                        {% trans 'Go to course' %} <i class="fa fa-angle-right"></i>
+                                    </span>
+                                    {% else %}
+                                        <span class="enroll-link textright uppercase">
+                                            {% trans 'More information' %} <i class="fa fa-angle-right"></i>
+                                        </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- END COURSE -->
+                    {% endfor %}
+                </div>
+                <div class="col-md-4">
+                    {% include '_courses_aside.html' %}
+                </div>
+            </section>
+        </div>
+        <!-- CONTAINER -->
+{% endblock %}

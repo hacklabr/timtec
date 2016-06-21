@@ -1,4 +1,4 @@
-// Course list from home and course's page
+// Course list from home and courses' page
 // --------------------------------------------------
 
 .courses {
@@ -105,7 +105,7 @@
         .info {
             // course info
             background-color: $gray-lighter;
-            height: 164px;
+            height: 170px;
             overflow: hidden;
             padding: 15px 44px 15px 15px;
             @include transition(all 0.25s ease);
@@ -169,20 +169,5 @@
     }
     .enroll {
         @include border-bottom-radius($border-radius-base);
-    }
-}
-#courses-page {
-    .course {
-        min-height: 195px;
-    }
-    .mouseover,
-    .thumb {
-        @include border-left-radius($border-radius-base);
-    }
-    .info {
-        border-radius: 0 $border-radius-base 0 0;
-    }
-    .enroll {
-        border-radius: 0 0 $border-radius-base 0;
     }
 }
