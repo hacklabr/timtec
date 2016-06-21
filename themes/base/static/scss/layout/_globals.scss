@@ -1,0 +1,24 @@
+body {
+    overflow: hidden;
+}
+
+.wrapper {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+// When the main navbar is opened
+// --------------------------------------------------
+
+.main-nav-opened {
+    .wrapper {
+        left: 300px;
+        padding-right: 300px;
+        .container {
+            margin: 0; 
+        }
+    }
+}

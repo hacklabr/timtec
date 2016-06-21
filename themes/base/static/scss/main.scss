@@ -25,9 +25,10 @@
 
 
 //== Components styles
-
+//@import "components/courses"
 
 //== Layout styles
+@import "layout/globals";
 @import "layout/site-header";
 @import "layout/main-nav";
 

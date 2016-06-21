@@ -7,7 +7,6 @@
     left: 0;
     top: 0;
     position: fixed;
-    width: 110px;
     transition: width 0.5s ease;
     z-index: 1000;
     a {
@@ -16,35 +15,6 @@
     ul, ul ul {
         @extend .list-unstyled;
         color: #fff;
-    }
-    &.opened {
-        left: 0;
-        width: 280px;
-        .user-info {
-            padding: 8% 0 8% 8%;
-            .user-icon {
-                float: left;
-                margin-right: 2%;
-            }
-            .user-name {
-                float: left;
-                font-size: $font-size-large;
-                text-align: left;
-            }
-        }
-        .user-nav {
-            font-size: $font-size-large;
-            a {
-                &:before {
-                    display: inline-block;
-                    margin-right: 4%;
-                }
-            }
-        }
-        .site-info {
-            position: absolute;
-            bottom: 0;
-        }
     }
 }
 
@@ -62,7 +32,7 @@
         color: #fff;
         font-size: 10px;
         font-weight: 700;
-        margin-top: 3%;
+        margin-top: 4%;
         text-align: center; 
     }
 }
@@ -109,4 +79,36 @@
 
 .site-info {
     display: none;
+}
+
+.main-nav-opened {
+    .main-nav {
+        width: 300px;
+        .user-info {
+            padding: 20px 8%;
+            .user-icon {
+                float: left;
+                margin-right: 2%;
+            }
+            .user-name {
+                float: left;
+                font-size: $font-size-base;
+                margin-top: 10px;
+                text-align: left;
+            }
+        }
+        .user-nav {
+            font-size: $font-size-large;
+            a {
+                &:before {
+                    display: inline-block;
+                    margin-right: 4%;
+                }
+            }
+        }
+        .site-info {
+            position: absolute;
+            bottom: 0;
+        }
+    }
 }
