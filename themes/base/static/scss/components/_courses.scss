@@ -2,14 +2,15 @@
 // --------------------------------------------------
 
 .courses {
-    margin-bottom: 40px;
-    margin-top: 40px;
     .course {
         margin-bottom: 40px;
         position: relative;
+        a {
+            text-decoration: none;
+        }
         &:hover {
             .fa-check {
-                background-color: lighten($brand-info, 20%);
+                background-color: lighten($brand-primary, 20%);
             }
         }
         .fa-check {
@@ -53,7 +54,7 @@
                     @include opacity(0.4);
                 }
                 .info {
-                    background-color: rgba(52, 152, 219, 0.3);
+                    background-color: darken($gray-lighter, 11%);
                     h3, .abstract {
                         color: #000;
                     }
@@ -62,7 +63,7 @@
                     }
                 }
                 .enroll {
-                    background-color: darken($brand-info, 10%);
+                    background-color: darken($brand-primary, 5%);
                 }
             }
         } // .course-link
@@ -71,7 +72,7 @@
             position: relative;
             width: 100%;
             .mouseover {
-                background-color: $brand-info;
+                background-color: $brand-primary;
                 display: block;
                 height: 206px;
                 @include opacity(0);
@@ -141,13 +142,13 @@
         } // .info
         .enroll {
             // go to course link
-            width: 100%;
-            background-color: $brand-info;
+            background-color: $brand-primary;
             color: #fff;
-            font-family: 'Questrial';
+            font-size: $font-size-small;
             line-height: 3;
             @include transition(all 0.25s ease);
             overflow: hidden;
+            width: 100%;
             a {
                 color: #fff;
                 display: block;

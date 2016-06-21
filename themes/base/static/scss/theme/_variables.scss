@@ -14,6 +14,13 @@ $red:           rgb(213,19,0);
 $pink:          rgb(207,8,106);
 $purple:        rgb(153,54,113);
 
+//## Override Bootstrap's variables 
+
+$brand-primary:     $orange;
+$brand-success:     $green;
+$brand-info:        $light-blue;
+$brand-warning:     $yellow;
+$brand-danger:      $red;
 
 //== Typography
 //
@@ -34,7 +41,7 @@ $extra-bold:        800;
 //## Settings for some of the most global styles.
 
 //** Global textual link color.
-$link-color:            $orange !default;
+$link-color:        $brand-primary;
 
 //== Typography
 //
