@@ -1,12 +1,20 @@
 // Fonts
 // --------------------------------------------------
 
-//== Alegreya
+//== Neuton
 
 @font-face {
-    font-family: 'Alegreya';
-    src: url('../fonts/alegreya-sc/alegreyasc-bold-webfont.woff') format('woff'),
-         url('../fonts/alegreya-sc/alegreyasc-bold-webfont.ttf') format('truetype');
+    font-family: 'neuton';
+    src: url('../fonts/neuton/neuton-bold-webfont.woff') format('woff'),
+         url('../fonts/neuton/neuton-bold-webfont.ttf') format('truetype');
     font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'neuton';
+    src: url('../fonts/neuton/neuton-extrabold-webfont.woff') format('woff'),
+         url('../fonts/neuton/neuton-extrabold-webfont.ttf') format('truetype');
+    font-weight: bold;
     font-style: normal;
 }
