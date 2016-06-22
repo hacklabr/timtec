@@ -1,0 +1,22 @@
+// Widget's grid system
+// --------------------------------------------------
+
+.line {
+    @extend .row;
+    &.one-column {
+        .column {
+            @extend .col-xs-12;
+            @extend .col-sm-12;
+            @extend .col-md-12;
+            @extend .col-lg-12;
+        }
+    }
+    &.two-column {
+        .column {
+            @extend .col-xs-12;
+            @extend .col-sm-6;
+            @extend .col-md-6;
+            @extend .col-lg-6;
+        }
+    }
+}

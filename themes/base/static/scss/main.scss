@@ -19,19 +19,21 @@
 // these are the base's theme styles 
 
 //== Base styles
-@import "base/fonts";
-@import "base/helpers";
-@import "base/mixins";
+@import "base/_fonts";
+@import "base/_mixins";
+@import "base/_helpers";
 
 //== Components styles
-@import "components/courses";
-@import "components/icons";
+@import "components/_courses-list";
+@import "components/_courses-widget";
+@import "components/_icons";
 @import "components/_headers";
+@import "components/_widgets-grid";
 
 //== Layout styles
-@import "layout/globals";
-@import "layout/site-header";
-@import "layout/main-nav";
+@import "layout/_globals";
+@import "layout/_site-header";
+@import "layout/_main-nav";
 
 //== Pages styles
 @import "pages/_course-content";
@@ -46,5 +48,6 @@
 // there are the specific's theme styles
 
 //== Base styles
-@import "theme/fonts";
-@import "theme/page-headers";
+@import "theme/_fonts";
+@import "theme/_headers";
+@import "theme/_courses-widget";

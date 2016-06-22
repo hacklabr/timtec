@@ -1,0 +1,56 @@
+// Courses widget
+// --------------------------------------------------
+
+.courses-widget {
+    @include card(rgba($gray,0.8));
+
+    .course-progress {
+        .progress {
+            border-radius: 0px;
+            height: 5px;
+            margin-bottom: 0;
+        }
+    }
+    .progress-label {
+        font-size: 9px;
+        font-weight: 700;
+        line-height: 60%;
+    }
+    .thumb, .course-progress {
+        padding-right: 5px !important;
+    }
+    .info, .progress-label {
+        padding-left: 5px !important;
+    }
+    .thumb-bg {
+        background-position: center;
+        background-size: cover;
+        height: 150px;
+    }
+    .info {
+        h3 {
+            margin: 0;
+        }
+    }
+}
+
+.widget-title {
+    font-size: 50px;
+    font-weight: bold;
+    line-height: 90%;
+    margin: 0;
+}
+
+.widget-filter {
+    float: right;
+    margin: 10px 0;
+
+    label {
+        font-weight: 700;
+        margin-right: 10px;
+    }
+
+    select {
+        font-weight: 700;
+    }
+}

@@ -1,0 +1,34 @@
+// Courses widget
+// --------------------------------------------------
+
+.courses-widget {
+    @include card(rgba($light-blue,0.8));
+    
+    .widget-header {
+        margin-bottom: 60px;
+    }
+    .widget-title {
+        color: $purple;
+    }
+
+    .progress-bar {
+        background-color: $blue;
+    }
+    .progress-label {
+        color: $blue;
+    }
+}
+
+.widget-title {
+    text-transform: lowercase;
+}
+
+.widget-filter {
+    label {
+        color: $purple;
+    }
+    select {
+        border-radius: 20px;
+        color: $light-blue;
+    }
+}
