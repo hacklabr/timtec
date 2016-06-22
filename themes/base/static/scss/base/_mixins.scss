@@ -23,3 +23,37 @@
         @content;
     }
 }
+
+// Calculate width
+@mixin calculate-width($value:0) {
+  width:-moz-calc('100% - #{$value}');
+  width:-webkit-calc('100% - #{$value}');
+  width:calc('100% - #{$value}');
+}
+
+// Vertical align
+@mixin vertical-align($position) {
+  display:inline-block;
+  vertical-align:$position;
+}
+
+// Margins and paddings
+@mixin bottom($margin:0, $padding:0) {
+  margin-bottom:$margin !important;
+  padding-bottom:$padding !important;
+}
+
+@mixin left($margin:0, $padding:0) {
+  margin-left:$margin !important;
+  padding-left:$padding !important;
+}
+
+@mixin right($margin:0, $padding:0) {
+  margin-right:$margin !important;
+  padding-right:$padding !important;
+}
+
+@mixin top($margin:0, $padding:0) {
+  margin-top:$margin !important;
+  padding-top:$padding !important;
+}
