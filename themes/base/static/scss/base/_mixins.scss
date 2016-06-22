@@ -1,6 +1,8 @@
 // Mixins
 // --------------------------------------------------
 
+//== Icons
+//
 // For adding font icons to elements using CSS pseudo-elements
 // http://jaydenseric.com/blog/fun-with-sass-and-font-icons
 @mixin icon($position: before, $icon: false, $styles: true) {
@@ -24,20 +26,23 @@
     }
 }
 
-// Calculate width
+//== Calcule width
+//
 @mixin calculate-width($value:0) {
   width:-moz-calc('100% - #{$value}');
   width:-webkit-calc('100% - #{$value}');
   width:calc('100% - #{$value}');
 }
 
-// Vertical align
+//== Define vertical align
+//
 @mixin vertical-align($position) {
   display:inline-block;
   vertical-align:$position;
 }
 
-// Margins and paddings
+// Add margins and paddings
+//
 @mixin bottom($margin:0, $padding:0) {
   margin-bottom:$margin !important;
   padding-bottom:$padding !important;
@@ -56,4 +61,12 @@
 @mixin top($margin:0, $padding:0) {
   margin-top:$margin !important;
   padding-top:$padding !important;
+}
+
+//== Card mixin
+//
+@mixin card($background-color) {
+  background-color: $background-color;
+  box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.2);
+  padding: 30px;
 }
