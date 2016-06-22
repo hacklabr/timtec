@@ -2,7 +2,7 @@
 // --------------------------------------------------
 
 .main-nav {
-    background-color: $yellow; 
+    background-color: $main-nav-bg-color; 
     bottom: 0;
     left: 0;
     top: 0;
@@ -21,7 +21,7 @@
 }
 
 .user-info {
-    background-color: $green;
+    background-color: $user-info-bg-color;
     box-shadow: 1px 1px 1px 1px rgba(0,0,0,.2);
     box-sizing: border-box;
     font-size: 10px;
