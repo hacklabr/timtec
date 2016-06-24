@@ -20,6 +20,9 @@
     &-help {
         @include icon(before, help);
     }
+    &-like {
+        @include icon(before, like);
+    }
     &-login {
         @include icon(before, login);
     }

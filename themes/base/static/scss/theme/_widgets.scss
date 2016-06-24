@@ -33,14 +33,13 @@
             color: $purple;
         }
         .form-control {
+            border-radius: 20px;
             color: $light-blue;
+            &:focus {
+                border-color: $light-blue;
+            }
         }
     }
-    .form-control {
-        border-radius: 20px;
-        color: $light-blue;
-    }
-
     .progress-bar {
         background-color: $blue;
     }
@@ -66,4 +65,6 @@
             color: $brand-primary;
         }
     }
+
+
 }

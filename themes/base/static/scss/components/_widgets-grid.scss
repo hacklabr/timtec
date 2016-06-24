@@ -12,18 +12,36 @@
         }
     }
     &.two-column {
-        .column {
-            @extend .col-xs-12;
-            @extend .col-sm-12;
-            @extend .col-md-12;
-            @extend .col-lg-6;
+        &.fifty-fifty {
+            .column {
+                @extend .col-xs-12;
+                @extend .col-sm-12;
+                @extend .col-md-12;
+                @extend .col-lg-6;
 
-            .two-column {
-                .column {
+                .two-column {
+                    .column {
+                        @extend .col-xs-12;
+                        @extend .col-sm-6;
+                        @extend .col-md-6;
+                        @extend .col-lg-6;
+                    }
+                }
+            }
+        }
+        &.forty-sixty {
+            .column {
+                &:first-child {
                     @extend .col-xs-12;
-                    @extend .col-sm-6;
-                    @extend .col-md-6;
-                    @extend .col-lg-6;
+                    @extend .col-sm-12;
+                    @extend .col-md-5;
+                    @extend .col-lg-5;
+                }
+                &:last-child {
+                    @extend .col-xs-12;
+                    @extend .col-sm-12;
+                    @extend .col-md-7;
+                    @extend .col-lg-7;
                 }
             }
         }

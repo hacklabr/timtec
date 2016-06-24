@@ -10,7 +10,6 @@ $font-family-sans-serif:  "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-
 //** By default, this inherits from the `<body>`.
 $headings-font-family:    "Questrial", $font-family-sans-serif !default;
 
-
 //== Iconography
 //
 //## Specify custom location and filename of the included FontAwesome icon font. Useful for those including Bootstrap via Bower.
@@ -50,6 +49,7 @@ $icons: (
     courses: "\f009",
     forum: "\f10d",
     help: "\f059",
+    like: "\f087",
     login: "\f090",
     logout: "\f08b",
     notifications: "\f06a",
@@ -57,3 +57,13 @@ $icons: (
     repositories: "\f07b",
     search: "\f002"
 );
+
+//== Typography
+//
+//## Font weight variables
+
+$lighter:           300;
+$normal:            400;
+$semi-bold:         600;
+$bold:              700;
+$extra-bold:        800;
