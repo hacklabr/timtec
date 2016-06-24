@@ -5,6 +5,9 @@
 //== Icon's placeholders
 // 
 %icon {
+    &-attention {
+        @include icon(before, attention);
+    }
     &-chat {
         @include icon(before, chat);
     }
