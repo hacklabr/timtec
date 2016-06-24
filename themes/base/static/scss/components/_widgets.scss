@@ -32,7 +32,7 @@
     font-family: $font-family-sans-serif;
     font-size: $font-size-base;
     font-weight: $bold;
-    margin: 10px 0;
+    margin: 10px 0 20px;
     padding-bottom: 5px;
 }
 
@@ -50,6 +50,10 @@
                 box-shadow: none;
             }
         }
+    }
+
+    .course {
+        margin-bottom: 30px;
     }
 
     .course-progress {
@@ -99,6 +103,7 @@
     .course-update {
         @extend %icon-attention;
         font-size: $font-size-small;
+        margin: 0; 
 
         &:before {
             margin-right: 5px;
