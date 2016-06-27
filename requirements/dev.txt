@@ -1,0 +1,10 @@
+# Local development dependencies go here
+-r local.txt
+
+django-debug-toolbar==1.4.0
+pdbpp
+
+# Your app in editable mode.
+# ex.: -e ../django-discussion
+-e ../mupi
+
