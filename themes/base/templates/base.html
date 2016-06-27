@@ -35,33 +35,10 @@
     {% analytics %}
     <script type="text/javascript" charset="utf-8">
         (function(){
-            function resize_activation_wrapper() {
-                windowHeight = window.innerHeight;
-                navbarHeight = $('#main-navbar').innerHeight();
-                footerHeight = $('#main-footer').innerHeight();
-                $('#activation-wrapper').innerHeight(windowHeight - (navbarHeight + footerHeight + 58));
-            }
-
-            function wrapper_min_height() {
-                windowHeight = window.innerHeight;
-                navbarHeight = $('#main-navbar').outerHeight(true);
-                footerHeight = $('#main-footer').outerHeight(true);
-                $('.wrapper').css('min-height', windowHeight - navbarHeight - footerHeight);
-            }
-
             $(document).ready(function() {
                 if (!("ontouchstart" in window)) {
                     $('.has-tooltip').tooltip();
                 }
-
-
-                resize_activation_wrapper();
-                wrapper_min_height();
-
-                $('#start-intro').click(function(){
-                    startIntro();
-                });
-
 				{# workaround to contatc modal work with safari on ipad due to safari bug: http://getbootstrap.com/getting-started/#support-fixed-position-keyboards #}
 				if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
 					$('.modal').on('show.bs.modal', function () {
@@ -93,7 +70,6 @@
 					});
 				}
             });
-            $(window).resize(resize_activation_wrapper);
         })();
     </script>
 </head>
@@ -112,13 +88,7 @@
         {% endblock %}
     </div>
 
-{% if user.is_authenticated %}
-    <script type="text/javascript">
-    ga('set', 'dimension1', '{{ user.id }}');
-    ga('set', 'dimension2', '{{ user.get_user_type }}');
-    ga('set', 'dimension3', '{{ user.is_pilot }}');
-    </script>
-{% else %}
+{% if not user.is_authenticated %}
     {% include 'account/login_modal.html' %}
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function() {
