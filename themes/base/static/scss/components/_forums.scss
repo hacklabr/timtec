@@ -1,0 +1,71 @@
+// Shared forums components
+// --------------------------------------------------
+
+.forums {
+    .user-icon {
+        float: left;
+        margin-right: 10px;
+        img {
+            border-radius: 50%;
+        }
+    }
+    .info {
+        color: $gray;
+        margin-bottom: 5px;
+        a {
+            border-bottom: 1px solid transparent;
+            color: $gray;
+            font-weight: $bold;
+            text-decoration: none;
+            transition: border 0.5s ease;
+            &:hover {
+                border-bottom: 1px solid $gray;
+            } 
+        }
+    }
+    .actions {
+        color: $brand-primary;
+        font-size: $font-size-small;
+        margin: 0 0 5px 50px;
+
+        .button-like {
+            @extend %icon-like;
+        }
+        .button-use {
+
+        }
+        .button-comment {
+            @extend %icon-comment;
+        }
+        span {
+            cursor: pointer;
+            margin-right: 10px;
+            transition: color 0.2s ease;
+            &:before {
+                margin-right: 3px;
+            }
+            &:hover {
+                color: darken($brand-primary, 10%);
+            }
+        }
+    }
+    .tags {
+        margin-left: 50px;
+        a {
+            background-color: #fff;
+            border-radius: 10px;
+            display: inline-block;
+            color: $gray;
+            font-size: $font-size-small;
+            font-weight: $bold;
+            margin-right: 5px;
+            padding: 3px 6px;
+            text-decoration: none;
+            transition: all 0.5s ease;
+
+            &:hover {
+                color: $brand-primary;
+            } 
+        }
+    }
+}

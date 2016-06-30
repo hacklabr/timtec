@@ -26,6 +26,7 @@
 //== Components styles
 @import "components/_courses-list";
 @import "components/_headers";
+@import "components/_forums";
 @import "components/_widgets";
 @import "components/_widgets-grid";
 
@@ -37,6 +38,7 @@
 //== Pages styles
 @import "pages/_course-content";
 @import "pages/_courses";
+@import "pages/_forums";
 
 //== Vendor style
 @import "vendor/flatui/checkbox-and-radio.scss";

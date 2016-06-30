@@ -11,11 +11,17 @@
     &-chat {
         @include icon(before, chat);
     }
+    &-comment {
+        @include icon(before, comment);
+    }
     &-courses {
         @include icon(before, courses);
     }
     &-forum {
         @include icon(before, forum);
+    }
+    &-goback {
+        @include icon(before, goback);
     }
     &-help {
         @include icon(before, help);

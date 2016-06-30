@@ -52,4 +52,12 @@
             }
         }
     }
+    &.widget-topbar.two-column.fifty-fifty, &.widget-header.two-column.fifty-fifty {
+        .column {
+            @extend .col-xs-12;
+            @extend .col-sm-12;
+            @extend .col-md-6;
+            @extend .col-lg-6;
+        }
+    }
 }
