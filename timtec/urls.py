@@ -149,6 +149,7 @@ urlpatterns = patterns(
     url(r'^logout/', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='timtec_logout'),
 
     url(r'^dashboard/', TemplateView.as_view(template_name="dashboard.html")),
+    url(r'^forum/', TemplateView.as_view(template_name="forum.html")),
     url(r'^profile/edit/?$', ProfileEditView.as_view(), name="profile_edit"),
     url(r'^profile/(?P<username>[\w.+-]+)?/?$', ProfileView.as_view(), name="profile"),
 
