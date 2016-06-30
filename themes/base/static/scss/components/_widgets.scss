@@ -1,6 +1,51 @@
 // Widget's common styles
 // --------------------------------------------------
 
+.widget-topbar {
+    background-color: $brand-primary;
+    color: #fff;
+    margin: -30px -30px 30px -30px;
+    padding: 15px 0;
+
+    .title {
+        font-family: $font-family-sans-serif;
+        font-size: $font-size-base;
+        font-weight: $extra-bold;
+        margin: 2px 0 10px;
+        @media screen and (min-width: $screen-md-min) {
+            margin: 2px 0;
+        }
+    }
+
+    .filter {
+        cursor: pointer;
+        font-size: $font-size-base;
+        font-weight: $semi-bold;
+        text-decoration: underline; 
+    }
+
+    .button-goback {
+        @extend %icon-goback;
+        cursor: pointer;
+        font-size: $font-size-base;
+        font-weight: $semi-bold;
+        margin-right: 20px;
+        &:before {
+            font-size: $font-size-small;
+            margin-right: 5px;
+        }
+    }
+
+    // pull right the last elements in large screens
+    .column {
+        &:last-child {
+            @media screen and (min-width: $screen-md-min) {
+                text-align: right;
+            }
+        }
+    }
+}
+
 .widget-title {
     font-size: 50px;
     font-weight: bold;
@@ -154,78 +199,14 @@
     .user-update {
         margin-bottom: 20px;
     }
-    .user-icon {
-        float: left;
-        margin-right: 10px;
-        img {
-            border-radius: 50%;
-        }
-    }
-    .info {
-        color: $gray;
-        margin-bottom: 5px;
-        overflow: hidden; 
-        a {
-            border-bottom: 1px solid transparent;
-            color: $gray;
-            font-weight: $bold;
-            text-decoration: none;
-            transition: border 0.5s ease;
-            &:hover {
-                border-bottom: 1px solid $gray;
-            } 
-        }
-        .thread {
-            color: #000;
-            display: block;
-            font-size: $font-size-small;
-            a {
-                color: #000;
-                &:hover {
-                    border-bottom: 1px solid #000;
-                } 
-            }
-        }
-    }
-    .actions {
-        color: $brand-primary;
+    .thread-title {
+        color: #000;
+        display: block;
         font-size: $font-size-small;
-        margin: 0 0 5px 50px;
-
-        .button-like {
-            @extend %icon-like;
-        }
-        .button-use {
-
-        }
-        span {
-            cursor: pointer;
-            margin-right: 10px;
-            transition: color 0.2s ease;
-            &:before {
-                margin-right: 3px;
-            }
-            &:hover {
-                color: darken($brand-primary, 10%);
-            }
-        }
-    }
-    .tags {
-        margin-left: 50px;
         a {
-            background-color: #fff;
-            border-radius: 10px;
-            display: inline-block;
-            color: $gray;
-            font-size: $font-size-small;
-            font-weight: $bold;
-            margin-right: 5px;
-            padding: 3px 6px;
-            text-decoration: none;
-            transition: color 0.5s ease;
-
+            color: #000;
             &:hover {
-                color: $brand-primary;
+                border-bottom: 1px solid #000;
             } 
         }
     }
