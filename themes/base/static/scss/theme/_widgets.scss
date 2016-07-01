@@ -5,12 +5,6 @@
     text-transform: lowercase;
 }
 
-.widget-filter {
-    .form-control {
-        border-radius: 20px;
-    }
-}
-
 .section-title {
     color: $brand-primary;
     text-transform: lowercase;
@@ -33,7 +27,6 @@
             color: $purple;
         }
         .form-control {
-            border-radius: 20px;
             color: $light-blue;
             &:focus {
                 border-color: $light-blue;
