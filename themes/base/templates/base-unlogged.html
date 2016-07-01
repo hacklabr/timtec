@@ -72,20 +72,21 @@
         })();
     </script>
 </head>
-<body {% if in_admin %}id="admin"{% else %}id="notadmin"{% endif %} {% spaceless %}{% block body_attrs %}{% endblock %}{% endspaceless %} class="user-logged main-nav-opened">
+<body {% if in_admin %}id="admin"{% else %}id="notadmin"{% endif %} {% spaceless %}{% block body_attrs %}{% endblock %}{% endspaceless %} class="user-unlogged">
 
-    {% block main-nav %}
-    {% include 'main-nav.html' %}
+    {% block header %}
+    {% include 'header-unlogged.html' %}
     {% endblock %}
 
     <div class="wrapper wrapper-bg {% spaceless %}{% block wrapper_classes %}{% endblock %}{% endspaceless %}">
-        {% block header %}
-        {% include 'header.html' %}
-        {% endblock %}
         {% block content %}
         <h1>missing content block</h1>
         {% endblock %}
     </div>
+
+    {% block footer %}
+    {% include 'footer-unlogged.html' %}
+    {% endblock %}
 
 {% if not user.is_authenticated %}
     {% include 'account/login_modal.html' %}
