@@ -1,0 +1,143 @@
+.home {
+    .blocks {
+        color: #fff;
+        margin: 0 15px;
+        .line > div {
+            padding: 15px;
+        }
+        @media screen and (min-width: $screen-sm-min) {
+            display: table;
+            margin: 0 auto; 
+            max-width: 946px;
+            .line {
+                display: table-row;
+                > div {
+                    display: table-cell;
+                    padding: 30px;
+                    vertical-align: top;
+                    width: 50%;
+                }
+            }
+        }
+        h2 {
+            font-weight: bold;
+            margin: 0; 
+        }
+        p {
+            font-size: 2.5vmax;
+            font-weight: $bold;
+            margin: 0; 
+            @media screen and (min-width: $screen-sm-min) {
+                font-size: 18px;
+            }
+
+        }
+        .welcome {
+            background-color: $yellow;
+            text-align: center;
+            @media screen and (min-width: $screen-sm-min) {
+                text-align: left;
+            }
+            h2 {
+                font-size: 6vmax;
+                line-height: 95%;
+                margin-bottom: 15px;
+                @media screen and (min-width: $screen-sm-min) {
+                    font-size: 66px;
+                }
+            }
+        }
+        .login {
+            background-color: $orange;
+            legend {
+                color: #fff;
+                border-bottom: 0;
+                font-size: 5vmax;
+                font-weight: $lighter;
+                line-height: 100%;
+                text-align: center;
+                @media screen and (min-width: $screen-sm-min) {
+                    font-size: 36px;
+                }
+            }
+            .form-group {
+                margin: 0 auto 15px; 
+                max-width: 270px;
+            }
+            .form-control {
+                font-weight: $semi-bold;
+                &:hover, &:focus, &:active {
+                    border: 1px solid darken($brand-primary, 10%);
+                }
+            }
+            .btn-submit {
+                background-color: $blue;
+                display: block;
+                font-size: $font-size-large;
+                font-weight: $extra-bold;
+                margin: 0 auto; 
+                width: 270px;
+                transition: all 0.5s ease;
+                &:hover {
+                    background-color: darken($blue, 15%);
+                    color: #fff;
+                }
+            }
+            .checkbox {
+                margin: 15px 0; 
+                text-align: center;
+                label {
+                    font-weight: $extra-bold;
+                }
+            }
+            .forgot-pass {
+                margin: 0;
+                font-size: $font-size-base;
+                font-weight: $normal;
+                text-align: center;
+                a {
+                    color: #fff;
+                    text-decoration: underline; 
+                }
+            }
+        }
+        .register {
+            background-color: $purple;
+            text-align: center;
+            h2 {
+               font-size: 5.5vmax;
+                line-height: 95%;
+                margin-bottom: 15px;
+                @media screen and (min-width: $screen-sm-min) {
+                    font-size: 50px;
+                } 
+            }
+            p {
+                margin-bottom: 15px;
+            }
+            .btn-register {
+                background-color: $green;
+                color: #fff;
+                font-weight: $extra-bold;
+                font-size: $font-size-large;
+                width: 270px;
+                &:hover {
+                    background-color: darken($green, 15%);
+                    color: #fff;
+                }
+            }
+        }
+        .use { 
+            background: url(http://placehold.it/420x180) $light-blue bottom right no-repeat;
+            background-size: 86%;
+            min-height: 62vw;
+            @media screen and (min-width: $screen-sm-min) {
+                min-height: initial;
+            }
+
+            p {
+                margin: 0 0 15px 30px; 
+            }
+        }
+    }
+}

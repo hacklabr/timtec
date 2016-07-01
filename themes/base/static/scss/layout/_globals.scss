@@ -1,21 +1,26 @@
 body {
-    background-image: url(https://s-media-cache-ak0.pinimg.com/236x/ef/73/75/ef737591ab4e6fee1ab6025ba968a58b.jpg);
-    background-color: transparent;
-    overflow-x: hidden;
-    overflow-y: scroll;
-}
+    &.user-unlogged {
+        background-color: #f6f6f6;
+    }
+    &.user-logged {
+        background-image: url(https://s-media-cache-ak0.pinimg.com/236x/ef/73/75/ef737591ab4e6fee1ab6025ba968a58b.jpg);
+        background-color: transparent;
+        overflow-x: hidden;
+        overflow-y: scroll;
 
-.wrapper {
-    position: relative;
-    bottom: 0;
-    left: 100px;
-    right: 0;
-    top: 80px;
-    padding-right: 100px;
-}
+        .wrapper {
+            position: relative;
+            bottom: 0;
+            left: 100px;
+            right: 0;
+            top: 80px;
+            padding-right: 100px;
+        }
 
-.container-fluid {
-    max-width: 1170px;
+        .container-fluid {
+            max-width: 1170px;
+        }
+    }
 }
 
 // When the main navbar is opened
