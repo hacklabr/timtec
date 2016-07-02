@@ -15,14 +15,14 @@ class UserCourseStats(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         queryset = super(UserCourseStats, self).get_queryset()
         user = self.request.user
-        course_id = self.request.QUERY_PARAMS.get('course')
+        course_id = self.request.query_params.get('course')
         role = None
         try:
             role = self.request.user.teaching_courses.get(course__id=course_id).role
         except ObjectDoesNotExist:
             pass
 
-        classes_id = self.request.QUERY_PARAMS.getlist('classes')
+        classes_id = self.request.query_params.getlist('classes')
         # class passed as get paremeter
         classes = Class.objects.filter(course=course_id)
         if classes_id:
@@ -57,7 +57,7 @@ class CourseStatsByLessonViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewS
         except ObjectDoesNotExist:
             pass
 
-        classes_id = self.request.QUERY_PARAMS.getlist('classes')
+        classes_id = self.request.query_params.getlist('classes')
         # class passed as get paremeter
         classes = Class.objects.filter(course=course_id)
         if classes_id:

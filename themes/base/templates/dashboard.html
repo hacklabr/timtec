@@ -1,0 +1,247 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load is_coordinator %}
+
+{% block content %}
+
+<div ng-app="core" ng-controller="DashboardCtrl">
+
+    <section class="courses-widget container-fluid">
+
+        <header class="widget-header line two-column fifty-fifty">
+            <div class="column">
+                <h2 class="widget-title">Meus módulos</h2>
+            </div>
+            <div class="column">
+                <form class="widget-filter form-inline">
+                    <label>mostrando:</label>
+                    <select class="form-control">
+                        <option>formações fixas</option>
+                        <option>formações fixas</option>
+                        <option>formações fixas</option>
+                    </select>
+                </form>
+            </div>
+        </header>
+
+        <div class="courses line two-column fifty-fifty">
+            <div class="course column">
+                <div class="line two-column">
+                    <div class="course-progress column">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width: 65%;">
+                            </div>
+                        </div>    
+                    </div>
+                    <div class="progress-label column">65% completo</div>
+                </div>
+                <div class="line two-column">
+                    <div class="course-thumb column">
+                        <div class="course-thumb-bg" style="background-image: url(http://placehold.it/800x600);"></div>
+                        <a class="button-continue" href="#">continuar módulo</a>
+                    </div>
+                    <div class="course-description column">
+                        <h3 class="course-title">Formação de Formadores</h3>
+                        <div class="course-info">
+                            <p><b>Iniciado em:</b> 00/00/0000 | <b>Cidade:</b> Camaçari</p>
+                            <p>você parou em <span class="unit-title">Nome da Unidade e Também o Nome da Aula</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="line one-column">
+                    <div class="column">
+                        <p class="course-update"><strong>atualização:</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit | <span>xx horas atrás</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="course column">
+                <div class="line two-column">
+                    <div class="course-progress column">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width: 65%;">
+                            </div>
+                        </div>    
+                    </div>
+                    <div class="progress-label column">65% completo</div>
+                </div>
+                <div class="line two-column">
+                    <div class="course-thumb column">
+                        <div class="course-thumb-bg" style="background-image: url(http://placehold.it/800x600);"></div>
+                        <a class="button-continue" href="#">continuar módulo</a>
+                    </div>
+                    <div class="course-description column">
+                        <h3 class="course-title">Formação de Formadores</h3>
+                        <div class="course-info">
+                            <p><b>Iniciado em:</b> 00/00/0000 | <b>Cidade:</b> Camaçari</p>
+                            <p>você parou em <span class="unit-title">Nome da Unidade e Também o Nome da Aula</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="line one-column">
+                    <div class="column">
+                        <p class="course-update"><strong>atualização:</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit | <span>xx horas atrás</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="line two-column fifty-fifty">
+            <div class="course column">
+                <div class="line two-column">
+                    <div class="course-progress column">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width: 65%;">
+                            </div>
+                        </div>    
+                    </div>
+                    <div class="progress-label column">65% completo</div>
+                </div>
+                <div class="line two-column">
+                    <div class="course-thumb column">
+                        <div class="course-thumb-bg" style="background-image: url(http://placehold.it/800x600);"></div>
+                        <a class="button-continue" href="#">continuar módulo</a>
+                    </div>
+                    <div class="course-description column">
+                        <h3 class="course-title">Formação de Formadores</h3>
+                        <div class="course-info">
+                            <p><b>Iniciado em:</b> 00/00/0000 | <b>Cidade:</b> Camaçari</p>
+                            <p>você parou em <span class="unit-title">Nome da Unidade e Também o Nome da Aula</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="line one-column">
+                    <div class="column">
+                        <p class="course-update"><strong>atualização:</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit | <span>xx horas atrás</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="course column">
+                <div class="line two-column">
+                    <div class="course-progress column">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width: 65%;">
+                            </div>
+                        </div>    
+                    </div>
+                    <div class="progress-label column">65% completo</div>
+                </div>
+                <div class="line two-column">
+                    <div class="course-thumb column">
+                        <div class="course-thumb-bg" style="background-image: url(http://placehold.it/800x600);"></div>
+                        <a class="button-continue" href="#">continuar módulo</a>
+                    </div>
+                    <div class="course-description column">
+                        <h3 class="course-title">Formação de Formadores</h3>
+                        <div class="course-info">
+                            <p><b>Iniciado em:</b> 00/00/0000 | <b>Cidade:</b> Camaçari</p>
+                            <p>você parou em <span class="unit-title">Nome da Unidade e Também o Nome da Aula</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="line one-column">
+                    <div class="column">
+                        <p class="course-update"><strong>atualização:</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit | <span>xx horas atrás</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="forums-widget container-fluid">
+
+        <header class="widget-header line two-column fifty-fifty">
+            <div class="column">
+                <h2 class="widget-title">fóruns</h2>
+            </div>
+            <div class="column">
+                <form class="widget-filter form-inline">
+                    <input class="form-control" type="text" placeholder="Busca nos fóruns...">
+                </form>
+            </div>
+        </header>
+
+        <div class="line two-column forty-sixty">
+            <div class="column">
+                <h3 class="section-title">últimas postagens</h3>
+                <div class="forum-update">
+                    Avante e Entremeios
+                </div> 
+                <div class="forum-update">
+                    Curso de Mediação
+                </div>   
+                <div class="forum-update">
+                    Formação de formadoras
+                </div>
+                <div class="forum-update">
+                    Avante e Entremeios
+                </div> 
+                <div class="forum-update">
+                    Curso de Mediação
+                </div>   
+                <div class="forum-update">
+                    Formação de formadoras
+                </div>
+            </div>
+            <div class="column">
+                <h3 class="section-title">Avante e Entremeios</h3>
+                
+                <div class="user-update">
+                    <div class="user-icon">
+                        <img src="http://placehold.it/40" alt="Carla Marques">
+                    </div>
+                    <div class="info">
+                        <b>Carla Marques</b> comentou no fórum <a href="#">Curso de Mediação</a>
+                        <span class="thread">tópico: <a href="#">Lorem ipsum dolor sit amet...</a></span>
+                    </div>
+                    <div class="actions">
+                        <span class="button-like" href="#">4 curtiram</span>
+                        <span class="button-use" href="#">7 usaram</span>
+                    </div>
+                    <div class="tags">
+                        <a href="#">#lorem</a><a href="#">#ipsum</a><a href="#">#lorem</a><a href="#">#ipsum</a><a href="#">#lorem</a><a href="#">#ipsum</a>
+                    </div>
+                </div>
+
+                <div class="user-update">
+                    <div class="user-icon">
+                        <img src="http://placehold.it/40" alt="Carla Marques">
+                    </div>
+                    <div class="info">
+                        <b>Carla Marques</b> comentou no fórum <a href="#">Curso de Mediação</a>
+                        <span class="thread">tópico: <a href="#">Lorem ipsum dolor sit amet...</a></span>
+                    </div>
+                    <div class="actions">
+                        <span class="button-like" href="#">4 curtiram</span>
+                        <span class="button-use" href="#">7 usaram</span>
+                    </div>
+                    <div class="tags">
+                        <a href="#">#lorem</a><a href="#">#ipsum</a><a href="#">#lorem</a><a href="#">#ipsum</a><a href="#">#lorem</a><a href="#">#ipsum</a>
+                    </div>
+                </div> 
+
+                <div class="user-update">
+                    <div class="user-icon">
+                        <img src="http://placehold.it/40" alt="Carla Marques">
+                    </div>
+                    <div class="info">
+                        <b>Carla Marques</b> comentou no fórum <a href="#">Curso de Mediação</a>
+                        <span class="thread">tópico: <a href="#">Lorem ipsum dolor sit amet...</a></span>
+                    </div>
+                    <div class="actions">
+                        <span class="button-like" href="#">4 curtiram</span>
+                        <span class="button-use" href="#">7 usaram</span>
+                    </div>
+                    <div class="tags">
+                        <a href="#">#lorem</a><a href="#">#ipsum</a><a href="#">#lorem</a><a href="#">#ipsum</a><a href="#">#lorem</a><a href="#">#ipsum</a>
+                    </div>
+                </div> 
+
+            </div>
+        </div>
+        
+    </section>
+
+</div>
+
+{% endblock %}

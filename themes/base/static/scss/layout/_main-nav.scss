@@ -1,0 +1,151 @@
+// Main navigation styles
+// --------------------------------------------------
+
+.main-nav {
+    background-color: $main-nav-bg-color; 
+    bottom: 0;
+    left: 0;
+    top: 0;
+    position: fixed;
+    @include transition(width 0.5s ease);
+    width: 100px; 
+    z-index: 1000;
+
+    a {
+        color: #fff;
+    }
+    ul, ul ul {
+        @extend .list-unstyled;
+        color: #fff;
+    }
+}
+
+.user-info {
+    background-color: $user-info-bg-color;
+    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.5);
+    box-sizing: border-box;
+    font-size: 10px;
+    height: 80px;
+    padding: 10px;
+    .user-icon {
+        text-align: center; 
+    }
+    .user-name {
+        color: #fff;
+        font-size: 10px;
+        font-weight: 700;
+        margin-top: 5px;
+        text-align: center; 
+    }
+}
+
+.user-nav {
+    font-size: $font-size-small;
+    font-weight: 700;
+    margin: 10px; 
+    li {
+        margin-bottom: 10px;
+        &:last-child {
+            margin-bottom: 0 !important;
+        }
+    }
+    .submenu {
+        border-bottom: 1px solid #fff;
+        color: $gray-darker;
+        margin-bottom: 10px;
+        padding-bottom: 10px; 
+        ul {
+            color: #fff;
+            margin-top: 10px;
+        }
+    }
+    a {
+        &:before {
+            display: block;
+            font-size: $font-size-large;
+        }
+    }
+    .courses {
+        @extend %icon-courses;
+    }
+    .forum {
+        @extend %icon-forum;
+    }
+    .help {
+        @extend %icon-help;
+    }
+    .login {
+        @extend %icon-login;
+    }
+    .logout {
+        @extend %icon-logout;
+    }
+    .register {
+        @extend %icon-register;
+    }
+    .repositories {
+        @extend %icon-repositories;
+    }
+}
+
+.site-info {
+    display: none;
+    padding: 0 30px 30px;
+    position: absolute;
+    bottom: 0;
+    .site-nav {
+        @extend .list-inline;
+        border-bottom: 1px solid #fff;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+        text-align: center;
+        li {
+            font-weight: 700;
+            margin: 0 10px;
+        }
+    }
+    .legal-text {
+        color: #fff;
+        font-size: $font-size-small;
+        text-align: center; 
+    }
+}
+
+.main-nav-opened {
+    .main-nav {
+        width: 300px;
+        .user-info {
+            padding: 20px 30px;
+            .user-icon {
+                float: left;
+                margin-right: 10px;
+            }
+            .user-name {
+                float: left;
+                font-size: $font-size-base;
+                margin-top: 10px;
+                text-align: left;
+            }
+        }
+        .user-nav {
+            font-size: $font-size-large;
+            margin: 30px; 
+            li {
+                margin-bottom: 15px;
+            }
+            a {
+                &:before {
+                    display: inline-block;
+                    margin-right: 10px;
+                }
+            }
+            .submenu {
+                margin-bottom: 20px;
+                padding-bottom: 20px; 
+            }
+        }
+        .site-info {
+            display: block;
+        }
+    }
+}

@@ -1,0 +1,70 @@
+// Widget's common styles
+// --------------------------------------------------
+
+.widget-title {
+    text-transform: lowercase;
+}
+
+.widget-filter {
+    .form-control {
+        border-radius: 20px;
+    }
+}
+
+.section-title {
+    color: $brand-primary;
+    text-transform: lowercase;
+}
+
+// Courses widget
+// --------------------------------------------------
+
+.courses-widget {
+    @include card(rgba($light-blue,0.6));
+    
+    .widget-header {
+        margin-bottom: 60px;
+    }
+    .widget-title {
+        color: $purple;
+    }
+    .widget-filter {
+        label {
+            color: $purple;
+        }
+        .form-control {
+            border-radius: 20px;
+            color: $light-blue;
+            &:focus {
+                border-color: $light-blue;
+            }
+        }
+    }
+    .progress-bar {
+        background-color: $blue;
+    }
+    .progress-label {
+        color: $blue;
+    }
+
+    .button-continue {
+        background-color: $purple;
+    }
+}
+
+// Forums widget
+// --------------------------------------------------
+
+.forums-widget {
+    .widget-title {
+        color: $brand-primary;
+    }
+
+    .widget-filter {
+        input {
+            color: $brand-primary;
+        }
+    }
+
+
+}

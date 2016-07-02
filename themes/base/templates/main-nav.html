@@ -1,0 +1,66 @@
+{% load i18n %}
+{% load is_coordinator %}
+
+<nav class="main-nav opened" role="navigation">
+    <div class="user-info">
+        {% if user.is_authenticated %}
+            {% block header_user_menu %}
+                <div class="user-icon"><img src="http://placehold.it/40" alt="{{ user }}" class="img-circle"></div>
+                <div class="user-name">{{ user }}</div>
+            {% endblock %}
+        {% endif %}
+    </div>
+
+    <ul class="user-nav">
+    {% if user.is_authenticated %}
+        {% if user.is_superuser %}
+            <li class="submenu">
+                {% trans 'Admin' %}
+                <ul class="admin-nav">
+                    <li><a href="{% url 'administration.home' %}">{% trans 'Home edit' %}</a></li>
+                    <li><a href="{% url 'administration.courses' %}" id="admin-link">{% trans 'Courses' %}</a></li>
+                    <li><a href="{% url 'administration.users' %}">{% trans 'Users' %}</a></li>
+                </ul>
+            </li>
+        {% elif user|is_coordinator %}
+            <li class="submenu">
+                <a href="{% url 'administration.courses' %}">
+                    {% trans "Admin" %}
+                </a>
+            </li>
+        {% endif %}
+        <li><a href="{% url 'profile' %}">{% trans "My Profile" %}</a></li>
+        <li><a href="{% url 'profile_edit' %}">{% trans "Edit Profile and Account Settings" %}</a></li>
+        <li><a href="{% url 'user_courses' %}">{% trans "My Courses" %}</a></li>
+        <li><a href="{% url 'user_notes' %}">{% trans "My Notes" %}</a></li>
+        <li><a href="#" class="repositories">{% trans "Repositories" %}</a></li>
+        <li><a href="#" class="forum">{% trans "Forum" %}</a></li>
+        <li><a href="#" class="help">{% trans "Help" %}</a></li>
+        <li><a href="{% url 'timtec_logout' %}" class="logout">{% trans "Logout" %}</a></li>
+    {% else %}
+        <li><a href="{% url 'courses' %}" class="courses">{% trans 'Courses' %}</a></li>
+        <li>
+            <a href="#" class="dropdown-toggle login" data-toggle="dropdown">{% trans 'Sign In' %}</a>
+            {% include '_login_modal.html' %}
+        </li>
+        <li>
+        {% block header_signup_link %}
+            <a href="#" class="dropdown-toggle register" data-toggle="dropdown">{% trans 'Sign Up' %}</a>
+            {% include '_signup_modal.html' %}
+        {% endblock %}
+        </li>
+    {% endif %}
+    </ul>
+
+    <div class="site-info">
+        <ul class="site-nav">
+            {% block header_site_nav %}
+            <li><a href="/pages/about">{% trans 'About' %}</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#modal-contact">{% trans 'Contact' %}</a></li>
+            {% endblock %}
+        </ul> 
+        <div class="legal-text">
+            {% trans 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse in aliquam eros.' %} 
+        </div>
+    </div>
+</nav>

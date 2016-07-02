@@ -257,13 +257,13 @@ class CourseAuthorViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = super(CourseAuthorViewSet, self).get_queryset()
-        # is_course_author = self.request.QUERY_PARAMS.get('is_course_author', None)
+        # is_course_author = self.request.query_params.get('is_course_author', None)
         # if is_course_author == 'true':
         #     queryset = queryset.filter(is_course_author=True)
         # if is_course_author == 'false':
         #     queryset = queryset.filter(is_course_author=False)
 
-        has_user = self.request.QUERY_PARAMS.get('has_user', None)
+        has_user = self.request.query_params.get('has_user', None)
         if has_user:
             queryset = queryset.exclude(user=None)
         return queryset
@@ -306,7 +306,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
 
     def list(self, request, *args, **kwargs):
 
-        username = self.request.QUERY_PARAMS.get('username', False)
+        username = self.request.query_params.get('username', False)
         if username:
             serializer = self.serializer_class(self.model.objects.get(username=username))
             return Response(serializer.data)
@@ -400,7 +400,7 @@ class CertificationProcessViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = super(CertificationProcessViewSet, self).get_queryset()
 
-        klass = self.request.QUERY_PARAMS.get('klass')
+        klass = self.request.query_params.get('klass')
         if klass:
             queryset = queryset.filter(klass=klass)
 
@@ -493,10 +493,10 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     model = Course
     queryset = Course.objects.all()
+    serializer_class = CourseSerializer
     lookup_field = 'id'
     filter_fields = ('slug', 'home_published',)
     filter_backends = (filters.DjangoFilterBackend,)
-    serializer_class = CourseSerializer
     permission_classes = (IsProfessorCoordinatorOrAdminPermissionOrReadOnly,)
 
     def get_queryset(self):
@@ -693,7 +693,7 @@ class EvaluationViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     # def get_queryset(self):
     #    queryset = super(EvaluationViewSet, self.get_queryset())
 
-    #    klass_id = self.request.QUERY_PARAMS.get('klass_id')
+    #    klass_id = self.request.query_params.get('klass_id')
     #    if klass_id:
 
 
@@ -804,7 +804,7 @@ class ClassViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
         if self.request.user.is_staff or self.request.user.is_superuser:
             return queryset
 
-        course_id = self.request.QUERY_PARAMS.get('course')
+        course_id = self.request.query_params.get('course')
         if course_id:
             try:
                 role = self.request.user.teaching_courses.get(course__id=course_id).role
@@ -835,6 +835,7 @@ class FlatpageView(View):
 class FlatpageViewSet(viewsets.ModelViewSet):
 
     model = FlatPage
+    queryset = FlatPage.objects.all()
     serializer_class = FlatpageSerializer
     filter_fields = ('url',)
     permission_classes = (IsAdminOrReadOnly,)
@@ -847,7 +848,7 @@ class FlatpageViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = super(FlatpageViewSet, self).get_queryset()
-        url_prefix = self.request.QUERY_PARAMS.get('url_prefix')
+        url_prefix = self.request.query_params.get('url_prefix')
         if url_prefix:
             queryset = queryset.filter(url__startswith=url_prefix)
         return queryset

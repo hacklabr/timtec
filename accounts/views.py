@@ -67,10 +67,10 @@ class TimtecUserAdminViewSet(viewsets.ModelViewSet):
     # search_fields = ('first_name', 'last_name', 'username', 'email')
 
     def get_queryset(self):
-        page = self.request.QUERY_PARAMS.get('page')
-        keyword = self.request.QUERY_PARAMS.get('keyword')
-        admin = self.request.QUERY_PARAMS.get('admin')
-        blocked = self.request.QUERY_PARAMS.get('blocked')
+        page = self.request.query_params.get('page')
+        keyword = self.request.query_params.get('keyword')
+        admin = self.request.query_params.get('admin')
+        blocked = self.request.query_params.get('blocked')
         queryset = super(TimtecUserAdminViewSet, self).get_queryset().order_by('username')
 
         if keyword:
@@ -106,7 +106,7 @@ class UserSearchView(LoginRequiredMixin, generics.ListAPIView):
 
     def get_queryset(self):
         queryset = self.model.objects.all()
-        query = self.request.QUERY_PARAMS.get('name', None)
+        query = self.request.query_params.get('name', None)
         if query is not None:
             queryset = queryset.filter(Q(first_name__icontains=query) |
                                        Q(last_name__icontains=query) |
@@ -122,7 +122,7 @@ class StudentSearchView(LoginRequiredMixin, generics.ListAPIView):
 
     def get_queryset(self):
         queryset = self.model.objects.all()
-        course = self.request.QUERY_PARAMS.get('course', None)
+        course = self.request.query_params.get('course', None)
 
         classes = self.request.user.professor_classes.all()
 
@@ -132,7 +132,7 @@ class StudentSearchView(LoginRequiredMixin, generics.ListAPIView):
             # FIXME: if every student is in a class, this is useless.
             if course is not None:
                 queryset = queryset.filter(studentcourse_set=course)
-        query = self.request.QUERY_PARAMS.get('name', None)
+        query = self.request.query_params.get('name', None)
         if query is not None:
             queryset = queryset.filter(Q(first_name__icontains=query) |
                                        Q(last_name__icontains=query) |

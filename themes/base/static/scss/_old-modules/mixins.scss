@@ -1,0 +1,100 @@
+// CALCULATE WIDTH
+// ********************************************************************* //
+@mixin calculate-width($value:0) {
+  width:-moz-calc('100% - #{$value}');
+  width:-webkit-calc('100% - #{$value}');
+  width:calc('100% - #{$value}');
+}
+
+// VERTICAL ALIGN
+// ********************************************************************* //
+@mixin vertical-align($position) {
+  display:inline-block;
+  vertical-align:$position;
+}
+
+// ARROWS
+// ********************************************************************* //
+@mixin arrow-up($width, $color) {
+  border-bottom:$width solid $color;
+  border-left:$width solid transparent;
+  border-right:$width solid transparent;
+  @include size(0,0);
+}
+@mixin arrow-down($width, $color) {
+  border-left:$width solid transparent;
+  border-right:$width solid transparent;
+  border-top:$width solid $color;
+  @include size(0,0);
+}
+@mixin arrow-right($width, $color) {
+  border-bottom:$width solid transparent;
+  border-left:$width solid $color;
+  border-top:$width solid transparent;
+  @include size(0,0);
+}
+@mixin arrow-left($width, $color) {
+  border-bottom:$width solid transparent;
+  border-right:$width solid $color;
+  border-top:$width solid transparent;
+  @include size(0,0);
+}
+
+// MARGIN AND PADDING
+// ********************************************************************* //
+@mixin bottom($margin:0, $padding:0) {
+  margin-bottom:$margin !important;
+  padding-bottom:$padding !important;
+}
+
+@mixin left($margin:0, $padding:0) {
+  margin-left:$margin !important;
+  padding-left:$padding !important;
+}
+
+@mixin right($margin:0, $padding:0) {
+  margin-right:$margin !important;
+  padding-right:$padding !important;
+}
+
+@mixin top($margin:0, $padding:0) {
+  margin-top:$margin !important;
+  padding-top:$padding !important;
+}
+
+// POSITIONING
+// ********************************************************************* //
+@media screen and (max-width: $screen-phone) {
+  .bottom-xs {
+    @include bottom(0,0);
+  }
+  .left-xs {
+    @include left(0,0);
+  }
+  .right-xs {
+    @include right(0,0);
+  }
+  .top-xs {
+    @include top(0,0);
+  }
+}
+
+@media screen and (max-width: $screen-xs-max) {
+  .textleft-xs {
+    text-align: left !important;
+  }
+  .textright-xs {
+    text-align: right !important;
+  }
+}
+
+// GRADIENT
+// ********************************************************************* //
+@mixin gradient($startColor, $endColor) {
+    background-color: $startColor;
+    background: -webkit-gradient(linear, left top, left bottom, from($startColor), to($endColor));
+    background: -webkit-linear-gradient(top, $startColor, $endColor);
+    background:    -moz-linear-gradient(top, $startColor, $endColor);
+    background:     -ms-linear-gradient(top, $startColor, $endColor);
+    background:      -o-linear-gradient(top, $startColor, $endColor);
+}

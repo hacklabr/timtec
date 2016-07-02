@@ -1,0 +1,52 @@
+// Variables
+// --------------------------------------------------
+// need to be declared and imported before Bootstrap's files
+
+//== Project variables
+@import "base/variables";
+
+//== Theme variables
+@import "theme/variables";
+
+
+// Import Bootstrap's files
+// --------------------------------------------------
+@import "../bootstrap-sass/assets/stylesheets/bootstrap";
+
+
+// Import project's files
+// --------------------------------------------------
+// these are the base's theme styles 
+
+//== Base styles
+@import "base/_fonts";
+@import "base/_mixins";
+@import "base/_helpers";
+
+//== Components styles
+@import "components/_courses-list";
+@import "components/_headers";
+@import "components/_widgets";
+@import "components/_widgets-grid";
+
+//== Layout styles
+@import "layout/_globals";
+@import "layout/_site-header";
+@import "layout/_main-nav";
+
+//== Pages styles
+@import "pages/_course-content";
+@import "pages/_courses";
+
+//== Vendor style
+@import "vendor/flatui/checkbox-and-radio.scss";
+
+
+// Import theme's files
+// --------------------------------------------------
+// there are the specific's theme styles
+
+//== Base styles
+@import "theme/_fonts";
+@import "theme/_headers";
+@import "theme/_widgets";

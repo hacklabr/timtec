@@ -1,0 +1,23 @@
+// Page's headers
+// --------------------------------------------------
+
+.page-header-double {
+    border-bottom: 0;
+    h1, h2, h3, h4, h5, h6 {
+        i {
+            display: none;
+        }
+    }
+}
+
+// Shared headers styles
+// --------------------------------------------------
+
+.main-header {
+    .page-header {
+        border-bottom: 0;
+    }
+}
+.secondary-header {
+    border-bottom: 0;
+}

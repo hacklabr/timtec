@@ -1,0 +1,21 @@
+{% load i18n %}
+{% load is_coordinator %}
+
+<header class="site-header" role="navigation">
+    {% block header_navbar %}
+    <div class="site-logo">
+        <h1><a href="/"><img src="/static/img/site-logo.svg" alt="{{ site.name }}"></a></h1>
+    </div>
+    {% endblock %}
+
+    {% if user.is_authenticated %}
+        <ul class="user-tools">
+            <li>
+                <a class="notifications" href="#">{% trans 'Notifications' %}</a>
+            </li>
+            <li>
+                <a class="chat" href="#">{% trans 'Chat' %}</a>
+            </li>
+        </ul>
+    {% endif %}
+</header>

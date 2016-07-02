@@ -1,0 +1,48 @@
+// Helpers
+// --------------------------------------------------
+// generic and multi-purpose classes and placeholders
+
+//== Icon's placeholders
+// 
+%icon {
+    &-attention {
+        @include icon(before, attention);
+    }
+    &-chat {
+        @include icon(before, chat);
+    }
+    &-courses {
+        @include icon(before, courses);
+    }
+    &-forum {
+        @include icon(before, forum);
+    }
+    &-help {
+        @include icon(before, help);
+    }
+    &-like {
+        @include icon(before, like);
+    }
+    &-login {
+        @include icon(before, login);
+    }
+    &-logout {
+        @include icon(before, logout);
+    }
+    &-notifications {
+        @include icon(before, notifications);
+    }
+    &-register {
+        @include icon(before, register);
+    }
+    &-repositories {
+        @include icon(before, repositories);
+    }
+}
+
+// this class exists to circunvent a flash + youtube api error
+// in which if the video div is really hidden the api breaks
+.hidder {
+    position: absolute;
+    left: -3000px;
+}

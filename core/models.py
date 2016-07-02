@@ -192,8 +192,17 @@ class Course(models.Model):
         return self.user.forum_answers.values('question__lesson').annotate(
             Count('question__lesson'))
 
-    def get_video_professors(self):
-        return self.course_authors.all()
+    @property
+    def authors_names(self):
+        professors = self.course_authors.all()
+        professors_names = ''
+        if professors:
+            last_elem_index = len(professors) - 1
+            for index, professor in enumerate(professors):
+                professors_names += professor.get_name()
+                if last_elem_index != index:
+                    professors_names += ', '
+        return professors_names
 
     def get_professor_role(self, user):
         try:
@@ -458,6 +467,8 @@ class CourseAuthor(models.Model):
             return self.name
         elif self.user:
             return self.user.get_full_name()
+        else:
+            return ''
 
     def get_biography(self):
         if self.biography:

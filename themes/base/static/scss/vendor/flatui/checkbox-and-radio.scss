@@ -1,0 +1,101 @@
+//
+// Checkbox & Radio
+// --------------------------------------------------
+
+.checkbox,
+.radio {
+  margin-bottom: 12px;
+  padding-left: 32px;
+  position: relative;
+  @include transition(color .25s linear);
+
+  input {
+    outline: none !important;
+    display: none;
+  }
+
+  // Replace icons
+  // --------------------------------------------------
+  .icons {
+    color: $gray;
+    display: block !important;
+    height: 21px;
+    left: 0;
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 21px;
+    text-align: center;
+    line-height: 23px;
+    font-size: 23px;
+    @include transition(color .25s linear);
+
+    .first-icon,
+    .second-icon {
+      position: absolute;
+      left: 0;
+      top: 0;
+      @include opacity(100);
+    }
+    .second-icon {
+      @include opacity(0);
+    }
+  }
+
+  // Alternate States
+  // --------------------------------------------------
+
+  // Hover State
+  &:hover {
+    cursor:pointer;
+    .first-icon {
+      @include opacity(0);
+    }
+    .second-icon {
+      @include opacity(100);
+    }
+  }
+
+  // Checked State
+  &.checked {
+    color: $link-color;
+
+    .icons {
+      color: $brand-success;
+    }
+    .first-icon {
+      @include opacity(0);
+    }
+    .second-icon {
+      @include opacity(100);
+    }
+  }
+
+  // Disabled state
+  &.disabled {
+    cursor: default;
+    color: mix($gray, white, 38%);
+
+    .icons {
+      color: mix($gray, white, 38%);
+    }
+    .first-icon {
+      @include opacity(100);
+    }
+    .second-icon {
+      @include opacity(0);
+    }
+    &.checked {
+      .icons {
+        color: mix($gray, white, 38%);
+      }
+      .first-icon {
+        @include opacity(0);
+      }
+      .second-icon {
+        @include opacity(100);
+      }
+    }
+  }
+}

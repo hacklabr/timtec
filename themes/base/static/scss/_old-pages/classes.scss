@@ -1,0 +1,17 @@
+  // COURSE CLASSES
+  // ********************************************************************* //
+  .course-classes {
+    .secondary-header {
+      @media screen and (max-width: 360px) {
+        .col-xs-6 {
+          width: 100%;
+        }
+      }
+      .professor-assistant {
+        margin-top: 20px;
+        label {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
