@@ -553,15 +553,10 @@ try:
 except IOError:
     pass
 
-CURRENT_THEME_DIR = os.path.join(PROJECT_ROOT, TIMTEC_THEME)
-if not os.path.exists(CURRENT_THEME_DIR):
-    CURRENT_THEME_DIR = os.path.join(PROJECT_ROOT, 'themes', TIMTEC_THEME)
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(CURRENT_THEME_DIR, 'templates'),
             os.path.join(THEMES_DIR, 'default', 'templates'),
         ],
         'OPTIONS': {
@@ -585,8 +580,8 @@ TEMPLATES = [
                 'timtec.context_processor.openid_providers',
             ],
             'loaders': [
-                'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
+                'django.template.loaders.filesystem.Loader',
                 'core.loaders.TimtecThemeLoader',
             ],
             'debug': DEBUG,
@@ -599,7 +594,6 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(CURRENT_THEME_DIR, 'static'),
     os.path.join(THEMES_DIR, 'default', 'static'),
     os.path.join(PROJECT_ROOT, 'bower_components'),
 )
