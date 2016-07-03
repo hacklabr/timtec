@@ -53,57 +53,6 @@
         }
         .login {
             background-color: $orange;
-            legend {
-                color: #fff;
-                border-bottom: 0;
-                font-size: 5vmax;
-                font-weight: $lighter;
-                line-height: 100%;
-                text-align: center;
-                @media screen and (min-width: $screen-sm-min) {
-                    font-size: 36px;
-                }
-            }
-            .form-group {
-                margin: 0 auto 15px; 
-                max-width: 270px;
-            }
-            .form-control {
-                font-weight: $semi-bold;
-                &:hover, &:focus, &:active {
-                    border: 1px solid darken($brand-primary, 10%);
-                }
-            }
-            .btn-submit {
-                background-color: $blue;
-                display: block;
-                font-size: $font-size-large;
-                font-weight: $extra-bold;
-                margin: 0 auto; 
-                width: 270px;
-                transition: all 0.5s ease;
-                &:hover {
-                    background-color: darken($blue, 15%);
-                    color: #fff;
-                }
-            }
-            .checkbox {
-                margin: 15px 0; 
-                text-align: center;
-                label {
-                    font-weight: $extra-bold;
-                }
-            }
-            .forgot-pass {
-                margin: 0;
-                font-size: $font-size-base;
-                font-weight: $normal;
-                text-align: center;
-                a {
-                    color: #fff;
-                    text-decoration: underline; 
-                }
-            }
         }
         .register {
             background-color: $purple;
