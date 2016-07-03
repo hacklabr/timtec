@@ -1,0 +1,25 @@
+{% extends 'base-unlogged.html' %}
+
+{% load i18n %}
+{% load pipeline %}
+{% load is_enrolled %}
+{% load get_flatpage %}
+
+{% block js %}
+    {{ block.super }}
+    {% javascript 'core' %}
+{% endblock %}
+
+{% block wrapper_classes %}
+register
+{% endblock %}
+
+{% block content %}
+
+<div ng-app="core" ng-controller="HomeCtrl">
+
+    register
+
+</div>
+
+{% endblock %}

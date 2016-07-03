@@ -150,6 +150,8 @@ urlpatterns = patterns(
 
     url(r'^dashboard/', TemplateView.as_view(template_name="dashboard.html")),
     url(r'^forum/', TemplateView.as_view(template_name="forum.html")),
+    url(r'^login/', TemplateView.as_view(template_name="login.html")),
+    url(r'^register/', TemplateView.as_view(template_name="register.html")),
     url(r'^profile/edit/?$', ProfileEditView.as_view(), name="profile_edit"),
     url(r'^profile/(?P<username>[\w.+-]+)?/?$', ProfileView.as_view(), name="profile"),
 
