@@ -39,7 +39,6 @@
 @import "pages/_course-content";
 @import "pages/_courses";
 @import "pages/_forums";
-@import "pages/_home";
 
 //== Vendor style
 //@import "vendor/flatui/checkbox-and-radio.scss";
@@ -52,4 +51,7 @@
 //== Base styles
 @import "theme/_fonts";
 @import "theme/_headers";
+@import "theme/_home";
+@import "theme/_login";
+@import "theme/_site-header";
 @import "theme/_widgets";
