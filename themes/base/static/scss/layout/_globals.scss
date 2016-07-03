@@ -1,6 +1,14 @@
 body {
     &.user-unlogged {
         background-color: #f6f6f6;
+
+        .wrapper {
+            margin: 0 auto; 
+            max-width: 946px;
+        }
+        .home {
+            margin-top: -63px !important;
+        }
     }
     &.user-logged {
         background-image: url(https://s-media-cache-ak0.pinimg.com/236x/ef/73/75/ef737591ab4e6fee1ab6025ba968a58b.jpg);

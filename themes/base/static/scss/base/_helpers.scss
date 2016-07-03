@@ -46,6 +46,18 @@
     }
 }
 
+// List styles
+
+%list-inline {
+    padding-left: 0;
+    list-style: none;
+    margin: 0 0 0 -5px;
+
+    li {
+        display: inline-block;
+    }
+}
+
 // this class exists to circunvent a flash + youtube api error
 // in which if the video div is really hidden the api breaks
 .hidder {
