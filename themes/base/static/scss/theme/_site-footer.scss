@@ -1,0 +1,22 @@
+// Site footer styles for unlogged users
+// --------------------------------------------------
+
+.user-unlogged {
+    .site-footer {
+        border-top: 1px solid #000;
+        max-width: 946px;
+        margin: 80px auto 40px;
+        padding-top: 10px;
+        text-align: center;
+        .legal-text {
+            font-size: $font-size-small;
+        }
+        .logos {
+            @extend %list-inline;
+            margin-top: 15px;
+            li {
+                margin: 0 10px; 
+            }
+        }
+    }
+}
