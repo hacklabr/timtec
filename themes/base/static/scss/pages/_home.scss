@@ -1,4 +1,5 @@
 .home {
+
     .blocks {
         color: #fff;
         margin: 0 15px;
@@ -6,9 +7,7 @@
             padding: 15px;
         }
         @media screen and (min-width: $screen-sm-min) {
-            display: table;
-            margin: 0 auto; 
-            max-width: 946px;
+            display: table; 
             .line {
                 display: table-row;
                 > div {
@@ -18,6 +17,9 @@
                     width: 50%;
                 }
             }
+        }
+        @media screen and (min-width: 947px) {
+            margin: 0 auto; 
         }
         h2 {
             font-weight: bold;
@@ -128,7 +130,7 @@
             }
         }
         .use { 
-            background: url(http://placehold.it/420x180) $light-blue bottom right no-repeat;
+            background: url(../img/home-print.png) $light-blue bottom right no-repeat;
             background-size: 86%;
             min-height: 62vw;
             @media screen and (min-width: $screen-sm-min) {
