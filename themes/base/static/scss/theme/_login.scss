@@ -1,38 +1,10 @@
-// Login page styles
+// Login and register page styles
 // --------------------------------------------------
 
-.login-page {
-    background-color: $orange;
-    box-sizing: border-box;
-    padding: 20px;
-    @media screen and (min-width: 947px) {
-        padding: 40px;
-    }
-    .login-form {
-        .checkbox {
-            margin: 30px 0 !important; 
-        }
-    }
-
-    .alert {
-        border: 0;
-        border-radius: 0;
-        color: #fff;
-        font-weight: $bold;
-        margin: -20px -20px 20px; 
-        text-align: center; 
-        @media screen and (min-width: 947px) {
-            margin: -40px -40px 40px; 
-        }
-
-        &.alert-danger {
-            background-color: $pink;
-        }
-    }
-}
-
+// ## Common styles
+//
 .user-unlogged {
-    .login-form {
+    form { // common form styles
         color: #fff;
         legend {
             color: #fff;
@@ -55,8 +27,7 @@
                 border: 1px solid darken($brand-primary, 10%);
             }
         }
-        .btn-submit {
-            background-color: $blue;
+        .btn {
             color: #fff;
             display: block;
             font-size: $font-size-large;
@@ -65,19 +36,10 @@
             width: 270px;
             transition: all 0.5s ease;
             &:hover {
-                background-color: darken($blue, 15%);
                 color: #fff;
             }
         }
-        .checkbox {
-            margin: 15px 0; 
-            text-align: center;
-            label {
-                color: #fff;
-                font-weight: $extra-bold;
-            }
-        }
-        .forgot-pass {
+        .info {
             color: #fff;
             margin: 0;
             font-size: $font-size-base;
@@ -89,4 +51,89 @@
             }
         }
     }
+
+    .login-form { // this is used on home and login page
+        .btn-submit {
+            background-color: $blue;
+            &:hover {
+                background-color: darken($blue, 15%);
+            }
+        }
+        .checkbox {
+            margin: 15px 0; 
+            text-align: center;
+            label {
+                color: #fff;
+                font-weight: $extra-bold;
+            }
+        }
+    }
+
+    .register-form {
+        margin: 0 auto; 
+        max-width: 340px;
+        .form-group {
+            .fa {
+                display: inline-block;
+                font-size: 20px;
+                text-align: center; 
+                width: 30px;
+            }
+            input {
+                display: inline-block;
+                width: 235px;
+            }
+        }
+        .btn-submit {
+            background-color: $green;
+            float: right;
+            margin: 0 35px 20px 0; 
+            width: 235px;
+            &:hover {
+                background-color: darken($green, 15%);
+            }
+        }
+    }
+
+    .alert { // common alert styles
+        border: 0;
+        border-radius: 0;
+        color: #fff;
+        font-weight: $bold;
+        margin: -20px -20px 20px; 
+        text-align: center; 
+        @media screen and (min-width: 947px) {
+            margin: -40px -40px 40px; 
+        }
+
+        &.alert-danger {
+            background-color: $pink;
+        }
+    }
+}
+
+.register-page, .login-page {
+    box-sizing: border-box;
+    padding: 20px;
+    @media screen and (min-width: 947px) {
+        padding: 40px;
+    }
+    .login-form {
+        .checkbox {
+            margin: 30px 0 !important; 
+        }
+    }
+}
+
+.login-page {
+    background-color: $orange;
+    .login-form {
+        .checkbox {
+            margin: 30px 0 !important; 
+        }
+    }
+}
+
+.register-page {
+    background-color: $purple;
 }
