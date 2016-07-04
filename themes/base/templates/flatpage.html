@@ -1,0 +1,43 @@
+{% extends 'base-unlogged.html' %}
+
+{% load i18n %}
+{% load pipeline %}
+{% load is_enrolled %}
+{% load get_flatpage %}
+
+{% block js %}
+    {{ block.super }}
+    {% javascript 'core' %}
+{% endblock %}
+
+{% block wrapper_classes %}
+flatpage
+{% endblock %}
+
+{% block content %}
+
+<div ng-app="core" ng-controller="HomeCtrl">
+
+    <h2>Exemplo de título</h2>
+
+    <div class="content">
+        
+        <h3>Exemplo de subtítulo</h3>
+
+        <img src="http://placehold.it/300x200" alt="texto alternativo" class="img-right">
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex commodo.</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex commodo.</p>
+
+        <h3>Exemplo de subtítulo</h3>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex commodo.</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex commodo.</p>
+
+    </div>
+
+</div>
+
+{% endblock %}
