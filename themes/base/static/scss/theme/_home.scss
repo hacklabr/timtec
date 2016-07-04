@@ -74,6 +74,7 @@
                 font-weight: $extra-bold;
                 font-size: $font-size-large;
                 width: 270px;
+                transition: all 0.5s ease;
                 &:hover {
                     background-color: darken($green, 15%);
                     color: #fff;
