@@ -6,12 +6,60 @@
     box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.5); 
     height: 80px;
     overflow: hidden;
+    @include transition(width 0.5s ease);
     position: fixed;
     top: 0;
-    left: 90px;
+    left: 0;
     right: 0;
-    z-index: 900;
+    z-index: 1000;
 }
+
+.user-info {
+    box-sizing: border-box;
+    color: #000;
+    cursor: pointer;
+    height: 80px;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    .user-icon {
+        text-align: center; 
+    }
+    .user-name {
+        display: none;
+        float: left;
+        font-size: $font-size-large;
+        font-weight: $semi-bold;
+        margin-top: 6px;
+        text-align: left;
+    }
+    .menu-label {
+        display: block;
+        font-size: $font-size-base;
+        font-weight: $semi-bold;
+        text-align: center; 
+    }
+}
+
+.main-nav-opened { // when the offcanvas menu is opened
+    .user-info {
+        padding: 20px 25px;
+        width: 300px;
+        .user-icon {
+            float: left;
+            margin-right: 10px;
+        }
+        .user-name {
+            display: block;
+        }
+        .menu-label {
+            display: none;
+        }
+    }
+}
+
 .site-logo {
     height: 80px;
     position: absolute;
@@ -33,6 +81,14 @@
     img {
         margin: 25px 0; 
         max-height: 30px;
+    }
+}
+
+.main-nav-opened { // when the offcanvas menu is opened
+    .site-logo {
+        @media screen and (min-width: $screen-sm-min) {
+            left: 300px;
+        }
     }
 }
 

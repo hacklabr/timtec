@@ -74,14 +74,15 @@
 </head>
 <body {% if in_admin %}id="admin"{% else %}id="notadmin"{% endif %} {% spaceless %}{% block body_attrs %}{% endblock %}{% endspaceless %} class="user-logged main-nav-opened">
 
+    {% block header %}
+    {% include 'header.html' %}
+    {% endblock %}
+
     {% block main-nav %}
     {% include 'main-nav.html' %}
     {% endblock %}
 
     <div class="wrapper wrapper-bg {% spaceless %}{% block wrapper_classes %}{% endblock %}{% endspaceless %}">
-        {% block header %}
-        {% include 'header.html' %}
-        {% endblock %}
         {% block content %}
         <h1>missing content block</h1>
         {% endblock %}
