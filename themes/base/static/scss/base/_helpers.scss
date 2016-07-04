@@ -35,8 +35,14 @@
     &-logout {
         @include icon(before, logout);
     }
+    &-notes {
+        @include icon(before, notes);
+    }
     &-notifications {
         @include icon(before, notifications);
+    }
+    &-profile {
+        @include icon(before, profile);
     }
     &-register {
         @include icon(before, register);
