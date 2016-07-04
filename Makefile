@@ -118,8 +118,8 @@ setup_coveralls:
 	pip install -q coveralls
 
 setup_js:
-
 	npm install # --loglevel silent
+	bower install
 
 setup_django: clean
 	python manage.py migrate --noinput
