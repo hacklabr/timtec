@@ -1,0 +1,36 @@
+// Flatpage styles
+// --------------------------------------------------
+
+.flatpage {
+    margin-top: -20px !important;
+    h2 {
+        color: $brand-primary;
+        font-size: 48px;
+        margin: 0 0 20px 0; 
+    }
+    h3 {
+        color: $gray;
+        font-family: $font-family-sans-serif;
+        font-size: 24px;
+        font-weight: $bold;
+        margin: 30px 0 15px; 
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+    p {
+        border-left: 2px solid #979797;
+        color: $gray;
+        font-size: $font-size-large;
+        margin: 0; 
+        padding: 0 0 15px 20px;
+    }
+    .img-right {
+        float: right;
+        margin: 0 0 20px 20px; 
+    }
+    .content {
+        background-color: rgba($brand-primary,0.3); 
+        padding: 40px;
+    }
+}
