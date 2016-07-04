@@ -62,6 +62,7 @@
 
 .site-logo {
     height: 80px;
+    @include transition(all 0.5s ease);
     position: absolute;
     left: 15px;
     @media screen and (min-width: $screen-sm-min) {
