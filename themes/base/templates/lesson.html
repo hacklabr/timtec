@@ -42,6 +42,51 @@ wrapper-course-lesson
     {% include "_course-header-inline.html"  with course=lesson.course %}
     <!-- END HEADER -->
 
+    <!-- UNITS NAVIGATION FOR TABLET AND DESKTOP -->
+    <div class="lesson-units-nav">
+        {% block units_nav %}
+        <!-- UNITS -->
+        <div class="units">
+            {% verbatim %}
+            <a style="display:block;" data-placement="right"
+               title="{{unit.video.name}}"
+               href="#/{{$index+1}}"
+               class="has-tooltip unit track" data-toggle="tooltip"
+               ng-repeat="unit in lesson.units"
+               ng-class="{watching: unit==currentUnit, done: unit.progress.complete}">
+                   <span class="position" ng-bind="unit.position+1"></span>
+                   <i class="fa fa-list" ng-show="unit.activities"></i>
+            </a>
+            <!-- <label ng-hide="false" style="font-family: monospace">
+                video <input type="radio" ng-model="section" value="video"/>
+            </label>
+            <label ng-hide="false" style="font-family: monospace">
+                ativi <input type="radio" ng-model="section" value="activity"/>
+            </label> -->
+            {% endverbatim %}
+        </div>
+        <!-- END UNITS -->
+        {% endblock %}
+    </div>
+    <!-- END UNITS NAVIGATION FOR TABLET AND DESKTOP -->
+
+    <!-- UNITS NAVIGATION FOR PHONES -->
+    <div class="col-xs-12 visible-xs">
+        {% block units_nav_mobile %}
+        <p>
+            {% verbatim %}
+            <select ng-model="selectedIndex" ng-change="locationChange(selectedIndex)" class="form-control">
+                <option ng-repeat="unit in lesson.units"
+                        ng-value="$index+1"
+                        ng-selected="unit==currentUnit"
+                        value="{{$index+1}}">{% endverbatim %}{% trans 'Unit' %}{% verbatim %} {{ unit.position + 1 }}</option>
+            </select>
+            {% endverbatim %}
+        </p>
+        {% endblock %}
+    </div>
+    <!-- END UNITS NAVIGATION FOR PHONES -->
+
     <!-- COURSE CONTENT -->
     <section class="course-content" ng-controller="MainCtrl">
 
