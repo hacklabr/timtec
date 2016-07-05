@@ -14,10 +14,8 @@
 // --------------------------------------------------
 
 .main-header {
-    .page-header {
-        border-bottom: 0;
+    background-color: $yellow;
+    .course-details {
+        display: none;
     }
-}
-.secondary-header {
-    border-bottom: 0;
 }

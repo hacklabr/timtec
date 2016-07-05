@@ -1,0 +1,27 @@
+{% load timtec_markdown %}
+        <nav class="lesson-units">
+            <div class="lesson-name">
+                você está no <span>Módulo 2 de 5 | Aula 2 de 3:</span>
+            </div>
+            <div class="lesson-list-dropdown">
+                <button type="button" class="dropdown-toggle" data-toggle="dropdown">{{ lesson.name }} <i class="fa fa-caret-down"></i></button>
+                <ul class="dropdown-menu">
+                    {% for list_lesson in lesson.course.public_lessons %}
+                        <li><a href="{% url 'lesson' list_lesson.course.slug list_lesson.slug %}">{{ list_lesson.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </nav>
+
+        <!-- LESSON NAVIGATION FOR PHONE -->
+        <div class="lesson-units-mobile">
+            <select onchange="document.location=this.value" class="form-control">
+                <option>{{lesson.name}}</option>
+                {% for list_lesson in lesson.course.public_lessons %}
+                    {% if list_lesson.name != lesson.name %}
+                        <option value="{% url 'lesson' list_lesson.course.slug list_lesson.slug %}">{{ list_lesson.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <!-- END LESSON NAVIGATION FOR PHONE -->

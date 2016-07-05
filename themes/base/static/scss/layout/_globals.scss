@@ -26,17 +26,15 @@ body {
         }
 
         .container-fluid {
-            max-width: 1170px;
+            max-width: 946px;
         }
     }
-}
 
-// When the main navbar is opened
-// --------------------------------------------------
-
-.main-nav-opened {
-    .wrapper {
-        left: 300px;
-        padding-right: 300px;
+    // when the main navbar is opened
+    &.main-nav-opened {
+        .wrapper {
+            left: 300px;
+            padding-right: 300px;
+        }
     }
 }
