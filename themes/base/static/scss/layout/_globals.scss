@@ -16,8 +16,7 @@ body {
         
         // wrap the whole content of the site to prevent overflow on mobile devices
         .site-wrapper {
-            overflow-x: hidden;
-            overflow-y: scroll;
+            overflow: hidden;
             position: relative;
             width: 100%;
         }
