@@ -24,7 +24,7 @@
                     <a href="{% url 'course_material' course.slug %}" class="materials {% if '/material/' in request.path %}active{% endif %}">{%  trans 'Course material' %}</a>
                     {% if user|is_assistant_or_coordinator:course %}
                         <div class="dropdown">
-                            <a class="tools dropdown-toggle{% if '/messages/' in request.path or '/reports/' in request.path or '/classes/' in request.path %} active{% endif %}" class="course-tools"aria-expanded="true">{% trans 'Tools' %}</a>
+                            <a class="tools dropdown-toggle{% if '/messages/' in request.path or '/reports/' in request.path or '/classes/' in request.path %} active{% endif %}" class="course-tools"aria-expanded="true"><span class="sr-only">{% trans 'Tools' %}</span></a>
                             <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="course-tools">
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'messages' course.slug %}">{% trans 'Messages' %}</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'reports' course.slug %}">{% trans 'Reports' %}</a></li>
