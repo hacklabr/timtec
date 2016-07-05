@@ -41,6 +41,7 @@
         a {
             border-bottom: 2px solid transparent;
             color: #000;
+            text-decoration: none;
             @include transition(border 0.5s ease);
             &:hover {
                 border-color: #000; 
