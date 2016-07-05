@@ -6,15 +6,14 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update \
     && apt-get install -y python python-pip python-dev \
     && apt-get install -y libpq-dev libjpeg-dev libpng12-dev gettext \
-    && apt-get install -y nginx supervisor 
+    && apt-get install -y nginx supervisor \
+    && apt-get install -y curl
 
-RUN wget https://deb.nodesource.com/setup_6.x -O /tmp/setup_6x.sh \
-    && bash /tmp/setup_6x.sh \
-    && rm /tmp/setup_6x.sh \
-    && apt-get install -y npm git
+RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - \
+    && sudo apt-get update
+    && sudo apt-get install -y nodejs
 
 RUN ln -s /usr/bin/nodejs /usr/bin/node
-RUN npm install -g phantomjs-prebuilt bower
 
 RUN useradd -m -d /app -u 1000 -s /bin/bash timtec
 RUN mkdir -p /app
@@ -35,13 +34,7 @@ RUN mkdir -p /app/webfiles/static \
 WORKDIR /app/timtec
 USER timtec
 
-RUN npm install \
-   && node bower install \
-   && node node_modules/grunt-cli/bin/grunt \
-   && python manage.py compilemessages \
-   && python manage.py collectstatic --noinput \
-   && python manage.py compile_pyc --path /app/timtec \
-   && python manage.py collectstatic --noinput
+RUN make docker-update
 
 USER root
 EXPOSE 80 8000
