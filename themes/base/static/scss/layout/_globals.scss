@@ -27,7 +27,12 @@ body {
             left: 100px;
             right: 0;
             top: 80px;
+            padding-bottom: 85px;
             padding-right: 100px;
+            @media screen and (min-width: $screen-md-min) { 
+                padding-bottom: 130px;
+                padding-top: 50px;
+            }
         }
         .container-fluid {
             max-width: 946px;
