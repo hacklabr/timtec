@@ -2,90 +2,44 @@
 {% load is_assistant_or_coordinator %}
 {% load is_course_coordinator %}
 <header class="main-header">
-    <div class="page-header">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-8 col-md-7">
-                    <h2 class="course-name">
-                        <a href="{% url 'course_intro' course.slug %}">{{ course.name }}</a>
-                    </h2>
-                    {% include "_course-details-inline.html" with course=course %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8 col-md-7">
+                <h2 class="course-name">
+                    <a href="{% url 'course_intro' course.slug %}">{{ course.name }}</a>
+                </h2>
+                {% include "_course-details-inline.html" with course=course %}
 
-                    {% block lesson_headder %}
-                        {% include '_lesson_header.html' %}
-                    {% endblock %}
-                </div>
-                {% if course.first_lesson.slug %}
-                <div class="col-lg-4 col-md-5">
-                    <!-- COURSE-SECTION-NAV -->
-                    <nav class="course-sections">
-                        <a href="{% url 'course_intro' course.slug %}" class="intro {% if '/intro/' in request.path %}active{% endif %}">{% trans 'Home' %}</a>
-                        <a href="{% url 'resume_course' course.slug %}" class="resume {% if '/lesson/' in request.path %}active{% endif %}">{% trans 'Resume course' %}</a>
-                        <a href="{% url 'user_course_notes' course.slug %}" class="notes {% if '/mynotes/' in request.path %}active{% endif %}">{%  trans 'Course notes' %}</a>
-                        <a href="{% url 'course_material' course.slug %}" class="materials {% if '/material/' in request.path %}active{% endif %}">{%  trans 'Course material' %}</a>
-                        {% if user|is_assistant_or_coordinator:course %}
-                            <div class="dropdown">
-                                <a class="tools dropdown-toggle{% if '/messages/' in request.path or '/reports/' in request.path or '/classes/' in request.path %} active{% endif %}" class="course-tools"aria-expanded="true">{% trans 'Tools' %}</a>
-                                <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="course-tools">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'messages' course.slug %}">{% trans 'Messages' %}</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'reports' course.slug %}">{% trans 'Reports' %}</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'classes' course.slug %}">{%  trans 'Classes' %}</a></li>
-                                    {% if user.is_superuser or user|is_course_coordinator:course %}
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'administration.edit_course' course.id %}">{%  trans 'Edit course' %}</a></li>
-                                    <!--<li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'course-evaluations' course.slug %}">{%  trans 'Evaluations' %}</a></li>-->
-                                    {% endif %}
-                                </ul>
-                            </div>
-                        {% endif %}
-                    </nav>
-                    <!-- END COURSE-SECTION-NAV -->
-                </div>
-                {% endif %}
-            </div>
-            <!-- UNITS NAVIGATION FOR TABLET AND DESKTOP -->
-            <div class="lesson-units-nav">
-                {% block units_nav %}
-                <!-- UNITS -->
-                <div class="units">
-                    {% verbatim %}
-                    <a style="display:block;" data-placement="right"
-                       title="{{unit.video.name}}"
-                       href="#/{{$index+1}}"
-                       class="has-tooltip unit track" data-toggle="tooltip"
-                       ng-repeat="unit in lesson.units"
-                       ng-class="{watching: unit==currentUnit, done: unit.progress.complete}">
-                           <span class="position" ng-bind="unit.position+1"></span>
-                           <i class="fa fa-list" ng-show="unit.activities"></i>
-                    </a>
-                    <!-- <label ng-hide="false" style="font-family: monospace">
-                        video <input type="radio" ng-model="section" value="video"/>
-                    </label>
-                    <label ng-hide="false" style="font-family: monospace">
-                        ativi <input type="radio" ng-model="section" value="activity"/>
-                    </label> -->
-                    {% endverbatim %}
-                </div>
-                <!-- END UNITS -->
+                {% block lesson_headder %}
+                    {% include '_lesson_header.html' %}
                 {% endblock %}
             </div>
-            <!-- END UNITS NAVIGATION FOR TABLET AND DESKTOP -->
-
-            <!-- UNITS NAVIGATION FOR PHONES -->
-            <div class="col-xs-12 visible-xs">
-                {% block units_nav_mobile %}
-                <p>
-                    {% verbatim %}
-                    <select ng-model="selectedIndex" ng-change="locationChange(selectedIndex)" class="form-control">
-                        <option ng-repeat="unit in lesson.units"
-                                ng-value="$index+1"
-                                ng-selected="unit==currentUnit"
-                                value="{{$index+1}}">{% endverbatim %}{% trans 'Unit' %}{% verbatim %} {{ unit.position + 1 }}</option>
-                    </select>
-                    {% endverbatim %}
-                </p>
-                {% endblock %}
+            {% if course.first_lesson.slug %}
+            <div class="col-lg-4 col-md-5">
+                <!-- COURSE-SECTION-NAV -->
+                <nav class="course-sections">
+                    <a href="{% url 'course_intro' course.slug %}" class="intro {% if '/intro/' in request.path %}active{% endif %}">{% trans 'Home' %}</a>
+                    <a href="{% url 'resume_course' course.slug %}" class="resume {% if '/lesson/' in request.path %}active{% endif %}">{% trans 'Resume course' %}</a>
+                    <a href="{% url 'user_course_notes' course.slug %}" class="notes {% if '/mynotes/' in request.path %}active{% endif %}">{%  trans 'Course notes' %}</a>
+                    <a href="{% url 'course_material' course.slug %}" class="materials {% if '/material/' in request.path %}active{% endif %}">{%  trans 'Course material' %}</a>
+                    {% if user|is_assistant_or_coordinator:course %}
+                        <div class="dropdown">
+                            <a class="tools dropdown-toggle{% if '/messages/' in request.path or '/reports/' in request.path or '/classes/' in request.path %} active{% endif %}" class="course-tools"aria-expanded="true">{% trans 'Tools' %}</a>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="course-tools">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'messages' course.slug %}">{% trans 'Messages' %}</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'reports' course.slug %}">{% trans 'Reports' %}</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'classes' course.slug %}">{%  trans 'Classes' %}</a></li>
+                                {% if user.is_superuser or user|is_course_coordinator:course %}
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'administration.edit_course' course.id %}">{%  trans 'Edit course' %}</a></li>
+                                <!--<li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'course-evaluations' course.slug %}">{%  trans 'Evaluations' %}</a></li>-->
+                                {% endif %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                </nav>
+                <!-- END COURSE-SECTION-NAV -->
             </div>
-            <!-- END UNITS NAVIGATION FOR PHONES -->
+            {% endif %}
         </div>
     </div>
 </header>
