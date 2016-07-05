@@ -3,7 +3,7 @@
 
 .site-header {
     background-color: $site-header-bg-color;
-    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.5); 
+    box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.5);
     height: 80px;
     overflow: hidden;
     @include transition(width 0.5s ease);
@@ -25,14 +25,22 @@
     left: 0;
     width: 100px;
     .user-icon {
+        border-radius: 100%;
+        box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.5);
+        height: 40px;
         text-align: center; 
+        width: 40px;
+        img {
+            height: 40px;
+            width: 40px;
+        }
     }
     .user-name {
         display: none;
         float: left;
-        font-size: $font-size-large;
+        font-size: $font-size-base;
         font-weight: $semi-bold;
-        margin-top: 6px;
+        margin-top: 10px;
         text-align: left;
     }
     .menu-label {

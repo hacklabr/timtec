@@ -43,13 +43,10 @@ $input-border-radius-small:      20px !default;
 //== Specific component colors
 //
 //** Site header background color
-$site-header-bg-color:      rgba(255,255,255,0.8);
+$site-header-bg-color:      rgba(255,255,255,0.75);
 
 //** Main navigation background color
-$main-nav-bg-color:         rgba($purple,0.8);
-
-//** User info background color
-$user-info-bg-color:        $main-nav-bg-color;
+$main-nav-bg-color:         rgba($purple,0.75);
 
 //== Scaffolding
 //
