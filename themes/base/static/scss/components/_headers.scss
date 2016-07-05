@@ -91,20 +91,27 @@
             border-bottom: 2px solid transparent;
             color: #000;
             display: inline-block;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: $bold;
-            max-width: 68px;
+            max-width: 58px;
             vertical-align: top;
             text-align: center;
             text-decoration: none;
             text-transform: lowercase; 
             @include transition(border 0.5s ease);
+            @media screen and (min-width: $screen-lg-min) {
+                font-size: 11px;
+                max-width: 68px;
+            }
             &:hover {
                 border-color: #000; 
             }
             &:before {
                 display: block;
-                font-size: $font-size-large;
+                font-size: $font-size-base;
+                @media screen and (min-width: $screen-lg-min) {
+                    font-size: $font-size-large;
+                }
             }
         }
         .intro {
@@ -134,7 +141,10 @@
         }
         .lesson-name {
             float: left;
-            font-size: 16px;
+            font-size: $font-size-small;
+            @media screen and (min-width: $screen-lg-min) {
+                font-size: 16px;
+            }
             span {
                 font-weight: $bold;
             }
@@ -145,7 +155,10 @@
                 background: transparent;
                 border: 0;
                 box-shadow: none;
-                font-size: 16px;
+                font-size: $font-size-small;
+                @media screen and (min-width: $screen-lg-min) {
+                    font-size: 16px;
+                }
             }
         }
     }

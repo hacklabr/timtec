@@ -4,7 +4,7 @@
 <header class="main-header">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-8 col-md-7">
+            <div class="col-md-8">
                 <h2 class="course-name">
                     <a href="{% url 'course_intro' course.slug %}">{{ course.name }}</a>
                 </h2>
@@ -15,7 +15,7 @@
                 {% endblock %}
             </div>
             {% if course.first_lesson.slug %}
-            <div class="col-lg-4 col-md-5">
+            <div class="col-md-4">
                 <!-- COURSE-SECTION-NAV -->
                 <nav class="course-sections">
                     <a href="{% url 'course_intro' course.slug %}" class="intro {% if '/intro/' in request.path %}active{% endif %}">{% trans 'Home' %}</a>
