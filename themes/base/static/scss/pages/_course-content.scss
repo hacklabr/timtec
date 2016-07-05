@@ -1,12 +1,13 @@
-// COURSE CONTENT
+// Course content (used on course intro and lesson page)
+// -----------------------------------------------------
+
 .course-content {
     margin: 40px auto;  
-    max-width: 720px;
     padding: 0 15px;
+
     // COURSE SUMMARY - Course intro
     // ********************************************************************* //
     .summary {
-        margin-top: 20px;
         .btn-info .text-info {
             // data selecionada dentro do datepicker
             color: #fff;
@@ -184,10 +185,17 @@
         .btn-edit-thumbnail {
             margin: 5px;
         }
+        .add-thumbnail {
+            text-align: center;
+        }
     }
     // END COURSE VIDEO
     // COURSE VIDEO - General
     // ********************************************************************* //
+    .course-video {
+        margin: 0 auto 40px; 
+        max-width: 720px;
+    }
     .video,
     .activity {
         border: 1px solid $gray-lighter;
@@ -339,13 +347,40 @@
     }
     // END COURSE UNITS
 }
+
+// Define max-width of course-content div
+.course-lesson {
+    .course-content {
+        max-width: 720px !important;
+    }
+}
+.course-intro {
+    .course-content {
+        max-width: 1050px !important;
+
+        .course-info {
+            display: flex;
+            .column {
+                background-color: $gray-lighter;
+                box-sizing: border-box;
+                padding: 30px;
+                width: 60%;
+                &:last-child {
+                    background-color: darken($gray-lighter,5%);
+                    width: 40%;
+                }
+            }
+        }
+    }
+}
+
 // COURSE INTRO
-#course.course-intro {
+.course-intro {
     .video {
         @include top(25px);
     }
 }
-#course.course-stats {
+.course-stats {
     .students, .scssons {
         margin: 20px 0 0;
         padding: 0;
