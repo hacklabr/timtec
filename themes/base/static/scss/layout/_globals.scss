@@ -13,8 +13,13 @@ body {
     &.user-logged {
         background-image: url(https://s-media-cache-ak0.pinimg.com/236x/ef/73/75/ef737591ab4e6fee1ab6025ba968a58b.jpg);
         background-color: transparent;
-        overflow-x: hidden;
-        overflow-y: scroll;
+        
+        .site-wrapper { // wrap the whole content of the site
+            overflow-x: hidden;
+            overflow-y: scroll;
+            position: relative;
+            width: 100%;
+        }
 
         .wrapper {
             position: relative;
@@ -33,8 +38,8 @@ body {
     // when the main navbar is opened
     &.main-nav-opened {
         .wrapper {
-            left: 300px;
-            padding-right: 300px;
+            left: 250px;
+            padding-right: 250px;
         }
     }
 }
