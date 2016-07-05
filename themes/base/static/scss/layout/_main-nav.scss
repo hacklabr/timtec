@@ -9,7 +9,7 @@
     position: fixed;
     @include transition(width 0.5s ease);
     width: 100px; 
-    z-index: 1000;
+    z-index: 900;
 
     a {
         color: #fff;
@@ -19,50 +19,48 @@
         color: #fff;
     }
 }
-
-.user-info {
-    background-color: $user-info-bg-color;
-    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.5);
-    box-sizing: border-box;
-    font-size: 10px;
-    height: 80px;
-    padding: 10px;
-    .user-icon {
-        text-align: center; 
-    }
-    .user-name {
-        color: #fff;
-        font-size: 10px;
-        font-weight: 700;
-        margin-top: 5px;
-        text-align: center; 
+.main-nav-opened { // when the offcanvas menu is opened
+    .main-nav {
+        width: 250px;
     }
 }
 
 .user-nav {
     font-size: $font-size-small;
-    font-weight: 700;
-    margin: 10px; 
+    font-weight: $semi-bold;
+    margin: 105px 10px 10px; 
+    text-align: center;
     li {
-        margin-bottom: 10px;
+        margin-bottom: 15px;
+        @media screen and (min-height: 768px) {
+            margin-bottom: 20px;
+        }
         &:last-child {
             margin-bottom: 0 !important;
         }
     }
     .submenu {
         border-bottom: 1px solid #fff;
-        color: $gray-darker;
-        margin-bottom: 10px;
-        padding-bottom: 10px; 
+        margin-bottom: 20px;
+        padding-bottom: 20px; 
+        text-align: left; 
         ul {
-            color: #fff;
             margin-top: 10px;
+            li {
+                margin-bottom: 10px;
+            }
         }
     }
     a {
+        border-bottom: 1px solid transparent;
+        @include transition(border 0.5s ease);
+        text-decoration: none;
         &:before {
             display: block;
             font-size: $font-size-large;
+        }
+        &:hover {
+            border-color: #fff;
         }
     }
     .courses {
@@ -80,11 +78,30 @@
     .logout {
         @extend %icon-logout;
     }
+    .notes {
+        @extend %icon-notes;
+    }
+    .profile {
+        @extend %icon-profile;
+    }
     .register {
         @extend %icon-register;
     }
     .repositories {
         @extend %icon-repositories;
+    }
+}
+.main-nav-opened { // when the offcanvas menu is opened
+    .user-nav {
+        font-size: $font-size-large;
+        margin: 105px 25px 25px; 
+        text-align: left;
+        a {
+            &:before {
+                display: inline-block;
+                margin-right: 10px;
+            }
+        }
     }
 }
 
@@ -110,42 +127,8 @@
         text-align: center; 
     }
 }
-
-.main-nav-opened {
-    .main-nav {
-        width: 300px;
-        .user-info {
-            padding: 20px 30px;
-            .user-icon {
-                float: left;
-                margin-right: 10px;
-            }
-            .user-name {
-                float: left;
-                font-size: $font-size-base;
-                margin-top: 10px;
-                text-align: left;
-            }
-        }
-        .user-nav {
-            font-size: $font-size-large;
-            margin: 30px; 
-            li {
-                margin-bottom: 15px;
-            }
-            a {
-                &:before {
-                    display: inline-block;
-                    margin-right: 10px;
-                }
-            }
-            .submenu {
-                margin-bottom: 20px;
-                padding-bottom: 20px; 
-            }
-        }
-        .site-info {
-            display: block;
-        }
+.main-nav-opened {  // when the offcanvas menu is opened
+    .site-info {
+        display: block;
     }
 }

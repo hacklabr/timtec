@@ -1,0 +1,97 @@
+// Homepage styles
+// --------------------------------------------------
+
+.home {
+    .blocks {
+        color: #fff;
+        margin: 0 15px;
+        .line > div {
+            padding: 15px;
+        }
+        @media screen and (min-width: $screen-sm-min) {
+            display: table; 
+            .line {
+                display: table-row;
+                > div {
+                    display: table-cell;
+                    padding: 30px;
+                    vertical-align: top;
+                    width: 50%;
+                }
+            }
+        }
+        @media screen and (min-width: 947px) {
+            margin: 0 auto; 
+        }
+        h2 {
+            font-weight: bold;
+            margin: 0; 
+        }
+        p {
+            font-size: 2.5vmax;
+            font-weight: $bold;
+            margin: 0; 
+            @media screen and (min-width: $screen-sm-min) {
+                font-size: 18px;
+            }
+
+        }
+        .welcome {
+            background-color: $yellow;
+            text-align: center;
+            @media screen and (min-width: $screen-sm-min) {
+                text-align: left;
+            }
+            h2 {
+                font-size: 6vmax;
+                line-height: 95%;
+                margin-bottom: 15px;
+                @media screen and (min-width: $screen-sm-min) {
+                    font-size: 66px;
+                }
+            }
+        }
+        .login {
+            background-color: $orange;
+        }
+        .register {
+            background-color: $purple;
+            text-align: center;
+            h2 {
+               font-size: 5.5vmax;
+                line-height: 95%;
+                margin-bottom: 15px;
+                @media screen and (min-width: $screen-sm-min) {
+                    font-size: 50px;
+                } 
+            }
+            p {
+                margin-bottom: 15px;
+            }
+            .btn-register {
+                background-color: $green;
+                color: #fff;
+                font-weight: $extra-bold;
+                font-size: $font-size-large;
+                width: 270px;
+                transition: all 0.5s ease;
+                &:hover {
+                    background-color: darken($green, 15%);
+                    color: #fff;
+                }
+            }
+        }
+        .use { 
+            background: url(../img/home-print.png) $light-blue bottom right no-repeat;
+            background-size: 86%;
+            min-height: 62vw;
+            @media screen and (min-width: $screen-sm-min) {
+                min-height: initial;
+            }
+
+            p {
+                margin: 0 0 15px 30px; 
+            }
+        }
+    }
+}

@@ -1,0 +1,28 @@
+{% load i18n %}
+{% load is_coordinator %}
+
+<header class="site-header" role="navigation">
+    {% block header_navbar %}
+    <nav class="site-nav">
+        <ul>
+            <li><a href="#">Fazer o login</a></li>
+            <li><a href="#">O projeto</a></li>
+            <li><a href="#">Sobre a plataforma</a></li>
+            <li><a href="#">FAQ</a></li>
+        </ul>
+    </nav>
+    <div class="site-logo">
+        <h1>
+            <a href="/"><img src="/static/img/site-logo-black.svg" alt="{{ site.name }}" class="img-responsive"></a>
+            <span>ambiente de educação à distância</span>
+        </h1>
+    </div>
+    <div class="animals">
+        <div class="snail"></div><div class="elephant"></div><div class="turtle"></div>
+        <div class="snake"></div><div class="pig"></div><div class="duck"></div>
+    </div>
+    <div class="color-line"></div>
+    {% endblock %}
+
+
+</header>

@@ -1,9 +1,10 @@
 // Page's headers
 // --------------------------------------------------
 
-.page-header-double {
-    border-bottom: 0;
+.page-header {
     h1, h2, h3, h4, h5, h6 {
+        color: #000;
+        text-transform: lowercase;
         i {
             display: none;
         }
@@ -14,10 +15,16 @@
 // --------------------------------------------------
 
 .main-header {
-    .page-header {
-        border-bottom: 0;
+    background-color: $yellow;
+    .course-name {
+        a {
+            color: #000;
+            &:hover {
+                border-color: #000; 
+            } 
+        }
     }
-}
-.secondary-header {
-    border-bottom: 0;
+    .course-details {
+        display: none;
+    }
 }

@@ -1,0 +1,139 @@
+// Login and register page styles
+// --------------------------------------------------
+
+// ## Common styles
+//
+.user-unlogged {
+    form { // common form styles
+        color: #fff;
+        legend {
+            color: #fff;
+            border-bottom: 0;
+            font-size: 5vmax;
+            font-weight: $lighter;
+            line-height: 100%;
+            text-align: center;
+            @media screen and (min-width: $screen-sm-min) {
+                font-size: 36px;
+            }
+        }
+        .form-group {
+            margin: 0 auto 15px; 
+            max-width: 270px;
+        }
+        .form-control {
+            font-weight: $semi-bold;
+            &:hover, &:focus, &:active {
+                border: 1px solid darken($brand-primary, 10%);
+            }
+        }
+        .btn {
+            color: #fff;
+            display: block;
+            font-size: $font-size-large;
+            font-weight: $extra-bold;
+            margin: 0 auto; 
+            width: 270px;
+            transition: all 0.5s ease;
+            &:hover {
+                color: #fff;
+            }
+        }
+        .info {
+            color: #fff;
+            margin: 0;
+            font-size: $font-size-base;
+            font-weight: $normal;
+            text-align: center;
+            a {
+                color: #fff;
+                text-decoration: underline; 
+            }
+        }
+    }
+
+    .login-form { // this is used on home and login page
+        .btn-submit {
+            background-color: $blue;
+            &:hover {
+                background-color: darken($blue, 15%);
+            }
+        }
+        .checkbox {
+            margin: 15px 0; 
+            text-align: center;
+            label {
+                color: #fff;
+                font-weight: $extra-bold;
+            }
+        }
+    }
+
+    .register-form {
+        margin: 0 auto; 
+        max-width: 340px;
+        .form-group {
+            .fa {
+                display: inline-block;
+                font-size: 20px;
+                text-align: center; 
+                width: 30px;
+            }
+            input {
+                display: inline-block;
+                width: 235px;
+            }
+        }
+        .btn-submit {
+            background-color: $green;
+            float: right;
+            margin: 0 35px 20px 0; 
+            width: 235px;
+            &:hover {
+                background-color: darken($green, 15%);
+            }
+        }
+    }
+
+    .alert { // common alert styles
+        border: 0;
+        border-radius: 0;
+        color: #fff;
+        font-weight: $bold;
+        margin: -20px -20px 20px; 
+        text-align: center; 
+        @media screen and (min-width: 947px) {
+            margin: -40px -40px 40px; 
+        }
+
+        &.alert-danger {
+            background-color: $pink;
+        }
+    }
+}
+
+.register-page, .login-page {
+    box-sizing: border-box;
+    padding: 20px;
+    @media screen and (min-width: 947px) {
+        padding: 40px;
+    }
+    .login-form {
+        .checkbox {
+            margin: 30px 0 !important; 
+        }
+    }
+}
+
+.login-page {
+    background-color: $orange;
+    .login-form {
+        .checkbox {
+            margin: 30px 0 !important; 
+        }
+    }
+}
+
+.register-page {
+    background-color: $purple;
+}

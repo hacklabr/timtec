@@ -15,6 +15,7 @@ $pink:          #cf086a;
 $purple:        #993671;
 
 //## Override Bootstrap's variables 
+// --------------------------------------------------
 
 $brand-primary:     $orange;
 $brand-success:     $green;
@@ -22,22 +23,30 @@ $brand-info:        $light-blue;
 $brand-warning:     $yellow;
 $brand-danger:      $red;
 
-//## Override base theme variables 
+// Allows for customizing button radius independently from global border radius
+$btn-border-radius-base:         20px !default;
+$btn-border-radius-large:        20px !default;
+$btn-border-radius-small:        20px !default;
 
-//== Specific component colors
-//
-//** Site header background color
-$site-header-bg-color:      rgba(255,255,255,0.8);
-
-//** Main navigation background color
-$main-nav-bg-color:         rgba($purple,0.8);
-
-//** User info background color
-$user-info-bg-color:        $main-nav-bg-color;
+//** Default `.form-control` border radius
+// This has no effect on `<select>`s in some browsers, due to the limited stylability of `<select>`s in CSS.
+$input-border-radius:            20px !default;
+//** Large `.form-control` border radius
+$input-border-radius-large:      20px !default;
+//** Small `.form-control` border radius
+$input-border-radius-small:      20px !default;
 
 
 // Override base theme variables 
 // --------------------------------------------------
+
+//== Specific component colors
+//
+//** Site header background color
+$site-header-bg-color:      rgba(255,255,255,0.75);
+
+//** Main navigation background color
+$main-nav-bg-color:         rgba($purple,0.75);
 
 //== Scaffolding
 //

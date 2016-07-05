@@ -1,54 +1,64 @@
 // Widget's grid system
 // --------------------------------------------------
 
-.line {
-    @extend .row;
-    &.one-column {
-        .column {
-            @extend .col-xs-12;
-            @extend .col-sm-12;
-            @extend .col-md-12;
-            @extend .col-lg-12;
+.widget {
+    .line {
+        @extend .row;
+        &.one-column {
+            .column {
+                @extend .col-xs-12;
+                @extend .col-sm-12;
+                @extend .col-md-12;
+                @extend .col-lg-12;
+            }
         }
-    }
-    &.two-column.fifty-fifty {
-        .column {
-            @extend .col-xs-12;
-            @extend .col-sm-12;
-            @extend .col-md-12;
-            @extend .col-lg-6;
+        &.two-column.fifty-fifty {
+            .column {
+                @extend .col-xs-12;
+                @extend .col-sm-12;
+                @extend .col-md-12;
+                @extend .col-lg-6;
 
-            .two-column {
-                .column {
-                    @extend .col-xs-12;
-                    @extend .col-sm-6;
-                    @extend .col-md-6;
-                    @extend .col-lg-6;
+                .two-column {
+                    .column {
+                        @extend .col-xs-12;
+                        @extend .col-sm-6;
+                        @extend .col-md-6;
+                        @extend .col-lg-6;
+                    }
+                }
+                .one-column {
+                    .column {
+                        @extend .col-xs-12;
+                        @extend .col-sm-12;
+                        @extend .col-md-12;
+                        @extend .col-lg-12;
+                    }
                 }
             }
-            .one-column {
-                .column {
+        }
+        &.two-column.forty-sixty {
+            .column {
+                &:first-child {
                     @extend .col-xs-12;
                     @extend .col-sm-12;
-                    @extend .col-md-12;
-                    @extend .col-lg-12;
+                    @extend .col-md-5;
+                    @extend .col-lg-5;
+                }
+                &:last-child {
+                    @extend .col-xs-12;
+                    @extend .col-sm-12;
+                    @extend .col-md-7;
+                    @extend .col-lg-7;
                 }
             }
         }
-    }
-    &.two-column.forty-sixty {
-        .column {
-            &:first-child {
+        &.widget-topbar.two-column.fifty-fifty, &.widget-header.two-column.fifty-fifty {
+            .column {
                 @extend .col-xs-12;
                 @extend .col-sm-12;
-                @extend .col-md-5;
-                @extend .col-lg-5;
-            }
-            &:last-child {
-                @extend .col-xs-12;
-                @extend .col-sm-12;
-                @extend .col-md-7;
-                @extend .col-lg-7;
+                @extend .col-md-6;
+                @extend .col-lg-6;
             }
         }
     }

@@ -11,14 +11,26 @@
     &-chat {
         @include icon(before, chat);
     }
+    &-comment {
+        @include icon(before, comment);
+    }
     &-courses {
         @include icon(before, courses);
+    }
+    &-film {
+        @include icon(before, film);
     }
     &-forum {
         @include icon(before, forum);
     }
+    &-goback {
+        @include icon(before, goback);
+    }
     &-help {
         @include icon(before, help);
+    }
+    &-home {
+        @include icon(before, home);
     }
     &-like {
         @include icon(before, like);
@@ -29,14 +41,38 @@
     &-logout {
         @include icon(before, logout);
     }
+    &-materials {
+        @include icon(before, materials);
+    }
+    &-notes {
+        @include icon(before, notes);
+    }
     &-notifications {
         @include icon(before, notifications);
+    }
+    &-profile {
+        @include icon(before, profile);
     }
     &-register {
         @include icon(before, register);
     }
     &-repositories {
         @include icon(before, repositories);
+    }
+    &-tools {
+        @include icon(before, tools);
+    }
+}
+
+// List styles
+
+%list-inline {
+    padding-left: 0;
+    list-style: none;
+    margin: 0 0 0 -5px;
+
+    li {
+        display: inline-block;
     }
 }
 

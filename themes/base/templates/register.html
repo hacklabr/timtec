@@ -1,0 +1,54 @@
+{% extends 'base-unlogged.html' %}
+
+{% load i18n %}
+{% load pipeline %}
+{% load is_enrolled %}
+{% load get_flatpage %}
+
+{% block js %}
+    {{ block.super }}
+    {% javascript 'core' %}
+{% endblock %}
+
+{% block wrapper_classes %}
+register-page
+{% endblock %}
+
+{% block content %}
+
+<div ng-app="core" ng-controller="HomeCtrl">
+    <div class="alert alert-danger" role="alert">
+        Todos os campos são obrigatórios.
+    </div>
+
+    <form class="register-form">
+        <fieldset>
+            <legend>Cadastro de Usuário</legend>
+            <div class="form-group">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <label for="username" class="sr-only">nome de usuário</label>
+                <input type="text" class="form-control" id="username" placeholder="nome de usuário">
+            </div>
+            <div class="form-group">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <label for="email" class="sr-only">e-mail</label>
+                <input type="email" class="form-control" id="email" placeholder="e-mail">
+            </div>
+            <div class="form-group">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+                <label for="password" class="sr-only">senha</label>
+                <input type="password" class="form-control" id="password" placeholder="senha">
+            </div>
+            <div class="form-group">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+                <label for="confirm-password" class="sr-only">confirmar senha</label>
+                <input type="password" class="form-control" id="confirm-password" placeholder="confirmar senha">
+            </div>
+            <button type="submit" class="btn btn-submit">quero me cadastrar</button>
+        </fieldset>
+        <p class="info"><a href="#">Clique aqui para ler os termos de uso.</a></p>
+    </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,80 @@
+// Forums' pages
+// --------------------------------------------------
+
+.forum-thread {
+    background-color: #fff;
+    padding: 30px;
+
+    .thread-header {
+        margin: 0 0 10px 0;
+        font-family: $font-family-sans-serif;
+    }
+    .thread-title {
+        display: inline;
+        font-family: $font-family-sans-serif;
+        font-size: 22px;
+        font-weight: $bold;
+    }
+    .user-name {
+        color: #000;
+    }
+    .actions {
+        display: inline-block;
+        margin: 0 5px 5px 0; 
+    }
+    .tags {
+        display: inline-block;
+        margin: 0 0 5px 0;
+        a {
+            background-color: $brand-primary;
+            color: #fff;
+            &:hover {
+                background-color: lighten($brand-primary, 10%);
+                color: #fff;
+            }
+        }
+    }
+    .thread-post {
+        background-color: rgba($brand-primary, 0.5);
+        margin-top: 10px;
+        padding: 15px;
+
+        p:last-child {
+            margin-bottom: 0; 
+        }
+    }
+    .comments {
+        border-top: 1px solid $brand-primary;
+        margin-top: 20px;
+        padding-top: 20px;
+        > .thread {
+            border-bottom: 1px dashed lighten($gray-light,20%);
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            .thread {
+                border-left: 2px solid lighten($gray-light,20%); 
+                margin: 20px 0 0 20px;
+                padding-left: 20px;
+            }
+        }
+        .thread:last-child {
+            border-bottom: 0;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .user-name {
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+        .actions {
+            margin: 0 0 5px 50px;
+        }
+    }
+    .comments-title {
+        color: $brand-primary;
+        font-family: $font-family-sans-serif;
+        font-size: $font-size-base;
+        font-weight: $extra-bold;
+        margin: 0 0 20px 0; 
+    }
+}

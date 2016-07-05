@@ -77,275 +77,233 @@ wrapper-course-intro
     {% endif %}
 
     <!-- COURSE-CONTENT -->
-    <section class="course-content container">
-        <!-- ROW -->
-        <div class="row">
-            <!-- COL-LG-9 -->
-            <div class="col-md-9 col-sm-8 col-xs-12" ng-init="mediaSection='video'">
+    <section class="course-content">
 
-                {% if in_admin %}
-                    <!-- ADD CONTENT -->
-                    <div class="add-content row">
-                        <div class="col-lg-6">
-                            <button ng-click="mediaSection='video'"
-                                    ng-class="{'btn-success':mediaSection=='video'}"
-                                    class="btn btn-default uppercase selected">{% trans 'Video' %}</button>
+        <div class="course-video" ng-init="mediaSection='video'">
+        {% if in_admin %}
+            <!-- ADD CONTENT -->
+            <div class="add-content row">
+                <div class="col-lg-6">
+                    <button ng-click="mediaSection='video'"
+                            ng-class="{'btn-success':mediaSection=='video'}"
+                            class="btn btn-default uppercase selected">{% trans 'Video' %}</button>
 
-                            <button class="btn btn-default uppercase"
-                                    ng-class="{'btn-success':mediaSection=='thumbnail'}"
-                                    ng-click="mediaSection='thumbnail'">{% trans 'Thumbnail' %}</button>
+                    <button class="btn btn-default uppercase"
+                            ng-class="{'btn-success':mediaSection=='thumbnail'}"
+                            ng-click="mediaSection='thumbnail'">{% trans 'Thumbnail' %}</button>
 
-                            <button class="btn btn-default uppercase"
-                                    ng-class="{'btn-success':mediaSection=='homethumbnail'}"
-                                    ng-click="mediaSection='homethumbnail'">{% trans 'Home thumbnail' %}</button>
+                    <button class="btn btn-default uppercase"
+                            ng-class="{'btn-success':mediaSection=='homethumbnail'}"
+                            ng-click="mediaSection='homethumbnail'">{% trans 'Home thumbnail' %}</button>
+                </div>
+            </div>
+            <!-- END ADD CONTENT -->
+
+            <section class="thumbnail" ng-show="mediaSection=='thumbnail'" ng-init="thumbfile=null">
+                <div ng-show="addThumb" ng-init="addThumb=(thumbfile===null)">
+                    <div class="add-thumbnail">
+                        <div class="centered">
+                            <div class="form-group">
+                                <i class="fa fa-picture-o fa-4x"></i>
+                                <h1 class="bottom top">{% trans 'Thumbnail' %}</h1>
+                                <p>({% trans "min-width" %}: 845px)</p>
+
+                                <file ng-model="thumbfile" name="thumbnail" class="form-control"></file>
+                            </div>
+
+                            <p>
+                                <br>
+                                <button class="btn btn-danger btn-lg uppercase"
+                                        ng-click="thumbfile=null; addThumb=!course.thumbnail_url">{% trans 'Cancel' %}</button>
+
+                                <button class="btn btn-success btn-lg uppercase"
+                                        ng-click="addThumb=(thumbfile===null); saveThumb()">{% trans 'Add' %}</button>
+
+                            </p>
                         </div>
                     </div>
-                    <!-- END ADD CONTENT -->
+                </div>
 
-                    <section class="thumbnail" ng-show="mediaSection=='thumbnail'" ng-init="thumbfile=null">
+                <div ng-show="!addThumb">
+                    <div>
+                        <img preview-image ng-model="thumbfile" class="img-responsive" ng-show="thumbfile"/>
+                        {% verbatim %}
+                        <img ng-src="{{course.thumbnail_url}}" class="img-responsive" ng-show="!thumbfile"/>
+                        {% endverbatim %}
+                    </div>
 
-                        <div class="row" ng-show="addThumb" ng-init="addThumb=(thumbfile===null)">
+                    <div>
+                        <button class="btn-edit-thumbnail btn btn-success btn-sm uppercase"
+                                ng-click="addThumb=true">{% trans 'Change thumbnail' %}</button>
+                    </div>
+                </div>
+            </section>
 
-                            <div class="add-thumbnail col-sm-12 col-lg-12 textcenter">
-                                <div class="centered">
-                                    <div class="form-group">
-                                        <i class="fa fa-picture-o fa-4x"></i>
-                                        <h1 class="bottom top">{% trans 'Thumbnail' %}</h1>
-                                        <p>({% trans "min-width" %}: 845px)</p>
+            <!-- Home thumbnail -->
+            <section class="thumbnail" ng-show="mediaSection=='homethumbnail'" ng-init="home_thumbfile=null">
 
-                                        <file ng-model="thumbfile" name="thumbnail" class="form-control"></file>
-                                    </div>
+                <div ng-show="addHomeThumb" ng-init="addHomeThumb=(home_thumbfile===null)">
 
-                                    <p>
-                                        <br>
-                                        <button class="btn btn-danger btn-lg uppercase"
-                                                ng-click="thumbfile=null; addThumb=!course.thumbnail_url">{% trans 'Cancel' %}</button>
+                    <div class="add-thumbnail">
+                        <div class="centered">
+                            <div class="form-group">
+                                <i class="fa fa-picture-o fa-4x"></i>
+                                <h1 class="bottom top">{% trans 'Home thumbnail' %}</h1>
+                                <p></p>
 
-                                        <button class="btn btn-success btn-lg uppercase"
-                                                ng-click="addThumb=(thumbfile===null); saveThumb()">{% trans 'Add' %}</button>
-
-                                    </p>
-                                </div>
+                                <file ng-model="home_thumbfile" name="home_thumbnail" class="form-control"></file>
                             </div>
+
+                            <p>
+                                <br>
+                                <button class="btn btn-danger btn-lg uppercase"
+                                        ng-click="home_thumbfile=null; addHomeThumb=!course.home_thumbnail_url">{% trans 'Cancel' %}</button>
+
+                                <button class="btn btn-success btn-lg uppercase"
+                                        ng-click="addHomeThumb=(home_thumbfile===null); saveHomeThumb()">{% trans 'Add' %}</button>
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="!addHomeThumb">
+                    <div class="add-thumbnail">
+                        <div class="centered">
+                            <img preview-image ng-model="home_thumbfile" class="img-thumbnail" />
+                            {% verbatim %}
+                            <img ng-src="{{course.home_thumbnail_url}}" class="img-thumbnail" ng-show="!home_thumbfile"/>
+                            {% endverbatim %}
+                            <p><button class="btn btn-success btn-edit-thumbnail uppercase"
+                                ng-click="addHomeThumb=true">{% trans 'Change thumbnail' %}</button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- End home thumbnail -->
+
+            <!--  COURSE-VIDEO  -->
+            <section class="video" ng-show="mediaSection=='video'">
+                
+                <div ng-show="course.intro_video.youtube_id && !playerReady">
+                    <div class="waiting textcenter jumbotron" style="height: 515px">
+                        <div class="middle">
+                            <i class="fa fa-refresh fa-5x"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-class="{'hidder': !(course.hasVideo() && playerReady)}">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <div class="embed-responsive-item" id="youtube-player" youtube-player></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <p class="video-title editable-content" ng-model="course.intro_video.name" placeholder="Nome do vídeo" contenteditable><p>
+                        </div>
+                        <div class="col-lg-2 textcenter">
+                            <button class="btn-edit-video btn btn-success btn-sm uppercase"
+                                    ng-click="course.intro_video.youtube_id=''">{% trans 'Change video' %}</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="add-video-intro" ng-show="!course.intro_video.youtube_id">
+                    <div class="centered">
+                        <div class="form-group">
+                            <i class="fa fa-youtube-play fa-4x"></i>
+                            <h1 class="top">{% trans 'Introduction video' %}</h1>
+                            <input type="text" tabindex="8" ng-model="youtube_id" class="form-control"/>
                         </div>
 
-                        <div class="row" ng-show="!addThumb">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <img preview-image ng-model="thumbfile" class="img-responsive" ng-show="thumbfile"/>
-                                {% verbatim %}
-                                <img ng-src="{{course.thumbnail_url}}" class="img-responsive" ng-show="!thumbfile"/>
-                                {% endverbatim %}
-                            </div>
+                        <p>
+                            <button class="btn btn-danger btn-lg uppercase"
+                                    ng-click="course.intro_video.youtube_id=''">{% trans 'Cancel' %}</button>
+                            <button tabindex="9"
+                                    class="btn btn-success btn-lg uppercase"
+                                    ng-show="!course.intro_video.youtube_id"
+                                    ng-click="course.intro_video.youtube_id=youtube_id">{% trans 'Add' %}</button>
+                        </p>
+                    </div>
+                </div>
 
-                            <div class="col-lg-12 textright">
-                                <button class="btn-edit-thumbnail btn btn-success btn-sm uppercase"
-                                        ng-click="addThumb=true">{% trans 'Change thumbnail' %}</button>
-                            </div>
-                        </div>
-                    </section>
-
-
-                    <!-- Home thumbnail -->
-                    <section class="thumbnail" ng-show="mediaSection=='homethumbnail'" ng-init="home_thumbfile=null">
-
-                        <div class="row" ng-show="addHomeThumb" ng-init="addHomeThumb=(home_thumbfile===null)">
-
-                            <div class="add-thumbnail col-sm-12 col-lg-12 textcenter">
-                                <div class="centered">
-                                    <div class="form-group">
-                                        <i class="fa fa-picture-o fa-4x"></i>
-                                        <h1 class="bottom top">{% trans 'Home thumbnail' %}</h1>
-                                        <p></p>
-
-                                        <file ng-model="home_thumbfile" name="home_thumbnail" class="form-control"></file>
-                                    </div>
-
-                                    <p>
-                                        <br>
-                                        <button class="btn btn-danger btn-lg uppercase"
-                                                ng-click="home_thumbfile=null; addHomeThumb=!course.home_thumbnail_url">{% trans 'Cancel' %}</button>
-
-                                        <button class="btn btn-success btn-lg uppercase"
-                                                ng-click="addHomeThumb=(home_thumbfile===null); saveHomeThumb()">{% trans 'Add' %}</button>
-
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row" ng-show="!addHomeThumb">
-                            <div class="add-thumbnail col-sm-12 col-lg-12 textcenter">
-                                <div class="centered">
-                                    <img preview-image ng-model="home_thumbfile" class="img-thumbnail" />
-                                    {% verbatim %}
-                                    <img ng-src="{{course.home_thumbnail_url}}" class="img-thumbnail" ng-show="!home_thumbfile"/>
-                                    {% endverbatim %}
-                                    <p><button class="btn btn-success btn-edit-thumbnail uppercase"
-                                        ng-click="addHomeThumb=true">{% trans 'Change thumbnail' %}</button>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <!-- End home thumbnail -->
-
-
-                    <!--  COURSE-VIDEO  -->
-                    <section class="video" ng-show="mediaSection=='video'">
-                        <div class="row">
-                            <div class="col-xs-12" ng-show="course.intro_video.youtube_id && !playerReady">
-                                <div class="waiting textcenter jumbotron" style="height: 515px">
-                                    <div class="middle">
-                                        <i class="fa fa-refresh fa-5x"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xs-12" ng-class="{'hidder': !(course.hasVideo() && playerReady)}">
-                                <div class="embed-responsive embed-responsive-16by9">
-                                    <div class="embed-responsive-item" id="youtube-player" youtube-player></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-10">
-                                        <p class="video-title editable-content" ng-model="course.intro_video.name" placeholder="Nome do vídeo" contenteditable><p>
-                                    </div>
-                                    <div class="col-lg-2 textcenter">
-                                        <button class="btn-edit-video btn btn-success btn-sm uppercase"
-                                                ng-click="course.intro_video.youtube_id=''">{% trans 'Change video' %}</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="add-video-intro col-sm-12 col-lg-12 textcenter"
-                                 ng-show="!course.intro_video.youtube_id">
-                                <div class="centered">
-                                    <div class="form-group">
-                                        <i class="fa fa-youtube-play fa-4x"></i>
-                                        <h1 class="top">{% trans 'Introduction video' %}</h1>
-                                        <input type="text" tabindex="8" ng-model="youtube_id" class="form-control"/>
-                                    </div>
-
-                                    <p>
-                                        <button class="btn btn-danger btn-lg uppercase"
-                                                ng-click="course.intro_video.youtube_id=''">{% trans 'Cancel' %}</button>
-                                        <button tabindex="9"
-                                                class="btn btn-success btn-lg uppercase"
-                                                ng-show="!course.intro_video.youtube_id"
-                                                ng-click="course.intro_video.youtube_id=youtube_id">{% trans 'Add' %}</button>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <!--  END COURSE-VIDEO  -->
-                {% else %}
-                    <!-- COURSE-VIDEO -->
-                    <section class="video embed-responsive embed-responsive-16by9" id="course-video">
-                        {% with yid=course.intro_video.youtube_id %}
-                        {% if yid %}
-                            <iframe id="youtube-player"
-                                    type="text/html"
-                                    src="//www.youtube.com/embed/{{yid}}?rel=0&showinfo=0&autohide=1&theme=light&wmode=opaque"
-                                    allowfullscreen>
-                            </iframe>
-                        {% elif course.thumbnail %}
-                            <img class="img-responsive" src="{{ course.thumbnail.url }}">
-                        {% endif %}
-                        {% endwith %}
-                    </section>
-                    <!-- END COURSE-VIDEO -->
+            </section>
+            <!--  END COURSE-VIDEO  -->
+        {% else %}
+            <!-- COURSE-VIDEO -->
+            <section class="video embed-responsive embed-responsive-16by9" id="course-video">
+                {% with yid=course.intro_video.youtube_id %}
+                {% if yid %}
+                    <iframe id="youtube-player"
+                            type="text/html"
+                            src="//www.youtube.com/embed/{{yid}}?rel=0&showinfo=0&autohide=1&theme=light&wmode=opaque"
+                            allowfullscreen>
+                    </iframe>
+                {% elif course.thumbnail %}
+                    <img class="img-responsive" src="{{ course.thumbnail.url }}">
                 {% endif %}
+                {% endwith %}
+            </section>
+            <!-- END COURSE-VIDEO -->
+        {% endif %}
+        </div>
 
+        <!-- COURSE INFO -->
+        <div class="course-info">
+            <!-- COLUMN -->
+            <div class="column">
                 {% block course_info %}
                 <!-- COURSE-INFO -->
-                <section class="course-info">
-                    <!-- ROW -->
-                    <div class="row">
-                        <!-- COURSE-ABSTRACT - VISIBLE ONLY FOR PHONES -->
-                        <div class="hidden-lg hidden-md hidden-sm visible-xs col-xs-12">
-                            <!-- ABSTRACT -->
-                            <div class="page-header-double">
-                                <h3 class="top"><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Abstract' %}</h3>
-                            </div>
-
-                            {% if in_admin %}
-                                <modalmarkdowneditor tabindex="2" on-save="saveCourse()" title="{% trans 'Abstract' %}" content="course.abstract"></modalmarkdowneditor>
-                            {% else %}
-                                {{ course.abstract|timtec_markdown }}
-                            {% endif %}
-                            <!-- END ABSTRACT -->
+                <section class="info">
+                    <!-- ABSTRACT -->
+                    <div class="abstract">
+                        <div class="page-header first">
+                            <h3><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Abstract' %}</h3>
                         </div>
-                        <!-- END COURSE-ABSTRACT - VISIBLE ONLY FOR PHONES -->
-                        <div class="application col-sm-6 col-xs-12">
-                            <div class="page-header-double">
-                                <h3 class="top"><i ng-class="{'blink-text-danger':errors.application}" class="fa fa-angle-double-right"></i> {% trans "Why do this course?" %}</h3>
-                            </div>
-
-                            {% if in_admin %}
-                                <modalmarkdowneditor tabindex="6" on-save="saveCourse()" title="{% trans 'Application' %}" content="course.application"></modalmarkdowneditor>
-                            {% else %}
-                                <div class="content">{{ course.application|timtec_markdown }}</div>
-                            {% endif %}
-                        </div>
-
-                        <div class="requirement col-sm-6 col-xs-12">
-                            <div class="page-header-double">
-                                <h3 class="top"><i ng-class="{'blink-text-danger':errors.requirement}" class="fa fa-angle-double-right"></i> {% trans "What do I have to know?" %}</h3>
-                            </div>
-                            {% if in_admin %}
-                                <modalmarkdowneditor tabindex="7" on-save="saveCourse()" title="{% trans 'Requirements' %}" content="course.requirement"></modalmarkdowneditor>
-                            {% else %}
-                                <div class="content">{{ course.requirement|timtec_markdown }}</div>
-                            {% endif %}
-                        </div>
-                        <div class="structure col-xs-12">
-                            <div class="page-header-double">
-                                <h3 class="top"><i ng-class="{'blink-text-danger':errors.requirement}" class="fa fa-angle-double-right"></i> {% trans "Estrutura do Curso" %}</h3>
-                            </div>
-                            {% if in_admin %}
-                                <modalmarkdowneditor tabindex="8" on-save="saveCourse()" title="{% trans 'Estrutura do Curso' %}" content="course.structure"></modalmarkdowneditor>
-                            {% else %}
-                                <p>{{ course.structure|timtec_markdown }}</p>
-                            {% endif %}
-
-                        </div>
+                        {% if in_admin %}
+                            <modalmarkdowneditor tabindex="2" on-save="saveCourse()" title="{% trans 'Abstract' %}" content="course.abstract"></modalmarkdowneditor>
+                        {% else %}
+                            {{course.abstract|timtec_markdown}}
+                        {% endif %}
                     </div>
-                    <!-- END ROW -->
+                    <!-- END ABSTRACT -->
+
+                    <!-- APPLCATION -->
+                    <div class="application">
+                        <div class="page-header">
+                            <h3 class="top"><i ng-class="{'blink-text-danger':errors.application}" class="fa fa-angle-double-right"></i> {% trans "Why do this course?" %}</h3>
+                        </div>
+                        {% if in_admin %}
+                            <modalmarkdowneditor tabindex="6" on-save="saveCourse()" title="{% trans 'Application' %}" content="course.application"></modalmarkdowneditor>
+                        {% else %}
+                            <div class="content">{{ course.application|timtec_markdown }}</div>
+                        {% endif %}
+                    </div>
+                    <!-- END APPLCATION -->
+
+                    <!-- REQUIREMENT -->
+                    <div class="requirement">
+                        <div class="page-header">
+                            <h3 class="top"><i ng-class="{'blink-text-danger':errors.requirement}" class="fa fa-angle-double-right"></i> {% trans "What do I have to know?" %}</h3>
+                        </div>
+                        {% if in_admin %}
+                            <modalmarkdowneditor tabindex="7" on-save="saveCourse()" title="{% trans 'Requirements' %}" content="course.requirement"></modalmarkdowneditor>
+                        {% else %}
+                            <div class="content">{{ course.requirement|timtec_markdown }}</div>
+                        {% endif %}
+                    </div>
+                    <!-- END REQUIREMENT -->
                 </section>
                 <!-- END COURSE-INFO -->
                 {% endblock %}
-
-                <!-- COURSE-SUMMARY - VISIBLE ONLY FOR PHONES -->
-                <section class="summary hidden-lg hidden-md hidden-sm visible-xs row">
-                    <div class="col-xs-12">
-                        <div class="page-header-double">
-                            <h3 class="top">{% trans 'This course is' %}</h3>
-                        </div>
-
-                        <div class="course-status btn-group">
-                            <button class="btn btn-success dropdown-toggle" data-toggle="dropdown"
-                            ng-if="course.isPublished()"><span class="status-label">{% trans 'Published' %}</span> <span class="caret"></span></button>
-
-                            <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
-                            ng-if="course.isDraft()"><span class="status-label">{% trans 'Draft' %}</span> <span class="caret"></span></button>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li ng-if="course.isDraft()"><button class="btn btn-success" ng-click="publishCourse()">{% trans 'Published' %}</button></li>
-                                <li ng-if="course.isPublished()"><button class="btn btn-danger" ng-click="set_course_as_draft()">{% trans 'Draft' %}</button></li>
-                            </ul>
-                        </div>
-                        <!-- COURSE-INSTRUCTORS -->
-                        {%  include '_course_authors_inline.html' %}
-                    </div>
-                </section>
-                <!-- END COURSE-SUMMARY - VISIBLE ONLY FOR PHONES -->
 
                 <!-- COURSE-LESSONS -->
                 {% block course_lessons %}
                     {% if in_admin %}
                     <section class="lessons" id="lesson-list">
                         <!-- PAGE-HEADER-DOUBLE -->
-                        <div class="page-header-double">
+                        <div class="page-header">
                             <h3><i class="fa fa-angle-double-right"></i> {% trans "Lessons" %}</h3>
                         </div>
                         <!-- END PAGE-HEADER-DOUBLE -->
@@ -456,7 +414,7 @@ wrapper-course-intro
                         {% if user.is_authenticated and course.has_started %}
                         <section class="lessons" id="lesson-list">
                             <!-- PAGE-HEADER-DOUBLE -->
-                            <div class="page-header-double">
+                            <div class="page-header">
                                 <h3><i class="fa fa-angle-double-right"></i> {% trans "Lessons" %}</h3>
                             </div>
                             <!-- END PAGE-HEADER-DOUBLE -->
@@ -530,31 +488,32 @@ wrapper-course-intro
                 <!-- END COURSE-LESSONS -->
                 {% endblock %}
             </div>
+            <!-- END COLUMN -->
 
-            <div class="col-md-3 col-sm-4 hidden-xs">
+            <!-- COLUMN -->
+            <div class="column">
                 <!-- COURSE-SUMMARY -->
                 <section class="summary">
                     <!-- START DATE -->
                     {% if in_admin %}
+                        <div class="page-header first">
+                            <h3 class="top">{% trans 'This course is' %}</h3>
+                        </div>
 
-                    <div class="page-header-double">
-                        <h3 class="top">{% trans 'This course is' %}</h3>
-                    </div>
+                        <div class="course-status btn-group">
+                            <button class="btn btn-success dropdown-toggle" data-toggle="dropdown"
+                            ng-if="course.isPublished()"><span class="status-label">{% trans 'Published' %}</span> <span class="caret"></span></button>
 
-                    <div class="course-status btn-group">
-                        <button class="btn btn-success dropdown-toggle" data-toggle="dropdown"
-                        ng-if="course.isPublished()"><span class="status-label">{% trans 'Published' %}</span> <span class="caret"></span></button>
+                            <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
+                            ng-if="course.isDraft()"><span class="status-label">{% trans 'Draft' %}</span> <span class="caret"></span></button>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li ng-if="course.isDraft()"><button class="btn btn-success" ng-click="publishCourse()">{% trans 'Published' %}</button></li>
+                                <li ng-if="course.isPublished()"><button class="btn btn-danger" ng-click="set_course_as_draft()">{% trans 'Draft' %}</button></li>
+                            </ul>
+                        </div>
 
-                        <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
-                        ng-if="course.isDraft()"><span class="status-label">{% trans 'Draft' %}</span> <span class="caret"></span></button>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li ng-if="course.isDraft()"><button class="btn btn-success" ng-click="publishCourse()">{% trans 'Published' %}</button></li>
-                            <li ng-if="course.isPublished()"><button class="btn btn-danger" ng-click="set_course_as_draft()">{% trans 'Draft' %}</button></li>
-                        </ul>
-                    </div>
-
-                        <div class="page-header-double">
+                        <div class="page-header">
                             <h3><i ng-class="{'blink-text-danger':errors.abstract}"
                                    class="fa fa-angle-double-right"></i>
                                 {% trans 'Progresso necessario para certificado' %}
@@ -565,45 +524,46 @@ wrapper-course-intro
                                    ng-model="course.min_percent_to_complete" />
                         </div>
 
-                    <div class="page-header-double">
-                        <h3><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Start date' %}</h3>
-                    </div>
-                    <div class="editable editable-text">
-                        <input type="text" ng-model="course.start_date" datepicker-popup="dd/MM/yyyy" is-open="opened" show-button-bar="false" ng-click="opened = true" />
-                    </div>
-                    {% elif not course.has_started and course.start_date %}
-                    <div class="page-header-double">
-                        <h3 class="top"><i class="fa fa-angle-double-right"></i> {% trans 'Start date' %}</h3>
-                    </div>
-                    <p>{{ course.start_date }}</p>
-                    {% endif %}
-
-                    <!-- ABSTRACT -->
-                    <div class="abstract">
-                        <div class="page-header-double">
-                            <h3><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Abstract' %}</h3>
+                        <div class="page-header">
+                            <h3><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Start date' %}</h3>
                         </div>
-                    </div>
-
-                    {% if in_admin %}
-                        <modalmarkdowneditor tabindex="2" on-save="saveCourse()" title="{% trans 'Abstract' %}" content="course.abstract"></modalmarkdowneditor>
-                    {% else %}
-                        {{course.abstract|timtec_markdown}}
+                        <div class="editable editable-text">
+                            <input type="text" ng-model="course.start_date" datepicker-popup="dd/MM/yyyy" is-open="opened" show-button-bar="false" ng-click="opened = true" />
+                        </div>
+                        {% elif not course.has_started and course.start_date %}
+                        <div class="page-header">
+                            <h3 class="top"><i class="fa fa-angle-double-right"></i> {% trans 'Start date' %}</h3>
+                        </div>
+                        <p>{{ course.start_date }}</p>
                     {% endif %}
 
-                    <!-- END ABSTRACT -->
+                    <!-- STRUCTURE -->
+                    <div class="structure">
+                        <div class="page-header first">
+                            <h3 class="top"><i ng-class="{'blink-text-danger':errors.requirement}" class="fa fa-angle-double-right"></i> {% trans "Estrutura do Curso" %}</h3>
+                        </div>
+                        {% if in_admin %}
+                            <modalmarkdowneditor tabindex="8" on-save="saveCourse()" title="{% trans 'Estrutura do Curso' %}" content="course.structure"></modalmarkdowneditor>
+                        {% else %}
+                            <p>{{ course.structure|timtec_markdown }}</p>
+                        {% endif %}
+                    </div>
+                    <!-- END STRUCTURE -->
 
                     <!-- COURSE-INSTRUCTORS -->
                     {%  include '_course_authors_inline.html' %}
                     <!-- END COURSE-INSTRUCTORS -->
+
                     <!-- CLASS PROFESSOR -->
                     {%  include '_class-professors-inline.html' %}
                     <!-- END CLASS PROFESSOR -->
                 </section>
                 <!-- END COURSE-SUMMARY -->
             </div>
+            <!-- END COLUMN -->
         </div>
-        <!-- END ROW -->
+        <!-- END COURSE INFO -->
+
     </section>
     <!-- END COURSE CONTENT -->
 

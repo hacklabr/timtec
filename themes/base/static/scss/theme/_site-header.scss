@@ -1,0 +1,121 @@
+// Site header styles for unlogged users
+// --------------------------------------------------
+
+.user-unlogged {
+    .site-header {
+        background-color: transparent;
+        box-shadow: none;
+        height: initial;
+        margin-bottom: 60px;
+        overflow: initial;
+        position: static;
+        top: initial;
+        left: initial;
+        right: initial;
+        z-index: initial;
+        .site-nav {
+            margin: 30px 60px 60px 0; 
+            overflow: hidden; 
+            ul {
+                @extend %list-inline;
+                float: right;
+                margin-bottom: 2px;
+                li {
+                    margin-right: 60px;
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                }
+                a {
+                    border-bottom: 2px solid transparent;
+                    color: #000;
+                    font-size: $font-size-large;
+                    font-weight: $semi-bold;
+                    text-decoration: none;
+                    transition: all 0.5s ease;
+                    &:hover {
+                        border-color: $gray;
+                    }
+                }
+            }
+        }
+        .site-logo {
+            height: initial;
+            margin: 0 15px 20px; 
+            max-width: 560px;
+            position: static;
+            left: initial;
+            right: initial;
+            @media screen and (min-width: 561px) {
+                margin: 0 auto 30px; 
+            }
+            h1 {
+                margin: 0;
+                text-align: center;
+                img {
+                    margin: 0;
+                    max-height: initial;
+                }
+                span {
+                    color: $brand-primary;
+                    display: block;
+                    font-family: $font-family-sans-serif;
+                    font-size: 2.9vmax;
+                    font-weight: $semi-bold;
+                    @media screen and (min-width: 561px) {
+                        font-size: 31px;
+                    }
+                }
+            }
+        }
+        .animals {
+            margin: 0 auto; 
+            max-width: 946px;
+            overflow: hidden;
+            padding: 0 5%;
+            text-align: center;
+            div {
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: 100%;
+                display: inline-block;
+                height: 6vmax;
+                margin: 0 1.5%; 
+                width: 12%;
+                @media screen and (min-width: $screen-sm-min) {
+                    height: 81px;
+                }
+            }
+            .snail {
+                background-image: url(../img/icon-snail.png);
+            }
+            .elephant {
+                background-image: url(../img/icon-elephant.png);
+            }
+            .turtle {
+                background-image: url(../img/icon-turtle.png);
+            }
+            .snake {
+                background-image: url(../img/icon-snake.png);
+            }
+            .pig {
+                background-image: url(../img/icon-pig.png);
+            }
+            .duck {
+                background-image: url(../img/icon-duck.png);
+            }
+        }
+        .color-line {
+            /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#66b821+0,66b821+20,0470b0+20,0470b0+35,b02488+35,b02488+50,e02128+50,e02128+65,f22d92+65,f22d92+80,ff4100+80,ff4100+100 */
+            background: #66b821; /* Old browsers */
+            background: -moz-linear-gradient(left,  #66b821 0%, #66b821 20%, #0470b0 20%, #0470b0 35%, #b02488 35%, #b02488 50%, #e02128 50%, #e02128 65%, #f22d92 65%, #f22d92 80%, #ff4100 80%, #ff4100 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(left,  #66b821 0%,#66b821 20%,#0470b0 20%,#0470b0 35%,#b02488 35%,#b02488 50%,#e02128 50%,#e02128 65%,#f22d92 65%,#f22d92 80%,#ff4100 80%,#ff4100 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to right,  #66b821 0%,#66b821 20%,#0470b0 20%,#0470b0 35%,#b02488 35%,#b02488 50%,#e02128 50%,#e02128 65%,#f22d92 65%,#f22d92 80%,#ff4100 80%,#ff4100 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#66b821', endColorstr='#ff4100',GradientType=1 ); /* IE6-9 */
+            height: 3px;
+            margin: -8px auto 0; 
+            max-width: 946px;
+            width: 100%;
+        }
+    }
+}

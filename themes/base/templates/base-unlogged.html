@@ -72,40 +72,39 @@
         })();
     </script>
 </head>
-<body {% if in_admin %}id="admin"{% else %}id="notadmin"{% endif %} {% spaceless %}{% block body_attrs %}{% endblock %}{% endspaceless %} class="user-logged main-nav-opened">
+<body {% if in_admin %}id="admin"{% else %}id="notadmin"{% endif %} {% spaceless %}{% block body_attrs %}{% endblock %}{% endspaceless %} class="user-unlogged">
 
-    <div class="site-wrapper">
-        {% block header %}
-        {% include 'header.html' %}
+    {% block header %}
+    {% include 'header-unlogged.html' %}
+    {% endblock %}
+
+    <div class="wrapper wrapper-bg {% spaceless %}{% block wrapper_classes %}{% endblock %}{% endspaceless %}">
+        {% block content %}
+        <h1>missing content block</h1>
         {% endblock %}
-
-        {% block main-nav %}
-        {% include 'main-nav.html' %}
-        {% endblock %}
-
-        <div class="wrapper wrapper-bg {% spaceless %}{% block wrapper_classes %}{% endblock %}{% endspaceless %}">
-            {% block content %}
-            <h1>missing content block</h1>
-            {% endblock %}
-        </div>
-
-    {% if not user.is_authenticated %}
-        {% include 'account/login_modal.html' %}
-        <script type="text/javascript" charset="utf-8">
-            $(document).ready(function() {
-                var $modal = $("#login-modal");
-                var $next = $modal.find('input[name=next]');
-                $('a.js-login-required').click(function(e){
-                    $next.val($(this).attr('href'));
-                    $modal.modal();
-                    return false;
-                });
-                $('.dropdown-menu form').click(function(e) {
-                    e.stopPropagation();
-                });
-            });
-        </script>
-    {% endif %}
     </div>
+
+    {% block footer %}
+    {% include 'footer-unlogged.html' %}
+    {% endblock %}
+
+{% if not user.is_authenticated %}
+    {% include 'account/login_modal.html' %}
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            var $modal = $("#login-modal");
+            var $next = $modal.find('input[name=next]');
+            $('a.js-login-required').click(function(e){
+                $next.val($(this).attr('href'));
+                $modal.modal();
+                return false;
+            });
+            $('.dropdown-menu form').click(function(e) {
+                e.stopPropagation();
+            });
+        });
+    </script>
+{% endif %}
+
 </body>
 </html>

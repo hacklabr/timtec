@@ -3,18 +3,74 @@
 
 .site-header {
     background-color: $site-header-bg-color;
-    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.5); 
+    box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.5);
     height: 80px;
     overflow: hidden;
+    @include transition(width 0.5s ease);
     position: fixed;
     top: 0;
-    left: 90px;
+    left: 0;
     right: 0;
-    z-index: 900;
+    z-index: 1000;
+}
+
+.user-info {
+    box-sizing: border-box;
+    color: #000;
+    cursor: pointer;
+    height: 80px;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    .user-icon {
+        border-radius: 100%;
+        box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.5);
+        height: 40px;
+        text-align: center; 
+        width: 40px;
+        img {
+            height: 40px;
+            width: 40px;
+        }
+    }
+    .user-name {
+        display: none;
+        float: left;
+        font-size: $font-size-base;
+        font-weight: $semi-bold;
+        margin-top: 10px;
+        text-align: left;
+    }
+    .menu-label {
+        display: block;
+        font-size: $font-size-base;
+        font-weight: $semi-bold;
+        text-align: center; 
+    }
+}
+
+.main-nav-opened { // when the offcanvas menu is opened
+    .user-info {
+        padding: 20px 25px;
+        width: 300px;
+        .user-icon {
+            float: left;
+            margin-right: 10px;
+        }
+        .user-name {
+            display: block;
+        }
+        .menu-label {
+            display: none;
+        }
+    }
 }
 
 .site-logo {
     height: 80px;
+    @include transition(all 0.5s ease);
     position: absolute;
     left: 15px;
     @media screen and (min-width: $screen-sm-min) {
@@ -35,11 +91,18 @@
         margin: 25px 0; 
         max-height: 30px;
     }
+}
 
+.main-nav-opened { // when the offcanvas menu is opened
+    .site-logo {
+        @media screen and (min-width: $screen-sm-min) {
+            left: 300px;
+        }
+    }
 }
 
 .user-tools {
-    @extend .list-inline;
+    @extend %list-inline;
     position: absolute;
     right: 15px;
     top: 25px;

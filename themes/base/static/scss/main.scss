@@ -26,6 +26,7 @@
 //== Components styles
 @import "components/_courses-list";
 @import "components/_headers";
+@import "components/_forums";
 @import "components/_widgets";
 @import "components/_widgets-grid";
 
@@ -35,11 +36,13 @@
 @import "layout/_main-nav";
 
 //== Pages styles
+@import "pages/_course-activity";
 @import "pages/_course-content";
 @import "pages/_courses";
+@import "pages/_forums";
 
 //== Vendor style
-@import "vendor/flatui/checkbox-and-radio.scss";
+//@import "vendor/flatui/checkbox-and-radio.scss";
 
 
 // Import theme's files
@@ -47,6 +50,12 @@
 // there are the specific's theme styles
 
 //== Base styles
+@import "theme/_course-content";
+@import "theme/_flatpage";
 @import "theme/_fonts";
 @import "theme/_headers";
+@import "theme/_home";
+@import "theme/_login";
+@import "theme/_site-footer";
+@import "theme/_site-header";
 @import "theme/_widgets";
