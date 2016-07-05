@@ -1,19 +1,22 @@
 // Page's headers
 // --------------------------------------------------
 
-.page-header-double {
-    border-bottom: 1px solid $gray-lighter;
+.page-header {
+    border: 0;
     margin: 40px 0 20px;
     padding: 0;
+    &:first-child {
+        margin-top: 0;
+    }
     h1, h2, h3, h4, h5, h6 {
-        border-bottom: 1px solid $gray-lighter;
         color: $brand-primary;
-        margin-bottom: 1px;
-        padding-bottom: 7px;
+        font-size: 36px;
+        font-weight: bold;
+        margin: 0; 
     }
 }
 
-// Shared headers styles
+// Shared course header
 // --------------------------------------------------
 
 .main-header {
@@ -40,11 +43,11 @@
         margin: 0; 
         a {
             border-bottom: 2px solid transparent;
-            color: #000;
+            color: $brand-primary;
             text-decoration: none;
             @include transition(border 0.5s ease);
             &:hover {
-                border-color: #000; 
+                border-color: $brand-primary; 
             } 
         }
     }
