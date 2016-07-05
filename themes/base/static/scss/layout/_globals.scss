@@ -14,13 +14,14 @@ body {
         background-image: url(https://s-media-cache-ak0.pinimg.com/236x/ef/73/75/ef737591ab4e6fee1ab6025ba968a58b.jpg);
         background-color: transparent;
         
-        .site-wrapper { // wrap the whole content of the site
+        // wrap the whole content of the site to prevent overflow on mobile devices
+        .site-wrapper {
             overflow-x: hidden;
             overflow-y: scroll;
             position: relative;
             width: 100%;
         }
-
+        // content wrapper
         .wrapper {
             position: relative;
             bottom: 0;
@@ -29,7 +30,6 @@ body {
             top: 80px;
             padding-right: 100px;
         }
-
         .container-fluid {
             max-width: 946px;
         }
