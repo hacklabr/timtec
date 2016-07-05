@@ -130,6 +130,7 @@ STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 PIPELINE = {
     'COMPILERS': (
+        'pipeline.compilers.less.LessCompiler',
         'pipeline.compilers.sass.SASSCompiler',
     ),
     'YUGLIFY_BINARY': os.path.join(PROJECT_ROOT, 'node_modules', 'yuglify', 'bin', 'yuglify'),
@@ -137,6 +138,9 @@ PIPELINE = {
 
     'NGANNOTATE_BINARY': os.path.join(PROJECT_ROOT, 'node_modules', 'ng-annotate', 'build', 'es5', 'ng-annotate'),
     'NGANNOTATE_ARGUMENTS': ' -a - ',
+
+    'LESS_BINARY': os.path.join(PROJECT_ROOT, 'node_modules', 'less', 'bin', 'lessc'),
+    'LESS_ARGUMENTS': '--source-map=main.css.map',
 
     'SASS_BINARY': os.path.join(PROJECT_ROOT, 'node_modules', 'node-sass', 'bin', 'node-sass'),
     'SASS_ARGUMENTS': '--source-map true',
@@ -160,6 +164,7 @@ PIPELINE = {
         },
         'public': {
             'source_filenames': (
+                'css/main.less',
                 'scss/main.scss',
             ),
             'output_filename': 'css/public.css',
