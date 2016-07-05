@@ -258,7 +258,7 @@ wrapper-course-intro
                 <section class="info">
                     <!-- ABSTRACT -->
                     <div class="abstract">
-                        <div class="page-header">
+                        <div class="page-header first">
                             <h3><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Abstract' %}</h3>
                         </div>
                         {% if in_admin %}
@@ -300,7 +300,7 @@ wrapper-course-intro
 
                 <!-- COURSE-SUMMARY - VISIBLE ONLY FOR PHONES -->
                 <section class="summary visible-xs">
-                    <div class="page-header">
+                    <div class="page-header first">
                         <h3 class="top">{% trans 'This course is' %}</h3>
                     </div>
 
@@ -519,7 +519,7 @@ wrapper-course-intro
                 <section class="summary hidden-xs">
                     <!-- START DATE -->
                     {% if in_admin %}
-                        <div class="page-header">
+                        <div class="page-header first">
                             <h3 class="top">{% trans 'This course is' %}</h3>
                         </div>
 
@@ -562,7 +562,7 @@ wrapper-course-intro
 
                     <!-- STRUCTURE -->
                     <div class="structure">
-                        <div class="page-header">
+                        <div class="page-header first">
                             <h3 class="top"><i ng-class="{'blink-text-danger':errors.requirement}" class="fa fa-angle-double-right"></i> {% trans "Estrutura do Curso" %}</h3>
                         </div>
                         {% if in_admin %}
