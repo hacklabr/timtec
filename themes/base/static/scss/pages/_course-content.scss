@@ -359,15 +359,22 @@
         max-width: 1050px !important;
 
         .course-info {
-            display: flex;
+            margin-bottom: 40px;
+            @media screen and (min-width: $screen-md-min) {
+                display: flex;
+            }
             .column {
                 background-color: $gray-lighter;
                 box-sizing: border-box;
                 padding: 30px;
-                width: 60%;
+                @media screen and (min-width: $screen-md-min) {
+                    width: 60%;
+                }
                 &:last-child {
                     background-color: darken($gray-lighter,5%);
-                    width: 40%;
+                    @media screen and (min-width: $screen-md-min) {
+                        width: 40%;
+                    }
                 }
             }
         }

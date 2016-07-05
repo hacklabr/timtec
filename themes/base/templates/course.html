@@ -298,29 +298,6 @@ wrapper-course-intro
                 <!-- END COURSE-INFO -->
                 {% endblock %}
 
-                <!-- COURSE-SUMMARY - VISIBLE ONLY FOR PHONES -->
-                <section class="summary visible-xs">
-                    <div class="page-header first">
-                        <h3 class="top">{% trans 'This course is' %}</h3>
-                    </div>
-
-                    <div class="course-status btn-group">
-                        <button class="btn btn-success dropdown-toggle" data-toggle="dropdown"
-                        ng-if="course.isPublished()"><span class="status-label">{% trans 'Published' %}</span> <span class="caret"></span></button>
-
-                        <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
-                        ng-if="course.isDraft()"><span class="status-label">{% trans 'Draft' %}</span> <span class="caret"></span></button>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li ng-if="course.isDraft()"><button class="btn btn-success" ng-click="publishCourse()">{% trans 'Published' %}</button></li>
-                            <li ng-if="course.isPublished()"><button class="btn btn-danger" ng-click="set_course_as_draft()">{% trans 'Draft' %}</button></li>
-                        </ul>
-                    </div>
-                    <!-- COURSE-INSTRUCTORS -->
-                    {%  include '_course_authors_inline.html' %}
-                </section>
-                <!-- END COURSE-SUMMARY - VISIBLE ONLY FOR PHONES -->
-
                 <!-- COURSE-LESSONS -->
                 {% block course_lessons %}
                     {% if in_admin %}
@@ -515,8 +492,8 @@ wrapper-course-intro
 
             <!-- COLUMN -->
             <div class="column">
-                <!-- COURSE-SUMMARY - VISIBLE ONLY FOR TABLETS AND DESKTOP -->
-                <section class="summary hidden-xs">
+                <!-- COURSE-SUMMARY -->
+                <section class="summary">
                     <!-- START DATE -->
                     {% if in_admin %}
                         <div class="page-header first">
