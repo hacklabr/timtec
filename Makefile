@@ -112,14 +112,14 @@ setup_ci:
 
 setup_py:
 	pip install -r requirements/test.txt
-	-m
+	python setup.py -q develop
 
 setup_coveralls:
 	pip install -q coveralls
 
 setup_js:
 	npm install # --loglevel silent
-	bower install
+	./node_modules/bower/bin/bower install
 
 setup_django: clean
 	python manage.py migrate --noinput
