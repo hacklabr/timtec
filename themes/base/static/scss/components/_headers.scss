@@ -3,9 +3,9 @@
 
 .page-header {
     border: 0;
-    margin: 40px 0 20px;
+    margin: 20px 0 10px;
     padding: 0;
-    &:first-child {
+    &.first {
         margin-top: 0;
     }
     h1, h2, h3, h4, h5, h6 {
