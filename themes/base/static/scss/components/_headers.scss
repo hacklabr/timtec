@@ -17,9 +17,15 @@
 // --------------------------------------------------
 
 .main-header {
+    background-color: $gray-lighter;
+    color: #000;
+    padding: 20px 0;
+    .container-fluid {
+        max-width: 1050px !important;
+    }
     .page-header {
-        border-bottom: 1px solid $gray-lighter;
-        margin-bottom: 20px;
+        border: 0;
+        margin: 0;
         h1 {
             font-size: 18px;
             margin: 0; 
@@ -27,6 +33,18 @@
             span {
                 display: inline-block;
             }
+        }
+    }
+    .course-name {
+        font-size: 30px;
+        margin: 0; 
+        a {
+            border-bottom: 2px solid transparent;
+            color: #000;
+            @include transition(border 0.5s ease);
+            &:hover {
+                border-color: #000; 
+            } 
         }
     }
     .course-slug {
@@ -37,18 +55,19 @@
         }
     }
     .course-details {
+        font-size: $font-size-small;
+        margin-top: 5px;
         text-transform: uppercase;
-        font-size: 11px;
         .label {
-            color: $gray-light;
+            color: $gray;
             font-weight: normal;
             padding: 0;
             font-size: inherit;
         }
         a {
-            color: $brand-success;
+            color: $brand-primary;
             &:hover {
-                color: darken($brand-success, 10%);
+                color: darken($brand-primary, 10%);
             }
             &.course-instructor:after {
                 content: " // ";
@@ -58,6 +77,82 @@
             &:last-child:after {
                 content: "";
             }
+        }
+    }
+    .course-sections {
+        @media screen and (min-width: $screen-md-min) {
+            text-align: right; 
+        }
+        a {
+            border-bottom: 2px solid transparent;
+            color: #000;
+            display: inline-block;
+            font-size: 11px;
+            font-weight: $bold;
+            max-width: 68px;
+            vertical-align: top;
+            text-align: center;
+            text-decoration: none;
+            text-transform: lowercase; 
+            @include transition(border 0.5s ease);
+            &:hover {
+                border-color: #000; 
+            }
+            &:before {
+                display: block;
+                font-size: $font-size-large;
+            }
+        }
+        .intro {
+            @extend %icon-home;
+        }
+        .materials {
+            @extend %icon-materials;
+        }
+        .notes {
+            @extend %icon-notes;
+        }
+        .resume {
+            @extend %icon-film;
+        }
+        .tools {
+            @extend %icon-tools;
+        }
+        .dropdown {
+            display: inline-block;
+        }
+    }
+    .lesson-units {
+        display: none;
+        margin-top: 5px;
+        @media screen and (min-width: $screen-md-min) {
+            display: block;
+        }
+        .lesson-name {
+            float: left;
+            font-size: 16px;
+            span {
+                font-weight: $bold;
+            }
+        }
+        .lesson-list-dropdown {
+            float: left;
+            button {
+                background: transparent;
+                border: 0;
+                box-shadow: none;
+                font-size: 16px;
+            }
+        }
+    }
+    .lesson-units-mobile {
+        display: block;
+        margin: 10px 0;
+        @media screen and (min-width: $screen-md-min) {
+            display: none;
+        }
+        .form-control {
+            max-width: 400px;
         }
     }
 }
