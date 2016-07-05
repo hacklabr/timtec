@@ -6,7 +6,11 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update \
     && apt-get install -y python python-pip python-dev \
     && apt-get install -y libpq-dev libjpeg-dev libpng12-dev gettext \
-    && apt-get install -y nginx supervisor \
+    && apt-get install -y nginx supervisor 
+
+RUN wget https://deb.nodesource.com/setup_6.x -O /tmp/setup_6x.sh \
+    && bash /tmp/setup_6x.sh \
+    && rm /tmp/setup_6x.sh \
     && apt-get install -y npm git
 
 RUN ln -s /usr/bin/nodejs /usr/bin/node
@@ -41,5 +45,5 @@ RUN npm install \
 
 USER root
 EXPOSE 80 8000
-ENTRYPOINT  ["/app/timtec/docker/entrypoint.py"]
+
 CMD ["supervisord", "-c", "/app/timtec/docker/supervisord.conf"]
