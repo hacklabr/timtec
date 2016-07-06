@@ -10,7 +10,7 @@ RUN apt-get update \
     && apt-get install -y curl
 
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
-    && apt-get update
+    && apt-get update \
     && apt-get install -y nodejs
 
 RUN ln -s /usr/bin/nodejs /usr/bin/node
