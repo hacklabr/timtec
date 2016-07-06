@@ -9,9 +9,9 @@ RUN apt-get update \
     && apt-get install -y nginx supervisor \
     && apt-get install -y curl
 
-RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - \
-    && sudo apt-get update
-    && sudo apt-get install -y nodejs
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
+    && apt-get update
+    && apt-get install -y nodejs
 
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
