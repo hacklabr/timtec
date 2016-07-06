@@ -262,71 +262,52 @@
             margin: 20px 0;
         }
     }
+}
+
+.course {
     // COURSE UNITS - General
     // ********************************************************************* //
-    #lesson-units-nav {
-        @media (max-width: $screen-sm-max) {
-            width: 13% !important;
+    .lesson-units-nav {
+        .progress {
+            background: $gray-light;
+            border-radius: 0;
+            box-shadow: none;
+            height: 3px;
+            margin-bottom: 0;
         }
     }
     .units {
-        h2 {
-            display: none;
-        }
-        //margin-top: 20px;
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
         .unit {
-            background: $gray-lighter - 20%;
-            @include box-shadow(inset -1px 0 0 #fff);
+            background: $gray-light;
+            border-radius: 100%;
             color: #fff;
-            cursor: pointer;
             display: block;
-            font-size: 12px;
+            font-size: $font-size-base;
+            font-weight: $bold;
             height: 20px;
-            line-height: 1.75;
-            margin: 0 0 1px 0;
-            padding: 0 0 0 3px;
-            position: relative;
-            text-align: left;
-            z-index: 10;
+            margin-top: -11px; 
+            text-align: center; 
+            text-decoration: none; 
+            @include transition(all 0.5 ease);
+            width: 20px;
             &:hover {
-                background: $gray-light;
-                color: #fff;
-                @include transition(all .25s ease-out);
+                background: darken($gray-light, 10%);
+                color: #fff;  
             }
             &.current {
-                background-color: $brand-info;
+                height: 24px;
+                font-size: 16px;
+                margin-top: -13px;
+                width: 24px;
             }
-            &.done,
-            &.done:hover {
-                background: $brand-warning;
-                @include transition(all .25s ease-out);
+            &.current, &.done {
+                background: $brand-primary;
                 &:hover {
-                    background: darken($brand-warning, 10%);
+                    background: darken($brand-primary, 10%);
                 }
-            }
-            &.watching,
-            &.watching:hover {
-                background: $brand-info;
-                @include transition(all .25s ease-out);
-                &:hover {
-                    background: darken($brand-info, 10%);
-                }
-            }
-            i {
-                color: #fff !important;
-                font-size: 14px;
-                margin: 3px 0 0 0;
-            }
-            i.fa-caret-right {
-                color: $brand-info;
-                font-size: 18px;
-                left: -10px;
-                line-height: 1;
-                top: -2px;
-            }
-            i {
-                position: absolute;
-                right: 6px;
             }
         }
         // END UNIT
@@ -350,11 +331,13 @@
 
 // Define max-width of course-content div
 .course-lesson {
+    margin-top: -50px;
     .course-content {
         max-width: 720px !important;
     }
 }
 .course-intro {
+    margin-top: -50px;
     .course-content {
         max-width: 1050px !important;
 
