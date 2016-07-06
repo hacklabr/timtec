@@ -35,7 +35,8 @@ RUN mkdir -p /app/webfiles/static \
 WORKDIR /app/timtec
 USER timtec
 
-RUN make docker-update
+RUN npm install \
+	&& /app/timtec/node_modules/bower/bin/bower install
 
 USER root
 EXPOSE 80 8000
