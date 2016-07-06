@@ -46,23 +46,26 @@ wrapper-course-lesson
     <div class="lesson-units-nav">
         {% block units_nav %}
         <!-- UNITS -->
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
+        </div>
         <div class="units">
             {% verbatim %}
-            <a style="display:block;" data-placement="right"
+            <a data-placement="right"
                title="{{unit.video.name}}"
                href="#/{{$index+1}}"
-               class="has-tooltip unit track" data-toggle="tooltip"
+               class="has-tooltip unit done" data-toggle="tooltip"
                ng-repeat="unit in lesson.units"
                ng-class="{watching: unit==currentUnit, done: unit.progress.complete}">
-                   <span class="position" ng-bind="unit.position+1"></span>
-                   <i class="fa fa-list" ng-show="unit.activities"></i>
+                   <span ng-bind="unit.position+1">1</span>
             </a>
-            <!-- <label ng-hide="false" style="font-family: monospace">
-                video <input type="radio" ng-model="section" value="video"/>
-            </label>
-            <label ng-hide="false" style="font-family: monospace">
-                ativi <input type="radio" ng-model="section" value="activity"/>
-            </label> -->
+            <a href="#" class="unit current">
+                <span>2</span>
+            </a>
+            <a href="#" class="unit">
+                <span>3</span>
+            </a>
+
             {% endverbatim %}
         </div>
         <!-- END UNITS -->
@@ -71,9 +74,8 @@ wrapper-course-lesson
     <!-- END UNITS NAVIGATION FOR TABLET AND DESKTOP -->
 
     <!-- UNITS NAVIGATION FOR PHONES -->
-    <div class="col-xs-12 visible-xs">
-        {% block units_nav_mobile %}
-        <p>
+    {% block units_nav_mobile %}
+        <div class="visible-xs">
             {% verbatim %}
             <select ng-model="selectedIndex" ng-change="locationChange(selectedIndex)" class="form-control">
                 <option ng-repeat="unit in lesson.units"
@@ -81,10 +83,9 @@ wrapper-course-lesson
                         ng-selected="unit==currentUnit"
                         value="{{$index+1}}">{% endverbatim %}{% trans 'Unit' %}{% verbatim %} {{ unit.position + 1 }}</option>
             </select>
-            {% endverbatim %}
-        </p>
-        {% endblock %}
-    </div>
+        </div>
+        {% endverbatim %}
+    {% endblock %}
     <!-- END UNITS NAVIGATION FOR PHONES -->
 
     <!-- COURSE CONTENT -->
