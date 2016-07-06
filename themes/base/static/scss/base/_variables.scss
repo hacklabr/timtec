@@ -15,7 +15,7 @@ $headings-font-family:    "Questrial", $font-family-sans-serif !default;
 //## Specify custom location and filename of the included FontAwesome icon font. Useful for those including Bootstrap via Bower.
 
 //** Load fonts from this directory.
-$icon-font-path:        "../bower_components/font-awesome/fonts/" !default;
+$icon-font-path:        "../font-awesome/fonts/" !default;
 
 //** File name for all font files.
 $icon-font-name:        "fontawesome-webfont" !default;
@@ -23,7 +23,7 @@ $icon-font-name:        "fontawesome-webfont" !default;
 $icon-font-svg-id:      "fontawesomeregular" !default;
 
 
-// Declare specifc project variables 
+// Declare specifc project variables
 // --------------------------------------------------
 
 //== Specific component colors
