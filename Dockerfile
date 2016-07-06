@@ -8,7 +8,7 @@ RUN apt-get update \
     && apt-get install -y python python-pip python-dev \
     && apt-get install -y libpq-dev libjpeg-dev libpng12-dev gettext \
     && apt-get install -y nginx supervisor \
-    && apt-get install -y curl
+    && apt-get install -y curl git
 
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
     # The installer already run apt-get update
