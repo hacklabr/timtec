@@ -53,11 +53,10 @@ install:
 
 docker-update:
 	npm install
-	./node_modules/bower/bin/bower install
-	~/env/bin/python manage.py migrate --noinput --fake-initial
-	~/env/bin/python manage.py collectstatic --noinput
-	~/env/bin/python manage.py compilemessages
-	touch ~/wsgi-reload
+	/app/timtec/node_modules/bower/bin/bower install
+	python manage.py migrate --noinput --fake-initial
+	python manage.py collectstatic --noinput
+	python manage.py compilemessages
 
 create-staging:
 	virtualenv ~/env
