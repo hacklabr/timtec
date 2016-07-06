@@ -164,7 +164,7 @@ PIPELINE = {
         },
         'public': {
             'source_filenames': (
-                'css/main.less',
+                # 'css/main.less',
                 'scss/main.scss',
             ),
             'output_filename': 'css/public.css',
@@ -585,11 +585,10 @@ TEMPLATES = [
                 'timtec.context_processor.openid_providers',
             ],
             'loaders': [
-                'django.template.loaders.app_directories.Loader',
-                'django.template.loaders.filesystem.Loader',
                 'core.loaders.TimtecThemeLoader',
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
             ],
-            'debug': DEBUG,
         },
     },
 ]
@@ -599,6 +598,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(THEMES_DIR, TIMTEC_THEME, 'static'),
     os.path.join(THEMES_DIR, 'default', 'static'),
     os.path.join(PROJECT_ROOT, 'bower_components'),
 )
