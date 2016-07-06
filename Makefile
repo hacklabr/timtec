@@ -30,6 +30,7 @@ update:
 	~/env/bin/pip install --upgrade pip
 	~/env/bin/pip install -U -r requirements/production.txt
 	npm install
+	./node_modules/bower/bin/bower install
 	~/env/bin/python manage.py migrate --noinput --fake-initial
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
@@ -40,6 +41,7 @@ install:
 	~/env/bin/pip install --upgrade pip
 	~/env/bin/pip install -r requirements/production.txt
 	npm install
+	./node_modules/bower/bin/bower install
 	mkdir -p ~/webfiles/static
 	mkdir -p ~/webfiles/media
 	cp timtec/settings_local.py.template timtec/settings_local.py
@@ -48,6 +50,13 @@ install:
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
 	touch ~/wsgi-reload
+
+docker-update:
+	npm install
+	/app/timtec/node_modules/bower/bin/bower install
+	python manage.py migrate --noinput --fake-initial
+	python manage.py collectstatic --noinput
+	python manage.py compilemessages
 
 create-staging:
 	virtualenv ~/env
@@ -112,14 +121,14 @@ setup_ci:
 
 setup_py:
 	pip install -r requirements/test.txt
-	-m
+	python setup.py -q develop
 
 setup_coveralls:
 	pip install -q coveralls
 
 setup_js:
-
 	npm install # --loglevel silent
+	./node_modules/bower/bin/bower install
 
 setup_django: clean
 	python manage.py migrate --noinput
