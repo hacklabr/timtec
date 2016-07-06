@@ -1,5 +1,6 @@
 FROM debian:jessie
 MAINTAINER Fabio Montefuscolo <fabio.montefuscolo@hacklab.com.br>
+MAINTAINER Bruno Martin <bruno@hacklab.com.br>
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -10,10 +11,8 @@ RUN apt-get update \
     && apt-get install -y curl
 
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
-    && apt-get update \
+    # The installer already run apt-get update
     && apt-get install -y nodejs
-
-RUN ln -s /usr/bin/nodejs /usr/bin/node
 
 RUN useradd -m -d /app -u 1000 -s /bin/bash timtec
 RUN mkdir -p /app
@@ -29,6 +28,8 @@ COPY . /app/timtec
 RUN mkdir -p /app/webfiles/static \
    && mkdir -p /app/webfiles/media \
    && pip install -r /app/timtec/requirements/production.txt \
+   # FIXME needed when DEBUG == True in settings.py
+   && pip install -r /app/timtec/requirements/local.txt \
    && chown -R timtec /app
 
 WORKDIR /app/timtec
