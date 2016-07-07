@@ -17,7 +17,7 @@
     @include card(rgba($light-blue,0.6));
     
     .widget-header {
-        margin-bottom: 60px;
+        margin-bottom: 30px;
     }
     .widget-title {
         color: $purple;
@@ -32,16 +32,6 @@
                 border-color: $light-blue;
             }
         }
-    }
-    .progress-bar {
-        background-color: $blue;
-    }
-    .progress-label {
-        color: $blue;
-    }
-
-    .button-continue {
-        background-color: $purple;
     }
 }
 

@@ -24,7 +24,6 @@
 @import "base/_helpers";
 
 //== Components styles
-@import "components/_courses-list";
 @import "components/_headers";
 @import "components/_forums";
 @import "components/_widgets";
@@ -51,6 +50,7 @@
 
 //== Base styles
 @import "theme/_course-content";
+@import "theme/_courses";
 @import "theme/_flatpage";
 @import "theme/_fonts";
 @import "theme/_headers";
