@@ -1,0 +1,22 @@
+// Courses' page
+// --------------------------------------------------
+
+//## Course box used on course widget on dashboard and course list page
+//##
+.course {
+    .progress-bar {
+        background-color: $blue;
+    }
+    .progress-label {
+        color: $blue;
+    }
+    .button-continue {
+        background-color: $purple;
+    }
+}
+
+//## Course's list page styles
+//##
+.courses-page {
+    @include card(rgba($light-blue,0.6));
+}

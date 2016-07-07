@@ -1,71 +1,69 @@
 // Courses' page
 // --------------------------------------------------
 
+//## Course box used on course widget on dashboard and course list page
+//##
+.course {
+    margin-bottom: 30px;
+
+    .course-progress {
+        .progress {
+            border-radius: 0px;
+            height: 5px;
+            margin-bottom: 0;
+        }
+    }
+    .progress-label {
+        font-size: 9px;
+        font-weight: 700;
+        line-height: 60%;
+    }
+    .course-thumb-bg {
+        background-position: center;
+        background-size: cover;
+        height: 115px;
+    }
+    .course-description {
+        .course-title {
+            font-size: 30px;
+            line-height: 90%;
+            margin: 5px 0;
+        }
+        .course-info {
+            font-size: $font-size-small;
+
+            p {
+                margin: 0 0 5px 0; 
+            }
+            .unit-title {
+                display: block;
+                font-size: $font-size-base;
+                font-weight: $bold;
+            }
+        }
+    }
+    .button-continue {
+        background-color: $brand-primary;
+        color: #fff;
+        display: block;
+        font-weight: $bold;
+        padding: 3px;
+        text-align: center; 
+    }
+    .course-update {
+        @extend %icon-attention;
+        font-size: $font-size-small;
+        margin: 0; 
+
+        &:before {
+            margin-right: 5px;
+        }
+    }
+}
+
+//## Course's list page styles
+//##
 .courses-page {
-    .course {
-        min-height: 205px;
-        .thumb-wrapper {
-            @media (min-width: 540px) and (max-width: $screen-xs-max) {
-                float: left;
-                width: 50%;
-            }
-            @media (min-width: $screen-sm-min) {
-                float: left;
-                width: 40%;
-            }
-        }
-        .mouseover, .thumb {
-            @include border-left-radius($border-radius-base);
-        }
-        .info {
-            border-radius: 0 $border-radius-base 0 0;
-        }
-        .enroll {
-            border-radius: 0 0 $border-radius-base 0;
-        }
-    }
-    .filters {
-        background: $gray-lighter;
-        margin-bottom: 30px;
-        padding: 10px;
-        .status {
-            @media (max-width: $screen-xs-max) {
-                .btn {
-                    margin-bottom: 10px;
-                    width: 100%;
-                }
-            }
-        }
-        .btn-default {
-            background-color: lighten($gray-light, 20%);
-            &:hover {
-                background-color: lighten($gray-light, 15%);
-            }
-        }
-        .input-group-btn {
-            .btn {
-                height: 34px;
-            }
-        }
-    }
-    .more-info {
-        .box {
-            border-bottom: 1px solid $gray-lighter;
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            h3 {
-                font-size: 30px;
-                margin-top: 0;
-            }
-            .btn-info {
-                font-size: 18px;
-                margin-top: 20px;
-                text-transform: uppercase;
-                .fa {
-                    font-size: 16px;
-                    margin-left: 10px;
-                }
-            }
-        }
-    }
+    @include card(rgba($gray,0.5));
+    margin-top: -50px;
 }
