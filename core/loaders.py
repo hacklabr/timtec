@@ -24,7 +24,7 @@ class TimtecThemeLoader(Loader):
         # try to load template from theme app
         elif apps.is_installed(settings.TIMTEC_THEME):
             theme_app_config = apps.get_app_config(settings.TIMTEC_THEME)
-            template_dirs = [theme_app_config.path]
+            template_dirs = [safe_join(theme_app_config.path, 'templates')]
         else:
             # LEGACY: try to load theme from themes dir
             template_dirs = [safe_join(settings.THEMES_DIR, settings.TIMTEC_THEME, 'templates')]
