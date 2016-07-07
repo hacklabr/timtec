@@ -274,6 +274,9 @@
             box-shadow: none;
             height: 3px;
             margin-bottom: 0;
+            .progress-bar {
+                background: $brand-primary;
+            }
         }
     }
     .units {
