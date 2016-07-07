@@ -164,7 +164,7 @@ PIPELINE = {
         },
         'public': {
             'source_filenames': (
-                # 'css/main.less',
+                'css/main.less',
                 'scss/main.scss',
             ),
             'output_filename': 'css/public.css',
