@@ -1,0 +1,136 @@
+// Buttons
+// --------------------------------------------------
+
+// used on forum's page topbar
+%topbar-icons {
+    color: #fff;
+    font-size: $font-size-base;
+    font-weight: $semi-bold;
+    margin-right: 20px;
+    text-decoration: none;
+    &:before {
+        margin-right: 5px;
+    }
+    &:hover {
+        color: #fff;
+        text-decoration: none; 
+    }
+    span {
+        border-bottom: 1px solid #fff;    
+    }
+}
+
+.button-clean {
+    @extend %icon-undo;
+    @extend %topbar-icons;
+}
+
+.button-goback {
+    @extend %icon-goback;
+    @extend %topbar-icons;
+    &:before {
+        font-size: $font-size-small;
+    }
+}
+
+.button-filter {
+    @extend %icon-filter; 
+    @extend %topbar-icons;
+}
+
+// used on forum's page
+%actions-buttons {
+    color: $brand-primary;
+    cursor: pointer;
+    font-size: $font-size-small;
+    font-weight: $semi-bold;
+    margin-right: 10px;
+    text-decoration: none; 
+    transition: color 0.2s ease;
+    &:before {
+        font-size: 14px;
+        margin-right: 5px;
+    }
+    &:hover {
+        color: darken($brand-primary, 10%);
+        text-decoration: none;
+    }
+    &.small {
+        color: $gray;
+        margin-right: 5px;
+        &:before {
+            color: $brand-primary;
+            &:hover {
+                color: darken($brand-primary, 10%);
+            }
+        }
+    }
+}
+
+.button-like {
+    @extend %icon-like;
+    @extend %actions-buttons;
+}
+
+.button-use {
+    @extend %actions-buttons;
+    &:before {
+        border: 1px solid $brand-primary;
+        border-radius: 100%;
+        content: "=";
+        display: inline-block;
+        font-size: 16px;
+        font-weight: bold;
+        height: 16px;
+        line-height: 90%;
+        text-align: center;
+        width: 16px;
+    }    
+}
+
+.button-comment {
+    @extend %icon-comment;
+    @extend %actions-buttons;
+}
+
+%forum-tags, %forum-categories {
+    border: 1px solid $brand-primary;
+    border-radius: 20px;
+    display: inline-block;
+    color: $brand-primary;
+    font-size: $font-size-small;
+    font-weight: $semi-bold;
+    margin-right: 5px;
+    padding: 3px 6px;
+    text-decoration: none;
+    transition: all 0.5s ease;
+
+    &:hover {
+        border-color: darken($brand-primary,10%);
+        color: darken($brand-primary,10%);
+        text-decoration: none; 
+    } 
+}
+
+%forum-categories {
+    &:before {
+        font-size: 16px;
+        line-height: 14px;
+        margin-right: 5px;
+    }
+}
+
+.button-discussion {
+    @extend %icon-discussion;
+    @extend %forum-categories;
+}
+
+.button-schedule {
+    //@extend %icon-schedule;
+    @extend %forum-categories;
+}
+
+.button-register {
+    @extend %icon-f-register;
+    @extend %forum-categories;
+}

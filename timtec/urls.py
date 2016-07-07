@@ -150,6 +150,7 @@ urlpatterns = patterns(
 
     url(r'^dashboard/', TemplateView.as_view(template_name="dashboard.html")),
     url(r'^forum/', TemplateView.as_view(template_name="forum.html")),
+    url(r'^thread/', TemplateView.as_view(template_name="forum-thread.html")),
     url(r'^login/', TemplateView.as_view(template_name="login.html")),
     url(r'^register/', TemplateView.as_view(template_name="register.html")),
     url(r'^flatpage/', TemplateView.as_view(template_name="flatpage.html")),
