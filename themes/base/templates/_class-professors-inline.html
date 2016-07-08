@@ -6,7 +6,7 @@
     {% get_current_class course as current_class %}
 
     {% if current_class.assistant %}
-    <div class="page-header">
+    <div class="secondary-page-header">
         <h3><i class="fa fa-angle-double-right"></i> {% trans "Assistant Professor" %}</h3>
     </div>
     {% with course_assistant_professor=current_class.assistant %}

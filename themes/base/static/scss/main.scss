@@ -25,6 +25,7 @@
 
 //== Components styles
 @import "components/_buttons";
+@import "components/_course-box";
 @import "components/_headers";
 @import "components/_forums";
 @import "components/_widgets";
@@ -38,7 +39,6 @@
 //== Pages styles
 @import "pages/_course-activity";
 @import "pages/_course-content";
-@import "pages/_courses-page";
 @import "pages/_forums-page";
 
 //== Vendor style
@@ -51,7 +51,7 @@
 
 //== Base styles
 @import "theme/_course-content";
-@import "theme/_courses";
+@import "theme/_course-box";
 @import "theme/_flatpage";
 @import "theme/_fonts";
 @import "theme/_globals";

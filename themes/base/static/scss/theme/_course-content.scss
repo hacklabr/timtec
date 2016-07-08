@@ -1,3 +1,21 @@
+// Shared course header
+// --------------------------------------------------
+
+.main-header {
+    background-color: $yellow;
+    .course-name {
+        a {
+            color: #000;
+            &:hover {
+                border-color: #000; 
+            } 
+        }
+    }
+    .course-details {
+        display: none;
+    }
+}
+
 // Course content (used on course intro and lesson page)
 // -----------------------------------------------------
 

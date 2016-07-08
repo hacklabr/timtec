@@ -41,7 +41,7 @@ wrapper-course-intro
 {% endif %}
 
 <!-- COURSE -->
-<div id="course" class="course-intro" {% if in_admin %}ng-controller="CourseEditController"{% endif %}>
+<div class="course course-intro" {% if in_admin %}ng-controller="CourseEditController"{% endif %}>
 
     {% if in_admin %}
         <!-- ACTIONS -->
@@ -258,7 +258,7 @@ wrapper-course-intro
                 <section class="info">
                     <!-- ABSTRACT -->
                     <div class="abstract">
-                        <div class="page-header first">
+                        <div class="secondary-page-header first">
                             <h3><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Abstract' %}</h3>
                         </div>
                         {% if in_admin %}
@@ -271,7 +271,7 @@ wrapper-course-intro
 
                     <!-- APPLCATION -->
                     <div class="application">
-                        <div class="page-header">
+                        <div class="secondary-page-header">
                             <h3 class="top"><i ng-class="{'blink-text-danger':errors.application}" class="fa fa-angle-double-right"></i> {% trans "Why do this course?" %}</h3>
                         </div>
                         {% if in_admin %}
@@ -284,7 +284,7 @@ wrapper-course-intro
 
                     <!-- REQUIREMENT -->
                     <div class="requirement">
-                        <div class="page-header">
+                        <div class="secondary-page-header">
                             <h3 class="top"><i ng-class="{'blink-text-danger':errors.requirement}" class="fa fa-angle-double-right"></i> {% trans "What do I have to know?" %}</h3>
                         </div>
                         {% if in_admin %}
@@ -303,7 +303,7 @@ wrapper-course-intro
                     {% if in_admin %}
                     <section class="lessons" id="lesson-list">
                         <!-- PAGE-HEADER-DOUBLE -->
-                        <div class="page-header">
+                        <div class="secondary-page-header">
                             <h3><i class="fa fa-angle-double-right"></i> {% trans "Lessons" %}</h3>
                         </div>
                         <!-- END PAGE-HEADER-DOUBLE -->
@@ -414,7 +414,7 @@ wrapper-course-intro
                         {% if user.is_authenticated and course.has_started %}
                         <section class="lessons" id="lesson-list">
                             <!-- PAGE-HEADER-DOUBLE -->
-                            <div class="page-header">
+                            <div class="secondary-page-header">
                                 <h3><i class="fa fa-angle-double-right"></i> {% trans "Lessons" %}</h3>
                             </div>
                             <!-- END PAGE-HEADER-DOUBLE -->
@@ -496,7 +496,7 @@ wrapper-course-intro
                 <section class="summary">
                     <!-- START DATE -->
                     {% if in_admin %}
-                        <div class="page-header first">
+                        <div class="secondary-page-header first">
                             <h3 class="top">{% trans 'This course is' %}</h3>
                         </div>
 
@@ -513,7 +513,7 @@ wrapper-course-intro
                             </ul>
                         </div>
 
-                        <div class="page-header">
+                        <div class="secondary-page-header">
                             <h3><i ng-class="{'blink-text-danger':errors.abstract}"
                                    class="fa fa-angle-double-right"></i>
                                 {% trans 'Progresso necessario para certificado' %}
@@ -524,14 +524,14 @@ wrapper-course-intro
                                    ng-model="course.min_percent_to_complete" />
                         </div>
 
-                        <div class="page-header">
+                        <div class="secondary-page-header">
                             <h3><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Start date' %}</h3>
                         </div>
                         <div class="editable editable-text">
                             <input type="text" ng-model="course.start_date" datepicker-popup="dd/MM/yyyy" is-open="opened" show-button-bar="false" ng-click="opened = true" />
                         </div>
                         {% elif not course.has_started and course.start_date %}
-                        <div class="page-header">
+                        <div class="secondary-page-header">
                             <h3 class="top"><i class="fa fa-angle-double-right"></i> {% trans 'Start date' %}</h3>
                         </div>
                         <p>{{ course.start_date }}</p>
@@ -539,7 +539,7 @@ wrapper-course-intro
 
                     <!-- STRUCTURE -->
                     <div class="structure">
-                        <div class="page-header first">
+                        <div class="secondary-page-header first">
                             <h3 class="top"><i ng-class="{'blink-text-danger':errors.requirement}" class="fa fa-angle-double-right"></i> {% trans "Estrutura do Curso" %}</h3>
                         </div>
                         {% if in_admin %}
