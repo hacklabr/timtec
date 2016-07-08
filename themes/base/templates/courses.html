@@ -14,7 +14,7 @@ wrapper-courses
             </header>
 
             <section class="courses-list row">
-                <div class="col-md-9">
+                <div class="col-md-8 col-lg-9">
                     {% for course in courses %}
                     <!-- COURSE -->
                     <div class="course-box course-widget widget">
@@ -48,17 +48,17 @@ wrapper-courses
                     </div>
                     {% endfor %}
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4 col-lg-3">
                     <div class="filters">
                         <!--  FORM INLINE -->
                         <div class="form-inline">
-                            <select multiple class="form-control">
-                                <option>todas</option>
-                                <option>em andamento</option>
-                                <option>formações fixas</option>
-                                <option>mini formações</option>
-                                <option>tic's e tac's</option>
-                            </select>
+                            <ul>
+                                <li class="selected">todas</li>
+                                <li>em andamento</li>
+                                <li>formações fixas</li>
+                                <li>mini formações</li>
+                                <li>tic's e tac's</option>
+                            </ul>
                         </div>
                         <!-- END FORM INLINE -->
                     </div>
