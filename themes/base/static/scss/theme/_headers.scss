@@ -3,7 +3,8 @@
 
 .page-header {
     h1, h2, h3, h4, h5, h6 {
-        color: #000;
+        color: $purple;
+        font-size: 48px;
         text-transform: lowercase;
         i {
             display: none;
@@ -11,8 +12,8 @@
     }
 }
 
-// Shared headers styles
-// --------------------------------------------------
+//## Shared headers styles
+//##
 
 .main-header {
     background-color: $yellow;

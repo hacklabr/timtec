@@ -8,13 +8,13 @@ wrapper-courses
 
 {% block content %}
         <!-- CONTAINER -->
-        <div class="courses-page container-fluid">
+        <div class="courses-page page container-fluid">
             <header class="page-header">
                 <h2><i class="fa fa-angle-double-right"></i> {% trans 'Courses' %}</h2>
             </header>
 
             <section class="courses-list row">
-                <div class="col-md-8">
+                <div class="col-md-9">
                     {% for course in courses %}
                     <!-- COURSE -->
                     <div class="course course-widget widget">
@@ -48,7 +48,7 @@ wrapper-courses
                     </div>
                     {% endfor %}
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="filters">
                         <!--  FORM INLINE -->
                         <div class="form-inline">

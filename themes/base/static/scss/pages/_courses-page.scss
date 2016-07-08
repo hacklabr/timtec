@@ -60,10 +60,3 @@
         }
     }
 }
-
-//## Course's list page styles
-//##
-.courses-page {
-    @include card(rgba($gray,0.5));
-    margin-top: -50px;
-}
