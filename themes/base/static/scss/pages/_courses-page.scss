@@ -12,6 +12,7 @@
             list-style: none;
             padding: 0;
             li {
+                cursor: pointer;
                 padding: 2px 15px;
                 &:first-child {
                     border-radius: 20px 20px 0 0;
