@@ -17,7 +17,7 @@ wrapper-courses
                 <div class="col-md-9">
                     {% for course in courses %}
                     <!-- COURSE -->
-                    <div class="course course-widget widget">
+                    <div class="course-box course-widget widget">
                         <div class="line two-column fifty-fifty">
                             <div class="course-progress column">
                                 <div class="progress">
@@ -52,21 +52,13 @@ wrapper-courses
                     <div class="filters">
                         <!--  FORM INLINE -->
                         <div class="form-inline">
-                            <!-- ROW -->
-                            <div class="row">
-                                <div class="status col-sm-7">
-                                    <button class="btn btn-info">Todos</button>
-                                    <button class="btn btn-default">Em andamento</button>
-                                    <button class="btn btn-default">Próximos</button>                                
-                                </div>
-
-                                <div class="col-sm-5 textright">
-                                    <div class="search input-group">
-                                        <input type="text" ng-model="filters.textsearch" placeholder="Pesquisar" class="form-control ng-pristine nvalid">
-                                        <span class="input-group-btn"><button class="btn btn-info"><i class="fa fa-search"></i></button></span>
-                                    </div>
-                                </div>
-                            </div>
+                            <select multiple class="form-control">
+                                <option>todas</option>
+                                <option>em andamento</option>
+                                <option>formações fixas</option>
+                                <option>mini formações</option>
+                                <option>tic's e tac's</option>
+                            </select>
                         </div>
                         <!-- END FORM INLINE -->
                     </div>
