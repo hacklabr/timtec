@@ -9,18 +9,14 @@ wrapper-course-lesson
 
 {% block content %}
 <!-- CONTAINER -->
-<div id="course" class="course-material">
+<div class="course course-material">
 
 	{% include "_course-header-inline.html"  with course=course %}
 
     <!-- MAIN CONTENT -->
-    <section id="course-content" class="container">
+    <section class="course-content container-fluid">
         <header class="secondary-header">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1>{% trans "Course Material" %}</h1>
-                </div>
-            </div>
+            <h1>{% trans "Course Material" %}</h1>
         </header>
 
         <div class="row">

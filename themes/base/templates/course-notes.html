@@ -14,18 +14,14 @@ wrapper-course-lesson
 
 {% block content %}
 <!-- CONTAINER -->
-<div id="my-notes" class="course-notes" ng-app="notes" ng-controller="CourseNotesCtrl">
+<div class="my-notes course course-notes" ng-app="notes" ng-controller="CourseNotesCtrl">
 
     {% include "_course-header-inline.html"  with course=course question_form=false %}
 
-    <section id="notes-content" class="container">
+    <section class="notes-content container">
 
         <header class="secondary-header">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h1>{% trans "Course Notes" %}</h1>
-                </div>
-            </div>
+            <h1>{% trans "Course Notes" %}</h1>
         </header>
 
         <section class="notes">
