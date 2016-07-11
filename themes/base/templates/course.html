@@ -297,196 +297,6 @@ wrapper-course-intro
                 </section>
                 <!-- END COURSE-INFO -->
                 {% endblock %}
-
-                <!-- COURSE-LESSONS -->
-                {% block course_lessons %}
-                    {% if in_admin %}
-                    <section class="lessons" id="lesson-list">
-                        <!-- PAGE-HEADER-DOUBLE -->
-                        <div class="secondary-page-header">
-                            <h3><i class="fa fa-angle-double-right"></i> {% trans "Lessons" %}</h3>
-                        </div>
-                        <!-- END PAGE-HEADER-DOUBLE -->
-
-                        <p><a href="" ng-click="organizingLessons=true" ng-show="!organizingLessons">{% trans 'Organize lesson' %}</a></p>
-
-                        <!-- ORGANIZING LESSONS -->
-                        <div class="lessons organizing-lessons" ng-show="organizingLessons" sortable="lessons" on-update="repositionLessons()">
-                            <!-- LESSON -->
-                            <div class="row" ng-repeat="lesson in lessons">
-                                <div class="col-xs-12">
-                                    <div class="lesson">
-                                        <div class="row">
-
-                                            <div class="col-lg-9">
-                                                <span class="handle"><span class="btn btn-warning"><i class="fa fa-bars"></i></span></span>
-                                                <span class="title" ng-bind="lesson.name">{% trans 'Lesson name' %}</span>
-                                            </div>
-
-                                            <div class="col-lg-3 textright">
-                                                <div class="btn-group" ng-init="openDropdown=false;">
-                                                    <button type="button" class="btn btn-default">
-                                                        <span ng-show="lesson.status=='draft'"> {% trans 'Draft' %}</span>
-                                                        <span ng-show="lesson.status=='published'"> {% trans 'Published' %}</span>
-                                                    </button>
-                                                    <button type="button" class="btn btn-default dropdown-toggle"
-                                                            ng-click="openDropdown=!openDropdown;">
-                                                        <span class="caret"></span>
-                                                    </button>
-                                                    <ul class="dropdown-menu textleft" ng-style="{display:openDropdown?'block':'none'}">
-                                                        <li>
-                                                            <a ng-click="lesson.status='draft';openDropdown=false;"
-                                                               ng-show="lesson.status!='draft'"> {% trans 'Draft' %}</a>
-                                                       </li>
-                                                        <li>
-                                                            <a ng-click="lesson.status='listed';openDropdown=false;"
-                                                               ng-show="lesson.status!='listed'"> {% trans 'Listed' %}</a>
-                                                       </li>
-                                                        <li>
-                                                            <a ng-click="lesson.status='published';openDropdown=false;"
-                                                               ng-show="lesson.status!='published'"> {% trans 'Published' %}</a>
-                                                       </li>
-                                                    </ul>
-                                                </div>
-                                                <button class="btn btn-danger" ng-click="deleteLesson(lesson)"><i class="fa fa-trash-o"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- END LESSON -->
-
-                            <div class="submit textright">
-                                <button class="btn btn-danger" ng-click="organizingLessons=false">{% trans 'Cancel' %}</button>
-                                <button class="btn btn-success" ng-click="saveAllLessons()">{% trans 'Save' %}</button>
-                            </div>
-                        </div>
-                        <!-- END ORGANIZING LESSONS -->
-
-                        <!--  LESSON  -->
-                        <div class="lesson row" ng-repeat="lesson in lessons" ng-hide="organizingLessons">
-                            <!--  COL-LG-3  -->
-                            <div class="col-lg-3 col-sm-3 col-sm-3 hidden-xs">
-                                {% verbatim %}
-                                <img ng-src="{{ lesson.thumbnail }}" class="img-thumbnail">
-                                {% endverbatim %}
-                            </div>
-                            <!--  END COL-LG-3  -->
-
-                            <!--  COL-LG-9  -->
-                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                <a {% verbatim %}href="lessons/{{lesson.id}}"{% endverbatim %} class="title" ng-bind="lesson.name">{% trans 'Lesson name' %}</a>
-                                <div ng-bind-html="lesson.desc|markdown"></div>
-                                <!--  HIDDEN-XS  -->
-                                <div class="hidden-xs" ng-show="lesson.units">
-                                    <table class="table units">
-                                        <tbody>
-                                            <tr>
-                                                <td ng-repeat="unit in lesson.units">
-                                                    {% verbatim %}
-                                                    <span class="has-tooltip unit " data-toggle="tooltip"
-                                                          data-placement="bottom" data-original-title="{{unit.title}}">
-                                                        <i class="fa fa-list" ng-show="unit.activities"></i>
-                                                    </span>
-                                                    {% endverbatim %}
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!--  END HIDDEN-XS  -->
-
-                                        <p><i class="fa fa-youtube-play"></i> <small>{% verbatim %}{{ lesson.countVideos() }}{% endverbatim %} {% trans 'videos' %}</small> | <i class="fa fa-list"></i> <small>{% verbatim %}{{ lesson.countActivities() }}{% endverbatim %} {% trans 'activities' %}</small></p>
-
-                            </div>
-                            <!--  END COL-LG-9  -->
-                        </div>
-                        <!--  END LESSON  -->
-
-                        <div class="row textcenter">
-                            <div class="col-lg-12">
-                                {% verbatim %}
-                                <a href="/admin/courses/{{course.id}}/lessons/new" class="col-lg-12 btn btn-lg btn-default uppercase">{% endverbatim %}{% trans 'Add lesson' %}</a>
-                            </div>
-                        </div>
-                    </section>
-                    {% else %}
-                        {% if user.is_authenticated and course.has_started %}
-                        <section class="lessons" id="lesson-list">
-                            <!-- PAGE-HEADER-DOUBLE -->
-                            <div class="secondary-page-header">
-                                <h3><i class="fa fa-angle-double-right"></i> {% trans "Lessons" %}</h3>
-                            </div>
-                            <!-- END PAGE-HEADER-DOUBLE -->
-                            <!-- FOR LESSON IN COURSE.PUBLIC_LESSONS -->
-                            {% for lesson in course.public_lessons %}
-                                <!-- LESSON -->
-                                <div class="lesson row">
-                                    <!-- COL-LG-3 -->
-                                    <div class="col-lg-3 col-sm-3 col-sm-3 hidden-xs">
-                                        <img src="{{ lesson.thumbnail }}" class="img-thumbnail img-responsive">
-                                    </div>
-                                    <!-- END COL-LG-3 -->
-
-                                    <!-- COL-LG-9 -->
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-
-                                        <p>
-                                            {% if lesson.is_ready and user_is_enrolled %}
-                                                <a href="{% url 'lesson' course.slug lesson.slug %}" class="title">{{ lesson.name }}</a>
-                                            {% else %}
-                                                <span class="title">{{ lesson.name }}</span>
-                                            {% endif %}
-                                            <div class="description">{{ lesson.desc|timtec_markdown }}</div>
-                                        </p>
-
-                                        <!-- HIDDEN-XS -->
-                                        <div class="hidden-xs">
-                                            <!-- TABLE -->
-                                            <table class="units table ">
-                                                <!-- TR -->
-                                                <tr>
-                                                    <!-- FOR UNIT IN UNITS -->
-                                                    {% for unit in lesson.units.all %}
-                                                        <!-- TD -->
-                                                        <td>
-                                                            {% if lesson.is_ready and user_is_enrolled %}
-                                                                <a class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
-                                                                   data-toggle="tooltip" data-placement="bottom"
-                                                                   data-original-title="Unidade {{ forloop.counter }}"
-                                                                   href="{% url 'lesson' course.slug lesson.slug %}#/{{ forloop.counter }}">
-                                                                   {% if unit.activities.exists %}
-                                                                       <i class="fa fa-list"></i>
-                                                                   {% endif %}
-                                                                </a>
-                                                            {% else %}
-                                                                <span class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
-                                                                      data-toggle="tooltip" data-placement="bottom"
-                                                                      data-original-title="Unidade {{ forloop.counter }}">
-                                                                      {% if unit.activities.exists %}
-                                                                          <i class="fa fa-list"></i>
-                                                                      {% endif %}
-                                                                </span>
-                                                            {% endif %}
-                                                        </td>
-                                                        <!-- END TD -->
-                                                    {% endfor %}
-                                                    <!-- END FOR -->
-                                                </tr>
-                                                <!-- END TR -->
-                                            </table>
-                                            <!-- END TABLE -->
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- END LESSON -->
-                            {% endfor %}
-                            <!-- END FOR LESSON IN COURSE.PUBLIC_LESSONS -->
-                        </section>
-                        {% endif %}
-                    {% endif %}
-                <!-- END COURSE-LESSONS -->
-                {% endblock %}
             </div>
             <!-- END COLUMN -->
 
@@ -563,6 +373,191 @@ wrapper-course-intro
             <!-- END COLUMN -->
         </div>
         <!-- END COURSE INFO -->
+
+        <!-- COURSE-LESSONS -->
+        {% block course_lessons %}
+            {% if in_admin %}
+            <section class="lessons" id="lesson-list">
+                <!-- PAGE-HEADER-DOUBLE -->
+                <div class="secondary-page-header">
+                    <h3><i class="fa fa-angle-double-right"></i> {% trans "Lessons" %}</h3>
+                </div>
+                <!-- END PAGE-HEADER-DOUBLE -->
+
+                <p><a href="" ng-click="organizingLessons=true" ng-show="!organizingLessons">{% trans 'Organize lesson' %}</a></p>
+
+                <!-- ORGANIZING LESSONS -->
+                <div class="lessons organizing-lessons" ng-show="organizingLessons" sortable="lessons" on-update="repositionLessons()">
+                    <!-- LESSON -->
+                    <div class="row" ng-repeat="lesson in lessons">
+                        <div class="col-xs-12">
+                            <div class="lesson">
+                                <div class="row">
+
+                                    <div class="col-lg-9">
+                                        <span class="handle"><span class="btn btn-warning"><i class="fa fa-bars"></i></span></span>
+                                        <span class="title" ng-bind="lesson.name">{% trans 'Lesson name' %}</span>
+                                    </div>
+
+                                    <div class="col-lg-3 textright">
+                                        <div class="btn-group" ng-init="openDropdown=false;">
+                                            <button type="button" class="btn btn-default">
+                                                <span ng-show="lesson.status=='draft'"> {% trans 'Draft' %}</span>
+                                                <span ng-show="lesson.status=='published'"> {% trans 'Published' %}</span>
+                                            </button>
+                                            <button type="button" class="btn btn-default dropdown-toggle"
+                                                    ng-click="openDropdown=!openDropdown;">
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu textleft" ng-style="{display:openDropdown?'block':'none'}">
+                                                <li>
+                                                    <a ng-click="lesson.status='draft';openDropdown=false;"
+                                                       ng-show="lesson.status!='draft'"> {% trans 'Draft' %}</a>
+                                               </li>
+                                                <li>
+                                                    <a ng-click="lesson.status='listed';openDropdown=false;"
+                                                       ng-show="lesson.status!='listed'"> {% trans 'Listed' %}</a>
+                                               </li>
+                                                <li>
+                                                    <a ng-click="lesson.status='published';openDropdown=false;"
+                                                       ng-show="lesson.status!='published'"> {% trans 'Published' %}</a>
+                                               </li>
+                                            </ul>
+                                        </div>
+                                        <button class="btn btn-danger" ng-click="deleteLesson(lesson)"><i class="fa fa-trash-o"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END LESSON -->
+
+                    <div class="submit textright">
+                        <button class="btn btn-danger" ng-click="organizingLessons=false">{% trans 'Cancel' %}</button>
+                        <button class="btn btn-success" ng-click="saveAllLessons()">{% trans 'Save' %}</button>
+                    </div>
+                </div>
+                <!-- END ORGANIZING LESSONS -->
+
+                <!--  LESSON  -->
+                <div class="lesson row" ng-repeat="lesson in lessons" ng-hide="organizingLessons">
+                    <!--  COL-LG-3  -->
+                    <div class="col-lg-3 col-sm-3 col-sm-3 hidden-xs">
+                        {% verbatim %}
+                        <img ng-src="{{ lesson.thumbnail }}" class="img-thumbnail">
+                        {% endverbatim %}
+                    </div>
+                    <!--  END COL-LG-3  -->
+
+                    <!--  COL-LG-9  -->
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <a {% verbatim %}href="lessons/{{lesson.id}}"{% endverbatim %} class="title" ng-bind="lesson.name">{% trans 'Lesson name' %}</a>
+                        <div ng-bind-html="lesson.desc|markdown"></div>
+                        <!--  HIDDEN-XS  -->
+                        <div class="hidden-xs" ng-show="lesson.units">
+                            <table class="table units">
+                                <tbody>
+                                    <tr>
+                                        <td ng-repeat="unit in lesson.units">
+                                            {% verbatim %}
+                                            <span class="has-tooltip unit " data-toggle="tooltip"
+                                                  data-placement="bottom" data-original-title="{{unit.title}}">
+                                                <i class="fa fa-list" ng-show="unit.activities"></i>
+                                            </span>
+                                            {% endverbatim %}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--  END HIDDEN-XS  -->
+
+                                <p><i class="fa fa-youtube-play"></i> <small>{% verbatim %}{{ lesson.countVideos() }}{% endverbatim %} {% trans 'videos' %}</small> | <i class="fa fa-list"></i> <small>{% verbatim %}{{ lesson.countActivities() }}{% endverbatim %} {% trans 'activities' %}</small></p>
+
+                    </div>
+                    <!--  END COL-LG-9  -->
+                </div>
+                <!--  END LESSON  -->
+
+                <div class="row textcenter">
+                    <div class="col-lg-12">
+                        {% verbatim %}
+                        <a href="/admin/courses/{{course.id}}/lessons/new" class="col-lg-12 btn btn-lg btn-default uppercase">{% endverbatim %}{% trans 'Add lesson' %}</a>
+                    </div>
+                </div>
+            </section>
+            {% else %}
+                {% if user.is_authenticated and course.has_started %}
+                <section class="lessons lesson-list">
+                    <!-- PAGE-HEADER-DOUBLE -->
+                    <div class="secondary-page-header">
+                        <h3><i class="fa fa-angle-double-right"></i> {% trans "Lessons" %}</h3>
+                    </div>
+                    <!-- END PAGE-HEADER-DOUBLE -->
+                    <!-- FOR LESSON IN COURSE.PUBLIC_LESSONS -->
+                    {% for lesson in course.public_lessons %}
+                        <!-- LESSON -->
+                        <div class="lesson row">
+                            <!-- COL-LG-3 -->
+                            <div class="col-lg-3 col-sm-3 col-sm-3 hidden-xs">
+                                <img src="{{ lesson.thumbnail }}" class="img-responsive">
+                            </div>
+                            <!-- END COL-LG-3 -->
+
+                            <!-- COL-LG-9 -->
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+
+                                <h4 class="title">
+                                    {% if lesson.is_ready and user_is_enrolled %}
+                                        <a href="{% url 'lesson' course.slug lesson.slug %}" class="title">{{ lesson.name }}</a>
+                                    {% else %}
+                                        {{ lesson.name }}
+                                    {% endif %}
+                                </h4>
+                                <div class="description">{{ lesson.desc|timtec_markdown }}</div>
+
+                                <!-- HIDDEN-XS -->
+                                <div class="lesson-units-nav hidden-xs">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                                    </div>
+                                    <div class="units">
+                                        <span class="units-title">{% trans 'Chapters' %}</span>
+                                        <!-- FOR UNIT IN UNITS -->
+                                        {% for unit in lesson.units.all %}
+                                            {% if lesson.is_ready and user_is_enrolled %}
+                                                <a class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
+                                                   data-toggle="tooltip" data-placement="bottom"
+                                                   data-original-title="Unidade {{ forloop.counter }}"
+                                                   href="{% url 'lesson' course.slug lesson.slug %}#/{{ forloop.counter }}">
+                                                   {% if unit.activities.exists %}
+                                                       {{ forloop.counter }}
+                                                   {% endif %}
+                                                </a>
+                                            {% else %}
+                                                <span class="has-tooltip unit {% if unit.id in units_done %}done{% endif %}"
+                                                      data-toggle="tooltip" data-placement="bottom"
+                                                      data-original-title="Unidade {{ forloop.counter }}">
+                                                      {% if unit.activities.exists %}
+                                                          {{ forloop.counter }}
+                                                      {% endif %}
+                                                </span>
+                                            {% endif %}
+                                            <!-- END TD -->
+                                        {% endfor %}
+                                        <!-- END FOR -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END LESSON -->
+                    {% endfor %}
+                    <!-- END FOR LESSON IN COURSE.PUBLIC_LESSONS -->
+                </section>
+                {% endif %}
+            {% endif %}
+        <!-- END COURSE-LESSONS -->
+        {% endblock %}
 
     </section>
     <!-- END COURSE CONTENT -->
