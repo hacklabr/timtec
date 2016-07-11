@@ -44,29 +44,54 @@ wrapper-course-lesson
 
     <!-- UNITS NAVIGATION FOR TABLET AND DESKTOP -->
     <div class="lesson-units-nav">
+        <div class="line"></div>
         {% block units_nav %}
         <!-- UNITS -->
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
-        </div>
-        <div class="units">
-            {% verbatim %}
-            <a data-placement="right"
-               title="{{unit.video.name}}"
-               href="#/{{$index+1}}"
-               class="has-tooltip unit done" data-toggle="tooltip"
-               ng-repeat="unit in lesson.units"
-               ng-class="{watching: unit==currentUnit, done: unit.progress.complete}">
-                   <span ng-bind="unit.position+1">1</span>
-            </a>
-            <a href="#" class="unit current">
-                <span>2</span>
-            </a>
-            <a href="#" class="unit">
-                <span>3</span>
-            </a>
+        <div class="container-fluid">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+            </div>
+            <div class="units">
+                <span class="title">{% trans 'Chapters' %}</span>
+                {% verbatim %}
+                <a data-placement="right"
+                   title="{{unit.video.name}}"
+                   href="#/{{$index+1}}"
+                   class="has-tooltip unit done" data-toggle="tooltip"
+                   ng-repeat="unit in lesson.units"
+                   ng-class="{watching: unit==currentUnit, done: unit.progress.complete}">
+                       <span ng-bind="unit.position+1">1</span>
+                </a>
+                <a href="#" class="unit current">
+                    <span>2</span>
+                </a>
+                <a href="#" class="unit">
+                    <span>3</span>
+                </a>
+                <a href="#" class="unit">
+                    <span>4</span>
+                </a>
+                <a href="#" class="unit">
+                    <span>5</span>
+                </a>
+                <a href="#" class="unit">
+                    <span>6</span>
+                </a>
+                <a href="#" class="unit">
+                    <span>7</span>
+                </a>
+                <a href="#" class="unit">
+                    <span>8</span>
+                </a>
+                <a href="#" class="unit">
+                    <span>9</span>
+                </a>
+                <a href="#" class="unit">
+                    <span>10</span>
+                </a>
 
-            {% endverbatim %}
+                {% endverbatim %}
+            </div>
         </div>
         <!-- END UNITS -->
         {% endblock %}
