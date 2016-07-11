@@ -303,6 +303,7 @@ class CourseStudentViewSet(viewsets.ModelViewSet):
 class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
 
     model = get_user_model()
+    queryset = model.objects.all()
     serializer_class = ProfileSerializer
 
     def list(self, request, *args, **kwargs):
