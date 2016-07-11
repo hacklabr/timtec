@@ -1,0 +1,32 @@
+// Courses' page
+// --------------------------------------------------
+
+.courses-page {
+    .filters {
+        ul {
+            background-color: rgba($light-blue,0.8);
+            border-radius: 20px;
+            box-shadow: none;
+            color: #fff;
+            font-size: $font-size-large;
+            list-style: none;
+            padding: 0;
+            li {
+                cursor: pointer;
+                padding: 2px 15px;
+                &:first-child {
+                    border-radius: 20px 20px 0 0;
+                    padding-top: 6px;
+                }
+                &:last-child {
+                    border-radius: 0 0 20px 20px;
+                    padding-bottom: 6px;
+                }
+                &:hover, &.selected {
+                    background-color: $brand-primary;
+                    font-weight: $semi-bold;
+                }
+            }
+        }
+    }
+}

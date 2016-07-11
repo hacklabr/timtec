@@ -1,5 +1,167 @@
+// Shared course header
+// --------------------------------------------------
+
+.main-header {
+    background-color: $gray-lighter;
+    color: #000;
+    padding: 20px 0;
+    .container-fluid {
+        max-width: 1050px !important;
+    }
+    .page-header {
+        border: 0;
+        margin: 0;
+        h1 {
+            font-size: 18px;
+            margin: 0; 
+            text-transform: uppercase;
+            span {
+                display: inline-block;
+            }
+        }
+    }
+    .course-name {
+        font-size: 30px;
+        margin: 0; 
+        a {
+            border-bottom: 2px solid transparent;
+            color: $brand-primary;
+            text-decoration: none;
+            @include transition(border 0.5s ease);
+            &:hover {
+                border-color: $brand-primary; 
+            } 
+        }
+    }
+    .course-slug {
+        margin-bottom: 5px;
+        label {
+            color: $gray-light;
+            font-weight: normal;
+        }
+    }
+    .course-details {
+        font-size: $font-size-small;
+        margin-top: 5px;
+        text-transform: uppercase;
+        .label {
+            color: $gray;
+            font-weight: normal;
+            padding: 0;
+            font-size: inherit;
+        }
+        a {
+            color: $brand-primary;
+            &:hover {
+                color: darken($brand-primary, 10%);
+            }
+            &.course-instructor:after {
+                content: " // ";
+                color: black;
+                margin-right: 3px;
+            }
+            &:last-child:after {
+                content: "";
+            }
+        }
+    }
+    .course-sections {
+        @media screen and (min-width: $screen-md-min) {
+            text-align: right; 
+        }
+        a {
+            border-bottom: 2px solid transparent;
+            color: #000;
+            display: inline-block;
+            font-size: 10px;
+            font-weight: $bold;
+            max-width: 58px;
+            vertical-align: top;
+            text-align: center;
+            text-decoration: none;
+            text-transform: lowercase; 
+            @include transition(border 0.5s ease);
+            @media screen and (min-width: $screen-lg-min) {
+                font-size: 11px;
+                max-width: 68px;
+            }
+            &:hover {
+                border-color: #000; 
+            }
+            &:before {
+                display: block;
+                font-size: $font-size-base;
+                @media screen and (min-width: $screen-lg-min) {
+                    font-size: $font-size-large;
+                }
+            }
+        }
+        .intro {
+            @extend %icon-home;
+        }
+        .materials {
+            @extend %icon-materials;
+        }
+        .notes {
+            @extend %icon-notes;
+        }
+        .resume {
+            @extend %icon-film;
+        }
+        .tools {
+            @extend %icon-tools;
+        }
+        .dropdown {
+            display: inline-block;
+        }
+    }
+    .lesson-units {
+        display: none;
+        margin-top: 5px;
+        @media screen and (min-width: $screen-md-min) {
+            display: block;
+        }
+        .lesson-name {
+            float: left;
+            font-size: $font-size-small;
+            @media screen and (min-width: $screen-lg-min) {
+                font-size: 16px;
+            }
+            span {
+                font-weight: $bold;
+            }
+        }
+        .lesson-list-dropdown {
+            float: left;
+            button {
+                background: transparent;
+                border: 0;
+                box-shadow: none;
+                font-size: $font-size-small;
+                @media screen and (min-width: $screen-lg-min) {
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+    .lesson-units-mobile {
+        display: block;
+        margin: 10px 0;
+        @media screen and (min-width: $screen-md-min) {
+            display: none;
+        }
+        .form-control {
+            max-width: 400px;
+        }
+    }
+}
+
 // Course content (used on course intro and lesson page)
 // -----------------------------------------------------
+
+.course {
+    margin-top: -50px;
+}
 
 .course-content {
     margin: 40px auto;  
@@ -268,30 +430,57 @@
     // COURSE UNITS - General
     // ********************************************************************* //
     .lesson-units-nav {
+        .line {
+            background: $brand-primary;
+            background: -moz-linear-gradient(left, $brand-primary 0%, $brand-primary 50%, $gray-light 50%, $gray-light 100%);
+            background: -webkit-linear-gradient(left, $brand-primary 0%, $brand-primary 50%, $gray-light 50%, $gray-light 100%);
+            background: linear-gradient(to right, $brand-primary 0%, $brand-primary 50%, $gray-light 50%, $gray-light 100%);
+            height: 3px;
+        }
         .progress {
             background: $gray-light;
             border-radius: 0;
             box-shadow: none;
             height: 3px;
             margin-bottom: 0;
+            .progress-bar {
+                background: $brand-primary;
+            }
+        }
+        .container-fluid {
+            margin-top: -3px;
+            max-width: 1050px !important;
         }
     }
     .units {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         width: 100%;
+        .units-title {
+            background: $brand-primary;
+            border-radius: 20px;
+            color: #fff;
+            display: block;
+            font-size: $font-size-base;
+            font-weight: $semi-bold;
+            height: 20px;
+            margin-top: -11px; 
+            padding: 0 10px;
+            text-align: center; 
+            text-transform: lowercase;
+        }
         .unit {
             background: $gray-light;
             border-radius: 100%;
             color: #fff;
             display: block;
             font-size: $font-size-base;
-            font-weight: $bold;
+            font-weight: $semi-bold;
             height: 20px;
             margin-top: -11px; 
             text-align: center; 
             text-decoration: none; 
-            @include transition(all 0.5 ease);
+            @include transition(all 0.5s ease);
             width: 20px;
             &:hover {
                 background: darken($gray-light, 10%);
@@ -327,17 +516,32 @@
         // END ADD UNIT
     }
     // END COURSE UNITS
+    .lesson-list {
+        .lesson {
+            margin-bottom: 30px;
+            .title {
+                color: $gray;
+                font-family: $font-family-sans-serif;
+                font-size: 24px;
+                font-weight: $extra-bold; 
+                margin: 0 0 10px; 
+            }
+            .description {
+                color: #000;
+                font-size: 16px;
+                margin-bottom: 30px;
+            }
+        }
+    }
 }
 
 // Define max-width of course-content div
 .course-lesson {
-    margin-top: -50px;
     .course-content {
         max-width: 720px !important;
     }
 }
 .course-intro {
-    margin-top: -50px;
     .course-content {
         max-width: 1050px !important;
 

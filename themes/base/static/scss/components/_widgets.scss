@@ -4,8 +4,8 @@
 .widget-topbar {
     background-color: $brand-primary;
     color: #fff;
-    margin: -30px -30px 30px -30px !important;
-    padding: 15px 0;
+    margin: -15px -15px 15px -15px !important;
+    padding: 10px 0;
 
     .title {
         font-family: $font-family-sans-serif;
@@ -14,25 +14,6 @@
         margin: 2px 0 10px;
         @media screen and (min-width: $screen-md-min) {
             margin: 2px 0;
-        }
-    }
-
-    .filter {
-        cursor: pointer;
-        font-size: $font-size-base;
-        font-weight: $semi-bold;
-        text-decoration: underline; 
-    }
-
-    .button-goback {
-        @extend %icon-goback;
-        cursor: pointer;
-        font-size: $font-size-base;
-        font-weight: $semi-bold;
-        margin-right: 20px;
-        &:before {
-            font-size: $font-size-small;
-            margin-right: 5px;
         }
     }
 
@@ -66,8 +47,8 @@
     }
 
     .form-control {
-        font-size: $font-size-large;
-        font-weight: 700;
+        font-size: $font-size-base;
+        min-width: 230px;
         padding: 0px 15px;
     }
 }
@@ -92,7 +73,6 @@
         .form-control {
             &:focus {
                 border-color: $brand-primary;
-                box-shadow: none;
             }
         }
     }
@@ -111,7 +91,7 @@
 // --------------------------------------------------
 
 .forums-widget {
-    @include card(rgba(#fff,0.4));
+    @include card(rgba(#fff,0.3));
 
     .widget-filter {
         @include icon(after, search);
@@ -127,7 +107,6 @@
         .form-control {
             &:focus {
                 border-color: $brand-primary;
-                box-shadow: none;
             }
         }
     }

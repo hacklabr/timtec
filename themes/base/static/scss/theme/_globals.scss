@@ -1,0 +1,9 @@
+// Globals
+// --------------------------------------------------
+
+//## Set shared styles for all pages
+//##
+.page {
+    @include card(rgba($light-blue,0.6));
+    padding: 60px;
+}
