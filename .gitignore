@@ -59,6 +59,7 @@ settings_local.py
 /.cache
 /node_modules
 bower_components/
+/tim
 
 # Vagrant
 .vagrant

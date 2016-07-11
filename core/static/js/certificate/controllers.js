@@ -79,8 +79,8 @@
     ]);
 
     module.controller('ClassEvaluationsController',
-    ['$scope', '$modal', '$window', '$routeParams', 'CertificationProcess', 'Evaluation', 'Class', 'ClassIdGetter',
-    function($scope, $modal, $window, $routeParams, CertificationProcess, Evaluation, Class, ClassIdGetter) {
+    ['$scope', '$uibModal', '$window', '$routeParams', 'CertificationProcess', 'Evaluation', 'Class', 'ClassIdGetter',
+    function($scope, $uibModal, $window, $routeParams, CertificationProcess, Evaluation, Class, ClassIdGetter) {
             $scope.errors = {};
             $scope.evaluations = [];
 
@@ -145,11 +145,11 @@
             }
 
             $scope.addStudentEvaluation = function () {
-                var modalInstance = $modal.open(
+                var modalInstance = $uibModal.open(
                     {
                         animation: true,
                         templateUrl: 'addStudentModal.html',
-                        controller: ['$scope', '$modalInstance', 'processes', 'evaluation', 'students', AddStudentModalCtrl],
+                        controller: ['$scope', '$uibModalInstance', 'processes', 'evaluation', 'students', AddStudentModalCtrl],
                         resolve: {
                             processes: function () {
                                 return $scope.certification_processes;
@@ -188,7 +188,7 @@
 
             };
 
-            var AddStudentModalCtrl = function ($scope, $modalInstance, processes, evaluation, students) {
+            var AddStudentModalCtrl = function ($scope, $uibModalInstance, processes, evaluation, students) {
                 $scope.certification_processes = processes;
                 $scope.class_students = students;
                 $scope.evaluation = evaluation;
@@ -202,20 +202,20 @@
                 }
 
                 $scope.cancel = function () {
-                    $modalInstance.dismiss();
+                    $uibModalInstance.dismiss();
                 };
 
                 $scope.save = function(){
-                    $modalInstance.close($scope.certification_processes);
+                    $uibModalInstance.close($scope.certification_processes);
                 }
             }
 
             $scope.createEvaluation = function (isEdit) {
-                var modalInstance = $modal.open(
+                var modalInstance = $uibModal.open(
                     {
                         animation: true,
                         templateUrl: 'createEvaluationModal.html',
-                        controller: ['$scope', '$modalInstance', 'klass_id', 'evaluation', CreateUpdateEvaluationModalCtrl],
+                        controller: ['$scope', '$uibModalInstance', 'klass_id', 'evaluation', CreateUpdateEvaluationModalCtrl],
                         resolve: {
                             klass_id: function () {
                                 return $scope.klass_id;
@@ -249,7 +249,7 @@
                 $scope.evaluation = $scope.class_evaluations[$index];
             };
 
-            var CreateUpdateEvaluationModalCtrl = function ($scope, $modalInstance, klass_id, evaluation) {
+            var CreateUpdateEvaluationModalCtrl = function ($scope, $uibModalInstance, klass_id, evaluation) {
                 if(!evaluation){
                     $scope.evaluation = new Evaluation();
                 } else {
@@ -257,7 +257,7 @@
                 }
 
                 $scope.cancel = function () {
-                    $modalInstance.dismiss();
+                    $uibModalInstance.dismiss();
                 };
 
                 $scope.openCalendar = function(e, b){
@@ -274,7 +274,7 @@
                 $scope.save = function(){
                     // Write validation
                     $scope.evaluation.klass = klass_id;
-                    $modalInstance.close($scope.evaluation);
+                    $uibModalInstance.close($scope.evaluation);
                 }
             }
 

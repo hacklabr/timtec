@@ -4,8 +4,8 @@
     var app = angular.module('courses');
 
     app.controller('CoursesAdminController', [
-        '$scope', '$modal', '$window', 'Course', 'Lesson', 'FormUpload',
-        function ($scope, $modal, $window, Course, Lesson, FormUpload) {
+        '$scope', '$uibModal', '$window', 'Course', 'Lesson', 'FormUpload',
+        function ($scope, $uibModal, $window, Course, Lesson, FormUpload) {
 
             $scope.courseList = [];
             $scope.ordering = 'start_date';
@@ -80,21 +80,21 @@
             }
 
             $scope.import_course_modal = function () {
-                var modalInstance = $modal.open({
+                var modalInstance = $uibModal.open({
                     templateUrl: 'import_course_modal.html',
-                    controller: ['$scope', '$modalInstance', ImportCourseModalInstanceCtrl]
+                    controller: ['$scope', '$uibModalInstance', ImportCourseModalInstanceCtrl]
                 });
                 modalInstance.result.then(function (course_import_file) {
                     send_course_file(course_import_file);
                 });
             };
-            var ImportCourseModalInstanceCtrl = function ($scope, $modalInstance) {
+            var ImportCourseModalInstanceCtrl = function ($scope, $uibModalInstance) {
                 $scope.cancel = function () {
-                    $modalInstance.dismiss();
+                    $uibModalInstance.dismiss();
                 };
 
                 $scope.import_course = function () {
-                    $modalInstance.close($scope.course_import_file);
+                    $uibModalInstance.close($scope.course_import_file);
 
                 };
             };
@@ -106,8 +106,8 @@
      *
     **/
     app.controller('CourseListByUserRoleController', [
-        '$scope', '$window', '$modal', 'Lesson', 'CourseProfessor', 'Class',
-        function ($scope, $window, $modal, Lesson, CourseProfessor, Class) {
+        '$scope', '$window', '$uibModal', 'Lesson', 'CourseProfessor', 'Class',
+        function ($scope, $window, $uibModal, Lesson, CourseProfessor, Class) {
             var current_user_id = parseInt($window.user_id, 10);
 
             $scope.loadLessons = function(course) {
@@ -126,7 +126,7 @@
                           'role': 'coordinator'});
 
             $scope.open_professor_modal = function(course_professor) {
-                var modalInstance = $modal.open({
+                var modalInstance = $uibModal.open({
                        templateUrl: 'create_class_modal.html',
                        controller: CreateClassModalInstanceCtrl,
                        resolve: {
@@ -139,11 +139,11 @@
                 });
             };
 
-            var CreateClassModalInstanceCtrl = function($scope, $modalInstance, course_professor) {
+            var CreateClassModalInstanceCtrl = function($scope, $uibModalInstance, course_professor) {
                 $scope.course = course_professor.course;
 
                 $scope.cancel = function () {
-                    $modalInstance.dismiss();
+                    $uibModalInstance.dismiss();
                 };
             };
         }

@@ -3,8 +3,8 @@
     var app = angular.module('my-courses');
 
     app.controller('UserCourseListController',
-        ['$scope', '$window', '$modal', 'CertificationProcess', 'CourseStudentService', 'Class',
-        function ($scope, $window, $modal, CertificationProcess, CourseStudentService, Class) {
+        ['$scope', '$window', '$uibModal', 'CertificationProcess', 'CourseStudentService', 'Class',
+        function ($scope, $window, $uibModal, CertificationProcess, CourseStudentService, Class) {
             $scope.course_student_list = CourseStudentService.get();
             $window.csl = $scope.course_student_list;
             $window.$scope = $scope;
@@ -47,12 +47,12 @@
     ]);
 
     app.controller('UserCertificatesController',
-        ['$scope', '$window', '$modal', 'CertificationProcess', 'CourseStudentService', 'Class',
-        function ($scope, $window, $modal, CertificationProcess, CourseStudentService, Class) {
+        ['$scope', '$window', '$uibModal', 'CertificationProcess', 'CourseStudentService', 'Class',
+        function ($scope, $window, $uibModal, CertificationProcess, CourseStudentService, Class) {
             $scope.course_student_list = CourseStudentService.get();
             console.log($scope.course_student_list);
             $scope.open_evaluation_modal = function(process) {
-                var modalInstance = $modal.open({
+                var modalInstance = $uibModal.open({
                        templateUrl: 'evaluation_modal.html',
                        controller: EvaluationModalInstanceCtrl,
                        resolve: {
@@ -67,18 +67,18 @@
 
             };
 
-            var EvaluationModalInstanceCtrl = function($scope, $modalInstance, process) {
+            var EvaluationModalInstanceCtrl = function($scope, $uibModalInstance, process) {
                 $scope.process = process;
                 $scope.cancel = function () {
-                    $modalInstance.dismiss();
+                    $uibModalInstance.dismiss();
                 };
             };
         }
     ]);
 
     app.controller('AssistantCourseListController', [
-        '$scope', '$window', '$modal', 'Lesson', 'CourseProfessor', 'Class',
-        function ($scope, $window, $modal, Lesson, CourseProfessor, Class) {
+        '$scope', '$window', '$uibModal', 'Lesson', 'CourseProfessor', 'Class',
+        function ($scope, $window, $uibModal, Lesson, CourseProfessor, Class) {
             var current_user_id = parseInt($window.user_id, 10);
 
             $scope.loadLessons = function(course) {
@@ -97,7 +97,7 @@
                           'role': 'coordinator'});
 
             $scope.open_professor_modal = function(course_professor) {
-                var modalInstance = $modal.open({
+                var modalInstance = $uibModal.open({
                        templateUrl: 'create_class_modal.html',
                        controller: CreateClassModalInstanceCtrl,
                        resolve: {
@@ -110,19 +110,19 @@
                 });
             };
 
-            var CreateClassModalInstanceCtrl = function($scope, $modalInstance, course_professor) {
+            var CreateClassModalInstanceCtrl = function($scope, $uibModalInstance, course_professor) {
                 $scope.course = course_professor.course;
 
                 $scope.cancel = function () {
-                    $modalInstance.dismiss();
+                    $uibModalInstance.dismiss();
                 };
             };
         }
     ]);
 
     app.controller('CoordinatorCourseListController', [
-        '$scope', '$window', '$modal', 'Lesson', 'CourseProfessor', 'Class',
-        function ($scope, $window, $modal, Lesson, CourseProfessor, Class) {
+        '$scope', '$window', '$uibModal', 'Lesson', 'CourseProfessor', 'Class',
+        function ($scope, $window, $uibModal, Lesson, CourseProfessor, Class) {
             var current_user_id = parseInt($window.user_id, 10);
 
             $scope.loadLessons = function(course) {
@@ -141,7 +141,7 @@
                           'role': 'coordinator'});
 
             $scope.open_professor_modal = function(course_professor) {
-                var modalInstance = $modal.open({
+                var modalInstance = $uibModal.open({
                        templateUrl: 'create_class_modal.html',
                        controller: CreateClassModalInstanceCtrl,
                        resolve: {
@@ -154,11 +154,11 @@
                 });
             };
 
-            var CreateClassModalInstanceCtrl = function($scope, $modalInstance, course_professor) {
+            var CreateClassModalInstanceCtrl = function($scope, $uibModalInstance, course_professor) {
                 $scope.course = course_professor.course;
 
                 $scope.cancel = function () {
-                    $modalInstance.dismiss();
+                    $uibModalInstance.dismiss();
                 };
             };
         }

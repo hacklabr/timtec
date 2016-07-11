@@ -3,8 +3,8 @@
 
     var app = angular.module('lesson.controllers', []);
 
-    app.controller('MainCtrl', ['$scope', 'LessonData', 'Answer', 'Progress', '$location', 'youtubePlayerApi', 'resolveActivityTemplate', '$modal', 'Student',
-        function ($scope, LessonData, Answer, Progress, $location, youtubePlayerApi, resolveActivityTemplate, $modal, Student) {
+    app.controller('MainCtrl', ['$scope', 'LessonData', 'Answer', 'Progress', '$location', 'youtubePlayerApi', 'resolveActivityTemplate', '$uibModal', 'Student',
+        function ($scope, LessonData, Answer, Progress, $location, youtubePlayerApi, resolveActivityTemplate, $uibModal, Student) {
 
             window.ga = window.ga || function(){};
 
@@ -187,9 +187,9 @@
             });
 
             $scope.courseComplete = function () {
-                var modalInstance = $modal.open({
+                var modalInstance = $uibModal.open({
                     templateUrl: 'courseCompleteModal.html',
-                    controller: ['$scope', '$modalInstance', 'course_slug', 'Student', 'CourseCertification',
+                    controller: ['$scope', '$uibModalInstance', 'course_slug', 'Student', 'CourseCertification',
                         'CertificationProcess', CourseCompleteModalInstanceCtrl],
                     resolve: {
                         course_slug: function () {
@@ -202,7 +202,7 @@
                 });
             };
 
-            var CourseCompleteModalInstanceCtrl = function ($scope, $modalInstance, course_slug, Student,
+            var CourseCompleteModalInstanceCtrl = function ($scope, $uibModalInstance, course_slug, Student,
                 CourseCertification, CertificationProcess) {
                 // Show spinner while creating the receipt
 
@@ -237,7 +237,7 @@
                 }
 
                 $scope.cancel = function () {
-                        $modalInstance.dismiss();
+                        $uibModalInstance.dismiss();
                 };
             }
         }
