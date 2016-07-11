@@ -1,0 +1,23 @@
+# -*- coding: utf-8 -*-
+# https://docs.djangoproject.com/en/dev/ref/settings/
+
+DOMAIN_NAME = 'localhost'
+
+DEBUG = True
+
+TIMTEC_THEME = 'default'
+
+# INSTALLED_APPS += ("my-app", )
+
+TERMS_ACCEPTANCE_REQUIRED = False
+
+ALLOWED_HOSTS = ['*']
+
+DATABASES = {
+    'default': env.db("DJANGO_DATABASE_URL", default='postgres:///timtec-dev'),
+}
+
+if DEBUG:
+    INSTALLED_APPS += (
+        'debug_toolbar',
+    )
