@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% load timtec_markdown %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
+{% block content %}
+<!-- CONTAINER -->
+<div class="course course-material">
+
+	{% include "_course-header-inline.html"  with course=course %}
+
+    <!-- MAIN CONTENT -->
+    <section class="course-content container-fluid">
+        <header class="secondary-header">
+            <h1>{% trans "Course Material" %}</h1>
+        </header>
+
+        <div class="row">
+			<div id="course-material-text" class="col-sm-9 col-lg-9">
+				<p class="description">{{ course_material.text|timtec_markdown }}</p>
+			</div>
+
+            <!-- ASIDE -->
+            <aside class="col-sm-3 col-lg-3">
+                <ul class="uploaded-files-list">
+                    <li><h5>{% trans "Files" %}</h5></li>
+                    {% for file in course_material.files.all %}
+                    <li><a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </aside>
+            <!-- END ASIDE -->
+        </div>
+    </section>
+    <!-- END MAIN CONTENT-->
+</div>
+<!-- END CONTAINER -->
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $(document).ready( function(){
+            $('#course-material-text p a').attr('target', '_blank');
+        });
+    </script>
+{% endblock %}

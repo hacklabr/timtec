@@ -3,7 +3,7 @@
 
 //## Course box used on course widget on dashboard and course list page
 //##
-.course {
+.course-box {
     margin-bottom: 30px;
 
     .course-progress {
@@ -59,11 +59,4 @@
             margin-right: 5px;
         }
     }
-}
-
-//## Course's list page styles
-//##
-.courses-page {
-    @include card(rgba($gray,0.5));
-    margin-top: -50px;
 }

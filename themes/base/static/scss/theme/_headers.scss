@@ -3,7 +3,8 @@
 
 .page-header {
     h1, h2, h3, h4, h5, h6 {
-        color: #000;
+        color: $purple;
+        font-size: 48px;
         text-transform: lowercase;
         i {
             display: none;
@@ -11,20 +12,15 @@
     }
 }
 
-// Shared headers styles
+// Secondary page's headers
 // --------------------------------------------------
 
-.main-header {
-    background-color: $yellow;
-    .course-name {
-        a {
-            color: #000;
-            &:hover {
-                border-color: #000; 
-            } 
+.secondary-page-header {
+    h1, h2, h3, h4, h5, h6 {
+        color: #000;
+        text-transform: lowercase;
+        i {
+            display: none;
         }
-    }
-    .course-details {
-        display: none;
     }
 }

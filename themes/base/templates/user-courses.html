@@ -1,0 +1,448 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block js %} {{block.super}}
+<script type="text/javascript" src="{% static 'js/my-courses/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/my-courses/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/my-courses/services.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/my-courses/filters.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/file.js' %}"></script>
+<script>window.user_id = {{ user.pk }};</script>
+
+{% endblock %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
+{% block content %}
+<!-- CONTAINER -->
+<div class="my-courses page container-fluid">
+    {% block content-header %}
+        <header class="page-header">
+            <h2><i class="fa fa-angle-double-right"></i>
+                {% block content-header-title %}
+                    {% trans "My Courses" %}
+                {% endblock %}
+            </h2>
+        </header>
+    {% endblock %}
+
+    <section class="courses" role="tabpanel">
+        {% with courses_user_enrolled=request.user.coursestudent_set.all %}
+        <ul class="nav nav-tabs" id="dashboard-tabs" role="tablist">
+            {% if courses_user_enrolled %}
+            <li role="presentation" class="active"><a href="#course-as-student" aria-controls="course-as-student" role="tab" data-toggle="tab">{% trans "Courses I'm enrolled" %}</a></li>
+            {% endif %}
+            {% if user_has_certificates %}
+                <li role="presentation" ><a href="#my-certificates" aria-controls="my-certificates" role="tab" data-toggle="tab">
+                    {% block content-tab-mycertificates-title %}
+                        {% trans "My certificates" %}
+                    {% endblock %}
+                </a></li>
+            {% endif %}
+            {% if courses_user_assist %}
+            <li role="presentation"><a href="#course-as-teacher" aria-controls="course-as-teacher" role="tab" data-toggle="tab">{% trans "Courses I assist" %}</a></li>
+            {% endif %}
+            {% if courses_user_coordinate %}
+            <li role="presentation"><a href="#course-as-coordinator" aria-controls="course-as-coordinator" role="tab" data-toggle="tab">{% trans "Courses I coordinate" %}</a></li>
+            {% endif %}
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content" ng-app="my-courses">
+            <div role="tabpanel" class="tab-pane active" ng-controller="UserCourseListController" id="course-as-student">
+                {% if not courses_user_enrolled %}
+                <div class="course">
+                    <header>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p>{% trans 'You are not enrolled in any course yet.' %}</p>
+                            </div>
+                        </div>
+                    </header>
+                </div>
+                {% endif %}
+                {% for cs in request.user.coursestudent_set.all %}
+                <div class="course">
+                    {% if cs.course.has_started %}
+                    <header>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <h1><a href="{% url 'resume_course' cs.course.slug %}">{{ cs.course.name }}</a></h1>
+                            </div>
+                            <div class="col-sm-4 textright">
+                                <div class="btn-group">
+                                    <a href="{% url 'resume_course' cs.course.slug %}" class="btn btn-sm btn-success">{% trans "Resume Course" %}</a>
+                                    <a href="{% url 'resume_course' cs.course.slug %}" class="btn btn-sm btn-success"><i class="fa fa-angle-double-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                    <div class="progress">
+                        <div class="progress-bar" style="width:{{cs.percent_progress}}%;"></div>
+                    </div>
+                    <a href="{% url 'user_course_notes' cs.course.slug %}" class="btn btn-default btn-sm">{% trans "My Notes" %}</a>
+
+                    <!-- CERTIFICATE -->
+                    {% if cs.certificate %}
+                        <a href="{% url 'certificate' cs.certificate.link_hash %}"
+                           class="btn btn-default btn-sm">
+                            {% if cs.certificate.type == 'receipt' %}
+                                {% trans "View Receipt" %}
+                            {% elif cs.certificate.type == 'certificate' %}
+                                {% trans "View certificate" %}
+                            {% endif %}
+                        </a>
+                    {% endif %}
+
+                    {% if cs.certificate.type == 'receipt' and cs.get_current_class.user_can_certificate %}
+                    <a href="#"
+                       ng-click="createCertificationProcess({{ cs.id }})"
+                       ng-hide="hasOpenProcess({{ cs.id }})"
+                       class="btn btn-default btn-sm">
+                        {% trans "Request certificate" %}
+                    </a>
+                    {% endif %}
+                    <!-- END CERTIFICATE -->
+
+                    {# <a href="" class="btn btn-default btn-sm">{% trans "Details" %}</a>#}
+                    {# <span class="info">0 min of lecture and 0 quizzes remaining in 1.1a Equivalent Fractions.</span>#}
+                    {% else %}
+                    <header>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <h1><a href="{% url 'course_intro' cs.course.slug %}">{{ cs.course.name }}</a></h1>
+                            </div>
+                            <div class="col-sm-4 textright">
+                                <div class="btn-group">
+                                    <a href="{% url 'course_intro' cs.course.slug %}" class="btn btn-sm btn-success">{% trans "Go to Course" %}</a>
+                                    <a href="{% url 'course_intro' cs.course.slug %}" class="btn btn-sm btn-success"><i class="fa fa-angle-double-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <p>{% blocktrans with start_date=cs.course.start_date|date:"d/m/Y" %} This course starts on {{ start_date }} and you are already subscribed{% endblocktrans %}.</p>
+                    </header>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                {% endwith %}
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="my-certificates" ng-controller="UserCertificatesController">
+                <div ng-if="(course_student_list | hasProcess).length > 0">
+                    <h2>{% trans "Open certificate processes" %}</h2>
+                    <div class="row certificate-process">
+                        <div class="col-sm-6" ng-repeat="course_student in course_student_list | hasProcess">
+                            <div class="course-card row">
+                                <div class="col-sm-6">
+                                    <div class="thumb-wrapper">
+                                        {% verbatim %}
+                                        <img class="img-responsive" ng-src="{{ course_student.course.home_thumbnail_url }}">
+                                        {% endverbatim %}
+                                    </div>
+                                    {% verbatim %}
+                                    <a ng-href="/course/{{ course_student.course.slug }}/intro/">
+                                        <h3>{{ course_student.course.name }}</h3>
+                                    </a>
+                                    {% endverbatim %}
+                                </div>
+                                <div class="col-sm-6" ng-repeat="process in course_student.certificate.processes | activeProcess">
+                                    <p class="lead" ng-hide="process.evaluation">
+                                        Não inscrito em nenhuma avaliação
+                                    </p>
+                                    <p class="lead" ng-show="process.evaluation">
+                                      Avaliação agendada <br/>
+                                        <i class="fa fa-calendar"></i> <span>{% verbatim %}{{ process.evaluation.date | date : "dd 'de' MMM H:mm" }}{% endverbatim %}</span>
+                                    </p>
+                                    <p ng-show="process.evaluation">
+                                        <a class="enroll-link text-uppercase"
+                                           ng-click="open_evaluation_modal(process)"
+                                           href="#">
+                                            <i class="fa fa-file-text-o"></i> Ver detalhes da avaliação
+                                        </a>
+                                    </p>
+                                    <p>
+                                        {% trans 'Finished at' %} {% verbatim %}{{ course_student.certificate.created_date|date:"dd/MM/yyyy" }}{% endverbatim %}.
+                                    </p>
+                                    <p>
+                                        Processo de certificação pedido em {% verbatim %} {{ process.created_date | date : "dd 'de' MMM H:mm" }}{% endverbatim %}.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-if="(course_student_list | certificateIssued).length > 0">
+                    <h2>{% trans "Certificates" %}</h2>
+                    <div class="row">
+                        <div class="col-sm-3" ng-repeat="course_student in filtered = (course_student_list | certificateIssued)">
+                            <div class="course-card">
+                                <div class="thumb-wrapper">
+                                    {% verbatim %}
+                                    <img class="img-responsive" ng-src="{{ course_student.course.home_thumbnail_url }}" />
+                                    {% endverbatim %}
+                                </div>
+                                <div class="info">
+                                    {% verbatim %}
+                                    <a ng-href="/course/{{ course_student.course.slug }}/intro/">
+                                        <h3>{{ course_student.course.name }}</h3>
+                                    </a>
+                                    {% endverbatim %}
+                                    <p class="instructors">{% trans 'by' %}
+                                        <span ng-repeat="professor in course_student.course.professors">
+                                            {% verbatim %}
+                                            {{ professor }}<span ng-if="!$last">, </span>
+                                            {% endverbatim %}
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="conclusion">
+                                    <p>
+                                        {% trans 'Finished at' %} {% verbatim %}{{ course_student.certificate.created_date|date:"dd/MM/yyyy" }}{% endverbatim %}.
+                                    </p>
+                                    {% verbatim %}
+                                    <a class="enroll-link text-uppercase" ng-href="/certificate/{{ course_student.certificate.link_hash }}">
+                                    {% endverbatim %}
+                                        <i class="fa fa-file-text-o"></i>
+                                        <span ng-if="course_student.certificate.type == 'receipt'">
+                                            {% trans 'View Receipt' %}
+                                        </span>
+                                        <span ng-if="course_student.certificate.type == 'certificate'">
+                                            {% trans 'View Certificate' %}
+                                        </span>
+                                    </a>
+                                    <!-- TODO only display if user has verified certificate -->
+                                    <!--<a ng-show="!cs.certificate" class="enroll-link text-uppercase" href="#">-->
+                                        <!--<i class="fa fa-file-text-o"></i> {% trans "Request certificate" %}-->
+                                    <!--</a>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-if="(course_student_list | completedCourses).length > 0">
+                    <h2>{% trans "Conclusion receipts" %}</h2>
+                    <div class="row">
+                        <div class="col-sm-3" ng-repeat="course_student in course_student_list | completedCourses">
+                            <div class="course-card">
+                                <div class="thumb-wrapper">
+                                    {% verbatim %}
+                                    <img class="img-responsive" ng-src="{{ course_student.course.home_thumbnail_url }}" />
+                                    {% endverbatim %}
+                                </div>
+                                <div class="info">
+                                    {% verbatim %}
+                                    <a ng-href="/course/{{ course_student.course.slug }}/intro/">
+                                        <h3>{{ course_student.course.name }}</h3>
+                                    </a>
+                                    {% endverbatim %}
+                                    <p class="instructors">
+                                        <span ng-repeat="professor in course_student.course.professors">
+                                            {% verbatim %}
+                                            {{ professor }}<span ng-if="!$last">, </span>
+                                            {% endverbatim %}
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="conclusion">
+                                    <p>
+                                        {% trans 'Finished at' %} {% verbatim %}{{ course_student.certificate.created_date|date:"dd/MM/yyyy" }}{% endverbatim %}.
+                                    </p>
+                                    {% verbatim %}
+                                    <a class="enroll-link text-uppercase" ng-href="/certificate/{{ course_student.certificate.link_hash }}">
+                                    {% endverbatim %}
+                                        <i class="fa fa-file-text-o"></i>
+                                        <span ng-if="course_student.certificate.type == 'receipt'">
+                                            {% trans 'View Receipt' %}
+                                        </span>
+                                        <span ng-if="course_student.certificate.type == 'certificate'">
+                                            {% trans 'View Certificate' %}
+                                        </span>
+                                    </a>
+                                    <!-- TODO only display if user has verified certificate -->
+                                    <!--<a ng-show="!cs.certificate" class="enroll-link text-uppercase" href="#">-->
+                                        <!--<i class="fa fa-file-text-o"></i> {% trans "Request certificate" %}-->
+                                    <!--</a>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EVALUATION MODAL -->
+            <script id="evaluation_modal.html" type="text/ng-template">
+                {% include '_evaluation_details_modal.html' %}
+            </script>
+            <!-- END EVALUATION MODAL -->
+
+            <div role="tabpanel" class="tab-pane" ng-controller="AssistantCourseListController" id="course-as-teacher">
+                <section class="courses">
+                    <!-- COURSE -->
+                    <div class="course clearfix" ng-repeat="courseprofessor in courses_user_assist">
+                        <div class="col-lg-12">
+                            {% verbatim %}
+                            <h1><a ng-href="/course/{{ courseprofessor.course_info.slug }}/intro/" title="{{ courseprofessor.course_info.name }}">{{ courseprofessor.course_info.name }}</a></h1>
+                            {% endverbatim %}
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <span class="label label-warning" ng-if="courseprofessor.course_info.isDraft()">{% trans 'Draft' %}</span>
+                                    <span class="label label-success" ng-if="courseprofessor.course_info.isPublished()">{% trans 'Published' %}</span>
+
+                                        <span ng-show="courseprofessor.current_user_classes" class="label label-default pointer" ng-click="show_classes=!show_classes">
+                                            <span ng-if="!show_classes">{% trans 'Show classes' %}</span>
+                                            <span ng-if="show_classes">{% trans 'Hide classes' %}</span>
+                                            {% verbatim %}
+                                            <i class="fa" ng-class="{'fa fa-caret-down':!show_classes,'fa fa-caret-up':show_classes}"></i>
+                                            {% endverbatim %}
+                                        </span>
+                                    <div ng-hide="courseprofessor.current_user_classes">
+                                            <span class="label label-default pointer">
+                                                <span ng-click="open_professor_modal(courseprofessor)">{% trans 'Create class' %}</span>
+                                            </span>
+                                        <p>{% trans "You don't have any class in this course" %}.</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 textright">
+                                    <p>
+                                            <span ng-show="courseprofessor.course_info.has_started">
+                                                <span class="date-label">{% trans 'Started in' %}</span>
+                                                {% verbatim %}
+                                                <span class="date label label-success">{{ courseprofessor.course_info.start_date | date:'d/M/yyyy' }}</span>
+                                                {% endverbatim %}
+                                            </span>
+                                            <span ng-show="!courseprofessor.course_info.has_started && courseprofessor.course_info.start_date">
+                                                <span class="date-label">{% trans 'Starts in' %}</span>
+                                                {% verbatim %}
+                                                <span class="date label label-info">{{ courseprofessor.course_info.start_date | date:'d/M/yyyy' }}</span>
+                                                {% endverbatim %}
+                                            </span>
+                                            <span ng-show="!courseprofessor.course_info.start_date">
+                                                <span class="date label label-danger">{% trans 'No start date' %}</span>
+                                            </span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row" ng-show="show_classes && courseprofessor.current_user_classes">
+                                <div class="col-lg-12" ng-hide="courses_user_assist.$resolved">
+                                    <span>{% trans 'Loading classes list' %}...</span>
+                                </div>
+                                <div class="col-lg-12" ng-hide="courseprofessor.current_user_classes">
+                                    <span>{% trans "You don't have any class in this course" %}.</span>
+                                </div>
+                                <div class="col-lg-12" ng-show="courseprofessor.current_user_classes">
+                                    <div class="lessons">
+                                        <div class="lesson" ng-repeat="class in courseprofessor.current_user_classes">
+                                            <div class="row">
+                                                <div class="col-lg-9">
+                                                    {% verbatim %}
+                                                    <h1><a ng-href="/class/{{class.id}}" ng-bind="class.name"></a></h1>
+                                                    {% endverbatim %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END COURSE -->
+                </section>
+            </div>
+
+            <!-- NEW CLASS MODAL -->
+            <script type="text/ng-template" id="create_class_modal.html">
+                {% include '_create_class_modal.html' %}
+            </script>
+            <!-- END NEW CLASS MODAL -->
+
+            <div role="tabpanel" class="tab-pane" ng-controller="CoordinatorCourseListController" id="course-as-coordinator">
+                <!-- ALL COURSES -->
+                <section class="courses">
+                    <!-- COURSE -->
+                    <div class="course clearfix" ng-repeat="courseprofessor in courses_user_coordinate">
+                        <div class="col-lg-12">
+                            {% verbatim %}
+                            <h1><a ng-href="/admin/courses/{{ courseprofessor.course_info.id }}" title="{{ courseprofessor.course_info.name }}">{{ courseprofessor.course_info.name }}</a></h1>
+                            {% endverbatim %}
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <span class="label label-warning" ng-if="courseprofessor.course_info.isDraft()">{% trans 'Draft' %}</span>
+                                    <span class="label label-success" ng-if="courseprofessor.course_info.isPublished()">{% trans 'Published' %}</span>
+
+                                        <span class="label label-default pointer" ng-click="loadLessons(courseprofessor.course_info);showLessons=!showLessons">
+                                            <span ng-if="!showLessons">{% trans 'Show lessons' %}</span>
+                                            <span ng-if="showLessons">{% trans 'Hide lessons' %}</span>
+                                            {% verbatim %}
+                                            <i class="fa" ng-class="{'fa fa-caret-down':!showLessons,'fa fa-caret-up':showLessons}"></i>
+                                            {% endverbatim %}
+                                        </span>
+                                </div>
+                                <div class="col-sm-6 textright">
+                                    <p>
+                                            <span ng-show="courseprofessor.course_info.has_started">
+                                                <span class="date-label">{% trans 'Started in' %}</span>
+                                                {% verbatim %}
+                                                <span class="date label label-success">{{ courseprofessor.course_info.start_date | date:'d/M/yyyy' }}</span>
+                                                {% endverbatim %}
+                                            </span>
+                                            <span ng-show="!courseprofessor.course_info.has_started && courseprofessor.course_info.start_date">
+                                                <span class="date-label">{% trans 'Starts in' %}</span>
+                                                {% verbatim %}
+                                                <span class="date label label-info">{{ courseprofessor.course_info.start_date | date:'d/M/yyyy' }}</span>
+                                                {% endverbatim %}
+                                            </span>
+                                            <span ng-show="!courseprofessor.course_info.start_date">
+                                                <span class="date label label-danger">{% trans 'No start date' %}</span>
+                                            </span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row" ng-show="showLessons">
+                                <div class="col-lg-12" ng-hide="courseprofessor.course_info.lessons.$resolved">
+                                    <span>{% trans 'Loading lessons list' %}...</span>
+                                </div>
+                                <div class="col-lg-12" ng-show="courseprofessor.course_info.lessons.length == 0">
+                                    <span>{% trans 'Loading lessons list' %}</span>
+                                </div>
+                                <div class="col-lg-12" ng-show="courseprofessor.course_info.lessons">
+                                    <div class="lessons">
+                                        <div class="lesson" ng-repeat="lesson in courseprofessor.course_info.lessons">
+                                            <div class="row">
+                                                <div class="col-lg-1">
+                                                    <span class="label label-success" ng-if="lesson.status=='published'">{% trans 'Published' %}</span>
+                                                    <span class="label label-warning" ng-if="lesson.status!='published'">{% trans 'Draft' %}</span>
+                                                </div>
+                                                <div class="col-lg-9">
+                                                    {% verbatim %}
+                                                    <h1><a ng-href="/admin/courses/{{ courseprofessor.course_info.id }}/lessons/{{lesson.id}}" ng-bind="lesson.name"></a></h1>
+                                                    {% endverbatim %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END COURSE -->
+                </section>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- CONTAINER -->
+
+
+{% endblock %}

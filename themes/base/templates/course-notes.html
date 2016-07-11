@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load pipeline %}
+{% load staticfiles %}
+
+{% block js %}
+    {{ block.super }}
+    {% javascript 'notes' %}
+{% endblock %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
+{% block content %}
+<!-- CONTAINER -->
+<div class="my-notes course course-notes" ng-app="notes" ng-controller="CourseNotesCtrl">
+
+    {% include "_course-header-inline.html"  with course=course question_form=false %}
+
+    <section class="notes-content container">
+
+        <header class="secondary-header">
+            <h1>{% trans "Course Notes" %}</h1>
+        </header>
+
+        <section class="notes">
+            <p ng-if="lessons.length == 0">
+                {% trans "You have not made any notes yet." %}
+            </p>
+
+            {% verbatim angularjs %}
+            <div id="lesson-{{ lesson.position }}" class="lesson" ng-repeat="lesson in lessons">
+                <h1><span>Aula</span> <a href="/course/{{lesson.course}}/lesson/{{lesson.slug}}">{{ lesson.name }}</a></h1>
+                <div ng-repeat="unit in lesson.units_notes">
+                    <div class="note">
+                        <div class="row">
+                            <div class="col-lg-10 col-sm-9 col-xs-9">
+                                <p><strong>Unidade {{unit.position + 1}}: {{unit.title}}</strong></p>
+                                <pre class="note-content">{{ unit.user_note.text }}</pre>
+                            </div>
+                            <div class="col-lg-2 col-sm-3 col-xs-3 textright">
+                                <!-- <button class="btn btn-warning">Editar</button> -->
+                                <button class="btn btn-danger" ng-click="delele_note(lesson, unit, unit.user_note)"><i class="fa fa-trash-o"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endverbatim angularjs %}
+        </section>
+    </section>
+</div>
+<!-- CONTAINER -->
+{% endblock %}

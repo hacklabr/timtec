@@ -2,8 +2,8 @@
 // --------------------------------------------------
 
 .forum-thread {
-    background-color: #fff;
-    padding: 30px;
+    background-color: rgba(#fff,0.8);
+    padding: 15px;
 
     .thread-header {
         margin: 0 0 10px 0;
@@ -25,14 +25,6 @@
     .tags {
         display: inline-block;
         margin: 0 0 5px 0;
-        a {
-            background-color: $brand-primary;
-            color: #fff;
-            &:hover {
-                background-color: lighten($brand-primary, 10%);
-                color: #fff;
-            }
-        }
     }
     .thread-post {
         background-color: rgba($brand-primary, 0.5);
@@ -76,5 +68,46 @@
         font-size: $font-size-base;
         font-weight: $extra-bold;
         margin: 0 0 20px 0; 
+    }
+}
+
+.forum-list {
+    table {
+        width: 100%;
+    }
+    thead {
+        th {
+            font-size: $font-size-small;
+            font-weight: normal;
+            color: $gray;
+            padding: 0 20px 5px;
+        }
+    }
+    tbody {
+        tr {
+            &:nth-child(odd) {
+                background-color: rgba(#fff,0.5);
+            }
+            &:hover {
+                background-color: rgba($brand-primary,0.2);
+            }
+        }
+        td {
+            padding: 10px 20px;
+        }
+    }
+    .thread-name {
+        color: $gray;
+        display: block;
+        font-size: $font-size-base;
+        font-weight: $bold;
+    }
+    .last-update {
+        color: #000;
+        display: block;
+        font-size: $font-size-small;
+    }
+    .tags {
+        margin: 0; 
     }
 }

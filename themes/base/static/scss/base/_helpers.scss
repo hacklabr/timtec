@@ -17,8 +17,14 @@
     &-courses {
         @include icon(before, courses);
     }
+    &-discussion {
+        @include icon(before, discussion);
+    }
     &-film {
         @include icon(before, film);
+    }
+    &-filter {
+        @include icon(before, filter);
     }
     &-forum {
         @include icon(before, forum);
@@ -56,11 +62,20 @@
     &-register {
         @include icon(before, register);
     }
+    &-f-register {
+        @include icon(before, register-forum);
+    }
     &-repositories {
         @include icon(before, repositories);
     }
     &-tools {
         @include icon(before, tools);
+    }
+    &-undo {
+        @include icon(before, undo);
+    }
+    &-use {
+        @include icon(before, use);
     }
 }
 
