@@ -26,8 +26,6 @@ ADMINS = (
     ('Admin1', 'root@localhost'),
 )
 
-MANAGERS = (ADMINS[1],)
-
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'localhost'
 DEFAULT_FROM_EMAIL = 'donotreply-dev@m.timtec.com.br'
