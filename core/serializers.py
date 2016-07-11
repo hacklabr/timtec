@@ -24,10 +24,8 @@ class ProfessorMessageSerializer(serializers.ModelSerializer):
 
 
 class BaseCourseSerializer(serializers.ModelSerializer):
-    thumbnail_url = serializers.Field(source='get_thumbnail_url')
-    has_started = serializers.Field()
     professors = serializers.SerializerMethodField('get_professor_name')
-    home_thumbnail_url = serializers.SerializerMethodField('get_home_thumbnail_url')
+    home_thumbnail_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Course
@@ -85,7 +83,7 @@ class CertificationProcessSerializer(serializers.ModelSerializer):
 class CourseCertificationSerializer(serializers.ModelSerializer):
     processes = BaseCertificationProcessSerializer(many=True, read_only=True)
     approved = BaseCertificationProcessSerializer(source='get_approved_process')
-    course = serializers.SerializerMethodField('get_course')
+    course = serializers.SerializerMethodField()
 
     class Meta:
         model = CourseCertification
@@ -175,12 +173,6 @@ class CourseSerializer(serializers.ModelSerializer):
 
 class CourseStudentSerializer(serializers.ModelSerializer):
     user = TimtecUserSerializer(read_only=True)
-
-    course_finished = serializers.BooleanField(source='course_finished')
-    can_emmit_receipt = serializers.BooleanField(source='can_emmit_receipt')
-    percent_progress = serializers.IntegerField(source='percent_progress')
-    min_percent_to_complete = serializers.IntegerField(
-        source='min_percent_to_complete')
 
     current_class = BaseClassSerializer(source='get_current_class')
     course = BaseCourseSerializer()
@@ -287,7 +279,7 @@ class LessonNoteSerializer(serializers.ModelSerializer):
 
 class CourseNoteSerializer(serializers.ModelSerializer):
 
-    lessons_notes = LessonNoteSerializer()
+    lessons_notes = LessonNoteSerializer(many=True)
     course_notes_number = serializers.IntegerField(required=False)
 
     class Meta:

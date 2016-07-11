@@ -287,6 +287,7 @@ class CoursePictureUploadViewSet(viewsets.ModelViewSet):
 
 class CourseStudentViewSet(viewsets.ModelViewSet):
     model = CourseStudent
+    queryset = CourseStudent.objects.all()
     lookup_field = 'id'
     filter_fields = ('course__slug', 'course__id', 'user',)
     #     filter_backends = (filters.DjangoFilterBackend,)
@@ -741,6 +742,7 @@ class StudentProgressViewSet(viewsets.ModelViewSet):
 class UserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
 
     model = Course
+    queryset = Course.objects.all()
     lookup_field = 'course'
 
     def retrieve(self, request, *args, **kwargs):
