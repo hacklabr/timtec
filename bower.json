@@ -21,7 +21,7 @@
     "angular-sortable-view": "~0.0.12",
     "bootstrap": "~3.3.6",
     "bootstrap-sass": "~3.3.6",
-    "codemirror": "~3.19.0",
+    "codemirror": "~5.16.0",
     "jquery": "<2.0.0",
     "jquery-ui": "~1.10.3",
     "dropzone": "~3.7.4",
