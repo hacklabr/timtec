@@ -188,7 +188,7 @@ PIPELINE = {
             ),
             'output_filename': 'js/all.js',
         },
-        'angular-commons': {
+        'angular': {
             'source_filenames': (
                 'angular/angular.js',
                 'angular-animate/angular-animate.js',
@@ -197,6 +197,7 @@ PIPELINE = {
                 'angular-route/angular-route.js',
                 'angular-sanitize/angular-sanitize.js',
                 'angular-bootstrap/ui-bootstrap-tpls.js',
+                'bootstrap-ui-datetime-picker/dist/datetime-picker.min.js',
                 'angular-gettext/dist/angular-gettext.js',
                 'angular-i18n/angular-locale_pt-br.js'
             ),

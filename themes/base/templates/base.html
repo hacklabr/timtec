@@ -22,8 +22,8 @@
         window.USER_ID = '{{ user.id }}';
     </script>
 
+    {% javascript 'angular' %}
     {% javascript 'all' %}
-    {% javascript 'angular-commons' %}
     {% javascript 'codemirror' %}
 
     <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Converter.js' %}" charset="utf-8"></script>
