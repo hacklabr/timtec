@@ -1,33 +1,13 @@
 Manual do Desenvolvedor
 =======================
 
-
-LICENSE - AGPLV3 
-----------------
-
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
-    published by the Free Software Foundation, either version 3 of the
-    License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see LICENSE file here or 
-    `AGPLv3 <http://www.gnu.org/licenses>`_.
-
-
 Deploy Requirements
 -------------------
 
  * Operating system: Debian (>= 7.7) or Ubuntu (14.04);
- * Proxy server: uwsgi (>= 2.0.7);
+ * Proxy server: gunicorn (>= x.x.x);
  * Web Server: nginx (>= 1.6.2);
- * javascript server-side interpreter: node.js (>= 0.10.40);
+ * javascript server-side interpreter: node.js (>= 4.x);
  * Data base server: postgresql (>= 9.2);
  * Python language package: python (= 2.7 ou < 3);
  * Virtual Enviroment Python: virtualenv (>=1.11.6);
@@ -37,7 +17,7 @@ Develop Requirements
  * all the above requirements
  * build essentials and many dev packages if on apt/rpm based systems
     * libpq-dev, libjpeg-dev, libpng12-dev, build-essential, python-dev, gettext
- * nodejs (0.10+) (you will need a ppa for ubuntu < 14.04)
+ * nodejs (6.x) (you will need a ppa for ubuntu < 16.04)
 
 Python env
 ----------
@@ -102,15 +82,26 @@ Activate virtual env, then::
 
     make python_tests
 
-Angular
--------
-
-In the root of repository::
-
-    make karma_tests
-
-
 Source
 ------
 
  * `TIMTec Repo <https://github.com/institutotim/timtec>`_
+
+LICENSE - AGPLV3
+----------------
+
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as
+    published by the Free Software Foundation, either version 3 of the
+    License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see LICENSE file here or
+    `AGPLv3 <http://www.gnu.org/licenses>`_.
+
