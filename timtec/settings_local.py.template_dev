@@ -14,7 +14,12 @@ TERMS_ACCEPTANCE_REQUIRED = False
 ALLOWED_HOSTS = ['*']
 
 DATABASES = {
-    'default': env.db("DJANGO_DATABASE_URL", default='postgres:///timtec-dev'),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # change according to your needs
+        'NAME': 'timtec',
+        'USER': 'vagrant',
+    },
 }
 
 if DEBUG:
