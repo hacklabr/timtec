@@ -23,7 +23,6 @@ define base_update
 	~/env/bin/python manage.py migrate --noinput --fake-initial
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
-	touch ~/wsgi-reload
 endef
 
 update:
@@ -34,7 +33,6 @@ update:
 	~/env/bin/python manage.py migrate --noinput --fake-initial
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
-	touch ~/wsgi-reload
 
 install:
 	virtualenv ~/env
@@ -49,7 +47,6 @@ install:
 	~/env/bin/python manage.py loaddata initial
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
-	touch ~/wsgi-reload
 
 docker-update:
 	npm install
@@ -72,7 +69,6 @@ create-production: create-staging
 	~/env/bin/python manage.py migrate --noinput --no-initial-data
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
-	touch ~/wsgi-reload
 
 update-test:
 	$(call resetdb_to_backup,timtec-test)
