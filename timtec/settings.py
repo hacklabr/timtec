@@ -26,7 +26,6 @@ SITE_DOMAIN = 'mooc.timtec.com.br'
 
 ADMINS = (
     ('Admin1', 'root@localhost'),
-    ('timtec-dev list', 'timtec-dev@listas.hacklab.com.br'),
 )
 
 MANAGERS = (ADMINS[1],)
