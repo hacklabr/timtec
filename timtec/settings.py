@@ -177,7 +177,6 @@ PIPELINE = {
                 'jquery-ui/ui/jquery-ui.js',
                 'jquery-ui/ui/jquery.ui.sortable.js',
                 'bootstrap/dist/js/bootstrap.js',
-                'intro.js/intro.js',
                 'js/consolelogfallback.js',
                 'js/django.js',
                 'js/contact_form.js',
