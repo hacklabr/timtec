@@ -1,0 +1,48 @@
+// Profile's pages
+// --------------------------------------------------
+
+.profile-picture {
+    img {
+        width: 100%;
+    }
+}
+
+.profile-name {
+    margin-top: 0; 
+}
+
+.profile-info {
+    p {
+        &:before {
+            font-size: $font-size-large;
+            margin-right: 5px;
+            vertical-align: middle;
+            text-align: center; 
+            width: 20px;
+        }
+    }
+    .occupation {
+        @extend %icon-occupation;
+    }
+    .city {
+        @extend %icon-map-pin;
+    }
+    .site {
+        @extend %icon-site;
+    }
+}
+
+.profile-bio {
+    p {
+        font-size: $font-size-base;
+        line-height: $line-height-computed;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.profile-edit {
+    margin-top: 15px;
+    text-align: right; 
+}

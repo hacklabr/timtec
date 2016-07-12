@@ -18,42 +18,37 @@ wrapper-course-lesson
         <p><i class="loading fa fa-refresh fa-spin"></i></p>
     </div>
     <div class="row" ng-show="user_profile">
-        <div class="col-sm-4 col-xs-12">
-            <div class="thumbnail">
-                {% verbatim %}
-                <img class="img-responsive" ng-src="{{ user_profile.picture }}">
-                {% endverbatim %}
-            </div>
+        <div class="profile-picture col-sm-4 col-xs-12">
+            {% verbatim %}
+            <img class="img-responsive" ng-src="{{ user_profile.picture }}">
+            {% endverbatim %}
         </div>
 
         <div class="col-sm-8 col-xs-12">
-            <div class="textleft top">
-                {% verbatim %}
-                <h3 class="top">{{user_profile.first_name}} {{user_profile.last_name}}</h3>
-                <div>
-                    <p ng-if="user_profile.occupation">
-                        <span>
-                            <i class="fa fa-briefcase"></i> {{user_profile.occupation}}
-                        </span>
-                    </p>
-                    <p ng-if="user_profile.city">
-                        <span>
-                            <i class="fa fa-map-marker"></i> {{user_profile.city}}
-                        </span>
-                    </p>
-                    <p><a href="{{user_profile.site}}" target="_blank">{{user_profile.site}}</a></p>
-                </div>
-                {% endverbatim %}
-                <!--<span>2 cursos finalizados</span> | <span>1 certificado de conclusão</span>-->
+            {% verbatim %}
+            <h2 class="profile-name">{{user_profile.first_name}} {{user_profile.last_name}}</h2>
+            <div class="profile-info">
+                <p ng-if="user_profile.occupation" class="occupation">
+                    {{user_profile.occupation}}
+                </p>
+                <p ng-if="user_profile.city" class="city">
+                    {{user_profile.city}}
+                </p>
+                <p class="site"><a href="{{user_profile.site}}" target="_blank">{{user_profile.site}}</a></p>
             </div>
-            <div class="user-bio">
+            {% endverbatim %}
+            <!--<span>2 cursos finalizados</span> | <span>1 certificado de conclusão</span>-->
+            <div class="profile-bio">
                 {% verbatim %}
                 <p>{{user_profile.biography}}</p>
                 {% endverbatim %}
             </div>
+            <div class="profile-edit">
+                <a href="#" class="btn btn-primary">editar perfil</a>
+            </div>
         </div>
     </div>
-    <hr />
+
     <h2 ng-if="user_profile.certificates.length>0"><i class="fa fa-check-square-o"></i> {% trans 'Finished courses' %}</h2>
     <div class="row">
 
