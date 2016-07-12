@@ -12,7 +12,7 @@ from django.views.generic.base import RedirectView, View, TemplateView
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.auth import get_user_model
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.conf import settings
 from django.utils import timezone
 from rest_framework import viewsets
@@ -48,6 +48,11 @@ from .permissions import IsProfessorCoordinatorOrAdminPermissionOrReadOnly, IsAd
 class HomeView(ListView):
     context_object_name = 'home_courses'
     template_name = "home.html"
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            return redirect(reverse_lazy('dashboard'))
+        super(HomeView, self).get(request, *args, **kwargs)
 
     def get_queryset(self):
         return Course.objects.filter(home_published=True).order_by('home_position')
