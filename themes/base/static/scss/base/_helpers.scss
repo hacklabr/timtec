@@ -20,6 +20,9 @@
     &-discussion {
         @include icon(before, discussion);
     }
+    &-f-register {
+        @include icon(before, register-forum);
+    }
     &-film {
         @include icon(before, film);
     }
@@ -50,11 +53,17 @@
     &-materials {
         @include icon(before, materials);
     }
+    &-map-pin {
+        @include icon(before, map-pin);
+    }
     &-notes {
         @include icon(before, notes);
     }
     &-notifications {
         @include icon(before, notifications);
+    }
+    &-occupation {
+        @include icon(before, occupation);
     }
     &-profile {
         @include icon(before, profile);
@@ -62,11 +71,11 @@
     &-register {
         @include icon(before, register);
     }
-    &-f-register {
-        @include icon(before, register-forum);
-    }
     &-repositories {
         @include icon(before, repositories);
+    }
+    &-site {
+        @include icon(before, site);
     }
     &-tools {
         @include icon(before, tools);
