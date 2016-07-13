@@ -134,3 +134,45 @@
     @extend %icon-f-register;
     @extend %forum-categories;
 }
+
+%notes-buttons {
+    background: $gray;
+    border: 0;
+    color: #fff;
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: $bold;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    white-space: nowrap;
+    &:after {
+        margin-left: 5px;
+    }
+}
+
+.button-show {
+    @extend %icon-expand;
+    @extend %notes-buttons;
+    border-radius: 10px 10px 0 0;
+    font-size: 16px;
+    padding: 10px 15px;
+    &:after {
+        margin-left: 10px;
+        vertical-align: middle;
+    }
+}
+
+.button-hide {
+    @extend %icon-compress;
+    @extend %notes-buttons;
+}
+
+.button-save {
+    @extend %icon-save;
+    &:before {
+        margin-right: 5px;
+    }
+}

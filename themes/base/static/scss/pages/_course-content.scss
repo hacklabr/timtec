@@ -369,59 +369,72 @@
         }
     }
     // END COURSE VIDEO
-    // COURSE NOTES - General
-    // ********************************************************************* //
-    #student-notes {
-        @media (max-width: $screen-xs-max) {
-            margin-top: 30px;
+}
+
+// COURSE NOTES - General
+// ********************************************************************* //
+.student-notes {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 100px;
+    .button-show {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+    }
+    .notes-container {
+        background-color: #fff;
+        border-radius: 10px 10px 0 0;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 100px;
+        .notes-header {
+            background-color: $gray;
+            border-radius: 10px 10px 0 0;
+            padding: 10px 15px;
+            h4 {
+                color: #fff;
+                display: inline-block;
+                font-family: $font-family-sans-serif;
+                font-size: 16px;
+                font-weight: $bold;
+                margin: 0 10px 0 0; 
+            }
+            .all-notes {
+                @extend %icon-angle-right;
+                border-bottom: 1px solid;
+                color: #fff;
+                display: inline-block;
+                font-size: $font-size-small;
+                line-height: $font-size-small;
+                text-decoration: none;
+                @include transition(border 0.25s ease);
+                &:after {
+                    margin-left: 5px;
+                }
+                &:hover {
+                    border-color: transparent;
+                } 
+            }
+            .button-save {
+                margin-right: 10px; 
+            }
+            .button-save, .button-hide {
+                float: right;
+            }
+        }
+        .notes-content {
+            padding: 15px;
         }
     }
-    #student-notes,
-    #materials {
-        @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
-            margin-top: 30px;
-            margin-left: 13%;
-        }
-    }
-    .notes {
-        textarea {
-            border: 2px solid $gray-lighter;
-            height: 235px;
-            margin: 20px 0 10px;
-            @media (min-width: $screen-lg-min) {
-                height: 310px;
-            }
-            @media (max-width: $screen-sm-max) {
-                width: 100%;
-            }
-        }
-        .message {
-            font-size: 12px;
-            display: none;
-            float: left;
-            text-align: left;
-            width: 140px;
-            @media (min-width: $screen-lg-min) {
-                width: 175px;
-            }
-        }
-        .btn {
-            float: right;
-        }
-    }
-    .add-side-notes {
-        margin-top: 68px;
-        #side-notes {
-            [contenteditable] {
-                cursor: pointer;
-                height: 300px;
-                margin-top: 20px;
-            }
-        }
-        textarea {
-            border: 2px solid #eeeeee;
-            height: 310px;
-            margin: 20px 0;
+}
+.main-nav-opened {
+    .student-notes {
+        left: 250px;
+        .notes-container {
+            left: 250px;
         }
     }
 }

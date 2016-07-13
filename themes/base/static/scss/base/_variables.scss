@@ -44,11 +44,14 @@ $icon-font-family:      "FontAwesome";
 
 //** Map icon names to font unicode characters
 $icons: (
+    angle-right: "\f105",
     attention: "\f06a",
     chat: "\f27a",
     comment: "\f0a1",
+    compress: "\f066",
     courses: "\f12e",
     discussion: "\f086",
+    expand: "\f065",
     film: "\f008",
     filter: "\f0b0",
     forum: "\f10d",
@@ -67,6 +70,7 @@ $icons: (
     register: "\f055",
     register-forum: "\f0ea",
     repositories: "\f07b",
+    save: "\f058",
     site: "\f0ac",
     search: "\f002",
     tools: "\f013",
