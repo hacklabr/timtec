@@ -52,7 +52,7 @@ class HomeView(ListView):
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated():
             return redirect(reverse_lazy('dashboard'))
-        super(HomeView, self).get(request, *args, **kwargs)
+        return super(HomeView, self).get(request, *args, **kwargs)
 
     def get_queryset(self):
         return Course.objects.filter(home_published=True).order_by('home_position')
