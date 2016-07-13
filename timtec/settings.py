@@ -364,6 +364,14 @@ PIPELINE = {
             ),
             'output_filename': 'js/users_admin.js',
         },
+        'dashboard': {
+            'source_filenames': (
+                'js/dashboard/dashboard-app.js',
+                'js/dashboard/dashboard-controllers.js',
+                'js/core-services.js',
+            ),
+            'output_filename': 'js/dashboard.js',
+        },
     }
 }
 

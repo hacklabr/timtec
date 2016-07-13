@@ -5,6 +5,9 @@
 //== Icon's placeholders
 // 
 %icon {
+    &-angle-right {
+        @include icon(after, angle-right);
+    }
     &-attention {
         @include icon(before, attention);
     }
@@ -14,11 +17,17 @@
     &-comment {
         @include icon(before, comment);
     }
+    &-compress {
+        @include icon(after, compress);
+    }
     &-courses {
         @include icon(before, courses);
     }
     &-discussion {
         @include icon(before, discussion);
+    }
+    &-expand {
+        @include icon(after, expand);
     }
     &-f-register {
         @include icon(before, register-forum);
@@ -73,6 +82,9 @@
     }
     &-repositories {
         @include icon(before, repositories);
+    }
+    &-save {
+        @include icon(before, save);
     }
     &-site {
         @include icon(before, site);
