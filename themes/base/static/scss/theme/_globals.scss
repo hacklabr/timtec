@@ -1,6 +1,17 @@
 // Globals
 // --------------------------------------------------
 
+//## Set shared button's styles
+//##
+
+.btn {
+    font-weight: $bold;
+}
+
+.btn-lg {
+    font-weight: $extra-bold;
+}
+
 //## Set shared styles for all pages
 //##
 .page {
