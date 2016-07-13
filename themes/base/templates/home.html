@@ -8,7 +8,6 @@
 {% block js %}
     {{ block.super }}
     {% javascript 'core' %}
-    <script type="text/javascript" src="/static/js/introjs/home.js"></script>
 {% endblock %}
 
 {% block wrapper_classes %}
@@ -27,23 +26,23 @@ home
             </div>
 
             <div class="login">
-                <form class="login-form">
+                <form method="post" action="{% url 'account_login' %}" class="login-form">{% csrf_token %}
                     <fieldset>
                         <legend>Login do usuário</legend>
                         <div class="form-group">
                             <label for="username" class="sr-only">nome de usuário</label>
-                            <input type="text" class="form-control" id="username" placeholder="nome de usuário">
+                            <input name="login" type="text" class="form-control" id="username" placeholder="nome de usuário">
                         </div>
                         <div class="form-group">
                             <label for="password" class="sr-only">senha</label>
-                            <input type="password" class="form-control" id="password" placeholder="senha">
+                            <input name="password" type="password" class="form-control" id="password" placeholder="senha">
                         </div>
                         <button type="submit" class="btn btn-submit">entrar</button>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="rememberme"> Lembrar do meu usuário neste computador.
-                            </label>
-                        </div>
+                        <!--<div class="checkbox">-->
+                            <!--<label>-->
+                                <!--<input type="checkbox" value="rememberme"> Lembrar do meu usuário neste computador.-->
+                            <!--</label>-->
+                        <!--</div>-->
                     </fieldset>
                     <p class="info">Esqueceu sua senha? <a href="#">Clique aqui para recuperá-la</a></p>
                 </form>
