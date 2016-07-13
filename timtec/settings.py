@@ -123,6 +123,192 @@ STATICFILES_FINDERS = (
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
+MOMMY_CUSTOM_FIELDS_GEN = {
+    'jsonfield.JSONField': lambda: '{}',
+}
+
+REST_FRAMEWORK = {
+    # Use hyperlinked styles by default.
+    # Only used if the `serializer_class` attribute is not set on a view.
+    'DEFAULT_MODEL_SERIALIZER_CLASS':
+    'rest_framework.serializers.HyperlinkedModelSerializer',
+
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissions'
+    ],
+
+    'DEFAULT_FILTER_BACKENDS': [
+        'rest_framework.filters.DjangoFilterBackend'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
+
+APPEND_SLASH = True
+
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = 'e%6a01vfbue28$xxssu!9r_)usqjh817((mr+7vv3ek&@#p0!$'
+
+# Django Suit configuration example
+SUIT_CONFIG = {
+    # header
+    'ADMIN_NAME': 'Timtec Admin',
+    'HEADER_DATE_FORMAT': 'l, j. F Y',
+    'HEADER_TIME_FORMAT': 'H:i',
+
+    # forms
+    # 'SHOW_REQUIRED_ASTERISK': True,  # Default True
+    # 'CONFIRM_UNSAVED_CHANGES': True, # Default True
+
+    # menu
+    'SEARCH_URL': '/admin/accounts/timtecuser/',
+    # 'MENU_ICONS': {
+    #    'sites': 'icon-leaf',
+    #    'auth': 'icon-lock',
+    # },
+    # 'MENU_OPEN_FIRST_CHILD': True, # Default True
+    # 'MENU_EXCLUDE': ('auth.group',),
+    # 'MENU': (
+    #     'sites',
+    #     {'app': 'auth', 'icon':'icon-lock', 'models': ('user', 'group')},
+    #     {'label': 'Settings', 'icon':'icon-cog', 'models': ('accounts.TimtecUser', 'auth.group')},
+    #     # {'label': 'Support', 'icon':'icon-question-sign', 'url': '/support/'},
+    # ),
+
+    # misc
+    # 'LIST_PER_PAGE': 15
+}
+
+AUTH_USER_MODEL = 'accounts.TimtecUser'
+
+MIDDLEWARE_CLASSES = (
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    # 'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    # Uncomment the next line for simple clickjacking protection:
+    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+ROOT_URLCONF = 'timtec.urls'
+
+# Python dotted path to the WSGI application used by Django's runserver.
+WSGI_APPLICATION = 'timtec.wsgi.application'
+
+
+INSTALLED_APPS = (
+    'django_extensions',
+    'pipeline',
+    'suit',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.flatpages',
+    'django.contrib.admin',
+    # Uncomment the next line to enable admin documentation:
+    'django.contrib.admindocs',
+    'rest_framework',
+    'rosetta',
+    'autoslug',
+    # TIM Tec
+    'accounts',
+    'activities',
+    'administration',
+    'forum',
+    'course_material',
+    'notes',
+    'reports',
+    'core',
+    # django-metron
+    'metron',
+    # allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.openid',
+
+    'django_markdown',
+
+    # raven has to be the last one
+    'raven.contrib.django.raven_compat',
+)
+
+
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'SCOPE': ['email'],
+        'METHOD': 'oauth2',
+        'VERSION': 'v2.2',
+    },
+}
+
+# django-registration flag
+# ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_DEFAULT_GROUP_NAME = 'students'
+ACCOUNT_ADAPTER = "accounts.adapter.TimtecAdapter"
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "[timtec] "
+ACCOUNT_SIGNUP_FORM_CLASS = 'accounts.forms.SignupForm'
+ACCOUNT_REQUIRED_FIELDS = ('first_name', 'last_name', )
+SOCIALACCOUNT_EMAIL_VERIFICATION = False
+
+CERTIFICATE_SIZE = (862, 596)
+PHANTOMJS_PATH = os.path.join(PROJECT_ROOT, 'node_modules/phantomjs-prebuilt/bin/phantomjs')
+
+TWITTER_CONSUMER_KEY = ''
+TWITTER_CONSUMER_SECRET = ''
+TWITTER_ACESS_TOKEN = ''
+TWITTER_ACESS_TOKEN_SECRET = ''
+TWITTER_USER = ''
+
+YOUTUBE_API_KEY = ''
+# A sample logging configuration. The only tangible logging
+# performed by this configuration is to send an email to
+# the site admins on every HTTP 500 error when DEBUG=False.
+# See http://docs.djangoproject.com/en/dev/topics/logging for
+# more details on how to customize your logging configuration.
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        }
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    }
+}
+
+try:
+    execfile(os.path.join(SETTINGS_DIR, 'settings_local.py'))
+except IOError:
+    pass
+
 PIPELINE = {
     'COMPILERS': (
         'pipeline.compilers.less.LessCompiler',
@@ -160,7 +346,7 @@ PIPELINE = {
         'public': {
             'source_filenames': (
                 'css/main.less',
-                'scss/main.scss',
+                'scss/main-{}.scss'.format(TIMTEC_THEME),
             ),
             'output_filename': 'css/public.css',
             'extra_context': {
@@ -374,192 +560,6 @@ PIPELINE = {
         },
     }
 }
-
-MOMMY_CUSTOM_FIELDS_GEN = {
-    'jsonfield.JSONField': lambda: '{}',
-}
-
-REST_FRAMEWORK = {
-    # Use hyperlinked styles by default.
-    # Only used if the `serializer_class` attribute is not set on a view.
-    'DEFAULT_MODEL_SERIALIZER_CLASS':
-    'rest_framework.serializers.HyperlinkedModelSerializer',
-
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissions'
-    ],
-
-    'DEFAULT_FILTER_BACKENDS': [
-        'rest_framework.filters.DjangoFilterBackend'
-    ],
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
-    )
-}
-
-APPEND_SLASH = True
-
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = 'e%6a01vfbue28$xxssu!9r_)usqjh817((mr+7vv3ek&@#p0!$'
-
-# Django Suit configuration example
-SUIT_CONFIG = {
-    # header
-    'ADMIN_NAME': 'Timtec Admin',
-    'HEADER_DATE_FORMAT': 'l, j. F Y',
-    'HEADER_TIME_FORMAT': 'H:i',
-
-    # forms
-    # 'SHOW_REQUIRED_ASTERISK': True,  # Default True
-    # 'CONFIRM_UNSAVED_CHANGES': True, # Default True
-
-    # menu
-    'SEARCH_URL': '/admin/accounts/timtecuser/',
-    # 'MENU_ICONS': {
-    #    'sites': 'icon-leaf',
-    #    'auth': 'icon-lock',
-    # },
-    # 'MENU_OPEN_FIRST_CHILD': True, # Default True
-    # 'MENU_EXCLUDE': ('auth.group',),
-    # 'MENU': (
-    #     'sites',
-    #     {'app': 'auth', 'icon':'icon-lock', 'models': ('user', 'group')},
-    #     {'label': 'Settings', 'icon':'icon-cog', 'models': ('accounts.TimtecUser', 'auth.group')},
-    #     # {'label': 'Support', 'icon':'icon-question-sign', 'url': '/support/'},
-    # ),
-
-    # misc
-    # 'LIST_PER_PAGE': 15
-}
-
-AUTH_USER_MODEL = 'accounts.TimtecUser'
-
-MIDDLEWARE_CLASSES = (
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    # 'django.middleware.locale.LocaleMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
-
-ROOT_URLCONF = 'timtec.urls'
-
-# Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'timtec.wsgi.application'
-
-
-INSTALLED_APPS = (
-    'django_extensions',
-    'pipeline',
-    'suit',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.flatpages',
-    'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    'django.contrib.admindocs',
-    'rest_framework',
-    'rosetta',
-    'autoslug',
-    # TIM Tec
-    'accounts',
-    'activities',
-    'administration',
-    'forum',
-    'course_material',
-    'notes',
-    'reports',
-    'core',
-    # django-metron
-    'metron',
-    # allauth
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.openid',
-
-    'django_markdown',
-
-    # raven has to be the last one
-    'raven.contrib.django.raven_compat',
-)
-
-
-SOCIALACCOUNT_PROVIDERS = {
-    'facebook': {
-        'SCOPE': ['email'],
-        'METHOD': 'oauth2',
-        'VERSION': 'v2.2',
-    },
-}
-
-# django-registration flag
-# ACCOUNT_ACTIVATION_DAYS = 7
-REGISTRATION_DEFAULT_GROUP_NAME = 'students'
-ACCOUNT_ADAPTER = "accounts.adapter.TimtecAdapter"
-ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_AUTHENTICATION_METHOD = "username_email"
-ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
-ACCOUNT_EMAIL_SUBJECT_PREFIX = "[timtec] "
-ACCOUNT_SIGNUP_FORM_CLASS = 'accounts.forms.SignupForm'
-ACCOUNT_REQUIRED_FIELDS = ('first_name', 'last_name', )
-SOCIALACCOUNT_EMAIL_VERIFICATION = False
-
-CERTIFICATE_SIZE = (862, 596)
-PHANTOMJS_PATH = os.path.join(PROJECT_ROOT, 'node_modules/phantomjs-prebuilt/bin/phantomjs')
-
-TWITTER_CONSUMER_KEY = ''
-TWITTER_CONSUMER_SECRET = ''
-TWITTER_ACESS_TOKEN = ''
-TWITTER_ACESS_TOKEN_SECRET = ''
-TWITTER_USER = ''
-
-YOUTUBE_API_KEY = ''
-# A sample logging configuration. The only tangible logging
-# performed by this configuration is to send an email to
-# the site admins on every HTTP 500 error when DEBUG=False.
-# See http://docs.djangoproject.com/en/dev/topics/logging for
-# more details on how to customize your logging configuration.
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
-    },
-    'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-    }
-}
-
-try:
-    execfile(os.path.join(SETTINGS_DIR, 'settings_local.py'))
-except IOError:
-    pass
 
 TEMPLATES = [
     {
