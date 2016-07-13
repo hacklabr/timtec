@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load is_coordinator %}
+{% load pipeline %}
+
+{% block js %}
+    {{ block.super }}
+    {% javascript 'dashboard' %}
+{% endblock %}
 
 {% block content %}
 
-<div ng-app="core" ng-controller="DashboardCtrl">
+<div ng-app="dashboard" ng-controller="DashboardCtrl">
 
     <section class="widget courses-widget container-fluid">
 
@@ -13,14 +19,14 @@
                 <h2 class="widget-title">Meus módulos</h2>
             </div>
             <div class="column">
-                <form class="widget-filter form-inline">
-                    <label>mostrando:</label>
-                    <select class="form-control">
-                        <option>formações fixas</option>
-                        <option>formações fixas</option>
-                        <option>formações fixas</option>
-                    </select>
-                </form>
+                <!--<form class="widget-filter form-inline">-->
+                    <!--<label>mostrando:</label>-->
+                    <!--<select class="form-control">-->
+                        <!--<option>formações fixas</option>-->
+                        <!--<option>formações fixas</option>-->
+                        <!--<option>formações fixas</option>-->
+                    <!--</select>-->
+                <!--</form>-->
             </div>
         </header>
 
