@@ -690,6 +690,7 @@ class ClassEvaluationsView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
 
 class EvaluationViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     model = Evaluation
+    queryset = Evaluation.objects.all()
     ordering = ('date',)
 
     filter_fields = ('klass',)
@@ -706,6 +707,7 @@ class EvaluationViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
 
 class LessonViewSet(viewsets.ModelViewSet):
     model = Lesson
+    queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     filter_fields = ('course__slug', 'course__id',)
     filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter,)
