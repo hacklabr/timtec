@@ -15,7 +15,7 @@ from rest_framework import serializers
 
 class ProfessorMessageSerializer(serializers.ModelSerializer):
 
-    professor = TimtecUserSerializer(source='professor', read_only=True)
+    professor = TimtecUserSerializer(read_only=True)
     users_details = TimtecUserSerializer(source='users', read_only=True)
 
     class Meta:
@@ -205,7 +205,7 @@ class CourseThumbSerializer(serializers.ModelSerializer):
 
 class StudentProgressSerializer(serializers.ModelSerializer):
     complete = serializers.DateTimeField(required=False)
-    user = TimtecUserSerializer(read_only=True, source='user')
+    user = TimtecUserSerializer(read_only=True)
 
     class Meta:
         model = StudentProgress
@@ -233,14 +233,11 @@ class LessonSerializer(serializers.HyperlinkedModelSerializer):
     # TODO: Verificar se de fato e read_only=True
     course = serializers.SlugRelatedField(slug_field='slug', read_only=True)
     units = UnitSerializer(many=True)
-    thumbnail = serializers.Field(source='thumbnail')
     url = LessonHyperlinkedIdentityField(
         view_name='lesson',
         lookup_field='slug'
     )
-    is_course_last_lesson = serializers.BooleanField(
-        source='is_course_last_lesson',
-        read_only=True)
+    is_course_last_lesson = serializers.BooleanField(read_only=True)
 
     class Meta:
         model = Lesson

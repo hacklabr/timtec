@@ -552,6 +552,7 @@ class Lesson(PositionedModel):
     def __unicode__(self):
         return self.name
 
+    @property
     def thumbnail(self):
         try:
             first_vid_unit = self.units.exclude(video=None).order_by('position')[0]
