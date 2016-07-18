@@ -12,9 +12,8 @@ class ActivitySerializer(serializers.ModelSerializer):
 
 
 class AnswerSerializer(serializers.ModelSerializer):
-    user = serializers.Field(source='user')
-    user_id = serializers.Field(source='user.id')
-    correct = serializers.Field(source='is_correct')
+    user_id = serializers.ReadOnlyField(source='user.id')
+    correct = serializers.ReadOnlyField(source='is_correct')
     given = serializers.JSONField('given')
 
     class Meta:
