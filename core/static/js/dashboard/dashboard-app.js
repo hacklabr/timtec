@@ -5,5 +5,6 @@
         'dashboard.controllers',
         'django',
         'core.services',
+        'header',
     ]);
 })(angular);

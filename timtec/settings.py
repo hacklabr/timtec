@@ -558,6 +558,23 @@ PIPELINE = {
             ),
             'output_filename': 'js/dashboard.js',
         },
+        'plpc-header': {
+            'source_filenames': (
+                # header
+                'js/header-app.js',
+                'js/header-controllers.js',
+            ),
+            'output_filename': 'js/plpc-header.js',
+        },
+        'timtec-discussion': {
+            'source_filenames': (
+                'js/timtec-discussion-app.js',
+                'js/discussion-app.js',
+                'js/discussion-controllers.js',
+                'js/discussion-services.js',
+            ),
+            'output_filename': 'js/timtec-discussion.js',
+        },
     }
 }
 
