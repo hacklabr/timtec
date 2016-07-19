@@ -11,9 +11,10 @@
         'ngResource',
         'youtube',
         'django',
-        'forum',
-        'notes',
+//        'forum',
+//        'notes',
         'directives.layout',
+        'header',
     ]);
 
 })(angular);
