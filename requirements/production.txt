@@ -2,6 +2,8 @@
 #	production that isn't in development.
 -r base.txt
 
+-r paralapraca.txt
+
 gunicorn==19.3.0
 # django-storages-redux==1.2.3
 # Collectfast==0.2.1
