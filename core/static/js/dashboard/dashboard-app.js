@@ -4,7 +4,7 @@
     var app = angular.module('dashboard', [
         'django',
         'core.services',
-        'discussion',
+        'discussion.services',
         'dashboard.controllers',
         'header',
     ]);
