@@ -2,9 +2,9 @@
     'use strict';
 
     var app = angular.module('dashboard', [
-        'dashboard.controllers',
         'django',
         'core.services',
+        'dashboard.controllers',
         'header',
     ]);
 })(angular);
