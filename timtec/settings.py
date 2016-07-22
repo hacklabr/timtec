@@ -555,6 +555,7 @@ PIPELINE = {
                 'js/dashboard/dashboard-app.js',
                 'js/dashboard/dashboard-controllers.js',
                 'js/core-services.js',
+                'js/discussion-services.js',
             ),
             'output_filename': 'js/dashboard.js',
         },
