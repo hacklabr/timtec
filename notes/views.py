@@ -13,6 +13,12 @@ class NotesViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     serializer_class = NoteSerializer
     filter_fields = ('content_type', 'object_id')
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user)
+
     def pre_save(self, obj):
         obj.user = self.request.user
         return super(NotesViewSet, self).pre_save(obj)
