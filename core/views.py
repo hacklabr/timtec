@@ -406,6 +406,9 @@ class CertificationProcessViewSet(viewsets.ModelViewSet):
 
 
 class EmitReceiptView(RedirectView):
+
+    permanent = False
+
     def get_redirect_url(self, *args, **kwargs):
         course_id = kwargs.get('course_id')
         if course_id:
