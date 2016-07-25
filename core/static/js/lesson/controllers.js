@@ -6,8 +6,6 @@
     app.controller('MainCtrl', ['$scope', 'LessonData', 'Answer', 'Progress', '$location', 'youtubePlayerApi', 'resolveActivityTemplate', '$uibModal', 'Student',
         function ($scope, LessonData, Answer, Progress, $location, youtubePlayerApi, resolveActivityTemplate, $uibModal, Student) {
 
-            window.ga = window.ga || function(){};
-
             youtubePlayerApi.events.onStateChange = function(event){
                 window.onPlayerStateChange.call($scope.currentUnit, event);
                 if (event.data === YT.PlayerState.ENDED) {
