@@ -569,10 +569,12 @@ PIPELINE = {
         },
         'timtec-discussion': {
             'source_filenames': (
+                'tinymce-dist/tinymce.js',
                 'js/timtec-discussion-app.js',
                 'js/discussion-app.js',
                 'js/discussion-controllers.js',
                 'js/discussion-services.js',
+                'angular-ui-tinymce/src/tinymce.js',
             ),
             'output_filename': 'js/timtec-discussion.js',
         },

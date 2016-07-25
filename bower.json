@@ -29,6 +29,7 @@
     "font-awesome": "fontawesome#~4.6.3",
     "checklist-model": "~0.1.3",
     "angular-tweet-filter": "*",
-    "bootstrap-ui-datetime-picker": "~2.4.0"
+    "bootstrap-ui-datetime-picker": "~2.4.0",
+    "angular-ui-tinymce": "^0.0.16"
   }
 }
