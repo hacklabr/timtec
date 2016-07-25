@@ -6,7 +6,7 @@ class ActivitySerializer(serializers.ModelSerializer):
 
     data = serializers.JSONField('data')
     expected = serializers.JSONField('expected', required=False)
-    image_url = serializers.SerializerMethodField('get_image_url')
+    image_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Activity
