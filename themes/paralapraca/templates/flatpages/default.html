@@ -1,0 +1,16 @@
+{% extends 'default:flatpages/default.html' %}
+{% load i18n %}
+
+
+
+{% block content %}
+    <div class="header-static">
+        <div class="container">
+            <h1>{{ flatpage.title }}</h1>
+        </div>
+    </div>
+    {% block content-header %}
+	<br>
+	{% endblock %}
+    {{block.super}}
+{% endblock %}

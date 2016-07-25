@@ -1,0 +1,79 @@
+{% load i18n %}
+{% load is_coordinator %}
+
+<nav id="main-navbar" class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            {% block header_navbar %}
+            <a class="navbar-brand" id="site-brand" href="http://ava.paralapraca.org.br/">Paralapracá - Ambiente de Educação a Distância</a>
+            {% endblock %}
+        </div>
+				{% if user.is_authenticated %}
+                {% if user.is_superuser %}
+
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="main-navbar-collapse">
+            <ul class="nav navbar-nav" id="site-nav">
+				{% block header_site_nav %}
+{#                <li><span id="start-intro" class="btn btn-primary btn-sm">Começar tour <i class="fa fa-caret-right"></i></span></li>#}
+                <li><a href="/pages/about">{% trans 'About' %}</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#modal-contact">{% trans 'Contact' %}</a></li>
+                <li><a href="{% url 'courses' %}">{% trans 'Courses' %}</a></li>
+                <li class="navbar-divider"></li>
+                {% endblock %}
+            </ul>
+            <ul class="nav navbar-nav" id="session-nav">
+            {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                <li>
+                    <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
+                        {% trans 'Admin' %}
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu user-menu">
+                        <li><a href="{% url 'administration.home' %}">{% trans 'Home edit' %}</a></li>
+                        <li><a href="{% url 'administration.courses' %}" id="admin-link">{% trans 'Courses' %}</a></li>
+                        <li><a href="{% url 'administration.users' %}">{% trans 'Users' %}</a></li>
+                    </ul>
+                </li>
+                {% elif user|is_coordinator %}
+                    <li><a href="{% url 'administration.courses' %}" id="admin-link">{% trans "Admin" %}</a></li>
+                {% endif %}
+                <li>
+                    {% block header_user_menu %}
+                    <a class="username dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span>{{ user }}</span>
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'profile' %}">{% trans "Profile" %}</a></li>
+                        <li><a href="{% url 'profile_edit' %}">{% trans "Edit Profile and Account Settings" %}</a></li>
+                        <li class='divider'></li>
+                        <li><a href="{% url 'user_courses' %}">{% trans "My Courses" %}</a></li>
+                        <li><a href="{% url 'user_notes' %}">{% trans "My Notes" %}</a></li>
+                        <li class='divider'></li>
+                        <li><a href="{% url 'timtec_logout' %}">{% trans "Logout" %}</a></li>
+                    </ul>
+                	{% endblock %}
+                </li>
+            {% else %}
+                <li>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans 'Sign In' %}</a>
+                    {% include '_login_modal.html' %}
+                </li>
+                <li>
+                {% block header_signup_link %}
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans 'Sign Up' %}</a>
+                    {% include '_signup_modal.html' %}
+                {% endblock %}
+                </li>
+            {% endif %}
+            </ul>
+        </div><!-- /.navbar-collapse -->
+				{% endif %}
+			{% endif %}
+    </div>
+</nav>

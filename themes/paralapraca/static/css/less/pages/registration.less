@@ -1,0 +1,28 @@
+// REGISTRATION AND AUTHENTICATION
+// ********************************************************************* //
+#activation-wrapper, #sign-wrapper, #signup-wrapper {
+    .centered {
+        width: 600px;
+        @media (max-width: @screen-xs-max) {
+            max-width:400px;
+            width: initial;
+        }
+    }
+    form {
+        @media (max-width: @screen-xs-max) {
+            text-align: left;
+        }
+        .first-name {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+// checkbox on sign up form
+.if-student {
+    text-align: left;
+    input {
+        float: left;
+        margin: 4px 10px 0px 0;
+    }
+}

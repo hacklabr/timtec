@@ -1,0 +1,124 @@
+// MAIN NAVBAR - DROPDOWN MENUS FOR SIGNIN AND SIGNUP
+// ********************************************************************* //
+#main-navbar {
+    &.navbar-inverse {
+        border: none;
+        border-radius: 0;
+        background-color: transparent;
+        z-index: 20;
+        &.navbar {
+            font-family: @font-family-base;
+            margin-bottom: 0;
+            min-height: 77px;
+            @media (min-width: @screen-md-min) {
+                min-height: 170px;
+            }
+        }
+        .navbar-brand {
+            .text-hide();
+            background-image: url(../img/logo.svg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 100%;
+            border-radius: 0;
+            border-top: none;
+            box-shadow: none;
+            height: 77px;
+            margin-left: 15px;
+            padding: 0;
+            position: absolute;
+            width: 180px;
+            z-index: 900;
+            @media (min-width: @screen-sm-min) {
+                margin-left: 0;
+            }
+            @media (min-width: @screen-md-min) {
+                height: 80px;
+                margin-top: 60px;
+                width: 320px;
+            }
+        }
+
+        .navbar-toggle {
+            border: none;
+            margin-top: 22px;
+            .icon-bar {
+                background-color: #000000;
+                border-radius: 22px;
+                height: 4px;
+                width: 30px;
+            }
+            &:hover, &:focus {
+                background: transparent;
+            }
+        }
+
+        .navbar-divider {
+            @media (min-width: @screen-sm-min) {
+                border-right: 1px solid @brand-light;
+            }
+            @media (max-width: @screen-xs-max) {
+                border-top: 1px solid @brand-light;
+            }
+        }
+
+        .navbar-nav {
+            @media (max-width: @screen-sm-max) {
+                font-size: @font-size-large;
+            }
+            @media (min-width: @screen-md-min) {
+                font-size: 20px;
+            }
+            > li > a {
+                line-height: @line-height-computed;
+                padding-top: 0px;
+                padding: 10px 15px;
+                @media (min-width: @screen-sm-min) {
+                    margin: 40px 5px 10px 5px;
+                    padding: 0;
+                }
+                @media (min-width: @screen-md-min) {
+                    margin: 120px 5px 10px 5px;
+                    padding: 0 5px;
+                }
+            }
+            .open {
+                .dropdown-menu {
+                    font-size: @font-size-base + 4px;
+                }
+            }
+        }
+
+        #session-nav {
+            background-color: transparent;
+            padding: 0 5px;
+            @media (min-width: @screen-sm-min) {
+                margin-right: -15px;
+            }
+        }
+        #main-navbar-collapse {
+            @media screen and (max-width: @screen-xs-max) {
+                margin-top: 10px;
+            }
+            @media screen and (min-width: @screen-md-min) {
+                padding: 0px;
+            }
+            a {
+                &:hover, &:active,
+                &:visited, &:link {
+                    background: transparent;
+                    color: initial;
+                }
+            }
+        }
+        @media screen and (max-width: @screen-xs-max) {
+            #session-nav {
+                padding: 8px 0 0 0;
+            }
+            #site-nav {
+                float: none !important;
+            }
+        }
+    }
+}
+

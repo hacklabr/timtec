@@ -1,0 +1,92 @@
+// FORUM
+// ********************************************************************* //
+
+#forum-content {
+    .filters {
+        background-color: #c7b299;
+        border-radius: @border-radius-large;
+        margin: 30px 0;
+    }
+}
+
+#forum {
+    #forum-content {
+        .page-header-double {
+            margin-bottom: 0;
+        }
+        h3 {
+            color: #000;
+            font-family: @headings-font-family;
+            font-size: 24px;
+            font-weight: normal;
+            line-height: 45%;
+            margin-top: 40px;
+            padding-left: 10px;
+        }
+        .forum-form {
+            background-color: #c7b299;
+            border-radius: 10px;
+        }
+        .stats {
+            .votes {
+                background-color: #c7b299;
+                border-radius: 10px;
+            }
+        }
+        .filters {
+            margin-top: 0;
+        }
+        .secondary-header {
+            > .row {
+                > div:first-child {
+                    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                        .make-md-column(8);
+                    }
+                }
+                > div:nth-child(2) {
+                    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                        .make-md-column(4);
+                    }
+                }
+            }
+        }
+        .ask-a-question {
+            font-size: 20px;
+        }
+        .title {
+            font-family: @font-family-base;
+            font-weight: bold;
+        }
+        .content {
+            border-bottom-color: #000;
+        }
+        .author {
+            border-top: 0;
+        }
+        .question {
+            &.is-hidden {
+                background-color: #f0d4c0;
+                border-radius: @border-radius-large;
+                .why-hidden {
+                    border-top-color: @brand-primary;
+                }
+            }
+        }
+    }
+}
+
+
+
+// COURSE FORUM INLINE
+// ********************************************************************* //
+
+#course-content {
+    .forum-inline {
+        .page-header-double {
+            margin-top: 30px;
+            h3 {
+                color: @brand-primary;
+            }
+        }
+    }
+}

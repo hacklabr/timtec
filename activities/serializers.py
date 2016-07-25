@@ -3,12 +3,20 @@ from rest_framework import serializers
 
 
 class ActivitySerializer(serializers.ModelSerializer):
+
     data = serializers.JSONField('data')
     expected = serializers.JSONField('expected', required=False)
+    image_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Activity
-        fields = ('id', 'comment', 'data', 'expected', 'type', 'unit', )
+        fields = ('id', 'comment', 'data', 'expected', 'type', 'unit', 'image_url')
+
+    @staticmethod
+    def get_image_url(obj):
+        if obj.image:
+            return obj.image.url
+        return ''
 
 
 class AnswerSerializer(serializers.ModelSerializer):
