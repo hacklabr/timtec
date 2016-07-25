@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load is_enrolled %}
+
+{% block js %} {{block.super}}
+    <script>
+        $(document).ready(function() {
+            function full_height() {
+                var content_height = $('#courses-page').height();
+                var footer_margin_top = parseInt($('#main-footer').css('marginTop'), 10);
+                $('.aside_course').css({
+                    "height": (content_height + footer_margin_top),
+                    "margin-bottom": -1 * (footer_margin_top + 40)
+                });
+            }
+
+            function reset_all() {
+                $('.aside_course').css({
+                    'height': '',
+                    'margin-bottom': ''
+                });
+            }
+
+            full_height();
+
+            $(window).resize(function() {
+                if ( $(window).width() >= 768 )
+                    full_height();
+                else
+                    reset_all();
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block wrapper_classes %}
+wrapper-courses
+{% endblock %}
+
+{% block content %}
+        <div class="header-static">
+            <div class="container">
+                <h1>{% trans 'Courses' %}</h1>
+            </div>
+        </div>
+
+        <!-- CONTAINER -->
+        <div id="courses-page" class="container">
+            <header class="page-header-double">
+                <h2><i class="fa fa-angle-double-right"></i> {% trans 'Courses' %}</h2>
+            </header>
+
+            <section id="courses" class="row clearfix">
+                <div class="col-sm-8 col-lg-9">
+                    <div class="row">
+                        {% for course in courses %}
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                            <!-- COURSE -->
+                            <div class="course{% if user|is_enrolled:course %} started{% endif %}">
+                            {% if user|is_enrolled:course and course.has_started %}
+                                <a href="{% url "resume_course" course.slug %}" class="course-link">
+                            {% else %}
+                                <a href="{% url "course_intro" course.slug %}" class="course-link">
+                            {% endif %}
+                                    {% if not course.has_started %}<span class="coming-soon-label">{% trans 'Soon' %}</span>{% endif %}
+                                    <div class="thumb-wrapper">
+                                        <div class="mouseover"></div>
+                                        <div class="thumb" {% if course.home_thumbnail %}style="background-image: url({{ course.home_thumbnail.url }})"{% endif %}></div>
+
+                                    </div>
+                                    <div class="info-box">
+                                        <div class="fa fa-check"></div>
+                                        <div class="info">
+                                            <div class="info-description-instructors">
+                                                <h3>{{ course.name }}</h3>
+                                                <p class="instructors">{% for professor in course.get_video_professors %}{{ professor.get_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                                            </div>
+                                            <p class="abstract">{{ course.abstract }}</p>
+                                        </div>
+                                        <div class="enroll">
+                                            {% if course.start_date %}
+                                            <span class="course-date">
+                                                <i class="fa fa-calendar"></i> {{ course.start_date |date:"M, Y" }}
+                                            </span>
+                                            <span class="enroll-link textright uppercase">
+                                                {% trans 'Go to course' %} <i class="fa fa-angle-right"></i>
+                                            </span>
+                                            {% else %}
+                                                <span class="enroll-link textright uppercase">
+                                                    {% trans 'More information' %} <i class="fa fa-angle-right"></i>
+                                                </span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- END COURSE -->
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-sm-4 col-lg-3 aside_course">
+                    {% include '_courses_aside.html' %}
+                </div>
+            </section>
+        </div>
+        <!-- CONTAINER -->
+{% endblock %}

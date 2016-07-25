@@ -1,0 +1,13 @@
+{% extends 'default:account/base.html' %}
+{% load i18n %}
+
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
+{% block content %}
+    <div class="header-static">
+        <div class="container"></div>
+    </div>
+    {{block.super}}
+{% endblock %}

@@ -39,6 +39,7 @@
                 {'name': 'relationship', 'label': 'Relacionar sentenças'},
                 {'name': 'html5', 'label': 'HTML5'},
                 {'name': 'markdown', 'label': 'Texto simples'},
+                {'name': 'image', 'label': 'Imagem'},
                 {'name': 'reading', 'label': 'Atividade de leitura'}
             ];
 

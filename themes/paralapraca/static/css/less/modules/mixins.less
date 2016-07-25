@@ -1,0 +1,89 @@
+// CALCULATE WIDTH
+// ********************************************************************* //
+.calculate-width(@value:0) {
+  width:-moz-calc(~'100% - @{value}');
+  width:-webkit-calc(~'100% - @{value}');
+  width:calc(~'100% - @{value}');
+}
+
+// VERTICAL ALIGN
+// ********************************************************************* //
+.vertical-align(@position) {
+  display:inline-block;
+  vertical-align:@position;
+}
+
+// ARROWS
+// ********************************************************************* //
+.arrow-up(@width, @color) {
+  border-bottom:@width solid @color;
+  border-left:@width solid transparent;
+  border-right:@width solid transparent;
+  .size(0,0);
+}
+.arrow-down(@width, @color) {
+  border-left:@width solid transparent;
+  border-right:@width solid transparent;
+  border-top:@width solid @color;
+  .size(0,0);
+}
+.arrow-right(@width, @color) {
+  border-bottom:@width solid transparent;
+  border-left:@width solid @color;
+  border-top:@width solid transparent;
+  .size(0,0);
+}
+.arrow-left(@width, @color) {
+  border-bottom:@width solid transparent;
+  border-right:@width solid @color;
+  border-top:@width solid transparent;
+  .size(0,0);
+}
+
+// BORDER AND PADDING
+// ********************************************************************* //
+.bottom(@margin:0, @padding:0) {
+  margin-bottom:@margin !important;
+  padding-bottom:@padding !important;
+}
+
+.left(@margin:0, @padding:0) {
+  margin-left:@margin !important;
+  padding-left:@padding !important;
+}
+
+.right(@margin:0, @padding:0) {
+  margin-right:@margin !important;
+  padding-right:@padding !important;
+}
+
+.top(@margin:0, @padding:0) {
+  margin-top:@margin !important;
+  padding-top:@padding !important;
+}
+
+// POSITIONING
+// ********************************************************************* //
+@media screen and (max-width: @screen-phone) {
+  .bottom-xs {
+    .bottom(0,0);
+  }
+  .left-xs {
+    .left(0,0);
+  }
+  .right-xs {
+    .right(0,0);
+  }
+  .top-xs {
+    .top(0,0);
+  }
+}
+
+@media screen and (max-width: @screen-xs-max) {
+  .textleft-xs {
+    text-align: left !important;
+  }
+  .textright-xs {
+    text-align: right !important;
+  }
+}

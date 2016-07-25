@@ -1,0 +1,45 @@
+<div class="form-group">
+    <label class="col-lg-4 control-label">Sou</label>
+    <div class="col-lg-8">
+        <select class="form-control" name="{{contact_form.occupation.name}}">
+            <option>Estudante do IFSul</option>
+            <option>Professor do IFSul</option>
+            <option>Estudante</option>
+            <option>Professor</option>
+            <option>Jornalista</option>
+            <option>Administrador de instituição educacional</option>
+            <option>Outro</option>
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-lg-4 control-label">Quero falar sobre</label>
+    <div class="col-lg-8">
+        <select class="form-control" name="{{contact_form.subject.name}}">
+            <option>Problemas no registro de usuários</option>
+            <option>Problemas técnicos</option>
+            <option>Acessibilidade para estudantes</option>
+            <option>Certificados e exames</option>
+            <option>Relacionamento institucional</option>
+            <option>Outro assunto</option>
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-lg-4 control-label">Nome</label>
+    <div class="col-lg-8">
+        <input required type="text" class="form-control" name="{{contact_form.name.name}}"/>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-lg-4 control-label">Email</label>
+    <div class="col-lg-8">
+        <input required type="email" class="form-control" name="{{contact_form.email.name}}"/>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-lg-4 control-label">Mensagem</label>
+    <div class="col-lg-8">
+        <textarea required class="form-control" rows="6" name="{{contact_form.message.name}}"></textarea>
+    </div>
+</div>

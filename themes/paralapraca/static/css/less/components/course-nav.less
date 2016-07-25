@@ -1,0 +1,89 @@
+// COURSE SECTIONS (NAVGATION)
+.course-sections {
+    a.fa {
+        border-right: 1px solid fade(@brand-primary, 20%);
+        &.active, &:hover, &:focus {
+            color: @brand-primary;
+        }
+    }
+}
+
+// LESSON HEADER AND NAVIGATION
+#course.course-lesson {
+    #course-content {
+        nav.course-lessons {
+            > .row {
+                > div:first-child {
+                    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                        .make-md-column(8);
+                        .make-md-column-offset(1);
+                    }
+                    @media (min-width: @screen-lg-min) {
+                        .make-lg-column(8);
+                        .make-lg-column-offset(1);
+                    }
+                }
+            }
+            h1 {
+                display: none;
+            }
+            .description {
+                font-family: @font-family-base;
+                font-size: 17px;
+                margin-bottom: 10px;
+                margin-top: 45px;
+                p {
+                    margin: 0;
+                }
+            }
+            .editable-title {
+                font-size: 24px;
+                input {
+                    color: darken(@brand-primary, 10%);
+                    font-family: @font-family-sans-serif;
+                    font-weight: normal;
+                }
+            }
+        }
+        nav.lesson-units {
+            .btn-group {
+                background-color: @brand-success;
+                border-bottom-left-radius: @border-radius-large;
+                border-bottom-right-radius: @border-radius-large;
+            }
+            .btn-default {
+                background-color: @brand-success;
+                border-radius: @border-radius-large;
+                color: @gray-darker;
+                font-size: @font-size-large;
+                padding: 10px 15px;
+            }
+            .btn-default:first-child {
+                text-align: left;
+                min-width: 290px;
+            }
+            .dropdown-toggle {
+                color: @gray-darker;
+                padding-left: 0;
+                i {
+                    &:before {
+                        content: '\f0d7';
+                    }
+                }
+            }
+            .dropdown-menu {
+                background-color: @brand-success;
+                box-shadow: none;
+                font-size: @font-size-base;
+                margin: 0;
+                top: 50px;
+                a {
+                    color: @gray-darker !important;
+                    &:hover {
+                        color: #000;
+                    }
+                }
+            }
+        }
+    }
+}
