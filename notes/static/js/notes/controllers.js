@@ -5,6 +5,9 @@
     angular.module('notes.controllers', []).
         controller('NoteCtrl', ['$scope', '$window', '$location', 'LessonData', 'Note',
             function ($scope, $window, $location, LessonData, Note) {
+
+                $scope.show_notes = false;
+
                 $scope.save_note = function() {
                     var promisse;
                     $scope.note.text = $scope.note_text;

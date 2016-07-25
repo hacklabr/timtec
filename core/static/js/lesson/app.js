@@ -12,9 +12,10 @@
         'youtube',
         'django',
 //        'forum',
-//        'notes',
+        'notes',
         'directives.layout',
         'header',
+        'markdown',
     ]);
 
 })(angular);
