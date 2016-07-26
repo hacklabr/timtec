@@ -14,6 +14,7 @@
         'ngResource',
         'youtube',
         'markdown',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'header',
     ]);
 })(window.angular);
