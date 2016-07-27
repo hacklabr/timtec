@@ -248,6 +248,7 @@ class CourseProfessorViewSet(viewsets.ModelViewSet):
 
 class CourseAuthorViewSet(viewsets.ModelViewSet):
     model = CourseAuthor
+    queryset = CourseAuthor.objects.all()
     lookup_field = 'id'
     filter_fields = ('course', 'user',)
     filter_backends = (filters.DjangoFilterBackend,)
