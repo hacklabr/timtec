@@ -564,6 +564,7 @@ PIPELINE = {
                 # header
                 'js/header-app.js',
                 'js/header-controllers.js',
+                'js/discussion-services.js',
             ),
             'output_filename': 'js/plpc-header.js',
         },
@@ -578,6 +579,12 @@ PIPELINE = {
             ),
             'output_filename': 'js/timtec-discussion.js',
         },
+        'tinymce': {
+            'source_filenames': (
+                'vendor/tinymce/langs/pt_BR.js',
+            ),
+            'output_filename': 'vendor/tinymce/langs/pt_BR.js',
+        }
     }
 }
 
