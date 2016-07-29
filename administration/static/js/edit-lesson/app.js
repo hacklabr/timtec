@@ -13,6 +13,7 @@
         'directive.markdowneditor',
         // 'directive.sortable',
         // 'filters.text',
-        'youtube'
+        'youtube',
+        'header'
     ]);
 })(window.angular);
