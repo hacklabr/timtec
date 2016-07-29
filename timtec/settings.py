@@ -364,11 +364,8 @@ PIPELINE = {
                 'jquery-ui/ui/jquery.ui.sortable.js',
                 'bootstrap/dist/js/bootstrap.js',
                 'js/consolelogfallback.js',
-                'js/django.js',
                 'js/contact_form.js',
                 'js/helpers.js',
-                'js/angular-youtube.js',
-                'js/truncate.js',
                 'js/layout.js',
             ),
             'output_filename': 'js/all.js',
@@ -387,6 +384,14 @@ PIPELINE = {
                 'angular-i18n/angular-locale_pt-br.js'
             ),
             'output_filename': 'js/angular-commons.js',
+        },
+        'angular-timtec': {
+            'source_filenames': (
+                'js/django.js',
+                'js/angular-youtube.js',
+                'js/truncate.js',
+            ),
+            'output_filename': 'js/angular-timtec.js',
         },
         'markdown': {
             'source_filenames': (
