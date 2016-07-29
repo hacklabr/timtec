@@ -9,6 +9,7 @@
         'ui.bootstrap.datetimepicker',
         'truncate',
         'ngRoute',
-        'ngResource'
+        'ngResource',
+        'header'
     ]);
 })(angular);
