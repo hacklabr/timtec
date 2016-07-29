@@ -113,8 +113,6 @@ class EvaluationSerializer(serializers.ModelSerializer):
 
 
 class CertificateTemplateSerializer(serializers.ModelSerializer):
-    base_logo_url = serializers.Field(source='base_logo_url')
-    cert_logo_url = serializers.Field(source='cert_logo_url')
 
     class Meta:
         model = CertificateTemplate
