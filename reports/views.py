@@ -9,6 +9,7 @@ from reports.serializer import UserCourseStatsSerializer, CourseStats, LessonUse
 
 class UserCourseStats(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
     model = CourseStudent
+    queryset = CourseStudent.objects.all()
     serializer_class = UserCourseStatsSerializer
     filter_fields = ('course',)
 
@@ -45,6 +46,7 @@ class UserCourseLessonsStats(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
 
 class CourseStatsByLessonViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
     model = Course
+    queryset = Course.objects.all()
     serializer_class = CourseStats
 
     def retrieve(self, request, *args, **kwargs):

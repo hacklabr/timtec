@@ -6,9 +6,9 @@ from core.models import CourseStudent, Course
 class UserCourseStatsSerializer(serializers.ModelSerializer):
 
     name = serializers.SerializerMethodField('get_full_name')
-    username = serializers.SerializerMethodField('get_username')
-    email = serializers.SerializerMethodField('get_email')
-    user_id = serializers.SerializerMethodField('get_user_id')
+    username = serializers.SerializerMethodField()
+    email = serializers.SerializerMethodField()
+    user_id = serializers.SerializerMethodField()
     course_progress = serializers.SerializerMethodField('get_user_progress')
     # forum_questions = serializers.SerializerMethodField('get_forum_questions')
     # forum_answers = serializers.SerializerMethodField('get_forum_answers')
@@ -64,7 +64,7 @@ class LessonUserStats(serializers.ModelSerializer):
 
 
 class CourseStats(serializers.ModelSerializer):
-    lessons_avg_progress = serializers.SerializerMethodField('get_lessons_avg_progress')
+    lessons_avg_progress = serializers.SerializerMethodField()
     # forum_answers = serializers.SerializerMethodField('get_forum_answers')
 
     class Meta:

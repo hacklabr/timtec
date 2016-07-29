@@ -445,6 +445,7 @@ class RequestCertificateView(View):
 
 class CertificateTemplateViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     model = IfCertificateTemplate
+    queryset = IfCertificateTemplate.objects.all()
     lookup_field = 'course'
 
     serializer_class = IfCertificateTemplateSerializer
@@ -477,6 +478,7 @@ class CertificateTemplateImageViewSet(viewsets.ModelViewSet):
 
 class ProfessorMessageViewSet(viewsets.ModelViewSet):
     model = ProfessorMessage
+    queryset = ProfessorMessage.objects.all()
     lookup_field = 'id'
     filter_fields = ('course',)
     filter_backends = (filters.DjangoFilterBackend,)
@@ -801,6 +803,7 @@ class UserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
 class ClassViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
 
     model = Class
+    queryset = Class.objects.all()
     serializer_class = ClassSerializer
     filter_fields = ('course',)
 
