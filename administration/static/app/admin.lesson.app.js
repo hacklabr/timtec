@@ -1,14 +1,15 @@
 (function(angular){
     'use strict';
 
-    angular.module('edit-lesson', [
+    angular.module('admin.lesson', [
+        'admin.lesson.controllers',
         'new-course.directives',
         'django',
         'directive.waiting-screen',
         'directive.alertPopup',
         'directive.contenteditable',
         'directive.codemirror',
-        'timtec-models',
+        'core.services',
         'directive.fixedBar',
         'directive.markdowneditor',
         // 'directive.sortable',

@@ -81,22 +81,6 @@
     }]);
 
     /**
-     * Give a function that send _method=OPTIONS to django rest_framework
-     * URL informed and return a promise with result.
-     */
-    app.factory('getRestOptions', ['$http', function($http){
-        return function(url){
-            return $http({
-                method:'POST',
-                url: url,
-                data:'_method=OPTIONS',
-                headers:{'Content-Type':'application/x-www-form-urlencoded'}
-            });
-        };
-    }]);
-
-
-    /**
      *  Provide a Course Professor class. The property Class.fields contains the
      *  list of fields that reflects Course model in Django
      */
@@ -125,10 +109,9 @@
 
 
     /**
-     *  Provide a Course class. The property Class.fields contains the
-     *  list of fields that reflects Course model in Django
+     *  Provide a Course class.
      */
-    app.factory('Course', ['$resource', 'getRestOptions', function($resource, getRestOptions) {
+    app.factory('Course', ['$resource', function($resource) {
         var Course = $resource('/api/course/:id', {'id':'@id'});
 
         Course.prototype.isDraft = function() { return this.status === 'draft'; };
@@ -148,11 +131,6 @@
                 this.min_percent_to_complete = 100;
             return this.$save();
         };
-
-
-        getRestOptions('/api/course').success(function(data) {
-            Course.fields = angular.copy(data.actions.POST);
-        });
 
         return Course;
     }]);

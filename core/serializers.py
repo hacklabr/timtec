@@ -7,8 +7,8 @@ from core.models import (Course, CourseProfessor, CourseStudent, Lesson,
                          IfCertificateTemplate)
 from accounts.serializers import TimtecUserSerializer, \
     TimtecUserAdminCertificateSerializer
+from activities.models import Activity
 from activities.serializers import ActivitySerializer
-from rest_framework.reverse import reverse_lazy
 from notes.models import Note
 from rest_framework import serializers
 
@@ -211,37 +211,62 @@ class StudentProgressSerializer(serializers.ModelSerializer):
 
 
 class UnitSerializer(serializers.ModelSerializer):
-    video = VideoSerializer(required=False)
-    activities = ActivitySerializer(many=True)
+    video = VideoSerializer(required=False, allow_null=True)
+    activities = ActivitySerializer(many=True, required=False, allow_null=True)
 
     class Meta:
         model = Unit
         fields = ('id', 'title', 'video', 'activities', 'side_notes', 'position',)
 
 
-class LessonHyperlinkedIdentityField(serializers.HyperlinkedIdentityField):
-    # Need to do this because the rest framework doesnt support multiple
-    # lookups
-    def get_url(self, obj, view_name, request, format):
-        kwargs = {'slug': obj.slug, 'course_slug': obj.course.slug}
-        return reverse_lazy(view_name, kwargs=kwargs, request=request, format=format)
+class LessonSerializer(serializers.ModelSerializer):
 
-
-class LessonSerializer(serializers.HyperlinkedModelSerializer):
-    # TODO: Verificar se de fato e read_only=True
-    course = serializers.SlugRelatedField(slug_field='slug', read_only=True)
     units = UnitSerializer(many=True)
-    url = LessonHyperlinkedIdentityField(
-        view_name='lesson',
-        lookup_field='slug'
-    )
     is_course_last_lesson = serializers.BooleanField(read_only=True)
 
     class Meta:
         model = Lesson
         fields = ('id', 'course', 'is_course_last_lesson', 'desc',
-                  'name', 'notes', 'position', 'slug', 'status', 'units', 'url',
+                  'name', 'notes', 'position', 'slug', 'status', 'units',
                   'thumbnail')
+
+    def update(self, instance, validated_data):
+        validated_data.pop('units')
+
+        units_data = self.initial_data.get('units')
+        units = []
+        for unit_data in units_data:
+            activities_data = unit_data.pop('activities')
+            unit_data.pop('lesson', None)
+            unit = Unit(lesson=instance, **unit_data)
+            unit.save()
+            units.append(unit)
+            for activity_data in activities_data:
+                activity_data['unit'] = unit
+                activity_data.pop('unit')
+                activity_data.pop('image_url', None)
+                activity = Activity(**activity_data)
+                activity.unit = unit
+                activity.save()
+
+        for old_unit in instance.units.all():
+            if old_unit not in units:
+                old_unit.delete()
+
+        return super(LessonSerializer, self).update(instance, validated_data)
+
+    def create(self, validated_data):
+        validated_data.pop('units')
+        new_lesson = super(LessonSerializer, self).create(validated_data)
+
+        units_data = self.initial_data.get('units')
+        for unit_data in units_data:
+            activities = unit_data.pop('activities')
+            Unit.objects.create(lesson=new_lesson, **unit_data)
+            if activities:
+                for activity in activities:
+                    Activity.objects.create(**activity)
+        return new_lesson
 
 
 class NoteSerializer(serializers.ModelSerializer):

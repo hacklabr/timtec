@@ -1,9 +1,18 @@
 (function(angular){
 
-    var app = angular.module('edit-lesson');
+    var app = angular.module('admin.lesson.controllers', []);
 
-    app.controller('EditLessonController', ['$scope', 'Course', 'CourseProfessor', 'Lesson', 'VideoData', 'youtubePlayerApi', 'MarkdownDirective', 'waitingScreen',
-        function($scope, Course, CourseProfessor, Lesson, VideoData, youtubePlayerApi, MarkdownDirective, waitingScreen){
+    app.controller('EditLessonController', [
+        '$scope',
+        'Course',
+        'CourseProfessor',
+        'Lesson',
+        'VideoData',
+        'youtubePlayerApi',
+        'MarkdownDirective',
+        'waitingScreen',
+        function($scope,Course, CourseProfessor, Lesson, VideoData, youtubePlayerApi,
+                 MarkdownDirective,waitingScreen) {
             $scope.errors = {};
             var httpErrors = {
                 '400': 'Os campos não foram preenchidos corretamente.',
@@ -27,10 +36,58 @@
                 });
             };
 
-            $scope.course = new Course();
-            $scope.lesson = new Lesson();
-
+//            $scope.course = new Course();
             $scope.courseProfessors = [];
+
+            var match = document.location.href.match(/courses\/(\d+)\/lessons\/(new|\d+)/);
+            if( match ) {
+
+                $scope.course_id = match[1]
+                $scope.course = Course.get({id: $scope.course_id});
+
+                $scope.isNewLesson = ('new' === match[2]);
+                if (!$scope.isNewLesson) {
+                    $scope.lesson_id = match[2];
+                }
+//                $scope.lessons = Lessons.query({course__id: $scope.course_id});
+//                if ($scope.isNewLesson) {
+//                    $scope.lesson = new Lesson();
+//                    $scope.addUnit();
+//                    $scope.lesson.position = $scope.lessons.length;
+//                    $scope.lessons.push($scope.lesson);
+//                } else {
+//                    $scope.lesson_id = match[2];
+//                    $scope.setLesson(lesson);
+//                }
+//                $scope.course.$get({id: match[1]})
+//                    .then(function(course){
+//                        $scope.courseProfessors = CourseProfessor.query({course: course.id, role: 'instructor'});
+//                        $scope.lesson.course = course.slug;
+//                        return $scope.courseProfessors.$promise;
+//                    });
+
+                Lesson.query({course__id: $scope.course_id}).$promise
+                    .then(function(lessons){
+                        $scope.lessons = lessons;
+                        lessons.forEach(function(lesson){
+                            if(lesson.id === parseInt($scope.lesson_id, 10)) {
+                                $scope.setLesson(lesson);
+                            }
+                        });
+                        if($scope.isNewLesson) {
+                            $scope.lesson = new Lesson();
+                            $scope.lesson.course = parseInt($scope.course_id, 10);
+                            $scope.lesson.position = $scope.lessons.length;
+                            $scope.addUnit();
+                            $scope.lessons.push($scope.lesson);
+                        }
+                        waitingScreen.hide();
+                    })['catch'](function(resp){
+                        $scope.alert.error(httpErrors[resp.status.toString()]);
+                        waitingScreen.hide();
+                    }
+                );
+            }
 
             $scope.activityTypes = [
                 {'name': 'simplechoice', 'label': 'Escolha simples'},
@@ -122,6 +179,7 @@
                     $scope.lesson.units = [];
                 }
                 $scope.currentUnit = {'activities': []};
+                $scope.currentUnit.lesson = $scope.lesson.id
                 $scope.lesson.units.push($scope.currentUnit);
             };
 
@@ -217,40 +275,6 @@
                     $scope.currentActivity = null;
                 }
             };
-            /*  End Methods */
-
-            // vv como faz isso de uma formula angular ?
-            var match = document.location.href.match(/courses\/(\d+)\/lessons\/(new|\d+)/);
-            if( match ) {
-                $scope.isNewLesson = ('new' === match[2]);
-
-                $scope.course.$get({id: match[1]})
-                    .then(function(course){
-                        $scope.courseProfessors = CourseProfessor.query({course: course.id, role: 'instructor'});
-                        $scope.lesson.course = course.slug;
-                        return $scope.courseProfessors.$promise;
-                    });
-
-                Lesson.query({course__id: match[1]}).$promise
-                    .then(function(lessons){
-                        $scope.lessons = lessons;
-                        lessons.forEach(function(lesson){
-                            if(lesson.id === parseInt(match[2], 10)) {
-                                $scope.setLesson(lesson);
-                            }
-                        });
-                        if($scope.isNewLesson) {
-                            $scope.addUnit();
-                            $scope.lesson.position = $scope.lessons.length;
-                            $scope.lessons.push($scope.lesson);
-                        }
-                        waitingScreen.hide();
-                    })['catch'](function(resp){
-                        $scope.alert.error(httpErrors[resp.status.toString()]);
-                        waitingScreen.hide();
-                    });
-            }
-            // ^^ como faz isso de uma formula angular ?
         }
     ]);
 
