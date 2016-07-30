@@ -25,4 +25,9 @@ Vagrant.configure('2') do |config|
   config.vm.network "forwarded_port", guest: 8000, host: 8000
   config.ssh.username = TIMTEC_USER
   config.vm.synced_folder "./", "/home/" + TIMTEC_USER  + "/timtec/", create: true
+  # Uncomment following line if your are developing paralapraca theme or django-discussion app.
+  # Set paths according to your needs.
+  # config.vm.synced_folder "../django-discussion/", "/home/" + TIMTEC_USER  + "/django-discussion/", create: true
+  # config.vm.synced_folder "../paralapraca/", "/home/" + TIMTEC_USER  + "/paralapraca/", create: true
+
 end
