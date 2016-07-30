@@ -231,42 +231,53 @@ class LessonSerializer(serializers.ModelSerializer):
                   'thumbnail')
 
     def update(self, instance, validated_data):
-        validated_data.pop('units')
 
-        units_data = self.initial_data.get('units')
-        units = []
-        for unit_data in units_data:
-            activities_data = unit_data.pop('activities')
-            unit_data.pop('lesson', None)
-            unit = Unit(lesson=instance, **unit_data)
-            unit.save()
-            units.append(unit)
-            for activity_data in activities_data:
-                activity_data['unit'] = unit
-                activity_data.pop('unit')
-                activity_data.pop('image_url', None)
-                activity = Activity(**activity_data)
-                activity.unit = unit
-                activity.save()
+        units = self.update_units(self.initial_data.get('units'), instance)
 
         for old_unit in instance.units.all():
             if old_unit not in units:
                 old_unit.delete()
 
+        validated_data.pop('units')
         return super(LessonSerializer, self).update(instance, validated_data)
 
     def create(self, validated_data):
-        validated_data.pop('units')
+        units_data = validated_data.pop('units')
         new_lesson = super(LessonSerializer, self).create(validated_data)
+        # units_data = self.initial_data.get('units')
 
-        units_data = self.initial_data.get('units')
-        for unit_data in units_data:
-            activities = unit_data.pop('activities')
-            Unit.objects.create(lesson=new_lesson, **unit_data)
-            if activities:
-                for activity in activities:
-                    Activity.objects.create(**activity)
+        self.update_units(units_data, new_lesson)
+
         return new_lesson
+
+    @classmethod
+    def update_units(cls, units_data, lesson):
+        units = []
+        for unit_data in units_data:
+            activities_data = unit_data.pop('activities')
+            unit_data.pop('lesson', None)
+
+            video_data = unit_data.pop('video', None)
+            if video_data:
+                video = Video(**video_data)
+                video.save()
+            else:
+                video = None
+            unit = Unit(lesson=lesson, video=video, **unit_data)
+            unit.save()
+            units.append(unit)
+            for activity_data in activities_data:
+                activity_data['unit'] = unit
+                activity_data.pop('image_url', None)
+
+                # TODO investigate why this is needed!
+                # if the activity_id isn't removed from activity_data, a ValidationError: [u'Enter valid JSON'].
+                # As this doesn't happens with unit (see lines below), this may be related with (bug?) in djsonfild
+                activity_id = activity_data.pop('id', None)
+                activity = Activity(**activity_data)
+                activity.id = activity_id
+                activity.save()
+        return units
 
 
 class NoteSerializer(serializers.ModelSerializer):

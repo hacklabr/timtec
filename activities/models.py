@@ -24,7 +24,7 @@ class Activity(models.Model):
         expected_answer_data: {choice: 1}
     """
     type = models.CharField(_('Type'), max_length=255)
-    data = JSONField(_('Data'))
+    data = JSONField(_('Data'), blank=True)
     expected = JSONField(_('Expected answer'), blank=True)
     unit = models.ForeignKey(Unit, verbose_name=_('Unit'), null=True, blank=True, related_name='activities')
     comment = models.TextField(_('Comment'), blank=True)
