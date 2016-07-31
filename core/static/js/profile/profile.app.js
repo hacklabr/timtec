@@ -4,7 +4,7 @@
     angular.module('profile', [
         'profile.controllers',
         'profile.services',
-        'django',
+        'djangular',
         'header',
         'ui.tinymce',
     ]);

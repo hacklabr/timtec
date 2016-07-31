@@ -2,7 +2,6 @@
     'use strict';
     var app = angular.module('profile.controllers', ['ngSanitize']);
 
-    app.controller('UserProfileController', ['$scope', '$location', 'UserProfile', 'CurrentUser',
         function ($scope, $location, TimtecUser, CurrentUser) {
 
             // remove the last slash
@@ -13,11 +12,17 @@
 
             var username = abs_url.split('/').pop();
             $location.absUrl().split('/').indexOf("profile")
-            if (username !== 'profile' && username !== 'edit') {
-                $scope.user_profile = TimtecUser.get({username: username});
-            } else {
-                $scope.user_profile = TimtecUser.get({userId: CurrentUser.id});
+            if (username === 'profile' || username === 'edit') {
+                // Current user profile
+                username = CurrentUser.username;
             }
+
+            TimtecUser.get({username: username}, function(user_profile) {
+                user_profile.is_current_user = (user_profile.id === parseInt(CurrentUser.id, 10));
+                $scope.user_profile = user_profile;
+            }, function(error) {
+                $scope.user_profile = null;
+            });
         }
     ]);
 
