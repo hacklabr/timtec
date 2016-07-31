@@ -33,6 +33,7 @@
         });
     });
 
+    // DEPRECATED do not user this, use djangular.js CurrentUser service instead.
     app.service('CurrentUser', function () {
        return {
                   'id': window.USER_ID
