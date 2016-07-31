@@ -23,7 +23,7 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
     template_name = 'profile-edit.html'
 
     def get_success_url(self):
-        url = self.request.REQUEST.get('next', None)
+        url = self.request.GET.get('next', None)
         if url:
             return url
         else:
