@@ -7,5 +7,7 @@
         'notes.controllers',
         'notes.services',
         'django',
+        'header',
+        'gettext',
     ]);
 })(angular);
