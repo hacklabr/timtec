@@ -6,6 +6,7 @@
         'profile.services',
         'django',
         'ngResource',
-        'header'
+        'header',
+        'ui.tinymce',
     ]);
 })(angular);

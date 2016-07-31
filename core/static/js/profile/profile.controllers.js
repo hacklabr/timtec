@@ -13,7 +13,7 @@
 
             var username = abs_url.split('/').pop();
             $location.absUrl().split('/').indexOf("profile")
-            if (username !== 'profile') {
+            if (username !== 'profile' && username !== 'edit') {
                 $scope.user_profile = TimtecUser.get({username: username});
             } else {
                 $scope.user_profile = TimtecUser.get({userId: CurrentUser.id});
