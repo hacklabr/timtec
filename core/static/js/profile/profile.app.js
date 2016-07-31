@@ -5,7 +5,6 @@
         'profile.controllers',
         'profile.services',
         'django',
-        'ngResource',
         'header',
         'ui.tinymce',
     ]);
