@@ -1,6 +1,6 @@
 (function(angular){
     'use strict';
-    var app = angular.module('profile.controllers', []);
+    var app = angular.module('profile.controllers', ['ngSanitize']);
 
     app.controller('UserProfileController', ['$scope', '$location', 'UserProfile', 'CurrentUser',
         function ($scope, $location, TimtecUser, CurrentUser) {
