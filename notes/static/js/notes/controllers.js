@@ -86,8 +86,8 @@
                     });
                 };
     }]).
-    controller('UserNotesCtrl', ['$scope', '$window', 'UserNotes',
-            function ($scope, $window, UserNotes) {
+    controller('UserNotesCtrl', ['$scope', '$window', 'UserNotes', 'Note',
+            function ($scope, $window, UserNotes, Note) {
                 function compare(a,b) {
                     if (a.position < b.position)
                        return -1;
@@ -104,5 +104,21 @@
                     });
                     $scope.courses = courses;
                 });
+
+                $scope.delele_note = function(course, lesson, unit, note) {
+                    if(!confirm('Tem certeza que deseja remover esta anotação?')) return;
+
+                    Note.remove({note_id: note.id}, function (){
+                        var index;
+                        if (lesson.units_notes.length > 1) {
+                            index = lesson.units_notes.indexOf(unit);
+                            lesson.units_notes.splice(index, 1);
+                        } else {
+                            index = course.lessons_notes.indexOf(lesson);
+                            course.lessons_notes.splice(index, 1);
+                        }
+                        course.course_notes_number -= 1;
+                    });
+                };
     }]);
 })(angular);
