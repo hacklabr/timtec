@@ -8,8 +8,9 @@
     app.value('uiTinymceConfig', {
         inline: false,
         menubar: false,
-        plugins : 'advlist autolink link image lists charmap print preview',
-        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+        statusbar: false,
+        plugins : 'advlist lists autolink link image media',
+        toolbar: 'bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | quicklink link image media fullscreen',
         skin: 'lightgray',
         theme : 'modern',
         language: 'pt_BR',
