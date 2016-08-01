@@ -47,7 +47,8 @@ class BaseCourseSerializer(serializers.ModelSerializer):
         return ''
 
     def get_is_assistant_or_coordinator(self, obj):
-        return obj.is_assistant_or_coordinator(self.context['request'].user)
+        if self.context:
+            return obj.is_assistant_or_coordinator(self.context['request'].user)
 
 
 class BaseClassSerializer(serializers.ModelSerializer):
@@ -254,6 +255,12 @@ class LessonSerializer(serializers.ModelSerializer):
         for old_unit in instance.units.all():
             if old_unit not in units:
                 old_unit.delete()
+            else:
+                new_activities = units[units.index(old_unit)].activities
+                if old_unit.activities != new_activities:
+                    for activity in old_unit.activities:
+                        if activity not in new_activities:
+                            activity.delete()
 
         validated_data.pop('units')
         return super(LessonSerializer, self).update(instance, validated_data)
@@ -282,7 +289,7 @@ class LessonSerializer(serializers.ModelSerializer):
                 video = None
             unit = Unit(lesson=lesson, video=video, **unit_data)
             unit.save()
-            units.append(unit)
+            activities = []
             for activity_data in activities_data:
                 activity_data['unit'] = unit
                 activity_data.pop('image_url', None)
@@ -294,6 +301,9 @@ class LessonSerializer(serializers.ModelSerializer):
                 activity = Activity(**activity_data)
                 activity.id = activity_id
                 activity.save()
+                activities.append(activity)
+            unit.activities = activities
+            units.append(unit)
         return units
 
 
