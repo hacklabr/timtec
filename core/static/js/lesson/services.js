@@ -65,7 +65,7 @@
 
     app.factory('resolveActivityTemplate', ['STATIC_URL', function(STATIC_URL) {
         return function (typeName) {
-            return STATIC_URL + '/templates/activity_'+ typeName + '.html';
+            return STATIC_URL + 'templates/activity_'+ typeName + '.html';
         };
     }]);
 

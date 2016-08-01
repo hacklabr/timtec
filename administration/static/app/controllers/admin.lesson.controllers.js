@@ -1,6 +1,6 @@
 (function(angular){
 
-    var app = angular.module('admin.lesson.controllers', []);
+    var app = angular.module('admin.lesson.controllers', ['ngSanitize']);
 
     app.controller('EditLessonController', [
         '$scope',
@@ -243,6 +243,7 @@
             $scope.selectActivity = function(activity) {
                 $scope.currentActivity = activity;
                 MarkdownDirective.resetEditors();
+                MarkdownDirective.refreshEditorsPreview();
             };
 
             $scope.removeCurrentActivity = function() {

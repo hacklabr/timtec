@@ -1,10 +1,10 @@
 (function(angular){
     'use strict';
 
-    var app = angular.module('lesson.controllers', []);
+    var app = angular.module('lesson.controllers', ['ngSanitize']);
 
-    app.controller('MainCtrl', ['$scope', 'LessonData', 'Answer', 'Progress', '$location', 'youtubePlayerApi', 'resolveActivityTemplate', '$uibModal', 'Student',
-        function ($scope, LessonData, Answer, Progress, $location, youtubePlayerApi, resolveActivityTemplate, $uibModal, Student) {
+    app.controller('MainCtrl', ['$scope', '$sce', 'LessonData', 'Answer', 'Progress', '$location', 'youtubePlayerApi', 'resolveActivityTemplate', '$uibModal', 'Student',
+        function ($scope, $sce, LessonData, Answer, Progress, $location, youtubePlayerApi, resolveActivityTemplate, $uibModal, Student) {
 
             youtubePlayerApi.events.onStateChange = function(event){
                 window.onPlayerStateChange.call($scope.currentUnit, event);
@@ -62,13 +62,15 @@
                 }
             };
 
+            $scope.getReadingActivityHtml = function() {
+                return $sce.trustAsHtml($scope.currentActivity.data.question);
+            };
+
             $scope.selectActivity = function(index) {
 
                 if($scope.currentUnit.activities && $scope.currentUnit.activities.length) {
                     $scope.currentActivity = $scope.currentUnit.activities[index];
                     $scope.activityTemplateUrl = resolveActivityTemplate($scope.currentActivity.type);
-                    console.log($scope.activityTemplateUrl);
-                    ga("send", "event", "activity", "select", $scope.currentActivity.id);
 
                     $scope.answer = Answer.get({activityId: $scope.currentActivity.id}, function(answer) {
                         var exp = $scope.currentActivity.expected;
