@@ -236,11 +236,11 @@
                 };
                 $scope.currentUnit.activities.push($scope.currentActivity);
                 $scope.newActivityType = null;
+                MarkdownDirective.refreshEditorsPreview();
             };
 
             $scope.selectActivity = function(activity) {
                 $scope.currentActivity = activity;
-                MarkdownDirective.resetEditors();
                 MarkdownDirective.refreshEditorsPreview();
             };
 
@@ -259,6 +259,7 @@
                 } else {
                     $scope.currentActivity = null;
                 }
+                MarkdownDirective.refreshEditorsPreview();
             };
         }
     ]);
