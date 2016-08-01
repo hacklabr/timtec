@@ -2,6 +2,26 @@
     'use strict';
     var app = angular.module('my-courses');
 
+    app.controller('CourseListController',
+        ['$scope', '$window', 'CourseStudent', 'Course',
+        function ($scope, $window, CourseStudent, Course) {
+
+            Course.query({'public_courses': 'True', }, function (courses) {
+                $scope.courses = courses;
+                CourseStudent.query({}, function (course_students){
+                    $scope.course_students = course_students
+                    angular.forEach($scope.courses, function(course) {
+                        angular.forEach($scope.course_students, function(course_student) {
+                            if (course.id === course_student.course.id) {
+                                course.course_student = course_student;
+                            }
+                        });
+                    })
+                });
+            });
+         }]
+    );
+
     app.controller('UserCourseListController',
         ['$scope', '$window', '$uibModal', 'CertificationProcess', 'CourseStudentService', 'Class',
         function ($scope, $window, $uibModal, CertificationProcess, CourseStudentService, Class) {
