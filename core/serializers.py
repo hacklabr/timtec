@@ -26,12 +26,13 @@ class ProfessorMessageSerializer(serializers.ModelSerializer):
 class BaseCourseSerializer(serializers.ModelSerializer):
     professors = serializers.SerializerMethodField('get_professor_name')
     home_thumbnail_url = serializers.SerializerMethodField()
+    is_assistant_or_coordinator = serializers.SerializerMethodField()
 
     class Meta:
         model = Course
         fields = ("id", "slug", "name", "status", "home_thumbnail_url",
                   "start_date", "home_published", "has_started",
-                  "min_percent_to_complete", "professors")
+                  "min_percent_to_complete", "professors", "is_assistant_or_coordinator",)
 
     @staticmethod
     def get_professor_name(obj):
@@ -44,6 +45,9 @@ class BaseCourseSerializer(serializers.ModelSerializer):
         if obj.home_thumbnail:
             return obj.home_thumbnail.url
         return ''
+
+    def get_is_assistant_or_coordinator(self, obj):
+        return obj.is_assistant_or_coordinator(self.context['request'].user)
 
 
 class BaseClassSerializer(serializers.ModelSerializer):
@@ -153,6 +157,9 @@ class VideoSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     intro_video = VideoSerializer(required=False)
     home_thumbnail_url = serializers.SerializerMethodField()
+    is_user_assistant = serializers.SerializerMethodField()
+    is_user_coordinator = serializers.SerializerMethodField()
+    is_assistant_or_coordinator = serializers.SerializerMethodField()
 
     class Meta:
         model = Course
@@ -160,13 +167,23 @@ class CourseSerializer(serializers.ModelSerializer):
                   "abstract", "structure", "workload", "pronatec", "status",
                   "thumbnail_url", "home_thumbnail_url", "home_position",
                   "start_date", "home_published", "authors_names", "has_started",
-                  "min_percent_to_complete")
+                  "min_percent_to_complete", "is_user_assistant", "is_user_coordinator",
+                  "is_assistant_or_coordinator", )
 
     @staticmethod
     def get_home_thumbnail_url(obj):
         if obj.home_thumbnail:
             return obj.home_thumbnail.url
         return ''
+
+    def get_is_user_assistant(self, obj):
+        return obj.is_course_assistant(self.context['request'].user)
+
+    def get_is_user_coordinator(self, obj):
+        return obj.is_course_coordinator(self.context['request'].user)
+
+    def get_is_assistant_or_coordinator(self, obj):
+        return obj.is_assistant_or_coordinator(self.context['request'].user)
 
 
 class CourseStudentSerializer(serializers.ModelSerializer):
