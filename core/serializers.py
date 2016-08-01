@@ -47,7 +47,8 @@ class BaseCourseSerializer(serializers.ModelSerializer):
         return ''
 
     def get_is_assistant_or_coordinator(self, obj):
-        return obj.is_assistant_or_coordinator(self.context['request'].user)
+        if self.context:
+            return obj.is_assistant_or_coordinator(self.context['request'].user)
 
 
 class BaseClassSerializer(serializers.ModelSerializer):
