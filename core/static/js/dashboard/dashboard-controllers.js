@@ -11,7 +11,7 @@
                     $scope.my_courses = my_courses;
                 }
             });
-            $scope.latest_topics = Topic.query({limit: 12, ordering: 'updated_at'})
+            $scope.latest_topics = Topic.query({limit: 8, ordering: 'updated_at'})
         }
     ]);
 
