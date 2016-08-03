@@ -124,7 +124,7 @@
             };
 
             $scope.sendAnswerText = function() {
-                $scope.currentUnit.progress = Progress.save($scope.currentUnit.id);
+                $scope.currentUnit.progress = Progress.save({unit: $scope.currentUnit.id});
                 $scope.nextUnit();
             };
 
@@ -143,7 +143,7 @@
                         $scope.currentUnit.activities.length > 0) {
                         $scope.section = 'activity';
                     } else {
-                        $scope.currentUnit.progress = Progress.save($scope.currentUnit.id);
+                        $scope.currentUnit.progress = Progress.save({unit: $scope.currentUnit.id});
                         $scope.nextUnit();
                     }
                 } else {
@@ -154,7 +154,7 @@
                         var index = $scope.currentUnit.activities.indexOf($scope.currentActivity);
                         // Test if this is the last activity in the currentUnit unit
                         if(index+1 === $scope.currentUnit.activities.length) {
-                            $scope.currentUnit.progress = Progress.save($scope.currentUnit.id);
+                            $scope.currentUnit.progress = Progress.save({unit: $scope.currentUnit.id});
                             $scope.nextUnit();
                         } else {
                             $scope.selectActivity(index + 1);
