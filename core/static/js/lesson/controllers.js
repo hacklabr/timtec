@@ -122,24 +122,31 @@
                 });
             };
 
+            $scope.sendAnswerText = function() {
+                $scope.currentUnit.progress = Progress.save($scope.currentUnit.id);
+                $scope.nextUnit();
+            };
+
             $scope.nextStep = function(skipComment) {
                 var progress;
                 if($scope.section === 'video') {
+                    // Test if currentUnit has an activity
                     if(angular.isArray($scope.currentUnit.activities) &&
                         $scope.currentUnit.activities.length > 0) {
                         $scope.section = 'activity';
                     } else {
-                        progress = Progress.complete($scope.currentUnit.id);
-                        $scope.currentUnit.progress = progress;
+                        $scope.currentUnit.progress = Progress.save($scope.currentUnit.id);
                         $scope.nextUnit();
                     }
                 } else {
+                    // Test if must display activity comments
                     if($scope.section === 'activity' && !skipComment && $scope.currentActivity.comment) {
                         $scope.section = 'comment';
                     } else {
                         var index = $scope.currentUnit.activities.indexOf($scope.currentActivity);
+                        // Test if this is the last activity in the currentUnit unit
                         if(index+1 === $scope.currentUnit.activities.length) {
-                            $scope.currentUnit.progress = Progress.get({unit: $scope.currentUnit.id});
+                            $scope.currentUnit.progress = Progress.save($scope.currentUnit.id);
                             $scope.nextUnit();
                         } else {
                             $scope.selectActivity(index + 1);
@@ -153,6 +160,7 @@
                 $scope.sendAnswer();
                 $scope.nextStep(true);
             };
+
             $scope.previous_activity_from_image = function() {
                 if($scope.section === 'activity') {
                     var index = $scope.currentUnit.activities.indexOf($scope.currentActivity);
@@ -284,3 +292,4 @@
         lastState = event.data;
     }
     window.onPlayerStateChange = onPlayerStateChange;
+})();
