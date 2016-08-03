@@ -730,20 +730,11 @@ class StudentProgressViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = StudentProgressSerializer
 
-    def update(self, request, *args, **kwargs):
-        self.object = self.get_object_or_none()
-        if self.object:
-            self.object.save()
-            # TODO: verificar se a resposta deveria ser esta mesmo.
-            return HttpResponse('')
-        else:
-            return super(StudentProgressViewSet, self).update(request, *args, **kwargs)
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user, complete=timezone.now())
 
-    def pre_save(self, obj):
-        obj.user = self.request.user
-        obj.unit = Unit.objects.get(id=self.kwargs.get('unit'))
-        obj.complete = timezone.now()
-        return obj
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user, complete=timezone.now())
 
     def get_queryset(self):
         user = self.request.user
