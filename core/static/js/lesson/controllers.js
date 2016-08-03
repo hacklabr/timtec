@@ -149,7 +149,23 @@
                 }
             };
 
+            $scope.next_activity_from_image = function() {
+                $scope.sendAnswer();
+                $scope.nextStep(true);
+            };
+            $scope.previous_activity_from_image = function() {
+                if($scope.section === 'activity') {
+                    var index = $scope.currentUnit.activities.indexOf($scope.currentActivity);
+                    if (index > 0) {
+                        $scope.selectActivity(index - 1);
+                        $scope.section = 'activity';
+                    } else {
+                        // Volta pra unidade anterior?
+//                        $scope.currentUnit.progress = Progress.get({unit: $scope.currentUnit.id});
+//                        $scope.nextUnit();
+                    }
                 }
+            };
 
             LessonData.then(function(lesson){
                 $scope.lesson = lesson;
