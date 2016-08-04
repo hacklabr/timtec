@@ -119,6 +119,8 @@ STATICFILES_FINDERS = (
     # 'pipeline.finders.AppDirectoriesFinder',
     'pipeline.finders.CachedFileFinder',
     'pipeline.finders.PipelineFinder',
+
+    'compressor.finders.CompressorFinder',
 )
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
@@ -238,6 +240,7 @@ INSTALLED_APPS = (
 
     'django_markdown',
 
+    'compressor',
     # raven has to be the last one
     'raven.contrib.django.raven_compat',
 )
@@ -308,6 +311,8 @@ try:
     execfile(os.path.join(SETTINGS_DIR, 'settings_local.py'))
 except IOError:
     pass
+
+COMPRESS_OFFLINE = True
 
 PIPELINE = {
     'COMPILERS': (

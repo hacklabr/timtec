@@ -25,6 +25,8 @@ django-pipeline==1.6.8
 # django-pipeline==1.4.7
 # django-pipeline==1.5.2
 
+django-compressor==2.0
+
 # internacionalization admin interface
 django-rosetta==0.7.6
 
