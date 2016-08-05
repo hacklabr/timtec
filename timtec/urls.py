@@ -170,6 +170,10 @@ urlpatterns = patterns(
 
     url(r'^markdown/', include('django_markdown.urls')),
 
+    url(r'^djangular.js',
+        TemplateView.as_view(template_name='djangular.js', content_type='text/javascript'),
+        name='djangular'),
+
 )
 
 if settings.TWITTER_USER != '':

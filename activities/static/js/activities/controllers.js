@@ -1,7 +1,7 @@
 (function(angular){
     'use strict';
 
-    var app = angular.module('activities.controllers', []);
+    var app = angular.module('activities.controllers', ['ngSanitize']);
 
     app.controller('PHPCtrl', ['$scope', '$sce', 'Progress',
         function ($scope, $sce, Progress) {

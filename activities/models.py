@@ -24,10 +24,11 @@ class Activity(models.Model):
         expected_answer_data: {choice: 1}
     """
     type = models.CharField(_('Type'), max_length=255)
-    data = JSONField(_('Data'))
+    data = JSONField(_('Data'), blank=True)
     expected = JSONField(_('Expected answer'), blank=True)
     unit = models.ForeignKey(Unit, verbose_name=_('Unit'), null=True, blank=True, related_name='activities')
     comment = models.TextField(_('Comment'), blank=True)
+    image = models.ImageField(_('Image'), upload_to='activities', null=True, blank=True)
 
     class Meta:
         verbose_name = _('Activity')
@@ -39,6 +40,11 @@ class Activity(models.Model):
             return self.data.get('question')
         except:
             return None
+
+    def get_image_url(self):
+        if self.image:
+            return '{}/{}'.format(settings.MEDIA_URL, self.image)
+        return ''
 
     def __unicode__(self):
         return u'%s dt %s a %s' % (self.type, self.data, self.expected)
@@ -63,7 +69,7 @@ class Answer(models.Model):
 
     def is_correct(self):
 
-        if self.activity.type in ['html5', 'markdown', 'php']:
+        if self.activity.type in ['html5', 'markdown', 'php', 'image']:
             return True
 
         if type(self.given) is list and type(self.activity.expected) is list:

@@ -8,6 +8,7 @@ from django.db.models import Count
 from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import Group
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.template import Template, Context
 from django.contrib.contenttypes.fields import GenericRelation
@@ -106,6 +107,14 @@ class Course(models.Model):
     min_percent_to_complete = models.IntegerField(default=100,
                                                   null=True,
                                                   blank=True)
+
+    groups = models.ManyToManyField(
+        Group,
+        verbose_name=_('groups'),
+        blank=True,
+        help_text=_('The Groups that can have access to this forum. If empty, there are no group restrictions.'),
+        related_name="courses",
+    )
 
     class Meta:
         verbose_name = _('Course')
@@ -222,6 +231,13 @@ class Course(models.Model):
             professors.append(cp.user)
 
         return iter(professors)
+
+    def is_course_assistant(self, user):
+        if user.is_anonymous():
+            return False
+
+        return self.get_professor_role(user) == 'assistant'
+        # return role =='assistant', 'coordinator'] or user.is_superuser
 
     def is_assistant_or_coordinator(self, user):
         if user.is_anonymous():

@@ -1,6 +1,6 @@
 (function(angular){
 
-    var app = angular.module('admin.lesson.controllers', []);
+    var app = angular.module('admin.lesson.controllers', ['ngSanitize']);
 
     app.controller('EditLessonController', [
         '$scope',
@@ -49,22 +49,6 @@
                 if (!$scope.isNewLesson) {
                     $scope.lesson_id = match[2];
                 }
-//                $scope.lessons = Lessons.query({course__id: $scope.course_id});
-//                if ($scope.isNewLesson) {
-//                    $scope.lesson = new Lesson();
-//                    $scope.addUnit();
-//                    $scope.lesson.position = $scope.lessons.length;
-//                    $scope.lessons.push($scope.lesson);
-//                } else {
-//                    $scope.lesson_id = match[2];
-//                    $scope.setLesson(lesson);
-//                }
-//                $scope.course.$get({id: match[1]})
-//                    .then(function(course){
-//                        $scope.courseProfessors = CourseProfessor.query({course: course.id, role: 'instructor'});
-//                        $scope.lesson.course = course.slug;
-//                        return $scope.courseProfessors.$promise;
-//                    });
 
                 Lesson.query({course__id: $scope.course_id}).$promise
                     .then(function(lessons){
@@ -252,11 +236,12 @@
                 };
                 $scope.currentUnit.activities.push($scope.currentActivity);
                 $scope.newActivityType = null;
+                MarkdownDirective.refreshEditorsPreview();
             };
 
             $scope.selectActivity = function(activity) {
                 $scope.currentActivity = activity;
-                MarkdownDirective.resetEditors();
+                MarkdownDirective.refreshEditorsPreview();
             };
 
             $scope.removeCurrentActivity = function() {
@@ -274,6 +259,7 @@
                 } else {
                     $scope.currentActivity = null;
                 }
+                MarkdownDirective.refreshEditorsPreview();
             };
         }
     ]);

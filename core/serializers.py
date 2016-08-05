@@ -26,12 +26,13 @@ class ProfessorMessageSerializer(serializers.ModelSerializer):
 class BaseCourseSerializer(serializers.ModelSerializer):
     professors = serializers.SerializerMethodField('get_professor_name')
     home_thumbnail_url = serializers.SerializerMethodField()
+    is_assistant_or_coordinator = serializers.SerializerMethodField()
 
     class Meta:
         model = Course
         fields = ("id", "slug", "name", "status", "home_thumbnail_url",
                   "start_date", "home_published", "has_started",
-                  "min_percent_to_complete", "professors")
+                  "min_percent_to_complete", "professors", "is_assistant_or_coordinator",)
 
     @staticmethod
     def get_professor_name(obj):
@@ -44,6 +45,10 @@ class BaseCourseSerializer(serializers.ModelSerializer):
         if obj.home_thumbnail:
             return obj.home_thumbnail.url
         return ''
+
+    def get_is_assistant_or_coordinator(self, obj):
+        if self.context:
+            return obj.is_assistant_or_coordinator(self.context['request'].user)
 
 
 class BaseClassSerializer(serializers.ModelSerializer):
@@ -153,6 +158,9 @@ class VideoSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     intro_video = VideoSerializer(required=False)
     home_thumbnail_url = serializers.SerializerMethodField()
+    is_user_assistant = serializers.SerializerMethodField()
+    is_user_coordinator = serializers.SerializerMethodField()
+    is_assistant_or_coordinator = serializers.SerializerMethodField()
 
     class Meta:
         model = Course
@@ -160,13 +168,23 @@ class CourseSerializer(serializers.ModelSerializer):
                   "abstract", "structure", "workload", "pronatec", "status",
                   "thumbnail_url", "home_thumbnail_url", "home_position",
                   "start_date", "home_published", "authors_names", "has_started",
-                  "min_percent_to_complete")
+                  "min_percent_to_complete", "is_user_assistant", "is_user_coordinator",
+                  "is_assistant_or_coordinator", )
 
     @staticmethod
     def get_home_thumbnail_url(obj):
         if obj.home_thumbnail:
             return obj.home_thumbnail.url
         return ''
+
+    def get_is_user_assistant(self, obj):
+        return obj.is_course_assistant(self.context['request'].user)
+
+    def get_is_user_coordinator(self, obj):
+        return obj.is_course_coordinator(self.context['request'].user)
+
+    def get_is_assistant_or_coordinator(self, obj):
+        return obj.is_assistant_or_coordinator(self.context['request'].user)
 
 
 class CourseStudentSerializer(serializers.ModelSerializer):
@@ -231,42 +249,62 @@ class LessonSerializer(serializers.ModelSerializer):
                   'thumbnail')
 
     def update(self, instance, validated_data):
-        validated_data.pop('units')
 
-        units_data = self.initial_data.get('units')
-        units = []
-        for unit_data in units_data:
-            activities_data = unit_data.pop('activities')
-            unit_data.pop('lesson', None)
-            unit = Unit(lesson=instance, **unit_data)
-            unit.save()
-            units.append(unit)
-            for activity_data in activities_data:
-                activity_data['unit'] = unit
-                activity_data.pop('unit')
-                activity_data.pop('image_url', None)
-                activity = Activity(**activity_data)
-                activity.unit = unit
-                activity.save()
+        units = self.update_units(self.initial_data.get('units'), instance)
 
         for old_unit in instance.units.all():
             if old_unit not in units:
                 old_unit.delete()
+            else:
+                new_activities = units[units.index(old_unit)].activities
+                if old_unit.activities != new_activities:
+                    for activity in old_unit.activities:
+                        if activity not in new_activities:
+                            activity.delete()
 
+        validated_data.pop('units')
         return super(LessonSerializer, self).update(instance, validated_data)
 
     def create(self, validated_data):
-        validated_data.pop('units')
+        units_data = validated_data.pop('units')
         new_lesson = super(LessonSerializer, self).create(validated_data)
+        # units_data = self.initial_data.get('units')
 
-        units_data = self.initial_data.get('units')
-        for unit_data in units_data:
-            activities = unit_data.pop('activities')
-            Unit.objects.create(lesson=new_lesson, **unit_data)
-            if activities:
-                for activity in activities:
-                    Activity.objects.create(**activity)
+        self.update_units(units_data, new_lesson)
+
         return new_lesson
+
+    @classmethod
+    def update_units(cls, units_data, lesson):
+        units = []
+        for unit_data in units_data:
+            activities_data = unit_data.pop('activities')
+            unit_data.pop('lesson', None)
+
+            video_data = unit_data.pop('video', None)
+            if video_data:
+                video = Video(**video_data)
+                video.save()
+            else:
+                video = None
+            unit = Unit(lesson=lesson, video=video, **unit_data)
+            unit.save()
+            activities = []
+            for activity_data in activities_data:
+                activity_data['unit'] = unit
+                activity_data.pop('image_url', None)
+
+                # TODO investigate why this is needed!
+                # if the activity_id isn't removed from activity_data, a ValidationError: [u'Enter valid JSON'].
+                # As this doesn't happens with unit (see lines below), this may be related with (bug?) in djsonfild
+                activity_id = activity_data.pop('id', None)
+                activity = Activity(**activity_data)
+                activity.id = activity_id
+                activity.save()
+                activities.append(activity)
+            unit.activities = activities
+            units.append(unit)
+        return units
 
 
 class NoteSerializer(serializers.ModelSerializer):
