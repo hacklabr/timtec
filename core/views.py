@@ -140,7 +140,13 @@ class CourseView(DetailView):
                                                 .values_list('unit', flat=True)
             context['units_done'] = units_done
 
-            user_is_enrolled = self.object.students.filter(id=user.id).exists()
+            # Paralapraca specific code
+            course = self.get_object()
+            if not course.is_enrolled(self.request.user):
+                course.enroll_student(self.request.user)
+            # end of Paralapraca specific code
+
+            user_is_enrolled = course.is_enrolled(self.request.user)
             context['user_is_enrolled'] = user_is_enrolled
 
         return context
