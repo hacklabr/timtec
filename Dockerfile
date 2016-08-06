@@ -19,7 +19,9 @@ RUN mkdir -p /app
 
 # Prefer to use mdillon/postgis
 ENV DJANGO_DATABASE_URL='postgres://timtec:timtec@postgres/timtec'
-ENV DJANGO_SETTINGS_MODULE='timtec.settings_local_docker'
+ENV DJANGO_SETTINGS_MODULE='config.settings.local'
+ENV DJANGO_STATIC_ROOT='/app/webfiles/static'
+ENV DJANGO_MEDIA_ROOT='/app/webfiles/media'
 ENV PYTHONPATH='/app/timtec'
 ENV GUNICORN_LOG_LEVEL='info'
 ENV GUNICORN_EXTRA_FLAGS=''
@@ -36,7 +38,12 @@ WORKDIR /app/timtec
 USER timtec
 
 RUN npm install \
-	&& /app/timtec/node_modules/bower/bin/bower install
+   && /app/timtec/node_modules/bower/bin/bower install \
+   && node node_modules/grunt-cli/bin/grunt \
+   && python manage.py compilemessages \
+   && python manage.py collectstatic --noinput \
+   && python manage.py compile_pyc --path /app/timtec \
+   && python manage.py collectstatic --noinput
 
 USER root
 EXPOSE 80 8000

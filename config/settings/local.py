@@ -7,25 +7,23 @@ Local settings
 - Add Django Debug Toolbar
 - Add django-extensions as app
 """
-
 from .common import *  # noqa
+
+# whyyy
+AUTOSLUG_SLUGIFY_FUNCTION='django.utils.text.slugify'
 
 # TIMTec
 # ------------------------------------------------------------------------------
-
-TIMTEC_THEME = env('TIMTEC_THEME', default='defaut')
-
 # TIMTEC_THEME = 'timtec'
 # TIMTEC_THEME = 'ifs-colors'
-# TIMTEC_THEME = 'paralapraca'
-# TIMTEC_THEME = 'base'
-TIMTEC_THEME = 'mupi'
+TIMTEC_THEME = 'base'
+# TIMTEC_THEME = env('TIMTEC_THEME', default='default')
+
 
 # INSTALLED_APPS += ("my_theme", )
 
 # DEBUG
 # ------------------------------------------------------------------------------
-DEBUG = env.bool('DJANGO_DEBUG', default=True)
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 
 # SECRET CONFIGURATION
@@ -53,30 +51,74 @@ CACHES = {
     }
 }
 
-# django-debug-toolbar
-# ------------------------------------------------------------------------------
-MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
-INSTALLED_APPS += ('debug_toolbar', )
-
-# INTERNAL_IPS = ['127.0.0.1', '10.0.2.2', ]
-# # tricks to have debug toolbar when developing with docker
-# if os.environ.get('USE_DOCKER') == 'yes':
-#     ip = socket.gethostbyname(socket.gethostname())
-#     INTERNAL_IPS += [ip[:-1]+"1"]
-
-DEBUG_TOOLBAR_CONFIG = {
-    'DISABLE_PANELS': [
-        'debug_toolbar.panels.redirects.RedirectsPanel',
-    ],
-    'SHOW_TEMPLATE_CONTEXT': True,
-}
-
-# django-extensions
-# ------------------------------------------------------------------------------
-INSTALLED_APPS += ('django_extensions', )
-
 # TESTING
 # ------------------------------------------------------------------------------
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 # Your local stuff: Below this line define 3rd party library settings
+
+SITE_DOMAIN = env('DJANGO_SITE_DOMAIN', default=env('VIRTUAL_HOST', default='localhost'))
+SITE_NAME = env('DJANGO_SITE_NAME', default='TIM Tec')
+DOMAIN_NAME = SITE_DOMAIN
+
+DEFAULT_FROM_EMAIL = env.list('DEFAULT_FROM_EMAIL', default='donotreply@' + DOMAIN_NAME)
+
+SITE_ID = env.int('DJANGO_SITE_ID', 1)
+TIME_ZONE = env('DJANGO_TIME_ZONE', default='America/Sao_Paulo')
+LANGUAGE_CODE = env('DJANGO_LANGUAGE_CODE', default='pt-br')
+
+INSTALLED_APPS += env.tuple('DJANGO_INSTALLED_APPS', default=())
+ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['*'])
+
+METRON_SETTINGS = {
+    "google": {
+        SITE_ID: env('GOOGLE_ANALYTICS', default=""), # UA-XXXXXXXX-X
+    },
+}
+
+if env('OPENID', default=None):
+    SOCIALACCOUNT_PROVIDERS['openid'] = {
+        'SERVERS': [
+            env.dict('OPENID')
+        ]
+    }
+
+MEDIA_ROOT = env('DJANGO_MEDIA_ROOT', default=MEDIA_ROOT)
+STATIC_ROOT = env('DJANGO_STATIC_ROOT', default=STATIC_ROOT)
+
+vars().update(env.email_url('EMAIL_URL', default='consolemail://'))
+
+TERMS_ACCEPTANCE_REQUIRED = env.bool('TERMS_ACCEPTANCE_REQUIRED', default=False)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'propagate': True,
+            'level': 'INFO',
+        },
+        'django.request': {
+            'handlers': ['console'],
+            'propagate': True,
+            'level': 'INFO',
+        },
+    }
+}

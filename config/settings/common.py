@@ -38,26 +38,32 @@ DJANGO_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.flatpages',
 
     # Useful template tags:
     # 'django.contrib.humanize',
 
     # Admin
     'django.contrib.admin',
+    'django.contrib.admindocs',
 )
+
 THIRD_PARTY_APPS = (
     'suit',
     'django_extensions',
     'pipeline',
     'rest_framework',
     'rosetta',
-    'autoslug',
+    #'autoslug',
 
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.openid',
+
+    'django_markdown',
+    'metron',
 )
 
 # Apps specific for this project go here.
@@ -126,7 +132,7 @@ MANAGERS = ADMINS
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
-    'default': env.db('DATABASE_URL', default='postgres://localhost/timtec'),
+    'default': env.db('DJANGO_DATABASE_URL', default='postgres://localhost/timtec'),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
@@ -222,15 +228,15 @@ STATICFILES_DIRS = ()
 
 if TIMTEC_THEME not in INSTALLED_APPS:
     STATICFILES_DIRS += (
-        THEMES_DIR.path(TIMTEC_THEME, 'static'),
+        str(THEMES_DIR.path(TIMTEC_THEME, 'static')),
     )
 
 STATICFILES_DIRS += (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    THEMES_DIR.path('default', 'static'),
-    ROOT_DIR.path('bower_components'),
+    str(THEMES_DIR.path('default', 'static')),
+    str(ROOT_DIR.path('bower_components')),
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
@@ -241,6 +247,8 @@ STATICFILES_FINDERS = (
     # 'pipeline.finders.AppDirectoriesFinder',
     'pipeline.finders.CachedFileFinder',
     'pipeline.finders.PipelineFinder',
+
+    'compressor.finders.CompressorFinder',
 )
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
@@ -262,7 +270,7 @@ PIPELINE = {
     'SASS_BINARY': str(ROOT_DIR.path('node_modules', 'node-sass', 'bin', 'node-sass')),
     'SASS_ARGUMENTS': '--source-map true',
     #  '--source-map-contents sass --include-path'
-
+    'SHOW_ERRORS_INLINE': False,
     'JS_COMPRESSOR': 'timtec.ngmincombo.NgminComboCompressor',
 
     'STYLESHEETS': {
@@ -282,7 +290,6 @@ PIPELINE = {
         'public': {
             'source_filenames': (
                 'css/main.less',
-                'scss/main.scss',
             ),
             'output_filename': 'css/public.css',
             'extra_context': {
@@ -499,10 +506,10 @@ MEDIA_URL = '/media/'
 
 # URL Configuration
 # ------------------------------------------------------------------------------
-ROOT_URLCONF = 'config.urls'
+ROOT_URLCONF = 'timtec.urls'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
-WSGI_APPLICATION = 'config.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi'
 
 # AUTHENTICATION CONFIGURATION
 # ------------------------------------------------------------------------------
