@@ -130,6 +130,7 @@ class CourseView(DetailView):
         user = self.request.user
 
         if user.is_authenticated():
+
             units_done = StudentProgress.objects.filter(user=user, unit__lesson__course=self.object)\
                                                 .exclude(complete=None)\
                                                 .values_list('unit', flat=True)
@@ -515,7 +516,9 @@ class CourseViewSet(viewsets.ModelViewSet):
                 course_professors__user=self.request.user
             ).prefetch_related('professors')
 
-        return queryset
+        queryset = queryset.filter(groups__in=self.request.user.groups.all())
+
+        return queryset.distinct()
 
     def get(self, request, **kwargs):
         response = super(CourseViewSet, self).get(request, **kwargs)
