@@ -21,6 +21,7 @@ define base_update
 	~/env/bin/pip install -U -r requirements/test.txt
 	npm install
 	~/env/bin/python manage.py migrate --noinput --fake-initial
+	~/env/bin/python manage.py compress
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
 endef
@@ -31,6 +32,7 @@ update:
 	npm install
 	./node_modules/bower/bin/bower install
 	~/env/bin/python manage.py migrate --noinput --fake-initial
+	~/env/bin/python manage.py compress
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
 
@@ -45,6 +47,7 @@ install:
 	cp timtec/settings_local.py.template timtec/settings_local.py
 	~/env/bin/python manage.py migrate --noinput
 	~/env/bin/python manage.py loaddata initial
+	~/env/bin/python manage.py compress
 	~/env/bin/python manage.py collectstatic --noinput
 	~/env/bin/python manage.py compilemessages
 
@@ -52,6 +55,7 @@ docker-update:
 	npm install
 	/app/timtec/node_modules/bower/bin/bower install
 	python manage.py migrate --noinput --fake-initial
+	python manage.py compress
 	python manage.py collectstatic --noinput
 	python manage.py compilemessages
 
