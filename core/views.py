@@ -719,6 +719,7 @@ class LessonViewSet(viewsets.ModelViewSet):
 
 class StudentProgressViewSet(viewsets.ModelViewSet):
     model = StudentProgress
+    queryset = StudentProgress.objects.all()
     lookup_field = 'unit'
     filter_fields = ('unit', 'unit__lesson',)
     filter_backends = (filters.DjangoFilterBackend,)
@@ -731,8 +732,8 @@ class StudentProgressViewSet(viewsets.ModelViewSet):
         serializer.save(user=self.request.user, complete=timezone.now())
 
     def get_queryset(self):
-        user = self.request.user
-        return StudentProgress.objects.filter(user=user)
+        queryset = super(StudentProgressViewSet, self).get_queryset()
+        return queryset.filter(user=self.request.user)
 
 
 class UserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
