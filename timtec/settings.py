@@ -52,7 +52,8 @@ LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 
 AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",
-                           "allauth.account.auth_backends.AuthenticationBackend")
+                           "allauth.account.auth_backends.AuthenticationBackend",
+                           'permission.backends.PermissionBackend',)
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -241,6 +242,7 @@ INSTALLED_APPS = (
     'django_markdown',
 
     'compressor',
+    'permission',
     # raven has to be the last one
     'raven.contrib.django.raven_compat',
 )
