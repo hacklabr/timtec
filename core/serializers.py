@@ -346,6 +346,8 @@ class CourseNoteSerializer(serializers.ModelSerializer):
 
 
 class CourseProfessorSerializer(serializers.ModelSerializer):
+
+    user = serializers.PrimaryKeyRelatedField(queryset=get_user_model().objects.all(), required=False)
     user_info = TimtecUserSerializer(source='user', read_only=True)
     course_info = CourseSerializer(source='course', read_only=True)
     get_name = serializers.CharField(read_only=True)
