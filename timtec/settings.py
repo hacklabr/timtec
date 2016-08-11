@@ -608,7 +608,7 @@ TEMPLATES = [
 # Additional locations of static files
 STATICFILES_DIRS = ()
 
-if not TIMTEC_THEME in INSTALLED_APPS:
+if TIMTEC_THEME not in INSTALLED_APPS:
     STATICFILES_DIRS += (
         os.path.join(THEMES_DIR, TIMTEC_THEME, 'static'),
     )
