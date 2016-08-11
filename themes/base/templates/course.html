@@ -185,7 +185,7 @@ wrapper-course-intro
 
             <!--  COURSE-VIDEO  -->
             <section class="video" ng-show="mediaSection=='video'">
-                
+
                 <div ng-show="course.intro_video.youtube_id && !playerReady">
                     <div class="waiting textcenter jumbotron" style="height: 515px">
                         <div class="middle">
@@ -338,7 +338,7 @@ wrapper-course-intro
                             <h3><i ng-class="{'blink-text-danger':errors.abstract}" class="fa fa-angle-double-right"></i> {% trans 'Start date' %}</h3>
                         </div>
                         <div class="editable editable-text">
-                            <input type="text" ng-model="course.start_date" datepicker-popup="dd/MM/yyyy" is-open="opened" show-button-bar="false" ng-click="opened = true" />
+                            <input type="text" ng-model="course.start_date" uib-datepicker-popup="dd/MM/yyyy" is-open="opened" show-button-bar="false" ng-click="opened = true" />
                         </div>
                         {% elif not course.has_started and course.start_date %}
                         <div class="secondary-page-header">
