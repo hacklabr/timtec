@@ -130,6 +130,7 @@ class CourseView(DetailView):
         user = self.request.user
 
         if user.is_authenticated():
+
             units_done = StudentProgress.objects.filter(user=user, unit__lesson__course=self.object)\
                                                 .exclude(complete=None)\
                                                 .values_list('unit', flat=True)
@@ -515,12 +516,9 @@ class CourseViewSet(viewsets.ModelViewSet):
                 course_professors__user=self.request.user
             ).prefetch_related('professors')
 
-        return queryset
+        queryset = queryset.filter(groups__in=self.request.user.groups.all())
 
-    def get(self, request, **kwargs):
-        response = super(CourseViewSet, self).get(request, **kwargs)
-        response['Cache-Control'] = 'no-cache'
-        return response
+        return queryset.distinct()
 
     def post(self, request, **kwargs):
         course = self.get_object()
@@ -719,6 +717,7 @@ class LessonViewSet(viewsets.ModelViewSet):
 
 class StudentProgressViewSet(viewsets.ModelViewSet):
     model = StudentProgress
+    queryset = StudentProgress.objects.all()
     lookup_field = 'unit'
     filter_fields = ('unit', 'unit__lesson',)
     filter_backends = (filters.DjangoFilterBackend,)
@@ -731,8 +730,8 @@ class StudentProgressViewSet(viewsets.ModelViewSet):
         serializer.save(user=self.request.user, complete=timezone.now())
 
     def get_queryset(self):
-        user = self.request.user
-        return StudentProgress.objects.filter(user=user)
+        queryset = super(StudentProgressViewSet, self).get_queryset()
+        return queryset.filter(user=self.request.user)
 
 
 class UserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):

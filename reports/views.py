@@ -39,6 +39,7 @@ class UserCourseStats(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
 
 class UserCourseLessonsStats(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
     model = CourseStudent
+    queryset = CourseStudent.objects.all()
     serializer_class = LessonUserStats
     filter_fields = ('course', 'user',)
     lookup_field = 'course'

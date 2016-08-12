@@ -386,7 +386,7 @@ PIPELINE = {
                 'angular-bootstrap/ui-bootstrap-tpls.js',
                 'bootstrap-ui-datetime-picker/dist/datetime-picker.min.js',
                 'angular-gettext/dist/angular-gettext.js',
-                'angular-i18n/angular-locale_pt-br.js'
+                'angular-i18n/angular-locale_pt-br.js',
             ),
             'output_filename': 'js/angular-commons.js',
         },
@@ -608,7 +608,7 @@ TEMPLATES = [
 # Additional locations of static files
 STATICFILES_DIRS = ()
 
-if not TIMTEC_THEME in INSTALLED_APPS:
+if TIMTEC_THEME not in INSTALLED_APPS:
     STATICFILES_DIRS += (
         os.path.join(THEMES_DIR, TIMTEC_THEME, 'static'),
     )

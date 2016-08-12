@@ -198,7 +198,7 @@ class CourseStudentSerializer(serializers.ModelSerializer):
         model = CourseStudent
         fields = ('id', 'user', 'course', 'course_finished', 'course',
                   'certificate', 'can_emmit_receipt', 'percent_progress',
-                  'current_class', 'min_percent_to_complete',)
+                  'current_class', 'min_percent_to_complete', 'start_date',)
 
 
 class ProfileSerializer(TimtecUserSerializer):
@@ -221,7 +221,7 @@ class CourseThumbSerializer(serializers.ModelSerializer):
 
 class StudentProgressSerializer(serializers.ModelSerializer):
     complete = serializers.DateTimeField(required=False)
-    user = TimtecUserSerializer(read_only=True)
+    user = TimtecUserSerializer(read_only=True, required=False)
 
     class Meta:
         model = StudentProgress
@@ -346,6 +346,8 @@ class CourseNoteSerializer(serializers.ModelSerializer):
 
 
 class CourseProfessorSerializer(serializers.ModelSerializer):
+
+    user = serializers.PrimaryKeyRelatedField(queryset=get_user_model().objects.all(), required=False)
     user_info = TimtecUserSerializer(source='user', read_only=True)
     course_info = CourseSerializer(source='course', read_only=True)
     get_name = serializers.CharField(read_only=True)
