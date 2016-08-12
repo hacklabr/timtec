@@ -31,7 +31,6 @@
     "angular-tweet-filter": "*",
     "bootstrap-ui-datetime-picker": "~2.4.0",
     "angular-ui-tinymce": "^0.0.16",
-    "tinymce-dist": "4.3.12",
-    "textAngular": "^1.5.4"
+    "tinymce-dist": "4.3.12"
   }
 }
