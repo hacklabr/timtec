@@ -79,7 +79,10 @@
                 {'name': 'trueorfalse', 'label': 'Verdadeiro ou falso'},
                 {'name': 'relationship', 'label': 'Relacionar sentenças'},
                 {'name': 'html5', 'label': 'HTML5'},
-                {'name': 'markdown', 'label': 'Texto simples'}
+                {'name': 'markdown', 'label': 'Texto simples'},
+                {'name': 'image', 'label': 'Imagem'},
+                {'name': 'reading', 'label': 'Atividade de leitura'},
+                {'name': 'discussion', 'label': 'Atividade com discussão'},
             ];
 
             /*  Methods */
@@ -224,16 +227,34 @@
                 } else {
                         expected = [];
                 }
-                $scope.currentActivity = {
-                    'type': type,
-                    'data': {
-                        'question': '',
-                        'alternatives': [],
-                        'column1': [],
-                        'column2': []
-                    },
-                    'expected': expected
-                };
+
+                if(type === 'discussion'){
+                  // JSON pattern for the discussion type of activities
+                  expected = '';
+                  $scope.currentActivity = {
+                      'type': type,
+                      'data': {
+                          'forum': '',
+                          'content': '',
+                          'start_date': '',
+                          'end_date': ''
+                      },
+                      'expected': expected
+                  };
+                } else {
+                  // JSON pattern for other types of activities
+                  $scope.currentActivity = {
+                      'type': type,
+                      'data': {
+                          'question': '',
+                          'alternatives': [],
+                          'column1': [],
+                          'column2': []
+                      },
+                      'expected': expected
+                  };
+                }
+
                 $scope.currentUnit.activities.push($scope.currentActivity);
                 $scope.newActivityType = null;
                 MarkdownDirective.refreshEditorsPreview();
