@@ -1,0 +1,24 @@
+<div class="question textleft">
+    <button class="btn btn-danger" ng-click="removeCurrentActivity()"><i class="fa fa-trash-o"></i></button>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <span>Data de início</span>
+            <div class="editable editable-text">
+                <input type="text" ng-model="currentActivity.data.start_date" uib-datepicker-popup="dd/MM/yyyy" is-open="opened_sta" show-button-bar="false" ng-click="opened_sta = true" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <span>Data de encerramento erjzgxjr</span>
+            <div class="editable editable-text">
+                <input type="text" ng-model="currentActivity.data.end_date" uib-datepicker-popup="dd/MM/yyyy" is-open="opened_end" show-button-bar="false" ng-click="opened_end = true" />
+            </div>
+        </div>
+    </div>
+
+    <modalmarkdowneditor title="discussion" content="currentActivity.data.content">
+    </modalmarkdowneditor>
+
+</div>

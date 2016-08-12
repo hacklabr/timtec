@@ -15,6 +15,7 @@
         // 'directive.sortable',
         // 'filters.text',
         'youtube',
-        'header'
+        'header',
+        'ui.bootstrap'
     ]);
 })(window.angular);
