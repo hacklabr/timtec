@@ -77,4 +77,25 @@
             $scope.possibleAnswers.sort(compareNumbers);
         }
     ]);
+
+    app.controller('DiscussionActivityCtrl', [
+      '$scope',
+      '$sce',
+      
+      function ($scope, $sce) {
+        $scope.activity_open = true;
+        var now = Date.now();
+
+        // Decide the current state of the activity
+        if(now < $scope.currentActivity.data[0].start_date){
+          // The Activity is not open yet
+          $scope.activity_open = false;
+        } else if(now > $scope.currentActivity.data[0].end_date){
+          // The Activity is already expired
+          $scope.activity_expired = true;
+        }
+
+
+      }
+    ]);
 })(angular);
