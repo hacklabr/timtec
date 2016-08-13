@@ -32,5 +32,8 @@
     "bootstrap-ui-datetime-picker": "~2.4.3",
     "angular-ui-tinymce": "^0.0.16",
     "tinymce-dist": "4.3.12"
+  },
+  "resolutions": {
+    "angular-bootstrap": "^1.2.0"
   }
 }
