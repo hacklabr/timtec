@@ -6,7 +6,7 @@
 </div>
 <section class="thumbnail" ng-init="thumbfile=null">
 
-    <div class="row" ng-show="addThumb" ng-init="addThumb=(thumbfile===null)">
+    <div class="row" ng-init="addThumb=(thumbfile===null)" ng-show="!currentActivity.image_url">
 
         <div class="add-thumbnail col-sm-12 col-lg-12 textcenter">
             <div class="centered">
@@ -31,8 +31,7 @@
             </div>
         </div>
     </div>
-
-    <div class="row" ng-show="!addThumb">
+    <div class="row" ng-show="currentActivity.image_url">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <img preview-image ng-model="thumbfile" class="img-responsive" ng-show="thumbfile"/>
             <img ng-src="{{currentActivity.image_url}}" class="img-responsive" ng-show="!thumbfile"/>
