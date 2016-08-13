@@ -1,0 +1,199 @@
+<div ng-controller="DiscussionActivityCtrl">
+    <!-- special activity is not open yet -->
+    <div class="open-activity closed" ng-if="activity_open">
+        <div class="topbar"></div>
+
+        <h2 class="title">Atividade Especial Aberta</h2>
+
+        <div class="message">
+            <h3>Opa, esse conteúdo ainda não está disponível! ;)</h3>
+
+            <p>A atividade especial será lançada no dia XX/XX. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                Donec quam felis, ultricies.</p>
+
+            <a href="" class="btn btn-success">continuar curso</a>
+        </div>
+    </div>
+
+    <!-- special activity is open -->
+    <div class="open-activity">
+        <div class="topbar">
+            <a href="" class="btn btn-link jump-to">ver atividades dos colegas</a> |
+            <a href="" class="btn btn-link jump-to">ver comentários</a>
+        </div>
+
+        <h2 class="title">Atividade Especial Aberta</h2>
+
+        <p class="intro">Texto introdutório Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies.</p>
+
+        <p class="textcenter">
+            <img src="http://placehold.it/500x200" alt="">
+        </p>
+
+        <div class="user-activity forums thread">
+            <h3 class="title">Sua atividade:</h3>
+            <div class="forum-thread" ng-cloak>
+                <div class="user-icon">
+                    <img src="http://placehold.it/40" alt="{{ topic.author.name }}">
+                </div>
+                <div class="info">
+                    <h4 class="thread-header pull-left">por <span class="user-name">Aluno Padrão</span> <span class="last-edit">última edição: há 3 horas</span></h4>
+
+                    <button class="btn btn-sm btn-success edit pull-right">editar</button>
+                </div>
+
+                <div class="thread-post">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+
+                <div class="actions">
+                    <div class="pull-left">
+                        <a ng-click="topic.show_comment_input=true" class="action replies">comentar</a>
+                    </div>
+                    <div class="pull-right">
+                        <span class="action replies">{{ topic.count_replies }} respostas</span>
+                    </div>
+                </div>
+
+                <form class="comments-form" ng-show="topic.show_comment_input">
+                    <textarea ui-tinymce="tinymceOptions" ng-model="topic.new_comment" placeholder="Escreva aqui o seu comentário"></textarea>
+                    <button class="btn btn-xs btn-success reply" ng-click="save_comment(topic, null)">comentar</button>
+                    <button class="btn btn-xs btn-danger delete" ng-click="topic.show_comment_input=false">descartar</button>
+                </form>
+
+                <div class="comments">
+                    <h3 class="comments-title">Comentários</h3>
+                    <div class="thread">
+                        <div class="user-icon">
+                            <img src="http://placehold.it/40" alt="{{ comment.author.name }}">
+                        </div>
+                        <div class="info">
+                            <span class="user-name">Maria Alice dos Anjos</span>
+                            <div class="comment-post">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation!</p>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <div class="pull-left">
+                                <a ng-click="comment.show_comment_input=true" class="action replies">comentar</a>
+                                <span class="last-edit">25 de julho às 15h30</span>
+                            </div>
+                        </div>
+
+                        <div class="thread">
+                            <div class="user-icon">
+                                <img src="http://placehold.it/40" alt="{{ comment.author.name }}">
+                            </div>
+                            <div class="info">
+                                <span class="user-name">Maria Alice dos Anjos</span>
+                                <div class="comment-post">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation!</p>
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <div class="pull-left">
+                                    <a ng-click="comment.show_comment_input=true" class="action replies">comentar</a>
+                                    <span class="last-edit">25 de julho às 15h30</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="thread">
+                        <div class="user-icon">
+                            <img src="http://placehold.it/40" alt="{{ comment.author.name }}">
+                        </div>
+                        <div class="info">
+                            <span class="user-name">Maria Alice dos Anjos</span>
+                            <div class="comment-post">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation!</p>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <div class="pull-left">
+                                <a ng-click="comment.show_comment_input=true" class="action replies">comentar</a>
+                                <span class="last-edit">25 de julho às 15h30</span>
+                            </div>
+                        </div>
+
+                        <div class="thread">
+                            <div class="user-icon">
+                                <img src="http://placehold.it/40" alt="{{ comment.author.name }}">
+                            </div>
+                            <div class="info">
+                                <span class="user-name">Maria Alice dos Anjos</span>
+                                <div class="comment-post">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation!</p>
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <div class="pull-left">
+                                    <a ng-click="comment.show_comment_input=true" class="action replies">comentar</a>
+                                    <span class="last-edit">25 de julho às 15h30</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="all-activity forums forum-list">
+        <h3 class="title">Atividades dos colegas</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>autor</th>
+                    <th>atividade</th>
+                    <th>reações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="new">
+                    <td>
+                        <div class="user-icon">
+                            <img src="http://placehold.it/40" alt="Joana Terra">
+                        </div>
+                        <div class="info">
+                            por <span class="user-name">Joana Terra</span>: <a href="">Lorem ipsum dolor sit amet...</a>
+                        </div>
+                    </td>
+                    <td>Última atividade <b>há 30 minutos</b></td>
+                    <td>
+                        <span class="action liked">{{ topic.count_likes }} curtiram</span>
+                        <span class="action replies">{{ topic.count_replies }} responderam</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="user-icon">
+                            <img src="http://placehold.it/40" alt="Joana Terra">
+                        </div>
+                        <div class="info">
+                            por <span class="user-name">Joana Terra</span>: <a href="">Lorem ipsum dolor sit amet...</a>
+                        </div>
+                    </td>
+                    <td>Última atividade <b>há 30 minutos</b></td>
+                    <td>
+                        <span class="action liked">{{ topic.count_likes }} curtiram</span>
+                        <span class="action replies">{{ topic.count_replies }} responderam</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="user-icon">
+                            <img src="http://placehold.it/40" alt="Joana Terra">
+                        </div>
+                        <div class="info">
+                            por <span class="user-name">Joana Terra</span>: <a href="">Lorem ipsum dolor sit amet...</a>
+                        </div>
+                    </td>
+                    <td>Última atividade <b>há 30 minutos</b></td>
+                    <td>
+                        <span class="action liked">{{ topic.count_likes }} curtiram</span>
+                        <span class="action replies">{{ topic.count_replies }} responderam</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
