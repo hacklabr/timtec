@@ -154,6 +154,10 @@
                 }
                 if($scope.currentUnit.activities) {
                     $scope.currentActivity = $scope.currentUnit.activities[0];
+                    if($scope.currentActivity && $scope.currentActivity.type === 'discussion'){
+                      $scope.initializeDiscussionActivity();
+                    }
+
                 }
                 $scope.newActivityType = null;
 
@@ -215,6 +219,11 @@
                        .format($scope.currentActivity.type);
             };
 
+            $scope.initializeDiscussionActivity = function() {
+              $scope.currentActivity.data.start_date = new Date($scope.currentActivity.data.start_date);
+              $scope.currentActivity.data.end_date = new Date($scope.currentActivity.data.end_date);
+            };
+
             $scope.addNewActivity = function(type) {
                 if(!$scope.currentUnit) return;
                 if(!$scope.currentUnit.activities) $scope.currentUnit.activities = [];
@@ -236,8 +245,8 @@
                       'data': {
                           'forum': '',
                           'content': '',
-                          'start_date': '',
-                          'end_date': ''
+                          'start_date': null,
+                          'end_date': null
                       },
                       'expected': expected
                   };
