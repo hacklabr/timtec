@@ -587,6 +587,7 @@ PIPELINE = {
                 'js/discussion-services.js',
                 'angular-ui-tinymce/src/tinymce.js',
                 'js/ui.tinymce.config.js',
+                'ng-file-upload/ng-file-upload.js',
             ),
             'output_filename': 'js/timtec-discussion.js',
         },

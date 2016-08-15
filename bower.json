@@ -31,7 +31,8 @@
     "angular-tweet-filter": "*",
     "bootstrap-ui-datetime-picker": "~2.4.3",
     "angular-ui-tinymce": "^0.0.16",
-    "tinymce-dist": "4.3.12"
+    "tinymce-dist": "4.3.12",
+    "ng-file-upload": "^12.0.4"
   },
   "resolutions": {
     "angular-bootstrap": "^1.2.0"
