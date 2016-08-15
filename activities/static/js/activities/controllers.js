@@ -81,11 +81,21 @@
     app.controller('DiscussionActivityCtrl', [
       '$scope',
       '$sce',
-      
-      function ($scope, $sce) {
-        $scope.activity_open = true;
-        var now = Date.now();
+      '$routeParams',
+      'uiTinymceConfig',
+      'Forum',
+      'Topic',
+      'Comment',
+      'TopicLike',
+      'CommentLike',
+      'CommentFile',
 
+      function ($scope, $sce, $routeParams, uiTinymceConfig, Forum, Topic, Comment, TopicLike, CommentLike, CommentFile) {
+        $scope.activity_open = true;
+        $scope.activity_expired = false;
+        var now = Date.now();
+        console.log("oiii");
+        
         // Decide the current state of the activity
         if(now < $scope.currentActivity.data[0].start_date){
           // The Activity is not open yet
@@ -94,6 +104,32 @@
           // The Activity is already expired
           $scope.activity_expired = true;
         }
+
+        // check if there is already an answer from this user
+        $scope.answer.$promise.finally(function() {
+            if (!$scope.answer.id) {
+                $scope.answer.given = $scope.currentActivity.data;
+            }
+            $scope.answer.given[0].active = true;
+            $scope.refresh();
+        });
+
+        // if there is, show the corresponding topic that holds this answer and its comments
+
+        // if there is no answer, show the text editor and prepare to save it
+        $scope.forums = Forum.query();
+        $scope.new_topic = new Topic();
+        $scope.save_answer = function() {
+            $scope.sending = true;
+            // $scope.new_topic.forum = 1;
+            $scope.new_topic.$save(function(topic){
+                $scope.answer = {};
+                $scope.answer.given = {topic: topic.id};
+                $scope.answer.$save();
+            });
+        };
+
+
 
 
       }

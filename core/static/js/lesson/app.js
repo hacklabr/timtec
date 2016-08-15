@@ -1,7 +1,7 @@
 (function(angular){
     'use strict';
 
-    angular.module('lesson', [
+    var app = angular.module('lesson', [
         'lesson.controllers',
         'lesson.services',
         'activities',
@@ -16,6 +16,16 @@
         'directives.layout',
         'header',
         'markdown',
+        'discussion.controllers',
+        'discussion.services',
+        'ui.tinymce',
+        'ui.bootstrap',
+        'ngFileUpload',
     ]);
+
+    app.config(['$resourceProvider', function($resourceProvider) {
+        // Don't strip trailing slashes from calculated URLs
+        $resourceProvider.defaults.stripTrailingSlashes = true;
+    }]);
 
 })(angular);

@@ -1,6 +1,6 @@
 <div ng-controller="DiscussionActivityCtrl">
     <!-- special activity is not open yet -->
-    <div class="open-activity closed" ng-if="activity_open">
+    <div class="open-activity closed" ng-if="!activity_open && !activity_expired">
         <div class="topbar"></div>
 
         <h2 class="title">Atividade Especial Aberta</h2>
@@ -8,8 +8,10 @@
         <div class="message">
             <h3>Opa, esse conteúdo ainda não está disponível! ;)</h3>
 
-            <p>A atividade especial será lançada no dia XX/XX. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                Donec quam felis, ultricies.</p>
+            <p>A atividade especial será lançada no dia {{ currentActivity.data[0].start_date  | date : 'dd/MM/yyyy' }}.</p>
+            <p>
+              Enquanto você espera, pode dar uma olhada nos outros conteúdos do curso.
+            </p>
 
             <a href="" class="btn btn-success">continuar curso</a>
         </div>
@@ -30,6 +32,33 @@
             <img src="http://placehold.it/500x200" alt="">
         </p>
 
+        <!-- the activity has not been submited yet -->
+        <form class="new-thread">
+            <!-- <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="thread-forum">Em qual fórum ele deve estar? <span class="help-text">escolha apenas um</span></label>
+                        <select ng-model="new_topic.forum" class="form-control" id="thread-forum"
+                                ng-options="forum.id as forum.title for forum in forums" >
+                            <option>Escolha o fórum</option>
+                        </select>
+                    </div>
+                </div>
+            </div> -->
+            <!-- <div class="form-group">
+                <label for="thread-name">Como se chamará o novo tópico?</label>
+                <input ng-model="new_topic.title" type="text" class="form-control" id="thread-name" placeholder="Escreva o título aqui">
+            </div> -->
+            <div class="form-group">
+                <label for="thread-text">Texto do tópico</label>
+                <textarea ui-tinymce
+                          ng-model="new_topic.content"
+                          placeholder="Escreva aqui sua resposta"></textarea>
+            </div>
+            <button ng-disabled="sending" ng-click="save_answer()" class="btn btn-success new-topic"><i class="fa fa-sign-in" aria-hidden="true"></i> postar nova resposta</button>
+        </form>
+
+        <!-- the activity has been submited already and can be viewed -->
         <div class="user-activity forums thread">
             <h3 class="title">Sua atividade:</h3>
             <div class="forum-thread" ng-cloak>
