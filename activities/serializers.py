@@ -4,9 +4,9 @@ from rest_framework import serializers
 
 class ActivitySerializer(serializers.ModelSerializer):
 
-    data = serializers.JSONField('data')
-    expected = serializers.JSONField('expected', required=False)
-    image_url = serializers.SerializerMethodField('get_image_url')
+    data = serializers.JSONField()
+    expected = serializers.JSONField(required=False)
+    image_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Activity
@@ -20,19 +20,18 @@ class ActivitySerializer(serializers.ModelSerializer):
 
 
 class AnswerSerializer(serializers.ModelSerializer):
-    user_id = serializers.ReadOnlyField(source='user.id')
     correct = serializers.ReadOnlyField(source='is_correct')
-    given = serializers.JSONField('given')
+    given = serializers.JSONField()
 
     class Meta:
         model = Answer
         allow_add_remove = True
-        fields = ('id', 'activity', 'correct', 'user', 'user_id', 'timestamp', 'given',)
+        fields = ('id', 'activity', 'correct', 'timestamp', 'given',)
 
 
 class ActivityImportExportSerializer(serializers.ModelSerializer):
-    data = serializers.JSONField('data')
-    expected = serializers.JSONField('expected', required=False)
+    data = serializers.JSONField()
+    expected = serializers.JSONField(required=False)
 
     class Meta:
         model = Activity
