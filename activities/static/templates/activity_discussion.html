@@ -66,13 +66,13 @@
                     <img src="http://placehold.it/40" alt="{{ topic.author.name }}">
                 </div>
                 <div class="info">
-                    <h4 class="thread-header pull-left">por <span class="user-name">Aluno Padrão</span> <span class="last-edit">última edição: há 3 horas</span></h4>
+                    <h4 class="thread-header pull-left">por <span class="user-name">{{topic.author.username}}</span> <span class="last-edit">última edição: {{topic.last_activity_at}}</span></h4>
 
                     <button class="btn btn-sm btn-success edit pull-right">editar</button>
                 </div>
 
                 <div class="thread-post">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <p>{{topic.content}}</p>
                 </div>
 
                 <div class="actions">

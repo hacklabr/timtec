@@ -94,8 +94,7 @@
         $scope.activity_open = true;
         $scope.activity_expired = false;
         var now = Date.now();
-        console.log("oiii");
-        
+
         // Decide the current state of the activity
         if(now < $scope.currentActivity.data[0].start_date){
           // The Activity is not open yet
@@ -105,27 +104,50 @@
           $scope.activity_expired = true;
         }
 
-        // check if there is already an answer from this user
-        $scope.answer.$promise.finally(function() {
-            if (!$scope.answer.id) {
-                $scope.answer.given = $scope.currentActivity.data;
-            }
-            $scope.answer.given[0].active = true;
-            $scope.refresh();
+        // Check if there is an answer to this activity
+        $scope.answer.$promise.then(function() {
+            // if there is, show the corresponding topic that holds this answer and its comments
+            $scope.topic = Topic.get({id: $scope.answer.given.topic});
+            uiTinymceConfig.automatic_uploads = true;
         });
 
-        // if there is, show the corresponding topic that holds this answer and its comments
-
         // if there is no answer, show the text editor and prepare to save it
-        $scope.forums = Forum.query();
+        // $scope.forums = Forum.query();
         $scope.new_topic = new Topic();
         $scope.save_answer = function() {
-            $scope.sending = true;
-            // $scope.new_topic.forum = 1;
+            // $scope.sending = true;
+            $scope.new_topic.forum = 14;
+            $scope.new_topic.title = 'Título experimental';
             $scope.new_topic.$save(function(topic){
-                $scope.answer = {};
                 $scope.answer.given = {topic: topic.id};
+                $scope.answer.activity = $scope.currentActivity.id;
                 $scope.answer.$save();
+            });
+        };
+
+        $scope.save_comment = function(topic, parent_comment) {
+            var new_comment = new Comment();
+            var new_comment_files = [];
+            new_comment.topic = topic.id;
+            if (parent_comment) {
+                new_comment.parent = parent_comment.id;
+                new_comment.text = parent_comment.new_comment;
+                new_comment_files = parent_comment.new_comment_files;
+                parent_comment.comment_replies.unshift(new_comment);
+            } else {
+                new_comment.text = topic.new_comment;
+                topic.show_comment_input = false;
+                new_comment_files = topic.new_comment_files;
+                topic.comments.unshift(new_comment);
+            }
+            new_comment.$save().then(function(comment) {
+                angular.forEach(new_comment_files, function(comment_file) {
+                    comment_file.comment = comment.id;
+                    delete comment_file.file;
+                    comment_file.$patch().then(function(comment_file_complete) {
+                        comment.files.push(comment_file_complete);
+                    });
+                })
             });
         };
 
