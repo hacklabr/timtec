@@ -17,8 +17,8 @@ class AnswerViewSet(viewsets.ModelViewSet):
     filter_fields = ('activity', 'user',)
     lookup_field = 'activity'
 
-    def pre_save(self, obj):
-        obj.user = self.request.user
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
     def get_queryset(self):
         return Answer.objects.filter(user=self.request.user)
