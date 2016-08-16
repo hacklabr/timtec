@@ -114,7 +114,7 @@
             $scope.sendAnswer = function() {
                 $scope.answer.activity = $scope.currentActivity.id;
                 if ($scope.currentActivity.type === 'image')
-                    $scope.answer.given = 'image'
+                    $scope.answer.given = 'image';
                 $scope.answer.$update({activityId: $scope.answer.activity}).then(function(answer){
                     $scope.$root.changed = false;
                     $scope.currentUnit.progress = Progress.get({unit: $scope.currentUnit.id});
