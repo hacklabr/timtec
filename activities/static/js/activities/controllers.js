@@ -175,6 +175,29 @@
                 CommentLike.save({comment:comment.id}, function(comment_like){
                     comment.user_like = comment_like.id;
                 });
+                comment.count_likes +=1;
+            }
+        };
+
+        // ng-file-upload
+        $scope.uploadCommentFiles = function (file, topic) {
+
+            if (file) {
+                CommentFile.upload(file).then(function (response) {
+                    var comment_file = new CommentFile(response.data);
+
+                    if (topic.new_comment_files === undefined)
+                        topic.new_comment_files = [];
+                    topic.new_comment_files.push(comment_file);
+                    return {location: comment_file.file};
+                }, function (response) {
+                    if (response.status > 0) {
+                        $scope.errorMsg = response.status + ': ' + response.data;
+                    }
+                }, function (evt) {
+                    // $scope.progress =
+                    //     Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                });
             }
         };
 
