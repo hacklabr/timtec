@@ -90,74 +90,158 @@
                     <button class="btn btn-xs btn-danger delete" ng-click="topic.show_comment_input=false">descartar</button>
                 </form>
 
+                <!-- Comments about the activity -->
+
                 <div class="comments">
                     <h3 class="comments-title">Comentários</h3>
-                    <div class="thread">
+                    <div class="thread" ng-repeat="comment in topic.comments">
                         <div class="user-icon">
-                            <img src="http://placehold.it/40" alt="{{ comment.author.name }}">
+                            <img ng-src="{{ comment.author.picture }}" alt="{{ comment.author.name }}">
                         </div>
                         <div class="info">
-                            <span class="user-name">Maria Alice dos Anjos</span>
+                            <span class="user-name">
+                              <a ng-href="/profile/{{ comment.author.username }}">{{ comment.author.name }}</a>
+                            </span>
                             <div class="comment-post">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation!</p>
+                                <div ng-bind-html="comment.text"></div>
+
+                                <!-- TODO: transformar em diretiva -->
+                                <button class="btn btn-xs attached"
+                                        ng-show="(comment.files.length > 1) && !comment.show_files"
+                                        ng-click="comment.show_files=true">
+                                    <u>{{comment.files.length}} arquivos anexos</u> + ...
+                                </button>
+                                <div class="post-attachments"
+                                     ng-show="(comment.files.length === 1) || comment.show_files">
+                                    <div class="attachments">
+                                        <span translate
+                                              translate-n="comment.files.length"
+                                              translate-plural="{{$count}} arquivos anexos:">1 arquivo anexo:</span>
+                                        <ul>
+                                            <li ng-repeat="file in comment.files">
+                                                <a ng-href="{{file.file}}">{{file.name}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- TODO END: transformar em diretiva -->
                             </div>
                         </div>
                         <div class="actions">
                             <div class="pull-left">
+                                <a ng-click="comment_like(comment)"
+                                   ng-class="{ 'active': comment.user_like }"
+                                   class="action liked">gostei</a>
                                 <a ng-click="comment.show_comment_input=true" class="action replies">comentar</a>
-                                <span class="last-edit">25 de julho às 15h30</span>
+                                <!-- <span class="last-edit">xx de xx de xxxx às xxhxx</span> -->
                             </div>
-                        </div>
-
-                        <div class="thread">
-                            <div class="user-icon">
-                                <img src="http://placehold.it/40" alt="{{ comment.author.name }}">
+                            <div class="pull-right">
+                                <span class="action liked"
+                                      ng-class="{ 'active': comment.count_likes }"
+                                      translate
+                                      translate-n="comment.count_likes"
+                                      translate-plural="{{$count}} gostaram">1 gostou</span>
+                                <!--<span class="action replies">30 respostas</span>-->
                             </div>
-                            <div class="info">
-                                <span class="user-name">Maria Alice dos Anjos</span>
-                                <div class="comment-post">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation!</p>
-                                </div>
-                            </div>
-                            <div class="actions">
-                                <div class="pull-left">
-                                    <a ng-click="comment.show_comment_input=true" class="action replies">comentar</a>
-                                    <span class="last-edit">25 de julho às 15h30</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="thread">
-                        <div class="user-icon">
-                            <img src="http://placehold.it/40" alt="{{ comment.author.name }}">
                         </div>
                         <div class="info">
-                            <span class="user-name">Maria Alice dos Anjos</span>
-                            <div class="comment-post">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation!</p>
-                            </div>
-                        </div>
-                        <div class="actions">
-                            <div class="pull-left">
-                                <a ng-click="comment.show_comment_input=true" class="action replies">comentar</a>
-                                <span class="last-edit">25 de julho às 15h30</span>
-                            </div>
+                            <form class="comments-form" ng-show="comment.show_comment_input">
+                                <textarea ui-tinymce
+                                          ng-model="comment.new_comment"
+                                          placeholder="Escreva aqui o seu comentário"></textarea>
+                                <!-- <button class="btn btn-xs btn-primary attach pull-left">anexar arquivo</button> -->
+                                <button id="select-file-comment"
+                                       class="btn btn-xs btn-primary attach pull-left"
+                                       ngf-select="uploadCommentFiles($file, comment)"
+                                       ngf-multiple="false">anexar arquivo</button>
+                                <button class="btn btn-xs btn-success reply pull-right" ng-click="save_comment(topic, comment);comment.show_comment_input=false;">comentar</button>
+                                <button class="btn btn-xs btn-danger delete pull-right" ng-click="comment.show_comment_input=false">descartar</button>
+                                <div class="post-attachments"
+                                     ng-show="comment.new_comment_files">
+                                    <div class="attachments">
+                                        <span translate
+                                              translate-n="comment.new_comment_files.length"
+                                              translate-plural="{{$count}} arquivos anexos:">1 arquivo anexo:</span>
+                                        <ul>
+                                            <li ng-repeat="file in comment.new_comment_files">
+                                                <a ng-href="{{file.file}}">{{file.name}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
 
-                        <div class="thread">
+                        <div class="thread" ng-repeat="reply in comment.comment_replies">
                             <div class="user-icon">
-                                <img src="http://placehold.it/40" alt="{{ comment.author.name }}">
+                                <img ng-src="{{ reply.author.picture }}" alt="{{ reply.author.name }}">
                             </div>
                             <div class="info">
-                                <span class="user-name">Maria Alice dos Anjos</span>
+                                <span class="user-name">
+                                  <a ng-href="/profile/{{ reply.author.username }}">{{ reply.author.name }}</a>
+                                </span>
                                 <div class="comment-post">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation!</p>
+                                    <div ng-bind-html="reply.text"></div>
+                                    <!-- TODO: transformar em diretiva -->
+                                    <button class="btn btn-xs attached"
+                                            ng-show="(reply.files.length > 1) && !reply.show_files"
+                                            ng-click="reply.show_files=true">
+                                        <u>{{reply.files.length}} arquivos anexos</u> + ...
+                                    </button>
+                                    <div class="post-attachments"
+                                         ng-show="(reply.files.length === 1) ||reply.show_files">
+                                        <div class="attachments">
+                                            <span translate
+                                                  translate-n="reply.files.length"
+                                                  translate-plural="{{$count}} arquivos anexos:">1 arquivo anexo:</span>
+                                            <ul>
+                                                <li ng-repeat="file in reply.files">
+                                                    <a ng-href="{{file.file}}">{{file.name}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- TODO END: transformar em diretiva -->
                                 </div>
+                                <form class="comments-form" ng-show="reply.show_comment_input">
+                                    <textarea ui-tinymce
+                                              ng-model="comment.new_comment"
+                                              placeholder="Escreva aqui o seu comentário"></textarea>
+                                    <button id="select-file-reply"
+                                            class="btn btn-xs btn-primary attach pull-left"
+                                            ngf-select="uploadCommentFiles($file, comment)"
+                                            ngf-multiple="false">anexar arquivo</button>
+                                    <button class="btn btn-xs btn-success reply pull-right" ng-click="save_comment(topic, comment);reply.show_comment_input=false;">comentar</button>
+                                    <button class="btn btn-xs btn-danger delete pull-right" ng-click="reply.show_comment_input=false">descartar</button>
+                                    <div class="post-attachments"
+                                         ng-show="comment.new_comment_files">
+                                        <div class="attachments">
+                                            <span translate
+                                                  translate-n="comment.new_comment_files.length"
+                                                  translate-plural="{{$count}} arquivos anexos:">1 arquivo anexo:</span>
+                                            <ul>
+                                                <li ng-repeat="file in comment.new_comment_files">
+                                                    <a ng-href="{{file.file}}">{{file.name}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                             <div class="actions">
                                 <div class="pull-left">
-                                    <a ng-click="comment.show_comment_input=true" class="action replies">comentar</a>
-                                    <span class="last-edit">25 de julho às 15h30</span>
+                                    <a ng-click="comment_like(reply)"
+                                       ng-class="{ 'active': reply.user_like }"
+                                       class="action liked">gostei</a>
+                                    <a ng-click="reply.show_comment_input=true" class="action replies">comentar</a>
+                                    <!-- <span class="last-edit">xx de xx de xxxx às xxhxx</span> -->
+                                </div>
+                                <div class="pull-right">
+                                    <span class="action liked"
+                                          ng-class="{ 'active': reply.count_likes }"
+                                          translate
+                                          translate-n="reply.count_likes"
+                                          translate-plural="{{$count}} gostaram">1 gostou</span>
                                 </div>
                             </div>
                         </div>

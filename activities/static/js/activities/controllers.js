@@ -153,6 +153,22 @@
             });
         };
 
+        $scope.comment_like = function(comment) {
+            if (comment.user_like) {
+                CommentLike.delete({id:comment.user_like});
+                comment.user_like = 0;
+                comment.count_likes -=1;
+            } else {
+                // Change this before promisse so the user sees the action take effect.
+                comment.user_like = -1;
+
+                CommentLike.save({comment:comment.id}, function(comment_like){
+                    comment.user_like = comment_like.id;
+                });
+                comment.count_likes +=1
+            }
+        };
+
 
       }
     ]);
