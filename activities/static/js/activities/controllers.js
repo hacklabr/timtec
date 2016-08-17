@@ -116,16 +116,26 @@
         // $scope.forums = Forum.query();
         $scope.show_answer = false;
         $scope.new_topic = new Topic();
+        $scope.new_topic.forum = 14;
         $scope.save_answer = function() {
-            // $scope.sending = true;
-            $scope.new_topic.forum = 14;
-            $scope.new_topic.title = 'Título experimental';
+            $scope.sending = true;
+            $scope.new_topic.title = 'Resposta experimental';
             $scope.new_topic.$save(function(topic){
                 $scope.answer.given = {topic: topic.id};
                 $scope.answer.activity = $scope.currentActivity.id;
                 $scope.answer.$save();
             });
         };
+
+        // Load other students activities
+        $scope.latest_activities = Topic.query({
+            forum: 14,
+            limit: 3,
+            ordering: '-last_activity_at',
+            }, function(){
+                $scope.activities_loaded = true;
+            }
+        );
 
         $scope.save_comment = function(topic, parent_comment) {
             var new_comment = new Comment();
@@ -149,7 +159,7 @@
                     comment_file.$patch().then(function(comment_file_complete) {
                         comment.files.push(comment_file_complete);
                     });
-                })
+                });
             });
         };
 
@@ -165,7 +175,6 @@
                 CommentLike.save({comment:comment.id}, function(comment_like){
                     comment.user_like = comment_like.id;
                 });
-                comment.count_likes +=1
             }
         };
 

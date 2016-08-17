@@ -20,7 +20,7 @@
     <!-- special activity is open -->
     <div class="open-activity">
         <div class="topbar">
-            <a href="" class="btn btn-link jump-to">ver atividades dos colegas</a> |
+            <a href="/discussion/#!/forum/{{new_topic.forum}}" class="btn btn-link jump-to">ver atividades dos colegas</a> |
             <a href="" class="btn btn-link jump-to">ver comentários</a>
         </div>
 
@@ -66,7 +66,7 @@
                     <img src="http://placehold.it/40" alt="{{ topic.author.name }}">
                 </div>
                 <div class="info">
-                    <h4 class="thread-header pull-left">por <span class="user-name">{{topic.author.first_name}} {{topic.author.last_name}}</span> <span class="last-edit">última edição: {{topic.last_activity_at | date : 'dd/MM/yyyy'}}</span></h4>
+                    <h4 class="thread-header pull-left">por <span class="user-name">{{topic.author.name}}</span> <span class="last-edit">última edição: {{topic.last_activity_at | date : 'dd/MM/yyyy'}}</span></h4>
 
                     <button class="btn btn-sm btn-success edit pull-right">editar</button>
                 </div>
@@ -88,6 +88,7 @@
                     <textarea ui-tinymce="tinymceOptions" ng-model="topic.new_comment" placeholder="Escreva aqui o seu comentário"></textarea>
                     <button class="btn btn-xs btn-success reply" ng-click="save_comment(topic, null)">comentar</button>
                     <button class="btn btn-xs btn-danger delete" ng-click="topic.show_comment_input=false">descartar</button>
+
                 </form>
 
                 <!-- Comments about the activity -->
@@ -250,7 +251,7 @@
             </div>
         </div>
     </div>
-    <div class="all-activity forums forum-list">
+    <div class="all-activity forums forum-list" ng-show="activities_loaded">
         <h3 class="title">Atividades dos colegas</h3>
         <table class="table table-striped">
             <thead>
@@ -261,49 +262,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="new">
+                <tr class="new" ng-repeat="activity in latest_activities">
                     <td>
                         <div class="user-icon">
-                            <img src="http://placehold.it/40" alt="Joana Terra">
+                            <img src="{{activity.author.picture}}" alt="{{activity.author.name}}">
                         </div>
                         <div class="info">
-                            por <span class="user-name">Joana Terra</span>: <a href="">Lorem ipsum dolor sit amet...</a>
+                            por <span class="user-name">{{activity.author.name}}</span>: <a href="/discussion/topic/#!/topic/{{activity.id}}/" ng-bind-html="activity.content"></a>
                         </div>
                     </td>
-                    <td>Última atividade <b>há 30 minutos</b></td>
+                    <td>Última atividade <b>{{activity.last_activity_at | date : 'dd/MM/yyyy' }}</b></td>
                     <td>
-                        <span class="action liked">{{ topic.count_likes }} curtiram</span>
-                        <span class="action replies">{{ topic.count_replies }} responderam</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="user-icon">
-                            <img src="http://placehold.it/40" alt="Joana Terra">
-                        </div>
-                        <div class="info">
-                            por <span class="user-name">Joana Terra</span>: <a href="">Lorem ipsum dolor sit amet...</a>
-                        </div>
-                    </td>
-                    <td>Última atividade <b>há 30 minutos</b></td>
-                    <td>
-                        <span class="action liked">{{ topic.count_likes }} curtiram</span>
-                        <span class="action replies">{{ topic.count_replies }} responderam</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="user-icon">
-                            <img src="http://placehold.it/40" alt="Joana Terra">
-                        </div>
-                        <div class="info">
-                            por <span class="user-name">Joana Terra</span>: <a href="">Lorem ipsum dolor sit amet...</a>
-                        </div>
-                    </td>
-                    <td>Última atividade <b>há 30 minutos</b></td>
-                    <td>
-                        <span class="action liked">{{ topic.count_likes }} curtiram</span>
-                        <span class="action replies">{{ topic.count_replies }} responderam</span>
+                        <span class="action liked">{{ activity.count_likes }} curtiram</span>
+                        <span class="action replies">{{ activity.count_replies }} responderam</span>
                     </td>
                 </tr>
             </tbody>
