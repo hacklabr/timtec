@@ -96,10 +96,10 @@
         var now = Date.now();
 
         // Decide the current state of the activity
-        if(now < $scope.currentActivity.data[0].start_date){
+        if(now < $scope.currentActivity.data.start_date){
           // The Activity is not open yet
           $scope.activity_open = false;
-        } else if(now > $scope.currentActivity.data[0].end_date){
+        } else if(now > $scope.currentActivity.data.end_date){
           // The Activity is already expired
           $scope.activity_expired = true;
         }
@@ -117,14 +117,26 @@
         $scope.show_answer = false;
         $scope.new_topic = new Topic();
         $scope.new_topic.forum = 14;
+        $scope.edit_topic = false;
         $scope.save_answer = function() {
             $scope.sending = true;
-            $scope.new_topic.title = 'Resposta experimental';
+            $scope.new_topic.title = 'Resposta de atividade';
             $scope.new_topic.$save(function(topic){
                 $scope.answer.given = {topic: topic.id};
                 $scope.answer.activity = $scope.currentActivity.id;
                 $scope.answer.$save();
+                $scope.topic = topic;
+                $scope.edit_topic = true;
+                $scope.show_answer = true;
             });
+        };
+
+        $scope.update_answer = function(){
+          $scope.topic.$save(function(){
+            console.log("New answer sucessfully saved.");
+            $window.location = $window.location.href;
+            $window.location.reload();
+          });
         };
 
         // Load other students activities

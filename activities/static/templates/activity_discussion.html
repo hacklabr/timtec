@@ -8,7 +8,7 @@
         <div class="message">
             <h3>Opa, esse conteúdo ainda não está disponível! ;)</h3>
 
-            <p>A atividade especial será lançada no dia {{ currentActivity.data[0].start_date  | date : 'dd/MM/yyyy' }}.</p>
+            <p>A atividade especial será lançada no dia {{ currentActivity.data.start_date  | date : 'dd/MM/yyyy' }}.</p>
             <p>
               Enquanto você espera, pode dar uma olhada nos outros conteúdos do curso.
             </p>
@@ -20,31 +20,20 @@
     <!-- special activity is open -->
     <div class="open-activity">
         <div class="topbar">
-            <a href="/discussion/#!/forum/{{new_topic.forum}}" class="btn btn-link jump-to">ver atividades dos colegas</a> |
-            <a href="" class="btn btn-link jump-to">ver comentários</a>
+            <!-- <a href="/discussion/#!/forum/{{new_topic.forum}}" class="btn btn-link jump-to">ver atividades dos colegas</a> |
+            <a href="" class="btn btn-link jump-to">ver comentários</a> -->
         </div>
 
         <h2 class="title">Atividade Especial Aberta</h2>
 
-        <p class="intro" ng-bind-html="currentActivity.data[0].content"></p>
+        <p class="intro" ng-bind-html="currentActivity.data.content"></p>
 
         <!-- <p class="textcenter">
             <img src="http://placehold.it/500x200" alt="">
         </p> -->
 
         <!-- the activity has not been submited yet -->
-        <form class="new-thread">
-            <!-- <div class="form-group">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <label for="thread-forum">Em qual fórum ele deve estar? <span class="help-text">escolha apenas um</span></label>
-                        <select ng-model="new_topic.forum" class="form-control" id="thread-forum"
-                                ng-options="forum.id as forum.title for forum in forums" >
-                            <option>Escolha o fórum</option>
-                        </select>
-                    </div>
-                </div>
-            </div> -->
+        <form class="new-thread" ng-show="!show_answer">
             <!-- <div class="form-group">
                 <label for="thread-name">Como se chamará o novo tópico?</label>
                 <input ng-model="new_topic.title" type="text" class="form-control" id="thread-name" placeholder="Escreva o título aqui">
@@ -53,22 +42,23 @@
                 <label for="thread-text">Escreva aqui sua resposta</label>
                 <textarea ui-tinymce
                           ng-model="new_topic.content"
+                          ng-show="!new_topic.content || edit_topic"
                           placeholder="Escreva aqui sua resposta"></textarea>
             </div>
             <button ng-disabled="sending" ng-click="save_answer()" class="btn btn-success new-topic"><i class="fa fa-sign-in" aria-hidden="true"></i> postar nova resposta</button>
         </form>
 
         <!-- the activity has been submited already and can be viewed -->
-        <div class="user-activity forums thread" ng-show="answer">
+        <div class="user-activity forums thread" ng-show="show_answer">
             <h3 class="title">Sua atividade:</h3>
             <div class="forum-thread" ng-cloak>
                 <div class="user-icon">
-                    <img src="http://placehold.it/40" alt="{{ topic.author.name }}">
+                    <img src="{{topic.author.picture}}" alt="{{ topic.author.name }}">
                 </div>
                 <div class="info">
                     <h4 class="thread-header pull-left">por <span class="user-name">{{topic.author.name}}</span> <span class="last-edit">última edição: {{topic.last_activity_at | date : 'dd/MM/yyyy'}}</span></h4>
 
-                    <button class="btn btn-sm btn-success edit pull-right">editar</button>
+                    <!-- <button class="btn btn-sm btn-success edit pull-right" ng-click="edit_topic=true;show_answer=false">editar</button> -->
                 </div>
 
                 <div class="thread-post">
