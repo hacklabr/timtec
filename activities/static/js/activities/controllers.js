@@ -107,12 +107,14 @@
         // Check if there is an answer to this activity
         $scope.answer.$promise.then(function() {
             // if there is, show the corresponding topic that holds this answer and its comments
+            $scope.show_answer = true;
             $scope.topic = Topic.get({id: $scope.answer.given.topic});
             uiTinymceConfig.automatic_uploads = true;
         });
 
         // if there is no answer, show the text editor and prepare to save it
         // $scope.forums = Forum.query();
+        $scope.show_answer = false;
         $scope.new_topic = new Topic();
         $scope.save_answer = function() {
             // $scope.sending = true;
@@ -150,8 +152,6 @@
                 })
             });
         };
-
-
 
 
       }

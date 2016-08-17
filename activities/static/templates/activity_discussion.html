@@ -26,11 +26,11 @@
 
         <h2 class="title">Atividade Especial Aberta</h2>
 
-        <p class="intro">Texto introdutório Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies.</p>
+        <p class="intro" ng-bind-html="currentActivity.data[0].content"></p>
 
-        <p class="textcenter">
+        <!-- <p class="textcenter">
             <img src="http://placehold.it/500x200" alt="">
-        </p>
+        </p> -->
 
         <!-- the activity has not been submited yet -->
         <form class="new-thread">
@@ -50,7 +50,7 @@
                 <input ng-model="new_topic.title" type="text" class="form-control" id="thread-name" placeholder="Escreva o título aqui">
             </div> -->
             <div class="form-group">
-                <label for="thread-text">Texto do tópico</label>
+                <label for="thread-text">Escreva aqui sua resposta</label>
                 <textarea ui-tinymce
                           ng-model="new_topic.content"
                           placeholder="Escreva aqui sua resposta"></textarea>
@@ -59,20 +59,20 @@
         </form>
 
         <!-- the activity has been submited already and can be viewed -->
-        <div class="user-activity forums thread">
+        <div class="user-activity forums thread" ng-show="answer">
             <h3 class="title">Sua atividade:</h3>
             <div class="forum-thread" ng-cloak>
                 <div class="user-icon">
                     <img src="http://placehold.it/40" alt="{{ topic.author.name }}">
                 </div>
                 <div class="info">
-                    <h4 class="thread-header pull-left">por <span class="user-name">{{topic.author.username}}</span> <span class="last-edit">última edição: {{topic.last_activity_at}}</span></h4>
+                    <h4 class="thread-header pull-left">por <span class="user-name">{{topic.author.first_name}} {{topic.author.last_name}}</span> <span class="last-edit">última edição: {{topic.last_activity_at | date : 'dd/MM/yyyy'}}</span></h4>
 
                     <button class="btn btn-sm btn-success edit pull-right">editar</button>
                 </div>
 
                 <div class="thread-post">
-                    <p>{{topic.content}}</p>
+                    <p ng-bind-html="topic.content"></p>
                 </div>
 
                 <div class="actions">
