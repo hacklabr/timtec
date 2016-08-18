@@ -87,10 +87,11 @@
       'Topic',
       'Comment',
       'TopicLike',
+      'TopicFile',
       'CommentLike',
       'CommentFile',
-
-      function ($scope, $sce, $routeParams, uiTinymceConfig, Forum, Topic, Comment, TopicLike, CommentLike, CommentFile) {
+      'Progress',
+      function ($scope, $sce, $routeParams, uiTinymceConfig, Forum, Topic, Comment, TopicLike, TopicFile, CommentLike, CommentFile, Progress) {
         $scope.activity_open = true;
         $scope.activity_expired = false;
         var now = Date.now();
@@ -104,30 +105,53 @@
           $scope.activity_expired = true;
         }
 
+        uiTinymceConfig.automatic_uploads = true;
+
+        // If there is not an answer yet, create topic instance
+        $scope.topic = new Topic();
+        $scope.topic.title = 'Resposta de atividade';
+        // FIXME
+        // $scope.topic.forum = $scope.currentActivity.data.forum
+        $scope.topic.forum = 14;
+
         // Check if there is an answer to this activity
-        $scope.answer.$promise.then(function() {
-            // if there is, show the corresponding topic that holds this answer and its comments
-            $scope.show_answer = true;
-            $scope.topic = Topic.get({id: $scope.answer.given.topic});
-            uiTinymceConfig.automatic_uploads = true;
-        });
+        if ($scope.answer.$promise) {
+            $scope.answer.$promise.then(function(answer) {
+                // if there is, show the corresponding topic that holds this answer and its comments
+                $scope.show_answer = true;
+                $scope.topic = Topic.get({id: answer.given.topic, activity: true});
+            });
+        }
 
         // if there is no answer, show the text editor and prepare to save it
         // $scope.forums = Forum.query();
         $scope.show_answer = false;
-        $scope.new_topic = new Topic();
-        $scope.new_topic.forum = 14;
+        // $scope.new_topic = new Topic();
+        // $scope.new_topic.forum = 14;
         $scope.edit_topic = false;
+
         $scope.save_answer = function() {
             $scope.sending = true;
-            $scope.new_topic.title = 'Resposta de atividade';
-            $scope.new_topic.$save(function(topic){
+            var topic_files = $scope.topic.files;
+            $scope.topic.$save(function(topic){
                 $scope.answer.given = {topic: topic.id};
                 $scope.answer.activity = $scope.currentActivity.id;
-                $scope.answer.$save();
-                $scope.topic = topic;
+                $scope.answer.$save().then(function(answer) {
+                    $scope.currentUnit.progress = Progress.save({unit: $scope.currentUnit.id});
+                });
+                // $scope.sendAnswer();
+                // $scope.topic = topic;
                 $scope.edit_topic = true;
                 $scope.show_answer = true;
+                angular.forEach(topic_files, function(topic_file) {
+                    if (!topic_file.hasOwnProperty('topic') || !topic_file.topic){
+                        topic_file.topic = topic.id;
+                        delete topic_file.file;
+                        topic_file.$patch().then(function(comment_file_complete) {
+                            topic.files.push(comment_file_complete);
+                        });
+                    }
+                });
             });
         };
 
@@ -139,10 +163,35 @@
           });
         };
 
+        $scope.uploadTopicFiles = function (file, topic) {
+            if (file) {
+                TopicFile.upload(file).then(function (response) {
+                    var comment_file = new TopicFile(response.data);
+                    if (topic.files === undefined)
+                        topic.files = [];
+                    topic.files.push(comment_file);
+                    return {location: comment_file.file};
+                });
+            }
+        }
+
+        $scope.uploadCommentFiles = function (file, topic) {
+            if (file) {
+                CommentFile.upload(file).then(function (response) {
+                    var comment_file = new CommentFile(response.data);
+                    if (topic.new_comment_files === undefined)
+                        topic.new_comment_files = [];
+                    topic.new_comment_files.push(comment_file);
+                    return {location: comment_file.file};
+                });
+            }
+        }
+
         // Load other students activities
         $scope.latest_activities = Topic.query({
+            // FIXME
+            // forum: $scope.currentActivity.data.forum,
             forum: 14,
-            limit: 3,
             ordering: '-last_activity_at',
             }, function(){
                 $scope.activities_loaded = true;
@@ -191,27 +240,27 @@
             }
         };
 
-        // ng-file-upload
-        $scope.uploadCommentFiles = function (file, topic) {
+        $scope.get_as_safe_html = function(html_content) {
+            return $sce.trustAsHtml(html_content);
+        }
 
-            if (file) {
-                CommentFile.upload(file).then(function (response) {
-                    var comment_file = new CommentFile(response.data);
+      }
+    ]);
 
-                    if (topic.new_comment_files === undefined)
-                        topic.new_comment_files = [];
-                    topic.new_comment_files.push(comment_file);
-                    return {location: comment_file.file};
-                }, function (response) {
-                    if (response.status > 0) {
-                        $scope.errorMsg = response.status + ': ' + response.data;
-                    }
-                }, function (evt) {
-                    // $scope.progress =
-                    //     Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-                });
-            }
-        };
+    app.controller('DiscussionActivityAdminCtrl', [
+      '$scope',
+      '$sce',
+      'uiTinymceConfig',
+      'Forum',
+      'Topic',
+      'TopicFile',
+      function ($scope, $sce, uiTinymceConfig, Forum, Topic, TopicFile) {
+        uiTinymceConfig.automatic_uploads = true;
+
+
+
+
+
 
 
       }

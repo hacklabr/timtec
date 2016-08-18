@@ -26,11 +26,7 @@
 
         <h2 class="title">Atividade Especial Aberta</h2>
 
-        <p class="intro" ng-bind-html="currentActivity.data.content"></p>
-
-        <!-- <p class="textcenter">
-            <img src="http://placehold.it/500x200" alt="">
-        </p> -->
+        <p class="intro" ng-bind-html="get_as_safe_html(currentActivity.data.content)"></p>
 
         <!-- the activity has not been submited yet -->
         <form class="new-thread" ng-show="!show_answer">
@@ -41,10 +37,33 @@
             <div class="form-group">
                 <label for="thread-text">Escreva aqui sua resposta</label>
                 <textarea ui-tinymce
-                          ng-model="new_topic.content"
-                          ng-show="!new_topic.content || edit_topic"
+                          ng-model="topic.content"
+                          ng-show="!topic.content || edit_topic"
                           placeholder="Escreva aqui sua resposta"></textarea>
             </div>
+
+            <div class="form-group">
+                <button id="select-file-topic"
+                       class="btn btn-xs btn-primary attach"
+                       ngf-select="uploadTopicFiles($file, topic)"
+                       ngf-multiple="false">anexar arquivo</button>
+            </div>
+            <div class="form-group">
+                <div class="post-attachments"
+                   ng-show="topic.files">
+                    <div class="attachments">
+                        <span translate
+                              translate-n="topic.files.length"
+                              translate-plural="{{$count}} arquivos anexos:">1 arquivo anexo:</span>
+                        <ul>
+                            <li ng-repeat="file in topic.files">
+                                <a ng-href="{{file.file}}">{{file.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
             <button ng-disabled="sending" ng-click="save_answer()" class="btn btn-success new-topic"><i class="fa fa-sign-in" aria-hidden="true"></i> postar nova resposta</button>
         </form>
 
@@ -63,6 +82,26 @@
 
                 <div class="thread-post">
                     <p ng-bind-html="topic.content"></p>
+                    <!-- TODO: transformar em diretiva -->
+                    <button class="btn btn-xs attached"
+                            ng-show="(topic.files.length > 1) && !topic.show_files"
+                            ng-click="topic.show_files=true">
+                        <u>{{topic.files.length}} arquivos anexos</u> + ...
+                    </button>
+                    <div class="post-attachments"
+                         ng-show="(topic.files.length === 1) || topic.show_files">
+                        <div class="attachments">
+                            <span translate
+                                  translate-n="topic.files.length"
+                                  translate-plural="{{$count}} arquivos anexos:">1 arquivo anexo:</span>
+                            <ul>
+                                <li ng-repeat="file in topic.files">
+                                    <a ng-href="{{file.file}}">{{file.name}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- END TODO: transformar em diretiva -->
                 </div>
 
                 <div class="actions">
@@ -76,10 +115,32 @@
 
                 <form class="comments-form" ng-show="topic.show_comment_input">
                     <textarea ui-tinymce="tinymceOptions" ng-model="topic.new_comment" placeholder="Escreva aqui o seu comentário"></textarea>
+
+                    <button id="select-file-topic"
+                           class="btn btn-xs btn-primary attach"
+                           ngf-select="uploadCommentFiles($file, topic)"
+                           ngf-multiple="false">anexar arquivo</button>
+
                     <button class="btn btn-xs btn-success reply" ng-click="save_comment(topic, null)">comentar</button>
                     <button class="btn btn-xs btn-danger delete" ng-click="topic.show_comment_input=false">descartar</button>
 
                 </form>
+
+                <div class="form-group">
+                    <div class="post-attachments"
+                       ng-show="topic.new_comment_files.files">
+                        <div class="attachments">
+                            <span translate
+                                  translate-n="topic.new_comment_files.files.length"
+                                  translate-plural="{{$count}} arquivos anexos:">1 arquivo anexo:</span>
+                            <ul>
+                                <li ng-repeat="file in topic.new_comment_files.files">
+                                    <a ng-href="{{file.file}}">{{file.name}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Comments about the activity -->
 
@@ -241,7 +302,7 @@
             </div>
         </div>
     </div>
-    <div class="all-activity forums forum-list" ng-show="activities_loaded">
+    <div class="all-activity forums forum-list" ng-show="activities_loaded && latest_activities.length>0">
         <h3 class="title">Atividades dos colegas</h3>
         <table class="table table-striped">
             <thead>
