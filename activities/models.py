@@ -24,10 +24,10 @@ class Activity(models.Model):
         expected_answer_data: {choice: 1}
     """
     type = models.CharField(_('Type'), max_length=255)
-    data = JSONField(_('Data'), blank=True)
-    expected = JSONField(_('Expected answer'), blank=True)
+    data = JSONField(_('Data'), blank=True, null=True)
+    expected = JSONField(_('Expected answer'), blank=True, null=True)
     unit = models.ForeignKey(Unit, verbose_name=_('Unit'), null=True, blank=True, related_name='activities')
-    comment = models.TextField(_('Comment'), blank=True)
+    comment = models.TextField(_('Comment'), blank=True, null=True)
     image = models.ImageField(_('Image'), upload_to='activities', null=True, blank=True)
 
     class Meta:
@@ -114,7 +114,6 @@ class Answer(models.Model):
             except Answer.DoesNotExist:
                 correct = False
                 break
-            print ans
             correct = ans.is_correct()
             if not correct:
                 break
