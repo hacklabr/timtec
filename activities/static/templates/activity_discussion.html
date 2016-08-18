@@ -26,7 +26,7 @@
 
         <h2 class="title">Atividade Especial Aberta</h2>
 
-        <p class="intro" ng-bind-html="get_as_safe_html(currentActivity.data.content)"></p>
+        <p class="intro" ng-bind-html="get_as_safe_html(currentActivity.data.content | markdown)"></p>
 
         <!-- the activity has not been submited yet -->
         <form class="new-thread" ng-show="!show_answer">
