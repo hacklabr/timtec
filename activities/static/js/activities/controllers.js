@@ -110,9 +110,7 @@
         // If there is not an answer yet, create topic instance
         $scope.topic = new Topic();
         $scope.topic.title = 'Resposta de atividade';
-        // FIXME
-        // $scope.topic.forum = $scope.currentActivity.data.forum
-        $scope.topic.forum = 14;
+        $scope.topic.forum = $scope.currentActivity.data.forum
 
         // Check if there is an answer to this activity
         if ($scope.answer.$promise) {
@@ -124,10 +122,7 @@
         }
 
         // if there is no answer, show the text editor and prepare to save it
-        // $scope.forums = Forum.query();
         $scope.show_answer = false;
-        // $scope.new_topic = new Topic();
-        // $scope.new_topic.forum = 14;
         $scope.edit_topic = false;
 
         $scope.save_answer = function() {
@@ -189,9 +184,7 @@
 
         // Load other students activities
         $scope.latest_activities = Topic.query({
-            // FIXME
-            // forum: $scope.currentActivity.data.forum,
-            forum: 14,
+            forum: $scope.currentActivity.data.forum,
             ordering: '-last_activity_at',
             }, function(){
                 $scope.activities_loaded = true;

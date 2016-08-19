@@ -162,7 +162,7 @@
                 }
                 $scope.newActivityType = null;
 
-                MarkdownDirective.resetEditors();
+                // MarkdownDirective.resetEditors();
                 MarkdownDirective.refreshEditorsPreview();
             };
 
@@ -171,8 +171,11 @@
                     $scope.lesson.units = [];
                 }
                 $scope.currentUnit = {'activities': []};
-                $scope.currentUnit.lesson = $scope.lesson.id
+                $scope.currentActivity = null;
+                $scope.currentUnit.lesson = $scope.lesson.id;
                 $scope.lesson.units.push($scope.currentUnit);
+                // MarkdownDirective.resetEditors();
+                MarkdownDirective.refreshEditorsPreview();
             };
 
             $scope.removeCurrentUnit = function() {
@@ -225,6 +228,15 @@
               $scope.currentActivity.data.end_date = new Date($scope.currentActivity.data.end_date);
             };
 
+            $scope.$on('$locationChangeStart', function( event ) {
+                // TODO
+                // Verify if user has saved the discussion activity and if not, delete the created forum.
+                // var answer = confirm("Are you sure you want to leave this page?")
+                // if (!answer) {
+                //     event.preventDefault();
+                // }
+            });
+
             $scope.addNewActivity = function(type) {
                 if(!$scope.currentUnit) return;
                 if(!$scope.currentUnit.activities) $scope.currentUnit.activities = [];
@@ -239,25 +251,25 @@
                 }
 
                 if(type === 'discussion'){
-                  // Create a new forum to recieve the students answers
-                  var new_forum = new Forum();
-                  new_forum.title = 'Fórum de atividades: ' + $scope.lesson.name;
-                  new_forum.$save(function(forum) {
-                    var forum_id = forum.id;
-
                     // JSON pattern for the discussion type of activities
-                    expected = '';
                     $scope.currentActivity = {
                         'type': type,
-                        'data': {
-                            'forum': forum_id,
-                            'content': '',
-                            'start_date': null,
-                            'end_date': null
-                        },
-                        'expected': expected
+                            'data': {
+                                'forum': null,
+                                'content': '',
+                                'start_date': null,
+                                'end_date': null
+                            },
+                            'expected': ''
                     };
-                  });
+
+                    // Create a new forum to recieve the students answers
+                    var new_forum = new Forum();
+                    new_forum.title = 'Fórum de atividades: ' + $scope.lesson.name;
+                    new_forum.forum_type = 'activity';
+                    new_forum.$save(function(forum) {
+                       $scope.currentActivity.data.forum = forum.id;
+                    });
 
                 } else {
                   // JSON pattern for other types of activities
