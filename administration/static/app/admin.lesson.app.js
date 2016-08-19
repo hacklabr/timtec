@@ -16,6 +16,7 @@
         // 'filters.text',
         'youtube',
         'header',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'discussion.services',
     ]);
 })(window.angular);

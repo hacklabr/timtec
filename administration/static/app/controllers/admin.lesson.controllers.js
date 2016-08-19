@@ -11,8 +11,9 @@
         'youtubePlayerApi',
         'MarkdownDirective',
         'waitingScreen',
-        function($scope,Course, CourseProfessor, Lesson, VideoData, youtubePlayerApi,
-                 MarkdownDirective,waitingScreen) {
+        'Forum',
+        function($scope, Course, CourseProfessor, Lesson, VideoData, youtubePlayerApi,
+                 MarkdownDirective, waitingScreen, Forum) {
             $scope.errors = {};
             var httpErrors = {
                 '400': 'Os campos não foram preenchidos corretamente.',
@@ -238,18 +239,26 @@
                 }
 
                 if(type === 'discussion'){
-                  // JSON pattern for the discussion type of activities
-                  expected = '';
-                  $scope.currentActivity = {
-                      'type': type,
-                      'data': {
-                          'forum': '',
-                          'content': '',
-                          'start_date': null,
-                          'end_date': null
-                      },
-                      'expected': expected
-                  };
+                  // Create a new forum to recieve the students answers
+                  var new_forum = new Forum();
+                  new_forum.title = 'Fórum de atividades: ' + $scope.lesson.name;
+                  new_forum.$save(function(forum) {
+                    var forum_id = forum.id;
+
+                    // JSON pattern for the discussion type of activities
+                    expected = '';
+                    $scope.currentActivity = {
+                        'type': type,
+                        'data': {
+                            'forum': forum_id,
+                            'content': '',
+                            'start_date': null,
+                            'end_date': null
+                        },
+                        'expected': expected
+                    };
+                  });
+
                 } else {
                   // JSON pattern for other types of activities
                   $scope.currentActivity = {
