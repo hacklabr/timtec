@@ -128,35 +128,46 @@
         $scope.save_answer = function() {
             $scope.sending = true;
             var topic_files = $scope.topic.files;
-            $scope.topic.$save(function(topic){
-                $scope.answer.given = {topic: topic.id};
-                $scope.answer.activity = $scope.currentActivity.id;
-                $scope.answer.$save().then(function(answer) {
-                    $scope.currentUnit.progress = Progress.save({unit: $scope.currentUnit.id});
+            if ($scope.topic.id)
+                $scope.topic.$update({activity: true}, function(topic) {
+                    angular.forEach(topic_files, function(topic_file) {
+                        if (!topic_file.hasOwnProperty('topic') || !topic_file.topic) {
+                            topic_file.topic = topic.id;
+                            delete topic_file.file;
+                            topic_file.$patch().then(function(comment_file_complete) {
+                                topic.files.push(comment_file_complete);
+                            });
+                        }
+                    });
                 });
-                // $scope.sendAnswer();
-                // $scope.topic = topic;
-                $scope.edit_topic = true;
-                $scope.show_answer = true;
-                angular.forEach(topic_files, function(topic_file) {
-                    if (!topic_file.hasOwnProperty('topic') || !topic_file.topic){
-                        topic_file.topic = topic.id;
-                        delete topic_file.file;
-                        topic_file.$patch().then(function(comment_file_complete) {
-                            topic.files.push(comment_file_complete);
-                        });
-                    }
+            else
+                $scope.topic.$save(function(topic) {
+                    $scope.answer.given = {topic: topic.id};
+                    $scope.answer.activity = $scope.currentActivity.id;
+                    $scope.answer.$save().then(function(answer) {
+                        $scope.currentUnit.progress = Progress.save({unit: $scope.currentUnit.id});
+                    });
+                    angular.forEach(topic_files, function(topic_file) {
+                        if (!topic_file.hasOwnProperty('topic') || !topic_file.topic) {
+                            topic_file.topic = topic.id;
+                            delete topic_file.file;
+                            topic_file.$patch().then(function(comment_file_complete) {
+                                topic.files.push(comment_file_complete);
+                            });
+                        }
+                    });
                 });
-            });
+            $scope.edit_topic = true;
+            $scope.show_answer = true;
         };
-
-        $scope.update_answer = function(){
-          $scope.topic.$save(function(){
-            console.log("New answer sucessfully saved.");
-            $window.location = $window.location.href;
-            $window.location.reload();
-          });
-        };
+        //
+        // $scope.update_answer = function(){
+        //   $scope.topic.$save(function(){
+        //     console.log("New answer sucessfully saved.");
+        //     $window.location = $window.location.href;
+        //     $window.location.reload();
+        //   });
+        // };
 
         $scope.uploadTopicFiles = function (file, topic) {
             if (file) {
@@ -186,6 +197,8 @@
         $scope.latest_activities = Topic.query({
             forum: $scope.currentActivity.data.forum,
             ordering: '-last_activity_at',
+            activity: true,
+            exclude_cur_user: true,
             }, function(){
                 $scope.activities_loaded = true;
             }
