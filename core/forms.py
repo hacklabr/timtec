@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.mail import send_mail
 from django.contrib.auth import get_user_model
 from django.conf import settings
+from django.db.models import Q
 
 from .models import Class
 import logging
@@ -63,8 +64,12 @@ class AddStudentsForm(forms.ModelForm):
 
         for student_name in students:
             try:
-                student = User.objects.get(username=student_name)
+                student = User.objects.get(
+                    Q(username=student_name) |
+                    Q(email=student_name)
+                )
                 self.instance.add_students(student)
             except User.DoesNotExist:
                 logger.info(u'student with username: %s does not exist' % student_name)
+
         return super(AddStudentsForm, self).save(commit=commit)
