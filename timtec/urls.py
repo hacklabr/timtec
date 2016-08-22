@@ -78,7 +78,8 @@ router.register(r'certificate_template_images', CertificateTemplateImageViewSet,
 
 urlpatterns = patterns(
     '',
-    url(r'^$', HomeView.as_view(), name='home_view'),
+    # url(r'^$', HomeView.as_view(), name='home_view'),
+    url(r'^$', TemplateView.as_view(template_name="home_loading.html")),
     url(r'^courses', CoursesView.as_view(), name='courses'),
 
     # Uncomment the next line to enable the admin:
