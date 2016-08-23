@@ -79,7 +79,10 @@
                 {'name': 'trueorfalse', 'label': 'Verdadeiro ou falso'},
                 {'name': 'relationship', 'label': 'Relacionar sentenças'},
                 {'name': 'html5', 'label': 'HTML5'},
-                {'name': 'markdown', 'label': 'Texto simples'}
+                {'name': 'markdown', 'label': 'Texto simples'},
+                {'name': 'image', 'label': 'Imagem'},
+                {'name': 'reading', 'label': 'Atividade de leitura'},
+                {'name': 'discussion', 'label': 'Atividade com discussão'},
             ];
 
             /*  Methods */
@@ -151,6 +154,10 @@
                 }
                 if($scope.currentUnit.activities) {
                     $scope.currentActivity = $scope.currentUnit.activities[0];
+                    if($scope.currentActivity && $scope.currentActivity.type === 'discussion'){
+                      $scope.initializeDiscussionActivity();
+                    }
+
                 }
                 $scope.newActivityType = null;
 
@@ -212,6 +219,11 @@
                        .format($scope.currentActivity.type);
             };
 
+            $scope.initializeDiscussionActivity = function() {
+              $scope.currentActivity.data.start_date = new Date($scope.currentActivity.data.start_date);
+              $scope.currentActivity.data.end_date = new Date($scope.currentActivity.data.end_date);
+            };
+
             $scope.addNewActivity = function(type) {
                 if(!$scope.currentUnit) return;
                 if(!$scope.currentUnit.activities) $scope.currentUnit.activities = [];
@@ -224,16 +236,34 @@
                 } else {
                         expected = [];
                 }
-                $scope.currentActivity = {
-                    'type': type,
-                    'data': {
-                        'question': '',
-                        'alternatives': [],
-                        'column1': [],
-                        'column2': []
-                    },
-                    'expected': expected
-                };
+
+                if(type === 'discussion'){
+                  // JSON pattern for the discussion type of activities
+                  expected = '';
+                  $scope.currentActivity = {
+                      'type': type,
+                      'data': {
+                          'forum': '',
+                          'content': '',
+                          'start_date': null,
+                          'end_date': null
+                      },
+                      'expected': expected
+                  };
+                } else {
+                  // JSON pattern for other types of activities
+                  $scope.currentActivity = {
+                      'type': type,
+                      'data': {
+                          'question': '',
+                          'alternatives': [],
+                          'column1': [],
+                          'column2': []
+                      },
+                      'expected': expected
+                  };
+                }
+
                 $scope.currentUnit.activities.push($scope.currentActivity);
                 $scope.newActivityType = null;
                 MarkdownDirective.refreshEditorsPreview();

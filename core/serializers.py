@@ -291,15 +291,14 @@ class LessonSerializer(serializers.ModelSerializer):
             unit.save()
             activities = []
             for activity_data in activities_data:
-                activity_data['unit'] = unit
-                activity_data.pop('image_url', None)
-
-                # TODO investigate why this is needed!
-                # if the activity_id isn't removed from activity_data, a ValidationError: [u'Enter valid JSON'].
-                # As this doesn't happens with unit (see lines below), this may be related with (bug?) in djsonfild
+                # import pdb;pdb.set_trace()
                 activity_id = activity_data.pop('id', None)
-                activity = Activity(**activity_data)
-                activity.id = activity_id
+                activity, _ = Activity.objects.get_or_create(id=activity_id)
+                activity.comment = activity_data.get('comment', None)
+                activity.data = activity_data.get('data', None)
+                activity.expected = activity_data.get('expected', None)
+                activity.type = activity_data.get('type', None)
+                activity.unit = unit
                 activity.save()
                 activities.append(activity)
             unit.activities = activities

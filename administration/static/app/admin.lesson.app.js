@@ -14,6 +14,8 @@
         'directive.markdowneditor',
         // 'directive.sortable',
         // 'filters.text',
-        'youtube'
+        'youtube',
+        'header',
+        'ui.bootstrap'
     ]);
 })(window.angular);
