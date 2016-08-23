@@ -1,0 +1,55 @@
+@import '../bootstrap/less/bootstrap.less';
+@import 'flatui/checkbox-and-radio.less';
+
+// this class exists to circunvent a flash + youtube api error
+// in which if the video div is really hidden the api breaks
+.hidder {
+    position: absolute;
+    left: -3000px;
+}
+
+// MODULES
+@import 'default/modules/settings.less';
+@import 'default/modules/mixins.less';
+@import 'default/modules/helpers.less';
+
+// COMPONENTS
+@import 'default/components/actions-menu.less';
+@import 'default/components/alerts.less';
+@import 'default/components/autocomplete.less';
+@import 'default/components/buttons.less';
+@import 'default/components/course-box.less';
+@import 'default/components/course-nav.less';
+@import 'default/components/dropzone.less';
+@import 'default/components/filters.less';
+@import 'default/components/footer.less';
+@import 'default/components/headers.less';
+@import 'default/components/loading.less';
+@import 'default/components/modal.less';
+@import 'default/components/navs.less';
+@import 'default/components/navbar.less';
+@import 'default/components/tables.less';
+@import 'default/components/contenteditable.less';
+
+// PAGE STYLES
+@import 'default/pages/certificate.less';
+@import 'default/pages/course-activity.less';
+@import 'default/pages/course-content.less';
+@import 'default/pages/courses.less';
+@import 'default/pages/forum.less';
+@import 'default/pages/classes.less';
+@import 'default/pages/evaluations.less';
+@import 'default/pages/home.less';
+@import 'default/pages/messages.less';
+@import 'default/pages/my-courses.less';
+@import 'default/pages/my-notes.less';
+@import 'default/pages/profile.less';
+@import 'default/pages/registration.less';
+@import 'default/pages/stats.less';
+@import 'default/pages/users.less';
+
+// ADMIN
+// should be the last import
+@import 'default/pages/admin.less';
+
+@import 'introjs.less';
