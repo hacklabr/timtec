@@ -18,7 +18,6 @@
             $scope.course = new Course();
             $scope.courseProfessors = [];
             $scope.lessons = [];
-            window.s = $scope;
 
             $scope.course.$get({id: $scope.course_id})
                 .then(function(course){
