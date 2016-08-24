@@ -82,6 +82,8 @@
       '$scope',
       '$sce',
       '$routeParams',
+      '$location',
+      '$anchorScroll',
       'uiTinymceConfig',
       'Forum',
       'Topic',
@@ -91,7 +93,7 @@
       'CommentLike',
       'CommentFile',
       'Progress',
-      function ($scope, $sce, $routeParams, uiTinymceConfig, Forum, Topic, Comment, TopicLike, TopicFile, CommentLike, CommentFile, Progress) {
+      function ($scope, $sce, $routeParams, $location, $anchorScroll, uiTinymceConfig, Forum, Topic, Comment, TopicLike, TopicFile, CommentLike, CommentFile, Progress) {
         $scope.activity_open = true;
         $scope.activity_expired = false;
         var now = Date.now();
@@ -110,7 +112,7 @@
         // If there is not an answer yet, create topic instance
         $scope.topic = new Topic();
         $scope.topic.title = 'Resposta de atividade';
-        $scope.topic.forum = $scope.currentActivity.data.forum
+        $scope.topic.forum = $scope.currentActivity.data.forum;
 
         // Check if there is an answer to this activity
         if ($scope.answer.$promise) {
@@ -179,7 +181,7 @@
                     return {location: comment_file.file};
                 });
             }
-        }
+        };
 
         $scope.uploadCommentFiles = function (file, topic) {
             if (file) {
@@ -191,7 +193,25 @@
                     return {location: comment_file.file};
                 });
             }
-        }
+        };
+
+        var my_topic_activity = null;
+        $scope.my_answer = true;
+        // Load the given answer from other student on screen
+        $scope.viewAnswer = function(activity_topic){
+            if(my_topic_activity === null)
+                my_topic_activity = $scope.topic;
+            $scope.my_answer = false;
+            $scope.topic = activity_topic;
+            $scope.show_answer = true;
+            $location.hash('resposta');
+            $anchorScroll();
+        };
+
+        $scope.viewMyAnswer = function(){
+            $scope.topic = my_topic_activity;
+            $scope.my_answer = true;
+        };
 
         // Load other students activities
         $scope.latest_activities = Topic.query({
