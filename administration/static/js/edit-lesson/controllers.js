@@ -64,6 +64,10 @@
                         if(activityIndex >= 0) {
                             $scope.currentActivity = $scope.currentUnit.activities[activityIndex];
                         }
+
+                        // remove pop-up that confirm if user go without save changes
+                        window.onbeforeunload = function(){};
+
                     })['catch'](function(resp){
                         $scope.alert.error(httpErrors[resp.status.toString()]);
                     });
@@ -251,6 +255,13 @@
                     });
             }
             // ^^ como faz isso de uma formula angular ?
+
+            // add pop-up that confirm if user go without save changes
+            $scope.$watch('lesson', function(new_item, old_item) {
+                if(old_item.id && new_item != old_item) {
+                    window.onbeforeunload = function(){ return true; };
+                }
+            }, true);
         }
     ]);
 
