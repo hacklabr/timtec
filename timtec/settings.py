@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # Django settings for timtec project.
 from django.utils.translation import ugettext_lazy as _
 
@@ -350,7 +351,7 @@ PIPELINE = {
         },
         'public': {
             'source_filenames': (
-                # 'css/main.less',
+                'less/main-{}.less'.format(TIMTEC_THEME),
                 'scss/main-{}.scss'.format(TIMTEC_THEME),
             ),
             'output_filename': 'css/public.css',
