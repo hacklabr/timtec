@@ -204,7 +204,7 @@
             $scope.my_answer = false;
             $scope.topic = activity_topic;
             $scope.show_answer = true;
-            $location.hash('resposta');
+            $location.hash('top');
             $anchorScroll();
         };
 
