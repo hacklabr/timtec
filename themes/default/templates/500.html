@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+ 
+{% block title %}{% trans 'An error ocurred' %}{% endblock %}
+ 
+{% block content %}
+    <h1>{% trans 'An error ocurred' %}</h1>
+     
+    <p>
+        <p>{% trans "There's been an error. It's been reported to the site administrators via email and should be fixed shortly. Thanks for your patience." %}</p>
+    </p>
+{% endblock %}
