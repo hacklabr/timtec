@@ -38,7 +38,7 @@ $ cd timtec
 ### Arch Linux
 
 ```
-$ sudo pacman -S 
+$ sudo pacman -S
 $ sudo pacman -S python-virtualenvwrapper
 $ sudo pacman -S postgresql
 $ sudo pacman -S nodejs
@@ -54,6 +54,8 @@ $ sudo su - postgres -c "initdb --locale pt_BR.UTF-8 -D '/var/lib/postgres/data'
 ```
 sudo apt-get update
 sudo apt-get install -y libpq-dev libjpeg-dev libpng12-dev build-essential python-dev gettext python-virtualenv git
+
+sudo apt-get install -y postgresql
 
 curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 sudo apt-get update
