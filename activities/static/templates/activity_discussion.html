@@ -69,7 +69,7 @@
 
         <!-- the activity has been submited already and can be viewed -->
         <div class="user-activity forums thread" ng-show="show_answer">
-            <h3 class="title">Sua atividade:</h3>
+            <h3 class="title" ng-show="my_answer">Sua atividade:</h3>
             <div class="forum-thread" ng-cloak>
                 <div class="user-icon">
                     <img src="{{topic.author.picture}}" alt="{{ topic.author.name }}">
