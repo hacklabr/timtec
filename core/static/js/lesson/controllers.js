@@ -164,9 +164,14 @@
                 }
             };
 
+            $scope.slide_activity_update_position = function(){
+                $scope.current_position_slides = $scope.currentUnit.activities.indexOf($scope.currentActivity) + 1;
+            };
+
             $scope.next_activity_from_image = function() {
                 $scope.sendAnswer();
                 $scope.nextStep(true);
+                $scope.slide_activity_update_position();
             };
 
             $scope.previous_activity_from_image = function() {
@@ -180,6 +185,7 @@
 //                        $scope.currentUnit.progress = Progress.get({unit: $scope.currentUnit.id});
 //                        $scope.nextUnit();
                     }
+                    $scope.slide_activity_update_position();
                 }
             };
 
