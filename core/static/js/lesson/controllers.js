@@ -46,6 +46,11 @@
                 }
             };
 
+            $scope.prevUnit = function() {
+                var index = $scope.lesson.units.indexOf($scope.currentUnit);
+                index--;
+                $location.path('/{0}'.format(index+1));
+            };
 
             $scope.play = function() {
                 if($scope.currentUnit.video){
@@ -190,9 +195,8 @@
                         $scope.selectActivity(index - 1);
                         $scope.section = 'activity';
                     } else {
-                        // Volta pra unidade anterior?
 //                        $scope.currentUnit.progress = Progress.get({unit: $scope.currentUnit.id});
-//                        $scope.nextUnit();
+                       $scope.prevUnit();
                     }
                     $scope.slide_activity_update_position();
                 }
