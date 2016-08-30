@@ -41,7 +41,7 @@ DATABASES = {
     }
 }
 
-METRON_SETTINGS = {
+PINAX_WEBANALYTICS_SETTINGS = {
     "google": {
         1: "set-your-google-analytics-key-here",
     },
@@ -231,7 +231,7 @@ INSTALLED_APPS = (
     'reports',
     'core',
     # django-metron
-    'metron',
+    'pinax.webanalytics',
     # allauth
     'allauth',
     'allauth.account',
