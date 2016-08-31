@@ -228,6 +228,22 @@
             }
         );
 
+        $scope.topic_like = function(topic) {
+            if (topic.user_like) {
+                TopicLike.delete({id:topic.user_like});
+                topic.user_like = 0;
+                topic.count_likes -=1;
+            } else {
+                // Change this before promisse so the user sees the action take effect.
+                topic.user_like = -1;
+
+                  TopicLike.save({topic:topic.id}, function(topic_like){
+                    topic.user_like = topic_like.id;
+                });
+                topic.count_likes +=1
+            }
+        };
+
         $scope.save_comment = function(topic, parent_comment) {
             var new_comment = new Comment();
             var new_comment_files = [];
