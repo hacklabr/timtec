@@ -128,6 +128,10 @@
         $scope.edit_topic = false;
 
         $scope.save_answer = function() {
+            // if there is no content, the edit form must not disappear from screen
+            if($scope.topic.content === undefined || $scope.topic.content === ""){
+              return;
+            }
             $scope.sending = true;
             var topic_files = $scope.topic.files;
             if ($scope.topic.id)
