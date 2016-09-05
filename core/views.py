@@ -373,8 +373,7 @@ class CourseCertificationDetailView(DetailView):
 
             driver.service.process.send_signal(SIGTERM)
             driver.quit()
-
-            Image.open(png_path).convert("RGB").save(pdf_path, format='PDF')
+            Image.open(png_path).convert("RGB").save(pdf_path, format='PDF', quality=100, dpi=(300, 300))
 
             response = HttpResponse(content_type='application/pdf')
             response['Content-Disposition'] = 'attachment; filename=%s' % pdf_filename
@@ -407,6 +406,9 @@ class CertificationProcessViewSet(viewsets.ModelViewSet):
 
 
 class EmitReceiptView(RedirectView):
+
+    permanent = False
+
     def get_redirect_url(self, *args, **kwargs):
         course_id = kwargs.get('course_id')
         if course_id:

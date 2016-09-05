@@ -21,9 +21,15 @@ wrapper-course-lesson
 {% block content %}
 <!-- CONTAINER -->
 <div id="my-courses" class="container">
-    <header class="page-header-double">
-        <h2><i class="fa fa-angle-double-right"></i> {% trans "My Courses" %}</h2>
-    </header>
+    {% block content-header %}
+        <header class="page-header-double">
+            <h2><i class="fa fa-angle-double-right"></i>
+                {% block content-header-title %}
+                    {% trans "My Courses" %}
+                {% endblock %}
+            </h2>
+        </header>
+    {% endblock %}
 
     <section class="courses" role="tabpanel">
         {% with courses_user_enrolled=request.user.coursestudent_set.all %}
@@ -32,7 +38,11 @@ wrapper-course-lesson
             <li role="presentation" class="active"><a href="#course-as-student" aria-controls="course-as-student" role="tab" data-toggle="tab">{% trans "Courses I'm enrolled" %}</a></li>
             {% endif %}
             {% if user_has_certificates %}
-            <li role="presentation" ><a href="#my-certificates" aria-controls="my-certificates" role="tab" data-toggle="tab">{% trans "My certificates" %}</a></li>
+                <li role="presentation" ><a href="#my-certificates" aria-controls="my-certificates" role="tab" data-toggle="tab">
+                    {% block content-tab-mycertificates-title %}
+                        {% trans "My certificates" %}
+                    {% endblock %}
+                </a></li>
             {% endif %}
             {% if courses_user_assist %}
             <li role="presentation"><a href="#course-as-teacher" aria-controls="course-as-teacher" role="tab" data-toggle="tab">{% trans "Courses I assist" %}</a></li>
@@ -62,7 +72,10 @@ wrapper-course-lesson
                     <header>
                         <div class="row">
                             <div class="col-sm-8">
-                                <h1><a href="{% url 'resume_course' cs.course.slug %}">{{ cs.course.name }}</a></h1>
+                                <h1>
+                                    <a href="{% url 'resume_course' cs.course.slug %}">{{ cs.course.name }}</a>
+                                    <small>(Turma {% if cs.get_current_class.name|lower == cs.course.name|lower %}padrão{% else %}{{ cs.get_current_class.name }}{% endif %})</small>
+                                </h1>
                             </div>
                             <div class="col-sm-4 textright">
                                 <div class="btn-group">
@@ -75,6 +88,11 @@ wrapper-course-lesson
                     <div class="progress">
                         <div class="progress-bar" style="width:{{cs.percent_progress}}%;"></div>
                     </div>
+                    
+                    <div class="class">
+                        
+                    </div>
+
                     <a href="{% url 'user_course_notes' cs.course.slug %}" class="btn btn-default btn-sm">{% trans "My Notes" %}</a>
 
                     <!-- CERTIFICATE -->

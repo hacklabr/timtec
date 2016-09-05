@@ -14,7 +14,7 @@ wrapper-course-lesson
 {% endblock %}
 
 {% block content %}
-<section id="certificate">
+<div id="certificate">
     {% if object.type == 'receipt' %}
         {% if user.is_authenticated %}
             {% include "_course-header-inline.html"  with course=object.course_student.course %}
@@ -22,35 +22,37 @@ wrapper-course-lesson
             {% include "_go-to-course-button-inline.html"  with course=object.course_student.course %}
         {% endif %}
     {% endif %}
-    <div class="container">
-        {% if object.course_student.user.is_profile_filled %}
-            <div class="row">
-                <a href="{% url 'certificate-download' object.link_hash %}"
-                   class="btn btn-default pull-right hidden-print">
-                    <i class=" glyphicon glyphicon-print"></i>
-                    {% if object.type == 'receipt' %}
-                    {% trans 'Baixar Comprovante' %}
-                    {% else %}
-                    {% trans 'Baixar Certificado' %}
-                    {% endif %}
-                </a>
-            </div>
-            {% if object.type == 'receipt' %}
-                {% include "_certificate-receipt.html" %}
+    <section id="certificate-content" class="container">
+        <div>
+            {% if object.course_student.user.is_profile_filled %}
+                <div class="row">
+                    <div class="container">
+                        <a href="{% url 'certificate-download' object.link_hash %}"
+                           class="btn btn-default pull-right hidden-print download-certificate">
+                            <i class=" glyphicon glyphicon-print"></i>
+                            {% if object.type == 'receipt' %}
+                            {% trans 'Baixar Comprovante' %}
+                            {% else %}
+                            {% trans 'Baixar Certificado' %}
+                            {% endif %}
+                        </a>
+                    </div>
+                </div>
+                {% if object.type == 'receipt' %}
+                    {% include "_certificate-receipt.html" %}
+                {% else %}
+                    {% include "_certificate-certificate.html" %}
+                {% endif %}
             {% else %}
-            {%  block certificate %}
-            {% include "_certificate-certificate.html" %}
-            {% endblock %}
-            {% endif %}
-        {% else %}
-        <div class="certificate-container receipt">
-            <!-- TODO: translate -->
-            <p class="text-uppercase student-name">{% trans 'Este Atestado não está disponível pois o perfil do usuário não está preenchido.' %}</p>
-            {% if user.is_authenticated and user == object.course_student.user %}
-                <p><a href="{% url 'profile_edit' %}?next=/certificate/{{ object.link_hash }}">Clique aqui</a> para preencher o perfil e acessar o certificado.</p>
+            <div class="certificate-container receipt">
+                <!-- TODO: translate -->
+                <p class="text-uppercase student-name">{% trans 'Este Atestado não está disponível pois o perfil do usuário não está preenchido.' %}</p>
+                {% if user.is_authenticated and user == object.course_student.user %}
+                    <p><a href="{% url 'profile_edit' %}?next=/certificate/{{ object.link_hash }}">Clique aqui</a> para preencher o perfil e acessar o certificado.</p>
+                {% endif %}
+            </div>
             {% endif %}
         </div>
-        {% endif %}
-    </div>
-</section>
+    </section>
+</div>
 {% endblock %}

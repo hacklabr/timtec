@@ -41,5 +41,5 @@ RUN npm install \
 
 USER root
 EXPOSE 80 8000
-ENTRYPOINT  ["/app/timtec/docker/entrypoint.py"]
+
 CMD ["supervisord", "-c", "/app/timtec/docker/supervisord.conf"]

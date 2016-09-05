@@ -9,9 +9,14 @@
     {% compressed_js 'certificate' %}
 {% endblock %}
 
+{% block wrapper_classes %}
+wrapper-course-lesson
+{% endblock %}
+
 {% block content %}
 
 <section id="certificate" ng-app="certification" ng-controller="CertificateTemplateCtrl">
+
     <!-- ACTIONS -->
     <div class="actions-menu" fixed-bar>
         <div class="container">
@@ -23,11 +28,10 @@
         </div>
     </div>
     <!-- END ACTIONS -->
+
     {% include "_admin_header_inline.html" with course=course %}
-    <!-- TODO add form -->
 
-    <div class="container">
-
+    <section id="certificate-content" class="container">
         <header class="secondary-header">
             <div class="row">
                 <div class="col-sm-12">
@@ -37,10 +41,12 @@
         </header>
 
         <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#edit-certificate" aria-controls="edit-certificate" role="tab" data-toggle="tab">{% trans 'Edit certificate' %}</a></li>
-            <li role="presentation"><a href="#edit-receipt" aria-controls="edit-receipt" role="tab" data-toggle="tab">{% trans 'Edit receipt text' %}</a></li>
-        </ul>
+            {% block certificate-settings-tab %}
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#edit-certificate" aria-controls="edit-certificate" role="tab" data-toggle="tab">{% trans 'Edit certificate' %}</a></li>
+                    <li role="presentation"><a href="#edit-receipt" aria-controls="edit-receipt" role="tab" data-toggle="tab">{% trans 'Edit receipt text' %}</a></li>
+                </ul>
+            {% endblock %}
         <!-- Tab panes -->
         <div class="tab-content">
             {% block certificate-options %}
@@ -87,13 +93,15 @@
                 </div>
             </div>
             {% endblock %}
-            {% block statement_attendance %}
-            <div role="tabpanel" class="tab-pane edit-receipt" id="edit-receipt">
+            {% block receipt-options %}
+            <div role="tabpanel" class="{% block receipt-options-addclass %}{% endblock %} tab-pane edit-certificates" id="edit-receipt">
                 <div class="alert alert-info" role="alert">
-                    Edite as opções do atestado que será emitido automaticamente após a conclusão do curso. Este atestado <strong>não possui</strong> a mesma validade do certificado.
+                    Edite as opções do atestado que será emitido automaticamente após a conclusão do curso. <br> Este atestado <strong>não possui</strong> a mesma validade do certificado.
                 </div>
                 <div class="certificate-container receipt-admin receipt">
-                  <p class="text-uppercase student-name">(Nome do(a) concluinte, RG _________)</p>
+                    {% block receipt-options-student %}
+                        <p class="text-uppercase student-name">(Nome do(a) concluinte, RG _________)</p>
+                    {%   endblock %}
                   <p>Concluiu o curso online <em>{{ course.name }}</em> com carga
                     horária estimada de (40) horas em (data da conclusão).</p>
                   <section class="coordinator-section">
@@ -120,6 +128,7 @@
             </div>
             {% endblock %}
         </div>
-    </div>
+
+    </section>
 </section>
 {% endblock %}
