@@ -44,26 +44,20 @@ class RemoveStudentForm(forms.ModelForm):
         self.instance.remove_students(get_user_model().objects.get(id=uid))
         return super(RemoveStudentForm, self).save(commit=commit)
 
-
 class AddStudentsForm(forms.ModelForm):
     class Meta:
         model = Class
         fields = []
 
-    students_text = forms.CharField()
-
-    def clean_students_text(self):
-        data = self.cleaned_data['students_text'].strip().split()
-        data = [u.strip() for u in data]
-        return data
+    students_inline = forms.CharField(widget=forms.HiddenInput())
 
     def save(self, commit=True):
         User = get_user_model()
-        students = self.cleaned_data['students_text']
-
-        for student_name in students:
+        students = self.cleaned_data['students_inline']
+        
+        for student in students.split(","):
             try:
-                student = User.objects.get(username=student_name)
+                student = User.objects.get(id=student)
                 self.instance.add_students(student)
             except User.DoesNotExist:
                 logger.info(u'student with username: %s does not exist' % student_name)
