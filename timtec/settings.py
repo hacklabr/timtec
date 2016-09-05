@@ -17,6 +17,7 @@ TIMTEC_THEME = os.getenv('TIMTEC_THEME', 'default')  # don't forget to re run co
 SOUTH_AUTO_FREEZE_APP = True
 
 DEBUG = True
+DEBUG = False
 
 SITE_ID = 1
 SITE_HOME = ''
