@@ -28,7 +28,7 @@
         <p class="intro" ng-bind-html="get_as_safe_html(currentActivity.data.content | markdown)"></p>
 
         <!-- the activity has not been submited yet -->
-        <form class="new-thread" ng-show="!show_answer">
+        <form class="new-thread" name="newanswer" ng-show="!show_answer" ng-submit="newanswer.$valid && save_answer()">
             <!-- <div class="form-group">
                 <label for="thread-name">Como se chamará o novo tópico?</label>
                 <input ng-model="new_topic.title" type="text" class="form-control" id="thread-name" placeholder="Escreva o título aqui">
@@ -38,7 +38,7 @@
                 <textarea ui-tinymce
                           ng-model="topic.content"
                           ng-show="!topic.content || edit_topic"
-                          placeholder="Escreva aqui sua resposta"></textarea>
+                          placeholder="Escreva aqui sua resposta" required></textarea>
             </div>
 
             <div class="form-group">
@@ -63,7 +63,7 @@
                 </div>
             </div>
 
-            <button ng-click="save_answer()"
+            <button type="submit"
                     class="btn btn-success new-topic">postar nova resposta</button>
         </form>
 
