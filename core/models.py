@@ -477,6 +477,9 @@ class ProfessorMessage(models.Model):
     date = models.DateTimeField(_('Date'), auto_now_add=True)
     course = models.ForeignKey(Course, verbose_name=_('Course'), null=True)
 
+    def __unicode__(self):
+        return unicode(self.subject)
+
     def send(self):
         bcc = [u.email for u in self.users.all()]
         try:
