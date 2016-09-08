@@ -62,6 +62,11 @@ class AcceptTermsForm(forms.Form):
 
 class SignupForm(AcceptTermsForm):
 
+    first_name = forms.CharField(max_length=30, label=_('First Name'), required=False)
+    last_name = forms.CharField(max_length=30, label=_('Last Name'), required=False)
+
     def signup(self, request, user):
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
         user.accepted_terms = self.cleaned_data['accept_terms']
         user.save()
