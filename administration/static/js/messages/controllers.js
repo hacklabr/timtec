@@ -1,7 +1,7 @@
 (function(angular){
     'use strict';
 
-    var module = angular.module('messages.controllers', []);
+    var module = angular.module('messages.controllers', ['ui.tinymce']);
 
     // Service to share data across the controllers
     module.factory('messages_list', function() {
@@ -33,6 +33,16 @@
                     });
                 };
                 var SendMessageModalInstanceCtrl = function ($scope, $modalInstance, course_id) {
+
+                    $scope.tinymceModel = 'Initial content';
+                    $scope.tinymceOptions = {
+                        resize: false,
+                        menubar:false,
+                        statusbar: false,
+                        
+                        plugins: 'textcolor',
+                        toolbar: "undo redo styleselect bold italic print forecolor backcolor",
+                    };
 
                     $scope.new_message = new Message();
                     $scope.new_message.course = course_id;
