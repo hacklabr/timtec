@@ -58,7 +58,7 @@ settings_local.py
 /themes/*/static/css/main-admin.css
 /.cache
 /node_modules
-themes/default/templates/version.txt
+/themes/default/templates/version.txt
 
 # Vagrant
 .vagrant
