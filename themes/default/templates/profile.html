@@ -39,6 +39,7 @@ wrapper-course-lesson
                     <p ng-if="user_profile.city">
                         <span>
                             <i class="fa fa-map-marker"></i> {{user_profile.city}}
+                            <span ng-if="user_profile.state">({{ user_profile.state }})</span>  
                         </span>
                     </p>
                     <p><a href="{{user_profile.site}}" target="_blank">{{user_profile.site}}</a></p>
