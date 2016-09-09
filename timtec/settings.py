@@ -462,6 +462,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'rosetta',
     'autoslug',
+    'localflavor',
     # TIM Tec
     'accounts',
     'activities',
