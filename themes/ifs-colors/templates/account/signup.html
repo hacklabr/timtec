@@ -7,7 +7,7 @@
     <div class="form-group{{ errors|yesno:' has-error,' }}">
         <label class="col-lg-4 col-sm-4 control-label">{{ form.first_name.label }}</label>
         <div class="col-lg-8 col-sm-8">
-            <input name="first_name" type="text" value="{{form.first_name.value|default_if_none:""}}" class="form-control" placeholder="{{ form.first_name.label }}">
+            <input name="first_name" type="text" value="{{form.first_name.value|default_if_none:""}}" class="form-control" placeholder="{{ form.first_name.label }}" required>
             {% for error in errors %}<small>{{error}}</small>{% endfor %}
         </div>
     </div>
@@ -17,7 +17,27 @@
     <div class="form-group{{ errors|yesno:' has-error,' }}">
         <label class="col-lg-4 col-sm-4 control-label">{{ form.last_name.label }}</label>
         <div class="col-lg-8 col-sm-8">
-            <input name="last_name" type="text" value="{{form.last_name.value|default_if_none:""}}" class="form-control" placeholder="{{ form.last_name.label }}">
+            <input name="last_name" type="text" value="{{form.last_name.value|default_if_none:""}}" class="form-control" placeholder="{{ form.last_name.label }}"  required>
+            {% for error in errors %}<small>{{error}}</small>{% endfor %}
+        </div>
+    </div>
+    {% endwith %}
+    
+    {% with errors=form.city.errors %}
+    <div class="form-group{{ errors|yesno:' has-error,' }}">
+        <label class="col-lg-4 col-sm-4 control-label">{{ form.city.label }}</label>
+        <div class="col-lg-8 col-sm-8">
+            <input name="city" type="text" value="{{form.city.value|default_if_none:""}}" class="form-control" placeholder="{{ form.city.label }}"  required>
+            {% for error in errors %}<small>{{error}}</small>{% endfor %}
+        </div>
+    </div>
+    {% endwith %}
+
+    {% with errors=form.state.errors %}
+    <div class="form-group{{ errors|yesno:' has-error,' }}">
+        <label class="col-lg-4 col-sm-4 control-label">{{ form.state.label }}</label>
+        <div class="col-lg-8 col-sm-8">
+            {{ form.state }}
             {% for error in errors %}<small>{{error}}</small>{% endfor %}
         </div>
     </div>
@@ -31,7 +51,7 @@
     <div class="form-group{{ errors|yesno:' has-error,' }}">
         <label class="col-lg-4 col-sm-4 control-label">{{ form.first_name.label }}</label>
         <div class="col-lg-8 col-sm-8">
-            <input name="first_name" type="text" value="{{form.first_name.value|default_if_none:""}}" class="form-control" placeholder="{{ form.first_name.label }}">
+            <input name="first_name" type="text" value="{{form.first_name.value|default_if_none:""}}" class="form-control" placeholder="{{ form.first_name.label }}"  required>
             {% for error in errors %}<small>{{error}}</small>{% endfor %}
         </div>
     </div>
@@ -41,7 +61,27 @@
     <div class="form-group{{ errors|yesno:' has-error,' }}">
         <label class="col-lg-4 col-sm-4 control-label">{{ form.last_name.label }}</label>
         <div class="col-lg-8 col-sm-8">
-            <input name="last_name" type="text" value="{{form.last_name.value|default_if_none:""}}" class="form-control" placeholder="{{ form.last_name.label }}">
+            <input name="last_name" type="text" value="{{form.last_name.value|default_if_none:""}}" class="form-control" placeholder="{{ form.last_name.label }}"  required>
+            {% for error in errors %}<small>{{error}}</small>{% endfor %}
+        </div>
+    </div>
+    {% endwith %}
+
+    {% with errors=form.city.errors %}
+    <div class="form-group{{ errors|yesno:' has-error,' }}">
+        <label class="col-lg-4 col-sm-4 control-label">{{ form.city.label }}</label>
+        <div class="col-lg-8 col-sm-8">
+            <input name="city" type="text" value="{{form.city.value|default_if_none:""}}" class="form-control" placeholder="{{ form.city.label }}"  required>
+            {% for error in errors %}<small>{{error}}</small>{% endfor %}
+        </div>
+    </div>
+    {% endwith %}
+
+    {% with errors=form.state.errors %}
+    <div class="form-group{{ errors|yesno:' has-error,' }}">
+        <label class="col-lg-4 col-sm-4 control-label">{{ form.state.label }}</label>
+        <div class="col-lg-8 col-sm-8">
+            {{ form.state }}
             {% for error in errors %}<small>{{error}}</small>{% endfor %}
         </div>
     </div>
