@@ -40,11 +40,16 @@ class ProfileEditForm(BaseProfileEditForm):
 
     password1 = forms.CharField(widget=forms.PasswordInput, label=_("Password"), required=False)
     password2 = forms.CharField(widget=forms.PasswordInput, label=_("Password (again)"), required=False)
-
+    state = StateChoiceField(label=_('State'), required=False)
+    
     class Meta:
         model = get_user_model()
         fields = ('username', 'email', 'first_name', 'last_name', 'picture',
-                  'occupation', 'city', 'site', 'biography',)
+                  'occupation', 'city', 'state', 'site', 'biography',)
+
+    def __init__(self, *args, **kwargs):
+        super(BaseProfileEditForm, self).__init__(*args, **kwargs)
+        self.fields['state'].widget.attrs['class'] = 'form-control' 
 
     def clean_username(self):
         return self.instance.username
@@ -81,10 +86,6 @@ class SignupForm(AcceptTermsForm):
     city = forms.CharField(max_length=30, label=_('City'), required=False)
     state = StateChoiceField(label=_('State'), required=False)
     
-    #####
-    # TODO estado, cidade e replicar no timtec theme
-    #####
-
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
         self.fields['state'].widget.attrs['required'] = True 

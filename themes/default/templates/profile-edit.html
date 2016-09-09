@@ -94,6 +94,16 @@ wrapper-course-lesson
                     </div>
                     {% endwith %}
 
+                    {% with errors=form.state.errors %}
+                    <div class="form-group{{ errors|yesno:" has-error,"}}">
+                        <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "City" %}</label>
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                            {{ form.state }}
+                            {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                        </div>
+                    </div>
+                    {% endwith %}
+
                     {% with errors=form.site.errors %}
                     <div class="form-group{{ errors|yesno:" has-error,"}}">
                         <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "Site" %}</label>
