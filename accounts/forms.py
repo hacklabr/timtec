@@ -5,6 +5,20 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from timtec.settings import ACCOUNT_REQUIRED_FIELDS as fields
 
+try:
+    # trys to import the statechoice defined in settings
+    import importlib
+
+    cls = settings.LOCALFLAVOR_STATECHOICE_FIELD
+    class_name = cls.split(".")[-1]
+    module_name = cls.replace(".%s" % class_name, "")
+    
+    module = importlib.import_module(module_name)
+    StateChoiceField = getattr(module, class_name)
+except Exception as e:
+    from localflavor.br.forms import BRStateChoiceField as StateChoiceField
+
+
 User = get_user_model()
 
 
@@ -64,9 +78,22 @@ class SignupForm(AcceptTermsForm):
 
     first_name = forms.CharField(max_length=30, label=_('First Name'), required=False)
     last_name = forms.CharField(max_length=30, label=_('Last Name'), required=False)
+    city = forms.CharField(max_length=30, label=_('City'), required=False)
+    state = StateChoiceField(label=_('State'), required=False)
+    
+    #####
+    # TODO estado, cidade e replicar no timtec theme
+    #####
+
+    def __init__(self, *args, **kwargs):
+        super(SignupForm, self).__init__(*args, **kwargs)
+        self.fields['state'].widget.attrs['required'] = True 
+        self.fields['state'].widget.attrs['class'] = 'form-control' 
 
     def signup(self, request, user):
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
+        user.city = self.cleaned_data['city']
+        user.state = self.cleaned_data['state']
         user.accepted_terms = self.cleaned_data['accept_terms']
         user.save()
