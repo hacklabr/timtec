@@ -15,6 +15,7 @@
         theme : 'modern',
         language: 'pt_BR',
         language_url : '/static/vendor/tinymce/langs/pt_BR.js',
+        base_url: '/static/tinymce-dist/'
     })
 
 })(window.angular);
