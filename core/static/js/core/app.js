@@ -13,6 +13,7 @@
         'directive.fixedBar',
         'directive.alertPopup',
         'directive.markdowneditor',
+        'header',
     ]);
 
 })(angular);
