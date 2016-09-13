@@ -33,7 +33,8 @@
     "angular-ui-tinymce": "^0.0.16",
     "tinymce-dist": "4.3.12",
     "ng-file-upload": "^12.0.4",
-    "angular-ui-select": "^0.19.4"
+    "angular-ui-select": "^0.19.4",
+    "impress-js": "impress.js#^0.6.0"
   },
   "resolutions": {
     "angular-bootstrap": "^1.2.0"
