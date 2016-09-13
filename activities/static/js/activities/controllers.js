@@ -315,4 +315,15 @@
 
       }
     ]);
+
+    app.controller('SlideActivityCtrl', [
+      '$scope',
+      '$sce',
+      'uiTinymceConfig',
+      function ($scope, $sce, uiTinymceConfig) {
+        uiTinymceConfig.automatic_uploads = true;
+
+
+      }
+    ]);
 })(angular);
