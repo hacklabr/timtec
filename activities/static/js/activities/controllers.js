@@ -316,7 +316,7 @@
       }
     ]);
 
-    app.controller('SlideActivityCtrl', [
+    app.controller('PresentationActivityCtrl', [
       '$scope',
       '$sce',
       'uiTinymceConfig',
