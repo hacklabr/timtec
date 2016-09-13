@@ -323,6 +323,9 @@
       function ($scope, $sce, uiTinymceConfig) {
         uiTinymceConfig.automatic_uploads = true;
 
+        $scope.getReadingActivityHtml = function() {
+            return $sce.trustAsHtml($scope.currentActivity.comment);
+        };
 
       }
     ]);
