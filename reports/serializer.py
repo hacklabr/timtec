@@ -6,6 +6,7 @@ from core.models import CourseStudent, Course
 class UserCourseStatsSerializer(serializers.ModelSerializer):
 
     name = serializers.SerializerMethodField('get_full_name')
+    picture = serializers.SerializerMethodField('get_picture_url')
     username = serializers.SerializerMethodField()
     email = serializers.SerializerMethodField()
     user_id = serializers.SerializerMethodField()
@@ -16,10 +17,13 @@ class UserCourseStatsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CourseStudent
-        fields = ('name', 'username', 'email', 'user_id', 'course_progress',)
+        fields = ('name', 'username', 'email', 'user_id', 'course_progress', 'picture')
 
     def get_full_name(self, obj):
         return obj.user.get_full_name()
+
+    def get_picture_url(self, obj):
+        return obj.user.get_picture_url()
 
     def get_username(self, obj):
         return obj.user.username
