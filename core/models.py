@@ -17,6 +17,7 @@ from django.conf import settings
 from autoslug import AutoSlugField
 
 from notes.models import Note
+from activities.models import Activity, Answer
 from course_material.models import CourseMaterial
 from .utils import hash_name
 
@@ -386,10 +387,23 @@ class CourseStudent(models.Model):
             lesson_progress['slug'] = lesson.slug
             lesson_progress['position'] = lesson.position
             units_len = lesson.unit_count()
+            lesson_progress['activities'] = []
             if units_len:
                 units_done_len = self.units_done_by_lesson(lesson).count()
                 lesson_progress['progress'] = 100 * units_done_len / units_len
                 lesson_progress['finish'] = self.get_lesson_finish_time(lesson)
+                activities = Activity.objects.filter(unit__lesson=lesson, type='discussion')
+                i = 0
+                for activity in activities:
+                    i = i + 1
+                    new_actv = {}
+                    new_actv['name'] = 'Atividade ' + str(i)
+                    ans = Answer.objects.filter(activity=activity, user=self.user)
+                    if ans:
+                        new_actv['done'] = 'true'
+                    else:
+                        new_actv['done'] = 'false'
+                    lesson_progress['activities'].append(new_actv)
             else:
                 lesson_progress['progress'] = 0
                 lesson_progress['finish'] = ''

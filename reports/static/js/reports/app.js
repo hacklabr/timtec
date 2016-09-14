@@ -7,5 +7,6 @@
         'reports.controllers',
         'reports.services',
         'timtec-models',
-        'ui.bootstrap']);
+        'ui.bootstrap',
+        'header']);
 })(angular);
