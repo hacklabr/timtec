@@ -221,7 +221,7 @@ class ProfileSerializer(TimtecUserSerializer):
         model = get_user_model()
         fields = ('id', 'username', 'name', 'first_name', 'last_name',
                   'biography', 'picture', 'is_profile_filled', 'occupation',
-                  'certificates', 'city', 'site', 'occupation', )
+                  'certificates', 'city', 'state', 'site', 'occupation', )
 
 
 class CourseThumbSerializer(serializers.ModelSerializer):

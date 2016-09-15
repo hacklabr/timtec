@@ -1,0 +1,129 @@
+{% load i18n %}
+
+<form role="form" method="post" action="{% url 'class-add-users' pk=class.id %}">
+    {% csrf_token %}
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="class-modal-label">{{ object.name }}</h4>
+    </div>
+    <div class="modal-body">
+        {{ form }}
+        <div class='form-group'>
+            <input type='text' id='search' class='form-control' placeholder="{% trans "Search by username" %}">
+        </div>
+        
+        <div class='form-group'>
+            <div id='users-selected'></div>
+        </div>
+
+        <table class='table table-condensed'>   
+            <thead>
+                <th>{% trans "Username" %}</th>
+                <th width="50%">{% trans "Name" %}</th>
+                <th width="3%">{% trans "Actions" %}</th>
+            </thead>
+            <tbody id='loading-students-message'>
+                <tr>
+                    <td colspan="3">
+                        <p class="textcenter">{% trans "Loading students..." %} <i class="loading fa fa-refresh fa-spin"></i></p>
+                    </td>
+                </tr>
+            </tbody>
+
+            <tbody id='tbody-students'>
+                <tr>
+                    <td colspan="3">
+                        <p class="textcenter">{% trans "Search for the students above..." %}</p>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+        
+        {# {{ form }} #}
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary disabled">{% trans 'Add users' %}</button>
+    </div>
+</form>
+
+<script>
+
+var students_selected = {}
+
+$(function(){
+    // hiding the loading gif
+    $("#loading-students-message").hide();
+
+    // does the ajax search every time that search input receive a new char
+    $("#search").on('keypress', function(){
+        var query = $("#search").val();
+        if(query.length >= 3) {
+            $("#tbody-students").html('');
+            search_student(query);
+        }
+    });
+});
+
+function generate_list_users() {
+    $("#users-selected").html('');
+
+    // disables submit button. If has students selected, the button is enabled below
+    $("button[type=submit]").addClass('disabled');
+    
+    // generate labels with selected users
+    for(id in students_selected) {
+        name = students_selected[id];
+        output = "<span><a href='javascript:remove_user("+ id +")' class='label label-primary'>"+ name +" <i class='glyphicon glyphicon-remove'></i></a>&nbsp;</span>";
+        $("#users-selected").append(output);
+        $("#row_"+id).hide();
+    }
+
+    // adds user's ids to hidden input
+    if(students_selected) {
+        output = "";
+        for(id in students_selected) {
+            output += id + ",";
+            $("button[type=submit]").removeClass('disabled');
+        }
+
+        $("#id_students_inline").val(output.slice(0, -1));
+    }
+}
+
+function add_user(id, name) {
+    students_selected[id] = name;
+    generate_list_users();
+}
+
+function remove_user(id) {
+    delete students_selected[id];
+    generate_list_users();
+    $("#row_"+id).show();
+}
+
+function search_student(query) {
+
+    $("#loading-students-message").show();
+
+    // does the search on ajax webservice
+    $.get("{% url 'student_search' %}?name=" + query, function(data){
+        $("#loading-students-message").hide();
+        for(group in data) {
+            if (group > 30) break;
+
+            item = data[group];
+            if(students_selected[item.id] === item.name) continue;
+
+            // populate table with response data
+            line = "<tr id='row_"+ item.id +"'>";
+            line += "<td>"+ item.username +"</td>";
+            line += "<td>"+ item.name +"</td>";
+            line += "<td><a href='javascript:add_user("+ item.id +", \""+ item.username +"\")' class='btn btn-sm btn-primary'><i class='fa fa-plus'></i></a></td>";
+            line += "</tr>";
+            $("#tbody-students").append(line);
+        }
+    });
+}
+</script>

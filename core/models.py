@@ -477,12 +477,15 @@ class ProfessorMessage(models.Model):
     date = models.DateTimeField(_('Date'), auto_now_add=True)
     course = models.ForeignKey(Course, verbose_name=_('Course'), null=True)
 
+    def __unicode__(self):
+        return unicode(self.subject)
+
     def send(self):
         bcc = [u.email for u in self.users.all()]
         try:
             et = EmailTemplate.objects.get(name='professor-message')
         except EmailTemplate.DoesNotExist:
-            et = EmailTemplate(name="professor-message", subject="{{subject}}", template="{{message}}")
+            et = EmailTemplate(name="professor-message", subject="{{subject}}", template="{{message|safe}}")
         subject = Template(et.subject).render(Context({'subject': self.subject}))
         message = Template(et.template).render(Context({'message': self.message}))
         email = EmailMessage(subject, message, settings.DEFAULT_FROM_EMAIL, None, bcc)

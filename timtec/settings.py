@@ -213,6 +213,8 @@ PIPELINE_JS = {
     },
     'messages': {
         'source_filenames': (
+            'tinymce-dist/tinymce.js',
+            'angular-ui-tinymce/src/tinymce.js',
             'js/messages/app.js',
             'js/messages/controllers.js',
             'js/messages/services.js',
@@ -460,6 +462,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'rosetta',
     'autoslug',
+    'localflavor',
     # TIM Tec
     'accounts',
     'activities',
@@ -515,6 +518,9 @@ TWITTER_CONSUMER_SECRET = ''
 TWITTER_ACESS_TOKEN = ''
 TWITTER_ACESS_TOKEN_SECRET = ''
 TWITTER_USER = ''
+
+# Local flavor state class
+LOCALFLAVOR_STATECHOICE_FIELD = 'localflavor.br.forms.BRStateChoiceField'
 
 YOUTUBE_API_KEY = ''
 # A sample logging configuration. The only tangible logging

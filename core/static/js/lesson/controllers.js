@@ -118,6 +118,17 @@
                     ga('send', 'event', 'activity', 'result', '', answer.correct);
                     $scope.currentUnit.progress = Progress.get({unit: $scope.currentUnit.id});
                     answer.updated = true;
+
+                    // checks if there empty answers in array
+                    if($scope.currentActivity.type === 'trueorfalse') {
+                        for(var item in $scope.answer.given) {
+                            if($scope.answer.given[item] === null) {
+                                $scope.answer.incomplete = true;
+                                return $scope.answer;
+                            }
+                        }
+                    }
+                    
                     return answer;
                 });
                 ga('send', 'event', 'activity', 'submit');
