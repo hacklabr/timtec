@@ -661,16 +661,6 @@ class ClassRemoveUserView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
         return reverse_lazy('class', kwargs={'pk': self.object.id})
 
 
-class ClassAddUsersView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
-    model = Class
-    form_class = AddStudentsForm
-    http_method_names = ['post', 'get']
-    template_name = 'class_edit_add_users.html'
-
-    def get_success_url(self):
-        return reverse_lazy('class', kwargs={'pk': self.object.id})
-
-
 class ClassEvaluationsView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
     model = Class
     template_name = 'evaluations.html'
