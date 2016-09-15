@@ -170,6 +170,14 @@ PIPELINE_CSS = {
             'media': 'screen,projection,print',
         },
     },
+    'messages': {
+        'source_filenames': (
+            'tinymce-dist/skins/lightgray/skin.min.css',
+            'tinymce-dist/skins/lightgray/skin.ie7.min.css',
+            'tinymce-dist/skins/lightgray/content.min.css',
+        ),
+        'output_filename': 'css/messages.css',
+    },
 }
 
 PIPELINE_JS = {

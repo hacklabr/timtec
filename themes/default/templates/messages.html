@@ -7,6 +7,11 @@
 wrapper-course-lesson
 {% endblock %}
 
+{% block css %}
+    {{block.super}}
+    {% compressed_css 'messages' %}
+{% endblock %}
+
 {% block js %}
     {{block.super}}
     <script>
