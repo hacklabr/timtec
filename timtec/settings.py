@@ -214,6 +214,10 @@ PIPELINE_JS = {
     'messages': {
         'source_filenames': (
             'tinymce-dist/tinymce.js',
+            'tinymce-dist/plugins/textcolor/plugin.js',
+            'tinymce-dist/themes/modern/theme.js',
+            'tinymce-dist/skins/lightgray/skin.min.css',
+            'tinymce-dist/skins/lightgray/content.min.css',
             'angular-ui-tinymce/src/tinymce.js',
             'js/messages/app.js',
             'js/messages/controllers.js',
