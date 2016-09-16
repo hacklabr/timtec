@@ -137,15 +137,6 @@ class CertificateTemplateImageSerializer(serializers.ModelSerializer):
         fields = ('base_logo', 'cert_logo', )
 
 
-class ClassSerializer(serializers.ModelSerializer):
-    students = TimtecUserAdminCertificateSerializer(read_only=True)
-    processes = CertificationProcessSerializer(read_only=True)
-    evaluations = EvaluationSerializer(read_only=True)
-
-    class Meta:
-        model = Class
-
-
 class VideoSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -160,6 +151,7 @@ class CourseSerializer(serializers.ModelSerializer):
     home_thumbnail_url = serializers.SerializerMethodField('get_home_thumbnail_url')
     professors_names = serializers.SerializerMethodField('get_professors_names')
     has_started = serializers.Field()
+    professors = TimtecUserSerializer(source="professors", read_only=True)
 
     class Meta:
         model = Course
@@ -167,7 +159,7 @@ class CourseSerializer(serializers.ModelSerializer):
                   "abstract", "structure", "workload", "pronatec", "status",
                   "thumbnail_url", "home_thumbnail_url", "home_position",
                   "start_date", "professor_name", "home_published",
-                  "professors_names", "has_started",
+                  "professors_names", "has_started", 'professors',
                   "min_percent_to_complete")
 
     @staticmethod
@@ -191,6 +183,19 @@ class CourseSerializer(serializers.ModelSerializer):
         if obj.home_thumbnail:
             return obj.home_thumbnail.url
         return ''
+
+
+class ClassSerializer(serializers.ModelSerializer):
+    students = TimtecUserAdminCertificateSerializer(read_only=True)
+    processes = CertificationProcessSerializer(read_only=True)
+    evaluations = EvaluationSerializer(read_only=True)
+    course = CourseSerializer(read_only=True)
+    assistant = TimtecUserSerializer(read_only=True)
+    students_management = serializers.PrimaryKeyRelatedField(many=True, read_only=False, source='students')
+    assistant_management = serializers.PrimaryKeyRelatedField(read_only=False, source='assistant', required=False)
+
+    class Meta:
+        model = Class
 
 
 class CourseStudentSerializer(serializers.ModelSerializer):

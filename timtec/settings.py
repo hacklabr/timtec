@@ -235,6 +235,17 @@ PIPELINE_JS = {
         ),
         'output_filename': 'js/messages.js',
     },
+    'edit-class': {
+        'source_filenames': (
+            'js/directives/waiting-screen.js',
+            'js/edit-class/app.js',
+            'js/edit-class/controllers.js',
+            'js/edit-class/services.js',
+            'checklist-model/checklist-model.js',
+            'js/factories/timtec-models.js',
+        ),
+        'output_filename': 'js/messages.js',
+    },
     'certificate': {
         'source_filenames': (
             'js/certificate/app.js',
