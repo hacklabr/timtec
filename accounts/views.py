@@ -135,6 +135,7 @@ class StudentSearchView(LoginRequiredMixin, generics.ListAPIView):
             if course is not None:
                 queryset = queryset.filter(studentcourse_set=course)
         query = self.request.query_params.get('name', None)
+
         if query is not None:
             queryset = queryset.filter(Q(first_name__icontains=query) |
                                        Q(last_name__icontains=query) |

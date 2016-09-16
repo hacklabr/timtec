@@ -181,6 +181,7 @@ class VideoSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
+
     intro_video = VideoSerializer(required=False, read_only=True)
     home_thumbnail_url = serializers.SerializerMethodField()
     is_user_assistant = serializers.SerializerMethodField()
@@ -210,6 +211,19 @@ class CourseSerializer(serializers.ModelSerializer):
 
     def get_is_assistant_or_coordinator(self, obj):
         return obj.is_assistant_or_coordinator(self.context['request'].user)
+
+
+class ClassSerializer(serializers.ModelSerializer):
+    students = TimtecUserAdminCertificateSerializer(read_only=True)
+    processes = CertificationProcessSerializer(read_only=True)
+    evaluations = EvaluationSerializer(read_only=True)
+    course = CourseSerializer(read_only=True)
+    assistant = TimtecUserSerializer(read_only=True)
+    students_management = serializers.PrimaryKeyRelatedField(many=True, read_only=False, source='students')
+    assistant_management = serializers.PrimaryKeyRelatedField(read_only=False, source='assistant', required=False)
+
+    class Meta:
+        model = Class
 
 
 class CourseStudentSerializer(serializers.ModelSerializer):
