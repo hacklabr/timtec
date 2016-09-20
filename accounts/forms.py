@@ -12,7 +12,7 @@ try:
     cls = settings.LOCALFLAVOR_STATECHOICE_FIELD
     class_name = cls.split(".")[-1]
     module_name = cls.replace(".%s" % class_name, "")
-    
+
     module = importlib.import_module(module_name)
     StateChoiceField = getattr(module, class_name)
 except Exception as e:
@@ -41,7 +41,7 @@ class ProfileEditForm(BaseProfileEditForm):
     password1 = forms.CharField(widget=forms.PasswordInput, label=_("Password"), required=False)
     password2 = forms.CharField(widget=forms.PasswordInput, label=_("Password (again)"), required=False)
     state = StateChoiceField(label=_('State'), required=False)
-    
+
     class Meta:
         model = get_user_model()
         fields = ('username', 'email', 'first_name', 'last_name', 'picture',
@@ -49,7 +49,7 @@ class ProfileEditForm(BaseProfileEditForm):
 
     def __init__(self, *args, **kwargs):
         super(BaseProfileEditForm, self).__init__(*args, **kwargs)
-        self.fields['state'].widget.attrs['class'] = 'form-control' 
+        self.fields['state'].widget.attrs['class'] = 'form-control'
 
     def clean_username(self):
         return self.instance.username
@@ -85,11 +85,11 @@ class SignupForm(AcceptTermsForm):
     last_name = forms.CharField(max_length=30, label=_('Last Name'), required=False)
     city = forms.CharField(max_length=30, label=_('City'), required=False)
     state = StateChoiceField(label=_('State'), required=False)
-    
+
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
-        self.fields['state'].widget.attrs['required'] = True 
-        self.fields['state'].widget.attrs['class'] = 'form-control' 
+        self.fields['state'].widget.attrs['required'] = True
+        self.fields['state'].widget.attrs['class'] = 'form-control'
 
     def signup(self, request, user):
         user.first_name = self.cleaned_data['first_name']

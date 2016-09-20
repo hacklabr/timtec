@@ -39,8 +39,7 @@ from .models import (Course, CourseProfessor, Lesson, StudentProgress,
                      CourseAuthor, CourseCertification, CertificationProcess,
                      Evaluation, CertificateTemplate, IfCertificateTemplate)
 
-from .forms import (ContactForm, RemoveStudentForm,
-                    AddStudentsForm, )
+from .forms import (ContactForm, RemoveStudentForm)
 
 from .permissions import IsProfessorCoordinatorOrAdminPermissionOrReadOnly, IsAdminOrReadOnly
 
