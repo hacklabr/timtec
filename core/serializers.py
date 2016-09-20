@@ -11,6 +11,7 @@ from activities.serializers import ActivitySerializer
 from rest_framework.reverse import reverse_lazy
 from notes.models import Note
 from rest_framework import serializers
+from accounts.models import UserSocialAccount
 
 
 class ProfessorMessageSerializer(serializers.ModelSerializer):
@@ -218,15 +219,25 @@ class CourseStudentSerializer(serializers.ModelSerializer):
                   'current_class', 'min_percent_to_complete',)
 
 
+class UserSocialAccountSerializer(serializers.ModelSerializer):
+
+    get_absolute_url = serializers.Field()
+
+    class Meta:
+        model = UserSocialAccount
+        fields = ('social_media', 'nickname', 'get_absolute_url')
+
+
 class ProfileSerializer(TimtecUserSerializer):
-    certificates = ProfileCourseCertificationSerializer(many=True,
-                                                        source="get_certificates")
+
+    certificates = ProfileCourseCertificationSerializer(many=True, source="get_certificates")
+    social_medias = UserSocialAccountSerializer(many=True, source='get_social_media')
 
     class Meta:
         model = get_user_model()
         fields = ('id', 'username', 'name', 'first_name', 'last_name',
                   'biography', 'picture', 'is_profile_filled', 'occupation',
-                  'certificates', 'city', 'state', 'site', 'occupation', )
+                  'certificates', 'city', 'state', 'site', 'occupation', 'social_medias')
 
 
 class CourseThumbSerializer(serializers.ModelSerializer):

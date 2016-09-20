@@ -47,6 +47,18 @@ wrapper-course-lesson
                 {% endverbatim %}
                 <!--<span>2 cursos finalizados</span> | <span>1 certificado de conclusão</span>-->
             </div>
+
+            {% verbatim %}
+            <div class="social-media">
+                <span ng-repeat='item in user_profile.social_medias' title='Visite o {{ item.social_media }} deste usuário.'>
+                    <a href="{{ item.get_absolute_url }}" class='btn btn-default btn-sm' target="_blank">
+                        <i ng-hide="item.social_media == 'facebook'" class='fa fa-{{ item.social_media }}'></i>
+                        <i ng-show="item.social_media == 'facebook'" class='fa fa-facebook-official'></i>
+                    </a>
+                </span>
+            </div>
+            {% endverbatim %}
+
             <div class="user-bio">
                 {% verbatim %}
                 <p>{{user_profile.biography}}</p>
