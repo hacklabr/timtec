@@ -118,7 +118,7 @@ class UserSocialAccount(models.Model):
         ('snapchat', _("Snapchat")),
         ('whatsapp', _("Whatsapp")),
         ('twitter', _("Twitter")),
-        ('linkedin', _("Linked-In")),
+        # ('linkedin', _("Linked-In")), 
         ('youtube', _("Youtube")),
     )
 
