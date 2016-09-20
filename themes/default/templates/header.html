@@ -58,7 +58,7 @@
                         <li><a href="{% url 'user_courses' %}">{% trans "My Courses" %}</a></li>
                         <li><a href="{% url 'user_notes' %}">{% trans "My Notes" %}</a></li>
                         <li class='divider'></li>
-                        <li><a href="{% url 'timtec_logout' %}">{% trans "Logout" %}</a></li>
+                        <li><a href="{% url 'timtec_logout' %}?next={{ request.path }}">{% trans "Logout" %}</a></li>
                     </ul>
                 	{% endblock %}
                 </li>
@@ -69,8 +69,7 @@
                 </li>
                 <li>
                 {% block header_signup_link %}
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans 'Sign Up' %}</a>
-                    {% include '_signup_modal.html' %}
+                    <a href="{% url 'account_signup' %}">{% trans 'Sign Up' %}</a>
                 {% endblock %}
                 </li>
             {% endif %}

@@ -52,7 +52,11 @@
                       </div>
                     </div>
                   </div>
-                  <input type="hidden" name="next" />
+                  {% if request.GET.next %}
+                    <input type='hidden' name='next' value='{{ request.GET.next }}'>
+                  {% else %}
+                    <input type='hidden' name='next' value='{{ request.path }}'>
+                  {% endif %}
                 </form>
               </div>
             </div>
@@ -103,7 +107,11 @@
                       </div>
                     </div>
                   </div>
-                  <input type="hidden" name="next" />
+                  {% if request.GET.next %}
+                    <input type='hidden' name='next' value='{{ request.GET.next }}'>
+                  {% else %}
+                    <input type='hidden' name='next' value='{{ request.path }}'>
+                  {% endif %}
                 </form>
               </div>
             </div>

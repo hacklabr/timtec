@@ -13,3 +13,20 @@ class TimtecAdapter(DefaultAccountAdapter):
             raise ValidationError(_("Usernames can only contain "
                                     "letters, digits and ./-/_."))
         return super(TimtecAdapter, self).clean_username(username)
+
+    def get_login_redirect_url(self, request):
+
+        if request.POST.get('next'):
+            return request.POST.get('next')
+
+        return super(TimtecAdapter, self).get_login_redirect_url(request)
+
+    def get_logout_redirect_url(self, request):
+
+        if request.GET.get('next'):
+            return request.GET.get('next')
+
+        if request.POST.get('next'):
+            return request.POST.get('next')
+
+        return super(TimtecAdapter, self).get_login_redirect_url(request)

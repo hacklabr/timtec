@@ -28,6 +28,10 @@
                 </div>
             </div>
         </div>
-        <input type="hidden" name="next" value="{% url 'home_view' %}"/>
+        {% if request.GET.next %}
+            <input type='hidden' name='next' value='{{ request.GET.next }}'>
+        {% else %}
+            <input type='hidden' name='next' value='{{ request.path }}'>
+        {% endif %}
     </form>
 {% endblock %}
