@@ -37,9 +37,6 @@ wrapper-course-lesson
     <div class="actions-menu" fixed-bar>
         <div class="container">
             <div class="actions-buttons">
-                {% if object.course.default_class != object %}
-                    <button type="submit" class="btn btn-danger" title="{% trans 'Delete course' %}">{% trans 'Delete' %} | <i class="fa fa-trash-o"></i></button>
-                {% endif %}
                 <button class="btn btn-success" ng-click="save()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
             </div>
 
