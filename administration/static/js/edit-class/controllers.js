@@ -24,16 +24,6 @@
             $scope.class_id = parseInt($window.class_id, 10);
             $scope.course_id = parseInt($window.course_id, 10);
             $scope.classe = Class.get({id: $scope.class_id}, function(classe) {
-
-                // if($scope.classe.assistant) {
-                //     angular.forEach($scope.classe.course.professors, function(value, key) {
-                //         if(value.id == $scope.classe.assistant) {
-                //             $scope.classe.assistant = value;
-                //         }
-                //     });
-                // }
-
-                console.log(classe);
                 document.title = 'Turma: {0}'.format(classe.name);
             });
 
