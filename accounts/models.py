@@ -110,6 +110,24 @@ class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
                 pass
 
 
+class UserSocialAccount(models.Model):
+
+    SOCIAL_CHOICES = (
+        ('fac', _("Facebook")),
+        ('ins', _("Instagram")),
+        ('tel', _("Snapchat")),
+        ('wha', _("Whatsapp")),
+        ('twi', _("Twitter")),
+        ('lin', _("Linked-in")),
+        ('tel', _("Telegram")),
+        ('you', _("Youtube")),
+    )
+
+    user = models.ForeignKey('TimtecUser')
+    social_media = models.CharField(_("social media"), max_length=3, choices=SOCIAL_CHOICES)
+    nickname = models.CharField(_("nickname"), max_length=30)
+
+
 class TimtecUser(AbstractTimtecUser):
     """
     Timtec customized user.
@@ -122,3 +140,7 @@ class TimtecUser(AbstractTimtecUser):
 
     class Meta(AbstractTimtecUser.Meta):
         swappable = 'AUTH_USER_MODEL'
+
+    def get_social_media(self):
+        print 254054
+        return UserSocialAccount.objects.filter(user=self).order_by('social_media')
