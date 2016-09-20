@@ -28,7 +28,7 @@
     "jquery-ui": "~1.10.3",
     "dropzone": "~3.7.4",
     "modernizr": "~2.8.3",
-    "font-awesome": "~4.0.3",
+    "font-awesome": "~4.6",
     "angular-mocks": "~1.2.26",
     "angular-bootstrap": "~0.12",
     "angular-gettext": "~0.2.9",
