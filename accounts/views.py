@@ -2,11 +2,13 @@ from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import get_object_or_404
-from django.views.generic import UpdateView, FormView
+from django.views.generic import UpdateView, FormView, CreateView, DeleteView
 from django.views.generic.detail import DetailView
 from django.db.models import Q
+from django.shortcuts import redirect
 
-from accounts.forms import ProfileEditForm, AcceptTermsForm
+from accounts.models import UserSocialAccount
+from accounts.forms import ProfileEditForm, AcceptTermsForm, UserSocialAccountForm
 from accounts.serializers import TimtecUserSerializer, TimtecUserAdminSerializer
 from braces.views import LoginRequiredMixin
 
@@ -31,6 +33,25 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
 
     def get_object(self):
         return self.request.user
+
+
+class UserSocialAccountCreateView(LoginRequiredMixin, CreateView):
+
+    form_class = UserSocialAccountForm
+    template_name = 'modal-profile-create-social.html'
+    success_url = reverse_lazy("profile_edit")
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return redirect(self.get_success_url())
+
+
+class UserSocialAccountDeleteView(LoginRequiredMixin, DeleteView):
+    template_name = 'modal-profile-delete-social.html'
+    success_url = reverse_lazy("profile_edit")
+    model = UserSocialAccount
 
 
 class ProfileView(LoginRequiredMixin, DetailView):

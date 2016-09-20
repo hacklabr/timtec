@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from accounts.views import (ProfileEditView, ProfileView, UserSearchView,
                             TimtecUserViewSet, TimtecUserAdminViewSet, StudentSearchView,
-                            AcceptTermsView)
+                            AcceptTermsView, UserSocialAccountCreateView, UserSocialAccountDeleteView)
 
 from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         CourseProfessorViewSet, EnrollCourseView, HomeView,
@@ -148,6 +148,8 @@ urlpatterns = patterns(
     url(r'^logout/', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='timtec_logout'),
 
     url(r'^profile/edit/?$', ProfileEditView.as_view(), name="profile_edit"),
+    url(r'^profile/edit/social/?$', UserSocialAccountCreateView.as_view(), name="profile_edit_add_social"),
+    url(r'^profile/edit/social/(?P<pk>[1-9][0-9]*)/?$', UserSocialAccountDeleteView.as_view(), name="profile_edit_delete_social"),
     url(r'^profile/(?P<username>[\w.+-]+)?/?$', ProfileView.as_view(), name="profile"),
 
     # The django-allauth

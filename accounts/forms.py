@@ -4,6 +4,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from timtec.settings import ACCOUNT_REQUIRED_FIELDS as fields
+from accounts.models import UserSocialAccount
 
 try:
     # trys to import the statechoice defined in settings
@@ -98,3 +99,19 @@ class SignupForm(AcceptTermsForm):
         user.state = self.cleaned_data['state']
         user.accepted_terms = self.cleaned_data['accept_terms']
         user.save()
+
+
+class UserSocialAccountForm(forms.ModelForm):
+
+    class Meta:
+        model = UserSocialAccount
+        fields = ('social_media', 'nickname')
+
+    def __init__(self, *args, **kwargs):
+        super(UserSocialAccountForm, self).__init__(*args, **kwargs)
+
+        self.fields['social_media'].widget.attrs['class'] = 'form-control'
+        self.fields['nickname'].widget.attrs['class'] = 'form-control'
+
+        self.fields['social_media'].widget.attrs['required'] = True
+        self.fields['nickname'].widget.attrs['required'] = True
