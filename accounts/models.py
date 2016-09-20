@@ -113,19 +113,28 @@ class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
 class UserSocialAccount(models.Model):
 
     SOCIAL_CHOICES = (
-        ('fac', _("Facebook")),
-        ('ins', _("Instagram")),
-        ('tel', _("Snapchat")),
-        ('wha', _("Whatsapp")),
-        ('twi', _("Twitter")),
-        ('lin', _("Linked-in")),
-        ('tel', _("Telegram")),
-        ('you', _("Youtube")),
+        ('facebook', _("Facebook")),
+        ('instagram', _("Instagram")),
+        ('snapchat', _("Snapchat")),
+        ('whatsapp', _("Whatsapp")),
+        ('twitter', _("Twitter")),
+        ('linkedin', _("Linked-In")),
+        ('youtube', _("Youtube")),
     )
 
     user = models.ForeignKey('TimtecUser')
-    social_media = models.CharField(_("social media"), max_length=3, choices=SOCIAL_CHOICES)
+    social_media = models.CharField(_("social media"), max_length=15, choices=SOCIAL_CHOICES)
     nickname = models.CharField(_("nickname"), max_length=30)
+
+    def get_absolute_url(self):
+
+        if self.social_media == 'snapchat':
+            return "http://%s.com/add/%s" % (self.social_media, self.nickname)
+
+        if self.social_media == 'whatsapp':
+            return "tel:%s" % (self.nickname)
+
+        return "http://%s.com/%s" % (self.social_media, self.nickname)
 
 
 class TimtecUser(AbstractTimtecUser):
