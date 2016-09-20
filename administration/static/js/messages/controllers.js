@@ -40,8 +40,8 @@
                         menubar:false,
                         statusbar: false,
                         
-                        plugins: 'textcolor',
-                        toolbar: "undo redo styleselect bold italic print forecolor backcolor",
+                        plugins: 'textcolor link',
+                        toolbar: "undo redo styleselect bold italic forecolor backcolor link",
                     };
 
                     $scope.new_message = new Message();
