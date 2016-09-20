@@ -60,8 +60,7 @@
                         })['catch'](function(resp){
                             $scope.alert.error(httpErrors[resp.status.toString()]);
                         });
-            }
-
+            };
 
         }
     ]);
