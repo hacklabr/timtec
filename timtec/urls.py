@@ -175,5 +175,16 @@ if settings.TWITTER_USER != '':
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+    from django.views import defaults as default_views
+
+    # This allows the error pages to be debugged during development, just visit
+    # these url in browser to see how these error pages look like.
+    urlpatterns += [
+        url(r'^400/$', default_views.bad_request),
+        url(r'^403/$', default_views.permission_denied),
+        url(r'^404/$', default_views.page_not_found),
+        url(r'^500/$', default_views.server_error),
+    ]
+
 if 'ifs' in settings.INSTALLED_APPS:
     urlpatterns += (url(r'^ifs/', include('ifs.urls')),)
