@@ -54,7 +54,7 @@ class AdminView(AdminMixin, TemplateView, views.AccessMixin):
             if self.raise_exception:  # *and* if an exception was desired
                 raise PermissionDenied  # return a forbidden response.
 
-        if not request.user.is_superuser or not CourseProfessor.objects.filter(user=request.user, role='coordinator'):
+        if not (request.user.is_superuser or CourseProfessor.objects.filter(user=request.user, role='coordinator')):
             if self.raise_exception:  # *and* if an exception was desired
                 raise PermissionDenied  # return a forbidden response.
 
