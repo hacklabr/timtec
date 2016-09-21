@@ -398,6 +398,7 @@ class CourseStudent(models.Model):
                     i = i + 1
                     new_actv = {}
                     new_actv['name'] = 'Atividade ' + str(i)
+                    new_actv['position'] = activity.unit.position
                     ans = Answer.objects.filter(activity=activity, user=self.user)
                     if ans:
                         new_actv['done'] = 'true'
