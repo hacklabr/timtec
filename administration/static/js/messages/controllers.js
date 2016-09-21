@@ -132,8 +132,16 @@
         function($scope, $window, Message) {
             $scope.course_id = parseInt($window.course_id, 10);
             $scope.message_id = document.location.href.match(/message\/([0-9]+)/)[1];
-            $scope.message = Message.get({messageId: $scope.message_id}, function(message) {
-            });
+            $scope.message = Message.get({messageId: $scope.message_id}, function(message) {});
+
+            $scope.show_recipients = false;
+            $scope.toggle_recipient_list = function(){
+                if($scope.show_recipients) {
+                    $scope.show_recipients = false;
+                } else {
+                    $scope.show_recipients = true;
+                }
+            };
         }
     ]);
 })(angular);
