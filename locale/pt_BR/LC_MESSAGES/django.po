@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-21 11:13-0300\n"
-"PO-Revision-Date: 2016-09-21 11:18-0300\n"
+"POT-Creation-Date: 2016-09-21 11:59-0300\n"
+"PO-Revision-Date: 2016-09-21 12:00-0300\n"
 "Last-Translator: Administrador TIMTec <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -67,7 +67,7 @@ msgstr "Senha"
 msgid "Password (again)"
 msgstr "Senha (novamente)"
 
-#: accounts/forms.py:44 accounts/forms.py:88 accounts/models.py:150
+#: accounts/forms.py:44 accounts/forms.py:88 accounts/models.py:148
 #: themes/default/templates/profile-edit.html:99
 #, fuzzy
 #| msgid "Stats"
@@ -225,7 +225,7 @@ msgstr "Rede social"
 msgid "nickname"
 msgstr "Usuário na rede"
 
-#: accounts/models.py:149 ifs/models.py:19
+#: accounts/models.py:147 ifs/models.py:19
 msgid "Email address"
 msgstr "Endereço de Email"
 
@@ -716,34 +716,30 @@ msgstr "Campus"
 msgid "Note"
 msgstr "Anotação"
 
-#: themes/default/templates/403.html:4 themes/default/templates/403.html:7
+#: themes/default/templates/403.html:4 themes/default/templates/403.html:12
 msgid "An error ocurred or you don't have to see this page."
 msgstr ""
 "Um erro ocorreu ou você não tem permissão para visualizar esta página."
 
-#: themes/default/templates/403.html:10 themes/default/templates/500.html:10
+#: themes/default/templates/403.html:25
 msgid ""
-"There's been an error. It's been reported to the site administrators via "
-"email and should be fixed shortly. Thanks for your patience."
+"There's been an error. Probably you don't have permission to see this page. "
+"To see this, please do a login as an administrator."
 msgstr ""
-"Ocorreu um erro. Este erro será reportado aos administradores do site e será"
-" corrigido em breve. Obrigado por sua paciência."
+"Houve um erro. Provavelmente você não possui permissão de acesso a esta "
+"página. Para acessar, você deve estar logado como administrador."
 
-#: themes/default/templates/404.html:4 themes/default/templates/404.html:7
+#: themes/default/templates/404.html:4 themes/default/templates/404.html:12
 msgid "Page not found"
 msgstr "Página não encontrada"
 
-#: themes/default/templates/404.html:10
+#: themes/default/templates/404.html:25
 msgid "We're sorry, but the requested page could not be found."
 msgstr "Desculpe-nos, mas a página requisitada não pode ser encontrada."
 
-#: themes/default/templates/404.html:11
+#: themes/default/templates/404.html:26
 msgid "Please contact the administrador"
 msgstr "Por favor, entre em contato com o administrador"
-
-#: themes/default/templates/500.html:4 themes/default/templates/500.html:7
-msgid "An error ocurred"
-msgstr "Um erro ocorreu"
 
 #: themes/default/templates/_admin_header_inline.html:10
 msgid "Course name"
@@ -2426,6 +2422,16 @@ msgstr "Espanhol"
 #: timtec/settings.py:88 timtec/settings_local_docker.py:87
 msgid "English"
 msgstr "Inglês"
+
+#~ msgid ""
+#~ "There's been an error. It's been reported to the site administrators via "
+#~ "email and should be fixed shortly. Thanks for your patience."
+#~ msgstr ""
+#~ "Ocorreu um erro. Este erro será reportado aos administradores do site e será"
+#~ " corrigido em breve. Obrigado por sua paciência."
+
+#~ msgid "An error ocurred"
+#~ msgstr "Um erro ocorreu"
 
 #~ msgid "Signature"
 #~ msgstr "Assinatura"

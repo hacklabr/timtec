@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-21 11:13-0300\n"
+"POT-Creation-Date: 2016-09-21 11:59-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,7 +66,7 @@ msgstr ""
 msgid "Password (again)"
 msgstr ""
 
-#: accounts/forms.py:44 accounts/forms.py:88 accounts/models.py:150
+#: accounts/forms.py:44 accounts/forms.py:88 accounts/models.py:148
 #: themes/default/templates/profile-edit.html:99
 msgid "State"
 msgstr ""
@@ -216,7 +216,7 @@ msgstr ""
 msgid "nickname"
 msgstr ""
 
-#: accounts/models.py:149 ifs/models.py:19
+#: accounts/models.py:147 ifs/models.py:19
 msgid "Email address"
 msgstr ""
 
@@ -703,30 +703,26 @@ msgstr ""
 msgid "Note"
 msgstr ""
 
-#: themes/default/templates/403.html:4 themes/default/templates/403.html:7
+#: themes/default/templates/403.html:4 themes/default/templates/403.html:12
 msgid "An error ocurred or you don't have to see this page."
 msgstr ""
 
-#: themes/default/templates/403.html:10 themes/default/templates/500.html:10
+#: themes/default/templates/403.html:25
 msgid ""
-"There's been an error. It's been reported to the site administrators via "
-"email and should be fixed shortly. Thanks for your patience."
+"There's been an error. Probably you don't have permission to see this page. "
+"To see this, please do a login as an administrator."
 msgstr ""
 
-#: themes/default/templates/404.html:4 themes/default/templates/404.html:7
+#: themes/default/templates/404.html:4 themes/default/templates/404.html:12
 msgid "Page not found"
 msgstr ""
 
-#: themes/default/templates/404.html:10
+#: themes/default/templates/404.html:25
 msgid "We're sorry, but the requested page could not be found."
 msgstr ""
 
-#: themes/default/templates/404.html:11
+#: themes/default/templates/404.html:26
 msgid "Please contact the administrador"
-msgstr ""
-
-#: themes/default/templates/500.html:4 themes/default/templates/500.html:7
-msgid "An error ocurred"
 msgstr ""
 
 #: themes/default/templates/_admin_header_inline.html:10
