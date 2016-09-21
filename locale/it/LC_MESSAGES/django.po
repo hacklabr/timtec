@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-21 11:59-0300\n"
+"POT-Creation-Date: 2016-09-21 12:19-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -707,10 +707,13 @@ msgstr ""
 msgid "An error ocurred or you don't have to see this page."
 msgstr ""
 
-#: themes/default/templates/403.html:25
+#: themes/default/templates/403.html:26
 msgid ""
-"There's been an error. Probably you don't have permission to see this page. "
-"To see this, please do a login as an administrator."
+"There's been an error. Probably you don't have permission to see this page."
+msgstr ""
+
+#: themes/default/templates/403.html:27
+msgid "To see this, please do a login as an administrator."
 msgstr ""
 
 #: themes/default/templates/404.html:4 themes/default/templates/404.html:12

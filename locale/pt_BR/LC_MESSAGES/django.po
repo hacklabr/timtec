@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-21 11:59-0300\n"
-"PO-Revision-Date: 2016-09-21 12:00-0300\n"
+"POT-Creation-Date: 2016-09-21 12:19-0300\n"
+"PO-Revision-Date: 2016-09-21 12:22-0300\n"
 "Last-Translator: Administrador TIMTec <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -69,7 +69,6 @@ msgstr "Senha (novamente)"
 
 #: accounts/forms.py:44 accounts/forms.py:88 accounts/models.py:148
 #: themes/default/templates/profile-edit.html:99
-#, fuzzy
 #| msgid "Stats"
 msgid "State"
 msgstr "Situação"
@@ -88,13 +87,11 @@ msgid "You must agree to the Terms of Use to use %(site_name)s."
 msgstr "Você deve concordar com os Termos de Uso para usar o %(site_name)s."
 
 #: accounts/forms.py:85
-#, fuzzy
 #| msgid "First name"
 msgid "First Name"
 msgstr "Nome"
 
 #: accounts/forms.py:86
-#, fuzzy
 #| msgid "Last name"
 msgid "Last Name"
 msgstr "Sobrenome"
@@ -192,7 +189,6 @@ msgid "Invalid attribute: %s"
 msgstr "Atributo inválido: %s"
 
 #: accounts/models.py:116
-#, fuzzy
 #| msgid "Facebook connect"
 msgid "Facebook"
 msgstr "Conectar com Facebook"
@@ -651,7 +647,6 @@ msgid "Index"
 msgstr "Índice"
 
 #: docs/_templates/layout.html:55 docs/_templates/search.html:11
-#, fuzzy
 #| msgid "Search user"
 msgid "Search"
 msgstr "Pesquisar usuário"
@@ -661,10 +656,9 @@ msgid "Copyright"
 msgstr ""
 
 #: docs/_templates/search.html:33
-#, fuzzy
 #| msgid "Search user"
 msgid "Search Results"
-msgstr "Pesquisar usuário"
+msgstr "Pesquisar nos resultados"
 
 #: docs/_templates/search.html:35
 msgid ""
@@ -721,13 +715,19 @@ msgid "An error ocurred or you don't have to see this page."
 msgstr ""
 "Um erro ocorreu ou você não tem permissão para visualizar esta página."
 
-#: themes/default/templates/403.html:25
+#: themes/default/templates/403.html:26
+#| msgid ""
+#| "There's been an error. Probably you don't have permission to see this page. "
+#| "To see this, please do a login as an administrator."
 msgid ""
-"There's been an error. Probably you don't have permission to see this page. "
-"To see this, please do a login as an administrator."
+"There's been an error. Probably you don't have permission to see this page."
 msgstr ""
 "Houve um erro. Provavelmente você não possui permissão de acesso a esta "
-"página. Para acessar, você deve estar logado como administrador."
+"página. "
+
+#: themes/default/templates/403.html:27
+msgid "To see this, please do a login as an administrator."
+msgstr "Para acessar você deve estar logado como administrador."
 
 #: themes/default/templates/404.html:4 themes/default/templates/404.html:12
 msgid "Page not found"
@@ -1760,10 +1760,9 @@ msgid "Certification"
 msgstr "Certificação"
 
 #: themes/default/templates/class_edit.html:81
-#, fuzzy
 #| msgid "Average student progress per class"
 msgid "Add students to this class"
-msgstr "Progresso médio dos estudantes por turma"
+msgstr "Adicionar estudantes nesta turma"
 
 #: themes/default/templates/class_edit.html:119
 #: themes/default/templates/course-evaluations.html:270
@@ -2201,10 +2200,9 @@ msgid "More..."
 msgstr "Mais..."
 
 #: themes/default/templates/modal-profile-create-social.html:6
-#, fuzzy
 #| msgid "Addicional materials"
 msgid "Add new social media"
-msgstr "Materiais adicionais"
+msgstr "Adicionar nova rede social"
 
 #: themes/default/templates/modal-profile-delete-social.html:6
 #: themes/default/templates/modal-profile-delete-social.html:15
