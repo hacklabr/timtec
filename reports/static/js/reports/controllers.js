@@ -16,7 +16,7 @@
 		    }
 		    return data;
 		});
-		$scope.ordering = 'name'
+		$scope.ordering = 'name';
 		$scope.reverse = false;
 
                 $scope.my_classes = [];
@@ -30,7 +30,7 @@
 			    student.name,
 			    student.username,
 			    student.email,
-			]
+			];
 
 			for (var i=0; i<targets.length; i++) {
 			    if (targets[i].toLowerCase().match(search)) {
