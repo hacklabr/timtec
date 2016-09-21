@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-21 12:19-0300\n"
+"POT-Creation-Date: 2016-09-21 15:46-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -111,7 +111,7 @@ msgstr ""
 #: themes/default/templates/class_edit.html:99
 #: themes/default/templates/course-evaluations.html:262
 #: themes/default/templates/evaluations.html:193
-#: themes/default/templates/message.html:20
+#: themes/default/templates/message.html:27
 #: themes/default/templates/messages.html:87
 #: themes/default/templates/profile-edit.html:138
 #: themes/if/templates/account/signup.html:37
@@ -292,7 +292,7 @@ msgstr ""
 #: themes/default/templates/class_edit.html:100
 #: themes/default/templates/course-evaluations.html:263
 #: themes/default/templates/evaluations.html:194
-#: themes/default/templates/message.html:19
+#: themes/default/templates/message.html:26
 #: themes/default/templates/messages.html:86
 msgid "Email"
 msgstr ""
@@ -1584,7 +1584,7 @@ msgstr ""
 #: themes/default/templates/course-evaluations.html:367
 #: themes/default/templates/evaluations.html:192
 #: themes/default/templates/evaluations.html:295
-#: themes/default/templates/message.html:18
+#: themes/default/templates/message.html:25
 #: themes/default/templates/messages.html:85
 msgid "Full name"
 msgstr ""
@@ -2139,7 +2139,15 @@ msgstr ""
 msgid "This unit has no addicional materials"
 msgstr ""
 
-#: themes/default/templates/message.html:15
+#: themes/default/templates/message.html:17
+msgid "Show Recipient List"
+msgstr ""
+
+#: themes/default/templates/message.html:18
+msgid "Hide Recipient List"
+msgstr ""
+
+#: themes/default/templates/message.html:22
 msgid "Recipients"
 msgstr ""
 

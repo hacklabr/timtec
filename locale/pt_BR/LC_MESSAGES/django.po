@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-21 12:19-0300\n"
-"PO-Revision-Date: 2016-09-21 12:22-0300\n"
+"POT-Creation-Date: 2016-09-21 15:46-0300\n"
+"PO-Revision-Date: 2016-09-21 15:47-0300\n"
 "Last-Translator: Administrador TIMTec <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -69,7 +69,6 @@ msgstr "Senha (novamente)"
 
 #: accounts/forms.py:44 accounts/forms.py:88 accounts/models.py:148
 #: themes/default/templates/profile-edit.html:99
-#| msgid "Stats"
 msgid "State"
 msgstr "Situação"
 
@@ -87,12 +86,10 @@ msgid "You must agree to the Terms of Use to use %(site_name)s."
 msgstr "Você deve concordar com os Termos de Uso para usar o %(site_name)s."
 
 #: accounts/forms.py:85
-#| msgid "First name"
 msgid "First Name"
 msgstr "Nome"
 
 #: accounts/forms.py:86
-#| msgid "Last name"
 msgid "Last Name"
 msgstr "Sobrenome"
 
@@ -115,7 +112,7 @@ msgstr "Cidade"
 #: themes/default/templates/class_edit.html:99
 #: themes/default/templates/course-evaluations.html:262
 #: themes/default/templates/evaluations.html:193
-#: themes/default/templates/message.html:20
+#: themes/default/templates/message.html:27
 #: themes/default/templates/messages.html:87
 #: themes/default/templates/profile-edit.html:138
 #: themes/if/templates/account/signup.html:37
@@ -189,7 +186,6 @@ msgid "Invalid attribute: %s"
 msgstr "Atributo inválido: %s"
 
 #: accounts/models.py:116
-#| msgid "Facebook connect"
 msgid "Facebook"
 msgstr "Conectar com Facebook"
 
@@ -297,7 +293,7 @@ msgstr "Nome"
 #: themes/default/templates/class_edit.html:100
 #: themes/default/templates/course-evaluations.html:263
 #: themes/default/templates/evaluations.html:194
-#: themes/default/templates/message.html:19
+#: themes/default/templates/message.html:26
 #: themes/default/templates/messages.html:86
 msgid "Email"
 msgstr "Email"
@@ -647,7 +643,6 @@ msgid "Index"
 msgstr "Índice"
 
 #: docs/_templates/layout.html:55 docs/_templates/search.html:11
-#| msgid "Search user"
 msgid "Search"
 msgstr "Pesquisar usuário"
 
@@ -656,7 +651,6 @@ msgid "Copyright"
 msgstr ""
 
 #: docs/_templates/search.html:33
-#| msgid "Search user"
 msgid "Search Results"
 msgstr "Pesquisar nos resultados"
 
@@ -716,9 +710,6 @@ msgstr ""
 "Um erro ocorreu ou você não tem permissão para visualizar esta página."
 
 #: themes/default/templates/403.html:26
-#| msgid ""
-#| "There's been an error. Probably you don't have permission to see this page. "
-#| "To see this, please do a login as an administrator."
 msgid ""
 "There's been an error. Probably you don't have permission to see this page."
 msgstr ""
@@ -1616,7 +1607,7 @@ msgstr "Adicionar usuário"
 #: themes/default/templates/course-evaluations.html:367
 #: themes/default/templates/evaluations.html:192
 #: themes/default/templates/evaluations.html:295
-#: themes/default/templates/message.html:18
+#: themes/default/templates/message.html:25
 #: themes/default/templates/messages.html:85
 msgid "Full name"
 msgstr "Nome"
@@ -1760,7 +1751,6 @@ msgid "Certification"
 msgstr "Certificação"
 
 #: themes/default/templates/class_edit.html:81
-#| msgid "Average student progress per class"
 msgid "Add students to this class"
 msgstr "Adicionar estudantes nesta turma"
 
@@ -2173,7 +2163,17 @@ msgstr "Minhas Anotações"
 msgid "This unit has no addicional materials"
 msgstr "Esta unidade não possui material adicional"
 
-#: themes/default/templates/message.html:15
+#: themes/default/templates/message.html:17
+#| msgid "Recipients"
+msgid "Show Recipient List"
+msgstr "Mostrar destinatários"
+
+#: themes/default/templates/message.html:18
+#| msgid "Recipients"
+msgid "Hide Recipient List"
+msgstr "Esconder destinatários"
+
+#: themes/default/templates/message.html:22
 msgid "Recipients"
 msgstr "Destinatários"
 
@@ -2200,7 +2200,6 @@ msgid "More..."
 msgstr "Mais..."
 
 #: themes/default/templates/modal-profile-create-social.html:6
-#| msgid "Addicional materials"
 msgid "Add new social media"
 msgstr "Adicionar nova rede social"
 
