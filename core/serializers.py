@@ -364,12 +364,12 @@ class CourseProfessorSerializer(serializers.ModelSerializer):
 class CourseAuthorSerializer(serializers.ModelSerializer):
     user_info = TimtecUserSerializer(source='user', read_only=True)
     course_info = CourseSerializer(source='course', read_only=True)
-    get_name = serializers.Field()
-    get_biography = serializers.Field()
-    get_picture_url = serializers.Field()
+    # get_name = serializers.Field()
+    # get_biography = serializers.Field()
+    # get_picture_url = serializers.Field()
 
     class Meta:
-        fields = ('id', 'course', 'course_info', 'user', 'name', 'biography', 'picture', 'user_info',
+        fields = ('id', 'course', 'course_info', 'name', 'biography', 'picture', 'user_info',
                   'get_name', 'get_biography', 'get_picture_url', 'position')
         model = CourseAuthor
 
