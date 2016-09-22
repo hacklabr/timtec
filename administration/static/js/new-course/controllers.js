@@ -15,36 +15,26 @@
 
             $scope.course_id = parseInt($window.course_id, 10);
 
-            $scope.course = new Course();
             $scope.courseProfessors = [];
             $scope.lessons = [];
 
-            $scope.course.$get({id: $scope.course_id})
-                .then(function(course){
-                    if(course.intro_video) {
-                        youtubePlayerApi.videoId = course.intro_video.youtube_id;
-                    }
-                    document.title = 'Curso: {0}'.format(course.name);
-                    $scope.addThumb = !course.thumbnail_url;
-                    $scope.addHomeThumb = !course.home_thumbnail_url;
-                })
-                .then(function(){
-                    $scope.lessons = Lesson.query({'course__id': $scope.course_id});
-                    return $scope.lessons.promise;
-                })
-                .then(function(){
-                    $scope.courseProfessors = CourseProfessor.query({
-                        course: $scope.course_id
-                    });
+            Course.get({id: $scope.course_id}, function(course){
+                if(course.intro_video) {
+                    youtubePlayerApi.videoId = course.intro_video.youtube_id;
+                }
+                document.title = 'Curso: {0}'.format(course.name);
+                $scope.addThumb = !course.thumbnail_url;
+                $scope.addHomeThumb = !course.home_thumbnail_url;
+                $scope.course = course;
+            });
 
-                    // TODO here comes classes professors
+            $scope.lessons = Lesson.query({
+              'course__id': $scope.course_id
+            });
 
-                    return $scope.courseProfessors.promise;
-                })['catch'](function(resp){
-                    $scope.alert.error(httpErrors[resp.status.toString()]);
-                })['finally'](function(){
-                    $scope.statusList = Course.fields.status.choices;
-                });
+            $scope.courseProfessors = CourseProfessor.query({
+              course: $scope.course_id
+            });
 
             var player;
             $scope.playerReady = false;
