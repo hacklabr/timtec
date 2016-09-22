@@ -1,4 +1,22 @@
-#TIMTec Mooc
+# TIM Tec
+A plataforma de cursos online TIM Tec é um software livre desenvolvido pelo Instituto TIM que utiliza o conceito de MOOC (Massive Open Online Courses), cursos abertos e livres que podem ser feitos simultaneamente por muitas pessoas.
+ 
+O sistema pode hospedar múltiplos cursos que utilizam videoaulas, além de materiais de apoio e outros links. A ferramenta permite a criação de testes e o uso de emuladores desenvolvidos para que alunos exercitem os conhecimentos abordados. Alunos podem fazer e responder perguntas, ver respostas e favoritar as perguntas dos colegas em um fórum, além de fazer anotações em seu caderno virtual. Gestores podem gerar relatórios de acompanhamento dos cursos, turmas e alunos, acompanhar o progresso de cada participante e habilitar professores tutores quando necessário.
+ 
+A tecnologia e os conteúdos da plataforma TIM Tec estão sendo compartilhados com instituições públicas de ensino da Rede e-Tec Brasil, com o apoio da Secretaria de Educação Profissional e Tecnológica do Ministério da Educação (Setec/MEC). Entre as instalações já implementadas estão:
+ 
+* Instituto Federal Sul-rio-grandense http://mooc.ifsul.edu.br/
+* Instituto Federal do Paraná http://mooc.ifpr.edu.br/
+* Instituto Federal Sul de Minas https://mooc.ifsuldeminas.edu.br/
+* Instituto Federal do Acre http://mooc.ifac.edu.br/
+* Instituto Federal Fluminense  http://mooc.iff.edu.br/
+* Instituto Federal de São Paulo http://mooc.ifsp.edu.br/
+* Instituto Federal de Santa Catarina http://mooc.ead.ifsc.edu.br/
+* Instituto Federal do Amazonas http://mooc.ifam.edu.br/
+* Instituto Federal de Minas Gerais – Campus Ouro Preto http://mooc.ifmg.edu.br/
+* Instituto Federal Farroupilha http://mooc.iffarroupilha.edu.br/
+* Instituto Federal do Tocantins http://mooc.ifto.edu.br/
+* Instituto Federal Baiano http://mooc.ifbaiano.edu.br/
 
 ## Instalação e configurações
 Para acessar a documentação completa, veja a pasta [docs](docs) na raiz da aplicação. 
