@@ -3,8 +3,8 @@
     var app = angular.module('new-course');
 
     app.controller('CourseEditController',
-        ['$scope', '$window', '$uibModal', '$http', '$q', 'Course',  'CourseAuthor', 'Lesson', '$filter', 'youtubePlayerApi', 'VideoData', 'FormUpload',
-        function($scope, $window, $uibModal, $http , $q, Course,  CourseProfessor, Lesson, $filter, youtubePlayerApi, VideoData, FormUpload) {
+        ['$scope', '$window', '$uibModal', '$http', '$q', 'Course',  'CourseAuthor', 'Lesson', '$filter', 'youtubePlayerApi', 'VideoData', 'FormUpload', 'uibDateParser',
+        function($scope, $window, $uibModal, $http , $q, Course,  CourseProfessor, Lesson, $filter, youtubePlayerApi, VideoData, FormUpload, uibDateParser) {
 
             $scope.errors = {};
             var httpErrors = {
@@ -25,6 +25,7 @@
                 document.title = 'Curso: {0}'.format(course.name);
                 $scope.addThumb = !course.thumbnail_url;
                 $scope.addHomeThumb = !course.home_thumbnail_url;
+                course.start_date = uibDateParser.parse(course.start_date, "yyyy-MM-dd");
                 $scope.course = course;
             });
 
@@ -114,7 +115,8 @@
                 }
 
                 $scope.course.save()
-                    .then(function(){
+                    .then(function(course){
+                        course.start_date = uibDateParser.parse(course.start_date, "yyyy-MM-dd");
                         return $scope.saveThumb();
                     })
                     .then(function(){
