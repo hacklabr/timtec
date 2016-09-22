@@ -130,7 +130,7 @@
             };
 
             $scope.set_course_as_draft = function() {
-                if (confirm('Ao tornar o curso um racunho, ele não será mais visível para os usuários! Tem certeza que deseja tornar este curso um rascunho?')){
+                if (confirm('Ao tornar o curso um rascunho, ele não será mais visível para os usuários! Tem certeza de que quer continuar?')){
                     $scope.course.status = 'draft';
                     $scope.saveCourse();
                 }
