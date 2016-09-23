@@ -5,7 +5,8 @@
       'django',
       'activities.controllers',
       'activities.directives',
+      'discussion.directives',
       'ui.bootstrap',
-      'ui.codemirror'
+      'ui.codemirror',
     ]);
 })(angular);

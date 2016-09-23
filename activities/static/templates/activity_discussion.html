@@ -27,8 +27,9 @@
 
         <p class="intro" ng-bind-html="get_as_safe_html(currentActivity.data.content | markdown)"></p>
 
+        <!-- Create and edit answer -->
         <!-- the activity has not been submited yet -->
-        <form class="new-thread" name="newanswer" ng-show="!show_answer" ng-submit="newanswer.$valid && save_answer()">
+        <form class="new-thread" name="newanswer" ng-if="!show_answer" ng-submit="newanswer.$valid && save_answer()" novalidate>
             <!-- <div class="form-group">
                 <label for="thread-name">Como se chamará o novo tópico?</label>
                 <input ng-model="new_topic.title" type="text" class="form-control" id="thread-name" placeholder="Escreva o título aqui">
@@ -44,28 +45,15 @@
             <div class="form-group">
                 <button id="select-file-topic"
                        class="btn btn-xs btn-primary attach"
-                       ngf-select="uploadTopicFiles($file, topic)"
+                       ngf-select="uploadTopicFiles($file, topic, topic.progress)"
                        ngf-multiple="false">anexar arquivo</button>
             </div>
-            <div class="form-group">
-                <div class="post-attachments"
-                   ng-show="topic.files">
-                    <div class="attachments">
-                        <span translate
-                              translate-n="topic.files.length"
-                              translate-plural="{{$count}} arquivos anexos:">1 arquivo anexo:</span>
-                        <ul>
-                            <li ng-repeat="file in topic.files">
-                                <a ng-href="{{file.file}}" target="_blank">{{file.name}}</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <files files="topic.files" editable="true" progress="topic.progress" is_topic="true"></files>
 
             <button type="submit"
-                    class="btn btn-success new-topic">postar nova resposta</button>
+                    class="btn btn-success new-topic">postar resposta</button>
         </form>
+        <!-- /Create and edit answer -->
 
         <!-- the activity has been submited already and can be viewed -->
         <div class="user-activity forums thread" ng-show="show_answer">
@@ -84,26 +72,7 @@
 
                 <div class="thread-post">
                     <p ng-bind-html="get_as_safe_html(topic.content)"></p>
-                    <!-- TODO: transformar em diretiva -->
-                    <button class="btn btn-xs attached"
-                            ng-show="(topic.files.length > 1) && !topic.show_files"
-                            ng-click="topic.show_files=true">
-                        <u>{{topic.files.length}} arquivos anexos</u> + ...
-                    </button>
-                    <div class="post-attachments"
-                         ng-show="(topic.files.length === 1) || topic.show_files">
-                        <div class="attachments">
-                            <span translate
-                                  translate-n="topic.files.length"
-                                  translate-plural="{{$count}} arquivos anexos:">1 arquivo anexo:</span>
-                            <ul>
-                                <li ng-repeat="file in topic.files">
-                                    <a ng-href="{{file.file}}" target="_blank">{{file.name}}</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- END TODO: transformar em diretiva -->
+                    <files files="topic.files" editable="false" is_topic="true"></files>
                 </div>
 
 
@@ -112,7 +81,6 @@
                         <a ng-click="topic_like(topic)" ng-class="{ 'active': topic.user_like }" class="action liked">gostei</a>
                         <!--<a class="action used">usar</a>-->
                         <a ng-click="topic.show_comment_input=true" class="action replies">comentar</a>
-                        <span class="last-edit">última edição {{ topic.last_activity_at | dateFilter }}</span>
                     </div>
                     <div class="pull-right">
                       <span class="action liked"
@@ -129,37 +97,22 @@
                     </div>
                 </div>
 
-                <form class="comments-form" ng-show="topic.show_comment_input">
-                    <textarea ui-tinymce="tinymceOptions" ng-model="topic.new_comment" placeholder="Escreva aqui o seu comentário"></textarea>
+                <!-- New comment -->
+                <form class="comments-form" ng-if="topic.show_comment_input" ng-init="comment = new_comment()">
+                    <textarea ui-tinymce="tinymceOptions" ng-model="comment.text" placeholder="Escreva aqui o seu comentário"></textarea>
 
                     <button id="select-file-topic"
                            class="btn btn-xs btn-primary attach"
-                           ngf-select="uploadCommentFiles($file, topic)"
+                           ngf-select="uploadCommentFiles($file, comment)"
                            ngf-multiple="false">anexar arquivo</button>
 
-                    <button class="btn btn-xs btn-success reply" ng-click="save_comment(topic, null)">comentar</button>
+                    <button class="btn btn-xs btn-success reply" ng-click="save_comment(comment, null); topic.show_comment_input=false">comentar</button>
                     <button class="btn btn-xs btn-danger delete" ng-click="topic.show_comment_input=false">descartar</button>
-
+                    <files files="comment.files" editable="true" progress="comment.progress" is_topic="true"></files>
                 </form>
-
-                <div class="form-group">
-                    <div class="post-attachments"
-                       ng-show="topic.new_comment_files.files">
-                        <div class="attachments">
-                            <span translate
-                                  translate-n="topic.new_comment_files.files.length"
-                                  translate-plural="{{$count}} arquivos anexos:">1 arquivo anexo:</span>
-                            <ul>
-                                <li ng-repeat="file in topic.new_comment_files.files">
-                                    <a ng-href="{{file.file}}" target="_blank">{{file.name}}</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <!-- /New comment -->
 
                 <!-- Comments about the activity -->
-
                 <div class="comments">
                     <h3 class="comments-title">Comentários</h3>
                     <div class="thread" ng-repeat="comment in topic.comments">
@@ -172,27 +125,7 @@
                             </span>
                             <div class="comment-post">
                                 <div ng-bind-html="get_as_safe_html(comment.text)"></div>
-
-                                <!-- TODO: transformar em diretiva -->
-                                <button class="btn btn-xs attached"
-                                        ng-show="(comment.files.length > 1) && !comment.show_files"
-                                        ng-click="comment.show_files=true">
-                                    <u>{{comment.files.length}} arquivos anexos</u> + ...
-                                </button>
-                                <div class="post-attachments"
-                                     ng-show="(comment.files.length === 1) || comment.show_files">
-                                    <div class="attachments">
-                                        <span translate
-                                              translate-n="comment.files.length"
-                                              translate-plural="{{$count}} arquivos anexos:">1 arquivo anexo:</span>
-                                        <ul>
-                                            <li ng-repeat="file in comment.files">
-                                                <a ng-href="{{file.file}}" target="_blank">{{file.name}}</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- TODO END: transformar em diretiva -->
+                                <files files="comment.files"></files>
                             </div>
                         </div>
                         <div class="actions">
@@ -200,8 +133,8 @@
                                 <a ng-click="comment_like(comment)"
                                    ng-class="{ 'active': comment.user_like }"
                                    class="action liked">gostei</a>
-                                <a ng-click="comment.show_comment_input=true" class="action replies">comentar</a>
-                                <!-- <span class="last-edit">xx de xx de xxxx às xxhxx</span> -->
+                                <a ng-click="comment.show_comment_input=true" class="action replies">responder</a>
+                                <span class="last-edit">{{ comment.updated_at | date : "d 'de' MMMM 'de' yyyy 'às' HH'h'mm" }}</span>
                             </div>
                             <div class="pull-right">
                                 <span class="action liked"
@@ -213,33 +146,22 @@
                             </div>
                         </div>
                         <div class="info">
-                            <form class="comments-form" ng-show="comment.show_comment_input">
+                            <form class="comments-form" ng-if="comment.show_comment_input" ng-init="reply = new_comment()">
                                 <textarea ui-tinymce
-                                          ng-model="comment.new_comment"
+                                          ng-model="reply.text"
                                           placeholder="Escreva aqui o seu comentário"></textarea>
                                 <!-- <button class="btn btn-xs btn-primary attach pull-left">anexar arquivo</button> -->
                                 <button id="select-file-comment"
                                        class="btn btn-xs btn-primary attach pull-left"
-                                       ngf-select="uploadCommentFiles($file, comment)"
+                                       ngf-select="uploadCommentFiles($file, reply)"
                                        ngf-multiple="false">anexar arquivo</button>
-                                <button class="btn btn-xs btn-success reply pull-right" ng-click="save_comment(topic, comment);comment.show_comment_input=false;">comentar</button>
+                                <button class="btn btn-xs btn-success reply pull-right" ng-click="save_comment(reply, comment);comment.show_comment_input=false;">comentar</button>
                                 <button class="btn btn-xs btn-danger delete pull-right" ng-click="comment.show_comment_input=false">descartar</button>
-                                <div class="post-attachments"
-                                     ng-show="comment.new_comment_files">
-                                    <div class="attachments">
-                                        <span translate
-                                              translate-n="comment.new_comment_files.length"
-                                              translate-plural="{{$count}} arquivos anexos:">1 arquivo anexo:</span>
-                                        <ul>
-                                            <li ng-repeat="file in comment.new_comment_files">
-                                                <a ng-href="{{file.file}}" target="_blank">{{file.name}}</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                <files files="reply.files" editable="true" progress="reply.progress" is_topic="false"></files>
                             </form>
                         </div>
 
+                        <!-- Show replies -->
                         <div class="thread" ng-repeat="reply in comment.comment_replies">
                             <div class="user-icon">
                                 <img ng-src="{{ reply.author.picture }}" alt="{{ reply.author.name }}">
@@ -250,38 +172,21 @@
                                 </span>
                                 <div class="comment-post">
                                     <div ng-bind-html="get_as_safe_html(reply.text)"></div>
-                                    <!-- TODO: transformar em diretiva -->
-                                    <button class="btn btn-xs attached"
-                                            ng-show="(reply.files.length > 1) && !reply.show_files"
-                                            ng-click="reply.show_files=true">
-                                        <u>{{reply.files.length}} arquivos anexos</u> + ...
-                                    </button>
-                                    <div class="post-attachments"
-                                         ng-show="(reply.files.length === 1) ||reply.show_files">
-                                        <div class="attachments">
-                                            <span translate
-                                                  translate-n="reply.files.length"
-                                                  translate-plural="{{$count}} arquivos anexos:">1 arquivo anexo:</span>
-                                            <ul>
-                                                <li ng-repeat="file in reply.files">
-                                                    <a ng-href="{{file.file}}" target="_blank">{{file.name}}</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- TODO END: transformar em diretiva -->
+                                    <files files="reply.files"></files>
                                 </div>
-                                <form class="comments-form" ng-show="reply.show_comment_input">
+                                <form class="comments-form" ng-if="reply.show_comment_input" ng-init="new_reply = new_comment()">
                                     <textarea ui-tinymce
-                                              ng-model="comment.new_comment"
+                                              ng-model="new_reply.text"
                                               placeholder="Escreva aqui o seu comentário"></textarea>
                                     <button id="select-file-reply"
                                             class="btn btn-xs btn-primary attach pull-left"
-                                            ngf-select="uploadCommentFiles($file, comment)"
+                                            ngf-select="uploadCommentFiles($file, new_reply)"
                                             ngf-multiple="false">anexar arquivo</button>
-                                    <button class="btn btn-xs btn-success reply pull-right" ng-click="save_comment(topic, comment);reply.show_comment_input=false;">comentar</button>
+                                    <button class="btn btn-xs btn-success reply pull-right" ng-click="save_comment(new_reply, comment);reply.show_comment_input=false;">comentar</button>
                                     <button class="btn btn-xs btn-danger delete pull-right" ng-click="reply.show_comment_input=false">descartar</button>
-                                    <div class="post-attachments"
+                                    <files files="new_reply.files" editable="true" progress="new_reply.progress" is_topic="false"></files>
+
+                                    <!-- <div class="post-attachments"
                                          ng-show="comment.new_comment_files">
                                         <div class="attachments">
                                             <span translate
@@ -292,27 +197,28 @@
                                                     <a ng-href="{{file.file}}" target="_blank">{{file.name}}</a>
                                                 </li>
                                             </ul>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </form>
-                            </div>
-                            <div class="actions">
-                                <div class="pull-left">
-                                    <a ng-click="comment_like(reply)"
-                                       ng-class="{ 'active': reply.user_like }"
-                                       class="action liked">gostei</a>
-                                    <a ng-click="reply.show_comment_input=true" class="action replies">comentar</a>
-                                    <!-- <span class="last-edit">xx de xx de xxxx às xxhxx</span> -->
-                                </div>
-                                <div class="pull-right">
-                                    <span class="action liked"
-                                          ng-class="{ 'active': reply.count_likes }"
-                                          translate
-                                          translate-n="reply.count_likes"
-                                          translate-plural="{{$count}} gostaram">1 gostou</span>
+
+                                <div class="actions">
+                                    <div class="pull-left">
+                                        <a ng-click="comment_like(reply)"
+                                           ng-class="{ 'active': reply.user_like }"
+                                           class="action liked">gostei</a>
+                                        <a ng-click="reply.show_comment_input=true" class="action replies">comentar</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <span class="action liked"
+                                              ng-class="{ 'active': reply.count_likes }"
+                                              translate
+                                              translate-n="reply.count_likes"
+                                              translate-plural="{{$count}} gostaram">1 gostou</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- /Show replies -->
                     </div>
                 </div>
             </div>

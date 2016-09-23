@@ -166,14 +166,13 @@
             $scope.edit_topic = true;
             $scope.show_answer = true;
         };
-        //
-        // $scope.update_answer = function(){
-        //   $scope.topic.$save(function(){
-        //     console.log("New answer sucessfully saved.");
-        //     $window.location = $window.location.href;
-        //     $window.location.reload();
-        //   });
-        // };
+
+        // Bootstrap functions for new comments and replies
+        $scope.new_comment = function(){
+            var comment = new Comment();
+            comment.topic = $scope.topic;
+            return comment;
+        };
 
         $scope.uploadTopicFiles = function (file, topic) {
             if (file) {
@@ -183,21 +182,33 @@
                         topic.files = [];
                     topic.files.push(comment_file);
                     return {location: comment_file.file};
+                }, function(error){
+
+                }, function(evt){
+                    topic.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
                 });
             }
         };
 
-        $scope.uploadCommentFiles = function (file, topic) {
+        $scope.uploadCommentFiles = function (file, comment) {
+
             if (file) {
                 CommentFile.upload(file).then(function (response) {
                     var comment_file = new CommentFile(response.data);
-                    if (topic.new_comment_files === undefined)
-                        topic.new_comment_files = [];
-                    topic.new_comment_files.push(comment_file);
+
+                    if (comment.files === undefined)
+                        comment.files = [];
+                    comment.files.push(comment_file);
                     return {location: comment_file.file};
+                }, function (response) {
+                    if (response.status > 0) {
+                        $scope.errorMsg = response.status + ': ' + response.data;
+                    }
+                }, function (evt) {
+                    comment.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
                 });
             }
-        };
+        }
 
         var my_topic_activity = null;
         $scope.my_answer = true;
@@ -248,23 +259,24 @@
             }
         };
 
-        $scope.save_comment = function(topic, parent_comment) {
-            var new_comment = new Comment();
-            var new_comment_files = [];
-            new_comment.topic = topic.id;
+        $scope.save_comment = function(comment, parent_comment) {
             if (parent_comment) {
-                new_comment.parent = parent_comment.id;
-                new_comment.text = parent_comment.new_comment;
-                new_comment_files = parent_comment.new_comment_files;
-                parent_comment.comment_replies.unshift(new_comment);
+                comment.parent = parent_comment.id;
+                parent_comment.comment_replies.unshift(comment);
             } else {
-                new_comment.text = topic.new_comment;
-                topic.show_comment_input = false;
-                new_comment_files = topic.new_comment_files;
-                topic.comments.unshift(new_comment);
+                comment.topic.comments.unshift(comment);
             }
-            new_comment.$save().then(function(comment) {
-                angular.forEach(new_comment_files, function(comment_file) {
+            // Store files to be saved after the comment
+            var files = [];
+            angular.copy(comment.files, files);
+            delete comment.files;
+
+            // Turn the topic object into an id for JSON parsing
+            comment.topic = comment.topic.id;
+
+            // Send the comment data to be saved by the API
+            comment.$save().then(function(comment) {
+                angular.forEach(files, function(comment_file) {
                     comment_file.comment = comment.id;
                     delete comment_file.file;
                     comment_file.$patch().then(function(comment_file_complete) {
@@ -273,6 +285,7 @@
                 });
             });
         };
+
 
         $scope.comment_like = function(comment) {
             if (comment.user_like) {
