@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-21 15:46-0300\n"
+"POT-Creation-Date: 2016-09-23 15:13-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1124,10 +1124,9 @@ msgstr ""
 #: themes/default/templates/account/password_reset_from_key_done.html:24
 #: themes/default/templates/account/password_reset_from_key_done.html:71
 #: themes/default/templates/account/password_reset_from_key_done.html:74
-#: themes/if/templates/account/login_modal.html:27
 #: themes/ifs-colors/templates/account/login_modal.html:27
 #: themes/timtec/templates/account/login_modal.html:27
-msgid "E-mail or username"
+msgid "E-mail or login"
 msgstr ""
 
 #: themes/default/templates/_login_modal.html:39
@@ -2354,6 +2353,10 @@ msgstr ""
 
 #: themes/default/templates/user-courses.html:344
 msgid "Loading classes list"
+msgstr ""
+
+#: themes/if/templates/account/login_modal.html:27
+msgid "E-mail or username"
 msgstr ""
 
 #: themes/if/templates/account/login_modal.html:60
