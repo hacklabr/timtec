@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-23 15:13-0300\n"
+"POT-Creation-Date: 2016-09-23 19:22-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -243,30 +243,40 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
-#: activities/models.py:33 activities/models.py:48
+#: activities/models.py:31
+#: themes/default/templates/administration/lesson.html:197
+msgid "Positive Feedback"
+msgstr ""
+
+#: activities/models.py:32
+#: themes/default/templates/administration/lesson.html:204
+msgid "Negative Feedback"
+msgstr ""
+
+#: activities/models.py:35 activities/models.py:50
 #: themes/default/templates/administration/lesson.html:99
 msgid "Activity"
 msgstr ""
 
-#: activities/models.py:34
+#: activities/models.py:36
 msgid "Activities"
 msgstr ""
 
-#: activities/models.py:49 core/models.py:246 core/models.py:593
+#: activities/models.py:51 core/models.py:246 core/models.py:593
 #: core/models.py:698
 msgid "Student"
 msgstr ""
 
-#: activities/models.py:51
+#: activities/models.py:53
 msgid "Given answer"
 msgstr ""
 
-#: activities/models.py:54 forum/models.py:38 forum/models.py:65
+#: activities/models.py:56 forum/models.py:38 forum/models.py:65
 #: themes/default/templates/question.html:70
 msgid "Answer"
 msgstr ""
 
-#: activities/models.py:55
+#: activities/models.py:57
 msgid "Answers"
 msgstr ""
 
@@ -1560,12 +1570,29 @@ msgid ""
 "activity."
 msgstr ""
 
-#: themes/default/templates/administration/lesson.html:198
+#: themes/default/templates/administration/lesson.html:194
+msgid ""
+"The text bellow will be shown to students when they send a correctly answer "
+"to this activity."
+msgstr ""
+
+#: themes/default/templates/administration/lesson.html:195
+#: themes/default/templates/administration/lesson.html:202
+msgid "If you don't fill this field, it will appear a default message."
+msgstr ""
+
+#: themes/default/templates/administration/lesson.html:201
+msgid ""
+"The text bellow will be shown to students when they send a wrong answer to "
+"this activity."
+msgstr ""
+
+#: themes/default/templates/administration/lesson.html:212
 msgid "Unit activity"
 msgstr ""
 
-#: themes/default/templates/administration/lesson.html:218
-#: themes/default/templates/administration/lesson.html:219
+#: themes/default/templates/administration/lesson.html:232
+#: themes/default/templates/administration/lesson.html:233
 #: themes/default/templates/lesson.html:158
 msgid "Addicional materials"
 msgstr ""

@@ -28,6 +28,8 @@ class Activity(models.Model):
     expected = JSONField(_('Expected answer'), blank=True)
     unit = models.ForeignKey(Unit, verbose_name=_('Unit'), null=True, blank=True, related_name='activities')
     comment = models.TextField(_('Comment'), blank=True)
+    positive_feedback = models.TextField(_('Positive Feedback'), blank=True)
+    negative_feedback = models.TextField(_('Negative Feedback'), blank=True)
 
     class Meta:
         verbose_name = _('Activity')
