@@ -223,7 +223,7 @@
                 </div>
             </div>
         </div>
-    <div class="all-activity forums forum-list" ng-show="activities_loaded && latest_activities.length>0">
+    <div class="all-activity forums forum-list" ng-show="activities_loaded">
         <h3 class="title">Atividades das/os colegas</h3>
         <table class="table table-striped">
             <thead>
@@ -233,22 +233,22 @@
                     <th>reações</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr class="new" ng-repeat="activity in latest_activities">
-                    <td>
-                        <div class="user-icon">
-                            <img ng-src="{{activity.author.picture}}" alt="{{activity.author.name}}">
-                        </div>
-                        <div class="info">
-                            <a ng-click="viewAnswer(activity)"><span class="user-name">{{activity.author.name}}</span></a>
-                        </div>
-                    </td>
-                    <td>Última atividade <b>{{activity.last_activity_at | date : 'dd/MM/yyyy' }}</b></td>
-                    <td>
-                        <!-- <span class="action liked">{{ activity.count_likes }} curtiram</span> -->
-                        <span class="action replies">{{ activity.count_replies }} comentaram</span>
-                    </td>
-                </tr>
+            <tbody ng-repeat="course_class in classes_activities">
+                    <tr class="new" ng-repeat="answer in course_class.activity_answers">
+                        <td>
+                            <div class="user-icon">
+                              <img ng-src="{{answer.topic.author.picture}}" alt="{{answer.topic.author.name}}">
+                            </div>
+                            <div class="info">
+                                <a ng-click="viewAnswer(answer.topic)"><span class="user-name">{{answer.topic.author.name}}</span></a>
+                            </div>
+                        </td>
+                        <td>Última atividade <b>{{answer.topic.last_activity_at | date : 'dd/MM/yyyy' }}</b></td>
+                        <td>
+                            <!-- <span class="action liked">{{ activity.count_likes }} curtiram</span> -->
+                            <span class="action replies">{{ answer.topic.count_replies }} comentaram</span>
+                        </td>
+                    </tr>
             </tbody>
         </table>
     </div>

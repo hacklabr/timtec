@@ -7,8 +7,8 @@ from core.models import (Course, CourseProfessor, CourseStudent, Lesson,
                          IfCertificateTemplate)
 from accounts.serializers import TimtecUserSerializer, \
     TimtecUserAdminCertificateSerializer
-from activities.models import Activity
-from activities.serializers import ActivitySerializer
+from activities.models import Activity, Answer
+from activities.serializers import ActivitySerializer, AnswerSerializer
 from notes.models import Note
 from rest_framework import serializers
 
@@ -146,6 +146,30 @@ class ClassSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Class
+
+
+class ClassActivitySerializer(serializers.ModelSerializer):
+    activity_answers = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Class
+        fields = ['id', 'activity_answers', 'course']
+
+    def get_activity_answers(self, obj):
+        request = self.context.get("request")
+        activity_id = request.query_params.get('activity', None)
+
+        try:
+            queryset = Answer.objects.filter(
+                activity=activity_id,
+                activity__unit__lesson__course=obj.course,
+                user__in=obj.students.all()
+            ).exclude(user=request.user)
+        except Answer.DoesNotExist:
+            return
+
+        return AnswerSerializer(
+            queryset, many=True, **{'context': self.context}).data
 
 
 class VideoSerializer(serializers.ModelSerializer):

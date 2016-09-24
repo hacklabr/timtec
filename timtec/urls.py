@@ -17,7 +17,7 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         CarouselCourseView, ClassListView,
                         ClassCreateView, ClassUpdateView, ClassDeleteView,
                         ClassRemoveUserView, ClassAddUsersView, ClassViewSet,
-                        ClassEvaluationsView,
+                        ClassEvaluationsView, ClassActivityViewSet,
                         FlatpageViewSet, CoursePictureUploadViewSet,
                         ResumeCourseView, FlatpageView, CourseAuthorViewSet,
                         CourseCertificationViewSet,
@@ -69,6 +69,7 @@ router.register(r'reports', UserCourseStats, base_name='reports')
 router.register(r'lessons_user_progress', UserCourseLessonsStats, base_name='lessons_user_progress')
 router.register(r'course_stats', CourseStatsByLessonViewSet, base_name='course_stats')
 router.register(r'course_classes', ClassViewSet, base_name='course_classes')
+router.register(r'course_class_activities', ClassActivityViewSet, base_name='course_class_activities')
 router.register(r'flatpage', FlatpageViewSet, base_name='flatpage')
 router.register(r'course_certification', CourseCertificationViewSet, base_name='course_certification')
 router.register(r'certification_process', CertificationProcessViewSet, base_name='certification_process')

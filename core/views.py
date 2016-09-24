@@ -27,7 +27,8 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           StudentProgressSerializer, CourseNoteSerializer,
                           LessonNoteSerializer, ProfessorMessageSerializer,
                           CourseStudentSerializer, ClassSerializer,
-                          FlatpageSerializer, CourseAuthorPictureSerializer,
+                          ClassActivitySerializer, FlatpageSerializer,
+                          CourseAuthorPictureSerializer,
                           CourseAuthorSerializer,
                           CourseCertificationSerializer,
                           CertificationProcessSerializer,
@@ -825,6 +826,14 @@ class ClassViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
                 queryset = queryset.filter(assistant=self.request.user)
 
         return queryset
+
+
+class ClassActivityViewSet(viewsets.ModelViewSet):
+    model = Class
+    queryset = Class.objects.all()
+    serializer_class = ClassActivitySerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('course',)
 
 
 class FlatpageView(View):

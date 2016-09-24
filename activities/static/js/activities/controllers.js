@@ -93,7 +93,8 @@
       'CommentLike',
       'CommentFile',
       'Progress',
-      function ($scope, $sce, $routeParams, $location, $anchorScroll, uiTinymceConfig, Forum, Topic, Comment, TopicLike, TopicFile, CommentLike, CommentFile, Progress) {
+      'ClassActivity',
+      function ($scope, $sce, $routeParams, $location, $anchorScroll, uiTinymceConfig, Forum, Topic, Comment, TopicLike, TopicFile, CommentLike, CommentFile, Progress, ClassActivity) {
         $scope.activity_open = true;
         $scope.activity_expired = false;
         var now = Date.now();
@@ -233,12 +234,12 @@
         };
 
         // Load other students activities
-        $scope.latest_activities = Topic.query({
-            forum: $scope.currentActivity.data.forum,
+        $scope.classes_activities = ClassActivity.query({
+            activity: $scope.currentActivity.id,
+            course: $scope.lesson.course,
             ordering: '-last_activity_at',
-            activity: true,
             exclude_cur_user: true,
-            }, function(){
+          }, function(response){
                 $scope.activities_loaded = true;
             }
         );
