@@ -319,25 +319,6 @@
       }
     ]);
 
-    app.controller('DiscussionActivityAdminCtrl', [
-      '$scope',
-      '$sce',
-      'uiTinymceConfig',
-      'Forum',
-      'Topic',
-      'TopicFile',
-      function ($scope, $sce, uiTinymceConfig, Forum, Topic, TopicFile) {
-        uiTinymceConfig.automatic_uploads = true;
-
-
-
-
-
-
-
-      }
-    ]);
-
     app.controller('PresentationActivityCtrl', [
       '$scope',
       '$sce',

@@ -552,6 +552,7 @@ class CourseViewSet(viewsets.ModelViewSet):
 
 class CourseThumbViewSet(viewsets.ModelViewSet):
     model = Course
+    queryset = Course.objects.all()
     lookup_field = 'id'
     serializer_class = CourseThumbSerializer
     permission_classes = (IsProfessorCoordinatorOrAdminPermissionOrReadOnly, )
