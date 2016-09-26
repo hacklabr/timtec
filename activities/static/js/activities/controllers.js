@@ -240,7 +240,15 @@
             ordering: '-last_activity_at',
             exclude_cur_user: true,
           }, function(response){
-                $scope.activities_loaded = true;
+                // Check if there are any activities to show
+                var acticvities = false;
+                for (var i = 0; i < response.length; i++) {
+                    if(response[i].activity_answers.length > 0){
+                      acticvities = true;
+                      break;
+                    }
+                }
+                $scope.activities_loaded = acticvities;
             }
         );
 

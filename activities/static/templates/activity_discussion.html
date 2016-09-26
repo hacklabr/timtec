@@ -229,6 +229,7 @@
             <thead>
                 <tr>
                     <th>autor</th>
+                    <th>turma</th>
                     <th>atividade</th>
                     <th>reações</th>
                 </tr>
@@ -243,6 +244,7 @@
                                 <a ng-click="viewAnswer(answer.topic)"><span class="user-name">{{answer.topic.author.name}}</span></a>
                             </div>
                         </td>
+                        <td><b>{{course_class.name}}</b></td>
                         <td>Última atividade <b>{{answer.topic.last_activity_at | date : 'dd/MM/yyyy' }}</b></td>
                         <td>
                             <!-- <span class="action liked">{{ activity.count_likes }} curtiram</span> -->

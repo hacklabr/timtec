@@ -153,7 +153,7 @@ class ClassActivitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Class
-        fields = ['id', 'activity_answers', 'course']
+        fields = ['id', 'name', 'activity_answers', 'course']
 
     def get_activity_answers(self, obj):
         request = self.context.get("request")
