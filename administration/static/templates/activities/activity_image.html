@@ -1,45 +1,47 @@
-<div class="question textleft">
-    <div class="editable-title">
-        <input type="text" ng-model="currentActivity.data.question" placeholder="Título da atividade">
+<div ng-controller="ImageActivityAdminCtrl">
+    <div class="question textleft">
+        <div class="editable-title">
+            <input type="text" ng-model="currentActivity.data.question" placeholder="Título da atividade">
+        </div>
+        <button class="btn btn-danger" ng-click="removeCurrentActivity()"><i class="fa fa-trash-o"></i></button>
     </div>
-    <button class="btn btn-danger" ng-click="removeCurrentActivity()"><i class="fa fa-trash-o"></i></button>
-</div>
-<section class="thumbnail" ng-init="thumbfile=null">
+    <section class="thumbnail" ng-init="thumbfile=null">
 
-    <div class="row" ng-init="addThumb=(thumbfile===null)" ng-show="!currentActivity.image_url">
+        <div class="row" ng-init="addThumb=(thumbfile===null)" ng-show="!currentActivity.image_url">
 
-        <div class="add-thumbnail col-sm-12 col-lg-12 textcenter">
-            <div class="centered">
-                <div class="form-group">
-                    <i class="fa fa-picture-o fa-4x"></i>
-                    <h1 class="bottom top">Imagem</h1>
-                    <p>(min-width: 845px)</p>
+            <div class="add-thumbnail col-sm-12 col-lg-12 textcenter">
+                <div class="centered">
+                    <div class="form-group">
+                        <i class="fa fa-picture-o fa-4x"></i>
+                        <h1 class="bottom top">Imagem</h1>
+                        <p>(min-width: 845px)</p>
 
-                    <file ng-model="thumbfile" name="thumbnail" class="form-control"></file>
+                        <file ng-model="thumbfile" name="thumbnail" class="form-control"></file>
+                    </div>
+
+                    <p>
+                        <br>
+                        <button class="btn btn-danger btn-lg uppercase"
+                                ng-click="thumbfile=null; addThumb=!currentActivity.image_url">Cancelar</button>
+
+                        <button class="btn btn-success btn-lg uppercase"
+                                ng-click="addThumb=(thumbfile===null); saveThumb()">Adicionar</button>
+                        <button class="btn btn-success btn-lg uppercase"
+                                ng-click="addThumb=(thumbfile===null); save_activity_image()">Adicionar</button>
+                    </p>
                 </div>
-
-                <p>
-                    <br>
-                    <button class="btn btn-danger btn-lg uppercase"
-                            ng-click="thumbfile=null; addThumb=!currentActivity.image_url">Cancelar</button>
-
-                    <button class="btn btn-success btn-lg uppercase"
-                            ng-click="addThumb=(thumbfile===null); saveThumb()">Adicionar</button>
-                    <button class="btn btn-success btn-lg uppercase"
-                            ng-click="addThumb=(thumbfile===null); save_activity_image()">Adicionar</button>
-                </p>
             </div>
         </div>
-    </div>
-    <div class="row" ng-show="currentActivity.image_url">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <img preview-image ng-model="thumbfile" class="img-responsive" ng-show="thumbfile"/>
-            <img ng-src="{{currentActivity.image_url}}" class="img-responsive" ng-show="!thumbfile"/>
-        </div>
+        <div class="row" ng-show="currentActivity.image_url">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <img preview-image ng-model="thumbfile" class="img-responsive" ng-show="thumbfile"/>
+                <img ng-src="{{currentActivity.image_url}}" class="img-responsive" ng-show="!thumbfile"/>
+            </div>
 
-        <div class="col-lg-12 textright">
-            <button class="btn-edit-thumbnail btn btn-success btn-sm uppercase"
-                    ng-click="addThumb=true">Alterar imagem</button>
+            <div class="col-lg-12 textright">
+                <button class="btn-edit-thumbnail btn btn-success btn-sm uppercase"
+                        ng-click="addThumb=true">Alterar imagem</button>
+            </div>
         </div>
-    </div>
 </section>
+</div>
