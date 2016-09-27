@@ -5,10 +5,28 @@ import tarfile
 from django.http import Http404
 
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 import requests
 
-from .models import Answer
-from .serializers import AnswerSerializer
+from .models import Answer, Activity
+from .serializers import AnswerSerializer, ActivityImageSerializer
+
+
+class ActivityImageViewSet(viewsets.ModelViewSet):
+    model = Activity
+    queryset = Activity.objects.all()
+    serializer_class = ActivityImageSerializer
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request, **kwargs):
+        activity = self.get_object()
+        serializer = ActivityImageSerializer(activity, request.FILES)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=200)
+        else:
+            return Response(serializer.errors, status=400)
 
 
 class AnswerViewSet(viewsets.ModelViewSet):

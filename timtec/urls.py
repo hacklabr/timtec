@@ -27,7 +27,7 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         CertificateTemplateImageViewSet, RequestCertificateView,
                         EmitReceiptView, ProfileViewSet)
 
-from activities.views import AnswerViewSet
+from activities.views import AnswerViewSet, ActivityImageViewSet
 from forum.views import (CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet,
                          QuestionVoteViewSet, AnswerVoteViewSet, AnswerViewSet as ForumAnswerViewSet)
 from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialViewSet, CourseMaterialFileViewSet
@@ -56,6 +56,7 @@ router.register(r'professor_message', ProfessorMessageViewSet, base_name='profes
 router.register(r'coursethumbs', CourseThumbViewSet, base_name='coursethumbs')
 router.register(r'lessons', LessonViewSet, base_name='lessons')
 router.register(r'answer', AnswerViewSet, base_name='answer')
+router.register(r'activity_image', ActivityImageViewSet, base_name='activity_image')
 router.register(r'student_progress', StudentProgressViewSet, base_name='student_progress')
 router.register(r'forum_question', QuestionViewSet, base_name='forum_question')
 router.register(r'forum_answer', ForumAnswerViewSet, base_name='forum_answer')
