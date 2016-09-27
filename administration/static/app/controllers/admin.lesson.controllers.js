@@ -315,5 +315,64 @@
         }
     ]);
 
+    app.controller('ImageActivityAdminCtrl', [
+      '$scope',
+      'Upload',
+      function ($scope, Upload) {
+
+        // whenever the activity_image.html is reoaded, the next function is called
+        $scope.updateImage = function(){
+            // If there is already an image, show it
+            if($scope.currentActivity.image_url)
+                $scope.image_editing = false;
+            else
+                $scope.image_editing = true;
+        };
+
+        $scope.saveImage = function() {
+            if(! $scope.image_up) {
+                return;
+            }
+            if ($scope.course.id) {
+              // Define the HTTP method
+              // If the activity will be created now, must be POST. Otherwise, PUT
+              var upload_method;
+              var id;
+              if($scope.currentActivity.id){
+                  upload_method = 'PUT';
+                  id = '/'+$scope.currentActivity.id;
+              }
+              else{
+                  upload_method = 'POST';
+                  id = '';
+              }
+
+              Upload.upload({
+                url: '/api/activity_image' + id,
+                method: upload_method,
+                data: {image: $scope.image_up},
+              }).then(function(response){
+                  $scope.alert.success('A imagem atualizada.');
+                  $scope.currentActivity.image_url = response.data.image;
+                  $scope.image_editing = false;
+              });
+            }
+        };
+
+        $scope.deleteThumb = function() {
+            if ($scope.course.id) {
+              Upload.upload({
+                url: '/api/activity_image/' + $scope.currentActivity.id,
+                method: 'PUT',
+                data: {image: ''},
+              }).then(function(response){
+
+              });
+            }
+        };
+
+
+      }
+    ]);
 
 })(window.angular);

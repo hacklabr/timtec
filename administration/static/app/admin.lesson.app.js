@@ -18,5 +18,6 @@
         'header',
         'ui.bootstrap',
         'discussion.services',
+        'ngFileUpload',
     ]);
 })(window.angular);
