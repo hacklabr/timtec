@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from django.conf import settings
 from django.db.models import Q
 
-from .models import Class
+from .models import Class, CourseStudent
 import logging
 
 logger = logging.getLogger(__name__)
@@ -69,6 +69,15 @@ class AddStudentsForm(forms.ModelForm):
                     Q(email=student_name)
                 )
                 self.instance.add_students(student)
+
+                if self.data['auto_enroll'] == "True":
+                    # Check if the new user is already enrolled
+                    try:
+                        CourseStudent.objects.get(user=student, course=self.instance.course)
+                    except CourseStudent.DoesNotExist:
+                        CourseStudent.objects.create(user=student, course=self.instance.course)
+                        pass
+
             except User.DoesNotExist:
                 logger.info(u'student with username: %s does not exist' % student_name)
 
