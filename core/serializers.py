@@ -236,7 +236,7 @@ class ProfileSerializer(TimtecUserSerializer):
     class Meta:
         model = get_user_model()
         fields = ('id', 'username', 'name', 'first_name', 'last_name',
-                  'biography', 'picture', 'is_profile_filled', 'occupation',
+                  'biography', 'picture', 'is_profile_filled', 'occupation', 'birth_date',
                   'certificates', 'city', 'state', 'site', 'occupation', 'social_medias')
 
 

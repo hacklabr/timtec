@@ -45,7 +45,7 @@ class ProfileEditForm(BaseProfileEditForm):
 
     class Meta:
         model = get_user_model()
-        fields = ('username', 'email', 'first_name', 'last_name', 'picture',
+        fields = ('username', 'email', 'first_name', 'last_name', 'picture', 'birth_date',
                   'occupation', 'city', 'state', 'site', 'biography',)
 
     def __init__(self, *args, **kwargs):
