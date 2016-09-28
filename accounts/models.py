@@ -34,6 +34,8 @@ class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
     site = models.URLField(_('Site'), blank=True)
     biography = models.TextField(_('Biography'), blank=True)
     birth_date = models.DateField(_("Birth Date"), null=True, blank=True)
+    how_you_know = models.CharField(_('How do you know the platform?'), max_length=50, blank=True)
+    how_you_know_complement = models.CharField(_('Complement for "How do you know the platform?"'), max_length=255, blank=True)
     accepted_terms = models.BooleanField(_('Accepted terms and condition'), default=False)
 
     objects = UserManager()

@@ -86,6 +86,8 @@ class SignupForm(AcceptTermsForm):
     last_name = forms.CharField(max_length=30, label=_('Last Name'), required=False)
     city = forms.CharField(max_length=30, label=_('City'), required=False)
     state = StateChoiceField(label=_('State'), required=False)
+    how_you_know = forms.CharField(max_length=50, label=_('How do you know the platform?'), required=False)
+    how_you_know_complement = forms.CharField(max_length=50, label=_('Complement for "How do you know the platform?"'), required=False)
 
     def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
@@ -98,6 +100,8 @@ class SignupForm(AcceptTermsForm):
         user.city = self.cleaned_data['city']
         user.state = self.cleaned_data['state']
         user.accepted_terms = self.cleaned_data['accept_terms']
+        user.how_you_know = self.cleaned_data['how_you_know']
+        user.how_you_know_complement = self.cleaned_data['how_you_know_complement']
         user.save()
 
 
