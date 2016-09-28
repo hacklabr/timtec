@@ -1,0 +1,27 @@
+version: '2'
+
+volumes:
+    database_data: {}
+
+services:
+    database:
+        image: postgres:9.5
+        restart: always
+        volumes:
+            - database_data:/var/lib/postgresql/data
+        environment:
+            - POSTGRES_DB=timtec
+            - POSTGRES_USER=timtec
+    django:
+        build:
+            context: .
+            dockerfile: Dockerfile-dev
+        volumes:
+            - .:/app/timtec
+        restart: always
+        depends_on:
+            - database
+        links:
+            - database
+        ports:
+            - "0.0.0.0:8000:8000"

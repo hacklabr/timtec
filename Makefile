@@ -140,6 +140,12 @@ reset_db: clean
 messages: clean
 	python manage.py makemessages -a -d django
 
+docker_dev:
+	docker-compose -f docker-compose-dev.yml up
+
+docker_dev_build:
+	docker-compose -f docker-compose-dev.yml build
+
 doc_install:
 	virtualenv docs/env
 	make doc_update
@@ -155,3 +161,5 @@ doc_build:
 doc_run:
 	make doc_update
 	docs/env/bin/mkdocs serve
+
+docker_dev:
