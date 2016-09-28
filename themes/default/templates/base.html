@@ -16,7 +16,7 @@
     {% compressed_css 'public' %}
 
     {% block css %}{% endblock %}
-    
+
     <script>
         window.STATIC_URL = '{{ STATIC_URL }}';
         window.MEDIA_URL = '{{ MEDIA_URL }}';
@@ -41,7 +41,7 @@
                 windowHeight = window.innerHeight;
                 navbarHeight = $('#main-navbar').innerHeight();
                 footerHeight = $('#main-footer').innerHeight();
-                $('#activation-wrapper').innerHeight(windowHeight - (navbarHeight + footerHeight + 58));
+                // $('#activation-wrapper').innerHeight(windowHeight - (navbarHeight + footerHeight + 58));
             }
 
             function wrapper_min_height() {
