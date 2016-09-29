@@ -7,7 +7,8 @@
         'directive.fixedBar',
         'django',
         'ui.bootstrap',
-        'directive.file'
+        'directive.file',
+        'header',
     ]);
 
 })(window.angular);
