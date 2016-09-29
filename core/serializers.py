@@ -5,8 +5,8 @@ from core.models import (Course, CourseProfessor, CourseStudent, Lesson,
                          Class, CourseAuthor, CourseCertification,
                          CertificationProcess, Evaluation, CertificateTemplate,
                          IfCertificateTemplate)
-from accounts.serializers import TimtecUserSerializer, \
-    TimtecUserAdminCertificateSerializer
+from accounts.serializers import (TimtecUserSerializer,
+                                  TimtecUserAdminCertificateSerializer, TimtecUserAdminSerializer)
 from activities.serializers import ActivitySerializer
 from rest_framework.reverse import reverse_lazy
 from notes.models import Note
@@ -28,7 +28,7 @@ class ProfessorMessageSerializer(serializers.ModelSerializer):
 class ProfessorMessageUserDetailsSerializer(serializers.ModelSerializer):
 
     professor = TimtecUserSerializer(source='professor', read_only=True)
-    users_details = TimtecUserSerializer(source='users', read_only=True)
+    users_details = TimtecUserAdminSerializer(source='users', read_only=True)
 
     class Meta:
         model = ProfessorMessage
