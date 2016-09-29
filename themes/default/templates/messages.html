@@ -39,7 +39,7 @@ wrapper-course-lesson
         <header class="secondary-header" ng-controller="NewMessageController">
             <div class="row">
                 <div class="col-md-9 col-sm-8 col-xs-6">
-                    <h1>{% trans "Messages" %}</h1>
+                    <h1>{% block messages_title %}{% trans "Messages" %}{% endblock %}</h1>
                 </div>
                 <div class="col-md-3 col-sm-4 col-xs-6">
                     <a class="new-message btn btn-lg btn-danger uppercase" ng-click="new_message()">{% trans "New Message" %}</a>
@@ -133,19 +133,24 @@ wrapper-course-lesson
                 <div class="row">
                     <div class="col-lg-1 textright">
                         {% verbatim %}
-                        <span class="date">{{ message.date|date:"dd/MM/yy" }}</span>
+                        <span class="date">{{ message.date|date:"dd/MM/yy" }}</span><br>
+                        <span>{{ message.date|date:"HH:mm" }}</span>
                         {% endverbatim %}
                     </div>
-                    <div class="col-lg-11">
+                    <div class="col-lg-10">
                         {% verbatim %}
                         <div class="subject">{{ message.subject }}</div>
                         {% endverbatim %}
                         <div class="body">
-                        <span ng-bind-html="message.message|markdown|words:50"></span>
+                            <span ng-bind-html="message.message|markdown|words:50"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div class="actions">
                             {% if in_admin %}
-                                {% verbatim %}<a ng-href="/admin/course/{{course_id}}/message/{{message.id}}">{% endverbatim %} {% trans 'More...' %}</a>
+                                {% verbatim %}<a ng-href="/admin/course/{{course_id}}/message/{{message.id}}" class='btn btn-primary btn-sm'>{% endverbatim %} {% trans 'Details' %}</a>
                             {% else %}
-                                {% verbatim %}<a ng-href="/course/{{course_slug}}/message/{{message.id}}">{% endverbatim %} {% trans 'More...' %}</a>
+                                {% verbatim %}<a ng-href="/course/{{course_slug}}/message/{{message.id}}" class='btn btn-primary btn-sm'>{% endverbatim %} {% trans 'Details' %}</a>
                             {% endif %}
                         </div>
                     </div>
