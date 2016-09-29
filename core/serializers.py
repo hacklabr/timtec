@@ -180,7 +180,7 @@ class VideoSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    intro_video = VideoSerializer(required=False)
+    intro_video = VideoSerializer(required=False, read_only=True)
     home_thumbnail_url = serializers.SerializerMethodField()
     is_user_assistant = serializers.SerializerMethodField()
     is_user_coordinator = serializers.SerializerMethodField()
