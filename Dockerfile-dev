@@ -18,7 +18,6 @@ RUN mkdir -p /app
 
 # Prefer to use mdillon/postgis
 ENV DJANGO_DATABASE_URL='postgres://timtec:timtec@postgres/timtec'
-ENV DJANGO_SETTINGS_MODULE='timtec.settings_local_docker'
 ENV PYTHONPATH='/app/timtec'
 ENV GUNICORN_LOG_LEVEL='info'
 ENV GUNICORN_EXTRA_FLAGS=''
