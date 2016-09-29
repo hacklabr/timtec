@@ -108,9 +108,8 @@ wrapper-course-lesson
         </header>
         {% block messages_content %}
         <div class="messages" ng-controller="MessagesListController">
-
-            <div class="col-xs-12" ng-show="!messages">
-                <div class="waiting textcenter jumbotron">
+            <div class="col-xs-12" ng-show="messages.length == 0">
+                <div class="waiting textcenter">
                     <div class="middle">
                         <i class="fa fa-refresh fa-5x"></i>
                     </div>

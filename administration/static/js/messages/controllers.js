@@ -39,7 +39,7 @@
                         resize: false,
                         menubar:false,
                         statusbar: false,
-                        
+
                         plugins: 'textcolor link',
                         toolbar: "undo redo styleselect bold italic forecolor backcolor link",
                     };
@@ -120,6 +120,8 @@
         function($scope, $modal, $window, Message, messages_list) {
             $scope.course_id = parseInt($window.course_id, 10);
             $scope.course_slug = $window.course_slug;
+            $scope.messages = [];
+
             messages_list.messages = Message.query({course: $scope.course_id});
             $scope.messages = messages_list.messages;
             $scope.$on('newMessage', function() {
