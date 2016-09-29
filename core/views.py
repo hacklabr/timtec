@@ -114,7 +114,7 @@ class ContactView(View):
         return response
 
 
-class GenericCourseView(DetailView):
+class GenericCourseView(LoginRequiredMixin, DetailView):
     model = Course
     context_object_name = 'course'
     slug_url_kwarg = 'course_slug'
