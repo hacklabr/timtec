@@ -31,7 +31,7 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           CourseAuthorSerializer,
                           CourseCertificationSerializer,
                           CertificationProcessSerializer,
-                          EvaluationSerializer, ProfileSerializer,
+                          EvaluationSerializer, ProfileSerializer, ProfessorMessageUserDetailsSerializer,
                           IfCertificateTemplateSerializer, CertificateTemplateImageSerializer)
 
 from .models import (Course, CourseProfessor, Lesson, StudentProgress,
@@ -475,7 +475,11 @@ class ProfessorMessageViewSet(viewsets.ModelViewSet):
     lookup_field = 'id'
     filter_fields = ('course',)
     filter_backends = (filters.DjangoFilterBackend,)
-    serializer_class = ProfessorMessageSerializer
+
+    def get_serializer_class(self):
+        if 'id' in self.kwargs.keys():
+            return ProfessorMessageUserDetailsSerializer
+        return ProfessorMessageSerializer
 
     def pre_save(self, obj):
         obj.professor = self.request.user
