@@ -121,6 +121,7 @@ class ExportCourseView(views.SuperuserRequiredMixin, View):
 
     @staticmethod
     def add_files_to_export(tar_file, short_file_path):
+        short_file_path = short_file_path.split('/', 2)[-1]
         full_file_path = settings.MEDIA_ROOT + '/' + short_file_path
         if os.path.isfile(full_file_path):
                 tar_file.add(full_file_path,
@@ -150,7 +151,6 @@ class ExportCourseView(views.SuperuserRequiredMixin, View):
         for course_author in course_authors:
             picture_path = course_author.get('picture')
             if picture_path:
-                picture_path = picture_path.split('/', 2)[-1]
                 self.add_files_to_export(course_tar_file, picture_path)
 
         course_thumbnail_path = course_serializer.data.get('thumbnail')
