@@ -633,7 +633,7 @@ if DEBUG:
     INSTALLED_APPS += (
         'debug_toolbar',
     )
-    INTERNAL_IPS = ('127.0.0.1', )
+    INTERNAL_IPS = ('127.0.0.1', '172.18.0.1')
 
 # Fix debug toolbar issue: https://github.com/django-debug-toolbar/django-debug-toolbar/issues/521
 # DEBUG_TOOLBAR_PATCH_SETTINGS = False
