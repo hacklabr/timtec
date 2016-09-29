@@ -1,7 +1,7 @@
 (function(angular){
     'use strict';
 
-    var module = angular.module('messages.controllers', ['ui.tinymce']);
+    var module = angular.module('messages.controllers', ['ui.tinymce', 'ui.bootstrap']);
 
     // Service to share data across the controllers
     module.factory('messages_list', function() {
@@ -10,8 +10,8 @@
         };
     });
 
-    module.controller('NewMessageController', ['$scope', '$modal', '$window', 'Message', 'Student', 'StudentSearch', 'Class', 'messages_list', '$rootScope',
-            function($scope, $modal, $window, Message, Student, StudentSearch, Class, messages_list, $rootScope) {
+    module.controller('NewMessageController', ['$scope', '$interval', '$modal', '$window', 'Message', 'Student', 'StudentSearch', 'Class', 'messages_list', '$rootScope',
+            function($scope, $interval, $modal, $window, Message, Student, StudentSearch, Class, messages_list, $rootScope) {
                 $scope.course_id = parseInt($window.course_id, 10);
                 $scope.messages = messages_list.messages;
                 $scope.new_message = function () {
@@ -23,13 +23,6 @@
                                 return $scope.course_id;
                             }
                         }
-                    });
-                    modalInstance.result.then(function (new_message) {
-                        new_message.$save({}, function(new_message){
-                            messages_list.messages.unshift(new_message);
-                            $rootScope.$broadcast('newMessage');
-                        });
-
                     });
                 };
                 var SendMessageModalInstanceCtrl = function ($scope, $modalInstance, course_id) {
@@ -50,6 +43,8 @@
                     $scope.recipient_list = [];
                     $scope.empty_msg_subject_error = false;
                     $scope.empty_msg_body_error = false;
+                    $scope.sending = false;
+                    $scope.progressbar_counter = 0;
 
                     $scope.classes = Class.query({course: course_id}, function(classes){
                         classes.checked = [];
@@ -61,6 +56,15 @@
                     $scope.modal.all_checked = true;
 
                     $scope.send = function () {
+
+                        // progressbar
+                        $interval(function(){
+                            if($scope.progressbar_counter == 0){
+                                $scope.progressbar_counter = 20;
+                            }
+                            $scope.progressbar_counter++;
+                        },1000,0);
+
                         // TODO validação dos campo: títle e message não podem ser vazios
                         if ($scope.modal.all_checked) {
                             $scope.new_message.users = [];
@@ -78,7 +82,16 @@
                             });
                         }
                         if ($scope.new_message.message && $scope.new_message.subject) {
-                            $modalInstance.close($scope.new_message);
+
+                            $scope.sending = true;
+                            $scope.new_message.$save({}, function(new_message){
+                                messages_list.messages.unshift(new_message);
+                                $scope.progressbar_counter = 100;
+                                $rootScope.$broadcast('newMessage');
+                                $scope.sending = false;
+                                $modalInstance.close();
+                            });
+
                             $scope.empty_msg_subject_error = false;
                             $scope.empty_msg_body_error = false;
                         }
@@ -120,8 +133,6 @@
         function($scope, $modal, $window, Message, messages_list) {
             $scope.course_id = parseInt($window.course_id, 10);
             $scope.course_slug = $window.course_slug;
-            $scope.messages = [];
-
             messages_list.messages = Message.query({course: $scope.course_id});
             $scope.messages = messages_list.messages;
             $scope.$on('newMessage', function() {
