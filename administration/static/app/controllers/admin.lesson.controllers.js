@@ -321,15 +321,15 @@
       function ($scope, Upload) {
 
         // whenever the activity_image.html is reoaded, the next function is called
-        $scope.updateImage = function(){
+        $scope.$watch('currentActivity', function() {
             // If there is already an image, show it
-            if($scope.currentActivity.image_url)
-                $scope.image_editing = false;
+            if($scope.currentActivity !== undefined && $scope.currentActivity.image_url)
+                $scope.currentActivity.image_show = true;
             else
-                $scope.image_editing = true;
-        };
+                $scope.currentActivity.image_show = false;
+        });
 
-        $scope.saveImage = function() {
+        $scope.saveImage = function(currentActivity) {
             if(! $scope.image_up) {
                 return;
             }
@@ -338,9 +338,9 @@
               // If the activity will be created now, must be POST. Otherwise, PUT
               var upload_method;
               var id;
-              if($scope.currentActivity.id){
+              if(currentActivity.id){
                   upload_method = 'PUT';
-                  id = '/'+$scope.currentActivity.id;
+                  id = '/'+currentActivity.id;
               }
               else{
                   upload_method = 'POST';
@@ -352,9 +352,10 @@
                 method: upload_method,
                 data: {image: $scope.image_up},
               }).then(function(response){
-                  $scope.alert.success('A imagem atualizada.');
-                  $scope.currentActivity.image_url = response.data.image;
-                  $scope.image_editing = false;
+                  $scope.alert.success('A imagem foi atualizada.');
+                  currentActivity.id = response.data.id;
+                  currentActivity.image_url = response.data.image.match("^[^#]*?:\/\/.*?(\/.*)$")[1];
+                  currentActivity.image_show = true;
               });
             }
         };

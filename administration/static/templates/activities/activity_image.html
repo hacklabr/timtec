@@ -5,9 +5,9 @@
         </div>
         <button class="btn btn-danger" ng-click="removeCurrentActivity()"><i class="fa fa-trash-o"></i></button>
     </div>
-    <section class="thumbnail" ng-init="updateImage()">
+    <section class="thumbnail">
 
-        <div class="row" ng-show="image_editing">
+        <div class="row" ng-show="!currentActivity.image_show">
             <div class="add-thumbnail col-sm-12 col-lg-12 textcenter">
                 <div class="centered">
                     <div class="form-group">
@@ -23,22 +23,22 @@
                     <p>
                         <br>
                         <button class="btn btn-danger btn-lg uppercase"
-                                ng-show="currentActivity.image_url" ng-click="image_editing=false">Cancelar</button>
+                                ng-show="currentActivity.image_url" ng-click="currentActivity.image_show = true">Cancelar</button>
 
                         <button class="btn btn-success btn-lg uppercase"
-                                ng-click="saveImage()">Adicionar</button>
+                                ng-click="saveImage(currentActivity)">Adicionar</button>
                     </p>
                 </div>
             </div>
         </div>
-        <div class="row" ng-show="!image_editing">
+        <div class="row" ng-show="currentActivity.image_show">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <img ng-src="{{currentActivity.image_url}}" class="img-responsive" />
             </div>
 
             <div class="col-lg-12 textright">
                 <button class="btn-edit-thumbnail btn btn-success btn-sm uppercase"
-                        ng-click="image_editing = true">Alterar imagem</button>
+                        ng-click="currentActivity.image_show = false">Alterar imagem</button>
             </div>
         </div>
     </section>
