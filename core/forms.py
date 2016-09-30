@@ -82,3 +82,32 @@ class AddStudentsForm(forms.ModelForm):
                 logger.info(u'student with username: %s does not exist' % student_name)
 
         return super(AddStudentsForm, self).save(commit=commit)
+
+
+from django.contrib.auth import get_user_model
+from allauth.account.forms import LoginForm
+
+
+class PlpcLoginForm(LoginForm):
+
+    def clean(self):
+        if self._errors:
+            return
+        User = get_user_model()
+        try:
+            login = self.cleaned_data["login"]
+            if '@' in login:
+                plpc_user = User.objects.get(email=login)
+            else:
+                plpc_user = User.objects.get(username=login)
+
+            if not plpc_user.is_active:
+                plpc_user.is_active = True
+                plpc_user.set_password(self.cleaned_data["password"])
+                plpc_user.save()
+        except User.DoesNotExist:
+            pass
+
+        return super(PlpcLoginForm, self).clean()
+
+
