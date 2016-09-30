@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-23 19:22-0300\n"
-"PO-Revision-Date: 2016-09-23 19:25-0300\n"
+"POT-Creation-Date: 2016-09-30 16:00-0300\n"
+"PO-Revision-Date: 2016-09-30 16:03-0300\n"
 "Last-Translator: Administrador TIMTec <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -51,15 +51,19 @@ msgstr "email"
 #: themes/default/templates/account/signup.html:40
 #: themes/default/templates/account/signup.html:119
 #: themes/default/templates/ifs/signup-completion.html:47
-#: themes/default/templates/profile-edit.html:158
+#: themes/default/templates/profile-edit.html:168
 #: themes/if/templates/account/login_modal.html:34
 #: themes/if/templates/account/login_modal.html:36
 #: themes/if/templates/account/signup.html:58
 #: themes/ifs-colors/templates/account/login_modal.html:34
 #: themes/ifs-colors/templates/account/login_modal.html:36
+#: themes/ifs-colors/templates/account/signup.html:137
+#: themes/ifs-colors/templates/account/signup.html:215
 #: themes/ifs-colors/templates/ifs/signup-completion.html:47
 #: themes/timtec/templates/account/login_modal.html:34
 #: themes/timtec/templates/account/login_modal.html:36
+#: themes/timtec/templates/account/signup.html:137
+#: themes/timtec/templates/account/signup.html:215
 msgid "Password"
 msgstr "Senha"
 
@@ -67,7 +71,7 @@ msgstr "Senha"
 msgid "Password (again)"
 msgstr "Senha (novamente)"
 
-#: accounts/forms.py:44 accounts/forms.py:88 accounts/models.py:148
+#: accounts/forms.py:44 accounts/forms.py:88 accounts/models.py:151
 #: themes/default/templates/profile-edit.html:99
 msgid "State"
 msgstr "Situação"
@@ -101,6 +105,14 @@ msgstr "Sobrenome"
 msgid "City"
 msgstr "Cidade"
 
+#: accounts/forms.py:89 accounts/models.py:37
+msgid "How do you know the platform?"
+msgstr "Como você conheceu a plataforma TIM Tec?"
+
+#: accounts/forms.py:90 accounts/models.py:38
+msgid "Complement for \"How do you know the platform?\""
+msgstr "Complemento para \"Como você conheceu a plataforma TIM Tec?\""
+
 #: accounts/models.py:18 themes/default/templates/_signup_modal.html:7
 #: themes/default/templates/account/signup.html:20
 #: themes/default/templates/account/signup.html:22
@@ -112,10 +124,18 @@ msgstr "Cidade"
 #: themes/default/templates/class_edit.html:99
 #: themes/default/templates/course-evaluations.html:262
 #: themes/default/templates/evaluations.html:193
-#: themes/default/templates/message.html:27
-#: themes/default/templates/messages.html:87
-#: themes/default/templates/profile-edit.html:138
+#: themes/default/templates/message.html:41
+#: themes/default/templates/messages.html:95
+#: themes/default/templates/profile-edit.html:148
 #: themes/if/templates/account/signup.html:37
+#: themes/ifs-colors/templates/account/signup.html:117
+#: themes/ifs-colors/templates/account/signup.html:119
+#: themes/ifs-colors/templates/account/signup.html:195
+#: themes/ifs-colors/templates/account/signup.html:197
+#: themes/timtec/templates/account/signup.html:117
+#: themes/timtec/templates/account/signup.html:119
+#: themes/timtec/templates/account/signup.html:195
+#: themes/timtec/templates/account/signup.html:197
 msgid "Username"
 msgstr "Nome de usuário"
 
@@ -168,56 +188,60 @@ msgstr "Página"
 msgid "Biography"
 msgstr "Biografia"
 
-#: accounts/models.py:36
+#: accounts/models.py:36 themes/default/templates/profile-edit.html:119
+msgid "Birth Date"
+msgstr "Data de Nascimento"
+
+#: accounts/models.py:39
 msgid "Accepted terms and condition"
 msgstr "Aceitou os termos de uso"
 
-#: accounts/models.py:44
+#: accounts/models.py:47
 msgid "user"
 msgstr "usuário"
 
-#: accounts/models.py:45
+#: accounts/models.py:48
 msgid "users"
 msgstr "usuários"
 
-#: accounts/models.py:92
+#: accounts/models.py:95
 #, python-format
 msgid "Invalid attribute: %s"
 msgstr "Atributo inválido: %s"
 
-#: accounts/models.py:116
+#: accounts/models.py:119
 msgid "Facebook"
 msgstr "Conectar com Facebook"
 
-#: accounts/models.py:117
+#: accounts/models.py:120
 msgid "Instagram"
 msgstr "Instagram"
 
-#: accounts/models.py:118
+#: accounts/models.py:121
 msgid "Snapchat"
 msgstr "Snapchat"
 
-#: accounts/models.py:119
+#: accounts/models.py:122
 msgid "Celular/Whatsapp"
 msgstr ""
 
-#: accounts/models.py:120
+#: accounts/models.py:123
 msgid "Twitter"
 msgstr "Twitter"
 
-#: accounts/models.py:122
+#: accounts/models.py:125
 msgid "Youtube"
 msgstr "Youtube"
 
-#: accounts/models.py:126
+#: accounts/models.py:129
 msgid "social media"
 msgstr "Rede social"
 
-#: accounts/models.py:127
+#: accounts/models.py:130
 msgid "nickname"
 msgstr "Usuário na rede"
 
-#: accounts/models.py:147 ifs/models.py:19
+#: accounts/models.py:150 ifs/models.py:19
 msgid "Email address"
 msgstr "Endereço de Email"
 
@@ -247,12 +271,12 @@ msgstr "Comentar"
 #: activities/models.py:31
 #: themes/default/templates/administration/lesson.html:197
 msgid "Positive Feedback"
-msgstr ""
+msgstr "Feedback positivo"
 
 #: activities/models.py:32
 #: themes/default/templates/administration/lesson.html:204
 msgid "Negative Feedback"
-msgstr ""
+msgstr "Feedback negativo"
 
 #: activities/models.py:35 activities/models.py:50
 #: themes/default/templates/administration/lesson.html:99
@@ -282,7 +306,7 @@ msgid "Answers"
 msgstr "Respostas"
 
 #: core/forms.py:16 core/models.py:475
-#: themes/default/templates/messages.html:60
+#: themes/default/templates/messages.html:63
 msgid "Subject"
 msgstr "Assunto"
 
@@ -303,13 +327,13 @@ msgstr "Nome"
 #: themes/default/templates/class_edit.html:100
 #: themes/default/templates/course-evaluations.html:263
 #: themes/default/templates/evaluations.html:194
-#: themes/default/templates/message.html:26
-#: themes/default/templates/messages.html:86
+#: themes/default/templates/message.html:40
+#: themes/default/templates/messages.html:94
 msgid "Email"
 msgstr "Email"
 
-#: core/forms.py:19 core/models.py:476
-#: themes/default/templates/messages.html:63
+#: core/forms.py:19 core/models.py:476 themes/default/templates/message.html:5
+#: themes/default/templates/messages.html:71
 msgid "Message"
 msgstr "Mensagem"
 
@@ -766,7 +790,7 @@ msgstr "Ferramentas"
 
 #: themes/default/templates/_admin_header_inline.html:54
 #: themes/default/templates/_course-header-inline.html:26
-#: themes/default/templates/messages.html:42
+#: themes/default/templates/messages.html:43
 msgid "Messages"
 msgstr "Mensagens"
 
@@ -854,7 +878,7 @@ msgstr "Organizar instrutores"
 #: themes/default/templates/evaluations.html:331
 #: themes/default/templates/footer.html:23
 #: themes/default/templates/footer.html:51
-#: themes/default/templates/messages.html:102
+#: themes/default/templates/messages.html:110
 msgid "Close"
 msgstr "Fechar"
 
@@ -870,7 +894,7 @@ msgstr "Fechar"
 #: themes/default/templates/course.html:403
 #: themes/default/templates/home.html:31
 #: themes/default/templates/ifs/signup-completion.html:139
-#: themes/default/templates/profile-edit.html:174
+#: themes/default/templates/profile-edit.html:184
 #: themes/ifs-colors/templates/ifs/signup-completion.html:139
 #: themes/timtec/templates/home.html:30
 msgid "Save"
@@ -899,7 +923,7 @@ msgstr "Busque e selecione um usuário para defini-lo como professor do curso"
 #: themes/default/templates/_course_professors_modal.html:25
 #: themes/default/templates/administration/permissions.html:86
 #: themes/default/templates/class_edit.html:84
-#: themes/default/templates/messages.html:75
+#: themes/default/templates/messages.html:83
 msgid "Type the name, email or user name of the professor to search..."
 msgstr ""
 "Digite um nome, email ou nome de usuário do professor para pesquisar..."
@@ -1022,7 +1046,7 @@ msgstr "Política de Perguntas e Respostas"
 #: themes/default/templates/evaluations.html:289
 #: themes/default/templates/evaluations.html:333
 #: themes/default/templates/footer.html:44
-#: themes/default/templates/messages.html:103
+#: themes/default/templates/messages.html:111
 #: themes/default/templates/question.html:113
 msgid "Send"
 msgstr "Enviar"
@@ -1201,9 +1225,13 @@ msgstr "Escolha um nome de usuário"
 #: themes/default/templates/account/signup.html:30
 #: themes/default/templates/account/signup.html:109
 #: themes/default/templates/ifs/signup-completion.html:37
-#: themes/default/templates/profile-edit.html:148
+#: themes/default/templates/profile-edit.html:158
 #: themes/if/templates/account/signup.html:48
+#: themes/ifs-colors/templates/account/signup.html:127
+#: themes/ifs-colors/templates/account/signup.html:205
 #: themes/ifs-colors/templates/ifs/signup-completion.html:37
+#: themes/timtec/templates/account/signup.html:127
+#: themes/timtec/templates/account/signup.html:205
 msgid "E-mail"
 msgstr "Email"
 
@@ -1228,6 +1256,10 @@ msgstr "Confirme sua senha"
 #: themes/default/templates/account/signup.html:57
 #: themes/default/templates/account/signup.html:135
 #: themes/if/templates/account/signup.html:126
+#: themes/ifs-colors/templates/account/signup.html:153
+#: themes/ifs-colors/templates/account/signup.html:270
+#: themes/timtec/templates/account/signup.html:153
+#: themes/timtec/templates/account/signup.html:270
 #, python-format
 msgid "I agree to the <a href=\"%(terms_url)s\" target=\"_blank\">Terms of Use</a>"
 msgstr ""
@@ -1247,7 +1279,15 @@ msgstr ""
 #: themes/if/templates/account/signup.html:10
 #: themes/if/templates/account/signup.html:134
 #: themes/if/templates/header.html:12
+#: themes/ifs-colors/templates/account/signup.html:37
+#: themes/ifs-colors/templates/account/signup.html:161
+#: themes/ifs-colors/templates/account/signup.html:188
+#: themes/ifs-colors/templates/account/signup.html:278
 #: themes/ifs-colors/templates/header.html:11
+#: themes/timtec/templates/account/signup.html:37
+#: themes/timtec/templates/account/signup.html:161
+#: themes/timtec/templates/account/signup.html:188
+#: themes/timtec/templates/account/signup.html:278
 msgid "Sign Up"
 msgstr "Cadastre-se"
 
@@ -1344,6 +1384,8 @@ msgstr "Você precisa entrar ou inscrever-se para ver este conteúdo"
 
 #: themes/default/templates/account/login_modal.html:124
 #: themes/default/templates/account/signup.html:150
+#: themes/ifs-colors/templates/account/signup.html:285
+#: themes/timtec/templates/account/signup.html:285
 msgid "Facebook connect"
 msgstr "Conectar com Facebook"
 
@@ -1359,6 +1401,8 @@ msgstr ""
 #: themes/default/templates/account/password_reset.html:26
 #: themes/default/templates/account/password_reset.html:62
 #: themes/default/templates/account/signup.html:32
+#: themes/ifs-colors/templates/account/signup.html:129
+#: themes/timtec/templates/account/signup.html:129
 msgid "Your e-mail"
 msgstr "Seu email"
 
@@ -1405,7 +1449,11 @@ msgstr "Redefinição da senha completo"
 #: themes/default/templates/account/signup.html:121
 #: themes/default/templates/ifs/signup-completion.html:49
 #: themes/if/templates/account/signup.html:60
+#: themes/ifs-colors/templates/account/signup.html:139
+#: themes/ifs-colors/templates/account/signup.html:217
 #: themes/ifs-colors/templates/ifs/signup-completion.html:49
+#: themes/timtec/templates/account/signup.html:139
+#: themes/timtec/templates/account/signup.html:217
 msgid "Really strong password"
 msgstr "Senha realmente forte"
 
@@ -1413,7 +1461,11 @@ msgstr "Senha realmente forte"
 #: themes/default/templates/account/signup.html:122
 #: themes/default/templates/ifs/signup-completion.html:50
 #: themes/if/templates/account/signup.html:61
+#: themes/ifs-colors/templates/account/signup.html:140
+#: themes/ifs-colors/templates/account/signup.html:218
 #: themes/ifs-colors/templates/ifs/signup-completion.html:50
+#: themes/timtec/templates/account/signup.html:140
+#: themes/timtec/templates/account/signup.html:218
 msgid "Password confirmation"
 msgstr "Confirmação de senha"
 
@@ -1594,9 +1646,6 @@ msgstr ""
 "corretamente a atividade."
 
 #: themes/default/templates/administration/lesson.html:194
-#| msgid ""
-#| "The text bellow will be shown to students when they correctly finish this "
-#| "activity."
 msgid ""
 "The text bellow will be shown to students when they send a correctly answer "
 "to this activity."
@@ -1610,9 +1659,6 @@ msgid "If you don't fill this field, it will appear a default message."
 msgstr ""
 
 #: themes/default/templates/administration/lesson.html:201
-#| msgid ""
-#| "The text bellow will be shown to students when they correctly finish this "
-#| "activity."
 msgid ""
 "The text bellow will be shown to students when they send a wrong answer to "
 "this activity."
@@ -1643,8 +1689,8 @@ msgstr "Adicionar usuário"
 #: themes/default/templates/course-evaluations.html:367
 #: themes/default/templates/evaluations.html:192
 #: themes/default/templates/evaluations.html:295
-#: themes/default/templates/message.html:25
-#: themes/default/templates/messages.html:85
+#: themes/default/templates/message.html:39
+#: themes/default/templates/messages.html:93
 msgid "Full name"
 msgstr "Nome"
 
@@ -1655,8 +1701,8 @@ msgstr "Nome"
 #: themes/default/templates/classes.html:37
 #: themes/default/templates/course-evaluations.html:264
 #: themes/default/templates/evaluations.html:195
-#: themes/default/templates/messages.html:88
-#: themes/default/templates/profile-edit.html:197
+#: themes/default/templates/messages.html:96
+#: themes/default/templates/profile-edit.html:207
 msgid "Actions"
 msgstr "Ações"
 
@@ -2199,39 +2245,39 @@ msgstr "Minhas Anotações"
 msgid "This unit has no addicional materials"
 msgstr "Esta unidade não possui material adicional"
 
-#: themes/default/templates/message.html:17
+#: themes/default/templates/message.html:31
 msgid "Show Recipient List"
 msgstr "Mostrar destinatários"
 
-#: themes/default/templates/message.html:18
+#: themes/default/templates/message.html:32
 msgid "Hide Recipient List"
 msgstr "Esconder destinatários"
 
-#: themes/default/templates/message.html:22
+#: themes/default/templates/message.html:36
 msgid "Recipients"
 msgstr "Destinatários"
 
-#: themes/default/templates/messages.html:45
-#: themes/default/templates/messages.html:50
+#: themes/default/templates/messages.html:48
+#: themes/default/templates/messages.html:53
 msgid "New Message"
 msgstr "Nova mensagem"
 
-#: themes/default/templates/messages.html:55
+#: themes/default/templates/messages.html:58
 msgid "Fill the message subject"
 msgstr "Preencha o assunto"
 
-#: themes/default/templates/messages.html:56
+#: themes/default/templates/messages.html:59
 msgid "Fill the message body"
 msgstr "Preencha o corpo do email"
 
-#: themes/default/templates/messages.html:67
+#: themes/default/templates/messages.html:75
 msgid "Send to all classes"
 msgstr "Enviar para todas as turmas"
 
-#: themes/default/templates/messages.html:125
-#: themes/default/templates/messages.html:127
-msgid "More..."
-msgstr "Mais..."
+#: themes/default/templates/messages.html:155
+#: themes/default/templates/messages.html:157
+msgid "Details"
+msgstr "Detalhes"
 
 #: themes/default/templates/modal-profile-create-social.html:6
 msgid "Add new social media"
@@ -2254,54 +2300,54 @@ msgstr "Ver anotações"
 msgid "Profile Info"
 msgstr "Perfil"
 
-#: themes/default/templates/profile-edit.html:119
+#: themes/default/templates/profile-edit.html:129
 msgid "Bio"
 msgstr "Biografia"
 
-#: themes/default/templates/profile-edit.html:133
+#: themes/default/templates/profile-edit.html:143
 msgid "Account Settings"
 msgstr "Configurações da conta"
 
-#: themes/default/templates/profile-edit.html:161
+#: themes/default/templates/profile-edit.html:171
 msgid "New password"
 msgstr "Nova senha"
 
-#: themes/default/templates/profile-edit.html:164
+#: themes/default/templates/profile-edit.html:174
 msgid "Confirm new password"
 msgstr "Confirmar nova senha"
 
-#: themes/default/templates/profile-edit.html:188
-#: themes/default/templates/profile-edit.html:195
+#: themes/default/templates/profile-edit.html:198
+#: themes/default/templates/profile-edit.html:205
 msgid "Social Media"
 msgstr "Rede Social"
 
-#: themes/default/templates/profile-edit.html:196
+#: themes/default/templates/profile-edit.html:206
 msgid "Nickname"
 msgstr "Usuário na rede"
 
-#: themes/default/templates/profile-edit.html:212
+#: themes/default/templates/profile-edit.html:222
 msgid "There are no social medias registered to you."
 msgstr "Não há redes sociais registradas por você."
 
-#: themes/default/templates/profile.html:70
+#: themes/default/templates/profile.html:77
 msgid "Finished courses"
 msgstr "Cursos finalizados"
 
-#: themes/default/templates/profile.html:97
+#: themes/default/templates/profile.html:104
 #: themes/default/templates/user-courses.html:177
 #: themes/default/templates/user-courses.html:214
 #: themes/default/templates/user-courses.html:263
 msgid "Finished at"
 msgstr "Finalizado em"
 
-#: themes/default/templates/profile.html:104
+#: themes/default/templates/profile.html:111
 #: themes/default/templates/user-courses.html:103
 #: themes/default/templates/user-courses.html:221
 #: themes/default/templates/user-courses.html:270
 msgid "View Receipt"
 msgstr "Ver Comprovante"
 
-#: themes/default/templates/profile.html:107
+#: themes/default/templates/profile.html:114
 #: themes/default/templates/user-courses.html:224
 #: themes/default/templates/user-courses.html:273
 msgid "View Certificate"
@@ -2458,6 +2504,9 @@ msgstr "Espanhol"
 msgid "English"
 msgstr "Inglês"
 
+#~ msgid "More..."
+#~ msgstr "Mais..."
+
 #~ msgid ""
 #~ "There's been an error. It's been reported to the site administrators via "
 #~ "email and should be fixed shortly. Thanks for your patience."
@@ -2606,9 +2655,6 @@ msgstr "Inglês"
 
 #~ msgid "Professor's notes"
 #~ msgstr "Anotações do professor"
-
-#~ msgid "Details"
-#~ msgstr "Detalhes"
 
 #~ msgid "NAME"
 #~ msgstr "Nome"
