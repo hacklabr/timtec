@@ -245,7 +245,7 @@ PIPELINE_JS = {
             'checklist-model/checklist-model.js',
             'js/factories/timtec-models.js',
         ),
-        'output_filename': 'js/messages.js',
+        'output_filename': 'js/edit-class.js',
     },
     'certificate': {
         'source_filenames': (
