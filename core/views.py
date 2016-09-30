@@ -489,6 +489,12 @@ class ProfessorMessageViewSet(viewsets.ModelViewSet):
         if created:
             obj.send()
 
+    def get_queryset(self, *args, **kwargs):
+        queryset = super(ProfessorMessageViewSet, self).get_queryset(*args, **kwargs)
+        if not self.request.user.is_superuser:
+            queryset = queryset.filter(users=self.request.user)
+        return queryset
+
 
 class CourseViewSet(viewsets.ModelViewSet):
     model = Course
