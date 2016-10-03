@@ -197,19 +197,6 @@ class CourseSerializer(serializers.ModelSerializer):
         return ''
 
 
-class ClassSerializer(serializers.ModelSerializer):
-    students = TimtecUserAdminCertificateSerializer(read_only=True)
-    processes = CertificationProcessSerializer(read_only=True)
-    evaluations = EvaluationSerializer(read_only=True)
-    course = CourseSerializer(read_only=True)
-    assistant = TimtecUserSerializer(read_only=True)
-    students_management = serializers.PrimaryKeyRelatedField(many=True, read_only=False, source='students')
-    assistant_management = serializers.PrimaryKeyRelatedField(read_only=False, source='assistant', required=False)
-
-    class Meta:
-        model = Class
-
-
 class CourseStudentSerializer(serializers.ModelSerializer):
     user = TimtecUserSerializer(read_only=True)
 
@@ -228,6 +215,29 @@ class CourseStudentSerializer(serializers.ModelSerializer):
         fields = ('id', 'user', 'course', 'course_finished', 'course',
                   'certificate', 'can_emmit_receipt', 'percent_progress',
                   'current_class', 'min_percent_to_complete',)
+
+
+class CourseStudentClassSerializer(CourseStudentSerializer):
+
+    user = TimtecUserAdminCertificateSerializer(read_only=True)
+
+    class Meta:
+        model = CourseStudent
+        fields = ('id', 'user', 'course_finished',
+                  'certificate', 'can_emmit_receipt', 'percent_progress',)
+
+
+class ClassSerializer(serializers.ModelSerializer):
+    students = CourseStudentClassSerializer(source='get_students', many=True, read_only=True)
+    processes = CertificationProcessSerializer(read_only=True)
+    evaluations = EvaluationSerializer(read_only=True)
+    course = CourseSerializer(read_only=True)
+    assistant = TimtecUserSerializer(read_only=True)
+    students_management = serializers.PrimaryKeyRelatedField(many=True, read_only=False, source='students')
+    assistant_management = serializers.PrimaryKeyRelatedField(read_only=False, source='assistant', required=False)
+
+    class Meta:
+        model = Class
 
 
 class UserSocialAccountSerializer(serializers.ModelSerializer):

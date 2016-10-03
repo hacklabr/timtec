@@ -60,8 +60,9 @@ class Class(models.Model):
     def add_students(self, *objs):
         for obj in objs:
             try:
-                c = Class.objects.get(course=self.course, students=obj)
-                c.students.remove(obj)
+                classes = Class.objects.filter(course=self.course, students=obj)
+                for c in classes:
+                    c.students.remove(obj)
             except Class.DoesNotExist:
                 pass
             self.students.add(obj)
@@ -72,6 +73,15 @@ class Class(models.Model):
             if CourseStudent.objects.filter(course=self.course,
                                             user=obj).exists():
                 self.course.default_class.students.add(obj)
+
+    @property
+    def get_students(self):
+        return CourseStudent.objects.filter(course=self.course, user__in=self.students.all())
+
+    def save(self, *args, **kwargs):
+        students = [item for item in self.students.all()]
+        self.add_students(*students)
+        return super(Class, self).save(*args, **kwargs)
 
 
 class Course(models.Model):
@@ -344,9 +354,7 @@ class CourseStudent(models.Model):
             return ''
 
     def percent_progress_by_lesson(self):
-        """
-        Returns a list with dictionaries with keys name (lesson name), slug (lesson slug) and progress (percent lesson progress, decimal)
-        """
+        """Return a list with dictionaries with keys name (lesson name), slug (lesson slug) and progress (percent lesson progress, decimal)."""
         # TODO refator to make one query to count unts done for all lessons
         progress_list = []
         for lesson in self.course.lessons.filter(status='published'):
