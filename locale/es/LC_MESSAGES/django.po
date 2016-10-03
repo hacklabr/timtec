@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-30 16:00-0300\n"
+"POT-Creation-Date: 2016-10-03 11:40-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -120,7 +120,7 @@ msgstr ""
 #: themes/default/templates/administration/permissions.html:49
 #: themes/default/templates/administration/permissions.html:98
 #: themes/default/templates/administration/users.html:74
-#: themes/default/templates/class_edit.html:99
+#: themes/default/templates/class_edit.html:116
 #: themes/default/templates/course-evaluations.html:262
 #: themes/default/templates/evaluations.html:193
 #: themes/default/templates/message.html:41
@@ -323,7 +323,7 @@ msgstr ""
 #: themes/default/templates/administration/permissions.html:48
 #: themes/default/templates/administration/permissions.html:97
 #: themes/default/templates/administration/users.html:75
-#: themes/default/templates/class_edit.html:100
+#: themes/default/templates/class_edit.html:117
 #: themes/default/templates/course-evaluations.html:263
 #: themes/default/templates/evaluations.html:194
 #: themes/default/templates/message.html:40
@@ -918,7 +918,7 @@ msgstr ""
 
 #: themes/default/templates/_course_professors_modal.html:25
 #: themes/default/templates/administration/permissions.html:86
-#: themes/default/templates/class_edit.html:84
+#: themes/default/templates/class_edit.html:101
 #: themes/default/templates/messages.html:83
 msgid "Type the name, email or user name of the professor to search..."
 msgstr ""
@@ -1657,7 +1657,7 @@ msgstr ""
 #: themes/default/templates/administration/permissions.html:47
 #: themes/default/templates/administration/permissions.html:96
 #: themes/default/templates/administration/users.html:76
-#: themes/default/templates/class_edit.html:101
+#: themes/default/templates/class_edit.html:118
 #: themes/default/templates/course-evaluations.html:261
 #: themes/default/templates/course-evaluations.html:367
 #: themes/default/templates/evaluations.html:192
@@ -1670,7 +1670,7 @@ msgstr ""
 #: themes/default/templates/administration/permissions.html:51
 #: themes/default/templates/administration/permissions.html:99
 #: themes/default/templates/administration/users.html:79
-#: themes/default/templates/class_edit.html:103
+#: themes/default/templates/class_edit.html:120
 #: themes/default/templates/classes.html:37
 #: themes/default/templates/course-evaluations.html:264
 #: themes/default/templates/evaluations.html:195
@@ -1806,10 +1806,20 @@ msgid "Certification"
 msgstr ""
 
 #: themes/default/templates/class_edit.html:81
+msgid "Select if this class can emmit certificates."
+msgstr ""
+
+#: themes/default/templates/class_edit.html:90
+#: themes/default/templates/course-evaluations.html:115
+#: themes/default/templates/evaluations.html:54
+msgid "Allows Certification"
+msgstr ""
+
+#: themes/default/templates/class_edit.html:98
 msgid "Add students to this class"
 msgstr ""
 
-#: themes/default/templates/class_edit.html:119
+#: themes/default/templates/class_edit.html:136
 #: themes/default/templates/course-evaluations.html:270
 #: themes/default/templates/evaluations.html:201
 msgid "No students found"
@@ -1869,11 +1879,6 @@ msgstr ""
 #: themes/default/templates/course-evaluations.html:106
 #: themes/default/templates/evaluations.html:45
 msgid "Selecione à direita se esta turma pode emitir ou não certificados."
-msgstr ""
-
-#: themes/default/templates/course-evaluations.html:115
-#: themes/default/templates/evaluations.html:54
-msgid "Allows Certification"
 msgstr ""
 
 #: themes/default/templates/course-evaluations.html:123
