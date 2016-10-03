@@ -30,7 +30,7 @@
             $scope.getUsers = function(val) {
                 return new StudentSearch(val, course_id);
             };
-            
+
             $scope.remove_item = function(index){
                 $scope.classe.students.splice(index, 1);
                 $scope.classe.students_management.splice(index, 1);
@@ -43,17 +43,21 @@
                 $scope.asyncSelected = '';
                 $scope.save();
             };
-            
+
+            $scope.toggle_class_certificable = function (){
+                $scope.save();
+            }
+
             $scope.save = function(){
 
                 if($scope.classe.assistant) {
                     $scope.classe.assistant_management = $scope.classe.assistant.id;
                 }
-                
+
                 $scope.classe.$update()
                     .then(function(){
                         $scope.alert.success('Alterações salvas com sucesso.');
-                        
+
                         // remove pop-up that confirm if user go without save changes
                         window.onbeforeunload = function(){};
 
