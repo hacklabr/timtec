@@ -95,13 +95,14 @@ class CertificationProcessSerializer(serializers.ModelSerializer):
 
 class CourseCertificationSerializer(serializers.ModelSerializer):
     processes = BaseCertificationProcessSerializer(many=True, read_only=True)
-    approved = BaseCertificationProcessSerializer(source='get_approved_process')
+    approved = BaseCertificationProcessSerializer(source='get_approved_process', read_only=True)
     course = serializers.SerializerMethodField('get_course')
+    url = serializers.Field(source='get_absolute_url')
 
     class Meta:
         model = CourseCertification
         fields = ('link_hash', 'created_date', 'is_valid', 'processes', 'type',
-                  'approved', 'course')
+                  'approved', 'course', 'url')
 
     @staticmethod
     def get_course(obj):
@@ -212,7 +213,7 @@ class CourseStudentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CourseStudent
-        fields = ('id', 'user', 'course', 'course_finished', 'course',
+        fields = ('id', 'user', 'course', 'course_finished',
                   'certificate', 'can_emmit_receipt', 'percent_progress',
                   'current_class', 'min_percent_to_complete',)
 
