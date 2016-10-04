@@ -116,7 +116,7 @@ wrapper-course-lesson
                         <th class="classname">{% trans "Username" %}</th>
                         <th class="email">{% trans "Email" %}</th>
                         <th class="fullname">{% trans "Full name" %}</th>
-                        <th class="progress" ng-show="classe.user_can_certificate">{% trans "Certificate" %}</th>
+                        <th class="certificate" ng-show="classe.user_can_certificate">{% trans "Certificate" %}</th>
                         {% if object.course.default_class != object %}
                             <th class="actions">{% trans "Actions" %}</th>
                         {% endif %}
@@ -127,11 +127,20 @@ wrapper-course-lesson
                         <td>{{ student.user.username }}</td>
                         <td>{{ student.user.email }}</td>
                         <td>{{ student.user.name }}</td>
-                        <td ng-show="classe.user_can_certificate"><input type='checkbox' ng-disabled='!student.can_emmit_receipt'></td>
+                        <td ng-show="classe.user_can_certificate">
+                            <input type='checkbox' ng-disabled='!student.can_emmit_receipt' ng-click="toggle_certificate($index)" ng-checked="student.certificate.type == 'certificate'">
+                        </td>
                         {% endverbatim %}
                         {% if object.course.default_class != object %}
                             <td class="actions">
+                                {% verbatim %}
                                 <a ng-click="remove_item($index)" class="btn btn-warning"><i class="fa fa-trash-o"></i></a>
+                                <a ng-disabled='!student.can_emmit_receipt' href="{{ student.certificate.url }}" class="btn btn-default" target="_blank" ng-class="{'btn-info': student.certificate.type == 'certificate'}">
+                                    <span ng-show="student.certificate.type == 'receipt'" title="Clique aqui para ver o comprovante deste estudante"><i class="fa fa-certificate"></i></span>
+                                    <span ng-show="student.certificate.type == 'certificate'" title="Clique aqui para ver o certificado deste estudante"><i class="fa fa-certificate"></i></span>
+                                    <span ng-show="!student.can_emmit_receipt" title="Não há certificados disponíveis"><i class="fa fa-certificate"></i></span>
+                                </a>
+                                {% endverbatim %}
                             </td>
                         {% endif %}
                     </tr>

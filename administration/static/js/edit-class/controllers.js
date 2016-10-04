@@ -10,8 +10,8 @@
         };
     });
 
-    module.controller('ClassController', ['$scope', '$window', 'Class', 'StudentSearch',
-        function($scope, $window, Class, StudentSearch) {
+    module.controller('ClassController', ['$scope', '$window', 'Class', 'StudentSearch', 'CourseCertification',
+        function($scope, $window, Class, StudentSearch, CourseCertification) {
 
             $scope.errors = {};
             var httpErrors = {
@@ -51,6 +51,22 @@
 
             $scope.toggle_class_certificable = function (){
                 $scope.save();
+            }
+
+            $scope.toggle_certificate = function (index){
+
+                var cc_id = $scope.classe.students[index].certificate.link_hash;
+                var user_id = $scope.classe.students[index].user.id;
+                var cc = CourseCertification.get({link_hash: cc_id, user: user_id}, function(classe) {
+                    if(cc.type == 'receipt') {
+                        cc.type = 'certificate';
+                    } else {
+                        cc.type = 'receipt';
+                    }
+                    console.log(cc);
+                    cc.$update({link_hash: cc_id, user: user_id});
+                    $scope.save();
+                });
             }
 
             $scope.save = function(){
