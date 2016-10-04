@@ -706,6 +706,10 @@ class CourseCertification(models.Model):
         return CertificationProcess.objects.get(course_certification=self.id,
                                                 approved=True)
 
+    @property
+    def get_absolute_url(self):
+        return reverse('certificate', args=[self.link_hash])
+
     def save(self, *args, **kwargs):
         self.course_workload = self.course_student.course.workload
         self.course_total_units = self.course_student.units_done.count()
