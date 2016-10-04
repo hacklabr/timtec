@@ -7,7 +7,7 @@
 
 {% block js %}
     {{ block.super }}
-==== BASE ====
+
     {% compressed_js 'core' %}
     {% compressed_js 'certificate' %}
 
@@ -17,8 +17,7 @@
         window.class_id = {{ class.pk }};
     </script>
     {% compressed_js 'edit-class' %}
-    
-==== BASE ====
+
 {% endblock %}
 
 {% block wrapper_classes %}
@@ -118,6 +117,9 @@ wrapper-course-lesson
                         <th class="classname">{% trans "Username" %}</th>
                         <th class="email">{% trans "Email" %}</th>
                         <th class="fullname">{% trans "Full name" %}</th>
+==== BASE ====
+                        <th class="progress" ng-show="classe.user_can_certificate">{% trans "Certificate" %}</th>
+==== BASE ====
                         {% if object.course.default_class != object %}
                         <th class="actions">{% trans "Actions" %}</th>
                         {% endif %}
@@ -125,12 +127,19 @@ wrapper-course-lesson
 
                     {% verbatim %}
                     <tr ng-repeat='student in classe.students'>
-                        <td>{{ student.username }}</td>
-                        <td>{{ student.email }}</td>
-                        <td>{{ student.name }}</td>
-                        <td class="actions">
-                            <a ng-click="remove_item($index)" class="btn btn-warning"><i class="fa fa-trash-o"></i></a>
-                        </td>
+==== BASE ====
+                        {% verbatim %}
+                        <td>{{ student.user.username }}</td>
+                        <td>{{ student.user.email }}</td>
+                        <td>{{ student.user.name }}</td>
+                        <td ng-show="classe.user_can_certificate"><input type='checkbox' ng-disabled='!student.can_emmit_receipt'></td>
+                        {% endverbatim %}
+                        {% if object.course.default_class != object %}
+                            <td class="actions">
+                                <a ng-click="remove_item($index)" class="btn btn-warning"><i class="fa fa-trash-o"></i></a>
+                            </td>
+                        {% endif %}
+==== BASE ====
                     </tr>
                     {% endverbatim %}
 
