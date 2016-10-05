@@ -15,7 +15,7 @@ class CourseMaterial(models.Model):
 
 
 def get_upload_path(instance, filename):
-    return u'{0}/{1}'.format(instance.course_material.course.slug, filename)
+    return '{0}/{1}'.format(instance.course_material.course.slug, filename)
 
 
 class File(models.Model):

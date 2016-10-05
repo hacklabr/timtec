@@ -10,6 +10,7 @@ from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 from django.conf import settings
 from django.utils.six import BytesIO
+from django.db import transaction
 from braces import views
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
@@ -21,6 +22,7 @@ from course_material.models import File as TimtecFile
 from .serializer import CourseExportSerializer, CourseImportSerializer
 
 import tarfile
+import urllib
 import StringIO
 import os
 
@@ -164,7 +166,7 @@ class ExportCourseView(views.SuperuserRequiredMixin, View):
         course_material = course_serializer.data.get('course_material')
         if course_material:
             for course_material_file in course_material['files']:
-                course_material_file_path = course_material_file['file']
+                course_material_file_path = urllib.unquote(course_material_file['file']).decode('utf8')
                 self.add_files_to_export(course_tar_file, course_material_file_path)
 
         course_tar_file.close()
@@ -176,6 +178,7 @@ class ImportCourseView(APIView):
     renderer_classes = (JSONRenderer,)
     permission_classes = (IsAdmin,)
 
+    @transaction.atomic
     def post(self, request, *args, **kwargs):
 
         import_file = tarfile.open(fileobj=request.FILES.get('course-import-file'), mode='r:gz')
@@ -197,8 +200,8 @@ class ImportCourseView(APIView):
         except Course.DoesNotExist:
             course = None
 
-        course_thumbnail_path = course_data.pop('thumbnail')
-        course_home_thumbnail_path = course_data.pop('home_thumbnail')
+        course_thumbnail_path = course_data.pop('thumbnail').replace("/media/", "", 1)
+        course_home_thumbnail_path = course_data.pop('home_thumbnail').replace("/media/", "", 1)
 
         # Save course professor images
         course_author_pictures = {}
@@ -235,15 +238,17 @@ class ImportCourseView(APIView):
 
             course_material_files_list = []
             for course_material_file in course_material_files:
-                course_material_file_path = course_material_file.get('file')
+                course_material_file_path = course_material_file.get('file').replace("/media/", "", 1)  # remove unnecessary "media" path, if any
+                course_material_file_path = urllib.unquote(course_material_file_path).encode('iso8859')  # file path translated from url encoding and iso8859 for file retrieval
                 course_material_file_obj = import_file.extractfile(course_material_file_path)
                 course_material_files_list.append(TimtecFile(file=DjangoFile(course_material_file_obj)))
             course_obj.course_material.files = course_material_files_list
             course_obj.course_material.text = course_material['text']
+            import pdb; pdb.set_trace()
             course_obj.course_material.save()
 
             for course_author in course_obj.course_authors.all():
-                picture_path = course_author_pictures.get(course_author.name)
+                picture_path = course_author_pictures.get(course_author.name).replace("/media/", "", 1)
                 if picture_path and picture_path in file_names:
                     picture_file_obj = import_file.extractfile(picture_path)
                     course_author.picture = DjangoFile(picture_file_obj)
@@ -252,7 +257,7 @@ class ImportCourseView(APIView):
             course_obj.save()
 
             return Response({'new_course_url': reverse_lazy('administration.edit_course',
-                                                            kwargs={'course_id': course_serializer.object.id}),
+                                                            kwargs={'course_id': course_obj.id}),
                              })
         else:
             return Response({'error': 'invalid_file'})
