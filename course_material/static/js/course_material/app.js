@@ -9,7 +9,8 @@
         'django',
         'directive.markdowneditor',
         'directive.alertPopup',
-        'directive.fixedBar'
+        'directive.fixedBar',
+        'header',
     ]);
 
 })(angular);
