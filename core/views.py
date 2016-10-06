@@ -6,7 +6,7 @@ import datetime
 from django.db import IntegrityError
 from django.core.urlresolvers import reverse_lazy
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import HttpResponse, Http404, HttpResponseForbidden
 from django.views.generic import (DetailView, ListView, DeleteView,
                                   CreateView, UpdateView)
 from django.views.generic.base import RedirectView, View, TemplateView
@@ -370,6 +370,9 @@ class CourseCertificationDetailView(DetailView):
         from django.core.urlresolvers import resolve
 
         certificate = context.get('object')
+        if not certificate.course_student.can_emmit_receipt():
+            raise Http404
+
         if certificate:
             context['cert_template'] = IfCertificateTemplate.objects.get(course=certificate.course_student.course)
 

@@ -54,6 +54,9 @@ class Class(models.Model):
     user_can_certificate = models.BooleanField(_('Certification Allowed'),
                                                default=False)
 
+    user_can_certificate_even_without_progress = models.BooleanField(_('Certification Allowed Even Without Progress'),
+                                                                     default=False)
+
     def __unicode__(self):
         return u'%s @ %s' % (self.name, self.course)
 
@@ -63,8 +66,9 @@ class Class(models.Model):
     def add_students(self, *objs):
         for obj in objs:
             try:
-                c = Class.objects.get(course=self.course, students=obj)
-                c.students.remove(obj)
+                classes = Class.objects.filter(course=self.course, students=obj)
+                for c in classes:
+                    c.students.remove(obj)
             except Class.DoesNotExist:
                 pass
             self.students.add(obj)
@@ -75,6 +79,15 @@ class Class(models.Model):
             if CourseStudent.objects.filter(course=self.course,
                                             user=obj).exists():
                 self.course.default_class.students.add(obj)
+
+    @property
+    def get_students(self):
+        return CourseStudent.objects.filter(course=self.course, user__in=self.students.all())
+
+    def save(self, *args, **kwargs):
+        students = [item for item in self.students.all()]
+        self.add_students(*students)
+        return super(Class, self).save(*args, **kwargs)
 
 
 class Course(models.Model):
