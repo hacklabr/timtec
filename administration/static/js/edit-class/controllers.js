@@ -32,8 +32,13 @@
             };
 
             $scope.remove_item = function(index){
+                // removing from 'screen' list
+                var student_id = $scope.classe.students[index].user.id;
                 $scope.classe.students.splice(index, 1);
-                $scope.classe.students_management.splice(index, 1);
+
+                // remove from real list
+                var index_management = $scope.classe.students_management.indexOf(student_id);
+                $scope.classe.students_management.splice(index_management, 1);
                 $scope.save();
             };
 
