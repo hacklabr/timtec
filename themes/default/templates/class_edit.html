@@ -8,15 +8,11 @@
 {% block js %}
     {{ block.super }}
     {% compressed_js 'core' %}
-    {% compressed_js 'certificate' %}
-
-    {{block.super}}
     <script>
         window.course_id = {{ class.course.pk }};
         window.class_id = {{ class.pk }};
     </script>
     {% compressed_js 'edit-class' %}
-
 {% endblock %}
 
 {% block wrapper_classes %}
@@ -86,13 +82,8 @@ wrapper-course-lesson
             </div>
             <div class="col-xs-4">
                 <div class="professor-assistant user-can-certificate text-right">
-                    <input
-                            ng-model="classe.user_can_certificate"
-                            ng-change="save()"
-                            type="checkbox" />
-                    <label>
-                        {% trans 'Allows Certification' %}
-                    </label>
+                    <input ng-model="classe.user_can_certificate" type="checkbox" />
+                    <label>{% trans 'Allows Certification' %}</label>
                 </div>
             </div>
         </div>
@@ -104,13 +95,8 @@ wrapper-course-lesson
             </div>
             <div class="col-xs-4">
                 <div class="professor-assistant user-can-certificate text-right">
-                    <input
-                            ng-model="classe.user_can_certificate_even_without_progress"
-                            ng-change="save()"
-                            type="checkbox" />
-                    <label>
-                        {% trans 'Allows Certification' %}
-                    </label>
+                    <input ng-model="classe.user_can_certificate_even_without_progress" type="checkbox" />
+                    <label>{% trans 'Allows Certification' %}</label>
                 </div>
             </div>
         </div>
@@ -139,8 +125,8 @@ wrapper-course-lesson
                         <th class="email">{% trans "Email" %}</th>
                         <th class="fullname">{% trans "Full name" %}</th>
                         <th class="certificate" ng-show="classe.user_can_certificate">{% trans "Certificate" %}</th>
+                        <th class="actions">{% trans "Actions" %}</th>
                         {% if object.course.default_class != object %}
-                            <th class="actions">{% trans "Actions" %}</th>
                         {% endif %}
                     </tr>
 
@@ -153,18 +139,18 @@ wrapper-course-lesson
                             <input type='checkbox' ng-disabled='!student.certificate || !classe.user_can_certificate_even_without_progress && !student.can_emmit_receipt' ng-click="toggle_certificate($index)" ng-checked="student.certificate.type == 'certificate'">
                         </td>
                         {% endverbatim %}
-                        {% if object.course.default_class != object %}
-                            <td class="actions">
-                                {% verbatim %}
+                        <td class="actions">
+                            {% if object.course.default_class != object %}
                                 <a ng-click="remove_item($index)" class="btn btn-warning"><i class="fa fa-trash-o"></i></a>
-                                <a ng-hide="!student.certificate || !classe.user_can_certificate" ng-disabled='!student.can_emmit_receipt' href="{{ student.certificate.url }}" class="btn btn-default" target="_blank" ng-class="{'btn-info': student.certificate.type == 'certificate'}">
-                                    <span ng-show="student.can_emmit_receipt && student.certificate.type == 'receipt'" title="Clique aqui para ver o comprovante deste estudante"><i class="fa fa-certificate"></i></span>
-                                    <span ng-show="student.can_emmit_receipt && student.certificate.type == 'certificate'" title="Clique aqui para ver o certificado deste estudante"><i class="fa fa-certificate"></i></span>
-                                    <span ng-show="!student.can_emmit_receipt" title="Não há certificados disponíveis"><i class="fa fa-certificate"></i></span>
-                                </a>
-                                {% endverbatim %}
-                            </td>
-                        {% endif %}
+                            {% endif %}
+                            {% verbatim %}
+                            <a ng-hide="!student.certificate || !classe.user_can_certificate" ng-disabled='!student.can_emmit_receipt' href="{{ student.certificate.url }}" class="btn btn-default" target="_blank" ng-class="{'btn-info': student.certificate.type == 'certificate'}">
+                                <span ng-show="student.can_emmit_receipt && student.certificate.type == 'receipt'" title="Clique aqui para ver o comprovante deste estudante"><i class="fa fa-certificate"></i></span>
+                                <span ng-show="student.can_emmit_receipt && student.certificate.type == 'certificate'" title="Clique aqui para ver o certificado deste estudante"><i class="fa fa-certificate"></i></span>
+                                <span ng-show="!student.can_emmit_receipt" title="Não há certificados disponíveis"><i class="fa fa-certificate"></i></span>
+                            </a>
+                            {% endverbatim %}
+                        </td>
                     </tr>
 
                     <tr ng-hide="classe.students.length > 0">
@@ -175,6 +161,11 @@ wrapper-course-lesson
             </div>
         </div>
     </section>
+    <div waiting-screen class="waiting waiting-screen" ng-hide='classe.$resolved'>
+        <div class="middle">
+            <i class="fa fa-refresh fa-5x"></i>
+            <p><br><i>({% trans "If it is a big class, you'll need to wait a little..." %})</i></p>
+        </div>
+    </div>
 </div>
-
 {% endblock %}
