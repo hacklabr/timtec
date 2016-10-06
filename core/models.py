@@ -4,6 +4,7 @@ from __future__ import division
 import datetime
 
 from django.db import models
+from django.db.models.signals import m2m_changed
 from django.db.models import Count
 from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
@@ -60,16 +61,6 @@ class Class(models.Model):
     def get_absolute_url(self):
         return reverse('class', kwargs={'pk': self.id})
 
-    def add_students(self, *objs):
-        for obj in objs:
-            try:
-                classes = Class.objects.filter(course=self.course, students=obj)
-                for c in classes:
-                    c.students.remove(obj)
-            except Class.DoesNotExist:
-                pass
-            self.students.add(obj)
-
     def remove_students(self, *objs):
         for obj in objs:
             self.students.remove(obj)
@@ -81,10 +72,29 @@ class Class(models.Model):
     def get_students(self):
         return CourseStudent.objects.filter(course=self.course, user__in=self.students.all())
 
-    def save(self, *args, **kwargs):
-        students = [item for item in self.students.all()]
-        self.add_students(*students)
-        return super(Class, self).save(*args, **kwargs)
+
+def remove_duplicate_classes(sender, instance, action, reverse, model, pk_set, **kwargs):
+    """Clean the same student in twice classes."""
+    # add student to default_class everytime that m2m cleans
+    if action == 'pre_clear':
+        default_class = instance.course.default_class
+        for student in instance.students.all():
+            student.classes.add(default_class)
+
+    # garantee that student has been subscribe in only one class
+    if action == 'post_add':
+        try:
+            for student in instance.students.all():
+                classes = student.classes.filter(course=instance.course).exclude(id=instance.id)
+                for classe in classes:
+                    student.classes.remove(classe)
+
+        # garantee that this block executes only when instance == Class.
+        except AttributeError:
+            pass
+
+
+m2m_changed.connect(remove_duplicate_classes, sender=Class.students.through)
 
 
 class Course(models.Model):
