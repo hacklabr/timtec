@@ -34,12 +34,20 @@ class UnitExportSerializer(serializers.ModelSerializer):
 class UnitImportSerializer(UnitExportSerializer):
 
     activities = ActivityImportSerializer(many=True)
+    video = VideoSerializer(required=False, allow_null=True)
 
     def create(self, validated_data):
-        activity_data = validated_data['activities']
-        validated_data.pop('activities')
+        activity_data = validated_data.pop('activities')
+        video_data = validated_data.pop('video')
         validated_data['lesson'] = self.initial_data[0].lesson
         new_unit = super(UnitImportSerializer, self).create(validated_data)
+        # If there is a video in this uint, it must be saved
+        if video_data:
+            video_ser = VideoSerializer(data=video_data)
+            if video_ser.is_valid():
+                video = video_ser.save()
+                new_unit.video = video
+                new_unit.save()
 
         # If there are any activities in this unit, they must be saved
         if activity_data:
@@ -66,8 +74,7 @@ class LessonImportSerializer(LessonExportSerializer):
     units = UnitImportSerializer(many=True)
 
     def create(self, validated_data):
-        unit_data = validated_data['units']
-        validated_data.pop('units')
+        unit_data = validated_data.pop('units')
         validated_data['course'] = self.initial_data[0].course
         new_lesson = super(LessonImportSerializer, self).create(validated_data)
 
@@ -97,7 +104,7 @@ class CourseExportSerializer(serializers.ModelSerializer):
 class CourseImportSerializer(serializers.ModelSerializer):
     lessons = LessonImportSerializer(many=True)
     # course_authors = CourseAuthorsImportSerializer(many=True, read_only=True)
-    intro_video = VideoSerializer(read_only=True)
+    intro_video = VideoSerializer()
     # course_material = CourseMaterialImportExportSerializer()
 
     class Meta:
@@ -108,6 +115,8 @@ class CourseImportSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         lesson_data = validated_data.pop('lessons')
+        video_data = validated_data.pop('intro_video')
+
         new_course = super(CourseImportSerializer, self).create(validated_data)
 
         for lesson in lesson_data:
@@ -118,8 +127,10 @@ class CourseImportSerializer(serializers.ModelSerializer):
         if lessons.is_valid():
             lessons.save()
 
-        # Create course_authors
-
         # Create intro_video
+        video_ser = VideoSerializer(data=video_data)
+        if video_ser.is_valid():
+            video = video_ser.save()
+            new_course.intro_video = video
 
         return new_course
