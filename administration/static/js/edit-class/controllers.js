@@ -39,7 +39,6 @@
                 // remove from real list
                 var index_management = $scope.classe.students_management.indexOf(student_id);
                 $scope.classe.students_management.splice(index_management, 1);
-                $scope.save();
             };
 
             $scope.on_select_student = function(model) {
@@ -49,28 +48,26 @@
                 $scope.save();
             };
 
-            $scope.toggle_class_certificable = function (){
-                $scope.save();
-            }
-
             $scope.toggle_certificate = function (index){
 
-                var cc_id = $scope.classe.students[index].certificate.link_hash;
-                var user_id = $scope.classe.students[index].user.id;
-                var cc = CourseCertification.get({link_hash: cc_id, user: user_id}, function(classe) {
-                    if(cc.type == 'receipt') {
-                        cc.type = 'certificate';
-                    } else {
-                        cc.type = 'receipt';
-                    }
-                    console.log(cc);
-                    cc.$update({link_hash: cc_id, user: user_id});
-                    $scope.save();
-                });
+                var student = $scope.classe.students[index];
+                if(student.certificate) {
+                    var cc_id = student.certificate.link_hash;
+                    var user_id = student.user.id;
+                    var cc = CourseCertification.get({link_hash: cc_id, user: user_id}, function(classe) {
+                        if(cc.type == 'receipt') {
+                            cc.type = 'certificate';
+                        } else {
+                            cc.type = 'receipt';
+                        }
+                        cc.$update({link_hash: cc_id, user: user_id});
+                    });
+                }
             }
 
             $scope.save = function(){
 
+                $scope.classe.$resolved = false;
                 if($scope.classe.assistant) {
                     $scope.classe.assistant_management = $scope.classe.assistant.id;
                 }
