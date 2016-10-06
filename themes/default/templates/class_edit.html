@@ -2,12 +2,10 @@
 
 {% load staticfiles %}
 {% load i18n %}
-{% load pipeline %}
 {% load is_course_coordinator %}
 
 {% block js %}
     {{ block.super }}
-
     {% compressed_js 'core' %}
     {% compressed_js 'certificate' %}
 
@@ -38,7 +36,11 @@ wrapper-course-lesson
     <div class="actions-menu" fixed-bar>
         <div class="container">
             <div class="actions-buttons">
-                <button class="btn btn-success" ng-click="save()">{% trans 'Save' %} | <i class="fa fa-save"></i></button>
+                <button class="btn btn-success" ng-click="save()">
+                    {% trans 'Save' %} |
+                    <i ng-show="classe.$resolved" class="fa fa-save"></i>
+                    <i ng-hide="classe.$resolved" class="loading fa fa-refresh fa-spin"></i>
+                </button>
             </div>
 
             {% include 'administration/_alert.html' %}
@@ -85,7 +87,25 @@ wrapper-course-lesson
                 <div class="professor-assistant user-can-certificate text-right">
                     <input
                             ng-model="classe.user_can_certificate"
-                            ng-change="toggle_class_certificable()"
+                            ng-change="save()"
+                            type="checkbox" />
+                    <label>
+                        {% trans 'Allows Certification' %}
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert row" role="alert" ng-show="classe.user_can_certificate"
+             ng-class="{'alert-info': classe.user_can_certificate_even_without_progress, 'alert-danger': !classe.user_can_certificate_even_without_progress}">
+            <div class="col-xs-8">
+                {% trans "Select if this class can emmit certificates even the student didn't get the minimum progress required." %}
+            </div>
+            <div class="col-xs-4">
+                <div class="professor-assistant user-can-certificate text-right">
+                    <input
+                            ng-model="classe.user_can_certificate_even_without_progress"
+                            ng-change="save()"
                             type="checkbox" />
                     <label>
                         {% trans 'Allows Certification' %}
@@ -117,31 +137,34 @@ wrapper-course-lesson
                         <th class="classname">{% trans "Username" %}</th>
                         <th class="email">{% trans "Email" %}</th>
                         <th class="fullname">{% trans "Full name" %}</th>
-==== BASE ====
-                        <th class="progress" ng-show="classe.user_can_certificate">{% trans "Certificate" %}</th>
-==== BASE ====
+                        <th class="certificate" ng-show="classe.user_can_certificate">{% trans "Certificate" %}</th>
                         {% if object.course.default_class != object %}
-                        <th class="actions">{% trans "Actions" %}</th>
+                            <th class="actions">{% trans "Actions" %}</th>
                         {% endif %}
                     </tr>
 
-                    {% verbatim %}
                     <tr ng-repeat='student in classe.students'>
-==== BASE ====
                         {% verbatim %}
                         <td>{{ student.user.username }}</td>
                         <td>{{ student.user.email }}</td>
                         <td>{{ student.user.name }}</td>
-                        <td ng-show="classe.user_can_certificate"><input type='checkbox' ng-disabled='!student.can_emmit_receipt'></td>
+                        <td ng-show="classe.user_can_certificate">
+                            <input type='checkbox' ng-disabled='!student.certificate || !classe.user_can_certificate_even_without_progress && !student.can_emmit_receipt' ng-click="toggle_certificate($index)" ng-checked="student.certificate.type == 'certificate'">
+                        </td>
                         {% endverbatim %}
                         {% if object.course.default_class != object %}
                             <td class="actions">
+                                {% verbatim %}
                                 <a ng-click="remove_item($index)" class="btn btn-warning"><i class="fa fa-trash-o"></i></a>
+                                <a ng-hide="!student.certificate || !classe.user_can_certificate" ng-disabled='!student.can_emmit_receipt' href="{{ student.certificate.url }}" class="btn btn-default" target="_blank" ng-class="{'btn-info': student.certificate.type == 'certificate'}">
+                                    <span ng-show="student.can_emmit_receipt && student.certificate.type == 'receipt'" title="Clique aqui para ver o comprovante deste estudante"><i class="fa fa-certificate"></i></span>
+                                    <span ng-show="student.can_emmit_receipt && student.certificate.type == 'certificate'" title="Clique aqui para ver o certificado deste estudante"><i class="fa fa-certificate"></i></span>
+                                    <span ng-show="!student.can_emmit_receipt" title="Não há certificados disponíveis"><i class="fa fa-certificate"></i></span>
+                                </a>
+                                {% endverbatim %}
                             </td>
                         {% endif %}
-==== BASE ====
                     </tr>
-                    {% endverbatim %}
 
                     <tr ng-hide="classe.students.length > 0">
                         <td colspan="4">{% trans 'No students found' %}</td>
@@ -152,4 +175,5 @@ wrapper-course-lesson
         </div>
     </section>
 </div>
+
 {% endblock %}

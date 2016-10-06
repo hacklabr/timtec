@@ -50,22 +50,26 @@
 
             $scope.toggle_certificate = function (index){
 
-                var cc_id = $scope.classe.students[index].certificate.link_hash;
-                var user_id = $scope.classe.students[index].user.id;
-                var cc = CourseCertification.get({link_hash: cc_id, user: user_id}, function(classe) {
-                    if(cc.type == 'receipt') {
-                        cc.type = 'certificate';
-                    } else {
-                        cc.type = 'receipt';
-                    }
-                    console.log(cc);
-                    cc.$update({link_hash: cc_id, user: user_id});
-                    $scope.save();
-                });
+                var student = $scope.classe.students[index];
+                console.log(student.certificate);
+                if(student.certificate) {
+                    var cc_id = student.certificate.link_hash;
+                    var user_id = student.user.id;
+                    var cc = CourseCertification.get({link_hash: cc_id, user: user_id}, function(classe) {
+                        if(cc.type == 'receipt') {
+                            cc.type = 'certificate';
+                        } else {
+                            cc.type = 'receipt';
+                        }
+                        cc.$update({link_hash: cc_id, user: user_id});
+                    });
+                }
+                $scope.save();
             }
 
             $scope.save = function(){
 
+                $scope.classe.$resolved = false;
                 if($scope.classe.assistant) {
                     $scope.classe.assistant_management = $scope.classe.assistant.id;
                 }
