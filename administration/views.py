@@ -123,11 +123,11 @@ class ExportCourseView(views.SuperuserRequiredMixin, View):
 
     @staticmethod
     def add_files_to_export(tar_file, short_file_path):
-        short_file_path = short_file_path.split('/', 2)[-1]
-        full_file_path = settings.MEDIA_ROOT + '/' + short_file_path
+        tar_file_path = short_file_path.split('/', 2)[-1]
+        full_file_path = settings.MEDIA_ROOT + '/' + tar_file_path
         if os.path.isfile(full_file_path):
                 tar_file.add(full_file_path,
-                             arcname=short_file_path)
+                             arcname=tar_file_path)
 
     def get(self, request, *args, **kwargs):
 
@@ -138,6 +138,7 @@ class ExportCourseView(views.SuperuserRequiredMixin, View):
 
         json_file = StringIO.StringIO(JSONRenderer().render(course_serializer.data))
 
+        tarfile.ENCODING = 'utf-8'
         tar_info = tarfile.TarInfo('course.json')
         tar_info.size = json_file.len
 
@@ -166,7 +167,7 @@ class ExportCourseView(views.SuperuserRequiredMixin, View):
         course_material = course_serializer.data.get('course_material')
         if course_material:
             for course_material_file in course_material['files']:
-                course_material_file_path = urllib.unquote(course_material_file['file']).decode('utf8')
+                course_material_file_path = urllib.unquote(course_material_file['file'])
                 self.add_files_to_export(course_tar_file, course_material_file_path)
 
         course_tar_file.close()
@@ -239,12 +240,12 @@ class ImportCourseView(APIView):
             course_material_files_list = []
             for course_material_file in course_material_files:
                 course_material_file_path = course_material_file.get('file').replace("/media/", "", 1)  # remove unnecessary "media" path, if any
-                course_material_file_path = urllib.unquote(course_material_file_path).encode('iso8859')  # file path translated from url encoding and iso8859 for file retrieval
+                # course_material_file_path = urllib.unquote(course_material_file_path).encode('iso8859')  # file path translated from url encoding and iso8859 for file retrieval
+
                 course_material_file_obj = import_file.extractfile(course_material_file_path)
                 course_material_files_list.append(TimtecFile(file=DjangoFile(course_material_file_obj)))
             course_obj.course_material.files = course_material_files_list
             course_obj.course_material.text = course_material['text']
-            import pdb; pdb.set_trace()
             course_obj.course_material.save()
 
             for course_author in course_obj.course_authors.all():
