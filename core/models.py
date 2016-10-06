@@ -278,6 +278,9 @@ class CourseStudent(models.Model):
 
     def can_emmit_receipt(self):
 
+        if not self.get_current_class().user_can_certificate:
+            return False
+
         if self.get_current_class().user_can_certificate_even_without_progress:
             return True
         return self.course_finished
