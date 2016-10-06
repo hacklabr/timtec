@@ -40,7 +40,10 @@ class UnitImportExportSerializer(serializers.ModelSerializer):
         if activity_data:
             for activity in activity_data:
                 activity.unit = new_unit
+
             activities = ActivityImportExportSerializer(data=activity_data, many=True)
+            if activities.is_valid():
+                activities.save()
 
         return new_unit
 
@@ -94,7 +97,6 @@ class CourseImportSerializer(serializers.ModelSerializer):
                   'start_date', 'home_published', 'course_authors', 'lessons',)
 
     def create(self, validated_data):
-
         lesson_data = validated_data.pop('lessons')
         new_course = super(CourseImportSerializer, self).create(validated_data)
 
