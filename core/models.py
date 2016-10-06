@@ -51,6 +51,9 @@ class Class(models.Model):
     user_can_certificate = models.BooleanField(_('Certification Allowed'),
                                                default=False)
 
+    user_can_certificate_even_without_progress = models.BooleanField(_('Certification Allowed Even Without Progress'),
+                                                                     default=False)
+
     def __unicode__(self):
         return u'%s @ %s' % (self.name, self.course)
 
@@ -274,6 +277,9 @@ class CourseStudent(models.Model):
             self.course.min_percent_to_complete
 
     def can_emmit_receipt(self):
+
+        if self.get_current_class().user_can_certificate_even_without_progress:
+            return True
         return self.course_finished
 
     def get_current_class(self):
