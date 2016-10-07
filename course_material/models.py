@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.utils.text import slugify
 
 
 class CourseMaterial(models.Model):
@@ -15,7 +16,9 @@ class CourseMaterial(models.Model):
 
 
 def get_upload_path(instance, filename):
-    return u'{0}/{1}'.format(instance.course_material.course.slug, filename)
+    filename, fileextension = filename.split(".", 2)
+    filename = slugify(filename.split("/", 2)[-1])
+    return '{0}/course_materials/{1}.{2}'.format(instance.course_material.course.slug, filename, fileextension)
 
 
 class File(models.Model):

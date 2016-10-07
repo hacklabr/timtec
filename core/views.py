@@ -523,13 +523,14 @@ class CourseViewSet(viewsets.ModelViewSet):
         if public_courses:
             queryset = queryset.filter(status='published').prefetch_related('professors')
         role = self.request.query_params.get('role', None)
-        if role and not self.request.user.is_superuser:
-            queryset = queryset.filter(
-                course_professors__role=role,
-                course_professors__user=self.request.user
-            ).prefetch_related('professors')
+        if not self.request.user.is_superuser:
+            if role:
+                queryset = queryset.filter(
+                    course_professors__role=role,
+                    course_professors__user=self.request.user
+                ).prefetch_related('professors')
 
-        queryset = queryset.filter(groups__in=self.request.user.groups.all())
+            queryset = queryset.filter(groups__in=self.request.user.groups.all())
 
         return queryset.distinct()
 

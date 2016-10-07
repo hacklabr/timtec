@@ -70,4 +70,5 @@ class CourseMaterialViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
 
 class CourseMaterialFileViewSet(LoginRequiredMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
     model = CourseMaterialFile
+    queryset = CourseMaterialFile.objects.all()
     serializer_class = FilesSerializer
