@@ -1,6 +1,7 @@
 from core.models import Course, CourseAuthor, Lesson, Unit
 from core.serializers import VideoSerializer
 from activities.serializers import ActivityImportSerializer, ActivityExportSerializer
+from activities.models import Activity
 from course_material.serializers import CourseMaterialImportExportSerializer
 from rest_framework import serializers
 
@@ -50,14 +51,20 @@ class UnitImportSerializer(UnitExportSerializer):
                 new_unit.save()
 
         # If there are any activities in this unit, they must be saved
-        if activity_data:
-            activities = ActivityImportSerializer(data=activity_data, many=True)
-            if activities.is_valid():
-                saved_activities = activities.save()
+        for activity in activity_data:
+            # If the activity already has an id, it means that its image was already saved during this import processes
+            if activity.get('id'):
+                activity_instance = Activity.objects.get(id=activity['id'])
+                activity_instance.data = activity['data']
+                activity_instance.expected = activity['expected']
+                activity_instance.comment = activity['comment']
+            else:
+                activity_serializer = ActivityImportSerializer(data=activity)
+                if activity_serializer.is_valid():
+                    activity_instance = activity_serializer.save()
 
-                for activity in saved_activities:
-                    activity.unit = new_unit
-                    activity.save()
+            activity_instance.unit = new_unit
+            activity_instance.save()
 
         return new_unit
 
@@ -104,7 +111,7 @@ class CourseExportSerializer(serializers.ModelSerializer):
 class CourseImportSerializer(serializers.ModelSerializer):
     lessons = LessonImportSerializer(many=True)
     # course_authors = CourseAuthorsImportSerializer(many=True, read_only=True)
-    intro_video = VideoSerializer()
+    intro_video = VideoSerializer(required=False, allow_null=True)
     # course_material = CourseMaterialImportExportSerializer()
 
     class Meta:

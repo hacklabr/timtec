@@ -18,6 +18,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from core.models import Course, CourseProfessor
 from core.permissions import IsAdmin
+from activities.models import Activity
 from course_material.models import File as TimtecFile
 from .serializer import CourseExportSerializer, CourseImportSerializer
 
@@ -156,19 +157,34 @@ class ExportCourseView(views.SuperuserRequiredMixin, View):
             if picture_path:
                 self.add_files_to_export(course_tar_file, picture_path)
 
+        # Save the course thumbnail
         course_thumbnail_path = course_serializer.data.get('thumbnail')
         if course_thumbnail_path:
             self.add_files_to_export(course_tar_file, course_thumbnail_path)
 
+        # Save the home thumbnail
         course_home_thumbnail_path = course_serializer.data.get('home_thumbnail')
         if course_home_thumbnail_path:
             self.add_files_to_export(course_tar_file, course_home_thumbnail_path)
 
+        # Save the course material
         course_material = course_serializer.data.get('course_material')
         if course_material:
             for course_material_file in course_material['files']:
                 course_material_file_path = urllib.unquote(course_material_file['file'])
                 self.add_files_to_export(course_tar_file, course_material_file_path)
+
+        # If there are any activities of type 'image', its files must be saved here
+        for lesson in course.lessons.all():
+            for unit in lesson.units.all():
+                for activity in unit.activities.all():
+                    if activity.type == 'image':  # check if the current activity is of 'image' type
+                            try:
+                                activity_image_file_path = urllib.unquote(activity.image.url)
+                                self.add_files_to_export(course_tar_file, activity_image_file_path)
+                            except ValueError:
+                                # There is no image file associated with the activity yet
+                                pass
 
         course_tar_file.close()
         return response
@@ -220,6 +236,22 @@ class ImportCourseView(APIView):
             course_material_files = course_data['course_material'].pop('files')
             # course_material_files = course_material.pop('files')
 
+        # If there are any activities of 'image' type, its files must be given to django now
+        for lesson in course_data['lessons']:
+            for unit in lesson['units']:
+                for activity in unit['activities']:
+                    if activity['type'] == 'image':
+                        try:
+                            image_path = activity.pop('image').replace("/media/", "", 1)
+                            new_activity = Activity.objects.create(
+                                type='image',
+                                image=DjangoFile(import_file.extractfile(image_path))
+                            )
+                            activity['id'] = new_activity.id
+                        except AttributeError:
+                            # This activity image has no file
+                            pass
+
         if course:
             course_serializer = CourseImportSerializer(course, data=course_data)
         else:
@@ -237,10 +269,10 @@ class ImportCourseView(APIView):
                 course_home_thumbnail_file = import_file.extractfile(course_home_thumbnail_path)
                 course_obj.home_thumbnail = DjangoFile(course_home_thumbnail_file)
 
+            # save course material files
             course_material_files_list = []
             for course_material_file in course_material_files:
                 course_material_file_path = course_material_file.get('file').replace("/media/", "", 1)  # remove unnecessary "media" path, if any
-                # course_material_file_path = urllib.unquote(course_material_file_path).encode('iso8859')  # file path translated from url encoding and iso8859 for file retrieval
 
                 course_material_file_obj = import_file.extractfile(course_material_file_path)
                 course_material_files_list.append(TimtecFile(file=DjangoFile(course_material_file_obj)))
@@ -248,6 +280,7 @@ class ImportCourseView(APIView):
             course_obj.course_material.text = course_material['text']
             course_obj.course_material.save()
 
+            # If the course has authors, save save their pictures, if any
             for course_author in course_obj.course_authors.all():
                 picture_path = course_author_pictures.get(course_author.name).replace("/media/", "", 1)
                 if picture_path and picture_path in file_names:
@@ -255,6 +288,7 @@ class ImportCourseView(APIView):
                     course_author.picture = DjangoFile(picture_file_obj)
                     course_author.save()
 
+            # Save all changes in the new imported course
             course_obj.save()
 
             return Response({'new_course_url': reverse_lazy('administration.edit_course',

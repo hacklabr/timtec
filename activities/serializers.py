@@ -57,7 +57,8 @@ class ActivityExportSerializer(serializers.ModelSerializer):
 
 
 class ActivityImportSerializer(ActivityExportSerializer):
+    id = serializers.IntegerField(required=False)
 
     class Meta:
         model = Activity
-        exclude = ('id', 'unit', )
+        exclude = ('unit', )
