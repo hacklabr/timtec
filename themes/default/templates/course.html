@@ -318,22 +318,25 @@ wrapper-course-intro
                 <!-- COURSE-SUMMARY - VISIBLE ONLY FOR PHONES -->
                 <section class="summary hidden-lg hidden-md hidden-sm visible-xs row">
                     <div class="col-xs-12">
-                        <div class="page-header-double">
-                            <h3 class="top">{% trans 'This course is' %}</h3>
-                        </div>
+                        {% if in_admin %}
+                            <div class="page-header-double">
+                                <h3 class="top">{% trans 'This course is' %}</h3>
+                            </div>
 
-                        <div class="course-status btn-group">
-                            <button class="btn btn-success dropdown-toggle" data-toggle="dropdown"
-                            ng-if="course.isPublished()"><span class="status-label">{% trans 'Published' %}</span> <span class="caret"></span></button>
+                            <div class="course-status btn-group">
+                                <button class="btn btn-success dropdown-toggle" data-toggle="dropdown"
+                                ng-if="course.isPublished()"><span class="status-label">{% trans 'Published' %}</span> <span class="caret"></span></button>
 
-                            <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
-                            ng-if="course.isDraft()"><span class="status-label">{% trans 'Draft' %}</span> <span class="caret"></span></button>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li ng-if="course.isDraft()"><button class="btn btn-success" ng-click="publishCourse()">{% trans 'Published' %}</button></li>
-                                <li ng-if="course.isPublished()"><button class="btn btn-danger" ng-click="set_course_as_draft()">{% trans 'Draft' %}</button></li>
-                            </ul>
-                        </div>
+                                <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
+                                ng-if="course.isDraft()"><span class="status-label">{% trans 'Draft' %}</span> <span class="caret"></span></button>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li ng-if="course.isDraft()"><button class="btn btn-success" ng-click="publishCourse()">{% trans 'Published' %}</button></li>
+                                    <li ng-if="course.isPublished()"><button class="btn btn-danger" ng-click="set_course_as_draft()">{% trans 'Draft' %}</button></li>
+                                </ul>
+                            </div>
+                        {% endif %}
+
                         <!-- COURSE-INSTRUCTORS -->
                         {%  include '_course_authors_inline.html' %}
                     </div>
