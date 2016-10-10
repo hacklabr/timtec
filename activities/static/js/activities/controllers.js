@@ -231,7 +231,7 @@
         $scope.viewMyAnswer = function(){
             $scope.topic = my_topic_activity;
             $scope.my_answer = true;
-            // If the user still hasn't created an answer, the editor must be reatvated too
+            // If the user still hasn't created an answer, the editor must be reactivated too
             if(!$scope.topic.hasOwnProperty('id')){
               $scope.show_answer = false;
             }
