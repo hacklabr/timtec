@@ -84,21 +84,21 @@ wrapper-course-lesson
                     </div>
                     {% endwith %}
 
-                    {% with errors=form.city.errors %}
+                    {% with errors=form.state.errors %}
                     <div class="form-group{{ errors|yesno:" has-error,"}}">
-                        <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "City" %}</label>
+                        <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "Province" %}</label>
                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                            <input name="city" type="text" class="form-control" placeholder="Qual cidade você vive?" value="{{form.city.value}}">
+                            {{ form.state }}
                             {% for error in errors %}<small>{{error}}</small>{% endfor %}
                         </div>
                     </div>
                     {% endwith %}
 
-                    {% with errors=form.state.errors %}
+                    {% with errors=form.city.errors %}
                     <div class="form-group{{ errors|yesno:" has-error,"}}">
-                        <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "State" %}</label>
+                        <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "City" %}</label>
                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                            {{ form.state }}
+                            <input name="city" type="text" class="form-control" placeholder="Qual cidade você vive?" value="{{form.city.value}}">
                             {% for error in errors %}<small>{{error}}</small>{% endfor %}
                         </div>
                     </div>

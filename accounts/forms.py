@@ -41,7 +41,7 @@ class ProfileEditForm(BaseProfileEditForm):
 
     password1 = forms.CharField(widget=forms.PasswordInput, label=_("Password"), required=False)
     password2 = forms.CharField(widget=forms.PasswordInput, label=_("Password (again)"), required=False)
-    state = StateChoiceField(label=_('State'), required=False)
+    state = StateChoiceField(label=_('Province'), required=False)
 
     class Meta:
         model = get_user_model()
@@ -85,7 +85,7 @@ class SignupForm(AcceptTermsForm):
     first_name = forms.CharField(max_length=30, label=_('First Name'), required=False)
     last_name = forms.CharField(max_length=30, label=_('Last Name'), required=False)
     city = forms.CharField(max_length=30, label=_('City'), required=False)
-    state = StateChoiceField(label=_('State'), required=False)
+    state = StateChoiceField(label=_('Province'), required=False)
     how_you_know = forms.CharField(max_length=50, label=_('How do you know the platform?'), required=False)
     how_you_know_complement = forms.CharField(max_length=50, label=_('Complement for "How do you know the platform?"'), required=False)
 
