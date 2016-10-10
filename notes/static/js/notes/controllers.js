@@ -17,7 +17,7 @@
                         promisse = $scope.note.$save();
                     }
                     promisse.then(function () {
-                        $('.notes .message').show().delay(2000).fadeOut();
+                        $('.notes.message').show().delay(2000).fadeOut();
                     });
                 };
                 function load_note() {
