@@ -779,10 +779,10 @@ class UserNotesViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
                     in courses[course.slug].lessons_dict:
                 courses[course.slug].lessons_dict[lesson.slug] = lesson
                 courses[course.slug].lessons_dict[lesson.slug].units_notes = []
-#             unit_type = ContentType.objects.get_for_model(unit)
-#             note = get_object_or_404(Note, user=user, content_type__pk=unit_type.id, object_id=unit.id)
-#             unit.user_note = note
-#             courses[course.slug].lessons_dict[lesson.slug].units_notes.append(unit)
+            unit_type = ContentType.objects.get_for_model(unit)
+            note = get_object_or_404(Note, user=user, content_type__pk=unit_type.id, object_id=unit.id)
+            unit.user_note = note
+            courses[course.slug].lessons_dict[lesson.slug].units_notes.append(unit)
 
         results = []
         for course in courses.values():

@@ -344,8 +344,11 @@ class LessonNoteSerializer(serializers.ModelSerializer):
 
 class CourseNoteSerializer(serializers.ModelSerializer):
 
-    lessons_notes = LessonNoteSerializer()
+    lessons_notes = serializers.SerializerMethodField('get_lessons_notes')
     course_notes_number = serializers.IntegerField(required=False)
+
+    def get_lessons_notes(self, obj):
+        return [LessonNoteSerializer(item).data for item in obj.lessons_notes]
 
     class Meta:
         model = Course
