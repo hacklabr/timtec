@@ -118,7 +118,7 @@ wrapper-course-lesson
                     <div class="form-group{{ errors|yesno:" has-error,"}}">
                         <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "Birth Date" %}</label>
                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                            <input name="birth_date" type="date" class="form-control" placeholder="Insira sua data de nascimento..." value="{{form.birth_date.value}}">
+                            <input name="birth_date" type="date" class="form-control" placeholder="Insira sua data de nascimento..." value="{{form.birth_date.value|date:"Y-m-d"}}">
                             {% for error in errors %}<small>{{error}}</small>{% endfor %}
                         </div>
                     </div>
