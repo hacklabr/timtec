@@ -65,7 +65,7 @@ wrapper-course-lesson
                            ng-repeat="unit in lesson.units"
                            ng-class="{watching: unit==currentUnit, done: unit.progress.complete}">
                                <span class="position" ng-bind="unit.position+1"></span>
-                               <i class="fa fa-list" ng-show="unit.activities"></i>
+                               <i class="fa fa-list" ng-show="unit.activities.length > 0"></i>
                         </a>
                         <!-- <label ng-hide="false" style="font-family: monospace">
                             video <input type="radio" ng-model="section" value="video"/>
