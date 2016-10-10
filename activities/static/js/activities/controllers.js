@@ -220,8 +220,12 @@
             $scope.my_answer = false;
             $scope.topic = activity_topic;
             $scope.show_answer = true;
-            $location.hash('top');
-            $anchorScroll();
+
+            setTimeout(function() {
+                $(document.body).animate({
+                  'scrollTop':   $('#answer').position().top
+                }, 500);
+            }, 100);
         };
 
         $scope.viewMyAnswer = function(){
