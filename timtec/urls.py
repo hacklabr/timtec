@@ -176,6 +176,12 @@ urlpatterns = patterns(
 if 'discussion' in settings.INSTALLED_APPS:
     urlpatterns += (url(r'^discussion/', include('discussion.urls', namespace='discussion')),)
 
+if 'paralapraca' in settings.INSTALLED_APPS:
+    urlpatterns += (
+        url(r'^o2/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+        url(r'^paralapraca/', include('paralapraca.urls', namespace='paralapraca')),
+    )
+
 if settings.TWITTER_USER != '':
     from core.views import TwitterApi
 

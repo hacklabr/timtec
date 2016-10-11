@@ -45,7 +45,7 @@ class AdminMixin(TemplateResponseMixin, ContextMixin,):
         return ['administration/' + self.template_name, self.template_name]
 
 
-class AdminView(AdminMixin, TemplateView, views.AccessMixin):
+class AdminView(AdminMixin, TemplateView, views._access.AccessMixin):
     raise_exception = True
 
     def dispatch(self, request, *args, **kwargs):
@@ -67,7 +67,7 @@ class UserAdminView(AdminView):
         return context
 
 
-class CourseAdminView(AdminMixin, DetailView, views.AccessMixin):
+class CourseAdminView(AdminMixin, DetailView, views._access.AccessMixin):
     model = Course
     context_object_name = 'course'
     pk_url_kwarg = 'course_id'
