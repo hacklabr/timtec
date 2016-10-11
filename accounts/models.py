@@ -99,6 +99,10 @@ class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
         from core.models import CourseCertification
         return CourseCertification.objects.filter(course_student__user=self)
 
+    def get_current_courses(self):
+        ended = [item.course for item in self.get_certificates()]
+        return [item.course for item in self.coursestudent_set.all().exclude(course__in=ended)]
+
     def save(self, *args, **kwargs):
 
         is_new = self.pk is None

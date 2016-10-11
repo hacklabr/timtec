@@ -254,12 +254,13 @@ class ProfileSerializer(TimtecUserSerializer):
 
     certificates = ProfileCourseCertificationSerializer(many=True, source="get_certificates")
     social_medias = UserSocialAccountSerializer(many=True, source='get_social_media')
+    courses = BaseCourseSerializer(many=True, source='get_current_courses')
 
     class Meta:
         model = get_user_model()
         fields = ('id', 'username', 'name', 'first_name', 'last_name',
                   'biography', 'picture', 'is_profile_filled', 'occupation', 'birth_date',
-                  'certificates', 'city', 'state', 'site', 'occupation', 'social_medias')
+                  'certificates', 'city', 'state', 'site', 'occupation', 'social_medias', 'courses')
 
 
 class CourseThumbSerializer(serializers.ModelSerializer):

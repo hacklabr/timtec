@@ -97,7 +97,7 @@ wrapper-course-lesson
                             {{ professor }}<span ng-if="!$last">, </span>
                             {% endverbatim %}
                         </span>
-                    </p>
+                    </p>.
                 </div>
                 <div class="conclusion">
                     <p>
@@ -114,6 +114,36 @@ wrapper-course-lesson
                             {% trans 'View Certificate' %}
                         </span>
                     </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+    <h2 ng-if="user_profile.courses.length>0"><i class="fa fa-check-square-o"></i> {% trans 'Current courses' %}</h2>
+    <div class="row">
+
+        <div class="block course col-sm-4" ng-repeat="course in user_profile.courses">
+
+            <div class="course-card">
+                <div class="thumb-wrapper">
+                    {% verbatim %}
+                    <img class="img-responsive" ng-src="{{ course.home_thumbnail_url }}" />
+                    {% endverbatim %}
+                </div>
+                <div class="info">
+                    {% verbatim %}
+                        <a class="course-link" ng-href="/course/{{ course.slug }}/intro/">
+                            <h3>{{ course.name }}</h3>
+                        </a>
+                    {% endverbatim %}
+                    <p class="instructors">
+                        <span ng-repeat="professor in course.professors">
+                            {% verbatim %}
+                            {{ professor }}<span ng-if="!$last">, </span>
+                            {% endverbatim %}
+                        </span>
+                    </p>.
                 </div>
             </div>
         </div>

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-10 11:17-0300\n"
-"PO-Revision-Date: 2016-10-10 11:18-0300\n"
+"POT-Creation-Date: 2016-10-11 10:36-0300\n"
+"PO-Revision-Date: 2016-10-11 10:38-0300\n"
 "Last-Translator: Administrador TIMTec <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -71,9 +71,10 @@ msgstr "Senha"
 msgid "Password (again)"
 msgstr "Senha (novamente)"
 
-#: accounts/forms.py:44 accounts/forms.py:88 accounts/models.py:151
-msgid "State"
-msgstr "Situação"
+#: accounts/forms.py:44 accounts/forms.py:88 accounts/models.py:155
+#: themes/default/templates/profile-edit.html:89
+msgid "Province"
+msgstr "Estado"
 
 #: accounts/forms.py:63 ifs/forms.py:30
 msgid "The two password fields didn't match."
@@ -98,7 +99,7 @@ msgstr "Sobrenome"
 
 #: accounts/forms.py:87 accounts/models.py:33 ifs/models.py:9
 #: themes/default/templates/ifs/signup-completion.html:59
-#: themes/default/templates/profile-edit.html:89
+#: themes/default/templates/profile-edit.html:99
 #: themes/if/templates/account/signup.html:70
 #: themes/ifs-colors/templates/ifs/signup-completion.html:59
 msgid "City"
@@ -208,39 +209,39 @@ msgstr "usuários"
 msgid "Invalid attribute: %s"
 msgstr "Atributo inválido: %s"
 
-#: accounts/models.py:119
+#: accounts/models.py:123
 msgid "Facebook"
 msgstr "Conectar com Facebook"
 
-#: accounts/models.py:120
+#: accounts/models.py:124
 msgid "Instagram"
 msgstr "Instagram"
 
-#: accounts/models.py:121
+#: accounts/models.py:125
 msgid "Snapchat"
 msgstr "Snapchat"
 
-#: accounts/models.py:122
+#: accounts/models.py:126
 msgid "Celular/Whatsapp"
 msgstr ""
 
-#: accounts/models.py:123
+#: accounts/models.py:127
 msgid "Twitter"
 msgstr "Twitter"
 
-#: accounts/models.py:125
+#: accounts/models.py:129
 msgid "Youtube"
 msgstr "Youtube"
 
-#: accounts/models.py:129
+#: accounts/models.py:133
 msgid "social media"
 msgstr "Rede social"
 
-#: accounts/models.py:130
+#: accounts/models.py:134
 msgid "nickname"
 msgstr "Usuário na rede"
 
-#: accounts/models.py:150 ifs/models.py:19
+#: accounts/models.py:154 ifs/models.py:19
 msgid "Email address"
 msgstr "Endereço de Email"
 
@@ -368,7 +369,6 @@ msgid "Certification Allowed"
 msgstr "Certificação"
 
 #: core/models.py:55
-#| msgid "Certification Allowed"
 msgid "Certification Allowed Even Without Progress"
 msgstr "Habilitar certificação mesmo sem o progresso mínimo requerido?"
 
@@ -833,7 +833,7 @@ msgstr "Vídeo introdutório"
 
 #: themes/default/templates/_course-header-inline.html:18
 #: themes/default/templates/home.html:110
-#: themes/default/templates/notes.html:47
+#: themes/default/templates/notes.html:49
 msgid "Resume course"
 msgstr "Continuar curso"
 
@@ -1851,7 +1851,6 @@ msgid "Allows Certification"
 msgstr "Permite certificação"
 
 #: themes/default/templates/class_edit.html:94
-#| msgid "Select if this class can emmit certificates."
 msgid ""
 "Select if this class can emmit certificates even the student didn't get the "
 "minimum progress required."
@@ -1871,7 +1870,7 @@ msgstr "Nenhum aluno encontrado"
 
 #: themes/default/templates/class_edit.html:167
 msgid "If it is a big class, you'll need to wait a little..."
-msgstr ""
+msgstr "Se for uma classe grande, você terá que aguardar um pouco... "
 
 #: themes/default/templates/course-evaluations.html:44
 msgid "Allows certificate"
@@ -2318,17 +2317,13 @@ msgstr "Remover"
 msgid "Are you sure?"
 msgstr "Você tem certeza?"
 
-#: themes/default/templates/notes.html:46
+#: themes/default/templates/notes.html:63
 msgid "Go to notes"
 msgstr "Ver anotações"
 
 #: themes/default/templates/profile-edit.html:54
 msgid "Profile Info"
 msgstr "Perfil"
-
-#: themes/default/templates/profile-edit.html:99
-msgid "Province"
-msgstr "Estado"
 
 #: themes/default/templates/profile-edit.html:129
 msgid "Bio"
@@ -2382,6 +2377,11 @@ msgstr "Ver Comprovante"
 #: themes/default/templates/user-courses.html:273
 msgid "View Certificate"
 msgstr "Ver certificado"
+
+#: themes/default/templates/profile.html:123
+#| msgid "Create course"
+msgid "Current courses"
+msgstr "Cursos em andamento"
 
 #: themes/default/templates/question-create.html:52
 msgid "Fill the question text."
@@ -2533,6 +2533,9 @@ msgstr "Espanhol"
 #: timtec/settings.py:88 timtec/settings_local_docker.py:87
 msgid "English"
 msgstr "Inglês"
+
+#~ msgid "State"
+#~ msgstr "Situação"
 
 #~ msgid "More..."
 #~ msgstr "Mais..."

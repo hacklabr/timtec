@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-10 11:17-0300\n"
+"POT-Creation-Date: 2016-10-11 10:36-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,8 +70,9 @@ msgstr ""
 msgid "Password (again)"
 msgstr ""
 
-#: accounts/forms.py:44 accounts/forms.py:88 accounts/models.py:151
-msgid "State"
+#: accounts/forms.py:44 accounts/forms.py:88 accounts/models.py:155
+#: themes/default/templates/profile-edit.html:89
+msgid "Province"
 msgstr ""
 
 #: accounts/forms.py:63 ifs/forms.py:30
@@ -97,7 +98,7 @@ msgstr ""
 
 #: accounts/forms.py:87 accounts/models.py:33 ifs/models.py:9
 #: themes/default/templates/ifs/signup-completion.html:59
-#: themes/default/templates/profile-edit.html:89
+#: themes/default/templates/profile-edit.html:99
 #: themes/if/templates/account/signup.html:70
 #: themes/ifs-colors/templates/ifs/signup-completion.html:59
 msgid "City"
@@ -207,39 +208,39 @@ msgstr ""
 msgid "Invalid attribute: %s"
 msgstr ""
 
-#: accounts/models.py:119
+#: accounts/models.py:123
 msgid "Facebook"
 msgstr ""
 
-#: accounts/models.py:120
+#: accounts/models.py:124
 msgid "Instagram"
 msgstr ""
 
-#: accounts/models.py:121
+#: accounts/models.py:125
 msgid "Snapchat"
 msgstr ""
 
-#: accounts/models.py:122
+#: accounts/models.py:126
 msgid "Celular/Whatsapp"
 msgstr ""
 
-#: accounts/models.py:123
+#: accounts/models.py:127
 msgid "Twitter"
 msgstr ""
 
-#: accounts/models.py:125
+#: accounts/models.py:129
 msgid "Youtube"
 msgstr ""
 
-#: accounts/models.py:129
+#: accounts/models.py:133
 msgid "social media"
 msgstr ""
 
-#: accounts/models.py:130
+#: accounts/models.py:134
 msgid "nickname"
 msgstr ""
 
-#: accounts/models.py:150 ifs/models.py:19
+#: accounts/models.py:154 ifs/models.py:19
 msgid "Email address"
 msgstr ""
 
@@ -828,7 +829,7 @@ msgstr ""
 
 #: themes/default/templates/_course-header-inline.html:18
 #: themes/default/templates/home.html:110
-#: themes/default/templates/notes.html:47
+#: themes/default/templates/notes.html:49
 msgid "Resume course"
 msgstr ""
 
@@ -2284,16 +2285,12 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
-#: themes/default/templates/notes.html:46
+#: themes/default/templates/notes.html:63
 msgid "Go to notes"
 msgstr ""
 
 #: themes/default/templates/profile-edit.html:54
 msgid "Profile Info"
-msgstr ""
-
-#: themes/default/templates/profile-edit.html:99
-msgid "Province"
 msgstr ""
 
 #: themes/default/templates/profile-edit.html:129
@@ -2347,6 +2344,10 @@ msgstr ""
 #: themes/default/templates/user-courses.html:224
 #: themes/default/templates/user-courses.html:273
 msgid "View Certificate"
+msgstr ""
+
+#: themes/default/templates/profile.html:123
+msgid "Current courses"
 msgstr ""
 
 #: themes/default/templates/question-create.html:52
