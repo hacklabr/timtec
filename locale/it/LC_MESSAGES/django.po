@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-11 10:36-0300\n"
+"POT-Creation-Date: 2016-10-11 11:05-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2142,6 +2142,10 @@ msgstr ""
 
 #: themes/default/templates/header.html:40
 msgid "Home edit"
+msgstr ""
+
+#: themes/default/templates/header.html:51
+msgid "My area"
 msgstr ""
 
 #: themes/default/templates/header.html:55

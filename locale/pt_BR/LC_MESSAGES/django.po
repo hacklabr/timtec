@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-11 10:36-0300\n"
-"PO-Revision-Date: 2016-10-11 10:38-0300\n"
+"POT-Creation-Date: 2016-10-11 11:05-0300\n"
+"PO-Revision-Date: 2016-10-11 11:06-0300\n"
 "Last-Translator: Administrador TIMTec <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2176,6 +2176,10 @@ msgstr "Administração"
 msgid "Home edit"
 msgstr "Editar home"
 
+#: themes/default/templates/header.html:51
+msgid "My area"
+msgstr "Minha área"
+
 #: themes/default/templates/header.html:55
 #: themes/ifs-colors/templates/profile-edit.html:7
 #: themes/ifs-colors/templates/profile.html:7
@@ -2379,7 +2383,6 @@ msgid "View Certificate"
 msgstr "Ver certificado"
 
 #: themes/default/templates/profile.html:123
-#| msgid "Create course"
 msgid "Current courses"
 msgstr "Cursos em andamento"
 
