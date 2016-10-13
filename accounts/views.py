@@ -168,7 +168,7 @@ class AcceptTermsView(FormView):
     success_url = reverse_lazy('courses')
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated() and request.user.accepted_terms:
             return redirect(reverse_lazy('home_view'))
         return super(AcceptTermsView, self).dispatch(request, *args, **kwargs)
 
