@@ -190,32 +190,20 @@
         </div>
     </div>
     <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}" class="form-horizontal">{% csrf_token %}
-        {% with errors=form.username.errors %}
-        <div class="form-group{{ errors|yesno:' has-error,' }}">
-            <label class="col-xs-12 control-label">{% trans "Username" %}</label>
-            <div class="col-xs-12">
-                <input name="username" type="text" value="{{form.username.value}}" class="form-control" placeholder="{% trans 'Username' %}" required>
-                {% for error in errors %}<small>{{error}}</small>{% endfor %}
-            </div>
-        </div>
-        {% endwith %}
 
-        {% with errors=form.email.errors %}
+        {% with errors=form.how_you_know.errors %}
         <div class="form-group{{ errors|yesno:' has-error,' }}">
-            <label class="col-xs-12 control-label">{% trans "E-mail" %}</label>
-            <div class="col-xs-12">
-                <input name="email" type="email" value="{{form.email.value}}" class="form-control" placeholder="Your e-mail" required>
-                {% for error in errors %}<small>{{error}}</small>{% endfor %}
-            </div>
-        </div>
-        {% endwith %}
-
-        {% with errors=form.password1.errors %}
-        <div class="form-group{{ errors|yesno:' has-error,' }}">
-            <label class="col-xs-12 control-label">{% trans "Password" %}</label>
-            <div class="col-xs-12">
-                <p><input name="password1" type="password" class="form-control" placeholder="{% trans 'Really strong password' %}" required></p>
-                <input name="password2" type="password" class="form-control" placeholder="{% trans 'Password confirmation' %}" required>
+            <label class="col-lg-4 col-sm-4 control-label">Como você conheceu a plataforma TIM Tec?</label>
+            <div class="col-lg-8 col-sm-8">
+                <select name="how_you_know" class="form-control" required>
+                    <option>Indicação de amigo</option>
+                    <option>Facebook</option>
+                    <option>Twitter</option>
+                    <option>Através da Imprensa</option>
+                    <option>Pesquisa no Google</option>
+                    <option>Vi em minha escola/empresa</option>
+                    <option>Outro</option>
+                </select>
                 {% for error in errors %}<small>{{error}}</small>{% endfor %}
             </div>
         </div>
@@ -241,6 +229,16 @@
         </div>
         {% endwith %}
 
+        {% with errors=form.state.errors %}
+        <div class="form-group{{ errors|yesno:' has-error,' }}">
+            <label class="col-lg-4 col-sm-4 control-label">{{ form.state.label }}</label>
+            <div class="col-lg-8 col-sm-8">
+                {{ form.state }}
+                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+            </div>
+        </div>
+        {% endwith %}
+
         {% with errors=form.city.errors %}
         <div class="form-group{{ errors|yesno:' has-error,' }}">
             <label class="col-lg-4 col-sm-4 control-label">{{ form.city.label }}</label>
@@ -251,11 +249,32 @@
         </div>
         {% endwith %}
 
-        {% with errors=form.state.errors %}
+        {% with errors=form.username.errors %}
         <div class="form-group{{ errors|yesno:' has-error,' }}">
-            <label class="col-lg-4 col-sm-4 control-label">{{ form.state.label }}</label>
-            <div class="col-lg-8 col-sm-8">
-                {{ form.state }}
+            <label class="col-xs-12 control-label">{% trans "Username" %}</label>
+            <div class="col-xs-12">
+                <input name="username" type="text" value="{{form.username.value|default_if_none:""}}" class="form-control" placeholder="{% trans 'Username' %}" required>
+                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+            </div>
+        </div>
+        {% endwith %}
+
+        {% with errors=form.email.errors %}
+        <div class="form-group{{ errors|yesno:' has-error,' }}">
+            <label class="col-xs-12 control-label">{% trans "E-mail" %}</label>
+            <div class="col-xs-12">
+                <input name="email" type="email" value="{{form.email.value|default_if_none:""}}" class="form-control" placeholder="Your e-mail" required>
+                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+            </div>
+        </div>
+        {% endwith %}
+
+        {% with errors=form.password1.errors %}
+        <div class="form-group{{ errors|yesno:' has-error,' }}">
+            <label class="col-xs-12 control-label">{% trans "Password" %}</label>
+            <div class="col-xs-12">
+                <p><input name="password1" type="password" class="form-control" placeholder="{% trans 'Really strong password' %}" required></p>
+                <input name="password2" type="password" class="form-control" placeholder="{% trans 'Password confirmation' %}" required>
                 {% for error in errors %}<small>{{error}}</small>{% endfor %}
             </div>
         </div>
