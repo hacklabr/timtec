@@ -17,6 +17,18 @@
 
     <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
 
+    <!-- Touch icon for iOS 2.0+ and Android 2.1+ -->
+    <link rel="apple-touch-icon-precomposed" href="{% static 'img/favicon-152.png' %}">
+
+    <!-- IE 10 Metro tile icon (Metro equivalent of apple-touch-icon) -->
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileImage" content="{% static 'img/favicon-144.png' %}">
+
+    <!-- IE 11 Tile for Windows 8.1 Start Screen -->
+    <meta name="application-name" content="Name">
+    <meta name="msapplication-tooltip" content="Tooltip">
+    <meta name="msapplication-config" content="{% static 'img/ieconfig.xml' %}">
+
     {% block css %}{% endblock %}
 
     <script>
