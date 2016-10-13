@@ -67,30 +67,6 @@ if DEBUG:
         'debug_toolbar',
     )
 
-
-if 'oauth2_provider' in INSTALLED_APPS:
-    INSTALLED_APPS += (
-        'oauth2_provider',
-    )
-
-    AUTHENTICATION_BACKENDS += (
-        'oauth2_provider.backends.OAuth2Backend',
-    )
-
-    MIDDLEWARE_CLASSES += (
-        'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-        'oauth2_provider.middleware.OAuth2TokenMiddleware',
-    )
-
-    OAUTH2_PROVIDER = {
-        'SCOPES': {
-            'read': 'Read scope',
-            'write': 'Write scope',
-            'openid': 'Openid scope',
-        },
-    }
-
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

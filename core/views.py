@@ -5,7 +5,7 @@ import datetime
 
 from django.core.urlresolvers import reverse_lazy
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.views.generic import (DetailView, ListView, DeleteView,
                                   CreateView, UpdateView)
 from django.views.generic.base import RedirectView, View, TemplateView
@@ -20,6 +20,10 @@ from rest_framework.response import Response
 from rest_framework import filters
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from braces.views import LoginRequiredMixin
+
+from oauth2_provider.views import ProtectedResourceView
+from oauth2_provider.models import AccessToken
+
 from notes.models import Note
 
 from .serializers import (CourseSerializer, CourseProfessorSerializer,
@@ -873,3 +877,18 @@ class FlatpageViewSet(viewsets.ModelViewSet):
         if url_prefix:
             queryset = queryset.filter(url__startswith=url_prefix)
         return queryset
+
+
+class OAuth2UserInfoView(ProtectedResourceView):
+    def get(self, request, *args, **kwargs):
+        token = request.GET.get('access_token', '')
+        access_token = AccessToken.objects.filter(token=token).first()
+
+        if access_token:
+            user = access_token.user
+            return HttpResponse(json.dumps({
+                'id': user.id,
+                'email': user.email
+            }));
+
+        return HttpResponseForbidden('Ivalid or empty token')

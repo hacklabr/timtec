@@ -25,7 +25,7 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         CertificationProcessViewSet,
                         EvaluationViewSet, CertificateTemplateViewSet,
                         CertificateTemplateImageViewSet, RequestCertificateView,
-                        EmitReceiptView, ProfileViewSet)
+                        EmitReceiptView, ProfileViewSet, OAuth2UserInfoView)
 
 from activities.views import AnswerViewSet, ActivityImageViewSet
 from forum.views import (CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet,
@@ -171,6 +171,9 @@ urlpatterns = patterns(
         TemplateView.as_view(template_name='djangular.js', content_type='text/javascript'),
         name='djangular'),
 
+    # Provider to let other apps auth herel
+    url(r'^o2/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    url(r'^o2/me/?', OAuth2UserInfoView.as_view(), name='oauth2_provider_userinfo'),
 )
 
 if 'discussion' in settings.INSTALLED_APPS:
@@ -178,7 +181,6 @@ if 'discussion' in settings.INSTALLED_APPS:
 
 if 'paralapraca' in settings.INSTALLED_APPS:
     urlpatterns += (
-        url(r'^o2/', include('oauth2_provider.urls', namespace='oauth2_provider')),
         url(r'^paralapraca/', include('paralapraca.urls', namespace='paralapraca')),
     )
 

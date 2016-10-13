@@ -58,3 +58,4 @@ django-markdown==0.8.4
 twitter==1.17.1
 
 django-extensions==1.5.5
+django-oauth-toolkit==0.10.0
