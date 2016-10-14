@@ -276,6 +276,22 @@ class CourseStudent(models.Model):
     def __unicode__(self):
         return u'{0} - {1}'.format(self.course, self.user)
 
+    def save(self, *args, **kwargs):
+        super(CourseStudent, self).save(*args, **kwargs)
+
+        try:
+            receipt = CourseCertification.objects.get(course_student=self)
+        except CourseCertification.DoesNotExist:
+            from base64 import urlsafe_b64encode as ub64
+            from hashlib import sha1
+            from time import time
+            h = ub64(sha1(str(time()) + self.user.last_name.encode('utf-8')).digest()[0:6])
+            receipt = CourseCertification(course_student=self,
+                                          course=self.course,
+                                          type=CourseCertification.TYPES[0][0],
+                                          is_valid=True, link_hash=h)
+            receipt.save()
+
     @property
     def units_done(self):
         return StudentProgress.objects.exclude(complete=None) \
@@ -622,28 +638,6 @@ class StudentProgress(models.Model):
                              related_name='progress')
     complete = models.DateTimeField(editable=True, null=True, blank=True)
     last_access = models.DateTimeField(auto_now=True, editable=False)
-
-    def save(self, *args, **kwargs):
-        super(StudentProgress, self).save(*args, **kwargs)
-
-        course_student = CourseStudent.objects.get(
-            course=self.unit.lesson.course,
-            user=self.user)
-
-        try:
-            receipt = CourseCertification.objects.get(
-                course_student=course_student)
-        except CourseCertification.DoesNotExist:
-            if course_student.can_emmit_receipt():
-                from base64 import urlsafe_b64encode as ub64
-                from hashlib import sha1
-                from time import time
-                h = ub64(sha1(str(time()) + self.user.last_name.encode('utf-8')).digest()[0:6])
-                receipt = CourseCertification(course_student=course_student,
-                                              course=course_student.course,
-                                              type=CourseCertification.TYPES[0][0],
-                                              is_valid=True, link_hash=h)
-                receipt.save()
 
     class Meta:
         unique_together = (('user', 'unit'),)
