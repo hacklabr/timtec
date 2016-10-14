@@ -41,7 +41,8 @@ class ProfileEditForm(BaseProfileEditForm):
 
     password1 = forms.CharField(widget=forms.PasswordInput, label=_("Password"), required=False)
     password2 = forms.CharField(widget=forms.PasswordInput, label=_("Password (again)"), required=False)
-    state = StateChoiceField(label=_('Province'), required=False)
+    state = forms.CharField(max_length=2, label=_('Province'), widget=forms.Select, required=False)
+    city = forms.CharField(max_length=50, label=_('City'), widget=forms.Select, required=False)
 
     class Meta:
         model = get_user_model()
@@ -51,6 +52,7 @@ class ProfileEditForm(BaseProfileEditForm):
     def __init__(self, *args, **kwargs):
         super(BaseProfileEditForm, self).__init__(*args, **kwargs)
         self.fields['state'].widget.attrs['class'] = 'form-control'
+        self.fields['city'].widget.attrs['class'] = 'form-control'
 
     def clean_username(self):
         return self.instance.username
