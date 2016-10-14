@@ -84,8 +84,8 @@ class SignupForm(AcceptTermsForm):
 
     first_name = forms.CharField(max_length=30, label=_('First Name'), required=False)
     last_name = forms.CharField(max_length=30, label=_('Last Name'), required=False)
-    city = forms.CharField(max_length=30, label=_('City'), required=False)
-    state = StateChoiceField(label=_('Province'), required=False)
+    state = forms.CharField(max_length=2, label=_('Province'), widget=forms.Select, required=False)
+    city = forms.CharField(max_length=50, label=_('City'), widget=forms.Select, required=False)
     how_you_know = forms.CharField(max_length=50, label=_('How do you know the platform?'), required=False)
     how_you_know_complement = forms.CharField(max_length=50, label=_('Complement for "How do you know the platform?"'), required=False)
 
@@ -93,6 +93,9 @@ class SignupForm(AcceptTermsForm):
         super(SignupForm, self).__init__(*args, **kwargs)
         self.fields['state'].widget.attrs['required'] = True
         self.fields['state'].widget.attrs['class'] = 'form-control'
+
+        self.fields['city'].widget.attrs['required'] = True
+        self.fields['city'].widget.attrs['class'] = 'form-control'
 
     def signup(self, request, user):
         user.first_name = self.cleaned_data['first_name']

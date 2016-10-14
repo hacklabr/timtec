@@ -6,7 +6,8 @@ from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from accounts.views import (ProfileEditView, ProfileView, UserSearchView,
                             TimtecUserViewSet, TimtecUserAdminViewSet, StudentSearchView,
-                            AcceptTermsView, UserSocialAccountCreateView, UserSocialAccountDeleteView)
+                            AcceptTermsView, UserSocialAccountCreateView, UserSocialAccountDeleteView,
+                            StateViewSet, CityViewSet)
 
 from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         CourseProfessorViewSet, EnrollCourseView, HomeView,
@@ -75,6 +76,8 @@ router.register(r'certification_process', CertificationProcessViewSet)
 router.register(r'evaluation', EvaluationViewSet)
 router.register(r'certificate_template', CertificateTemplateViewSet)
 router.register(r'certificate_template_images', CertificateTemplateImageViewSet)
+router.register(r'states', StateViewSet, 'test')
+router.register(r'cities', CityViewSet, 'test2')
 
 urlpatterns = patterns(
     '',

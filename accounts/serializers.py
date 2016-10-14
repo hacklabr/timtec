@@ -25,3 +25,13 @@ class TimtecUserAdminCertificateSerializer(TimtecUserSerializer):
     class Meta:
         model = get_user_model()
         fields = ('id', 'name', 'email', 'username')
+
+
+class StateSerializer(serializers.Serializer):
+    code = serializers.CharField(read_only=True)
+    name = serializers.CharField(read_only=True)
+
+
+class CitySerializer(serializers.Serializer):
+    state = serializers.CharField(read_only=True)
+    name = serializers.CharField(read_only=True)
