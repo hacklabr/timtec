@@ -10,7 +10,10 @@ from django.shortcuts import redirect
 from accounts.models import UserSocialAccount
 from accounts.forms import ProfileEditForm, AcceptTermsForm, UserSocialAccountForm
 from accounts.serializers import TimtecUserSerializer, TimtecUserAdminSerializer
+from accounts.serializers import StateSerializer, CitySerializer
 from braces.views import LoginRequiredMixin
+from rest_framework.response import Response
+from core.permissions import IsAdminOrReadOnly
 
 from rest_framework import viewsets
 from rest_framework import filters
@@ -168,7 +171,7 @@ class AcceptTermsView(FormView):
     success_url = reverse_lazy('courses')
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated() and request.user.accepted_terms:
             return redirect(reverse_lazy('home_view'))
         return super(AcceptTermsView, self).dispatch(request, *args, **kwargs)
 
@@ -192,3 +195,25 @@ class AcceptTermsView(FormView):
         if next_url:
             context['next_url'] = next_url
         return context
+
+
+class StateViewSet(viewsets.ViewSet):
+    permission_classes = (IsAdminOrReadOnly,)
+
+    def list(self, request):
+        from utils.cities import states
+        serializer = StateSerializer(states, many=True)
+        return Response(serializer.data)
+
+
+class CityViewSet(viewsets.ViewSet):
+    permission_classes = (IsAdminOrReadOnly,)
+
+    def list(self, request):
+        from utils.cities import cities
+
+        if self.request.GET.get('state', None):
+            cities = [item for item in cities if item['state'] == self.request.GET.get('state')]
+
+        serializer = CitySerializer(cities, many=True)
+        return Response(serializer.data)
