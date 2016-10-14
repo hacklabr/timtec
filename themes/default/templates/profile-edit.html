@@ -6,6 +6,52 @@
 wrapper-course-lesson
 {% endblock %}
 
+{% block js %}
+<script type="text/javascript" charset="utf-8">
+    (function(){
+
+        function load_states() {
+
+            $.get("/api/states", function(item){
+                options = "<option value=''>---</option>\n";
+                for(state in item) {
+                    state = item[state];
+                    options += "<option value='"+ state.code +"'>"+ state.name +"</option>\n";
+                }
+
+                $("select[name=state]").empty().append(options);
+                $("select[name=state]").val('{{ form.state.value }}');
+                load_cities('{{ form.state.value }}', true);
+
+            });
+        }
+
+        function load_cities(state, first_call) {
+            $.get("/api/cities", {'state': state}, function(item){
+                options = "<option value=''>---</option>\n";
+                for(city in item) {
+                    city = item[city];
+                    options += "<option value='"+ city.name +"'>"+ city.name +"</option>\n";
+                }
+                $("select[name=city]").empty().append(options);
+
+                if(first_call) {
+                    $("select[name=city]").val('{{ form.city.value }}');
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            load_states();
+            $("select[name=state]").change(function(){
+                current_value = $(this).val();
+                load_cities(current_value);
+            });
+        });
+    })();
+</script>
+{% endblock %}
+
 {% block content %}
 <div id="profile" class="container">
     <form class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
@@ -98,7 +144,7 @@ wrapper-course-lesson
                     <div class="form-group{{ errors|yesno:" has-error,"}}">
                         <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "City" %}</label>
                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                            <input name="city" type="text" class="form-control" placeholder="Qual cidade você vive?" value="{{form.city.value}}">
+                            {{ form.city }}
                             {% for error in errors %}<small>{{error}}</small>{% endfor %}
                         </div>
                     </div>
