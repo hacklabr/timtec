@@ -665,7 +665,7 @@ class CourseCertification(models.Model):
     course_workload = models.TextField(_('Workload'), blank=True)
     course_total_units = models.IntegerField(_('Total units'), blank=True)
 
-    link_hash = models.CharField(_('Hash'), max_length=255)
+    link_hash = models.CharField(_('Hash'), max_length=255, unique=True)
 
     @property
     def student(self):
