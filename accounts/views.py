@@ -6,6 +6,7 @@ from django.views.generic import UpdateView, FormView
 from django.views.generic.detail import DetailView
 from django.db.models import Q
 
+from accounts.models import TimtecUser
 from accounts.forms import ProfileEditForm, AcceptTermsForm
 from accounts.serializers import TimtecUserSerializer, TimtecUserAdminSerializer
 from braces.views import LoginRequiredMixin
@@ -64,6 +65,7 @@ class TimtecUserAdminViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAdmin, )
     serializer_class = TimtecUserAdminSerializer
     ordering = ('first_name', 'username',)
+    queryset = TimtecUser.objects.all()
     # search_fields = ('first_name', 'last_name', 'username', 'email')
 
     def get_queryset(self):
