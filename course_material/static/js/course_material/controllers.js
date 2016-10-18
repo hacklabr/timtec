@@ -3,8 +3,8 @@
 
     var app = angular.module('courseMaterial.controllers', ['ngCookies']);
 
-    app.controller('CourseMaterialEditorCtrl', ['$scope', '$window', 'CourseMaterial','CourseMaterialFile',
-        function ($scope, $window, CourseMaterial, CourseMaterialFile) {
+    app.controller('CourseMaterialEditorCtrl', ['$scope', '$window', '$sce', 'CourseMaterial','CourseMaterialFile',
+        function ($scope, $window, $sce, CourseMaterial, CourseMaterialFile) {
             $scope.courseId = $window.course_id;
 
             $scope.course_materials = CourseMaterial.query({course__id: $scope.courseId}, function (course_materials){
@@ -16,6 +16,7 @@
             $scope.save_course_material = function(){
                 $scope.course_material.$update({course: $scope.courseId}, function(){
                     $scope.alert.success('Alterações salvas com sucesso!');
+                    $scope.editando = false;
                 });
             };
 
@@ -30,6 +31,10 @@
                         });
                     });
                 }
+            };
+
+            $scope.get_as_safe_html = function(html_content) {
+                return $sce.trustAsHtml(html_content);
             };
     }]);
 })(angular);

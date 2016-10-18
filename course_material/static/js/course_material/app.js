@@ -11,6 +11,7 @@
         'directive.alertPopup',
         'directive.fixedBar',
         'header',
+        'ui.tinymce',
     ]);
 
 })(angular);
