@@ -6,19 +6,6 @@ from django.conf import settings
 from timtec.settings import ACCOUNT_REQUIRED_FIELDS as fields
 from accounts.models import UserSocialAccount
 
-try:
-    # trys to import the statechoice defined in settings
-    import importlib
-
-    cls = settings.LOCALFLAVOR_STATECHOICE_FIELD
-    class_name = cls.split(".")[-1]
-    module_name = cls.replace(".%s" % class_name, "")
-
-    module = importlib.import_module(module_name)
-    StateChoiceField = getattr(module, class_name)
-except Exception as e:
-    from localflavor.br.forms import BRStateChoiceField as StateChoiceField
-
 
 User = get_user_model()
 
