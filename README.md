@@ -1,4 +1,5 @@
 [![Stories in Ready](https://badge.waffle.io/institutotim/timtec.png?label=ready&title=Ready)](https://waffle.io/institutotim/timtec)
+[![Build Status](https://drone.io/github.com/institutotim/timtec/status.png)](https://drone.io/github.com/institutotim/timtec/latest)
 
 # TIM Tec
 
