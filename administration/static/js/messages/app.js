@@ -11,5 +11,6 @@
         'markdown',
         'truncate',
         'ngRoute',
+        'header',
     ]);
 })(angular);
