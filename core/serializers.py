@@ -20,7 +20,7 @@ class ProfessorMessageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProfessorMessage
-        fields = ('id', 'course', 'users', 'subject', 'message', 'date', 'users_details',)
+        fields = ('id', 'course', 'professor', 'users', 'subject', 'message', 'date', 'users_details',)
 
 
 class BaseCourseSerializer(serializers.ModelSerializer):
