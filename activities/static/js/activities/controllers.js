@@ -152,7 +152,7 @@
                     $scope.answer.given = {topic: topic.id};
                     $scope.answer.activity = $scope.currentActivity.id;
                     $scope.answer.$save().then(function(answer) {
-                        $scope.currentUnit.progress = Progress.save({unit: $scope.currentUnit.id});
+                        $scope.currentUnit.progress = Progress.complete($scope.currentUnit.id);
                     });
                     angular.forEach(topic_files, function(topic_file) {
                         if (!topic_file.hasOwnProperty('topic') || !topic_file.topic) {
