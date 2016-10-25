@@ -37,7 +37,8 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           CourseCertificationSerializer,
                           CertificationProcessSerializer,
                           EvaluationSerializer, ProfileSerializer,
-                          IfCertificateTemplateSerializer, CertificateTemplateImageSerializer)
+                          IfCertificateTemplateSerializer,
+                          CertificateTemplateImageSerializer)
 
 from .models import (Course, CourseProfessor, Lesson, StudentProgress,
                      Unit, ProfessorMessage, CourseStudent, Class,
@@ -47,7 +48,8 @@ from .models import (Course, CourseProfessor, Lesson, StudentProgress,
 from .forms import (ContactForm, RemoveStudentForm,
                     AddStudentsForm, )
 
-from .permissions import IsProfessorCoordinatorOrAdminPermissionOrReadOnly, IsAdminOrReadOnly
+from .permissions import (IsProfessorCoordinatorOrAdminPermissionOrReadOnly,
+                            IsAdminOrReadOnly)
 
 
 class HomeView(ListView):
