@@ -159,7 +159,6 @@
                         var index = $scope.currentUnit.activities.indexOf($scope.currentActivity);
                         // Test if this is the last activity in the currentUnit unit
                         if(index+1 === $scope.currentUnit.activities.length) {
-                            
                             $scope.currentUnit.progress = Progress.complete($scope.currentUnit.id);
                             $scope.nextUnit();
                         } else {

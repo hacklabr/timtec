@@ -3,6 +3,7 @@ import json
 import time
 import datetime
 
+from django.db import IntegrityError
 from django.core.urlresolvers import reverse_lazy
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.http import HttpResponse, Http404
@@ -727,11 +728,21 @@ class StudentProgressViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = StudentProgressSerializer
 
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user, complete=timezone.now())
+    def create(self, request):
+        # Check if there is already an instance for the given unit-user pair
+        student_progress, _ = StudentProgress.objects.get_or_create(
+            user=self.request.user,
+            unit=Unit.objects.get(id=self.request.data['unit']))
 
-    def perform_update(self, serializer):
-        serializer.save(user=self.request.user, complete=timezone.now())
+        # If the unit is flagged as completed by the frontend, the 'complete'
+        # field must be updated, unless it was updated before
+        if ('is_complete' in self.request.data.keys() and not
+                student_progress.complete):
+            student_progress.complete = timezone.now()
+
+        student_progress.save()
+        return Response(
+            StudentProgressSerializer(student_progress).data)
 
     def get_queryset(self):
         queryset = super(StudentProgressViewSet, self).get_queryset()
