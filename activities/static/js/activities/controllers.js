@@ -94,10 +94,13 @@
       'CommentFile',
       'Progress',
       'ClassActivity',
-      function ($scope, $sce, $routeParams, $location, $anchorScroll, uiTinymceConfig, Forum, Topic, Comment, TopicLike, TopicFile, CommentLike, CommentFile, Progress, ClassActivity) {
+      'CurrentUser',
+      function ($scope, $sce, $routeParams, $location, $anchorScroll, uiTinymceConfig, Forum, Topic, Comment, TopicLike, TopicFile, CommentLike, CommentFile, Progress, ClassActivity, CurrentUser) {
         $scope.activity_open = true;
         $scope.activity_expired = false;
         var now = Date.now();
+
+        $scope.user = CurrentUser;
 
         // Decide the current state of the activity
         if(now < $scope.currentActivity.data.start_date){
@@ -166,6 +169,14 @@
                 });
             $scope.edit_topic = true;
             $scope.show_answer = true;
+        };
+
+        // Handles scroll and show/hide events for the new replies form
+        $scope.new_reply = function(comment){
+            comment.show_comment_input = true;
+            $anchorScroll.yOffset = 200;
+            var newHash = 'new-answer-'+comment.id;
+            $anchorScroll(newHash);
         };
 
         // Bootstrap functions for new comments and replies
@@ -275,9 +286,13 @@
         $scope.save_comment = function(comment, parent_comment) {
             if (parent_comment) {
                 comment.parent = parent_comment.id;
-                parent_comment.comment_replies.unshift(comment);
+                parent_comment.comment_replies.push(comment);
             } else {
-                comment.topic.comments.unshift(comment);
+                comment.topic.comments.push(comment);
+
+                // auto-scroll to the new comment position
+                $anchorScroll.yOffset = 500;
+                $anchorScroll("last-comment");
             }
             // Store files to be saved after the comment
             var files = [];
@@ -299,6 +314,26 @@
             });
         };
 
+        $scope.update_comment = function(changed_comment) {
+            var comment_files = changed_comment.files;
+
+            // Get the correct comment instance from the server
+            Comment.get({id: changed_comment.id}, function(comment){
+              comment.text = changed_comment.text;
+              angular.copy(comment, changed_comment);
+              comment.$update().then(function(comment) {
+                  angular.forEach(comment_files, function(comment_file) {
+                        if(comment_file instanceof CommentFile){ // Prepare only new files for store in the topic
+                          comment_file.comment = comment.id;
+                          delete comment_file.file;
+                          comment_file.$patch().then(function(comment_file_complete) {
+                              changed_comment.files.push(comment_file_complete);
+                          });
+                      }
+                  });
+              });
+            });
+        };
 
         $scope.comment_like = function(comment) {
             if (comment.user_like) {
@@ -318,7 +353,7 @@
 
         $scope.get_as_safe_html = function(html_content) {
             return $sce.trustAsHtml(html_content);
-        }
+        };
 
       }
     ]);
