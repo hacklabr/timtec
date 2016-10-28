@@ -171,14 +171,6 @@
             $scope.show_answer = true;
         };
 
-        // Handles scroll and show/hide events for the new replies form
-        $scope.new_reply = function(comment){
-            comment.show_comment_input = true;
-            $anchorScroll.yOffset = 200;
-            var newHash = 'new-answer-'+comment.id;
-            $anchorScroll(newHash);
-        };
-
         // Bootstrap functions for new comments and replies
         $scope.new_comment = function(){
             var comment = new Comment();
@@ -289,10 +281,6 @@
                 parent_comment.comment_replies.push(comment);
             } else {
                 comment.topic.comments.push(comment);
-
-                // auto-scroll to the new comment position
-                $anchorScroll.yOffset = 500;
-                $anchorScroll("last-comment");
             }
             // Store files to be saved after the comment
             var files = [];

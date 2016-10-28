@@ -99,7 +99,6 @@
                     </div>
                 </div>
 
-
                 <!-- Novo comentário -->
                 <div id="new-comment">
                     <form class="comments-form" ng-if="topic.show_comment_input" ng-init="comment = new_comment()">
@@ -110,7 +109,7 @@
                                class="btn btn-xs btn-primary attach pull-left"
                                ngf-select="uploadCommentFiles($file, comment)"
                                ngf-multiple="false">anexar arquivo</button>
-                        <button class="btn btn-xs btn-success reply pull-right" ng-click="save_comment(comment, null); topic.show_comment_input=false">comentar</button>
+                        <button class="btn btn-xs btn-success reply pull-right" ng-click="save_comment(comment, null); topic.show_comment_input=false" du-smooth-scroll="last-comment" offset="300">comentar</button>
                         <button class="btn btn-xs btn-danger delete pull-right" ng-click="topic.show_comment_input=false">descartar</button>
 
                         <files files="comment.files" editable="true" progress="comment.progress"></files>
@@ -154,7 +153,7 @@
                                 <a ng-click="comment_like(comment)"
                                    ng-class="{ 'active': comment.user_like }"
                                    class="action liked"><span>gostei</span></a>
-                                <a ng-click="new_reply(comment)" class="action replies"><span>responder</span></a>
+                                <a ng-click="comment.show_comment_input = true;" class="action replies" du-smooth-scroll="new-answer-{{comment.id}}"><span>responder</span></a>
                                 <a class="action edit" ng-click="comment.updating=true" ng-show="comment.author.id == user.id && !comment.updating">editar</a>
                                 <span class="last-update">{{ comment.updated_at | date : "d 'de' MMMM 'de' yyyy 'às' HH'h'mm" }}</span>
                             </div>
@@ -206,7 +205,7 @@
                                     <a ng-click="comment_like(reply)"
                                        ng-class="{ 'active': reply.user_like }"
                                        class="action liked"><span>gostei</span></a>
-                                    <a ng-click="new_reply(comment)" class="action replies"><span>responder</span></a>
+                                    <a ng-click="comment.show_comment_input = true;" du-smooth-scroll="new-answer-{{comment.id}}" class="action replies"><span>responder</span></a>
                                     <a class="action edit" ng-click="reply.updating=true" ng-show="reply.author.id == user.id && !reply.updating">editar</a>
                                     <span class="last-update">{{ reply.updated_at | date : "d 'de' MMMM 'de' yyyy 'às' HH'h'mm" }}</span>
                                 </div>
@@ -242,8 +241,6 @@
                     <!-- /Exibição de um comentário -->
                     <a id="last-comment"></a>
                 </div>
-
-
 
                 </div>
             </div>
