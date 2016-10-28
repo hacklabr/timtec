@@ -473,7 +473,7 @@ class CertificateTemplateViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
 
     def update(self, request, **kwargs):
         instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.DATA)
+        serializer = self.get_serializer(instance, data=request.data)
         if serializer.is_valid():
             serializer.save()
         return Response(serializer.data)
@@ -495,6 +495,9 @@ class CertificateTemplateImageViewSet(viewsets.ModelViewSet):
             return Response(status=200)
         else:
             return Response(serializer.errors, status=400)
+
+    def get_queryset(self):
+        return None
 
 
 class ProfessorMessageViewSet(viewsets.ModelViewSet):
