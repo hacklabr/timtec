@@ -108,7 +108,7 @@ wrapper-course-lesson
                    ng-click="$parent.selectUnit(u);"
                    ng-class="{current: $parent.currentUnit == u}">
                    <span ng-bind="$index + 1"></span>
-                   <i class="fa fa-list" ng-show="u.activities"></i>
+                   <i class="fa fa-list" ng-show="u.activities.length > 0"></i>
                </a>
                 {% endverbatim %}
                 <a href="" class="add-unit unit" ng-click="addUnit()"><i class="fa fa-plus"></i></a>
