@@ -184,46 +184,48 @@ wrapper-course-lesson
                 <div ng-if="(course_student_list | completedCourses).length > 0">
                     <h2>{% trans "Conclusion receipts" %}</h2>
                     <div class="row">
-                        <div class="col-sm-3" ng-repeat="course_student in course_student_list | completedCourses">
-                            <div class="course-card">
-                                <div class="thumb-wrapper">
-                                    {% verbatim %}
-                                    <img class="img-responsive" ng-src="{{ course_student.course.home_thumbnail_url }}" />
-                                    {% endverbatim %}
-                                </div>
-                                <div class="info">
-                                    {% verbatim %}
-                                    <a ng-href="/course/{{ course_student.course.slug }}/intro/">
-                                        <h3>{{ course_student.course.name }}</h3>
-                                    </a>
-                                    {% endverbatim %}
-                                    <p class="instructors">
-                                        <span ng-repeat="professor in course_student.course.professors">
-                                            {% verbatim %}
-                                            {{ professor }}<span ng-if="!$last">, </span>
-                                            {% endverbatim %}
-                                        </span>
-                                    </p>
-                                </div>
-                                <div class="conclusion">
-                                    <p>
-                                        {% trans 'Finished at' %} {% verbatim %}{{ course_student.certificate.created_date|date:"dd/MM/yyyy" }}{% endverbatim %}.
-                                    </p>
-                                    {% verbatim %}
-                                    <a class="enroll-link text-uppercase" ng-href="/certificate/{{ course_student.certificate.link_hash }}">
-                                    {% endverbatim %}
-                                        <i class="fa fa-file-text-o"></i>
-                                        <span ng-if="course_student.certificate.type == 'receipt'">
-                                            {% trans 'View Receipt' %}
-                                        </span>
-                                        <span ng-if="course_student.certificate.type == 'certificate'">
-                                            {% trans 'View Certificate' %}
-                                        </span>
-                                    </a>
-                                    <!-- TODO only display if user has verified certificate -->
-                                    <!--<a ng-show="!cs.certificate" class="enroll-link text-uppercase" href="#">-->
-                                        <!--<i class="fa fa-file-text-o"></i> {% trans "Request certificate" %}-->
-                                    <!--</a>-->
+                        <div ng-repeat="course_student in course_student_list | completedCourses">
+                            <div class="col-sm-3" ng-show="course_student.can_emmit_receipt">
+                                <div class="course-card">
+                                    <div class="thumb-wrapper">
+                                        {% verbatim %}
+                                        <img class="img-responsive" ng-src="{{ course_student.course.home_thumbnail_url }}" />
+                                        {% endverbatim %}
+                                    </div>
+                                    <div class="info">
+                                        {% verbatim %}
+                                        <a ng-href="/course/{{ course_student.course.slug }}/intro/">
+                                            <h3>{{ course_student.course.name }}</h3>
+                                        </a>
+                                        {% endverbatim %}
+                                        <p class="instructors">
+                                            <span ng-repeat="professor in course_student.course.professors">
+                                                {% verbatim %}
+                                                {{ professor }}<span ng-if="!$last">, </span>
+                                                {% endverbatim %}
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="conclusion">
+                                        <p>
+                                            {% trans 'Finished at' %} {% verbatim %}{{ course_student.certificate.created_date|date:"dd/MM/yyyy" }}{% endverbatim %}.
+                                        </p>
+                                        {% verbatim %}
+                                        <a class="enroll-link text-uppercase" ng-href="/certificate/{{ course_student.certificate.link_hash }}">
+                                        {% endverbatim %}
+                                            <i class="fa fa-file-text-o"></i>
+                                            <span ng-if="course_student.certificate.type == 'receipt'">
+                                                {% trans 'View Receipt' %}
+                                            </span>
+                                            <span ng-if="course_student.certificate.type == 'certificate'">
+                                                {% trans 'View Certificate' %}
+                                            </span>
+                                        </a>
+                                        <!-- TODO only display if user has verified certificate -->
+                                        <!--<a ng-show="!cs.certificate" class="enroll-link text-uppercase" href="#">-->
+                                            <!--<i class="fa fa-file-text-o"></i> {% trans "Request certificate" %}-->
+                                        <!--</a>-->
+                                    </div>
                                 </div>
                             </div>
                         </div>
