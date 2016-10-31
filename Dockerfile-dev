@@ -23,12 +23,14 @@ ENV GUNICORN_LOG_LEVEL='info'
 ENV GUNICORN_EXTRA_FLAGS=''
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
-ENV LANGUAGE=C.UTF-8  
+ENV LANGUAGE=C.UTF-8
 
 COPY . /app/timtec
 RUN mkdir -p /app/webfiles/static \
    && mkdir -p /app/webfiles/media \
    && pip install -r /app/timtec/requirements/production.txt \
+   && pip install -r /app/timtec/requirements/local.txt \
+   && pip install -r /app/timtec/requirements/test.txt \
    && chown -R timtec /app
 
 WORKDIR /app/timtec

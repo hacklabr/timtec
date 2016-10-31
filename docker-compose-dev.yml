@@ -1,7 +1,7 @@
 version: '2'
 
 volumes:
-    database_data: {}
+    timtec_database_data: {}
 
 services:
     database:
@@ -9,7 +9,7 @@ services:
         image: postgres:9.5
         restart: always
         volumes:
-            - database_data:/var/lib/postgresql/data
+            - timtec_database_data:/var/lib/postgresql/data
         environment:
             - POSTGRES_DB=timtec
             - POSTGRES_USER=timtec
