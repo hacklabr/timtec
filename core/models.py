@@ -304,7 +304,7 @@ class CourseStudent(models.Model):
 
     def can_emmit_receipt(self):
 
-        if not self.get_current_class().user_can_certificate:
+        if not self.get_current_class().user_can_certificate and not self.course_finished:
             return False
 
         if self.get_current_class().user_can_certificate_even_without_progress and self.certificate.type == 'certificate':
