@@ -178,8 +178,9 @@ def test_studentprogress_emmit_receipt(user):
     assert course_student.resume_next_unit() == unit1
     assert course_student.reached_last_unit() is True
     assert course_student.course_finished is True
-    assert course_student.can_emmit_receipt() is False
-    # here, can't emmit because the course is complete but the class can not certificate
+    assert course_student.can_emmit_receipt() is True and course_student.certificate.type == 'receipt'
+    assert course_student.can_emmit_receipt() is True and not course_student.certificate.type == 'certificate'
+    # here, can emmit only receipt because the course is complete but the class can not certificate
 
     classe.user_can_certificate = True
     classe.save()

@@ -88,15 +88,15 @@ wrapper-course-lesson
                     <div class="progress">
                         <div class="progress-bar" style="width:{{cs.percent_progress}}%;"></div>
                     </div>
-                    
+
                     <div class="class">
-                        
+
                     </div>
 
                     <a href="{% url 'user_course_notes' cs.course.slug %}" class="btn btn-default btn-sm">{% trans "My Notes" %}</a>
 
                     <!-- CERTIFICATE -->
-                    {% if cs.certificate %}
+                    {% if cs.can_emmit_receipt %}
                         <a href="{% url 'certificate' cs.certificate.link_hash %}"
                            class="btn btn-default btn-sm">
                             {% if cs.certificate.type == 'receipt' %}
@@ -105,15 +105,6 @@ wrapper-course-lesson
                                 {% trans "View certificate" %}
                             {% endif %}
                         </a>
-                    {% endif %}
-
-                    {% if cs.certificate.type == 'receipt' and cs.get_current_class.user_can_certificate %}
-                    <a href="#"
-                       ng-click="createCertificationProcess({{ cs.id }})"
-                       ng-hide="hasOpenProcess({{ cs.id }})"
-                       class="btn btn-default btn-sm">
-                        {% trans "Request certificate" %}
-                    </a>
                     {% endif %}
                     <!-- END CERTIFICATE -->
 
