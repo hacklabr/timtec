@@ -75,6 +75,7 @@ wrapper-course-lesson
             </div>
         </header>
 
+        {% block class_edit_allow_certification %}
         <div class="alert row" role="alert"
              ng-class="{'alert-info': classe.user_can_certificate, 'alert-danger': !classe.user_can_certificate}">
             <div class="col-xs-8">
@@ -100,6 +101,7 @@ wrapper-course-lesson
                 </div>
             </div>
         </div>
+        {% endblock %}
 
         <div class="row">
             <div class="col-lg-12">
