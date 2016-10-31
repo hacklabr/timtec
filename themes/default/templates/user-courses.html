@@ -132,50 +132,6 @@ wrapper-course-lesson
             </div>
 
             <div role="tabpanel" class="tab-pane" id="my-certificates" ng-controller="UserCertificatesController">
-                <div ng-if="(course_student_list | hasProcess).length > 0">
-                    <h2>{% trans "Open certificate processes" %}</h2>
-                    <div class="row certificate-process">
-                        <div class="col-sm-6" ng-repeat="course_student in course_student_list | hasProcess">
-                            <div class="course-card row">
-                                <div class="col-sm-6">
-                                    <div class="thumb-wrapper">
-                                        {% verbatim %}
-                                        <img class="img-responsive" ng-src="{{ course_student.course.home_thumbnail_url }}">
-                                        {% endverbatim %}
-                                    </div>
-                                    {% verbatim %}
-                                    <a ng-href="/course/{{ course_student.course.slug }}/intro/">
-                                        <h3>{{ course_student.course.name }}</h3>
-                                    </a>
-                                    {% endverbatim %}
-                                </div>
-                                <div class="col-sm-6" ng-repeat="process in course_student.certificate.processes | activeProcess">
-                                    <p class="lead" ng-hide="process.evaluation">
-                                        Não inscrito em nenhuma avaliação
-                                    </p>
-                                    <p class="lead" ng-show="process.evaluation">
-                                      Avaliação agendada <br/>
-                                        <i class="fa fa-calendar"></i> <span>{% verbatim %}{{ process.evaluation.date | date : "dd 'de' MMM H:mm" }}{% endverbatim %}</span>
-                                    </p>
-                                    <p ng-show="process.evaluation">
-                                        <a class="enroll-link text-uppercase"
-                                           ng-click="open_evaluation_modal(process)"
-                                           href="#">
-                                            <i class="fa fa-file-text-o"></i> Ver detalhes da avaliação
-                                        </a>
-                                    </p>
-                                    <p>
-                                        {% trans 'Finished at' %} {% verbatim %}{{ course_student.certificate.created_date|date:"dd/MM/yyyy" }}{% endverbatim %}.
-                                    </p>
-                                    <p>
-                                        Processo de certificação pedido em {% verbatim %} {{ process.created_date | date : "dd 'de' MMM H:mm" }}{% endverbatim %}.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div ng-if="(course_student_list | certificateIssued).length > 0">
                     <h2>{% trans "Certificates" %}</h2>
                     <div class="row">
