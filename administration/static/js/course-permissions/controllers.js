@@ -68,7 +68,7 @@
             $scope.new_professors = function () {
                 var modalInstance = $uibModal.open({
                     templateUrl: 'newProfessorModal.html',
-                    controller: ['$scope', '$uibmodalInstance', 'course_id', addProfessorsModalInstanceCtrl],
+                    controller: ['$scope', '$uibModalInstance', 'course_id', addProfessorsModalInstanceCtrl],
                     resolve: {
                         course_id: function () {
                             return $scope.course_id;
@@ -86,15 +86,15 @@
                     });
                 });
             };
-            var addProfessorsModalInstanceCtrl = function ($scope, $uibmodalInstance, course_id) {
+            var addProfessorsModalInstanceCtrl = function ($scope, $uibModalInstance, course_id) {
 
                 $scope.new_professors = [];
                 $scope.add_professors = function () {
-                    $uibmodalInstance.close($scope.new_professors);
+                    $uibModalInstance.close($scope.new_professors);
                 };
 
                 $scope.cancel = function () {
-                    $uibmodalInstance.dismiss();
+                    $uibModalInstance.dismiss();
                 };
 
                 $scope.on_select_professor = function(model) {
