@@ -4,7 +4,7 @@ Para usar o TIM Tec em produção sugerimos uma arquitetura usando o nginx como 
 
 Na pasta scripts, há um shell script que executa exatamente os passos a seguir. Se tiver pressa, olhe os scripts bootstrap-ubuntu.sh e production-ubuntu.sh.
 
-### Prepare o servidor
+## Prepare o servidor
 
 Você precisa de um servidor com algum dos seguintes sistemas operacionais:
 
@@ -13,7 +13,7 @@ Você precisa de um servidor com algum dos seguintes sistemas operacionais:
 
 Certifique-se de ter a senha ssh deste servidor para começar o processo e de ter permissão de sudo(root) na máquina em questão. 
 
-### Crie o usuário da aplicação
+## Crie o usuário da aplicação
 
 Sugerimos que o usuário usado para fazer a instalação não seja o root. Aqui, o usuário que está fazendo a instalação é o **timtec-production**. Assim, nos comandos abaixo, substitua o nome do usuário pelo que você estiver usando. Os scripts possuem uma variável para definir o usuário que executará o proxy (wsgi). Caso use um usuário diferente, olhe o arquivo Makefile e faça as alterações necessárias.
 
@@ -48,7 +48,7 @@ Se você estiver usando Debian, pode acontecer do sistema criar uma instância d
 
      timtec-production:x:1001:1001::/home/timtec-production:/bin/bash
 
-### Obtendo o código
+## Obtendo o código
 Dentro da home do usuário, primeiro vamos instalar o git e clonar o repositório
 ```
 $ sudo apt-get update
