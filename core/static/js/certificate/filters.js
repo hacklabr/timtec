@@ -14,13 +14,13 @@
                     if(!items[i].student.id){
                         (function(j){
                             items[i].student = students.filter(function(s){return s.id == j;})[0];
-                        })(items[i].student)
+                        })(items[i].student);
                     }
                     filtered.push(items[i]);
                 }
             }
             return filtered;
-        }
+        };
     });
 
     module.filter('can_attend', function(){

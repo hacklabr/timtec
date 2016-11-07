@@ -4,6 +4,7 @@ from __future__ import division
 import datetime
 
 from django.db import models
+from django.db.models.signals import m2m_changed
 from django.db.models import Count
 from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
@@ -51,20 +52,14 @@ class Class(models.Model):
     user_can_certificate = models.BooleanField(_('Certification Allowed'),
                                                default=False)
 
+    user_can_certificate_even_without_progress = models.BooleanField(_('Certification Allowed Even Without Progress'),
+                                                                     default=False)
+
     def __unicode__(self):
         return u'%s @ %s' % (self.name, self.course)
 
     def get_absolute_url(self):
         return reverse('class', kwargs={'pk': self.id})
-
-    def add_students(self, *objs):
-        for obj in objs:
-            try:
-                c = Class.objects.get(course=self.course, students=obj)
-                c.students.remove(obj)
-            except Class.DoesNotExist:
-                pass
-            self.students.add(obj)
 
     def remove_students(self, *objs):
         for obj in objs:
@@ -72,6 +67,34 @@ class Class(models.Model):
             if CourseStudent.objects.filter(course=self.course,
                                             user=obj).exists():
                 self.course.default_class.students.add(obj)
+
+    @property
+    def get_students(self):
+        return CourseStudent.objects.filter(course=self.course, user__in=self.students.all())
+
+
+def remove_duplicate_classes(sender, instance, action, reverse, model, pk_set, **kwargs):
+    """Clean the same student in twice classes."""
+    # add student to default_class everytime that m2m cleans
+    if action == 'pre_clear':
+        default_class = instance.course.default_class
+        for student in instance.students.all():
+            student.classes.add(default_class)
+
+    # garantee that student has been subscribe in only one class
+    if action == 'post_add':
+        try:
+            for student in instance.students.all():
+                classes = student.classes.filter(course=instance.course).exclude(id=instance.id)
+                for classe in classes:
+                    student.classes.remove(classe)
+
+        # garantee that this block executes only when instance == Class.
+        except AttributeError:
+            pass
+
+
+m2m_changed.connect(remove_duplicate_classes, sender=Class.students.through)
 
 
 class Course(models.Model):
@@ -253,6 +276,22 @@ class CourseStudent(models.Model):
     def __unicode__(self):
         return u'{0} - {1}'.format(self.course, self.user)
 
+    def save(self, *args, **kwargs):
+        super(CourseStudent, self).save(*args, **kwargs)
+
+        try:
+            receipt = CourseCertification.objects.get(course_student=self)
+        except CourseCertification.DoesNotExist:
+            from base64 import urlsafe_b64encode as ub64
+            from hashlib import sha1
+            from time import time
+            h = ub64(sha1(str(time()) + self.user.last_name.encode('utf-8')).digest()[0:6])
+            receipt = CourseCertification(course_student=self,
+                                          course=self.course,
+                                          type=CourseCertification.TYPES[0][0],
+                                          is_valid=True, link_hash=h)
+            receipt.save()
+
     @property
     def units_done(self):
         return StudentProgress.objects.exclude(complete=None) \
@@ -264,6 +303,13 @@ class CourseStudent(models.Model):
             self.course.min_percent_to_complete
 
     def can_emmit_receipt(self):
+
+        if not self.get_current_class().user_can_certificate and not self.course_finished:
+            return False
+
+        if self.get_current_class().user_can_certificate_even_without_progress and self.certificate.type == 'certificate':
+            return True
+
         return self.course_finished
 
     def get_current_class(self):
@@ -344,9 +390,7 @@ class CourseStudent(models.Model):
             return ''
 
     def percent_progress_by_lesson(self):
-        """
-        Returns a list with dictionaries with keys name (lesson name), slug (lesson slug) and progress (percent lesson progress, decimal)
-        """
+        """Return a list with dictionaries with keys name (lesson name), slug (lesson slug) and progress (percent lesson progress, decimal)."""
         # TODO refator to make one query to count unts done for all lessons
         progress_list = []
         for lesson in self.course.lessons.filter(status='published'):
@@ -477,12 +521,15 @@ class ProfessorMessage(models.Model):
     date = models.DateTimeField(_('Date'), auto_now_add=True)
     course = models.ForeignKey(Course, verbose_name=_('Course'), null=True)
 
+    def __unicode__(self):
+        return unicode(self.subject)
+
     def send(self):
         bcc = [u.email for u in self.users.all()]
         try:
             et = EmailTemplate.objects.get(name='professor-message')
         except EmailTemplate.DoesNotExist:
-            et = EmailTemplate(name="professor-message", subject="{{subject}}", template="{{message}}")
+            et = EmailTemplate(name="professor-message", subject="{{subject}}", template="{{message|safe}}")
         subject = Template(et.subject).render(Context({'subject': self.subject}))
         message = Template(et.template).render(Context({'message': self.message}))
         email = EmailMessage(subject, message, settings.DEFAULT_FROM_EMAIL, None, bcc)
@@ -593,28 +640,6 @@ class StudentProgress(models.Model):
     complete = models.DateTimeField(editable=True, null=True, blank=True)
     last_access = models.DateTimeField(auto_now=True, editable=False)
 
-    def save(self, *args, **kwargs):
-        super(StudentProgress, self).save(*args, **kwargs)
-
-        course_student = CourseStudent.objects.get(
-            course=self.unit.lesson.course,
-            user=self.user)
-
-        try:
-            receipt = CourseCertification.objects.get(
-                course_student=course_student)
-        except CourseCertification.DoesNotExist:
-            if course_student.can_emmit_receipt():
-                from base64 import urlsafe_b64encode as ub64
-                from hashlib import sha1
-                from time import time
-                h = ub64(sha1(str(time()) + self.user.last_name.encode('utf-8')).digest()[0:6])
-                receipt = CourseCertification(course_student=course_student,
-                                              course=course_student.course,
-                                              type=CourseCertification.TYPES[0][0],
-                                              is_valid=True, link_hash=h)
-                receipt.save()
-
     class Meta:
         unique_together = (('user', 'unit'),)
         verbose_name = _('Student Progress')
@@ -641,7 +666,7 @@ class CourseCertification(models.Model):
     course_workload = models.TextField(_('Workload'), blank=True)
     course_total_units = models.IntegerField(_('Total units'), blank=True)
 
-    link_hash = models.CharField(_('Hash'), max_length=255)
+    link_hash = models.CharField(_('Hash'), max_length=255, unique=True)
 
     @property
     def student(self):
@@ -655,6 +680,10 @@ class CourseCertification(models.Model):
     def get_approved_process(self):
         return CertificationProcess.objects.get(course_certification=self.id,
                                                 approved=True)
+
+    @property
+    def get_absolute_url(self):
+        return reverse('certificate', args=[self.link_hash])
 
     def save(self, *args, **kwargs):
         self.course_workload = self.course_student.course.workload

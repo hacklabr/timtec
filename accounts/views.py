@@ -2,13 +2,18 @@ from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import get_object_or_404
-from django.views.generic import UpdateView, FormView
+from django.views.generic import UpdateView, FormView, CreateView, DeleteView
 from django.views.generic.detail import DetailView
 from django.db.models import Q
+from django.shortcuts import redirect
 
-from accounts.forms import ProfileEditForm, AcceptTermsForm
+from accounts.models import UserSocialAccount
+from accounts.forms import ProfileEditForm, AcceptTermsForm, UserSocialAccountForm
 from accounts.serializers import TimtecUserSerializer, TimtecUserAdminSerializer
+from accounts.serializers import StateSerializer, CitySerializer
 from braces.views import LoginRequiredMixin
+from rest_framework.response import Response
+from core.permissions import IsAdminOrReadOnly
 
 from rest_framework import viewsets
 from rest_framework import filters
@@ -31,6 +36,25 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
 
     def get_object(self):
         return self.request.user
+
+
+class UserSocialAccountCreateView(LoginRequiredMixin, CreateView):
+
+    form_class = UserSocialAccountForm
+    template_name = 'modal-profile-create-social.html'
+    success_url = reverse_lazy("profile_edit")
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return redirect(self.get_success_url())
+
+
+class UserSocialAccountDeleteView(LoginRequiredMixin, DeleteView):
+    template_name = 'modal-profile-delete-social.html'
+    success_url = reverse_lazy("profile_edit")
+    model = UserSocialAccount
 
 
 class ProfileView(LoginRequiredMixin, DetailView):
@@ -124,14 +148,14 @@ class StudentSearchView(LoginRequiredMixin, generics.ListAPIView):
         queryset = self.model.objects.all()
         course = self.request.QUERY_PARAMS.get('course', None)
 
-        classes = self.request.user.professor_classes.all()
+        # classes = self.request.user.professor_classes.all()
 
-        if classes:
-            queryset = queryset.filter(classes__in=classes)
-        else:
-            # FIXME: if every student is in a class, this is useless.
-            if course is not None:
-                queryset = queryset.filter(studentcourse_set=course)
+        # if classes:
+        #     queryset = queryset.filter(classes__in=classes)
+        # else:
+        # FIXME: if every student is in a class, this is useless.
+        if course is not None:
+            queryset = queryset.filter(studentcourse_set=course)
         query = self.request.QUERY_PARAMS.get('name', None)
         if query is not None:
             queryset = queryset.filter(Q(first_name__icontains=query) |
@@ -145,6 +169,11 @@ class AcceptTermsView(FormView):
     template_name = 'accept-terms.html'
     form_class = AcceptTermsForm
     success_url = reverse_lazy('courses')
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated() and request.user.accepted_terms:
+            return redirect(reverse_lazy('home_view'))
+        return super(AcceptTermsView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         next_url = self.request.POST.get('next', None)
@@ -166,3 +195,25 @@ class AcceptTermsView(FormView):
         if next_url:
             context['next_url'] = next_url
         return context
+
+
+class StateViewSet(viewsets.ViewSet):
+    permission_classes = (IsAdminOrReadOnly,)
+
+    def list(self, request):
+        from utils.cities import states
+        serializer = StateSerializer(states, many=True)
+        return Response(serializer.data)
+
+
+class CityViewSet(viewsets.ViewSet):
+    permission_classes = (IsAdminOrReadOnly,)
+
+    def list(self, request):
+        from utils.cities import cities
+
+        if self.request.GET.get('state', None):
+            cities = [item for item in cities if item['state'] == self.request.GET.get('state')]
+
+        serializer = CitySerializer(cities, many=True)
+        return Response(serializer.data)

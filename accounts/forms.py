@@ -4,6 +4,8 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from timtec.settings import ACCOUNT_REQUIRED_FIELDS as fields
+from accounts.models import UserSocialAccount
+
 
 User = get_user_model()
 
@@ -26,11 +28,18 @@ class ProfileEditForm(BaseProfileEditForm):
 
     password1 = forms.CharField(widget=forms.PasswordInput, label=_("Password"), required=False)
     password2 = forms.CharField(widget=forms.PasswordInput, label=_("Password (again)"), required=False)
+    state = forms.CharField(max_length=2, label=_('Province'), widget=forms.Select, required=False)
+    city = forms.CharField(max_length=50, label=_('City'), widget=forms.Select, required=False)
 
     class Meta:
         model = get_user_model()
-        fields = ('username', 'email', 'first_name', 'last_name', 'picture',
-                  'occupation', 'city', 'site', 'biography',)
+        fields = ('username', 'email', 'first_name', 'last_name', 'picture', 'birth_date',
+                  'occupation', 'city', 'state', 'site', 'biography',)
+
+    def __init__(self, *args, **kwargs):
+        super(BaseProfileEditForm, self).__init__(*args, **kwargs)
+        self.fields['state'].widget.attrs['class'] = 'form-control'
+        self.fields['city'].widget.attrs['class'] = 'form-control'
 
     def clean_username(self):
         return self.instance.username
@@ -62,6 +71,43 @@ class AcceptTermsForm(forms.Form):
 
 class SignupForm(AcceptTermsForm):
 
+    first_name = forms.CharField(max_length=30, label=_('First Name'), required=False)
+    last_name = forms.CharField(max_length=30, label=_('Last Name'), required=False)
+    state = forms.CharField(max_length=2, label=_('Province'), widget=forms.Select, required=False)
+    city = forms.CharField(max_length=50, label=_('City'), widget=forms.Select, required=False)
+    how_you_know = forms.CharField(max_length=50, label=_('How do you know the platform?'), required=False)
+    how_you_know_complement = forms.CharField(max_length=50, label=_('Complement for "How do you know the platform?"'), required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(SignupForm, self).__init__(*args, **kwargs)
+        self.fields['state'].widget.attrs['required'] = True
+        self.fields['state'].widget.attrs['class'] = 'form-control'
+
+        self.fields['city'].widget.attrs['required'] = True
+        self.fields['city'].widget.attrs['class'] = 'form-control'
+
     def signup(self, request, user):
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.city = self.cleaned_data['city']
+        user.state = self.cleaned_data['state']
         user.accepted_terms = self.cleaned_data['accept_terms']
+        user.how_you_know = self.cleaned_data['how_you_know']
+        user.how_you_know_complement = self.cleaned_data['how_you_know_complement']
         user.save()
+
+
+class UserSocialAccountForm(forms.ModelForm):
+
+    class Meta:
+        model = UserSocialAccount
+        fields = ('social_media', 'nickname')
+
+    def __init__(self, *args, **kwargs):
+        super(UserSocialAccountForm, self).__init__(*args, **kwargs)
+
+        self.fields['social_media'].widget.attrs['class'] = 'form-control'
+        self.fields['nickname'].widget.attrs['class'] = 'form-control'
+
+        self.fields['social_media'].widget.attrs['required'] = True
+        self.fields['nickname'].widget.attrs['required'] = True

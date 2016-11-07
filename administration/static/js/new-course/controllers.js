@@ -130,6 +130,10 @@
                     })
                     .then(function(){
                         $scope.alert.success('Alterações salvas com sucesso!');
+
+                        // remove pop-up that confirm if user go without save changes
+                        window.onbeforeunload = function(){};
+
                     })['catch'](showFieldErrors);
             };
 
@@ -412,6 +416,12 @@
                     });
             };
 
+            // add pop-up that confirm if user go without save changes
+            $scope.$watchCollection('course', function(new_item, old_item) {
+                if(old_item.id && new_item != old_item) {
+                    window.onbeforeunload = function(){ return true; };
+                }
+            });
         }
     ]);
 

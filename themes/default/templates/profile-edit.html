@@ -6,6 +6,52 @@
 wrapper-course-lesson
 {% endblock %}
 
+{% block js %}
+<script type="text/javascript" charset="utf-8">
+    (function(){
+
+        function load_states() {
+
+            $.get("/api/states", function(item){
+                options = "<option value=''>---</option>\n";
+                for(state in item) {
+                    state = item[state];
+                    options += "<option value='"+ state.code +"'>"+ state.name +"</option>\n";
+                }
+
+                $("select[name=state]").empty().append(options);
+                $("select[name=state]").val('{{ form.state.value }}');
+                load_cities('{{ form.state.value }}', true);
+
+            });
+        }
+
+        function load_cities(state, first_call) {
+            $.get("/api/cities", {'state': state}, function(item){
+                options = "<option value=''>---</option>\n";
+                for(city in item) {
+                    city = item[city];
+                    options += "<option value='"+ city.name +"'>"+ city.name +"</option>\n";
+                }
+                $("select[name=city]").empty().append(options);
+
+                if(first_call) {
+                    $("select[name=city]").val('{{ form.city.value }}');
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            load_states();
+            $("select[name=state]").change(function(){
+                current_value = $(this).val();
+                load_cities(current_value);
+            });
+        });
+    })();
+</script>
+{% endblock %}
+
 {% block content %}
 <div id="profile" class="container">
     <form class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
@@ -84,11 +130,21 @@ wrapper-course-lesson
                     </div>
                     {% endwith %}
 
+                    {% with errors=form.state.errors %}
+                    <div class="form-group{{ errors|yesno:" has-error,"}}">
+                        <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "Province" %}</label>
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                            {{ form.state }}
+                            {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                        </div>
+                    </div>
+                    {% endwith %}
+
                     {% with errors=form.city.errors %}
                     <div class="form-group{{ errors|yesno:" has-error,"}}">
                         <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "City" %}</label>
                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                            <input name="city" type="text" class="form-control" placeholder="Qual cidade você vive?" value="{{form.city.value}}">
+                            {{ form.city }}
                             {% for error in errors %}<small>{{error}}</small>{% endfor %}
                         </div>
                     </div>
@@ -104,6 +160,16 @@ wrapper-course-lesson
                     </div>
                     {% endwith %}
 
+                    {% with errors=form.birth_date.errors %}
+                    <div class="form-group{{ errors|yesno:" has-error,"}}">
+                        <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "Birth Date" %}</label>
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                            <input name="birth_date" type="date" class="form-control" placeholder="Insira sua data de nascimento..." value="{{form.birth_date.value|date:"Y-m-d"}}">
+                            {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                        </div>
+                    </div>
+                    {% endwith %}
+
                     {% with errors=form.biography.errors %}
                     <div class="form-group{{ errors|yesno:" has-error,"}}">
                         <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">{% trans "Bio" %}</label>
@@ -114,7 +180,9 @@ wrapper-course-lesson
                     </div>
                     {% endwith %}
                 </fieldset>
+            </div>
 
+            <div class="col-lg-12 col-lg-12 col-lg-12 col-xs-12">
                 <fieldset>
                     <hr/>
                     <div class="page-header-double textleft top">
@@ -164,5 +232,60 @@ wrapper-course-lesson
             </div>
         </div>
     </form>
+
+
+    <div class="row">
+        <div class="col-lg-12 col-lg-12 col-lg-12 col-xs-12">
+
+            <fieldset>
+                <hr/>
+                <div class="page-header-double textleft top">
+                    <h3>
+                        <i class="fa fa-angle-double-right"></i> {% trans "Social Media" %}
+                        <a class='btn btn-success' href='{% url "profile_edit_add_social" %}' data-toggle='modal' data-target='#profile-create-social-modal'>+</a>
+                    </h3>
+                </div>
+
+                <table class='table'>
+                    <thead>
+                        <th width="20%">{% trans "Social Media" %}</th>
+                        <th>{% trans "Nickname" %}</th>
+                        <th width="10%">{% trans "Actions" %}</th>
+                    </thead>
+                    <tbody>
+                        {% for item in request.user.get_social_media %}
+                            <tr>
+                                <td>{{ item.get_social_media_display }}</td>
+                                <td>{{ item.nickname }}</td>
+                                <td>
+                                    <a href="{% url 'profile_edit_delete_social' item.id %}" class='btn btn-warning' data-toggle='modal' data-target='#profile-remove-social-modal'>
+                                        <i class='fa fa-trash-o'></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="4">{% trans "There are no social medias registered to you." %}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </fieldset>
+
+        </div>
+    </div>
 </div>
+
+<div class="modal fade" id="profile-create-social-modal" tabindex="-1" role="dialog" aria-labelledby="class-modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content"></div>
+    </div>
+</div>
+
+<div class="modal fade" id="profile-remove-social-modal" tabindex="-1" role="dialog" aria-labelledby="class-modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content"></div>
+    </div>
+</div>
+
 {% endblock %}

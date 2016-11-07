@@ -17,6 +17,7 @@ TIMTEC_THEME = os.getenv('TIMTEC_THEME', 'default')  # don't forget to re run co
 SOUTH_AUTO_FREEZE_APP = True
 
 DEBUG = True
+DEBUG = False
 
 SITE_ID = 1
 SITE_HOME = ''
@@ -169,6 +170,14 @@ PIPELINE_CSS = {
             'media': 'screen,projection,print',
         },
     },
+    'messages': {
+        'source_filenames': (
+            'tinymce-dist/skins/lightgray/skin.min.css',
+            'tinymce-dist/skins/lightgray/skin.ie7.min.css',
+            'tinymce-dist/skins/lightgray/content.min.css',
+        ),
+        'output_filename': 'css/messages.css',
+    },
 }
 
 PIPELINE_JS = {
@@ -212,6 +221,11 @@ PIPELINE_JS = {
     },
     'messages': {
         'source_filenames': (
+            'tinymce-dist/tinymce.js',
+            'tinymce-dist/plugins/textcolor/plugin.js',
+            'tinymce-dist/plugins/link/plugin.js',
+            'tinymce-dist/themes/modern/theme.js',
+            'angular-ui-tinymce/src/tinymce.js',
             'js/messages/app.js',
             'js/messages/controllers.js',
             'js/messages/services.js',
@@ -221,6 +235,17 @@ PIPELINE_JS = {
             'js/factories/timtec-models.js',
         ),
         'output_filename': 'js/messages.js',
+    },
+    'edit-class': {
+        'source_filenames': (
+            'js/directives/waiting-screen.js',
+            'js/edit-class/app.js',
+            'js/edit-class/controllers.js',
+            'js/edit-class/services.js',
+            'checklist-model/checklist-model.js',
+            'js/factories/timtec-models.js',
+        ),
+        'output_filename': 'js/edit-class.js',
     },
     'certificate': {
         'source_filenames': (
@@ -459,6 +484,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'rosetta',
     'autoslug',
+    'localflavor',
     # TIM Tec
     'accounts',
     'activities',
@@ -514,6 +540,9 @@ TWITTER_CONSUMER_SECRET = ''
 TWITTER_ACESS_TOKEN = ''
 TWITTER_ACESS_TOKEN_SECRET = ''
 TWITTER_USER = ''
+
+# Local flavor state class
+LOCALFLAVOR_STATECHOICE_FIELD = 'localflavor.br.forms.BRStateChoiceField'
 
 YOUTUBE_API_KEY = ''
 # A sample logging configuration. The only tangible logging
@@ -604,7 +633,7 @@ if DEBUG:
     INSTALLED_APPS += (
         'debug_toolbar',
     )
-    INTERNAL_IPS = ('127.0.0.1', )
+    INTERNAL_IPS = ('127.0.0.1', '172.18.0.1')
 
 # Fix debug toolbar issue: https://github.com/django-debug-toolbar/django-debug-toolbar/issues/521
 # DEBUG_TOOLBAR_PATCH_SETTINGS = False

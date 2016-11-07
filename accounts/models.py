@@ -33,6 +33,9 @@ class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
     city = models.CharField(_('City'), max_length=30, blank=True)
     site = models.URLField(_('Site'), blank=True)
     biography = models.TextField(_('Biography'), blank=True)
+    birth_date = models.DateField(_("Birth Date"), null=True, blank=True)
+    how_you_know = models.CharField(_('How do you know the platform?'), max_length=50, blank=True)
+    how_you_know_complement = models.CharField(_('Complement for "How do you know the platform?"'), max_length=255, blank=True)
     accepted_terms = models.BooleanField(_('Accepted terms and condition'), default=False)
 
     objects = UserManager()
@@ -96,6 +99,10 @@ class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
         from core.models import CourseCertification
         return CourseCertification.objects.filter(course_student__user=self)
 
+    def get_current_courses(self):
+        ended = [item.course for item in self.get_certificates()]
+        return [item.course for item in self.coursestudent_set.all().exclude(course__in=ended)]
+
     def save(self, *args, **kwargs):
 
         is_new = self.pk is None
@@ -110,6 +117,33 @@ class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
                 pass
 
 
+class UserSocialAccount(models.Model):
+
+    SOCIAL_CHOICES = (
+        ('facebook', _("Facebook")),
+        ('instagram', _("Instagram")),
+        ('snapchat', _("Snapchat")),
+        ('whatsapp', _("Celular/Whatsapp")),
+        ('twitter', _("Twitter")),
+        # ('linkedin', _("Linked-In")),
+        ('youtube', _("Youtube")),
+    )
+
+    user = models.ForeignKey('TimtecUser')
+    social_media = models.CharField(_("social media"), max_length=15, choices=SOCIAL_CHOICES)
+    nickname = models.CharField(_("nickname"), max_length=30)
+
+    def get_absolute_url(self):
+
+        if self.social_media == 'snapchat':
+            return "http://%s.com/add/%s" % (self.social_media, self.nickname)
+
+        if self.social_media == 'whatsapp':
+            return "tel:%s" % (self.nickname)
+
+        return "http://%s.com/%s" % (self.social_media, self.nickname)
+
+
 class TimtecUser(AbstractTimtecUser):
     """
     Timtec customized user.
@@ -118,6 +152,11 @@ class TimtecUser(AbstractTimtecUser):
     """
 
     email = models.EmailField(_('Email address'), blank=False, unique=True)
+    state = models.CharField(_('Province'), max_length=30, blank=True)
 
     class Meta(AbstractTimtecUser.Meta):
         swappable = 'AUTH_USER_MODEL'
+
+    def get_social_media(self):
+        print 254054
+        return UserSocialAccount.objects.filter(user=self).order_by('social_media')

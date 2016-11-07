@@ -1,10 +1,14 @@
+[![Stories in Ready](https://badge.waffle.io/institutotim/timtec.png?label=ready&title=Ready)](https://waffle.io/institutotim/timtec)
+[![Build Status](https://drone.io/github.com/institutotim/timtec/status.png)](https://drone.io/github.com/institutotim/timtec/latest)
+
 # TIM Tec
+
 A plataforma de cursos online TIM Tec é um software livre desenvolvido pelo Instituto TIM que utiliza o conceito de MOOC (Massive Open Online Courses), cursos abertos e livres que podem ser feitos simultaneamente por muitas pessoas.
- 
+
 O sistema pode hospedar múltiplos cursos que utilizam videoaulas, além de materiais de apoio e outros links. A ferramenta permite a criação de testes e o uso de emuladores desenvolvidos para que alunos exercitem os conhecimentos abordados. Alunos podem fazer e responder perguntas, ver respostas e favoritar as perguntas dos colegas em um fórum, além de fazer anotações em seu caderno virtual. Gestores podem gerar relatórios de acompanhamento dos cursos, turmas e alunos, acompanhar o progresso de cada participante e habilitar professores tutores quando necessário.
- 
+
 A tecnologia e os conteúdos da plataforma TIM Tec estão sendo compartilhados com instituições públicas de ensino da Rede e-Tec Brasil, com o apoio da Secretaria de Educação Profissional e Tecnológica do Ministério da Educação (Setec/MEC). Entre as instalações já implementadas estão:
- 
+
 * Instituto Federal Sul-rio-grandense http://mooc.ifsul.edu.br/
 * Instituto Federal do Paraná http://mooc.ifpr.edu.br/
 * Instituto Federal Sul de Minas https://mooc.ifsuldeminas.edu.br/
@@ -19,7 +23,7 @@ A tecnologia e os conteúdos da plataforma TIM Tec estão sendo compartilhados c
 * Instituto Federal Baiano http://mooc.ifbaiano.edu.br/
 
 ## Instalação e configurações
-Para acessar a documentação completa, veja a pasta [docs](docs) na raiz da aplicação. 
+Para acessar a documentação completa, veja a pasta [docs](docs) na raiz da aplicação.
 
 * [INSTALAÇÃO release v3.2 ou superior](docs/instalacao_e_configuracao/Instalação.md)
 * [ATUALIZAÇÃO a partir v3.2 ou superior](docs/instalacao_e_configuracao/Atualização.md)
@@ -34,7 +38,7 @@ Para acessar a documentação completa, veja a pasta [docs](docs) na raiz da apl
 * [Tutorial para criação de tema](docs/instalacao_e_configuracao/Tutorial-para-criação-de-tema.md)
 
 
-## Licença - AGPLV3 
+## Licença - AGPLV3
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as
@@ -47,7 +51,7 @@ Para acessar a documentação completa, veja a pasta [docs](docs) na raiz da apl
     GNU Affero General Public License for more details.
 
     You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see LICENSE file here or 
+    along with this program.  If not, see LICENSE file here or
     [AGPLv3](http://www.gnu.org/licenses).
 
 [![Build Status](https://drone.io/github.com/hacklabr/timtec/status.png)](https://drone.io/github.com/hacklabr/timtec/latest)
@@ -148,8 +152,7 @@ Activate virtual env, then:
 In the root of repository:
 
     make karma_tests
-    
-    
+
+
 ### Suporte
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/hacklabr/timtec?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-
