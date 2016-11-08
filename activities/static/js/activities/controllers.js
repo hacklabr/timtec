@@ -95,7 +95,8 @@
       'Progress',
       'ClassActivity',
       'CurrentUser',
-      function ($scope, $sce, $routeParams, $location, $anchorScroll, uiTinymceConfig, Forum, Topic, Comment, TopicLike, TopicFile, CommentLike, CommentFile, Progress, ClassActivity, CurrentUser) {
+      'AnswerNotification',
+      function ($scope, $sce, $routeParams, $location, $anchorScroll, uiTinymceConfig, Forum, Topic, Comment, TopicLike, TopicFile, CommentLike, CommentFile, Progress, ClassActivity, CurrentUser, AnswerNotification) {
         $scope.activity_open = true;
         $scope.activity_expired = false;
         var now = Date.now();
@@ -223,6 +224,8 @@
             $scope.my_answer = false;
             $scope.topic = activity_topic;
             $scope.show_answer = true;
+
+            AnswerNotification.update({topic: activity_topic.id, is_read: true});
 
             setTimeout(function() {
                 $(document.body).animate({
