@@ -26,7 +26,7 @@ A tecnologia e os conteúdos da plataforma TIM Tec estão sendo compartilhados c
 Para acessar a documentação completa, veja a pasta [docs](docs) na raiz da aplicação.
 
 * [Instalação (Deploy)](docs/instalacao_e_configuracao/timtec_deploy.md)
-* [Atualização (Update)](docs/instalacao_e_configuracao/Atualização.md)
+* [Atualização (Update)](docs/instalacao_e_configuracao/timtec_update.md)
 * [ATUALIZAÇÃO a partir da versão 3.0.10 ou inferior](docs/instalacao_e_configuracao/Atualizando-a-partir-da-versão-3.0.10-ou-inferior.md)
 * [CONFIGURAÇÕES v3.2 ou superior](docs/instalacao_e_configuracao/Configurações.md)
 * [CONFIGURAÇÕES (Versão 3.0.10 e inferiores)](docs/instalacao_e_configuracao/Configurações-(Versão-3.0.10-e-inferiores).md)
