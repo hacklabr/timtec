@@ -1,6 +1,6 @@
 ## Atualizando para uma nova versão
 
-
+> Atenção: estas orientações são para a versão 3.1 ou superior. Se seu ambiente é inferior a esta versão, não siga estes passos. 
 
 ### 1. Faça um backup de todos os seus arquivos e de sua base de dados
 * 1.1 Recomendamos que faça uma cópia dos diretório /timtec e /webfiles antes de começar esse processo:
