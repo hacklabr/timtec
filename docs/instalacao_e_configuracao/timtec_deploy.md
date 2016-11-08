@@ -127,7 +127,7 @@ $ make install
 
 Se ocorrer algum erro, tente rodar o comando make novamente, pois falhas podem ocorrer devido a problemas com a internet.
 
-### Criando ambiente virtual manualmente (opcional, use este ou o make create-production)
+### Criando ambiente virtual manualmente
 Em seguida, vamos criar o ambiente virtual python:
 
     $ virtualenv /home/NOME-DO-SEU-USUARIO-OU-DIRETORIO/env
