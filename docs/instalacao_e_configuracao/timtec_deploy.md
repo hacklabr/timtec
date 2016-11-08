@@ -78,34 +78,42 @@ Substitua a tag da versão por uma tag do git válida. Ex: `git checkout v3.0.3`
 Primeiro, vamos instalar as dependências:
 
 ```
-$ sudo apt-get update
-$ sudo apt-get install -y libpq-dev libjpeg-dev libpng12-dev build-essential python-dev gettext python-virtualenv
+root@server# apt-get update
+root@server# apt-get install -y libpq-dev libjpeg-dev libpng12-dev build-essential python-dev gettext python-virtualenv
 ```
 
 ### Instalando o nodejs
 
 #### Ubuntu
-    sudo apt-get install -y nodejs npm
+```
+root@server#  apt-get install -y nodejs npm
+```
 
 Diferente de todas as outras distribuições, o ubuntu usa o comando node para o nodejs por padrão, então vamos fazer isso:
-
-    sudo update-alternatives --install /usr/bin/node node /usr/bin/nodejs 10
+```
+root@server# update-alternatives --install /usr/bin/node node /usr/bin/nodejs 10
+```
 
 #### Debian
-
-    sudo apt-get install curl
-    sudo curl -sL https://deb.nodesource.com/setup | bash -
-    sudo apt-get install nodejs
+```
+root@server# apt-get install curl
+root@server# curl -sL https://deb.nodesource.com/setup | bash -
+root@server# apt-get install nodejs
+```
 
 Mais informações [neste link](https://github.com/joyent/node/wiki/installing-node.js-via-package-manager#debian-and-ubuntu-based-linux-distributions)
 
 ### Banco de dados
 Recomendamos o postgreSQL, mas o django suporta outros bancos de dados relacionais.
+```
+root@server# apt-get install -y postgresql
+root@server# sudo su - postgres -c "createuser -d timtec-production"
+```
 
-    $ sudo apt-get install -y postgresql
-    $ sudo su - postgres -c "createuser -d timtec-production"
-    $ createdb --encoding "UTF-8" --locale "pt_BR.UTF-8" timtec-production
-
+Com usuário da aplicação, crie então a base:
+```
+timtec-production@server$ createdb --encoding "UTF-8" --locale "pt_BR.UTF-8" timtec-production
+```
 obs: caso ocorra algum problema relacionado a locale faltante no sistema, [veja como alterar o locale para pt_BR](Alterando-locale-para-pt_BR.md). 
 
 ### Ambiente virtual python e dependências de javascript
