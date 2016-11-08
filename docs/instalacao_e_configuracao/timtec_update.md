@@ -1,5 +1,7 @@
 ## Atualizando para uma nova versão
 
+
+
 ### 1. Faça um backup de todos os seus arquivos e de sua base de dados
 * 1.1 Recomendamos que faça uma cópia dos diretório /timtec e /webfiles antes de começar esse processo:
 ```
@@ -31,7 +33,7 @@ timtec-production@server:$ git checkout v3.3
 ```
 ### 4. Faça o update
 
-* 4.1 tive o ambiente virtual python:
+* 4.1 ative o ambiente virtual python:
 
 ```
 timtec-production@server:$ virtualenv /home/NOME-DO-SEU-USUARIO-OU-DIRETORIO/env
