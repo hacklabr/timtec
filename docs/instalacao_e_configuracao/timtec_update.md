@@ -1,12 +1,12 @@
 ## Atualizando para uma nova versão
 
 ### 1. Faça um backup de todos os seus arquivos e de sua base de dados
-* 1.1 Recomendamos que faça uma cópia dos diretório /timtec e /webfiles antes de começar esse processo. 
+* 1.1 Recomendamos que faça uma cópia dos diretório /timtec e /webfiles antes de começar esse processo:
 ```
 timtec-production@server:$ cp ~/timtec-production/timtec /SEU-DIRETORIO-DE-BACKUP/
 timtec-production@server:$ cp ~/timtec-production/webfiles /SEU-DIRETORIO-DE-BACKUP/
 ```
-* 1.2 Faça um backup da base de dados e salve no mesmo diretório de backup da aplicação
+* 1.2 Faça um backup da base de dados e salve no mesmo diretório de backup da aplicação:
 ```
 timtec-production@server:$ pg_dump timtec-production > yyyy_mm_dd_timtec_backup_database.sql
 ```
