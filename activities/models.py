@@ -49,7 +49,7 @@ class Activity(models.Model):
 
 
 class Answer(models.Model):
-    activity = models.ForeignKey(Activity, verbose_name=_('Activity'))
+    activity = models.ForeignKey(Activity, verbose_name=_('Activity'), related_name='answers')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Student'))
     timestamp = models.DateTimeField(auto_now_add=True, editable=False)
     given = JSONField(_('Given answer'))
