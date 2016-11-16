@@ -1,8 +1,8 @@
 (function(angular){
 
     angular.module('course-permissions.controllers', []).
-        controller('PermissionsController', ['$scope', '$window', '$modal', '$http', '$q', 'Course',  'CourseProfessor',
-        function($scope, $window, $modal, $http, $q, Course, CourseProfessor) {
+        controller('PermissionsController', ['$scope', '$window', '$uibModal', '$http', '$q', 'Course',  'CourseProfessor',
+        function($scope, $window, $uibModal, $http, $q, Course, CourseProfessor) {
 
             var success_save_msg = 'Alterações salvas com sucesso.';
             var error_save_msg = 'Não foi possível salvar todas as alterações.';
@@ -66,9 +66,9 @@
             };
 
             $scope.new_professors = function () {
-                var modalInstance = $modal.open({
+                var modalInstance = $uibModal.open({
                     templateUrl: 'newProfessorModal.html',
-                    controller: ['$scope', '$modalInstance', 'course_id', addProfessorsModalInstanceCtrl],
+                    controller: ['$scope', '$uibmodalInstance', 'course_id', addProfessorsModalInstanceCtrl],
                     resolve: {
                         course_id: function () {
                             return $scope.course_id;
@@ -86,15 +86,15 @@
                     });
                 });
             };
-            var addProfessorsModalInstanceCtrl = function ($scope, $modalInstance, course_id) {
+            var addProfessorsModalInstanceCtrl = function ($scope, $uibmodalInstance, course_id) {
 
                 $scope.new_professors = [];
                 $scope.add_professors = function () {
-                    $modalInstance.close($scope.new_professors);
+                    $uibmodalInstance.close($scope.new_professors);
                 };
 
                 $scope.cancel = function () {
-                    $modalInstance.dismiss();
+                    $uibmodalInstance.dismiss();
                 };
 
                 $scope.on_select_professor = function(model) {

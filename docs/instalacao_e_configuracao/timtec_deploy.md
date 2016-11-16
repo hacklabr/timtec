@@ -1,9 +1,14 @@
 Essa é a documentação básica de instalação (deploy) timtec. Para informações sobre requisitos e dependências, veja o [README.md](https://github.com/hacklabr/timtec/blob/master/README.md).
 
+<<<<<<< HEAD:docs/instalacao_e_configuracao/timtec_deploy.md
+=======
+### Ubuntu 14.04 / 16.04 e Debian 7.7 / 8.0
+>>>>>>> 4.0-dev:docs/instalacao_e_configuracao/Instalação.md
 Para usar o TIM Tec em produção sugerimos uma arquitetura usando o nginx como servidor web e o [uwsgi](https://uwsgi-docs.readthedocs.org/en/latest/) como proxy.
 
 Na pasta scripts, há um shell script que executa exatamente os passos a seguir. Se tiver pressa, olhe os scripts bootstrap-ubuntu.sh e production-ubuntu.sh.
 
+<<<<<<< HEAD:docs/instalacao_e_configuracao/timtec_deploy.md
 ## Prepare o servidor
 
 Você precisa de um servidor com algum dos seguintes sistemas operacionais:
@@ -16,10 +21,14 @@ Certifique-se de ter a senha ssh deste servidor para começar o processo e de te
 ## Crie o usuário da aplicação
 
 Sugerimos que o usuário usado para fazer a instalação não seja o root. Aqui, o usuário que está fazendo a instalação é o **timtec-production**. Assim, nos comandos abaixo, substitua o nome do usuário pelo que você estiver usando. Os scripts possuem uma variável para definir o usuário que executará o proxy (wsgi). Caso use um usuário diferente, olhe o arquivo Makefile e faça as alterações necessárias.
+=======
+Sugerimos que o usuário usado para fazer a instalação não seja o root. Aqui, o usuário que está fazendo a instalação é o **timtec**. Assim, nos comandos abaixo, substitua o nome do usuário pelo que você estiver usando. Os scripts possuem uma variável para definir o usuário que executará o proxy (wsgi). Caso use um usuário diferente, olhe o arquivo Makefile e faça as alterações necessárias.
+>>>>>>> 4.0-dev:docs/instalacao_e_configuracao/Instalação.md
 
 Este tutorial pressupões que você esteja logado com o usuário timtec-production, que ele esteja no grupo sudo.
 
 É possível verificar se o usuário timtec-production existe através do comando:
+<<<<<<< HEAD:docs/instalacao_e_configuracao/timtec_deploy.md
 ```
 root@server# grep timtec-production /etc/passwd
 ```
@@ -28,16 +37,29 @@ Caso o usuário exista, o comando acima deve retornar uma linha semelhante a seg
 ```
 timtec-production:x:999:999::/home/timtec-production:
 ```
+=======
+
+    grep timtec /etc/passwd
+
+Caso o usuário exista, o comando acima deve retornar uma linha semelhante a seguinte:
+
+    timtec:x:999:999::/home/timtec:
+>>>>>>> 4.0-dev:docs/instalacao_e_configuracao/Instalação.md
 
 Caso não exista é possível criá-lo com:
 
 ```
+<<<<<<< HEAD:docs/instalacao_e_configuracao/timtec_deploy.md
 root@server# useradd --groups sudo --create-home timtec-production
+=======
+$ sudo useradd --groups sudo --create-home timtec
+>>>>>>> 4.0-dev:docs/instalacao_e_configuracao/Instalação.md
 ```
 
-Depois mude a senha: 
+Depois mude a senha:
 
 ```
+<<<<<<< HEAD:docs/instalacao_e_configuracao/timtec_deploy.md
 root@server# passwd timtec-production
 ```
 
@@ -54,6 +76,19 @@ timtec-production:x:1001:1001::/home/timtec-production:/bin/bash
 ```
 
 ## Obtendo o código
+=======
+$ sudo passwd timtec
+```
+Se você estiver usando Debian, pode acontecer do sistema criar uma instância do novo usuário com acesso a um terminal sh. Se você quiser usar o bash (terminal mais completo e com mais funcionalidades), você pode alterar essa informação no arquivo de configuração de usuários. Proceda da seguinte maneira:
+
+1) Abra o arquivo /etc/passwd e verifique a linha onde está o usuário timtec. Você pode ver uma linha assim:    
+
+     timtec:x:1001:1001::/home/timtec:/bin/sh
+
+2) Repare que a linha tem indicação para o terminal sh. Mude para bash e salve o arquivo com a linha desta maneira (use vim, nano ou qualquer editor de sua preferência):
+
+     timtec:x:1001:1001::/home/timtec:/bin/bash
+>>>>>>> 4.0-dev:docs/instalacao_e_configuracao/Instalação.md
 
 * Atualize o índice de pacotes e instale o git
 
@@ -61,9 +96,15 @@ timtec-production:x:1001:1001::/home/timtec-production:/bin/bash
 root@server# apt-get update
 root@server# apt-get install git
 ```
+<<<<<<< HEAD:docs/instalacao_e_configuracao/timtec_deploy.md
 * Com usuário da aplicação - no nosso caso timtec-production - faça a clonagem do repositório:
 ```
 timtec-production@server$ git clone ~/https://github.com/hacklabr/timtec.git
+=======
+$ sudo apt-get update
+$ sudo apt-get install git
+$ git clone https://github.com/hacklabr/timtec.git
+>>>>>>> 4.0-dev:docs/instalacao_e_configuracao/Instalação.md
 ```
 
 Em seguida, escolha a versão desejada e atualize o código para ela com o comando abaixo. Aqui você encontra uma lista de versões do TIMTec: https://github.com/hacklabr/timtec/releases
@@ -72,7 +113,7 @@ timtec-production@server$ cd timtec
 timtec-production@server$ git checkout <tag-da-versão>
 ```
 
-Substitua a tag da versão por uma tag do git válida. Ex: `git checkout v3.0.3`
+Substitua a tag da versão por uma tag do git válida. Ex: `git checkout v4.0`
 
 ## Dependências
 Primeiro, vamos instalar as dependências:
@@ -95,11 +136,19 @@ root@server# update-alternatives --install /usr/bin/node node /usr/bin/nodejs 10
 ```
 
 #### Debian
+<<<<<<< HEAD:docs/instalacao_e_configuracao/timtec_deploy.md
 ```
 root@server# apt-get install curl
 root@server# curl -sL https://deb.nodesource.com/setup | bash -
 root@server# apt-get install nodejs
 ```
+=======
+
+    # TODO: atualizar este endereço
+    sudo apt-get install curl
+    sudo curl -sL https://deb.nodesource.com/setup | bash -
+    sudo apt-get install nodejs
+>>>>>>> 4.0-dev:docs/instalacao_e_configuracao/Instalação.md
 
 Mais informações [neste link](https://github.com/joyent/node/wiki/installing-node.js-via-package-manager#debian-and-ubuntu-based-linux-distributions)
 
@@ -110,11 +159,19 @@ root@server# apt-get install -y postgresql
 root@server# sudo su - postgres -c "createuser -d timtec-production"
 ```
 
+<<<<<<< HEAD:docs/instalacao_e_configuracao/timtec_deploy.md
 Com usuário da aplicação, crie então a base:
 ```
 timtec-production@server$ createdb --encoding "UTF-8" --locale "pt_BR.UTF-8" timtec-production
 ```
 obs: caso ocorra algum problema relacionado a locale faltante no sistema, [veja como alterar o locale para pt_BR](Alterando-locale-para-pt_BR.md). 
+=======
+    $ sudo apt-get install -y postgresql
+    $ sudo su - postgres -c "createuser -d timtec"
+    $ createdb --encoding "UTF-8" --locale "pt_BR.UTF-8" timtec
+
+obs: caso ocorra algum problema relacionado a locale faltante no sistema, [veja como alterar o locale para pt_BR](Alterando-locale-para-pt_BR.md).
+>>>>>>> 4.0-dev:docs/instalacao_e_configuracao/Instalação.md
 
 ### Ambiente virtual python e dependências de javascript
 
@@ -133,7 +190,7 @@ Em seguida, vamos criar o ambiente virtual python:
     $ virtualenv /home/NOME-DO-SEU-USUARIO-OU-DIRETORIO/env
     & source /home/NOME-DO-SEU-USUARIO-OU-DIRETORIO/env/bin/activate
 
-Se você estiver seguindo a documentação, você pode deverá dar o comando da seguinte maneira: 
+Se você estiver seguindo a documentação, você pode deverá dar o comando da seguinte maneira:
 
     $ virtualenv /home/timtec-production/env
     $ source /home/timtec-production/env/bin/activate
@@ -144,7 +201,7 @@ Agora vamos instalar as dependências:
     make install
 
 Se ocorrer algum erro, tente rodar o comando make novamente, pois falhas podem ocorrer devido a problemas com a internet.
-  
+
 
 ### Servidor web e de aplicação
 
@@ -168,7 +225,7 @@ Copie os scritps de configuração da instância timtec-production para os sites
 
     $ sudo cp ~/timtec/scripts/conf/nginx-timtec-production /etc/nginx/sites-available/timtec-production
 
-Crie link simbólico do projeto de sites-available para sites-enable: 
+Crie link simbólico do projeto de sites-available para sites-enable:
 
     $ sudo ln -s /etc/nginx/sites-available/timtec-production /etc/nginx/sites-enabled/timtec-production
 
@@ -176,15 +233,15 @@ Remova o arquivo de configuração padrão do nginx para não haver conflito:
 
     $ sudo rm /etc/nginx/sites-enabled/default
 
-Faça um reload do nginx para se certificar que ele está rodando corretamente: 
+Faça um reload do nginx para se certificar que ele está rodando corretamente:
 
     # sudo nginx -s reload
 
-Obs: se o nginx não estiver rodando, execute: 
+Obs: se o nginx não estiver rodando, execute:
 
    $ sudo service nginx start
 
-Em seguida, edite o arquivo de configuração do nginx para colocar seu domínio. 
+Em seguida, edite o arquivo de configuração do nginx para colocar seu domínio.
 
 A instalação não terminou ainda! Precisamos criar o usuário inicial, configurar o domínio do django, o envio de email e a API do youtube.
 

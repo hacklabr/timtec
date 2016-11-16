@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load compressed %}
+{% load pipeline %}
 {% load static %}
 {% load i18n %}
 
@@ -9,7 +9,7 @@ wrapper-course-lesson
 
 {% block js %}
     {{ block.super }}
-    {% compressed_js 'reports' %}
+    {% javascript 'reports' %}
     <script>
         window.course_id = {{ course.pk }};
         window.user_id = {{ user.pk }};

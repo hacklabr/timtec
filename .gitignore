@@ -59,6 +59,7 @@ settings_local.py
 /.cache
 /node_modules
 /themes/default/templates/version.txt
+bower_components/
 
 # Vagrant
 .vagrant

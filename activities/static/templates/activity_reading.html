@@ -1,13 +1,4 @@
-<div class="question textleft">
-    <span ng-bind-html="currentActivity.data.question"></span>
+<div class="question textleft" style="display: flex; justify-content:center;">
+    <span ng-bind-html="getReadingActivityHtml()"></span>
 </div>
-<div class="submit">
-    <div class="row">
-        <div class="col-sm-12 textright">
-            <button class="btn btn-success text-uppercase" ng-click="sendAnswerText()" translate>
-              <i class="fa fa-check-square-o"></i>
-                Continuar
-              </button>
-        </div>
-    </div>
-</div>
+<slide-panel></slide-panel>

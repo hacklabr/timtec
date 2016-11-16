@@ -33,7 +33,7 @@ Para acessar a documentação completa, veja a pasta [docs](docs) na raiz da apl
 
 
 ## Desenvolvimento
-* [Criando ambiente de dev](docs/instalacao_e_configuracao/%5BDev%5D-Instalação-no-Archlinux.rst)
+* [Criando ambiente de dev](docs/instalacao_e_configuracao/Criando-Ambiente-de-Desenvolvimento.md)
 * [Temas](docs/instalacao_e_configuracao/Temas.md)
 * [Tutorial para criação de tema](docs/instalacao_e_configuracao/Tutorial-para-criação-de-tema.md)
 
@@ -146,13 +146,6 @@ everything from the `dev-requirements.txt` file.
 Activate virtual env, then:
 
     make python_tests
-
-### Angular
-
-In the root of repository:
-
-    make karma_tests
-
 
 ### Suporte
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/hacklabr/timtec?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)

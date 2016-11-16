@@ -1,6 +1,7 @@
 {% extends "base.html" %}
+
 {% load is_assistant_or_coordinator %}
-{% load compressed %}
+{% load pipeline %}
 {% load static %}
 {% load i18n %}
 
@@ -10,7 +11,7 @@ wrapper-course-lesson
 
 {% block css %}
     {{block.super}}
-    {% compressed_css 'messages' %}
+    {% css 'messages' %}
 {% endblock %}
 
 {% block js %}
@@ -19,7 +20,7 @@ wrapper-course-lesson
         window.course_id = {{ course.pk }};
         window.course_slug = '{{ course.slug }}';
     </script>
-    {% compressed_js 'messages' %}
+    {% javascript 'messages' %}
 {% endblock %}
 
 
@@ -42,7 +43,7 @@ wrapper-course-lesson
                 <div class="{% if request.user|is_assistant_or_coordinator:course %}col-md-9 col-sm-8 col-xs-6{% else %}col-xs-12{% endif %}">
                     <h1>{% block messages_title %}{% trans "Messages" %}{% endblock %}</h1>
                 </div>
-                
+
                 {% if request.user|is_assistant_or_coordinator:course %}
                     <div class="col-md-3 col-sm-4 col-xs-6">
                         <a class="new-message btn btn-lg btn-danger uppercase" ng-click="new_message()">{% trans "New Message" %}</a>

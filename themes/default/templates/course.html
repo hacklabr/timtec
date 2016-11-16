@@ -41,7 +41,7 @@ wrapper-course-intro
 {% endif %}
 
 <!-- COURSE -->
-<div id="course" class="course-intro" ng-controller="CourseEditController">
+<div id="course" class="course-intro" {% if in_admin %}ng-controller="CourseEditController"{% endif %}>
 
     {% if in_admin %}
         <!-- ACTIONS -->
