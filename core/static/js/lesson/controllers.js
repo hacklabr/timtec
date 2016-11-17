@@ -152,9 +152,14 @@
                         var index = $scope.currentUnit.activities.indexOf($scope.currentActivity);
                         // Test if this is the last activity in the currentUnit unit
                         if(index+1 === $scope.currentUnit.activities.length) {
-                            $scope.currentUnit.progress = Progress.complete($scope.currentUnit.id);
+                            // This is the last activity in the unit
+                            // However, the progress must not be marked as complete if the last activity is of the "discussion" type
+                            if($scope.currentActivity.type !== 'discussion'){
+                                $scope.currentUnit.progress = Progress.complete($scope.currentUnit.id);
+                            }
                             $scope.nextUnit();
                         } else {
+                            // This is not the last activity in the unit, so the next activity must be shown
                             $scope.selectActivity(index + 1);
                             $scope.section = 'activity';
                         }
