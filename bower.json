@@ -35,7 +35,8 @@
     "ng-file-upload": "^12.0.4",
     "angular-ui-select": "^0.19.4",
     "angular-loading-bar": "^0.9.0",
-    "angular-scroll": "^1.0.0"
+    "angular-scroll": "^1.0.0",
+    "angular-click-outside": "^2.10.1"
   },
   "resolutions": {
     "angular-bootstrap": "^1.2.0"
