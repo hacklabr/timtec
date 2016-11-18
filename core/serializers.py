@@ -100,7 +100,7 @@ class CourseCertificationSerializer(serializers.ModelSerializer):
     processes = BaseCertificationProcessSerializer(many=True, read_only=True)
     approved = BaseCertificationProcessSerializer(source='get_approved_process', read_only=True)
     course = serializers.SerializerMethodField()
-    url = serializers.Field(source='get_absolute_url')
+    url = serializers.ReadOnlyField(source='get_absolute_url')
 
     class Meta:
         model = CourseCertification
