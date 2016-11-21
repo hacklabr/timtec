@@ -17,6 +17,8 @@
         </div>
     </div>
 
+
+
     <!-- special activity is open -->
     <div class="open-activity">
         <div class="topbar">
@@ -25,13 +27,25 @@
 
             <button class="btn btn-sm btn-primary next-activity pull-right" ng-click="nextStep(true)" ng-show="my_answer">próxima unidade</button>
         </div>
+
+        <!-- special activity is expired, but can still be viewed -->
+        <div class="message text-center" ng-if="activity_expired">
+            <h3>Esta atividade já foi encerrada :(</h3>
+
+            <p>Desde {{ currentActivity.data.end_date  | date : 'dd/MM/yyyy' }}, ela não pode mais receber respostas nem edições.</p>
+
+            <p>Mas você ainda pode consultar o enunciado e as respostas já enviadas.</p>
+
+        </div>
+
         <h2 class="title">Atividade</h2>
 
+        <!-- Activity text -->
         <p class="intro" ng-bind-html="get_as_safe_html(currentActivity.data.content | markdown)"></p>
 
         <!-- Create and edit answer -->
         <!-- the activity has not been submited yet -->
-        <form class="new-thread" name="newanswer" ng-if="!show_answer" ng-submit="newanswer.$valid && save_answer()" novalidate>
+        <form class="new-thread" name="newanswer" ng-if="!show_answer && !activity_expired" ng-submit="newanswer.$valid && save_answer()" novalidate>
             <!-- <div class="form-group">
                 <label for="thread-name">Como se chamará o novo tópico?</label>
                 <input ng-model="new_topic.title" type="text" class="form-control" id="thread-name" placeholder="Escreva o título aqui">
@@ -57,8 +71,24 @@
         </form>
         <!-- /Create and edit answer -->
 
-        <!-- the activity has been submitted already and can be viewed -->
         <a id="answer"></a>
+        <!-- Activity expired and no answer given -->
+        <div class="user-activity forums thread" ng-show="activity_expired && !show_answer">
+            <div class="forum-thread" ng-cloak>
+                <div class="thread-post">
+                    <div class="text-center">
+                      <p>
+                          <em>Você não enviou nenhuma resposta para esta atividade.</em>
+                      </p>
+                        <p>
+                            <em>Infelizmente, não é mais possível enviar uma resposta, pois esta atividade já está expirada.</em>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- the activity has been submitted already and can be viewed -->
         <div class="user-activity forums thread" ng-show="show_answer">
             <h3 class="title" ng-show="my_answer">Sua atividade:</h3>
             <div class="forum-thread" ng-cloak>
@@ -68,7 +98,7 @@
                 <div class="info">
                     <h4 class="thread-header pull-left">por <span class="user-name">{{topic.author.name}}</span> <span class="last-edit">última edição: {{topic.last_activity_at | date : 'dd/MM/yyyy'}}</span></h4>
 
-                    <button class="btn btn-sm btn-success edit pull-right" ng-click="edit_topic=true;show_answer=false" ng-show="my_answer">editar</button>
+                    <button class="btn btn-sm btn-success edit pull-right" ng-click="edit_topic=true;show_answer=false" ng-show="my_answer" ng-style="{'visibility': !activity_expired ? 'visible' : 'hidden'}">editar</button>
                     <button class="btn btn-sm btn-success edit pull-right" ng-click="viewMyAnswer()" ng-hide="my_answer">voltar para a minha atividade</button>
                 </div>
 
@@ -245,6 +275,8 @@
                 </div>
             </div>
         </div>
+        <!-- /Special activity is open -->
+
     <div class="all-activity forums forum-list" ng-show="activities_loaded">
         <h3 class="title">Atividades das/os colegas</h3>
         <table class="table table-striped">
