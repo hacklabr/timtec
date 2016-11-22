@@ -12,14 +12,10 @@ Certifique-se de ter a senha ssh deste servidor para começar o processo e de te
 ## Crie o usuário da aplicação
 
 Sugerimos que o usuário usado para fazer a instalação não seja o root. Aqui, o usuário que está fazendo a instalação é o **timtec-production**. Assim, nos comandos abaixo, substitua o nome do usuário pelo que você estiver usando. Os scripts possuem uma variável para definir o usuário que executará o proxy (wsgi). Caso use um usuário diferente, olhe o arquivo Makefile e faça as alterações necessárias.
-=======
-Sugerimos que o usuário usado para fazer a instalação não seja o root. Aqui, o usuário que está fazendo a instalação é o **timtec**. Assim, nos comandos abaixo, substitua o nome do usuário pelo que você estiver usando. Os scripts possuem uma variável para definir o usuário que executará o proxy (wsgi). Caso use um usuário diferente, olhe o arquivo Makefile e faça as alterações necessárias.
->>>>>>> 4.0-dev:docs/instalacao_e_configuracao/Instalação.md
 
 Este tutorial pressupões que você esteja logado com o usuário timtec-production, que ele esteja no grupo sudo.
 
 É possível verificar se o usuário timtec-production existe através do comando:
-<<<<<<< HEAD:docs/instalacao_e_configuracao/timtec_deploy.md
 ```
 root@server# grep timtec-production /etc/passwd
 ```
