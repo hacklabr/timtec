@@ -1,14 +1,5 @@
 Essa é a documentação básica de instalação (deploy) timtec. Para informações sobre requisitos e dependências, veja o [README.md](https://github.com/hacklabr/timtec/blob/master/README.md).
 
-<<<<<<< HEAD:docs/instalacao_e_configuracao/timtec_deploy.md
-=======
-### Ubuntu 14.04 / 16.04 e Debian 7.7 / 8.0
->>>>>>> 4.0-dev:docs/instalacao_e_configuracao/Instalação.md
-Para usar o TIM Tec em produção sugerimos uma arquitetura usando o nginx como servidor web e o [uwsgi](https://uwsgi-docs.readthedocs.org/en/latest/) como proxy.
-
-Na pasta scripts, há um shell script que executa exatamente os passos a seguir. Se tiver pressa, olhe os scripts bootstrap-ubuntu.sh e production-ubuntu.sh.
-
-<<<<<<< HEAD:docs/instalacao_e_configuracao/timtec_deploy.md
 ## Prepare o servidor
 
 Você precisa de um servidor com algum dos seguintes sistemas operacionais:
