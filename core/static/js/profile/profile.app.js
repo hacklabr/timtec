@@ -5,7 +5,7 @@
         'profile.controllers',
         'profile.services',
         'djangular',
-        'header',
+        // 'header',
         'ui.tinymce',
     ]);
 })(angular);
