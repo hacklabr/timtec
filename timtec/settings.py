@@ -460,6 +460,16 @@ PIPELINE = {
             ),
             'output_filename': 'js/certificate.js',
         },
+        'edit-class': {
+            'source_filenames': (
+                'js/directives/waiting-screen.js',
+                'js/edit-class/app.js',
+                'js/edit-class/controllers.js',
+                'checklist-model/checklist-model.js',
+                'js/factories/timtec-models.js',
+            ),
+            'output_filename': 'js/messages.js',
+        },
         'codemirror': {
             'source_filenames': (
                 'codemirror/lib/codemirror.js',

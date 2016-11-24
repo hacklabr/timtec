@@ -322,6 +322,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class CourseCertificationViewSet(viewsets.ModelViewSet):
+    queryset = CourseCertification.objects.all()
     model = CourseCertification
     lookup_field = 'link_hash'
     filter_fields = ('course_student',)

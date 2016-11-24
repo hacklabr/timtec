@@ -89,7 +89,6 @@ class BaseCourseCertificationSerializer(serializers.ModelSerializer):
 
 
 class CertificationProcessSerializer(serializers.ModelSerializer):
-    # TODO: Verificar se de fato e read_only=True
     course_certification = serializers.SlugRelatedField(slug_field="link_hash", read_only=True)
 
     class Meta:
@@ -149,6 +148,30 @@ class CertificateTemplateImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = CertificateTemplate
         fields = ('base_logo', 'cert_logo', )
+
+
+class ClassActivitySerializer(serializers.ModelSerializer):
+    activity_answers = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Class
+        fields = ['id', 'name', 'activity_answers', 'course']
+
+    def get_activity_answers(self, obj):
+        request = self.context.get("request")
+        activity_id = request.query_params.get('activity', None)
+
+        try:
+            queryset = Answer.objects.filter(
+                activity=activity_id,
+                activity__unit__lesson__course=obj.course,
+                user__in=obj.students.all()
+            ).exclude(user=request.user)
+        except Answer.DoesNotExist:
+            return
+
+        return AnswerSerializer(
+            queryset, many=True, **{'context': self.context}).data
 
 
 class VideoSerializer(serializers.ModelSerializer):
@@ -218,6 +241,10 @@ class CourseSerializer(serializers.ModelSerializer):
 
 class CourseStudentSerializer(serializers.ModelSerializer):
     user = TimtecUserSerializer(read_only=True)
+    course_finished = serializers.BooleanField()
+    can_emmit_receipt = serializers.BooleanField()
+    percent_progress = serializers.IntegerField()
+    min_percent_to_complete = serializers.IntegerField()
 
     current_class = BaseClassSerializer(source='get_current_class')
     course = BaseCourseSerializer()
@@ -227,7 +254,7 @@ class CourseStudentSerializer(serializers.ModelSerializer):
         model = CourseStudent
         fields = ('id', 'user', 'course', 'course_finished',
                   'certificate', 'can_emmit_receipt', 'percent_progress',
-                  'current_class', 'min_percent_to_complete', 'start_date',)
+                  'current_class', 'min_percent_to_complete',)
 
 
 class CourseStudentClassSerializer(CourseStudentSerializer):
@@ -241,25 +268,15 @@ class CourseStudentClassSerializer(CourseStudentSerializer):
 
 
 class ClassSerializer(serializers.ModelSerializer):
-    students = CourseStudentClassSerializer(source='get_students', many=True, read_only=True)
+    students_details = CourseStudentClassSerializer(source='get_students', many=True, read_only=True)
     processes = CertificationProcessSerializer(read_only=True, many=True)
     evaluations = EvaluationSerializer(read_only=True, many=True)
     course = CourseSerializer(read_only=True)
     assistant = TimtecUserSerializer(read_only=True)
-    students_management = serializers.PrimaryKeyRelatedField(many=True, read_only=False, source='students')
-    assistant_management = serializers.PrimaryKeyRelatedField(read_only=False, source='assistant', required=False)
+    assistant_management = serializers.PrimaryKeyRelatedField(read_only=False, source='assistant', required=False, allow_null=True, queryset=get_user_model().objects.all())
 
     class Meta:
         model = Class
-
-
-class UserSocialAccountSerializer(serializers.ModelSerializer):
-
-    get_absolute_url = serializers.Field()
-
-    class Meta:
-        model = UserSocialAccount
-        fields = ('social_media', 'nickname', 'get_absolute_url')
 
 
 class ProfileSerializer(TimtecUserSerializer):
