@@ -339,7 +339,7 @@ PIPELINE = {
     'STYLESHEETS': {
         'common': {
             'source_filenames': (
-                'font-awesome/css/font-awesome.css',
+                'components-font-awesome/css/font-awesome.css',
                 'codemirror/lib/codemirror.css',
                 'codemirror/addon/hint/show-hint.css',
                 'codemirror/theme/monokai.css',
