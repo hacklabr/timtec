@@ -1,12 +1,10 @@
 (function(angular){
     'use strict';
 
-    var app = angular.module('lesson.controllers', []);
+    var app = angular.module('lesson.controllers', ['ngSanitize']);
 
-    app.controller('MainCtrl', ['$scope', 'LessonData', 'Answer', 'Progress', '$location', 'youtubePlayerApi', 'resolveActivityTemplate', '$modal', 'Student',
-        function ($scope, LessonData, Answer, Progress, $location, youtubePlayerApi, resolveActivityTemplate, $modal, Student) {
-
-            window.ga = window.ga || function(){};
+    app.controller('MainCtrl', ['$scope', '$sce', 'LessonData', 'Answer', 'Progress', '$location', 'youtubePlayerApi', 'resolveActivityTemplate', '$uibModal', 'Student',
+        function ($scope, $sce, LessonData, Answer, Progress, $location, youtubePlayerApi, resolveActivityTemplate, $uibModal, Student) {
 
             youtubePlayerApi.events.onStateChange = function(event){
                 window.onPlayerStateChange.call($scope.currentUnit, event);
@@ -48,6 +46,11 @@
                 }
             };
 
+            $scope.prevUnit = function() {
+                var index = $scope.lesson.units.indexOf($scope.currentUnit);
+                index--;
+                $location.path('/{0}'.format(index+1));
+            };
 
             $scope.play = function() {
                 if($scope.currentUnit.video){
@@ -64,13 +67,15 @@
                 }
             };
 
+            $scope.getReadingActivityHtml = function() {
+                return $sce.trustAsHtml($scope.currentActivity.data.question);
+            };
+
             $scope.selectActivity = function(index) {
 
                 if($scope.currentUnit.activities && $scope.currentUnit.activities.length) {
                     $scope.currentActivity = $scope.currentUnit.activities[index];
                     $scope.activityTemplateUrl = resolveActivityTemplate($scope.currentActivity.type);
-                    console.log($scope.activityTemplateUrl);
-                    ga("send", "event", "activity", "select", $scope.currentActivity.id);
 
                     $scope.answer = Answer.get({activityId: $scope.currentActivity.id}, function(answer) {
                         var exp = $scope.currentActivity.expected;
@@ -78,6 +83,7 @@
 
                         // Test if the answer type is array.
                         // See https://github.com/hacklabr/timtec/wiki/Atividades for details
+                        // FIXME should compare $scope.currentActivity.type
                         if ($scope.currentActivity === 'relationship' ||
                             $scope.currentActivity === 'trueorfalse' ||
                             $scope.currentActivity === 'multiplechoice') {
@@ -112,26 +118,19 @@
 
             $scope.sendAnswer = function() {
                 $scope.answer.activity = $scope.currentActivity.id;
+                if ($scope.currentActivity.type === 'image')
+                    $scope.answer.given = 'image';
                 $scope.answer.$update({activityId: $scope.answer.activity}).then(function(answer){
                     $scope.$root.changed = false;
-                    console.log(answer, answer.correct);
-                    ga('send', 'event', 'activity', 'result', '', answer.correct);
                     $scope.currentUnit.progress = Progress.get({unit: $scope.currentUnit.id});
                     answer.updated = true;
-
-                    // checks if there empty answers in array
-                    if($scope.currentActivity.type === 'trueorfalse') {
-                        for(var item in $scope.answer.given) {
-                            if($scope.answer.given[item] === null) {
-                                $scope.answer.incomplete = true;
-                                return $scope.answer;
-                            }
-                        }
-                    }
-                    
                     return answer;
                 });
-                ga('send', 'event', 'activity', 'submit');
+            };
+
+            $scope.sendAnswerText = function() {
+                $scope.currentUnit.progress = Progress.complete($scope.currentUnit.id);
+                $scope.nextUnit();
             };
 
             $scope.sendAnswerText = function() {
@@ -144,21 +143,24 @@
             $scope.nextStep = function(skipComment) {
                 var progress;
                 if($scope.section === 'video') {
+                    // Test if currentUnit has an activity
                     if(angular.isArray($scope.currentUnit.activities) &&
                         $scope.currentUnit.activities.length > 0) {
                         $scope.section = 'activity';
                     } else {
-                        progress = Progress.complete($scope.currentUnit.id);
-                        $scope.currentUnit.progress = progress;
+                        $scope.currentUnit.progress = Progress.complete($scope.currentUnit.id);
                         $scope.nextUnit();
                     }
                 } else {
+                    // Test if must display activity comments
                     if($scope.section === 'activity' && !skipComment && $scope.currentActivity.comment) {
                         $scope.section = 'comment';
                     } else {
                         var index = $scope.currentUnit.activities.indexOf($scope.currentActivity);
+                        // Test if this is the last activity in the currentUnit unit
                         if(index+1 === $scope.currentUnit.activities.length) {
-                            $scope.currentUnit.progress = Progress.get({unit: $scope.currentUnit.id});
+                            
+                            $scope.currentUnit.progress = Progress.complete($scope.currentUnit.id);
                             $scope.nextUnit();
                         } else {
                             $scope.selectActivity(index + 1);
@@ -168,19 +170,38 @@
                 }
             };
 
-            var start;
-            $scope.$watch('currentUnit', function(currentUnit, lastUnit) {
-                if(!$scope.lesson) return;
-                // Changing Unit means unit starting
-                if (start && lastUnit) {
-                    var end = new Date().getTime();
-                    ga('send', 'event', 'unit', 'time in unit',
-                       $scope.lesson.course + ' - "' + $scope.lesson.name + '" - ' + lastUnit.id,
-                       end - start);
+            $scope.slide_activity_update_position = function(){
+                $scope.current_position_slides = $scope.currentUnit.activities.indexOf($scope.currentActivity) + 1;
+            };
+
+            $scope.next_activity_from_image = function() {
+              var changeUnit = false;
+              if($scope.current_position_slides === $scope.currentUnit.activities.length){
+                  changeUnit = true;
+              }
+
+              $scope.sendAnswer();
+              $scope.nextStep(true);
+              if(changeUnit === false){
+                  $scope.slide_activity_update_position();
+              } else {
+                  $scope.current_position_slides = 1;
+              }
+            };
+
+            $scope.previous_activity_from_image = function() {
+                if($scope.section === 'activity') {
+                    var index = $scope.currentUnit.activities.indexOf($scope.currentActivity);
+                    if (index > 0) {
+                        $scope.selectActivity(index - 1);
+                        $scope.section = 'activity';
+                    } else {
+//                        $scope.currentUnit.progress = Progress.get({unit: $scope.currentUnit.id});
+                       $scope.prevUnit();
+                    }
+                    $scope.slide_activity_update_position();
                 }
-                ga('send', 'event', 'unit', 'start', $scope.lesson.course + ' - ' + $scope.lesson.name, $scope.currentUnit.id);
-                start = new Date().getTime();
-            });
+            };
 
             LessonData.then(function(lesson){
                 $scope.lesson = lesson;
@@ -194,8 +215,10 @@
                    index = /#\/(\d+)/.extract(document.location.hash, 1);
                    index = parseInt(index, 10) - 1 || 0;
                    $scope.selectUnit(lesson.units[index]);
-                });
 
+                   // Create StudentProgress to register that the student have been in this unit
+                   lesson.units[index].progress = Progress.save({unit: $scope.currentUnit.id});
+                });
             });
 
             $scope.$watch("section", function(currentSection, lastSection){
@@ -205,9 +228,9 @@
             });
 
             $scope.courseComplete = function () {
-                var modalInstance = $modal.open({
+                var modalInstance = $uibModal.open({
                     templateUrl: 'courseCompleteModal.html',
-                    controller: ['$scope', '$modalInstance', 'course_slug', 'Student', 'CourseCertification',
+                    controller: ['$scope', '$uibModalInstance', 'course_slug', 'Student', 'CourseCertification',
                         'CertificationProcess', CourseCompleteModalInstanceCtrl],
                     resolve: {
                         course_slug: function () {
@@ -220,7 +243,7 @@
                 });
             };
 
-            var CourseCompleteModalInstanceCtrl = function ($scope, $modalInstance, course_slug, Student,
+            var CourseCompleteModalInstanceCtrl = function ($scope, $uibModalInstance, course_slug, Student,
                 CourseCertification, CertificationProcess) {
                 // Show spinner while creating the receipt
 
@@ -253,9 +276,8 @@
                         cs.certificate.processes.push(new_cp);
                     });
                 }
-
                 $scope.cancel = function () {
-                        $modalInstance.dismiss();
+                        $uibModalInstance.dismiss();
                 };
             }
         }
@@ -278,18 +300,15 @@
                   lastState === YT.PlayerState.PLAYING)) { // event with ENDED state after cue video.
                 event.data = lastState;
             } else {
-                ga('send', 'event', 'videos', 'watch To end', video_id);
                 if (whole === 'started') {
                     var stop = new Date().getTime();
                     var delta_s = (stop - start) / 1000;
-                    ga('send', 'event', 'videos', 'time tO end', video_id, Math.round(delta_s));
                     whole = 'ended';
                 }
             }
         }
 
         if (event.data == YT.PlayerState.PLAYING){
-                ga('send', 'event', 'videos', 'play', video_id);
                 _pauseFlag = false;
                 if (whole !== 'ended' && whole !== 'started') {
                     start = new Date().getTime();
@@ -298,14 +317,7 @@
         }
 
         if (event.data == YT.PlayerState.PAUSED && _pauseFlag === false){
-            ga('send', 'event', 'videos', 'pause', video_id);
             _pauseFlag = true;
-        }
-        if (event.data == YT.PlayerState.BUFFERING){
-            ga('send', 'event', 'videos', 'bufferIng', video_id);
-        }
-        if (event.data == YT.PlayerState.CUED){
-            ga('send', 'event', 'videos', 'cueing', video_id);
         }
 
         lastState = event.data;

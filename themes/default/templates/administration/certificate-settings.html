@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% load compressed %}
+{% load pipeline %}
 {% load static %}
 {% load i18n %}
 
 {% block js %}
     {{ block.super }}
-    {% compressed_js 'core' %}
-    {% compressed_js 'certificate' %}
+    {% javascript 'core' %}
+    {% javascript 'certificate' %}
 {% endblock %}
 
 {% block wrapper_classes %}

@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% load i18n %}
-{% load compressed %}
+{% load pipeline %}
 {% load is_enrolled %}
 {% load get_flatpage %}
 
 {% block js %}
     {{ block.super }}
-    {% compressed_js 'core' %}
+    {% javascript 'core' %}
     <script type="text/javascript" src="/static/js/introjs/home.js"></script>
 {% endblock %}
 
@@ -98,7 +98,7 @@ home
                             </div>
                             <div class="info">
                                 <h3>{{ course.name }}</h3>
-                                <p class="instructors">{% for professor in course.get_video_professors %}{{ professor.get_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                                <p class="instructors">{{ course.authors_names }}</p>
                                 <p class="abstract">{{ course.abstract }}</p>
                             </div>
                              <div class="enroll">

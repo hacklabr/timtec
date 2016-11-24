@@ -14,5 +14,5 @@ Essa é a documentação básica de instalação (deploy) TIM Tec. Para informa�
    instalacao/DjangoTools
    instalacao/Adicionando-dependências-usando-o-bower
    instalacao/Atividades
-   instalacao/[Dev]-Instalação-no-Archlinux
+   instalacao/Criando-Ambiente-de-Desenvolvimento
 

@@ -9,20 +9,21 @@ from reports.serializer import UserCourseStatsSerializer, CourseStats, LessonUse
 
 class UserCourseStats(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
     model = CourseStudent
+    queryset = CourseStudent.objects.all()
     serializer_class = UserCourseStatsSerializer
     filter_fields = ('course',)
 
     def get_queryset(self):
         queryset = super(UserCourseStats, self).get_queryset()
         user = self.request.user
-        course_id = self.request.QUERY_PARAMS.get('course')
+        course_id = self.request.query_params.get('course')
         role = None
         try:
             role = self.request.user.teaching_courses.get(course__id=course_id).role
         except ObjectDoesNotExist:
             pass
 
-        classes_id = self.request.QUERY_PARAMS.getlist('classes')
+        classes_id = self.request.query_params.getlist('classes')
         # class passed as get paremeter
         classes = Class.objects.filter(course=course_id)
         if classes_id:
@@ -38,6 +39,7 @@ class UserCourseStats(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
 
 class UserCourseLessonsStats(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
     model = CourseStudent
+    queryset = CourseStudent.objects.all()
     serializer_class = LessonUserStats
     filter_fields = ('course', 'user',)
     lookup_field = 'course'
@@ -45,6 +47,7 @@ class UserCourseLessonsStats(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
 
 class CourseStatsByLessonViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
     model = Course
+    queryset = Course.objects.all()
     serializer_class = CourseStats
 
     def retrieve(self, request, *args, **kwargs):
@@ -57,7 +60,7 @@ class CourseStatsByLessonViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewS
         except ObjectDoesNotExist:
             pass
 
-        classes_id = self.request.QUERY_PARAMS.getlist('classes')
+        classes_id = self.request.query_params.getlist('classes')
         # class passed as get paremeter
         classes = Class.objects.filter(course=course_id)
         if classes_id:

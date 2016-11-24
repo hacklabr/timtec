@@ -9,19 +9,10 @@
         });
     });
 
-    app.factory('Progress', ['$resource', '$q', function($resource, $q){
-        var Progress = $resource('/api/student_progress/:unit', null,
-                                 {'update': { method:'PUT' }});
-
-        Progress.complete = function (unit) {
-            var progress = new Progress();
-            progress.complete = new Date();
-            progress.unit = unit;
-            Progress.update({unit: progress.unit}, progress);
-            return progress;
-        };
-
-        return Progress;
+    app.factory('Progress', ['$resource', function($resource){
+        return $resource('/api/student_progress/:unit', {}, {
+            'update': { method:'PUT' }
+        });
     }]);
 
     app.factory('Lesson', ['$resource', function($resource){
@@ -65,7 +56,7 @@
 
     app.factory('resolveActivityTemplate', ['STATIC_URL', function(STATIC_URL) {
         return function (typeName) {
-            return STATIC_URL + '/templates/activity_'+ typeName + '.html';
+            return STATIC_URL + 'templates/activity_'+ typeName + '.html';
         };
     }]);
 

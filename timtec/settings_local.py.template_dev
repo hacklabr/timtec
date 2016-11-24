@@ -1,0 +1,28 @@
+# -*- coding: utf-8 -*-
+# https://docs.djangoproject.com/en/dev/ref/settings/
+
+DOMAIN_NAME = 'localhost'
+
+DEBUG = True
+
+TIMTEC_THEME = 'default'
+
+# INSTALLED_APPS += ("my-app", )
+
+TERMS_ACCEPTANCE_REQUIRED = False
+
+ALLOWED_HOSTS = ['*']
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # change according to your needs
+        'NAME': 'timtec',
+        'USER': 'vagrant',
+    },
+}
+
+if DEBUG:
+    INSTALLED_APPS += (
+        'debug_toolbar',
+    )

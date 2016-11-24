@@ -1,4 +1,4 @@
-{% load compressed %}
+{% load pipeline %}
 {% load timtec_markdown %}
 {% load i18n %}
 {% load get_flatpage %}
@@ -12,7 +12,7 @@
     window.is_admin = false;
     {% endif %}
 </script>
-{% compressed_js 'forum' %}
+{% javascript 'forum' %}
 <section id="forum" class="forum-inline">
 
     <section id="forum-content" ng-controller="InlineForumCtrl">

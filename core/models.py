@@ -9,6 +9,8 @@ from django.db.models import Count
 from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
+from django.contrib.auth.models import Group
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.template import Template, Context
 from django.contrib.contenttypes.fields import GenericRelation
@@ -130,6 +132,14 @@ class Course(models.Model):
                                                   null=True,
                                                   blank=True)
 
+    groups = models.ManyToManyField(
+        Group,
+        verbose_name=_('groups'),
+        blank=True,
+        help_text=_('The Groups that can have access to this forum. If empty, there are no group restrictions.'),
+        related_name="courses",
+    )
+
     class Meta:
         verbose_name = _('Course')
         verbose_name_plural = _('Courses')
@@ -158,6 +168,10 @@ class Course(models.Model):
 
     def is_enrolled(self, user):
         return CourseStudent.objects.filter(course=self, user=user).exists()
+
+    @property
+    def thumbnail_url(self):
+        return self.get_thumbnail_url()
 
     def get_thumbnail_url(self):
         if self.thumbnail:
@@ -211,8 +225,17 @@ class Course(models.Model):
         return self.user.forum_answers.values('question__lesson').annotate(
             Count('question__lesson'))
 
-    def get_video_professors(self):
-        return self.course_authors.all()
+    @property
+    def authors_names(self):
+        professors = self.course_authors.all()
+        professors_names = ''
+        if professors:
+            last_elem_index = len(professors) - 1
+            for index, professor in enumerate(professors):
+                professors_names += professor.get_name()
+                if last_elem_index != index:
+                    professors_names += ', '
+        return professors_names
 
     def get_professor_role(self, user):
         try:
@@ -232,6 +255,13 @@ class Course(models.Model):
             professors.append(cp.user)
 
         return iter(professors)
+
+    def is_course_assistant(self, user):
+        if user.is_anonymous():
+            return False
+
+        return self.get_professor_role(user) == 'assistant'
+        # return role =='assistant', 'coordinator'] or user.is_superuser
 
     def is_assistant_or_coordinator(self, user):
         if user.is_anonymous():
@@ -268,6 +298,7 @@ class Course(models.Model):
 class CourseStudent(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Student'))
     course = models.ForeignKey(Course, verbose_name=_('Course'))
+    start_date = models.DateTimeField(default=timezone.now)
 
     class Meta:
         unique_together = (('user', 'course'),)
@@ -498,6 +529,8 @@ class CourseAuthor(models.Model):
             return self.name
         elif self.user:
             return self.user.get_full_name()
+        else:
+            return ''
 
     def get_biography(self):
         if self.biography:
@@ -584,6 +617,7 @@ class Lesson(PositionedModel):
     def __unicode__(self):
         return self.name
 
+    @property
     def thumbnail(self):
         try:
             first_vid_unit = self.units.exclude(video=None).order_by('position')[0]

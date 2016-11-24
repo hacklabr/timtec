@@ -4,12 +4,14 @@
   "dependencies": {
     "yuglify": "~0.1.4",
     "uglify-js": "~2.6.2",
-    "grunt": "~0.4.5",
-    "grunt-cli": "~0.1.13",
-    "grunt-angular-gettext": "~2.1.11",
-    "less": "~2.6.1",
+    "grunt": "~1.0.1",
+    "grunt-cli": "~1.2.0",
+    "grunt-angular-gettext": "~2.2.1",
+    "less": "~2.7.1",
     "ng-annotate": "~1.2",
-    "phantomjs-prebuilt": "~2.1.7"
+    "phantomjs-prebuilt": "~2.1.7",
+    "node-sass": "~3.7.0",
+    "bower": "~1.7.9"
   },
   "devDependencies": {
     "jshint": "~2.9.1"
@@ -23,7 +25,7 @@
     "url": "https://github.com/hacklabr/timtec.git"
   },
   "author": "hacklab/",
-  "license": "AGPLv3",
+  "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/hacklabr/timtec/issues"
   },

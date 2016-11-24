@@ -7,6 +7,7 @@ Se estiver em dúvida, execute novamente o comando abaixo.
 ```
 $ apt-get install -y phantomjs
 ```
+Se não der certo, tente instalar com npm
 
 ## Renomeie o arquivo settings_production.py para settings_local.py
 
@@ -14,6 +15,20 @@ Na raíz do repositório, faça:
 ```
 $ mv timtec/settings_production.py timtec/settings_local.py
 ```
+
+## Alguns cuidados
+1. Talvez também seja necessário atualizar o npm como root
+
+```
+# curl -L https://www.npmjs.com/install.sh | sh
+```
+
+2. Pode ser necessário atualizar o pip dentro do env
+```
+(env)$ pip install --upgrade --force pip
+(env)$ pip install --upgrade --force wal-e
+```
+
 
 ## Proceda com o procedimento de atualização normal
 

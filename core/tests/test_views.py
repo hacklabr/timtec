@@ -280,29 +280,32 @@ def test_course_professor_get_bio_or_pic_should_be_course_professor_bio_or_pic_w
 
 @pytest.mark.django_db
 def test_only_admin_or_coordinator_can_edit_course(client, admin_client):
-    course = mommy.make('Course', slug='dbsql', name='A course', abstract='asdf')
+    course = Course.objects.create(slug='dbsql', name='A course', abstract='asdf')
 
     professor = create_user('professor')
     client.login(username=professor.username, password='password')
 
-    response = client.post('/api/course/' + str(course.id), {'id': str(course.id),
-                                                             'slug': course.slug,
-                                                             'abstract': 'A abstract'})
+    response = client.post('/api/course/{}'.format(str(course.id)),
+                           {'id': course.id,
+                            'slug': course.slug,
+                            'abstract': 'A abstract'},
+                           content_type='application/json;charset=UTF-8')
+
     assert response.status_code == 403
     assert course.abstract == 'asdf'
 
     mommy.make('CourseProfessor', user=professor, course=course, role='coordinator')
-    response = client.post('/api/course/' + str(course.id), {'id': str(course.id),
-                                                             'slug': course.slug,
-                                                             'abstract': 'A abstract'})
+    response = client.post('/api/course/{}'.format(str(course.id)), {'id': str(course.id),
+                                                                     'slug': course.slug,
+                                                                     'abstract': 'A abstract'})
 
     changed_course = Course.objects.get(id=course.id)
     assert response.status_code == 200
     assert changed_course.abstract == 'A abstract'
 
-    response = admin_client.post('/api/course/' + str(course.id), {'id': str(course.id),
-                                                                   'slug': course.slug,
-                                                                   'abstract': 'Another abstract'})
+    response = admin_client.post('/api/course/{}'.format(str(course.id)), {'id': str(course.id),
+                                                                           'slug': course.slug,
+                                                                           'abstract': 'Another abstract'})
     changed_course = Course.objects.get(id=course.id)
     assert response.status_code == 200
     assert changed_course.abstract == 'Another abstract'
@@ -319,8 +322,8 @@ def test_only_admin_or_coordinator_can_edit_courseprofessors(client, admin_clien
     course_professor = mommy.make('CourseProfessor', course=course, biography='asdf')
     client.login(username=professor.username, password='password')
 
-    response = client.put('/api/course_professor/' + str(course_professor.id),
-                          {'id': str(course_professor.id),
+    response = client.put('/api/course_professor/{}'.format(str(course_professor.id)),
+                          {'id': course_professor.id,
                            'biography': 'A biography'},
                           content_type='application/json;charset=UTF-8')
     assert response.status_code == 403
@@ -329,16 +332,18 @@ def test_only_admin_or_coordinator_can_edit_courseprofessors(client, admin_clien
     # set user as coordinator
     mommy.make('CourseProfessor', user=professor, course=course, role='coordinator')
     response = client.put('/api/course_professor/' + str(course_professor.id),
-                          json.dumps({'id': str(course_professor.id),
+                          json.dumps({'id': course_professor.id,
                                       'course': course.id,
+                                      'professor': professor.id,
                                       'biography': 'A biography'}),
                           content_type='application/json;charset=UTF-8')
     changed_course_professor = CourseProfessor.objects.get(id=course_professor.id)
+
     assert response.status_code == 200
     assert changed_course_professor.biography == 'A biography'
 
     response = admin_client.put('/api/course_professor/' + str(course_professor.id),
-                                json.dumps({'id': str(course_professor.id),
+                                json.dumps({'id': course_professor.id,
                                             'course': course.id,
                                             'biography': 'Another biography as admin'}),
                                 content_type='application/json;charset=UTF-8')
