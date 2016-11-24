@@ -60,5 +60,6 @@ twitter==1.17.1
 
 django-extensions==1.5.5
 
-# IF theme
+# Themes
+git+https://github.com/institutotim/timtec-theme-timtec.git#master
 git+https://github.com/institutotim/timtec-theme-if.git#master
