@@ -2,25 +2,36 @@ FROM python:2.7
 MAINTAINER Fabio Montefuscolo <fabio.montefuscolo@hacklab.com.br>
 MAINTAINER Moacir Moda <moa.moda@gmail.com>
 
+# Libs para a geração do certificado
 RUN apt-get update \
     && apt-get install -y libpq-dev libjpeg-dev libpng12-dev gettext \
     && apt-get install -y npm vim \
     && apt-get install -y postgresql-client
 
+# gato para o node funcionar no debian
 RUN ln -s /usr/bin/nodejs /usr/bin/node
+
+# instalação do phantom
 RUN npm install -g phantomjs-prebuilt bower
 
+# colocando a app principal
 RUN mkdir -p /app
-
 COPY . /app/timtec
+
+# Colocando o tema componentizado do IF
+COPY ../timtec-theme-if/ /app/timtec-theme-if
+
+# Instalação das dependências do python
 RUN mkdir -p /app/webfiles/static \
    && mkdir -p /app/webfiles/media \
    && pip install -r /app/timtec/requirements/production.txt \
    && pip install -r /app/timtec/requirements/local.txt \
    && pip install -r /app/timtec/requirements/test.txt \
 
+# Diretório onde o cursor deve estar
 WORKDIR /app/timtec
 
+# Instalação das dependências do bower
 RUN cd /app/timtec \
    && npm install \
    && node bower install \
