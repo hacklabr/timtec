@@ -48,19 +48,16 @@ timtec-production:x:1001:1001::/home/timtec-production:/bin/bash
 ```
 
 ## Obtendo o código
-=======
-$ sudo passwd timtec
-```
+
 Se você estiver usando Debian, pode acontecer do sistema criar uma instância do novo usuário com acesso a um terminal sh. Se você quiser usar o bash (terminal mais completo e com mais funcionalidades), você pode alterar essa informação no arquivo de configuração de usuários. Proceda da seguinte maneira:
 
 1) Abra o arquivo /etc/passwd e verifique a linha onde está o usuário timtec. Você pode ver uma linha assim:    
-
+```
      timtec:x:1001:1001::/home/timtec:/bin/sh
-
+```
 2) Repare que a linha tem indicação para o terminal sh. Mude para bash e salve o arquivo com a linha desta maneira (use vim, nano ou qualquer editor de sua preferência):
 
      timtec:x:1001:1001::/home/timtec:/bin/bash
->>>>>>> 4.0-dev:docs/instalacao_e_configuracao/Instalação.md
 
 * Atualize o índice de pacotes e instale o git
 
@@ -68,15 +65,11 @@ Se você estiver usando Debian, pode acontecer do sistema criar uma instância d
 root@server# apt-get update
 root@server# apt-get install git
 ```
-<<<<<<< HEAD:docs/instalacao_e_configuracao/timtec_deploy.md
+
 * Com usuário da aplicação - no nosso caso timtec-production - faça a clonagem do repositório:
+
 ```
 timtec-production@server$ git clone ~/https://github.com/hacklabr/timtec.git
-=======
-$ sudo apt-get update
-$ sudo apt-get install git
-$ git clone https://github.com/hacklabr/timtec.git
->>>>>>> 4.0-dev:docs/instalacao_e_configuracao/Instalação.md
 ```
 
 Em seguida, escolha a versão desejada e atualize o código para ela com o comando abaixo. Aqui você encontra uma lista de versões do TIMTec: https://github.com/hacklabr/timtec/releases
