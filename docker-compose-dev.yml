@@ -15,6 +15,7 @@ services:
             - POSTGRES_USER=timtec
     django:
         container_name: timtec_django
+        command: python /app/timtec/manage.py runserver 0.0.0.0:8000
         build:
             context: .
             dockerfile: Dockerfile-dev
