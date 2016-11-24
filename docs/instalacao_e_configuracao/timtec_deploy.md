@@ -24,29 +24,14 @@ Caso o usuário exista, o comando acima deve retornar uma linha semelhante a seg
 ```
 timtec-production:x:999:999::/home/timtec-production:
 ```
-=======
-
-    grep timtec /etc/passwd
-
-Caso o usuário exista, o comando acima deve retornar uma linha semelhante a seguinte:
-
-    timtec:x:999:999::/home/timtec:
->>>>>>> 4.0-dev:docs/instalacao_e_configuracao/Instalação.md
-
 Caso não exista é possível criá-lo com:
 
 ```
-<<<<<<< HEAD:docs/instalacao_e_configuracao/timtec_deploy.md
 root@server# useradd --groups sudo --create-home timtec-production
-=======
-$ sudo useradd --groups sudo --create-home timtec
->>>>>>> 4.0-dev:docs/instalacao_e_configuracao/Instalação.md
 ```
-
 Depois mude a senha:
 
 ```
-<<<<<<< HEAD:docs/instalacao_e_configuracao/timtec_deploy.md
 root@server# passwd timtec-production
 ```
 
