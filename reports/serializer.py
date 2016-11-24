@@ -6,9 +6,9 @@ from core.models import CourseStudent, Course
 class UserCourseStatsSerializer(serializers.ModelSerializer):
 
     name = serializers.SerializerMethodField('get_full_name')
-    username = serializers.SerializerMethodField('get_username')
-    email = serializers.SerializerMethodField('get_email')
-    user_id = serializers.SerializerMethodField('get_user_id')
+    username = serializers.SerializerMethodField()
+    email = serializers.SerializerMethodField()
+    user_id = serializers.SerializerMethodField()
     course_progress = serializers.SerializerMethodField('get_user_progress')
     # forum_questions = serializers.SerializerMethodField('get_forum_questions')
     # forum_answers = serializers.SerializerMethodField('get_forum_answers')
@@ -42,9 +42,9 @@ class UserCourseStatsSerializer(serializers.ModelSerializer):
 
 class LessonUserStats(serializers.ModelSerializer):
 
-    lessons_progress = serializers.SerializerMethodField('get_lessons_progress')
-    forum_questions = serializers.SerializerMethodField('get_forum_questions')
-    forum_answers = serializers.SerializerMethodField('get_forum_answers')
+    lessons_progress = serializers.SerializerMethodField()
+    # forum_questions = serializers.SerializerMethodField()
+    # forum_answers = serializers.SerializerMethodField()
 
     class Meta:
         model = CourseStudent
@@ -54,17 +54,17 @@ class LessonUserStats(serializers.ModelSerializer):
     def get_lessons_progress(obj):
         return obj.percent_progress_by_lesson()
 
-    @staticmethod
-    def get_forum_questions(obj):
-        return obj.forum_questions_by_lesson()
+    # @staticmethod
+    # def get_forum_questions(obj):
+    #     return obj.forum_questions_by_lesson()
 
-    @staticmethod
-    def get_forum_answers(obj):
-        return obj.forum_answers_by_lesson()
+    # @staticmethod
+    # def get_forum_answers(obj):
+    #     return obj.forum_answers_by_lesson()
 
 
 class CourseStats(serializers.ModelSerializer):
-    lessons_avg_progress = serializers.SerializerMethodField('get_lessons_avg_progress')
+    lessons_avg_progress = serializers.SerializerMethodField()
     # forum_answers = serializers.SerializerMethodField('get_forum_answers')
 
     class Meta:

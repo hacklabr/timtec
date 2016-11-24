@@ -127,7 +127,7 @@ html5
 //expected
 {
   "expected_answer":"<b>oi mundo</b>"
-} 
+}
 
 ## Editor PHP
 **type**: php
@@ -148,10 +148,44 @@ html5
     "index": 1,
     "content": "<?php echo 3 + 3 ?>",
     "editable": true
-  } 
+  }
 ]
+
+
+
 **expected**:
 
-{ 
+{
   "expected_answer":"Hello, world"
 }
+
+## Atividade com discussão
+**type**: discussion
+
+
+
+**data**:
+[
+  {
+    "forum": 1,
+    "content": "some <b>HTML escaped</b> content",
+    "start_date": 1470938019795,
+    "end_date": 1470938079795,
+  }
+]
+forum = this will be the forum where the answer will be stored as a topic
+
+
+content = HTML content with escaped chars, so the json syntax is respected
+
+
+start_date = start timestamp of the activity avaliability
+
+
+end_date = end timestamp of the activity avaliability
+
+
+
+**expected**:
+
+[]

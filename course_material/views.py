@@ -54,6 +54,7 @@ class CourseMaterialAdminView(AdminMixin, DetailView):
 
 class CourseMaterialViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     model = CourseMaterial
+    queryset = CourseMaterial.objects.all()
     serializer_class = CourseMaterialSerializer
     lookup_field = 'course'
     filter_fields = ('course__id',)

@@ -2,17 +2,18 @@
 
 {% load staticfiles %}
 {% load i18n %}
-{% load compressed %}
+{% load pipeline %}
 {% load is_course_coordinator %}
 
 {% block js %}
     {{ block.super }}
-    {% compressed_js 'core' %}
+    {% javascript 'core' %}
+    {% javascript 'certificate' %}
     <script>
         window.course_id = {{ class.course.pk }};
         window.class_id = {{ class.pk }};
     </script>
-    {% compressed_js 'edit-class' %}
+
 {% endblock %}
 
 {% block wrapper_classes %}

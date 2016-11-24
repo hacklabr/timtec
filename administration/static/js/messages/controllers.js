@@ -10,14 +10,14 @@
         };
     });
 
-    module.controller('NewMessageController', ['$scope', '$interval', '$modal', '$window', 'Message', 'Student', 'StudentSearch', 'Class', 'messages_list', '$rootScope',
-            function($scope, $interval, $modal, $window, Message, Student, StudentSearch, Class, messages_list, $rootScope) {
+    module.controller('NewMessageController', ['$scope', '$interval', '$uibModal', '$window', 'Message', 'Student', 'StudentSearch', 'Class', 'messages_list', '$rootScope',
+            function($scope, $interval, $uibModal, $window, Message, Student, StudentSearch, Class, messages_list, $rootScope) {
                 $scope.course_id = parseInt($window.course_id, 10);
                 $scope.messages = messages_list.messages;
                 $scope.new_message = function () {
-                    var modalInstance = $modal.open({
+                    var modalInstance = $uibModal.open({
                         templateUrl: 'newMessageModal.html',
-                        controller: ['$scope', '$modalInstance', 'course_id', SendMessageModalInstanceCtrl],
+                        controller: ['$scope', '$uibModalInstance', 'course_id', SendMessageModalInstanceCtrl],
                         resolve: {
                             course_id: function () {
                                 return $scope.course_id;
@@ -25,7 +25,7 @@
                         }
                     });
                 };
-                var SendMessageModalInstanceCtrl = function ($scope, $modalInstance, course_id) {
+                var SendMessageModalInstanceCtrl = function ($scope, $uibModalInstance, course_id) {
 
                     $scope.tinymceModel = 'Initial content';
                     $scope.tinymceOptions = {
@@ -82,16 +82,14 @@
                             });
                         }
                         if ($scope.new_message.message && $scope.new_message.subject) {
-
                             $scope.sending = true;
                             $scope.new_message.$save({}, function(new_message){
                                 messages_list.messages.unshift(new_message);
                                 $scope.progressbar_counter = 100;
                                 $rootScope.$broadcast('newMessage');
                                 $scope.sending = false;
-                                $modalInstance.close();
+                                $uibModalInstance.close();
                             });
-
                             $scope.empty_msg_subject_error = false;
                             $scope.empty_msg_body_error = false;
                         }
@@ -108,7 +106,7 @@
                     };
 
                     $scope.cancel = function () {
-                        $modalInstance.dismiss();
+                        $uibModalInstance.dismiss();
                     };
                     $scope.getUsers = function(val) {
                         return new StudentSearch(val, course_id);
@@ -129,8 +127,8 @@
             }
         ]);
 
-    module.controller('MessagesListController', ['$scope', '$modal', '$window', 'Message', 'messages_list',
-        function($scope, $modal, $window, Message, messages_list) {
+    module.controller('MessagesListController', ['$scope', '$uibModal', '$window', 'Message', 'messages_list',
+        function($scope, $uibModal, $window, Message, messages_list) {
             $scope.course_id = parseInt($window.course_id, 10);
             $scope.course_slug = $window.course_slug;
             messages_list.messages = Message.query({course: $scope.course_id});

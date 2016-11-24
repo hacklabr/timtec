@@ -1,10 +1,10 @@
-Ao tentar criar a base de dados, caso você receba um erro como este: 
+Ao tentar criar a base de dados, caso você receba um erro como este:
 
 ```
 createdb: database creation failed: ERROR:  invalid locale name: "pt_BR.UTF-8"
 ```
 
-Você precisa instalar o locale pt_BR.UTF-8 em seu sistema. 
+Você precisa instalar o locale pt_BR.UTF-8 em seu sistema.
 
 ## Adicione locale
 
@@ -29,9 +29,9 @@ LANGUAGE="pt_BR:pt:en"
 # update-locale LANG=pt_BR.UTF-8
 ```
 
-5 - Reinicie o sistema para que tenha validade. 
+5 - Reinicie o sistema para que tenha validade.
 
-Use o comando `locale` para ver a validade dos locales no sistema. Exemplo: 
+Use o comando `locale` para ver a validade dos locales no sistema. Exemplo:
 ```
 # locale
 LANG=pt_BR.UTF-8
@@ -63,4 +63,4 @@ $ psql
 # update pg_database set datcollate = 'pt_BR.UTF-8', datctype = 'pt_BR.UTF-8' where datname='template1';
 ```
 
-Pronto! Você alterou o locale padrão do seu sistema para pt_BR. 
+Pronto! Você alterou o locale padrão do seu sistema para pt_BR.

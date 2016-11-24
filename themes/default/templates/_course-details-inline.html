@@ -1,9 +1,8 @@
 {% load i18n %}
 {% load get_current_class %}
 <div class="course-details">
-    <div>
-        <span class="label">{% trans 'By' %}:</span>
-        {% for course_professor in course.get_video_professors %}
+    <div><span class="label">{% trans 'By' %}:</span>
+        {% for course_professor in course.course.course_authors.all %}
             <a class="course-instructor" {% if course_professor.user %}href="{% url 'profile' course_professor.user.username %}"{% endif %}>{{ course_professor.get_name }}</a>
         {% endfor %}
     </div>

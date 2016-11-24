@@ -3,8 +3,9 @@
 {% load i18n %}
 
 {% block js %} {{block.super}}
-<script type="text/javascript" src="{% static 'js/edit-lesson/app.js' %}">// must be the 1º</script>
-<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}">// must be the 2º</script>
+<script type="text/javascript" src="{% static 'app/admin.lesson.app.js' %}"></script>
+<script type="text/javascript" src="{% static 'app/controllers/admin.lesson.controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/core-services.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/new-course/directives.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/filters/text.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
@@ -14,12 +15,10 @@
 <script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/codemirror.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/directives/sortable.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/edit-lesson/controllers.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/introjs/admin-lesson.js' %}"></script>
 {% endblock %}
 
 {% block body_attrs %}
-ng-app="edit-lesson"
+ng-app="admin.lesson"
 {% endblock %}
 
 {% block wrapper_classes %}

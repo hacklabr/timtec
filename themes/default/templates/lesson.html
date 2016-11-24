@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% load i18n %}
-{% load compressed %}
+{% load pipeline %}
 {% load staticfiles %}
 {% load timtec_markdown %}
 
 {% block js %}
 {{ block.super }}
-{% compressed_js 'lesson' %}
+{% javascript 'lesson' %}
 
 <script type="text/javascript" src="{% static 'js/introjs/lesson.js' %}"></script>
 

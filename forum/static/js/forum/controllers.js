@@ -82,8 +82,8 @@
                     current_vote_object.$update({answer: answer_voted.current_user_vote.answer});
                 };
         }]).
-        controller('InlineForumCtrl', ['$scope', '$window', '$modal', '$http', 'Question', 'CourseProfessor', 'Class',
-            function ($scope, $window, $modal, $http, Question, CourseProfessor, Class) {
+        controller('InlineForumCtrl', ['$scope', '$window', '$uibModal', '$http', 'Question', 'CourseProfessor', 'Class',
+            function ($scope, $window, $uibModal, $http, Question, CourseProfessor, Class) {
                 var course_id = parseInt($window.course_id, 10);
                 var current_user_id = parseInt($window.user_id, 10);
 
@@ -214,23 +214,23 @@
                 }
             };
 
-            var ModalInstanceCtrl = function ($scope, $modalInstance, question) {
+            var ModalInstanceCtrl = function ($scope, $uibModalInstance, question) {
                 $scope.question = question;
 
                 $scope.ok = function () {
                     $scope.question.hidden = true;
                     $scope.question.hidden_by = $window.user_id;
                     $scope.question.hidden_justification = $scope.question.hidden_justification;
-                    $modalInstance.close($scope.question);
+                    $uibModalInstance.close($scope.question);
                 };
 
                 $scope.cancel = function () {
-                    $modalInstance.dismiss();
+                    $uibModalInstance.dismiss();
                 };
             };
 
             $scope.justification_modal = function (question) {
-                var modalInstance = $modal.open({
+                var modalInstance = $uibModal.open({
                     templateUrl: 'justificationModal.html',
                     controller: ModalInstanceCtrl,
                     resolve: {
