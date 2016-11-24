@@ -23,6 +23,7 @@ services:
         volumes:
             - .:/app/timtec
             - ../timtec-theme-if:/app/timtec-theme-if
+            - ../timtec-theme-timtec:/app/timtec-theme-timtec
         restart: always
         depends_on:
             - database
