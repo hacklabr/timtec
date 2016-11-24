@@ -22,6 +22,7 @@ services:
             dockerfile: Dockerfile-dev
         volumes:
             - .:/app/timtec
+            - ../timtec-theme-if:/app/timtec-theme-if
         restart: always
         depends_on:
             - database
