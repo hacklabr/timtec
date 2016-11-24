@@ -24,8 +24,8 @@ class AnswerSerializer(serializers.ModelSerializer):
     user_id = serializers.Field(source='user.id')
     correct = serializers.Field(source='is_correct')
     given = serializers.JSONField('given')
-    positive_feedback = serializers.Field('activity.positive_feedback')
-    negative_feedback = serializers.Field('activity.negative_feedback')
+    positive_feedback = serializers.ReadOnlyField(source='activity.positive_feedback')
+    negative_feedback = serializers.ReadOnlyField(source='activity.negative_feedback')
 
     class Meta:
         model = Answer

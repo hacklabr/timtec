@@ -100,7 +100,7 @@ class CourseCertificationSerializer(serializers.ModelSerializer):
     processes = BaseCertificationProcessSerializer(many=True, read_only=True)
     approved = BaseCertificationProcessSerializer(source='get_approved_process', read_only=True)
     course = serializers.SerializerMethodField()
-    url = serializers.Field(source='get_absolute_url')
+    url = serializers.ReadOnlyField(source='get_absolute_url')
 
     class Meta:
         model = CourseCertification
@@ -160,14 +160,10 @@ class VideoSerializer(serializers.ModelSerializer):
 
 class CourseSerializer(serializers.ModelSerializer):
     intro_video = VideoSerializer(required=False)
-    thumbnail_url = serializers.Field(source='get_thumbnail_url')
+    thumbnail_url = serializers.ReadOnlyField(source='get_thumbnail_url')
 
-    # TODO timtec theme specific: remove "professor_name" and "professor_names"
-    professor_name = serializers.SerializerMethodField()
-    professors_names = serializers.SerializerMethodField()
-
-    has_started = serializers.Field()
-    professors = TimtecUserSerializer(source="professors", read_only=True)
+    has_started = serializers.ReadOnlyField()
+    professors = serializers.SerializerMethodField('get_professor_name')
     home_thumbnail_url = serializers.SerializerMethodField()
     is_user_assistant = serializers.SerializerMethodField()
     is_user_coordinator = serializers.SerializerMethodField()
@@ -180,14 +176,12 @@ class CourseSerializer(serializers.ModelSerializer):
                   "thumbnail_url", "home_thumbnail_url", "home_position",
                   "start_date", "home_published", "authors_names", "has_started",
                   "min_percent_to_complete", "is_user_assistant", "is_user_coordinator",
-                  # TODO timtec theme specific: remove "professor_name" and "professor_names"
-                  "professor_name", "professor_names",
-                  "is_assistant_or_coordinator", )
+                  'professors', "is_assistant_or_coordinator", )
 
     @staticmethod
     def get_professor_name(obj):
-        if obj.professors.all():
-            return obj.professors.all()[0]
+        if obj.course_authors.all():
+            return [author.get_name() for author in obj.course_authors.all()]
         return ''
 
     @staticmethod
@@ -246,8 +240,8 @@ class ClassSerializer(serializers.ModelSerializer):
     evaluations = EvaluationSerializer(read_only=True, many=True)
     course = CourseSerializer(read_only=True)
     assistant = TimtecUserSerializer(read_only=True)
-    students_management = serializers.PrimaryKeyRelatedField(many=True, read_only=False, source='students')
-    assistant_management = serializers.PrimaryKeyRelatedField(read_only=False, source='assistant', required=False)
+    students_management = TimtecUserSerializer(many=True, read_only=False, source='students')
+    assistant_management = TimtecUserSerializer(many=True, read_only=False, source='assistant', required=False)
 
     class Meta:
         model = Class
@@ -255,7 +249,7 @@ class ClassSerializer(serializers.ModelSerializer):
 
 class UserSocialAccountSerializer(serializers.ModelSerializer):
 
-    get_absolute_url = serializers.Field()
+    get_absolute_url = serializers.ReadOnlyField()
 
     class Meta:
         model = UserSocialAccount
@@ -427,9 +421,9 @@ class CourseProfessorSerializer(serializers.ModelSerializer):
 class CourseAuthorSerializer(serializers.ModelSerializer):
     user_info = TimtecUserSerializer(source='user', read_only=True)
     course_info = CourseSerializer(source='course', read_only=True)
-    get_name = serializers.Field()
-    get_biography = serializers.Field()
-    get_picture_url = serializers.Field()
+    get_name = serializers.ReadOnlyField()
+    get_biography = serializers.ReadOnlyField()
+    get_picture_url = serializers.ReadOnlyField()
 
     class Meta:
         fields = ('id', 'course', 'course_info', 'user', 'name', 'biography', 'picture', 'user_info',
