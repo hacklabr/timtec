@@ -447,7 +447,6 @@ PIPELINE = {
                 'js/directives/waiting-screen.js',
                 'js/edit-class/app.js',
                 'js/edit-class/controllers.js',
-                'js/edit-class/services.js',
                 'checklist-model/checklist-model.js',
                 'js/factories/timtec-models.js',
             ),

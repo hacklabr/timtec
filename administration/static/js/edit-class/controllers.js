@@ -33,18 +33,18 @@
 
             $scope.remove_item = function(index){
                 // removing from 'screen' list
-                var student_id = $scope.classe.students[index].user.id;
+                var student_id = $scope.classe.students_details[index].user.id;
                 $scope.classe.students.splice(index, 1);
 
                 // remove from real list
-                var index_management = $scope.classe.students_management.indexOf(student_id);
-                $scope.classe.students_management.splice(index_management, 1);
+                var index_management = $scope.classe.students.indexOf(student_id);
+                $scope.classe.students.splice(index_management, 1);
                 $scope.save();
             };
 
             $scope.on_select_student = function(model) {
-                $scope.classe.students.unshift(model);
-                $scope.classe.students_management.unshift(model.id);
+                $scope.classe.students_details.unshift(model);
+                $scope.classe.students.unshift(model.id);
                 $scope.asyncSelected = '';
                 $scope.save();
             };
