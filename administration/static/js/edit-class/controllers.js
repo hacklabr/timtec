@@ -55,8 +55,7 @@
 
             $scope.toggle_certificate = function (index){
 
-                var student = $scope.classe.students[index];
-                console.log(student.certificate);
+                var student = $scope.classe.students_details[index];
                 if(student.certificate) {
                     var cc_id = student.certificate.link_hash;
                     var user_id = student.user.id;
@@ -75,9 +74,6 @@
             $scope.save = function(){
 
                 $scope.classe.$resolved = false;
-                if($scope.classe.assistant) {
-                    $scope.classe.assistant_management = $scope.classe.assistant.id;
-                }
 
                 $scope.classe.$update()
                     .then(function(){

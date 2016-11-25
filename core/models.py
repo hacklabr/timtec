@@ -44,10 +44,10 @@ class Video(models.Model):
 
 class Class(models.Model):
     name = models.CharField(max_length=255)
-    assistant = models.ForeignKey(settings.AUTH_USER_MODEL,
-                                  verbose_name=_('Assistant'),
-                                  related_name='professor_classes', null=True,
-                                  blank=True)
+    assistants = models.ManyToManyField(settings.AUTH_USER_MODEL,
+                                        verbose_name=_('Assistants'),
+                                        related_name='professor_classes',
+                                        blank=True)
     students = models.ManyToManyField(settings.AUTH_USER_MODEL,
                                       related_name='classes', blank=True)
     course = models.ForeignKey('Course', verbose_name=_('Course'))
@@ -63,6 +63,15 @@ class Class(models.Model):
 
     def get_absolute_url(self):
         return reverse('class', kwargs={'pk': self.id})
+
+    def add_students(self, *objs):
+        for obj in objs:
+            try:
+                c = Class.objects.get(course=self.course, students=obj)
+                c.students.remove(obj)
+            except Class.DoesNotExist:
+                pass
+            self.students.add(obj)
 
     def remove_students(self, *objs):
         for obj in objs:
@@ -514,7 +523,7 @@ class CourseProfessor(models.Model):
                                                professor=self)
 
     def get_current_user_classes(self):
-        return Class.objects.filter(course=self.course, assistant=self.user)
+        return Class.objects.filter(course=self.course, assistants=self.user)
 
 
 class CourseAuthor(models.Model):

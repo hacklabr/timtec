@@ -627,7 +627,7 @@ class ClassListView(LoginRequiredMixin, ListView):
         if course.has_perm_own_all_classes(user):
             return queryset
         else:
-            return queryset.filter(assistant=user)
+            return queryset.filter(assistants=user)
 
     def get_context_data(self, **kwargs):
         context = super(ClassListView, self).get_context_data(**kwargs)
@@ -648,7 +648,7 @@ class ClassCreateView(LoginRequiredMixin, CreateView):
 class CanEditClassMixin(object):
     def check_permission(self, klass):
         user = self.request.user
-        if not (user == klass.assistant or klass.course.has_perm_own_all_classes(user)):
+        if not (klass.assistants.filter(id=user.id).exists() or klass.course.has_perm_own_all_classes(user)):
             raise PermissionDenied
 
     def get_object(self, queryset=None):
@@ -660,7 +660,7 @@ class CanEditClassMixin(object):
 class ClassUpdateView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
     model = Class
     template_name = 'class_edit.html'
-    fields = ('name', 'assistant', 'user_can_certificate',)
+    fields = ('name', 'assistants', 'user_can_certificate',)
 
     def form_valid(self, form):
         if form.changed_data:
@@ -849,7 +849,7 @@ class ClassViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
                 role = ''
             # if user is not coordinator or admin, only show his classes
             if not role or role == 'assistant':
-                queryset = queryset.filter(assistant=self.request.user)
+                queryset = queryset.filter(assistants=self.request.user)
 
         return queryset
 
