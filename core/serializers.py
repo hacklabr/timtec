@@ -66,7 +66,7 @@ class BaseClassSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Class
-        fields = ("id", "name", "assistant", "user_can_certificate")
+        fields = ("id", "name", "assistants", "user_can_certificate")
 
 
 class BaseEvaluationSerializer(serializers.ModelSerializer):
@@ -192,6 +192,7 @@ class CourseSerializer(serializers.ModelSerializer):
     has_started = serializers.Field()
     professors = TimtecUserSerializer(source="professors", read_only=True)
     home_thumbnail_url = serializers.SerializerMethodField()
+    professors = TimtecUserSerializer(read_only=True, many=True)
     is_user_assistant = serializers.SerializerMethodField()
     is_user_coordinator = serializers.SerializerMethodField()
     is_assistant_or_coordinator = serializers.SerializerMethodField()
@@ -203,9 +204,7 @@ class CourseSerializer(serializers.ModelSerializer):
                   "thumbnail_url", "home_thumbnail_url", "home_position",
                   "start_date", "home_published", "authors_names", "has_started",
                   "min_percent_to_complete", "is_user_assistant", "is_user_coordinator",
-                  # TODO timtec theme specific: remove "professor_name" and "professor_names"
-                  "professor_name", "professor_names",
-                  "is_assistant_or_coordinator", )
+                  "is_assistant_or_coordinator", 'professors', )
 
     @staticmethod
     def get_professor_name(obj):
@@ -272,11 +271,18 @@ class ClassSerializer(serializers.ModelSerializer):
     processes = CertificationProcessSerializer(read_only=True, many=True)
     evaluations = EvaluationSerializer(read_only=True, many=True)
     course = CourseSerializer(read_only=True)
-    assistant = TimtecUserSerializer(read_only=True)
-    assistant_management = serializers.PrimaryKeyRelatedField(read_only=False, source='assistant', required=False, allow_null=True, queryset=get_user_model().objects.all())
+    assistants = TimtecUserSerializer(read_only=True, many=True)
 
     class Meta:
         model = Class
+
+    def update(self, instance, validated_data, **kwargs):
+        assistants = self.context['request'].data.get('assistants', None)
+        updated_class = super(ClassSerializer, self).update(instance, validated_data)
+        # If there are assistans to be associated with the class, do it now
+        for assistant in assistants:
+            updated_class.assistants.add(assistant['id'])
+        return updated_class
 
 
 class ProfileSerializer(TimtecUserSerializer):

@@ -7,8 +7,10 @@
         'directive.waiting-screen',
         'directive.alertPopup',
         'directive.fixedBar',
+        'ngSanitize',
         'timtec-models',
         'ui.bootstrap',
+        'ui.select',
         'header',
     ]);
 })(angular);

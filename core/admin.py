@@ -44,8 +44,8 @@ class VideoAdmin(ModelAdmin):
 
 
 class ClassAdmin(ModelAdmin):
-    search_fields = ('name', 'course', 'assistant')
-    list_display = ('name', 'assistant', 'course')
+    search_fields = ('name', 'course', 'assistants')
+    list_display = ('name', 'course')
     filter_horizontal = ('students', )
 
 
