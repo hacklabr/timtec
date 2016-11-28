@@ -815,6 +815,8 @@ class CertificateTemplate(models.Model):
                                   upload_to=hash_name('logo', 'organization_name'))
     base_logo = models.ImageField(_('Logo'), null=True, blank=True,
                                   upload_to=hash_name('base_logo', 'organization_name'))
+    signature = models.ImageField(_('Signature'), null=True, blank=True,
+                                  upload_to=hash_name('signature', 'organization_name'))
     organization_name = models.CharField(_('Name'), max_length=255, blank=True, null=True)
 
     class Meta:
@@ -836,6 +838,12 @@ class CertificateTemplate(models.Model):
     def base_logo_url(self):
         if self.base_logo:
             return self.base_logo.url
+        return ''
+
+    @property
+    def signature_url(self):
+        if self.signature:
+            return self.signature.url
         return ''
 
 

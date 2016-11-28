@@ -132,7 +132,7 @@ class CertificateTemplateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CertificateTemplate
-        fields = ('id', 'course', 'organization_name', 'base_logo_url', 'cert_logo_url', 'role', 'name',)
+        fields = ('id', 'course', 'organization_name', 'base_logo_url', 'cert_logo_url', 'role', 'name', 'signature_url', )
 
 
 class IfCertificateTemplateSerializer(CertificateTemplateSerializer):
@@ -140,14 +140,14 @@ class IfCertificateTemplateSerializer(CertificateTemplateSerializer):
     class Meta:
         model = IfCertificateTemplate
         fields = ('id', 'course', 'organization_name', 'base_logo_url', 'cert_logo_url',
-                  'pronatec_logo', 'mec_logo', 'role', 'name',)
+                  'pronatec_logo', 'mec_logo', 'role', 'name', 'signature_url',)
 
 
 class CertificateTemplateImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CertificateTemplate
-        fields = ('base_logo', 'cert_logo', )
+        fields = ('base_logo', 'cert_logo', 'signature', )
 
 
 class ClassActivitySerializer(serializers.ModelSerializer):

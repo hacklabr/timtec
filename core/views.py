@@ -463,6 +463,7 @@ class CertificateTemplateViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
 
 
 class CertificateTemplateImageViewSet(viewsets.ModelViewSet):
+    queryset = CertificateTemplate.objects.all()
     model = CertificateTemplate
     lookup_field = 'course'
     serializer_class = CertificateTemplateImageSerializer
