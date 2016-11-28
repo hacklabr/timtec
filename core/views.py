@@ -484,6 +484,7 @@ class CertificateTemplateViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
 
 
 class CertificateTemplateImageViewSet(viewsets.ModelViewSet):
+    queryset = CertificateTemplate.objects.all()
     model = CertificateTemplate
     lookup_field = 'course'
     serializer_class = CertificateTemplateImageSerializer
@@ -499,9 +500,6 @@ class CertificateTemplateImageViewSet(viewsets.ModelViewSet):
             return Response(status=200)
         else:
             return Response(serializer.errors, status=400)
-
-    def get_queryset(self):
-        return None
 
 
 class ProfessorMessageViewSet(viewsets.ModelViewSet):
