@@ -100,14 +100,16 @@
         $scope.activity_open = true;
         $scope.activity_expired = false;
         var now = Date.now();
+        var start_date = Date.parse($scope.currentActivity.data.start_date);
+        var end_date = Date.parse($scope.currentActivity.data.end_date);
 
         $scope.user = CurrentUser;
 
         // Decide the current state of the activity
-        if(now < $scope.currentActivity.data.start_date){
+        if(now < start_date){
           // The Activity is not open yet
           $scope.activity_open = false;
-        } else if(now > $scope.currentActivity.data.end_date){
+        } else if(now > end_date){
           // The Activity is already expired
           $scope.activity_expired = true;
         }
