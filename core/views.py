@@ -6,7 +6,7 @@ import datetime
 from django.db import IntegrityError
 from django.core.urlresolvers import reverse_lazy
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import HttpResponse, Http404, HttpResponseForbidden
 from django.views.generic import (DetailView, ListView, DeleteView,
                                   CreateView, UpdateView)
 from django.views.generic.base import RedirectView, View, TemplateView
@@ -343,6 +343,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class CourseCertificationViewSet(viewsets.ModelViewSet):
+    queryset = CourseCertification.objects.all()
     model = CourseCertification
     lookup_field = 'link_hash'
     filter_fields = ('course_student',)
@@ -370,6 +371,9 @@ class CourseCertificationDetailView(DetailView):
         from django.core.urlresolvers import resolve
 
         certificate = context.get('object')
+        if not certificate.course_student.can_emmit_receipt():
+            raise Http404
+
         if certificate:
             context['cert_template'] = IfCertificateTemplate.objects.get(course=certificate.course_student.course)
 
@@ -480,6 +484,7 @@ class CertificateTemplateViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
 
 
 class CertificateTemplateImageViewSet(viewsets.ModelViewSet):
+    queryset = CertificateTemplate.objects.all()
     model = CertificateTemplate
     lookup_field = 'course'
     serializer_class = CertificateTemplateImageSerializer
@@ -495,9 +500,6 @@ class CertificateTemplateImageViewSet(viewsets.ModelViewSet):
             return Response(status=200)
         else:
             return Response(serializer.errors, status=400)
-
-    def get_queryset(self):
-        return None
 
 
 class ProfessorMessageViewSet(viewsets.ModelViewSet):
@@ -623,7 +625,7 @@ class ClassListView(LoginRequiredMixin, ListView):
         if course.has_perm_own_all_classes(user):
             return queryset
         else:
-            return queryset.filter(assistant=user)
+            return queryset.filter(assistants=user)
 
     def get_context_data(self, **kwargs):
         context = super(ClassListView, self).get_context_data(**kwargs)
@@ -644,7 +646,7 @@ class ClassCreateView(LoginRequiredMixin, CreateView):
 class CanEditClassMixin(object):
     def check_permission(self, klass):
         user = self.request.user
-        if not (user == klass.assistant or klass.course.has_perm_own_all_classes(user)):
+        if not (klass.assistants.filter(id=user.id).exists() or klass.course.has_perm_own_all_classes(user)):
             raise PermissionDenied
 
     def get_object(self, queryset=None):
@@ -656,7 +658,7 @@ class CanEditClassMixin(object):
 class ClassUpdateView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
     model = Class
     template_name = 'class_edit.html'
-    fields = ('name', 'assistant', 'user_can_certificate',)
+    fields = ('name', 'assistants', 'user_can_certificate',)
 
     def form_valid(self, form):
         if form.changed_data:
@@ -845,7 +847,7 @@ class ClassViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
                 role = ''
             # if user is not coordinator or admin, only show his classes
             if not role or role == 'assistant':
-                queryset = queryset.filter(assistant=self.request.user)
+                queryset = queryset.filter(assistants=self.request.user)
 
         return queryset
 

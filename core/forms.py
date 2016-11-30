@@ -70,7 +70,7 @@ class AddStudentsForm(forms.ModelForm):
                 )
                 self.instance.add_students(student)
 
-                if self.data['auto_enroll'] == "True":
+                if self.data.get('auto_enroll', False) == "True":
                     # Check if the new user is already enrolled
                     try:
                         CourseStudent.objects.get(user=student, course=self.instance.course)

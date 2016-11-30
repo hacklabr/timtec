@@ -55,7 +55,7 @@ class BaseClassSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Class
-        fields = ("id", "name", "assistant", "user_can_certificate")
+        fields = ("id", "name", "assistants", "user_can_certificate")
 
 
 class BaseEvaluationSerializer(serializers.ModelSerializer):
@@ -78,7 +78,6 @@ class BaseCourseCertificationSerializer(serializers.ModelSerializer):
 
 
 class CertificationProcessSerializer(serializers.ModelSerializer):
-    # TODO: Verificar se de fato e read_only=True
     course_certification = serializers.SlugRelatedField(slug_field="link_hash", read_only=True)
 
     class Meta:
@@ -87,13 +86,14 @@ class CertificationProcessSerializer(serializers.ModelSerializer):
 
 class CourseCertificationSerializer(serializers.ModelSerializer):
     processes = BaseCertificationProcessSerializer(many=True, read_only=True)
-    approved = BaseCertificationProcessSerializer(source='get_approved_process')
+    approved = BaseCertificationProcessSerializer(source='get_approved_process', read_only=True)
     course = serializers.SerializerMethodField()
+    url = serializers.ReadOnlyField(source='get_absolute_url')
 
     class Meta:
         model = CourseCertification
         fields = ('link_hash', 'created_date', 'is_valid', 'processes', 'type',
-                  'approved', 'course')
+                  'approved', 'course', 'url')
 
     @staticmethod
     def get_course(obj):
@@ -121,7 +121,7 @@ class CertificateTemplateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CertificateTemplate
-        fields = ('id', 'course', 'organization_name', 'base_logo_url', 'cert_logo_url', 'role', 'name',)
+        fields = ('id', 'course', 'organization_name', 'base_logo_url', 'cert_logo_url', 'role', 'name', 'signature_url', )
 
 
 class IfCertificateTemplateSerializer(CertificateTemplateSerializer):
@@ -129,23 +129,14 @@ class IfCertificateTemplateSerializer(CertificateTemplateSerializer):
     class Meta:
         model = IfCertificateTemplate
         fields = ('id', 'course', 'organization_name', 'base_logo_url', 'cert_logo_url',
-                  'pronatec_logo', 'mec_logo', 'role', 'name',)
+                  'pronatec_logo', 'mec_logo', 'role', 'name', 'signature_url',)
 
 
 class CertificateTemplateImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CertificateTemplate
-        fields = ('base_logo', 'cert_logo', )
-
-
-class ClassSerializer(serializers.ModelSerializer):
-    students = TimtecUserAdminCertificateSerializer(read_only=True, many=True)
-    processes = CertificationProcessSerializer(read_only=True, many=True)
-    evaluations = EvaluationSerializer(read_only=True, many=True)
-
-    class Meta:
-        model = Class
+        fields = ('base_logo', 'cert_logo', 'signature', )
 
 
 class ClassActivitySerializer(serializers.ModelSerializer):
@@ -180,8 +171,10 @@ class VideoSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
+
     intro_video = VideoSerializer(required=False, read_only=True)
     home_thumbnail_url = serializers.SerializerMethodField()
+    professors = TimtecUserSerializer(read_only=True, many=True)
     is_user_assistant = serializers.SerializerMethodField()
     is_user_coordinator = serializers.SerializerMethodField()
     is_assistant_or_coordinator = serializers.SerializerMethodField()
@@ -193,7 +186,7 @@ class CourseSerializer(serializers.ModelSerializer):
                   "thumbnail_url", "home_thumbnail_url", "home_position",
                   "start_date", "home_published", "authors_names", "has_started",
                   "min_percent_to_complete", "is_user_assistant", "is_user_coordinator",
-                  "is_assistant_or_coordinator", )
+                  "is_assistant_or_coordinator", 'professors', )
 
     @staticmethod
     def get_home_thumbnail_url(obj):
@@ -214,15 +207,49 @@ class CourseSerializer(serializers.ModelSerializer):
 class CourseStudentSerializer(serializers.ModelSerializer):
     user = TimtecUserSerializer(read_only=True)
 
+    course_finished = serializers.BooleanField()
+    can_emmit_receipt = serializers.BooleanField()
+    percent_progress = serializers.IntegerField()
+    min_percent_to_complete = serializers.IntegerField()
+
     current_class = BaseClassSerializer(source='get_current_class')
     course = BaseCourseSerializer()
     certificate = CourseCertificationSerializer()
 
     class Meta:
         model = CourseStudent
-        fields = ('id', 'user', 'course', 'course_finished', 'course',
+        fields = ('id', 'user', 'course', 'course_finished',
                   'certificate', 'can_emmit_receipt', 'percent_progress',
-                  'current_class', 'min_percent_to_complete', 'start_date',)
+                  'current_class', 'min_percent_to_complete',)
+
+
+class CourseStudentClassSerializer(CourseStudentSerializer):
+
+    user = TimtecUserAdminCertificateSerializer(read_only=True)
+
+    class Meta:
+        model = CourseStudent
+        fields = ('id', 'user', 'course_finished',
+                  'certificate', 'can_emmit_receipt', 'percent_progress',)
+
+
+class ClassSerializer(serializers.ModelSerializer):
+    students_details = CourseStudentClassSerializer(source='get_students', many=True, read_only=True)
+    processes = CertificationProcessSerializer(read_only=True, many=True)
+    evaluations = EvaluationSerializer(read_only=True, many=True)
+    course = CourseSerializer(read_only=True)
+    assistants = TimtecUserSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Class
+
+    def update(self, instance, validated_data, **kwargs):
+        assistants = self.context['request'].data.get('assistants', None)
+        updated_class = super(ClassSerializer, self).update(instance, validated_data)
+        # If there are assistans to be associated with the class, do it now
+        for assistant in assistants:
+            updated_class.assistants.add(assistant['id'])
+        return updated_class
 
 
 class ProfileSerializer(TimtecUserSerializer):

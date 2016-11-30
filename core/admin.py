@@ -44,8 +44,8 @@ class VideoAdmin(ModelAdmin):
 
 
 class ClassAdmin(ModelAdmin):
-    search_fields = ('name', 'course', 'assistant')
-    list_display = ('name', 'assistant', 'course')
+    search_fields = ('name', 'course', 'assistants')
+    list_display = ('name', 'course')
     filter_horizontal = ('students', )
 
 
@@ -64,6 +64,11 @@ class CertficateAdmin(ModelAdmin):
     # list_display = ('course_student__user__username', 'course_student__course__name',)
 
 
+class CertficateTemplateAdmin(ModelAdmin):
+    pass
+    # list_display = ('course_student__user__username', 'course_student__course__name',)
+
+
 admin.site.register(Video, VideoAdmin)
 admin.site.register(CourseProfessor, CourseProfessorAdmin)
 admin.site.register(Course, CourseAdmin)
@@ -74,5 +79,6 @@ admin.site.register(CourseStudent, CourseStudentAdmin)
 admin.site.register(ProfessorMessage)
 admin.site.register(Class, ClassAdmin)
 admin.site.register(CourseCertification, CertficateAdmin)
+admin.site.register(CertificateTemplate, CertficateTemplateAdmin)
 admin.site.register(CertificationProcess)
 admin.site.register(Evaluation)
