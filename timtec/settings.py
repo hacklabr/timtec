@@ -417,6 +417,16 @@ PIPELINE = {
             ),
             'output_filename': 'js/markdown.js',
         },
+        'header': {
+            'source_filenames': (
+                'js/header/header-services.js',
+                'js/header/header-directives.js',
+                'js/header/header-filters.js',
+                'js/header/header-controllers.js',
+                'js/header/header-app.js',
+            ),
+            'output_filename': 'js/header.js',
+        },
         'messages': {
             'source_filenames': (
                 'tinymce-dist/tinymce.js',
