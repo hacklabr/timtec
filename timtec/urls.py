@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from accounts.views import (ProfileEditView, ProfileView, UserSearchView,
                             TimtecUserViewSet, TimtecUserAdminViewSet, StudentSearchView,
-                            AcceptTermsView)
+                            AcceptTermsView, GroupAdminViewSet)
 
 from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         CourseProfessorViewSet, EnrollCourseView, HomeView,
@@ -46,6 +46,7 @@ router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'user', TimtecUserViewSet, base_name='user')
 router.register(r'profile', ProfileViewSet, base_name='profile')
 router.register(r'user_admin', TimtecUserAdminViewSet, base_name='user_admin')
+router.register(r'group_admin', GroupAdminViewSet, base_name='group_admin')
 router.register(r'course', CourseViewSet, base_name='course')
 router.register(r'course_carousel', CarouselCourseView, base_name='course_carousel')
 router.register(r'course_professor', CourseProfessorViewSet, base_name='course_professor')

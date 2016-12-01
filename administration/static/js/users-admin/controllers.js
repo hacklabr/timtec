@@ -1,7 +1,8 @@
 (function(angular){
 
-    angular.module('users-admin.controllers', []).
-        controller('UsersAdminController', ['$scope', '$window', '$uibModal', '$http', '$q',  'UserAdmin',
+    var app = angular.module('users-admin.controllers', []);
+
+        app.controller('UsersAdminController', ['$scope', '$window', '$uibModal', '$http', '$q',  'UserAdmin',
         function($scope, $window,$uibModal, $http, $q, UserAdmin) {
 
             var success_save_msg = 'Alterações salvas com sucesso.';
@@ -16,6 +17,16 @@
             $scope.users_page = UserAdmin.query({page: 1});
 
             $scope.filters = {};
+
+            $scope.clean_groups = function(groups){
+              // "students" group must be ommited
+              for (var i = 0; i < groups.length; i++) {
+                  if(groups[i].name === "students"){
+                      groups.splice(i, 1);
+                      i = -1;  // if an element has been removed, the counter is outdated and must be reinitialized
+                  }
+              }
+            };
 
             $scope.filter_users = function() {
                 $scope.users_page = UserAdmin.query($scope.filters, function(users_page) {
@@ -45,6 +56,132 @@
                         $scope.alert.error(error_delete_user_msg);
                     });
                 }
+            };
+        }
+    ]);
+
+
+    app.controller('GroupAdminController', ['$scope', '$window', '$uibModal', '$http', '$q',  'GroupAdmin', 'UserAdmin',
+        function($scope, $window,$uibModal, $http, $q, GroupAdmin, UserAdmin) {
+
+            var success_create_group_msg = 'Grupo criado com sucesso.';
+            var success_delete_group_msg = 'Grupo apagado com sucesso.';
+            var success_user_add = 'Usuários adicionados ao grupo com sucesso.'
+            var success_user_rmv = 'Usuário removido do grupo com sucesso.';
+            var error_user_rmv = 'Erro ao remover usuário do grupo.';
+
+            var reload_groups = function(message){
+                GroupAdmin.query(function(groups){
+                    // "students" and "professros" groups must be ommited
+                    for (var i = 0; i < groups.length; i++) {
+                        if(groups[i].name === "students" || groups[i].name === "professors"){
+                            groups.splice(i, 1);
+                            i = -1;  // if an element has been removed, the counter is outdated and must be reinitialized
+                        }
+                    }
+                    $scope.groups = groups;
+                    if (message !== undefined){
+                        $scope.alert.success(message);
+                    }
+                });
+            };
+            reload_groups();  // initial groups load
+
+            $scope.remove_user = function(group, user) {
+                GroupAdmin.update({id: group.id, user: user, action: "remove"}, function() {
+                    reload_groups(success_user_rmv);
+                }, function() {
+                    $scope.alert.error(error_user_rmv);
+                });
+            };
+
+            $scope.remove_group = function (group) {
+                GroupAdmin.delete({id: group.id}, function(){
+                    reload_groups(success_delete_group_msg);
+                });
+            };
+
+            // Add new users to a group using a modal
+            $scope.new_group = function () {
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'newGroupModal.html',
+                    controller: ['$scope', '$uibModalInstance', addGroupModalInstanceCtrl],
+                });
+            };
+            var addGroupModalInstanceCtrl = function ($scope, $uibModalInstance) {
+                $scope.add_group = function () {
+                    GroupAdmin.save({name: $scope.group_name}, function(){
+                        reload_groups(success_create_group_msg);
+                    });
+                    $uibModalInstance.close();
+                };
+
+                $scope.cancel = function () {
+                    $uibModalInstance.dismiss();
+                };
+            };
+
+            // Add new users to a group using a modal
+            $scope.new_users = function (group) {
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'newUserModal.html',
+                    controller: ['$scope', '$uibModalInstance', 'group', addUserModalInstanceCtrl],
+                    resolve: {
+                        group: function () {
+                            return group;
+                        }
+                    }
+                });
+            };
+            var addUserModalInstanceCtrl = function ($scope, $uibModalInstance, group) {
+
+                $scope.group = group;
+                $scope.new_users = [];
+                $scope.add_professors = function () {
+                    GroupAdmin.update({id: group.id, users: $scope.new_users, action: "add"}, function(){
+                        reload_groups(success_user_add);
+                    });
+                    $uibModalInstance.close();
+                };
+
+                $scope.cancel = function () {
+                    $uibModalInstance.dismiss();
+                };
+
+                $scope.on_select_professor = function(model) {
+                    $scope.new_users.unshift(model);
+                    $scope.asyncSelected = '';
+                };
+
+                $scope.remove_new_professor = function(index) {
+                    $scope.new_users.splice(index, 1);
+                };
+
+                $scope.getUsers = function(val) {
+                    return $http.get('/api/user_search', {
+                        params: {
+                          name: val,
+                          sensor: false
+                        }
+                    }).then(function(res){
+                        var professors_found = [];
+                        angular.forEach(res.data, function(item){
+                            var formated_name = '';
+                            if (item.first_name)
+                                formated_name += item.first_name;
+                            if (item.last_name)
+                                formated_name = formated_name + ' ' + item.last_name;
+                            if (formated_name)
+                                formated_name = formated_name + ' - ';
+                            formated_name += item.username;
+                            if (item.email)
+                                formated_name = formated_name + ' - ' + item.email;
+                            item.formated_name = formated_name;
+                            professors_found.push(item);
+                        });
+                        return professors_found;
+                    });
+                };
             };
         }
     ]);
