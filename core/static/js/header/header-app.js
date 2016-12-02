@@ -7,5 +7,5 @@
         'header.directives',
         'header.filters',
     ]);
-    
+
 })(angular);
