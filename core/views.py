@@ -243,6 +243,7 @@ class CourseProfessorViewSet(viewsets.ModelViewSet):
 
 
 class CourseAuthorViewSet(viewsets.ModelViewSet):
+    queryset = CourseAuthor.objects.all()
     model = CourseAuthor
     lookup_field = 'id'
     filter_fields = ('course', 'user',)
@@ -553,6 +554,7 @@ class CourseViewSet(viewsets.ModelViewSet):
 
 
 class CourseThumbViewSet(viewsets.ModelViewSet):
+    queryset = Course.objects.all()
     model = Course
     lookup_field = 'id'
     serializer_class = CourseThumbSerializer
