@@ -88,6 +88,7 @@ class TimtecUserAdminViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAdmin, )
     serializer_class = TimtecUserAdminSerializer
     ordering = ('first_name', 'username',)
+    queryset = get_user_model().objects.all()
     # search_fields = ('first_name', 'last_name', 'username', 'email')
 
     def get_queryset(self):
