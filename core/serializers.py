@@ -443,3 +443,4 @@ class FlatpageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FlatPage
+        exclude = ('sites', )
