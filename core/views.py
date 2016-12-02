@@ -530,7 +530,8 @@ class CourseViewSet(viewsets.ModelViewSet):
                 course_professors__user=self.request.user
             ).prefetch_related('professors')
 
-        queryset = queryset.filter(groups__in=self.request.user.groups.all())
+        if not self.request.user.is_superuser:
+            queryset = queryset.filter(groups__in=self.request.user.groups.all())
 
         return queryset.distinct()
 

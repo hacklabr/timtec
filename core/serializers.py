@@ -159,7 +159,8 @@ class VideoSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    intro_video = VideoSerializer(required=False)
+    # BUGFIX: intro_video needs to be read_only=False. This is a little workaround to make other modules work
+    intro_video = VideoSerializer(required=False, read_only=True)
     thumbnail_url = serializers.ReadOnlyField(source='get_thumbnail_url')
 
     has_started = serializers.ReadOnlyField()
@@ -241,7 +242,7 @@ class ClassSerializer(serializers.ModelSerializer):
     course = CourseSerializer(read_only=True)
     assistant = TimtecUserSerializer(read_only=True)
     students_management = TimtecUserSerializer(many=True, read_only=False, source='students')
-    assistant_management = TimtecUserSerializer(many=True, read_only=False, source='assistant', required=False)
+    assistant_management = TimtecUserSerializer(read_only=False, source='assistant', required=False)
 
     class Meta:
         model = Class
