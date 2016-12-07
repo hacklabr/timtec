@@ -149,14 +149,13 @@ class StudentSearchView(LoginRequiredMixin, generics.ListAPIView):
         queryset = self.model.objects.all()
         course = self.request.query_params.get('course', None)
 
-        classes = self.request.user.professor_classes.all()
-
-        if classes:
-            queryset = queryset.filter(classes__in=classes)
+        if course is not None:
+            queryset = queryset.filter(studentcourse_set=course)
         else:
-            # FIXME: if every student is in a class, this is useless.
-            if course is not None:
-                queryset = queryset.filter(studentcourse_set=course)
+            classes = self.request.user.professor_classes.all()
+            if classes:
+                queryset = queryset.filter(classes__in=classes)
+
         query = self.request.query_params.get('name', None)
 
         if query is not None:
