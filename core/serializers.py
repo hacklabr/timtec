@@ -17,17 +17,17 @@ from accounts.models import UserSocialAccount
 class ProfessorMessageSerializer(serializers.ModelSerializer):
 
     professor = TimtecUserSerializer(read_only=True)
-    users_details = TimtecUserSerializer(source='users', read_only=True)
+    users_details = TimtecUserSerializer(many=True, source='users', read_only=True)
 
     class Meta:
         model = ProfessorMessage
-        fields = ('id', 'users', 'users_details', 'course', 'subject', 'message', 'date',)
+        fields = ('id', 'users', 'users_details', 'course', 'subject', 'message', 'date', 'professor')
 
 
 class ProfessorMessageUserDetailsSerializer(serializers.ModelSerializer):
 
-    professor = TimtecUserSerializer(source='professor', read_only=True)
-    users_details = TimtecUserAdminSerializer(source='users', read_only=True)
+    professor = TimtecUserSerializer(read_only=True)
+    users_details = TimtecUserAdminSerializer(many=True, source='users', read_only=True)
 
     class Meta:
         model = ProfessorMessage

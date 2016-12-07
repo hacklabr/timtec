@@ -70,14 +70,13 @@
                             $scope.new_message.users = [];
                             angular.forEach($scope.classes, function(klass) {
                                 angular.forEach(klass.students, function(student) {
-                                    $scope.new_message.users = $scope.new_message.users.concat(student.id);
+                                    $scope.new_message.users = $scope.new_message.users.concat(student.user.id);
                                 });
                             });
                         } else if ($scope.classes.checked) {
                             angular.forEach($scope.classes.checked, function(klass) {
                                 angular.forEach(klass.students, function(student) {
-                                    $scope.new_message.users = $scope.new_message.users.concat(student.id);
-                                    console.log(student.id);
+                                    $scope.new_message.users = $scope.new_message.users.concat(student.user.id);
                                 });
                             });
                         }

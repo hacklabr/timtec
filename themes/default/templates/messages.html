@@ -11,7 +11,7 @@ wrapper-course-lesson
 
 {% block css %}
     {{block.super}}
-    {% css 'messages' %}
+    {% stylesheet 'messages' %}
 {% endblock %}
 
 {% block js %}
@@ -65,13 +65,16 @@ wrapper-course-lesson
                             </div>
                             <div class="form-group waiting textcenter" ng-show='sending'>
                                 <div class="middle">
-                                    <progressbar class="progress-striped active" value="progressbar_counter" max="300"></progressbar>
+                                    <uib-progressbar class="progress-striped active" value="progressbar_counter" max="300"></uib-progressbar>
                                 </div>
                             </div>
                             <div class="form-group" ng-hide='sending'>
                                 <textarea class="form-control" rows="10" ng-model="new_message.message" ng-model="tinymceModel" ui-tinymce="tinymceOptions" placeholder="{% trans 'Message' %}"></textarea>
                             </div>
-                            <div class="form-group row" ng-hide="sending">
+                            <div ng-show="classes.length == 0">
+                                <i class="loading fa fa-refresh fa-spin"></i> {% trans 'Loading classes...' %}
+                            </div>
+                            <div class="form-group row" ng-hide="sending || classes.length == 0">
                                 <div class="students col-lg-12">
                                     <p><label><input type="checkbox" ng-model="modal.all_checked"> {% trans 'Send to all classes' %}</label></p>
                                     {% verbatim %}
@@ -109,7 +112,7 @@ wrapper-course-lesson
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" ng-click="cancel()"ng-disabled='sending'>{% trans "Close" %}</button>
-                                <button type="button" class="btn btn-success" ng-click="send()" ng-disabled='sending'>{% trans "Send" %}</button>
+                                <button type="button" class="btn btn-success" ng-click="send()" ng-disabled='sending || classes.length == 0'>{% trans "Send" %}</button>
                             </div>
                         </div>
                     </script>

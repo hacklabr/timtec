@@ -493,13 +493,9 @@ class ProfessorMessageViewSet(viewsets.ModelViewSet):
             return ProfessorMessageUserDetailsSerializer
         return ProfessorMessageSerializer
 
-    def pre_save(self, obj):
-        obj.professor = self.request.user
-        return super(ProfessorMessageViewSet, self).pre_save(obj)
-
-    def post_save(self, obj, created):
-        if created:
-            obj.send()
+    def perform_create(self, serializer):
+        message = serializer.save(professor=self.request.user)
+        message.send()
 
     # TODO tests for this
     def get_queryset(self, *args, **kwargs):
