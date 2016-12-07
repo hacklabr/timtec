@@ -141,13 +141,17 @@ wrapper-course-lesson
                 <div class="row">
                     <div class="col-lg-1 textright">
                         {% verbatim %}
-                        <span class="date">{{ message.date|date:"dd/MM/yy" }}</span><br>
+                        <span ng-class="{date: message.users_that_read.indexOf(USER_ID) === -1}">{{ message.date|date:"dd/MM/yy" }}</span><br>
                         <span>{{ message.date|date:"HH:mm" }}</span>
                         {% endverbatim %}
                     </div>
                     <div class="col-lg-10">
                         {% verbatim %}
-                        <div class="subject">{{ message.subject }}</div>
+                        <div ng-class="{subject: message.users_that_read.indexOf(USER_ID) === -1, 'body': true}">
+                            <span class='label label-default' ng-show="message.users_that_read.indexOf(USER_ID) > -1"><i class='fa fa-envelope-open'></i></span>
+                            <span class='label label-primary' ng-show="message.users_that_read.indexOf(USER_ID) === -1"><i class='fa fa-envelope'></i></span>
+                            {{ message.subject }} {{ message.users_that_read.indexOf(USER_ID) === -1 }}
+                        </div>
                         {% endverbatim %}
                         <div class="body">
                             <span ng-bind-html="message.message|markdown|words:50"></span>

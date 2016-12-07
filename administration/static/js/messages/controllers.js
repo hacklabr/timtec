@@ -129,6 +129,7 @@
 
     module.controller('MessagesListController', ['$scope', '$uibModal', '$window', 'Message', 'messages_list',
         function($scope, $uibModal, $window, Message, messages_list) {
+            $scope.USER_ID = parseInt(window.USER_ID);
             $scope.course_id = parseInt($window.course_id, 10);
             $scope.course_slug = $window.course_slug;
             messages_list.messages = Message.query({course: $scope.course_id});

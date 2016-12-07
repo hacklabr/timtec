@@ -21,17 +21,20 @@ class ProfessorMessageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProfessorMessage
-        fields = ('id', 'users', 'users_details', 'course', 'subject', 'message', 'date', 'professor')
+        fields = ('id', 'users', 'users_details', 'users_that_read', 'course', 'subject', 'message', 'date', 'professor')
 
 
 class ProfessorMessageUserDetailsSerializer(serializers.ModelSerializer):
 
     professor = TimtecUserSerializer(read_only=True)
     users_details = TimtecUserAdminSerializer(many=True, source='users', read_only=True)
+    users_that_read_details = TimtecUserSerializer(many=True, source='users_that_read', read_only=True)
+    users_that_not_read_details = TimtecUserSerializer(many=True, source='users_that_not_read', read_only=True)
 
     class Meta:
         model = ProfessorMessage
-        fields = ('id', 'course', 'users', 'subject', 'message', 'date', 'users_details', 'professor')
+        fields = ('id', 'course', 'users', 'users_details', 'users_that_read', 'users_that_read_details',
+                  'subject', 'users_that_not_read_details', 'message', 'date', 'professor')
 
 
 class BaseCourseSerializer(serializers.ModelSerializer):

@@ -489,6 +489,13 @@ class ProfessorMessageViewSet(viewsets.ModelViewSet):
     filter_fields = ('course',)
     filter_backends = (filters.DjangoFilterBackend,)
 
+    def retrieve(self, *args, **kwargs):
+        """Add the current user to readers list."""
+        message = self.get_object()
+        message.users_that_read.add(self.request.user)
+        message.save()
+        return super(ProfessorMessageViewSet, self).retrieve(*args, **kwargs)
+
     def get_serializer_class(self):
         if 'id' in self.kwargs.keys():
             return ProfessorMessageUserDetailsSerializer

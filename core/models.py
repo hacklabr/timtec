@@ -553,6 +553,7 @@ class ProfessorMessage(models.Model):
     message = models.TextField(_('Message'))
     date = models.DateTimeField(_('Date'), auto_now_add=True)
     course = models.ForeignKey(Course, verbose_name=_('Course'), null=True)
+    users_that_read = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='read_messages', null=True)
 
     def __unicode__(self):
         return unicode(self.subject)
@@ -567,6 +568,10 @@ class ProfessorMessage(models.Model):
         message = Template(et.template).render(Context({'message': self.message}))
         email = EmailMessage(subject, message, settings.DEFAULT_FROM_EMAIL, None, bcc)
         return email.send()
+
+    @property
+    def users_that_not_read(self):
+        return self.users.all().exclude(id__in=[user.id for user in self.users_that_read.all()])
 
 
 class PositionedModel(models.Model):
