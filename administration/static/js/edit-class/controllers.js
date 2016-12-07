@@ -33,24 +33,24 @@
 
             $scope.remove_item = function(index){
                 // removing from 'screen' list
-                var student_id = $scope.classe.students[index].user.id;
-                $scope.classe.students.splice(index, 1);
+                var student_id = $scope.classe.students_detail[index].user.id;
+                $scope.classe.students_detail.splice(index, 1);
 
                 // remove from real list
-                var index_management = $scope.classe.students_management.indexOf(student_id);
-                $scope.classe.students_management.splice(index_management, 1);
+                var index_management = $scope.classe.students.indexOf(student_id);
+                $scope.classe.students.splice(index_management, 1);
             };
 
             $scope.on_select_student = function(model) {
-                $scope.classe.students.unshift(model);
-                $scope.classe.students_management.unshift(model.id);
+                $scope.classe.students_detail.unshift(model);
+                $scope.classe.students.unshift(model.id);
                 $scope.asyncSelected = '';
                 $scope.save();
             };
 
             $scope.toggle_certificate = function (index){
 
-                var student = $scope.classe.students[index];
+                var student = $scope.classe.students_detail[index];
                 if(student.certificate) {
                     var cc_id = student.certificate.link_hash;
                     var user_id = student.user.id;

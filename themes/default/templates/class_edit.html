@@ -13,6 +13,7 @@
         window.course_id = {{ class.course.pk }};
         window.class_id = {{ class.pk }};
     </script>
+    {% javascript 'edit-class' %}
 
 {% endblock %}
 
@@ -104,7 +105,7 @@ wrapper-course-lesson
                 <div class="autocomplete">
                     <input type="text" id="search-user" class="form-control" ng-model="asyncSelected"
                                     placeholder="{% trans 'Type the name, email or user name of the professor to search...' %}"
-                                    typeahead="user as user.formated_name for user in getUsers($viewValue)"
+                                    uib-typeahead="user as user.formated_name for user in getUsers($viewValue)"
                                     typeahead-loading="loadingLocations"
                                     typeahead-on-select="on_select_student($model); asyncSelected = '';"
                                     typeahead-min-length="2"
@@ -127,7 +128,7 @@ wrapper-course-lesson
                         {% endif %}
                     </tr>
 
-                    <tr ng-repeat='student in classe.students'>
+                    <tr ng-repeat='student in classe.students_detail'>
                         {% verbatim %}
                         <td>{{ student.user.username }}</td>
                         <td>{{ student.user.email }}</td>
@@ -150,7 +151,7 @@ wrapper-course-lesson
                         </td>
                     </tr>
 
-                    <tr ng-hide="classe.students.length > 0">
+                    <tr ng-hide="classe.students_detail.length > 0">
                         <td colspan="4">{% trans 'No students found' %}</td>
                     </tr>
 

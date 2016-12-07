@@ -236,13 +236,12 @@ class CourseStudentClassSerializer(CourseStudentSerializer):
 
 
 class ClassSerializer(serializers.ModelSerializer):
-    students = CourseStudentClassSerializer(source='get_students', many=True, read_only=True)
+    students_detail = CourseStudentClassSerializer(source='get_students', many=True, read_only=True)
     processes = CertificationProcessSerializer(read_only=True, many=True)
     evaluations = EvaluationSerializer(read_only=True, many=True)
     course = CourseSerializer(read_only=True)
     assistant = TimtecUserSerializer(read_only=True)
-    students_management = TimtecUserSerializer(many=True, read_only=False, source='students')
-    assistant_management = TimtecUserSerializer(read_only=False, source='assistant', required=False)
+    # assistant_management = TimtecUserSerializer(read_only=False, source='assistant', required=False)
 
     class Meta:
         model = Class
