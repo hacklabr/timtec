@@ -15,5 +15,5 @@ pdbpp
 pip-tools
 
 # Themes, that NEEDS to be in the path above
--e ../timtec-theme-if
--e ../timtec-theme-timtec
+# -e ../timtec-theme-if
+# -e ../timtec-theme-timtec
