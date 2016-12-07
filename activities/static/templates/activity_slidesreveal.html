@@ -1,0 +1,10 @@
+<div class="slides question" ng-controller="SlidesRevealActivityCtrl">
+    <!-- <span ng-init="$parent.answer.given='image'"></span> -->
+    <!-- <img class="img-responsive" ng-src="{{ currentActivity.image_url }}"> -->
+    <iframe id="chat-frame" src="http://localhost:8080/slides-deck-1.html?postMessageEvents=true" style="width: 1019px; height: 600px;"></iframe>
+    <div class="slides-navigation">
+        <span class="previous" ng-click="previous_activity()" translate>anterior</span>
+        <div class="slides-number">{{ current_slide+1 }} de {{ totalSlides }}</div>
+        <span class="next" ng-click="next_activity()" translate>próximo</span>
+    </div>
+</div>

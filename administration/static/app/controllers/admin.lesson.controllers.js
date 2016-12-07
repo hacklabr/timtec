@@ -84,6 +84,7 @@
                 {'name': 'image', 'label': 'Imagem'},
                 {'name': 'reading', 'label': 'Atividade de leitura'},
                 {'name': 'discussion', 'label': 'Atividade com discussão'},
+                {'name': 'slidesreveal', 'label': 'Atividade de slides com reveal.js'},
             ];
 
             /*  Methods */

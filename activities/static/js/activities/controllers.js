@@ -364,4 +364,61 @@
 
       }
     ]);
+
+    app.controller('SlidesRevealActivityCtrl', [
+      '$scope',
+      '$sce',
+      'uiTinymceConfig',
+      function ($scope, $sce, uiTinymceConfig) {
+
+        // Find out how many slides there are in the current slides.com iframe
+        $( document ).ready(function() {
+            $scope.totalSlides = $("div.slides")[0].childElementCount;
+        });
+
+        // Go foward one slide
+        $scope.next_activity = function(){
+            // Find our presentation iframe
+            var frame = document.querySelector( 'iframe' );
+
+            // Command the iframe to advance one slide via message API
+            frame.contentWindow.postMessage( JSON.stringify({
+              method: 'slide',
+              args: [ $scope.current_slide+1 ]
+            }), '*' );
+        };
+
+        // Go back one slide
+        $scope.previous_activity = function(){
+            // Find our presentation iframe
+            var frame = document.querySelector( 'iframe' );
+
+            // Post a message into the frame
+            frame.contentWindow.postMessage( JSON.stringify({
+              method: 'slide',
+              args: [ $scope.current_slide-1 ]
+            }), '*' );
+        };
+
+        // Listen for events of the "message" type comming from the Slides.com
+        window.addEventListener( 'message', function( event ) {
+            var data = JSON.parse( event.data );
+
+            if( data.namespace === 'reveal' ) {
+                if( data.eventName === 'slidechanged' || data.eventName === 'ready' ) {
+
+                    // Dig out the presentation state, key properties:
+                    //   indexh: The index of the current horizontal slide
+                    //   indexv: The index of the current vertical slide (if any)
+                    //   indexf: The index of the current fragment (if any)
+                    $scope.current_slide = data.state.indexh;
+
+
+                }
+            }
+
+        });
+
+      }
+    ]);
 })(angular);
