@@ -37,9 +37,8 @@ class UserMessageSerializer(serializers.ModelSerializer):
     def get_is_read(self, obj):
         current_user = self.context.get("request").user
         if obj.users_that_read.filter(id=current_user.id):
-            return  True
+            return True
         return False
-
 
 
 class ProfessorMessageUserDetailsSerializer(serializers.ModelSerializer):
