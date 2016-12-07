@@ -79,7 +79,7 @@ wrapper-course-lesson
                                     <p><label><input type="checkbox" ng-model="modal.all_checked"> {% trans 'Send to all classes' %}</label></p>
                                     {% verbatim %}
                                     <div ng-repeat="klass in classes">
-                                        <label ng-show="!modal.all_checked"><input type="checkbox" checklist-model="classes.checked" checklist-value="klass.students"> {{ klass.name }}</label>
+                                        <label ng-show="!modal.all_checked"><input type="checkbox" checklist-model="specific_classes" checklist-value="klass"> {{ klass.name }}</label>
                                     </div>
                                     {% endverbatim %}
                                     <div class="autocomplete" ng-show="!modal.all_checked">

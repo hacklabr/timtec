@@ -285,6 +285,13 @@
     });
 
 
+    app.factory('ClassSimple', function($resource){
+        return $resource('/api/course_classes_simple/:id', {'id' : '@id'}, {
+            'update': {'method': 'PUT'}
+        });
+    });
+
+
     /**
      * A object that fetch info from Youtube. It expects a video ID and returns
      * a promise that video info will be fetched.

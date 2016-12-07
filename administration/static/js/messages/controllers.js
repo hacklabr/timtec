@@ -10,8 +10,8 @@
         };
     });
 
-    module.controller('NewMessageController', ['$scope', '$interval', '$uibModal', '$window', 'Message', 'Student', 'StudentSearch', 'Class', 'messages_list', '$rootScope',
-            function($scope, $interval, $uibModal, $window, Message, Student, StudentSearch, Class, messages_list, $rootScope) {
+    module.controller('NewMessageController', ['$scope', '$interval', '$uibModal', '$window', 'Message', 'Student', 'StudentSearch', 'ClassSimple', 'messages_list', '$rootScope',
+            function($scope, $interval, $uibModal, $window, Message, Student, StudentSearch, ClassSimple, messages_list, $rootScope) {
                 $scope.course_id = parseInt($window.course_id, 10);
                 $scope.messages = messages_list.messages;
                 $scope.new_message = function () {
@@ -45,8 +45,9 @@
                     $scope.empty_msg_body_error = false;
                     $scope.sending = false;
                     $scope.progressbar_counter = 0;
+                    $scope.specific_classes = [];
 
-                    $scope.classes = Class.query({course: course_id}, function(classes){
+                    $scope.classes = ClassSimple.query({course: course_id}, function(classes){
                         classes.checked = [];
                         return classes;
                     });
@@ -70,13 +71,13 @@
                             $scope.new_message.users = [];
                             angular.forEach($scope.classes, function(klass) {
                                 angular.forEach(klass.students, function(student) {
-                                    $scope.new_message.users = $scope.new_message.users.concat(student.user.id);
+                                    $scope.new_message.users = $scope.new_message.users.concat(student);
                                 });
                             });
-                        } else if ($scope.classes.checked) {
-                            angular.forEach($scope.classes.checked, function(klass) {
+                        } else if ($scope.specific_classes.length > 0) {
+                            angular.forEach($scope.specific_classes, function(klass) {
                                 angular.forEach(klass.students, function(student) {
-                                    $scope.new_message.users = $scope.new_message.users.concat(student.user.id);
+                                    $scope.new_message.users = $scope.new_message.users.concat(student);
                                 });
                             });
                         }

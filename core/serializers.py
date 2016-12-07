@@ -246,6 +246,12 @@ class ClassSerializer(serializers.ModelSerializer):
         model = Class
 
 
+class ClassSimpleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Class
+        fields = ('id', 'name', 'course', 'students')
+
+
 class UserSocialAccountSerializer(serializers.ModelSerializer):
 
     get_absolute_url = serializers.ReadOnlyField()

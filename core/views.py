@@ -29,7 +29,7 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           LessonNoteSerializer, ProfessorMessageSerializer,
                           CourseStudentSerializer, ClassSerializer,
                           FlatpageSerializer, CourseAuthorPictureSerializer,
-                          CourseAuthorSerializer,
+                          CourseAuthorSerializer, ClassSimpleSerializer,
                           CourseCertificationSerializer,
                           CertificationProcessSerializer,
                           EvaluationSerializer, ProfileSerializer, ProfessorMessageUserDetailsSerializer,
@@ -828,6 +828,13 @@ class ClassViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
                 queryset = queryset.filter(assistant=self.request.user)
 
         return queryset
+
+
+class ClassSimpleViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
+    model = Class
+    queryset = Class.objects.all()
+    serializer_class = ClassSimpleSerializer
+    filter_fields = ('course',)
 
 
 class FlatpageView(View):
