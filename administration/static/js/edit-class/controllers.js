@@ -68,8 +68,8 @@
             $scope.save = function(){
 
                 $scope.classe.$resolved = false;
-                if($scope.classe.assistant) {
-                    $scope.classe.assistant_management = $scope.classe.assistant.id;
+                if($scope.classe.assistant_detail) {
+                    $scope.classe.assistant = $scope.classe.assistant_detail.id;
                 }
 
                 $scope.classe.$update()

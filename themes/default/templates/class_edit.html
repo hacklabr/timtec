@@ -62,7 +62,7 @@ wrapper-course-lesson
                     <div class="professor-assistant">
                         <label for="{{ form.assistant.id_for_label }}">{% trans 'Assistant Professor' %}:</label>
                         {% if user|is_course_coordinator:object.course %}
-                            <select class="form-control" ng-options="item.name for item in classe.course.professors track by item.id" ng-model="classe.assistant"></select>
+                            <select class="form-control" ng-options="item.name for item in classe.course.professors track by item.id" ng-model="classe.assistant_detail"></select>
                         {% else %}
                             <label>{{ object.assistant }}</label>
                         {% endif %}

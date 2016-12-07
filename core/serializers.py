@@ -164,7 +164,7 @@ class CourseSerializer(serializers.ModelSerializer):
     thumbnail_url = serializers.ReadOnlyField(source='get_thumbnail_url')
 
     has_started = serializers.ReadOnlyField()
-    professors = serializers.SerializerMethodField('get_professor_name')
+    professors = TimtecUserSerializer(source='authors', many=True, read_only=True)
     home_thumbnail_url = serializers.SerializerMethodField()
     is_user_assistant = serializers.SerializerMethodField()
     is_user_coordinator = serializers.SerializerMethodField()
@@ -240,8 +240,7 @@ class ClassSerializer(serializers.ModelSerializer):
     processes = CertificationProcessSerializer(read_only=True, many=True)
     evaluations = EvaluationSerializer(read_only=True, many=True)
     course = CourseSerializer(read_only=True)
-    assistant = TimtecUserSerializer(read_only=True)
-    # assistant_management = TimtecUserSerializer(read_only=False, source='assistant', required=False)
+    assistant_detail = TimtecUserSerializer(read_only=True, source='assistant')
 
     class Meta:
         model = Class
