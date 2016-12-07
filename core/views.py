@@ -31,7 +31,7 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           FlatpageSerializer, CourseAuthorPictureSerializer,
                           CourseAuthorSerializer, ClassSimpleSerializer,
                           CourseCertificationSerializer,
-                          CertificationProcessSerializer,
+                          CertificationProcessSerializer, UserMessageSerializer,
                           EvaluationSerializer, ProfileSerializer, ProfessorMessageUserDetailsSerializer,
                           IfCertificateTemplateSerializer, CertificateTemplateImageSerializer)
 
@@ -480,6 +480,15 @@ class CertificateTemplateImageViewSet(viewsets.ModelViewSet):
             return Response(status=200)
         else:
             return Response(serializer.errors, status=400)
+
+
+class UserMessageViewSet(viewsets.ModelViewSet):
+    model = ProfessorMessage
+    lookup_field = 'id'
+    serializer_class = UserMessageSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        return ProfessorMessage.objects.filter(users=self.request.user).order_by('-date')
 
 
 class ProfessorMessageViewSet(viewsets.ModelViewSet):

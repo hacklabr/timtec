@@ -24,6 +24,24 @@ class ProfessorMessageSerializer(serializers.ModelSerializer):
         fields = ('id', 'users', 'users_details', 'users_that_read', 'course', 'subject', 'message', 'date', 'professor')
 
 
+class UserMessageSerializer(serializers.ModelSerializer):
+
+    course = serializers.CharField(source='course.name')
+    professor = serializers.CharField(source='professor.get_full_name')
+    is_read = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ProfessorMessage
+        read_only_fields = fields = ('id', 'course', 'subject', 'date', 'professor', 'is_read')
+
+    def get_is_read(self, obj):
+        current_user = self.context.get("request").user
+        if obj.users_that_read.filter(id=current_user.id):
+            return  True
+        return False
+
+
+
 class ProfessorMessageUserDetailsSerializer(serializers.ModelSerializer):
 
     professor = TimtecUserSerializer(read_only=True)

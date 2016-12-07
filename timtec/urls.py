@@ -22,7 +22,7 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         FlatpageViewSet, CoursePictureUploadViewSet,
                         ResumeCourseView, FlatpageView, CourseAuthorViewSet,
                         CourseCertificationViewSet,
-                        CourseCertificationDetailView,
+                        CourseCertificationDetailView, UserMessageViewSet,
                         CertificationProcessViewSet, ClassSimpleViewSet,
                         EvaluationViewSet, CertificateTemplateViewSet,
                         CertificateTemplateImageViewSet, RequestCertificateView,
@@ -54,6 +54,7 @@ router.register(r'course_professor_picture', CoursePictureUploadViewSet, base_na
 router.register(r'course_author', CourseAuthorViewSet, base_name='course_author')
 router.register(r'course_student', CourseStudentViewSet, base_name='course_student')
 router.register(r'professor_message', ProfessorMessageViewSet, base_name='professor_message')
+router.register(r'user_message', UserMessageViewSet, base_name='user_message')
 router.register(r'coursethumbs', CourseThumbViewSet, base_name='coursethumbs')
 router.register(r'lessons', LessonViewSet, base_name='lessons')
 router.register(r'answer', AnswerViewSet, base_name='answer')
