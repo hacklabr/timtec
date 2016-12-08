@@ -13,6 +13,8 @@
 wrapper-course-lesson
 {% endblock %}
 
+{% block ng_app %}forum{% endblock %}
+
 {% block content %}
 <script>
  window.question_id = {{ question_django.pk }};
@@ -26,7 +28,7 @@ wrapper-course-lesson
     <!-- END HEADER -->
 
     <!-- MAIN CONTENT -->
-    <section id="forum-content" class="container" ng-app="forum" ng-controller="QuestionCtrl">
+    <section id="forum-content" class="container" ng-controller="QuestionCtrl">
         <header class="secondary-header">
             <div class="row">
                 <div class="col-xs-12 col-sm-8 col-md-9">
