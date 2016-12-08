@@ -12,6 +12,8 @@
 wrapper-course-lesson
 {% endblock %}
 
+{% block ng_app %}courseMaterial{% endblock %}
+
 {% block content %}
 
 <script>
@@ -19,7 +21,7 @@ wrapper-course-lesson
 </script>
 
 <!-- CONTAINER -->
-<div id="course" class="course-material" ng-app="courseMaterial">
+<div id="course" class="course-material">
     <!-- ACTIONS -->
     <div class="actions-menu actions-menu-message" ng-hide="alert.hidden" fixed-bar>
         <div class="container">
