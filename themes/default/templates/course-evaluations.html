@@ -16,8 +16,11 @@
 {% block wrapper_classes %}
     wrapper-course-lesson
 {% endblock %}
+
+{% block ng_app %}certification{% endblock %}
+
 {% block content %}
-<div ng-app="certification" id="classes" class="course-classes">
+<div id="classes" class="course-classes">
     <!-- TODO make header the same as lesson template -->
     {% include "_course-header-inline.html"  with course=course %}
     <!-- MAIN CONTENT -->
