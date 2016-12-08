@@ -13,9 +13,11 @@
 wrapper-course-lesson
 {% endblock %}
 
+{% block ng_app %}forum{% endblock %}
+
 {% block content %}
 
-<div id="forum" class="course-forum" ng-app="forum">
+<div id="forum" class="course-forum">
     {% if in_admin %}
         {% include "_admin_header_inline.html" with course=course %}
     {% else %}
