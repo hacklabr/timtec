@@ -40,7 +40,7 @@ class AnswerSerializer(serializers.ModelSerializer):
 
     def get_topic(self, obj):
         try:
-            topic = Topic.objects.get(id=obj.given['topic'])
+            topic = Topic.objects.get(id=obj.given.get('topic', None))
         except Topic.DoesNotExist:
             return
 
