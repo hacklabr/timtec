@@ -12,10 +12,12 @@
 wrapper-course-lesson
 {% endblock %}
 
+{% block ng_app %}notes{% endblock %}
+
 {% block content %}
 
 <!-- CONTAINER -->
-<div id="my-courses" ng-app="notes" ng-controller="UserNotesCtrl">
+<div id="my-courses" ng-controller="UserNotesCtrl">
 
     {% block notes_header %}
     <header class="main-header container">

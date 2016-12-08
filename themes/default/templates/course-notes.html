@@ -12,9 +12,11 @@
 wrapper-course-lesson
 {% endblock %}
 
+{% block ng_app %}notes{% endblock %}
+
 {% block content %}
 <!-- CONTAINER -->
-<div id="my-notes" class="course-notes" ng-app="notes" ng-controller="CourseNotesCtrl">
+<div id="my-notes" class="course-notes" ng-controller="CourseNotesCtrl">
 
     {% include "_course-header-inline.html"  with course=course question_form=false %}
 
