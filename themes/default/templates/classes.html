@@ -2,10 +2,20 @@
 
 {% load staticfiles %}
 {% load i18n %}
+{% load pipeline %}
+
+{% block js %}
+    {{ block.super }}
+    {% javascript 'core' %}
+    {% javascript 'edit-class' %}
+
+{% endblock %}
 
 {% block wrapper_classes %}
 wrapper-course-lesson
 {% endblock %}
+
+{% block ng_app %}edit_class{% endblock %}
 
 {% block content %}
 <div class="modal fade" id="class-modal" tabindex="-1" role="dialog" aria-hidden="true">

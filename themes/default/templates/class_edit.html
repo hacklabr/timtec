@@ -21,6 +21,8 @@
 wrapper-course-lesson
 {% endblock %}
 
+{% block ng_app %}edit_class{% endblock %}
+
 {% block content %}
 
 <!-- class-modal -->
@@ -30,7 +32,7 @@ wrapper-course-lesson
     </div>
 </div>
 
-<div id="classes" class="course-classes" ng-app='edit_class' ng-controller="ClassController">
+<div id="classes" class="course-classes" ng-controller="ClassController">
     <!-- ACTIONS -->
     <div class="actions-menu" fixed-bar>
         <div class="container">

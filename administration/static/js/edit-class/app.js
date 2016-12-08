@@ -9,5 +9,6 @@
         'directive.fixedBar',
         'timtec-models',
         'ui.bootstrap',
+        'header',
     ]);
 })(angular);
