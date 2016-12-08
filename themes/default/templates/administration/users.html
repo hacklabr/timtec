@@ -16,9 +16,11 @@
 wrapper-course-lesson
 {% endblock %}
 
+{% block ng_app %}users-admin{% endblock %}
+
 {% block content %}
 <!-- COURSES -->
-<section id="users" ng-app="users-admin" ng-controller="UsersAdminController">
+<section id="users" ng-controller="UsersAdminController">
     <!-- ACTIONS -->
     <div class="actions-menu actions-menu-message" ng-hide="alert.hidden" fixed-bar>
         <div class="container">
