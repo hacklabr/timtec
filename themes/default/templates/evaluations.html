@@ -14,10 +14,11 @@
     wrapper-course-lesson
 {% endblock %}
 
+{% block ng_app %}certification{% endblock %}
+
 {% block content %}
 
-    <div id="classes" class="course-classes" ng-app="certification"
-         ng-controller="ClassEvaluationsController">
+    <div id="classes" class="course-classes" ng-controller="ClassEvaluationsController">
 
         {% include "_course-header-inline.html"  with course=object.course %}
         <section id="classes-content" class="container">
