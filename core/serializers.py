@@ -218,7 +218,7 @@ class CourseStudentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CourseStudent
-        fields = ('id', 'user', 'course', 'course_finished',
+        fields = ('id', 'user', 'course', 'start_date', 'course_finished',
                   'certificate', 'can_emmit_receipt', 'percent_progress',
                   'current_class', 'min_percent_to_complete',)
 
