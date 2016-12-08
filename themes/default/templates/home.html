@@ -15,9 +15,11 @@
 home
 {% endblock %}
 
+{% block ng_app %}core{% endblock %}
+
 {% block content %}
 
-    <div id="home" ng-app="core" ng-controller="HomeCtrl">
+    <div id="home" ng-controller="HomeCtrl">
         {% if in_admin %}
         <!-- ACTIONS -->
         <div class="actions-menu" fixed-bar>
