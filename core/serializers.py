@@ -29,16 +29,21 @@ class UserMessageSerializer(serializers.ModelSerializer):
     course = serializers.CharField(source='course.name')
     professor = serializers.CharField(source='professor.get_full_name')
     is_read = serializers.SerializerMethodField()
+    subject = serializers.SerializerMethodField()
 
     class Meta:
         model = ProfessorMessage
-        read_only_fields = fields = ('id', 'course', 'subject', 'date', 'professor', 'is_read')
+        read_only_fields = fields = ('id', 'course', 'subject', 'date', 'professor', 'is_read', 'get_absolute_url')
 
     def get_is_read(self, obj):
         current_user = self.context.get("request").user
         if obj.users_that_read.filter(id=current_user.id):
             return True
         return False
+
+    def get_subject(self, obj):
+        from django.utils.text import Truncator
+        return Truncator(obj.subject).chars(45)
 
 
 class ProfessorMessageUserDetailsSerializer(serializers.ModelSerializer):

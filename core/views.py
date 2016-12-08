@@ -488,8 +488,17 @@ class UserMessageViewSet(viewsets.ModelViewSet):
     serializer_class = UserMessageSerializer
 
     def get_queryset(self, *args, **kwargs):
-        return ProfessorMessage.objects.filter(users=self.request.user).order_by('-date')
+        """Some tricks to show first unread, after reads."""
+        reads = ProfessorMessage.objects.filter(users_that_read=self.request.user).order_by('-date').values_list('id')
+        unreads = ProfessorMessage.objects.filter(users=self.request.user).exclude(users_that_read=self.request.user) \
+            .order_by('-date').values_list('id')
 
+        reads = [item[0] for item in reads]
+        unreads = [item[0] for item in unreads]
+        total_ids = unreads + reads
+        print total_ids
+
+        return ProfessorMessage.objects.filter(id__in=total_ids).order_by('-date')
 
 class ProfessorMessageViewSet(viewsets.ModelViewSet):
     model = ProfessorMessage
