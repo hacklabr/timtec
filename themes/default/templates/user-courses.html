@@ -18,6 +18,8 @@
 wrapper-course-lesson
 {% endblock %}
 
+{% block ng_app %}my-courses{% endblock %}
+
 {% block content %}
 <!-- CONTAINER -->
 <div id="my-courses" class="container">
@@ -53,7 +55,7 @@ wrapper-course-lesson
         </ul>
 
         <!-- Tab panes -->
-        <div class="tab-content" ng-app="my-courses">
+        <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" ng-controller="UserCourseListController" id="course-as-student">
                 {% if not courses_user_enrolled %}
                 <div class="course">
