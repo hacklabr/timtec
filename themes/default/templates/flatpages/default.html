@@ -21,8 +21,10 @@
 class="static-page-body"
 {% endblock %}
 
+{% block ng_app %}core{% endblock %}
+
 {% block content %}
-        <div class="page static-page" ng-app="core" ng-controller="FlatPageCtrl">
+        <div class="page static-page" ng-controller="FlatPageCtrl">
         	{% if user.is_superuser %}
             <!-- ACTIONS -->
             <div class="actions-menu actions-menu-message" ng-hide="alert.hidden" fixed-bar>
