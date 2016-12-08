@@ -13,9 +13,11 @@
 wrapper-course-lesson
 {% endblock %}
 
+{% block ng_app %}course-permissions{% endblock %}
+
 {% block content %}
 
-<section id="permissions" ng-app="course-permissions" ng-controller="PermissionsController">
+<section id="permissions" ng-controller="PermissionsController">
 
 		<!-- ACTIONS -->
         <div class="actions-menu" fixed-bar>
