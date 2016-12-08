@@ -21,8 +21,10 @@ wrapper-course-lesson
     </script>
 {% endblock %}
 
+{% block ng_app %}reports{% endblock %}
+
 {% block content %}
-<div id="stats" class="course-stats" ng-app="reports">
+<div id="stats" class="course-stats">
 
     {% if in_admin %}
         {% include "_admin_header_inline.html" with course=course %}
