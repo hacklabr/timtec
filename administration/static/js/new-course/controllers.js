@@ -62,6 +62,18 @@
                 });
             });
 
+            $scope.setCurrentUnitVideo = function() {
+                //
+                // support pasting both long and short urls from youtube
+                // eg. http://youtu.be/8uj7YSqby7s
+                //
+                var complete_url = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                var result = complete_url.exec($scope.youtube_id);
+                if (result && result[2].length == 11) {
+                    $scope.course.intro_video.youtube_id = result[2];
+                }
+            };
+
             function showFieldErrors(response) {
                 $scope.errors = response.data;
                 var messages = [];
