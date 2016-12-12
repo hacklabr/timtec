@@ -4,7 +4,8 @@ Essa é a documentação básica de instalação (deploy) timtec. Para informaç
 
 Você precisa de um servidor com algum dos seguintes sistemas operacionais:
 
-* Ubuntu 14.04, 16.04 
+* Ubuntu 14.04
+* Ubuntu 16.04 
 * Debian 8.0
 
 Certifique-se de ter a senha ssh deste servidor para começar o processo e de ter permissão de sudo(root) na máquina em questão. 
