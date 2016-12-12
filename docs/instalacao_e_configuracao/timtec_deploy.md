@@ -101,19 +101,11 @@ root@server# update-alternatives --install /usr/bin/node node /usr/bin/nodejs 10
 ```
 
 #### Debian
-<<<<<<< HEAD:docs/instalacao_e_configuracao/timtec_deploy.md
 ```
 root@server# apt-get install curl
-root@server# curl -sL https://deb.nodesource.com/setup | bash -
+root@server# curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 root@server# apt-get install nodejs
 ```
-=======
-
-    # TODO: atualizar este endereço
-    sudo apt-get install curl
-    sudo curl -sL https://deb.nodesource.com/setup | bash -
-    sudo apt-get install nodejs
->>>>>>> 4.0-dev:docs/instalacao_e_configuracao/Instalação.md
 
 Mais informações [neste link](https://github.com/joyent/node/wiki/installing-node.js-via-package-manager#debian-and-ubuntu-based-linux-distributions)
 
@@ -124,19 +116,11 @@ root@server# apt-get install -y postgresql
 root@server# sudo su - postgres -c "createuser -d timtec-production"
 ```
 
-<<<<<<< HEAD:docs/instalacao_e_configuracao/timtec_deploy.md
 Com usuário da aplicação, crie então a base:
 ```
 timtec-production@server$ createdb --encoding "UTF-8" --locale "pt_BR.UTF-8" timtec-production
 ```
 obs: caso ocorra algum problema relacionado a locale faltante no sistema, [veja como alterar o locale para pt_BR](Alterando-locale-para-pt_BR.md). 
-=======
-    $ sudo apt-get install -y postgresql
-    $ sudo su - postgres -c "createuser -d timtec"
-    $ createdb --encoding "UTF-8" --locale "pt_BR.UTF-8" timtec
-
-obs: caso ocorra algum problema relacionado a locale faltante no sistema, [veja como alterar o locale para pt_BR](Alterando-locale-para-pt_BR.md).
->>>>>>> 4.0-dev:docs/instalacao_e_configuracao/Instalação.md
 
 ### Ambiente virtual python e dependências de javascript
 
