@@ -119,9 +119,8 @@ root@server# sudo su - postgres -c "createuser -d timtec-production"
 
 Com usuário da aplicação, crie então a base:
 ```
-timtec-production@server$ createdb --encoding "UTF-8" --locale "pt_BR.UTF-8" timtec-production
+timtec-production@server$ createdb --encoding "UTF-8" timtec-production
 ```
-obs: caso ocorra algum problema relacionado a locale faltante no sistema, [veja como alterar o locale para pt_BR](Alterando-locale-para-pt_BR.md). 
 
 ### Ambiente virtual python e dependências de javascript
 
