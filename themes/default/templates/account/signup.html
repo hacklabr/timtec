@@ -8,11 +8,18 @@
         {% trans "Sign Up" %}!
     </h1>
     <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}" class="form-horizontal">{% csrf_token %}
+
+        {% if request.GET.next %}
+            <input type='hidden' name='{{ redirect_field_name }}' value='{{ request.GET.next }}'>
+        {% else %}
+            <input type='hidden' name='{{ redirect_field_name }}' value='{{ request.META.HTTP_REFERER }}'>
+        {% endif %}
+
         {% with errors=form.username.errors %}
         <div class="form-group{{ errors|yesno:' has-error,' }}">
             <label class="col-lg-4 col-sm-4 control-label">{% trans "Username" %}</label>
             <div class="col-lg-8 col-sm-8">
-                <input name="username" type="text" value="{{form.username.value|default_if_none:""}}" class="form-control" placeholder="{% trans 'Username' %}">
+                <input name="username" type="text" value="{{form.username.value|default_if_none:""}}" class="form-control" placeholder="{% trans 'Username' %}" required>
                 {% for error in errors %}<small>{{error}}</small>{% endfor %}
             </div>
         </div>
@@ -22,7 +29,7 @@
         <div class="form-group{{ errors|yesno:' has-error,' }}">
             <label class="col-lg-4 col-sm-4 control-label">{% trans "E-mail" %}</label>
             <div class="col-lg-8 col-sm-8">
-                <input name="email" type="email" value="{{form.email.value|default_if_none:""}}" class="form-control" placeholder="{% trans 'Your e-mail' %}">
+                <input name="email" type="email" value="{{form.email.value|default_if_none:""}}" class="form-control" placeholder="{% trans 'Your e-mail' %}" required>
                 {% for error in errors %}<small>{{error}}</small>{% endfor %}
             </div>
         </div>
@@ -32,19 +39,20 @@
           <div class="form-group{% if errors or form.non_field_errors %} has-error{% endif %}">
             <label class="col-lg-4 col-sm-4 control-label">{% trans "Password" %}</label>
             <div class="col-lg-8 col-sm-8">
-                <p><input name="password1" type="password" class="form-control" placeholder="{% trans 'Really strong password' %}"></p>
-                <input name="password2" type="password" class="form-control" placeholder="{% trans 'Password confirmation' %}">
+                <p><input name="password1" type="password" class="form-control" placeholder="{% trans 'Really strong password' %}" required></p>
+                <input name="password2" type="password" class="form-control" placeholder="{% trans 'Password confirmation' %}" required>
                 {% for error in errors %}<small>{{error}}</small>{% endfor %}
                 {% for error in form.non_field_errors %}<small>{{error}}</small>{% endfor %}
             </div>
         </div>
         {% endwith %}
 
-    	{% if terms_required %}
+        {% block extrafields %}{% endblock %}
+        {% if terms_required %}
 		{% with errors=form.accept_terms.errors %}
 		<div class="form-group{{ errors|yesno:' has-error,' }}">
 			<div class="col-lg-offset-4 col-sm-offset-4 col-lg-8 col-sm-8 textleft">
-				<span class="checkbox-wrapper"><input name="accept_terms" id="accept_terms" type="checkbox" {% if form.accept_terms.value %}checked=""{% endif %}></span>
+				<span class="checkbox-wrapper"><input name="accept_terms" id="accept_terms" type="checkbox" {% if form.accept_terms.value %}checked=""{% endif %} required></span>
 				{% url 'flatpage' url='/terms' as terms_url %}
 				<label for="accept_terms" class="terms">{% blocktrans %}I agree to the <a href="{{ terms_url }}" target="_blank">Terms of Use</a>{% endblocktrans %}</label>
 				{% for error in errors %}<small>{{error}}</small>{% endfor %}
@@ -90,7 +98,7 @@
         <div class="form-group{{ errors|yesno:' has-error,' }}">
             <label class="col-xs-12 control-label">{% trans "Username" %}</label>
             <div class="col-xs-12">
-                <input name="username" type="text" value="{{form.username.value}}" class="form-control" placeholder="{% trans 'Username' %}">
+                <input name="username" type="text" value="{{form.username.value}}" class="form-control" placeholder="{% trans 'Username' %}" required>
                 {% for error in errors %}<small>{{error}}</small>{% endfor %}
             </div>
         </div>
@@ -100,7 +108,7 @@
         <div class="form-group{{ errors|yesno:' has-error,' }}">
             <label class="col-xs-12 control-label">{% trans "E-mail" %}</label>
             <div class="col-xs-12">
-                <input name="email" type="email" value="{{form.email.value}}" class="form-control" placeholder="Your e-mail">
+                <input name="email" type="email" value="{{form.email.value}}" class="form-control" placeholder="Your e-mail" required>
                 {% for error in errors %}<small>{{error}}</small>{% endfor %}
             </div>
         </div>
@@ -110,18 +118,19 @@
         <div class="form-group{{ errors|yesno:' has-error,' }}">
             <label class="col-xs-12 control-label">{% trans "Password" %}</label>
             <div class="col-xs-12">
-                <p><input name="password1" type="password" class="form-control" placeholder="{% trans 'Really strong password' %}"></p>
-                <input name="password2" type="password" class="form-control" placeholder="{% trans 'Password confirmation' %}">
+                <p><input name="password1" type="password" class="form-control" placeholder="{% trans 'Really strong password' %}" required></p>
+                <input name="password2" type="password" class="form-control" placeholder="{% trans 'Password confirmation' %}" required>
                 {% for error in errors %}<small>{{error}}</small>{% endfor %}
             </div>
         </div>
         {% endwith %}
 
-    	{% if terms_required %}
+        {% block extrafields_mobile %}{% endblock %}
+        {% if terms_required %}
 		{% with errors=form.accept_terms.errors %}
 		<div class="form-group{{ errors|yesno:' has-error,' }}">
 			<div class="col-lg-offset-4 col-sm-offset-4 col-lg-8 col-sm-8 textleft">
-                <span class="checkbox-wrapper"><input name="accept_terms" id="accept_terms" type="checkbox" {% if form.accept_terms.value %}checked=""{% endif %}></span>
+                <span class="checkbox-wrapper"><input name="accept_terms" id="accept_terms" type="checkbox" {% if form.accept_terms.value %}checked=""{% endif %} required></span>
                 {% url 'flatpage' url='/terms' as terms_url %}
                 <label for="accept_terms" class="terms">{% blocktrans %}I agree to the <a href="{{ terms_url }}" target="_blank">Terms of Use</a>{% endblocktrans %}</label>
                 {% for error in errors %}<small>{{error}}</small>{% endfor %}

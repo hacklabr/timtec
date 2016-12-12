@@ -225,9 +225,8 @@
 
     app.factory('CourseCertification', function($resource){
         return $resource('/api/course_certification/:link_hash',
-                    {'link_hash' : '@id' },
-                    {'update': {method: 'PUT'}
-        });
+            {'link_hash' : '@id' },
+            {'update': {'method': 'PUT'} });
     });
 
     /**

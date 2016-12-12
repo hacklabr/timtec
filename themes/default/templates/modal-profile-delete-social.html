@@ -1,0 +1,17 @@
+{% load i18n %}
+
+<form class="form" method="POST" action="{% url 'profile_edit_delete_social' object.id %}">{% csrf_token %} 
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" id="class-modal-label">{% trans "Remove" %} {{ object.get_social_media_display }}</h4>
+    </div>
+
+    <div class="modal-body">
+        {% trans "Are you sure?" %}
+    </div>
+    
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</button>
+        <button type="submit" class="btn btn-warning">{% trans "Remove" %}</button>
+    </div>
+</form>

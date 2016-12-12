@@ -15,7 +15,7 @@ wrapper-course-lesson
 {% block content %}
 
 <!-- CONTAINER -->
-<div id="my-notes" ng-app="notes" ng-controller="UserNotesCtrl">
+<div id="my-courses" ng-app="notes" ng-controller="UserNotesCtrl">
 
     {% block notes_header %}
     <header class="main-header container">
@@ -35,20 +35,33 @@ wrapper-course-lesson
         <div class="courses courses-list" ng-repeat="course in courses">
 
             <div class="course">
-                <div class="row">
-                    <div class="col-sm-7 col-lg-8">
-                        {% verbatim angularjs %}
-                        <a href="/course/{{course.slug}}/mynotes/">{{course.name}}</a>
-                        {% endverbatim angularjs %}
-                        <small>{% verbatim angularjs %}{{course.course_notes_number}}{% endverbatim angularjs %} {% trans 'Notes' %}</small>
+                <header>
+                    <div class="row">
+                        <div class="col-sm-7 col-lg-8">
+                            <h1>
+                                {% verbatim angularjs %}<a href="/course/{{course.slug}}/mynotes/">{{course.name}}</a>{% endverbatim angularjs %}
+                                <small>({% verbatim angularjs %}{{course.course_notes_number}}{% endverbatim angularjs %} {% trans 'Notes' %})</small>
+                            </h1>
+                        </div>
+
+                        <div class="col-sm-5 col-lg-4 textright">
+                            <div class="btn-group">
+                                <a href="/course/{% verbatim angularjs %}{{course.slug}}{% endverbatim angularjs %}/intro/" class="btn btn-sm btn-success">{% trans 'Resume course' %}</a>
+                                <a href="/course/{% verbatim angularjs %}{{course.slug}}{% endverbatim angularjs %}/intro/" class="btn btn-sm btn-success"><i class="fa fa-angle-double-right"></i></a>
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="col-sm-5 col-lg-4 textright">
-                        <a href="/course/{% verbatim angularjs %}{{course.slug}}{% endverbatim angularjs %}/mynotes/" class="btn btn-sm btn-info">{% trans 'Go to notes' %}</a>
-                        <a href="/course/{% verbatim angularjs %}{{course.slug}}{% endverbatim angularjs %}/intro/" class="btn btn-sm btn-success">{% trans 'Resume course' %}</a>
+                </header>
+
+                <div class="row">
+                    <div class='col-sm-12'>
+
                     </div>
                 </div>
-            </div>
 
+                <a href="/course/{% verbatim angularjs %}{{course.slug}}{% endverbatim angularjs %}/mynotes/" class="btn btn-default btn-sm">{% trans 'Go to notes' %}</a>
+            </div>
         </div>
     </section>
 </div>

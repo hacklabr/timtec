@@ -108,7 +108,7 @@ wrapper-course-lesson
                    ng-click="$parent.selectUnit(u);"
                    ng-class="{current: $parent.currentUnit == u}">
                    <span ng-bind="$index + 1"></span>
-                   <i class="fa fa-list" ng-show="u.activities"></i>
+                   <i class="fa fa-list" ng-show="u.activities.length > 0"></i>
                </a>
                 {% endverbatim %}
                 <a href="" class="add-unit unit" ng-click="addUnit()"><i class="fa fa-plus"></i></a>
@@ -188,6 +188,20 @@ wrapper-course-lesson
                             <hr/>
                             <p>{% trans 'The text bellow will be shown to students when they correctly finish this activity.' %}</p>
                             <markdowneditor title="{% trans 'Comment' %}" content="currentActivity.comment"></markdowneditor>
+
+                            <hr/>
+                            <p>
+                                {% trans 'The text bellow will be shown to students when they send a correctly answer to this activity.' %}
+                                {% trans "If you don't fill this field, it will appear a default message." %}
+                            </p>
+                            <markdowneditor title="{% trans 'Positive Feedback' %}" content="currentActivity.positive_feedback"></markdowneditor>
+
+                            <hr/>
+                            <p>
+                                {% trans 'The text bellow will be shown to students when they send a wrong answer to this activity.' %}
+                                {% trans "If you don't fill this field, it will appear a default message." %}
+                            </p>
+                            <markdowneditor title="{% trans 'Negative Feedback' %}" content="currentActivity.negative_feedback"></markdowneditor>
                         </div>
                     </div>
 

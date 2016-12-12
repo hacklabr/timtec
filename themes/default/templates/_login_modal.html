@@ -4,11 +4,17 @@
 <div class="dropdown-menu">
     <form method="post" action="{% url 'account_login' %}" class="navbar-form form-horizontal">{% csrf_token %}
 
+        {% if request.GET.next %}
+            <input type='hidden' name='next' value='{{ request.GET.next }}'>
+        {% else %}
+            <input type='hidden' name='next' value='{{ request.path }}'>
+        {% endif %}
+
         <div class="form-group {% if form.errors %}has-error{% endif %}">
-            <label class="col-sm-5 col-xs-12 control-label">{% trans 'Username' %}</label>
+            <label class="col-sm-5 col-xs-12 control-label">{% trans 'E-mail or login' %}</label>
             <div class="col-sm-7 col-xs-12">
                 <input name="login" type="text" class="form-control"
-                       value="{{form.login.value}}" placeholder="{% trans 'E-mail or username' %}"/>
+                       value="{{form.login.value}}" placeholder="{% trans 'E-mail or login' %}"/>
                 {% for error in form.login.errors %}
                 <small>{{error}}</small>
                 {% endfor %}

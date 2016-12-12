@@ -1,0 +1,344 @@
+{% extends 'default:account/signup.html' %}
+{% load i18n %}
+
+{% block js %}
+<script type="text/javascript" charset="utf-8">
+    (function(){
+
+        function show_how_you_know_complement() {
+            $('#div-how_you_know_complement').show();
+            $('#div-how_you_know_complement input').prop('required', true);
+        }
+
+        function hide_how_you_know_complement() {
+            $('#div-how_you_know_complement').hide();
+            $('#div-how_you_know_complement input').prop('required', false);
+        }
+
+        function load_states() {
+
+            $.get("/api/states", function(item){
+                options = "<option value=''>---</option>\n";
+                for(state in item) {
+                    state = item[state];
+                    options += "<option value='"+ state.code +"'>"+ state.name +"</option>\n";
+                }
+                $("select[name=state]").empty().append(options);
+            });
+        }
+
+        function load_cities(state) {
+            $.get("/api/cities", {'state': state}, function(item){
+                options = "<option value=''>---</option>\n";
+                for(city in item) {
+                    city = item[city];
+                    options += "<option value='"+ city.name +"'>"+ city.name +"</option>\n";
+                }
+                $("select[name=city]").empty().append(options);
+            });
+        }
+
+        $(document).ready(function() {
+            load_states();
+
+            hide_how_you_know_complement();
+            $("select[name=how_you_know]").change(function(){
+                current_value = $(this).val();
+                if(current_value == "Através da Imprensa" || current_value == "Outro") {
+                    show_how_you_know_complement();
+                } else {
+                    hide_how_you_know_complement();
+                }
+            });
+
+            $("select[name=state]").change(function(){
+                current_value = $(this).val();
+                load_cities(current_value);
+            });
+        });
+    })();
+</script>
+{% endblock %}
+
+<!-- TABLET AND DESKTOP -->
+{% block account_content %}
+    <h1>
+        <i class="fa fa-smile-o"></i><br/>
+        {% trans "Sign Up" %}!
+    </h1>
+    <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}" class="form-horizontal">{% csrf_token %}
+
+        {% if request.GET.next %}
+            <input type='hidden' name='{{ redirect_field_name }}' value='{{ request.GET.next }}'>
+        {% else %}
+            <input type='hidden' name='{{ redirect_field_name }}' value='{{ request.META.HTTP_REFERER }}'>
+        {% endif %}
+
+        {% with errors=form.how_you_know.errors %}
+        <div class="form-group{{ errors|yesno:' has-error,' }}">
+            <label class="col-lg-4 col-sm-4 control-label">Como você conheceu a plataforma TIM Tec?</label>
+            <div class="col-lg-8 col-sm-8">
+                <select name="how_you_know" class="form-control" required>
+                    <option>Indicação de amigo</option>
+                    <option>Facebook</option>
+                    <option>Twitter</option>
+                    <option>Através da Imprensa</option>
+                    <option>Pesquisa no Google</option>
+                    <option>Vi em minha escola/empresa</option>
+                    <option>Outro</option>
+                </select>
+                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+            </div>
+        </div>
+        {% endwith %}
+
+        {% with errors=form.how_you_know_complement.errors %}
+        <div class="form-group{{ errors|yesno:' has-error,' }}" id='div-how_you_know_complement'>
+            <label class="col-lg-4 col-sm-4 control-label">Onde?</label>
+            <div class="col-lg-8 col-sm-8">
+                <input name="how_you_know_complement" type="text" value="{{form.how_you_know_complement.value|default_if_none:""}}" class="form-control" placeholder="Dê mais detalhes de onde nos conheceu" maxlength="50">
+                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+            </div>
+        </div>
+        {% endwith %}
+
+        {% with errors=form.first_name.errors %}
+        <div class="form-group{{ errors|yesno:' has-error,' }}">
+            <label class="col-lg-4 col-sm-4 control-label">{{ form.first_name.label }}</label>
+            <div class="col-lg-8 col-sm-8">
+                <input name="first_name" type="text" value="{{form.first_name.value|default_if_none:""}}" class="form-control" placeholder="{{ form.first_name.label }}" required>
+                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+            </div>
+        </div>
+        {% endwith %}
+
+        {% with errors=form.last_name.errors %}
+        <div class="form-group{{ errors|yesno:' has-error,' }}">
+            <label class="col-lg-4 col-sm-4 control-label">{{ form.last_name.label }}</label>
+            <div class="col-lg-8 col-sm-8">
+                <input name="last_name" type="text" value="{{form.last_name.value|default_if_none:""}}" class="form-control" placeholder="{{ form.last_name.label }}"  required>
+                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+            </div>
+        </div>
+        {% endwith %}
+
+        {% with errors=form.state.errors %}
+        <div class="form-group{{ errors|yesno:' has-error,' }}">
+            <label class="col-lg-4 col-sm-4 control-label">{{ form.state.label }}</label>
+            <div class="col-lg-8 col-sm-8">
+                {{ form.state }}
+                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+            </div>
+        </div>
+        {% endwith %}
+
+        {% with errors=form.city.errors %}
+        <div class="form-group{{ errors|yesno:' has-error,' }}">
+            <label class="col-lg-4 col-sm-4 control-label">{{ form.city.label }}</label>
+            <div class="col-lg-8 col-sm-8">
+                {{ form.city }}
+                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+            </div>
+        </div>
+        {% endwith %}
+
+        {% with errors=form.username.errors %}
+        <div class="form-group{{ errors|yesno:' has-error,' }}">
+            <label class="col-lg-4 col-sm-4 control-label">{% trans "Username" %}</label>
+            <div class="col-lg-8 col-sm-8">
+                <input name="username" type="text" value="{{form.username.value|default_if_none:""}}" class="form-control" placeholder="{% trans 'Username' %}" required>
+                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+            </div>
+        </div>
+        {% endwith %}
+
+        {% with errors=form.email.errors %}
+        <div class="form-group{{ errors|yesno:' has-error,' }}">
+            <label class="col-lg-4 col-sm-4 control-label">{% trans "E-mail" %}</label>
+            <div class="col-lg-8 col-sm-8">
+                <input name="email" type="email" value="{{form.email.value|default_if_none:""}}" class="form-control" placeholder="{% trans 'Your e-mail' %}" required>
+                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+            </div>
+        </div>
+        {% endwith %}
+
+        {% with errors=form.password1.errors %}
+          <div class="form-group{% if errors or form.non_field_errors %} has-error{% endif %}">
+            <label class="col-lg-4 col-sm-4 control-label">{% trans "Password" %}</label>
+            <div class="col-lg-8 col-sm-8">
+                <p><input name="password1" type="password" class="form-control" placeholder="{% trans 'Really strong password' %}" required></p>
+                <input name="password2" type="password" class="form-control" placeholder="{% trans 'Password confirmation' %}" required>
+                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+                {% for error in form.non_field_errors %}<small>{{error}}</small>{% endfor %}
+            </div>
+        </div>
+        {% endwith %}
+
+        {% if terms_required %}
+		{% with errors=form.accept_terms.errors %}
+		<div class="form-group{{ errors|yesno:' has-error,' }}">
+			<div class="col-lg-offset-4 col-sm-offset-4 col-lg-8 col-sm-8 textleft">
+				<span class="checkbox-wrapper"><input name="accept_terms" id="accept_terms" type="checkbox" {% if form.accept_terms.value %}checked=""{% endif %} required></span>
+				{% url 'flatpage' url='/terms' as terms_url %}
+				<label for="accept_terms" class="terms">{% blocktrans %}I agree to the <a href="{{ terms_url }}" target="_blank">Terms of Use</a>{% endblocktrans %}</label>
+				{% for error in errors %}<small>{{error}}</small>{% endfor %}
+			</div>
+		</div>
+		{% endwith %}
+    	{% endif %}
+
+        <div class="submit textright">
+            <button class="btn btn-success">{% trans "Sign Up" %}</button>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <hr/>
+                <p class="bottom textcenter">
+                    {% load socialaccount %}
+                    <a href="{% provider_login_url 'facebook' method='oauth2' %}">Facebook Connect</a>
+                    {% for provider in openid_providers %}
+                    <span> | </span>
+                    <a href="{% provider_login_url "openid" openid=provider.openid_url  next=current_path %}">{{ provider.name }}</a>
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+<!-- END TABLET AND DESKTOP -->
+
+
+<!-- MOBILE -->
+{% block account_content_mobile %}
+    <div class="row">
+        <div class="col-xs-12 textcenter">
+            <h1>
+                <i class="fa fa-smile-o"></i><br/>
+                {% trans "Sign Up" %}!
+            </h1>
+        </div>
+    </div>
+    <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}" class="form-horizontal">{% csrf_token %}
+        {% with errors=form.how_you_know.errors %}
+        <div class="form-group{{ errors|yesno:' has-error,' }}">
+            <label class="col-lg-4 col-sm-4 control-label">Como você conheceu a plataforma TIM Tec?</label>
+            <div class="col-lg-8 col-sm-8">
+                <select name="how_you_know" class="form-control" required>
+                    <option>Indicação de amigo</option>
+                    <option>Facebook</option>
+                    <option>Twitter</option>
+                    <option>Através da Imprensa</option>
+                    <option>Pesquisa no Google</option>
+                    <option>Vi em minha escola/empresa</option>
+                    <option>Outro</option>
+                </select>
+                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+            </div>
+        </div>
+        {% endwith %}
+
+        {% with errors=form.first_name.errors %}
+        <div class="form-group{{ errors|yesno:' has-error,' }}">
+            <label class="col-lg-4 col-sm-4 control-label">{{ form.first_name.label }}</label>
+            <div class="col-lg-8 col-sm-8">
+                <input name="first_name" type="text" value="{{form.first_name.value|default_if_none:""}}" class="form-control" placeholder="{{ form.first_name.label }}"  required>
+                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+            </div>
+        </div>
+        {% endwith %}
+
+        {% with errors=form.last_name.errors %}
+        <div class="form-group{{ errors|yesno:' has-error,' }}">
+            <label class="col-lg-4 col-sm-4 control-label">{{ form.last_name.label }}</label>
+            <div class="col-lg-8 col-sm-8">
+                <input name="last_name" type="text" value="{{form.last_name.value|default_if_none:""}}" class="form-control" placeholder="{{ form.last_name.label }}"  required>
+                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+            </div>
+        </div>
+        {% endwith %}
+
+        {% with errors=form.state.errors %}
+        <div class="form-group{{ errors|yesno:' has-error,' }}">
+            <label class="col-lg-4 col-sm-4 control-label">{{ form.state.label }}</label>
+            <div class="col-lg-8 col-sm-8">
+                {{ form.state }}
+                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+            </div>
+        </div>
+        {% endwith %}
+
+        {% with errors=form.city.errors %}
+        <div class="form-group{{ errors|yesno:' has-error,' }}">
+            <label class="col-lg-4 col-sm-4 control-label">{{ form.city.label }}</label>
+            <div class="col-lg-8 col-sm-8">
+                {{ form.city }}
+                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+            </div>
+        </div>
+        {% endwith %}
+
+        {% with errors=form.username.errors %}
+        <div class="form-group{{ errors|yesno:' has-error,' }}">
+            <label class="col-xs-12 control-label">{% trans "Username" %}</label>
+            <div class="col-xs-12">
+                <input name="username" type="text" value="{{form.username.value|default_if_none:""}}" class="form-control" placeholder="{% trans 'Username' %}" required>
+                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+            </div>
+        </div>
+        {% endwith %}
+
+        {% with errors=form.email.errors %}
+        <div class="form-group{{ errors|yesno:' has-error,' }}">
+            <label class="col-xs-12 control-label">{% trans "E-mail" %}</label>
+            <div class="col-xs-12">
+                <input name="email" type="email" value="{{form.email.value|default_if_none:""}}" class="form-control" placeholder="Your e-mail" required>
+                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+            </div>
+        </div>
+        {% endwith %}
+
+        {% with errors=form.password1.errors %}
+        <div class="form-group{{ errors|yesno:' has-error,' }}">
+            <label class="col-xs-12 control-label">{% trans "Password" %}</label>
+            <div class="col-xs-12">
+                <p><input name="password1" type="password" class="form-control" placeholder="{% trans 'Really strong password' %}" required></p>
+                <input name="password2" type="password" class="form-control" placeholder="{% trans 'Password confirmation' %}" required>
+                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+            </div>
+        </div>
+        {% endwith %}
+
+        {% if terms_required %}
+		{% with errors=form.accept_terms.errors %}
+		<div class="form-group{{ errors|yesno:' has-error,' }}">
+			<div class="col-lg-offset-4 col-sm-offset-4 col-lg-8 col-sm-8 textleft">
+                <span class="checkbox-wrapper"><input name="accept_terms" id="accept_terms" type="checkbox" {% if form.accept_terms.value %}checked=""{% endif %} required></span>
+                {% url 'flatpage' url='/terms' as terms_url %}
+                <label for="accept_terms" class="terms">{% blocktrans %}I agree to the <a href="{{ terms_url }}" target="_blank">Terms of Use</a>{% endblocktrans %}</label>
+                {% for error in errors %}<small>{{error}}</small>{% endfor %}
+            </div>
+		</div>
+		{% endwith %}
+    	{% endif %}
+
+        <div class="submit">
+            <button class="btn btn-success btn-lg col-xs-12">{% trans "Sign Up" %}</button>
+        </div>
+
+        <div class="row">
+            <hr/>
+            <p class="bottom textcenter">
+                {% load socialaccount %}
+                <a href="{% provider_login_url 'facebook' method='oauth2' %}">{% trans 'Facebook connect' %}</a>
+
+                {% for provider in openid_providers %}
+                <span> | </span>
+                <a href="{% provider_login_url "openid" openid=provider.openid_url  next=current_path %}">{{ provider.name }}</a>
+                {% endfor %}
+            </p>
+        </div>
+
+    </form>
+{% endblock %}
+<!-- END MOBILE -->

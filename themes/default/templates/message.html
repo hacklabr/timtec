@@ -1,33 +1,56 @@
 {% extends "messages.html" %}
 {% load i18n %}
+{% load is_assistant_or_coordinator %}
+
+{% block messages_title %}{% trans "Message" %}{% endblock %}
 
 {% block messages_content %}
-        <div class="message" ng-controller="MessageController">
+    <div class="message" ng-controller="MessageController">
+
+        <div class="col-xs-12" ng-hide="message.$resolved">
+            <div class="waiting textcenter">
+                <div class="middle">
+                    <i class="fa fa-refresh fa-5x"></i>
+                </div>
+            </div>
+        </div>
+
+        <div ng-show="message.$resolved">
             {% verbatim %}
             <h1 class="bottom">{{ message.subject }}</h1>
             <p class="date">{{ message.date|date:"dd/MM/yy" }}</p>
             {% endverbatim %}
+
+            <hr />
             <div class="body">
-                <span ng-bind-html="message.message|markdown"> </span>
+                <span ng-bind-html="message.message"> </span>
             </div>
-            <div class="row">
-                <div class="students col-lg-12">
-                    <h2>{% trans 'Recipients' %}</h2>
-                    <table class="table table-list">
-                        <tr>
-                            <th class="fullname">{% trans "Full name" %}</th>
-                            <th class="email">{% trans "Email" %}</th>
-                            <th class="username">{% trans "Username" %}</th>
-                        </tr>
-                        <tr ng-repeat="student in message.users_details">
-                            {% verbatim %}
-                            <td>{{student.name}}</td>
-                            <td>{{student.email}}</td>
-                            <td>{{student.username}}</td>
-                            {% endverbatim %}
-                        </tr>
-                    </table>
+
+            {% if user|is_assistant_or_coordinator:course %}
+                <hr />
+                <div class='btn btn-primary' ng-hide="show_recipients" ng-click="toggle_recipient_list()">{% trans "Show Recipient List" %}</div>
+                <div class='btn btn-primary' ng-hide="!show_recipients" ng-click="toggle_recipient_list()">{% trans "Hide Recipient List" %}</div>
+
+                <div class="row" ng-hide="!show_recipients">
+                    <div class="students col-lg-12">
+                        <h2>{% trans 'Recipients' %}</h2>
+                        <table class="table table-list">
+                            <tr>
+                                <th class="fullname">{% trans "Full name" %}</th>
+                                <th class="email">{% trans "Email" %}</th>
+                                <th class="username">{% trans "Username" %}</th>
+                            </tr>
+                            <tr ng-repeat="student in message.users_details">
+                                {% verbatim %}
+                                <td>{{student.name}}</td>
+                                <td>{{student.email}}</td>
+                                <td>{{student.username}}</td>
+                                {% endverbatim %}
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-            </div>
+            {% endif %}
         </div>
+    </div>
 {% endblock %}

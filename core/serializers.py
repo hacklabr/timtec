@@ -5,22 +5,34 @@ from core.models import (Course, CourseProfessor, CourseStudent, Lesson,
                          Class, CourseAuthor, CourseCertification,
                          CertificationProcess, Evaluation, CertificateTemplate,
                          IfCertificateTemplate)
-from accounts.serializers import TimtecUserSerializer, \
-    TimtecUserAdminCertificateSerializer
+from accounts.serializers import (TimtecUserSerializer,
+                                  TimtecUserAdminCertificateSerializer, TimtecUserAdminSerializer)
 from activities.serializers import ActivitySerializer
 from rest_framework.reverse import reverse_lazy
 from notes.models import Note
 from rest_framework import serializers
+from accounts.models import UserSocialAccount
 
 
 class ProfessorMessageSerializer(serializers.ModelSerializer):
 
     professor = TimtecUserSerializer(source='professor', read_only=True)
-    users_details = TimtecUserSerializer(source='users', read_only=True)
+    # users_details = TimtecUserSerializer(source='users', read_only=True)
+    users = serializers.PrimaryKeyRelatedField(source='users', write_only=True, many=True)
 
     class Meta:
         model = ProfessorMessage
-        fields = ('id', 'course', 'users', 'subject', 'message', 'date', 'users_details',)
+        fields = ('id', 'users', 'course', 'subject', 'message', 'date',)
+
+
+class ProfessorMessageUserDetailsSerializer(serializers.ModelSerializer):
+
+    professor = TimtecUserSerializer(source='professor', read_only=True)
+    users_details = TimtecUserAdminSerializer(source='users', read_only=True)
+
+    class Meta:
+        model = ProfessorMessage
+        fields = ('id', 'course', 'users', 'subject', 'message', 'date', 'users_details', 'professor')
 
 
 class BaseCourseSerializer(serializers.ModelSerializer):
@@ -83,13 +95,14 @@ class CertificationProcessSerializer(serializers.ModelSerializer):
 
 class CourseCertificationSerializer(serializers.ModelSerializer):
     processes = BaseCertificationProcessSerializer(many=True, read_only=True)
-    approved = BaseCertificationProcessSerializer(source='get_approved_process')
+    approved = BaseCertificationProcessSerializer(source='get_approved_process', read_only=True)
     course = serializers.SerializerMethodField('get_course')
+    url = serializers.Field(source='get_absolute_url')
 
     class Meta:
         model = CourseCertification
         fields = ('link_hash', 'created_date', 'is_valid', 'processes', 'type',
-                  'approved', 'course')
+                  'approved', 'course', 'url')
 
     @staticmethod
     def get_course(obj):
@@ -137,15 +150,6 @@ class CertificateTemplateImageSerializer(serializers.ModelSerializer):
         fields = ('base_logo', 'cert_logo', )
 
 
-class ClassSerializer(serializers.ModelSerializer):
-    students = TimtecUserAdminCertificateSerializer(read_only=True)
-    processes = CertificationProcessSerializer(read_only=True)
-    evaluations = EvaluationSerializer(read_only=True)
-
-    class Meta:
-        model = Class
-
-
 class VideoSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -160,6 +164,7 @@ class CourseSerializer(serializers.ModelSerializer):
     home_thumbnail_url = serializers.SerializerMethodField('get_home_thumbnail_url')
     professors_names = serializers.SerializerMethodField('get_professors_names')
     has_started = serializers.Field()
+    professors = TimtecUserSerializer(source="professors", read_only=True)
 
     class Meta:
         model = Course
@@ -167,7 +172,7 @@ class CourseSerializer(serializers.ModelSerializer):
                   "abstract", "structure", "workload", "pronatec", "status",
                   "thumbnail_url", "home_thumbnail_url", "home_position",
                   "start_date", "professor_name", "home_published",
-                  "professors_names", "has_started",
+                  "professors_names", "has_started", 'professors',
                   "min_percent_to_complete")
 
     @staticmethod
@@ -208,20 +213,54 @@ class CourseStudentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CourseStudent
-        fields = ('id', 'user', 'course', 'course_finished', 'course',
+        fields = ('id', 'user', 'course', 'course_finished',
                   'certificate', 'can_emmit_receipt', 'percent_progress',
                   'current_class', 'min_percent_to_complete',)
 
 
+class CourseStudentClassSerializer(CourseStudentSerializer):
+
+    user = TimtecUserAdminCertificateSerializer(read_only=True)
+
+    class Meta:
+        model = CourseStudent
+        fields = ('id', 'user', 'course_finished',
+                  'certificate', 'can_emmit_receipt', 'percent_progress',)
+
+
+class ClassSerializer(serializers.ModelSerializer):
+    students = CourseStudentClassSerializer(source='get_students', many=True, read_only=True)
+    processes = CertificationProcessSerializer(read_only=True)
+    evaluations = EvaluationSerializer(read_only=True)
+    course = CourseSerializer(read_only=True)
+    assistant = TimtecUserSerializer(read_only=True)
+    students_management = serializers.PrimaryKeyRelatedField(many=True, read_only=False, source='students')
+    assistant_management = serializers.PrimaryKeyRelatedField(read_only=False, source='assistant', required=False)
+
+    class Meta:
+        model = Class
+
+
+class UserSocialAccountSerializer(serializers.ModelSerializer):
+
+    get_absolute_url = serializers.Field()
+
+    class Meta:
+        model = UserSocialAccount
+        fields = ('social_media', 'nickname', 'get_absolute_url')
+
+
 class ProfileSerializer(TimtecUserSerializer):
-    certificates = ProfileCourseCertificationSerializer(many=True,
-                                                        source="get_certificates")
+
+    certificates = ProfileCourseCertificationSerializer(many=True, source="get_certificates")
+    social_medias = UserSocialAccountSerializer(many=True, source='get_social_media')
+    courses = BaseCourseSerializer(many=True, source='get_current_courses')
 
     class Meta:
         model = get_user_model()
         fields = ('id', 'username', 'name', 'first_name', 'last_name',
-                  'biography', 'picture', 'is_profile_filled', 'occupation',
-                  'certificates', 'city', 'site', 'occupation', )
+                  'biography', 'picture', 'is_profile_filled', 'occupation', 'birth_date',
+                  'certificates', 'city', 'state', 'site', 'occupation', 'social_medias', 'courses')
 
 
 class CourseThumbSerializer(serializers.ModelSerializer):
@@ -306,8 +345,11 @@ class LessonNoteSerializer(serializers.ModelSerializer):
 
 class CourseNoteSerializer(serializers.ModelSerializer):
 
-    lessons_notes = LessonNoteSerializer()
+    lessons_notes = serializers.SerializerMethodField('get_lessons_notes')
     course_notes_number = serializers.IntegerField(required=False)
+
+    def get_lessons_notes(self, obj):
+        return [LessonNoteSerializer(item).data for item in obj.lessons_notes]
 
     class Meta:
         model = Course

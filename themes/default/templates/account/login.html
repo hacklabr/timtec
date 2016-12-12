@@ -9,11 +9,18 @@
     </h1>
 
     <form method="post" action="{% url 'account_login' %}" class="form-horizontal">{% csrf_token %}
+        
+        {% if request.GET.next %}
+            <input type='hidden' name='next' value='{{ request.GET.next }}'>
+        {% else %}
+            <input type='hidden' name='next' value='{{ request.path }}'>
+        {% endif %}
+
         <div class="form-group{% if form.errors %} has-error{% endif %}">
-            <label class="col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label">{% trans "Username" %}</label>
+            <label class="col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label">{% trans 'E-mail or login' %}</label>
             <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
                 <input name="login" type="text" class="form-control"
-                       value="{{form.login.value|default_if_none:""}}" placeholder='{% trans "E-mail or username" %}'/>
+                       value="{{form.login.value|default_if_none:""}}" placeholder='{% trans "E-mail or login" %}'/>
                 {% for error in form.login.errors %}
                 <small>{{error}}</small>
                 {% endfor error in %}
@@ -39,7 +46,7 @@
                 </div>
             </div>
         </div>
-        <input type="hidden" name="next" value="{{ next }}" />
+        
         <hr/>
         <!-- <div class="row">
             <div class="col-lg-7 col-lg-offset-4 col-md-7 col-md-offset-4 col-sm-7 col-sm-offset-4 textleft clearfix">
@@ -72,11 +79,16 @@
     <div class="row">
         <div class="col-xs-12">
             <form method="post" action="{% url 'account_login' %}" class="form-horizontal">{% csrf_token %}
+                {% if request.GET.next %}
+                    <input type='hidden' name='next' value='{{ request.GET.next }}'>
+                {% else %}
+                    <input type='hidden' name='next' value='{{ request.path }}'>
+                {% endif %}
                 <div class="form-group{% if form.errors %} has-error{% endif %}">
-                    <label class="col-xs-12 control-label">{% trans "Username" %}</label>
+                    <label class="col-xs-12 control-label">{% trans 'E-mail or login' %}</label>
                     <div class="col-xs-12">
                         <input name="login" type="text" class="form-control"
-                               value="{{form.login.value|default_if_none:""}}" placeholder='{% trans "E-mail or username" %}'/>
+                               value="{{form.login.value|default_if_none:""}}" placeholder='{% trans "E-mail or login" %}'/>
                         {% for error in form.login.errors %}
                         <small>{{error}}</small>
                         {% endfor %}
@@ -104,7 +116,7 @@
                         </div>
                     </div>
                 </div>
-                <input type="hidden" name="next" value="{{ next }}" />
+                
                 <!--
                 <hr/>
                 <div class="textcenter">

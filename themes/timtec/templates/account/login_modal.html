@@ -1,0 +1,68 @@
+{% load i18n %}
+
+<!-- Modal -->
+<div id="login-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="loginModalLabel" class="textcenter">
+                    <i class="fa fa-smile-o"></i><br/>{% trans "You need to sign in or up to see this content" %}
+                </h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-12">
+                        <div class="panel left-xs right-xs top-xs">
+                            <div class="panel-heading left-xs right-xs">
+                                <h3 class="bottom-xs top-xs"><i class="fa fa-angle-double-right"></i> {% trans 'Sign In' %}</h3>
+                            </div>
+
+                            <div class="panel-body bottom-xs left-xs right-xs top-xs">
+                                <form class="form-horizontal" method="post" action="{% url 'account_login' %}">{% csrf_token %}
+                                    <div class="form-group{% if form.errors %} has-error{% endif %}">
+                                        <label class="col-lg-3 col-md-3 col-sm-12 col-xs-12">{% trans 'Login' %}</label>
+                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                                            <input name="login" type="text" class="form-control"
+                                            value="{{form.login.value}}" placeholder="{% trans 'E-mail or login' %}"/>
+                                            {% for error in form.login.errors %}
+                                            <small>{{error}}</small>
+                                            {% endfor error in %}
+                                        </div>
+                                    </div>
+                                    <div class="form-group{% if form.errors %} has-error{% endif %}">
+                                        <label class="col-lg-3 col-md-3 col-sm-12 col-xs-12">{% trans 'Password' %}</label>
+                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                                            <input name="password" type="password" class="form-control" placeholder="{% trans 'Password' %}">
+                                            {% for error in form.password.errors %}
+                                            <small>{{error}}</small>
+                                            {% endfor %}
+                                            {% for error in form.non_field_errors %}
+                                            <small>{{error}}</small>
+                                            {% endfor %}
+                                        <a href="{% url 'account_reset_password' %}">{% trans 'Forgot my password' %}</a>
+                                        </div>
+                                    </div>
+                                    <div class="submit">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-lg-offset-8 col-md-4 col-sm-4 col-xs-12 textright">
+                                                <button class="btn btn-success col-xs-12">{% trans 'Sign In' %}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% if request.GET.next %}
+                                        <input type='hidden' name='next' value='{{ request.GET.next }}'>
+                                    {% else %}
+                                        <input type='hidden' name='next' value='{{ request.path }}'>
+                                    {% endif %}
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="di*vider bottom-xs top-xs"></div>
+                <p class="bottom textcenter"><a href="{% url 'account_signup' %}">{% trans 'Signup' %}</a></p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+ 
+{% block title %}{% trans "An error ocurred or you don't have to see this page." %}{% endblock %}
+ 
+{% block content %}
+
+    <header class="main-header">
+        <div class="page-header container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>{% trans "An error ocurred or you don't have to see this page." %}</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <section id="course-content" class="container">
+        <div class='row'>
+            <div class='col-xs-12 col-md-1'>
+                <i class='fa fa-warning fa-5x'></i>
+            </div>
+            <div class='col-xs-12 col-md-11'>
+                <p>
+                    <p>
+                        {% trans "There's been an error. Probably you don't have permission to see this page." %}<br>
+                        {% trans "To see this, please do a login as an administrator." %}
+                    </p>
+                </p>
+            </div>
+        </div>
+    </section>
+{% endblock %}

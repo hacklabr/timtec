@@ -21,10 +21,10 @@
               <div class="panel-body bottom-xs left-xs right-xs top-xs">
                 <form class="form-horizontal" method="post" action="{% url 'account_login' %}">{% csrf_token %}
                   <div class="form-group{% if form.errors %} has-error{% endif %}">
-                    <label class="col-lg-3 col-md-3 col-sm-12 col-xs-12">{% trans 'Login' %}</label>
+                    <label class="col-lg-3 col-md-3 col-sm-12 col-xs-12">{% trans 'E-mail or login' %}</label>
                     <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                       <input name="login" type="text" class="form-control"
-                      value="{{form.login.value}}" placeholder="{% trans 'E-mail or username' %}"/>
+                      value="{{form.login.value}}" placeholder="{% trans 'E-mail or login' %}"/>
                       {% for error in form.login.errors %}
                       <small>{{error}}</small>
                       {% endfor error in %}
@@ -52,7 +52,11 @@
                       </div>
                     </div>
                   </div>
-                  <input type="hidden" name="next" />
+                  {% if request.GET.next %}
+                    <input type='hidden' name='next' value='{{ request.GET.next }}'>
+                  {% else %}
+                    <input type='hidden' name='next' value='{{ request.path }}'>
+                  {% endif %}
                 </form>
               </div>
             </div>
@@ -67,7 +71,7 @@
               <div class="panel-body bottom-xs left-xs right-xs top-xs">
                 <form onclick="event.stopPropagation()" method="post" action="{% url 'account_signup' %}" class="form-horizontal">{% csrf_token %}
                   <div class="form-group">
-                    <label class="col-lg-3 col-md-3 col-sm-12 col-xs-12">{% trans "Username" %}</label>
+                    <label class="col-lg-3 col-md-3 col-sm-12 col-xs-12">{% trans 'E-mail or login' %}</label>
                     <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                       <input name="username" type="text" class="form-control" placeholder="{% trans 'Choose an username' %}">
                     </div>
@@ -103,7 +107,11 @@
                       </div>
                     </div>
                   </div>
-                  <input type="hidden" name="next" />
+                  {% if request.GET.next %}
+                    <input type='hidden' name='next' value='{{ request.GET.next }}'>
+                  {% else %}
+                    <input type='hidden' name='next' value='{{ request.path }}'>
+                  {% endif %}
                 </form>
               </div>
             </div>

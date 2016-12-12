@@ -6,7 +6,8 @@ from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from accounts.views import (ProfileEditView, ProfileView, UserSearchView,
                             TimtecUserViewSet, TimtecUserAdminViewSet, StudentSearchView,
-                            AcceptTermsView)
+                            AcceptTermsView, UserSocialAccountCreateView, UserSocialAccountDeleteView,
+                            StateViewSet, CityViewSet)
 
 from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         CourseProfessorViewSet, EnrollCourseView, HomeView,
@@ -16,7 +17,7 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         ProfessorMessageViewSet, CourseStudentViewSet,
                         CarouselCourseView, ClassListView,
                         ClassCreateView, ClassUpdateView, ClassDeleteView,
-                        ClassRemoveUserView, ClassAddUsersView, ClassViewSet,
+                        ClassRemoveUserView, ClassViewSet,
                         ClassEvaluationsView,
                         FlatpageViewSet, CoursePictureUploadViewSet,
                         ResumeCourseView, FlatpageView, CourseAuthorViewSet,
@@ -75,6 +76,8 @@ router.register(r'certification_process', CertificationProcessViewSet)
 router.register(r'evaluation', EvaluationViewSet)
 router.register(r'certificate_template', CertificateTemplateViewSet)
 router.register(r'certificate_template_images', CertificateTemplateImageViewSet)
+router.register(r'states', StateViewSet, 'test')
+router.register(r'cities', CityViewSet, 'test2')
 
 urlpatterns = patterns(
     '',
@@ -117,7 +120,6 @@ urlpatterns = patterns(
     url(r'^class/(?P<pk>[0-9]+)/$', ClassUpdateView.as_view(), name='class'),
     url(r'^class/(?P<pk>[0-9]+)/delete/$', ClassDeleteView.as_view(), name='class-delete'),
     url(r'^class/(?P<pk>[0-9]+)/remove_user/$', ClassRemoveUserView.as_view(), name='class-remove-user'),
-    url(r'^class/(?P<pk>[0-9]+)/add_users/$', ClassAddUsersView.as_view(), name='class-add-users'),
     url(r'^class/(?P<pk>[0-9]+)/evaluations/$', ClassEvaluationsView.as_view(), name='class-evaluations'),
 
     # Evaluations
@@ -149,6 +151,8 @@ urlpatterns = patterns(
     url(r'^logout/', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='timtec_logout'),
 
     url(r'^profile/edit/?$', ProfileEditView.as_view(), name="profile_edit"),
+    url(r'^profile/edit/social/?$', UserSocialAccountCreateView.as_view(), name="profile_edit_add_social"),
+    url(r'^profile/edit/social/(?P<pk>[1-9][0-9]*)/?$', UserSocialAccountDeleteView.as_view(), name="profile_edit_delete_social"),
     url(r'^profile/(?P<username>[\w.+-]+)?/?$', ProfileView.as_view(), name="profile"),
 
     # The django-allauth
@@ -173,6 +177,17 @@ if settings.TWITTER_USER != '':
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+    from django.views import defaults as default_views
+
+    # This allows the error pages to be debugged during development, just visit
+    # these url in browser to see how these error pages look like.
+    urlpatterns += [
+        url(r'^400/$', default_views.bad_request),
+        url(r'^403/$', default_views.permission_denied),
+        url(r'^404/$', default_views.page_not_found),
+        url(r'^500/$', default_views.server_error),
+    ]
 
 if 'ifs' in settings.INSTALLED_APPS:
     urlpatterns += (url(r'^ifs/', include('ifs.urls')),)

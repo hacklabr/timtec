@@ -26,7 +26,7 @@
             link: function(scope, element, attrs) {
                 element.on('click', function() {
                     scope.$root.changed = true;
-                })
+                });
             }
         };
     });
@@ -53,7 +53,7 @@
             link: function(scope, element, attrs) {
 		element.on('click', function() {
 		    scope.$root.changed = true;
-		})
+		});
 	    }
         };
     });
@@ -64,7 +64,7 @@
             link: function(scope, element, attrs) {
                 element.on('change', function() {
                     scope.$root.changed = true;
-                })
+                });
             }
         };
     });
@@ -75,7 +75,7 @@
             link: function(scope, element, attrs) {
                 element.on('keydown', function() {
                     scope.$root.changed = true;
-                })
+                });
             }
         };
     });

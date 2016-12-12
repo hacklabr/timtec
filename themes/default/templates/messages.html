@@ -1,10 +1,16 @@
 {% extends "base.html" %}
+{% load is_assistant_or_coordinator %}
 {% load compressed %}
 {% load static %}
 {% load i18n %}
 
 {% block wrapper_classes %}
 wrapper-course-lesson
+{% endblock %}
+
+{% block css %}
+    {{block.super}}
+    {% compressed_css 'messages' %}
 {% endblock %}
 
 {% block js %}
@@ -33,12 +39,14 @@ wrapper-course-lesson
     <section id="messages-content" class="container">
         <header class="secondary-header" ng-controller="NewMessageController">
             <div class="row">
-                <div class="col-md-9 col-sm-8 col-xs-6">
-                    <h1>{% trans "Messages" %}</h1>
+                <div class="{% if request.user|is_assistant_or_coordinator:course %}col-md-9 col-sm-8 col-xs-6{% else %}col-xs-12{% endif %}">
+                    <h1>{% block messages_title %}{% trans "Messages" %}{% endblock %}</h1>
                 </div>
-                <div class="col-md-3 col-sm-4 col-xs-6">
-                    <a class="new-message btn btn-lg btn-danger uppercase" ng-click="new_message()">{% trans "New Message" %}</a>
-                </div>
+                
+                {% if request.user|is_assistant_or_coordinator:course %}
+                    <div class="col-md-3 col-sm-4 col-xs-6">
+                        <a class="new-message btn btn-lg btn-danger uppercase" ng-click="new_message()">{% trans "New Message" %}</a>
+                    </div>
                     <script type="text/ng-template" id="newMessageModal.html">
                         <div class="modal-header">
                             <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
@@ -52,12 +60,17 @@ wrapper-course-lesson
                                 </ul>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" ng-model="new_message.subject" placeholder="{% trans 'Subject' %}"/>
+                                <input type="text" class="form-control" ng-model="new_message.subject" placeholder="{% trans 'Subject' %}" ng-disabled='sending' />
                             </div>
-                            <div class="form-group">
-                                <textarea class="form-control" rows="10" ng-model="new_message.message" placeholder="{% trans 'Message' %}"></textarea>
+                            <div class="form-group waiting textcenter" ng-show='sending'>
+                                <div class="middle">
+                                    <progressbar class="progress-striped active" value="progressbar_counter" max="300"></progressbar>
+                                </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group" ng-hide='sending'>
+                                <textarea class="form-control" rows="10" ng-model="new_message.message" ng-model="tinymceModel" ui-tinymce="tinymceOptions" placeholder="{% trans 'Message' %}"></textarea>
+                            </div>
+                            <div class="form-group row" ng-hide="sending">
                                 <div class="students col-lg-12">
                                     <p><label><input type="checkbox" ng-model="modal.all_checked"> {% trans 'Send to all classes' %}</label></p>
                                     {% verbatim %}
@@ -94,32 +107,54 @@ wrapper-course-lesson
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" ng-click="cancel()">{% trans "Close" %}</button>
-                                <button type="button" class="btn btn-success" ng-click="send()">{% trans "Send" %}</button>
+                                <button type="button" class="btn btn-danger" ng-click="cancel()"ng-disabled='sending'>{% trans "Close" %}</button>
+                                <button type="button" class="btn btn-success" ng-click="send()" ng-disabled='sending'>{% trans "Send" %}</button>
                             </div>
                         </div>
                     </script>
+                {% endif %}
             </div>
         </header>
         {% block messages_content %}
         <div class="messages" ng-controller="MessagesListController">
+            <div class="col-xs-12" ng-hide="messages.$resolved">
+                <div class="waiting textcenter">
+                    <div class="middle">
+                        <i class="fa fa-refresh fa-5x"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12" ng-show="messages.length == 0 && messages.$resolved">
+                <div class="waiting textcenter">
+                    <div class="middle">
+                        <i>Não há mensagens enviadas neste curso.</i>
+                    </div>
+                </div>
+            </div>
+
             <div class="message" ng-repeat="message in messages">
                 <div class="row">
                     <div class="col-lg-1 textright">
                         {% verbatim %}
-                        <span class="date">{{ message.date|date:"dd/MM/yy" }}</span>
+                        <span class="date">{{ message.date|date:"dd/MM/yy" }}</span><br>
+                        <span>{{ message.date|date:"HH:mm" }}</span>
                         {% endverbatim %}
                     </div>
-                    <div class="col-lg-11">
+                    <div class="col-lg-10">
                         {% verbatim %}
                         <div class="subject">{{ message.subject }}</div>
                         {% endverbatim %}
                         <div class="body">
-                        <span ng-bind-html="message.message|markdown|words:50"></span>
+                            <span ng-bind-html="message.message|markdown|words:50"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div class="actions">
                             {% if in_admin %}
-                                {% verbatim %}<a ng-href="/admin/course/{{course_id}}/message/{{message.id}}">{% endverbatim %} {% trans 'More...' %}</a>
+                                {% verbatim %}<a ng-href="/admin/course/{{course_id}}/message/{{message.id}}" class='btn btn-primary btn-sm'>{% endverbatim %} {% trans 'Details' %}</a>
                             {% else %}
-                                {% verbatim %}<a ng-href="/course/{{course_slug}}/message/{{message.id}}">{% endverbatim %} {% trans 'More...' %}</a>
+                                {% verbatim %}<a ng-href="/course/{{course_slug}}/message/{{message.id}}" class='btn btn-primary btn-sm'>{% endverbatim %} {% trans 'Details' %}</a>
                             {% endif %}
                         </div>
                     </div>
