@@ -69,7 +69,7 @@ root@server# apt-get install git
 * Com usuário da aplicação - no nosso caso timtec-production - faça a clonagem do repositório:
 
 ```
-timtec-production@server$ git clone ~/https://github.com/hacklabr/timtec.git
+timtec-production@server$ git clone https://github.com/hacklabr/timtec.git
 ```
 
 Em seguida, escolha a versão desejada e atualize o código para ela com o comando abaixo. Aqui você encontra uma lista de versões do TIMTec: https://github.com/hacklabr/timtec/releases
