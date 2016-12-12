@@ -11,6 +11,7 @@
         inline: false,
         menubar: false,
         statusbar: false,
+        relative_urls: false,
         plugins : 'advlist lists autolink link image media',
         toolbar: 'bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | quicklink link image media fullscreen',
         skin: 'lightgray',
