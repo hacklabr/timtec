@@ -172,7 +172,7 @@ class VideoSerializer(serializers.ModelSerializer):
 
 class CourseSerializer(serializers.ModelSerializer):
 
-    intro_video = VideoSerializer(required=False, read_only=True)
+    intro_video = VideoSerializer(required=False)
     home_thumbnail_url = serializers.SerializerMethodField()
     professors = TimtecUserSerializer(read_only=True, many=True)
     is_user_assistant = serializers.SerializerMethodField()
@@ -202,6 +202,20 @@ class CourseSerializer(serializers.ModelSerializer):
 
     def get_is_assistant_or_coordinator(self, obj):
         return obj.is_assistant_or_coordinator(self.context['request'].user)
+
+    def update(self, instance, validated_data):
+        intro_video_data = validated_data.pop('intro_video', None)
+
+        course = super(CourseSerializer, self).update(instance, validated_data)
+
+        if intro_video_data:
+            intro_video_ser = VideoSerializer(course.intro_video, data=intro_video_data)
+            if intro_video_ser.is_valid():
+                intro_video = intro_video_ser.save()
+            course.intro_video = intro_video
+            course.save()
+
+        return course
 
 
 class CourseStudentSerializer(serializers.ModelSerializer):
@@ -342,7 +356,6 @@ class LessonSerializer(serializers.ModelSerializer):
             unit.save()
             activities = []
             for activity_data in activities_data:
-                # import pdb;pdb.set_trace()
                 activity_id = activity_data.pop('id', None)
                 activity, _ = Activity.objects.get_or_create(id=activity_id)
                 activity.comment = activity_data.get('comment', None)
