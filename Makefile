@@ -33,7 +33,7 @@ update:
 	./node_modules/bower/bin/bower install
 	~/env/bin/python manage.py migrate --noinput --fake-initial
 	~/env/bin/python manage.py collectstatic --noinput
-	# ~/env/bin/python manage.py compress
+	~/env/bin/python manage.py compress
 	~/env/bin/python manage.py compilemessages
 
 install:
