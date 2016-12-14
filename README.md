@@ -28,6 +28,7 @@ Para acessar a documentação completa, veja a pasta [docs](docs) na raiz da apl
 * [Instalação (Deploy)](docs/instalacao_e_configuracao/timtec_deploy.md)
 * [Atualização (Update)](docs/instalacao_e_configuracao/timtec_update.md)
 * [ATUALIZAÇÃO a partir da versão 3.0.10 ou inferior](docs/instalacao_e_configuracao/Atualizando-a-partir-da-versão-3.0.10-ou-inferior.md)
+* [ATUALIZAÇÃO da versão 3.x para 4.0](docs/instalacao_e_configuracao/migracao-ambiente-3.x-4.0.md)
 * [CONFIGURAÇÕES v3.2 ou superior](docs/instalacao_e_configuracao/Configurações.md)
 * [CONFIGURAÇÕES (Versão 3.0.10 e inferiores)](docs/instalacao_e_configuracao/Configurações-(Versão-3.0.10-e-inferiores).md)
 
