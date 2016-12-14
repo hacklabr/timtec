@@ -17,9 +17,4 @@ class Migration(migrations.Migration):
             name='groups',
             field=models.ManyToManyField(help_text='The Groups that can have access to this forum. If empty, there are no group restrictions.', related_name='courses', verbose_name='groups', to='auth.Group', blank=True),
         ),
-        migrations.AddField(
-            model_name='class',
-            name='user_can_certificate_even_without_progress',
-            field=models.BooleanField(default=False, verbose_name='Certification Allowed Even Without Progress'),
-        ),
     ]
