@@ -11,8 +11,8 @@ RUN apt-get update \
 # gato para o node funcionar no debian
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
-# instalação do phantom
-RUN npm install -g phantomjs-prebuilt bower
+# instalação das dependencias externas
+RUN npm install -g phantomjs-prebuilt bower less
 
 # colocando a app principal
 RUN mkdir -p /app
