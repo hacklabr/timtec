@@ -2,11 +2,21 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load timtec_markdown %}
-{% load pipeline %}
+{% load compress %}
+{% load static %}
 
 {% block js %}
     {{ block.super }}
-    {% javascript 'forum' %}
+    {% compress js %}
+<script type="text/javascript" src="{% static 'js/forum/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/forum/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/forum/directives.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/forum/filters.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/forum/services.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/truncate.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
+{% endcompress %}
+
 {% endblock %}
 
 {% block wrapper_classes %}

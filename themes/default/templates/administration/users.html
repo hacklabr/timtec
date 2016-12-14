@@ -1,12 +1,21 @@
 {% extends "base.html" %}
-{% load pipeline %}
+{% load compress %}
+{% load static %}
 {% load i18n %}
 {% load in_group %}
 {% load append_to_get %}
 
 {% block js %}
 {{ block.super }}
-    {% javascript 'users_admin' %}
+    {% compress js %}
+<script type="text/javascript" src="{% static 'js/users-admin/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/users-admin/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/users-admin/services.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
+{% endcompress %}
+
     <script>
         window.total_users_found = {{ total_users_number }};
     </script>

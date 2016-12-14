@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
 {% load i18n %}
-{% load pipeline %}
+{% load compress %}
+{% load static %}
 {% load staticfiles %}
 
 {% block js %}
     {{ block.super }}
-    {% javascript 'notes' %}
+    {% compress js %}
+<script type="text/javascript" src="{% static 'js/notes/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/notes/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/notes/services.js' %}"></script>
+{% endcompress %}
+
 {% endblock %}
 
 {% block wrapper_classes %}

@@ -3,7 +3,8 @@
 <html>
 {% load i18n %}
 {% load static %}
-{% load pipeline %}
+{% load compress %}
+{% load static %}
 {% load pinax_webanalytics_tags %}
 <head>
     <meta charset="UTF-8">
@@ -12,8 +13,16 @@
 
     <title>{% block title %}{{ site.name }}{% endblock %}</title>
 
-    {% stylesheet 'common' %}
-    {% stylesheet 'public' %}
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'components-font-awesome/css/font-awesome.css' %}" type="text/css" />
+        <link rel="stylesheet" href="{% static 'codemirror/lib/codemirror.css' %}" type="text/css" />
+        <link rel="stylesheet" href="{% static 'codemirror/addon/hint/show-hint.css' %}" type="text/css" />
+        <link rel="stylesheet" href="{% static 'codemirror/theme/monokai.css' %}" type="text/css" />
+        <link rel="stylesheet" href="{% static 'css/codemirrorconf.css' %}" type="text/css" />
+
+        <link rel="stylesheet" href="{% static 'less/main.less' %}" type="text/less" />
+    {% endcompress %}
+
 
     <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
 
@@ -39,15 +48,60 @@
         window.USER_ID = '{{ user.id }}';
     </script>
 
-    {% javascript 'all' %}
-    {% javascript 'angular' %}
-    {% javascript 'angular-timtec' %}
-    {% javascript 'codemirror' %}
-    {% javascript 'header' %}
+    {% compress js %}
+        <script type="text/javascript" src="{% static 'modernizr/modernizr.js' %}"></script>
+        <script type="text/javascript" src="{% static 'jquery/dist/jquery.js' %}"></script>
+        <script type="text/javascript" src="{% static 'jquery-ui/ui/jquery-ui.js' %}"></script>
+        <script type="text/javascript" src="{% static 'jquery-ui/ui/jquery.ui.sortable.js' %}"></script>
+        <script type="text/javascript" src="{% static 'bootstrap/dist/js/bootstrap.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/consolelogfallback.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/contact_form.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/helpers.js' %}"></script>
+        {# <script type="text/javascript" src="{% static 'js/directives/layout.js' %}"></script> #}
 
-    <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Converter.js' %}" charset="utf-8"></script>
-    <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Editor.js' %}" charset="utf-8"></script>
-    <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Sanitizer.js' %}" charset="utf-8"></script>
+        <script type="text/javascript" src="{% static 'angular/angular.js' %}"></script>
+        <script type="text/javascript" src="{% static 'angular-animate/angular-animate.js' %}"></script>
+        <script type="text/javascript" src="{% static 'angular-cookies/angular-cookies.js' %}"></script>
+        <script type="text/javascript" src="{% static 'angular-resource/angular-resource.js' %}"></script>
+        <script type="text/javascript" src="{% static 'angular-route/angular-route.js' %}"></script>
+        <script type="text/javascript" src="{% static 'angular-sanitize/angular-sanitize.js' %}"></script>
+        <script type="text/javascript" src="{% static 'angular-bootstrap/ui-bootstrap-tpls.js' %}"></script>
+        <script type="text/javascript" src="{% static 'bootstrap-ui-datetime-picker/dist/datetime-picker.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'angular-gettext/dist/angular-gettext.js' %}"></script>
+        <script type="text/javascript" src="{% static 'angular-i18n/angular-locale_pt-br.js' %}"></script>
+
+        <script type="text/javascript" src="{% static 'js/django.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/angular-youtube.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/truncate.js' %}"></script>
+
+        <script type="text/javascript" src="{% static 'codemirror/lib/codemirror.js' %}"></script>
+        <script type="text/javascript" src="{% static 'codemirror/addon/fold/xml-fold.js' %}"></script>
+        <script type="text/javascript" src="{% static 'codemirror/addon/hint/show-hint.js' %}"></script>
+        <script type="text/javascript" src="{% static 'codemirror/addon/hint/xml-hint.js' %}"></script>
+        <script type="text/javascript" src="{% static 'codemirror/addon/hint/html-hint.js' %}"></script>
+        <script type="text/javascript" src="{% static 'codemirror/addon/hint/css-hint.js' %}"></script>
+        <script type="text/javascript" src="{% static 'codemirror/addon/hint/javascript-hint.js' %}"></script>
+        <script type="text/javascript" src="{% static 'codemirror/addon/edit/matchbrackets.js' %}"></script>
+        <script type="text/javascript" src="{% static 'codemirror/addon/edit/closebrackets.js' %}"></script>
+        <script type="text/javascript" src="{% static 'codemirror/addon/edit/matchtags.js' %}"></script>
+        <script type="text/javascript" src="{% static 'codemirror/mode/xml/xml.js' %}"></script>
+        <script type="text/javascript" src="{% static 'codemirror/mode/css/css.js' %}"></script>
+        <script type="text/javascript" src="{% static 'codemirror/mode/javascript/javascript.js' %}"></script>
+        <script type="text/javascript" src="{% static 'codemirror/mode/htmlmixed/htmlmixed.js' %}"></script>
+        <script type="text/javascript" src="{% static 'codemirror/mode/clike/clike.js' %}"></script>
+        <script type="text/javascript" src="{% static 'codemirror/mode/php/php.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/vendor/angular-ui-codemirror/ui-codemirror.js' %}"></script>
+
+        <script type="text/javascript" src="{% static 'js/header/header-services.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/header/header-directives.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/header/header-filters.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/header/header-controllers.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/header/header-app.js' %}"></script>
+
+        <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Converter.js' %}" charset="utf-8"></script>
+        <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Editor.js' %}" charset="utf-8"></script>
+        <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Sanitizer.js' %}" charset="utf-8"></script>
+    {% endcompress %}
 
     {% block js %}{% endblock %}
 

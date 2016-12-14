@@ -2,12 +2,32 @@
 
 {% load staticfiles %}
 {% load i18n %}
-{% load pipeline %}
+{% load compress %}
+{% load static %}
 
 {% block js %}
     {{ block.super }}
-    {% javascript 'core' %}
-    {% javascript 'edit-class' %}
+    {% compress js %}
+<script type="text/javascript" src="{% static 'js/core/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/core/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/core/services.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/core/filters.js' %}"></script>
+<script type="text/javascript" src="{% static 'angular-tweet-filter/index.js' %}"></script>
+<script type="text/javascript" src="{% static 'angular-sortable-view/src/angular-sortable-view.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
+{% endcompress %}
+
+    {% compress js %}
+<script type="text/javascript" src="{% static 'js/directives/waiting-screen.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/edit-class/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/edit-class/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/edit-class/services.js' %}"></script>
+<script type="text/javascript" src="{% static 'checklist-model/checklist-model.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
+{% endcompress %}
+
 
 {% endblock %}
 

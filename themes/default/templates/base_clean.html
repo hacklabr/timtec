@@ -2,7 +2,8 @@
 <html>
 {% load i18n %}
 {% load static %}
-{% load pipeline %}
+{% load compress %}
+{% load static %}
 {% load metron_tags %}
 <head>
     <meta charset="UTF-8">
@@ -11,8 +12,19 @@
 
     <title>{% block title %}{{ site.name }}{% endblock %}</title>
 
-    {% stylesheet 'common' %}
-    {% stylesheet 'public' %}
+    {% compress css %}
+<link rel="stylesheet" href="{% static 'components-font-awesome/css/font-awesome.css' %}" type="text/css" />
+<link rel="stylesheet" href="{% static 'codemirror/lib/codemirror.css' %}" type="text/css" />
+<link rel="stylesheet" href="{% static 'codemirror/addon/hint/show-hint.css' %}" type="text/css" />
+<link rel="stylesheet" href="{% static 'codemirror/theme/monokai.css' %}" type="text/css" />
+<link rel="stylesheet" href="{% static 'css/codemirrorconf.css' %}" type="text/css" />
+{% endcompress %}
+
+    {% compress css %}
+<link rel="stylesheet" href="{% static 'less/main-if_theme.less' %}" type="text/css" />
+<link rel="stylesheet" href="{% static 'scss/main-if_theme.scss' %}" type="text/css" />
+{% endcompress %}
+
 
     <script>
         window.STATIC_URL = '{{ STATIC_URL }}';
@@ -22,8 +34,38 @@
         window.USER_ID = '{{ user.id }}';
     </script>
 
-    {% javascript 'all' %}
-    {% javascript 'codemirror' %}
+    {% compress js %}
+<script type="text/javascript" src="{% static 'modernizr/modernizr.js' %}"></script>
+<script type="text/javascript" src="{% static 'jquery/dist/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'jquery-ui/ui/jquery-ui.js' %}"></script>
+<script type="text/javascript" src="{% static 'jquery-ui/ui/jquery.ui.sortable.js' %}"></script>
+<script type="text/javascript" src="{% static 'bootstrap/dist/js/bootstrap.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/consolelogfallback.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/contact_form.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/helpers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/layout.js' %}"></script>
+{% endcompress %}
+
+    {% compress js %}
+<script type="text/javascript" src="{% static 'codemirror/lib/codemirror.js' %}"></script>
+<script type="text/javascript" src="{% static 'codemirror/addon/fold/xml-fold.js' %}"></script>
+<script type="text/javascript" src="{% static 'codemirror/addon/hint/show-hint.js' %}"></script>
+<script type="text/javascript" src="{% static 'codemirror/addon/hint/xml-hint.js' %}"></script>
+<script type="text/javascript" src="{% static 'codemirror/addon/hint/html-hint.js' %}"></script>
+<script type="text/javascript" src="{% static 'codemirror/addon/hint/css-hint.js' %}"></script>
+<script type="text/javascript" src="{% static 'codemirror/addon/hint/javascript-hint.js' %}"></script>
+<script type="text/javascript" src="{% static 'codemirror/addon/edit/matchbrackets.js' %}"></script>
+<script type="text/javascript" src="{% static 'codemirror/addon/edit/closebrackets.js' %}"></script>
+<script type="text/javascript" src="{% static 'codemirror/addon/edit/matchtags.js' %}"></script>
+<script type="text/javascript" src="{% static 'codemirror/mode/xml/xml.js' %}"></script>
+<script type="text/javascript" src="{% static 'codemirror/mode/css/css.js' %}"></script>
+<script type="text/javascript" src="{% static 'codemirror/mode/javascript/javascript.js' %}"></script>
+<script type="text/javascript" src="{% static 'codemirror/mode/htmlmixed/htmlmixed.js' %}"></script>
+<script type="text/javascript" src="{% static 'codemirror/mode/clike/clike.js' %}"></script>
+<script type="text/javascript" src="{% static 'codemirror/mode/php/php.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/vendor/angular-ui-codemirror/ui-codemirror.js' %}"></script>
+{% endcompress %}
+
 
     <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Converter.js' %}" charset="utf-8"></script>
     <script type="text/javascript" src="{% static 'js/vendor/pagedown/Markdown.Editor.js' %}" charset="utf-8"></script>

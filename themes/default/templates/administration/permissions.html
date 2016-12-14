@@ -1,11 +1,19 @@
 {% extends "base.html" %}
-{% load pipeline %}
+{% load compress %}
+{% load static %}
 {% load static %}
 {% load i18n %}
 
 {% block js %}
     {{ block.super }}
-    {% javascript 'course_permissions' %}
+    {% compress js %}
+<script type="text/javascript" src="{% static 'js/course-permissions/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/course-permissions/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
+{% endcompress %}
+
 
 {% endblock %}
 

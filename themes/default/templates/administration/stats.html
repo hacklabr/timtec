@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% load pipeline %}
+{% load compress %}
+{% load static %}
 {% load static %}
 {% load i18n %}
 
@@ -9,7 +10,13 @@ wrapper-course-lesson
 
 {% block js %}
     {{ block.super }}
-    {% javascript 'reports' %}
+    {% compress js %}
+<script type="text/javascript" src="{% static 'js/reports/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/reports/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/reports/services.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
+{% endcompress %}
+
     <script>
         window.course_id = {{ course.pk }};
         window.user_id = {{ user.pk }};

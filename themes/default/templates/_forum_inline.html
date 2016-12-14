@@ -1,4 +1,5 @@
-{% load pipeline %}
+{% load compress %}
+{% load static %}
 {% load timtec_markdown %}
 {% load i18n %}
 {% load get_flatpage %}
@@ -12,7 +13,16 @@
     window.is_admin = false;
     {% endif %}
 </script>
-{% javascript 'forum' %}
+{% compress js %}
+<script type="text/javascript" src="{% static 'js/forum/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/forum/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/forum/directives.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/forum/filters.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/forum/services.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/truncate.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
+{% endcompress %}
+
 <section id="forum" class="forum-inline">
 
     <section id="forum-content" ng-controller="InlineForumCtrl">

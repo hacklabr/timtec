@@ -1,11 +1,24 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load staticfiles %}
-{% load pipeline %}
+{% load compress %}
+{% load static %}
 
 {% block js %}
     {{ block.super }}
-    {% javascript 'course_material' %}
+    {% compress js %}
+<script type="text/javascript" src="{% static 'js/course_material/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/course_material/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/course_material/services.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/course_material/directives.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/course_material/filters.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
+<script type="text/javascript" src="{% static 'dropzone/downloads/dropzone.js' %}"></script>
+<script type="text/javascript" src="{% static 'angular-dropzone/lib/angular-dropzone.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+{% endcompress %}
+
 {% endblock %}
 
 {% block wrapper_classes %}
