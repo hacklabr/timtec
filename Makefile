@@ -21,7 +21,7 @@ define base_update
 	~/env/bin/pip install -U -r requirements/test.txt
 	npm install
 	~/env/bin/python manage.py migrate --noinput --fake-initial
-	~/env/bin/python manage.py collectstatic --noinput
+	~/env/bin/python manage.py collectstatic --noinput -c
 	~/env/bin/python manage.py compress
 	~/env/bin/python manage.py compilemessages
 endef
