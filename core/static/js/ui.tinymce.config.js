@@ -10,14 +10,15 @@
         related_url: true,
         inline: false,
         menubar: false,
-        statusbar: false,
         relative_urls: false,
-        plugins : 'advlist lists autolink link image media',
+        plugins : 'advlist lists autolink link image media autoresize',
         toolbar: 'bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | quicklink link image media fullscreen',
         skin: 'lightgray',
         theme : 'modern',
         language: 'pt_BR',
         language_url : '/static/vendor/tinymce/langs/pt_BR.js',
+        resize: true,
+        elementpath: false,
 
         // media customizations
         media_poster: false,
