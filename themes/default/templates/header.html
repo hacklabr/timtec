@@ -43,6 +43,7 @@
                                     <div class='course'>{{ message.course }} - <span class='date'>{{ message.date|date:"dd/MM/yyyy HH:mm"}}</span></div>
                                 </a>
                             </li>
+                            <li ng-show="!messages.length" class='empty'><i>Não há mensagens</i></li>
                         </ul>
                     {% endverbatim %}
                 </li>
