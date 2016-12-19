@@ -25,28 +25,30 @@
                 <li><a href="#" data-toggle="modal" data-target="#modal-contact">{% trans 'Contact' %}</a></li>
                 <li><a href="{% url 'courses' %}">{% trans 'Courses' %}</a></li>
 
-                <li>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        {% trans 'Messages' %}
+                {% if request.user.is_authenticated %}
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            {% trans 'Messages' %}
+                            {% verbatim %}
+                                <span class='badge' ng-show='theres_new_messages'>{{ total_messages }}</span>
+                            {% endverbatim %}
+                        </a>
                         {% verbatim %}
-                            <span class='badge' ng-show='theres_new_messages'>{{ total_messages }}</span>
+                            <ul class="dropdown-menu messages">
+                                <li ng-repeat="message in messages|limitTo:6">
+                                    <a ng-href='{{ message.get_absolute_url }}' ng-class="{read: message.is_read}">
+                                        <div class='title'>
+                                            <i class="fa" ng-class='{"fa-envelope": !message.is_read, "fa-envelope-open-o": message.is_read}'></i>
+                                            {{ message.subject }}
+                                        </div>
+                                        <div class='course'>{{ message.course }} - <span class='date'>{{ message.date|date:"dd/MM/yyyy HH:mm"}}</span></div>
+                                    </a>
+                                </li>
+                                <li ng-show="!messages.length" class='empty'><i>Não há mensagens</i></li>
+                            </ul>
                         {% endverbatim %}
-                    </a>
-                    {% verbatim %}
-                        <ul class="dropdown-menu messages">
-                            <li ng-repeat="message in messages|limitTo:6">
-                                <a ng-href='{{ message.get_absolute_url }}' ng-class="{read: message.is_read}">
-                                    <div class='title'>
-                                        <i class="fa" ng-class='{"fa-envelope": !message.is_read, "fa-envelope-open-o": message.is_read}'></i>
-                                        {{ message.subject }}
-                                    </div>
-                                    <div class='course'>{{ message.course }} - <span class='date'>{{ message.date|date:"dd/MM/yyyy HH:mm"}}</span></div>
-                                </a>
-                            </li>
-                            <li ng-show="!messages.length" class='empty'><i>Não há mensagens</i></li>
-                        </ul>
-                    {% endverbatim %}
-                </li>
+                    </li>
+                {% endif %}
 
                 <li class="navbar-divider"></li>
                 {% endblock %}
