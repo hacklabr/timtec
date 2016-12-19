@@ -301,16 +301,16 @@ LOGGING = {
     }
 }
 
-try:
-    execfile(os.path.join(SETTINGS_DIR, 'settings_local.py'))
-except IOError:
-    pass
-
 COMPRESS_OFFLINE = True
 
 COMPRESS_PRECOMPILERS = (
     ('text/less', '%s/node_modules/less/bin/lessc {infile} {outfile} --include-path="%s/less"' % (PROJECT_ROOT, STATIC_ROOT)),
 )
+
+try:
+    execfile(os.path.join(SETTINGS_DIR, 'settings_local.py'))
+except IOError:
+    pass
 
 TEMPLATES = [
     {
