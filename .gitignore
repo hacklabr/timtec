@@ -68,5 +68,6 @@ bower_components/
 *.css.map
 
 *.psqlc
+*.log
 *.log.*
 site/
