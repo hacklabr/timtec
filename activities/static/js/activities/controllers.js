@@ -96,7 +96,8 @@
       'ClassActivity',
       'CurrentUser',
       'AnswerNotification',
-      function ($scope, $sce, $routeParams, $location, $anchorScroll, uiTinymceConfig, Forum, Topic, Comment, TopicLike, TopicFile, CommentLike, CommentFile, Progress, ClassActivity, CurrentUser, AnswerNotification) {
+      'ContentFile',
+      function ($scope, $sce, $routeParams, $location, $anchorScroll, uiTinymceConfig, Forum, Topic, Comment, TopicLike, TopicFile, CommentLike, CommentFile, Progress, ClassActivity, CurrentUser, AnswerNotification, ContentFile) {
         $scope.activity_open = true;
         $scope.activity_expired = false;
         var now = Date.now();
@@ -115,6 +116,7 @@
         }
 
         uiTinymceConfig.automatic_uploads = true;
+        uiTinymceConfig.images_upload_handler = ContentFile.upload;
 
         // If there is not an answer yet, create topic instance
         $scope.topic = new Topic();
