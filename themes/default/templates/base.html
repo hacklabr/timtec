@@ -170,7 +170,7 @@
         })();
     </script>
 </head>
-<body {% if in_admin %}id="admin"{% else %}id="notadmin"{% endif %} {% spaceless %}{% block body_attrs %}{% endblock %}{% endspaceless %} ng-app="{% block ng_app %}{% endblock %}">
+<body {% if in_admin %}id="admin"{% else %}id="notadmin"{% endif %} {% spaceless %}{% block body_attrs %}{% endblock %}{% endspaceless %}>
 
     {% block header %}
     {% include 'header.html' %}
