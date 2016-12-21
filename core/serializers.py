@@ -100,16 +100,6 @@ class CourseCertificationSerializer(serializers.ModelSerializer):
         return obj.course.id
 
 
-class ProfileCourseCertificationSerializer(serializers.ModelSerializer):
-    course = BaseCourseSerializer()
-    approved = BaseCertificationProcessSerializer(source='get_approved_process')
-
-    class Meta:
-        model = CourseCertification
-        fields = ('link_hash', 'created_date', 'is_valid', 'processes', 'type',
-                  'approved', 'course')
-
-
 class EvaluationSerializer(serializers.ModelSerializer):
     processes = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
@@ -245,6 +235,19 @@ class CourseStudentClassSerializer(CourseStudentSerializer):
         model = CourseStudent
         fields = ('id', 'user', 'course_finished',
                   'certificate', 'can_emmit_receipt', 'percent_progress',)
+
+
+class ProfileCourseCertificationSerializer(serializers.ModelSerializer):
+    course = BaseCourseSerializer()
+    approved = serializers.SerializerMethodField()
+
+    class Meta:
+        model = CourseCertification
+        fields = ('link_hash', 'created_date', 'is_valid', 'processes', 'type',
+                  'approved', 'course')
+
+    def get_approved(self, obj):
+        return obj.course_student.can_emmit_receipt()
 
 
 class ClassSerializer(serializers.ModelSerializer):
