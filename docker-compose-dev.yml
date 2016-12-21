@@ -4,8 +4,8 @@ volumes:
     timtec_database_data: {}
 
 services:
-    database:
-        container_name: timtec_db
+    timtec_database:
+        container_name: timtec_database
         image: postgres:9.5
         restart: always
         volumes:
@@ -14,9 +14,10 @@ services:
             - POSTGRES_DB=timtec
             - POSTGRES_USER=timtec
 
-    django:
+    timtec_django:
         container_name: timtec_django
         command: python /app/timtec/manage.py runserver 0.0.0.0:8000
+        restart: always
         build:
             context: .
             dockerfile: Dockerfile-dev
@@ -24,10 +25,7 @@ services:
             - .:/app/timtec
             - ../timtec-theme-if:/app/timtec-theme-if
             - ../timtec-theme-timtec:/app/timtec-theme-timtec
-        restart: always
-        depends_on:
-            - database
         links:
-            - database
+            - timtec_database:database
         ports:
             - "0.0.0.0:8000:8000"
