@@ -256,7 +256,7 @@ class CourseStudentClassSerializer(CourseStudentSerializer):
 
     class Meta:
         model = CourseStudent
-        fields = ('id', 'user', 'course_finished',
+        fields = ('id', 'user', 'course_finished', 'start_date',
                   'certificate', 'can_emmit_receipt', 'percent_progress',)
 
 

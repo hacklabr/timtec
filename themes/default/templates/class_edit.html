@@ -156,6 +156,7 @@ wrapper-course-lesson
                         <th class="classname">{% trans "Username" %}</th>
                         <th class="email">{% trans "Email" %}</th>
                         <th class="fullname">{% trans "Full name" %}</th>
+                        <th class="fullname">{% trans "Start Date" %}</th>
                         <th class="certificate" ng-show="classe.user_can_certificate">{% trans "Certificate" %}</th>
                         <th class="actions">{% trans "Actions" %}</th>
                         {% if object.course.default_class != object %}
@@ -167,6 +168,7 @@ wrapper-course-lesson
                         <td>{{ student.user.username }}</td>
                         <td>{{ student.user.email }}</td>
                         <td>{{ student.user.name }}</td>
+                        <td>{{ student.start_date|date:"dd/MM/yyyy - H:m" }}</td>
                         <td ng-show="classe.user_can_certificate">
                             <input type='checkbox' ng-disabled='!student.certificate || !classe.user_can_certificate_even_without_progress && !student.can_emmit_receipt' ng-click="toggle_certificate($index)" ng-checked="student.certificate.type == 'certificate'">
                         </td>
