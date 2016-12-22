@@ -68,7 +68,7 @@ wrapper-course-lesson
                     </header>
                 </div>
                 {% endif %}
-                {% for cs in request.user.coursestudent_set.all %}
+                {% for cs in courses %}
                 <div class="course">
                     {% if cs.course.has_started %}
                     <header>

@@ -136,7 +136,7 @@ class CourseView(DetailView):
                                                 .values_list('unit', flat=True)
             context['units_done'] = units_done
 
-            user_is_enrolled = self.object.students.filter(id=user.id).exists()
+            user_is_enrolled = CourseStudent.objects.filter(user=user, course=self.object, is_active=True).exists()
             context['user_is_enrolled'] = user_is_enrolled
 
         return context
@@ -147,6 +147,11 @@ class UserCoursesView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(UserCoursesView, self).get_context_data(**kwargs)
+
+        context['courses'] = CourseStudent.objects.filter(
+            user=self.request.user,
+            is_active=True
+        )
 
         context['courses_user_assist'] = CourseProfessor.objects.filter(
             user=self.request.user,
@@ -176,6 +181,9 @@ class EnrollCourseView(LoginRequiredMixin, RedirectView):
     def get_redirect_url(self, **kwargs):
         course = self.get_object()
         if course.is_enrolled(self.request.user):
+            cs = CourseStudent.objects.get(course=self.object, user=self.request.user)
+            cs.is_active = True
+            cs.save()
             return reverse_lazy('resume_course', args=[course.slug])
         if course.status == 'draft':
             return reverse_lazy('courses')
@@ -189,6 +197,24 @@ class EnrollCourseView(LoginRequiredMixin, RedirectView):
             return '{}?next={}'.format(reverse_lazy('accept_terms'), self.request.path)
 
 
+class GoOutCourseView(LoginRequiredMixin, RedirectView):
+    permanent = False
+
+    def get_object(self):
+        if hasattr(self, 'object'):
+            return self.object
+        self.object = Course.objects.get(**self.kwargs)
+        return self.object
+
+    def get_redirect_url(self, **kwargs):
+        course = self.get_object()
+        if course.is_enrolled(self.request.user):
+            cs = CourseStudent.objects.get(course=self.object, user=self.request.user)
+            cs.is_active = False
+            cs.save()
+        return reverse_lazy('resume_course', args=[course.slug])
+
+
 class ResumeCourseView(LoginRequiredMixin, RedirectView):
     permanent = False
 
@@ -200,6 +226,11 @@ class ResumeCourseView(LoginRequiredMixin, RedirectView):
 
     def get_redirect_url(self, **kwargs):
         course = self.get_object()
+        user = self.request.user
+        user_is_enrolled = CourseStudent.objects.filter(user=user, course=course, is_active=True).exists()
+        if not user_is_enrolled:
+            return reverse_lazy('course_intro', args=[course.slug])
+
         if self.request.user.accepted_terms or not settings.TERMS_ACCEPTANCE_REQUIRED:
             if not course.is_enrolled(self.request.user):
                 course.enroll_student(self.request.user)
@@ -289,7 +320,7 @@ class CoursePictureUploadViewSet(viewsets.ModelViewSet):
 
 class CourseStudentViewSet(viewsets.ModelViewSet):
     model = CourseStudent
-    queryset = CourseStudent.objects.all()
+    queryset = CourseStudent.objects.filter(is_active=True)
     lookup_field = 'id'
     filter_fields = ('course__slug', 'course__id', 'user',)
     #     filter_backends = (filters.DjangoFilterBackend,)

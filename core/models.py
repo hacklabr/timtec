@@ -299,6 +299,7 @@ class CourseStudent(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Student'))
     course = models.ForeignKey(Course, verbose_name=_('Course'))
     start_date = models.DateTimeField(default=timezone.now)
+    is_active = models.BooleanField(_('is active?'), default=True)
 
     class Meta:
         unique_together = (('user', 'course'),)
