@@ -84,6 +84,11 @@
                         });
             };
 
+            $scope.propertyName = 'user.username';
+            $scope.sort_by = function(propertyName) {
+                $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+                $scope.propertyName = propertyName;
+            };
         }
     ]);
 })(angular);

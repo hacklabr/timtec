@@ -153,17 +153,45 @@ wrapper-course-lesson
             <div class="col-lg-12">
                 <table class="table table-list">
                     <tr>
-                        <th class="classname">{% trans "Username" %}</th>
-                        <th class="email">{% trans "Email" %}</th>
-                        <th class="fullname">{% trans "Full name" %}</th>
-                        <th class="fullname">{% trans "Start Date" %}</th>
+                        <th class="classname">
+                            <a href="javascript:void(0)" ng-click="sort_by('user.username')">
+                                {% trans "Username" %}
+                                <i class='fa fa-sort' ng-hide="propertyName == 'user.username'"></i>
+                                <i class='fa fa-sort-up' ng-show="!reverse && propertyName == 'user.username'"></i>
+                                <i class='fa fa-sort-desc' ng-show="reverse && propertyName == 'user.username'"></i>
+                            </a>
+                        </th>
+                        <th class="email">
+                            <a href="javascript:void(0)" ng-click="sort_by('user.email')">
+                                {% trans "Email" %}
+                                <i class='fa fa-sort' ng-hide="propertyName == 'user.email'"></i>
+                                <i class='fa fa-sort-up' ng-show="!reverse && propertyName == 'user.email'"></i>
+                                <i class='fa fa-sort-desc' ng-show="reverse && propertyName == 'user.email'"></i>
+                            </a>
+                        </th>
+                        <th class="fullname">
+                            <a href="javascript:void(0)" ng-click="sort_by('user.name')">
+                                {% trans "Full name" %}
+                                <i class='fa fa-sort' ng-hide="propertyName == 'user.name'"></i>
+                                <i class='fa fa-sort-up' ng-show="!reverse && propertyName == 'user.name'"></i>
+                                <i class='fa fa-sort-desc' ng-show="reverse && propertyName == 'user.name'"></i>
+                            </a>
+                        </th>
+                        <th class="startdate">
+                            <a href="javascript:void(0)" ng-click="sort_by('start_date')">
+                                {% trans "Start Date" %}
+                                <i class='fa fa-sort' ng-hide="propertyName == 'start_date'"></i>
+                                <i class='fa fa-sort-up' ng-show="!reverse && propertyName == 'start_date'"></i>
+                                <i class='fa fa-sort-desc' ng-show="reverse && propertyName == 'start_date'"></i>
+                            </a>
+                        </th>
                         <th class="certificate" ng-show="classe.user_can_certificate">{% trans "Certificate" %}</th>
                         <th class="actions">{% trans "Actions" %}</th>
                         {% if object.course.default_class != object %}
                         {% endif %}
                     </tr>
 
-                    <tr ng-repeat='student in classe.students_detail'>
+                    <tr ng-repeat='student in classe.students_detail | orderBy:propertyName:reverse'>
                         {% verbatim %}
                         <td>{{ student.user.username }}</td>
                         <td>{{ student.user.email }}</td>
