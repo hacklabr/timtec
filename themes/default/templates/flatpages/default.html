@@ -8,20 +8,20 @@
     {% block js %}
 		{{block.super}}
         {% compress js %}
-<script type="text/javascript" src="{% static 'js/core/app.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/core/controllers.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/core/services.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/core/filters.js' %}"></script>
-<script type="text/javascript" src="{% static 'angular-tweet-filter/index.js' %}"></script>
-<script type="text/javascript" src="{% static 'angular-sortable-view/src/angular-sortable-view.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
-{% endcompress %}
+            <script type="text/javascript" src="{% static 'js/core/app.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/core/controllers.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/core/services.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/core/filters.js' %}"></script>
+            <script type="text/javascript" src="{% static 'angular-tweet-filter/index.js' %}"></script>
+            <script type="text/javascript" src="{% static 'angular-sortable-view/src/angular-sortable-view.min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
 
-    <script>
-        window.page_url = '{{ flatpage.url }}';
-    </script>
+            <script>
+                window.page_url = '{{ flatpage.url }}';
+            </script>
+        {% endcompress %}
 	{% endblock %}
 {% endif %}
 
@@ -29,11 +29,7 @@
 {{ flatpage.title }}
 {% endblock %}
 
-{% block body_attrs %}
-class="static-page-body"
-{% endblock %}
-
-{% block body_attrs %}ng-app='core'{% endblock %}
+{% block body_attrs %}class="static-page-body" ng-app='core'{% endblock %}
 
 {% block content %}
         <div class="page static-page" ng-controller="FlatPageCtrl">
