@@ -310,6 +310,9 @@ class CourseStudent(models.Model):
         return u'{0} - {1}'.format(self.course, self.user)
 
     def save(self, *args, **kwargs):
+        if not self.id:
+            self.send_welcome_email()
+
         super(CourseStudent, self).save(*args, **kwargs)
 
         try:
@@ -324,6 +327,20 @@ class CourseStudent(models.Model):
                                           type=CourseCertification.TYPES[0][0],
                                           is_valid=True, link_hash=h)
             receipt.save()
+
+    def send_welcome_email(self):
+        if not self.course.welcome_email:
+            return
+
+        from markdown import markdown
+        try:
+            et = EmailTemplate.objects.get(name='professor-message')
+        except EmailTemplate.DoesNotExist:
+            et = EmailTemplate(name="welcome-message", subject="{{subject}}", template="{{message|safe}}")
+        subject = Template(et.subject).render(Context({'subject': _("Welcome to course: %s") % self.course.name}))
+        message = Template(et.template).render(Context({'message': markdown(self.course.welcome_email)}))
+        email = EmailMessage(subject, message, settings.DEFAULT_FROM_EMAIL, [self.user.email])
+        return email.send()
 
     @property
     def units_done(self):
