@@ -74,7 +74,7 @@
                 <form class="form-inline">
                     <!-- ROW -->
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <label for="filter-class"> {% trans "Filter classes" %}:
                                 <select class="form-control" id="filter-class" ng-model="filters.selected_class" ng-change="filter()">
                                     <optgroup label="{% trans 'List by' %}:">
@@ -90,6 +90,12 @@
                                     </optgroup>
                                 </select>
                             </label>
+                        </div>
+                        <div class="col-sm-6 textright">
+                            <div class="form-group">
+                                <label for="search"> {% trans "Search in questions" %}:</label>
+                                <input type='text' class='form-control' ng-model='query.s' ng-change="search()" ng-model-options="{debounce: 500}">
+                            </div>
                         </div>
                     </div><!-- END ROW -->
                 </form>

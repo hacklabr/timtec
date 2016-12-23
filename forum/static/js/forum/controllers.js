@@ -77,12 +77,18 @@
                 $scope.currentPage = 1;
                 $scope.sort_label = 'Mais recentes';
                 $scope.sort = 'timestamp';
-                $scope.query = {page: $scope.currentPage, course: course_id, ordering: $scope.sort}
+                $scope.query = {page: $scope.currentPage, course: course_id, ordering: $scope.sort, s: ""}
+
+                $scope.search = function(){
+                    if($scope.query.s.length == 0 || $scope.query.s.length >= 3) {
+                        $scope.currentPage = 1;
+                        get_questions();
+                    }
+                }
 
                 $scope.sortBy = function(field) {
                     $scope.query.ordering = field,
                     $scope.currentPage = 1;
-                    $scope.query.page = $scope.currentPage;
                     get_questions();
 
                     if (field == 'date') {
@@ -96,6 +102,7 @@
 
                 // TODO: maybe refactor this to a service?
                 function get_questions(){
+                    $scope.query.page = $scope.currentPage;
                     $scope.questions = Question.query($scope.query, function (questions){
                         $scope.totalItems = questions.count;
                         return questions;
@@ -103,7 +110,6 @@
                 }
 
                 $scope.$watch('currentPage', function(){
-                    $scope.query.page = $scope.currentPage;
                     get_questions();
                 });
 
@@ -143,7 +149,6 @@
 
                 $scope.filter = function(){
                     $scope.currentPage = 1;
-                    $scope.query.page = $scope.currentPage;
                     if ($scope.filters.selected_class == 'all') {
                     } else if ($scope.filters.selected_class == 'my_classes') {
                         $scope.query.classes = $scope.my_classes.map(function(x) {return x.id; });

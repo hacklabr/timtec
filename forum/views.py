@@ -117,6 +117,14 @@ class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
             return queryset
 
         # ordering
+        search = self.request.query_params.get('s', None)
+        if search is not None:
+            queryset = queryset.filter(Q(title__icontains=search)
+                                       | Q(text__icontains=search)
+                                       | Q(answers__text__icontains=search)
+                                       )
+
+        # ordering
         ordering = self.request.query_params.get('ordering', None)
         if ordering is not None:
             if ordering == 'timestamp':
