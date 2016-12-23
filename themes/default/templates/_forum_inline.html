@@ -162,6 +162,20 @@
                     </div>
                 </div>
 
+                <div class="search-filter">
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-4"></div>
+                        <div class="col-lg-8 col-sm-8 textright">
+                            <ul uib-pagination
+                                        max-size="10" items-per-page="20" boundary-links="true"
+                                        total-items="totalItems" ng-model="currentPage" class="pagination-sm top pointer"
+                                        previous-text="&lsaquo;" next-text="&rsaquo;"
+                                        first-text="&laquo;" last-text="&raquo;">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
                 <script type="text/ng-template" id="justificationModal.html">
                     <div class="modal-content">
                         <div class="modal-header">
