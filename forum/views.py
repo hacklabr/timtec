@@ -16,6 +16,13 @@ from rest_framework import viewsets
 from administration.views import AdminMixin
 import operator
 from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
+from django.db.models import Count, Sum
+from django.db.models.functions import Coalesce
+
+
+class CustomPagination(PageNumberPagination):
+    page_size = 20
 
 
 class CourseForumView(LoginRequiredMixin, ListView):
@@ -89,6 +96,7 @@ class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     serializer_class = QuestionSerializer
     filter_fields = ('course', 'user', 'hidden')
     permission_classes = (HideQuestionPermission,)
+    pagination_class = CustomPagination
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -107,6 +115,16 @@ class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
 
         if not (classes_id or course_id):
             return queryset
+
+        # ordering
+        ordering = self.request.query_params.get('ordering', None)
+        if ordering is not None:
+            if ordering == 'timestamp':
+                queryset = queryset.order_by(ordering)
+            if ordering == 'answers':
+                queryset = queryset.annotate(total_answers=Count('answers')).order_by('-total_answers')
+            if ordering == 'votes':
+                queryset = queryset.annotate(total_votes=Coalesce(Sum('votes__value'), 0)).order_by('-total_votes')
 
         try:
             role = self.request.user.teaching_courses.get(course__id=course_id).role

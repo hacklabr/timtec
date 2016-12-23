@@ -21,22 +21,6 @@
         }
     }
 
-    function compare_by_dates(a,b) {
-        if (a.timestamp > b.timestamp)
-           return -1;
-        if (a.timestamp < b.timestamp)
-           return 1;
-        return 0;
-    }
-
-    function compare_by_votes(a,b) {
-        if (a.votes > b.votes)
-           return -1;
-        if (a.votes < b.votes)
-           return 1;
-        return 0;
-    }
-
     angular.module('forum.controllers', ['ngCookies']).
         controller('QuestionCtrl', ['$scope', '$sce', '$window', 'Question', 'ForumAnswer', 'AnswerVote',
             function ($scope, $sce, $window, Question, ForumAnswer, AnswerVote) {
@@ -90,44 +74,38 @@
                 $scope.my_classes = [];
                 $scope.others_classes = [];
                 $scope.filters = {};
-
-                function compare_by_answers(a,b) {
-                    if (a.answers.length > b.answers.length)
-                       return -1;
-                    if (a.answers.length < b.answers.length)
-                       return 1;
-                    return 0;
-                }
-
+                $scope.currentPage = 1;
                 $scope.sort_label = 'Mais recentes';
+                $scope.sort = 'timestamp';
+                $scope.query = {page: $scope.currentPage, course: course_id, ordering: $scope.sort}
+
                 $scope.sortBy = function(field) {
+                    $scope.query.ordering = field,
+                    $scope.currentPage = 1;
+                    $scope.query.page = $scope.currentPage;
+                    get_questions();
+
                     if (field == 'date') {
-                        $scope.questions.sort(compare_by_dates);
                         $scope.sort_label = 'Mais recentes';
                     } else if (field == 'votes') {
-                        $scope.questions.sort(compare_by_votes);
                         $scope.sort_label = 'Mais votadas';
                     } else if (field == 'answers') {
-                        $scope.questions.sort(compare_by_answers);
                         $scope.sort_label = 'Mais respondidas';
                     }
-                    $scope.currentPage = 1;
-                    $scope.changePageHandler(1);
                 };
 
                 // TODO: maybe refactor this to a service?
-                function get_questions(query){
-                    $scope.questions = Question.query(query, function (questions){
-                        questions.sort(compare_by_dates);
-                        // Pagination
-                        $scope.totalItems = $scope.questions.length;
-                        $scope.currentPage = 1;
-                        $scope.maxSize = 5;
-                        $scope.itemsPerPage = 15;
-                        $scope.current_page_questions = $scope.questions.slice(0,$scope.itemsPerPage);
+                function get_questions(){
+                    $scope.questions = Question.query($scope.query, function (questions){
+                        $scope.totalItems = questions.count;
                         return questions;
                     });
                 }
+
+                $scope.$watch('currentPage', function(){
+                    $scope.query.page = $scope.currentPage;
+                    get_questions();
+                });
 
                 CourseProfessor.query({course: course_id, user: current_user_id}, function(course_professor){
                     var current_user = course_professor[0];
@@ -164,90 +142,86 @@
                 });
 
                 $scope.filter = function(){
-                    if ($scope.filters.selected_class == 'all') {
-                        get_questions({course: course_id});
-                    } else if ($scope.filters.selected_class == 'my_classes') {
-                        get_questions({course: course_id, classes: $scope.my_classes.map(function(x) {return x.id; })});
-                    } else if ($scope.filters.selected_class == 'others_classes') {
-                        get_questions({course: course_id, classes: $scope.others_classes.map(function(x) {return x.id; })});
-                    } else {
-                        get_questions({course: course_id, classes: $scope.filters.selected_class});
-                    }
-                };
-
-            get_questions({course: course_id});
-
-            $scope.changePageHandler = function (page) {
-                page = page-1;
-                var offset = $scope.itemsPerPage * page;
-                $scope.current_page_questions = $scope.questions.slice(offset, offset + $scope.itemsPerPage);
-            };
-
-            $scope.new_question = function () {
-                if (($scope.new_question_title !== undefined && $scope.new_question_title !== '') && ($scope.new_text !== undefined && $scope.new_text !== '')){
-                    var new_question = Question.save({course: course_id, title: $scope.new_question_title, text: $scope.new_text}, function(question){
-                        question.hidden_to_user = false;
-                        question.hidden = false;
-                    });
-                    $scope.questions.unshift(new_question);
-                    $scope.totalItems = $scope.questions.length;
-                    // Back to first page
                     $scope.currentPage = 1;
-                    $scope.changePageHandler(1);
-                    $scope.new_question_title = undefined;
-                    $scope.new_text = undefined;
-                    angular.element(document.querySelector('#wmd-preview')).html('');
-                    $scope.question_title_validation = '';
-                    $scope.question_text_validation = '';
-
-                } else {
-                    if ($scope.new_question_title === undefined  || $scope.new_question_title === ''){
-                        $scope.question_title_validation = 'has-error';
+                    $scope.query.page = $scope.currentPage;
+                    if ($scope.filters.selected_class == 'all') {
+                    } else if ($scope.filters.selected_class == 'my_classes') {
+                        $scope.query.classes = $scope.my_classes.map(function(x) {return x.id; });
+                    } else if ($scope.filters.selected_class == 'others_classes') {
+                        $scope.query.classes = $scope.others_classes.map(function(x) {return x.id; });
                     } else {
+                        $scope.query.classes = $scope.filters.selected_class;
+                    }
+                    get_questions();
+                };
+
+                $scope.new_question = function () {
+                    if (($scope.new_question_title !== undefined && $scope.new_question_title !== '') && ($scope.new_text !== undefined && $scope.new_text !== '')){
+                        var new_question = Question.save({course: course_id, title: $scope.new_question_title, text: $scope.new_text}, function(question){
+                            question.hidden_to_user = false;
+                            question.hidden = false;
+                        });
+                        $scope.questions.unshift(new_question);
+                        $scope.totalItems = $scope.questions.length;
+                        // Back to first page
+                        $scope.query.page = 1;
+                        $scope.changePageHandler(1);
+                        $scope.new_question_title = undefined;
+                        $scope.new_text = undefined;
+                        angular.element(document.querySelector('#wmd-preview')).html('');
                         $scope.question_title_validation = '';
-                    }
-                    if ($scope.new_text === undefined || $scope.new_text === ''){
-                        $scope.question_text_validation = 'has-error';
-                    } else {
                         $scope.question_text_validation = '';
-                    }
-                }
-            };
 
-            var ModalInstanceCtrl = function ($scope, $uibModalInstance, question) {
-                $scope.question = question;
-
-                $scope.ok = function () {
-                    $scope.question.hidden = true;
-                    $scope.question.hidden_by = $window.user_id;
-                    $scope.question.hidden_justification = $scope.question.hidden_justification;
-                    $uibModalInstance.close($scope.question);
-                };
-
-                $scope.cancel = function () {
-                    $uibModalInstance.dismiss();
-                };
-            };
-
-            $scope.justification_modal = function (question) {
-                var modalInstance = $uibModal.open({
-                    templateUrl: 'justificationModal.html',
-                    controller: ModalInstanceCtrl,
-                    resolve: {
-                        question: function () {
-                            return question;
+                    } else {
+                        if ($scope.new_question_title === undefined  || $scope.new_question_title === ''){
+                            $scope.question_title_validation = 'has-error';
+                        } else {
+                            $scope.question_title_validation = '';
+                        }
+                        if ($scope.new_text === undefined || $scope.new_text === ''){
+                            $scope.question_text_validation = 'has-error';
+                        } else {
+                            $scope.question_text_validation = '';
                         }
                     }
-                });
+                };
 
-                modalInstance.result.then(function (question) {
-                    question.$update({questionId: question.id}, function(question){
-                        question.hidden_to_user = false;
+                var ModalInstanceCtrl = function ($scope, $uibModalInstance, question) {
+                    $scope.question = question;
+
+                    $scope.ok = function () {
+                        $scope.question.hidden = true;
+                        $scope.question.hidden_by = $window.user_id;
+                        $scope.question.hidden_justification = $scope.question.hidden_justification;
+                        $uibModalInstance.close($scope.question);
+                    };
+
+                    $scope.cancel = function () {
+                        $uibModalInstance.dismiss();
+                    };
+                };
+
+                $scope.justification_modal = function (question) {
+                    var modalInstance = $uibModal.open({
+                        templateUrl: 'justificationModal.html',
+                        controller: ModalInstanceCtrl,
+                        resolve: {
+                            question: function () {
+                                return question;
+                            }
+                        }
                     });
 
-                });
-            };
-        }]).
+                    modalInstance.result.then(function (question) {
+                        question.$update({questionId: question.id}, function(question){
+                            question.hidden_to_user = false;
+                        });
+
+                    });
+                };
+            }
+        ]).
+
         controller('QuestionVoteCtrl', ['$scope', '$window', 'QuestionVote',
             function ($scope, $window, QuestionVote) {
                 $scope.questionId = parseInt($window.question_id, 10);
