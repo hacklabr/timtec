@@ -122,6 +122,7 @@ class Course(models.Model):
     students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='studentcourse_set', through='CourseStudent')
     home_thumbnail = models.ImageField(_('Home thumbnail'), upload_to=hash_name('home_thumbnails', 'name'), null=True, blank=True)
     home_position = models.IntegerField(null=True, blank=True)
+    welcome_email = models.TextField(_('Welcome Email'), blank=True)
     start_date = models.DateField(_('Start date'), default=None, blank=True,
                                   null=True)
     home_published = models.BooleanField(default=False)

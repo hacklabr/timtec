@@ -202,7 +202,7 @@ class CourseSerializer(serializers.ModelSerializer):
                   "thumbnail_url", "home_thumbnail_url", "home_position",
                   "start_date", "home_published", "authors_names", "has_started",
                   "min_percent_to_complete", "is_user_assistant", "is_user_coordinator",
-                  'professors', "is_assistant_or_coordinator", )
+                  'professors', "is_assistant_or_coordinator", 'welcome_email')
 
     @staticmethod
     def get_professor_name(obj):
