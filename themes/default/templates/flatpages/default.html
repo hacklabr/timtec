@@ -4,9 +4,9 @@
 {% load compress %}
 {% load static %}
 
-{% if user.is_superuser %}
-    {% block js %}
-		{{block.super}}
+{% block js %}
+    {{block.super}}
+    {% if user.is_superuser %}
         {% compress js %}
             <script type="text/javascript" src="{% static 'js/core/app.js' %}"></script>
             <script type="text/javascript" src="{% static 'js/core/controllers.js' %}"></script>
@@ -22,8 +22,8 @@
                 window.page_url = '{{ flatpage.url }}';
             </script>
         {% endcompress %}
-	{% endblock %}
-{% endif %}
+    {% endif %}
+{% endblock %}
 
 {% block title %}
 {{ flatpage.title }}
