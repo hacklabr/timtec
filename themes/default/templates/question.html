@@ -65,7 +65,13 @@ wrapper-course-lesson
                         {% verbatim %}
                         <h1 class="title">{{ question.title }}</h1>
                         <div class="text" ng-bind-html="question.text|markdown"></div>
-                        <div class="author">Pergunta feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{question.username}}">{{ question.username }}</a></div>
+                        <div class="author">
+                            <div class="textleft pull-left">
+                                <a href="" class='likes' ng-class="{active: question.likes > 0}"><i class='fa fa-thumbs-up'></i> {{ question.likes }}</a>
+                                <a href="" class='unlikes' ng-class="{active: question.unlikes > 0}"><i class='fa fa-thumbs-down'></i> {{ question.unlikes }}</a>
+                            </div>
+                            Pergunta feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{question.username}}">{{ question.username }}</a>
+                        </div>
                         {% endverbatim %}
                     </td>
                 </tr>

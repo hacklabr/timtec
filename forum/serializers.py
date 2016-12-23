@@ -13,7 +13,7 @@ class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = ('id', 'title', 'course', 'answers', 'text', 'slug',
-                  'votes', 'timestamp', 'username', 'hidden',
+                  'votes', 'timestamp', 'username', 'hidden', 'likes', 'unlikes',
                   'hidden_by', 'hidden_to_user', 'moderator', 'hidden_justification',)
 
         read_only_fields = ('answers', 'slug', 'votes', 'timestamp', 'username', 'hidden',
