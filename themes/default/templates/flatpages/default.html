@@ -17,11 +17,10 @@
             <script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
             <script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
             <script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
-
-            <script>
-                window.page_url = '{{ flatpage.url }}';
-            </script>
         {% endcompress %}
+        <script>
+            window.page_url = '{{ flatpage.url }}';
+        </script>
     {% endif %}
 {% endblock %}
 
