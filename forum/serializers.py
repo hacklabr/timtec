@@ -4,8 +4,8 @@ from rest_framework import serializers
 
 class QuestionSerializer(serializers.ModelSerializer):
 
-    votes = serializers.SerializerMethodField('count_votes')
-    username = serializers.SerializerMethodField()
+    votes = serializers.ReadOnlyField(source='count_votes')
+    username = serializers.ReadOnlyField(source='user.username')
     timestamp = serializers.DateTimeField(read_only=True)
     hidden_to_user = serializers.SerializerMethodField('is_hidden')
     moderator = serializers.SerializerMethodField('is_moderator')
@@ -16,17 +16,8 @@ class QuestionSerializer(serializers.ModelSerializer):
                   'votes', 'timestamp', 'username', 'hidden',
                   'hidden_by', 'hidden_to_user', 'moderator', 'hidden_justification',)
 
-    def count_votes(self, obj):
-        if obj:
-            return obj.count_votes
-        else:
-            return 0
-
-    def get_username(self, obj):
-        if obj:
-            return obj.user.username
-        else:
-            return u''
+        read_only_fields = ('answers', 'slug', 'votes', 'timestamp', 'username', 'hidden',
+                            'hidden_by', 'hidden_to_user', 'moderator', 'hidden_justification',)
 
     def is_hidden(self, obj):
         if hasattr(obj, 'hidden_to_user'):
@@ -41,26 +32,14 @@ class QuestionSerializer(serializers.ModelSerializer):
 
 class AnswerSerializer(serializers.ModelSerializer):
 
-    votes = serializers.SerializerMethodField('count_votes')
-    username = serializers.SerializerMethodField('get_username')
+    votes = serializers.ReadOnlyField(source='count_votes')
+    username = serializers.ReadOnlyField(source='user.username')
     timestamp = serializers.DateTimeField(read_only=True)
-    current_user_vote = serializers.SerializerMethodField('get_current_user_vote')
+    current_user_vote = serializers.SerializerMethodField()
 
     class Meta:
         model = Answer
         fields = ('id', 'question', 'text', 'votes', 'timestamp', 'username', 'current_user_vote')
-
-    def count_votes(self, obj):
-        if obj:
-            return obj.count_votes
-        else:
-            return 0
-
-    def get_username(self, obj):
-        if obj:
-            return obj.user.username
-        else:
-            return u''
 
     def get_current_user_vote(self, obj):
         current_user_vote, _ = AnswerVote.objects.get_or_create(user=self.context.get('request').user, answer=obj)
@@ -70,7 +49,7 @@ class AnswerSerializer(serializers.ModelSerializer):
 
 class QuestionVoteSerializer(serializers.ModelSerializer):
 
-    user = serializers.IntegerField(read_only=True)
+    user = serializers.IntegerField(read_only=True, source='user.id')
     timestamp = serializers.DateTimeField(read_only=True)
 
     class Meta:
@@ -80,7 +59,7 @@ class QuestionVoteSerializer(serializers.ModelSerializer):
 
 class AnswerVoteSerializer(serializers.ModelSerializer):
 
-    user = serializers.IntegerField(read_only=True)
+    user = serializers.IntegerField(read_only=True, source='user.id')
     timestamp = serializers.DateTimeField(read_only=True)
 
     class Meta:

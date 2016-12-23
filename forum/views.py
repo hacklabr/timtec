@@ -15,6 +15,7 @@ from forum.permissions import HideQuestionPermission
 from rest_framework import viewsets
 from administration.views import AdminMixin
 import operator
+from rest_framework.response import Response
 
 
 class CourseForumView(LoginRequiredMixin, ListView):
@@ -89,12 +90,8 @@ class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     filter_fields = ('course', 'user', 'hidden')
     permission_classes = (HideQuestionPermission,)
 
-    def pre_save(self, obj):
-        pk = self.kwargs.get(self.pk_url_kwarg, None)
-        # Set user if is a new question.
-        if not pk:
-            obj.user = self.request.user
-        return super(QuestionViewSet, self).pre_save(obj)
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
     def get_queryset(self):
         # filter by course
@@ -135,25 +132,29 @@ class AnswerViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     model = Answer
     serializer_class = AnswerSerializer
     filter_fields = ('question', 'user')
+    queryset = Answer.objects.all()
 
-    def pre_save(self, obj):
-        obj.user = self.request.user
-        return super(AnswerViewSet, self).pre_save(obj)
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
 class QuestionVoteViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     model = QuestionVote
     serializer_class = QuestionVoteSerializer
-    # Get Question vote usign kwarg as questionId
+    queryset = QuestionVote.objects.all()
     lookup_field = "question"
 
-    def pre_save(self, obj):
-        obj.user = self.request.user
-        # Get Question vote usign kwarg as questionId
-        if 'question' in self.kwargs:
-            obj.question = Question.objects.get(pk=int(self.kwargs['question']))
-            self.kwargs['question'] = obj.question
-        return super(QuestionVoteViewSet, self).pre_save(obj)
+    def update(self, request, pk=None, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+
+        question = Question.objects.get(pk=int(self.kwargs['question']))
+        user = self.request.user
+        instance, _ = QuestionVote.objects.get_or_create(user=user, question=question)
+
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
 
     def get_queryset(self):
         user = self.request.user
@@ -166,13 +167,12 @@ class AnswerVoteViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     # Get answer vote usign kwarg as questionId
     lookup_field = "answer"
 
-    def pre_save(self, obj):
-        obj.user = self.request.user
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
         # Get Question vote usign kwarg as questionId
         if 'answer' in self.kwargs:
-            obj.answer = Answer.objects.get(pk=int(self.kwargs['answer']))
-            self.kwargs['answer'] = obj.answer
-        return super(AnswerVoteViewSet, self).pre_save(obj)
+            self.object.answer = Answer.objects.get(pk=int(self.kwargs['answer']))
+            self.kwargs['answer'] = self.object.answer
 
     def get_queryset(self):
         user = self.request.user
