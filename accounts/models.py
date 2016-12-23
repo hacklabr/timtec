@@ -158,5 +158,4 @@ class TimtecUser(AbstractTimtecUser):
         swappable = 'AUTH_USER_MODEL'
 
     def get_social_media(self):
-        print 254054
         return UserSocialAccount.objects.filter(user=self).order_by('social_media')

@@ -116,7 +116,6 @@ class Answer(models.Model):
             except Answer.DoesNotExist:
                 correct = False
                 break
-            print ans
             correct = ans.is_correct()
             if not correct:
                 break
