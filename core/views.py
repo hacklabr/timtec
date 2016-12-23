@@ -572,8 +572,9 @@ class CourseViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
     permission_classes = (IsProfessorCoordinatorOrAdminPermissionOrReadOnly,)
 
-    def get_queryset(self):
-        queryset = super(CourseViewSet, self).get_queryset()
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
         public_courses = self.request.query_params.get('public_courses', None)
         if public_courses:
             queryset = queryset.filter(status='published').prefetch_related('professors')
@@ -584,10 +585,18 @@ class CourseViewSet(viewsets.ModelViewSet):
                 course_professors__user=self.request.user
             ).prefetch_related('professors')
 
-        if not self.request.user.is_superuser:
+        if not self.request.user.is_superuser and not role:
             queryset = queryset.filter(groups__in=self.request.user.groups.all())
 
-        return queryset.distinct()
+        queryset = queryset.distinct()
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
     def post(self, request, **kwargs):
         course = self.get_object()

@@ -7,14 +7,12 @@
 {% block js %}
     {{ block.super }}
     {% compress js %}
-<script type="text/javascript" src="{% static 'js/course-permissions/app.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/course-permissions/controllers.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
-{% endcompress %}
-
-
+        <script type="text/javascript" src="{% static 'js/course-permissions/app.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/course-permissions/controllers.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
+    {% endcompress %}
 {% endblock %}
 
 {% block wrapper_classes %}
@@ -94,7 +92,7 @@ wrapper-course-lesson
                             <div class="autocomplete">
                                 <input type="text" id="search-user" class="form-control" ng-model="asyncSelected"
                                         placeholder="{% trans 'Type the name, email or user name of the professor to search...' %}"
-                                        typeahead="user as user.formated_name for user in getUsers($viewValue)"
+                                        uib-typeahead="user as user.formated_name for user in getUsers($viewValue)"
                                         typeahead-loading="loadingLocations"
                                         typeahead-on-select="on_select_professor($model); asyncSelected = '';"
                                         typeahead-min-length="2"
