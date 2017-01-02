@@ -193,14 +193,15 @@
 
             $scope.setCurrentUnitVideo = function() {
                 var youtube_id = $scope.currentUnit.intended_youtube_id;
+                delete $scope.currentUnit.intended_youtube_id;  // prevent this atribute from being sent to the server on object save
 
                 //
                 // support pasting both long and short urls from youtube
                 // eg. http://youtu.be/8uj7YSqby7s
                 //
-                var complete_url = /^http.?:(\/\/youtu\.be\/|.+[&?]v=)(.{11}).*/;
+                var complete_url = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
                 var result = complete_url.exec(youtube_id);
-                if(result!==null) {
+                if (result && result[2].length == 11) {
                     youtube_id = result[2];
                 }
 

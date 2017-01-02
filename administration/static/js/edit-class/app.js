@@ -3,12 +3,12 @@
 
     angular.module('edit_class', [
         'edit_class.controllers',
-        'django',
+        'djangular',
         'directive.waiting-screen',
         'directive.alertPopup',
         'directive.fixedBar',
         'ngSanitize',
-        'timtec-models',
+        'core.services',
         'ui.bootstrap',
         'ui.select',
         'header',

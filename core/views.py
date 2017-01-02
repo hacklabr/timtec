@@ -906,6 +906,7 @@ class OAuth2UserInfoView(ProtectedResourceView):
             user = access_token.user
             return HttpResponse(json.dumps({
                 'id': user.id,
+                'username': user.username,
                 'email': user.email
             }));
 
