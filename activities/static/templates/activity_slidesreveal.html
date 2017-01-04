@@ -1,7 +1,7 @@
 <div class="slides question" ng-controller="SlidesRevealActivityCtrl">
     <!-- <span ng-init="$parent.answer.given='image'"></span> -->
     <!-- <img class="img-responsive" ng-src="{{ currentActivity.image_url }}"> -->
-    <iframe id="chat-frame" src="http://localhost:8080/slides-deck-1.html?postMessageEvents=true" style="width: 1019px; height: 600px;">
+    <iframe framepreview cm-bind="currentActivity.data.content" style="width: 1019px; height: 600px;" src='/empty/'>
     </iframe>
     <div class="slides-navigation">
         <span class="previous" ng-click="previous_slide()" translate>anterior</span>

@@ -322,7 +322,7 @@
       'Upload',
       function ($scope, Upload) {
 
-        // whenever the activity_image.html is reoaded, the next function is called
+        // whenever the activity_image.html is reloaded, the next function is called
         $scope.$watch('currentActivity', function() {
             // If there is already an image, show it
             if($scope.currentActivity !== undefined && $scope.currentActivity.image_url)
@@ -376,5 +376,38 @@
 
       }
     ]);
+
+    app.controller('SlidesRevealAdminCtrl', [
+      '$scope',
+      '$sce',
+      'Upload',
+      function ($scope, $sce, Upload) {
+
+        // whenever the activity_slidesreveal.html is reloaded, the next function is called
+        $scope.$watch('currentActivity', function() {
+            // If there is already an image, show it
+            if($scope.currentActivity !== undefined && $scope.currentActivity.data.content){
+                $scope.currentActivity.html_show = true;
+                $scope.iframe_file = $sce.trustAsResourceUrl($scope.currentActivity.data.content);
+            }
+            else
+                $scope.currentActivity.html_show = false;
+        });
+
+        $scope.saveSlides = function(currentActivity){
+            Upload.dataUrl($scope.html_file, true).then(function(data_url) {
+                var blob = Upload.dataUrltoBlob(data_url, "name");
+                var reader = new FileReader();
+                reader.addEventListener("loadend", function() {
+                    currentActivity.data = {
+                        'content': reader.result
+                    };
+                    currentActivity.html_show = true;
+                });
+                reader.readAsText(blob);
+            });
+        };
+
+      }]);
 
 })(window.angular);
