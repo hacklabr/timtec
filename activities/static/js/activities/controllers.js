@@ -396,20 +396,32 @@
         });
 
         // Find out how many slides there are in the current slides.com iframe
-        $( document ).ready(function() {
-            $scope.totalSlides = $("div.slides")[0].childElementCount;
+        $(function(){
+            $('#slidesreveal').on('load', function(){
+                $scope.totalSlides = $("iframe").contents().find("div.slides")[0].childElementCount;
+
+                // Remove native controls from the iframe
+                $("iframe").contents().find("aside.controls")[0].remove();
+
+                // If the activity has a slide record from a previous session, restore it now
+                if($scope.comeback_slide !== undefined)
+                    $scope.select_slide($scope.comeback_slide);
+                $scope.$apply();  // ensures that $scope.totalSlides is updated on the template
+            });
         });
 
-        // Select one slide directly
+        // Select a slide directly
         $scope.select_slide = function(new_slide){
             // Find our presentation iframe
             var frame = document.querySelector( 'iframe' );
-
-            // Command the iframe to advance one slide via message API
+            
+            // Command the iframe to open a specific slide via message API
             frame.contentWindow.postMessage( JSON.stringify({
               method: 'slide',
               args: [ new_slide ]
             }), '*' );
+            $scope.current_slide = new_slide;
+            $scope.update_answer(new_slide);
         };
 
         // Go foward one slide
@@ -444,38 +456,6 @@
         $scope.update_progress = function() {
             Progress.complete($scope.currentUnit.id);
         };
-
-        // Listen for events of the "message" type comming from the Slides.com
-        window.addEventListener( 'message', function( event ) {
-            var data = JSON.parse( event.data );
-
-            if( data.namespace === 'reveal' ) {
-                if( data.eventName === 'slidechanged' || data.eventName === 'ready' ) {
-                    //   indexh: The index of the current horizontal slide
-                    //   indexv: The index of the current vertical slide (if any)
-                    //   indexf: The index of the current fragment (if any)
-                    $scope.current_slide = data.state.indexh;
-
-                    // Wait until the answer promise is ready
-                    var interval = setInterval(function(){
-                       if($scope.answer !== undefined){
-                           clearInterval(interval);
-                       }
-                    }, 100);
-
-                    // If the activity has a slide record from a previous session, restore it now
-                    if($scope.comeback_slide !== undefined){
-                        $scope.select_slide($scope.comeback_slide);
-                        $scope.comeback_slide = undefined;
-                    } else {
-                        // Update the current slide in the answer saved by the server
-                        $scope.update_answer($scope.current_slide);
-                    }
-
-                }
-            }
-
-        });
 
       }
     ]);
