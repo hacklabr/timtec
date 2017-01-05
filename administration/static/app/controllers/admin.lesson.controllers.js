@@ -385,15 +385,15 @@
 
         // whenever the activity_slidesreveal.html is reloaded, the next function is called
         $scope.$watch('currentActivity', function() {
-            // If there is already an image, show it
+            // If there is already a slides html, show it
             if($scope.currentActivity !== undefined && $scope.currentActivity.data.content){
                 $scope.currentActivity.html_show = true;
-                $scope.iframe_file = $sce.trustAsResourceUrl($scope.currentActivity.data.content);
             }
             else
                 $scope.currentActivity.html_show = false;
         });
 
+        // The html file recieved through the from must be open, read, and its contents will be stored in a json
         $scope.saveSlides = function(currentActivity){
             Upload.dataUrl($scope.html_file, true).then(function(data_url) {
                 var blob = Upload.dataUrltoBlob(data_url, "name");
