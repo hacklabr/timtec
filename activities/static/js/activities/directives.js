@@ -158,15 +158,20 @@
                 // Find out how many slides there are in the current slides.com iframe
                 $(function(){
                     $('#slidesreveal').on('load', function(){
-                        $scope.totalSlides = $("iframe").contents().find("div.slides")[0].childElementCount;
+                        // ensures that $scope.totalSlides is updated on the template
+                        $scope.$apply(function() {
+                            console.log("entrei");
+                            $scope.totalSlides = $("iframe").contents().find("div.slides")[0].childElementCount;
 
-                        // Remove native controls from the iframe
-                        $("iframe").contents().find("aside.controls")[0].remove();
+                            // Remove native controls from the iframe
+                            $("iframe").contents().find("aside.controls")[0].remove();
 
-                        // If the activity has a slide record from a previous session, restore it now
-                        if($scope.comeback_slide !== undefined)
-                            $scope.select_slide($scope.comeback_slide);
-                        $scope.$apply();  // ensures that $scope.totalSlides is updated on the template
+                            // If the activity has a slide record from a previous session, restore it now
+                            if($scope.comeback_slide !== undefined)
+                                $scope.select_slide($scope.comeback_slide);
+                            else
+                                $scope.select_slide(0);
+                        });
                     });
                 });
 
