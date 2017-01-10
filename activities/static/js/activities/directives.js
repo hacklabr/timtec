@@ -136,49 +136,54 @@
               'Answer',
               function ($scope, $sce, Progress, Answer) {
 
-                // Create a StudentProgress instance without 'complete' information
-                // This process is similar on other lessons and executed by lesson/controller.js, but must be remade here, since slidesreveal use its own controller
-                Progress.save({unit: $scope.currentUnit.id});
+                // Ensures that the slides get updated on a directive partial reload
+                $scope.reset = function() {
+                    // Create a StudentProgress instance without 'complete' information
+                    // This process is similar on other lessons and executed by lesson/controller.js, but must be remade here, since slidesreveal use its own controller
+                    Progress.save({unit: $scope.currentUnit.id});
 
-                // Try to get an Answer object for the current activity
-                // If there is none, populate a new answer object to be saved later
-                Answer.get({activityId: $scope.currentActivity.id}, function(answer){
-                    if(answer.given !== undefined && answer.given.current_slide !== undefined){
-                        // Store the slide number from previous session, but wait to restore it when the iframe is ready
-                        $scope.comeback_slide = answer.given.current_slide;
-                    }
-                    $scope.answer = answer;
-                }, function(error){
-                    $scope.answer = new Answer();
-                    $scope.answer.activity = $scope.currentActivity.id;
-                    $scope.answer.given = {'currentSlide': 0};
-                    $scope.answer.$save();
-                });
+                    $scope.iframe_url = "/activity/slides_reveal/"+$scope.currentActivity.id;
 
-                // Find out how many slides there are in the current slides.com iframe
-                $(function(){
-                    $('#slidesreveal').on('load', function(){
-                        // ensures that $scope.totalSlides is updated on the template
-                        $scope.$apply(function() {
-                            console.log("entrei");
-                            $scope.totalSlides = $("iframe").contents().find("div.slides")[0].childElementCount;
+                    // Try to get an Answer object for the current activity
+                    // If there is none, populate a new answer object to be saved later
+                    Answer.get({activityId: $scope.currentActivity.id}, function(answer){
+                        if(answer.given !== undefined && answer.given.current_slide !== undefined){
+                            // Store the slide number from previous session, but wait to restore it when the iframe is ready
+                            $scope.comeback_slide = answer.given.current_slide;
+                        }
+                        $scope.answer = answer;
+                    }, function(error){
+                        $scope.answer = new Answer();
+                        $scope.answer.activity = $scope.currentActivity.id;
+                        $scope.answer.given = {'currentSlide': 0};
+                        $scope.answer.$save();
+                    });
+
+                    // Find out how many slides there are in the current reveal.js iframe
+                    $(function(){
+                        $('#slidesreveal').on('load', function(){
+                            $scope.totalSlides = $("#slidesreveal").contents().find("div.slides")[0].childElementCount;
 
                             // Remove native controls from the iframe
-                            $("iframe").contents().find("aside.controls")[0].remove();
+                            $("#slidesreveal").contents().find("aside.controls")[0].remove();
 
                             // If the activity has a slide record from a previous session, restore it now
                             if($scope.comeback_slide !== undefined)
                                 $scope.select_slide($scope.comeback_slide);
                             else
                                 $scope.select_slide(0);
+
+                            // ensures that $scope.totalSlides is updated on the template
+                            $scope.$apply();
                         });
                     });
-                });
+                };
+                $scope.$watch('currentActivity', $scope.reset);
 
                 // Select a slide directly
                 $scope.select_slide = function(new_slide){
                     // Find our presentation iframe
-                    var frame = document.querySelector( 'iframe' );
+                    var frame = document.querySelector( '#slidesreveal' );
 
                     // Command the iframe to open a specific slide via message API
                     frame.contentWindow.postMessage( JSON.stringify({

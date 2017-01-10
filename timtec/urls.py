@@ -27,7 +27,7 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         CertificateTemplateImageViewSet, RequestCertificateView,
                         EmitReceiptView, ProfileViewSet, OAuth2UserInfoView)
 
-from activities.views import AnswerViewSet, ActivityImageViewSet
+from activities.views import AnswerViewSet, ActivityImageViewSet, SlidesRevealView
 from forum.views import (CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet,
                          QuestionVoteViewSet, AnswerVoteViewSet, AnswerViewSet as ForumAnswerViewSet)
 from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialViewSet, CourseMaterialFileViewSet
@@ -136,6 +136,9 @@ urlpatterns = patterns(
     # Course Material
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/material/file_upload/$', FileUploadView.as_view(), name='file_upload'),
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/material/$', CourseMaterialView.as_view(), name='course_material'),
+
+    # Slides.com embeds
+    url(r'^activity/slides_reveal/(?P<pk>[0-9]+)$', SlidesRevealView.as_view()),
 
     # Notes
     url(r'^notes/(?P<username>[\w.+-]+)?$', UserNotesView.as_view(), name='user_notes'),
