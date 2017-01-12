@@ -29,13 +29,8 @@
 
                 $scope.num_answers = 0;
 
-                $scope.answers = ForumAnswer.query({question: questionId}, function(answers){
-                    answers.sort(compare_by_dates);
-                    answers.sort(compare_by_votes);
-                    return answers;
-                });
+                $scope.answers = ForumAnswer.query({question: questionId});
                 $scope.question = Question.get({questionId: questionId});
-                // $scope.question_votes = $scope.question.votes;
 
                 $scope.new_answer = function () {
                     var questionId = parseInt($window.question_id, 10);
@@ -53,10 +48,23 @@
 
                 $scope.vote = function(answer_voted, vote_type) {
                     var current_vote = answer_voted.current_user_vote.value;
-                    answer_voted.current_user_vote.value = vote_value(vote_type, current_vote);
-                    answer_voted.votes += answer_voted.current_user_vote.value - current_vote;
+                    if (vote_type == 'up') {
+                        if(current_vote <= 0) {
+                            answer_voted.current_user_vote.value = 1;
+                        } else {
+                            answer_voted.current_user_vote.value = 0;
+                        }
+                    } else {
+                        if(current_vote >= 0) {
+                            answer_voted.current_user_vote.value = -1;
+                        } else {
+                            answer_voted.current_user_vote.value = 0;
+                        }
+                    }
                     var current_vote_object = new AnswerVote(answer_voted.current_user_vote);
-                    current_vote_object.$update({answer: answer_voted.current_user_vote.answer});
+                    current_vote_object.$update({answer: answer_voted.current_user_vote.answer}, function(){
+                        $scope.answers = ForumAnswer.query({question: questionId});
+                    });
                 };
         }]).
         controller('InlineForumCtrl', ['$scope', '$window', '$uibModal', '$http', 'Question', 'CourseProfessor', 'Class',
@@ -220,8 +228,8 @@
             }
         ]).
 
-        controller('QuestionVoteCtrl', ['$scope', '$window', 'QuestionVote',
-            function ($scope, $window, QuestionVote) {
+        controller('QuestionVoteCtrl', ['$scope', '$window', 'QuestionVote', 'Question',
+            function ($scope, $window, QuestionVote, Question) {
                 $scope.questionId = parseInt($window.question_id, 10);
                 // Verify if user has voted in up or down
                 $scope.question_vote = QuestionVote.get({question: $scope.questionId}, function (){}, function (httpResponse){
@@ -233,9 +241,23 @@
                 });
                 $scope.vote_question = function(vote_type) {
                     var current_vote = $scope.question_vote.value;
-                    $scope.question_vote.value = vote_value(vote_type, current_vote);
+                    if (vote_type == 'up') {
+                        if(current_vote <= 0) {
+                            $scope.question_vote.value = 1;
+                        } else {
+                            $scope.question_vote.value = 0;
+                        }
+                    } else {
+                        if(current_vote >= 0) {
+                            $scope.question_vote.value = -1;
+                        } else {
+                            $scope.question_vote.value = 0;
+                        }
+                    }
                     $scope.question.votes += $scope.question_vote.value - current_vote;
-                    $scope.question_vote.$update({question: $scope.questionId});
+                    $scope.question_vote.$update({question: $scope.questionId}, function(){
+                        $scope.question = Question.get({questionId: $scope.questionId});
+                    });
                 };
         }]);
 })(angular);

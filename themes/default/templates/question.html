@@ -52,23 +52,14 @@ wrapper-course-lesson
         <div class="question">
             <table>
                 <tr>
-                    <td class="rating">
-                        <div ng-app="vote" ng-controller="QuestionVoteCtrl">
-                            {% verbatim %}
-                            <div class="arrow-up" ng-class="{active: question_vote.value==1}" ng-click=vote_question('up')></div>
-                            <div class="votes" >{{ question.votes }}</div>
-                            <div class="arrow-down" ng-class="{active: question_vote.value==-1}" ng-click=vote_question('down')></div>
-                            {% endverbatim %}
-                        </div>
-                    </td>
-                    <td class="content">
+                    <td class="content" ng-app="vote" ng-controller="QuestionVoteCtrl">
                         {% verbatim %}
                         <h1 class="title">{{ question.title }}</h1>
                         <div class="text" ng-bind-html="question.text|markdown"></div>
                         <div class="author">
                             <div class="textleft pull-left">
-                                <a href="" class='likes' ng-class="{active: question.likes > 0}"><i class='fa fa-thumbs-up'></i> {{ question.likes }}</a>
-                                <a href="" class='unlikes' ng-class="{active: question.unlikes > 0}"><i class='fa fa-thumbs-down'></i> {{ question.unlikes }}</a>
+                                <a ng-click=vote_question('up') class='likes' ng-class="{active: question.likes > 0}"><i class='fa fa-thumbs-up'></i> {{ question.likes }}</a>
+                                <a ng-click=vote_question('down') class='unlikes' ng-class="{active: question.unlikes > 0}"><i class='fa fa-thumbs-down'></i> {{ question.unlikes }}</a>
                             </div>
                             Pergunta feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{question.username}}">{{ question.username }}</a>
                         </div>
@@ -90,16 +81,14 @@ wrapper-course-lesson
                         <table>
                             <tr>
                                 {% verbatim %}
-                                <td class="rating">
-                                    <div>
-                                        <div class="arrow-up" ng-class="{active: answer.current_user_vote.value==1}" ng-click=vote(answer,'up')></div>
-                                        <div class="votes">{{ answer.votes }}</div>
-                                        <div class="arrow-down" ng-class="{active: answer.current_user_vote.value==-1}" ng-click=vote(answer,'down')></div>
-                                    </div>
-                                </td>
                                 <td class="content">
                                     <div ng-bind-html="answer.text|markdown"></div>
-                                    <div class="author">Respondida em <strong>{{ answer.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ answer.username }}">{{ answer.username }}</a>
+                                    <div class="author">
+                                        <div class="textleft pull-left">
+                                            <a href="" class='likes' ng-class="{active: answer.likes > 0}" ng-click=vote(answer,'up')><i class='fa fa-thumbs-up'></i> {{ answer.likes }}</a>
+                                            <a href="" class='unlikes' ng-class="{active: answer.unlikes > 0}" ng-click=vote(answer,'down')><i class='fa fa-thumbs-down'></i> {{ answer.unlikes }}</a>
+                                        </div>
+                                        Respondida em <strong>{{ answer.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ answer.username }}">{{ answer.username }}</a>
                                     </div>
                                 </td>
                                 {% endverbatim %}

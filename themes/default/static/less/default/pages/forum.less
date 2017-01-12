@@ -137,7 +137,12 @@
       margin: 20px 0 10px;
     }
     .likes, .unlikes {
+        cursor: pointer;
         color: @gray-light;
+        
+        &:hover {
+            text-decoration: underline;
+        }
     }
     .likes.active {
         color: @brand-success;

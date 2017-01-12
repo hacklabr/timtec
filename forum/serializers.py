@@ -39,7 +39,7 @@ class AnswerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Answer
-        fields = ('id', 'question', 'text', 'votes', 'timestamp', 'username', 'current_user_vote')
+        fields = ('id', 'question', 'text', 'votes', 'timestamp', 'username', 'current_user_vote', 'likes', 'unlikes')
 
     def get_current_user_vote(self, obj):
         current_user_vote, _ = AnswerVote.objects.get_or_create(user=self.context.get('request').user, answer=obj)

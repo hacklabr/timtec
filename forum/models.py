@@ -66,6 +66,26 @@ class Answer(models.Model):
     def count_votes(self):
         return self.votes.aggregate(models.Sum('value'))['value__sum'] or 0
 
+    @property
+    def likes(self):
+        return self.votes.aggregate(
+            total=models.Count(
+                models.Case(
+                    models.When(value__gt=0, then=1),
+                    output_field=models.CharField(),
+                )
+            ))['total']
+
+    @property
+    def unlikes(self):
+        return self.votes.aggregate(
+            total=models.Count(
+                models.Case(
+                    models.When(value__lt=0, then=1),
+                    output_field=models.CharField(),
+                )
+            ))['total']
+
 
 class Vote(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('User'))
