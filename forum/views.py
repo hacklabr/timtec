@@ -131,8 +131,8 @@ class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
                 queryset = queryset.order_by(ordering)
             if ordering == 'answers':
                 queryset = queryset.annotate(total_answers=Count('answers')).order_by('-total_answers')
-            if ordering == 'votes':
-                queryset = queryset.annotate(total_votes=Coalesce(Sum('votes__value'), 0)).order_by('-total_votes')
+            if ordering == 'likes':
+                queryset = queryset.filter(votes__value__gte=1).annotate(total_votes=Coalesce(Sum('votes__value'), 0)).order_by('-total_votes')
 
         try:
             role = self.request.user.teaching_courses.get(course__id=course_id).role

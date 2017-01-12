@@ -94,8 +94,8 @@
 
                     if (field == 'date') {
                         $scope.sort_label = 'Mais recentes';
-                    } else if (field == 'votes') {
-                        $scope.sort_label = 'Mais votadas';
+                    } else if (field == 'likes') {
+                        $scope.sort_label = 'Mais curtidas';
                     } else if (field == 'answers') {
                         $scope.sort_label = 'Mais respondidas';
                     }
