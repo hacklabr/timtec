@@ -136,7 +136,13 @@
               function (scope, element, attrs) {
 
                 // Ensures that the slides get updated on a directive partial reload
-                scope.reset = function() {
+                var reset = function() {
+
+                    // This function must only run for slidesreveal activity.
+                    // Since this function is triggered by a watch on currentActivity, it is possible that it will be called right before this directive is destroyed.
+                    // The following check prevents this behaviour from affecting other activities.
+                    if(scope.currentActivity.type !== 'slidesreveal')
+                        return;
 
                     // Create a StudentProgress instance without 'complete' information
                     // This process is similar on other lessons and executed by lesson/controller.js, but must be remade here, since slidesreveal use its own controller
@@ -186,7 +192,7 @@
                         });
                     });
                 };
-                var watcher = scope.$watch('currentActivity', scope.reset);
+                var watcher = scope.$watch('currentActivity', reset);
                 element.on('$destroy', function () {
                     watcher();
                 });
