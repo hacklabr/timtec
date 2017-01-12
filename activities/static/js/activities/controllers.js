@@ -82,7 +82,6 @@
       '$scope',
       '$sce',
       '$routeParams',
-      '$location',
       '$anchorScroll',
       'uiTinymceConfig',
       'Forum',
@@ -97,7 +96,7 @@
       'CurrentUser',
       'AnswerNotification',
       'ContentFile',
-      function ($scope, $sce, $routeParams, $location, $anchorScroll, uiTinymceConfig, Forum, Topic, Comment, TopicLike, TopicFile, CommentLike, CommentFile, Progress, ClassActivity, CurrentUser, AnswerNotification, ContentFile) {
+      function ($scope, $sce, $routeParams, $anchorScroll, uiTinymceConfig, Forum, Topic, Comment, TopicLike, TopicFile, CommentLike, CommentFile, Progress, ClassActivity, CurrentUser, AnswerNotification, ContentFile) {
         $scope.activity_open = true;
         $scope.activity_expired = false;
         var now = Date.now();
@@ -105,6 +104,8 @@
         var end_date = Date.parse($scope.currentActivity.data.end_date);
 
         $scope.user = CurrentUser;
+
+        $scope.question = $scope.currentActivity.data.content;
 
         // Decide the current state of the activity
         if(now < start_date){
@@ -128,7 +129,8 @@
             $scope.answer.$promise.then(function(answer) {
                 // if there is, show the corresponding topic that holds this answer and its comments
                 $scope.show_answer = true;
-                $scope.topic = Topic.get({id: answer.given.topic, activity: true});
+                if(answer.given !== undefined && answer.given.topic)
+                    $scope.topic = Topic.get({id: answer.given.topic, activity: true});
             });
         }
 
