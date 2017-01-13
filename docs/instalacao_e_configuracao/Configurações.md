@@ -17,6 +17,16 @@ Atente para o modelo deste arquivo aqui [settings_local.py](https://github.com/h
 
 É importante que, depois de editado, você rode os comandos pós-alterações abaixo. 
 
+## Escolha o tema
+
+No arquivo settings_local.py, a partir da versão 4, é importante dizer a aplicação qual é o tema ativo da seguinte forma: 
+
+```
+INSTALLED_APPS += (
+    'if_theme',
+)
+```
+
 ## Comandos importantes pós alterações
 
 Quando fizer alterações, muitas vezes é importante reiniciar os principais serviços em uso. Tenha isso em mente toda vez que fizer alterações nos parâmetros da aplicação. 
