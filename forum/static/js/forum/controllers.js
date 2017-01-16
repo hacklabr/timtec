@@ -98,6 +98,8 @@
                         $scope.sort_label = 'Mais curtidas';
                     } else if (field == 'answers') {
                         $scope.sort_label = 'Mais respondidas';
+                    } else if (field == 'views') {
+                        $scope.sort_label = 'Mais vistas';
                     }
                 };
 

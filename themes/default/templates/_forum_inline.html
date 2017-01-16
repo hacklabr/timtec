@@ -121,6 +121,7 @@
                                     <li><a href="" ng-click="sortBy('timestamp')">{% trans 'Most recent'%}</a></li>
                                     <li><a href="" ng-click="sortBy('likes')">{% trans 'Most liked'%}</a></li>
                                     <li><a href="" ng-click="sortBy('answers')">{% trans 'Most answerd'%}</a></li>
+                                    <li><a href="" ng-click="sortBy('views')">{% trans 'Most viewed'%}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -144,7 +145,7 @@
                             <tr>
                                 <td class="stats">
                                     <div class="votes">
-                                        <p><span class="numbers-votes">{% verbatim %}{{question.likes}}{% endverbatim %}</span>{% trans 'likes' %}</p>
+                                        <p><span class="numbers-votes">{% verbatim %}{{question.visualizations}}{% endverbatim %}</span>{% trans 'views' %}</p>
                                         <p><span class="numbers-answers">{% verbatim %}{{ question.answers.length }}{% endverbatim %}</span>{% trans 'answers' %}</p>
                                     </div>
 

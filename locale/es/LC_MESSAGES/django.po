@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-23 20:11-0200\n"
+"POT-Creation-Date: 2017-01-16 12:34-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -275,8 +275,8 @@ msgstr ""
 msgid "Given answer"
 msgstr ""
 
-#: activities/models.py:62 forum/models.py:38 forum/models.py:65
-#: themes/default/templates/question.html:82
+#: activities/models.py:62 forum/models.py:62 forum/models.py:109
+#: themes/default/templates/question.html:78
 msgid "Answer"
 msgstr ""
 
@@ -651,8 +651,8 @@ msgstr ""
 msgid "Course Materials"
 msgstr ""
 
-#: course_material/models.py:8 forum/models.py:12 forum/models.py:37
-#: forum/models.py:58
+#: course_material/models.py:8 forum/models.py:12 forum/models.py:61
+#: forum/models.py:102 forum/models.py:119
 msgid "Question"
 msgstr ""
 
@@ -689,8 +689,8 @@ msgid ""
 "necessárias."
 msgstr ""
 
-#: forum/models.py:14 forum/models.py:20 forum/models.py:39 forum/models.py:51
-#: notes/models.py:11
+#: forum/models.py:14 forum/models.py:20 forum/models.py:63 forum/models.py:95
+#: forum/models.py:118 notes/models.py:11
 msgid "User"
 msgstr ""
 
@@ -744,7 +744,7 @@ msgstr ""
 #: themes/default/templates/_forum_inline.html:31
 #: themes/default/templates/forum.html:41
 #: themes/default/templates/question-create.html:33
-#: themes/default/templates/question.html:45
+#: themes/default/templates/question.html:44
 msgid "Forum"
 msgstr ""
 
@@ -839,7 +839,7 @@ msgstr ""
 
 #: themes/default/templates/_course_authors_inline.html:27
 #: themes/default/templates/_create_class_modal.html:4
-#: themes/default/templates/_forum_inline.html:198
+#: themes/default/templates/_forum_inline.html:199
 #: themes/default/templates/_modal_course_complete.html:74
 #: themes/default/templates/administration/courses.html:28
 #: themes/default/templates/course-evaluations.html:309
@@ -1003,7 +1003,7 @@ msgid "Questions & Answers policy"
 msgstr ""
 
 #: themes/default/templates/_forum_inline.html:63
-#: themes/default/templates/_forum_inline.html:199
+#: themes/default/templates/_forum_inline.html:200
 #: themes/default/templates/accept-terms.html:27
 #: themes/default/templates/account/password_reset.html:33
 #: themes/default/templates/account/password_reset.html:68
@@ -1017,7 +1017,7 @@ msgstr ""
 #: themes/default/templates/evaluations.html:347
 #: themes/default/templates/footer.html:44
 #: themes/default/templates/messages.html:135
-#: themes/default/templates/question.html:125
+#: themes/default/templates/question.html:119
 msgid "Send"
 msgstr ""
 
@@ -1059,43 +1059,47 @@ msgid "Most recent"
 msgstr ""
 
 #: themes/default/templates/_forum_inline.html:122
-msgid "Most voted"
+msgid "Most liked"
 msgstr ""
 
 #: themes/default/templates/_forum_inline.html:123
 msgid "Most answerd"
 msgstr ""
 
-#: themes/default/templates/_forum_inline.html:139
+#: themes/default/templates/_forum_inline.html:124
+msgid "Most viewed"
+msgstr ""
+
+#: themes/default/templates/_forum_inline.html:140
 msgid "Loading questions"
 msgstr ""
 
-#: themes/default/templates/_forum_inline.html:147
-msgid "votes"
+#: themes/default/templates/_forum_inline.html:148
+msgid "views"
 msgstr ""
 
-#: themes/default/templates/_forum_inline.html:148
+#: themes/default/templates/_forum_inline.html:149
 msgid "answers"
 msgstr ""
 
-#: themes/default/templates/_forum_inline.html:151
+#: themes/default/templates/_forum_inline.html:152
 msgid "Hide"
 msgstr ""
 
-#: themes/default/templates/_forum_inline.html:158
+#: themes/default/templates/_forum_inline.html:159
 msgid "Asked"
 msgstr ""
 
-#: themes/default/templates/_forum_inline.html:158
+#: themes/default/templates/_forum_inline.html:159
 #: themes/default/templates/user-courses.html:153
 msgid "by"
 msgstr ""
 
-#: themes/default/templates/_forum_inline.html:163
+#: themes/default/templates/_forum_inline.html:164
 msgid "Know why your question was hidden"
 msgstr ""
 
-#: themes/default/templates/_forum_inline.html:189
+#: themes/default/templates/_forum_inline.html:190
 msgid "Why my question was hidden?"
 msgstr ""
 
@@ -2027,7 +2031,7 @@ msgid "Clear"
 msgstr ""
 
 #: themes/default/templates/forum.html:45
-#: themes/default/templates/question.html:48
+#: themes/default/templates/question.html:47
 msgid "Ask a question"
 msgstr ""
 
@@ -2252,7 +2256,7 @@ msgstr ""
 msgid "Fill the question text."
 msgstr ""
 
-#: themes/default/templates/question.html:106
+#: themes/default/templates/question.html:100
 msgid "Your answer"
 msgstr ""
 

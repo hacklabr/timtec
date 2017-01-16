@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-23 20:11-0200\n"
-"PO-Revision-Date: 2016-12-23 20:12-0200\n"
+"POT-Creation-Date: 2017-01-16 12:34-0200\n"
+"PO-Revision-Date: 2017-01-16 12:35-0200\n"
 "Last-Translator: Administrador TIMTec <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -276,8 +276,8 @@ msgstr "Estudante"
 msgid "Given answer"
 msgstr "Resposta fornecida"
 
-#: activities/models.py:62 forum/models.py:38 forum/models.py:65
-#: themes/default/templates/question.html:82
+#: activities/models.py:62 forum/models.py:62 forum/models.py:109
+#: themes/default/templates/question.html:78
 msgid "Answer"
 msgstr "Resposta"
 
@@ -654,8 +654,8 @@ msgstr "Modelo de certificação dos IFs"
 msgid "Course Materials"
 msgstr "Material didático"
 
-#: course_material/models.py:8 forum/models.py:12 forum/models.py:37
-#: forum/models.py:58
+#: course_material/models.py:8 forum/models.py:12 forum/models.py:61
+#: forum/models.py:102 forum/models.py:119
 msgid "Question"
 msgstr "Descrição"
 
@@ -692,8 +692,8 @@ msgid ""
 "necessárias."
 msgstr "Copyright"
 
-#: forum/models.py:14 forum/models.py:20 forum/models.py:39 forum/models.py:51
-#: notes/models.py:11
+#: forum/models.py:14 forum/models.py:20 forum/models.py:63 forum/models.py:95
+#: forum/models.py:118 notes/models.py:11
 msgid "User"
 msgstr "Usuário"
 
@@ -750,7 +750,7 @@ msgstr "Nome do curso"
 #: themes/default/templates/_forum_inline.html:31
 #: themes/default/templates/forum.html:41
 #: themes/default/templates/question-create.html:33
-#: themes/default/templates/question.html:45
+#: themes/default/templates/question.html:44
 msgid "Forum"
 msgstr "Fórum"
 
@@ -845,7 +845,7 @@ msgstr "Organizar instrutores"
 
 #: themes/default/templates/_course_authors_inline.html:27
 #: themes/default/templates/_create_class_modal.html:4
-#: themes/default/templates/_forum_inline.html:198
+#: themes/default/templates/_forum_inline.html:199
 #: themes/default/templates/_modal_course_complete.html:74
 #: themes/default/templates/administration/courses.html:28
 #: themes/default/templates/course-evaluations.html:309
@@ -1010,7 +1010,7 @@ msgid "Questions & Answers policy"
 msgstr "Política de Perguntas e Respostas"
 
 #: themes/default/templates/_forum_inline.html:63
-#: themes/default/templates/_forum_inline.html:199
+#: themes/default/templates/_forum_inline.html:200
 #: themes/default/templates/accept-terms.html:27
 #: themes/default/templates/account/password_reset.html:33
 #: themes/default/templates/account/password_reset.html:68
@@ -1024,7 +1024,7 @@ msgstr "Política de Perguntas e Respostas"
 #: themes/default/templates/evaluations.html:347
 #: themes/default/templates/footer.html:44
 #: themes/default/templates/messages.html:135
-#: themes/default/templates/question.html:125
+#: themes/default/templates/question.html:119
 msgid "Send"
 msgstr "Enviar"
 
@@ -1054,7 +1054,6 @@ msgid "Or choose a class"
 msgstr "Ou escolha uma turma"
 
 #: themes/default/templates/_forum_inline.html:96
-#| msgid "Loading questions"
 msgid "Search in questions"
 msgstr "Busque nas perguntas"
 
@@ -1067,43 +1066,49 @@ msgid "Most recent"
 msgstr "Mais recentes"
 
 #: themes/default/templates/_forum_inline.html:122
-msgid "Most voted"
-msgstr "Mais Votadas"
+#| msgid "Most voted"
+msgid "Most liked"
+msgstr "Mais curtidas"
 
 #: themes/default/templates/_forum_inline.html:123
 msgid "Most answerd"
 msgstr "Mais respondidas"
 
-#: themes/default/templates/_forum_inline.html:139
+#: themes/default/templates/_forum_inline.html:124
+#| msgid "Most voted"
+msgid "Most viewed"
+msgstr "Mais vistas"
+
+#: themes/default/templates/_forum_inline.html:140
 msgid "Loading questions"
 msgstr "Carregando perguntas"
 
-#: themes/default/templates/_forum_inline.html:147
-msgid "votes"
-msgstr "votos"
-
 #: themes/default/templates/_forum_inline.html:148
+msgid "views"
+msgstr "visualizações"
+
+#: themes/default/templates/_forum_inline.html:149
 msgid "answers"
 msgstr "respostas"
 
-#: themes/default/templates/_forum_inline.html:151
+#: themes/default/templates/_forum_inline.html:152
 msgid "Hide"
 msgstr "Ocultar"
 
-#: themes/default/templates/_forum_inline.html:158
+#: themes/default/templates/_forum_inline.html:159
 msgid "Asked"
 msgstr "Pergunta feita em"
 
-#: themes/default/templates/_forum_inline.html:158
+#: themes/default/templates/_forum_inline.html:159
 #: themes/default/templates/user-courses.html:153
 msgid "by"
 msgstr "por"
 
-#: themes/default/templates/_forum_inline.html:163
+#: themes/default/templates/_forum_inline.html:164
 msgid "Know why your question was hidden"
 msgstr "Veja porque sua pergunta foi ocultada"
 
-#: themes/default/templates/_forum_inline.html:189
+#: themes/default/templates/_forum_inline.html:190
 msgid "Why my question was hidden?"
 msgstr "Porque minha pergunta foi ocultada?"
 
@@ -2062,7 +2067,7 @@ msgid "Clear"
 msgstr "Limpar"
 
 #: themes/default/templates/forum.html:45
-#: themes/default/templates/question.html:48
+#: themes/default/templates/question.html:47
 msgid "Ask a question"
 msgstr "Fazer uma pergunta"
 
@@ -2287,7 +2292,7 @@ msgstr "Cursos em andamento"
 msgid "Fill the question text."
 msgstr "Preencha o texto da questão."
 
-#: themes/default/templates/question.html:106
+#: themes/default/templates/question.html:100
 msgid "Your answer"
 msgstr "Sua resposta"
 
@@ -2406,6 +2411,9 @@ msgstr "Espanhol"
 #: timtec/settings.py:85 timtec/settings_local_docker.py:87
 msgid "English"
 msgstr "Inglês"
+
+#~ msgid "votes"
+#~ msgstr "votos"
 
 #~ msgid "Address"
 #~ msgstr "Endereço"
