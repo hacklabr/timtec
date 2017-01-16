@@ -4,7 +4,6 @@
 {% load static %}
 {% load staticfiles %}
 {% load timtec_markdown %}
-{% load is_assistant_or_coordinator %}
 
 
 {% block js %}
@@ -72,11 +71,9 @@ wrapper-course-lesson
                                 </div>
                                 Pergunta feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{question.username}}">{{ question.username }}</a>
                             {% endverbatim %}
-                            {% if request.user|is_assistant_or_coordinator:object.course %}
-                                <button ng-click='open_edit_question_modal(question)' class='btn btn-default pull-right btn-xs'>
-                                    <i class='fa fa-pencil'></i> {% trans "Edit" %}
-                                </button>
-                            {% endif %}
+                            <button ng-click='open_edit_question_modal(question)' class='btn btn-default pull-right btn-xs' ng-show="current_user_role == 'coordinator' || current_user_role == 'assistant'">
+                                <i class='fa fa-pencil'></i> {% trans "Edit" %}
+                            </button>
                         </div>
                     </td>
                 </tr>
@@ -89,7 +86,7 @@ wrapper-course-lesson
             <div class="row">
                 <div class="col-lg-10 col-lg-offset-1">
                     <header class="no-bottom-border">
-                        <h2><span ng-init="num_answers={{ question_django.answers.count }}">{% verbatim %} {{ num_answers }} {% endverbatim %}</span> {% trans 'Answer' %}<span ng-if="num_answers>1">s</span></h2>
+                        <h2><span>{% verbatim %} {{ num_answers }} {% endverbatim %}</span> {% trans 'Answer' %}<span ng-if="num_answers>1">s</span></h2>
                     </header>
                     <div class="answer" ng-class="{'is-hidden': answer.hidden}" ng-repeat="answer in answers" ng-hide="answer.hidden && !(current_user_role == 'coordinator' || current_user_role == 'assistant')">
                         <table>
@@ -104,17 +101,15 @@ wrapper-course-lesson
                                             </div>
                                             Respondida em <strong>{{ answer.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ answer.username }}">{{ answer.username }}</a>
                                         {% endverbatim %}
-                                        {% if request.user|is_assistant_or_coordinator:object.course %}
-                                            <button ng-click='hide_answer(answer)' class='btn btn-default pull-right btn-xs' ng-hide="answer.hidden">
-                                                <i class='fa fa-eye-slash'></i> {% trans "Hide" %}
-                                            </button>
-                                            <button ng-click='hide_answer(answer)' class='btn btn-default pull-right btn-xs' ng-show="answer.hidden">
-                                                <i class='fa fa-eye'></i> {% trans "Show" %}
-                                            </button>
-                                            <button ng-click='open_edit_answer_modal(answer)' class='btn btn-default pull-right btn-xs'>
-                                                <i class='fa fa-pencil'></i> {% trans "Edit" %}
-                                            </button>
-                                        {% endif %}
+                                        <button ng-click='hide_answer(answer)' class='btn btn-default pull-right btn-xs' ng-hide="answer.hidden" ng-show="current_user_role == 'coordinator' || current_user_role == 'assistant'">
+                                            <i class='fa fa-eye-slash'></i> {% trans "Hide" %}
+                                        </button>
+                                        <button ng-click='hide_answer(answer)' class='btn btn-default pull-right btn-xs' ng-show="answer.hidden && (current_user_role == 'coordinator' || current_user_role == 'assistant')">
+                                            <i class='fa fa-eye'></i> {% trans "Show" %}
+                                        </button>
+                                        <button ng-click='open_edit_answer_modal(answer)' class='btn btn-default pull-right btn-xs' ng-show="current_user_role == 'coordinator' || current_user_role == 'assistant'">
+                                            <i class='fa fa-pencil'></i> {% trans "Edit" %}
+                                        </button>
                                     </div>
                                 </td>
                             </tr>

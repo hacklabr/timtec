@@ -30,8 +30,15 @@
 
                 $scope.num_answers = 0;
 
-                $scope.answers = ForumAnswer.query({question: questionId});
                 $scope.question = Question.get({questionId: questionId});
+                $scope.answers = ForumAnswer.query({question: questionId}, function(answers) {
+                    // counting total answers
+                    answers.forEach(function(answer){
+                        if(!answer.hidden) {
+                            $scope.num_answers++;
+                        }
+                    });
+                });
 
                 // getting current user role
                 CourseProfessor.query({course: $scope.question.course, user: userId}, function(course_professor){
