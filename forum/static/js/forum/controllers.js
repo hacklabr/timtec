@@ -23,7 +23,8 @@
 
     angular.module('forum.controllers', ['ngCookies']).
         controller('QuestionCtrl', ['$scope', '$sce', '$window', '$uibModal', 'Question', 'ForumAnswer', 'AnswerVote',
-            function ($scope, $sce, $window, $uibModal, Question, ForumAnswer, AnswerVote) {
+            'CourseProfessor', 'Class',
+            function ($scope, $sce, $window, $uibModal, Question, ForumAnswer, AnswerVote, CourseProfessor, Class) {
                 var questionId = parseInt($window.question_id, 10);
                 var userId = parseInt($window.user_id, 10);
 
@@ -31,6 +32,41 @@
 
                 $scope.answers = ForumAnswer.query({question: questionId});
                 $scope.question = Question.get({questionId: questionId});
+
+                // getting current user role
+                CourseProfessor.query({course: $scope.question.course, user: userId}, function(course_professor){
+                    var current_user = course_professor[0];
+                    var current_user_role = '';
+                    // If current_user is undefined, he is not course professor, but may be admin
+                    if (current_user === undefined) {
+                        if ($window.is_admin)
+                            // if user is admin, set role to coordinator, higher role in course.
+                            current_user_role = 'coordinator';
+                        else
+                            current_user_role = 'student';
+                    } else {
+                        current_user_role = current_user.role;
+                    }
+
+                    $scope.classes = Class.query({course: $scope.question.course}, function(classes){
+                        if (current_user_role == 'assistant') {
+                            $scope.my_classes = classes;
+                            $scope.filters.selected_class = 'my_classes';
+                        } else if (current_user_role == 'coordinator') {
+                            $scope.filters.selected_class = 'all';
+                            classes.forEach(function(klass) {
+                                // if current user is undefined, he is not course professor, so he don't have any class
+                                // in this course.
+                                if (current_user !== undefined && klass.assistant == current_user.user) {
+                                    $scope.my_classes.unshift(klass);
+                                } else {
+                                    $scope.others_classes.unshift(klass);
+                                }
+                            });
+                        }
+                    });
+                    $scope.current_user_role =  current_user_role;
+                });
 
                 $scope.new_answer = function () {
                     var questionId = parseInt($window.question_id, 10);
@@ -111,8 +147,12 @@
                     modalInstance.result.then(function (answer) {
                         console.log(answer);
                     });
-
                 };
+
+                $scope.hide_answer = function(answer) {
+                    answer.hidden = !answer.hidden;
+                    answer.$update({answerId: answer.id});
+                }
 
                 var EditAnswerModalInstanceCtrl = function($scope, $uibModalInstance, answer) {
                     var answerId = answer.id;

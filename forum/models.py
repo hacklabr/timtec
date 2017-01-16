@@ -62,6 +62,8 @@ class Answer(models.Model):
     text = models.TextField(_('Answer'))
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('User'), related_name='forum_answers')
     timestamp = models.DateTimeField(auto_now_add=True, editable=False)
+    hidden = models.BooleanField(verbose_name=_('Hidden'), default=False)
+    hidden_by = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('User'), related_name='hidden_answers', default=None, null=True, blank=True)
 
     def __unicode__(self):
         return self.text
