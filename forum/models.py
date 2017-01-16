@@ -52,6 +52,10 @@ class Question(models.Model):
                 )
             ))['total']
 
+    @property
+    def visualizations(self):
+        return self.views.all().count()
+
 
 class Answer(models.Model):
     question = models.ForeignKey(Question, related_name='answers', verbose_name=_('Question'))
@@ -106,3 +110,10 @@ class AnswerVote(Vote):
 
 #     class Meta:
 #         unique_together = ('answer', 'user')
+
+
+class QuestionVisualization(models.Model):
+
+    created = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('User'))
+    question = models.ForeignKey(Question, related_name='views', verbose_name=_('Question'))
