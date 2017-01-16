@@ -8,7 +8,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 from core.models import Course, Class
-from forum.models import Question, Answer, QuestionVote, AnswerVote
+from forum.models import Question, Answer, QuestionVote, AnswerVote, QuestionVisualization
 from forum.forms import QuestionForm
 from forum.serializers import QuestionSerializer, AnswerSerializer, QuestionVoteSerializer, AnswerVoteSerializer
 from forum.permissions import HideQuestionPermission
@@ -19,6 +19,8 @@ from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from django.db.models import Count, Sum
 from django.db.models.functions import Coalesce
+from django.utils import timezone
+from datetime import timedelta
 
 
 class CustomPagination(PageNumberPagination):
@@ -131,6 +133,8 @@ class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
                 queryset = queryset.order_by(ordering)
             if ordering == 'answers':
                 queryset = queryset.annotate(total_answers=Count('answers')).order_by('-total_answers')
+            if ordering == 'views':
+                queryset = queryset.annotate(total_views=Count('views')).order_by('-total_views')
             if ordering == 'likes':
                 queryset = queryset.filter(votes__value__gte=1).annotate(total_votes=Coalesce(Sum('votes__value'), 0)).order_by('-total_votes')
 
@@ -153,6 +157,20 @@ class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
         except ObjectDoesNotExist:
             return queryset.none()
 
+    def get_object(self, *args, **kwargs):
+        question = super(QuestionViewSet, self).get_object(*args, **kwargs)
+        try:
+            question_view = QuestionVisualization.objects.get(
+                created__gte=timezone.now()-timedelta(hours=1),
+                user=self.request.user,
+                question=question,
+            )
+        except QuestionVisualization.DoesNotExist:
+            question_view = QuestionVisualization(user=self.request.user, question=question)
+            question_view.save()
+
+        print question_view
+        return question
 
 class AnswerViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     model = Answer
