@@ -130,7 +130,7 @@ class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
         ordering = self.request.query_params.get('ordering', None)
         if ordering is not None:
             if ordering == 'timestamp':
-                queryset = queryset.order_by(ordering)
+                queryset = queryset.order_by('-timestamp')
             if ordering == 'answers':
                 queryset = queryset.annotate(total_answers=Count('answers')).order_by('-total_answers')
             if ordering == 'views':
