@@ -89,18 +89,23 @@ wrapper-course-lesson
                     <div class="answer" ng-repeat="answer in answers">
                         <table>
                             <tr>
-                                {% verbatim %}
                                 <td class="content">
                                     <div ng-bind-html="answer.text|markdown"></div>
                                     <div class="author">
-                                        <div class="textleft pull-left">
-                                            <a href="" class='likes' ng-class="{active: answer.likes > 0}" ng-click=vote(answer,'up')><i class='fa fa-thumbs-up'></i> {{ answer.likes }}</a>
-                                            <a href="" class='unlikes' ng-class="{active: answer.unlikes > 0}" ng-click=vote(answer,'down')><i class='fa fa-thumbs-down'></i> {{ answer.unlikes }}</a>
-                                        </div>
-                                        Respondida em <strong>{{ answer.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ answer.username }}">{{ answer.username }}</a>
+                                        {% verbatim %}
+                                            <div class="textleft pull-left">
+                                                <a href="" class='likes' ng-class="{active: answer.likes > 0}" ng-click=vote(answer,'up')><i class='fa fa-thumbs-up'></i> {{ answer.likes }}</a>
+                                                <a href="" class='unlikes' ng-class="{active: answer.unlikes > 0}" ng-click=vote(answer,'down')><i class='fa fa-thumbs-down'></i> {{ answer.unlikes }}</a>
+                                            </div>
+                                            Respondida em <strong>{{ answer.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ answer.username }}">{{ answer.username }}</a>
+                                        {% endverbatim %}
+                                        {% if request.user|is_assistant_or_coordinator:object.course %}
+                                            <button ng-click='open_edit_answer_modal(answer)' class='btn btn-default pull-right btn-xs'>
+                                                <i class='fa fa-pencil'></i> {% trans "Edit" %}
+                                            </button>
+                                        {% endif %}
                                     </div>
                                 </td>
-                                {% endverbatim %}
                             </tr>
                         </table>
                     </div>
@@ -137,9 +142,10 @@ wrapper-course-lesson
 </div>
 <!-- END CONTAINER -->
 
-<!-- EVALUATION MODAL -->
 <script id="edit_question_modal.html" type="text/ng-template">
     {% include '_edit_question_modal.html' %}
 </script>
-<!-- END EVALUATION MODAL -->
+<script id="edit_answer_modal.html" type="text/ng-template">
+    {% include '_edit_answer_modal.html' %}
+</script>
 {% endblock %}

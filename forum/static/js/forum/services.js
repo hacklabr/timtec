@@ -4,7 +4,8 @@
 
     angular.module('forum.services', ['ngRoute', 'ngResource']).
         factory('ForumAnswer', function($resource){
-            return $resource('/api/forum_answer/', {}, {
+            return $resource('/api/forum_answer/:answerId', {}, {
+                update: {method: 'PUT'},
             });
         }).
         factory('Question', function($resource){

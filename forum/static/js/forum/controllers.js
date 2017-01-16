@@ -97,6 +97,37 @@
                         });
                     };
                 };
+
+                $scope.open_edit_answer_modal = function(answer) {
+                    var modalInstance = $uibModal.open({
+                           templateUrl: 'edit_answer_modal.html',
+                           controller: EditAnswerModalInstanceCtrl,
+                           resolve: {
+                               answer: function () {
+                                   return answer;
+                               }
+                           }
+                    });
+                    modalInstance.result.then(function (answer) {
+                        console.log(answer);
+                    });
+
+                };
+
+                var EditAnswerModalInstanceCtrl = function($scope, $uibModalInstance, answer) {
+                    var answerId = answer.id;
+                    $scope.answer = answer;
+
+                    $scope.cancel = function () {
+                        $uibModalInstance.dismiss();
+                    };
+
+                    $scope.save = function () {
+                        $scope.answer.$update({answerId: answerId}, function(){
+                            $scope.cancel();
+                        });
+                    };
+                };
         }]).
         controller('InlineForumCtrl', ['$scope', '$window', '$uibModal', '$http', 'Question', 'CourseProfessor', 'Class',
             function ($scope, $window, $uibModal, $http, Question, CourseProfessor, Class) {
