@@ -6,18 +6,19 @@ class QuestionSerializer(serializers.ModelSerializer):
 
     votes = serializers.ReadOnlyField(source='count_votes')
     username = serializers.ReadOnlyField(source='user.username')
+    user_id = serializers.ReadOnlyField(source='user.id')
     timestamp = serializers.DateTimeField(read_only=True)
     hidden_to_user = serializers.SerializerMethodField('is_hidden')
     moderator = serializers.SerializerMethodField('is_moderator')
 
     class Meta:
         model = Question
-        fields = ('id', 'title', 'course', 'answers', 'text', 'slug',
+        fields = ('id', 'title', 'course', 'answers', 'text', 'slug', 'user_id',
                   'votes', 'timestamp', 'username', 'hidden', 'likes', 'unlikes',
                   'hidden_by', 'hidden_to_user', 'moderator', 'hidden_justification',
                   'visualizations', )
 
-        read_only_fields = ('answers', 'slug', 'votes', 'timestamp', 'username', 'hidden',
+        read_only_fields = ('answers', 'slug', 'votes', 'timestamp', 'username', 'user_id', 'hidden',
                             'hidden_by', 'hidden_to_user', 'moderator', 'hidden_justification',)
 
     def is_hidden(self, obj):
@@ -35,13 +36,14 @@ class AnswerSerializer(serializers.ModelSerializer):
 
     votes = serializers.ReadOnlyField(source='count_votes')
     username = serializers.ReadOnlyField(source='user.username')
+    user_id = serializers.ReadOnlyField(source='user.id')
     timestamp = serializers.DateTimeField(read_only=True)
     current_user_vote = serializers.SerializerMethodField()
 
     class Meta:
         model = Answer
         fields = ('id', 'question', 'text', 'votes', 'timestamp', 'username', 'current_user_vote', 'likes', 'unlikes',
-                  'hidden', 'hidden_by')
+                  'hidden', 'hidden_by', 'user_id')
 
     def get_current_user_vote(self, obj):
         current_user_vote, _ = AnswerVote.objects.get_or_create(user=self.context.get('request').user, answer=obj)

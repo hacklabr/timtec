@@ -30,6 +30,7 @@
 
                 $scope.num_answers = 0;
 
+                $scope.user_id = userId;
                 $scope.question = Question.get({questionId: questionId});
                 $scope.answers = ForumAnswer.query({question: questionId}, function(answers) {
                     // counting total answers

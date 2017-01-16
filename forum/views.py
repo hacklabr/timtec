@@ -11,7 +11,7 @@ from core.models import Course, Class
 from forum.models import Question, Answer, QuestionVote, AnswerVote, QuestionVisualization
 from forum.forms import QuestionForm
 from forum.serializers import QuestionSerializer, AnswerSerializer, QuestionVoteSerializer, AnswerVoteSerializer
-from forum.permissions import HideQuestionPermission
+from forum.permissions import EditQuestionPermission, EditAnswerPermission
 from rest_framework import viewsets
 from administration.views import AdminMixin
 import operator
@@ -97,7 +97,7 @@ class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
     filter_fields = ('course', 'user', 'hidden')
-    permission_classes = (HideQuestionPermission,)
+    permission_classes = (EditQuestionPermission,)
     pagination_class = CustomPagination
 
     def perform_create(self, serializer):
@@ -172,10 +172,12 @@ class QuestionViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
         print question_view
         return question
 
+
 class AnswerViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     model = Answer
     serializer_class = AnswerSerializer
     filter_fields = ('question', 'user')
+    permission_classes = (EditAnswerPermission,)
     queryset = Answer.objects.all()
 
     def perform_create(self, serializer):
