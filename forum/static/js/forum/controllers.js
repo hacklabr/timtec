@@ -22,8 +22,8 @@
     }
 
     angular.module('forum.controllers', ['ngCookies']).
-        controller('QuestionCtrl', ['$scope', '$sce', '$window', 'Question', 'ForumAnswer', 'AnswerVote',
-            function ($scope, $sce, $window, Question, ForumAnswer, AnswerVote) {
+        controller('QuestionCtrl', ['$scope', '$sce', '$window', '$uibModal', 'Question', 'ForumAnswer', 'AnswerVote',
+            function ($scope, $sce, $window, $uibModal, Question, ForumAnswer, AnswerVote) {
                 var questionId = parseInt($window.question_id, 10);
                 var userId = parseInt($window.user_id, 10);
 
@@ -65,6 +65,37 @@
                     current_vote_object.$update({answer: answer_voted.current_user_vote.answer}, function(){
                         $scope.answers = ForumAnswer.query({question: questionId});
                     });
+                };
+
+                $scope.open_edit_question_modal = function(question) {
+                    var modalInstance = $uibModal.open({
+                           templateUrl: 'edit_question_modal.html',
+                           controller: EditQuestionModalInstanceCtrl,
+                           resolve: {
+                               question: function () {
+                                   return question;
+                               }
+                           }
+                    });
+                    modalInstance.result.then(function (question) {
+                        console.log(question);
+                    });
+
+                };
+
+                var EditQuestionModalInstanceCtrl = function($scope, $uibModalInstance, question) {
+                    var questionId = parseInt($window.question_id, 10);
+                    $scope.question = question;
+
+                    $scope.cancel = function () {
+                        $uibModalInstance.dismiss();
+                    };
+
+                    $scope.save = function () {
+                        $scope.question.$update({questionId: questionId}, function(){
+                            $scope.cancel();
+                        });
+                    };
                 };
         }]).
         controller('InlineForumCtrl', ['$scope', '$window', '$uibModal', '$http', 'Question', 'CourseProfessor', 'Class',

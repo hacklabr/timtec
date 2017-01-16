@@ -4,6 +4,8 @@
 {% load static %}
 {% load staticfiles %}
 {% load timtec_markdown %}
+{% load is_assistant_or_coordinator %}
+
 
 {% block js %}
     {{block.super}}
@@ -54,16 +56,23 @@ wrapper-course-lesson
                 <tr>
                     <td class="content" ng-app="vote" ng-controller="QuestionVoteCtrl">
                         {% verbatim %}
-                        <h1 class="title">{{ question.title }}</h1>
-                        <div class="text" ng-bind-html="question.text|markdown"></div>
-                        <div class="author">
-                            <div class="textleft pull-left">
-                                <a ng-click=vote_question('up') class='likes' ng-class="{active: question.likes > 0}"><i class='fa fa-thumbs-up'></i> {{ question.likes }}</a>
-                                <a ng-click=vote_question('down') class='unlikes' ng-class="{active: question.unlikes > 0}"><i class='fa fa-thumbs-down'></i> {{ question.unlikes }}</a>
-                            </div>
-                            Pergunta feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{question.username}}">{{ question.username }}</a>
-                        </div>
+                            <h1 class="title">{{ question.title }}</h1>
+                            <div class="text" ng-bind-html="question.text|markdown"></div>
                         {% endverbatim %}
+                        <div class="author">
+                            {% verbatim %}
+                                <div class="textleft pull-left">
+                                    <a ng-click=vote_question('up') class='likes' ng-class="{active: question.likes > 0}"><i class='fa fa-thumbs-up'></i> {{ question.likes }}</a>
+                                    <a ng-click=vote_question('down') class='unlikes' ng-class="{active: question.unlikes > 0}"><i class='fa fa-thumbs-down'></i> {{ question.unlikes }}</a>
+                                </div>
+                                Pergunta feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{question.username}}">{{ question.username }}</a>
+                            {% endverbatim %}
+                            {% if request.user|is_assistant_or_coordinator:object.course %}
+                                <button ng-click='open_edit_question_modal(question)' class='btn btn-default pull-right btn-xs'>
+                                    <i class='fa fa-pencil'></i> {% trans "Edit" %}
+                                </button>
+                            {% endif %}
+                        </div>
                     </td>
                 </tr>
             </table>
@@ -127,4 +136,10 @@ wrapper-course-lesson
     </section>
 </div>
 <!-- END CONTAINER -->
+
+<!-- EVALUATION MODAL -->
+<script id="edit_question_modal.html" type="text/ng-template">
+    {% include '_edit_question_modal.html' %}
+</script>
+<!-- END EVALUATION MODAL -->
 {% endblock %}
