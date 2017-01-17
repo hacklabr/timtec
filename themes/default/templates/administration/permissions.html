@@ -53,7 +53,7 @@ wrapper-course-lesson
         <table class="table table-list">
             <tr>
                 <th class="fullname">{% trans "Full name" %}</th>
-                <th class="email">{% trans "Email" %}</th>
+                <!-- <th class="email">{% trans "Email" %}</th> -->
                 <th class="username">{% trans "Username" %}</th>
                 <th class="role">{% trans "Role" %}</th>
                 <th class="actions">{% trans "Actions" %}</th>
@@ -61,7 +61,7 @@ wrapper-course-lesson
             <tr ng-repeat="professor in professors">
                 {% verbatim %}
                 <td>{{professor.user_info.name}}</td>
-                <td>{{professor.user_info.email}}</td>
+                <!-- <td>{{professor.user_info.email}}</td> -->
                 <td>{{professor.user_info.username}}</td>
                 {% endverbatim %}
                 <td>
@@ -102,14 +102,14 @@ wrapper-course-lesson
                             <table class="table table-list" ng-show="new_professors.length">
                                 <tr>
                                     <th class="fullname">{% trans "Full name" %}</th>
-                                    <th class="email">{% trans "Email" %}</th>
+                                    <!-- <th class="email">{% trans "Email" %}</th> -->
                                     <th class="username">{% trans "Username" %}</th>
                                     <th class="actions">{% trans "Actions" %}</th>
                                 </tr>
                                 <tr ng-repeat="new_professor in new_professors">
                                     {% verbatim %}
                                     <td>{{new_professor.name}}</td>
-                                    <td>{{new_professor.email}}</td>
+                                    <!-- <td>{{new_professor.email}}</td> -->
                                     <td>{{new_professor.username}}</td>
                                     {% endverbatim %}
                                     <td class="textcenter"><button class="btn btn-warning" ng-click="remove_new_professor($index)"><i class="fa fa-trash-o"></i></button></td>
