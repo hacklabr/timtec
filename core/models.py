@@ -677,6 +677,7 @@ class Unit(PositionedModel):
     side_notes = models.TextField(_('Side notes'), blank=True)
     position = models.IntegerField(default=0)
     notes = GenericRelation(Note)
+    chat_room = models.CharField(_('Chat Room'), max_length=255, blank=True, null=True)
 
     collection_name = 'lesson'
 
