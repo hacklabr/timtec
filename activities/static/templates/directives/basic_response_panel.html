@@ -6,12 +6,12 @@
         <b>Comentário do Instrutor:</b><br><br>
         <p ng-bind-html="answer.positive_feedback|markdown"></p>
     </div>
-    
+
     <div ng-show="!changed && answer.incomplete" class="alert alert-danger">
         <i class="fa fa-frown-o"></i> <span translate>Sua resposta está <strong>incompleta</strong>.</span>
     </div>
-    
-    <div ng-show="!changed && answer.correct === false && !answer.incomplete" class="alert alert-danger">
+
+    <div ng-show="answer.given.length > 0 && (!changed && answer.correct === false && !answer.incomplete)" class="alert alert-danger">
         <i class="fa fa-frown-o"></i> <span translate>Sua resposta está <strong>incorreta</strong>. Reveja o vídeo com mais atenção e tente novamente.</span>
     </div>
     <div ng-show="!changed && answer.correct === false && answer.negative_feedback" class="alert alert-danger">
