@@ -81,6 +81,20 @@ timtec-production@server$ git checkout <tag-da-versão>
 
 Substitua a tag da versão por uma tag do git válida. Ex: `git checkout v4.0`
 
+## Settando um tema (para versão 4.0)
+
+* A aplicação só virá com tema default;
+* Novos temas deverão ser inseridos via app;
+* Novos temas deve ter repositório próprio e deve extender o tema default;
+* a) settar a variável TIMTEC_THEME para o nome do tema no arquivo settings_local.py;
+* b) acrescentar essa chave ativando o app no settings_local.py:
+
+```
+INSTALLED_APPS += (
+    'if_theme',
+)
+```
+
 ## Dependências
 Primeiro, vamos instalar as dependências:
 
