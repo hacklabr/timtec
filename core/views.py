@@ -609,6 +609,11 @@ class LessonDetailView(LoginRequiredMixin, DetailView):
                                                args=[course.slug,
                                                      lessons[index + 1].slug])
         context['unit_content_type_id'] = unit_content_type.id
+        try:
+            context['rocketchat'] = settings.ROCKET_CHAT
+        except AttributeError as e:
+            # If there is no chat instance in this installation, pass the error silently
+            pass
         return context
 
 
