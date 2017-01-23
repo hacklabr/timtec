@@ -19,7 +19,7 @@ from django.utils import timezone
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import filters
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from braces.views import LoginRequiredMixin
 
 from oauth2_provider.views import ProtectedResourceView
@@ -31,6 +31,7 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           CourseThumbSerializer, LessonSerializer,
                           StudentProgressSerializer, CourseNoteSerializer,
                           LessonNoteSerializer, ProfessorMessageSerializer,
+                          ProfessorMessageReadSerializer,
                           CourseStudentSerializer, ClassSerializer,
                           ClassActivitySerializer, FlatpageSerializer,
                           CourseAuthorPictureSerializer,
@@ -42,15 +43,15 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           CertificateTemplateImageSerializer)
 
 from .models import (Course, CourseProfessor, Lesson, StudentProgress,
-                     Unit, ProfessorMessage, CourseStudent, Class,
-                     CourseAuthor, CourseCertification, CertificationProcess,
+                     Unit, ProfessorMessage, ProfessorMessageRead, CourseStudent,
+                     Class, CourseAuthor, CourseCertification, CertificationProcess,
                      Evaluation, CertificateTemplate, IfCertificateTemplate)
 
 from .forms import (ContactForm, RemoveStudentForm,
                     AddStudentsForm, )
 
 from .permissions import (IsProfessorCoordinatorOrAdminPermissionOrReadOnly,
-                            IsAdminOrReadOnly)
+                          IsAdminOrReadOnly, IsAssistantOrCoordinatorOrReadOnly)
 
 
 class HomeView(ListView):
@@ -504,19 +505,49 @@ class CertificateTemplateImageViewSet(viewsets.ModelViewSet):
 
 class ProfessorMessageViewSet(viewsets.ModelViewSet):
     model = ProfessorMessage
-    queryset = ProfessorMessage.objects.all()
     lookup_field = 'id'
     filter_fields = ('course',)
     filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = ProfessorMessageSerializer
+    permission_classes = (IsAssistantOrCoordinatorOrReadOnly,)
 
-    def pre_save(self, obj):
-        obj.professor = self.request.user
-        return super(ProfessorMessageViewSet, self).pre_save(obj)
-
-    def post_save(self, obj, created):
-        if created:
+    def perform_create(self, serializer):
+        obj = serializer.save(professor=self.request.user)
+        if obj:
             obj.send()
+
+    def get_queryset(self):
+        queryset = ProfessorMessage.objects.filter(users__in=[self.request.user]).order_by('-id')
+
+        limit_to = self.request.query_params.get('limit_to', None)
+        if limit_to:
+            queryset = queryset[:int(limit_to)]
+
+        return queryset
+
+
+class ProfessorMessageReadViewSet(viewsets.ModelViewSet):
+    model = ProfessorMessageRead
+    lookup_field = 'message'
+    serializer_class = ProfessorMessageReadSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def perform_create(self, serializer):
+        try:
+            read_info = serializer.save(user=self.request.user, is_read=True)
+        except IntegrityError as e:
+            read_info = ProfessorMessageRead.objects.get(message=self.request.data['message'], user=self.request.user)
+            read_info.is_read = True
+            read_info.save()
+
+    def get_queryset(self):
+        queryset = ProfessorMessageRead.objects.filter(user=self.request.user).order_by('-id')
+
+        limit_to = self.request.query_params.get('limit_to', None)
+        if limit_to:
+            queryset = queryset[:int(limit_to)]
+
+        return queryset
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -913,6 +944,6 @@ class OAuth2UserInfoView(ProtectedResourceView):
                 'id': user.id,
                 'username': user.username,
                 'email': user.email
-            }));
+            }))
 
         return HttpResponseForbidden('Ivalid or empty token')

@@ -10,10 +10,13 @@
         };
     });
 
-    module.controller('NewMessageController', ['$scope', '$uibModal', '$window', 'Message', 'Student', 'StudentSearch', 'Class', 'messages_list', '$rootScope',
-            function($scope, $uibModal, $window, Message, Student, StudentSearch, Class, messages_list, $rootScope) {
+    module.controller('NewMessageController', ['$scope', '$uibModal', '$window', 'Message', 'Student', 'StudentSearch', 'Class', 'messages_list', '$rootScope', 'ContentFile', 'uiTinymceConfig',
+            function($scope, $uibModal, $window, Message, Student, StudentSearch, Class, messages_list, $rootScope, ContentFile, uiTinymceConfig) {
                 $scope.course_id = parseInt($window.course_id, 10);
                 $scope.messages = messages_list.messages;
+
+                uiTinymceConfig.images_upload_handler = ContentFile.upload;
+
                 $scope.new_message = function () {
                     var modalInstance = $uibModal.open({
                         templateUrl: 'newMessageModal.html',
@@ -43,6 +46,7 @@
 
                     $scope.classes = Class.query({course: course_id}, function(classes){
                         classes.checked = [];
+                        $scope.classes_ready = true;
                         return classes;
                     });
 
@@ -101,8 +105,8 @@
             }
         ]);
 
-    module.controller('MessagesListController', ['$scope', '$uibModal', '$window', 'Message', 'messages_list',
-        function($scope, $uibModal, $window, Message, messages_list) {
+    module.controller('MessagesListController', ['$scope', '$uibModal', '$sce', '$window', 'Message', 'messages_list',
+        function($scope, $uibModal, $sce, $window, Message, messages_list) {
             $scope.course_id = parseInt($window.course_id, 10);
             $scope.course_slug = $window.course_slug;
             messages_list.messages = Message.query({course: $scope.course_id});
@@ -110,15 +114,49 @@
             $scope.$on('newMessage', function() {
                 $scope.messages = messages_list.messages;
             });
+
+            $scope.strip_html = function(html_content) {
+                var text = html_content ? "<p>"+String(html_content).replace(/<[^>]+>/gm, '')+"</p>" : '';
+                return $sce.trustAsHtml(text);
+            };
         }
     ]);
 
-    module.controller('MessageController', ['$scope', '$window', 'Message',
-        function($scope, $window, Message) {
+    module.controller('MessagesDashboardController', ['$scope', '$uibModal', '$sce', '$window', 'Message', 'messages_list',
+        function($scope, $uibModal, $sce, $window, Message, messages_list) {
+            messages_list.messages = Message.query({limit_to: 2});
+            $scope.messages = messages_list.messages;
+
+            $scope.strip_html = function(html_content) {
+                var text = html_content ? "<p>"+String(html_content).replace(/<[^>]+>/gm, '')+"</p>" : '';
+                return $sce.trustAsHtml(text);
+            };
+        }
+    ]);
+
+    module.controller('MessagesOverviewController', ['$scope', '$uibModal', '$sce', '$window', 'Message', 'messages_list',
+        function($scope, $uibModal, $sce, $window, Message, messages_list) {
+            messages_list.messages = Message.query({limit_to: 20});
+            $scope.messages = messages_list.messages;
+
+            $scope.strip_html = function(html_content) {
+                var text = html_content ? "<p>"+String(html_content).replace(/<[^>]+>/gm, '')+"</p>" : '';
+                return $sce.trustAsHtml(text);
+            };
+        }
+    ]);
+
+    module.controller('MessageController', ['$scope', '$window', '$sce', 'Message', 'MessageRead',
+        function($scope, $window, $sce, Message, MessageRead) {
             $scope.course_id = parseInt($window.course_id, 10);
             $scope.message_id = document.location.href.match(/message\/([0-9]+)/)[1];
             $scope.message = Message.get({messageId: $scope.message_id}, function(message) {
+                MessageRead.save({message: $scope.message_id});
             });
+
+            $scope.get_as_safe_html = function(html_content) {
+                return $sce.trustAsHtml(html_content);
+            }
         }
     ]);
 })(angular);

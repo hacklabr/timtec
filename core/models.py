@@ -592,6 +592,18 @@ class ProfessorMessage(models.Model):
         return email.send()
 
 
+class ProfessorMessageRead(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Student'))
+    message = models.ForeignKey(ProfessorMessage, verbose_name=_('ProfessorMessage'))
+    is_read = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username + " " + self.message.subject + " " + str(self.is_read)
+
+    class Meta:
+        unique_together = ('user', 'message')
+
+
 class PositionedModel(models.Model):
     collection_name = 'pk'
 

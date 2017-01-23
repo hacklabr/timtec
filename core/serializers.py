@@ -2,9 +2,9 @@ from django.contrib.flatpages.models import FlatPage
 from django.contrib.auth import get_user_model
 from core.models import (Course, CourseProfessor, CourseStudent, Lesson,
                          Video, StudentProgress, Unit, ProfessorMessage,
-                         Class, CourseAuthor, CourseCertification,
-                         CertificationProcess, Evaluation, CertificateTemplate,
-                         IfCertificateTemplate)
+                         ProfessorMessageRead, Class, CourseAuthor,
+                         CourseCertification, CertificationProcess, Evaluation,
+                         CertificateTemplate, IfCertificateTemplate)
 from accounts.serializers import TimtecUserSerializer, \
     TimtecUserAdminCertificateSerializer
 from activities.models import Activity, Answer
@@ -13,14 +13,42 @@ from notes.models import Note
 from rest_framework import serializers
 
 
+class ProfessorMessageReadSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProfessorMessageRead
+        fields = ('id', 'message', 'is_read')
+
+
 class ProfessorMessageSerializer(serializers.ModelSerializer):
 
     professor = TimtecUserSerializer(read_only=True)
-    users_details = TimtecUserSerializer(source='users', read_only=True)
+    course_slug = serializers.SerializerMethodField(read_only=True)
+    course_name = serializers.SerializerMethodField(read_only=True)
+    is_read = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = ProfessorMessage
-        fields = ('id', 'course', 'professor', 'users', 'subject', 'message', 'date', 'users_details',)
+        fields = ('id', 'course', 'course_name', 'course_slug', 'professor', 'users', 'subject', 'message', 'date', 'is_read')
+
+    def get_course_slug(self, obj):
+        try:
+            return obj.course.slug
+        except AttributeError as e:
+            return ''  # no course is associated with this message
+
+    def get_course_name(self, obj):
+        try:
+            return obj.course.name
+        except AttributeError as e:
+            return ''  # no course is associated with this message
+
+    def get_is_read(self, obj):
+        try:
+            read_state = ProfessorMessageRead.objects.get(user=self.context['request'].user, message=obj)
+            return read_state.is_read
+        except ProfessorMessageRead.DoesNotExist as e:
+            return False
 
 
 class BaseCourseSerializer(serializers.ModelSerializer):

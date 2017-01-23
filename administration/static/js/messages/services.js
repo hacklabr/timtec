@@ -9,6 +9,11 @@
             });
     });
 
+    module.factory('MessageRead', function($resource){
+            return $resource('/api/professor_message_read/:message', {}, {
+            });
+    });
+
     module.factory('User', function($resource){
             return $resource('/api/user/:userId', {}, {
             });

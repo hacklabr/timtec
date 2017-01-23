@@ -43,3 +43,17 @@ class IsAdminOrReadOnly(IsAdmin):
         if request.method in permissions.SAFE_METHODS:
             return True
         return super(IsAdminOrReadOnly, self).has_permission(request, view)
+
+
+class IsAssistantOrCoordinatorOrReadOnly(permissions.BasePermission):
+    """
+    Check if a user can send messages to students enrolled in a course
+    """
+
+    def has_object_permission(self, request, view, obj):
+        # Read permissions are allowed to any request,
+        # so we'll always allow GET, HEAD or OPTIONS requests.
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        else:
+            return obj.course.is_assistant_or_coordinator(request.user)

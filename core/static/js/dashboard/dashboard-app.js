@@ -7,5 +7,6 @@
         'discussion.services',
         'dashboard.controllers',
         'header',
+        'messages',
     ]);
 })(angular);
