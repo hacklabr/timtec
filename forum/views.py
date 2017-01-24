@@ -22,6 +22,7 @@ from django.db.models import Count, Sum
 from django.db.models.functions import Coalesce
 from django.utils import timezone
 from datetime import timedelta
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 
 class CustomPagination(PageNumberPagination):
@@ -231,6 +232,7 @@ class QuestionNotificationViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     serializer_class = QuestionNotificationSerializer
     lookup_field = "question"
     queryset = QuestionNotification.objects.all()
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_object(self):
         print self.kwargs.keys()
