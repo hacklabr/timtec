@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-16 12:34-0200\n"
-"PO-Revision-Date: 2017-01-16 12:35-0200\n"
+"POT-Creation-Date: 2017-01-24 19:44-0200\n"
+"PO-Revision-Date: 2017-01-24 19:46-0200\n"
 "Last-Translator: Administrador TIMTec <timtectimtec@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -276,8 +276,8 @@ msgstr "Estudante"
 msgid "Given answer"
 msgstr "Resposta fornecida"
 
-#: activities/models.py:62 forum/models.py:62 forum/models.py:109
-#: themes/default/templates/question.html:78
+#: activities/models.py:62 forum/models.py:65 forum/models.py:139
+#: themes/default/templates/question.html:95
 msgid "Answer"
 msgstr "Resposta"
 
@@ -333,7 +333,7 @@ msgstr "Assistente"
 
 #: core/models.py:52 core/models.py:145 core/models.py:301 core/models.py:477
 #: core/models.py:531 core/models.py:574 core/models.py:624 core/models.py:827
-#: forum/models.py:17 themes/default/templates/_admin_header_inline.html:34
+#: forum/models.py:20 themes/default/templates/_admin_header_inline.html:34
 #: themes/default/templates/ifs/signup-completion.html:117
 #: themes/default/templates/ifs/signup-completion.html:119
 msgid "Course"
@@ -379,7 +379,7 @@ msgstr "Rascunho"
 msgid "Published"
 msgstr "Público"
 
-#: core/models.py:108 core/models.py:629 forum/models.py:13
+#: core/models.py:108 core/models.py:629 forum/models.py:16
 msgid "Slug"
 msgstr "Slug"
 
@@ -517,7 +517,7 @@ msgstr "Descrição"
 msgid "Notes"
 msgstr "Anotações"
 
-#: core/models.py:640 core/models.py:679 forum/models.py:18
+#: core/models.py:640 core/models.py:679 forum/models.py:21
 msgid "Lesson"
 msgstr "Aula"
 
@@ -527,7 +527,7 @@ msgstr "Aula"
 msgid "Lessons"
 msgstr "Aulas"
 
-#: core/models.py:678 forum/models.py:11
+#: core/models.py:678 forum/models.py:14
 msgid "Title"
 msgstr "Título"
 
@@ -597,7 +597,7 @@ msgid "Comments"
 msgstr "Comentários"
 
 #: core/models.py:770 core/models.py:801
-#: themes/default/templates/_course-details-inline.html:13
+#: themes/default/templates/_course-details-inline.html:16
 #: themes/default/templates/course-evaluations.html:59
 #: themes/default/templates/course-evaluations.html:432
 #: themes/default/templates/evaluations.html:357
@@ -654,8 +654,8 @@ msgstr "Modelo de certificação dos IFs"
 msgid "Course Materials"
 msgstr "Material didático"
 
-#: course_material/models.py:8 forum/models.py:12 forum/models.py:61
-#: forum/models.py:102 forum/models.py:119
+#: course_material/models.py:8 forum/models.py:15 forum/models.py:64
+#: forum/models.py:132 forum/models.py:149 forum/models.py:154
 msgid "Question"
 msgstr "Descrição"
 
@@ -692,22 +692,36 @@ msgid ""
 "necessárias."
 msgstr "Copyright"
 
-#: forum/models.py:14 forum/models.py:20 forum/models.py:63 forum/models.py:95
-#: forum/models.py:118 notes/models.py:11
+#: forum/models.py:17 forum/models.py:23 forum/models.py:66 forum/models.py:69
+#: forum/models.py:125 forum/models.py:148 forum/models.py:153
+#: notes/models.py:11 themes/default/templates/_course-details-inline.html:14
 msgid "User"
 msgstr "Usuário"
 
-#: forum/models.py:15
+#: forum/models.py:18
 msgid "Correct answer"
 msgstr "Resposta esperada"
 
-#: forum/models.py:19
+#: forum/models.py:22 forum/models.py:68
 msgid "Hidden"
 msgstr "Oculto"
 
-#: forum/models.py:21
+#: forum/models.py:24
 msgid "Justification"
 msgstr "Publicação"
+
+#: forum/models.py:106
+msgid "A question that you follow has new answers"
+msgstr "Uma questão que você segue possui novas respostas"
+
+#: forum/models.py:107
+#, python-format
+msgid ""
+"The question '%s' has a new answer. Please access the link below to see "
+"this."
+msgstr ""
+"A questão '%s' possui uma nova resposta. Por favor, acesse o link abaixo "
+"para verificar."
 
 #: notes/models.py:10
 msgid "Note"
@@ -750,7 +764,7 @@ msgstr "Nome do curso"
 #: themes/default/templates/_forum_inline.html:31
 #: themes/default/templates/forum.html:41
 #: themes/default/templates/question-create.html:33
-#: themes/default/templates/question.html:44
+#: themes/default/templates/question.html:50
 msgid "Forum"
 msgstr "Fórum"
 
@@ -785,7 +799,7 @@ msgid "Certificate settings"
 msgstr "Opções do certificado"
 
 #: themes/default/templates/_class-professors-inline.html:10
-#: themes/default/templates/_course-details-inline.html:11
+#: themes/default/templates/_course-details-inline.html:12
 #: themes/default/templates/administration/permissions.html:69
 #: themes/default/templates/class_edit.html:92
 #: themes/default/templates/classes.html:65
@@ -845,6 +859,8 @@ msgstr "Organizar instrutores"
 
 #: themes/default/templates/_course_authors_inline.html:27
 #: themes/default/templates/_create_class_modal.html:4
+#: themes/default/templates/_edit_answer_modal.html:33
+#: themes/default/templates/_edit_question_modal.html:36
 #: themes/default/templates/_forum_inline.html:199
 #: themes/default/templates/_modal_course_complete.html:74
 #: themes/default/templates/administration/courses.html:28
@@ -864,6 +880,8 @@ msgstr "Fechar"
 
 #: themes/default/templates/_course_authors_inline.html:28
 #: themes/default/templates/_course_professors_modal.html:86
+#: themes/default/templates/_edit_answer_modal.html:34
+#: themes/default/templates/_edit_question_modal.html:37
 #: themes/default/templates/account/password_reset_from_key.html:31
 #: themes/default/templates/account/password_reset_from_key.html:69
 #: themes/default/templates/administration/certificate-settings.html:51
@@ -956,6 +974,37 @@ msgstr "Nome da nova turma"
 msgid "Add class"
 msgstr "Adicionar turma"
 
+#: themes/default/templates/_edit_answer_modal.html:6
+#| msgid "Edit course"
+msgid "Edit anwser"
+msgstr "Editar resposta"
+
+#: themes/default/templates/_edit_answer_modal.html:27
+#: themes/default/templates/_edit_question_modal.html:30
+#: themes/default/templates/_forum_inline.html:63
+#: themes/default/templates/_forum_inline.html:200
+#: themes/default/templates/accept-terms.html:27
+#: themes/default/templates/account/password_reset.html:33
+#: themes/default/templates/account/password_reset.html:68
+#: themes/default/templates/course-evaluations.html:310
+#: themes/default/templates/course-evaluations.html:367
+#: themes/default/templates/course-evaluations.html:377
+#: themes/default/templates/course-evaluations.html:422
+#: themes/default/templates/evaluations.html:236
+#: themes/default/templates/evaluations.html:293
+#: themes/default/templates/evaluations.html:303
+#: themes/default/templates/evaluations.html:347
+#: themes/default/templates/footer.html:44
+#: themes/default/templates/messages.html:135
+#: themes/default/templates/question.html:145
+msgid "Send"
+msgstr "Enviar"
+
+#: themes/default/templates/_edit_question_modal.html:6
+#| msgid "Loading questions"
+msgid "Edit question/anwser"
+msgstr "Editar pergunta/resposta"
+
 #: themes/default/templates/_evaluation_details_modal.html:6
 msgid "Detalhes da avaliação"
 msgstr ""
@@ -1009,25 +1058,6 @@ msgstr "Descrição da sua pergunta"
 msgid "Questions & Answers policy"
 msgstr "Política de Perguntas e Respostas"
 
-#: themes/default/templates/_forum_inline.html:63
-#: themes/default/templates/_forum_inline.html:200
-#: themes/default/templates/accept-terms.html:27
-#: themes/default/templates/account/password_reset.html:33
-#: themes/default/templates/account/password_reset.html:68
-#: themes/default/templates/course-evaluations.html:310
-#: themes/default/templates/course-evaluations.html:367
-#: themes/default/templates/course-evaluations.html:377
-#: themes/default/templates/course-evaluations.html:422
-#: themes/default/templates/evaluations.html:236
-#: themes/default/templates/evaluations.html:293
-#: themes/default/templates/evaluations.html:303
-#: themes/default/templates/evaluations.html:347
-#: themes/default/templates/footer.html:44
-#: themes/default/templates/messages.html:135
-#: themes/default/templates/question.html:119
-msgid "Send"
-msgstr "Enviar"
-
 #: themes/default/templates/_forum_inline.html:78
 #: themes/default/templates/administration/stats.html:59
 msgid "Filter classes"
@@ -1066,7 +1096,6 @@ msgid "Most recent"
 msgstr "Mais recentes"
 
 #: themes/default/templates/_forum_inline.html:122
-#| msgid "Most voted"
 msgid "Most liked"
 msgstr "Mais curtidas"
 
@@ -1075,7 +1104,6 @@ msgid "Most answerd"
 msgstr "Mais respondidas"
 
 #: themes/default/templates/_forum_inline.html:124
-#| msgid "Most voted"
 msgid "Most viewed"
 msgstr "Mais vistas"
 
@@ -1092,6 +1120,7 @@ msgid "answers"
 msgstr "respostas"
 
 #: themes/default/templates/_forum_inline.html:152
+#: themes/default/templates/question.html:111
 msgid "Hide"
 msgstr "Ocultar"
 
@@ -2067,7 +2096,7 @@ msgid "Clear"
 msgstr "Limpar"
 
 #: themes/default/templates/forum.html:45
-#: themes/default/templates/question.html:47
+#: themes/default/templates/question.html:53
 msgid "Ask a question"
 msgstr "Fazer uma pergunta"
 
@@ -2292,7 +2321,24 @@ msgstr "Cursos em andamento"
 msgid "Fill the question text."
 msgstr "Preencha o texto da questão."
 
-#: themes/default/templates/question.html:100
+#: themes/default/templates/question.html:75
+msgid "Follow"
+msgstr "Seguir"
+
+#: themes/default/templates/question.html:78
+msgid "Unfollow"
+msgstr "Deixar de seguir"
+
+#: themes/default/templates/question.html:81
+#: themes/default/templates/question.html:117
+msgid "Edit"
+msgstr "Editar"
+
+#: themes/default/templates/question.html:114
+msgid "Show"
+msgstr "Exibir"
+
+#: themes/default/templates/question.html:126
 msgid "Your answer"
 msgstr "Sua resposta"
 
