@@ -586,6 +586,7 @@ class ProfessorMessage(models.Model):
         subject = Template(et.subject).render(Context({'subject': self.subject}))
         message = Template(et.template).render(Context({'message': self.message}))
         email = EmailMessage(subject, message, settings.DEFAULT_FROM_EMAIL, None, bcc)
+        email.content_subtype = "html"
         return email.send()
 
     @property
