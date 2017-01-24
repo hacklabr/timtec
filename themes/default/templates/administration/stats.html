@@ -57,7 +57,7 @@ wrapper-course-lesson
                 <div class="row">
                     <div class="col-md-5 col-sm-8">
                         <label for="filter-class"> {% trans "Filter classes" %}:
-                            <select class="form-control" id="filter-class" ng-model="filters.selected_class" ng-change="filter_stats()">
+                            <select class="form-control" id="filter-class" ng-model="query.selected_class" ng-change="filter_stats()">
                                 <optgroup label="Liste por:">
                                     <option ng-if="my_classes.length" value="my_classes">Minhas turmas</option>
                                     <option value="all" ng-if="current_user_role == 'coordinator'">Todas as turmas deste curso</option>
@@ -73,19 +73,19 @@ wrapper-course-lesson
                         </label>
                     </div>
                     <div class="filter-keyword col-md-3 col-sm-5 textright">
-                        <input type="text" ng-model="filters.textsearch" placeholder="{% trans 'Keyword' %}" class="form-control">
+                        <input type="text" ng-model="query.s" placeholder="{% trans 'Keyword' %}" class="form-control" ng-change="filter_stats()" ng-model-options="{debounce: 500}">
                     </div>
                     <!-- END COL-LG-3 -->
                     <!-- COL-LG-3 -->
                     <div class="filter-ordering col-md-2 col-sm-5 textright">
-                        <select ng-model="ordering" class="form-control">
+                        <select ng-model="query.ordering" class="form-control" ng-change="filter_stats()">
                             <option value="name">{% trans 'Name' %}</option>
                             <option value="course_progress">{% trans 'Progress' %}</option>
                         </select>
                     </div>
                     <!-- END COL-LG-3 -->
                     <div class="filter-reverse col-md-2 col-sm-2 textright">
-                        <button class="btn btn-info btn-block" ng-class="{active:reverse}" ng-click="reverse=!reverse">{% trans 'Invert' %}</button>
+                        <button class="btn btn-info btn-block" ng-class="{active:query.reverse}" ng-click="filter_invert()">{% trans 'Invert' %}</button>
                     </div>
                 </div>
                 <!-- END ROW -->
@@ -103,6 +103,13 @@ wrapper-course-lesson
 
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="students">
+                        <ul uib-pagination
+                                    max-size="10" items-per-page="40" boundary-links="true"
+                                    total-items="totalItems" ng-model="currentPage" class="pagination-sm top pointer"
+                                    previous-text="&lsaquo;" next-text="&rsaquo;"
+                                    first-text="&laquo;" last-text="&raquo;">
+                        </ul>
+
                         <div class="col-lg-12" ng-hide="users_reports.$resolved">
                             <p>{% trans 'Loading students report' %}...   <i class="loading fa fa-refresh fa-spin"></i></p>
                         </div>
@@ -118,7 +125,7 @@ wrapper-course-lesson
                             -->
                         </div>
                         <ul class="students" ng-show="users_reports.$resolved">
-                            <li ng-repeat="user in (filteredList = (users_reports | orderBy:ordering:reverse | filter:filters.check))">
+                            <li ng-repeat="user in users_reports.results">
                                 <div class="row">
                                 {% verbatim %}
                                     <div class="col-md-3 col-sm-4 col-xs-10"><strong>{{ user.name }}<br>({{ user.email }})</strong></div>
