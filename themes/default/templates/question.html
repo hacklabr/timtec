@@ -71,6 +71,12 @@ wrapper-course-lesson
                                 </div>
                                 Pergunta feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{question.username}}">{{ question.username }}</a>
                             {% endverbatim %}
+                            <button ng-click='follow_question()' class='btn btn-default pull-right btn-xs' ng-hide="question_notification.user">
+                                <i class='fa fa-bell'></i> {% trans "Follow" %}
+                            </button>
+                            <button ng-click='unfollow_question()' class='btn btn-default pull-right btn-xs' ng-show="question_notification.user">
+                                <i class='fa fa-bell-slash'></i> {% trans "Unfollow" %}
+                            </button>
                             <button ng-click='open_edit_question_modal(question)' class='btn btn-default pull-right btn-xs' ng-show="current_user_role == 'coordinator' || current_user_role == 'assistant' || user_id == question.user_id">
                                 <i class='fa fa-pencil'></i> {% trans "Edit" %}
                             </button>

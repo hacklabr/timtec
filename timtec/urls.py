@@ -30,7 +30,8 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
 
 from activities.views import AnswerViewSet
 from forum.views import (CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet,
-                         QuestionVoteViewSet, AnswerVoteViewSet, AnswerViewSet as ForumAnswerViewSet)
+                         QuestionVoteViewSet, AnswerVoteViewSet, AnswerViewSet as ForumAnswerViewSet,
+                         QuestionNotificationViewSet)
 from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialViewSet, CourseMaterialFileViewSet
 from notes.views import NotesViewSet, CourseNotesView, UserNotesView
 from reports.views import UserCourseStats, CourseStatsByLessonViewSet, UserCourseLessonsStats
@@ -62,6 +63,7 @@ router.register(r'student_progress', StudentProgressViewSet, base_name='student_
 router.register(r'forum_question', QuestionViewSet, base_name='forum_question')
 router.register(r'forum_answer', ForumAnswerViewSet, base_name='forum_answer')
 router.register(r'question_vote', QuestionVoteViewSet, base_name='question_vote')
+router.register(r'question_notification', QuestionNotificationViewSet, base_name='question_notification')
 router.register(r'answer_vote', AnswerVoteViewSet, base_name='answer_vote')
 router.register(r'course_material', CourseMaterialViewSet, base_name='course_material')
 router.register(r'course_material_file', CourseMaterialFileViewSet, base_name='course_material_file')

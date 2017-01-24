@@ -8,9 +8,10 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 from core.models import Course, Class
-from forum.models import Question, Answer, QuestionVote, AnswerVote, QuestionVisualization
+from forum.models import Question, Answer, QuestionVote, AnswerVote, QuestionVisualization, QuestionNotification
 from forum.forms import QuestionForm
 from forum.serializers import QuestionSerializer, AnswerSerializer, QuestionVoteSerializer, AnswerVoteSerializer
+from forum.serializers import QuestionNotificationSerializer
 from forum.permissions import EditQuestionPermission, EditAnswerPermission
 from rest_framework import viewsets
 from administration.views import AdminMixin
@@ -223,3 +224,20 @@ class AnswerVoteViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         return AnswerVote.objects.filter(user=user)
+
+
+class QuestionNotificationViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
+    model = QuestionNotification
+    serializer_class = QuestionNotificationSerializer
+    lookup_field = "question"
+    queryset = QuestionNotification.objects.all()
+
+    def get_object(self):
+        print self.kwargs.keys()
+        queryset = self.get_queryset()
+        filter = {}
+        filter['question__id'] = self.kwargs['question']
+        filter['user__id'] = self.request.GET.get('user')
+        obj = get_object_or_404(queryset, **filter)
+        self.check_object_permissions(self.request, obj)
+        return obj

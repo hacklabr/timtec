@@ -1,4 +1,4 @@
-from forum.models import Question, Answer, QuestionVote, AnswerVote
+from forum.models import Question, Answer, QuestionVote, AnswerVote, QuestionNotification
 from rest_framework import serializers
 
 
@@ -69,3 +69,10 @@ class AnswerVoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = AnswerVote
         fields = ('id', 'answer', 'timestamp', 'user', 'value')
+
+
+class QuestionNotificationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = QuestionNotification
+        fields = ('id', 'user', 'question')

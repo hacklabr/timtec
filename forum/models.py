@@ -119,3 +119,8 @@ class QuestionVisualization(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('User'))
     question = models.ForeignKey(Question, related_name='views', verbose_name=_('Question'))
+
+
+class QuestionNotification(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('User'))
+    question = models.ForeignKey(Question, related_name='notifications', verbose_name=_('Question'))

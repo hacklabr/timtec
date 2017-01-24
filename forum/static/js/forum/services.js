@@ -23,5 +23,18 @@
             return $resource('/api/question_vote/:question', {}, {
                 update: {method: 'PUT'}
             });
+        }).
+        factory('QuestionNotification', function($resource){
+            return $resource('/api/question_notification/', {}, {
+                update: {method: 'PUT'},
+                get: {
+                    method: 'GET',
+                    url: '/api/question_notification/:question?user=:user'
+                },
+                delete: {
+                    method: 'DELETE',
+                    url: '/api/question_notification/:question?user=:user'
+                }
+            });
         });
 })(angular);

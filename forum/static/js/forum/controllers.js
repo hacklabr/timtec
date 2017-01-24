@@ -23,12 +23,15 @@
 
     angular.module('forum.controllers', ['ngCookies']).
         controller('QuestionCtrl', ['$scope', '$sce', '$window', '$uibModal', 'Question', 'ForumAnswer', 'AnswerVote',
-            'CourseProfessor', 'Class',
-            function ($scope, $sce, $window, $uibModal, Question, ForumAnswer, AnswerVote, CourseProfessor, Class) {
+            'CourseProfessor', 'Class', 'QuestionNotification',
+            function ($scope, $sce, $window, $uibModal, Question, ForumAnswer, AnswerVote, CourseProfessor, Class,
+                QuestionNotification) {
+
                 var questionId = parseInt($window.question_id, 10);
                 var userId = parseInt($window.user_id, 10);
 
                 $scope.num_answers = 0;
+                $scope.question_id = questionId;
 
                 $scope.user_id = userId;
                 $scope.question = Question.get({questionId: questionId});
@@ -126,6 +129,29 @@
                     });
 
                 };
+
+                // loading if exists
+                $scope.question_notification = QuestionNotification.get({
+                    question: $scope.question_id,
+                    user: $scope.user_id,
+                });
+
+                $scope.follow_question = function() {
+                    $scope.question_notification = new QuestionNotification({
+                        question: $scope.question_id,
+                        user: $scope.user_id,
+                    });
+                    $scope.question_notification.$save();
+                }
+
+                $scope.unfollow_question = function() {
+                    $scope.question_notification.$delete({
+                        question: $scope.question_id,
+                        user: $scope.user_id,
+                    }, function (){
+                        $scope.question_notification = null;
+                    });
+                }
 
                 var EditQuestionModalInstanceCtrl = function($scope, $uibModalInstance, question) {
                     var questionId = parseInt($window.question_id, 10);
