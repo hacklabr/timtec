@@ -585,10 +585,11 @@ class ProfessorMessage(models.Model):
         try:
             et = EmailTemplate.objects.get(name='professor-message')
         except EmailTemplate.DoesNotExist:
-            et = EmailTemplate(name="professor-message", subject="{{subject}}", template="{{message}}")
+            et = EmailTemplate(name="professor-message", subject="{{subject}}", template="{{message|safe}}")
         subject = Template(et.subject).render(Context({'subject': self.subject}))
         message = Template(et.template).render(Context({'message': self.message}))
         email = EmailMessage(subject, message, settings.DEFAULT_FROM_EMAIL, None, bcc)
+        email.content_subtype = "html"
         return email.send()
 
 
