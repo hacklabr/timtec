@@ -228,7 +228,7 @@ class ResumeCourseView(LoginRequiredMixin, RedirectView):
         course = self.get_object()
         user = self.request.user
         user_is_enrolled = CourseStudent.objects.filter(user=user, course=course, is_active=True).exists()
-        if not user_is_enrolled:
+        if not user_is_enrolled and not self.request.user.is_superuser:
             return reverse_lazy('course_intro', args=[course.slug])
 
         if self.request.user.accepted_terms or not settings.TERMS_ACCEPTANCE_REQUIRED:
