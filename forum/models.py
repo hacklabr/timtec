@@ -3,8 +3,11 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
 from autoslug import AutoSlugField
-from core.models import Course, Lesson
+from core.models import Course, Lesson, ProfessorMessage
 from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.core.urlresolvers import reverse_lazy
+from django.contrib.sites.models import Site
 
 
 class Question(models.Model):
@@ -68,6 +71,10 @@ class Answer(models.Model):
     def __unicode__(self):
         return self.text
 
+    def save(self, *args, **kwargs):
+        super(Answer, self).save(*args, **kwargs)
+        self.send_alerts()
+
     @property
     def count_votes(self):
         return self.votes.aggregate(models.Sum('value'))['value__sum'] or 0
@@ -91,6 +98,27 @@ class Answer(models.Model):
                     output_field=models.CharField(),
                 )
             ))['total']
+
+    def send_alerts(self):
+        notifications = QuestionNotification.objects.filter(question=self.question)
+        if notifications:
+            url = "http://%s%s" % (Site.objects.get_current().domain, reverse_lazy('forum_question', args=[self.question.slug, ]))
+            subject = _("A question that you follow has new answers")
+            message = _("The question '%s' has a new answer. Please access the link below to see this.") % self.question
+            message += "<br><br>%s" % url
+
+            # creating the message model
+            professor_message = ProfessorMessage.objects.create(subject=subject,
+                                                                message=message,
+                                                                course=self.question.course,
+                                                                professor=self.question.course.professors.all().first())
+
+            # adding users
+            for notification in notifications:
+                professor_message.users.add(notification.user)
+            professor_message.save()
+
+            return professor_message.send()
 
 
 class Vote(models.Model):
