@@ -124,7 +124,7 @@
 
     module.controller('MessagesDashboardController', ['$scope', '$uibModal', '$sce', '$window', 'Message', 'messages_list',
         function($scope, $uibModal, $sce, $window, Message, messages_list) {
-            messages_list.messages = Message.query({limit_to: 2});
+            messages_list.messages = Message.query({limit_to: 2, unread: true});
             $scope.messages = messages_list.messages;
 
             $scope.strip_html = function(html_content) {

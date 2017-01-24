@@ -519,6 +519,11 @@ class ProfessorMessageViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = ProfessorMessage.objects.filter(users__in=[self.request.user]).order_by('-id')
 
+        unread = self.request.query_params.get('unread', None)
+        if unread:
+            # Exclude read messages
+            queryset = queryset.exclude(read_status__is_read=True)
+
         limit_to = self.request.query_params.get('limit_to', None)
         if limit_to:
             queryset = queryset[:int(limit_to)]

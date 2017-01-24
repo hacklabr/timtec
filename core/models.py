@@ -595,7 +595,7 @@ class ProfessorMessage(models.Model):
 
 class ProfessorMessageRead(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Student'))
-    message = models.ForeignKey(ProfessorMessage, verbose_name=_('ProfessorMessage'))
+    message = models.ForeignKey(ProfessorMessage, verbose_name=_('ProfessorMessage'), related_name='read_status')
     is_read = models.BooleanField(default=False)
 
     def __str__(self):
