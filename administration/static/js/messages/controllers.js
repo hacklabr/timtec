@@ -124,8 +124,8 @@
 
     module.controller('MessagesDashboardController', ['$scope', '$uibModal', '$sce', '$window', 'Message', 'messages_list',
         function($scope, $uibModal, $sce, $window, Message, messages_list) {
-            messages_list.messages = Message.query({limit_to: 2, unread: true});
-            $scope.messages = messages_list.messages;
+            // messages_list.messages = Message.query({limit_to: 2, unread: true});
+            $scope.messages = Message.query({unread: true});
 
             $scope.strip_html = function(html_content) {
                 var text = html_content ? "<p>"+String(html_content).replace(/<[^>]+>/gm, '')+"</p>" : '';
