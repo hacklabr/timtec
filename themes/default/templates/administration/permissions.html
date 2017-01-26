@@ -1,21 +1,29 @@
 {% extends "base.html" %}
-{% load pipeline %}
+{% load compress %}
+{% load static %}
 {% load static %}
 {% load i18n %}
 
 {% block js %}
     {{ block.super }}
-    {% javascript 'course_permissions' %}
-
+    {% compress js %}
+        <script type="text/javascript" src="{% static 'js/course-permissions/app.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/course-permissions/controllers.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
+    {% endcompress %}
 {% endblock %}
 
 {% block wrapper_classes %}
 wrapper-course-lesson
 {% endblock %}
 
+{% block body_attrs %}ng-app='course-permissions'{% endblock %}
+
 {% block content %}
 
-<section id="permissions" ng-app="course-permissions" ng-controller="PermissionsController">
+<section id="permissions" ng-controller="PermissionsController">
 
 		<!-- ACTIONS -->
         <div class="actions-menu" fixed-bar>
@@ -45,7 +53,7 @@ wrapper-course-lesson
         <table class="table table-list">
             <tr>
                 <th class="fullname">{% trans "Full name" %}</th>
-                <th class="email">{% trans "Email" %}</th>
+                <!-- <th class="email">{% trans "Email" %}</th> -->
                 <th class="username">{% trans "Username" %}</th>
                 <th class="role">{% trans "Role" %}</th>
                 <th class="actions">{% trans "Actions" %}</th>
@@ -53,7 +61,7 @@ wrapper-course-lesson
             <tr ng-repeat="professor in professors">
                 {% verbatim %}
                 <td>{{professor.user_info.name}}</td>
-                <td>{{professor.user_info.email}}</td>
+                <!-- <td>{{professor.user_info.email}}</td> -->
                 <td>{{professor.user_info.username}}</td>
                 {% endverbatim %}
                 <td>
@@ -84,7 +92,7 @@ wrapper-course-lesson
                             <div class="autocomplete">
                                 <input type="text" id="search-user" class="form-control" ng-model="asyncSelected"
                                         placeholder="{% trans 'Type the name, email or user name of the professor to search...' %}"
-                                        typeahead="user as user.formated_name for user in getUsers($viewValue)"
+                                        uib-typeahead="user as user.formated_name for user in getUsers($viewValue)"
                                         typeahead-loading="loadingLocations"
                                         typeahead-on-select="on_select_professor($model); asyncSelected = '';"
                                         typeahead-min-length="2"
@@ -94,14 +102,14 @@ wrapper-course-lesson
                             <table class="table table-list" ng-show="new_professors.length">
                                 <tr>
                                     <th class="fullname">{% trans "Full name" %}</th>
-                                    <th class="email">{% trans "Email" %}</th>
+                                    <!-- <th class="email">{% trans "Email" %}</th> -->
                                     <th class="username">{% trans "Username" %}</th>
                                     <th class="actions">{% trans "Actions" %}</th>
                                 </tr>
                                 <tr ng-repeat="new_professor in new_professors">
                                     {% verbatim %}
                                     <td>{{new_professor.name}}</td>
-                                    <td>{{new_professor.email}}</td>
+                                    <!-- <td>{{new_professor.email}}</td> -->
                                     <td>{{new_professor.username}}</td>
                                     {% endverbatim %}
                                     <td class="textcenter"><button class="btn btn-warning" ng-click="remove_new_professor($index)"><i class="fa fa-trash-o"></i></button></td>

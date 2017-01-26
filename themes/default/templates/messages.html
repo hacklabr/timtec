@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 
 {% load is_assistant_or_coordinator %}
-{% load pipeline %}
+{% load compress %}
+{% load static %}
 {% load static %}
 {% load i18n %}
 
@@ -11,7 +12,12 @@ wrapper-course-lesson
 
 {% block css %}
     {{block.super}}
-    {% css 'messages' %}
+    {% compress css %}
+<link rel="stylesheet" href="{% static 'tinymce-dist/skins/lightgray/skin.min.css' %}" type="text/css" />
+<link rel="stylesheet" href="{% static 'tinymce-dist/skins/lightgray/skin.ie7.min.css' %}" type="text/css" />
+<link rel="stylesheet" href="{% static 'tinymce-dist/skins/lightgray/content.min.css' %}" type="text/css" />
+{% endcompress %}
+
 {% endblock %}
 
 {% block js %}
@@ -20,15 +26,29 @@ wrapper-course-lesson
         window.course_id = {{ course.pk }};
         window.course_slug = '{{ course.slug }}';
     </script>
-    {% javascript 'messages' %}
+    {% compress js %}
+<script type="text/javascript" src="{% static 'tinymce-dist/tinymce.js' %}"></script>
+<script type="text/javascript" src="{% static 'tinymce-dist/plugins/textcolor/plugin.js' %}"></script>
+<script type="text/javascript" src="{% static 'tinymce-dist/plugins/link/plugin.js' %}"></script>
+<script type="text/javascript" src="{% static 'tinymce-dist/themes/modern/theme.js' %}"></script>
+<script type="text/javascript" src="{% static 'angular-ui-tinymce/src/tinymce.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/messages/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/messages/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/messages/services.js' %}"></script>
+<script type="text/javascript" src="{% static 'checklist-model/checklist-model.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/markdown/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/markdown/filters.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
+{% endcompress %}
+
 {% endblock %}
 
-
+{% block body_attrs %}ng-app='messages'{% endblock %}
 
 {% block content %}
 
 <!--  COURSE CONTENT  -->
-<div id="messages" class="course-messages" ng-app="messages">
+<div id="messages" class="course-messages">
 
     {% if in_admin %}
         {% include "_admin_header_inline.html" with course=course %}
@@ -65,24 +85,27 @@ wrapper-course-lesson
                             </div>
                             <div class="form-group waiting textcenter" ng-show='sending'>
                                 <div class="middle">
-                                    <progressbar class="progress-striped active" value="progressbar_counter" max="300"></progressbar>
+                                    <uib-progressbar class="progress-striped active" value="progressbar_counter" max="300"></uib-progressbar>
                                 </div>
                             </div>
                             <div class="form-group" ng-hide='sending'>
                                 <textarea class="form-control" rows="10" ng-model="new_message.message" ng-model="tinymceModel" ui-tinymce="tinymceOptions" placeholder="{% trans 'Message' %}"></textarea>
                             </div>
-                            <div class="form-group row" ng-hide="sending">
+                            <div ng-show="classes.length == 0">
+                                <i class="loading fa fa-refresh fa-spin"></i> {% trans 'Loading classes...' %}
+                            </div>
+                            <div class="form-group row" ng-hide="sending || classes.length == 0">
                                 <div class="students col-lg-12">
                                     <p><label><input type="checkbox" ng-model="modal.all_checked"> {% trans 'Send to all classes' %}</label></p>
                                     {% verbatim %}
                                     <div ng-repeat="klass in classes">
-                                        <label ng-show="!modal.all_checked"><input type="checkbox" checklist-model="classes.checked" checklist-value="klass.students"> {{ klass.name }}</label>
+                                        <label ng-show="!modal.all_checked"><input type="checkbox" checklist-model="specific_classes" checklist-value="klass"> {{ klass.name }}</label>
                                     </div>
                                     {% endverbatim %}
                                     <div class="autocomplete" ng-show="!modal.all_checked">
                                         <input type="text" id="search-user" class="form-control" ng-model="asyncSelected"
                                                         placeholder="{% trans 'Type the name, email or user name of the professor to search...' %}"
-                                                        typeahead="user as user.formated_name for user in getUsers($viewValue)"
+                                                        uib-typeahead="user as user.formated_name for user in getUsers($viewValue)"
                                                         typeahead-loading="loadingLocations"
                                                         typeahead-on-select="on_select_student($model); asyncSelected = '';"
                                                         typeahead-min-length="2"
@@ -109,7 +132,7 @@ wrapper-course-lesson
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" ng-click="cancel()"ng-disabled='sending'>{% trans "Close" %}</button>
-                                <button type="button" class="btn btn-success" ng-click="send()" ng-disabled='sending'>{% trans "Send" %}</button>
+                                <button type="button" class="btn btn-success" ng-click="send()" ng-disabled='sending || classes.length == 0'>{% trans "Send" %}</button>
                             </div>
                         </div>
                     </script>
@@ -138,13 +161,17 @@ wrapper-course-lesson
                 <div class="row">
                     <div class="col-lg-1 textright">
                         {% verbatim %}
-                        <span class="date">{{ message.date|date:"dd/MM/yy" }}</span><br>
+                        <span ng-class="{date: message.users_that_read.indexOf(USER_ID) === -1}">{{ message.date|date:"dd/MM/yy" }}</span><br>
                         <span>{{ message.date|date:"HH:mm" }}</span>
                         {% endverbatim %}
                     </div>
                     <div class="col-lg-10">
                         {% verbatim %}
-                        <div class="subject">{{ message.subject }}</div>
+                        <div ng-class="{subject: message.users_that_read.indexOf(USER_ID) === -1, 'body': true}">
+                            <span class='label label-default' ng-show="message.users_that_read.indexOf(USER_ID) > -1"><i class='fa fa-envelope-open'></i></span>
+                            <span class='label label-primary' ng-show="message.users_that_read.indexOf(USER_ID) === -1"><i class='fa fa-envelope'></i></span>
+                            {{ message.subject }} {{ message.users_that_read.indexOf(USER_ID) === -1 }}
+                        </div>
                         {% endverbatim %}
                         <div class="body">
                             <span ng-bind-html="message.message|markdown|words:50"></span>

@@ -33,17 +33,17 @@
 
             $scope.remove_item = function(index){
                 // removing from 'screen' list
-                var student_id = $scope.classe.students_details[index].user.id;
-                $scope.classe.students.splice(index, 1);
+                var student_id = $scope.classe.students_detail[index].user.id;
+                $scope.classe.students_detail.splice(index, 1);
+
 
                 // remove from real list
                 var index_management = $scope.classe.students.indexOf(student_id);
                 $scope.classe.students.splice(index_management, 1);
-                $scope.save();
             };
 
             $scope.on_select_student = function(model) {
-                $scope.classe.students_details.unshift(model);
+                $scope.classe.students_detail.unshift(model);
                 $scope.classe.students.unshift(model.id);
                 $scope.asyncSelected = '';
                 $scope.save();
@@ -51,7 +51,7 @@
 
             $scope.toggle_certificate = function (index){
 
-                var student = $scope.classe.students_details[index];
+                var student = $scope.classe.students_detail[index];
                 if(student.certificate) {
                     var cc_id = student.certificate.link_hash;
                     var user_id = student.user.id;
@@ -70,6 +70,10 @@
 
                 $scope.classe.$resolved = false;
 
+                if($scope.classe.assistant_detail) {
+                    $scope.classe.assistant = $scope.classe.assistant_detail.id;
+                }
+
                 $scope.classe.$update()
                     .then(function(){
                         $scope.alert.success('Alterações salvas com sucesso.');
@@ -82,6 +86,11 @@
                         });
             };
 
+            $scope.propertyName = 'user.username';
+            $scope.sort_by = function(propertyName) {
+                $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+                $scope.propertyName = propertyName;
+            };
         }
     ]);
 })(angular);

@@ -9,6 +9,7 @@
         'ngRoute',
         'ngResource',
         'directive.fixedBar',
-        'directive.alertPopup'
+        'directive.alertPopup',
+        'header',
     ]);
 })(angular);

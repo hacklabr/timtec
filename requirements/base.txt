@@ -20,11 +20,6 @@ djangorestframework==3.4.1
 django-filter==0.10.0
 
 # static mgt
-django-pipeline==1.6.8
-#django-pipeline==1.3.27
-# django-pipeline==1.4.7
-# django-pipeline==1.5.2
-
 django-compressor==2.0
 
 # internacionalization admin interface
@@ -59,3 +54,7 @@ django-markdown==0.8.4
 twitter==1.17.1
 
 django-extensions==1.5.5
+
+# Themes
+git+https://github.com/institutotim/timtec-theme-timtec.git#master
+git+https://github.com/institutotim/timtec-theme-if.git#master

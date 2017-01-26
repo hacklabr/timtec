@@ -2,23 +2,53 @@
 
 {% load staticfiles %}
 {% load i18n %}
-{% load pipeline %}
+{% load compress %}
+{% load static %}
 {% load is_course_coordinator %}
 
 {% block js %}
     {{ block.super }}
-    {% javascript 'core' %}
-    {% javascript 'certificate' %}
-    <script>
-        window.course_id = {{ class.course.pk }};
-        window.class_id = {{ class.pk }};
-    </script>
+    {% compress js %}
+        <script type="text/javascript" src="{% static 'js/core/app.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/core/controllers.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/core/services.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/core/filters.js' %}"></script>
+        <script type="text/javascript" src="{% static 'angular-tweet-filter/index.js' %}"></script>
+        <script type="text/javascript" src="{% static 'angular-sortable-view/src/angular-sortable-view.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
 
+        <script type="text/javascript" src="{% static 'js/certificate/app.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/certificate/controllers.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/certificate/filters.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/certificate/services.js' %}"></script>
+        <script type="text/javascript" src="{% static 'checklist-model/checklist-model.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/directives/file.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/directives/previewImage.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
+
+        <script>
+            window.course_id = {{ class.course.pk }};
+            window.class_id = {{ class.pk }};
+        </script>
+
+        <script type="text/javascript" src="{% static 'js/directives/waiting-screen.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/edit-class/app.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/edit-class/controllers.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/edit-class/services.js' %}"></script>
+        <script type="text/javascript" src="{% static 'checklist-model/checklist-model.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
+    {% endcompress %}
 {% endblock %}
 
 {% block wrapper_classes %}
 wrapper-course-lesson
 {% endblock %}
+
+{% block body_attrs %}ng-app='edit_class'{% endblock %}
 
 {% block content %}
 
@@ -29,7 +59,7 @@ wrapper-course-lesson
     </div>
 </div>
 
-<div id="classes" class="course-classes" ng-app='edit_class' ng-controller="ClassController">
+<div id="classes" class="course-classes" ng-controller="ClassController">
     <!-- ACTIONS -->
     <div class="actions-menu" fixed-bar>
         <div class="container">
@@ -61,7 +91,7 @@ wrapper-course-lesson
                     <div class="professor-assistant">
                         <label for="{{ form.assistant.id_for_label }}">{% trans 'Assistant Professor' %}:</label>
                         {% if user|is_course_coordinator:object.course %}
-                            <select class="form-control" ng-options="item.name for item in classe.course.professors track by item.id" ng-model="classe.assistant"></select>
+                            <select class="form-control" ng-options="item.name for item in classe.course.professors track by item.id" ng-model="classe.assistant_detail"></select>
                         {% else %}
                             <label>{{ object.assistant }}</label>
                         {% endif %}
@@ -104,7 +134,7 @@ wrapper-course-lesson
                 <div class="autocomplete">
                     <input type="text" id="search-user" class="form-control" ng-model="asyncSelected"
                                     placeholder="{% trans 'Type the name, email or user name of the professor to search...' %}"
-                                    typeahead="user as user.formated_name for user in getUsers($viewValue)"
+                                    uib-typeahead="user as user.formated_name for user in getUsers($viewValue)"
                                     typeahead-loading="loadingLocations"
                                     typeahead-on-select="on_select_student($model); asyncSelected = '';"
                                     typeahead-min-length="2"
@@ -118,20 +148,50 @@ wrapper-course-lesson
             <div class="col-lg-12">
                 <table class="table table-list">
                     <tr>
-                        <th class="classname">{% trans "Username" %}</th>
-                        <th class="email">{% trans "Email" %}</th>
-                        <th class="fullname">{% trans "Full name" %}</th>
+                        <th class="classname">
+                            <a href="javascript:void(0)" ng-click="sort_by('user.username')">
+                                {% trans "Username" %}
+                                <i class='fa fa-sort' ng-hide="propertyName == 'user.username'"></i>
+                                <i class='fa fa-sort-up' ng-show="!reverse && propertyName == 'user.username'"></i>
+                                <i class='fa fa-sort-desc' ng-show="reverse && propertyName == 'user.username'"></i>
+                            </a>
+                        </th>
+                        <th class="email">
+                            <a href="javascript:void(0)" ng-click="sort_by('user.email')">
+                                {% trans "Email" %}
+                                <i class='fa fa-sort' ng-hide="propertyName == 'user.email'"></i>
+                                <i class='fa fa-sort-up' ng-show="!reverse && propertyName == 'user.email'"></i>
+                                <i class='fa fa-sort-desc' ng-show="reverse && propertyName == 'user.email'"></i>
+                            </a>
+                        </th>
+                        <th class="fullname">
+                            <a href="javascript:void(0)" ng-click="sort_by('user.name')">
+                                {% trans "Full name" %}
+                                <i class='fa fa-sort' ng-hide="propertyName == 'user.name'"></i>
+                                <i class='fa fa-sort-up' ng-show="!reverse && propertyName == 'user.name'"></i>
+                                <i class='fa fa-sort-desc' ng-show="reverse && propertyName == 'user.name'"></i>
+                            </a>
+                        </th>
+                        <th class="startdate">
+                            <a href="javascript:void(0)" ng-click="sort_by('start_date')">
+                                {% trans "Start Date" %}
+                                <i class='fa fa-sort' ng-hide="propertyName == 'start_date'"></i>
+                                <i class='fa fa-sort-up' ng-show="!reverse && propertyName == 'start_date'"></i>
+                                <i class='fa fa-sort-desc' ng-show="reverse && propertyName == 'start_date'"></i>
+                            </a>
+                        </th>
                         <th class="certificate" ng-show="classe.user_can_certificate">{% trans "Certificate" %}</th>
                         <th class="actions">{% trans "Actions" %}</th>
                         {% if object.course.default_class != object %}
                         {% endif %}
                     </tr>
 
-                    <tr ng-repeat='student in classe.students'>
+                    <tr ng-repeat='student in classe.students_detail | orderBy:propertyName:reverse'>
                         {% verbatim %}
                         <td>{{ student.user.username }}</td>
                         <td>{{ student.user.email }}</td>
                         <td>{{ student.user.name }}</td>
+                        <td>{{ student.start_date|date:"dd/MM/yyyy - H:m" }}</td>
                         <td ng-show="classe.user_can_certificate">
                             <input type='checkbox' ng-disabled='!student.certificate || !classe.user_can_certificate_even_without_progress && !student.can_emmit_receipt' ng-click="toggle_certificate($index)" ng-checked="student.certificate.type == 'certificate'">
                         </td>
@@ -150,7 +210,7 @@ wrapper-course-lesson
                         </td>
                     </tr>
 
-                    <tr ng-hide="classe.students.length > 0">
+                    <tr ng-hide="classe.students_detail.length > 0">
                         <td colspan="4">{% trans 'No students found' %}</td>
                     </tr>
 

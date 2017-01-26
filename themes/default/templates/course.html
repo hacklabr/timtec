@@ -21,18 +21,15 @@
     <script type="text/javascript" src="{% static 'js/markdown/filters.js' %}"></script>
     <script>
         window.course_id = {{ course.pk }};
-
     </script>
-    {% endblock %}
-
-    {% block body_attrs %}
-    ng-app="new-course"
     {% endblock %}
 {% endif %}
 
 {% block wrapper_classes %}
 wrapper-course-intro
 {% endblock %}
+
+{% block body_attrs %}ng-app='new-course'{% endblock %}
 
 {% block content %}
 
@@ -595,6 +592,16 @@ wrapper-course-intro
                     {% endif %}
 
                     <!-- END ABSTRACT -->
+
+                    {% if in_admin %}
+                    <div class="welcome-email">
+                        <div class="page-header-double">
+                            <h3><i ng-class="{'blink-text-danger':errors.welcome_email}" class="fa fa-angle-double-right"></i> {% trans 'Welcome Email' %}</h3>
+                        </div>
+
+                        <modalmarkdowneditor tabindex="2" on-save="saveCourse()" title="{% trans 'Welcome Email' %}" content="course.welcome_email"></modalmarkdowneditor>
+                    </div>
+                    {% endif %}
 
                     <!-- COURSE-INSTRUCTORS -->
                     {%  include '_course_authors_inline.html' %}

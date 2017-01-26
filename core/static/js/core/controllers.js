@@ -161,7 +161,7 @@
             return upcoming_courses;
         });
 
-        $scope.twits = Twitter.query({});
+        // $scope.twits = Twitter.query({});
     }]);
 
     app.controller('FlatPageCtrl', ['$scope', '$window', 'FlatPage',
@@ -199,4 +199,3 @@
     }]);
 
 })(angular);
-

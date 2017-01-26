@@ -10,9 +10,16 @@
     });
 
     app.factory('Progress', ['$resource', function($resource){
-        return $resource('/api/student_progress/:unit', {}, {
+        var Progress = $resource('/api/student_progress/:unit', {}, {
             'update': { method:'PUT' }
         });
+
+        Progress.complete = function (unit_id) {
+            return Progress.save({unit: unit_id, is_complete: "True"});
+        };
+
+        return Progress;
+
     }]);
 
     app.factory('Lesson', ['$resource', function($resource){

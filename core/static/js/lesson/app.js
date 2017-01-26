@@ -13,6 +13,7 @@
         'django',
         'forum',
         'notes',
+        'header',
         'directives.layout',
     ]);
 

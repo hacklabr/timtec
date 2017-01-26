@@ -1,4 +1,5 @@
-{% load pipeline %}
+{% load compress %}
+{% load static %}
 {% load timtec_markdown %}
 {% load i18n %}
 {% load get_flatpage %}
@@ -12,7 +13,16 @@
     window.is_admin = false;
     {% endif %}
 </script>
-{% javascript 'forum' %}
+{% compress js %}
+<script type="text/javascript" src="{% static 'js/forum/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/forum/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/forum/directives.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/forum/filters.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/forum/services.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/truncate.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
+{% endcompress %}
+
 <section id="forum" class="forum-inline">
 
     <section id="forum-content" ng-controller="InlineForumCtrl">
@@ -64,7 +74,7 @@
                 <form class="form-inline">
                     <!-- ROW -->
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <label for="filter-class"> {% trans "Filter classes" %}:
                                 <select class="form-control" id="filter-class" ng-model="filters.selected_class" ng-change="filter()">
                                     <optgroup label="{% trans 'List by' %}:">
@@ -81,6 +91,12 @@
                                 </select>
                             </label>
                         </div>
+                        <div class="col-sm-6 textright">
+                            <div class="form-group">
+                                <label for="search"> {% trans "Search in questions" %}:</label>
+                                <input type='text' class='form-control' ng-model='query.s' ng-change="search()" ng-model-options="{debounce: 500}">
+                            </div>
+                        </div>
                     </div><!-- END ROW -->
                 </form>
             </div>
@@ -90,10 +106,10 @@
             {% trans "There is no question in this forum yet" %}
             </section>
 
-            <section class="questions clearfix" ng-show="totalItems>0">
+            <section class="questions clearfix">
                 <div class="search-filter">
                     <div class="row">
-                        <div class="col-lg-7 col-sm-7">
+                        <div class="col-lg-4 col-sm-4">
                             <div class="btn-group">
                                 {% verbatim angularjs %}
                                 <button type="button" class="btn btn-info">{{ sort_label }}</button>
@@ -102,21 +118,20 @@
                                     <i class="fa fa-chevron-down"></i>
                                 </button>
                                 <ul class="dropdown-menu top">
-                                    <li><a href="" ng-click="sortBy('votes')">{% trans 'Most voted'%}</a></li>
-                                    <li><a href="" ng-click="sortBy('date')">{% trans 'Most recent'%}</a></li>
+                                    <li><a href="" ng-click="sortBy('timestamp')">{% trans 'Most recent'%}</a></li>
+                                    <li><a href="" ng-click="sortBy('likes')">{% trans 'Most liked'%}</a></li>
                                     <li><a href="" ng-click="sortBy('answers')">{% trans 'Most answerd'%}</a></li>
+                                    <li><a href="" ng-click="sortBy('views')">{% trans 'Most viewed'%}</a></li>
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-lg-5 col-sm-5 textright">
-                            <!--
-                            <pagination ng-if="totalItems>itemsPerPage" ng-change="changePageHandler(page)"
-                                        max-size="5" items-per-page="itemsPerPage" boundary-links="true"
-                                        total-items="totalItems" page="currentPage" class="pagination-sm top pointer"
+                        <div class="col-lg-8 col-sm-8 textright">
+                            <ul uib-pagination
+                                        max-size="10" items-per-page="20" boundary-links="true"
+                                        total-items="totalItems" ng-model="currentPage" class="pagination-sm top pointer"
                                         previous-text="&lsaquo;" next-text="&rsaquo;"
                                         first-text="&laquo;" last-text="&raquo;">
-                            </pagination>
-                            -->
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -124,13 +139,13 @@
                 <div class="col-lg-12" ng-hide="questions.$resolved">
                     <p>{% trans 'Loading questions' %}...   <i class="loading fa fa-refresh fa-spin"></i></p>
                 </div>
-                <div ng-repeat="question in questions">
+                <div ng-repeat="question in questions.results">
                     <div class="question" ng-class="{'is-hidden': question.hidden}">
                         <table>
                             <tr>
                                 <td class="stats">
                                     <div class="votes">
-                                        <p><span class="numbers-votes">{% verbatim %}{{question.votes}}{% endverbatim %}</span>{% trans 'votes' %}</p>
+                                        <p><span class="numbers-votes">{% verbatim %}{{question.visualizations}}{% endverbatim %}</span>{% trans 'views' %}</p>
                                         <p><span class="numbers-answers">{% verbatim %}{{ question.answers.length }}{% endverbatim %}</span>{% trans 'answers' %}</p>
                                     </div>
 
@@ -150,6 +165,20 @@
                             {% verbatim %}
                             <p>{{ question.hidden_justification }}</p>
                             {% endverbatim %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="search-filter">
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-4"></div>
+                        <div class="col-lg-8 col-sm-8 textright">
+                            <ul uib-pagination
+                                        max-size="10" items-per-page="20" boundary-links="true"
+                                        total-items="totalItems" ng-model="currentPage" class="pagination-sm top pointer"
+                                        previous-text="&lsaquo;" next-text="&rsaquo;"
+                                        first-text="&laquo;" last-text="&raquo;">
+                            </ul>
                         </div>
                     </div>
                 </div>

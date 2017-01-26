@@ -1,21 +1,29 @@
 {% extends 'base.html' %}
 {% load i18n %}
-{% load pipeline %}
+{% load compress %}
+{% load static %}
 {% load staticfiles %}
 
 {% block js %}
     {{ block.super }}
-    {% javascript 'notes' %}
+    {% compress js %}
+<script type="text/javascript" src="{% static 'js/notes/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/notes/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/notes/services.js' %}"></script>
+{% endcompress %}
+
 {% endblock %}
 
 {% block wrapper_classes %}
 wrapper-course-lesson
 {% endblock %}
 
+{% block body_attrs %}ng-app='notes'{% endblock %}
+
 {% block content %}
 
 <!-- CONTAINER -->
-<div id="my-courses" ng-app="notes" ng-controller="UserNotesCtrl">
+<div id="my-courses" ng-controller="UserNotesCtrl">
 
     {% block notes_header %}
     <header class="main-header container">

@@ -1,13 +1,26 @@
 {% extends "base.html" %}
 
 {% load i18n %}
-{% load pipeline %}
+{% load compress %}
+{% load static %}
 {% load staticfiles %}
 {% load timtec_markdown %}
 
 {% block js %}
 {{ block.super }}
-{% javascript 'lesson' %}
+{% compress js %}
+<script type="text/javascript" src="{% static 'js/activities/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/activities/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/activities/directives.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/activities/services.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/lesson/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/lesson/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/lesson/services.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/codemirror.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/layout.js' %}"></script>
+{% endcompress %}
+
 
 <script type="text/javascript" src="{% static 'js/introjs/lesson.js' %}"></script>
 
@@ -33,10 +46,12 @@ $(document).ready(function() {
 wrapper-course-lesson
 {% endblock %}
 
+{% block body_attrs %}ng-app='lesson'{% endblock %}
+
 {% block content %}
 
 <!-- COURSE -->
-<div id="course" class="course-lesson" ng-app="lesson">
+<div id="course" class="course-lesson">
 
     <!-- HEADER -->
     {% include "_course-header-inline.html"  with course=lesson.course %}

@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load is_coordinator %}
 
-<nav id="main-navbar" class="navbar navbar-inverse" role="navigation">
+<nav id="main-navbar" ng-controller="HeaderCtrl" class="navbar navbar-inverse" role="navigation">
     <div class="container">
 
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -21,10 +21,35 @@
         <div class="collapse navbar-collapse" id="main-navbar-collapse">
             <ul class="nav navbar-nav" id="site-nav">
 				{% block header_site_nav %}
-{#                <li><span id="start-intro" class="btn btn-primary btn-sm">Começar tour <i class="fa fa-caret-right"></i></span></li>#}
                 <li><a href="/pages/about">{% trans 'About' %}</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#modal-contact">{% trans 'Contact' %}</a></li>
                 <li><a href="{% url 'courses' %}">{% trans 'Courses' %}</a></li>
+
+                {% if request.user.is_authenticated %}
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            {% trans 'Messages' %}
+                            {% verbatim %}
+                                <span class='badge' ng-show='theres_new_messages'>{{ total_messages }}</span>
+                            {% endverbatim %}
+                        </a>
+                        {% verbatim %}
+                            <ul class="dropdown-menu messages">
+                                <li ng-repeat="message in messages|limitTo:6">
+                                    <a ng-href='{{ message.get_absolute_url }}' ng-class="{read: message.is_read}">
+                                        <div class='title'>
+                                            <i class="fa" ng-class='{"fa-envelope": !message.is_read, "fa-envelope-open-o": message.is_read}'></i>
+                                            {{ message.subject }}
+                                        </div>
+                                        <div class='course'>{{ message.course }} - <span class='date'>{{ message.date|date:"dd/MM/yyyy HH:mm"}}</span></div>
+                                    </a>
+                                </li>
+                                <li ng-show="!messages.length" class='empty'><i>Não há mensagens</i></li>
+                            </ul>
+                        {% endverbatim %}
+                    </li>
+                {% endif %}
+
                 <li class="navbar-divider"></li>
                 {% endblock %}
             </ul>

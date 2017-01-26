@@ -131,6 +131,7 @@ class Course(models.Model):
     students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='studentcourse_set', through='CourseStudent')
     home_thumbnail = models.ImageField(_('Home thumbnail'), upload_to=hash_name('home_thumbnails', 'name'), null=True, blank=True)
     home_position = models.IntegerField(null=True, blank=True)
+    welcome_email = models.TextField(_('Welcome Email'), blank=True)
     start_date = models.DateField(_('Start date'), default=None, blank=True,
                                   null=True)
     home_published = models.BooleanField(default=False)
@@ -308,6 +309,7 @@ class CourseStudent(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Student'))
     course = models.ForeignKey(Course, verbose_name=_('Course'))
     start_date = models.DateTimeField(default=timezone.now)
+    is_active = models.BooleanField(_('is active?'), default=True)
 
     class Meta:
         unique_together = (('user', 'course'),)
@@ -317,6 +319,9 @@ class CourseStudent(models.Model):
         return u'{0} - {1}'.format(self.course, self.user)
 
     def save(self, *args, **kwargs):
+        if not self.id:
+            self.send_welcome_email()
+
         super(CourseStudent, self).save(*args, **kwargs)
 
         try:
@@ -331,6 +336,20 @@ class CourseStudent(models.Model):
                                           type=CourseCertification.TYPES[0][0],
                                           is_valid=True, link_hash=h)
             receipt.save()
+
+    def send_welcome_email(self):
+        if not self.course.welcome_email:
+            return
+
+        from markdown import markdown
+        try:
+            et = EmailTemplate.objects.get(name='professor-message')
+        except EmailTemplate.DoesNotExist:
+            et = EmailTemplate(name="welcome-message", subject="{{subject}}", template="{{message|safe}}")
+        subject = Template(et.subject).render(Context({'subject': _("Welcome to course: %s") % self.course.name}))
+        message = Template(et.template).render(Context({'message': markdown(self.course.welcome_email)}))
+        email = EmailMessage(subject, message, settings.DEFAULT_FROM_EMAIL, [self.user.email])
+        return email.send()
 
     @property
     def units_done(self):
@@ -562,6 +581,7 @@ class ProfessorMessage(models.Model):
     message = models.TextField(_('Message'))
     date = models.DateTimeField(_('Date'), auto_now_add=True)
     course = models.ForeignKey(Course, verbose_name=_('Course'), null=True)
+    users_that_read = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='read_messages', null=True)
 
     def __unicode__(self):
         return unicode(self.subject)
@@ -575,7 +595,15 @@ class ProfessorMessage(models.Model):
         subject = Template(et.subject).render(Context({'subject': self.subject}))
         message = Template(et.template).render(Context({'message': self.message}))
         email = EmailMessage(subject, message, settings.DEFAULT_FROM_EMAIL, None, bcc)
+        email.content_subtype = "html"
         return email.send()
+
+    @property
+    def users_that_not_read(self):
+        return self.users.all().exclude(id__in=[user.id for user in self.users_that_read.all()])
+
+    def get_absolute_url(self):
+        return reverse('message_detail', kwargs={'message_id': self.id, 'course_slug': self.course.slug})
 
 
 class PositionedModel(models.Model):

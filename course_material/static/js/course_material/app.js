@@ -9,6 +9,7 @@
         'django',
         'directive.markdowneditor',
         'directive.alertPopup',
+        'header',
         'directive.fixedBar'
     ]);
 

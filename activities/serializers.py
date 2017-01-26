@@ -20,17 +20,16 @@ class ActivitySerializer(serializers.ModelSerializer):
 
 
 class AnswerSerializer(serializers.ModelSerializer):
-    user = serializers.Field(source='user')
-    user_id = serializers.Field(source='user.id')
-    correct = serializers.Field(source='is_correct')
-    given = serializers.JSONField('given')
-    positive_feedback = serializers.Field('activity.positive_feedback')
-    negative_feedback = serializers.Field('activity.negative_feedback')
+    user_id = serializers.ReadOnlyField(source='user.id')
+    correct = serializers.ReadOnlyField(source='is_correct')
+    given = serializers.JSONField()
+    positive_feedback = serializers.ReadOnlyField(source='activity.positive_feedback')
+    negative_feedback = serializers.ReadOnlyField(source='activity.negative_feedback')
 
     class Meta:
         model = Answer
         allow_add_remove = True
-        fields = ('id', 'activity', 'correct', 'user', 'user_id', 'timestamp',
+        fields = ('id', 'activity', 'correct', 'user_id', 'timestamp',
                   'given', 'positive_feedback', 'negative_feedback')
 
 

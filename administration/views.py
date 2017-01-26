@@ -19,6 +19,7 @@ from core.models import Course, CourseProfessor
 from core.permissions import IsAdmin
 from course_material.models import File as TimtecFile
 from .serializer import CourseExportSerializer, CourseImportSerializer
+from braces.views import LoginRequiredMixin
 
 import tarfile
 import StringIO
@@ -28,7 +29,7 @@ import os
 User = get_user_model()
 
 
-class AdminMixin(TemplateResponseMixin, ContextMixin,):
+class AdminMixin(LoginRequiredMixin, TemplateResponseMixin, ContextMixin,):
     def get_context_data(self, **kwargs):
         context = super(AdminMixin, self).get_context_data(**kwargs)
         context['in_admin'] = True

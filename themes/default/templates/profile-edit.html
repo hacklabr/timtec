@@ -52,6 +52,8 @@ wrapper-course-lesson
 </script>
 {% endblock %}
 
+{% block head_attrs %}ng-app='header'{% endblock %}
+
 {% block content %}
 <div id="profile" class="container">
     <form class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}

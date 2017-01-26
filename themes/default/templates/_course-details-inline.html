@@ -8,8 +8,11 @@
     </div>
     {% get_current_class course as current_class %}
     <div>
-        {% if current_class.assistant %}<span class="label">{% trans 'Assistant Professor' %}:</span> {{ current_class.assistant.get_full_name }} {% endif %}
-
+        {% if current_class.assistant %}
+            <span class="label">{% trans 'Assistant Professor' %}:</span> {{ current_class.assistant.get_full_name }} /
+        {% endif %}
+        <span class="label">{% trans 'User' %}:</span> {{ request.user.get_full_name }}
+        -
         <span class="label">{% trans 'Class' %}:</span>
         {% if not course.default_class == current_class %}
             {{ current_class.name }}

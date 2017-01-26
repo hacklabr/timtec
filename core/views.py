@@ -3,6 +3,7 @@ import json
 import time
 import datetime
 
+from django.db import IntegrityError
 from django.core.urlresolvers import reverse_lazy
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.http import HttpResponse, Http404
@@ -28,9 +29,9 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           LessonNoteSerializer, ProfessorMessageSerializer,
                           CourseStudentSerializer, ClassSerializer,
                           FlatpageSerializer, CourseAuthorPictureSerializer,
-                          CourseAuthorSerializer,
+                          CourseAuthorSerializer, ClassSimpleSerializer,
                           CourseCertificationSerializer,
-                          CertificationProcessSerializer,
+                          CertificationProcessSerializer, UserMessageSerializer,
                           EvaluationSerializer, ProfileSerializer, ProfessorMessageUserDetailsSerializer,
                           IfCertificateTemplateSerializer, CertificateTemplateImageSerializer)
 
@@ -135,7 +136,7 @@ class CourseView(DetailView):
                                                 .values_list('unit', flat=True)
             context['units_done'] = units_done
 
-            user_is_enrolled = self.object.students.filter(id=user.id).exists()
+            user_is_enrolled = CourseStudent.objects.filter(user=user, course=self.object, is_active=True).exists()
             context['user_is_enrolled'] = user_is_enrolled
 
         return context
@@ -146,6 +147,11 @@ class UserCoursesView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(UserCoursesView, self).get_context_data(**kwargs)
+
+        context['courses'] = CourseStudent.objects.filter(
+            user=self.request.user,
+            is_active=True
+        )
 
         context['courses_user_assist'] = CourseProfessor.objects.filter(
             user=self.request.user,
@@ -175,6 +181,9 @@ class EnrollCourseView(LoginRequiredMixin, RedirectView):
     def get_redirect_url(self, **kwargs):
         course = self.get_object()
         if course.is_enrolled(self.request.user):
+            cs = CourseStudent.objects.get(course=self.object, user=self.request.user)
+            cs.is_active = True
+            cs.save()
             return reverse_lazy('resume_course', args=[course.slug])
         if course.status == 'draft':
             return reverse_lazy('courses')
@@ -188,6 +197,24 @@ class EnrollCourseView(LoginRequiredMixin, RedirectView):
             return '{}?next={}'.format(reverse_lazy('accept_terms'), self.request.path)
 
 
+class GoOutCourseView(LoginRequiredMixin, RedirectView):
+    permanent = False
+
+    def get_object(self):
+        if hasattr(self, 'object'):
+            return self.object
+        self.object = Course.objects.get(**self.kwargs)
+        return self.object
+
+    def get_redirect_url(self, **kwargs):
+        course = self.get_object()
+        if course.is_enrolled(self.request.user):
+            cs = CourseStudent.objects.get(course=self.object, user=self.request.user)
+            cs.is_active = False
+            cs.save()
+        return reverse_lazy('resume_course', args=[course.slug])
+
+
 class ResumeCourseView(LoginRequiredMixin, RedirectView):
     permanent = False
 
@@ -199,6 +226,11 @@ class ResumeCourseView(LoginRequiredMixin, RedirectView):
 
     def get_redirect_url(self, **kwargs):
         course = self.get_object()
+        user = self.request.user
+        user_is_enrolled = CourseStudent.objects.filter(user=user, course=course, is_active=True).exists()
+        if not user_is_enrolled and not self.request.user.is_superuser:
+            return reverse_lazy('course_intro', args=[course.slug])
+
         if self.request.user.accepted_terms or not settings.TERMS_ACCEPTANCE_REQUIRED:
             if not course.is_enrolled(self.request.user):
                 course.enroll_student(self.request.user)
@@ -242,6 +274,7 @@ class CourseProfessorViewSet(viewsets.ModelViewSet):
 
 
 class CourseAuthorViewSet(viewsets.ModelViewSet):
+    queryset = CourseAuthor.objects.all()
     model = CourseAuthor
     lookup_field = 'id'
     filter_fields = ('course', 'user',)
@@ -287,7 +320,7 @@ class CoursePictureUploadViewSet(viewsets.ModelViewSet):
 
 class CourseStudentViewSet(viewsets.ModelViewSet):
     model = CourseStudent
-    queryset = CourseStudent.objects.all()
+    queryset = CourseStudent.objects.filter(is_active=True)
     lookup_field = 'id'
     filter_fields = ('course__slug', 'course__id', 'user',)
     #     filter_backends = (filters.DjangoFilterBackend,)
@@ -324,6 +357,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
 class CourseCertificationViewSet(viewsets.ModelViewSet):
     queryset = CourseCertification.objects.all()
     model = CourseCertification
+    queryset = CourseCertification.objects.all()
     lookup_field = 'link_hash'
     filter_fields = ('course_student',)
     serializer_class = CourseCertificationSerializer
@@ -481,6 +515,24 @@ class CertificateTemplateImageViewSet(viewsets.ModelViewSet):
             return Response(serializer.errors, status=400)
 
 
+class UserMessageViewSet(viewsets.ModelViewSet):
+    model = ProfessorMessage
+    lookup_field = 'id'
+    serializer_class = UserMessageSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        """Some tricks to show first unread, after reads."""
+        reads = ProfessorMessage.objects.filter(users_that_read=self.request.user).order_by('-date').values_list('id')
+        unreads = ProfessorMessage.objects.filter(users=self.request.user).exclude(users_that_read=self.request.user) \
+            .order_by('-date').values_list('id')
+
+        reads = [item[0] for item in reads]
+        unreads = [item[0] for item in unreads]
+        total_ids = unreads + reads
+        print total_ids
+
+        return ProfessorMessage.objects.filter(id__in=total_ids).order_by('-date')
+
 class ProfessorMessageViewSet(viewsets.ModelViewSet):
     model = ProfessorMessage
     queryset = ProfessorMessage.objects.all()
@@ -488,18 +540,21 @@ class ProfessorMessageViewSet(viewsets.ModelViewSet):
     filter_fields = ('course',)
     filter_backends = (filters.DjangoFilterBackend,)
 
+    def retrieve(self, *args, **kwargs):
+        """Add the current user to readers list."""
+        message = self.get_object()
+        message.users_that_read.add(self.request.user)
+        message.save()
+        return super(ProfessorMessageViewSet, self).retrieve(*args, **kwargs)
+
     def get_serializer_class(self):
         if 'id' in self.kwargs.keys():
             return ProfessorMessageUserDetailsSerializer
         return ProfessorMessageSerializer
 
-    def pre_save(self, obj):
-        obj.professor = self.request.user
-        return super(ProfessorMessageViewSet, self).pre_save(obj)
-
-    def post_save(self, obj, created):
-        if created:
-            obj.send()
+    def perform_create(self, serializer):
+        message = serializer.save(professor=self.request.user)
+        message.send()
 
     # TODO tests for this
     def get_queryset(self, *args, **kwargs):
@@ -519,8 +574,9 @@ class CourseViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
     permission_classes = (IsProfessorCoordinatorOrAdminPermissionOrReadOnly,)
 
-    def get_queryset(self):
-        queryset = super(CourseViewSet, self).get_queryset()
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
         public_courses = self.request.query_params.get('public_courses', None)
         if public_courses:
             queryset = queryset.filter(status='published').prefetch_related('professors')
@@ -531,9 +587,18 @@ class CourseViewSet(viewsets.ModelViewSet):
                 course_professors__user=self.request.user
             ).prefetch_related('professors')
 
-        queryset = queryset.filter(groups__in=self.request.user.groups.all())
+        if not self.request.user.is_superuser and not role:
+            queryset = queryset.filter(groups__in=self.request.user.groups.all())
 
-        return queryset.distinct()
+        queryset = queryset.distinct()
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
     def post(self, request, **kwargs):
         course = self.get_object()
@@ -553,6 +618,7 @@ class CourseViewSet(viewsets.ModelViewSet):
 
 
 class CourseThumbViewSet(viewsets.ModelViewSet):
+    queryset = Course.objects.all()
     model = Course
     lookup_field = 'id'
     serializer_class = CourseThumbSerializer
@@ -729,11 +795,21 @@ class StudentProgressViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = StudentProgressSerializer
 
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user, complete=timezone.now())
+    def create(self, request):
+        # Check if there is already an instance for the given unit-user pair
+        student_progress, _ = StudentProgress.objects.get_or_create(
+            user=self.request.user,
+            unit=Unit.objects.get(id=self.request.data['unit']))
 
-    def perform_update(self, serializer):
-        serializer.save(user=self.request.user, complete=timezone.now())
+        # If the unit is flagged as completed by the frontend, the 'complete'
+        # field must be updated, unless it was updated before
+        if ('is_complete' in self.request.data.keys() and not
+                student_progress.complete):
+            student_progress.complete = timezone.now()
+
+        student_progress.save()
+        return Response(
+            StudentProgressSerializer(student_progress).data)
 
     def get_queryset(self):
         queryset = super(StudentProgressViewSet, self).get_queryset()
@@ -819,6 +895,13 @@ class ClassViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
                 queryset = queryset.filter(assistants=self.request.user)
 
         return queryset
+
+
+class ClassSimpleViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
+    model = Class
+    queryset = Class.objects.all()
+    serializer_class = ClassSimpleSerializer
+    filter_fields = ('course',)
 
 
 class FlatpageView(View):

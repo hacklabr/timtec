@@ -136,10 +136,28 @@
       line-height: 1.5;
       margin: 20px 0 10px;
     }
+    .likes, .unlikes {
+        cursor: pointer;
+        color: @gray-light;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    .likes.active {
+        color: @brand-success;
+    }
+    .unlikes.active {
+        color: @brand-warning;
+    }
     .author {
       border-top: 1px solid @gray-lighter;
       padding: 10px;
       text-align: right;
+
+      .btn {
+          margin-left: 5px;
+      }
     }
     .answer {
       padding-top: 20px;
@@ -163,6 +181,10 @@
             cursor:pointer;
           }
         }
+      }
+      &.is-hidden {
+        background-color: lighten(@brand-warning, 45%);
+        padding: 20px;
       }
     }
   }

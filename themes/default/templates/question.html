@@ -1,22 +1,39 @@
 {% extends 'base.html' %}
 {% load i18n %}
-{% load pipeline %}
+{% load compress %}
+{% load static %}
 {% load staticfiles %}
 {% load timtec_markdown %}
 
+
 {% block js %}
     {{block.super}}
-    {% javascript 'forum' %}
+    {% compress js %}
+        <script type="text/javascript" src="{% static 'js/forum/app.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/forum/controllers.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/forum/directives.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/forum/filters.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/forum/services.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/truncate.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
+    {% endcompress %}
 {% endblock %}
 
 {% block wrapper_classes %}
 wrapper-course-lesson
 {% endblock %}
 
+{% block body_attrs %}ng-app='forum'{% endblock %}
+
 {% block content %}
 <script>
  window.question_id = {{ question_django.pk }};
  window.user_id = {{ user.pk }};
+ {% if user.is_staff or user.is_superuser  %}
+    window.is_admin = true;
+ {% else %}
+    window.is_admin = false;
+ {% endif %}
 </script>
 
 <!-- CONTAINER -->
@@ -26,7 +43,7 @@ wrapper-course-lesson
     <!-- END HEADER -->
 
     <!-- MAIN CONTENT -->
-    <section id="forum-content" class="container" ng-app="forum" ng-controller="QuestionCtrl">
+    <section id="forum-content" class="container" ng-controller="QuestionCtrl">
         <header class="secondary-header">
             <div class="row">
                 <div class="col-xs-12 col-sm-8 col-md-9">
@@ -41,21 +58,29 @@ wrapper-course-lesson
         <div class="question">
             <table>
                 <tr>
-                    <td class="rating">
-                        <div ng-app="vote" ng-controller="QuestionVoteCtrl">
-                            {% verbatim %}
-                            <div class="arrow-up" ng-class="{active: question_vote.value==1}" ng-click=vote_question('up')></div>
-                            <div class="votes" >{{ question.votes }}</div>
-                            <div class="arrow-down" ng-class="{active: question_vote.value==-1}" ng-click=vote_question('down')></div>
-                            {% endverbatim %}
-                        </div>
-                    </td>
-                    <td class="content">
+                    <td class="content" ng-app="vote" ng-controller="QuestionVoteCtrl">
                         {% verbatim %}
-                        <h1 class="title">{{ question.title }}</h1>
-                        <div class="text" ng-bind-html="question.text|markdown"></div>
-                        <div class="author">Pergunta feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{question.username}}">{{ question.username }}</a></div>
+                            <h1 class="title">{{ question.title }}</h1>
+                            <div class="text" ng-bind-html="question.text|markdown"></div>
                         {% endverbatim %}
+                        <div class="author">
+                            {% verbatim %}
+                                <div class="textleft pull-left">
+                                    <a ng-click=vote_question('up') class='likes' ng-class="{active: question.likes > 0}"><i class='fa fa-thumbs-up'></i> {{ question.likes }}</a>
+                                    <a ng-click=vote_question('down') class='unlikes' ng-class="{active: question.unlikes > 0}"><i class='fa fa-thumbs-down'></i> {{ question.unlikes }}</a>
+                                </div>
+                                Pergunta feita em <strong>{{ question.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{question.username}}">{{ question.username }}</a>
+                            {% endverbatim %}
+                            <button ng-click='follow_question()' class='btn btn-default pull-right btn-xs' ng-hide="question_notification.user">
+                                <i class='fa fa-bell'></i> {% trans "Follow" %}
+                            </button>
+                            <button ng-click='unfollow_question()' class='btn btn-default pull-right btn-xs' ng-show="question_notification.user">
+                                <i class='fa fa-bell-slash'></i> {% trans "Unfollow" %}
+                            </button>
+                            <button ng-click='open_edit_question_modal(question)' class='btn btn-default pull-right btn-xs' ng-show="current_user_role == 'coordinator' || current_user_role == 'assistant' || user_id == question.user_id">
+                                <i class='fa fa-pencil'></i> {% trans "Edit" %}
+                            </button>
+                        </div>
                     </td>
                 </tr>
             </table>
@@ -67,29 +92,36 @@ wrapper-course-lesson
             <div class="row">
                 <div class="col-lg-10 col-lg-offset-1">
                     <header class="no-bottom-border">
-                        <h2><span ng-init="num_answers={{ question_django.answers.count }}">{% verbatim %} {{ num_answers }} {% endverbatim %}</span> {% trans 'Answer' %}<span ng-if="num_answers>1">s</span></h2>
+                        <h2><span>{% verbatim %} {{ num_answers }} {% endverbatim %}</span> {% trans 'Answer' %}<span ng-if="num_answers>1">s</span></h2>
                     </header>
-                    <div class="answer" ng-repeat="answer in answers">
+                    <div class="answer" ng-class="{'is-hidden': answer.hidden}" ng-repeat="answer in answers" ng-hide="answer.hidden && !(current_user_role == 'coordinator' || current_user_role == 'assistant' || user_id == answer.user_id)">
                         <table>
                             <tr>
-                                {% verbatim %}
-                                <td class="rating">
-                                    <div>
-                                        <div class="arrow-up" ng-class="{active: answer.current_user_vote.value==1}" ng-click=vote(answer,'up')></div>
-                                        <div class="votes">{{ answer.votes }}</div>
-                                        <div class="arrow-down" ng-class="{active: answer.current_user_vote.value==-1}" ng-click=vote(answer,'down')></div>
-                                    </div>
-                                </td>
                                 <td class="content">
                                     <div ng-bind-html="answer.text|markdown"></div>
-                                    <div class="author">Respondida em <strong>{{ answer.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ answer.username }}">{{ answer.username }}</a>
+                                    <div class="author">
+                                        {% verbatim %}
+                                            <div class="textleft pull-left">
+                                                <a href="" class='likes' ng-class="{active: answer.likes > 0}" ng-click=vote(answer,'up')><i class='fa fa-thumbs-up'></i> {{ answer.likes }}</a>
+                                                <a href="" class='unlikes' ng-class="{active: answer.unlikes > 0}" ng-click=vote(answer,'down')><i class='fa fa-thumbs-down'></i> {{ answer.unlikes }}</a>
+                                            </div>
+                                            Respondida em <strong>{{ answer.timestamp|date:"dd/MM/yy" }}</strong> por <a href="/profile/{{ answer.username }}">{{ answer.username }}</a>
+                                        {% endverbatim %}
+                                        <button ng-click='hide_answer(answer)' class='btn btn-default pull-right btn-xs' ng-show="!answer.hidden && (current_user_role == 'coordinator' || current_user_role == 'assistant')">
+                                            <i class='fa fa-eye-slash'></i> {% trans "Hide" %}
+                                        </button>
+                                        <button ng-click='hide_answer(answer)' class='btn btn-default pull-right btn-xs' ng-show="answer.hidden && (current_user_role == 'coordinator' || current_user_role == 'assistant')">
+                                            <i class='fa fa-eye'></i> {% trans "Show" %}
+                                        </button>
+                                        <button ng-click='open_edit_answer_modal(answer)' class='btn btn-default pull-right btn-xs' ng-show="current_user_role == 'coordinator' || current_user_role == 'assistant' || user_id == answer.user_id">
+                                            <i class='fa fa-pencil'></i> {% trans "Edit" %}
+                                        </button>
                                     </div>
                                 </td>
-                                {% endverbatim %}
                             </tr>
                         </table>
                     </div>
-                    <section class="your-answer" ng-show="editor_enabled" id="editor">
+                    <section class="your-answer" id="editor">
                         <header>
                             <h2>{% trans 'Your answer' %}</h2>
                         </header>
@@ -121,4 +153,11 @@ wrapper-course-lesson
     </section>
 </div>
 <!-- END CONTAINER -->
+
+<script id="edit_question_modal.html" type="text/ng-template">
+    {% include '_edit_question_modal.html' %}
+</script>
+<script id="edit_answer_modal.html" type="text/ng-template">
+    {% include '_edit_answer_modal.html' %}
+</script>
 {% endblock %}

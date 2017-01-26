@@ -1,47 +1,42 @@
-FROM debian:jessie
+FROM python:2.7
 MAINTAINER Fabio Montefuscolo <fabio.montefuscolo@hacklab.com.br>
+MAINTAINER Moacir Moda <moa.moda@gmail.com>
 
-ENV DEBIAN_FRONTEND noninteractive
-
+# Libs para a geração do certificado
 RUN apt-get update \
-    && apt-get install -y python python-pip python-dev \
     && apt-get install -y libpq-dev libjpeg-dev libpng12-dev gettext \
-    && apt-get install -y nginx supervisor \
-    && apt-get install -y npm git vim \
+    && apt-get install -y npm vim \
     && apt-get install -y postgresql-client
 
-RUN ln -s /usr/bin/nodejs /usr/bin/node
-RUN npm install -g phantomjs-prebuilt bower
-
-RUN useradd -m -d /app -u 1000 -s /bin/bash timtec
+# Diretório onde o cursor deve estar
 RUN mkdir -p /app
-
-# Prefer to use mdillon/postgis
-ENV DJANGO_DATABASE_URL='postgres://timtec:timtec@postgres/timtec'
-ENV PYTHONPATH='/app/timtec'
-ENV GUNICORN_LOG_LEVEL='info'
-ENV GUNICORN_EXTRA_FLAGS=''
-ENV LC_ALL=C.UTF-8
-ENV LANG=C.UTF-8
-ENV LANGUAGE=C.UTF-8
-
 COPY . /app/timtec
+WORKDIR /app/timtec
+
+# gato para o node funcionar no debian
+RUN ln -s /usr/bin/nodejs /usr/bin/node
+
+# instalação das dependencias externas
+RUN npm install -g phantomjs-prebuilt bower less
+
+# Colocando o tema componentizado do IF
+# COPY ../timtec-theme-if/ /app/timtec-theme-if
+
+# Instalação das dependências do python
 RUN mkdir -p /app/webfiles/static \
    && mkdir -p /app/webfiles/media \
    && pip install -r /app/timtec/requirements/production.txt \
    && pip install -r /app/timtec/requirements/local.txt \
-   && pip install -r /app/timtec/requirements/test.txt \
-   && chown -R timtec /app
+   && pip install -r /app/timtec/requirements/test.txt
 
-WORKDIR /app/timtec
-USER timtec
-
-RUN npm install \
+# Instalação das dependências do bower
+RUN cd /app/timtec \
+   && npm install \
    && node bower install \
    && node node_modules/grunt-cli/bin/grunt \
-   && python manage.py compilemessages
+   && python /app/timtec/manage.py compilemessages
 
-USER root
+RUN export PYTHONPATH="/app/timtec:$PYTHONPATH"
 EXPOSE 8000 8000
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "/app/timtec/manage.py", "runserver", "0.0.0.0:8000"]

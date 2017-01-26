@@ -4,8 +4,9 @@
     angular.module('profile', [
         'profile.controllers',
         'profile.services',
-        'djangular',
+        'timtec-models',
         'header',
-        'ui.tinymce',
+        'django',
+        'ngResource',
     ]);
 })(angular);

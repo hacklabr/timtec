@@ -2,7 +2,8 @@
 
 {% load staticfiles %}
 {% load i18n %}
-{% load pipeline %}
+{% load compress %}
+{% load static %}
 {% load is_course_coordinator %}
 
 {% block js %}
@@ -10,14 +11,29 @@
     <script>
         window.course_id = {{ course.pk }};
     </script>
-    {% javascript 'certificate' %}
+    {% compress js %}
+<script type="text/javascript" src="{% static 'js/certificate/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/certificate/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/certificate/filters.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/certificate/services.js' %}"></script>
+<script type="text/javascript" src="{% static 'checklist-model/checklist-model.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/file.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/previewImage.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/factories/timtec-models.js' %}"></script>
+{% endcompress %}
+
 {% endblock %}
 
 {% block wrapper_classes %}
     wrapper-course-lesson
 {% endblock %}
+
+{% block body_attrs %}ng-app='certification'{% endblock %}
+
 {% block content %}
-<div ng-app="certification" id="classes" class="course-classes">
+<div id="classes" class="course-classes">
     <!-- TODO make header the same as lesson template -->
     {% include "_course-header-inline.html"  with course=course %}
     <!-- MAIN CONTENT -->

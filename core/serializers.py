@@ -17,21 +17,46 @@ from accounts.models import UserSocialAccount
 class ProfessorMessageSerializer(serializers.ModelSerializer):
 
     professor = TimtecUserSerializer(read_only=True)
-    users_details = TimtecUserSerializer(source='users', read_only=True)
+    users_details = TimtecUserSerializer(many=True, source='users', read_only=True)
 
     class Meta:
         model = ProfessorMessage
-        fields = ('id', 'users', 'users_details', 'course', 'subject', 'message', 'date',)
+        fields = ('id', 'users', 'users_details', 'users_that_read', 'course', 'subject', 'message', 'date', 'professor')
+
+
+class UserMessageSerializer(serializers.ModelSerializer):
+
+    course = serializers.CharField(source='course.name')
+    professor = serializers.CharField(source='professor.get_full_name')
+    is_read = serializers.SerializerMethodField()
+    subject = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ProfessorMessage
+        read_only_fields = fields = ('id', 'course', 'subject', 'date', 'professor', 'is_read', 'get_absolute_url')
+
+    def get_is_read(self, obj):
+        current_user = self.context.get("request").user
+        if obj.users_that_read.filter(id=current_user.id):
+            return True
+        return False
+
+    def get_subject(self, obj):
+        from django.utils.text import Truncator
+        return Truncator(obj.subject).chars(45)
 
 
 class ProfessorMessageUserDetailsSerializer(serializers.ModelSerializer):
 
-    professor = TimtecUserSerializer(source='professor', read_only=True)
-    users_details = TimtecUserAdminSerializer(source='users', read_only=True)
+    professor = TimtecUserSerializer(read_only=True)
+    users_details = TimtecUserAdminSerializer(many=True, source='users', read_only=True)
+    users_that_read_details = TimtecUserSerializer(many=True, source='users_that_read', read_only=True)
+    users_that_not_read_details = TimtecUserSerializer(many=True, source='users_that_not_read', read_only=True)
 
     class Meta:
         model = ProfessorMessage
-        fields = ('id', 'course', 'users', 'subject', 'message', 'date', 'users_details', 'professor')
+        fields = ('id', 'course', 'users', 'users_details', 'users_that_read', 'users_that_read_details',
+                  'subject', 'users_that_not_read_details', 'message', 'date', 'professor')
 
 
 class BaseCourseSerializer(serializers.ModelSerializer):
@@ -182,15 +207,12 @@ class VideoSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    intro_video = VideoSerializer(required=False)
-    thumbnail_url = serializers.Field(source='get_thumbnail_url')
+    # BUGFIX: intro_video needs to be read_only=False. This is a little workaround to make other modules work
+    intro_video = VideoSerializer(required=False, read_only=True)
+    thumbnail_url = serializers.ReadOnlyField(source='get_thumbnail_url')
 
-    # TODO timtec theme specific: remove "professor_name" and "professor_names"
-    professor_name = serializers.SerializerMethodField()
-    professors_names = serializers.SerializerMethodField()
-
-    has_started = serializers.Field()
-    professors = TimtecUserSerializer(source="professors", read_only=True)
+    has_started = serializers.ReadOnlyField()
+    professors = TimtecUserSerializer(source='authors', many=True, read_only=True)
     home_thumbnail_url = serializers.SerializerMethodField()
     professors = TimtecUserSerializer(read_only=True, many=True)
     is_user_assistant = serializers.SerializerMethodField()
@@ -204,12 +226,12 @@ class CourseSerializer(serializers.ModelSerializer):
                   "thumbnail_url", "home_thumbnail_url", "home_position",
                   "start_date", "home_published", "authors_names", "has_started",
                   "min_percent_to_complete", "is_user_assistant", "is_user_coordinator",
-                  "is_assistant_or_coordinator", 'professors', )
+                  "professors", "is_assistant_or_coordinator", "welcome_email")
 
     @staticmethod
     def get_professor_name(obj):
-        if obj.professors.all():
-            return obj.professors.all()[0]
+        if obj.course_authors.all():
+            return [author.get_name() for author in obj.course_authors.all()]
         return ''
 
     @staticmethod
@@ -262,7 +284,7 @@ class CourseStudentClassSerializer(CourseStudentSerializer):
 
     class Meta:
         model = CourseStudent
-        fields = ('id', 'user', 'course_finished',
+        fields = ('id', 'user', 'course_finished', 'start_date',
                   'certificate', 'can_emmit_receipt', 'percent_progress',)
 
 
@@ -276,6 +298,12 @@ class ClassSerializer(serializers.ModelSerializer):
     class Meta:
         model = Class
 
+
+class ClassSimpleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Class
+        fields = ('id', 'name', 'course', 'students')
+
     def update(self, instance, validated_data, **kwargs):
         assistants = self.context['request'].data.get('assistants', None)
         updated_class = super(ClassSerializer, self).update(instance, validated_data)
@@ -283,6 +311,15 @@ class ClassSerializer(serializers.ModelSerializer):
         for assistant in assistants:
             updated_class.assistants.add(assistant['id'])
         return updated_class
+
+
+class UserSocialAccountSerializer(serializers.ModelSerializer):
+
+    get_absolute_url = serializers.ReadOnlyField()
+
+    class Meta:
+        model = UserSocialAccount
+        fields = ('social_media', 'nickname', 'get_absolute_url')
 
 
 class ProfileSerializer(TimtecUserSerializer):
@@ -450,9 +487,9 @@ class CourseProfessorSerializer(serializers.ModelSerializer):
 class CourseAuthorSerializer(serializers.ModelSerializer):
     user_info = TimtecUserSerializer(source='user', read_only=True)
     course_info = CourseSerializer(source='course', read_only=True)
-    get_name = serializers.Field()
-    get_biography = serializers.Field()
-    get_picture_url = serializers.Field()
+    get_name = serializers.ReadOnlyField()
+    get_biography = serializers.ReadOnlyField()
+    get_picture_url = serializers.ReadOnlyField()
 
     class Meta:
         fields = ('id', 'course', 'course_info', 'user', 'name', 'biography', 'picture', 'user_info',
@@ -471,3 +508,4 @@ class FlatpageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FlatPage
+        exclude = ('sites', )

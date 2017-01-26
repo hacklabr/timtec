@@ -1,10 +1,28 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load is_enrolled %}
+{% load compress %}
 
 {% block wrapper_classes %}
 wrapper-courses
 {% endblock %}
+
+{% block js %}
+    {% compress js %}
+        <script>
+            (function(angular){
+                'use strict';
+
+                angular.module('courses-list', [
+                    'header',
+                ]);
+
+            })(angular);
+        </script>
+    {% endcompress %}
+{% endblock %}
+
+{% block body_attrs %}ng-app='courses-list'{% endblock %}
 
 {% block content %}
         <!-- CONTAINER -->

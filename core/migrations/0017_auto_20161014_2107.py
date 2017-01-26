@@ -6,6 +6,7 @@ from core.models import CourseCertification
 
 import string
 import random
+import django.utils.timezone
 
 
 def change_link_hash_duplicate(apps, schema_editor):
@@ -22,9 +23,14 @@ def change_link_hash_duplicate(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0016_class_user_can_certificate_even_without_progress'),
+        ('core', '0016_course_groups'),
     ]
 
     operations = [
+            migrations.AddField(
+                model_name='coursestudent',
+                name='start_date',
+                field=models.DateTimeField(default=django.utils.timezone.now),
+            ),
             migrations.RunPython(change_link_hash_duplicate),
     ]

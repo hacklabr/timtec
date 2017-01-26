@@ -1,28 +1,37 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load django_markdown %}
-{% load pipeline %}
+{% load compress %}
+{% load static %}
 
-{% if user.is_superuser %}
-    {% block js %}
-		{{block.super}}
-        {% javascript 'core' %}
-    <script>
-        window.page_url = '{{ flatpage.url }}';
-    </script>
-	{% endblock %}
-{% endif %}
+{% block js %}
+    {{block.super}}
+    {% if user.is_superuser %}
+        {% compress js %}
+            <script type="text/javascript" src="{% static 'js/core/app.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/core/controllers.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/core/services.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/core/filters.js' %}"></script>
+            <script type="text/javascript" src="{% static 'angular-tweet-filter/index.js' %}"></script>
+            <script type="text/javascript" src="{% static 'angular-sortable-view/src/angular-sortable-view.min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
+        {% endcompress %}
+        <script>
+            window.page_url = '{{ flatpage.url }}';
+        </script>
+    {% endif %}
+{% endblock %}
 
 {% block title %}
 {{ flatpage.title }}
 {% endblock %}
 
-{% block body_attrs %}
-class="static-page-body"
-{% endblock %}
+{% block body_attrs %}class="static-page-body" ng-app='core'{% endblock %}
 
 {% block content %}
-        <div class="page static-page" ng-app="core" ng-controller="FlatPageCtrl">
+        <div class="page static-page" ng-controller="FlatPageCtrl">
         	{% if user.is_superuser %}
             <!-- ACTIONS -->
             <div class="actions-menu actions-menu-message" ng-hide="alert.hidden" fixed-bar>

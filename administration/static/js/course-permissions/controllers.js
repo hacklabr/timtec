@@ -65,10 +65,12 @@
                 $scope.permissions_changed = true;
             };
 
+            var modalScope = $scope.$new();
             $scope.new_professors = function () {
                 var modalInstance = $uibModal.open({
                     templateUrl: 'newProfessorModal.html',
-                    controller: ['$scope', '$uibmodalInstance', 'course_id', addProfessorsModalInstanceCtrl],
+                    controller: ['$scope', 'course_id', addProfessorsModalInstanceCtrl],
+                    scope: modalScope,
                     resolve: {
                         course_id: function () {
                             return $scope.course_id;
@@ -85,16 +87,18 @@
                         $scope.permissions_changed = true;
                     });
                 });
+
+                modalScope.modalInstance = modalInstance;
             };
-            var addProfessorsModalInstanceCtrl = function ($scope, $uibmodalInstance, course_id) {
+            var addProfessorsModalInstanceCtrl = function ($scope, course_id) {
 
                 $scope.new_professors = [];
                 $scope.add_professors = function () {
-                    $uibmodalInstance.close($scope.new_professors);
+                    $scope.modalInstance.close($scope.new_professors);
                 };
 
                 $scope.cancel = function () {
-                    $uibmodalInstance.dismiss();
+                    $scope.modalInstance.dismiss();
                 };
 
                 $scope.on_select_professor = function(model) {

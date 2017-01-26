@@ -14,6 +14,7 @@
         'checklist-model',
         'ngRoute',
         'ngResource',
+        'header',
     ])
     .config(function($routeProvider, $locationProvider) {
           $routeProvider
@@ -31,5 +32,3 @@
     });
 
 })(angular);
-
-

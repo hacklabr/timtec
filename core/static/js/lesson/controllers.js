@@ -120,6 +120,16 @@
                 $scope.answer.activity = $scope.currentActivity.id;
                 if ($scope.currentActivity.type === 'image')
                     $scope.answer.given = 'image';
+
+                // Converts a dict to array, to match with expected answer type
+                if(typeof($scope.answer.given) == 'object') {
+                    var given = [];
+                    angular.forEach($scope.answer.given, function(element) {
+                        given.push(element);
+                    });
+                    $scope.answer.given = given;
+                }
+
                 $scope.answer.$update({activityId: $scope.answer.activity}).then(function(answer){
                     $scope.$root.changed = false;
                     $scope.currentUnit.progress = Progress.get({unit: $scope.currentUnit.id});
@@ -159,7 +169,6 @@
                         var index = $scope.currentUnit.activities.indexOf($scope.currentActivity);
                         // Test if this is the last activity in the currentUnit unit
                         if(index+1 === $scope.currentUnit.activities.length) {
-                            
                             $scope.currentUnit.progress = Progress.complete($scope.currentUnit.id);
                             $scope.nextUnit();
                         } else {

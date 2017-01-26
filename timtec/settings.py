@@ -117,15 +117,8 @@ STATIC_URL = '/static/'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    # 'pipeline.finders.FileSystemFinder',
-    # 'pipeline.finders.AppDirectoriesFinder',
-    'pipeline.finders.CachedFileFinder',
-    'pipeline.finders.PipelineFinder',
-
     'compressor.finders.CompressorFinder',
 )
-
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 MOMMY_CUSTOM_FIELDS_GEN = {
     'jsonfield.JSONField': lambda: '{}',
@@ -207,7 +200,6 @@ WSGI_APPLICATION = 'timtec.wsgi.application'
 
 INSTALLED_APPS = (
     'django_extensions',
-    'pipeline',
     'suit',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -309,302 +301,16 @@ LOGGING = {
     }
 }
 
+COMPRESS_OFFLINE = True
+
+COMPRESS_PRECOMPILERS = (
+    ('text/less', '%s/node_modules/less/bin/lessc {infile} {outfile} --include-path="%s/less"' % (PROJECT_ROOT, STATIC_ROOT)),
+)
+
 try:
     execfile(os.path.join(SETTINGS_DIR, 'settings_local.py'))
 except IOError:
     pass
-
-COMPRESS_OFFLINE = True
-
-PIPELINE = {
-    'COMPILERS': (
-        'pipeline.compilers.less.LessCompiler',
-        'pipeline.compilers.sass.SASSCompiler',
-    ),
-    'YUGLIFY_BINARY': os.path.join(PROJECT_ROOT, 'node_modules', 'yuglify', 'bin', 'yuglify'),
-    'UGLIFYJS_BINARY': os.path.join(PROJECT_ROOT, 'node_modules', 'uglify-js', 'bin', 'uglifyjs'),
-
-    'NGANNOTATE_BINARY': os.path.join(PROJECT_ROOT, 'node_modules', 'ng-annotate', 'build', 'es5', 'ng-annotate'),
-    'NGANNOTATE_ARGUMENTS': ' -a - ',
-
-    'LESS_BINARY': os.path.join(PROJECT_ROOT, 'node_modules', 'less', 'bin', 'lessc'),
-    'LESS_ARGUMENTS': '--source-map=main.css.map',
-
-    'SASS_BINARY': os.path.join(PROJECT_ROOT, 'node_modules', 'node-sass', 'bin', 'node-sass'),
-    'SASS_ARGUMENTS': '--source-map true',
-    #  '--source-map-contents sass --include-path'
-
-    'JS_COMPRESSOR': 'timtec.ngmincombo.NgminComboCompressor',
-
-    'STYLESHEETS': {
-        'common': {
-            'source_filenames': (
-                'font-awesome/css/font-awesome.css',
-                'codemirror/lib/codemirror.css',
-                'codemirror/addon/hint/show-hint.css',
-                'codemirror/theme/monokai.css',
-                'css/codemirrorconf.css',
-            ),
-            'output_filename': 'css/common.css',
-            'extra_context': {
-                'media': 'screen,projection,print',
-            },
-        },
-        'public': {
-            'source_filenames': (
-                'less/main-{}.less'.format(TIMTEC_THEME),
-                'scss/main-{}.scss'.format(TIMTEC_THEME),
-            ),
-            'output_filename': 'css/public.css',
-            'extra_context': {
-                'media': 'screen,projection,print',
-            },
-        },
-        'messages': {
-            'source_filenames': (
-                'tinymce-dist/skins/lightgray/skin.min.css',
-                'tinymce-dist/skins/lightgray/skin.ie7.min.css',
-                'tinymce-dist/skins/lightgray/content.min.css',
-            ),
-            'output_filename': 'css/messages.css',
-        },
-    },
-    'JAVASCRIPT': {
-        'all': {
-            'source_filenames': (
-                'modernizr/modernizr.js',
-                'jquery/dist/jquery.js',
-                'jquery-ui/ui/jquery-ui.js',
-                'jquery-ui/ui/jquery.ui.sortable.js',
-                'bootstrap/dist/js/bootstrap.js',
-                'js/consolelogfallback.js',
-                'js/contact_form.js',
-                'js/helpers.js',
-                'js/layout.js',
-            ),
-            'output_filename': 'js/all.js',
-        },
-        'angular': {
-            'source_filenames': (
-                'angular/angular.js',
-                'angular-animate/angular-animate.js',
-                'angular-cookies/angular-cookies.js',
-                'angular-resource/angular-resource.js',
-                'angular-route/angular-route.js',
-                'angular-sanitize/angular-sanitize.js',
-                'angular-bootstrap/ui-bootstrap-tpls.js',
-                'bootstrap-ui-datetime-picker/dist/datetime-picker.min.js',
-                'angular-gettext/dist/angular-gettext.js',
-                'angular-i18n/angular-locale_pt-br.js',
-            ),
-            'output_filename': 'js/angular-commons.js',
-        },
-        'angular-timtec': {
-            'source_filenames': (
-                'js/django.js',
-                'js/angular-youtube.js',
-                'js/truncate.js',
-            ),
-            'output_filename': 'js/angular-timtec.js',
-        },
-        'markdown': {
-            'source_filenames': (
-                'js/vendor/pagedown/Markdown.Converter.js',
-                'js/vendor/pagedown/Markdown.Editor.js',
-                'js/vendor/pagedown/Markdown.Sanitizer.js',
-                'js/markdown/app.js',
-                'js/markdown/filters.js',
-            ),
-            'output_filename': 'js/markdown.js',
-        },
-        'messages': {
-            'source_filenames': (
-                'tinymce-dist/tinymce.js',
-                'tinymce-dist/plugins/textcolor/plugin.js',
-                'tinymce-dist/plugins/link/plugin.js',
-                'tinymce-dist/themes/modern/theme.js',
-                'angular-ui-tinymce/src/tinymce.js',
-                'js/messages/app.js',
-                'js/messages/controllers.js',
-                'js/messages/services.js',
-                'checklist-model/checklist-model.js',
-                'js/markdown/app.js',
-                'js/markdown/filters.js',
-                'js/factories/timtec-models.js',
-            ),
-            'output_filename': 'js/messages.js',
-        },
-        'edit-class': {
-            'source_filenames': (
-                'js/directives/waiting-screen.js',
-                'js/edit-class/app.js',
-                'js/edit-class/controllers.js',
-                'js/edit-class/services.js',
-                'checklist-model/checklist-model.js',
-                'js/factories/timtec-models.js',
-            ),
-            'output_filename': 'js/edit-class.js',
-        },
-        'certificate': {
-            'source_filenames': (
-                'js/certificate/app.js',
-                'js/certificate/controllers.js',
-                'js/certificate/filters.js',
-                'js/certificate/services.js',
-                'checklist-model/checklist-model.js',
-                'js/directives/file.js',
-                'js/directives/previewImage.js',
-                'js/directives/alertPopup.js',
-                'js/directives/fixedBar.js',
-                'js/factories/timtec-models.js',
-            ),
-            'output_filename': 'js/certificate.js',
-        },
-        'edit-class': {
-            'source_filenames': (
-                'js/directives/waiting-screen.js',
-                'js/edit-class/app.js',
-                'js/edit-class/controllers.js',
-                'checklist-model/checklist-model.js',
-                'js/factories/timtec-models.js',
-            ),
-            'output_filename': 'js/messages.js',
-        },
-        'codemirror': {
-            'source_filenames': (
-                'codemirror/lib/codemirror.js',
-                'codemirror/addon/fold/xml-fold.js',
-                'codemirror/addon/hint/show-hint.js',
-                'codemirror/addon/hint/xml-hint.js',
-                'codemirror/addon/hint/html-hint.js',
-                'codemirror/addon/hint/css-hint.js',
-                'codemirror/addon/hint/javascript-hint.js',
-                'codemirror/addon/edit/matchbrackets.js',
-                'codemirror/addon/edit/closebrackets.js',
-                'codemirror/addon/edit/matchtags.js',
-                'codemirror/mode/xml/xml.js',
-                'codemirror/mode/css/css.js',
-                'codemirror/mode/javascript/javascript.js',
-                'codemirror/mode/htmlmixed/htmlmixed.js',
-                'codemirror/mode/clike/clike.js',
-                'codemirror/mode/php/php.js',
-                # 'js/codemirrorconf.js',
-                'js/vendor/angular-ui-codemirror/ui-codemirror.js',
-            ),
-            'output_filename': 'js/codemirrorcomp.js',
-        },
-        'markdown_editor': {
-            'source_filenames': (
-                'js/vendor/pagedown/Markdown.Converter.js',
-                'js/vendor/pagedown/Markdown.Editor.js',
-                'js/vendor/pagedown/Markdown.Sanitizer.js',
-            ),
-            'output_filename': 'js/markdown_editor.js',
-        },
-        'lesson': {
-            'source_filenames': (
-                'js/activities/app.js',
-                'js/activities/controllers.js',
-                'js/activities/directives.js',
-                'js/activities/services.js',
-                'js/lesson/app.js',
-                'js/lesson/controllers.js',
-                'js/lesson/services.js',
-                'js/directives/markdowneditor.js',
-                'js/directives/codemirror.js',
-                'js/directives/layout.js',
-            ),
-            'output_filename': 'js/lesson.js',
-        },
-        'course_material': {
-            'source_filenames': (
-                'js/course_material/app.js',
-                'js/course_material/controllers.js',
-                'js/course_material/services.js',
-                'js/course_material/directives.js',
-                'js/course_material/filters.js',
-                'js/directives/markdowneditor.js',
-                'dropzone/downloads/dropzone.js',
-                'angular-dropzone/lib/angular-dropzone.js',
-                'js/directives/alertPopup.js',
-                'js/directives/fixedBar.js',
-            ),
-            'output_filename': 'js/course_material.js',
-        },
-        'forum': {
-            'source_filenames': (
-                'js/forum/app.js',
-                'js/forum/controllers.js',
-                'js/forum/directives.js',
-                'js/forum/filters.js',
-                'js/forum/services.js',
-                'js/truncate.js',
-                'js/factories/timtec-models.js',
-            ),
-            'output_filename': 'js/forum.js',
-        },
-        'notes': {
-            'source_filenames': (
-                'js/notes/app.js',
-                'js/notes/controllers.js',
-                'js/notes/services.js',
-            ),
-            'output_filename': 'js/notes.js',
-        },
-        'reports': {
-            'source_filenames': (
-                'js/reports/app.js',
-                'js/reports/controllers.js',
-                'js/reports/services.js',
-                'js/factories/timtec-models.js',
-            ),
-            'output_filename': 'js/reports.js',
-        },
-        'core': {
-            'source_filenames': (
-                'js/core/app.js',
-                'js/core/controllers.js',
-                'js/core/services.js',
-                'js/core/filters.js',
-                'angular-tweet-filter/index.js',
-                'angular-sortable-view/src/angular-sortable-view.min.js',
-                'js/directives/fixedBar.js',
-                'js/directives/alertPopup.js',
-                'js/directives/markdowneditor.js',
-            ),
-            'output_filename': 'js/core.js',
-        },
-        'course_permissions': {
-            'source_filenames': (
-                'js/course-permissions/app.js',
-                'js/course-permissions/controllers.js',
-                'js/factories/timtec-models.js',
-                'js/directives/fixedBar.js',
-                'js/directives/alertPopup.js',
-            ),
-            'output_filename': 'js/course_permissions.js',
-        },
-        'users_admin': {
-            'source_filenames': (
-                'js/users-admin/app.js',
-                'js/users-admin/controllers.js',
-                'js/users-admin/services.js',
-                'js/factories/timtec-models.js',
-                'js/directives/fixedBar.js',
-                'js/directives/alertPopup.js',
-            ),
-            'output_filename': 'js/users_admin.js',
-        },
-        'dashboard': {
-            'source_filenames': (
-                'js/dashboard/dashboard-app.js',
-                'js/dashboard/dashboard-controllers.js',
-                'js/core-services.js',
-            ),
-            'output_filename': 'js/dashboard.js',
-        },
-    }
-}
 
 TEMPLATES = [
     {
@@ -633,8 +339,8 @@ TEMPLATES = [
             ],
             'loaders': [
                 'core.loaders.TimtecThemeLoader',
-                'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
+                'django.template.loaders.filesystem.Loader',
             ],
         },
     },

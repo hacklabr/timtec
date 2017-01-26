@@ -30,10 +30,10 @@ class AnswerViewSet(viewsets.ModelViewSet):
             try:
                 return self.get_queryset().filter(activity=activity).latest('timestamp')
             except Answer.DoesNotExist:
-                # Raises Http404 to create a new object when the request is a PUT and the Answer does not exist
-                # see django-rest-framework UpdateMixin for details
-                raise Http404
-        return super(AnswerViewSet, self).get_objecct()
+                # Create a new object and return this object, in case that not exists
+                answer = Answer(activity_id=activity, user=self.request.user)
+                answer.save()
+        return super(AnswerViewSet, self).get_object()
 
     def post_save(self, obj, created):
         if obj.activity.type == "php":

@@ -5,6 +5,7 @@
     angular.module('reports.services', ['ngResource']).
         factory('CourseUserReport', function($resource){
             return $resource('/api/reports', {}, {
+                query: {method: 'GET', isArray: false }
             });
         }).factory('LessonsUserProgress', function($resource){
             return $resource('/api/lessons_user_progress/:courseId', {}, {

@@ -23,7 +23,7 @@
                         </label>
                         <input type="text" class="form-control col-lg-12" ng-model="asyncSelected"
                                 placeholder="{% trans 'Type the name, email or user name of the professor to search...' %}"
-                                typeahead="user as user.formated_name for user in getUsers($viewValue)"
+                                uib-typeahead="user as user.formated_name for user in getUsers($viewValue)"
                                 typeahead-loading="loading_users"
                                 typeahead-on-select="on_select_professor($model); asyncSelected = '';"
                                 typeahead-min-length="2"

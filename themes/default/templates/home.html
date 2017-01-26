@@ -1,13 +1,25 @@
 {% extends 'base.html' %}
 
 {% load i18n %}
-{% load pipeline %}
+{% load compress %}
+{% load static %}
 {% load is_enrolled %}
 {% load get_flatpage %}
 
 {% block js %}
     {{ block.super }}
-    {% javascript 'core' %}
+    {% compress js %}
+<script type="text/javascript" src="{% static 'js/core/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/core/controllers.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/core/services.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/core/filters.js' %}"></script>
+<script type="text/javascript" src="{% static 'angular-tweet-filter/index.js' %}"></script>
+<script type="text/javascript" src="{% static 'angular-sortable-view/src/angular-sortable-view.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/fixedBar.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/alertPopup.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/directives/markdowneditor.js' %}"></script>
+{% endcompress %}
+
     <script type="text/javascript" src="/static/js/introjs/home.js"></script>
 {% endblock %}
 
@@ -15,9 +27,11 @@
 home
 {% endblock %}
 
+{% block body_attrs %}ng-app='core'{% endblock %}
+
 {% block content %}
 
-    <div id="home" ng-app="core" ng-controller="HomeCtrl">
+    <div id="home" ng-controller="HomeCtrl">
         {% if in_admin %}
         <!-- ACTIONS -->
         <div class="actions-menu" fixed-bar>

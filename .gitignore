@@ -69,4 +69,5 @@ bower_components/
 
 *.psqlc
 *.log
+*.log.*
 site/
