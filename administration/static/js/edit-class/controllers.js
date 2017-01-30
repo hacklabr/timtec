@@ -10,8 +10,8 @@
         };
     });
 
-    module.controller('ClassController', ['$scope', '$window', 'Class', 'StudentSearch', 'CourseCertification',
-        function($scope, $window, Class, StudentSearch, CourseCertification) {
+    module.controller('ClassController', ['$scope', '$window', '$filter', 'Class', 'StudentSearch', 'CourseCertification',
+        function($scope, $window, $filter, Class, StudentSearch, CourseCertification) {
 
             $scope.errors = {};
             var httpErrors = {
@@ -25,6 +25,7 @@
             $scope.course_id = parseInt($window.course_id, 10);
             $scope.classe = Class.get({id: $scope.class_id}, function(classe) {
                 document.title = 'Turma: {0}'.format(classe.name);
+                classe.students_details = $filter('orderBy')(classe.students_details, 'user.name');
             });
 
             $scope.getUsers = function(val) {
@@ -77,6 +78,8 @@
 
                 $scope.classe.$update()
                     .then(function(){
+                        $scope.classe.students_details = $filter('orderBy')($scope.classe.students_details, 'user.name');
+                        
                         $scope.alert.success('Alterações salvas com sucesso.');
 
                         // remove pop-up that confirm if user go without save changes
