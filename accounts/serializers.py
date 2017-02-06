@@ -37,3 +37,9 @@ class GroupAdminSerializer(serializers.ModelSerializer):
         model = Group
         fields = ('id', 'name', 'users', )
         depth = 1
+
+
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = ('id', 'name')

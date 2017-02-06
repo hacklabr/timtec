@@ -9,7 +9,7 @@ from django.db.models import Q
 
 from accounts.models import TimtecUser
 from accounts.forms import ProfileEditForm, AcceptTermsForm
-from accounts.serializers import TimtecUserSerializer, TimtecUserAdminSerializer, GroupAdminSerializer
+from accounts.serializers import TimtecUserSerializer, TimtecUserAdminSerializer, GroupAdminSerializer, GroupSerializer
 from braces.views import LoginRequiredMixin
 
 from rest_framework import viewsets
@@ -127,6 +127,14 @@ class GroupAdminViewSet(viewsets.ModelViewSet):
             return Response(status=200)
 
         return Response(status=404)
+
+
+class GroupViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint that allows groups to be viewed.
+    """
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
 
 
 class UserSearchView(LoginRequiredMixin, generics.ListAPIView):

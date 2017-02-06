@@ -19,6 +19,11 @@
             });
     });
 
+    module.factory('Group', function($resource){
+            return $resource('/api/group/:groupId', {}, {
+            });
+    });
+
     module.factory('Student', function($resource){
             return $resource('/api/course_student/', {}, {});
     });
