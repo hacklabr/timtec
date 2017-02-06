@@ -51,6 +51,10 @@ class ProfessorMessageSerializer(serializers.ModelSerializer):
             return False
 
 
+class ProfessorGlobalMessageSerializer(ProfessorMessageSerializer):
+    users = TimtecUserSerializer(required=False, many=True)
+
+
 class BaseCourseSerializer(serializers.ModelSerializer):
     professors = serializers.SerializerMethodField('get_professor_name')
     home_thumbnail_url = serializers.SerializerMethodField()

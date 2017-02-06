@@ -14,8 +14,8 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         LessonViewSet, StudentProgressViewSet,
                         UserNotesViewSet, CoursesView, CourseThumbViewSet,
                         ProfessorMessageViewSet, ProfessorMessageReadViewSet,
-                        CourseStudentViewSet, CarouselCourseView, ClassListView,
-                        ClassCreateView, ClassUpdateView, ClassDeleteView,
+                        ProfessorGlobalMessageViewSet, CourseStudentViewSet, CarouselCourseView,
+                        ClassListView, ClassCreateView, ClassUpdateView, ClassDeleteView,
                         ClassRemoveUserView, ClassAddUsersView, ClassViewSet,
                         ClassEvaluationsView, ClassActivityViewSet,
                         FlatpageViewSet, CoursePictureUploadViewSet,
@@ -55,6 +55,7 @@ router.register(r'course_professor_picture', CoursePictureUploadViewSet, base_na
 router.register(r'course_author', CourseAuthorViewSet, base_name='course_author')
 router.register(r'course_student', CourseStudentViewSet, base_name='course_student')
 router.register(r'professor_message', ProfessorMessageViewSet, base_name='professor_message')
+router.register(r'professor_message_global', ProfessorGlobalMessageViewSet, base_name='professor_message_global')
 router.register(r'professor_message_read', ProfessorMessageReadViewSet, base_name='professor_message_read')
 router.register(r'coursethumbs', CourseThumbViewSet, base_name='coursethumbs')
 router.register(r'lessons', LessonViewSet, base_name='lessons')
@@ -150,6 +151,9 @@ urlpatterns = patterns(
     url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/messages/$', GenericCourseView.as_view(template_name="messages.html"), name='messages'),
     url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/message/(?P<message_id>[1-9][0-9]*)$', GenericCourseView.as_view(template_name="message.html"), name='message_detail'),
     url(r'^messages/$', TemplateView.as_view(template_name="messages-list.html"), name='message_detail'),
+    url(r'^message/(?P<message_id>[1-9][0-9]*)$', TemplateView.as_view(template_name="messages-global-detail.html"), name='messages_global_detail'),
+
+    # url(r'^messages-global/$', TemplateView.as_view(template_name="messages-global-list.html"), name='messages_global'),
 
     # Reports
     url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/reports/$', GenericCourseView.as_view(template_name="administration/stats.html"), name='reports'),

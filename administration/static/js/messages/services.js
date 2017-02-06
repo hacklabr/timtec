@@ -9,6 +9,12 @@
             });
     });
 
+    module.factory('MessageGlobal', function($resource){
+            return $resource('/api/professor_message_global/:messageId', {}, {
+                update: {method: 'PUT'}
+            });
+    });
+
     module.factory('MessageRead', function($resource){
             return $resource('/api/professor_message_read/:message', {}, {
             });

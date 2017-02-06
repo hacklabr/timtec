@@ -16,7 +16,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404, redirect
 from django.conf import settings
 from django.utils import timezone
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins
 from rest_framework.response import Response
 from rest_framework import filters
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
@@ -31,7 +31,7 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           CourseThumbSerializer, LessonSerializer,
                           StudentProgressSerializer, CourseNoteSerializer,
                           LessonNoteSerializer, ProfessorMessageSerializer,
-                          ProfessorMessageReadSerializer,
+                          ProfessorMessageReadSerializer, ProfessorGlobalMessageSerializer,
                           CourseStudentSerializer, ClassSerializer,
                           ClassActivitySerializer, FlatpageSerializer,
                           CourseAuthorPictureSerializer,
@@ -523,6 +523,44 @@ class ProfessorMessageViewSet(viewsets.ModelViewSet):
         if unread:
             # Exclude read messages
             queryset = queryset.exclude(read_status__is_read=True)
+
+        limit_to = self.request.query_params.get('limit_to', None)
+        if limit_to:
+            queryset = queryset[:int(limit_to)]
+
+        return queryset
+
+
+# This view creates ProfessorMessages targeting specific users and with no ties to any course
+# Only site admins can create messages using this endpoint
+class ProfessorGlobalMessageViewSet(mixins.CreateModelMixin,
+                                    mixins.ListModelMixin,
+                                    viewsets.GenericViewSet):
+    model = ProfessorMessage
+    serializer_class = ProfessorGlobalMessageSerializer
+    permission_classes = (IsAdminOrReadOnly,)
+
+    def perform_create(self, serializer):
+        all_students = self.request.data.get('all_students', None)
+        groups = self.request.data.get('groups', None)
+
+        User = get_user_model()
+        if all_students:
+            # If all_students was set to True by the client, this is a global message
+            obj = serializer.save(professor=self.request.user, users=User.objects.all())
+        elif groups:
+            # If groups were specified, their users are the recipients
+            obj = serializer.save(professor=self.request.user, users=User.objects.filter(groups__in=groups))
+        else:
+            # Otherwise, the 'users' data alreay has the complete recipients list
+            obj = serializer.save(professor=self.request.user)
+
+        if obj:
+            obj.send()
+
+    def get_queryset(self):
+        # Get all admin messages sent using this view
+        queryset = ProfessorMessage.objects.filter(course=None).order_by('-id')
 
         limit_to = self.request.query_params.get('limit_to', None)
         if limit_to:

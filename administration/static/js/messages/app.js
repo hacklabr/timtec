@@ -9,6 +9,7 @@
         'timtec-models',
         'ui.bootstrap',
         'ui.tinymce',
+        'angular.filter',
         'checklist-model',
         'truncate',
         'ngRoute',
