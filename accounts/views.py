@@ -75,7 +75,7 @@ class TimtecUserAdminViewSet(viewsets.ModelViewSet):
         keyword = self.request.query_params.get('keyword')
         admin = self.request.query_params.get('admin')
         blocked = self.request.query_params.get('blocked')
-        queryset = super(TimtecUserAdminViewSet, self).get_queryset().order_by('username')
+        queryset = super(TimtecUserAdminViewSet, self).get_queryset().order_by('first_name')
 
         if keyword:
             queryset = queryset.filter(Q(first_name__icontains=keyword) |
