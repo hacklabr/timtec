@@ -11,7 +11,7 @@ class TimtecUserAdmin(UserAdmin):
     model = User
 
     fieldsets = UserAdmin.fieldsets + (
-        (_('Timtec Info'), {'fields': ('accepted_terms', 'picture')}),
+        (_('Timtec Info'), {'fields': ('accepted_terms', 'picture', 'cpf')}),
     )
 
 admin.site.register(User, TimtecUserAdmin)
