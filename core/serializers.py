@@ -296,6 +296,7 @@ class ClassSerializer(serializers.ModelSerializer):
         assistants = self.context['request'].data.get('assistants', None)
         updated_class = super(ClassSerializer, self).update(instance, validated_data)
         # If there are assistans to be associated with the class, do it now
+        updated_class.assistants.clear()
         for assistant in assistants:
             updated_class.assistants.add(assistant['id'])
         return updated_class
