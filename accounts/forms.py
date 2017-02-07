@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth import get_user_model
 from django import forms
+from localflavor.br.forms import BRCPFField
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from timtec.settings import ACCOUNT_REQUIRED_FIELDS as fields
@@ -23,6 +24,7 @@ class BaseProfileEditForm(forms.ModelForm):
 class ProfileEditForm(BaseProfileEditForm):
 
     email = forms.RegexField(label=_("email"), max_length=75, regex=r"^[\w.@+-]+$")
+    cpf = BRCPFField()
 
     password1 = forms.CharField(widget=forms.PasswordInput, label=_("Password"), required=False)
     password2 = forms.CharField(widget=forms.PasswordInput, label=_("Password (again)"), required=False)
@@ -30,7 +32,7 @@ class ProfileEditForm(BaseProfileEditForm):
     class Meta:
         model = get_user_model()
         fields = ('username', 'email', 'first_name', 'last_name', 'picture',
-                  'occupation', 'city', 'site', 'biography',)
+                  'occupation', 'city', 'site', 'biography', 'cpf')
 
     def clean_username(self):
         return self.instance.username
@@ -61,6 +63,8 @@ class AcceptTermsForm(forms.Form):
 
 
 class SignupForm(AcceptTermsForm):
+
+    cpf = BRCPFField()
 
     def signup(self, request, user):
         user.accepted_terms = self.cleaned_data['accept_terms']

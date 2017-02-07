@@ -59,3 +59,6 @@ twitter==1.17.1
 
 django-extensions==1.5.5
 django-oauth-toolkit==0.10.0
+
+# Validation for region specific fields
+django-localflavor==1.4.1

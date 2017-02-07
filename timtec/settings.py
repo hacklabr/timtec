@@ -248,6 +248,7 @@ INSTALLED_APPS = (
     'django_markdown',
 
     'compressor',
+    'localflavor',
     # raven has to be the last one
     'raven.contrib.django.raven_compat',
 )

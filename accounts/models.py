@@ -118,6 +118,7 @@ class TimtecUser(AbstractTimtecUser):
     """
 
     email = models.EmailField(_('Email address'), blank=False, unique=True)
+    cpf = models.CharField(max_length=11, blank=True, null=True, unique=True)
 
     class Meta(AbstractTimtecUser.Meta):
         swappable = 'AUTH_USER_MODEL'
