@@ -581,6 +581,7 @@ PIPELINE = {
                 # header
                 'js/header-app.js',
                 'js/header-controllers.js',
+                'js/header-services.js',
                 'js/discussion-services.js',
             ),
             'output_filename': 'js/plpc-header.js',
