@@ -22,6 +22,9 @@ django-filter==0.10.0
 # static mgt
 django-compressor==2.0
 
+# Sass compliler
+django-libsass==0.7
+
 # internacionalization admin interface
 django-rosetta==0.7.6
 
