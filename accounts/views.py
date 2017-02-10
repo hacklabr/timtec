@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import get_object_or_404
@@ -7,10 +8,10 @@ from django.views.generic.detail import DetailView
 from django.db.models import Q
 from django.shortcuts import redirect
 
-from accounts.models import UserSocialAccount
+from accounts.models import UserSocialAccount, TimtecUser
 from accounts.forms import ProfileEditForm, AcceptTermsForm, UserSocialAccountForm
 from accounts.serializers import TimtecUserSerializer, TimtecUserAdminSerializer
-from accounts.serializers import StateSerializer, CitySerializer
+from accounts.serializers import StateSerializer, CitySerializer, GroupAdminSerializer, GroupSerializer
 from braces.views import LoginRequiredMixin
 from rest_framework.response import Response
 from core.permissions import IsAdminOrReadOnly
@@ -18,6 +19,7 @@ from core.permissions import IsAdminOrReadOnly
 from rest_framework import viewsets
 from rest_framework import filters
 from rest_framework import generics
+from rest_framework.response import Response
 
 from core.permissions import IsAdmin
 
@@ -123,6 +125,39 @@ class TimtecUserAdminViewSet(viewsets.ModelViewSet):
                 queryset = paginator.page(paginator.num_pages)
 
         return queryset
+
+
+class GroupAdminViewSet(viewsets.ModelViewSet):
+    queryset = Group.objects.all()
+    model = Group
+    serializer_class = GroupAdminSerializer
+    permission_classes = (IsAdmin, )
+
+    def put(self, request, **kwargs):
+        User = get_user_model()
+        # Does a user need to be removed from a given group?
+        if request.data['action'] == 'remove':
+            group = Group.objects.get(id=request.data['id'])
+            group.user_set.remove(User.objects.get(id=request.data['user']['id']))
+            return Response(status=200)
+
+        # Does a user nedd to be added to a given group?
+        # The "add" action support multiple users
+        if request.data['action'] == 'add':
+            group = Group.objects.get(id=request.data['id'])
+            for user in request.data.get('users', None):
+                group.user_set.add(User.objects.get(id=user['id']))
+            return Response(status=200)
+
+        return Response(status=404)
+
+
+class GroupViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint that allows groups to be viewed.
+    """
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
 
 
 class UserSearchView(LoginRequiredMixin, generics.ListAPIView):
