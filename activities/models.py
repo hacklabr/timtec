@@ -5,8 +5,6 @@ from django.db import models
 from jsonfield import JSONField
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-from core.models import Unit, StudentProgress
-from django.utils import timezone
 
 
 class Activity(models.Model):
@@ -24,10 +22,10 @@ class Activity(models.Model):
         expected_answer_data: {choice: 1}
     """
     type = models.CharField(_('Type'), max_length=255)
-    data = JSONField(_('Data'), blank=True)
-    expected = JSONField(_('Expected answer'), blank=True)
-    unit = models.ForeignKey(Unit, verbose_name=_('Unit'), null=True, blank=True, related_name='activities')
-    comment = models.TextField(_('Comment'), blank=True)
+    data = JSONField(_('Data'), blank=True, null=True)
+    expected = JSONField(_('Expected answer'), blank=True, null=True)
+    unit = models.ForeignKey('core.Unit', verbose_name=_('Unit'), null=True, blank=True, related_name='activities')
+    comment = models.TextField(_('Comment'), blank=True, null=True)
     positive_feedback = models.TextField(_('Positive Feedback'), blank=True)
     negative_feedback = models.TextField(_('Negative Feedback'), blank=True)
     image = models.ImageField(_('Image'), upload_to='activities', null=True, blank=True)
@@ -102,28 +100,3 @@ class Answer(models.Model):
 
         result = unicode(self.given) == unicode(self.activity.expected)
         return result
-
-    @staticmethod
-    def update_student_progress(sender, instance, **kwargs):
-        answer = instance
-        progress, _ = StudentProgress.objects.get_or_create(user=answer.user,
-                                                            unit=answer.activity.unit)
-
-        correct = True
-        for activity in Activity.objects.filter(unit=answer.activity.unit):
-            try:
-                ans = Answer.objects.filter(activity=activity).order_by('-timestamp')[:1].get()
-            except Answer.DoesNotExist:
-                correct = False
-                break
-            correct = ans.is_correct()
-            if not correct:
-                break
-
-        if correct:
-            progress.complete = timezone.now()
-
-        progress.save()
-
-models.signals.post_save.connect(Answer.update_student_progress, sender=Answer,
-                                 dispatch_uid="Answer.update_student_progress")

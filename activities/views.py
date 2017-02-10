@@ -2,13 +2,34 @@
 import os
 import random
 import tarfile
-from django.http import Http404
+from braces.views import LoginRequiredMixin
+from django.http import Http404, HttpResponse
+from django.shortcuts import get_object_or_404
+from django.views.generic.detail import DetailView
 
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 import requests
 
-from .models import Answer
-from .serializers import AnswerSerializer
+from .models import Answer, Activity
+from .serializers import AnswerSerializer, ActivityImageSerializer
+
+
+class ActivityImageViewSet(viewsets.ModelViewSet):
+    model = Activity
+    queryset = Activity.objects.all()
+    serializer_class = ActivityImageSerializer
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request, **kwargs):
+        activity = self.get_object()
+        serializer = ActivityImageSerializer(activity, request.FILES)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=200)
+        else:
+            return Response(serializer.errors, status=400)
 
 
 class AnswerViewSet(viewsets.ModelViewSet):
@@ -30,9 +51,7 @@ class AnswerViewSet(viewsets.ModelViewSet):
             try:
                 return self.get_queryset().filter(activity=activity).latest('timestamp')
             except Answer.DoesNotExist:
-                # Create a new object and return this object, in case that not exists
-                answer = Answer(activity_id=activity, user=self.request.user)
-                answer.save()
+                raise Http404
         return super(AnswerViewSet, self).get_object()
 
     def post_save(self, obj, created):
@@ -51,3 +70,20 @@ class AnswerViewSet(viewsets.ModelViewSet):
             host = 'http://php.timtec.com.br'
             requests.get("%s/%d/start/" % (host, obj.user.id))
             requests.post("%s/%d/documents/" % (host, obj.user.id), files={"tgz": tgz})
+
+
+# This view return the raw html inside data['content'] of an activity
+# It is used to closely emulate the embed behavior for iframes in slidesreveal activities
+# Also, it's worth noting that such raw html is always created outside of Timtec and uploaded through an administrative interface
+class SlidesRevealView(LoginRequiredMixin, DetailView):
+
+    def get_queryset(self):
+        raise Http404
+
+    def get(self, request, pk):
+        activity = get_object_or_404(Activity, pk=pk)
+        if activity.type != 'slidesreveal':
+            raise Http404
+        else:
+            # Send HTML ready to use with reveal.js
+            return HttpResponse(activity.data['content'])
