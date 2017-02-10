@@ -53,8 +53,11 @@ LOGIN_URL = '/accounts/login/'
 
 LOGIN_REDIRECT_URL = '/'
 
-AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",
-                           "allauth.account.auth_backends.AuthenticationBackend")
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+    "oauth2_provider.backends.OAuth2Backend",
+)
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -190,6 +193,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'oauth2_provider.middleware.OAuth2TokenMiddleware',
 )
 
 ROOT_URLCONF = 'timtec.urls'
@@ -231,10 +236,12 @@ INSTALLED_APPS = (
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.openid',
+    'oauth2_provider',
 
     'django_markdown',
 
     'compressor',
+    'localflavor',
     # raven has to be the last one
     'raven.contrib.django.raven_compat',
 )
@@ -361,6 +368,14 @@ STATICFILES_DIRS += (
     os.path.join(THEMES_DIR, 'default', 'static'),
     os.path.join(PROJECT_ROOT, 'bower_components'),
 )
+
+OAUTH2_PROVIDER = {
+    'SCOPES': {
+        'read': 'Read scope',
+        'write': 'Write scope',
+        'openid': 'Openid scope',
+    },
+}
 
 # Fix debug toolbar issue: https://github.com/django-debug-toolbar/django-debug-toolbar/issues/521
 # DEBUG_TOOLBAR_PATCH_SETTINGS = False
