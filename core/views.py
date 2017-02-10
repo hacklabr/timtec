@@ -6,29 +6,34 @@ import datetime
 from django.db import IntegrityError
 from django.core.urlresolvers import reverse_lazy
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseForbidden
 from django.views.generic import (DetailView, ListView, DeleteView,
                                   CreateView, UpdateView)
 from django.views.generic.base import RedirectView, View, TemplateView
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.auth import get_user_model
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.conf import settings
 from django.utils import timezone
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins
 from rest_framework.response import Response
 from rest_framework import filters
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from braces.views import LoginRequiredMixin
+
+from oauth2_provider.views import ProtectedResourceView
+from oauth2_provider.models import AccessToken
+
 from notes.models import Note
 
 from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           CourseThumbSerializer, LessonSerializer,
                           StudentProgressSerializer, CourseNoteSerializer,
                           LessonNoteSerializer, ProfessorMessageSerializer,
+                          ProfessorMessageReadSerializer, ProfessorGlobalMessageSerializer,
                           CourseStudentSerializer, ClassSerializer,
-                          FlatpageSerializer, CourseAuthorPictureSerializer,
+                          ClassActivitySerializer, FlatpageSerializer, CourseAuthorPictureSerializer,
                           CourseAuthorSerializer, ClassSimpleSerializer,
                           CourseCertificationSerializer,
                           CertificationProcessSerializer, UserMessageSerializer,
@@ -36,18 +41,25 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           IfCertificateTemplateSerializer, CertificateTemplateImageSerializer)
 
 from .models import (Course, CourseProfessor, Lesson, StudentProgress,
-                     Unit, ProfessorMessage, CourseStudent, Class,
+                     Unit, ProfessorMessage, CourseStudent, ProfessorMessageRead, Class,
                      CourseAuthor, CourseCertification, CertificationProcess,
                      Evaluation, CertificateTemplate, IfCertificateTemplate)
 
-from .forms import (ContactForm, RemoveStudentForm)
+from .forms import (ContactForm, RemoveStudentForm,
+                    AddStudentsForm, )
 
-from .permissions import IsProfessorCoordinatorOrAdminPermissionOrReadOnly, IsAdminOrReadOnly
+from .permissions import (IsProfessorCoordinatorOrAdminPermissionOrReadOnly,
+                          IsAdminOrReadOnly, IsAssistantOrCoordinatorOrReadOnly)
 
 
 class HomeView(ListView):
     context_object_name = 'home_courses'
     template_name = "home.html"
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            return redirect(reverse_lazy('dashboard'))
+        return super(HomeView, self).get(request, *args, **kwargs)
 
     def get_queryset(self):
         return Course.objects.filter(home_published=True).order_by('home_position')
@@ -357,7 +369,6 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
 class CourseCertificationViewSet(viewsets.ModelViewSet):
     queryset = CourseCertification.objects.all()
     model = CourseCertification
-    queryset = CourseCertification.objects.all()
     lookup_field = 'link_hash'
     filter_fields = ('course_student',)
     serializer_class = CourseCertificationSerializer
@@ -490,7 +501,7 @@ class CertificateTemplateViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
 
     def update(self, request, **kwargs):
         instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.DATA)
+        serializer = self.get_serializer(instance, data=request.data)
         if serializer.is_valid():
             serializer.save()
         return Response(serializer.data)
@@ -515,30 +526,13 @@ class CertificateTemplateImageViewSet(viewsets.ModelViewSet):
             return Response(serializer.errors, status=400)
 
 
-class UserMessageViewSet(viewsets.ModelViewSet):
-    model = ProfessorMessage
-    lookup_field = 'id'
-    serializer_class = UserMessageSerializer
-
-    def get_queryset(self, *args, **kwargs):
-        """Some tricks to show first unread, after reads."""
-        reads = ProfessorMessage.objects.filter(users_that_read=self.request.user).order_by('-date').values_list('id')
-        unreads = ProfessorMessage.objects.filter(users=self.request.user).exclude(users_that_read=self.request.user) \
-            .order_by('-date').values_list('id')
-
-        reads = [item[0] for item in reads]
-        unreads = [item[0] for item in unreads]
-        total_ids = unreads + reads
-        print total_ids
-
-        return ProfessorMessage.objects.filter(id__in=total_ids).order_by('-date')
-
 class ProfessorMessageViewSet(viewsets.ModelViewSet):
     model = ProfessorMessage
     queryset = ProfessorMessage.objects.all()
     lookup_field = 'id'
     filter_fields = ('course',)
     filter_backends = (filters.DjangoFilterBackend,)
+    permission_classes = (IsAssistantOrCoordinatorOrReadOnly,)
 
     def retrieve(self, *args, **kwargs):
         """Add the current user to readers list."""
@@ -561,6 +555,97 @@ class ProfessorMessageViewSet(viewsets.ModelViewSet):
         queryset = super(ProfessorMessageViewSet, self).get_queryset(*args, **kwargs)
         if not self.request.user.is_superuser:
             queryset = queryset.filter(users=self.request.user)
+
+        unread = self.request.query_params.get('unread', None)
+        if unread:
+            # Exclude read messages
+            queryset = queryset.exclude(read_status__is_read=True)
+
+        limit_to = self.request.query_params.get('limit_to', None)
+        if limit_to:
+            queryset = queryset[:int(limit_to)]
+
+        return queryset
+
+
+class UserMessageViewSet(viewsets.ModelViewSet):
+    model = ProfessorMessage
+    lookup_field = 'id'
+    serializer_class = UserMessageSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        """Some tricks to show first unread, after reads."""
+        reads = ProfessorMessage.objects.filter(users_that_read=self.request.user).order_by('-date').values_list('id')
+        unreads = ProfessorMessage.objects.filter(users=self.request.user).exclude(users_that_read=self.request.user) \
+            .order_by('-date').values_list('id')
+
+        reads = [item[0] for item in reads]
+        unreads = [item[0] for item in unreads]
+        total_ids = unreads + reads
+        print total_ids
+
+        return ProfessorMessage.objects.filter(id__in=total_ids).order_by('-date')
+
+
+# This view creates ProfessorMessages targeting specific users and with no ties to any course
+# Only site admins can create messages using this endpoint
+class ProfessorGlobalMessageViewSet(mixins.CreateModelMixin,
+                                    mixins.ListModelMixin,
+                                    viewsets.GenericViewSet):
+    model = ProfessorMessage
+    serializer_class = ProfessorGlobalMessageSerializer
+    permission_classes = (IsAdminOrReadOnly,)
+
+    def perform_create(self, serializer):
+        all_students = self.request.data.get('all_students', None)
+        groups = self.request.data.get('groups', None)
+
+        User = get_user_model()
+        if all_students:
+            # If all_students was set to True by the client, this is a global message
+            obj = serializer.save(professor=self.request.user, users=User.objects.all())
+        elif groups:
+            # If groups were specified, their users are the recipients
+            obj = serializer.save(professor=self.request.user, users=User.objects.filter(groups__in=groups))
+        else:
+            # Otherwise, the 'users' data alreay has the complete recipients list
+            obj = serializer.save(professor=self.request.user)
+
+        if obj:
+            obj.send()
+
+    def get_queryset(self):
+        # Get all admin messages sent using this view
+        queryset = ProfessorMessage.objects.filter(course=None).order_by('-id')
+
+        limit_to = self.request.query_params.get('limit_to', None)
+        if limit_to:
+            queryset = queryset[:int(limit_to)]
+
+        return queryset
+
+
+class ProfessorMessageReadViewSet(viewsets.ModelViewSet):
+    model = ProfessorMessageRead
+    lookup_field = 'message'
+    serializer_class = ProfessorMessageReadSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def perform_create(self, serializer):
+        try:
+            read_info = serializer.save(user=self.request.user, is_read=True)
+        except IntegrityError as e:
+            read_info = ProfessorMessageRead.objects.get(message=self.request.data['message'], user=self.request.user)
+            read_info.is_read = True
+            read_info.save()
+
+    def get_queryset(self):
+        queryset = ProfessorMessageRead.objects.filter(user=self.request.user).order_by('-id')
+
+        limit_to = self.request.query_params.get('limit_to', None)
+        if limit_to:
+            queryset = queryset[:int(limit_to)]
+
         return queryset
 
 
@@ -599,6 +684,23 @@ class CourseViewSet(viewsets.ModelViewSet):
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
+
+    def get_queryset(self):
+        queryset = super(CourseViewSet, self).get_queryset()
+        public_courses = self.request.query_params.get('public_courses', None)
+        if public_courses:
+            queryset = queryset.filter(status='published').prefetch_related('professors')
+        role = self.request.query_params.get('role', None)
+        if not self.request.user.is_superuser:
+            if role:
+                queryset = queryset.filter(
+                    course_professors__role=role,
+                    course_professors__user=self.request.user
+                ).prefetch_related('professors')
+
+            queryset = queryset.filter(groups__in=self.request.user.groups.all())
+
+        return queryset.distinct()
 
     def post(self, request, **kwargs):
         course = self.get_object()
@@ -663,6 +765,11 @@ class LessonDetailView(LoginRequiredMixin, DetailView):
                                                args=[course.slug,
                                                      lessons[index + 1].slug])
         context['unit_content_type_id'] = unit_content_type.id
+        try:
+            context['rocketchat'] = settings.ROCKET_CHAT
+        except AttributeError as e:
+            # If there is no chat instance in this installation, pass the error silently
+            pass
         return context
 
 
@@ -742,6 +849,15 @@ class ClassDeleteView(LoginRequiredMixin, CanEditClassMixin, DeleteView):
 class ClassRemoveUserView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
     model = Class
     form_class = RemoveStudentForm
+    http_method_names = ['post', ]
+
+    def get_success_url(self):
+        return reverse_lazy('class', kwargs={'pk': self.object.id})
+
+
+class ClassAddUsersView(LoginRequiredMixin, CanEditClassMixin, UpdateView):
+    model = Class
+    form_class = AddStudentsForm
     http_method_names = ['post', ]
 
     def get_success_url(self):
@@ -904,6 +1020,14 @@ class ClassSimpleViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     filter_fields = ('course',)
 
 
+class ClassActivityViewSet(viewsets.ModelViewSet):
+    model = Class
+    queryset = Class.objects.all()
+    serializer_class = ClassActivitySerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('course',)
+
+
 class FlatpageView(View):
 
     def get(self, request, url):
@@ -939,3 +1063,19 @@ class FlatpageViewSet(viewsets.ModelViewSet):
         if url_prefix:
             queryset = queryset.filter(url__startswith=url_prefix)
         return queryset
+
+
+class OAuth2UserInfoView(ProtectedResourceView):
+    def get(self, request, *args, **kwargs):
+        token = request.GET.get('access_token', '')
+        access_token = AccessToken.objects.filter(token=token).first()
+
+        if access_token:
+            user = access_token.user
+            return HttpResponse(json.dumps({
+                'id': user.id,
+                'username': user.username,
+                'email': user.email
+            }))
+
+        return HttpResponseForbidden('Ivalid or empty token')

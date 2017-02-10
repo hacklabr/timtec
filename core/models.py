@@ -18,6 +18,7 @@ from django.conf import settings
 from autoslug import AutoSlugField
 
 from notes.models import Note
+from activities.models import Activity, Answer
 from course_material.models import CourseMaterial
 from .utils import hash_name
 
@@ -449,7 +450,9 @@ class CourseStudent(models.Model):
             return ''
 
     def percent_progress_by_lesson(self):
-        """Return a list with dictionaries with keys name (lesson name), slug (lesson slug) and progress (percent lesson progress, decimal)."""
+        """
+        Returns a list with dictionaries with keys name (lesson name), slug (lesson slug) and progress (percent lesson progress, decimal)
+        """
         # TODO refator to make one query to count unts done for all lessons
         progress_list = []
         for lesson in self.course.lessons.filter(status='published'):
@@ -458,10 +461,24 @@ class CourseStudent(models.Model):
             lesson_progress['slug'] = lesson.slug
             lesson_progress['position'] = lesson.position
             units_len = lesson.unit_count()
+            lesson_progress['activities'] = []
             if units_len:
                 units_done_len = self.units_done_by_lesson(lesson).count()
                 lesson_progress['progress'] = 100 * units_done_len / units_len
                 lesson_progress['finish'] = self.get_lesson_finish_time(lesson)
+                activities = Activity.objects.filter(unit__lesson=lesson, type='discussion')
+                i = 0
+                for activity in activities:
+                    i = i + 1
+                    new_actv = {}
+                    new_actv['name'] = 'Atividade ' + str(i)
+                    new_actv['position'] = activity.unit.position
+                    ans = Answer.objects.filter(activity=activity, user=self.user)
+                    if ans:
+                        new_actv['done'] = 'true'
+                    else:
+                        new_actv['done'] = 'false'
+                    lesson_progress['activities'].append(new_actv)
             else:
                 lesson_progress['progress'] = 0
                 lesson_progress['finish'] = ''
@@ -606,6 +623,18 @@ class ProfessorMessage(models.Model):
         return reverse('message_detail', kwargs={'message_id': self.id, 'course_slug': self.course.slug})
 
 
+class ProfessorMessageRead(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Student'))
+    message = models.ForeignKey(ProfessorMessage, verbose_name=_('ProfessorMessage'), related_name='read_status')
+    is_read = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username + " " + self.message.subject + " " + str(self.is_read)
+
+    class Meta:
+        unique_together = ('user', 'message')
+
+
 class PositionedModel(models.Model):
     collection_name = 'pk'
 
@@ -691,6 +720,7 @@ class Unit(PositionedModel):
     side_notes = models.TextField(_('Side notes'), blank=True)
     position = models.IntegerField(default=0)
     notes = GenericRelation(Note)
+    chat_room = models.CharField(_('Chat Room'), max_length=255, blank=True, null=True)
 
     collection_name = 'lesson'
 

@@ -2,26 +2,54 @@ from django.contrib.flatpages.models import FlatPage
 from django.contrib.auth import get_user_model
 from core.models import (Course, CourseProfessor, CourseStudent, Lesson,
                          Video, StudentProgress, Unit, ProfessorMessage,
-                         Class, CourseAuthor, CourseCertification,
+                         ProfessorMessageRead, Class, CourseAuthor, CourseCertification,
                          CertificationProcess, Evaluation, CertificateTemplate,
                          IfCertificateTemplate)
 from accounts.serializers import (TimtecUserSerializer,
                                   TimtecUserAdminCertificateSerializer, TimtecUserAdminSerializer)
-from activities.models import Activity
-from activities.serializers import ActivitySerializer
+from activities.models import Activity, Answer
+from activities.serializers import ActivitySerializer, AnswerSerializer
 from notes.models import Note
 from rest_framework import serializers
 from accounts.models import UserSocialAccount
 
 
+class ProfessorMessageReadSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProfessorMessageRead
+        fields = ('id', 'message', 'is_read')
+
+
 class ProfessorMessageSerializer(serializers.ModelSerializer):
 
     professor = TimtecUserSerializer(read_only=True)
-    users_details = TimtecUserSerializer(many=True, source='users', read_only=True)
+    course_slug = serializers.SerializerMethodField(read_only=True)
+    course_name = serializers.SerializerMethodField(read_only=True)
+    is_read = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = ProfessorMessage
-        fields = ('id', 'users', 'users_details', 'users_that_read', 'course', 'subject', 'message', 'date', 'professor')
+        fields = ('id', 'course', 'course_name', 'course_slug', 'professor', 'users', 'subject', 'message', 'date', 'is_read')
+
+    def get_course_slug(self, obj):
+        try:
+            return obj.course.slug
+        except AttributeError as e:
+            return ''  # no course is associated with this message
+
+    def get_course_name(self, obj):
+        try:
+            return obj.course.name
+        except AttributeError as e:
+            return ''  # no course is associated with this message
+
+    def get_is_read(self, obj):
+        try:
+            read_state = ProfessorMessageRead.objects.get(user=self.context['request'].user, message=obj)
+            return read_state.is_read
+        except ProfessorMessageRead.DoesNotExist as e:
+            return False
 
 
 class UserMessageSerializer(serializers.ModelSerializer):
@@ -57,6 +85,10 @@ class ProfessorMessageUserDetailsSerializer(serializers.ModelSerializer):
         model = ProfessorMessage
         fields = ('id', 'course', 'users', 'users_details', 'users_that_read', 'users_that_read_details',
                   'subject', 'users_that_not_read_details', 'message', 'date', 'professor')
+
+
+class ProfessorGlobalMessageSerializer(ProfessorMessageSerializer):
+    users = TimtecUserSerializer(required=False, many=True)
 
 
 class BaseCourseSerializer(serializers.ModelSerializer):
@@ -259,6 +291,20 @@ class CourseSerializer(serializers.ModelSerializer):
     def get_is_assistant_or_coordinator(self, obj):
         return obj.is_assistant_or_coordinator(self.context['request'].user)
 
+    def update(self, instance, validated_data):
+        intro_video_data = validated_data.pop('intro_video', None)
+
+        course = super(CourseSerializer, self).update(instance, validated_data)
+
+        if intro_video_data:
+            intro_video_ser = VideoSerializer(course.intro_video, data=intro_video_data)
+            if intro_video_ser.is_valid():
+                intro_video = intro_video_ser.save()
+            course.intro_video = intro_video
+            course.save()
+
+        return course
+
 
 class CourseStudentSerializer(serializers.ModelSerializer):
     user = TimtecUserSerializer(read_only=True)
@@ -273,7 +319,7 @@ class CourseStudentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CourseStudent
-        fields = ('id', 'user', 'course', 'course_finished',
+        fields = ('id', 'user', 'course', 'start_date', 'course_finished',
                   'certificate', 'can_emmit_receipt', 'percent_progress',
                   'current_class', 'min_percent_to_complete',)
 
@@ -288,6 +334,19 @@ class CourseStudentClassSerializer(CourseStudentSerializer):
                   'certificate', 'can_emmit_receipt', 'percent_progress',)
 
 
+class ProfileCourseCertificationSerializer(serializers.ModelSerializer):
+    course = BaseCourseSerializer()
+    approved = serializers.SerializerMethodField()
+
+    class Meta:
+        model = CourseCertification
+        fields = ('link_hash', 'created_date', 'is_valid', 'processes', 'type',
+                  'approved', 'course')
+
+    def get_approved(self, obj):
+        return obj.course_student.can_emmit_receipt()
+
+
 class ClassSerializer(serializers.ModelSerializer):
     students_details = CourseStudentClassSerializer(source='get_students', many=True, read_only=True)
     processes = CertificationProcessSerializer(read_only=True, many=True)
@@ -297,6 +356,15 @@ class ClassSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Class
+
+    def update(self, instance, validated_data, **kwargs):
+        assistants = self.context['request'].data.get('assistants', None)
+        updated_class = super(ClassSerializer, self).update(instance, validated_data)
+        # If there are assistans to be associated with the class, do it now
+        updated_class.assistants.clear()
+        for assistant in assistants:
+            updated_class.assistants.add(assistant['id'])
+        return updated_class
 
 
 class ClassSimpleSerializer(serializers.ModelSerializer):
@@ -357,7 +425,7 @@ class UnitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Unit
-        fields = ('id', 'title', 'video', 'activities', 'side_notes', 'position',)
+        fields = ('id', 'title', 'video', 'activities', 'side_notes', 'position', 'chat_room',)
 
 
 class LessonSerializer(serializers.ModelSerializer):
@@ -414,7 +482,6 @@ class LessonSerializer(serializers.ModelSerializer):
             unit.save()
             activities = []
             for activity_data in activities_data:
-                # import pdb;pdb.set_trace()
                 activity_id = activity_data.pop('id', None)
                 activity, _ = Activity.objects.get_or_create(id=activity_id)
                 activity.comment = activity_data.get('comment', None)
