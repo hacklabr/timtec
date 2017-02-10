@@ -7,18 +7,18 @@ from django.views.generic import TemplateView
 from accounts.views import (ProfileEditView, ProfileView, UserSearchView,
                             TimtecUserViewSet, TimtecUserAdminViewSet, StudentSearchView,
                             AcceptTermsView, UserSocialAccountCreateView, UserSocialAccountDeleteView,
-                            StateViewSet, CityViewSet)
+                            StateViewSet, CityViewSet, GroupAdminViewSet, GroupViewSet)
 
 from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         CourseProfessorViewSet, EnrollCourseView, HomeView,
                         UserCoursesView, ContactView, LessonDetailView,
                         LessonViewSet, StudentProgressViewSet,
                         UserNotesViewSet, CoursesView, CourseThumbViewSet,
-                        ProfessorMessageViewSet, CourseStudentViewSet,
-                        CarouselCourseView, ClassListView,
-                        ClassCreateView, ClassUpdateView, ClassDeleteView,
-                        ClassRemoveUserView, ClassViewSet, GoOutCourseView,
-                        ClassEvaluationsView,
+                        ProfessorMessageViewSet, ProfessorMessageReadViewSet, CourseStudentViewSet,
+                        ProfessorGlobalMessageViewSet, CourseStudentViewSet, CarouselCourseView, ClassListView,
+                        ClassCreateView, ClassUpdateView, ClassDeleteView, ClassListView,
+                        ClassRemoveUserView, ClassAddUsersView, ClassViewSet, GoOutCourseView,
+                        ClassEvaluationsView, ClassActivityViewSet,
                         FlatpageViewSet, CoursePictureUploadViewSet,
                         ResumeCourseView, FlatpageView, CourseAuthorViewSet,
                         CourseCertificationViewSet,
@@ -26,9 +26,9 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         CertificationProcessViewSet, ClassSimpleViewSet,
                         EvaluationViewSet, CertificateTemplateViewSet,
                         CertificateTemplateImageViewSet, RequestCertificateView,
-                        EmitReceiptView, ProfileViewSet)
+                        EmitReceiptView, ProfileViewSet, OAuth2UserInfoView)
 
-from activities.views import AnswerViewSet
+from activities.views import AnswerViewSet, ActivityImageViewSet, SlidesRevealView
 from forum.views import (CourseForumView, QuestionView, QuestionCreateView, QuestionViewSet,
                          QuestionVoteViewSet, AnswerVoteViewSet, AnswerViewSet as ForumAnswerViewSet,
                          QuestionNotificationViewSet)
@@ -48,6 +48,8 @@ router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'user', TimtecUserViewSet, base_name='user')
 router.register(r'profile', ProfileViewSet, base_name='profile')
 router.register(r'user_admin', TimtecUserAdminViewSet, base_name='user_admin')
+router.register(r'group_admin', GroupAdminViewSet, base_name='group_admin')
+router.register(r'group', GroupViewSet, base_name='group')
 router.register(r'course', CourseViewSet, base_name='course')
 router.register(r'course_carousel', CarouselCourseView, base_name='course_carousel')
 router.register(r'course_professor', CourseProfessorViewSet, base_name='course_professor')
@@ -56,9 +58,12 @@ router.register(r'course_author', CourseAuthorViewSet, base_name='course_author'
 router.register(r'course_student', CourseStudentViewSet, base_name='course_student')
 router.register(r'professor_message', ProfessorMessageViewSet, base_name='professor_message')
 router.register(r'user_message', UserMessageViewSet, base_name='user_message')
+router.register(r'professor_message_global', ProfessorGlobalMessageViewSet, base_name='professor_message_global')
+router.register(r'professor_message_read', ProfessorMessageReadViewSet, base_name='professor_message_read')
 router.register(r'coursethumbs', CourseThumbViewSet, base_name='coursethumbs')
 router.register(r'lessons', LessonViewSet, base_name='lessons')
 router.register(r'answer', AnswerViewSet, base_name='answer')
+router.register(r'activity_image', ActivityImageViewSet, base_name='activity_image')
 router.register(r'student_progress', StudentProgressViewSet, base_name='student_progress')
 router.register(r'forum_question', QuestionViewSet, base_name='forum_question')
 router.register(r'forum_answer', ForumAnswerViewSet, base_name='forum_answer')
@@ -74,6 +79,7 @@ router.register(r'lessons_user_progress', UserCourseLessonsStats, base_name='les
 router.register(r'course_stats', CourseStatsByLessonViewSet, base_name='course_stats')
 router.register(r'course_classes', ClassViewSet, base_name='course_classes')
 router.register(r'course_classes_simple', ClassSimpleViewSet, base_name='course_classes')
+router.register(r'course_class_activities', ClassActivityViewSet, base_name='course_class_activities')
 router.register(r'flatpage', FlatpageViewSet, base_name='flatpage')
 router.register(r'course_certification', CourseCertificationViewSet, base_name='course_certification')
 router.register(r'certification_process', CertificationProcessViewSet, base_name='certification_process')
@@ -125,6 +131,7 @@ urlpatterns = patterns(
     url(r'^class/(?P<pk>[0-9]+)/?$', ClassUpdateView.as_view(), name='class'),
     url(r'^class/(?P<pk>[0-9]+)/delete/?$', ClassDeleteView.as_view(), name='class-delete'),
     url(r'^class/(?P<pk>[0-9]+)/remove_user/?$', ClassRemoveUserView.as_view(), name='class-remove-user'),
+    url(r'^class/(?P<pk>[0-9]+)/add_users/$', ClassAddUsersView.as_view(), name='class-add-users'),
     url(r'^class/(?P<pk>[0-9]+)/evaluations/?$', ClassEvaluationsView.as_view(), name='class-evaluations'),
 
     # Evaluations
@@ -141,6 +148,9 @@ urlpatterns = patterns(
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/material/file_upload/?$', FileUploadView.as_view(), name='file_upload'),
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/material/?$', CourseMaterialView.as_view(), name='course_material'),
 
+    # Slides.com embeds
+    url(r'^activity/slides_reveal/(?P<pk>[0-9]+)$', SlidesRevealView.as_view()),
+
     # Notes
     url(r'^notes/(?P<username>[\w.+-]+)?$', UserNotesView.as_view(), name='user_notes'),
     url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/mynotes/?$', CourseNotesView.as_view(), name='user_course_notes'),
@@ -148,6 +158,8 @@ urlpatterns = patterns(
     # Messages
     url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/messages/?$', GenericCourseView.as_view(template_name="messages.html"), name='messages'),
     url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/message/(?P<message_id>[1-9][0-9]*)$', GenericCourseView.as_view(template_name="message.html"), name='message_detail'),
+    url(r'^messages/$', TemplateView.as_view(template_name="messages-list.html"), name='message_detail'),
+    url(r'^message/(?P<message_id>[1-9][0-9]*)$', TemplateView.as_view(template_name="messages-global-detail.html"), name='messages_global_detail'),
 
     # Reports
     url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/reports/?$', GenericCourseView.as_view(template_name="administration/stats.html"), name='reports'),
@@ -183,6 +195,9 @@ urlpatterns = patterns(
         TemplateView.as_view(template_name='djangular.js', content_type='text/javascript'),
         name='djangular'),
 
+    # Provider to let other apps auth herel
+    url(r'^o2/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    url(r'^o2/me/?', OAuth2UserInfoView.as_view(), name='oauth2_provider_userinfo'),
 )
 
 if settings.TWITTER_USER != '':
@@ -207,3 +222,12 @@ if settings.DEBUG:
 
 if 'ifs' in settings.INSTALLED_APPS:
     urlpatterns += (url(r'^ifs/', include('ifs.urls')),)
+
+
+if 'discussion' in settings.INSTALLED_APPS:
+    urlpatterns += (url(r'^discussion/', include('discussion.urls', namespace='discussion')),)
+
+if 'paralapraca' in settings.INSTALLED_APPS:
+    urlpatterns += (
+        url(r'^paralapraca/', include('paralapraca.urls', namespace='paralapraca')),
+    )
