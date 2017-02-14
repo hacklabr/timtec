@@ -9,4 +9,11 @@
             update: {method: 'PUT'}
         });
     });
+
+    module.factory('GroupAdmin', function($resource){
+        return $resource('/api/group_admin/:id', {}, {
+            update: {method: 'PUT'}
+        });
+    });
+
 })(angular);
