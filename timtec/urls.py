@@ -167,7 +167,7 @@ urlpatterns = patterns(
     # Authentication
     url(r'^logout/', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='timtec_logout'),
 
-    url(r'^dashboard/', TemplateView.as_view(template_name="dashboard.html")),
+    url(r'^dashboard/', TemplateView.as_view(template_name="dashboard.html"), name='dashboard'),
     url(r'^forum/', TemplateView.as_view(template_name="forum.html"), name='forum'),
     url(r'^thread/', TemplateView.as_view(template_name="forum-thread.html")),
     url(r'^login/', TemplateView.as_view(template_name="login.html")),
