@@ -81,21 +81,43 @@
     app.controller('DiscussionActivityCtrl', [
       '$scope',
       '$sce',
-
-      function ($scope, $sce) {
+      '$routeParams',
+      '$anchorScroll',
+      'uiTinymceConfig',
+      'Forum',
+      'Topic',
+      'Comment',
+      'TopicLike',
+      'TopicFile',
+      'CommentLike',
+      'CommentFile',
+      'Progress',
+      'ClassActivity',
+      'CurrentUser',
+      'AnswerNotification',
+      'ContentFile',
+      function ($scope, $sce, $routeParams, $anchorScroll, uiTinymceConfig, Forum, Topic, Comment, TopicLike, TopicFile, CommentLike, CommentFile, Progress, ClassActivity, CurrentUser, AnswerNotification, ContentFile) {
         $scope.activity_open = true;
+        $scope.activity_expired = false;
         var now = Date.now();
+        var start_date = Date.parse($scope.currentActivity.data.start_date);
+        var end_date = Date.parse($scope.currentActivity.data.end_date);
+
+        $scope.user = CurrentUser;
+
+        $scope.question = $scope.currentActivity.data.content;
 
         // Decide the current state of the activity
-        if(now < $scope.currentActivity.data[0].start_date){
+        if(now < start_date){
           // The Activity is not open yet
           $scope.activity_open = false;
-        } else if(now > $scope.currentActivity.data[0].end_date){
+        } else if(now > end_date){
           // The Activity is already expired
           $scope.activity_expired = true;
         }
 
         uiTinymceConfig.automatic_uploads = true;
+        uiTinymceConfig.images_upload_handler = ContentFile.upload;
 
         // If there is not an answer yet, create topic instance
         $scope.topic = new Topic();
@@ -107,7 +129,8 @@
             $scope.answer.$promise.then(function(answer) {
                 // if there is, show the corresponding topic that holds this answer and its comments
                 $scope.show_answer = true;
-                $scope.topic = Topic.get({id: answer.given.topic, activity: true});
+                if(answer.given !== undefined && answer.given.topic)
+                    $scope.topic = Topic.get({id: answer.given.topic, activity: true});
             });
         }
 
@@ -208,6 +231,8 @@
             $scope.topic = activity_topic;
             $scope.show_answer = true;
 
+            AnswerNotification.update({topic: activity_topic.id, is_read: true});
+
             setTimeout(function() {
                 $(document.body).animate({
                   'scrollTop':   $('#answer').position().top
@@ -262,9 +287,9 @@
         $scope.save_comment = function(comment, parent_comment) {
             if (parent_comment) {
                 comment.parent = parent_comment.id;
-                parent_comment.comment_replies.unshift(comment);
+                parent_comment.comment_replies.push(comment);
             } else {
-                comment.topic.comments.unshift(comment);
+                comment.topic.comments.push(comment);
             }
             // Store files to be saved after the comment
             var files = [];
@@ -286,6 +311,26 @@
             });
         };
 
+        $scope.update_comment = function(changed_comment) {
+            var comment_files = changed_comment.files;
+
+            // Get the correct comment instance from the server
+            Comment.get({id: changed_comment.id}, function(comment){
+              comment.text = changed_comment.text;
+              angular.copy(comment, changed_comment);
+              comment.$update().then(function(comment) {
+                  angular.forEach(comment_files, function(comment_file) {
+                        if(comment_file instanceof CommentFile){ // Prepare only new files for store in the topic
+                          comment_file.comment = comment.id;
+                          delete comment_file.file;
+                          comment_file.$patch().then(function(comment_file_complete) {
+                              changed_comment.files.push(comment_file_complete);
+                          });
+                      }
+                  });
+              });
+            });
+        };
 
         $scope.comment_like = function(comment) {
             if (comment.user_like) {
@@ -305,7 +350,7 @@
 
         $scope.get_as_safe_html = function(html_content) {
             return $sce.trustAsHtml(html_content);
-        }
+        };
 
       }
     ]);
@@ -320,6 +365,8 @@
         $scope.getReadingActivityHtml = function() {
             return $sce.trustAsHtml($scope.currentActivity.comment);
         };
+
       }
     ]);
+
 })(angular);

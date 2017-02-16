@@ -1,4 +1,4 @@
-<div ng-controller="ImageActivityAdminCtrl">
+<div ng-controller="SlidesRevealAdminCtrl">
     <div class="question textleft">
         <div class="editable-title">
             <input type="text" ng-model="currentActivity.data.question" placeholder="Título da atividade">
@@ -7,38 +7,38 @@
     </div>
     <section class="thumbnail">
 
-        <div class="row" ng-show="!currentActivity.image_show">
+        <div class="row" ng-show="!currentActivity.html_show">
             <div class="add-thumbnail col-sm-12 col-lg-12 textcenter">
                 <div class="centered">
                     <div class="form-group">
                         <i class="fa fa-picture-o fa-4x"></i>
-                        <h1 class="bottom top">Imagem</h1>
-                        <p>(largura mínima: 845px)</p>
+                        <h1 class="bottom top">HTML de slides compatíveis com reveal.js</h1>
 
-                        <input type="file" ngf-select ng-model="image_up" name="file"
-                            accept="image/*" ngf-max-size="20MB" required
+                        <input type="file" ngf-select ng-model="html_file" name="file"
+                            accept="text/*" ngf-max-size="20MB" required
                             ngf-model-invalid="errorFile" />
                     </div>
 
                     <p>
                         <br>
                         <button class="btn btn-danger btn-lg uppercase"
-                                ng-show="currentActivity.image_url" ng-click="currentActivity.image_show = true">Cancelar</button>
+                                ng-show="currentActivity.data.content" ng-click="currentActivity.html_show = true">Cancelar</button>
 
                         <button class="btn btn-success btn-lg uppercase"
-                                ng-click="saveImage(currentActivity)">Adicionar</button>
+                                ng-click="saveSlides(currentActivity)">Adicionar</button>
                     </p>
                 </div>
             </div>
         </div>
-        <div class="row" ng-show="currentActivity.image_show">
+        <div class="row" ng-show="currentActivity.html_show">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <img ng-src="{{currentActivity.image_url}}" class="img-responsive" />
+              <iframe framepreview cm-bind="currentActivity.data.content" style="width: 1019px; height: 600px;" src='/empty/'>
+              </iframe>
             </div>
 
             <div class="col-lg-12 textright">
                 <button class="btn-edit-thumbnail btn btn-success btn-sm uppercase"
-                        ng-click="currentActivity.image_show = false">Alterar imagem</button>
+                        ng-click="currentActivity.html_show = false">Alterar html</button>
             </div>
         </div>
     </section>
