@@ -11,8 +11,9 @@
         'youtubePlayerApi',
         'MarkdownDirective',
         'waitingScreen',
-        function($scope,Course, CourseProfessor, Lesson, VideoData, youtubePlayerApi,
-                 MarkdownDirective,waitingScreen) {
+        'Forum',
+        function($scope, Course, CourseProfessor, Lesson, VideoData, youtubePlayerApi,
+                 MarkdownDirective, waitingScreen, Forum) {
             $scope.errors = {};
             var httpErrors = {
                 '400': 'Os campos não foram preenchidos corretamente.',
@@ -83,6 +84,7 @@
                 {'name': 'image', 'label': 'Imagem'},
                 {'name': 'reading', 'label': 'Atividade de leitura'},
                 {'name': 'discussion', 'label': 'Atividade com discussão'},
+                {'name': 'slidesreveal', 'label': 'Atividade de slides com reveal.js'},
             ];
 
             /*  Methods */
@@ -174,8 +176,11 @@
                     $scope.lesson.units = [];
                 }
                 $scope.currentUnit = {'activities': []};
-                $scope.currentUnit.lesson = $scope.lesson.id
+                $scope.currentActivity = null;
+                $scope.currentUnit.lesson = $scope.lesson.id;
                 $scope.lesson.units.push($scope.currentUnit);
+                // MarkdownDirective.resetEditors();
+                MarkdownDirective.refreshEditorsPreview();
             };
 
             $scope.removeCurrentUnit = function() {
@@ -192,14 +197,15 @@
 
             $scope.setCurrentUnitVideo = function() {
                 var youtube_id = $scope.currentUnit.intended_youtube_id;
+                delete $scope.currentUnit.intended_youtube_id;  // prevent this atribute from being sent to the server on object save
 
                 //
                 // support pasting both long and short urls from youtube
                 // eg. http://youtu.be/8uj7YSqby7s
                 //
-                var complete_url = /^http.?:(\/\/youtu\.be\/|.+[&?]v=)(.{11}).*/;
+                var complete_url = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
                 var result = complete_url.exec(youtube_id);
-                if(result!==null) {
+                if (result && result[2].length == 11) {
                     youtube_id = result[2];
                 }
 
@@ -242,18 +248,26 @@
                 }
 
                 if(type === 'discussion'){
-                  // JSON pattern for the discussion type of activities
-                  expected = '';
-                  $scope.currentActivity = {
-                      'type': type,
-                      'data': {
-                          'forum': '',
-                          'content': '',
-                          'start_date': null,
-                          'end_date': null
-                      },
-                      'expected': expected
-                  };
+                    // JSON pattern for the discussion type of activities
+                    $scope.currentActivity = {
+                        'type': type,
+                            'data': {
+                                'forum': null,
+                                'content': '',
+                                'start_date': null,
+                                'end_date': null
+                            },
+                            'expected': ''
+                    };
+
+                    // Create a new forum to recieve the students answers
+                    var new_forum = new Forum();
+                    new_forum.title = 'Fórum de atividades: ' + $scope.lesson.name;
+                    new_forum.forum_type = 'activity';
+                    new_forum.$save(function(forum) {
+                       $scope.currentActivity.data.forum = forum.id;
+                    });
+
                 } else {
                   // JSON pattern for other types of activities
                   $scope.currentActivity = {
@@ -297,4 +311,98 @@
             };
         }
     ]);
+
+    app.controller('ImageActivityAdminCtrl', [
+      '$scope',
+      'Upload',
+      function ($scope, Upload) {
+
+        // whenever the activity_image.html is reloaded, the next function is called
+        $scope.$watch('currentActivity', function() {
+            // If there is already an image, show it
+            if($scope.currentActivity !== undefined && $scope.currentActivity.image_url)
+                $scope.currentActivity.image_show = true;
+            else
+                $scope.currentActivity.image_show = false;
+        });
+
+        $scope.saveImage = function(currentActivity) {
+            if(! $scope.image_up) {
+                return;
+            }
+            if ($scope.course.id) {
+              // Define the HTTP method
+              // If the activity will be created now, must be POST. Otherwise, PUT
+              var upload_method;
+              var id;
+              if(currentActivity.id){
+                  upload_method = 'PUT';
+                  id = '/'+currentActivity.id;
+              }
+              else{
+                  upload_method = 'POST';
+                  id = '';
+              }
+
+              Upload.upload({
+                url: '/api/activity_image' + id,
+                method: upload_method,
+                data: {image: $scope.image_up},
+              }).then(function(response){
+                  $scope.alert.success('A imagem foi atualizada.');
+                  currentActivity.id = response.data.id;
+                  currentActivity.image_url = response.data.image.match("^[^#]*?:\/\/.*?(\/.*)$")[1];
+                  currentActivity.image_show = true;
+              });
+            }
+        };
+
+        $scope.deleteThumb = function() {
+            if ($scope.course.id) {
+              Upload.upload({
+                url: '/api/activity_image/' + $scope.currentActivity.id,
+                method: 'PUT',
+                data: {image: ''},
+              }).then(function(response){
+
+              });
+            }
+        };
+
+      }
+    ]);
+
+    app.controller('SlidesRevealAdminCtrl', [
+      '$scope',
+      '$sce',
+      'Upload',
+      function ($scope, $sce, Upload) {
+
+        // whenever the activity_slidesreveal.html is reloaded, the next function is called
+        $scope.$watch('currentActivity', function() {
+            // If there is already a slides html, show it
+            if($scope.currentActivity !== undefined && $scope.currentActivity.data.content){
+                $scope.currentActivity.html_show = true;
+            }
+            else
+                $scope.currentActivity.html_show = false;
+        });
+
+        // The html file recieved through the from must be open, read, and its contents will be stored in a json
+        $scope.saveSlides = function(currentActivity){
+            Upload.dataUrl($scope.html_file, true).then(function(data_url) {
+                var blob = Upload.dataUrltoBlob(data_url, "name");
+                var reader = new FileReader();
+                reader.addEventListener("loadend", function() {
+                    currentActivity.data = {
+                        'content': reader.result
+                    };
+                    currentActivity.html_show = true;
+                });
+                reader.readAsText(blob);
+            });
+        };
+
+      }]);
+
 })(window.angular);
