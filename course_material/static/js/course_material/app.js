@@ -10,7 +10,10 @@
         'directive.markdowneditor',
         'directive.alertPopup',
         'header',
-        'directive.fixedBar'
+        'directive.fixedBar',
+        'ui.tinymce',
+        'ngFileUpload',
+        'discussion.services',
     ]);
 
 })(angular);

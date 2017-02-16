@@ -3,9 +3,11 @@
 
     var app = angular.module('courseMaterial.controllers', ['ngCookies']);
 
-    app.controller('CourseMaterialEditorCtrl', ['$scope', '$window', 'CourseMaterial','CourseMaterialFile',
-        function ($scope, $window, CourseMaterial, CourseMaterialFile) {
+    app.controller('CourseMaterialEditorCtrl', ['$scope', '$window', '$sce', 'CourseMaterial','CourseMaterialFile', 'ContentFile', 'uiTinymceConfig',
+        function ($scope, $window, $sce, CourseMaterial, CourseMaterialFile, ContentFile, uiTinymceConfig) {
             $scope.courseId = $window.course_id;
+
+            uiTinymceConfig.images_upload_handler = ContentFile.upload;
 
             $scope.course_materials = CourseMaterial.query({course__id: $scope.courseId}, function (course_materials){
                 if(course_materials.length === 1) {
@@ -16,6 +18,7 @@
             $scope.save_course_material = function(){
                 $scope.course_material.$update({course: $scope.courseId}, function(){
                     $scope.alert.success('Alterações salvas com sucesso!');
+                    $scope.editando = false;
                 });
             };
 
@@ -30,6 +33,10 @@
                         });
                     });
                 }
+            };
+
+            $scope.get_as_safe_html = function(html_content) {
+                return $sce.trustAsHtml(html_content);
             };
     }]);
 })(angular);
