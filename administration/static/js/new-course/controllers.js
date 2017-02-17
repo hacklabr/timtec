@@ -3,8 +3,8 @@
     var app = angular.module('new-course');
 
     app.controller('CourseEditController',
-        ['$scope', '$window', '$uibModal', '$http', '$q', 'Course',  'CourseAuthor', 'Lesson', '$filter', 'youtubePlayerApi', 'VideoData', 'FormUpload',
-        function($scope, $window, $uibModal, $http , $q, Course,  CourseProfessor, Lesson, $filter, youtubePlayerApi, VideoData, FormUpload) {
+        ['$scope', '$window', '$uibModal', '$http', '$q', 'Course',  'CourseAuthor', 'Lesson', '$filter', 'youtubePlayerApi', 'VideoData', 'FormUpload', 'uibDateParser',
+        function($scope, $window, $uibModal, $http , $q, Course,  CourseProfessor, Lesson, $filter, youtubePlayerApi, VideoData, FormUpload, uibDateParser) {
 
             $scope.errors = {};
             var httpErrors = {
@@ -15,36 +15,29 @@
 
             $scope.course_id = parseInt($window.course_id, 10);
 
-            $scope.course = new Course();
             $scope.courseProfessors = [];
             $scope.lessons = [];
 
-            $scope.course.$get({id: $scope.course_id})
-                .then(function(course){
-                    if(course.intro_video) {
-                        youtubePlayerApi.videoId = course.intro_video.youtube_id;
-                    }
-                    document.title = 'Curso: {0}'.format(course.name);
-                    $scope.addThumb = !course.thumbnail_url;
-                    $scope.addHomeThumb = !course.home_thumbnail_url;
-                })
-                .then(function(){
-                    $scope.lessons = Lesson.query({'course__id': $scope.course_id});
-                    return $scope.lessons.promise;
-                })
-                .then(function(){
-                    $scope.courseProfessors = CourseProfessor.query({
-                        course: $scope.course_id
-                    });
+            Course.get({id: $scope.course_id}, function(course){
+                if(course.intro_video) {
+                    youtubePlayerApi.videoId = course.intro_video.youtube_id;
+                }
+                document.title = 'Curso: {0}'.format(course.name);
+                $scope.addThumb = !course.thumbnail_url;
+                $scope.addHomeThumb = !course.home_thumbnail_url;
+                course.start_date = uibDateParser.parse(course.start_date, "yyyy-MM-dd");
+                $scope.course = course;
+            });
 
                     // TODO here comes classes professors
 
-                    return $scope.courseProfessors.promise;
-                })['catch'](function(resp){
-                    $scope.alert.error(httpErrors[resp.status.toString()]);
-                })['finally'](function(){
-                    $scope.statusList = Course.fields.status.choices;
-                });
+            $scope.lessons = Lesson.query({
+              'course__id': $scope.course_id
+            });
+
+            $scope.courseProfessors = CourseProfessor.query({
+              course: $scope.course_id
+            });
 
             var player;
             $scope.playerReady = false;
@@ -61,6 +54,22 @@
                         $scope.course.intro_video.name = data.items[0].snippet.title;
                 });
             });
+
+
+            $scope.setCurrentUnitVideo = function() {
+                //
+                // support pasting both long and short urls from youtube
+                // eg. http://youtu.be/8uj7YSqby7s
+                //
+                var complete_url = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                var result = complete_url.exec($scope.youtube_id);
+                if (result && result[2].length == 11) {
+                    // If this is the first time a intro_video is set, prepare the variable
+                    if($scope.course.intro_video === 'undefined' || $scope.course.intro_video === null)
+                        $scope.course.intro_video = {};
+                    $scope.course.intro_video.youtube_id = result[2];
+                }
+            };
 
             function showFieldErrors(response) {
                 $scope.errors = response.data;
@@ -124,7 +133,8 @@
                 }
 
                 $scope.course.save()
-                    .then(function(){
+                    .then(function(course){
+                        course.start_date = uibDateParser.parse(course.start_date, "yyyy-MM-dd");
                         return $scope.saveThumb();
                     })
                     .then(function(){
@@ -142,7 +152,7 @@
             };
 
             $scope.set_course_as_draft = function() {
-                if (confirm('Ao tornar o curso um racunho, ele não será mais visível para os usuários! Tem certeza que deseja tornar este curso um rascunho?')){
+                if (confirm('Ao tornar o curso um rascunho, ele não será mais visível para os usuários! Tem certeza de que quer continuar?')){
                     $scope.course.status = 'draft';
                     $scope.saveCourse();
                 }

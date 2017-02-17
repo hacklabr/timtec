@@ -239,8 +239,7 @@ class VideoSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    # BUGFIX: intro_video needs to be read_only=False. This is a little workaround to make other modules work
-    intro_video = VideoSerializer(required=False, read_only=True)
+    intro_video = VideoSerializer(required=False)
     thumbnail_url = serializers.ReadOnlyField(source='get_thumbnail_url')
 
     has_started = serializers.ReadOnlyField()
