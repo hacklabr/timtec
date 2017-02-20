@@ -596,24 +596,6 @@ class ProfessorGlobalMessageViewSet(mixins.CreateModelMixin,
     serializer_class = ProfessorGlobalMessageSerializer
     permission_classes = (IsAdminOrReadOnly,)
 
-    def perform_create(self, serializer):
-        all_students = self.request.data.get('all_students', None)
-        groups = self.request.data.get('groups', None)
-
-        User = get_user_model()
-        if all_students:
-            # If all_students was set to True by the client, this is a global message
-            obj = serializer.save(professor=self.request.user, users=User.objects.all())
-        elif groups:
-            # If groups were specified, their users are the recipients
-            obj = serializer.save(professor=self.request.user, users=User.objects.filter(groups__in=groups))
-        else:
-            # Otherwise, the 'users' data alreay has the complete recipients list
-            obj = serializer.save(professor=self.request.user)
-
-        if obj:
-            obj.send()
-
     def get_queryset(self):
         # Get all admin messages sent using this view
         queryset = ProfessorMessage.objects.filter(course=None).order_by('-id')
