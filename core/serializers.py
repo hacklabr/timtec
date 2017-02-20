@@ -88,7 +88,17 @@ class ProfessorMessageUserDetailsSerializer(serializers.ModelSerializer):
 
 
 class ProfessorGlobalMessageSerializer(ProfessorMessageSerializer):
-    users = TimtecUserSerializer(required=False, many=True)
+    users = TimtecUserSerializer(read_only=True, required=False, many=True)
+
+    def create(self, validated_data):
+        global_message = ProfessorMessage(**validated_data)
+        global_message.save()
+        User = get_user_model()
+        for user_id in self.context['request'].data['users']:
+            global_message.users.add(User.objects.get(id=user_id))
+
+        global_message.send()
+        return global_message
 
 
 class BaseCourseSerializer(serializers.ModelSerializer):
