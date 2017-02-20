@@ -55,11 +55,27 @@ class ProfessorGlobalMessageSerializer(ProfessorMessageSerializer):
     users = TimtecUserSerializer(read_only=True, required=False, many=True)
 
     def create(self, validated_data):
+
+        all_students = self.context['request'].data.get('all_students', None)
+        groups = self.context['request'].data.get('groups', None)
+
+        recipients = validated_data.pop('users', None)
+        validated_data['professor'] = self.context['request'].user
+
         global_message = ProfessorMessage(**validated_data)
         global_message.save()
+
         User = get_user_model()
-        for user_id in self.context['request'].data['users']:
-            global_message.users.add(User.objects.get(id=user_id))
+        if all_students:
+            # If all_students was set to True by the client, this is a global message
+            global_message.users.add(*[user for user in User.objects.all()])
+        elif groups:
+            # If groups were specified, their users are the recipients
+            global_message.users.add(*[user for user in User.objects.filter(groups__in=groups)])
+        elif recipients:
+            # Otherwise, user the recipients list
+            for user_id in self.context['request'].data['users']:
+                global_message.users.add(User.objects.get(id=user_id))
 
         global_message.send()
         return global_message
