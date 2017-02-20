@@ -115,8 +115,8 @@
             }
         ]);
 
-        module.controller('NewGlobalMessageController', ['$scope', '$uibModal', '$window', 'MessageGlobal', 'Student', 'Group', 'StudentSearch', 'Class', 'messages_list', '$rootScope', 'ContentFile', 'uiTinymceConfig',
-                function($scope, $uibModal, $window, MessageGlobal, Student, Group, StudentSearch, Class, messages_list, $rootScope, ContentFile, uiTinymceConfig) {
+        module.controller('NewGlobalMessageController', ['$scope', '$uibModal', '$window', 'MessageGlobal', 'Student', 'Group', 'UserSearch', 'Class', 'messages_list', '$rootScope', 'ContentFile', 'uiTinymceConfig',
+                function($scope, $uibModal, $window, MessageGlobal, Student, Group, UserSearch, Class, messages_list, $rootScope, ContentFile, uiTinymceConfig) {
                     $scope.course_id = parseInt($window.course_id, 10);
                     $scope.messages = messages_list.messages;
 
@@ -158,14 +158,15 @@
                         $scope.modal.all_students = true;
 
                         $scope.send = function () {
-                            // TODO validação dos campo: títle e message não podem ser vazios
-                            if ($scope.modal.all_students)
+                            if ($scope.modal.all_students){
                                 $scope.new_message.all_students = true;
-
+                                delete $scope.new_message.users;  // ensures that the empty array wont be sent to the server
+                            }
                             // If groups were specified, put them in a groups field
-                            if ($scope.groups.checked)
+                            if ($scope.groups.checked){
                                 $scope.new_message.groups = $scope.groups.checked;
-
+                                delete $scope.new_message.users;  // ensures that the empty array wont be sent to the server
+                            }
                             if ($scope.new_message.message && $scope.new_message.subject) {
                                 $uibModalInstance.close($scope.new_message);
                                 $scope.empty_msg_subject_error = false;
@@ -187,7 +188,7 @@
                             $uibModalInstance.dismiss();
                         };
                         $scope.getUsers = function(val) {
-                            return new StudentSearch(val);
+                            return new UserSearch(val);
                         };
 
                         $scope.on_select_student = function(model) {

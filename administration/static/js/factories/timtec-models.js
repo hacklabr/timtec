@@ -277,6 +277,38 @@
         };
     }]);
 
+    /**
+     * UserSearch model. Used in typeahead input with ui.bootstrap.typeahead.
+     * It uses http instead resource cause it has to be synchronous.
+     */
+    app.factory('UserSearch', ['$http', function($http){
+        return function(val, course_id) {
+            return $http.get('/api/user_search', {
+                params: {
+                    name: val,
+                    sensor: false
+                }
+            }).then(function (res) {
+                var user_found = [];
+                angular.forEach(res.data, function (item) {
+                    var formated_name = '';
+                    if (item.first_name)
+                        formated_name += item.first_name;
+                    if (item.last_name)
+                        formated_name = formated_name + ' ' + item.last_name;
+                    if (formated_name)
+                        formated_name = formated_name + ' - ';
+                    formated_name += item.username;
+                    if (item.email)
+                        formated_name = formated_name + ' - ' + item.email;
+                    item.formated_name = formated_name;
+                    user_found.push(item);
+                });
+                return user_found;
+            });
+        };
+    }]);
+
 
     app.factory('Class', function($resource){
         return $resource('/api/course_classes/:id', {'id' : '@id'}, {
