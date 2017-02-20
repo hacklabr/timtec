@@ -227,7 +227,7 @@ if 'ifs' in settings.INSTALLED_APPS:
 if 'discussion' in settings.INSTALLED_APPS:
     urlpatterns += (url(r'^discussion/', include('discussion.urls', namespace='discussion')),)
 
-if 'paralapraca' in settings.INSTALLED_APPS:
+if 'timtec_theme_hacklab' in settings.INSTALLED_APPS:
     urlpatterns += (
-        url(r'^paralapraca/', include('paralapraca.urls', namespace='paralapraca')),
+        url(r'^timtec_theme_hacklab/', include('timtec_theme_hacklab.urls', namespace='timtec_theme_hacklab')),
     )
