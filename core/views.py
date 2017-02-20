@@ -522,7 +522,7 @@ class ProfessorMessageViewSet(viewsets.ModelViewSet):
         unread = self.request.query_params.get('unread', None)
         if unread:
             # Exclude read messages
-            queryset = queryset.exclude(read_status__is_read=True)
+            queryset = queryset.exclude(read_status__is_read=True, read_status__user=self.request.user)
 
         limit_to = self.request.query_params.get('limit_to', None)
         if limit_to:
