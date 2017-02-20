@@ -322,6 +322,11 @@ except IOError:
 
 COMPRESS_OFFLINE = True
 
+COMPRESS_PRECOMPILERS = (
+    ('text/less', 'lessc {infile} {outfile}'),
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)
+
 PIPELINE = {
     'COMPILERS': (
         'pipeline.compilers.less.LessCompiler',
