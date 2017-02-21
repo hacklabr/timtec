@@ -311,7 +311,7 @@ LOGGING = {
 COMPRESS_OFFLINE = True
 
 COMPRESS_PRECOMPILERS = (
-    ('text/less', 'lessc {infile} {outfile}'),
+    ('text/less', '%s/node_modules/less/bin/lessc {infile} {outfile} --include-path="%s/less"' % (PROJECT_ROOT, STATIC_ROOT)),
     ('text/x-scss', 'django_libsass.SassCompiler'),
 )
 
