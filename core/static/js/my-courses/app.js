@@ -6,7 +6,6 @@
         'timtec-models',
         'directive.file',
         'ui.bootstrap',
-        'ui.bootstrap.datetimepicker',
         'truncate',
         'ngRoute',
         'ngResource',
