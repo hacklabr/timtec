@@ -9,7 +9,6 @@
         'directive.alertPopup',
         'directive.fixedBar',
         'ui.bootstrap',
-        'ui.bootstrap.datetimepicker',
         'truncate',
         'checklist-model',
         'ngRoute',
