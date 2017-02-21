@@ -65,5 +65,5 @@ django-localflavor==1.4.1
 # Themes
 git+https://github.com/institutotim/timtec-theme-timtec.git#master
 git+https://github.com/institutotim/timtec-theme-if.git#master
--e git+https://github.com/hacklabr/timtec-theme-hacklab.git@master
--e git+https://github.com/hacklabr/django-discussion.git@theme-hacklab
+-e git+https://github.com/hacklabr/timtec-theme-hacklab.git@master#egg=timtec_theme_hacklab
+-e git+https://github.com/hacklabr/django-discussion.git@theme-hacklab#egg=django-discussion
