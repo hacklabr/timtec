@@ -229,5 +229,5 @@ if 'discussion' in settings.INSTALLED_APPS:
 
 if 'timtec_theme_hacklab' in settings.INSTALLED_APPS:
     urlpatterns += (
-        url(r'^timtec_theme_hacklab/', include('timtec_theme_hacklab.urls', namespace='timtec_theme_hacklab')),
+        url(r'^base/', include('timtec_theme_hacklab.urls', namespace='base_theme')),
     )
