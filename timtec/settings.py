@@ -315,6 +315,8 @@ COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'django_libsass.SassCompiler'),
 )
 
+LIBSASS_SOURCEMAPS = True
+
 try:
     execfile(os.path.join(SETTINGS_DIR, 'settings_local.py'))
 except IOError:
