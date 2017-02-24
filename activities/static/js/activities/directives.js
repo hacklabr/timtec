@@ -171,7 +171,7 @@
                             try {
                                 scope.totalSlides = $("#slidesreveal").contents().find("div.slides")[0].childElementCount;
                             } catch (e) {
-                                // Problem while trying to get the total from totalSlides access the reveal.js iframe
+                                // Problem while trying to get the total from the reveal.js iframe
                                 // Pass it silently
                             }
 
@@ -227,7 +227,9 @@
 
                 // Go back one slide
                 scope.previous_slide = function(){
-                  scope.select_slide(scope.current_slide-1);
+                  // If the user alreay is in the first slide, don't change the number
+                  if(scope.current_slide > 0)
+                      scope.select_slide(scope.current_slide-1);
                 };
 
                 // The Answer instance for this activity must always store the last slide viewed
