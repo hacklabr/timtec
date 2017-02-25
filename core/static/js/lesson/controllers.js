@@ -77,39 +77,42 @@
                     $scope.currentActivity = $scope.currentUnit.activities[index];
                     $scope.activityTemplateUrl = resolveActivityTemplate($scope.currentActivity.type);
 
-                    $scope.answer = Answer.get({activityId: $scope.currentActivity.id}, function(answer) {
-                        var exp = $scope.currentActivity.expected;
-                        var giv = answer.given;
+                    // slidesreveal activity will get the answer object by itself
+                    if($scope.currentActivity.type !== 'slidesreveal'){
+                      $scope.answer = Answer.get({activityId: $scope.currentActivity.id}, function(answer) {
+                          var exp = $scope.currentActivity.expected;
+                          var giv = answer.given;
 
-                        // Test if the answer type is array.
-                        // See https://github.com/hacklabr/timtec/wiki/Atividades for details
-                        // FIXME should compare $scope.currentActivity.type
-                        if ($scope.currentActivity === 'relationship' ||
-                            $scope.currentActivity === 'trueorfalse' ||
-                            $scope.currentActivity === 'multiplechoice') {
-                            // FIXME why this name?
-                            // TODO test if professor changes the activity (create a new alternative, the user lost his answer?
-                            var shouldUseLastAnswer = (exp !== null && exp !== undefined) &&
-                                (angular.isArray(exp) && angular.isArray(giv) && giv.length === exp.length);
+                          // Test if the answer type is array.
+                          // See https://github.com/hacklabr/timtec/wiki/Atividades for details
+                          // FIXME should compare $scope.currentActivity.type
+                          if ($scope.currentActivity === 'relationship' ||
+                              $scope.currentActivity === 'trueorfalse' ||
+                              $scope.currentActivity === 'multiplechoice') {
+                              // FIXME why this name?
+                              // TODO test if professor changes the activity (create a new alternative, the user lost his answer?
+                              var shouldUseLastAnswer = (exp !== null && exp !== undefined) &&
+                                  (angular.isArray(exp) && angular.isArray(giv) && giv.length === exp.length);
 
-                            if (!shouldUseLastAnswer) {
-                                // Initialize empty given answer
-                                if(angular.isArray($scope.currentActivity.expected)) {
-                                    answer.given = $scope.currentActivity.expected.map(function(){});
-                                }
-                                delete answer.correct;
-                            }
-                        }
-                    },
-                    function (error) {
-                        console.log('answer does not exists or other errors');
-                        var answer = {};
-                        if(angular.isArray($scope.currentActivity.expected)) {
-                            answer.given = $scope.currentActivity.expected.map(function(){});
-                        }
-                        $scope.$root.changed = true;
-                        $scope.answer = new Answer(answer);
-                    });
+                              if (!shouldUseLastAnswer) {
+                                  // Initialize empty given answer
+                                  if(angular.isArray($scope.currentActivity.expected)) {
+                                      answer.given = $scope.currentActivity.expected.map(function(){});
+                                  }
+                                  delete answer.correct;
+                              }
+                          }
+                      },
+                      function (error) {
+                          console.log('answer does not exists or other errors');
+                          var answer = {};
+                          if(angular.isArray($scope.currentActivity.expected)) {
+                              answer.given = $scope.currentActivity.expected.map(function(){});
+                          }
+                          $scope.$root.changed = true;
+                          $scope.answer = new Answer(answer);
+                      });
+                    }
                 } else {
                     $scope.currentActivity = null;
                     $scope.activityTemplateUrl = null;
@@ -120,7 +123,6 @@
                 $scope.answer.activity = $scope.currentActivity.id;
                 if ($scope.currentActivity.type === 'image')
                     $scope.answer.given = 'image';
-
                 // Converts a dict to array, to match with expected answer type
                 if(typeof($scope.answer.given) == 'object') {
                     var given = [];
