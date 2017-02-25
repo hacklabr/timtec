@@ -145,13 +145,6 @@
                 $scope.nextUnit();
             };
 
-            $scope.sendAnswerText = function() {
-                var progress;
-                progress = Progress.complete($scope.currentUnit.id);
-                $scope.currentUnit.progress = progress;
-                $scope.nextUnit();
-            };
-
             $scope.nextStep = function(skipComment) {
                 var progress;
                 if($scope.section === 'video') {
