@@ -242,7 +242,7 @@
 
                 // If this is the last slide, update StudentProgress with the is_complete flag
                 scope.update_progress = function() {
-                    Progress.complete(scope.currentUnit.id);
+                    scope.currentUnit.progress = Progress.complete(scope.currentUnit.id);
                 };
 
               }
