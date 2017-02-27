@@ -598,7 +598,7 @@ class ProfessorMessage(models.Model):
     message = models.TextField(_('Message'))
     date = models.DateTimeField(_('Date'), auto_now_add=True)
     course = models.ForeignKey(Course, verbose_name=_('Course'), null=True)
-    users_that_read = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='read_messages', null=True)
+    users_that_read = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='read_messages', blank=True)
 
     def __unicode__(self):
         return unicode(self.subject)
