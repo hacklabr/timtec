@@ -51,6 +51,10 @@ class Command(BaseCommand):
 
                 user = User()
                 user.first_name, user.last_name = row.get('name').split(' ', 1 )
+                if user.first_name:
+                    user.first_name = user.first_name.title()
+                if user.last_name:
+                    user.last_name = user.last_name.title()
                 if row.has_key('email') and row.get('email'):
                     user.email = row.get('email')
                 else:
