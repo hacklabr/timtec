@@ -18,7 +18,7 @@ class UserCourseStats(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
     queryset = CourseStudent.objects.all()
     serializer_class = UserCourseStatsSerializer
     filter_fields = ('course',)
-    pagination_class = CustomPagination
+    # pagination_class = CustomPagination
 
     def get_queryset(self):
         queryset = super(UserCourseStats, self).get_queryset()
@@ -77,7 +77,7 @@ class CourseStatsByLessonViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewS
     model = Course
     queryset = Course.objects.all()
     serializer_class = CourseStats
-    pagination_class = CustomPagination
+    # pagination_class = CustomPagination
 
     def retrieve(self, request, *args, **kwargs):
         self.object = self.get_object()
