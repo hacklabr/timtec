@@ -238,7 +238,7 @@
                         'CertificationProcess', CourseCompleteModalInstanceCtrl],
                     resolve: {
                         course_slug: function () {
-                            return $scope.lesson.course;
+                            return $scope.lesson.course.slug;
                         }
                     }
                 });
