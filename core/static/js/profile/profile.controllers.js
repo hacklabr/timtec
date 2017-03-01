@@ -25,6 +25,15 @@
             TimtecUser.get({username: username}, function(user_profile) {
                 user_profile.is_current_user = (user_profile.id === parseInt(CurrentUser.id, 10));
                 $scope.user_profile = user_profile;
+
+                // Try to find at least one valid certificate
+                $scope.valid_certificates = false;
+                for (var i = 0; i < user_profile.certificates.length; i++) {
+                    if(user_profile.certificates[i].approved === true){
+                        $scope.valid_certificates = true;
+                        break;
+                    }
+                }
             }, function(error) {
                 $scope.user_profile = null;
             });
