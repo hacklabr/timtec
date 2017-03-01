@@ -10,6 +10,7 @@ from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
+from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.auth.models import Group
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.template import Template, Context
@@ -864,6 +865,7 @@ class CertificationProcess(models.Model):
             self.course_certification.course_student.user, self.evaluation)
 
 
+@python_2_unicode_compatible
 class CertificateTemplate(models.Model):
     course = models.OneToOneField(Course, verbose_name=_('Course'))
     role = models.CharField(_('Role'), max_length=128, blank=True, null=True)
@@ -880,9 +882,6 @@ class CertificateTemplate(models.Model):
 
     class Meta:
         verbose_name = _('Certificate Template')
-
-    def __unicode__(self):
-        return '({0})'.format(self.course)
 
     def __str__(self):
         return '({0})'.format(self.course)
