@@ -33,8 +33,8 @@
 
             $scope.remove_item = function(index){
                 // removing from 'screen' list
-                var student_id = $scope.classe.students_detail[index].user.id;
-                $scope.classe.students_detail.splice(index, 1);
+                var student_id = $scope.classe.students_details[index].user.id;
+                $scope.classe.students_details.splice(index, 1);
 
 
                 // remove from real list
@@ -43,7 +43,7 @@
             };
 
             $scope.on_select_student = function(model) {
-                $scope.classe.students_detail.unshift(model);
+                $scope.classe.students_details.unshift(model);
                 $scope.classe.students.unshift(model.id);
                 $scope.asyncSelected = '';
                 $scope.save();
@@ -51,7 +51,7 @@
 
             $scope.toggle_certificate = function (index){
 
-                var student = $scope.classe.students_detail[index];
+                var student = $scope.classe.students_details[index];
                 if(student.certificate) {
                     var cc_id = student.certificate.link_hash;
                     var user_id = student.user.id;
