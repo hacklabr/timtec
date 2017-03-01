@@ -9,6 +9,7 @@ class UserCourseStatsSerializer(serializers.ModelSerializer):
     username = serializers.SerializerMethodField()
     email = serializers.SerializerMethodField()
     user_id = serializers.SerializerMethodField()
+    picture = serializers.SerializerMethodField()
     course_progress = serializers.SerializerMethodField('get_user_progress')
     # forum_questions = serializers.SerializerMethodField('get_forum_questions')
     # forum_answers = serializers.SerializerMethodField('get_forum_answers')
@@ -16,7 +17,7 @@ class UserCourseStatsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CourseStudent
-        fields = ('name', 'username', 'email', 'user_id', 'course_progress',)
+        fields = ('name', 'username', 'email', 'user_id', 'picture', 'course_progress',)
 
     def get_full_name(self, obj):
         return obj.user.get_full_name()
@@ -32,6 +33,9 @@ class UserCourseStatsSerializer(serializers.ModelSerializer):
 
     def get_user_progress(self, obj):
         return obj.percent_progress()
+
+    def get_picture(self, obj):
+        return obj.user.get_picture_url()
 
     # def get_forum_questions(self, obj):
     #     return obj.forum_questions_by_lesson()

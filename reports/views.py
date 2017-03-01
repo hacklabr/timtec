@@ -42,7 +42,7 @@ class UserCourseStats(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
         else:
             # if user is not coordinator or admin, only show his classes
             classes = Class.objects.filter(course=course_id)
-            classes = classes.filter(assistant=user)
+            classes = classes.filter(assistants=user)
             queryset = queryset.filter(user__classes__in=classes)
 
         # TODO: Fix ordering
@@ -96,7 +96,7 @@ class CourseStatsByLessonViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewS
             classes = classes.filter(id__in=classes_id)
         # if user is not coordinator or admin, only show his classes
         if not (role and (role == 'coordinator') and self.request.user.is_staff and self.request.user.is_superuser):
-            classes = classes.filter(assistant=self.request.user)
+            classes = classes.filter(assistants=self.request.user)
 
         self.object.classes = classes
         serializer = self.get_serializer(self.object)
