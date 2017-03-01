@@ -12,8 +12,7 @@
             });
             CourseUserReport.query({
                 course: $scope.course_id
-            }, function(page) {
-                var data = page.results;
+            }, function(data) {
                 for (var i = 0; i < data.length; i++) {
                     if (!data[i].name)
                         data[i].name = data[i].username;
