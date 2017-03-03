@@ -621,9 +621,6 @@ class ProfessorMessage(models.Model):
     def users_that_not_read(self):
         return self.users.all().exclude(id__in=[user.id for user in self.users_that_read.all()])
 
-    def get_absolute_url(self):
-        return reverse('message_detail', kwargs={'message_id': self.id, 'course_slug': self.course.slug})
-
 
 class ProfessorMessageRead(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Student'))
