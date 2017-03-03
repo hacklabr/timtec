@@ -242,6 +242,7 @@ INSTALLED_APPS = (
 
     'compressor',
     'localflavor',
+    'anymail',
     # raven has to be the last one
     'raven.contrib.django.raven_compat',
 )
