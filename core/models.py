@@ -606,7 +606,7 @@ class ProfessorMessage(models.Model):
         return unicode(self.subject)
 
     def send(self):
-        bcc = [u.email for u in self.users.all() if u.is_active]
+        bcc = [u.email for u in self.users.all() if u.is_active and re.match(r"[^@]+@[^@]+\.[^@]+", u.email)]
         try:
             et = EmailTemplate.objects.get(name='professor-message')
         except EmailTemplate.DoesNotExist:
