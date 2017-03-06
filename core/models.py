@@ -6,7 +6,7 @@ import datetime
 from django.db import models
 from django.db.models.signals import m2m_changed
 from django.db.models import Count
-from django.core.mail import EmailMessage, send_mass_mail
+from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
@@ -606,14 +606,16 @@ class ProfessorMessage(models.Model):
         return unicode(self.subject)
 
     def send(self):
+        bcc = [u.email for u in self.users.all() if u.is_active]
         try:
             et = EmailTemplate.objects.get(name='professor-message')
         except EmailTemplate.DoesNotExist:
             et = EmailTemplate(name="professor-message", subject="{{subject}}", template="{{message|safe}}")
         subject = Template(et.subject).render(Context({'subject': self.subject}))
         message = Template(et.template).render(Context({'message': self.message}))
-        data_tuple = [(subject, message, settings.DEFAULT_FROM_EMAIL, [u.email, ]) for u in self.users.all() if u.is_active]
-        return send_mass_mail(data_tuple, fail_silently=True)
+        email = EmailMessage(subject, message, settings.DEFAULT_FROM_EMAIL, [settings.DEFAULT_FROM_EMAIL, ], bcc)
+        email.content_subtype = "html"
+        return email.send()
 
     @property
     def users_that_not_read(self):
