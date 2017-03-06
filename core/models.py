@@ -581,7 +581,7 @@ class ProfessorMessage(models.Model):
     course = models.ForeignKey(Course, verbose_name=_('Course'), null=True)
 
     def send(self):
-        bcc = [u.email for u in self.users.all()]
+        bcc = [u.email for u in self.users.all() if u.is_active]
         try:
             et = EmailTemplate.objects.get(name='professor-message')
         except EmailTemplate.DoesNotExist:
