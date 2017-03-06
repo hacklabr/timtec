@@ -59,7 +59,7 @@ class ProfessorGlobalMessageSerializer(ProfessorMessageSerializer):
         all_students = self.context['request'].data.get('all_students', None)
         groups = self.context['request'].data.get('groups', None)
 
-        recipients = validated_data.pop('users', None)
+        recipients = self.context['request'].data.get('users', None)
         validated_data['professor'] = self.context['request'].user
 
         global_message = ProfessorMessage(**validated_data)
