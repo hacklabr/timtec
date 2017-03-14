@@ -31,6 +31,7 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           CourseThumbSerializer, LessonSerializer,
                           StudentProgressSerializer, CourseNoteSerializer,
                           LessonNoteSerializer, ProfessorMessageSerializer,
+                          SimpleLessonSerializer,
                           ProfessorMessageReadSerializer, ProfessorGlobalMessageSerializer,
                           CourseStudentSerializer, ClassSerializer,
                           ClassActivitySerializer, FlatpageSerializer,
@@ -798,6 +799,21 @@ class LessonViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = super(LessonViewSet, self).get_queryset()
+        if self.request.user.is_active:
+            return queryset
+        return queryset.filter(published=True)
+
+
+class SimpleLessonViewSet(viewsets.ReadOnlyModelViewSet):
+    model = Lesson
+    queryset = Lesson.objects.all()
+    serializer_class = SimpleLessonSerializer
+    filter_fields = ('course__slug', 'course__id',)
+    filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter,)
+    ordering = ('position',)
+
+    def get_queryset(self):
+        queryset = super(SimpleLessonViewSet, self).get_queryset()
         if self.request.user.is_active:
             return queryset
         return queryset.filter(published=True)

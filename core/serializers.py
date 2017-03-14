@@ -364,6 +364,14 @@ class UnitSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'video', 'activities', 'side_notes', 'position', 'chat_room',)
 
 
+class SimpleUnitSerializer(UnitSerializer):
+    video = VideoSerializer(required=False, allow_null=True)
+
+    class Meta:
+        model = Unit
+        fields = ('id', 'title', 'video', 'position',)
+
+
 class LessonSerializer(serializers.ModelSerializer):
 
     units = UnitSerializer(many=True)
@@ -430,6 +438,10 @@ class LessonSerializer(serializers.ModelSerializer):
             unit.activities = activities
             units.append(unit)
         return units
+
+
+class SimpleLessonSerializer(LessonSerializer):
+    units = SimpleUnitSerializer(many=True)
 
 
 class NoteSerializer(serializers.ModelSerializer):

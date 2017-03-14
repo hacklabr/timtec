@@ -3,8 +3,8 @@
     var app = angular.module('new-course');
 
     app.controller('CourseEditController',
-        ['$scope', '$window', '$uibModal', '$http', '$q', 'Course',  'CourseAuthor', 'Lesson', '$filter', 'youtubePlayerApi', 'VideoData', 'FormUpload', 'uibDateParser',
-        function($scope, $window, $uibModal, $http , $q, Course,  CourseProfessor, Lesson, $filter, youtubePlayerApi, VideoData, FormUpload, uibDateParser) {
+        ['$scope', '$window', '$uibModal', '$http', '$q', 'Course',  'CourseAuthor', 'Lesson', 'SimpleLesson', '$filter', 'youtubePlayerApi', 'VideoData', 'FormUpload', 'uibDateParser',
+        function($scope, $window, $uibModal, $http , $q, Course,  CourseProfessor, Lesson, SimpleLesson, $filter, youtubePlayerApi, VideoData, FormUpload, uibDateParser) {
 
             $scope.errors = {};
             var httpErrors = {
@@ -29,7 +29,7 @@
                 $scope.course = course;
             });
 
-            $scope.lessons = Lesson.query({
+            $scope.lessons = SimpleLesson.query({
               'course__id': $scope.course_id
             });
 

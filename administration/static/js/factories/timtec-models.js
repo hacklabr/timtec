@@ -211,6 +211,29 @@
         return Lesson;
     }]);
 
+    /**
+     * SimpleLesson model (doesn't load activities data to save bandwidth)
+     * This is a read only endopoint. For editing, see the Lesson factory.
+     */
+    app.factory('SimpleLesson', ['$resource', function($resource){
+        var resourceConfig = {};
+        var SimpleLesson = $resource('/api/simple_lessons/:id', {'id':'@id'}, resourceConfig);
+        SimpleLesson.prototype.countVideos = function() {
+            return (this.units || []).reduce(function(c, u){
+                return u.video ? c + 1 : c;
+            }, 0);
+        };
+        SimpleLesson.prototype.countActivities = function() {
+            return (this.units || []).reduce(function(c, u){
+                return u.activities ? c + u.activities.length : c;
+            }, 0);
+        };
+        SimpleLesson.prototype.saveOrUpdate = function() {
+            return this.id > 0 ? this.$update() : this.$save();
+        };
+        return SimpleLesson;
+    }]);
+
     app.factory('CourseStudent', function($resource){
         return $resource('/api/course_student/:id',
             {'id' : '@id'},

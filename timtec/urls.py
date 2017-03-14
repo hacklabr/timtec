@@ -11,7 +11,7 @@ from accounts.views import (ProfileEditView, ProfileView, UserSearchView,
 from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         CourseProfessorViewSet, EnrollCourseView, HomeView,
                         UserCoursesView, ContactView, LessonDetailView,
-                        LessonViewSet, StudentProgressViewSet,
+                        LessonViewSet, SimpleLessonViewSet, StudentProgressViewSet,
                         UserNotesViewSet, CoursesView, CourseThumbViewSet,
                         ProfessorMessageViewSet, ProfessorMessageReadViewSet,
                         ProfessorGlobalMessageViewSet, CourseStudentViewSet, CarouselCourseView,
@@ -59,6 +59,7 @@ router.register(r'professor_message_global', ProfessorGlobalMessageViewSet, base
 router.register(r'professor_message_read', ProfessorMessageReadViewSet, base_name='professor_message_read')
 router.register(r'coursethumbs', CourseThumbViewSet, base_name='coursethumbs')
 router.register(r'lessons', LessonViewSet, base_name='lessons')
+router.register(r'simple_lessons', SimpleLessonViewSet, base_name='simple_lessons')
 router.register(r'answer', AnswerViewSet, base_name='answer')
 router.register(r'activity_image', ActivityImageViewSet, base_name='activity_image')
 router.register(r'student_progress', StudentProgressViewSet, base_name='student_progress')
