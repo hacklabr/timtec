@@ -63,7 +63,7 @@
                 var result = complete_url.exec($scope.youtube_id);
                 if (result && result[2].length == 11) {
                     // If this is the first time a intro_video is set, prepare the variable
-                    if($scope.course.intro_video === 'undefined')
+                    if($scope.course.intro_video === 'undefined' || $scope.course.intro_video === null)
                         $scope.course.intro_video = {};
                     $scope.course.intro_video.youtube_id = result[2];
                 }
