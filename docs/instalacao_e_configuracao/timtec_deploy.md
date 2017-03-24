@@ -110,7 +110,7 @@ root@server# passwd timtec-production
 * Com usuário da aplicação - no nosso caso **timtec-production** - faça a clonagem do repositório:
 
 ```
-timtec-production@server$ git clone ~/https://github.com/institutotim/timtec.git
+timtec-production@server$ git clone ~/https://github.com/hacklabr/timtec.git
 ```
 
 * Faça checkout para versão atual (v4.1)
