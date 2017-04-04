@@ -135,6 +135,11 @@
             link:
               function (scope, element, attrs) {
 
+                var frame;  // holds a pointer to the #slidesreveal iframe
+
+                // This value is updated by the eventListener in this directive
+                var go_to_next_unit = false;
+
                 // Ensures that the slides get updated on a directive partial reload
                 var reset = function() {
 
@@ -166,10 +171,12 @@
                     });
 
                     // Find out how many slides there are in the current reveal.js iframe
+                    // But only do so if its done loading
                     $(function(){
                         $('#slidesreveal').on('load', function(){
                             try {
                                 scope.totalSlides = $("#slidesreveal").contents().find("div.slides")[0].childElementCount;
+                                frame = document.querySelector( '#slidesreveal' );
                             } catch (e) {
                                 // Problem while trying to get the total from the reveal.js iframe
                                 // Pass it silently
@@ -188,7 +195,6 @@
                                 scope.select_slide(scope.comeback_slide);
                             else
                                 scope.select_slide(0);
-
                         });
                     });
                 };
@@ -199,38 +205,56 @@
 
                 // Select a slide directly
                 scope.select_slide = function(new_slide){
-                    // Find our presentation iframe
-                    var frame = document.querySelector( '#slidesreveal' );
-
                     // Command the iframe to open a specific slide via message API
                     frame.contentWindow.postMessage( JSON.stringify({
                       method: 'slide',
                       args: [ new_slide ]
                     }), '*' );
-                    scope.current_slide = new_slide;
-                    scope.update_answer(new_slide);
                 };
 
                 // Go foward one slide
                 scope.next_slide = function(){
-                    // If the user alreay is in the last slide, update progress instead
-                    if(scope.current_slide === (scope.totalSlides-1)){
-                        scope.update_progress();
-                        // Open next unit
+                    if(go_to_next_unit)
                         scope.nextUnit();
-
-                    } else {
-                      scope.select_slide(scope.current_slide+1);
-                    }
-
+                    else
+                        frame.contentWindow.postMessage( JSON.stringify({
+                          method: 'next',
+                          args: [  ]
+                        }), '*' );
                 };
 
                 // Go back one slide
                 scope.previous_slide = function(){
-                  // If the user alreay is in the first slide, don't change the number
-                  if(scope.current_slide > 0)
-                      scope.select_slide(scope.current_slide-1);
+                  frame.contentWindow.postMessage( JSON.stringify({
+                    method: 'prev',
+                    args: [  ]
+                  }), '*' );
                 };
+
+                window.addEventListener( 'message', function( event ) {
+                    var data = JSON.parse( event.data );
+                    // Make sure we're talking to a presentation
+                    if( data.namespace === 'reveal' ) {
+                        if( data.eventName === 'slidechanged' || data.eventName === 'ready' ) {
+                            // Dig out the presentation state, key properties:
+                            //   indexh: The index of the current horizontal slide
+                            //   indexv: The index of the current vertical slide (if any)
+                            //   indexf: The index of the current fragment (if any)
+                            var state = data.state;
+                            scope.current_slide = state.indexh;
+                            scope.$apply();
+                            scope.update_answer(scope.current_slide);
+
+                            // Open next unit if this is the last fragment in the last slide
+                            if (scope.current_slide === (scope.totalSlides-1) && (state.indexf === undefined || state.indexf === 0)) {
+                                scope.update_progress();
+                                go_to_next_unit = true;
+                            } else {
+                                go_to_next_unit = false;
+                            }
+                        }
+                    }
+                });
 
                 // The Answer instance for this activity must always store the last slide viewed
                 // Therefore, that instance must always be updated in every slide turn
