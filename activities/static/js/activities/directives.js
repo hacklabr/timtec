@@ -218,7 +218,7 @@
                         scope.nextUnit();
                     else
                         frame.contentWindow.postMessage( JSON.stringify({
-                          method: 'next',
+                          method: 'right',
                           args: [  ]
                         }), '*' );
                 };
@@ -226,7 +226,7 @@
                 // Go back one slide
                 scope.previous_slide = function(){
                   frame.contentWindow.postMessage( JSON.stringify({
-                    method: 'prev',
+                    method: 'left',
                     args: [  ]
                   }), '*' );
                 };
