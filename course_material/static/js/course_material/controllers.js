@@ -7,6 +7,11 @@
         function ($scope, $window, $sce, CourseMaterial, CourseMaterialFile) {
             $scope.courseId = $window.course_id;
 
+            // Set buttons for the tinyMCE editor
+            $scope.tinymceOptions = {
+              toolbar: 'bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | quicklink link fullscreen | removeformat'
+            };
+
             $scope.course_materials = CourseMaterial.query({course__id: $scope.courseId}, function (course_materials){
                 if(course_materials.length === 1) {
                     $scope.course_material = course_materials[0];

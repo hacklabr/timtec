@@ -37,6 +37,11 @@
                 });
             };
 
+            // Set buttons for the tinyMCE editor in discussion activity
+            $scope.tinymceOptions = {
+              toolbar: 'bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | quicklink link fullscreen | removeformat'
+            };
+
 //            $scope.course = new Course();
             $scope.courseProfessors = [];
 

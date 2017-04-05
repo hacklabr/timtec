@@ -18,7 +18,8 @@
         </div>
     </div>
 
-    <modalmarkdowneditor title="discussion" content="currentActivity.data.content">
-    </modalmarkdowneditor>
+    <textarea ui-tinymce="tinymceOptions"
+              ng-model="currentActivity.data.content"
+              placeholder="Escreva aqui o enunciado" name="content" required></textarea>
 
 </div>

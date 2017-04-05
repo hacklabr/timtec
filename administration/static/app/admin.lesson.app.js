@@ -19,5 +19,6 @@
         'ui.bootstrap',
         'discussion.services',
         'ngFileUpload',
+        'ui.tinymce',
     ]);
 })(window.angular);
