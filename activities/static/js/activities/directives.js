@@ -155,21 +155,6 @@
 
                     scope.iframe_url = "/activity/slides_reveal/"+scope.currentActivity.id;
 
-                    // Try to get an Answer object for the current activity
-                    // If there is none, populate a new answer object to be saved later
-                    Answer.get({activityId: scope.currentActivity.id}, function(answer){
-                        if(answer.given !== undefined && answer.given.current_slide !== undefined){
-                            // Store the slide number from previous session, but wait to restore it when the iframe is ready
-                            scope.comeback_slide = answer.given.current_slide;
-                        }
-                        scope.answer = answer;
-                    }, function(error){
-                        scope.answer = new Answer();
-                        scope.answer.activity = scope.currentActivity.id;
-                        scope.answer.given = {'currentSlide': 0};
-                        scope.answer.$save();
-                    });
-
                     // Find out how many slides there are in the current reveal.js iframe
                     // But only do so if its done loading
                     $(function(){
@@ -190,11 +175,6 @@
                                 // Pass it silently
                             }
 
-                            // If the activity has a slide record from a previous session, restore it now
-                            if(scope.comeback_slide !== undefined)
-                                scope.select_slide(scope.comeback_slide);
-                            else
-                                scope.select_slide(0);
                         });
                     });
                 };
@@ -243,7 +223,6 @@
                             var state = data.state;
                             scope.current_slide = state.indexh;
                             scope.$apply();
-                            scope.update_answer(scope.current_slide);
 
                             // Open next unit if this is the last fragment in the last slide
                             if (scope.current_slide === (scope.totalSlides-1) && (state.indexf === undefined || state.indexf === 0)) {
@@ -255,14 +234,6 @@
                         }
                     }
                 });
-
-                // The Answer instance for this activity must always store the last slide viewed
-                // Therefore, that instance must always be updated in every slide turn
-                scope.update_answer = function(slide_number) {
-                    // Update the answer object
-                    scope.answer.given = {'current_slide': slide_number};
-                    scope.answer.$update({activityId: scope.currentActivity.id});
-                };
 
                 // If this is the last slide, update StudentProgress with the is_complete flag
                 scope.update_progress = function() {
