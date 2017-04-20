@@ -175,6 +175,7 @@
                                 // Pass it silently
                             }
 
+                            scope.$apply();
                         });
                     });
                 };
