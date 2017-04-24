@@ -112,7 +112,7 @@
           // The Activity is not open yet
           $scope.activity_open = false;
         } else if(now > end_date){
-          // The Activity is already expired
+          // The Activity has been open and now is already expired
           $scope.activity_expired = true;
         }
 
