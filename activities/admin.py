@@ -39,12 +39,14 @@ class AnswerAdmin(ModelAdmin):
     ordering = ('timestamp',)
     list_display = ('activity', 'user', 'timestamp', 'given', 'unit')
     readonly_fields = ('unit',)
+    search_fields = ('given', 'user__username', 'user__first_name', 'user__last_name', 'user__email')
 
     def unit(self, object):
         try:
             return object.activity.units.first().title
         except AttributeError:
             return
+
 
 admin.site.register(Activity, ActivityAdmin)
 admin.site.register(Answer, AnswerAdmin)
