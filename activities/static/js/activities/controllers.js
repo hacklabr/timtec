@@ -147,6 +147,8 @@
             var topic_files = $scope.topic.files;
             if ($scope.topic.id)
                 $scope.topic.$update({activity: true}, function(topic) {
+                    $scope.edit_topic = true;
+                    $scope.show_answer = true;
                     angular.forEach(topic_files, function(topic_file) {
                         if (!topic_file.hasOwnProperty('topic') || !topic_file.topic) {
                             topic_file.topic = topic.id;
@@ -163,6 +165,8 @@
                     $scope.answer.activity = $scope.currentActivity.id;
                     $scope.answer.$save().then(function(answer) {
                         $scope.currentUnit.progress = Progress.complete($scope.currentUnit.id);
+                        $scope.edit_topic = true;
+                        $scope.show_answer = true;
                     });
                     angular.forEach(topic_files, function(topic_file) {
                         if (!topic_file.hasOwnProperty('topic') || !topic_file.topic) {
@@ -174,8 +178,6 @@
                         }
                     });
                 });
-            $scope.edit_topic = true;
-            $scope.show_answer = true;
         };
 
         // Bootstrap functions for new comments and replies
