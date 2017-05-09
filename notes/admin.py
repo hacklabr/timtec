@@ -4,7 +4,7 @@ from notes.models import Note
 
 
 class NoteAdmin(admin.ModelAdmin):
-    search_fields = ('text', 'user__username', 'user__first_name', 'user__last_name')
+    search_fields = ('text', 'user__username', 'user__first_name', 'user__last_name', 'user__email')
     list_display = ('text', 'user', 'create_timestamp', 'last_edit_timestamp')
 
 
