@@ -9,6 +9,8 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserM
 from django.utils import timezone
 
 from core.utils import hash_name
+from easy_thumbnails.files import get_thumbnailer
+from easy_thumbnails.exceptions import InvalidImageFormatError
 import re
 
 
@@ -56,6 +58,13 @@ class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
         else:
             location = "/%s/%s" % (settings.MEDIA_URL, self.picture)
         return re.sub('/+', '/', location)
+
+    def get_picture_thumb_url(self,
+                              options={'size': (150, 150), 'crop': 'scale'}):
+        try:
+            return get_thumbnailer(self.picture).get_thumbnail(options).url
+        except InvalidImageFormatError as e:
+            return str(settings.STATIC_URL + 'img/avatar-default.png')
 
     def get_full_name(self):
         full_name = '%s %s' % (self.first_name, self.last_name)

@@ -513,7 +513,7 @@ class CourseProfessor(models.Model):
             location = "/%s/%s" % (settings.MEDIA_URL, self.picture)
             return re.sub('/+', '/', location)
         elif self.user:
-            return self.user.get_picture_url()
+            return self.user.get_picture_thumb_url()
 
     def new_message(self, course, subject, message, to=[]):
         return ProfessorMessage.objects.create(subject=subject,
@@ -569,7 +569,7 @@ class CourseAuthor(models.Model):
             location = "/%s/%s" % (settings.MEDIA_URL, self.picture)
             return re.sub('/+', '/', location)
         elif self.user:
-            return self.user.get_picture_url()
+            return self.user.get_picture_thumb_url()
 
 
 class ProfessorMessage(models.Model):

@@ -5,7 +5,7 @@ from django.contrib.auth.models import Group
 
 class TimtecUserSerializer(serializers.ModelSerializer):
     name = serializers.ReadOnlyField(source='get_full_name')
-    picture = serializers.ReadOnlyField(source='get_picture_url')
+    picture = serializers.ReadOnlyField(source='get_picture_thumb_url')
     is_profile_filled = serializers.BooleanField()
 
     class Meta:

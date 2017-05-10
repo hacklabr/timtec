@@ -23,7 +23,7 @@ class UserCourseStatsSerializer(serializers.ModelSerializer):
         return obj.user.get_full_name()
 
     def get_picture_url(self, obj):
-        return obj.user.get_picture_url()
+        return obj.user.get_picture_thumb_url()
 
     def get_username(self, obj):
         return obj.user.username

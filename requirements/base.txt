@@ -68,3 +68,6 @@ django-localflavor==1.4.1
 
 # Email backend
 django-anymail[mailgun]==0.8
+
+# Image thumbs generator
+easy-thumbnails==2.4.1
