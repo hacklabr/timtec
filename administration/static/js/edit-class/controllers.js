@@ -35,7 +35,7 @@
             $scope.remove_item = function(index){
                 // removing from 'screen' list
                 var student_id = $scope.classe.students_details[index].user.id;
-                $scope.classe.students.splice(index, 1);
+                $scope.classe.students_details.splice(index, 1);
 
                 // remove from real list
                 var index_management = $scope.classe.students.indexOf(student_id);
@@ -79,7 +79,7 @@
                 $scope.classe.$update()
                     .then(function(){
                         $scope.classe.students_details = $filter('orderBy')($scope.classe.students_details, 'user.name');
-                        
+
                         $scope.alert.success('Alterações salvas com sucesso.');
 
                         // remove pop-up that confirm if user go without save changes
