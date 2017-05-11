@@ -158,6 +158,8 @@
                             });
                         }
                     });
+                }, function(error) {
+                  alert("Não foi possível salvar a sua resposta. Por favor, verifique sua conexão com a internet e tente novamente! Caso o problema persista, salve o seu texto em um arquivo no seu computador para não perder sua atividade.");
                 });
             else
                 $scope.topic.$save(function(topic) {
@@ -167,6 +169,8 @@
                         $scope.currentUnit.progress = Progress.complete($scope.currentUnit.id);
                         $scope.edit_topic = true;
                         $scope.show_answer = true;
+                    }, function(error) {
+                      alert("Não foi possível salvar a sua resposta. Por favor, verifique sua conexão com a internet e tente novamente! Caso o problema persista, salve o seu texto em um arquivo no seu computador para não perder sua atividade.");
                     });
                     angular.forEach(topic_files, function(topic_file) {
                         if (!topic_file.hasOwnProperty('topic') || !topic_file.topic) {
@@ -177,6 +181,8 @@
                             });
                         }
                     });
+                }, function(error) {
+                  alert("Não foi possível salvar a sua resposta. Por favor, verifique sua conexão com a internet e tente novamente! Caso o problema persista, salve o seu texto em um arquivo no seu computador para não perder sua atividade.");
                 });
         };
 
