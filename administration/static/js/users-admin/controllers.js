@@ -73,12 +73,12 @@
             var reload_groups = function(message){
                 GroupAdmin.query(function(groups){
                     // "students" and "professros" groups must be ommited
-                    for (var i = 0; i < groups.length; i++) {
-                        if(groups[i].name === "students" || groups[i].name === "professors"){
-                            groups.splice(i, 1);
-                            i = -1;  // if an element has been removed, the counter is outdated and must be reinitialized
-                        }
-                    }
+                    // for (var i = 0; i < groups.length; i++) {
+                    //     if(groups[i].name === "students" || groups[i].name === "professors"){
+                    //         groups.splice(i, 1);
+                    //         i = -1;  // if an element has been removed, the counter is outdated and must be reinitialized
+                    //     }
+                    // }
                     $scope.groups = groups;
                     if (message !== undefined){
                         $scope.alert.success(message);
