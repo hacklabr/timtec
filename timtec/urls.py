@@ -22,7 +22,7 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         ResumeCourseView, FlatpageView, CourseAuthorViewSet,
                         CourseCertificationViewSet,
                         CourseCertificationDetailView,
-                        CertificationProcessViewSet,
+                        CertificationProcessViewSet, UnitViewSet,
                         EvaluationViewSet, CertificateTemplateViewSet,
                         CertificateTemplateImageViewSet, RequestCertificateView,
                         EmitReceiptView, ProfileViewSet, OAuth2UserInfoView)
@@ -60,6 +60,7 @@ router.register(r'professor_message_read', ProfessorMessageReadViewSet, base_nam
 router.register(r'coursethumbs', CourseThumbViewSet, base_name='coursethumbs')
 router.register(r'lessons', LessonViewSet, base_name='lessons')
 router.register(r'simple_lessons', SimpleLessonViewSet, base_name='simple_lessons')
+router.register(r'unit', UnitViewSet, base_name='unit')
 router.register(r'answer', AnswerViewSet, base_name='answer')
 router.register(r'activity_image', ActivityImageViewSet, base_name='activity_image')
 router.register(r'student_progress', StudentProgressViewSet, base_name='student_progress')

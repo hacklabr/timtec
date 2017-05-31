@@ -3,8 +3,8 @@
 
     var app = angular.module('lesson.controllers', ['ngSanitize']);
 
-    app.controller('MainCtrl', ['$scope', '$sce', 'LessonData', 'Answer', 'Progress', '$location', 'youtubePlayerApi', 'resolveActivityTemplate', '$uibModal', 'Student',
-        function ($scope, $sce, LessonData, Answer, Progress, $location, youtubePlayerApi, resolveActivityTemplate, $uibModal, Student) {
+    app.controller('MainCtrl', ['$scope', '$sce', 'LessonData', 'Unit', 'Answer', 'Progress', '$location', 'youtubePlayerApi', 'resolveActivityTemplate', '$uibModal', 'Student',
+        function ($scope, $sce, LessonData, Unit, Answer, Progress, $location, youtubePlayerApi, resolveActivityTemplate, $uibModal, Student) {
 
             youtubePlayerApi.events.onStateChange = function(event){
                 window.onPlayerStateChange.call($scope.currentUnit, event);
@@ -19,14 +19,15 @@
             $scope.section = $scope.section || 'video';
 
             $scope.selectUnit = function(unit) {
-                $scope.currentUnit = unit;
-                if(unit.video) {
+                $scope.currentUnit = Unit.get({id: unit.id}, function(data) {
+                  if(unit.video) {
                     $scope.section = 'video';
                     $scope.play(unit.video.youtube_id);
-                } else {
+                  } else {
                     $scope.section = 'activity';
-                }
-                $scope.selectActivity(0);
+                  }
+                  $scope.selectActivity(0);
+                });
             };
 
             $scope.locationChange = function(unitIndex) {
@@ -34,7 +35,18 @@
             };
 
             $scope.nextUnit = function() {
-                var index = $scope.lesson.units.indexOf($scope.currentUnit);
+                /*
+                *  Find the position of the currentUnit in the lesson.units array
+                *  The "position" data in currentUnit can't be used, since
+                *  it can be wrong if administrators reordered units
+                */
+                var index;
+                for (var i = 0; i < $scope.lesson.units.length; i++) {
+                    if($scope.lesson.units[i].id === $scope.currentUnit.id) {
+                        index = i;
+                        break;
+                    }
+                }
                 index++;
 
                 if(index < $scope.lesson.units.length) {
@@ -217,7 +229,7 @@
                    $scope.selectUnit(lesson.units[index]);
 
                    // Create StudentProgress to register that the student have been in this unit
-                   lesson.units[index].progress = Progress.save({unit: $scope.currentUnit.id});
+                   lesson.units[index].progress = Progress.save({unit: lesson.units[index].id});
                 });
             });
 

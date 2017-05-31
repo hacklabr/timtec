@@ -26,12 +26,26 @@
         return $resource('/api/lessons/:id/');
     }]);
 
-    app.factory('LessonData', ['$rootScope', '$q', '$resource', '$window', 'Lesson', 'Progress',
-        function($rootScope, $q, $resource, $window, Lesson, Progress) {
+    app.factory('Unit', ['$resource', function($resource){
+        return $resource('/api/unit/:id/');
+    }]);
+
+    /**
+     * SimpleLesson model (doesn't load activities data to save bandwidth)
+     * This is a read only endopoint
+     */
+    app.factory('SimpleLesson', ['$resource', function($resource){
+        var resourceConfig = {};
+        var SimpleLesson = $resource('/api/simple_lessons/:id', {'id':'@id'}, resourceConfig);
+        return SimpleLesson;
+    }]);
+
+    app.factory('LessonData', ['$rootScope', '$q', '$resource', '$window', 'SimpleLesson', 'Progress',
+        function($rootScope, $q, $resource, $window, SimpleLesson, Progress) {
 
             var deferred = $q.defer();
 
-            Lesson.get({'id': $window.lessonId}, function (lesson) {
+            SimpleLesson.get({'id': $window.lessonId}, function (lesson) {
                 $rootScope.lesson = lesson;
                 deferred.resolve(lesson);
             });

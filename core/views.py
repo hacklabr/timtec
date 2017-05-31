@@ -41,7 +41,7 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           CertificationProcessSerializer,
                           EvaluationSerializer, ProfileSerializer,
                           IfCertificateTemplateSerializer,
-                          CertificateTemplateImageSerializer)
+                          CertificateTemplateImageSerializer, UnitSerializer)
 
 from .models import (Course, CourseProfessor, Lesson, StudentProgress,
                      Unit, ProfessorMessage, ProfessorMessageRead, CourseStudent,
@@ -802,6 +802,13 @@ class LessonViewSet(viewsets.ModelViewSet):
         if self.request.user.is_active:
             return queryset
         return queryset.filter(published=True)
+
+
+class UnitViewSet(viewsets.ModelViewSet):
+    model = Unit
+    queryset = Unit.objects.all()
+    serializer_class = UnitSerializer
+    filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter,)
 
 
 class SimpleLessonViewSet(viewsets.ReadOnlyModelViewSet):
