@@ -82,7 +82,7 @@ class Class(models.Model):
 
     @property
     def get_students(self):
-        return CourseStudent.objects.filter(course=self.course, user__in=self.students.all())
+        return CourseStudent.objects.filter(course=self.course, user__in=self.students.all()).order_by('user__first_name')
 
 
 def remove_duplicate_classes(sender, instance, action, reverse, model, pk_set, **kwargs):
