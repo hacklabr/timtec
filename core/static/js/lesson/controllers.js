@@ -3,8 +3,8 @@
 
     var app = angular.module('lesson.controllers', ['ngSanitize']);
 
-    app.controller('MainCtrl', ['$scope', '$sce', 'LessonData', 'Unit', 'Answer', 'Progress', '$location', 'youtubePlayerApi', 'resolveActivityTemplate', '$uibModal', 'Student',
-        function ($scope, $sce, LessonData, Unit, Answer, Progress, $location, youtubePlayerApi, resolveActivityTemplate, $uibModal, Student) {
+    app.controller('MainCtrl', ['$scope', '$sce', '$q', 'LessonData', 'Unit', 'Answer', 'Progress', '$location', 'youtubePlayerApi', 'resolveActivityTemplate', '$uibModal', 'Student',
+        function ($scope, $sce, $q, LessonData, Unit, Answer, Progress, $location, youtubePlayerApi, resolveActivityTemplate, $uibModal, Student) {
 
             youtubePlayerApi.events.onStateChange = function(event){
                 window.onPlayerStateChange.call($scope.currentUnit, event);
@@ -18,6 +18,8 @@
 
             $scope.section = $scope.section || 'video';
 
+            // Other controllers may need the currentUnit info
+            // So, it must contain a promise, so that other controllers know that they must wait for the result
             $scope.selectUnit = function(unit) {
                 $scope.currentUnit = Unit.get({id: unit.id}, function(data) {
                   if(unit.video) {
@@ -65,18 +67,20 @@
             };
 
             $scope.play = function() {
-                if($scope.currentUnit.video){
-                    var youtube_id = $scope.currentUnit.video.youtube_id;
-                    $scope.section = 'video';
+                $scope.currentUnit.$promise.then(function(){
+                    if($scope.currentUnit.video){
+                        var youtube_id = $scope.currentUnit.video.youtube_id;
+                        $scope.section = 'video';
 
-                    youtubePlayerApi.loadPlayer().then(function(player){
+                        youtubePlayerApi.loadPlayer().then(function(player){
                             if(player.getVideoData() &&
-                                player.getVideoData().video_id === youtube_id) return;
+                            player.getVideoData().video_id === youtube_id) return;
                             player.cueVideoById(youtube_id);
-                    });
-                } else {
-                    $scope.section = 'activity';
-                }
+                        });
+                    } else {
+                        $scope.section = 'activity';
+                    }
+                });
             };
 
             $scope.getReadingActivityHtml = function() {
