@@ -22,17 +22,19 @@
                 };
                 function load_note() {
                     LessonData.then(function (lesson) {
-                        var currentUnitId = $scope.currentUnit.id;
-                        $scope.currentUnitPos = lesson.units.indexOf($scope.currentUnit);
-                        Note.get({content_type: window.unit_content_type_id, object_id: currentUnitId}, function (notes) {
+                        $scope.currentUnit.$promise.then(function() {
+                          var currentUnitId = $scope.currentUnit.id;
+                          $scope.currentUnitPos = $scope.findUnitPos($scope.currentUnit);
+                          Note.get({content_type: window.unit_content_type_id, object_id: currentUnitId}, function (notes) {
                             if (notes.length > 0){
-                                $scope.note = notes[0];
+                              $scope.note = notes[0];
                             } else {
-                                $scope.note = new Note();
-                                $scope.note.content_type = window.unit_content_type_id;
-                                $scope.note.object_id = currentUnitId;
+                              $scope.note = new Note();
+                              $scope.note.content_type = window.unit_content_type_id;
+                              $scope.note.object_id = currentUnitId;
                             }
                             $scope.note_text = $scope.note.text;
+                          });
                         });
                     });
                 }
