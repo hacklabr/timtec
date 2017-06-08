@@ -36,19 +36,24 @@
                 $location.path('/' + unitIndex);
             };
 
+            $scope.findUnitPos = function(unit) {
+              var index;
+              for (var i = 0; i < $scope.lesson.units.length; i++) {
+                  if($scope.lesson.units[i].id === unit.id) {
+                      index = i;
+                      break;
+                  }
+              }
+              return index;
+            };
+
             $scope.nextUnit = function() {
                 /*
                 *  Find the position of the currentUnit in the lesson.units array
                 *  The "position" data in currentUnit can't be used, since
                 *  it can be wrong if administrators reordered units
                 */
-                var index;
-                for (var i = 0; i < $scope.lesson.units.length; i++) {
-                    if($scope.lesson.units[i].id === $scope.currentUnit.id) {
-                        index = i;
-                        break;
-                    }
-                }
+                var index = $scope.findUnitPos($scope.currentUnit);
                 index++;
 
                 if(index < $scope.lesson.units.length) {
