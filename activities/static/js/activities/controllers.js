@@ -138,6 +138,11 @@
         $scope.show_answer = false;
         $scope.edit_topic = false;
 
+        $scope.show_edit = function () {
+          $scope.edit_topic = true;
+          $scope.show_answer = false;
+        }
+
         $scope.save_answer = function() {
             // if there is no content, the edit form must not disappear from screen
             if($scope.topic.content === undefined || $scope.topic.content === ""){
