@@ -153,7 +153,7 @@
                     // This process is similar on other lessons and executed by lesson/controller.js, but must be remade here, since slidesreveal use its own controller
                     Progress.save({unit: scope.currentUnit.id});
 
-                    scope.iframe_url = "/activity/slides_reveal/"+scope.currentActivity.id;
+                    scope.iframe_url = "/activity/slides_reveal/" + scope.currentActivity.id;
 
                     // Find out how many slides there are in the current reveal.js iframe
                     // But only do so if its done loading
