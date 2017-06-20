@@ -137,9 +137,6 @@
 
                 var frame;  // holds a pointer to the #slidesreveal iframe
 
-                // This value is updated by the eventListener in this directive
-                var go_to_next_unit = false;
-
                 // Ensures that the slides get updated on a directive partial reload
                 var reset = function() {
 
@@ -193,15 +190,21 @@
                     }), '*' );
                 };
 
+                // The following var marks if the reveal slider responded the last call from 'next_slide'
+                // If it has not, there are no more slides to show and the 'nextUnit' must be called
+                var waiting_reveal_feedback = false;
+
                 // Go foward one slide
                 scope.next_slide = function(){
-                    if(go_to_next_unit)
+                    if(waiting_reveal_feedback){
                         scope.nextUnit();
-                    else
-                        frame.contentWindow.postMessage( JSON.stringify({
-                          method: 'right',
-                          args: [  ]
-                        }), '*' );
+                        waiting_reveal_feedback = false;
+                    } else
+                        waiting_reveal_feedback = true;
+                    frame.contentWindow.postMessage( JSON.stringify({
+                      method: 'right',
+                      args: [  ]
+                    }), '*' );
                 };
 
                 // Go back one slide
@@ -216,7 +219,12 @@
                     var data = JSON.parse( event.data );
                     // Make sure we're talking to a presentation
                     if( data.namespace === 'reveal' ) {
-                        if( data.eventName === 'slidechanged' || data.eventName === 'ready' ) {
+                        if( data.eventName === 'slidechanged' ||
+                            data.eventName === 'ready' ||
+                            data.eventName === 'fragmentshown') {
+
+                            waiting_reveal_feedback = false;
+
                             // Dig out the presentation state, key properties:
                             //   indexh: The index of the current horizontal slide
                             //   indexv: The index of the current vertical slide (if any)
@@ -225,13 +233,9 @@
                             scope.current_slide = state.indexh;
                             scope.$apply();
 
-                            // Open next unit if this is the last fragment in the last slide
-                            if (scope.current_slide === (scope.totalSlides-1) && (state.indexf === undefined || state.indexf === 0)) {
+                            // Save progress if this is the last slide
+                            if (scope.current_slide === (scope.totalSlides-1))
                                 scope.update_progress();
-                                go_to_next_unit = true;
-                            } else {
-                                go_to_next_unit = false;
-                            }
                         }
                     }
                 });
