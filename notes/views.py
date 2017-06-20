@@ -14,7 +14,10 @@ class NotesViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
     filter_fields = ('content_type', 'object_id')
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        # Only create a new note if there isn't one already for this user in this unit
+        if not Note.objects.filter(object_id=serializer.validated_data['object_id'],
+                                   user=self.request.user).exists():
+            serializer.save(user=self.request.user)
 
     def perform_update(self, serializer):
         serializer.save(user=self.request.user)
