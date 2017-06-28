@@ -95,7 +95,7 @@
                     <img src="{{topic.author.picture}}" alt="{{ topic.author.name }}">
                 </div>
                 <div class="info">
-                    <h4 class="thread-header pull-left">por <span class="user-name">{{topic.author.name}}</span> <span class="last-edit">última edição: {{topic.last_activity_at | date : 'dd/MM/yyyy'}}</span></h4>
+                    <h4 class="thread-header pull-left">por <span class="user-name">{{topic.author.name}}</span> <span class="last-edit">última edição: {{topic.updated_at | date : 'dd/MM/yyyy'}}</span></h4>
 
                     <button class="btn btn-sm btn-success edit pull-right" ng-click="show_edit()" ng-show="my_answer" ng-style="{'visibility': !activity_expired ? 'visible' : 'hidden'}">editar</button>
                     <button class="btn btn-sm btn-success edit pull-right" ng-click="viewMyAnswer()" ng-hide="my_answer">voltar para a minha atividade</button>
