@@ -11,7 +11,7 @@
                     return 1;
                 } else  {
                     if (b.course_student !== undefined) {
-                        if (a.course_student.start_date < b.course_student.start_date)
+                        if (b.course_student.last_activity < a.course_student.last_activity)
                             return -1;
                         else
                             return 1;

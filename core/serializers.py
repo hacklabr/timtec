@@ -277,12 +277,21 @@ class CourseStudentSerializer(serializers.ModelSerializer):
     current_class = BaseClassSerializer(source='get_current_class')
     course = BaseCourseSerializer()
     certificate = CourseCertificationSerializer()
+    last_activity = serializers.SerializerMethodField()
 
     class Meta:
         model = CourseStudent
         fields = ('id', 'user', 'course', 'start_date', 'course_finished',
                   'certificate', 'can_emmit_receipt', 'percent_progress',
-                  'current_class', 'min_percent_to_complete',)
+                  'current_class', 'min_percent_to_complete', 'last_activity')
+
+    def get_last_activity(self, obj):
+        units = []
+        [units.extend(lesson.units.all()) for lesson in obj.course.lessons.all()]
+        progresses = StudentProgress.objects.filter(unit__in=units, user=obj.user).order_by('-last_access')
+        if progresses:
+            return progresses[0].last_access
+        return None
 
 
 class CourseStudentClassSerializer(CourseStudentSerializer):
