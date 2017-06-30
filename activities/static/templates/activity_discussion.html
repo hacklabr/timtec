@@ -138,7 +138,7 @@
                                class="btn btn-xs btn-primary attach pull-left"
                                ngf-select="uploadCommentFiles($file, comment)"
                                ngf-multiple="false">anexar arquivo</button>
-                        <button class="btn btn-xs btn-success reply pull-right" ng-click="save_comment(comment, null); topic.show_comment_input=false" du-smooth-scroll="last-comment" offset="300">comentar</button>
+                        <button class="btn btn-xs btn-success reply pull-right" ng-click="save_comment(comment, null)" offset="300">comentar</button>
                         <button class="btn btn-xs btn-danger delete pull-right" ng-click="topic.show_comment_input=false">descartar</button>
 
                         <files files="comment.files" editable="true" progress="comment.progress"></files>
@@ -259,7 +259,7 @@
                                        class="btn btn-xs btn-primary attach pull-left"
                                        ngf-select="uploadCommentFiles($file, reply)"
                                        ngf-multiple="false">anexar arquivo</button>
-                                <button class="btn btn-xs btn-success reply pull-right" ng-click="save_comment(reply, comment);comment.show_comment_input=false;">responder</button>
+                                <button class="btn btn-xs btn-success reply pull-right" ng-click="save_comment(reply, comment)">responder</button>
                                 <button class="btn btn-xs btn-danger delete pull-right" ng-click="comment.show_comment_input=false">descartar</button>
 
                                 <files files="reply.files" editable="true" progress="reply.progress"></files>

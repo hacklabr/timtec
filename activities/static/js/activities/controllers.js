@@ -83,6 +83,7 @@
       '$sce',
       '$routeParams',
       '$anchorScroll',
+      '$document',
       'uiTinymceConfig',
       'Forum',
       'Topic',
@@ -96,7 +97,7 @@
       'CurrentUser',
       'AnswerNotification',
       'ContentFile',
-      function ($scope, $sce, $routeParams, $anchorScroll, uiTinymceConfig, Forum, Topic, Comment, TopicLike, TopicFile, CommentLike, CommentFile, Progress, ClassActivity, CurrentUser, AnswerNotification, ContentFile) {
+      function ($scope, $sce, $routeParams, $anchorScroll, $document, uiTinymceConfig, Forum, Topic, Comment, TopicLike, TopicFile, CommentLike, CommentFile, Progress, ClassActivity, CurrentUser, AnswerNotification, ContentFile) {
         $scope.activity_open = true;
         $scope.activity_expired = false;
         var now = Date.now();
@@ -298,11 +299,13 @@
         };
 
         $scope.save_comment = function(comment, parent_comment) {
+            var comment_destination;
+            var raw_comment = comment;
             if (parent_comment) {
                 comment.parent = parent_comment.id;
-                parent_comment.comment_replies.push(comment);
+                comment_destination = parent_comment.comment_replies;
             } else {
-                comment.topic.comments.push(comment);
+                comment_destination = comment.topic.comments;
             }
             // Store files to be saved after the comment
             var files = [];
@@ -321,6 +324,14 @@
                         comment.files.push(comment_file_complete);
                     });
                 });
+                comment_destination.push(raw_comment);
+                if(!parent_comment) {
+                  $scope.topic.show_comment_input = false;
+                  var last_comment = angular.element(document.getElementById('last-comment'));
+                  $document.scrollToElement(last_comment);
+                } else {
+                  parent_comment.show_comment_input = false;
+                }
             });
         };
 
