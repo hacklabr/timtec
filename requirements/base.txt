@@ -71,3 +71,6 @@ django-anymail[mailgun]==0.8
 
 # Image thumbs generator
 easy-thumbnails==2.4.1
+
+# Gunicorn (application server)
+gunicorn==19.7.1
