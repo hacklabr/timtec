@@ -68,3 +68,6 @@ django-anymail[mailgun]==0.8
 # Themes
 git+https://github.com/institutotim/timtec-theme-timtec.git#master
 git+https://github.com/institutotim/timtec-theme-if.git#master
+
+# Gunicorn (application server)
+gunicorn==19.7.1
