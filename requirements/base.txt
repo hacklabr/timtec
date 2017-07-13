@@ -68,6 +68,3 @@ django-anymail[mailgun]==0.8
 # Themes
 git+https://github.com/institutotim/timtec-theme-timtec.git#master
 git+https://github.com/institutotim/timtec-theme-if.git#master
--e git+https://github.com/hacklabr/timtec-theme-hacklab.git@master#egg=timtec_theme_hacklab
--e git+https://github.com/hacklabr/django-discussion.git@theme-hacklab#egg=django-discussion
--e git+https://github.com/hacklabr/politica-publica-social.git@master#egg=politica_publica_social
