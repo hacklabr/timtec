@@ -41,7 +41,7 @@ class AnswerSerializer(serializers.ModelSerializer):
     def get_topic(self, obj):
         try:
             topic = Topic.objects.get(id=obj.given.get('topic', None))
-        except Topic.DoesNotExist:
+        except (Topic.DoesNotExist, AttributeError) as e:
             return
 
         return TopicSerializer(instance=topic, **{'context': self.context}).data

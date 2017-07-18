@@ -197,7 +197,7 @@
                 // Go foward one slide
                 scope.next_slide = function(){
                     if(waiting_reveal_feedback){
-                        scope.nextUnit();
+                        scope.nextStep();
                         waiting_reveal_feedback = false;
                     } else
                         waiting_reveal_feedback = true;

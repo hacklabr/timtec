@@ -99,7 +99,8 @@
                     $scope.activityTemplateUrl = resolveActivityTemplate($scope.currentActivity.type);
 
                     // slidesreveal activity will get the answer object by itself
-                    if($scope.currentActivity.type !== 'slidesreveal'){
+                    if($scope.currentActivity.type !== 'slidesreveal' &&
+                        $scope.currentActivity.type !== 'multiplechoice'){
                         $scope.answer = Answer.get({activityId: $scope.currentActivity.id}, function(answer) {
                             var exp = $scope.currentActivity.expected;
                             var giv = answer.given;

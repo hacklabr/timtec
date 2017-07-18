@@ -393,4 +393,31 @@
       }
     ]);
 
+    app.controller('MultipleChoiceCtrl', [
+      '$scope',
+      '$sce',
+      'Progress',
+      'Answer',
+      function($scope, $sce, Progress, Answer) {
+
+          $scope.answer = Answer.get({activityId: $scope.currentActivity.id}, function(answer) {});
+
+          $scope.sendAnswer = function() {
+              $scope.answer.$update({activityId: $scope.answer.activity}).then(function(answer){
+                  if(answer.correct)
+                      $scope.currentUnit.progress = Progress.complete($scope.currentUnit.id);
+              }).catch(function() {
+                  // There is no answer for this activity yet, so create it now
+                  $scope.answer.activity = $scope.currentActivity.id;
+                  $scope.answer.$save().then(function(answer) {
+                      if(answer.correct)
+                          $scope.currentUnit.progress = Progress.complete($scope.currentUnit.id);
+                  }, function(error) {
+                    alert("Não foi possível salvar a sua resposta. Por favor, verifique sua conexão com a internet e tente novamente! Caso o problema persista, salve o seu texto em um arquivo no seu computador para não perder sua atividade.");
+                  });
+              });
+          };
+      }
+    ]);
+
 })(angular);
