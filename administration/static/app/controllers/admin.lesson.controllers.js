@@ -80,12 +80,12 @@
             }
 
             $scope.activityTypes = [
-                {'name': 'simplechoice', 'label': 'Escolha simples'},
+                // {'name': 'simplechoice', 'label': 'Escolha simples'},
                 {'name': 'multiplechoice', 'label': 'Múltipla escolha'},
-                {'name': 'trueorfalse', 'label': 'Verdadeiro ou falso'},
-                {'name': 'relationship', 'label': 'Relacionar sentenças'},
-                {'name': 'html5', 'label': 'HTML5'},
-                {'name': 'markdown', 'label': 'Texto simples'},
+                // {'name': 'trueorfalse', 'label': 'Verdadeiro ou falso'},
+                // {'name': 'relationship', 'label': 'Relacionar sentenças'},
+                // {'name': 'html5', 'label': 'HTML5'},
+                // {'name': 'markdown', 'label': 'Texto simples'},
                 {'name': 'image', 'label': 'Imagem'},
                 {'name': 'reading', 'label': 'Atividade de leitura'},
                 {'name': 'discussion', 'label': 'Atividade com discussão'},
