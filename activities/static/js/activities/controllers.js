@@ -403,6 +403,10 @@
           $scope.answer = Answer.get({activityId: $scope.currentActivity.id}, function(answer) {});
 
           $scope.sendAnswer = function() {
+              // Force given to be an array, if necessary
+              if(typeof $scope.answer.given === 'object'){
+                $scope.answer.given = Object.keys($scope.answer.given).map(function(key) { return $scope.answer.given[key]; });
+              }
               $scope.answer.$update({activityId: $scope.answer.activity}).then(function(answer){
                   if(answer.correct)
                       $scope.currentUnit.progress = Progress.complete($scope.currentUnit.id);
