@@ -1,8 +1,9 @@
 (function(angular) {
     'use strict';
     /* Controllers */
-    angular.module('reports.controllers', []).
-    controller('ReportsCtrl', ['$scope', '$location', '$sce', '$window', 'CourseUserReport', 'LessonsUserProgress', 'Class', 'CourseStats', 'CourseProfessor',
+    var app = angular.module('reports.controllers', []);
+
+    app.controller('ReportsCtrl', ['$scope', '$location', '$sce', '$window', 'CourseUserReport', 'LessonsUserProgress', 'Class', 'CourseStats', 'CourseProfessor',
         function($scope, $location, $sce, $window, CourseUserReport, LessonsUserProgress, Class, CourseStats, CourseProfessor) {
             $scope.course_id = parseInt($window.course_id, 10);
             var current_user_id = parseInt($window.user_id, 10);
@@ -136,6 +137,12 @@
                     });
                 }
             };
+        }
+    ]);
+
+    app.controller('GeneralReportsCtrl', ['$scope', '$location', '$sce',
+        function($scope, $location, $sce) {
+            // General reports code goes here
         }
     ]);
 })(angular);

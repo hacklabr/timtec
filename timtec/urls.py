@@ -32,7 +32,7 @@ from forum.views import (CourseForumView, QuestionView, QuestionCreateView, Ques
                          QuestionVoteViewSet, AnswerVoteViewSet, AnswerViewSet as ForumAnswerViewSet)
 from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialViewSet, CourseMaterialFileViewSet
 from notes.views import NotesViewSet, CourseNotesView, UserNotesView
-from reports.views import UserCourseStats, CourseStatsByLessonViewSet, UserCourseLessonsStats
+from reports.views import UserCourseStats, CourseStatsByLessonViewSet, UserCourseLessonsStats, GeneralReportsView
 from rest_framework import routers
 from django_markdown import flatpages
 
@@ -159,6 +159,8 @@ urlpatterns = patterns(
 
     # Reports
     url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/reports/$', GenericCourseView.as_view(template_name="administration/stats.html"), name='reports'),
+
+    url(r'^general-reports/$', GeneralReportsView.as_view(), name='general_reports'),
 
     # Authentication
     url(r'^logout/', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='timtec_logout'),
