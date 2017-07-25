@@ -18,6 +18,15 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <span>Repostas a esta atividade devem ser editáveis por seus autores?</span>
+            <div>
+                <input type="checkbox" ng-model="currentActivity.data.editable" />
+            </div>
+        </div>
+    </div>
+
     <textarea ui-tinymce="tinymceOptions"
               ng-model="currentActivity.data.content"
               placeholder="Escreva aqui o enunciado" name="content" required></textarea>
