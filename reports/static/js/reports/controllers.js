@@ -140,10 +140,19 @@
         }
     ]);
 
-    app.controller('GeneralReportsCtrl', ['$scope', '$location', '$sce', 'GeneralSummary',
-        function($scope, $location, $sce, GeneralSummary) {
-            // General reports code goes here
-            $scope.general_data = GeneralSummary.get({});
+    app.controller('GeneralReportsCtrl', ['$scope', '$location', '$sce', 'GeneralSummary', 'Contract', 'UsersByGroup',
+        function($scope, $location, $sce, GeneralSummary, Contract, UsersByGroup) {
+            // $scope.general_data = GeneralSummary.get({});
+            $scope.contracts = Contract.query();
+
+            // General report for dowload
+            $scope.general_report = {};
+            $scope.download_general_report = function() {
+                var options = "";
+                if($scope.general_report.group)
+                    options = ("?group=" + $scope.general_report.group.name);
+                window.location.href = "/paralapraca/api/users-by-group" + options;
+            };
         }
     ]);
 })(angular);

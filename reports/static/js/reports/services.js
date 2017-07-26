@@ -15,5 +15,8 @@
         }).factory('GeneralSummary', function($resource){
             return $resource('/paralapraca/api/summary', {}, {
             });
+        }).factory('Contract', function($resource){
+            return $resource('/paralapraca/api/contract', {}, {
+            });
         });
 })(angular);
