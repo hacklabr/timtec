@@ -140,9 +140,10 @@
         }
     ]);
 
-    app.controller('GeneralReportsCtrl', ['$scope', '$location', '$sce',
-        function($scope, $location, $sce) {
+    app.controller('GeneralReportsCtrl', ['$scope', '$location', '$sce', 'GeneralSummary',
+        function($scope, $location, $sce, GeneralSummary) {
             // General reports code goes here
+            $scope.general_data = GeneralSummary.get({});
         }
     ]);
 })(angular);

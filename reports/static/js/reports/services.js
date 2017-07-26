@@ -12,5 +12,8 @@
         }).factory('CourseStats', function($resource){
             return $resource('/api/course_stats/:courseId', {}, {
             });
+        }).factory('GeneralSummary', function($resource){
+            return $resource('/paralapraca/api/summary', {}, {
+            });
         });
 })(angular);
