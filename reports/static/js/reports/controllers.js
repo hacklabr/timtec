@@ -1,8 +1,9 @@
 (function(angular) {
     'use strict';
     /* Controllers */
-    angular.module('reports.controllers', []).
-    controller('ReportsCtrl', ['$scope', '$location', '$sce', '$window', 'CourseUserReport', 'LessonsUserProgress', 'Class', 'CourseStats', 'CourseProfessor',
+    var app = angular.module('reports.controllers', []);
+
+    app.controller('ReportsCtrl', ['$scope', '$location', '$sce', '$window', 'CourseUserReport', 'LessonsUserProgress', 'Class', 'CourseStats', 'CourseProfessor',
         function($scope, $location, $sce, $window, CourseUserReport, LessonsUserProgress, Class, CourseStats, CourseProfessor) {
             $scope.course_id = parseInt($window.course_id, 10);
             var current_user_id = parseInt($window.user_id, 10);
@@ -136,6 +137,31 @@
                     });
                 }
             };
+        }
+    ]);
+
+    app.controller('GeneralReportsCtrl', ['$scope', '$location', '$sce', 'GeneralSummary', 'Contract',
+        function($scope, $location, $sce, GeneralSummary, Contract) {
+            $scope.general_data = GeneralSummary.get({});
+            $scope.contracts = Contract.query();
+
+            // General report for dowload
+            $scope.general_report = {};
+            $scope.download_general_report = function() {
+                var options = "";
+                if($scope.general_report.group)
+                    options = ("?group=" + $scope.general_report.group.name);
+                window.location.href = "/paralapraca/api/users-by-group" + options;
+            };
+
+            // Course report for download
+            $scope.course_report = {};
+            $scope.download_course_report = function() {
+                var options = "";
+                if($scope.course_report.class)
+                    options = ("?id=" + $scope.course_report.class.id);
+                window.location.href = "/paralapraca/api/users-by-class" + options;
+            }
         }
     ]);
 })(angular);

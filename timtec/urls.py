@@ -2,6 +2,7 @@
 from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
+from django.contrib.auth.decorators import permission_required
 
 from django.views.generic import TemplateView
 from accounts.views import (ProfileEditView, ProfileView, UserSearchView,
@@ -32,7 +33,7 @@ from forum.views import (CourseForumView, QuestionView, QuestionCreateView, Ques
                          QuestionVoteViewSet, AnswerVoteViewSet, AnswerViewSet as ForumAnswerViewSet)
 from course_material.views import CourseMaterialView, FileUploadView, CourseMaterialViewSet, CourseMaterialFileViewSet
 from notes.views import NotesViewSet, CourseNotesView, UserNotesView
-from reports.views import UserCourseStats, CourseStatsByLessonViewSet, UserCourseLessonsStats
+from reports.views import UserCourseStats, CourseStatsByLessonViewSet, UserCourseLessonsStats, GeneralReportsView
 from rest_framework import routers
 from django_markdown import flatpages
 
@@ -159,6 +160,8 @@ urlpatterns = patterns(
 
     # Reports
     url(r'^course/(?P<course_slug>[-a-zA-Z0-9_]+)/reports/$', GenericCourseView.as_view(template_name="administration/stats.html"), name='reports'),
+
+    url(r'^general-reports/$', permission_required('is_staff')(GeneralReportsView.as_view()), name='general_reports'),
 
     # Authentication
     url(r'^logout/', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='timtec_logout'),

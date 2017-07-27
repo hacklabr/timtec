@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from braces.views import LoginRequiredMixin
 from core.models import Course, CourseStudent, Class
 from django.core.exceptions import ObjectDoesNotExist
+from django.views.generic.base import TemplateView
 from reports.serializer import UserCourseStatsSerializer, CourseStats, LessonUserStats
 
 
@@ -72,3 +73,11 @@ class CourseStatsByLessonViewSet(LoginRequiredMixin, viewsets.ReadOnlyModelViewS
         self.object.classes = classes
         serializer = self.get_serializer(self.object)
         return Response(serializer.data)
+
+
+class GeneralReportsView(LoginRequiredMixin, TemplateView):
+    template_name = 'general-reports.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(GeneralReportsView, self).get_context_data(**kwargs)
+        return context
