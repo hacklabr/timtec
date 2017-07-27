@@ -140,9 +140,9 @@
         }
     ]);
 
-    app.controller('GeneralReportsCtrl', ['$scope', '$location', '$sce', 'GeneralSummary', 'Contract', 'UsersByGroup',
-        function($scope, $location, $sce, GeneralSummary, Contract, UsersByGroup) {
-            // $scope.general_data = GeneralSummary.get({});
+    app.controller('GeneralReportsCtrl', ['$scope', '$location', '$sce', 'GeneralSummary', 'Contract',
+        function($scope, $location, $sce, GeneralSummary, Contract) {
+            $scope.general_data = GeneralSummary.get({});
             $scope.contracts = Contract.query();
 
             // General report for dowload
