@@ -153,6 +153,15 @@
                     options = ("?group=" + $scope.general_report.group.name);
                 window.location.href = "/paralapraca/api/users-by-group" + options;
             };
+
+            // Course report for download
+            $scope.course_report = {};
+            $scope.download_course_report = function() {
+                var options = "";
+                if($scope.course_report.class)
+                    options = ("?id=" + $scope.course_report.class.id);
+                window.location.href = "/paralapraca/api/users-by-class" + options;
+            }
         }
     ]);
 })(angular);
