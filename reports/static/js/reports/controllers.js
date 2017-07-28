@@ -155,7 +155,7 @@
                     else
                         options += (',' + $scope.general_report.groups[idx].name);
                 }
-                window.location.href = "/paralapraca/api/users-by-group" + options;
+                window.open('/paralapraca/api/users-by-group' + options,'_blank');
             };
 
             // Course report for download
@@ -168,7 +168,7 @@
                     else
                         options += (',' + $scope.course_report.classes[idx].id);
                 }
-                window.location.href = "/paralapraca/api/users-by-class" + options;
+                window.open('/paralapraca/api/users-by-class' + options,'_blank');
             }
         }
     ]);
