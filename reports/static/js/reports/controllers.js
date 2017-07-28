@@ -149,8 +149,12 @@
             $scope.general_report = {};
             $scope.download_general_report = function() {
                 var options = "";
-                if($scope.general_report.group)
-                    options = ("?group=" + $scope.general_report.group.name);
+                for(var idx in $scope.general_report.groups) {
+                    if(idx == 0)
+                        options = ("?group=" + $scope.general_report.groups[0].name);
+                    else
+                        options += (',' + $scope.general_report.groups[idx].name);
+                }
                 window.location.href = "/paralapraca/api/users-by-group" + options;
             };
 
@@ -158,8 +162,12 @@
             $scope.course_report = {};
             $scope.download_course_report = function() {
                 var options = "";
-                if($scope.course_report.class)
-                    options = ("?id=" + $scope.course_report.class.id);
+                for(var idx in $scope.course_report.classes) {
+                    if(idx == 0)
+                        options = ("?id=" + $scope.course_report.classes[0].id);
+                    else
+                        options += (',' + $scope.course_report.classes[idx].id);
+                }
                 window.location.href = "/paralapraca/api/users-by-class" + options;
             }
         }
