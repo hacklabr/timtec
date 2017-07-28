@@ -142,7 +142,10 @@
 
     app.controller('GeneralReportsCtrl', ['$scope', '$location', '$sce', 'GeneralSummary', 'Contract',
         function($scope, $location, $sce, GeneralSummary, Contract) {
-            $scope.general_data = GeneralSummary.get({});
+            $scope.general_data = GeneralSummary.get({}, function() {}, function(error) {
+                alert('Não é possível exportar relatórios agora. Por favor, converse com o suporte');
+                window.open('/dashboard', '_self');
+            });
             $scope.contracts = Contract.query();
 
             // General report for dowload
