@@ -15,7 +15,7 @@ from core.views import (CourseView, GenericCourseView, CourseViewSet,
                         LessonViewSet, SimpleLessonViewSet, StudentProgressViewSet,
                         UserNotesViewSet, CoursesView, CourseThumbViewSet,
                         ProfessorMessageViewSet, ProfessorMessageReadViewSet,
-                        ProfessorGlobalMessageViewSet, CourseStudentViewSet, CarouselCourseView,
+                        ProfessorGlobalMessageViewSet, CourseStudentViewSet, CarouselCourseView, DashboardView,
                         ClassListView, ClassCreateView, ClassUpdateView, ClassDeleteView,
                         ClassRemoveUserView, ClassAddUsersView, ClassViewSet,
                         ClassEvaluationsView, ClassActivityViewSet,
@@ -166,7 +166,7 @@ urlpatterns = patterns(
     # Authentication
     url(r'^logout/', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='timtec_logout'),
 
-    url(r'^dashboard/', TemplateView.as_view(template_name="dashboard.html"), name='dashboard'),
+    url(r'^dashboard/', DashboardView.as_view(), name='dashboard'),
 
     url(r'^profile/edit/?$', ProfileEditView.as_view(), name="profile_edit"),
     url(r'^profile/(?P<username>[\w.+-]+)?/?$', ProfileView.as_view(), name="profile"),

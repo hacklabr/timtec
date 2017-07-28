@@ -1,6 +1,10 @@
 import os
 import hashlib
 from django.utils.deconstruct import deconstructible
+from django.conf import settings
+from django.core.urlresolvers import reverse_lazy
+from braces.views._access import AccessMixin
+from django.shortcuts import redirect
 
 
 @deconstructible
@@ -20,4 +24,13 @@ class HashName(object):
         # return the whole path to the file
         return os.path.join(self.path, filename)
 
+
 hash_name = HashName
+
+
+class AcceptedTermsRequiredMixin(AccessMixin):
+    """Verify that the current user has accepted Terms of Service."""
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user.accepted_terms and settings.TERMS_ACCEPTANCE_REQUIRED:
+            return redirect(reverse_lazy('accept_terms'))
+        return super(AcceptedTermsRequiredMixin, self).dispatch(request, *args, **kwargs)

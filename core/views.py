@@ -54,6 +54,16 @@ from .forms import (ContactForm, RemoveStudentForm,
 from .permissions import (IsProfessorCoordinatorOrAdminPermissionOrReadOnly,
                           IsAdminOrReadOnly, IsAssistantOrCoordinatorOrReadOnly)
 
+from .utils import AcceptedTermsRequiredMixin
+
+
+class DashboardView(AcceptedTermsRequiredMixin, TemplateView):
+    template_name = 'dashboard.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(DashboardView, self).get_context_data(**kwargs)
+        return context
+
 
 class HomeView(ListView):
     context_object_name = 'home_courses'
