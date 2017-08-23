@@ -400,12 +400,23 @@
       'Answer',
       function($scope, $sce, Progress, Answer) {
 
-          $scope.answer = Answer.get({activityId: $scope.currentActivity.id}, function(answer) {});
+          $scope.answer = Answer.get({activityId: $scope.currentActivity.id}, function(answer) {
+              // Prepare the 'given' array to receive answers, if necessary
+              // If the given array from the server is out of sync with the alternatives, it must be recreated now
+              // This ensures that every alternative will have a booleaan answer
+              if(answer.given.length !== $scope.currentActivity.data.alternatives.length) {
+                  for(var i = 0; i < $scope.currentActivity.data.alternatives.length; i++) {
+                      answer.given[i] = false;
+                  }
+              }
+              return answer;
+          });          
 
           $scope.sendAnswer = function() {
+
               // Force given to be an array, if necessary
               if(typeof $scope.answer.given === 'object'){
-                $scope.answer.given = Object.keys($scope.answer.given).map(function(key) { return $scope.answer.given[key]; });
+                  $scope.answer.given = Object.keys($scope.answer.given).map(function(key) { return $scope.answer.given[key]; });
               }
               $scope.answer.$update({activityId: $scope.answer.activity}).then(function(answer){
                   if(answer.correct)
@@ -413,6 +424,7 @@
               }).catch(function() {
                   // There is no answer for this activity yet, so create it now
                   $scope.answer.activity = $scope.currentActivity.id;
+
                   $scope.answer.$save().then(function(answer) {
                       if(answer.correct)
                           $scope.currentUnit.progress = Progress.complete($scope.currentUnit.id);
