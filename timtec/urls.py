@@ -198,6 +198,7 @@ if 'discussion' in settings.INSTALLED_APPS:
 if 'paralapraca' in settings.INSTALLED_APPS:
     urlpatterns += (
         url(r'^paralapraca/', include('paralapraca.urls', namespace='paralapraca')),
+        url(r'^xicongressoat/$', TemplateView.as_view(template_name="home-congresso.html"), name='home_congresso'),
     )
 
 if settings.TWITTER_USER != '':
