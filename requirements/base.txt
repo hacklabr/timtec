@@ -22,6 +22,10 @@ pandas==0.20.3
 
 requests~=2.18  # for communication with the rocketchat API
 
+# django-cards dependencies
+django-taggit~=0.22
+django-taggit-serializer~=0.1
+
 # django-filter==0.7
 django-filter==0.10.0
 
