@@ -197,6 +197,11 @@ if 'paralapraca' in settings.INSTALLED_APPS:
         url(r'^paralapraca/', include('paralapraca.urls', namespace='paralapraca')),
     )
 
+if 'cards' in settings.INSTALLED_APPS:
+    urlpatterns += (
+        url(r'^cards/', include('cards.urls', namespace='cards')),
+    )
+
 if settings.TWITTER_USER != '':
     from core.views import TwitterApi
 

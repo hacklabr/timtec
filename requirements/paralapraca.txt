@@ -1,3 +1,4 @@
 
 -e git+https://github.com/hacklabr/paralapraca#egg=paralapraca
 -e git+https://github.com/hacklabr/django-discussion#egg=django-discussion
+-e git+https://github.com/hacklabr/django-cards#egg=django-cards
