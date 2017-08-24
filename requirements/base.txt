@@ -20,6 +20,8 @@ rest-pandas==0.5.0
 # Pandas for advanced reporting of courses and groups
 pandas==0.20.3
 
+requests~=2.18  # for communication with the rocketchat API
+
 # django-filter==0.7
 django-filter==0.10.0
 
