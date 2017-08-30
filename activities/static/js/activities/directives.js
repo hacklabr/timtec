@@ -216,8 +216,8 @@
                     // If the user alreay is in the last slide, update progress instead
                     if(scope.current_slide === (scope.totalSlides-1)){
                         scope.update_progress();
-                        // Open next unit
-                        scope.nextUnit();
+                        // Show the next interaction for the current slides module
+                        scope.nextStep();
 
                     } else {
                       scope.select_slide(scope.current_slide+1);
