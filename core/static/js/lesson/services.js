@@ -61,6 +61,10 @@
         return $resource('/api/course_certification/', {}, {});
     });
 
+    app.factory('ClassActivity', function($resource) {
+        return $resource('/api/course_class_activities/', {}, {});
+    });
+
     app.factory('resolveActivityTemplate', ['STATIC_URL', function(STATIC_URL) {
         return function (typeName) {
             return STATIC_URL + 'templates/activity_'+ typeName + '.html';
