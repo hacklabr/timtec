@@ -16,6 +16,7 @@
         // 'filters.text',
         'youtube',
         'header',
+        'ui.tinymce',
         'ui.bootstrap',
         'discussion.services',
         'ngFileUpload',
