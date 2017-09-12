@@ -333,10 +333,9 @@ class CourseStudent(models.Model):
             from hashlib import sha1
             from time import time
             h = ub64(sha1(str(time()) + self.user.last_name.encode('utf-8')).digest()[0:6])
-            # FIXME change default type back to receipt
             receipt = CourseCertification(course_student=self,
                                           course=self.course,
-                                          type=CourseCertification.TYPES[1][0],
+                                          type=CourseCertification.TYPES[0][0],
                                           is_valid=True, link_hash=h)
             receipt.save()
 
