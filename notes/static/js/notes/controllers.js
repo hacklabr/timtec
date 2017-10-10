@@ -16,8 +16,10 @@
                     } else {
                         promisse = $scope.note.$save();
                     }
-                    promisse.then(function () {
-                        $('.notes.message').show().delay(2000).fadeOut();
+                    promisse.then(function() {
+                        $('.notes.message.success').show().delay(2000).fadeOut();
+                    }).catch(function() {
+                        $('.notes.message.failure').show().delay(2000).fadeOut();
                     });
                 };
                 function load_note() {
