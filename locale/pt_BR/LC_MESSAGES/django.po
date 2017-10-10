@@ -1260,7 +1260,7 @@ msgstr "Sua senha foi alterada."
 #: themes/default/templates/account/password_reset_from_key_done.html:10
 #: themes/default/templates/account/password_reset_from_key_done.html:60
 msgid "Password reset complete"
-msgstr "Redefinição da senha completo"
+msgstr "Redefinição da senha completa"
 
 #: themes/default/templates/account/signup.html:35
 #: themes/default/templates/account/signup.html:113
