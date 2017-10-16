@@ -9,5 +9,6 @@
         'django',
         'header',
         'gettext',
+        'ui.bootstrap',
     ]);
 })(angular);

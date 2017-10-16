@@ -6,6 +6,7 @@
         'profile.services',
         'djangular',
         'header',
+        'ui.bootstrap',
         'ui.tinymce',
     ]);
 })(angular);
