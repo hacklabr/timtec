@@ -75,7 +75,7 @@
                     });
                     $scope.lessons = lessons;
                 });
-                $scope.delele_note = function(lesson, unit, note) {
+                $scope.delele_note = function(course, lesson, unit, note) {
                     if(!confirm('Tem certeza que deseja remover esta anotação?')) return;
 
                     Note.remove({note_id: note.id}, function (){
@@ -111,7 +111,6 @@
 
                 $scope.delele_note = function(course, lesson, unit, note) {
                     if(!confirm('Tem certeza que deseja remover esta anotação?')) return;
-
                     Note.remove({note_id: note.id}, function (){
                         var index;
                         if (lesson.units_notes.length > 1) {
