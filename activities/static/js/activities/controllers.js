@@ -248,7 +248,7 @@
             AnswerNotification.update({topic: activity_topic.id, is_read: true});
 
             setTimeout(function() {
-                $(document.body).animate({
+                $('html, body').animate({
                   'scrollTop':   $('#answer').position().top
                 }, 500);
             }, 100);
@@ -410,7 +410,7 @@
                   }
               }
               return answer;
-          });          
+          });
 
           $scope.sendAnswer = function() {
 
