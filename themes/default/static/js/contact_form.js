@@ -13,6 +13,7 @@
                 $this.removeClass('.has-error');
                 $('#modal-contact').modal('hide');
                 $(document.body).notify('Mensagem enviada!', 'alert-success');
+                $this.context.reset();
             });
             return false;
         });
