@@ -34,6 +34,12 @@ class ProfileEditForm(BaseProfileEditForm):
         fields = ('username', 'email', 'first_name', 'last_name', 'picture',
                   'occupation', 'city', 'site', 'biography', 'cpf')
 
+    def clean_picture(self):
+        picture = self.cleaned_data.get('picture')
+        if not self.is_valid():
+            return self.instance.picture
+        return picture
+
     # FIXME: username should be actually cleaned
     def clean_username(self):
         return self.instance.username
