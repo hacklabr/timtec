@@ -199,6 +199,7 @@ if 'paralapraca' in settings.INSTALLED_APPS:
     urlpatterns += (
         url(r'^paralapraca/', include('paralapraca.urls', namespace='paralapraca')),
         url(r'^xicongressoat/$', TemplateView.as_view(template_name="home-congresso.html"), name='home_congresso'),
+        url(r'^contracts/$', TemplateView.as_view(template_name="contracts.html"), name='contracts'),
     )
 
 if 'cards' in settings.INSTALLED_APPS:
