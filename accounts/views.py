@@ -19,6 +19,7 @@ from rest_framework.response import Response
 
 from core.permissions import IsAdmin
 
+from django.contrib.auth import update_session_auth_hash
 
 class ProfileEditView(LoginRequiredMixin, UpdateView):
     model = get_user_model()
@@ -34,6 +35,12 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
 
     def get_object(self):
         return self.request.user
+
+    def post(self, request, *args, **kwargs):
+        form_result = super(ProfileEditView, self)\
+            .post(request, *args, **kwargs)
+        update_session_auth_hash(self.request, self.request.user)
+        return form_result
 
 
 class ProfileView(LoginRequiredMixin, DetailView):
