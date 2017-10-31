@@ -80,21 +80,6 @@
         };
     }]);
 
-    /**
-     * Give a function that send _method=OPTIONS to django rest_framework
-     * URL informed and return a promise with result.
-     */
-    app.factory('getRestOptions', ['$http', function($http){
-        return function(url){
-            return $http({
-                method:'POST',
-                url: url,
-                data:'_method=OPTIONS',
-                headers:{'Content-Type':'application/x-www-form-urlencoded'}
-            });
-        };
-    }]);
-
 
     /**
      *  Provide a Course Professor class. The property Class.fields contains the
@@ -121,40 +106,6 @@
                 'method': 'PUT'
             }
         });
-    }]);
-
-
-    /**
-     *  Provide a Course class. The property Class.fields contains the
-     *  list of fields that reflects Course model in Django
-     */
-    app.factory('Course', ['$resource', 'getRestOptions', function($resource, getRestOptions) {
-        var Course = $resource('/api/course/:id', {'id':'@id'});
-
-        Course.prototype.isDraft = function() { return this.status === 'draft'; };
-        Course.prototype.isListed = function() { return this.status === 'listed'; };
-        Course.prototype.isPublished = function() { return this.status === 'published'; };
-
-        Course.prototype.hasVideo = function(){
-            return this.intro_video && this.intro_video.youtube_id &&
-                   this.intro_video.youtube_id.length > 0;
-        };
-
-        Course.prototype.save = function() {
-            if(!this.name) this.name = 'Sem título';
-            if(!this.slug) this.slug = 'sem-titulo-{0}'.format(new Date().getTime().toString(16));
-            if(!this.status) this.status = 'draft';
-            if(!this.min_percent_to_complete)
-                this.min_percent_to_complete = 100;
-            return this.$save();
-        };
-
-
-        getRestOptions('/api/course').success(function(data) {
-            Course.fields = angular.copy(data.actions.POST);
-        });
-
-        return Course;
     }]);
 
 

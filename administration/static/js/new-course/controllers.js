@@ -74,9 +74,6 @@
                 var messages = [];
                 for(var att in response.data) {
                     var message = response.data[att];
-                    if(Course.fields && Course.fields[att]) {
-                        message = Course.fields[att].label + ': ' + message;
-                    }
                     messages.push(message);
                 }
                 $scope.alert.error('Encontramos alguns erros!', messages, true);

@@ -5,6 +5,7 @@
         'new-course.directives',
         'django',
         'timtec-models',
+        'core.services',
         'directive.alertPopup',
         'directive.contenteditable',
         'directive.fixedBar',
