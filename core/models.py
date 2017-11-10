@@ -338,19 +338,30 @@ class CourseStudent(models.Model):
         return StudentProgress.objects.exclude(complete=None) \
             .filter(user=self.user, unit__lesson__course=self.course)
 
-    @property
-    def course_finished(self):
+    def _plpc_course_finished(self):
+        activities = Activity.objects\
+            .filter(unit__lesson__in=self.course.lessons
+                    .filter(status='published'),
+                    type='discussion')
+        answers = Answer.objects\
+            .filter(activity__in=activities, user=self.user)
+
+        return self.percent_progress() > self.min_percent_to_complete() and \
+               activities.count() == answers.count()
+
+    def _course_finished(self):
         return self.percent_progress() >= \
             self.course.min_percent_to_complete
 
-    def can_emmit_receipt(self):
+    @property
+    def course_finished(self):
+        return self._plpc_course_finished()
 
+    def can_emmit_receipt(self):
         if not self.get_current_class().user_can_certificate and not self.course_finished:
             return False
-
         if self.get_current_class().user_can_certificate_even_without_progress and self.certificate.type == 'certificate':
             return True
-
         return self.course_finished
 
     def get_current_class(self):
