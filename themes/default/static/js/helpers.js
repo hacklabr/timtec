@@ -41,7 +41,7 @@ String.prototype.format = function () {
     if(!$) return;
 
     $.fn.notify = function(text, clazz) {
-        var $div = $('<div style="width:100%;position:fixed;bottom:2em;z-index:1051;text-align:center;">');
+        var $div = $('<div style="width:100%;position:fixed;top:40vh;z-index:1051;text-align:center;">');
         var $span = $('<span class="alert">').addClass(clazz).html(text);
         $div.append($span);
         $(this).css('position','relative').append($div);
