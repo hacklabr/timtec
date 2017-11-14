@@ -78,8 +78,16 @@
                         $scope.section = 'video';
 
                         youtubePlayerApi.loadPlayer().then(function(player){
-                            if(player.getVideoData() &&
-                            player.getVideoData().video_id === youtube_id) return;
+                            try {
+                                if(player.getVideoData() &&
+                                    player.getVideoData().video_id === youtube_id)
+                                    return;
+                            }
+                            catch(err) {
+                                // There has been an error trying to get video data from the player API (provided by Youtube)
+                                // Pass this error silently
+                            }
+                            // Enforce now which video must be played
                             player.cueVideoById(youtube_id);
                         });
                     } else {
@@ -315,7 +323,13 @@
     var lastState = -1;
 
     function  onPlayerStateChange (event) {
-        var video_id = event.target.getVideoData().video_id;
+        try {
+            var video_id = event.target.getVideoData().video_id;
+        }
+        catch(err) {
+            // There has been an error trying to get video data from the player API (provided by Youtube)
+            // Pass this error silently
+        }
 
         if (event.data == YT.PlayerState.ENDED){
             if(! (lastState === YT.PlayerState.PAUSED ||   // workaround, YT in html5 mode will fire
