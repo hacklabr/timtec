@@ -43,6 +43,7 @@
             $scope.playerReady = false;
             youtubePlayerApi.loadPlayer().then(function(p){
                 player = p;
+                player.cueVideoById(youtubePlayerApi.videoId);
                 $scope.playerReady = true;
             });
 

@@ -32,7 +32,14 @@
 
             $scope.play = function(youtube_id) {
                 youtubePlayerApi.loadPlayer().then(function(player){
-                    if(player.getVideoData().video_id === youtube_id) return;
+                    try {
+                        if(player.getVideoData().video_id === youtube_id) return;
+                    }
+                    catch(err) {
+                        // There has been an error trying to get video data from the player API (provided by Youtube)
+                        // Pass this error silently
+                    }
+                    // Enforce now which video must be played
                     player.cueVideoById(youtube_id);
                 });
             };
