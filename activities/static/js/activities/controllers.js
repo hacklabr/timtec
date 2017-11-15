@@ -386,10 +386,14 @@
                     }
                 }
                 return answer;
+            }, function(error){
+                $scope.answer = new Answer({activityId: $scope.currentActivity.id, given: []});
+                for(var i = 0; i < $scope.currentActivity.data.alternatives.length; i++) {
+                    $scope.answer.given[i] = false;
+                }
             });
 
             $scope.sendAnswer = function() {
-
                 // Force given to be an array, if necessary
                 if(typeof $scope.answer.given === 'object'){
                     $scope.answer.given = Object.keys($scope.answer.given).map(function(key) { return $scope.answer.given[key]; });
