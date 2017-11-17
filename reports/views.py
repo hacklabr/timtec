@@ -30,39 +30,18 @@ class UserCourseStats(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
         except ObjectDoesNotExist:
             pass
 
-        search = self.request.query_params.get('s')
-        if search:
-            queryset = queryset.filter(Q(user__first_name__icontains=search) |
-                                       Q(user__last_name__icontains=search) |
-                                       Q(user__username__icontains=search) |
-                                       Q(user__email__icontains=search))
-
+        classes_id = self.request.query_params.getlist('classes')
+        # class passed as get paremeter
+        classes = Class.objects.filter(course=course_id)
+        if classes_id:
+            classes = classes.filter(id__in=classes_id)
+            queryset = queryset.filter(user__classes__in=classes)
         if (role and role == 'coordinator') or self.request.user.is_staff or self.request.user.is_superuser:
-            pass
+            return queryset
         else:
             # if user is not coordinator or admin, only show his classes
-            classes = Class.objects.filter(course=course_id)
             classes = classes.filter(assistants=user)
-            queryset = queryset.filter(user__classes__in=classes)
-
-        # TODO: Fix ordering
-        ordering = self.request.query_params.get('ordering')
-        if ordering and ordering == 'course_progress':
-            pass
-            #         id_progress = {}
-            #         for item in queryset:
-            #             id_progress[item.id] = item.percent_progress()
-            #         import operator
-            #         id_progress = sorted(id_progress.items(), key=operator.itemgetter(1))
-            #         queryset = CourseStudent.objects.filter(id__in=id_progress.keys())
-        else:
-            queryset = queryset.order_by('user__first_name')
-
-        reverse = self.request.query_params.get('reverse')
-        if reverse and reverse == 'true':
-            queryset = queryset.reverse()
-
-        return queryset
+            return queryset.filter(user__classes__in=classes)
 
 
 class UserCourseLessonsStats(LoginRequiredMixin, viewsets.ReadOnlyModelViewSet):
