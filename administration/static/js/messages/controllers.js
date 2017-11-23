@@ -141,6 +141,10 @@
                     return $sce.trustAsHtml(value);
                 };
 
+                $scope.contract_name = function(item) {
+                    return item.contract.name;
+                };
+
                 $scope.new_message = new MessageGlobal();
                 $scope.new_message.users = [];
                 $scope.recipient_list = [];
