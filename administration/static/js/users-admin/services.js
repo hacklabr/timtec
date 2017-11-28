@@ -16,4 +16,9 @@
         });
     });
 
+    module.factory('Contracts', ['$resource', function($resource){
+        return $resource('/paralapraca/api/contract/:id',
+            {'id': '@id'});
+    }]);
+
 })(angular);
