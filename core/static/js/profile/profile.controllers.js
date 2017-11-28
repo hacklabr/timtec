@@ -9,6 +9,8 @@
         'CurrentUser',
         function ($scope, $location, TimtecUser, CurrentUser) {
 
+            $scope.current_user = CurrentUser;
+
             // remove the last slash
             var abs_url = $location.absUrl();
             if (abs_url.slice(-1) === '/') {
