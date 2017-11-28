@@ -64,6 +64,7 @@ class TimtecUserViewSet(viewsets.ReadOnlyModelViewSet):
     filter_fields = ('groups__name',)
     filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter,)
     serializer_class = TimtecUserSerializer
+    queryset = TimtecUser.objects.all()
     ordering = ('first_name', 'username',)
 
 
