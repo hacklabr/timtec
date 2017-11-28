@@ -142,7 +142,17 @@
                 };
 
                 $scope.contract_name = function(item) {
-                    return item.contract.name;
+                    if (item.contract)
+                        return item.contract.name;
+                    else
+                        return 'Grupos sem contrato';
+                };
+
+                $scope.group_label = function(item) {
+                    if (item.contract)
+                        return item.name + ' - ' + item.contract.name;
+                    else
+                        return item.name;
                 };
 
                 $scope.new_message = new MessageGlobal();
