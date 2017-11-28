@@ -337,15 +337,24 @@ class ClassSerializer(serializers.ModelSerializer):
         return updated_class
 
 
+class ProfileClassSerializer(serializers.ModelSerializer):
+    course = serializers.StringRelatedField()
+
+    class Meta:
+        model = Class
+        fields = ('id', 'name', 'course')
+
 class ProfileSerializer(TimtecUserSerializer):
     certificates = ProfileCourseCertificationSerializer(many=True,
                                                         source="get_certificates")
+    classes = ProfileClassSerializer(many=True)
+
 
     class Meta:
         model = get_user_model()
         fields = ('id', 'username', 'name', 'first_name', 'last_name',
                   'biography', 'picture', 'is_profile_filled', 'occupation',
-                  'certificates', 'city', 'site', 'occupation', )
+                  'certificates', 'city', 'site', 'occupation', 'classes')
 
 
 class CourseThumbSerializer(serializers.ModelSerializer):
