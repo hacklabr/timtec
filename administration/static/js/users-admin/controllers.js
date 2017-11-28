@@ -61,8 +61,8 @@
     ]);
 
 
-    app.controller('GroupAdminController', ['$scope', '$window', '$uibModal', '$http', '$q',  'GroupAdmin', 'UserAdmin',
-        function($scope, $window,$uibModal, $http, $q, GroupAdmin, UserAdmin) {
+    app.controller('GroupAdminController', ['$scope', '$window', '$uibModal', '$http', '$q', 'Contracts', 'GroupAdmin', 'UserAdmin',
+        function($scope, $window,$uibModal, $http, $q, Contracts, GroupAdmin, UserAdmin) {
 
             var success_create_group_msg = 'Grupo criado com sucesso.';
             var success_delete_group_msg = 'Grupo apagado com sucesso.';
@@ -71,6 +71,22 @@
             var success_users_rmv = 'Usuários removidos do grupo com sucesso.';
             var error_user_rmv = 'Erro ao remover usuário do grupo.';
             var error_users_rmv = 'Erro ao remover usuários do grupo';
+
+            // region Contracts
+            $scope.contracts = Contracts.query();
+            $scope.contract = '';
+
+            $scope.filter_contracts = function() {
+                if ($scope.contract == 0) {
+                    $scope.groups.filtered = $scope.groups.all;
+                }
+                else {
+                    $scope.groups.filtered = $scope.groups.all.filter(function(group) {
+                        return group.contract && group.contract.id == $scope.contract;
+                    });
+                }
+            };
+            // endregion Contracts
 
             var reload_groups = function(message){
                 GroupAdmin.query(function(groups){
@@ -81,7 +97,9 @@
                     //         i = -1;  // if an element has been removed, the counter is outdated and must be reinitialized
                     //     }
                     // }
-                    $scope.groups = groups;
+                    $scope.groups = {};
+                    $scope.groups.all = groups;
+                    $scope.groups.filtered = $scope.groups.all;
                     if (message !== undefined){
                         $scope.alert.success(message);
                     }
