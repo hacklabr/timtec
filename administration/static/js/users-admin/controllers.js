@@ -68,7 +68,9 @@
             var success_delete_group_msg = 'Grupo apagado com sucesso.';
             var success_user_add = 'Usuários adicionados ao grupo com sucesso.'
             var success_user_rmv = 'Usuário removido do grupo com sucesso.';
+            var success_users_rmv = 'Usuários removidos do grupo com sucesso.';
             var error_user_rmv = 'Erro ao remover usuário do grupo.';
+            var error_users_rmv = 'Erro ao remover usuários do grupo';
 
             var reload_groups = function(message){
                 GroupAdmin.query(function(groups){
@@ -96,9 +98,11 @@
             };
 
             $scope.remove_group = function (group) {
-                GroupAdmin.delete({id: group.id}, function(){
-                    reload_groups(success_delete_group_msg);
-                });
+                if (window.confirm('Deseja mesmo remover o grupo?')){
+                    GroupAdmin.delete({id: group.id}, function(){
+                        reload_groups(success_delete_group_msg);
+                    });
+                }
             };
 
             // Add new users to a group using a modal
@@ -182,7 +186,37 @@
                         return professors_found;
                     });
                 };
+
+                $scope.bulk_add = function() {
+                    var emails_array = $scope.bulk_add_list.split(/\n/);
+                    $uibModalInstance.close();
+                };
             };
+
+            // Bulk removal of users to a group using a modal
+            $scope.remove_users = function(group) {
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'removeUsersModal.html',
+                    controller: ['$scope', '$uibModalInstance', 'group', removeUsersModalInstanceCtrl],
+                    resolve: {
+                        group: function() {
+                            return group;
+                        }
+                    }
+                });
+            }
+            var removeUsersModalInstanceCtrl = function($scope, $uibModalInstance, group) {
+                $scope.group = group;
+
+                $scope.cancel = function() {
+                    $uibModalInstance.dismiss();
+                };
+
+                $scope.bulk_remove = function() {
+                    var emails_array = $scope.bulk_remove_list.split(/\n/);
+                    $uibModalInstance.close();
+                };
+            }
         }
     ]);
 
