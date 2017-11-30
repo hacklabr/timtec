@@ -47,12 +47,12 @@ router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'user', TimtecUserViewSet, base_name='user')
 router.register(r'profile', ProfileViewSet, base_name='profile')
 router.register(r'user_admin', TimtecUserAdminViewSet, base_name='user_admin')
-router.register(r'group_admin', GroupAdminViewSet, base_name='group_admin')
 if 'paralapraca' in settings.INSTALLED_APPS:
     from paralapraca.urls import router as plpc_router
     router.registry.extend(plpc_router.registry)
 else:
     router.register(r'group', GroupViewSet, base_name='group')
+    router.register(r'group_admin', GroupAdminViewSet, base_name='group_admin')
 router.register(r'course', CourseViewSet, base_name='course')
 router.register(r'course_carousel', CarouselCourseView, base_name='course_carousel')
 router.register(r'course_professor', CourseProfessorViewSet, base_name='course_professor')
