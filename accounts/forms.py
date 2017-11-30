@@ -51,6 +51,40 @@ class ProfileEditForm(BaseProfileEditForm):
         return super(ProfileEditForm, self).save(commit=commit)
 
 
+class ProfileEditAdminForm(BaseProfileEditForm):
+
+    email = forms.RegexField(label=_("email"), max_length=75, regex=r"^[\w.@+-]+$")
+    cpf = BRCPFField()
+
+    password1 = forms.CharField(widget=forms.PasswordInput, label=_("Password"), required=False)
+    password2 = forms.CharField(widget=forms.PasswordInput, label=_("Password (again)"), required=False)
+
+    class Meta:
+        model = get_user_model()
+        widgets = {
+            'groups' : forms.SelectMultiple(attrs={'class' : 'form-control',
+                                                   'size' : 10 })
+        }
+        fields = ('username', 'email', 'first_name', 'last_name', 'picture',
+                  'groups', 'occupation', 'city', 'site', 'biography', 'cpf')
+
+    # FIXME: username should be actually cleaned
+    def clean_username(self):
+        return self.instance.username
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+        if password1 != password2:
+            raise forms.ValidationError(_("The two password fields didn't match."))
+        return password2
+
+    def save(self, commit=True):
+        if self.cleaned_data['password1']:
+            self.instance.set_password(self.cleaned_data['password1'])
+        return super(ProfileEditAdminForm, self).save(commit=commit)
+
+
 class AcceptTermsForm(forms.Form):
     accept_terms = forms.BooleanField(label=_('Accept '), initial=False, required=False)
 

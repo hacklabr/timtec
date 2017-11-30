@@ -3,6 +3,7 @@ from django.views.generic.base import RedirectView
 from django.contrib.auth.decorators import login_required as lr
 from forum.views import AdminCourseForumView
 from course_material.views import CourseMaterialAdminView
+from accounts.views import ProfileEditAdminView
 from .views import (AdminView, CourseAdminView, CourseCreateView,
                     ExportCourseView, ImportCourseView, UserAdminView,)
 
@@ -19,6 +20,9 @@ urlpatterns = patterns(
     url(r'^users/$', UserAdminView.as_view(template_name="users.html"), name='administration.users'),
     # url(r'^users/(?P<pk>[0-9]+)/$', UserUpdateView.as_view(), name='administration.user-update'),
     # url(r'^users/(?P<pk>[0-9]+)/delete/$', UserDeleteView.as_view(), name='administration.user-delete'),
+
+    # profile
+    url(r'^profile/edit/(?P<username>[\w.+-]+)?/?$', ProfileEditAdminView.as_view(), name="administration.profile_edit"),
 
     # create, edit and export courses
     url(r'^courses/new/$', CourseCreateView.as_view(), name="administration.new_course"),

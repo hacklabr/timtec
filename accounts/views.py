@@ -8,9 +8,9 @@ from django.views.generic.detail import DetailView
 from django.db.models import Q
 
 from accounts.models import TimtecUser
-from accounts.forms import ProfileEditForm, AcceptTermsForm
+from accounts.forms import ProfileEditForm, ProfileEditAdminForm, AcceptTermsForm
 from accounts.serializers import TimtecUserSerializer, TimtecUserAdminSerializer, GroupAdminSerializer, GroupSerializer
-from braces.views import LoginRequiredMixin
+from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 
 from rest_framework import viewsets
 from rest_framework import filters
@@ -37,11 +37,39 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
         return self.request.user
 
     def post(self, request, *args, **kwargs):
-        form_result = super(ProfileEditView, self)\
+        form_result = super(ProfileEditView, self) \
             .post(request, *args, **kwargs)
         update_session_auth_hash(self.request, self.request.user)
         return form_result
 
+
+class ProfileEditAdminView(LoginRequiredMixin, SuperuserRequiredMixin, UpdateView):
+    model = get_user_model()
+    form_class = ProfileEditAdminForm
+    template_name = 'administration/profile-edit-admin.html'
+    raise_exception = True
+
+    def get_success_url(self):
+        url = self.request.GET.get('next', None)
+        if url:
+            return url
+        else:
+            print '/admin/profile/%s' % self.kwargs['username']
+            return reverse_lazy('administration.profile_edit', args=[self.kwargs['username']])
+
+    def get_object(self):
+        if hasattr(self, 'kwargs') and 'username' in self.kwargs:
+            try:
+                print self.kwargs['username']
+                return get_object_or_404(self.model, username=self.kwargs['username'])
+            except:
+                return self.request.user
+        else:
+            return self.request.user
+
+    def dispatch(self, request, *args, **kwargs):
+        print request
+        return super(ProfileEditAdminView, self).dispatch(request, *args, **kwargs)
 
 class ProfileView(LoginRequiredMixin, DetailView):
     model = get_user_model()
