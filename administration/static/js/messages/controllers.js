@@ -142,7 +142,7 @@
                 };
 
                 $scope.contract_name = function(item) {
-                    if (item.contract)
+                    if (item.contract && item.contract.name !== '')
                         return item.contract.name;
                     else
                         return 'Grupos sem contrato';
