@@ -161,6 +161,20 @@ class GroupAdminViewSet(viewsets.ModelViewSet):
                 group.user_set.add(User.objects.get(id=user['id']))
             return Response(status=200)
 
+        if request.data['action'] == 'bulk_remove':
+            group = Group.objects.get(id=request.data['id'])
+            users = User.objects.filter(email__in=request.data['users'])
+            for user in users:
+                group.user_set.remove(user)
+            return Response(status=200)
+
+        if request.data['action'] == 'bulk_add':
+            group = Group.objects.get(id=request.data['id'])
+            users = User.objects.filter(email__in=request.data['users'])
+            for user in users:
+                group.user_set.add(user)
+            return Response(status=200)
+
         return Response(status=404)
 
 

@@ -2,7 +2,7 @@
 
     var app = angular.module('users-admin.controllers', []);
 
-        app.controller('UsersAdminController', ['$scope', '$window', '$uibModal', '$http', '$q',  'UserAdmin',
+    app.controller('UsersAdminController', ['$scope', '$window', '$uibModal', '$http', '$q',  'UserAdmin',
         function($scope, $window,$uibModal, $http, $q, UserAdmin) {
 
             var success_save_msg = 'Alterações salvas com sucesso.';
@@ -189,6 +189,11 @@
 
                 $scope.bulk_add = function() {
                     var emails_array = $scope.bulk_add_list.split(/\n/);
+                    GroupAdmin.update({id: group.id, users: emails_array, action: "bulk_add"}, function(data) {
+                        reload_groups(success_user_add);
+                    }, function(error) {
+                        $scope.alert.error(error_user_add);
+                    });
                     $uibModalInstance.close();
                 };
             };
@@ -214,6 +219,11 @@
 
                 $scope.bulk_remove = function() {
                     var emails_array = $scope.bulk_remove_list.split(/\n/);
+                    GroupAdmin.update({id: group.id, users: emails_array, action: "bulk_remove"}, function(data) {
+                        reload_groups(success_user_rmv);
+                    }, function(error) {
+                        $scope.alert.error(error_user_rmv);
+                    });
                     $uibModalInstance.close();
                 };
             }
