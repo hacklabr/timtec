@@ -88,6 +88,22 @@
             };
             // endregion Contracts
 
+            // region Contracts
+            $scope.contracts = Contracts.query();
+            $scope.contract = '';
+
+            $scope.filter_contracts = function() {
+                if ($scope.contract == 0) {
+                    $scope.groups.filtered = $scope.groups.all;
+                }
+                else {
+                    $scope.groups.filtered = $scope.groups.all.filter(function(group) {
+                        return group.contract && group.contract.id == $scope.contract;
+                    });
+                }
+            };
+            // endregion Contracts
+
             var reload_groups = function(message){
                 GroupAdmin.query(function(groups){
                     // "students" and "professros" groups must be ommited
