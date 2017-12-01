@@ -149,7 +149,7 @@
                 };
 
                 $scope.group_label = function(item) {
-                    if (item.contract)
+                    if (item.contract && item.contract.name != '')
                         return item.name + ' - ' + item.contract.name;
                     else
                         return item.name;
