@@ -54,22 +54,17 @@ class ProfileEditAdminView(LoginRequiredMixin, SuperuserRequiredMixin, UpdateVie
         if url:
             return url
         else:
-            print '/admin/profile/%s' % self.kwargs['username']
             return reverse_lazy('administration.profile_edit', args=[self.kwargs['username']])
 
     def get_object(self):
         if hasattr(self, 'kwargs') and 'username' in self.kwargs:
             try:
-                print self.kwargs['username']
                 return get_object_or_404(self.model, username=self.kwargs['username'])
             except:
                 return self.request.user
         else:
             return self.request.user
 
-    def dispatch(self, request, *args, **kwargs):
-        print request
-        return super(ProfileEditAdminView, self).dispatch(request, *args, **kwargs)
 
 class ProfileView(LoginRequiredMixin, DetailView):
     model = get_user_model()
