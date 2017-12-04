@@ -8,6 +8,7 @@
         'django',
         'timtec-models',
         'ui.bootstrap',
+        'ui.select',
         'ui.tinymce',
         'angular.filter',
         'checklist-model',
