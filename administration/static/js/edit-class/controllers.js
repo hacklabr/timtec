@@ -10,8 +10,8 @@
         };
     });
 
-    module.controller('ClassController', ['$scope', '$window', '$filter', 'Class', 'StudentSearch', 'CourseCertification',
-        function($scope, $window, $filter, Class, StudentSearch, CourseCertification) {
+    module.controller('ClassController', ['$scope', '$window', '$filter', 'Class', 'StudentSearch', 'Contracts', 'CourseCertification',
+        function($scope, $window, $filter, Class, StudentSearch, Contracts, CourseCertification) {
 
             $scope.errors = {};
             var httpErrors = {
@@ -26,6 +26,7 @@
             $scope.classe = Class.get({id: $scope.class_id}, function(classe) {
                 document.title = 'Turma: {0}'.format(classe.name);
             });
+            $scope.contracts = Contracts.query();
 
             $scope.getUsers = function(val) {
                 return new StudentSearch(val, course_id);
