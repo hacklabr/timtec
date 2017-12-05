@@ -10,7 +10,25 @@
         };
     });
 
-    module.controller('ClassController', ['$scope', '$window', '$filter', 'Class', 'StudentSearch', 'Contracts', 'CourseCertification',
+    module.controller('ClassesListController', ['$scope', '$location', 'Class', 'Contracts', 'Course',
+        function($scope, $location, Class, Contracts, Course) {
+            var url_path = $location.absUrl().split('/');
+            var course_slug = url_path.slice(-3)[0];
+
+            var course;
+            Course.query({slug: course_slug}).$promise.then(function(response) {
+                course = response[0];
+                $scope.classes = Class.query({course: course.id});
+            });
+
+            $scope.contracts = Contracts.query();
+            $scope.filters = {
+                contract: ''
+            };
+        }
+    ]);
+
+    module.controller('EditClassController', ['$scope', '$window', '$filter', 'Class', 'StudentSearch', 'Contracts', 'CourseCertification',
         function($scope, $window, $filter, Class, StudentSearch, Contracts, CourseCertification) {
 
             $scope.errors = {};
@@ -26,7 +44,6 @@
             $scope.classe = Class.get({id: $scope.class_id}, function(classe) {
                 document.title = 'Turma: {0}'.format(classe.name);
             });
-            $scope.contracts = Contracts.query();
 
             $scope.getUsers = function(val) {
                 return new StudentSearch(val, course_id);
