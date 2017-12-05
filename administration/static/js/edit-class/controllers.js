@@ -15,16 +15,28 @@
             var url_path = $location.absUrl().split('/');
             var course_slug = url_path.slice(-3)[0];
 
+            $scope.classes = {};
+
             var course;
             Course.query({slug: course_slug}).$promise.then(function(response) {
                 course = response[0];
-                $scope.classes = Class.query({course: course.id});
+                $scope.classes.all = Class.query({course: course.id});
+                $scope.classes.filtered = $scope.classes.all;
             });
 
             $scope.contracts = Contracts.query();
             $scope.filters = {
                 contract: ''
             };
+
+            $scope.$watch('filters.contract', function(newContract, oldContract) {
+                if (newContract === '')
+                    $scope.classes.filtered = $scope.classes.all;
+                else
+                    $scope.classes.filtered = $scope.classes.all.filter(function(klass) {
+                        return klass.contract.id === newContract.id;
+                    });
+            });
         }
     ]);
 
