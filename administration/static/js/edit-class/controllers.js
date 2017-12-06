@@ -32,7 +32,7 @@
             $scope.$watch('filters.contract', function(newContract, oldContract) {
                 if (newContract === '')
                     $scope.classes.filtered = $scope.classes.all;
-                else
+                else if (newContract)
                     $scope.classes.filtered = $scope.classes.all.filter(function(klass) {
                         return klass.contract.id === newContract.id;
                     });
