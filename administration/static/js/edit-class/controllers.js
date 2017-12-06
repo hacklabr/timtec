@@ -57,6 +57,8 @@
                 document.title = 'Turma: {0}'.format(classe.name);
             });
 
+            $scope.contracts = Contracts.query();
+
             $scope.getUsers = function(val) {
                 return new StudentSearch(val, course_id);
             };
@@ -102,8 +104,6 @@
             }
 
             $scope.save = function(){
-
-                $scope.classe.$resolved = false;
 
                 $scope.classe.$update()
                     .then(function(){
