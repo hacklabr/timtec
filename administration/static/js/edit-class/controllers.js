@@ -34,7 +34,9 @@
                     $scope.classes.filtered = $scope.classes.all;
                 else if (newContract)
                     $scope.classes.filtered = $scope.classes.all.filter(function(klass) {
-                        return klass.contract.id === newContract.id;
+                        if (klass.contract)
+                            return klass.contract.id === newContract.id;
+                        return false;
                     });
             });
         }
