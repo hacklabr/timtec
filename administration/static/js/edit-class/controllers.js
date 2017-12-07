@@ -30,7 +30,7 @@
             };
 
             $scope.$watch('filters.contract', function(newContract, oldContract) {
-                if (newContract === '')
+                if (!newContract)
                     $scope.classes.filtered = $scope.classes.all;
                 else if (newContract)
                     $scope.classes.filtered = $scope.classes.all.filter(function(klass) {
