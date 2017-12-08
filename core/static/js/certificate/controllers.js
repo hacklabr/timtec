@@ -52,9 +52,20 @@
 
             $scope.saveTemplate = function () {
                 $scope.ct.$update({'course' : $scope.course_id}, function(updated){
-                    saveImageData();
-                    $scope.alert.success('Opções salvas com sucesso!');
+                    var success = true;
+                    var pr = saveImageData();
+                    pr.then(function(data){
 
+                    }, function(error){
+                        var msg = error.data.signature.length ?
+                                error.data.signature[0] :
+                                "Erro no envio da imagem";
+                        $scope.alert.error(msg);
+                        success = false;
+                    });
+                    if (success) {
+                        $scope.alert.success('Opções salvas com sucesso!');
+                    }
                 })
             }
 
