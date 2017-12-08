@@ -68,13 +68,16 @@
                 if($scope.images.base_logo){
                     fu.addField('base_logo', $scope.images.base_logo);
                 }
+                if($scope.images.site_logo){
+                    fu.addField('site_logo', $scope.images.site_logo);
+                }
                 if($scope.images.signature){
                     fu.addField('signature', $scope.images.signature);
                 }
                 fu.addField('course', $scope.course_id);
                 // return a new promise that file will be uploaded
 
-                return fu.sendTo('/api/certificate_template_images/' + $scope.course_id);
+                return fu.sendTo('/paralapraca/api/certificate_template_images/' + $scope.course_id);
 
             }
 
