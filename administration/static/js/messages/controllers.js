@@ -163,15 +163,20 @@
 
                 // trick to user modal.all_checked in ng-model html tag
                 $scope.modal = {};
-                $scope.modal.all_students = true;
+                $scope.modal.modes = {
+                    ALL_STUDENTS: 1,
+                    SOME_GROUPS: 2,
+                    SOME_STUDENTS: 3
+                };
+                $scope.modal.selected_mode = $scope.modal.modes.ALL_STUDENTS;
 
                 $scope.send = function () {
-                    if ($scope.modal.all_students){
+                    if ($scope.modal.selected_mode == $scope.modal.modes.ALL_STUDENTS){
                         $scope.new_message.all_students = true;
                         delete $scope.new_message.users;  // ensures that the empty array wont be sent to the server
                     }
                     // If groups were specified, put them in a groups field
-                    if ($scope.groups.checked){
+                    if ($scope.modal.selected_mode == $scope.modal.modes.SOME_GROUPS){
                         $scope.new_message.groups = $scope.groups.checked;
                         delete $scope.new_message.users;  // ensures that the empty array wont be sent to the server
                     }
