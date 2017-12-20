@@ -3,6 +3,7 @@
 
     angular.module('edit_class', [
         'edit_class.controllers',
+        'edit_class.services',
         'djangular',
         'directive.waiting-screen',
         'directive.alertPopup',
