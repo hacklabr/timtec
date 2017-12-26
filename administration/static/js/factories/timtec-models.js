@@ -267,6 +267,18 @@
        });
     });
 
+    app.factory('CertificateData', function($resource){
+       return $resource('/paralapraca/api/certificate_template/:id', {}, {
+           'update' : {'method' : 'PUT'},
+       });
+    });
+
+    app.factory('Contract', function($resource){
+       return $resource('/paralapraca/api/contract/:id', {}, {
+           'update' : {'method' : 'PUT'},
+       });
+    });
+
     /**
      * StudentSearch model. Used in typeahead input with ui.bootstrap.typeahead.
      * It uses http instead resource cause it has to be synchronous.
