@@ -845,7 +845,7 @@ class CertificationProcess(models.Model):
 
 
 class CertificateTemplate(models.Model):
-    course = models.OneToOneField(Course, verbose_name=_('Course'))
+    course = models.ForeignKey(Course, verbose_name=_('Course'))
     role = models.CharField(_('Role'), max_length=128, blank=True, null=True)
     name = models.CharField(_('Signature Name'),
                             blank=True, max_length=255,

@@ -85,12 +85,132 @@
                 if($scope.images.signature){
                     fu.addField('signature', $scope.images.signature);
                 }
-                fu.addField('course', $scope.course_id);
-                // return a new promise that file will be uploaded
 
-                return fu.sendTo('/paralapraca/api/certificate_template_images/' + $scope.course_id);
-
+                return fu.sendTo('/paralapraca/api/certificate_template_images/' + $scope.certificate_id);
             }
+
+        }
+    ]);
+
+    module.controller('CertificateDataAdminController', [
+        '$scope', '$uibModal', '$window', 'CertificateData', 'Course',
+        function ($scope, $uibModal, $window, CertificateData, Course) {
+            $scope.certificateList = [];
+            $scope.ordering = 'certificate_template.course';
+            $scope.reverse = false;
+            $scope.filters = {
+                type: 'all',
+                course: false,
+                contract : false,
+                textsearch: '',
+                check : function(c_data){
+                    var f = $scope.filters;
+                    var search = f.textsearch.toLowerCase();
+                    var target = c_data.certificate_template.course_name.toLowerCase();
+                    f.is_clear = f.type == 'all' && !f.course && !f.contract && f.textsearch == ''
+                    return (
+                        f.type == 'all' || c_data.type == f.type
+                    ) && (
+                        !search || target.match(search)
+                    ) && (
+                        !f.contract || c_data.contract.id == f.contract
+                    ) && (
+                        !f.course || c_data.certificate_template.course == f.course
+                    );
+                },
+                is_clear: true,
+                clear: function(){
+                    var f = $scope.filters;
+                    f.type = 'all';
+                    f.course = f.contract = false;
+                    f.textsearch = '';
+                    f.is_clear = true;
+                }
+            };
+
+            $scope.generate_templates_modal = function () {
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'generate_templates_modal.html',
+                    controller: ['$scope', '$uibModalInstance', 'CertificateData', 'Contract', 'certificateFormList', 'courses', CertificateModalInstanceCtrl],
+                    resolve: {
+                        certificateFormList: () => { return $scope.certificateList; },
+                        courses: () => { return $scope.courses; }
+                    }
+                });
+                modalInstance.result.then(function (response) {
+                    loadData();
+                });
+            };
+
+            var CertificateModalInstanceCtrl = function ($scope, $uibModalInstance, CertificateData, Contract, certificateFormList, courses) {
+                $scope.cancel = function () {
+                    $uibModalInstance.dismiss();
+                };
+
+                $scope.certificateFormList = certificateFormList;
+                Contract.query({}, function(data){
+                    $scope.contracts = data;
+                });
+                $scope.courses = courses;
+
+                $scope.form_filters = {
+                    type: 'all',
+                    course: false,
+                    contract : false,
+                    check : function(c_data){
+                        var f = $scope.form_filters;
+                        var target = c_data.certificate_template.course_name.toLowerCase();
+                        f.has_data = f.course && f.contract
+                        if (!f.has_data){
+                            return false;
+                        }
+                        return (
+                            f.type == 'all' || c_data.type == f.type
+                        ) && (
+                            !f.contract || c_data.contract.id == f.contract
+                        ) && (
+                            !f.course || c_data.certificate_template.course == f.course
+                        );
+                    },
+                    has_data: false,
+                };
+
+                $scope.generate_templates = function () {
+                    var c_data = new CertificateData({
+                        contract: $scope.form_filters.contract,
+                        course: $scope.form_filters.course,
+                        generate: true
+                    });
+                    c_data.$save((data) => {
+                        $uibModalInstance.close(data);
+                    }, (error) => {
+                        $uibModalInstance.close(error);
+                    });
+                };
+            };
+
+            var loadData = () => {
+                CertificateData.query({}, function(list){
+                    $scope.certificateList = list;
+                    $scope.certificateFormList = list;
+                    var contracts = list.map(function(item){
+                        return item.contract;
+                    }).reduce(function(prev, curr, i, arr){
+                        var index = prev.findIndex(function(item){
+                            return item.id == curr.id
+                        });
+                        index < 0 ? prev.push(curr) : prev;
+                        return prev;
+                    }, []);
+
+                    $scope.contracts = contracts;
+                });
+            }
+            loadData();
+
+            Course.query({}, function(courses) {
+                $scope.courses = courses;
+            })
 
         }
     ]);
