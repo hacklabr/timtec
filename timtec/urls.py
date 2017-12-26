@@ -4,7 +4,8 @@ from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.contrib.auth.decorators import permission_required
 
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
+
 from accounts.views import (ProfileEditView, ProfileView, UserSearchView,
                             TimtecUserViewSet, TimtecUserAdminViewSet, StudentSearchView,
                             AcceptTermsView, GroupAdminViewSet, GroupViewSet)
@@ -108,6 +109,9 @@ urlpatterns = patterns(
     url(r'^request_certificate/(?P<course_id>[-a-zA-Z0-9_]+)$',
         RequestCertificateView.as_view(),
         name='request_certificate'),
+
+    url(r'^certificate/(?P<slug>[-a-zA-Z0-9_]+)/$', RedirectView.as_view(pattern_name='paralapraca:certificate', permanent=True), name='certificate'),
+    url(r'^certificate/(?P<slug>[-a-zA-Z0-9_]+)/print/$', RedirectView.as_view(pattern_name="paralapraca:certificate_print", permanent=True), name='certificate-print'),
 
     url(r'^certificate/(?P<slug>[-a-zA-Z0-9_]+)/$', CourseCertificationDetailView.as_view(), name='certificate'),
     url(r'^certificate/(?P<slug>[-a-zA-Z0-9_]+)/print/$',
