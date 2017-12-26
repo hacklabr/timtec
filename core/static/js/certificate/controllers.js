@@ -38,6 +38,9 @@
             $scope.reset = function(event, id){
                 $scope.images[id + '_clear'] = true;
                 event.currentTarget.src = '';
+                var img = document.getElementById(id.replace('_', '-') + "-preview");
+                console.log(id);
+                img.src = '';
             }
 
             CertificateData.get({'id' : $scope.certificate_id, }, function(data) {
