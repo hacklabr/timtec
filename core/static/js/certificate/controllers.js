@@ -35,9 +35,13 @@
             $scope.document_title = '';
             $scope.preview = false;
 
+            $scope.reset = function(event, id){
+                $scope.images[id + '_clear'] = true;
+                event.currentTarget.src = '';
+            }
+
             CertificateData.get({'id' : $scope.certificate_id, }, function(data) {
                 $scope.ct = data;
-                console.log($scope.ct);
                 $scope.page_title += data.type == 'receipt' ? ' de Recibo' :
                     ' de Certificado';
                 $scope.message = $sce.trustAsHtml(data.type == 'receipt' ?
@@ -55,42 +59,29 @@
             });
 
             $scope.saveTemplate = function () {
-                var success = true;
                 $scope.ct.$update({'id' : $scope.certificate_id}, function(updated){
-                    var success = true;
                     var pr = saveImageData();
                     pr.then(function(data){
                         $scope.alert.success('Opções salvas com sucesso!');
+                        $scope.images = {};
                     }, function(error){
                         success = false;
-                        var msg = error.data.signature.length ?
-                                error.data.signature[0] :
-                                "Erro no envio da imagem";
+                        for (key in error.data) {
+                            msg += " : " + error.data[key][0];
+                        }
                         $scope.alert.error(msg);
                     });
-                    if (success) {
-                        $scope.alert.success('Opções salvas com sucesso!');
-                    }
                 }, function(error) {
                     $scope.alert.error('Erro ao salvar dados!');
-                })
+                });
             }
 
             $scope.images = {};
 
             var saveImageData = function(){
                 var fu = new FormUpload();
-                if($scope.images.cert_logo){
-                    fu.addField('cert_logo', $scope.images.cert_logo);
-                }
-                if($scope.images.base_logo){
-                    fu.addField('base_logo', $scope.images.base_logo);
-                }
-                if($scope.images.site_logo){
-                    fu.addField('site_logo', $scope.images.site_logo);
-                }
-                if($scope.images.signature){
-                    fu.addField('signature', $scope.images.signature);
+                for (var key in $scope.images) {
+                    fu.addField(key, $scope.images[key]);
                 }
 
                 return fu.sendTo('/paralapraca/api/certificate_template_images/' + $scope.certificate_id);
