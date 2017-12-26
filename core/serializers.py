@@ -4,7 +4,7 @@ from core.models import (Course, CourseProfessor, CourseStudent, Lesson,
                          Video, StudentProgress, Unit, ProfessorMessage,
                          ProfessorMessageRead, Class, CourseAuthor,
                          CourseCertification, CertificationProcess, Evaluation,
-                         CertificateTemplate, IfCertificateTemplate)
+                         CertificateTemplate, )
 from accounts.serializers import TimtecUserSerializer, \
     TimtecUserAdminCertificateSerializer
 from activities.models import Activity, Answer
@@ -170,14 +170,6 @@ class CertificateTemplateSerializer(serializers.ModelSerializer):
     class Meta:
         model = CertificateTemplate
         fields = ('id', 'course', 'organization_name', 'base_logo_url', 'cert_logo_url', 'role', 'name', 'signature_url', )
-
-
-class IfCertificateTemplateSerializer(CertificateTemplateSerializer):
-
-    class Meta:
-        model = IfCertificateTemplate
-        fields = ('id', 'course', 'organization_name', 'base_logo_url', 'cert_logo_url',
-                  'pronatec_logo', 'mec_logo', 'role', 'name', 'signature_url',)
 
 
 class CertificateTemplateImageSerializer(serializers.ModelSerializer):

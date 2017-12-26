@@ -46,7 +46,7 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
 from .models import (Course, CourseProfessor, Lesson, StudentProgress,
                      Unit, ProfessorMessage, ProfessorMessageRead, CourseStudent,
                      Class, CourseAuthor, CourseCertification, CertificationProcess,
-                     Evaluation, CertificateTemplate, IfCertificateTemplate)
+                     Evaluation, CertificateTemplate,)
 
 from .forms import (ContactForm, RemoveStudentForm,
                     AddStudentsForm, )
@@ -375,10 +375,6 @@ class CourseCertificationDetailView(DetailView):
     slug_field = "link_hash"
     serializer_class = CourseCertificationSerializer
 
-    def get_queryset(self, *args, **kwargs):
-        return super(CourseCertificationDetailView, self).get_queryset(*args,
-                                                                       **kwargs)
-
     def render_to_response(self, context, **response_kwargs):
         from django.core.urlresolvers import resolve
 
@@ -387,7 +383,7 @@ class CourseCertificationDetailView(DetailView):
             raise Http404
 
         if certificate:
-            context['cert_template'] = IfCertificateTemplate.objects.get(course=certificate.course_student.course)
+            context['cert_template'] = CertificateTemplate.objects.get(course=certificate.course_student.course)
 
         url_name = resolve(self.request.path_info).url_name
 
