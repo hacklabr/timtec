@@ -21,8 +21,11 @@
             'courseSlug' : function(){
                 var match = document.location.href.match(/course\/([a-zA-Z0-9 _-]+)\/course_evaluations/)
                 return match[1];
-            }
-
+            },
+            'certificateDataId' : function(){
+                var match = document.location.href.match(/paralapraca\/admin\/certificate_settings\/([a-zA-Z0-9 _-]+)/)
+                return parseInt(match[1]);
+            },
         }
     }]);
 

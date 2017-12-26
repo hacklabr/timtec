@@ -27,45 +27,52 @@
         }
     ]);
 
-    module.controller('CertificateTemplateCtrl', ['$scope', 'FormUpload', 'ClassIdGetter', 'Course', 'CertificateTemplate',
-        function($scope, FormUpload, ClassIdGetter, Course, CertificateTemplate){
+    module.controller('CertificateTemplateCtrl', ['$sce', '$scope', 'FormUpload', 'ClassIdGetter', 'Course', 'CertificateData',
+        function($sce, $scope, FormUpload, ClassIdGetter, Course, CertificateData){
 
-            $scope.course_id = ClassIdGetter.courseSettings();
+            $scope.certificate_id = ClassIdGetter.certificateDataId();
+            $scope.page_title = 'Configurações de template';
+            $scope.document_title = '';
+            $scope.preview = false;
 
-            Course.get({'id' : $scope.course_id}, function(data) {
-                $scope.course = data;
-            });
-
-            CertificateTemplate.get({'course' : $scope.course_id}, function(data) {
+            CertificateData.get({'id' : $scope.certificate_id, }, function(data) {
                 $scope.ct = data;
+                console.log($scope.ct);
+                $scope.page_title += data.type == 'receipt' ? ' de Recibo' :
+                    ' de Certificado';
+                $scope.message = $sce.trustAsHtml(data.type == 'receipt' ?
+                    'Edite as opções do atestado que será emitido ' +
+                    'automaticamente após a conclusão do curso. <br> Este ' +
+                    'atestado <strong>não possui</strong> a mesma validade ' +
+                    'do certificado.' :
+                    'Edite os elementos numerados de <strong>1 a 7</strong> ' +
+                    'com as informações que serão exibidas no certificado ' +
+                    'final do curso.');
+                $scope.document_title = data.type == 'receipt' ? "Declaração" :
+                    "Certificado";
             }, function(error){
-                if(error.status == 404){
-                    var ct = new CertificateTemplate();
-                    ct.course = $scope.course_id;
-                    ct.$save({}, function(template){
-                        $scope.ct = template;
-                    }, function(error){
-                        console.log(error);
-                    });
-                }
+                $scope.alert.error(error.data)
             });
 
             $scope.saveTemplate = function () {
-                $scope.ct.$update({'course' : $scope.course_id}, function(updated){
+                var success = true;
+                $scope.ct.$update({'id' : $scope.certificate_id}, function(updated){
                     var success = true;
                     var pr = saveImageData();
                     pr.then(function(data){
-
+                        $scope.alert.success('Opções salvas com sucesso!');
                     }, function(error){
+                        success = false;
                         var msg = error.data.signature.length ?
                                 error.data.signature[0] :
                                 "Erro no envio da imagem";
                         $scope.alert.error(msg);
-                        success = false;
                     });
                     if (success) {
                         $scope.alert.success('Opções salvas com sucesso!');
                     }
+                }, function(error) {
+                    $scope.alert.error('Erro ao salvar dados!');
                 })
             }
 
