@@ -40,7 +40,7 @@ from .serializers import (CourseSerializer, CourseProfessorSerializer,
                           CourseCertificationSerializer,
                           CertificationProcessSerializer,
                           EvaluationSerializer, ProfileSerializer,
-                          IfCertificateTemplateSerializer,
+                          CertificateTemplateSerializer,
                           CertificateTemplateImageSerializer, UnitSerializer)
 
 from .models import (Course, CourseProfessor, Lesson, StudentProgress,
@@ -481,11 +481,11 @@ class RequestCertificateView(View):
 
 
 class CertificateTemplateViewSet(LoginRequiredMixin, viewsets.ModelViewSet):
-    model = IfCertificateTemplate
-    queryset = IfCertificateTemplate.objects.all()
+    model = CertificateTemplate
+    queryset = CertificateTemplate.objects.all()
     lookup_field = 'course'
 
-    serializer_class = IfCertificateTemplateSerializer
+    serializer_class = CertificateTemplateSerializer
 
     def update(self, request, **kwargs):
         instance = self.get_object()
