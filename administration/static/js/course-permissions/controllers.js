@@ -1,8 +1,8 @@
 (function(angular){
 
     angular.module('course-permissions.controllers', []).
-        controller('PermissionsController', ['$scope', '$window', '$uibModal', '$http', '$q', 'Course',  'CourseProfessor',
-        function($scope, $window, $uibModal, $http, $q, Course, CourseProfessor) {
+        controller('PermissionsController', ['$scope', '$window', '$uibModal', '$http', '$q', '$sce', 'Course',  'CourseProfessor', 'Groups',
+        function($scope, $window, $uibModal, $http, $q, $sce, Course, CourseProfessor, Groups) {
 
             var success_save_msg = 'Alterações salvas com sucesso.';
             var error_save_msg = 'Não foi possível salvar todas as alterações.';
@@ -22,6 +22,26 @@
             $scope.professors = CourseProfessor.query({course: $scope.courseId, has_user: true}, function(professors){
                 $scope.professors_before_changes = angular.copy(professors);
             });
+
+            $scope.groups = Groups.query();
+
+            $scope.get_as_safe_html = function(value) {
+                return $sce.trustAsHtml(value);
+            };
+
+            $scope.contract_name = function(item) {
+                if (item.contract && item.contract.name !== '')
+                    return item.contract.name;
+                else
+                    return 'Grupos sem contrato';
+            };
+
+            $scope.group_label = function(item) {
+                if (item.contract && item.contract.name != '')
+                    return item.name + ' - ' + item.contract.name;
+                else
+                    return item.name;
+            };
 
             $scope.save_permissions = function() {
                 var promises_list = [];

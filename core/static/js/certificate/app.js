@@ -11,9 +11,11 @@
         'ui.bootstrap',
         'truncate',
         'checklist-model',
+        'ui.tinymce',
         'ngRoute',
         'ngResource',
         'header',
+        'ngSanitize',
     ])
     .config(function($routeProvider, $locationProvider) {
           $routeProvider

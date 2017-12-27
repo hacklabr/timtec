@@ -302,7 +302,6 @@ class Course(models.Model):
             self.default_class = c
             self.save()
             CourseMaterial.objects.create(course=self)
-            IfCertificateTemplate.objects.create(course=self)
 
 
 class CourseStudent(models.Model):
@@ -845,7 +844,7 @@ class CertificationProcess(models.Model):
 
 
 class CertificateTemplate(models.Model):
-    course = models.OneToOneField(Course, verbose_name=_('Course'))
+    course = models.ForeignKey(Course, verbose_name=_('Course'))
     role = models.CharField(_('Role'), max_length=128, blank=True, null=True)
     name = models.CharField(_('Signature Name'),
                             blank=True, max_length=255,
@@ -884,20 +883,6 @@ class CertificateTemplate(models.Model):
         if self.signature:
             return self.signature.url
         return ''
-
-
-class IfCertificateTemplate(CertificateTemplate):
-    pronatec_logo = models.BooleanField(_('Pronatec'), default=False)
-    mec_logo = models.BooleanField(_('MEC'), default=True)
-
-    class Meta:
-        verbose_name = _('IF Certificate Template')
-
-    def __unicode__(self):
-        return u'Certificate Template of {0}'.format(self.organization_name)
-
-    def __str__(self):
-        return 'Certificate Template of {0}'.format(self.organization_name)
 
 
 class EmailTemplate(models.Model):

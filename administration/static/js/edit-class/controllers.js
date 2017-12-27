@@ -10,8 +10,40 @@
         };
     });
 
-    module.controller('ClassController', ['$scope', '$window', '$filter', 'Class', 'StudentSearch', 'CourseCertification',
-        function($scope, $window, $filter, Class, StudentSearch, CourseCertification) {
+    module.controller('ClassesListController', ['$scope', '$location', 'Class', 'Contracts', 'Course',
+        function($scope, $location, Class, Contracts, Course) {
+            var url_path = $location.absUrl().split('/');
+            var course_slug = url_path.slice(-3)[0];
+
+            $scope.classes = {};
+
+            var course;
+            Course.query({slug: course_slug}).$promise.then(function(response) {
+                course = response[0];
+                $scope.classes.all = Class.query({course: course.id});
+                $scope.classes.filtered = $scope.classes.all;
+            });
+
+            $scope.contracts = Contracts.query();
+            $scope.filters = {
+                contract: ''
+            };
+
+            $scope.$watch('filters.contract', function(newContract, oldContract) {
+                if (!newContract)
+                    $scope.classes.filtered = $scope.classes.all;
+                else if (newContract)
+                    $scope.classes.filtered = $scope.classes.all.filter(function(klass) {
+                        if (klass.contract)
+                            return klass.contract.id === newContract.id;
+                        return false;
+                    });
+            });
+        }
+    ]);
+
+    module.controller('EditClassController', ['$scope', '$window', '$filter', 'Class', 'StudentSearch', 'Contracts', 'CourseCertification',
+        function($scope, $window, $filter, Class, StudentSearch, Contracts, CourseCertification) {
 
             $scope.errors = {};
             var httpErrors = {
@@ -26,6 +58,8 @@
             $scope.classe = Class.get({id: $scope.class_id}, function(classe) {
                 document.title = 'Turma: {0}'.format(classe.name);
             });
+
+            $scope.contracts = Contracts.query();
 
             $scope.getUsers = function(val) {
                 return new StudentSearch(val, course_id);
@@ -72,8 +106,6 @@
             }
 
             $scope.save = function(){
-
-                $scope.classe.$resolved = false;
 
                 $scope.classe.$update()
                     .then(function(){
