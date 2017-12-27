@@ -111,14 +111,9 @@ urlpatterns = patterns(
         name='request_certificate'),
 
     url(r'^certificate/(?P<slug>[-a-zA-Z0-9_]+)/$', RedirectView.as_view(pattern_name='paralapraca:certificate', permanent=True), name='certificate'),
-    url(r'^certificate/(?P<slug>[-a-zA-Z0-9_]+)/print/$', RedirectView.as_view(pattern_name="paralapraca:certificate_print", permanent=True), name='certificate-print'),
+    url(r'^certificate/(?P<slug>[-a-zA-Z0-9_]+)/print/$', RedirectView.as_view(pattern_name="paralapraca:certificate-print", permanent=True), name='certificate-print'),
+    # url(r'^certificate/(?P<slug>[-a-zA-Z0-9_]+)/download/$', RedirectView.as_view(pattern_name="paralapraca:certificate-download", permanent=True), name='certificate-download'),
 
-    url(r'^certificate/(?P<slug>[-a-zA-Z0-9_]+)/$', CourseCertificationDetailView.as_view(), name='certificate'),
-    url(r'^certificate/(?P<slug>[-a-zA-Z0-9_]+)/print/$',
-        CourseCertificationDetailView.as_view(template_name="certificate_print.html"),
-        name='certificate-print'),
-    url(r'^certificate/(?P<slug>[-a-zA-Z0-9_]+)/download/$', CourseCertificationDetailView.as_view(),
-        name='certificate-download'),
     url(r'^accept_terms/$', AcceptTermsView.as_view(), name='accept_terms'),
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/intro/$', CourseView.as_view(), name='course_intro'),
     url(r'^course/(?P<slug>[-a-zA-Z0-9_]+)/enroll/$', EnrollCourseView.as_view(), name='enroll_course'),
