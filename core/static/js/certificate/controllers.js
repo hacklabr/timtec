@@ -34,6 +34,7 @@
             $scope.page_title = 'Configurações de template';
             $scope.document_title = '';
             $scope.preview = false;
+            $scope.help = false;
 
             $scope.reset = function(event, id){
                 $scope.images[id + '_clear'] = true;
