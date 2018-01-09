@@ -73,23 +73,7 @@
             var error_users_rmv = 'Erro ao remover usuários do grupo';
 
             // region Contracts
-            $scope.contracts = Contracts.query();
-            $scope.contract = '';
-
-            $scope.filter_contracts = function() {
-                if ($scope.contract == 0) {
-                    $scope.groups.filtered = $scope.groups.all;
-                }
-                else {
-                    $scope.groups.filtered = $scope.groups.all.filter(function(group) {
-                        return group.contract && group.contract.id == $scope.contract;
-                    });
-                }
-            };
-            // endregion Contracts
-
-            // region Contracts
-            $scope.contracts = Contracts.query();
+            $scope.contracts = Contracts.query({'simple' : true});
             $scope.contract = '';
 
             $scope.filter_contracts = function() {

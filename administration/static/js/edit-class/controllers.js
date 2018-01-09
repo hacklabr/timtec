@@ -24,7 +24,7 @@
                 $scope.classes.filtered = $scope.classes.all;
             });
 
-            $scope.contracts = Contracts.query();
+            $scope.contracts = Contracts.query({'simple' : true});
             $scope.filters = {
                 contract: ''
             };
@@ -59,7 +59,7 @@
                 document.title = 'Turma: {0}'.format(classe.name);
             });
 
-            $scope.contracts = Contracts.query();
+            $scope.contracts = Contracts.query({'simple' : true});
 
             $scope.getUsers = function(val) {
                 return new StudentSearch(val, course_id);

@@ -150,7 +150,7 @@
                 };
 
                 $scope.certificateFormList = certificateFormList;
-                Contract.query({}, function(data){
+                Contract.query({'simple' : true}, function(data){
                     $scope.contracts = data;
                 });
                 $scope.courses = courses;
