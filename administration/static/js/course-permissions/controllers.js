@@ -1,8 +1,8 @@
 (function(angular){
 
     angular.module('course-permissions.controllers', []).
-        controller('PermissionsController', ['$scope', '$window', '$uibModal', '$http', '$q', '$sce', 'Course',  'CourseProfessor', 'Groups',
-        function($scope, $window, $uibModal, $http, $q, $sce, Course, CourseProfessor, Groups) {
+        controller('PermissionsController', ['$scope', '$window', '$uibModal', '$http', '$q', '$sce', 'CourseGroup',  'CourseProfessor', 'Groups',
+        function($scope, $window, $uibModal, $http, $q, $sce, CourseGroup, CourseProfessor, Groups) {
 
             var success_save_msg = 'Alterações salvas com sucesso.';
             var error_save_msg = 'Não foi possível salvar todas as alterações.';
@@ -23,6 +23,9 @@
                 $scope.professors_before_changes = angular.copy(professors);
             });
 
+            CourseGroup.get({id: $scope.courseId}, function(course){
+                $scope.course_groups = course;
+            });
             $scope.groups = Groups.query();
 
             $scope.get_as_safe_html = function(value) {
@@ -65,6 +68,8 @@
                         $scope.alert.error(error_save_msg);
                     }
                 );
+
+                $scope.course_groups.$update({id: $scope.courseId});
             };
 
             $scope.cancel_permissions_changes = function() {

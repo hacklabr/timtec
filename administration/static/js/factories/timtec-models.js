@@ -279,6 +279,13 @@
        });
     });
 
+
+    app.factory('CourseGroup', function($resource){
+	    return $resource('/paralapraca/api/course_group/:id', {'id':'@id'}, {
+	        'update' : {'method' : 'PUT'},
+	    });
+	});
+
     /**
      * StudentSearch model. Used in typeahead input with ui.bootstrap.typeahead.
      * It uses http instead resource cause it has to be synchronous.
