@@ -1,12 +1,10 @@
-<div>
-    <div class="slides-material">
-        <div class="content">
-            <iframe id="slidesreveal" ng-src="{{iframe_url + '?postMessageEvents=true'}}" style="width: 100%; height: 100%;"></iframe>
-        </div>
+<div class="slides-material">
+    <div class="content">
+        <iframe id="slidesreveal" ng-src="{{iframe_url + '?postMessageEvents=true'}}" style="width: 100%; height: 100%;"></iframe>
     </div>
-    <div class="slides-navigation">
-        <span class="previous" ng-click="previous_slide()" translate>anterior</span>
-        <div ng-show="totalSlides" class="slides-number">{{ current_slide+1 }} de {{ totalSlides }}</div>
-        <span class="next" ng-click="next_slide()" translate>próximo</span>
-    </div>
+</div>
+<div class="slides-navigation">
+    <span class="previous" ng-click="previous_slide()" translate>anterior</span>
+    <div ng-show="totalSlides" class="slides-number">{{ current_slide+1 }} de {{ totalSlides }}</div>
+    <span class="next" ng-click="next_slide()" translate>próximo</span>
 </div>
