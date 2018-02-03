@@ -96,10 +96,17 @@ class AcceptTermsForm(forms.Form):
         return self.cleaned_data['accept_terms']
 
 
-class SignupForm(AcceptTermsForm):
+class SignupForm(ProfileEditForm, AcceptTermsForm):
+    occupation = forms.CharField()
+    institution = forms.CharField()
 
-    cpf = BRCPFField()
+    class Meta:
+        model = get_user_model()
+        fields = ('username', 'email', 'occupation', 'cpf', 'institution',)
 
     def signup(self, request, user):
         user.accepted_terms = self.cleaned_data['accept_terms']
+        user.institution = self.cleaned_data['institution']
+        user.occupation = self.cleaned_data['occupation']
+        user.cpf = self.cleaned_data['cpf']
         user.save()

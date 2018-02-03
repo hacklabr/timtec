@@ -31,7 +31,7 @@ class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(_('Date joined'), default=timezone.now)
 
     picture = models.ImageField(_("Picture"), upload_to=hash_name('user-pictures', 'username'), blank=True)
-    occupation = models.CharField(_('Occupation'), max_length=30, blank=True)
+    occupation = models.CharField(_('Occupation'), max_length=127, blank=True)
     city = models.CharField(_('City'), max_length=30, blank=True)
     site = models.URLField(_('Site'), blank=True)
     biography = models.TextField(_('Biography'), blank=True)
@@ -128,6 +128,7 @@ class TimtecUser(AbstractTimtecUser):
 
     email = models.EmailField(_('Email address'), blank=False, unique=True)
     cpf = models.CharField(max_length=11, blank=True, null=True, unique=True)
+    institution = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta(AbstractTimtecUser.Meta):
         swappable = 'AUTH_USER_MODEL'
