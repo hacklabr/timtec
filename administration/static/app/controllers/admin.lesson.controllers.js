@@ -4,6 +4,7 @@
 
     app.controller('EditLessonController', [
         '$scope',
+        '$location',
         'Course',
         'CourseProfessor',
         'Lesson',
@@ -12,7 +13,7 @@
         'MarkdownDirective',
         'waitingScreen',
         'Forum',
-        function($scope, Course, CourseProfessor, Lesson, VideoData, youtubePlayerApi,
+        function($scope, $location, Course, CourseProfessor, Lesson, VideoData, youtubePlayerApi,
                  MarkdownDirective, waitingScreen, Forum) {
             $scope.errors = {};
             var httpErrors = {
@@ -69,6 +70,13 @@
                         lessons.forEach(function(lesson){
                             if(lesson.id === parseInt($scope.lesson_id, 10)) {
                                 $scope.setLesson(lesson);
+                                if ($location.search().unit) {
+                                    for (var i = 0; i < $scope.lesson.units.length; i++) {
+                                        if ($scope.lesson.units[i].position == $location.search().unit) {
+                                            $scope.selectUnit($scope.lesson.units[i]);
+                                        }
+                                    }
+                                }
                             }
                         });
                         if($scope.isNewLesson) {
@@ -173,6 +181,7 @@
                     }
 
                 }
+                $location.search('unit', u.position || 0);
                 $scope.newActivityType = null;
 
                 // MarkdownDirective.resetEditors();
