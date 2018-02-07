@@ -105,7 +105,6 @@
                 $scope.lesson = l;
                 document.title = 'Aula: {0}'.format(l.name);
 
-                console.log($location.search().unit)
                 if(l.units.length > 0) {
                     if ($location.search().unit) {
                         $scope.selectUnit(l.units[$location.search().unit])
