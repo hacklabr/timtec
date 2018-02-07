@@ -70,13 +70,6 @@
                         lessons.forEach(function(lesson){
                             if(lesson.id === parseInt($scope.lesson_id, 10)) {
                                 $scope.setLesson(lesson);
-                                if ($location.search().unit) {
-                                    for (var i = 0; i < $scope.lesson.units.length; i++) {
-                                        if ($scope.lesson.units[i].position == $location.search().unit) {
-                                            $scope.selectUnit($scope.lesson.units[i]);
-                                        }
-                                    }
-                                }
                             }
                         });
                         if($scope.isNewLesson) {
@@ -112,8 +105,14 @@
                 $scope.lesson = l;
                 document.title = 'Aula: {0}'.format(l.name);
 
+                console.log($location.search().unit)
                 if(l.units.length > 0) {
-                    $scope.selectUnit(l.units[0]);
+                    if ($location.search().unit) {
+                        $scope.selectUnit(l.units[$location.search().unit])
+                    }
+                    else {
+                        $scope.selectUnit(l.units[0]);
+                    }
                 } else {
                     $scope.addUnit();
                 }
