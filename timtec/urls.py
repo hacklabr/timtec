@@ -3,7 +3,7 @@ from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 from accounts.views import (ProfileEditView, ProfileView, UserSearchView,
                             TimtecUserViewSet, TimtecUserAdminViewSet, StudentSearchView,
                             AcceptTermsView, UserSocialAccountCreateView, UserSocialAccountDeleteView,
@@ -180,6 +180,7 @@ urlpatterns = patterns(
     url(r'^profile/(?P<username>[\w.+-]+)?/?$', ProfileView.as_view(), name="profile"),
 
     # The django-allauth
+    url(r'^accounts/signup/$', RedirectView.as_view(url='http://sindsep.politicapublica.social/base/cadastro/', permanent=True), name='signup'),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^api/user_search/?$', UserSearchView.as_view(), name='user_search'),
     url(r'^api/student_search/?$', StudentSearchView.as_view(), name='student_search'),
