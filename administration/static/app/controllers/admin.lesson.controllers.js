@@ -6,13 +6,15 @@
         '$scope',
         'Course',
         'CourseProfessor',
+        'SimpleLesson',
         'Lesson',
+        'Unit',
         'VideoData',
         'youtubePlayerApi',
         'MarkdownDirective',
         'waitingScreen',
         'Forum',
-        function($scope, Course, CourseProfessor, Lesson, VideoData, youtubePlayerApi,
+        function($scope, Course, CourseProfessor, Lesson, LessonUpdate, Unit, VideoData, youtubePlayerApi,
                  MarkdownDirective, waitingScreen, Forum) {
             $scope.errors = {};
             var httpErrors = {
@@ -115,7 +117,9 @@
                 var unitIndex = $scope.lesson.units.indexOf($scope.currentUnit);
                 var activityIndex = $scope.currentUnit.activities.indexOf($scope.currentActivity);
 
-                $scope.lesson.saveOrUpdate()
+                lesson = new LessonUpdate($scope.lesson);
+
+                lesson.saveOrUpdate()
                     .then(function(){
                         $scope.alert.success('Alterações salvas com sucesso.');
                         $scope.selectUnit($scope.lesson.units[unitIndex]);
@@ -162,21 +166,33 @@
             };
 
             $scope.selectUnit = function(u) {
-                $scope.currentUnit = u;
-                if(u.video && u.video.youtube_id){
-                    $scope.play(u.video.youtube_id);
-                }
-                if($scope.currentUnit.activities) {
-                    $scope.currentActivity = $scope.currentUnit.activities[0];
-                    if($scope.currentActivity && $scope.currentActivity.type === 'discussion'){
-                      $scope.initializeDiscussionActivity();
+                Unit.get({id : u.id}, function(data){
+                    u = data;
+                    $scope.currentUnit = u;
+
+                    for(i = 0; i < $scope.lesson.units.length; i++){
+                        console.log($scope.lesson.units[i].id);
+                        if($scope.lesson.units[i].id == u.id){
+                            $scope.lesson.units[i] = u;
+                            console.log($scope.lesson.units[i]);
+                        }
                     }
+                    if(u.video && u.video.youtube_id){
+                        $scope.play(u.video.youtube_id);
+                    }
+                    if($scope.currentUnit.activities) {
+                        $scope.currentActivity = $scope.currentUnit.activities[0];
+                        if($scope.currentActivity && $scope.currentActivity.type === 'discussion'){
+                          $scope.initializeDiscussionActivity();
+                        }
 
-                }
-                $scope.newActivityType = null;
+                    }
+                    $scope.newActivityType = null;
 
-                // MarkdownDirective.resetEditors();
-                MarkdownDirective.refreshEditorsPreview();
+                    // MarkdownDirective.resetEditors();
+                    MarkdownDirective.refreshEditorsPreview();
+
+                });
             };
 
             $scope.addUnit = function() {

@@ -3,6 +3,7 @@
 
     angular.module('admin.lesson', [
         'admin.lesson.controllers',
+        'admin.lesson.services',
         'new-course.directives',
         'django',
         'directive.waiting-screen',
