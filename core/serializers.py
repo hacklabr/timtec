@@ -423,7 +423,7 @@ class LessonSerializer(serializers.ModelSerializer):
     def update_units(cls, units_data, lesson):
         units = []
         for unit_data in units_data:
-            activities_data = unit_data.pop('activities')
+            activities_data = unit_data.pop('activities', None)
             unit_data.pop('lesson', None)
 
             video_data = unit_data.pop('video', None)
@@ -434,18 +434,20 @@ class LessonSerializer(serializers.ModelSerializer):
                 video = None
             unit = Unit(lesson=lesson, video=video, **unit_data)
             unit.save()
-            activities = []
-            for activity_data in activities_data:
-                activity_id = activity_data.pop('id', None)
-                activity, _ = Activity.objects.get_or_create(id=activity_id)
-                activity.comment = activity_data.get('comment', None)
-                activity.data = activity_data.get('data', None)
-                activity.expected = activity_data.get('expected', None)
-                activity.type = activity_data.get('type', None)
-                activity.unit = unit
-                activity.save()
-                activities.append(activity)
-            unit.activities = activities
+
+            if activities_data:
+                activities = []
+                for activity_data in activities_data:
+                    activity_id = activity_data.pop('id', None)
+                    activity, _ = Activity.objects.get_or_create(id=activity_id)
+                    activity.comment = activity_data.get('comment', None)
+                    activity.data = activity_data.get('data', None)
+                    activity.expected = activity_data.get('expected', None)
+                    activity.type = activity_data.get('type', None)
+                    activity.unit = unit
+                    activity.save()
+                    activities.append(activity)
+                unit.activities = activities
             units.append(unit)
         return units
 
