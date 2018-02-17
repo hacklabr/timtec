@@ -817,7 +817,7 @@ class UnitViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter,)
 
 
-class SimpleLessonViewSet(viewsets.ReadOnlyModelViewSet):
+class SimpleLessonViewSet(mixins.DestroyModelMixin, viewsets.ReadOnlyModelViewSet):
     model = Lesson
     queryset = Lesson.objects.all()
     serializer_class = SimpleLessonSerializer
