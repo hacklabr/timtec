@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from __builtin__ import super
+
 from django.contrib.auth import get_user_model
 from django import forms
 from localflavor.br.forms import BRCPFField
@@ -34,6 +36,14 @@ class ProfileEditForm(BaseProfileEditForm):
         fields = ('username', 'email', 'first_name', 'last_name', 'picture',
                   'occupation', 'city', 'site', 'biography', 'cpf')
 
+    def clean(self):
+        cleaned_data = super(ProfileEditForm, self).clean()
+        if not self.is_valid():
+            self.cleaned_data['picture'] = self.instance.picture
+
+        return cleaned_data
+
+
     # FIXME: username should be actually cleaned
     def clean_username(self):
         return self.instance.username
@@ -67,6 +77,13 @@ class ProfileEditAdminForm(BaseProfileEditForm):
         }
         fields = ('username', 'email', 'first_name', 'last_name', 'picture',
                   'groups', 'occupation', 'city', 'site', 'biography', 'cpf')
+
+    def clean(self):
+        cleaned_data = super(ProfileEditAdminForm, self).clean()
+        if not self.is_valid():
+            self.cleaned_data['picture'] = self.instance.picture
+
+        return cleaned_data
 
     # FIXME: username should be actually cleaned
     def clean_username(self):
