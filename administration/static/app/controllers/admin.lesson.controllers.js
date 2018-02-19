@@ -4,6 +4,7 @@
 
     app.controller('EditLessonController', [
         '$scope',
+        '$location',
         'Course',
         'CourseProfessor',
         'SimpleLesson',
@@ -14,7 +15,7 @@
         'MarkdownDirective',
         'waitingScreen',
         'Forum',
-        function($scope, Course, CourseProfessor, Lesson, LessonUpdate, Unit, VideoData, youtubePlayerApi,
+        function($scope, $location, Course, CourseProfessor, Lesson, LessonUpdate, Unit, VideoData, youtubePlayerApi,
                  MarkdownDirective, waitingScreen, Forum) {
             $scope.errors = {};
             var httpErrors = {
@@ -107,7 +108,12 @@
                 document.title = 'Aula: {0}'.format(l.name);
 
                 if(l.units.length > 0) {
-                    $scope.selectUnit(l.units[0]);
+                    if ($location.search().unit) {
+                        $scope.selectUnit(l.units[$location.search().unit])
+                    }
+                    else {
+                        $scope.selectUnit(l.units[0]);
+                    }
                 } else {
                     $scope.addUnit();
                 }
@@ -185,8 +191,8 @@
                         if($scope.currentActivity && $scope.currentActivity.type === 'discussion'){
                           $scope.initializeDiscussionActivity();
                         }
-
                     }
+                    $location.search('unit', u.position || 0);
                     $scope.newActivityType = null;
 
                     // MarkdownDirective.resetEditors();
