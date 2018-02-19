@@ -10,6 +10,7 @@
           {% if user.is_authenticated %}
           'id': '{{ user.id|escapejs }}',
           'name': '{{ user.get_full_name|escapejs }}',
+          'first_name': '{{ user.first_name|escapejs }}',
           'picture': '{{ user.get_picture_url|escapejs }}',
           'is_superuser': 'True' === '{{ user.is_superuser|escapejs }}',
           {% endif %}
