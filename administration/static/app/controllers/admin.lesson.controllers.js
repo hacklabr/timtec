@@ -177,10 +177,8 @@
                     $scope.currentUnit = u;
 
                     for(i = 0; i < $scope.lesson.units.length; i++){
-                        console.log($scope.lesson.units[i].id);
                         if($scope.lesson.units[i].id == u.id){
                             $scope.lesson.units[i] = u;
-                            console.log($scope.lesson.units[i]);
                         }
                     }
                     if(u.video && u.video.youtube_id){
