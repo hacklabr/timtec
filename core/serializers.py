@@ -1,5 +1,6 @@
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.auth import get_user_model
+from django.core.urlresolvers import reverse_lazy
 from core.models import (Course, CourseProfessor, CourseStudent, Lesson,
                          Video, StudentProgress, Unit, ProfessorMessage,
                          ProfessorMessageRead, Class, CourseAuthor,
@@ -454,7 +455,22 @@ class LessonSerializer(serializers.ModelSerializer):
 
 class SimpleLessonSerializer(LessonSerializer):
     units = SimpleUnitSerializer(many=True)
+    next_url = serializers.SerializerMethodField()
 
+    class Meta:
+        model = Lesson
+        fields = '__all__'
+
+    def get_next_url(self, object):
+        course = object.course
+        lessons = list(course.public_lessons)
+        if len(lessons) > 0 and object != lessons[-1]:
+            index = lessons.index(object)
+            reverse = reverse_lazy('lesson', args=[course.slug,
+                                                lessons[index + 1].slug])
+        else:
+            reverse = reverse_lazy('course_intro', args=[course.slug])
+        return reverse
 
 class NoteSerializer(serializers.ModelSerializer):
 
