@@ -61,7 +61,6 @@
                 } else {
                     // no next unit, so mark it as the end,
                     // and the template will show a next lesson
-                    $scope.section = 'end';
                     window.location.replace($scope.lesson.next_url);
                 }
             };
