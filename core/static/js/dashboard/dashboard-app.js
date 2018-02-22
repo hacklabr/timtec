@@ -8,5 +8,14 @@
         'dashboard.controllers',
         'header',
         'messages',
+        'cards.controllers',
+        'cards.services',
+        'filters.htmlentities',
+        'ngFileUpload',
+        'ngRoute',
+        'ngSanitize',
+        'ui.bootstrap',
+        'ui.select',
+        'ui.tinymce',
     ]);
 })(angular);
