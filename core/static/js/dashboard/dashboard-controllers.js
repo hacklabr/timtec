@@ -44,6 +44,12 @@
                 }, function(data){
                     $scope.cards = data.results;
                 });
+
+            $scope.card_image = function(card) {
+                if (card.image_gallery.length > 0)
+                    return card.image_gallery[0].image;
+                return '/static/img/card-default.png';
+            };
         }
     ]);
 
