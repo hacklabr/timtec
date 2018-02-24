@@ -2,8 +2,8 @@
     'use strict';
     var app = angular.module('dashboard.controllers', []);
 
-    app.controller('DashboardCtrl', ['$scope', 'Course', 'CourseStudent', 'Topic',
-        function ($scope, Course, CourseStudent, Topic) {
+    app.controller('DashboardCtrl', ['$scope', 'Course', 'CourseStudent', 'Topic', 'Cards',
+        function ($scope, Course, CourseStudent, Topic, Cards) {
 
             function compare_by_course_student(a,b) {
                 if (a.course_student === undefined) {
@@ -37,6 +37,13 @@
                 });
             });
             $scope.latest_topics = Topic.query({limit: 8, ordering: '-last_activity_at'})
+
+            Cards.get({
+                    is_certified: 2,
+                    limit: 3
+                }, function(data){
+                    $scope.cards = data.results;
+                });
         }
     ]);
 

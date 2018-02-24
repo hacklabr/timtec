@@ -8,7 +8,6 @@
         'dashboard.controllers',
         'header',
         'messages',
-        'cards.controllers',
         'cards.services',
         'filters.htmlentities',
         'ngFileUpload',
