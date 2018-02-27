@@ -82,8 +82,8 @@
                             $scope.lessons.push($scope.lesson);
                         }
                         waitingScreen.hide();
-                    })['catch'](function(resp){
-                        $scope.alert.error(httpErrors[resp.status.toString()]);
+                    }).catch(function(resp){
+                        $scope.alert.error(httpErrors[resp.status.toString()]  || 'Erro ' + resp.status);
                         waitingScreen.hide();
                     }
                 );
