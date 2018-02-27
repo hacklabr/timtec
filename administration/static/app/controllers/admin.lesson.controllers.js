@@ -133,6 +133,7 @@
                         if(activityIndex >= 0) {
                             $scope.currentActivity = $scope.currentUnit.activities[activityIndex];
                         }
+                        window.location.replace('/admin/courses/' + lesson.course + '/lessons/' + lesson.id);
                     })['catch'](function(resp){
                         $scope.alert.error(httpErrors[resp.status.toString()]);
                     });
