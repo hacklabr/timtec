@@ -463,7 +463,16 @@ class SimpleLessonSerializer(LessonSerializer):
 
     def get_next_url(self, object):
         course = object.course
-        lessons = list(course.public_lessons)
+        user = None
+        request = self.context.get("request")
+        if request and hasattr(request, "user"):
+            user = request.user
+
+        if user and user.is_superuser:
+            lessons = list(course.lessons.all())
+        else:
+            lessons = list(course.public_lessons)
+
         if len(lessons) > 0 and object != lessons[-1]:
             index = lessons.index(object)
             reverse = reverse_lazy('lesson', args=[course.slug,

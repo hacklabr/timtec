@@ -827,7 +827,7 @@ class SimpleLessonViewSet(mixins.DestroyModelMixin, viewsets.ReadOnlyModelViewSe
 
     def get_queryset(self):
         queryset = super(SimpleLessonViewSet, self).get_queryset()
-        if self.request.user.is_active:
+        if self.request.user.is_superuser:
             return queryset
         return queryset.filter(published=True)
 
