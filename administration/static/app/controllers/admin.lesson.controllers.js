@@ -126,7 +126,8 @@
                 lesson = new LessonUpdate($scope.lesson);
 
                 lesson.saveOrUpdate()
-                    .then(function(){
+                    .then(function(lesson){
+                        $scope.lesson = lesson;
                         $scope.alert.success('Alterações salvas com sucesso.');
                         $scope.selectUnit($scope.lesson.units[unitIndex]);
                         if(activityIndex >= 0) {
