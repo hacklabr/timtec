@@ -108,12 +108,11 @@
                 document.title = 'Aula: {0}'.format(l.name);
 
                 if(l.units.length > 0) {
-                    if ($location.search().unit) {
-                        $scope.selectUnit(l.units[$location.search().unit])
-                    }
-                    else {
-                        $scope.selectUnit(l.units[0]);
-                    }
+                    var u = $location.search().unit ?
+                        l.units[$location.search().unit] : undefined;
+
+                    u = u ? l.units[$location.search().unit] : l.units[0];
+                    $scope.selectUnit(u)
                 } else {
                     $scope.addUnit();
                 }
@@ -174,8 +173,14 @@
             };
 
             $scope.selectUnit = function(u) {
-                Unit.get({id : u.id}, function(data){
-                    u = data;
+                if (u && u.id) {
+                    Unit.get({id : u.id}, function(data){
+                        setupUnit(data)
+                    });
+                } else {
+                    setupUnit(u);
+                }
+                function setupUnit(u){
                     $scope.currentUnit = u;
 
                     for(i = 0; i < $scope.lesson.units.length; i++){
@@ -197,8 +202,7 @@
 
                     // MarkdownDirective.resetEditors();
                     MarkdownDirective.refreshEditorsPreview();
-
-                });
+                }
             };
 
             $scope.addUnit = function() {
