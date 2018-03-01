@@ -364,7 +364,7 @@ class CourseStudent(models.Model):
         return self.course_finished
 
     def get_current_class(self):
-        return self.user.classes.get(course=self.course)
+        return Class.objects.get(students=self.user, course=self.course)
 
     def min_percent_to_complete(self):
         return self.course.min_percent_to_complete
