@@ -829,7 +829,7 @@ class SimpleLessonViewSet(mixins.DestroyModelMixin, viewsets.ReadOnlyModelViewSe
         queryset = super(SimpleLessonViewSet, self).get_queryset()
         if self.request.user.is_superuser:
             return queryset
-        return queryset.filter(status=True)
+        return queryset.filter(status='published')
 
 
 class StudentProgressViewSet(viewsets.ModelViewSet):
