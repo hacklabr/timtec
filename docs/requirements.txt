@@ -9,7 +9,7 @@ MarkupSafe==0.23
 mkdocs==0.15.3
 mkdocs-bootstrap==0.1.1
 mkdocs-bootswatch==0.4.0
-PyYAML==3.11
+PyYAML==5.1
 singledispatch==3.4.0.3
 six==1.10.0
 tornado==4.3
