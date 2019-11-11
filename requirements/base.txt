@@ -78,7 +78,7 @@ django-oauth-toolkit==0.10.0
 django-localflavor==1.4.1
 
 # Email backend
-django-anymail[mailgun]==0.8
+django-anymail[mailgun]==1.2.1
 
 # Image thumbs generator
 easy-thumbnails==2.4.1
