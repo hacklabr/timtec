@@ -3,7 +3,7 @@
 # coverage==3.7.1
 # Sphinx
 # django-extensions==1.5.2
-Werkzeug==0.12.2
+Werkzeug==0.15.3
 ipdb
 
 # django-debug-toolbar that works with Django 1.5+
