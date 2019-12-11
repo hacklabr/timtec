@@ -31,6 +31,7 @@ class UnitAdmin(ModelAdmin):
 
 class CourseAdmin(ModelAdmin):
     list_display = ('name', 'status', 'start_date',)
+    filter_horizontal = ('groups',)
     inlines = (LessonInline,)
 
 
