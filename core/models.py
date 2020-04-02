@@ -338,6 +338,9 @@ class CourseStudent(models.Model):
             .filter(user=self.user, unit__lesson__course=self.course)
 
     def _plpc_course_finished(self):
+        """
+        Verifica se o usuario tambem fez todas as atividades do curso.
+        """
         activities = Activity.objects\
             .filter(unit__lesson__in=self.course.lessons
                     .filter(status='published'),
