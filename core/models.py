@@ -357,10 +357,15 @@ class CourseStudent(models.Model):
         return self._plpc_course_finished()
 
     def can_emmit_receipt(self):
-        if not self.get_current_class().user_can_certificate and not self.course_finished:
+        try:
+            if not self.get_current_class().user_can_certificate and not self.course_finished:
+                return False
+            if self.get_current_class().user_can_certificate_even_without_progress and self.certificate.type == 'certificate':
+                return True
+        except Exception:
+            # FIXME hack para situacao q o usuario esta matriculado, mas nao tem turma.
+            # Ver issue https://git.hacklab.com.br/entremeios/paralapraca/issues/9
             return False
-        if self.get_current_class().user_can_certificate_even_without_progress and self.certificate.type == 'certificate':
-            return True
         return self.course_finished
 
     def get_current_class(self):
