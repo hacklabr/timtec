@@ -57,7 +57,7 @@ from .permissions import (IsProfessorCoordinatorOrAdminPermissionOrReadOnly,
 from .utils import AcceptedTermsRequiredMixin
 
 
-class DashboardView(AcceptedTermsRequiredMixin, TemplateView):
+class DashboardView(LoginRequiredMixin, AcceptedTermsRequiredMixin, TemplateView):
     template_name = 'dashboard.html'
 
     def get_context_data(self, **kwargs):
@@ -78,40 +78,7 @@ class HomeView(ListView):
         return Course.objects.filter(home_published=True).order_by('home_position')
 
 
-if settings.TWITTER_USER != '':
-    from twitter import Twitter, OAuth
-
-    class TwitterApi(View):
-
-        def get(self, request, *args, **kwargs):
-            consumer_key = settings.TWITTER_CONSUMER_KEY
-            consumer_secret = settings.TWITTER_CONSUMER_SECRET
-            twitter_name = settings.TWITTER_USER
-            access_token = settings.TWITTER_ACESS_TOKEN
-            access_token_secret = settings.TWITTER_ACESS_TOKEN_SECRET
-            t = Twitter(auth=OAuth(access_token, access_token_secret, consumer_key, consumer_secret))
-            # To see all field returned, see https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
-            response = []
-            for twit in t.statuses.user_timeline(screen_name=twitter_name, count=5):
-                clean_twit = {}
-                # time string example: Wed Aug 29 17:12:58 +0000 2012
-                timestamp = time.strptime(twit['created_at'], "%a %b %d %H:%M:%S +0000 %Y")
-                clean_twit['date'] = time.strftime('%d/%m/%Y', timestamp)
-                clean_twit['hour'] = time.strftime('%H:%M', timestamp)
-                clean_twit['user_name'] = twit['user']['name']
-                clean_twit['screen_name'] = twit['user']['screen_name']
-                clean_twit['profile_image_url'] = twit['user']['profile_image_url']
-                clean_twit['text'] = twit['text']
-                response.append(clean_twit)
-
-            response = json.dumps(response)
-            return HttpResponse(
-                response,
-                content_type='application/json'
-            )
-
-
-class CoursesView(ListView):
+class CoursesView(LoginRequiredMixin, ListView):
     context_object_name = 'courses'
     template_name = "courses.html"
 
@@ -146,7 +113,7 @@ class GenericCourseView(DetailView):
     slug_url_kwarg = 'course_slug'
 
 
-class CourseView(DetailView):
+class CourseView(LoginRequiredMixin, DetailView):
     model = Course
     template_name = 'course.html'
 
