@@ -372,7 +372,11 @@ class CourseStudent(models.Model):
         return self.course_finished
 
     def get_current_class(self):
-        return Class.objects.get(students=self.user, course=self.course)
+        try:
+            return Class.objects.get(students=self.user, course=self.course)
+        except Class.DoesNotExist:
+            self.course.default_class.students.add(self.user)
+            return self.course.default_class
 
     def min_percent_to_complete(self):
         return self.course.min_percent_to_complete
