@@ -446,10 +446,11 @@ class CourseStudent(models.Model):
                                       .filter(user=self.user, unit__lesson=lesson)
 
     def get_lesson_finish_time(self, lesson):
-        latest = StudentProgress.objects.exclude(complete=None).filter(user=self.user, unit__lesson=lesson).order_by('complete')
-        if latest:
-            return latest.latest('complete').complete
-        else:
+        try:
+            return StudentProgress.objects.exclude(complete=None)\
+                .filter(user=self.user, unit__lesson=lesson)\
+                    .latest('complete')
+        except StudentProgress.DoesNotExist:
             return ''
 
     def percent_progress_by_lesson(self):
