@@ -151,27 +151,27 @@
             // General report for dowload
             $scope.general_report = {};
             $scope.download_general_report = function() {
-                var options = '';
+                var options = '?';
                 for(var idx in $scope.general_report.groups) {
                     if(idx == 0)
-                        options = ('?group=' + $scope.general_report.groups[0].name);
+                        options += ('group=' + $scope.general_report.groups[0].name);
                     else
                         options += (',' + $scope.general_report.groups[idx].name);
                 }
-                window.open('/paralapraca/api/users-by-group' + options,'_blank');
+                window.open('/paralapraca/api/users-by-group' + options + '&format=csv','_blank');
             };
 
             // Course report for download
             $scope.course_report = {};
             $scope.download_course_report = function() {
-                var options = '';
+                var options = '?';
                 for(var idx in $scope.course_report.classes) {
                     if(idx == 0)
-                        options = ('?id=' + $scope.course_report.classes[0].id);
+                        options += ('id=' + $scope.course_report.classes[0].id);
                     else
                         options += (',' + $scope.course_report.classes[idx].id);
                 }
-                window.open('/paralapraca/api/users-by-class' + options,'_blank');
+                window.open('/paralapraca/api/users-by-class' + options + '&format=csv','_blank');
             }
         }
     ]);
