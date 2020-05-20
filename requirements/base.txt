@@ -14,7 +14,7 @@ psycopg2==2.6
 Pillow==2.8.1
 
 # Rest Framework
-djangorestframework==3.4.1
+djangorestframework==3.9.1
 rest-pandas==1.1.0
 
 requests~=2.18  # for communication with the rocketchat API
