@@ -348,12 +348,11 @@ class CourseStudent(models.Model):
         answers = Answer.objects\
             .filter(activity__in=activities, user=self.user)
 
-        return self.percent_progress() > self.min_percent_to_complete() and \
-               activities.count() == answers.count()
+        return (self.percent_progress() >= self.min_percent_to_complete()
+                and activities.count() == answers.count())
 
     def _course_finished(self):
-        return self.percent_progress() >= \
-            self.course.min_percent_to_complete
+        return self.percent_progress() >= self.course.min_percent_to_complete
 
     @property
     def course_finished(self):
