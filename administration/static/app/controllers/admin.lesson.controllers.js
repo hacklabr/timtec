@@ -15,8 +15,11 @@
         'MarkdownDirective',
         'waitingScreen',
         'Forum',
+        'ForumFile',
+        'ContentFile',
+        'uiTinymceConfig',
         function($scope, $location, Course, CourseProfessor, Lesson, LessonUpdate, Unit, VideoData, youtubePlayerApi,
-                 MarkdownDirective, waitingScreen, Forum) {
+                 MarkdownDirective, waitingScreen, Forum, ForumFile, ContentFile, uiTinymceConfig) {
             $scope.errors = {};
             var httpErrors = {
                 '400': 'Os campos não foram preenchidos corretamente.',
@@ -47,12 +50,12 @@
                 });
             };
 
-            // Set buttons for the tinyMCE editor in discussion activity
-            $scope.tinymceOptions = {
-              toolbar: 'bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | quicklink link fullscreen | removeformat'
-            };
+            // Set tinyMCE editor configurations
+            uiTinymceConfig.automatic_uploads = true;
+            uiTinymceConfig.images_upload_handler = ContentFile.upload;
 
-//            $scope.course = new Course();
+
+            // $scope.course = new Course();
             $scope.courseProfessors = [];
 
             var match = document.location.href.match(/courses\/(\d+)\/lessons\/(new|\d+)/);
@@ -266,6 +269,9 @@
             $scope.initializeDiscussionActivity = function() {
               $scope.currentActivity.data.start_date = new Date($scope.currentActivity.data.start_date);
               $scope.currentActivity.data.end_date = new Date($scope.currentActivity.data.end_date);
+              Forum.get({id: $scope.currentActivity.data.forum}, function(forum){
+                $scope.currForum = forum;
+              })
             };
 
             $scope.$on('$locationChangeStart', function( event ) {
@@ -309,6 +315,7 @@
                     new_forum.forum_type = 'activity';
                     new_forum.$save(function(forum) {
                        $scope.currentActivity.data.forum = forum.id;
+                       $scope.currForum = forum;
                     });
 
                 } else {
@@ -351,6 +358,23 @@
                     $scope.currentActivity = null;
                 }
                 MarkdownDirective.refreshEditorsPreview();
+            };
+            $scope.uploadForumFiles = function (file, forum) {
+                if (file) {
+                    ForumFile.upload(file, $scope.currForum.id).then(function (response) {
+                        var forum_file = new ForumFile(response.data);
+                        if (forum.files === undefined)
+                            forum.files = [];
+                        forum.files.push(forum_file);
+                        return response;
+                    }, function (response) {
+                        if (response.status > 0) {
+                            $scope.alert.error(response.status + ': ' + response.data);
+                        }
+                    }, function (evt) {
+                        forum.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                    });
+                }
             };
         }
     ]);

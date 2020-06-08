@@ -17,7 +17,6 @@
         </div>
     </div>
 
-
     <!-- special activity is open -->
     <div class="open-activity" ng-if="activity_open">
         <div class="topbar">
@@ -39,6 +38,11 @@
 
         <!-- Activity text -->
         <p class="intro" ng-bind-html="get_as_safe_html(question)"></p>
+
+        <div>
+            <h4>Arquivos anexados</h4>
+            <files files="currForum.files" editable="false"></files>
+        </div>
 
         <!-- Create and edit answer -->
         <!-- the activity has not been submited yet -->

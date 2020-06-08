@@ -85,7 +85,7 @@
       '$anchorScroll',
       '$document',
       'uiTinymceConfig',
-      'Forum',
+      'ForumFile',
       'Topic',
       'Comment',
       'TopicLike',
@@ -97,7 +97,7 @@
       'CurrentUser',
       'AnswerNotification',
       'ContentFile',
-      function ($scope, $sce, $routeParams, $anchorScroll, $document, uiTinymceConfig, Forum, Topic, Comment, TopicLike, TopicFile, CommentLike, CommentFile, Progress, ClassActivity, CurrentUser, AnswerNotification, ContentFile) {
+      function ($scope, $sce, $routeParams, $anchorScroll, $document, uiTinymceConfig, ForumFile, Topic, Comment, TopicLike, TopicFile, CommentLike, CommentFile, Progress, ClassActivity, CurrentUser, AnswerNotification, ContentFile) {
         $scope.activity_open = true;
         $scope.activity_expired = false;
         var now = Date.now();
@@ -119,6 +119,13 @@
 
         uiTinymceConfig.automatic_uploads = true;
         uiTinymceConfig.images_upload_handler = ContentFile.upload;
+
+        $scope.currForum = {
+            id: $scope.currentActivity.data.forum
+        }
+        ForumFile.get_files({forum: $scope.currForum.id}, function(files){
+            $scope.currForum.files = files;
+        });
 
         // If there is not an answer yet, create topic instance
         $scope.topic = new Topic();

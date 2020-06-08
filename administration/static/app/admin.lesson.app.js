@@ -19,6 +19,7 @@
         'header',
         'ui.bootstrap',
         'discussion.services',
+        'discussion.directives',
         'ngFileUpload',
         'ui.tinymce',
     ]);

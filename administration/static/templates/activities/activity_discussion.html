@@ -19,16 +19,27 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6">
-            <span>Repostas a esta atividade devem ser editáveis por seus autores?</span>
-            <div>
-                <input type="checkbox" ng-model="currentActivity.data.editable" />
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+                <label class="form-check-label">Repostas a esta atividade devem ser editáveis por seus autores?</label>
+                <input class="form-check-input" type="checkbox" ng-model="currentActivity.data.editable" />
             </div>
         </div>
     </div>
 
+    <div class="form-group">
+
     <textarea ui-tinymce="tinymceOptions"
               ng-model="currentActivity.data.content"
               placeholder="Escreva aqui o enunciado" name="content" required></textarea>
+    </div>
 
+    <div class="form-group">
+        <button id="select-file-topic"
+            class="btn btn-xs btn-primary attach"
+            ngf-select="uploadForumFiles($file, currForum)"
+            ngf-multiple="false">anexar arquivo</button>
+    </div>
+
+    <files files="currForum.files" progress="currForum.progress" editable="true" is_topic="true"></files>
 </div>
