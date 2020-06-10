@@ -4,6 +4,7 @@
     var app = angular.module('djangular', [])
 
     app.service('CurrentUser', function () {
+      var groups = JSON.parse('{{ user.get_group_names|escapejs }}')
       return {
           'username': '{{ user.username|escapejs }}',
           'is_authenticated': 'True' === '{{ user.is_authenticated|escapejs }}',
@@ -13,6 +14,7 @@
           'first_name': '{{ user.first_name|escapejs }}',
           'picture': '{{ user.get_picture_url|escapejs }}',
           'is_superuser': 'True' === '{{ user.is_superuser|escapejs }}',
+          'groups': groups.names,
           {% endif %}
        }
     });

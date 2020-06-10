@@ -12,6 +12,7 @@ from core.utils import hash_name
 from easy_thumbnails.files import get_thumbnailer
 from easy_thumbnails.exceptions import InvalidImageFormatError
 import re
+import json
 
 
 class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
@@ -72,6 +73,12 @@ class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self):
         return self.first_name
+
+    def get_group_names(self):
+        group_names = self.groups.all().values_list("name", flat=True)
+        return json.dumps({
+            'names': list(map(lambda g: str(g), group_names))
+        })
 
     def email_user(self, subject, message, from_email=None):
         send_mail(subject, message, from_email, [self.email])
