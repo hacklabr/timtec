@@ -112,7 +112,8 @@ class TimtecUserAdminViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(Q(first_name__icontains=keyword) |
                                        Q(last_name__icontains=keyword) |
                                        Q(username__icontains=keyword) |
-                                       Q(email__icontains=keyword))
+                                       Q(email__icontains=keyword) |
+                                       Q(cpf__icontains=keyword))
 
         if admin == 'true':
             queryset = queryset.filter(is_superuser=True)
