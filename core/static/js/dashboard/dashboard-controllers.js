@@ -2,9 +2,9 @@
     'use strict';
     var app = angular.module('dashboard.controllers', []);
 
-    app.controller('DashboardCtrl', ['$scope', 'Course', 'CourseStudent', 'Topic', 'Cards',
-        function ($scope, Course, CourseStudent, Topic, Cards) {
-
+    app.controller('DashboardCtrl', ['$scope', 'Course', 'CourseStudent', 'Topic', 'Cards', 'CurrentUser',
+        function ($scope, Course, CourseStudent, Topic, Cards, CurrentUser) {
+            $scope.user = CurrentUser;
             function compare_by_course_student(a,b) {
                 if (a.course_student === undefined) {
                     return 1;
