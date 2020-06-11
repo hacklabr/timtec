@@ -5,6 +5,7 @@
         'django',
         'core.services',
         'discussion.services',
+        'discussion.directives',
         'dashboard.controllers',
         'header',
         'messages',
