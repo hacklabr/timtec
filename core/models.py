@@ -445,12 +445,15 @@ class CourseStudent(models.Model):
                                       .filter(user=self.user, unit__lesson=lesson)
 
     def get_lesson_finish_time(self, lesson):
-        try:
-            return StudentProgress.objects.exclude(complete=None)\
-                .filter(user=self.user, unit__lesson=lesson)\
-                    .latest('complete')
-        except StudentProgress.DoesNotExist:
-            return ''
+        if StudentProgress.objects.exclude(complete=None).filter(user=self.user,
+                                                                 unit__lesson=lesson).exists():
+            return (
+                StudentProgress.objects
+                .exclude(complete=None)
+                .filter(user=self.user, unit__lesson=lesson)
+                .latest('complete').complete
+            )
+        return ''
 
     def percent_progress_by_lesson(self):
         """
