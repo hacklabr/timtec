@@ -77,7 +77,7 @@ class AbstractTimtecUser(AbstractBaseUser, PermissionsMixin):
     def get_group_names(self):
         group_names = self.groups.all().values_list("name", flat=True)
         return json.dumps({
-            'names': list(map(lambda g: str(g), group_names))
+            'names': list(map(lambda g: unicode(g), group_names))
         })
 
     def email_user(self, subject, message, from_email=None):
