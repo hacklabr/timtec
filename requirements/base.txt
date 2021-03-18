@@ -11,7 +11,7 @@ django-allauth==0.24.1
 psycopg2==2.6
 
 # Images
-Pillow==2.8.1
+Pillow==8.1.1
 
 # Rest Framework
 djangorestframework==3.4.1
