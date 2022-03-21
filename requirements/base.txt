@@ -46,7 +46,7 @@ django-suit==0.2.13
 
 docutils==0.12
 
-Pygments==2.0.2
+Pygments==2.7.4
 
 django-autoslug==1.9.3
 
