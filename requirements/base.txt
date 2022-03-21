@@ -27,7 +27,7 @@ django-taggit-serializer==0.1
 drf-writable-nested==0.3
 
 # django-filter==0.7
-django-filter==0.10.0
+django-filter==2.4.0
 
 # static mgt
 django-pipeline==1.6.8
