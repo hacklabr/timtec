@@ -14,7 +14,7 @@ psycopg2-binary==2.7.7
 Pillow==2.8.1
 
 # Rest Framework
-djangorestframework==3.4.1
+djangorestframework==3.11.2
 # rest-pandas==1.1.0
 # patched version to make it python 2 compatible
 -e git+https://github.com/hacklabr/django-rest-pandas#egg=rest-pandas
